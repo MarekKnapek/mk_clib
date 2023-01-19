@@ -24,6 +24,10 @@
 #define mk_lang_llong_has 1
 #define mk_lang_ullong_t unsigned __int64
 #define mk_lang_sllong_t signed __int64
+#elif defined __WATCOM_CPLUSPLUS__ && __WATCOM_CPLUSPLUS__ >= 1100
+#define mk_lang_llong_has 1
+#define mk_lang_ullong_t unsigned __int64
+#define mk_lang_sllong_t signed __int64
 #define mk_lang_ullong_c(x) x ## ui64
 #define mk_lang_sllong_c(x) x ## i64
 #elif defined __GNUC__ && defined __GNUC_MINOR__ && __GNUC__ * 100 + __GNUC_MINOR__ >= 302
