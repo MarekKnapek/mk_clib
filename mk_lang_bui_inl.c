@@ -71,7 +71,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_lang_bui_is_max(mk_lang_bui_t 
 {
 	mk_lang_assert(x);
 
-	return *x == ((mk_lang_bui_t)(((mk_lang_bui_t)(0)) - ((mk_lang_bui_t)(1))));
+	return *x == ((mk_lang_bui_t)(~((mk_lang_bui_t)(0))));
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_lang_bui_eq(mk_lang_bui_t const* a, mk_lang_bui_t const* b)
@@ -283,7 +283,7 @@ mk_lang_jumbo void mk_lang_bui_add3_wrap_cid_coe(mk_lang_bui_t const* a, mk_lang
 	mk_lang_assert(c);
 	mk_lang_assert(co);
 
-	*co = ((mk_lang_bui_t)(((mk_lang_bui_t)(((mk_lang_bui_t)(0)) - ((mk_lang_bui_t)(1)))) - ((mk_lang_bui_t)(*a)))) < ((mk_lang_bui_t)(*b));
+	*co = ((mk_lang_bui_t)(((mk_lang_bui_t)(~((mk_lang_bui_t)(0)))) - ((mk_lang_bui_t)(*a)))) < ((mk_lang_bui_t)(*b));
 	*c = ((mk_lang_bui_t)(((mk_lang_bui_t)(*a)) + ((mk_lang_bui_t)(*b))));
 }
 
@@ -303,7 +303,7 @@ mk_lang_jumbo void mk_lang_bui_add3_wrap_cie_coe(mk_lang_bui_t const* a, mk_lang
 	mk_lang_assert(c);
 	mk_lang_assert(co);
 
-	*co = ((mk_lang_bui_t)(((mk_lang_bui_t)(((mk_lang_bui_t)(((mk_lang_bui_t)(0)) - ((mk_lang_bui_t)(1)))) - ((mk_lang_bui_t)(ci ? ((mk_lang_bui_t)(1)) : ((mk_lang_bui_t)(0)))))) - ((mk_lang_bui_t)(*a)))) < ((mk_lang_bui_t)(*b));
+	*co = ((mk_lang_bui_t)(((mk_lang_bui_t)(((mk_lang_bui_t)(~((mk_lang_bui_t)(0)))) - ((mk_lang_bui_t)(ci ? ((mk_lang_bui_t)(1)) : ((mk_lang_bui_t)(0)))))) - ((mk_lang_bui_t)(*a)))) < ((mk_lang_bui_t)(*b));
 	*c = ((mk_lang_bui_t)(((mk_lang_bui_t)(((mk_lang_bui_t)(*a)) + ((mk_lang_bui_t)(*b)))) + ((mk_lang_bui_t)(ci ? ((mk_lang_bui_t)(1)) : ((mk_lang_bui_t)(0))))));
 }
 
