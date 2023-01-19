@@ -31,7 +31,7 @@ mk_lang_jumbo void mk_lang_bui_set_bit(mk_lang_bui_t* x, int bit_idx)
 	*x = ((mk_lang_bui_t)(((mk_lang_bui_t)(1)) << bit_idx));
 }
 
-mk_lang_jumbo void mk_lang_bui_set_mask(mk_lang_bui_t* x, int bits)
+mk_lang_jumbo void mk_lang_bui_set_mask(mk_lang_bui_t* x, int bits_count)
 {
 	#if defined NDEBUG
 	#else
@@ -39,15 +39,15 @@ mk_lang_jumbo void mk_lang_bui_set_mask(mk_lang_bui_t* x, int bits)
 	#endif
 
 	mk_lang_assert(x);
-	mk_lang_assert(bits >= 1 && bits <= ((int)(((int)(sizeof(mk_lang_bui_t))) * ((int)(mk_lang_charbit)))));
+	mk_lang_assert(bits_count >= 1 && bits_count <= ((int)(((int)(sizeof(mk_lang_bui_t))) * ((int)(mk_lang_charbit)))));
 
 	#if defined NDEBUG
-	*x = ((mk_lang_bui_t)(((mk_lang_bui_t)(((mk_lang_bui_t)(((mk_lang_bui_t)(((mk_lang_bui_t)(1)) << (bits - 1))) - ((mk_lang_bui_t)(1)))) << 1)) + ((mk_lang_bui_t)(1))));
+	*x = ((mk_lang_bui_t)(((mk_lang_bui_t)(((mk_lang_bui_t)(((mk_lang_bui_t)(((mk_lang_bui_t)(1)) << ((int)(bits_count - 1)))) - ((mk_lang_bui_t)(1)))) << ((int)(1)))) + ((mk_lang_bui_t)(1))));
 	#else
 	tmp = ((mk_lang_bui_t)(1));
-	tmp = ((mk_lang_bui_t)(tmp << (bits - 1)));
+	tmp = ((mk_lang_bui_t)(tmp << ((int)(bits_count - 1))));
 	tmp = ((mk_lang_bui_t)(tmp - ((mk_lang_bui_t)(1))));
-	tmp = ((mk_lang_bui_t)(tmp << 1));
+	tmp = ((mk_lang_bui_t)(tmp << ((int)(1))));
 	tmp = ((mk_lang_bui_t)(tmp + ((mk_lang_bui_t)(1))));
 	*x = tmp;
 	#endif
