@@ -154,6 +154,62 @@ mk_lang_jumbo void mk_lang_bui_dec1(mk_lang_bui_t* x)
 }
 
 
+mk_lang_jumbo void mk_lang_bui_not2(mk_lang_bui_t const* a, mk_lang_bui_t* b)
+{
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	*b = ((mk_lang_bui_t)(~((mk_lang_bui_t)(*a))));
+}
+
+mk_lang_jumbo void mk_lang_bui_or3(mk_lang_bui_t const* a, mk_lang_bui_t const* b, mk_lang_bui_t* c)
+{
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(c);
+
+	*c = ((mk_lang_bui_t)(((mk_lang_bui_t)(*a)) | ((mk_lang_bui_t)(*b))));
+}
+
+mk_lang_jumbo void mk_lang_bui_and3(mk_lang_bui_t const* a, mk_lang_bui_t const* b, mk_lang_bui_t* c)
+{
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(c);
+
+	*c = ((mk_lang_bui_t)(((mk_lang_bui_t)(*a)) & ((mk_lang_bui_t)(*b))));
+}
+
+mk_lang_jumbo void mk_lang_bui_xor3(mk_lang_bui_t const* a, mk_lang_bui_t const* b, mk_lang_bui_t* c)
+{
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(c);
+
+	*c = ((mk_lang_bui_t)(((mk_lang_bui_t)(*a)) ^ ((mk_lang_bui_t)(*b))));
+}
+
+mk_lang_jumbo void mk_lang_bui_not1(mk_lang_bui_t* x)
+{
+	mk_lang_bui_not2(x, x);
+}
+
+mk_lang_jumbo void mk_lang_bui_or2(mk_lang_bui_t* a, mk_lang_bui_t const* b)
+{
+	mk_lang_bui_or3(a, b, a);
+}
+
+mk_lang_jumbo void mk_lang_bui_and2(mk_lang_bui_t* a, mk_lang_bui_t const* b)
+{
+	mk_lang_bui_and3(a, b, a);
+}
+
+mk_lang_jumbo void mk_lang_bui_xor2(mk_lang_bui_t* a, mk_lang_bui_t const* b)
+{
+	mk_lang_bui_xor3(a, b, a);
+}
+
+
 #include "mk_lang_bui_inl_undef.h"
 
 

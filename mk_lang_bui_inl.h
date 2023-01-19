@@ -33,6 +33,15 @@ mk_lang_jumbo void mk_lang_bui_dec2(mk_lang_bui_t const* a, mk_lang_bui_t* b);
 mk_lang_jumbo void mk_lang_bui_inc1(mk_lang_bui_t* x);
 mk_lang_jumbo void mk_lang_bui_dec1(mk_lang_bui_t* x);
 
+mk_lang_jumbo void mk_lang_bui_not2(mk_lang_bui_t const* a, mk_lang_bui_t* b);
+mk_lang_jumbo void mk_lang_bui_or3(mk_lang_bui_t const* a, mk_lang_bui_t const* b, mk_lang_bui_t* c);
+mk_lang_jumbo void mk_lang_bui_and3(mk_lang_bui_t const* a, mk_lang_bui_t const* b, mk_lang_bui_t* c);
+mk_lang_jumbo void mk_lang_bui_xor3(mk_lang_bui_t const* a, mk_lang_bui_t const* b, mk_lang_bui_t* c);
+mk_lang_jumbo void mk_lang_bui_not1(mk_lang_bui_t* x);
+mk_lang_jumbo void mk_lang_bui_or2(mk_lang_bui_t* a, mk_lang_bui_t const* b);
+mk_lang_jumbo void mk_lang_bui_and2(mk_lang_bui_t* a, mk_lang_bui_t const* b);
+mk_lang_jumbo void mk_lang_bui_xor2(mk_lang_bui_t* a, mk_lang_bui_t const* b);
+
 
 #include "mk_lang_bui_inl_undef.h"
 

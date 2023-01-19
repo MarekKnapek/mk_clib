@@ -37,5 +37,14 @@
 #define mk_lang_bui_inc1 mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _inc1)
 #define mk_lang_bui_dec1 mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _dec1)
 
+#define mk_lang_bui_not2 mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _not2)
+#define mk_lang_bui_or3 mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _or3)
+#define mk_lang_bui_and3 mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _and3)
+#define mk_lang_bui_xor3 mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _xor3)
+#define mk_lang_bui_not1 mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _not1)
+#define mk_lang_bui_or2 mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _or2)
+#define mk_lang_bui_and2 mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _and2)
+#define mk_lang_bui_xor2 mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _xor2)
+
 
 #endif

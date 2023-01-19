@@ -20,3 +20,12 @@
 #undef mk_lang_bui_dec2
 #undef mk_lang_bui_inc1
 #undef mk_lang_bui_dec1
+
+#undef mk_lang_bui_not2
+#undef mk_lang_bui_or3
+#undef mk_lang_bui_and3
+#undef mk_lang_bui_xor3
+#undef mk_lang_bui_not1
+#undef mk_lang_bui_or2
+#undef mk_lang_bui_and2
+#undef mk_lang_bui_xor2
