@@ -123,6 +123,36 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_lang_bui_ge(mk_lang_bui_t cons
 }
 
 
+mk_lang_jumbo void mk_lang_bui_inc2(mk_lang_bui_t const* a, mk_lang_bui_t* b)
+{
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	*b = ((mk_lang_bui_t)(((mk_lang_bui_t)(*a)) + ((mk_lang_bui_t)(1))));
+}
+
+mk_lang_jumbo void mk_lang_bui_dec2(mk_lang_bui_t const* a, mk_lang_bui_t* b)
+{
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	*b = ((mk_lang_bui_t)(((mk_lang_bui_t)(*a)) - ((mk_lang_bui_t)(1))));
+}
+
+mk_lang_jumbo void mk_lang_bui_inc1(mk_lang_bui_t* x)
+{
+	mk_lang_assert(x);
+
+	++*x;
+}
+
+mk_lang_jumbo void mk_lang_bui_dec1(mk_lang_bui_t* x)
+{
+	mk_lang_assert(x);
+
+	--*x;
+}
+
 
 #include "mk_lang_bui_inl_undef.h"
 

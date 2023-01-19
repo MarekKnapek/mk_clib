@@ -15,3 +15,8 @@
 #undef mk_lang_bui_le
 #undef mk_lang_bui_gt
 #undef mk_lang_bui_ge
+
+#undef mk_lang_bui_inc2
+#undef mk_lang_bui_dec2
+#undef mk_lang_bui_inc1
+#undef mk_lang_bui_dec1

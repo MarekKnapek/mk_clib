@@ -32,5 +32,10 @@
 #define mk_lang_bui_gt mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _gt)
 #define mk_lang_bui_ge mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _ge)
 
+#define mk_lang_bui_inc2 mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _inc2)
+#define mk_lang_bui_dec2 mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _dec2)
+#define mk_lang_bui_inc1 mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _inc1)
+#define mk_lang_bui_dec1 mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _dec1)
+
 
 #endif

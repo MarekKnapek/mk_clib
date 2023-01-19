@@ -28,6 +28,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_lang_bui_le(mk_lang_bui_t cons
 mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_lang_bui_gt(mk_lang_bui_t const* a, mk_lang_bui_t const* b);
 mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_lang_bui_ge(mk_lang_bui_t const* a, mk_lang_bui_t const* b);
 
+mk_lang_jumbo void mk_lang_bui_inc2(mk_lang_bui_t const* a, mk_lang_bui_t* b);
+mk_lang_jumbo void mk_lang_bui_dec2(mk_lang_bui_t const* a, mk_lang_bui_t* b);
+mk_lang_jumbo void mk_lang_bui_inc1(mk_lang_bui_t* x);
+mk_lang_jumbo void mk_lang_bui_dec1(mk_lang_bui_t* x);
+
 
 #include "mk_lang_bui_inl_undef.h"
 
