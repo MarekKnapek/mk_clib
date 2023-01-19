@@ -38,3 +38,12 @@
 #undef mk_lang_bui_shr2
 #undef mk_lang_bui_rotl2
 #undef mk_lang_bui_rotr2
+
+#undef mk_lang_bui_add3_wrap_cid_cod
+#undef mk_lang_bui_add3_wrap_cid_coe
+#undef mk_lang_bui_add3_wrap_cie_cod
+#undef mk_lang_bui_add3_wrap_cie_coe
+#undef mk_lang_bui_add2_wrap_cid_cod
+#undef mk_lang_bui_add2_wrap_cid_coe
+#undef mk_lang_bui_add2_wrap_cie_cod
+#undef mk_lang_bui_add2_wrap_cie_coe

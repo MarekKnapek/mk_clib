@@ -55,5 +55,14 @@
 #define mk_lang_bui_rotl2 mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _rotl1)
 #define mk_lang_bui_rotr2 mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _totr1)
 
+#define mk_lang_bui_add3_wrap_cid_cod mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _add3_wrap_cid_cod)
+#define mk_lang_bui_add3_wrap_cid_coe mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _add3_wrap_cid_coe)
+#define mk_lang_bui_add3_wrap_cie_cod mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _add3_wrap_cie_cod)
+#define mk_lang_bui_add3_wrap_cie_coe mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _add3_wrap_cie_coe)
+#define mk_lang_bui_add2_wrap_cid_cod mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _add2_wrap_cid_cod)
+#define mk_lang_bui_add2_wrap_cid_coe mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _add2_wrap_cid_coe)
+#define mk_lang_bui_add2_wrap_cie_cod mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _add2_wrap_cie_cod)
+#define mk_lang_bui_add2_wrap_cie_coe mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _add2_wrap_cie_coe)
+
 
 #endif
