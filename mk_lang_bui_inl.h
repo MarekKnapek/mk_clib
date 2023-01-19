@@ -60,6 +60,15 @@ mk_lang_jumbo void mk_lang_bui_add2_wrap_cid_coe(mk_lang_bui_t* a, mk_lang_bui_t
 mk_lang_jumbo void mk_lang_bui_add2_wrap_cie_cod(mk_lang_bui_t* a, mk_lang_bui_t const* b, mk_lang_bool_t ci);
 mk_lang_jumbo void mk_lang_bui_add2_wrap_cie_coe(mk_lang_bui_t* a, mk_lang_bui_t const* b, mk_lang_bool_t ci, mk_lang_bool_t* co);
 
+mk_lang_jumbo void mk_lang_bui_sub3_wrap_cid_cod(mk_lang_bui_t const* a, mk_lang_bui_t const* b, mk_lang_bui_t* c);
+mk_lang_jumbo void mk_lang_bui_sub3_wrap_cid_coe(mk_lang_bui_t const* a, mk_lang_bui_t const* b, mk_lang_bui_t* c, mk_lang_bool_t* co);
+mk_lang_jumbo void mk_lang_bui_sub3_wrap_cie_cod(mk_lang_bui_t const* a, mk_lang_bui_t const* b, mk_lang_bool_t ci, mk_lang_bui_t* c);
+mk_lang_jumbo void mk_lang_bui_sub3_wrap_cie_coe(mk_lang_bui_t const* a, mk_lang_bui_t const* b, mk_lang_bool_t ci, mk_lang_bui_t* c, mk_lang_bool_t* co);
+mk_lang_jumbo void mk_lang_bui_sub2_wrap_cid_cod(mk_lang_bui_t* a, mk_lang_bui_t const* b);
+mk_lang_jumbo void mk_lang_bui_sub2_wrap_cid_coe(mk_lang_bui_t* a, mk_lang_bui_t const* b, mk_lang_bool_t* co);
+mk_lang_jumbo void mk_lang_bui_sub2_wrap_cie_cod(mk_lang_bui_t* a, mk_lang_bui_t const* b, mk_lang_bool_t ci);
+mk_lang_jumbo void mk_lang_bui_sub2_wrap_cie_coe(mk_lang_bui_t* a, mk_lang_bui_t const* b, mk_lang_bool_t ci, mk_lang_bool_t* co);
+
 
 #include "mk_lang_bui_inl_undef.h"
 

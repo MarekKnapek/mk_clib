@@ -47,3 +47,12 @@
 #undef mk_lang_bui_add2_wrap_cid_coe
 #undef mk_lang_bui_add2_wrap_cie_cod
 #undef mk_lang_bui_add2_wrap_cie_coe
+
+#undef mk_lang_bui_sub3_wrap_cid_cod
+#undef mk_lang_bui_sub3_wrap_cid_coe
+#undef mk_lang_bui_sub3_wrap_cie_cod
+#undef mk_lang_bui_sub3_wrap_cie_coe
+#undef mk_lang_bui_sub2_wrap_cid_cod
+#undef mk_lang_bui_sub2_wrap_cid_coe
+#undef mk_lang_bui_sub2_wrap_cie_cod
+#undef mk_lang_bui_sub2_wrap_cie_coe
