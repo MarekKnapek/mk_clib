@@ -42,6 +42,15 @@ mk_lang_jumbo void mk_lang_bui_or2(mk_lang_bui_t* a, mk_lang_bui_t const* b);
 mk_lang_jumbo void mk_lang_bui_and2(mk_lang_bui_t* a, mk_lang_bui_t const* b);
 mk_lang_jumbo void mk_lang_bui_xor2(mk_lang_bui_t* a, mk_lang_bui_t const* b);
 
+mk_lang_jumbo void mk_lang_bui_shl3(mk_lang_bui_t const* a, int b, mk_lang_bui_t* c);
+mk_lang_jumbo void mk_lang_bui_shr3(mk_lang_bui_t const* a, int b, mk_lang_bui_t* c);
+mk_lang_jumbo void mk_lang_bui_rotl3(mk_lang_bui_t const* a, int b, mk_lang_bui_t* c);
+mk_lang_jumbo void mk_lang_bui_rotr3(mk_lang_bui_t const* a, int b, mk_lang_bui_t* c);
+mk_lang_jumbo void mk_lang_bui_shl2(mk_lang_bui_t* a, int b);
+mk_lang_jumbo void mk_lang_bui_shr2(mk_lang_bui_t* a, int b);
+mk_lang_jumbo void mk_lang_bui_rotl2(mk_lang_bui_t* a, int b);
+mk_lang_jumbo void mk_lang_bui_rotr2(mk_lang_bui_t* a, int b);
+
 
 #include "mk_lang_bui_inl_undef.h"
 

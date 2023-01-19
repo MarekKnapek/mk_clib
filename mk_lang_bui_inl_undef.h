@@ -29,3 +29,12 @@
 #undef mk_lang_bui_or2
 #undef mk_lang_bui_and2
 #undef mk_lang_bui_xor2
+
+#undef mk_lang_bui_shl3
+#undef mk_lang_bui_shr3
+#undef mk_lang_bui_rotl3
+#undef mk_lang_bui_rotr3
+#undef mk_lang_bui_shl2
+#undef mk_lang_bui_shr2
+#undef mk_lang_bui_rotl2
+#undef mk_lang_bui_rotr2

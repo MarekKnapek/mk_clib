@@ -46,5 +46,14 @@
 #define mk_lang_bui_and2 mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _and2)
 #define mk_lang_bui_xor2 mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _xor2)
 
+#define mk_lang_bui_shl3 mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _shl3)
+#define mk_lang_bui_shr3 mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _shr3)
+#define mk_lang_bui_rotl3 mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _rotl2)
+#define mk_lang_bui_rotr3 mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _totr2)
+#define mk_lang_bui_shl2 mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _shl2)
+#define mk_lang_bui_shr2 mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _shr2)
+#define mk_lang_bui_rotl2 mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _rotl1)
+#define mk_lang_bui_rotr2 mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _totr1)
+
 
 #endif
