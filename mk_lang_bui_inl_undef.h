@@ -56,3 +56,10 @@
 #undef mk_lang_bui_sub2_wrap_cid_coe
 #undef mk_lang_bui_sub2_wrap_cie_cod
 #undef mk_lang_bui_sub2_wrap_cie_coe
+
+#undef mk_lang_bui_mul3_wrap_lo
+#undef mk_lang_bui_mul3_wrap_hi
+#undef mk_lang_bui_mul4_wrap_wi
+#undef mk_lang_bui_mul2_wrap_lo
+#undef mk_lang_bui_mul2_wrap_hi
+#undef mk_lang_bui_mul2_wrap_wi

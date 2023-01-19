@@ -73,5 +73,12 @@
 #define mk_lang_bui_sub2_wrap_cie_cod mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _sub2_wrap_cie_cod)
 #define mk_lang_bui_sub2_wrap_cie_coe mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _sub2_wrap_cie_coe)
 
+#define mk_lang_bui_mul3_wrap_lo mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _mul3_wrap_lo)
+#define mk_lang_bui_mul3_wrap_hi mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _mul3_wrap_hi)
+#define mk_lang_bui_mul4_wrap_wi mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _mul4_wrap_wi)
+#define mk_lang_bui_mul2_wrap_lo mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _mul2_wrap_lo)
+#define mk_lang_bui_mul2_wrap_hi mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _mul2_wrap_hi)
+#define mk_lang_bui_mul2_wrap_wi mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _mul2_wrap_wi)
+
 
 #endif

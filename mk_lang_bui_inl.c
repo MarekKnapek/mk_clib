@@ -4,6 +4,7 @@
 #include "mk_lang_charbit.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
+#include "mk_lang_static_assert.h"
 
 
 #include "mk_lang_bui_inl_def.h"
@@ -386,6 +387,99 @@ mk_lang_jumbo void mk_lang_bui_sub2_wrap_cie_cod(mk_lang_bui_t* a, mk_lang_bui_t
 mk_lang_jumbo void mk_lang_bui_sub2_wrap_cie_coe(mk_lang_bui_t* a, mk_lang_bui_t const* b, mk_lang_bool_t ci, mk_lang_bool_t* co)
 {
 	mk_lang_bui_sub3_wrap_cie_coe(a, b, ci, a, co);
+}
+
+
+mk_lang_jumbo void mk_lang_bui_mul3_wrap_lo(mk_lang_bui_t const* a, mk_lang_bui_t const* b, mk_lang_bui_t* c)
+{
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(c);
+
+	*c = ((mk_lang_bui_t)(((mk_lang_bui_t)(*a)) * ((mk_lang_bui_t)(*b))));
+}
+
+mk_lang_jumbo void mk_lang_bui_mul3_wrap_hi(mk_lang_bui_t const* a, mk_lang_bui_t const* b, mk_lang_bui_t* c)
+{
+	#define shift ((int)(((int)(((int)(sizeof(mk_lang_bui_t))) * ((int)(mk_lang_charbit)))) / ((int)(2))))
+	#define mask ((mk_lang_bui_t)(((mk_lang_bui_t)(((mk_lang_bui_t)(1)) << shift)) - ((mk_lang_bui_t)(1))))
+
+	mk_lang_bui_t alo;
+	mk_lang_bui_t ahi;
+	mk_lang_bui_t blo;
+	mk_lang_bui_t bhi;
+	mk_lang_bui_t ablo;
+	mk_lang_bui_t abmi;
+	mk_lang_bui_t bami;
+	mk_lang_bui_t abhi;
+
+	mk_lang_static_assert(((int)(((((int)(((int)(sizeof(mk_lang_bui_t))) * ((int)(mk_lang_charbit))))) % ((int)(2))))) == ((int)(0)));
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(c);
+
+	alo = ((mk_lang_bui_t)(((mk_lang_bui_t)(*a)) & mask));
+	ahi = ((mk_lang_bui_t)(((mk_lang_bui_t)(*a)) >> shift));
+	blo = ((mk_lang_bui_t)(((mk_lang_bui_t)(*b)) & mask));
+	bhi = ((mk_lang_bui_t)(((mk_lang_bui_t)(*b)) >> shift));
+	ablo = ((mk_lang_bui_t)(alo * blo));
+	abmi = ((mk_lang_bui_t)(alo * bhi));
+	bami = ((mk_lang_bui_t)(ahi * blo));
+	abhi = ((mk_lang_bui_t)(ahi * bhi));
+	*c = ((mk_lang_bui_t)(((mk_lang_bui_t)(abhi + ((mk_lang_bui_t)(((mk_lang_bui_t)(abmi >> shift)) + ((mk_lang_bui_t)(bami >> shift)))))) + ((mk_lang_bui_t)(((mk_lang_bui_t)(((mk_lang_bui_t)(((mk_lang_bui_t)(abmi & mask)) + ((mk_lang_bui_t)(bami & mask)))) + ((mk_lang_bui_t)(ablo >> shift)))) >> shift))));
+
+	#undef shift
+	#undef mask
+}
+
+mk_lang_jumbo void mk_lang_bui_mul4_wrap_wi(mk_lang_bui_t const* a, mk_lang_bui_t const* b, mk_lang_bui_t* c, mk_lang_bui_t* d)
+{
+	#define shift ((int)(((int)(((int)(sizeof(mk_lang_bui_t))) * ((int)(mk_lang_charbit)))) / ((int)(2))))
+	#define mask ((mk_lang_bui_t)(((mk_lang_bui_t)(((mk_lang_bui_t)(1)) << shift)) - ((mk_lang_bui_t)(1))))
+
+	mk_lang_bui_t alo;
+	mk_lang_bui_t ahi;
+	mk_lang_bui_t blo;
+	mk_lang_bui_t bhi;
+	mk_lang_bui_t ablo;
+	mk_lang_bui_t abmi;
+	mk_lang_bui_t bami;
+	mk_lang_bui_t abhi;
+
+	mk_lang_static_assert(((int)(((((int)(((int)(sizeof(mk_lang_bui_t))) * ((int)(mk_lang_charbit))))) % ((int)(2))))) == ((int)(0)));
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(c);
+	mk_lang_assert(d);
+
+	alo = ((mk_lang_bui_t)(((mk_lang_bui_t)(*a)) & mask));
+	ahi = ((mk_lang_bui_t)(((mk_lang_bui_t)(*a)) >> shift));
+	blo = ((mk_lang_bui_t)(((mk_lang_bui_t)(*b)) & mask));
+	bhi = ((mk_lang_bui_t)(((mk_lang_bui_t)(*b)) >> shift));
+	ablo = ((mk_lang_bui_t)(alo * blo));
+	abmi = ((mk_lang_bui_t)(alo * bhi));
+	bami = ((mk_lang_bui_t)(ahi * blo));
+	abhi = ((mk_lang_bui_t)(ahi * bhi));
+	*c = ((mk_lang_bui_t)(((mk_lang_bui_t)(*a)) * ((mk_lang_bui_t)(*b))));
+	*d = ((mk_lang_bui_t)(((mk_lang_bui_t)(abhi + ((mk_lang_bui_t)(((mk_lang_bui_t)(abmi >> shift)) + ((mk_lang_bui_t)(bami >> shift)))))) + ((mk_lang_bui_t)(((mk_lang_bui_t)(((mk_lang_bui_t)(((mk_lang_bui_t)(abmi & mask)) + ((mk_lang_bui_t)(bami & mask)))) + ((mk_lang_bui_t)(ablo >> shift)))) >> shift))));
+
+	#undef shift
+	#undef mask
+}
+
+mk_lang_jumbo void mk_lang_bui_mul2_wrap_lo(mk_lang_bui_t* a, mk_lang_bui_t const* b)
+{
+	mk_lang_bui_mul3_wrap_lo(a, b, a);
+}
+
+mk_lang_jumbo void mk_lang_bui_mul2_wrap_hi(mk_lang_bui_t* a, mk_lang_bui_t const* b)
+{
+	mk_lang_bui_mul3_wrap_hi(a, b, a);
+}
+
+mk_lang_jumbo void mk_lang_bui_mul2_wrap_wi(mk_lang_bui_t* a, mk_lang_bui_t* b)
+{
+	mk_lang_bui_mul4_wrap_wi(a, b, a, b);
 }
 
 
