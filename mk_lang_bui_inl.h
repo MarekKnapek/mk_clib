@@ -76,6 +76,13 @@ mk_lang_jumbo void mk_lang_bui_mul2_wrap_lo(mk_lang_bui_t* a, mk_lang_bui_t cons
 mk_lang_jumbo void mk_lang_bui_mul2_wrap_hi(mk_lang_bui_t* a, mk_lang_bui_t const* b);
 mk_lang_jumbo void mk_lang_bui_mul2_wrap_wi(mk_lang_bui_t* a, mk_lang_bui_t* b);
 
+mk_lang_jumbo void mk_lang_bui_div3_wrap(mk_lang_bui_t const* a, mk_lang_bui_t const* b, mk_lang_bui_t* c);
+mk_lang_jumbo void mk_lang_bui_mod3_wrap(mk_lang_bui_t const* a, mk_lang_bui_t const* b, mk_lang_bui_t* c);
+mk_lang_jumbo void mk_lang_bui_divmod4_wrap(mk_lang_bui_t const* a, mk_lang_bui_t const* b, mk_lang_bui_t* c, mk_lang_bui_t* d);
+mk_lang_jumbo void mk_lang_bui_div2_wrap(mk_lang_bui_t* a, mk_lang_bui_t const* b);
+mk_lang_jumbo void mk_lang_bui_mod2_wrap(mk_lang_bui_t* a, mk_lang_bui_t const* b);
+mk_lang_jumbo void mk_lang_bui_divmod2_wrap(mk_lang_bui_t* a, mk_lang_bui_t* b);
+
 
 #include "mk_lang_bui_inl_undef.h"
 

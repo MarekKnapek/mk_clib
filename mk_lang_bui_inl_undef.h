@@ -63,3 +63,10 @@
 #undef mk_lang_bui_mul2_wrap_lo
 #undef mk_lang_bui_mul2_wrap_hi
 #undef mk_lang_bui_mul2_wrap_wi
+
+#undef mk_lang_bui_div3_wrap
+#undef mk_lang_bui_mod3_wrap
+#undef mk_lang_bui_divmod4_wrap
+#undef mk_lang_bui_div2_wrap
+#undef mk_lang_bui_mod2_wrap
+#undef mk_lang_bui_divmod2_wrap

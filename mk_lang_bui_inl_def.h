@@ -80,5 +80,12 @@
 #define mk_lang_bui_mul2_wrap_hi mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _mul2_wrap_hi)
 #define mk_lang_bui_mul2_wrap_wi mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _mul2_wrap_wi)
 
+#define mk_lang_bui_div3_wrap mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _div3_wrap)
+#define mk_lang_bui_mod3_wrap mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _mod3_wrap)
+#define mk_lang_bui_divmod4_wrap mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _divmod4_wrap)
+#define mk_lang_bui_div2_wrap mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _div2_wrap)
+#define mk_lang_bui_mod2_wrap mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _mod2_wrap)
+#define mk_lang_bui_divmod2_wrap mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _divmod2_wrap)
+
 
 #endif

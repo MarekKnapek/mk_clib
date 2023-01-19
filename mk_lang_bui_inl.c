@@ -483,6 +483,56 @@ mk_lang_jumbo void mk_lang_bui_mul2_wrap_wi(mk_lang_bui_t* a, mk_lang_bui_t* b)
 }
 
 
+mk_lang_jumbo void mk_lang_bui_div3_wrap(mk_lang_bui_t const* a, mk_lang_bui_t const* b, mk_lang_bui_t* c)
+{
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(c);
+
+	*c = ((mk_lang_bui_t)(((mk_lang_bui_t)(*a)) / ((mk_lang_bui_t)(*b))));
+}
+
+mk_lang_jumbo void mk_lang_bui_mod3_wrap(mk_lang_bui_t const* a, mk_lang_bui_t const* b, mk_lang_bui_t* c)
+{
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(c);
+
+	*c = ((mk_lang_bui_t)(((mk_lang_bui_t)(*a)) % ((mk_lang_bui_t)(*b))));
+}
+
+mk_lang_jumbo void mk_lang_bui_divmod4_wrap(mk_lang_bui_t const* a, mk_lang_bui_t const* b, mk_lang_bui_t* c, mk_lang_bui_t* d)
+{
+	mk_lang_bui_t aa;
+	mk_lang_bui_t bb;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(c);
+	mk_lang_assert(d);
+
+	aa = ((mk_lang_bui_t)(*a));
+	bb = ((mk_lang_bui_t)(*b));
+	*c = ((mk_lang_bui_t)(aa / bb));
+	*d = ((mk_lang_bui_t)(aa % bb));
+}
+
+mk_lang_jumbo void mk_lang_bui_div2_wrap(mk_lang_bui_t* a, mk_lang_bui_t const* b)
+{
+	mk_lang_bui_div3_wrap(a, b, a);
+}
+
+mk_lang_jumbo void mk_lang_bui_mod2_wrap(mk_lang_bui_t* a, mk_lang_bui_t const* b)
+{
+	mk_lang_bui_mod3_wrap(a, b, a);
+}
+
+mk_lang_jumbo void mk_lang_bui_divmod2_wrap(mk_lang_bui_t* a, mk_lang_bui_t* b)
+{
+	mk_lang_bui_divmod4_wrap(a, b, a, b);
+}
+
+
 #include "mk_lang_bui_inl_undef.h"
 
 
