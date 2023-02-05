@@ -19,6 +19,7 @@
 #define mk_lang_bui_t mk_lang_concat(mk_lang_concat(mk_lang_bi_, mk_lang_bui_btn), _t)
 
 #define mk_lang_bui_set_zero mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _set_zero)
+#define mk_lang_bui_set_max mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _set_max)
 #define mk_lang_bui_set_one mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _set_one)
 #define mk_lang_bui_set_bit mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _set_bit)
 #define mk_lang_bui_set_mask mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_n), _set_mask)

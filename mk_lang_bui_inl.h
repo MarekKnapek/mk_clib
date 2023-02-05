@@ -8,6 +8,7 @@
 
 
 mk_lang_jumbo void mk_lang_bui_set_zero(mk_lang_bui_t* x);
+mk_lang_jumbo void mk_lang_bui_set_max(mk_lang_bui_t* x);
 mk_lang_jumbo void mk_lang_bui_set_one(mk_lang_bui_t* x);
 mk_lang_jumbo void mk_lang_bui_set_bit(mk_lang_bui_t* x, int bit_idx);
 mk_lang_jumbo void mk_lang_bui_set_mask(mk_lang_bui_t* x, int bits_count);

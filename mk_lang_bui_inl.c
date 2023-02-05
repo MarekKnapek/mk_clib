@@ -17,6 +17,13 @@ mk_lang_jumbo void mk_lang_bui_set_zero(mk_lang_bui_t* x)
 	*x = ((mk_lang_bui_t)(0));
 }
 
+mk_lang_jumbo void mk_lang_bui_set_max(mk_lang_bui_t* x)
+{
+	mk_lang_assert(x);
+
+	*x = ((mk_lang_bui_t)(~((mk_lang_bui_t)(0))));
+}
+
 mk_lang_jumbo void mk_lang_bui_set_one(mk_lang_bui_t* x)
 {
 	mk_lang_assert(x);
