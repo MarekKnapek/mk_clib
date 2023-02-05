@@ -47,5 +47,24 @@
 #define mk_lang_bi_to_unsigned_sintmax_t mk_lang_bi_uintmax_t
 #define mk_lang_bi_to_unsigned_size_t mk_lang_bi_size_t
 
+#define mk_lang_bi_is_unsigned_pchar_t 0
+#define mk_lang_bi_is_unsigned_uchar_t 1
+#define mk_lang_bi_is_unsigned_schar_t 0
+#define mk_lang_bi_is_unsigned_ushort_t 1
+#define mk_lang_bi_is_unsigned_sshort_t 0
+#define mk_lang_bi_is_unsigned_uint_t 1
+#define mk_lang_bi_is_unsigned_sint_t 0
+#define mk_lang_bi_is_unsigned_ulong_t 1
+#define mk_lang_bi_is_unsigned_slong_t 0
+#define mk_lang_bi_is_unsigned_ullong_t 1
+#define mk_lang_bi_is_unsigned_sllong_t 0
+#define mk_lang_bi_is_unsigned_ulllong_t 1
+#define mk_lang_bi_is_unsigned_slllong_t 0
+#define mk_lang_bi_is_unsigned_uintptr_t 1
+#define mk_lang_bi_is_unsigned_sintptr_t 0
+#define mk_lang_bi_is_unsigned_uintmax_t 1
+#define mk_lang_bi_is_unsigned_sintmax_t 0
+#define mk_lang_bi_is_unsigned_size_t 1
+
 
 #endif
