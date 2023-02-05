@@ -95,7 +95,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_lang_bui_ne(mk_lang_bui_t cons
 	mk_lang_assert(a);
 	mk_lang_assert(b);
 
-	return *a == *b;
+	return *a != *b;
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_lang_bui_lt(mk_lang_bui_t const* a, mk_lang_bui_t const* b)
