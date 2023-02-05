@@ -1,0 +1,5 @@
+#undef mk_sl_cui_inl_from_bi_inl_def_bit
+#undef mk_sl_cui_inl_from_bi_inl_def_sizeof_bit
+#undef mk_sl_cui_inl_from_bi_inl_def_is_unsigned_bit
+#undef mk_sl_cui_inl_from_bi_inl_def_to_unsigned_bit
+#undef mk_sl_cui_inl_from_bi_inl_def_fn
