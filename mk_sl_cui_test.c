@@ -3,6 +3,8 @@
 #include "mk_lang_bool.h"
 #include "mk_lang_crash.h"
 #include "mk_lang_jumbo.h"
+#include "mk_lang_lllong.h"
+#include "mk_lang_llong.h"
 #include "mk_lang_sizet.h"
 #include "mk_sl_cui.h"
 
@@ -47,7 +49,7 @@ mk_lang_jumbo void mk_sl_cui_test(void)
 	#undef test
 }
 
-mk_lang_jumbo void mk_sl_cui_test_fuzz(unsigned char const* const data, mk_lang_size_t const size)
+mk_lang_jumbo void mk_sl_cui_test_fuzz_long(unsigned char const* const data, mk_lang_size_t const size)
 {
 	#define test(x) if(!(x)) mk_lang_crash(); ((void)(0))
 
@@ -675,4 +677,29 @@ mk_lang_jumbo void mk_sl_cui_test_fuzz(unsigned char const* const data, mk_lang_
 	#undef check_data
 
 	#undef test
+}
+
+mk_lang_jumbo void mk_sl_cui_test_fuzz_llong(unsigned char const* const data, mk_lang_size_t const size)
+{
+	#if mk_lang_llong_has == 1
+	#else
+	((void)(data));
+	((void)(size));
+	#endif
+}
+
+mk_lang_jumbo void mk_sl_cui_test_fuzz_lllong(unsigned char const* const data, mk_lang_size_t const size)
+{
+	#if mk_lang_lllong_has == 1
+	#else
+	((void)(data));
+	((void)(size));
+	#endif
+}
+
+mk_lang_jumbo void mk_sl_cui_test_fuzz(unsigned char const* const data, mk_lang_size_t const size)
+{
+	mk_sl_cui_test_fuzz_long(data, size);
+	mk_sl_cui_test_fuzz_llong(data, size);
+	mk_sl_cui_test_fuzz_lllong(data, size);
 }
