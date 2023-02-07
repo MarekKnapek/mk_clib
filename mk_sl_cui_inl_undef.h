@@ -124,6 +124,11 @@
 
 #undef mk_sl_cui_inl_def_mul3_wrap_lo_restrict
 #undef mk_sl_cui_inl_def_mul3_wrap_lo_alias
+#undef mk_sl_cui_inl_def_mul3_wrap_hi_restrict
+#undef mk_sl_cui_inl_def_mul3_wrap_hi_alias
+#undef mk_sl_cui_inl_def_mul4_wrap_wi_restrict
+#undef mk_sl_cui_inl_def_mul4_wrap_wi_alias
+
 #undef mk_sl_cui_inl_def_mul3_wrap_lo
 #undef mk_sl_cui_inl_def_mul3_wrap_hi
 #undef mk_sl_cui_inl_def_mul4_wrap_wi

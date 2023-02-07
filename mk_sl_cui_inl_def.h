@@ -197,6 +197,11 @@
 
 #define mk_sl_cui_inl_def_mul3_wrap_lo_restrict mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_def_name), _mul3_wrap_lo_restrict)
 #define mk_sl_cui_inl_def_mul3_wrap_lo_alias mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_def_name), _mul3_wrap_lo_alias)
+#define mk_sl_cui_inl_def_mul3_wrap_hi_restrict mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_def_name), _mul3_wrap_hi_restrict)
+#define mk_sl_cui_inl_def_mul3_wrap_hi_alias mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_def_name), _mul3_wrap_hi_alias)
+#define mk_sl_cui_inl_def_mul4_wrap_wi_restrict mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_def_name), _mul4_wrap_wi_restrict)
+#define mk_sl_cui_inl_def_mul4_wrap_wi_alias mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_def_name), _mul4_wrap_wi_alias)
+
 #define mk_sl_cui_inl_def_mul3_wrap_lo mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_def_name), _mul3_wrap_lo)
 #define mk_sl_cui_inl_def_mul3_wrap_hi mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_def_name), _mul3_wrap_hi)
 #define mk_sl_cui_inl_def_mul4_wrap_wi mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_def_name), _mul4_wrap_wi)

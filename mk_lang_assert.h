@@ -13,7 +13,7 @@
 #define mk_lang_assert(x) __assume(x)
 #elif defined __GNUC__ && defined __GNUC_MINOR__ && __GNUC__ * 100 + __GNUC_MINOR__ >= 405
 #define mk_lang_assert(x) if(!(x)) __builtin_unreachable(); ((void)(0))
-#elif defined __has_builtin && __has_builtin(__builtin_unreachable)
+#elif 0 /*defined __has_builtin && __has_builtin(__builtin_unreachable)*/
 #define mk_lang_assert(x) if(!(x)) __builtin_unreachable(); ((void)(0))
 #else
 #define mk_lang_assert(x) ((void)(0))
