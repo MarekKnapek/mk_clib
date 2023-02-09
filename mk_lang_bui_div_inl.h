@@ -10,12 +10,3 @@ mk_lang_jumbo void mk_lang_bui_div_inl_def_name(mk_lang_bui_div_inl_def_bt const
 
 #endif
 #include "mk_lang_bui_div_inl_undef.h"
-
-
-#undef mk_lang_bui_div_bt
-#undef mk_lang_bui_div_bt2
-#undef mk_lang_bui_div_lena
-#undef mk_lang_bui_div_lenb
-#undef mk_lang_bui_div_endian
-#undef mk_lang_bui_div_alg
-#undef mk_lang_bui_div_name
