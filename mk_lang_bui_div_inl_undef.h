@@ -1,0 +1,11 @@
+#undef mk_lang_bui_div_inl_def_bt
+#undef mk_lang_bui_div_inl_def_bt2
+#undef mk_lang_bui_div_inl_def_bt2_has
+#undef mk_lang_bui_div_inl_def_lena
+#undef mk_lang_bui_div_inl_def_lenb
+#undef mk_lang_bui_div_inl_def_endian
+#undef mk_lang_bui_div_inl_def_endian_name
+#undef mk_lang_bui_div_inl_def_endian_idxa
+#undef mk_lang_bui_div_inl_def_endian_idxb
+#undef mk_lang_bui_div_inl_def_alg
+#undef mk_lang_bui_div_inl_def_name
