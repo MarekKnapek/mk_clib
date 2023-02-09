@@ -218,6 +218,7 @@
 #if defined mk_lang_bui_div_bt && defined mk_lang_bui_div_bt2
 #define mk_lang_bui_div_inl_def_bt mk_lang_bui_div_bt
 #define mk_lang_bui_div_inl_def_bt2 mk_lang_bui_div_bt2
+#define mk_lang_bui_div_inl_def_bt2_has 1
 #elif defined mk_lang_bui_div_inl_type
 #define mk_lang_bui_div_inl_def_bt mk_lang_concat(mk_lang_concat(mk_lang_bi_, mk_lang_bui_div_inl_type), _t)
 #define mk_lang_bui_div_inl_def_bt2 mk_lang_concat(mk_lang_concat(mk_lang_bui_div_inl_def_bui2_, mk_lang_bui_div_inl_type), _t)
@@ -232,6 +233,8 @@
 #define mk_lang_bui_div_inl_def_bt mk_lang_bui_div_bt
 #define mk_lang_bui_div_inl_def_bt2 mk_lang_bui_div_bt2
 #define mk_lang_bui_div_inl_def_bt3 mk_lang_bui_div_bt3
+#define mk_lang_bui_div_inl_def_bt2_has 1
+#define mk_lang_bui_div_inl_def_bt3_has 1
 #elif defined mk_lang_bui_div_inl_type
 #define mk_lang_bui_div_inl_def_bt mk_lang_concat(mk_lang_concat(mk_lang_bi_, mk_lang_bui_div_inl_type), _t)
 #define mk_lang_bui_div_inl_def_bt2 mk_lang_concat(mk_lang_concat(mk_lang_bui_div_inl_def_bui2_, mk_lang_bui_div_inl_type), _t)
