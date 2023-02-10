@@ -23,7 +23,7 @@
 #define mk_lang_assert(x) ((void)(0))
 #endif
 #else
-#if defined(__cplusplus)
+#if defined __cplusplus
 #include <cassert> /* assert */
 #define mk_lang_assert assert
 #else
