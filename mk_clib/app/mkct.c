@@ -1,4 +1,4 @@
-#include "../mk_clib_app_test.h"
+#include "../src/mk_clib_app_test.h"
 
 
 int main(void)

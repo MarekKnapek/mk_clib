@@ -6,7 +6,7 @@
 		</Filter>
 	</ItemGroup>
 	<ItemGroup>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\app\mkci.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\app\mkci.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_info.c"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bi_info.c"><Filter>src</Filter></ClCompile>
 	</ItemGroup>

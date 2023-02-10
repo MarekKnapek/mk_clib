@@ -4,7 +4,6 @@
 		<Filter Include="src">
 			<UniqueIdentifier>{9a3d5ecc-8be7-44e0-81ab-d9417ad91839}</UniqueIdentifier>
 		</Filter>
-		<Filter Include="src\app"><UniqueIdentifier>{ffbd93a6-c011-4044-bada-b8f225b077ff}</UniqueIdentifier></Filter>
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\.editorconfig"><Filter>src</Filter></None>
@@ -74,8 +73,6 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_static_assert.h"><Filter>src</Filter></ClInclude>
 	</ItemGroup>
 	<ItemGroup>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\app\mk_clib_fuzz.c"><Filter>src\app</Filter></ClCompile>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\app\mk_clib_test.c"><Filter>src\app</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_fuzz.c"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_info.c"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_test.c"><Filter>src</Filter></ClCompile>
