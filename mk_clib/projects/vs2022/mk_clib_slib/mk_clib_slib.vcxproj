@@ -34,7 +34,6 @@
 		<ClInclude Include="..\..\..\src\mk_lang_bi_test.h"/>
 		<ClInclude Include="..\..\..\src\mk_lang_bool.h"/>
 		<ClInclude Include="..\..\..\src\mk_lang_bui.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_bui_fuzz.h"/>
 		<ClInclude Include="..\..\..\src\mk_lang_bui_inl.h"/>
 		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_def.h"/>
 		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_from_bi.h"/>
@@ -62,7 +61,6 @@
 		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_to_buis_le_inl.h"/>
 		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_to_buis_le_undef.h"/>
 		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_undef.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_bui_test.h"/>
 		<ClInclude Include="..\..\..\src\mk_lang_charbit.h"/>
 		<ClInclude Include="..\..\..\src\mk_lang_clamp.h"/>
 		<ClInclude Include="..\..\..\src\mk_lang_concat.h"/>
@@ -94,7 +92,6 @@
 		<ClCompile Include="..\..\..\src\mk_lang_bi_info.c"/>
 		<ClCompile Include="..\..\..\src\mk_lang_bi_test.c"/>
 		<ClCompile Include="..\..\..\src\mk_lang_bui.c"/>
-		<ClCompile Include="..\..\..\src\mk_lang_bui_fuzz.c"/>
 		<ClCompile Include="..\..\..\src\mk_lang_bui_inl.c"/>
 		<ClCompile Include="..\..\..\src\mk_lang_bui_inl_from_bi.c"/>
 		<ClCompile Include="..\..\..\src\mk_lang_bui_inl_from_bi_inl.c"/>
@@ -108,7 +105,6 @@
 		<ClCompile Include="..\..\..\src\mk_lang_bui_inl_to_buis_be_inl.c"/>
 		<ClCompile Include="..\..\..\src\mk_lang_bui_inl_to_buis_le.c"/>
 		<ClCompile Include="..\..\..\src\mk_lang_bui_inl_to_buis_le_inl.c"/>
-		<ClCompile Include="..\..\..\src\mk_lang_bui_test.c"/>
 		<ClCompile Include="..\..\..\src\mk_lang_crash.c"/>
 		<ClCompile Include="..\..\..\src\mk_lang_sizeof_test.c"/>
 	</ItemGroup>
