@@ -1,33 +1,39 @@
 /dos16com/mkci.com
+/dos16com/mkci.err
 /dos16com/mkci.lk1
 /dos16com/mkci.map
 /dos16com/mkci.mk1
 /dos16com/mkci.obj
 
 /dos16com/mkct.com
+/dos16com/mkct.err
 /dos16com/mkct.lk1
 /dos16com/mkct.map
 /dos16com/mkct.mk1
 /dos16com/mkct.obj
 
+/dos16exe/mkci.err
 /dos16exe/mkci.exe
 /dos16exe/mkci.lk1
 /dos16exe/mkci.map
 /dos16exe/mkci.mk1
 /dos16exe/mkci.obj
 
+/dos16exe/mkct.err
 /dos16exe/mkct.exe
 /dos16exe/mkct.lk1
 /dos16exe/mkct.map
 /dos16exe/mkct.mk1
 /dos16exe/mkct.obj
 
+/winnt/mkci.err
 /winnt/mkci.exe
 /winnt/mkci.lk1
 /winnt/mkci.map
 /winnt/mkci.mk1
 /winnt/mkci.obj
 
+/winnt/mkct.err
 /winnt/mkct.exe
 /winnt/mkct.lk1
 /winnt/mkct.map
