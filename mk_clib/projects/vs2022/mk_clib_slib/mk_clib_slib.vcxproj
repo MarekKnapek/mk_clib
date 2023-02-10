@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup Label="ProjectConfigurations">
+		<ProjectConfiguration Include="Debug|Win32">
+			<Configuration>Debug</Configuration>
+			<Platform>Win32</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="Release|Win32">
+			<Configuration>Release</Configuration>
+			<Platform>Win32</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="Debug|x64">
+			<Configuration>Debug</Configuration>
+			<Platform>x64</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="Release|x64">
+			<Configuration>Release</Configuration>
+			<Platform>x64</Platform>
+		</ProjectConfiguration>
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="..\..\..\src\.editorconfig"/>
+	</ItemGroup>
+	<ItemGroup>
+		<ClInclude Include="..\..\..\src\mk_clib_app_fuzz.h"/>
+		<ClInclude Include="..\..\..\src\mk_clib_app_info.h"/>
+		<ClInclude Include="..\..\..\src\mk_clib_app_test.h"/>
+		<ClInclude Include="..\..\..\src\mk_clib_fuzz.h"/>
+		<ClInclude Include="..\..\..\src\mk_clib_test.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_arch.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_assert.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_bi.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_bi_info.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_bi_test.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_bool.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_bui.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_bui_fuzz.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_bui_inl.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_def.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_from_bi.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_from_bi_def.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_from_bi_inl.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_from_bi_undef.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_from_buis_be.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_from_buis_be_def.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_from_buis_be_inl.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_from_buis_be_undef.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_from_buis_le.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_from_buis_le_def.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_from_buis_le_inl.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_from_buis_le_undef.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_to_bi.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_to_bi_def.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_to_bi_inl.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_to_bi_undef.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_to_buis_be.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_to_buis_be_def.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_to_buis_be_inl.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_to_buis_be_undef.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_to_buis_le.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_to_buis_le_def.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_to_buis_le_inl.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_to_buis_le_undef.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_undef.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_bui_test.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_charbit.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_clamp.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_concat.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_cpp.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_crash.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_endian.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_inline.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_intmaxt.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_intptrt.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_jumbo.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_lllong.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_llong.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_log2.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_max.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_min.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_nodiscard.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_null.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_sizeof.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_sizeof_test.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_sizet.h"/>
+		<ClInclude Include="..\..\..\src\mk_lang_static_assert.h"/>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\..\src\mk_clib_app_fuzz.c"/>
+		<ClCompile Include="..\..\..\src\mk_clib_app_info.c"/>
+		<ClCompile Include="..\..\..\src\mk_clib_app_test.c"/>
+		<ClCompile Include="..\..\..\src\mk_clib_fuzz.c"/>
+		<ClCompile Include="..\..\..\src\mk_clib_test.c"/>
+		<ClCompile Include="..\..\..\src\mk_lang_bi_info.c"/>
+		<ClCompile Include="..\..\..\src\mk_lang_bi_test.c"/>
+		<ClCompile Include="..\..\..\src\mk_lang_bui.c"/>
+		<ClCompile Include="..\..\..\src\mk_lang_bui_fuzz.c"/>
+		<ClCompile Include="..\..\..\src\mk_lang_bui_inl.c"/>
+		<ClCompile Include="..\..\..\src\mk_lang_bui_inl_from_bi.c"/>
+		<ClCompile Include="..\..\..\src\mk_lang_bui_inl_from_bi_inl.c"/>
+		<ClCompile Include="..\..\..\src\mk_lang_bui_inl_from_buis_be.c"/>
+		<ClCompile Include="..\..\..\src\mk_lang_bui_inl_from_buis_be_inl.c"/>
+		<ClCompile Include="..\..\..\src\mk_lang_bui_inl_from_buis_le.c"/>
+		<ClCompile Include="..\..\..\src\mk_lang_bui_inl_from_buis_le_inl.c"/>
+		<ClCompile Include="..\..\..\src\mk_lang_bui_inl_to_bi.c"/>
+		<ClCompile Include="..\..\..\src\mk_lang_bui_inl_to_bi_inl.c"/>
+		<ClCompile Include="..\..\..\src\mk_lang_bui_inl_to_buis_be.c"/>
+		<ClCompile Include="..\..\..\src\mk_lang_bui_inl_to_buis_be_inl.c"/>
+		<ClCompile Include="..\..\..\src\mk_lang_bui_inl_to_buis_le.c"/>
+		<ClCompile Include="..\..\..\src\mk_lang_bui_inl_to_buis_le_inl.c"/>
+		<ClCompile Include="..\..\..\src\mk_lang_bui_test.c"/>
+		<ClCompile Include="..\..\..\src\mk_lang_crash.c"/>
+		<ClCompile Include="..\..\..\src\mk_lang_sizeof_test.c"/>
+	</ItemGroup>
+	<PropertyGroup Label="Globals">
+		<VCProjectVersion>16.0</VCProjectVersion>
+		<Keyword>Win32Proj</Keyword>
+		<ProjectGuid>{daee6d32-db72-46dc-9a17-b38426c518f3}</ProjectGuid>
+		<RootNamespace>mkclibslib</RootNamespace>
+		<WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+	</PropertyGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+		<ConfigurationType>StaticLibrary</ConfigurationType>
+		<UseDebugLibraries>true</UseDebugLibraries>
+		<PlatformToolset>v143</PlatformToolset>
+		<CharacterSet>Unicode</CharacterSet>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+		<ConfigurationType>StaticLibrary</ConfigurationType>
+		<UseDebugLibraries>false</UseDebugLibraries>
+		<PlatformToolset>v143</PlatformToolset>
+		<WholeProgramOptimization>true</WholeProgramOptimization>
+		<CharacterSet>Unicode</CharacterSet>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+		<ConfigurationType>StaticLibrary</ConfigurationType>
+		<UseDebugLibraries>true</UseDebugLibraries>
+		<PlatformToolset>v143</PlatformToolset>
+		<CharacterSet>Unicode</CharacterSet>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+		<ConfigurationType>StaticLibrary</ConfigurationType>
+		<UseDebugLibraries>false</UseDebugLibraries>
+		<PlatformToolset>v143</PlatformToolset>
+		<WholeProgramOptimization>true</WholeProgramOptimization>
+		<CharacterSet>Unicode</CharacterSet>
+	</PropertyGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.props"/>
+	<ImportGroup Label="ExtensionSettings">
+	</ImportGroup>
+	<ImportGroup Label="Shared">
+	</ImportGroup>
+	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+	</ImportGroup>
+	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+	</ImportGroup>
+	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+	</ImportGroup>
+	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+	</ImportGroup>
+	<PropertyGroup Label="UserMacros"/>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+		<ClCompile>
+			<WarningLevel>EnableAllWarnings</WarningLevel>
+			<SDLCheck>true</SDLCheck>
+			<PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<ConformanceMode>true</ConformanceMode>
+			<MultiProcessorCompilation>true</MultiProcessorCompilation>
+		</ClCompile>
+		<Link>
+			<SubSystem>
+			</SubSystem>
+			<GenerateDebugInformation>true</GenerateDebugInformation>
+		</Link>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+		<ClCompile>
+			<WarningLevel>EnableAllWarnings</WarningLevel>
+			<FunctionLevelLinking>true</FunctionLevelLinking>
+			<IntrinsicFunctions>true</IntrinsicFunctions>
+			<SDLCheck>true</SDLCheck>
+			<PreprocessorDefinitions>mk_lang_jumbo_want=0;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<ConformanceMode>true</ConformanceMode>
+			<MultiProcessorCompilation>true</MultiProcessorCompilation>
+		</ClCompile>
+		<Link>
+			<SubSystem>
+			</SubSystem>
+			<EnableCOMDATFolding>true</EnableCOMDATFolding>
+			<OptimizeReferences>true</OptimizeReferences>
+			<GenerateDebugInformation>true</GenerateDebugInformation>
+		</Link>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+		<ClCompile>
+			<WarningLevel>EnableAllWarnings</WarningLevel>
+			<SDLCheck>true</SDLCheck>
+			<PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<ConformanceMode>true</ConformanceMode>
+			<MultiProcessorCompilation>true</MultiProcessorCompilation>
+		</ClCompile>
+		<Link>
+			<SubSystem>
+			</SubSystem>
+			<GenerateDebugInformation>true</GenerateDebugInformation>
+		</Link>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+		<ClCompile>
+			<WarningLevel>EnableAllWarnings</WarningLevel>
+			<FunctionLevelLinking>true</FunctionLevelLinking>
+			<IntrinsicFunctions>true</IntrinsicFunctions>
+			<SDLCheck>true</SDLCheck>
+			<PreprocessorDefinitions>mk_lang_jumbo_want=0;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<ConformanceMode>true</ConformanceMode>
+			<MultiProcessorCompilation>true</MultiProcessorCompilation>
+		</ClCompile>
+		<Link>
+			<SubSystem>
+			</SubSystem>
+			<EnableCOMDATFolding>true</EnableCOMDATFolding>
+			<OptimizeReferences>true</OptimizeReferences>
+			<GenerateDebugInformation>true</GenerateDebugInformation>
+		</Link>
+	</ItemDefinitionGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
+	<ImportGroup Label="ExtensionTargets">
+	</ImportGroup>
+</Project>

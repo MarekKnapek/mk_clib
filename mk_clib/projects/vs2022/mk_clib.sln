@@ -2,7 +2,7 @@
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942}") = "mk_clib", "mk_clib\mk_clib.vcxitems", "{aed91544-d358-45ee-84e5-b1f26f902a86}" EndProject
+Project("{8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942}") = "mk_clib_slib", "mk_clib_slib\mk_clib_slib.vcxproj", "{daee6d32-db72-46dc-9a17-b38426c518f3}" EndProject
 Project("{8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942}") = "mkcf", "mkcf\mkcf.vcxproj", "{506f012d-14b4-4024-a3d2-70fc0fe8bee7}" EndProject
 Project("{8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942}") = "mkci", "mkci\mkci.vcxproj", "{cc790e7f-aa98-4255-9e19-55f2c9f0ff15}" EndProject
 Project("{8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942}") = "mkct", "mkct\mkct.vcxproj", "{8bfe218e-41a7-4973-9140-4fa391c26eeb}" EndProject
@@ -38,6 +38,14 @@ Global
 		{8bfe218e-41a7-4973-9140-4fa391c26eeb}.Debug|x64.Build.0 = Debug|x64
 		{8bfe218e-41a7-4973-9140-4fa391c26eeb}.Release|x64.ActiveCfg = Release|x64
 		{8bfe218e-41a7-4973-9140-4fa391c26eeb}.Release|x64.Build.0 = Release|x64
+		{daee6d32-db72-46dc-9a17-b38426c518f3}.Debug|x86.ActiveCfg = Debug|Win32
+		{daee6d32-db72-46dc-9a17-b38426c518f3}.Debug|x86.Build.0 = Debug|Win32
+		{daee6d32-db72-46dc-9a17-b38426c518f3}.Release|x86.ActiveCfg = Release|Win32
+		{daee6d32-db72-46dc-9a17-b38426c518f3}.Release|x86.Build.0 = Release|Win32
+		{daee6d32-db72-46dc-9a17-b38426c518f3}.Debug|x64.ActiveCfg = Debug|x64
+		{daee6d32-db72-46dc-9a17-b38426c518f3}.Debug|x64.Build.0 = Debug|x64
+		{daee6d32-db72-46dc-9a17-b38426c518f3}.Release|x64.ActiveCfg = Release|x64
+		{daee6d32-db72-46dc-9a17-b38426c518f3}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
