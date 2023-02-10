@@ -30,4 +30,7 @@
 #include "mk_lang_bui_inl.h"
 
 
+#if mk_lang_jumbo_want == 1
+#include "mk_lang_bui.c"
+#endif
 #endif

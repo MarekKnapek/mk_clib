@@ -3,11 +3,12 @@
 
 
 #include "mk_lang_jumbo.h"
-#include "mk_lang_sizet.h"
 
 
 mk_lang_jumbo void mk_lang_bui_test(void);
-mk_lang_jumbo void mk_lang_bui_test_fuzz(unsigned char const* const data, mk_lang_size_t const size);
 
 
+#if mk_lang_jumbo_want == 1
+#include "mk_lang_bui_test.c"
+#endif
 #endif

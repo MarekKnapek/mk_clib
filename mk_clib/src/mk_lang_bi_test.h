@@ -8,4 +8,7 @@
 mk_lang_jumbo void mk_lang_bi_test(void);
 
 
+#if mk_lang_jumbo_want == 1
+#include "mk_lang_bi_test.c"
+#endif
 #endif

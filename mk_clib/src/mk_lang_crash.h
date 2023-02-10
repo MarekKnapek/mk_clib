@@ -8,4 +8,7 @@
 mk_lang_jumbo void mk_lang_crash(void);
 
 
+#if mk_lang_jumbo_want == 1
+#include "mk_lang_crash.c"
+#endif
 #endif
