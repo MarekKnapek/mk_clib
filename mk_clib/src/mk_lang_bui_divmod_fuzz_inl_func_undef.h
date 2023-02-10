@@ -1,0 +1,7 @@
+#undef mk_lang_bui_divmod_fuzz_inl_func_def_fn
+#undef mk_lang_bui_divmod_fuzz_inl_func_def_lt
+#undef mk_lang_bui_divmod_fuzz_inl_func_def_st
+#undef mk_lang_bui_divmod_fuzz_inl_func_def_sizeof_lt
+#undef mk_lang_bui_divmod_fuzz_inl_func_def_sizeof_st
+#undef mk_lang_bui_divmod_fuzz_inl_func_def_has2
+#undef mk_lang_bui_divmod_fuzz_inl_func_def_has3

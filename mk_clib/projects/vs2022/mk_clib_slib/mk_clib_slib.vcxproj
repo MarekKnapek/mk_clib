@@ -19,94 +19,143 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<ItemGroup>
-		<None Include="..\..\..\src\.editorconfig"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\.editorconfig"/>
 	</ItemGroup>
 	<ItemGroup>
-		<ClInclude Include="..\..\..\src\mk_clib_app_fuzz.h"/>
-		<ClInclude Include="..\..\..\src\mk_clib_app_info.h"/>
-		<ClInclude Include="..\..\..\src\mk_clib_app_test.h"/>
-		<ClInclude Include="..\..\..\src\mk_clib_fuzz.h"/>
-		<ClInclude Include="..\..\..\src\mk_clib_test.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_arch.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_assert.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_bi.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_bi_info.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_bi_test.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_bool.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_bui.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_bui_inl.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_def.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_from_bi.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_from_bi_def.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_from_bi_inl.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_from_bi_undef.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_from_buis_be.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_from_buis_be_def.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_from_buis_be_inl.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_from_buis_be_undef.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_from_buis_le.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_from_buis_le_def.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_from_buis_le_inl.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_from_buis_le_undef.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_to_bi.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_to_bi_def.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_to_bi_inl.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_to_bi_undef.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_to_buis_be.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_to_buis_be_def.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_to_buis_be_inl.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_to_buis_be_undef.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_to_buis_le.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_to_buis_le_def.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_to_buis_le_inl.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_to_buis_le_undef.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_bui_inl_undef.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_charbit.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_clamp.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_concat.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_cpp.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_crash.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_endian.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_inline.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_intmaxt.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_intptrt.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_jumbo.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_lllong.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_llong.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_log2.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_max.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_min.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_nodiscard.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_null.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_sizeof.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_sizeof_test.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_sizet.h"/>
-		<ClInclude Include="..\..\..\src\mk_lang_static_assert.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_fuzz.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_info.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_test.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_fuzz.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_test.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_arch.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_assert.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bi.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bi_info.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bi_test.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bool.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_fuzz.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_fuzz_inl_call_alg.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_fuzz_inl_call_def.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_fuzz_inl_call_endian.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_fuzz_inl_call_lena.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_fuzz_inl_call_lenb.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_fuzz_inl_call_lt.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_fuzz_inl_call_st.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_fuzz_inl_call_undef.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_fuzz_inl_calls.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_fuzz_inl_func_alg.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_fuzz_inl_func_def.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_fuzz_inl_func_endian.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_fuzz_inl_func_lena.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_fuzz_inl_func_lenb.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_fuzz_inl_func_lt.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_fuzz_inl_func_st.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_fuzz_inl_func_undef.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_fuzz_inl_funcs.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_inl.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_inl_alg.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_inl_alg_default.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_inl_def.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_inl_endian.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_inl_endian_default.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_inl_lena.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_inl_lena_default.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_inl_lenb.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_inl_lenb_default.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_inl_type.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_inl_type_default.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_inl_undef.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_def.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_from_bi.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_from_bi_def.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_from_bi_inl.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_from_bi_undef.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_from_buis_be.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_from_buis_be_def.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_from_buis_be_inl.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_from_buis_be_undef.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_from_buis_le.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_from_buis_le_def.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_from_buis_le_inl.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_from_buis_le_undef.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_to_bi.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_to_bi_def.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_to_bi_inl.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_to_bi_undef.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_to_buis_be.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_to_buis_be_def.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_to_buis_be_inl.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_to_buis_be_undef.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_to_buis_le.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_to_buis_le_def.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_to_buis_le_inl.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_to_buis_le_undef.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_undef.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_to2.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_to3.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_charbit.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_clamp.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_concat.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_cpp.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_crash.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_endian.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_inline.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_intmaxt.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_intptrt.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_jumbo.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_lllong.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_llong.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_log2.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_max.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_min.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_nodiscard.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_null.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_sizeof.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_sizeof_test.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_sizet.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_static_assert.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_to_num_a.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_to_num_a1.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_to_num_a2.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_to_num_b.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_to_num_b1.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_to_num_b2.h"/>
 	</ItemGroup>
 	<ItemGroup>
-		<ClCompile Include="..\..\..\src\mk_clib_app_fuzz.c"/>
-		<ClCompile Include="..\..\..\src\mk_clib_app_info.c"/>
-		<ClCompile Include="..\..\..\src\mk_clib_app_test.c"/>
-		<ClCompile Include="..\..\..\src\mk_clib_fuzz.c"/>
-		<ClCompile Include="..\..\..\src\mk_clib_test.c"/>
-		<ClCompile Include="..\..\..\src\mk_lang_bi_info.c"/>
-		<ClCompile Include="..\..\..\src\mk_lang_bi_test.c"/>
-		<ClCompile Include="..\..\..\src\mk_lang_bui.c"/>
-		<ClCompile Include="..\..\..\src\mk_lang_bui_inl.c"/>
-		<ClCompile Include="..\..\..\src\mk_lang_bui_inl_from_bi.c"/>
-		<ClCompile Include="..\..\..\src\mk_lang_bui_inl_from_bi_inl.c"/>
-		<ClCompile Include="..\..\..\src\mk_lang_bui_inl_from_buis_be.c"/>
-		<ClCompile Include="..\..\..\src\mk_lang_bui_inl_from_buis_be_inl.c"/>
-		<ClCompile Include="..\..\..\src\mk_lang_bui_inl_from_buis_le.c"/>
-		<ClCompile Include="..\..\..\src\mk_lang_bui_inl_from_buis_le_inl.c"/>
-		<ClCompile Include="..\..\..\src\mk_lang_bui_inl_to_bi.c"/>
-		<ClCompile Include="..\..\..\src\mk_lang_bui_inl_to_bi_inl.c"/>
-		<ClCompile Include="..\..\..\src\mk_lang_bui_inl_to_buis_be.c"/>
-		<ClCompile Include="..\..\..\src\mk_lang_bui_inl_to_buis_be_inl.c"/>
-		<ClCompile Include="..\..\..\src\mk_lang_bui_inl_to_buis_le.c"/>
-		<ClCompile Include="..\..\..\src\mk_lang_bui_inl_to_buis_le_inl.c"/>
-		<ClCompile Include="..\..\..\src\mk_lang_crash.c"/>
-		<ClCompile Include="..\..\..\src\mk_lang_sizeof_test.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_fuzz.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_info.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_test.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_fuzz.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_test.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bi_info.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bi_test.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_fuzz.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_inl.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_inl_alg.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_inl_endian.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_inl_lena.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_inl_lenb.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_inl_type.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_from_bi.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_from_bi_inl.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_from_buis_be.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_from_buis_be_inl.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_from_buis_le.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_from_buis_le_inl.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_to_bi.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_to_bi_inl.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_to_buis_be.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_to_buis_be_inl.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_to_buis_le.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_to_buis_le_inl.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_crash.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_sizeof_test.c"/>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
 		<VCProjectVersion>16.0</VCProjectVersion>
@@ -121,6 +170,8 @@
 		<UseDebugLibraries>true</UseDebugLibraries>
 		<PlatformToolset>v143</PlatformToolset>
 		<CharacterSet>Unicode</CharacterSet>
+		<EnableASAN>true</EnableASAN>
+		<EnableFuzzer>true</EnableFuzzer>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
 		<ConfigurationType>StaticLibrary</ConfigurationType>
@@ -134,6 +185,8 @@
 		<UseDebugLibraries>true</UseDebugLibraries>
 		<PlatformToolset>v143</PlatformToolset>
 		<CharacterSet>Unicode</CharacterSet>
+		<EnableASAN>true</EnableASAN>
+		<EnableFuzzer>true</EnableFuzzer>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
 		<ConfigurationType>StaticLibrary</ConfigurationType>

@@ -3,6 +3,7 @@
 #include "mk_clib_fuzz.h"
 #include "mk_clib_test.h"
 #include "mk_lang_bool.h"
+#include "mk_lang_jumbo.h"
 #include "mk_lang_sizet.h"
 
 

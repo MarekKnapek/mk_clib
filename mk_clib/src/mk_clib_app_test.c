@@ -25,7 +25,7 @@ mk_lang_jumbo int mk_clib_app_test_void(void)
 	int progress_curr;
 	long i;
 	int j;
-	unsigned char data[64];
+	unsigned char data[128];
 
 	t = printf("Started.\n");
 	mk_lang_assert(t >= 0);
@@ -51,7 +51,8 @@ mk_lang_jumbo int mk_clib_app_test_void(void)
 		{
 			data[j] = ((unsigned char)(rand()));
 		}
-		t = mk_clib_app_fuzz(data, ((int)(sizeof(data)))); ((void)(t));
+		t = mk_clib_app_fuzz(data, ((int)(sizeof(data))));
+		mk_lang_assert(t == 0);
 	}
 	t = printf("\nNot crashed.\n");
 	mk_lang_assert(t >= 0);

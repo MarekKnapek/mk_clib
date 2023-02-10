@@ -2,20 +2,5 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<ItemGroup>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\app\mkct.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_fuzz.c"><Filter>src</Filter></ClCompile>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_test.c"><Filter>src</Filter></ClCompile>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_fuzz.c"><Filter>src</Filter></ClCompile>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_test.c"><Filter>src</Filter></ClCompile>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bi_test.c"><Filter>src</Filter></ClCompile>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui.c"><Filter>src</Filter></ClCompile>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_fuzz.c"><Filter>src</Filter></ClCompile>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_test.c"><Filter>src</Filter></ClCompile>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_crash.c"><Filter>src</Filter></ClCompile>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_sizeof_test.c"><Filter>src</Filter></ClCompile>
-	</ItemGroup>
-	<ItemGroup>
-		<Filter Include="src">
-			<UniqueIdentifier>{4494f5da-3ae9-45c3-a89a-769de8b6e00f}</UniqueIdentifier>
-		</Filter>
 	</ItemGroup>
 </Project>

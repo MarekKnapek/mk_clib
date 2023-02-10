@@ -2,6 +2,6 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<PropertyGroup>
 		<DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-		<LocalDebuggerCommandArguments>-max_len=64</LocalDebuggerCommandArguments>
+		<LocalDebuggerCommandArguments>-max_len=128</LocalDebuggerCommandArguments>
 	</PropertyGroup>
 </Project>

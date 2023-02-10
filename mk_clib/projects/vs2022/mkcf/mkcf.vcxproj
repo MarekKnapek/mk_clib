@@ -20,15 +20,6 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\app\mkcf.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_fuzz.c"><ExcludedFromBuild Condition="'$(Configuration)'=='Release'">true</ExcludedFromBuild></ClCompile>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_fuzz.c"><ExcludedFromBuild Condition="'$(Configuration)'=='Release'">true</ExcludedFromBuild></ClCompile>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_test.c"><ExcludedFromBuild Condition="'$(Configuration)'=='Release'">true</ExcludedFromBuild></ClCompile>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bi_test.c"><ExcludedFromBuild Condition="'$(Configuration)'=='Release'">true</ExcludedFromBuild></ClCompile>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui.c"><ExcludedFromBuild Condition="'$(Configuration)'=='Release'">true</ExcludedFromBuild></ClCompile>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_fuzz.c"><ExcludedFromBuild Condition="'$(Configuration)'=='Release'">true</ExcludedFromBuild></ClCompile>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_test.c"><ExcludedFromBuild Condition="'$(Configuration)'=='Release'">true</ExcludedFromBuild></ClCompile>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_crash.c"><ExcludedFromBuild Condition="'$(Configuration)'=='Release'">true</ExcludedFromBuild></ClCompile>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_sizeof_test.c"><ExcludedFromBuild Condition="'$(Configuration)'=='Release'">true</ExcludedFromBuild></ClCompile>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
 		<VCProjectVersion>16.0</VCProjectVersion>
@@ -101,6 +92,8 @@
 		<Link>
 			<SubSystem>Console</SubSystem>
 			<GenerateDebugInformation>true</GenerateDebugInformation>
+			<AdditionalDependencies>mk_clib_slib.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+			<AdditionalLibraryDirectories>$(OutputPath);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 		</Link>
 	</ItemDefinitionGroup>
 	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -130,6 +123,8 @@
 		<Link>
 			<SubSystem>Console</SubSystem>
 			<GenerateDebugInformation>true</GenerateDebugInformation>
+			<AdditionalDependencies>mk_clib_slib.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+			<AdditionalLibraryDirectories>$(OutputPath);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 		</Link>
 	</ItemDefinitionGroup>
 	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

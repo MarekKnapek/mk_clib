@@ -20,8 +20,6 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\app\mkci.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_info.c"><ExcludedFromBuild Condition="'$(Configuration)'=='Release'">true</ExcludedFromBuild></ClCompile>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bi_info.c"><ExcludedFromBuild Condition="'$(Configuration)'=='Release'">true</ExcludedFromBuild></ClCompile>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
 		<VCProjectVersion>16.0</VCProjectVersion>
@@ -36,6 +34,8 @@
 		<UseDebugLibraries>true</UseDebugLibraries>
 		<PlatformToolset>v143</PlatformToolset>
 		<CharacterSet>Unicode</CharacterSet>
+		<EnableASAN>true</EnableASAN>
+		<EnableFuzzer>true</EnableFuzzer>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
 		<ConfigurationType>Application</ConfigurationType>
@@ -49,6 +49,8 @@
 		<UseDebugLibraries>true</UseDebugLibraries>
 		<PlatformToolset>v143</PlatformToolset>
 		<CharacterSet>Unicode</CharacterSet>
+		<EnableASAN>true</EnableASAN>
+		<EnableFuzzer>true</EnableFuzzer>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
 		<ConfigurationType>Application</ConfigurationType>
@@ -81,11 +83,12 @@
 			<SDLCheck>true</SDLCheck>
 			<PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<ConformanceMode>true</ConformanceMode>
-			<MultiProcessorCompilation>true</MultiProcessorCompilation>
 		</ClCompile>
 		<Link>
 			<SubSystem>Console</SubSystem>
 			<GenerateDebugInformation>true</GenerateDebugInformation>
+			<AdditionalDependencies>mk_clib_slib.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+			<AdditionalLibraryDirectories>$(OutputPath);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 		</Link>
 	</ItemDefinitionGroup>
 	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -111,11 +114,12 @@
 			<SDLCheck>true</SDLCheck>
 			<PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<ConformanceMode>true</ConformanceMode>
-			<MultiProcessorCompilation>true</MultiProcessorCompilation>
 		</ClCompile>
 		<Link>
 			<SubSystem>Console</SubSystem>
 			<GenerateDebugInformation>true</GenerateDebugInformation>
+			<AdditionalDependencies>mk_clib_slib.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+			<AdditionalLibraryDirectories>$(OutputPath);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 		</Link>
 	</ItemDefinitionGroup>
 	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
