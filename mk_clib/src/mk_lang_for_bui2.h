@@ -1,0 +1,35 @@
+#define mk_lang_for_bui_tn uchar
+#include mk_lang_for_bui2
+#undef mk_lang_for_bui_tn
+
+#define mk_lang_for_bui_tn ushort
+#include mk_lang_for_bui2
+#undef mk_lang_for_bui_tn
+
+#define mk_lang_for_bui_tn uint
+#include mk_lang_for_bui2
+#undef mk_lang_for_bui_tn
+
+#define mk_lang_for_bui_tn ulong
+#include mk_lang_for_bui2
+#undef mk_lang_for_bui_tn
+
+#define mk_lang_for_bui_tn ullong
+#include mk_lang_for_bui2
+#undef mk_lang_for_bui_tn
+
+#define mk_lang_for_bui_tn ulllong
+#include mk_lang_for_bui2
+#undef mk_lang_for_bui_tn
+
+#define mk_lang_for_bui_tn uintptr
+#include mk_lang_for_bui2
+#undef mk_lang_for_bui_tn
+
+#define mk_lang_for_bui_tn uintmax
+#include mk_lang_for_bui2
+#undef mk_lang_for_bui_tn
+
+#define mk_lang_for_bui_tn size
+#include mk_lang_for_bui2
+#undef mk_lang_for_bui_tn

@@ -1,6 +1,15 @@
 #undef mk_sl_cui_fuzz_inl_def_fn
+#undef mk_sl_cui_fuzz_inl_def_tobuffbe
 #undef mk_sl_cui_fuzz_inl_def_set_zero
 #undef mk_sl_cui_fuzz_inl_def_set_max
 #undef mk_sl_cui_fuzz_inl_def_set_one
 #undef mk_sl_cui_fuzz_inl_def_set_bit
 #undef mk_sl_cui_fuzz_inl_def_set_mask
+#undef mk_sl_cui_fuzz_inl_def_is_zero
+#undef mk_sl_cui_fuzz_inl_def_is_max
+#undef mk_sl_cui_fuzz_inl_def_eq
+#undef mk_sl_cui_fuzz_inl_def_ne
+#undef mk_sl_cui_fuzz_inl_def_lt
+#undef mk_sl_cui_fuzz_inl_def_le
+#undef mk_sl_cui_fuzz_inl_def_gt
+#undef mk_sl_cui_fuzz_inl_def_ge

@@ -1,0 +1,3 @@
+implement multi-layer for file
+implement cui to / from buis, three variants: exact size, integer multiple smaller or larger, non-iteger multiple
+implement lt, le, gt, ge tests in terms of to_buis_uchar & memcmp

@@ -1,0 +1,9 @@
+#undef mk_sl_cui_inl_to_buis_inl_defd_fn
+#undef mk_sl_cui_inl_to_buis_inl_defd_bui_t
+#undef mk_sl_cui_inl_to_buis_inl_defd_bits_bui_t
+#undef mk_sl_cui_inl_to_buis_inl_defd_bits_cui
+#undef mk_sl_cui_inl_to_buis_inl_defd_count
+#undef mk_sl_cui_inl_to_buis_inl_defd_base_to_buis
+
+#undef mk_sl_cui_inl_to_buis_inl_defd_idx
+#undef mk_sl_cui_inl_to_buis_inl_defd_idx2
