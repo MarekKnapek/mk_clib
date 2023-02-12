@@ -1,0 +1,6 @@
+#define mk_sl_cui_fuzz_inl_def_fn mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_def_name), _fn)
+#define mk_sl_cui_fuzz_inl_def_set_zero mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_def_name), _set_zero)
+#define mk_sl_cui_fuzz_inl_def_set_max mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_def_name), _set_max)
+#define mk_sl_cui_fuzz_inl_def_set_one mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_def_name), _set_one)
+#define mk_sl_cui_fuzz_inl_def_set_bit mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_def_name), _set_bit)
+#define mk_sl_cui_fuzz_inl_def_set_mask mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_def_name), _set_mask)

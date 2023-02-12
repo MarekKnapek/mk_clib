@@ -1,0 +1,5 @@
+#undef mk_sl_cui_inl_from_bi_inl_def_fn
+#undef mk_sl_cui_inl_from_bi_inl_def_bi_t
+#undef mk_sl_cui_inl_from_bi_inl_def_sizeof_bi_t
+#undef mk_sl_cui_inl_from_bi_inl_def_is_unsigned_bi_t
+#undef mk_sl_cui_inl_from_bi_inl_def_to_unsigned_bi_t
