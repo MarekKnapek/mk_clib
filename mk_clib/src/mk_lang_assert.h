@@ -3,7 +3,9 @@
 
 
 #if defined NDEBUG
-#if defined __cpp_lib_unreachable && __cpp_lib_unreachable >= 202202l
+#if defined __cplusplus && __cplusplus >= 202299l /* todo c++ 23 */
+#define mk_lang_assert(x) [[assume(x)]]
+#elif defined __cpp_lib_unreachable && __cpp_lib_unreachable >= 202202l
 #include <utility> /* std::unreachable */
 #define mk_lang_assert(x) if(!(x)) std::unreachable(); ((void)(0))
 #elif defined __STDC_VERSION__ && __STDC_VERSION__ >= 202299l /* todo c23 */
