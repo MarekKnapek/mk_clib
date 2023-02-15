@@ -1,21 +1,17 @@
 #include "mk_lang_concat.h"
 
 
-#if defined mk_lang_bui_name
+#if \
+	defined mk_lang_bui_name && \
+	defined mk_lang_bui_type && \
+	defined mk_lang_bui_sizeof && \
+	1
 #define mk_lang_bui_inl_defd_name mk_lang_bui_name
-#else
-#define mk_lang_bui_inl_defd_name mk_lang_fora_bui_tn
-#endif
-
-#if defined mk_lang_bui_type
 #define mk_lang_bui_inl_defd_type mk_lang_bui_type
-#else
-#define mk_lang_bui_inl_defd_type mk_lang_concat(mk_lang_concat(mk_lang_bi_, mk_lang_fora_bui_tn), _t)
-#endif
-
-#if defined mk_lang_bui_sizeof
 #define mk_lang_bui_inl_defd_sizeof mk_lang_bui_sizeof
 #else
+#define mk_lang_bui_inl_defd_name mk_lang_fora_bui_tn
+#define mk_lang_bui_inl_defd_type mk_lang_concat(mk_lang_concat(mk_lang_bi_, mk_lang_fora_bui_tn), _t)
 #define mk_lang_bui_inl_defd_sizeof mk_lang_concat(mk_lang_concat(mk_lang_sizeof_bi_, mk_lang_fora_bui_tn), _t)
 #endif
 
