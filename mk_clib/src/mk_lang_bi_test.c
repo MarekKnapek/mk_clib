@@ -2,10 +2,11 @@
 
 #include "mk_lang_bi.h"
 #include "mk_lang_jumbo.h"
+#include "mk_lang_noexcept.h"
 #include "mk_lang_static_assert.h"
 
 
-mk_lang_jumbo void mk_lang_bi_test(void)
+mk_lang_jumbo void mk_lang_bi_test(void) mk_lang_noexcept
 {
 	mk_lang_static_assert(sizeof(mk_lang_bi_uintptr_t) == sizeof(void*));
 	mk_lang_static_assert(sizeof(mk_lang_bi_sintptr_t) == sizeof(void*));

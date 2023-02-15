@@ -2,11 +2,12 @@
 
 #include "mk_lang_bi.h"
 #include "mk_lang_jumbo.h"
+#include "mk_lang_noexcept.h"
 
 #include <stdio.h> /* printf */
 
 
-mk_lang_jumbo void mk_lang_bi_info_print_sizes(void)
+mk_lang_jumbo void mk_lang_bi_info_print_sizes(void) mk_lang_noexcept
 {
 	printf("sizeof(mk_lang_bi_pchar_t) == %d\n", ((int)(sizeof(mk_lang_bi_pchar_t))));
 	printf("sizeof(mk_lang_bi_uchar_t) == %d\n", ((int)(sizeof(mk_lang_bi_uchar_t))));

@@ -3,9 +3,10 @@
 
 
 #include "mk_lang_jumbo.h"
+#include "mk_lang_noexcept.h"
 
 
-mk_lang_jumbo int mk_clib_app_info_void(void);
+mk_lang_jumbo int mk_clib_app_info_void(void) mk_lang_noexcept;
 
 
 #if mk_lang_jumbo_want == 1

@@ -4,6 +4,7 @@
 #include "mk_lang_arch.h"
 #include "mk_lang_assert.h"
 #include "mk_lang_jumbo.h"
+#include "mk_lang_noexcept.h"
 #include "mk_lang_null.h"
 
 #include <stdio.h> /* printf putchar */
@@ -11,7 +12,7 @@
 #include <time.h> /* time_t time */
 
 
-mk_lang_jumbo int mk_clib_app_test_void(void)
+mk_lang_jumbo int mk_clib_app_test_void(void) mk_lang_noexcept
 {
 	#if mk_lang_arch == mk_lang_arch_x8616
 	static long const s_iterations = 1l * 1l * 1000l;

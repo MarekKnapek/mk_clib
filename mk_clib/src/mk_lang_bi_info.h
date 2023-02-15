@@ -3,9 +3,10 @@
 
 
 #include "mk_lang_jumbo.h"
+#include "mk_lang_noexcept.h"
 
 
-mk_lang_jumbo void mk_lang_bi_info_print_sizes(void);
+mk_lang_jumbo void mk_lang_bi_info_print_sizes(void) mk_lang_noexcept;
 
 
 #if mk_lang_jumbo_want == 1
