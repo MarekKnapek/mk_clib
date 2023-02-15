@@ -281,6 +281,47 @@ mk_lang_jumbo void mk_lang_bui_inl_defd_rotr2(mk_lang_bui_inl_defd_type* const a
 }
 
 
+mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_would_overflow_add_cc(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b)
+{
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	return ((mk_lang_bui_inl_defd_type)(((mk_lang_bui_inl_defd_type)(~((mk_lang_bui_inl_defd_type)(0)))) - ((mk_lang_bui_inl_defd_type)(*a)))) < ((mk_lang_bui_inl_defd_type)(*b));
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_would_overflow_add_cs(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b)
+{
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	return (((mk_lang_bui_inl_defd_type)(((mk_lang_bui_inl_defd_type)(~((mk_lang_bui_inl_defd_type)(0)))) - ((mk_lang_bui_inl_defd_type)(*a)))) <= ((mk_lang_bui_inl_defd_type)(*b)));
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_would_overflow_sub_cc(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b)
+{
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	return ((mk_lang_bui_inl_defd_type)(*a)) < ((mk_lang_bui_inl_defd_type)(*b));
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_would_overflow_sub_cs(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b)
+{
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	return (((mk_lang_bui_inl_defd_type)(*a)) <= ((mk_lang_bui_inl_defd_type)(*b)));
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_would_overflow_mul(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b)
+{
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	return (((mk_lang_bui_inl_defd_type)(*a)) != ((mk_lang_bui_inl_defd_type)(0))) && (((mk_lang_bui_inl_defd_type)(((mk_lang_bui_inl_defd_type)(~((mk_lang_bui_inl_defd_type)(0)))) / ((mk_lang_bui_inl_defd_type)(*a)))) < ((mk_lang_bui_inl_defd_type)(*b)));
+}
+
+
 mk_lang_jumbo void mk_lang_bui_inl_defd_add3_wrap_cid_cod(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_bui_inl_defd_type* const c)
 {
 	mk_lang_assert(a);

@@ -40,6 +40,12 @@
 #undef mk_lang_bui_inl_defd_rotl2
 #undef mk_lang_bui_inl_defd_rotr2
 
+#undef mk_lang_bui_inl_defd_would_overflow_add_cc
+#undef mk_lang_bui_inl_defd_would_overflow_add_cs
+#undef mk_lang_bui_inl_defd_would_overflow_sub_cc
+#undef mk_lang_bui_inl_defd_would_overflow_sub_cs
+#undef mk_lang_bui_inl_defd_would_overflow_mul
+
 #undef mk_lang_bui_inl_defd_add3_wrap_cid_cod
 #undef mk_lang_bui_inl_defd_add3_wrap_cid_coe
 #undef mk_lang_bui_inl_defd_add3_wrap_cie_cod

@@ -53,6 +53,12 @@
 #define mk_lang_bui_inl_defd_rotl2 mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_inl_defd_name), _rotl2)
 #define mk_lang_bui_inl_defd_rotr2 mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_inl_defd_name), _rotr2)
 
+#define mk_lang_bui_inl_defd_would_overflow_add_cc mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_inl_defd_name), _would_overflow_add_cc)
+#define mk_lang_bui_inl_defd_would_overflow_add_cs mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_inl_defd_name), _would_overflow_add_cs)
+#define mk_lang_bui_inl_defd_would_overflow_sub_cc mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_inl_defd_name), _would_overflow_sub_cc)
+#define mk_lang_bui_inl_defd_would_overflow_sub_cs mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_inl_defd_name), _would_overflow_sub_cs)
+#define mk_lang_bui_inl_defd_would_overflow_mul mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_inl_defd_name), _would_overflow_mul)
+
 #define mk_lang_bui_inl_defd_add3_wrap_cid_cod mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_inl_defd_name), _add3_wrap_cid_cod)
 #define mk_lang_bui_inl_defd_add3_wrap_cid_coe mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_inl_defd_name), _add3_wrap_cid_coe)
 #define mk_lang_bui_inl_defd_add3_wrap_cie_cod mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_inl_defd_name), _add3_wrap_cie_cod)

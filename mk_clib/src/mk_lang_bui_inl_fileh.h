@@ -58,6 +58,12 @@ mk_lang_jumbo void mk_lang_bui_inl_defd_shr2(mk_lang_bui_inl_defd_type* const a,
 mk_lang_jumbo void mk_lang_bui_inl_defd_rotl2(mk_lang_bui_inl_defd_type* const a, int const b);
 mk_lang_jumbo void mk_lang_bui_inl_defd_rotr2(mk_lang_bui_inl_defd_type* const a, int const b);
 
+mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_would_overflow_add_cc(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b);
+mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_would_overflow_add_cs(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b);
+mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_would_overflow_sub_cc(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b);
+mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_would_overflow_sub_cs(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b);
+mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_would_overflow_mul(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b);
+
 mk_lang_jumbo void mk_lang_bui_inl_defd_add3_wrap_cid_cod(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_bui_inl_defd_type* const c);
 mk_lang_jumbo void mk_lang_bui_inl_defd_add3_wrap_cid_coe(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_bui_inl_defd_type* const c, mk_lang_bool_t* const co);
 mk_lang_jumbo void mk_lang_bui_inl_defd_add3_wrap_cie_cod(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_bool_t const ci, mk_lang_bui_inl_defd_type* const c);
