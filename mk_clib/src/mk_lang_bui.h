@@ -2,32 +2,15 @@
 #define mk_include_guard_lang_bui
 
 
-#define mk_lang_bui_btn uchar
-#include "mk_lang_bui_inl.h"
+#include "mk_lang_bi.h"
+#include "mk_lang_for_constants.h"
 
-#define mk_lang_bui_btn ushort
-#include "mk_lang_bui_inl.h"
 
-#define mk_lang_bui_btn uint
-#include "mk_lang_bui_inl.h"
-
-#define mk_lang_bui_btn ulong
-#include "mk_lang_bui_inl.h"
-
-#define mk_lang_bui_btn ullong
-#include "mk_lang_bui_inl.h"
-
-#define mk_lang_bui_btn ulllong
-#include "mk_lang_bui_inl.h"
-
-#define mk_lang_bui_btn uintptr
-#include "mk_lang_bui_inl.h"
-
-#define mk_lang_bui_btn uintmax
-#include "mk_lang_bui_inl.h"
-
-#define mk_lang_bui_btn size
-#include "mk_lang_bui_inl.h"
+#define mk_lang_fora1_id mk_lang_for_constants_bui
+#define mk_lang_fora_file "mk_lang_bui_inl_fileh.h"
+#include "mk_lang_fora1.h"
+#undef mk_lang_fora1_id
+#undef mk_lang_fora_file
 
 
 #if mk_lang_jumbo_want == 1

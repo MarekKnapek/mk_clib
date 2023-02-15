@@ -1,29 +1,19 @@
 #include "mk_lang_bui_divmod.h"
 
+#include "mk_lang_bi.h"
+#include "mk_lang_for_constants.h"
 
-#define mk_lang_bui_divmod_inl_type uchar
-#include "mk_lang_bui_divmod_inl_type.c"
 
-#define mk_lang_bui_divmod_inl_type ushort
-#include "mk_lang_bui_divmod_inl_type.c"
-
-#define mk_lang_bui_divmod_inl_type uint
-#include "mk_lang_bui_divmod_inl_type.c"
-
-#define mk_lang_bui_divmod_inl_type ulong
-#include "mk_lang_bui_divmod_inl_type.c"
-
-#define mk_lang_bui_divmod_inl_type ullong
-#include "mk_lang_bui_divmod_inl_type.c"
-
-#define mk_lang_bui_divmod_inl_type ulllong
-#include "mk_lang_bui_divmod_inl_type.c"
-
-#define mk_lang_bui_divmod_inl_type uintptr
-#include "mk_lang_bui_divmod_inl_type.c"
-
-#define mk_lang_bui_divmod_inl_type uintmax
-#include "mk_lang_bui_divmod_inl_type.c"
-
-#define mk_lang_bui_divmod_inl_type size
-#include "mk_lang_bui_divmod_inl_type.c"
+#define mk_lang_fora5_id mk_lang_for_constants_bui
+#define mk_lang_fora4_id mk_lang_for_constants_count
+#define mk_lang_fora3_id mk_lang_for_constants_count2
+#define mk_lang_fora2_id mk_lang_for_constants_endian
+#define mk_lang_fora1_id mk_lang_for_constants_divalg
+#define mk_lang_fora_file "mk_lang_bui_divmod_inl_filec.h"
+#include "mk_lang_fora5.h"
+#undef mk_lang_fora5_id
+#undef mk_lang_fora4_id
+#undef mk_lang_fora3_id
+#undef mk_lang_fora2_id
+#undef mk_lang_fora1_id
+#undef mk_lang_fora_file

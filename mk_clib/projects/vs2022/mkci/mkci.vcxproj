@@ -36,6 +36,7 @@
 		<CharacterSet>Unicode</CharacterSet>
 		<EnableASAN>true</EnableASAN>
 		<EnableFuzzer>true</EnableFuzzer>
+		<PreferredToolArchitecture>x64</PreferredToolArchitecture>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
 		<ConfigurationType>Application</ConfigurationType>
@@ -43,6 +44,7 @@
 		<PlatformToolset>v143</PlatformToolset>
 		<WholeProgramOptimization>true</WholeProgramOptimization>
 		<CharacterSet>Unicode</CharacterSet>
+		<PreferredToolArchitecture>x64</PreferredToolArchitecture>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
 		<ConfigurationType>Application</ConfigurationType>
@@ -51,6 +53,7 @@
 		<CharacterSet>Unicode</CharacterSet>
 		<EnableASAN>true</EnableASAN>
 		<EnableFuzzer>true</EnableFuzzer>
+		<PreferredToolArchitecture>x64</PreferredToolArchitecture>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
 		<ConfigurationType>Application</ConfigurationType>
@@ -58,6 +61,7 @@
 		<PlatformToolset>v143</PlatformToolset>
 		<WholeProgramOptimization>true</WholeProgramOptimization>
 		<CharacterSet>Unicode</CharacterSet>
+		<PreferredToolArchitecture>x64</PreferredToolArchitecture>
 	</PropertyGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.props"/>
 	<ImportGroup Label="ExtensionSettings">
@@ -87,8 +91,8 @@
 		<Link>
 			<SubSystem>Console</SubSystem>
 			<GenerateDebugInformation>true</GenerateDebugInformation>
-			<AdditionalDependencies>mk_clib_slib.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
 			<AdditionalLibraryDirectories>$(OutputPath);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+			<AdditionalDependencies>mk_clib_slib.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
 		</Link>
 	</ItemDefinitionGroup>
 	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -118,8 +122,8 @@
 		<Link>
 			<SubSystem>Console</SubSystem>
 			<GenerateDebugInformation>true</GenerateDebugInformation>
-			<AdditionalDependencies>mk_clib_slib.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
 			<AdditionalLibraryDirectories>$(OutputPath);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+			<AdditionalDependencies>mk_clib_slib.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
 		</Link>
 	</ItemDefinitionGroup>
 	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
