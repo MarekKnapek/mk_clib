@@ -7,17 +7,17 @@
 #define mk_lang_assert(x) [[assume(x)]]
 #elif defined __cpp_lib_unreachable && __cpp_lib_unreachable >= 202202l
 #include <utility> /* std::unreachable */
-#define mk_lang_assert(x) if(!(x)) std::unreachable(); ((void)(0))
+#define mk_lang_assert(x) ((void)((x) ? ((void)(0)) : ((void)(std::unreachable()))))
 #elif defined __STDC_VERSION__ && __STDC_VERSION__ >= 202299l /* todo c23 */
 #include <stddef.h> /* unreachable */
-#define mk_lang_assert(x) if(!(x)) unreachable(); ((void)(0))
+#define mk_lang_assert(x) ((void)((x) ? ((void)(0)) : ((void)(unreachable()))))
 #elif defined _MSC_VER && _MSC_VER >= 1200 /* vs 6 */
 #define mk_lang_assert(x) __assume(x)
 #elif defined __GNUC__ && defined __GNUC_MINOR__ && __GNUC__ * 100 + __GNUC_MINOR__ >= 405
-#define mk_lang_assert(x) if(!(x)) __builtin_unreachable(); ((void)(0))
+#define mk_lang_assert(x) ((void)((x) ? ((void)(0)) : ((void)(__builtin_unreachable()))))
 #elif defined __has_builtin
 #if __has_builtin(__builtin_unreachable)
-#define mk_lang_assert(x) if(!(x)) __builtin_unreachable(); ((void)(0))
+#define mk_lang_assert(x) ((void)((x) ? ((void)(0)) : ((void)(__builtin_unreachable()))))
 #else
 #define mk_lang_assert(x) ((void)(0))
 #endif
