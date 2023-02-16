@@ -66,5 +66,24 @@
 #define mk_lang_bi_to_unsigned_sintmax_t mk_lang_bi_uintmax_t
 #define mk_lang_bi_to_unsigned_size_t mk_lang_bi_size_t
 
+#define mk_lang_bi_to_unsigned_prefix_pchar_t uchar
+#define mk_lang_bi_to_unsigned_prefix_uchar_t uchar
+#define mk_lang_bi_to_unsigned_prefix_schar_t uchar
+#define mk_lang_bi_to_unsigned_prefix_ushort_t ushort
+#define mk_lang_bi_to_unsigned_prefix_sshort_t ushort
+#define mk_lang_bi_to_unsigned_prefix_uint_t uint
+#define mk_lang_bi_to_unsigned_prefix_sint_t uint
+#define mk_lang_bi_to_unsigned_prefix_ulong_t ulong
+#define mk_lang_bi_to_unsigned_prefix_slong_t ulong
+#define mk_lang_bi_to_unsigned_prefix_ullong_t ullong
+#define mk_lang_bi_to_unsigned_prefix_sllong_t ullong
+#define mk_lang_bi_to_unsigned_prefix_ulllong_t ulllong
+#define mk_lang_bi_to_unsigned_prefix_slllong_t ulllong
+#define mk_lang_bi_to_unsigned_prefix_uintptr_t uintptr
+#define mk_lang_bi_to_unsigned_prefix_sintptr_t uintptr
+#define mk_lang_bi_to_unsigned_prefix_uintmax_t uintmax
+#define mk_lang_bi_to_unsigned_prefix_sintmax_t uintmax
+#define mk_lang_bi_to_unsigned_prefix_size_t size
+
 
 #endif
