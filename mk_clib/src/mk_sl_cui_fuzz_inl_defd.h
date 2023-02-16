@@ -1,0 +1,18 @@
+#define mk_sl_cui_fuzz_inl_defd_fn mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _fn)
+
+#define mk_sl_cui_fuzz_inl_defd_to_bi_ulllong mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _to_bi_ulllong)
+#define mk_sl_cui_fuzz_inl_defd_from_bi_ulllong mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _from_bi_ulllong)
+
+#define mk_sl_cui_fuzz_inl_defd_set_zero mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _set_zero)
+#define mk_sl_cui_fuzz_inl_defd_set_max mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _set_max)
+#define mk_sl_cui_fuzz_inl_defd_set_one mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _set_one)
+#define mk_sl_cui_fuzz_inl_defd_set_bit mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _set_bit)
+#define mk_sl_cui_fuzz_inl_defd_set_mask mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _set_mask)
+#define mk_sl_cui_fuzz_inl_defd_is_zero mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _is_zero)
+#define mk_sl_cui_fuzz_inl_defd_is_max mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _is_max)
+#define mk_sl_cui_fuzz_inl_defd_eq mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _eq)
+#define mk_sl_cui_fuzz_inl_defd_ne mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _ne)
+#define mk_sl_cui_fuzz_inl_defd_lt mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _lt)
+#define mk_sl_cui_fuzz_inl_defd_le mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _le)
+#define mk_sl_cui_fuzz_inl_defd_gt mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _gt)
+#define mk_sl_cui_fuzz_inl_defd_ge mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _ge)
