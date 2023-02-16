@@ -10,9 +10,9 @@
 #define mk_lang_bui_inl_defd_type mk_lang_bui_type
 #define mk_lang_bui_inl_defd_sizeof mk_lang_bui_sizeof
 #else
-#define mk_lang_bui_inl_defd_name mk_lang_fora_bui_tn
-#define mk_lang_bui_inl_defd_type mk_lang_concat(mk_lang_concat(mk_lang_bi_, mk_lang_fora_bui_tn), _t)
-#define mk_lang_bui_inl_defd_sizeof mk_lang_concat(mk_lang_concat(mk_lang_sizeof_bi_, mk_lang_fora_bui_tn), _t)
+#define mk_lang_bui_inl_defd_name mk_lang_concat(mk_lang_bui_for_bui, _tn)
+#define mk_lang_bui_inl_defd_type mk_lang_concat(mk_lang_concat(mk_lang_bi_, mk_lang_concat(mk_lang_bui_for_bui, _tn)), _t)
+#define mk_lang_bui_inl_defd_sizeof mk_lang_concat(mk_lang_concat(mk_lang_sizeof_bi_, mk_lang_concat(mk_lang_bui_for_bui, _tn)), _t)
 #endif
 
 #define mk_lang_bui_inl_defd_set_zero mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_inl_defd_name), _set_zero)

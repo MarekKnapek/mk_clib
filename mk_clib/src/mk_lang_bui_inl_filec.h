@@ -62,18 +62,24 @@ mk_lang_jumbo void mk_lang_bui_inl_defd_set_mask(mk_lang_bui_inl_defd_type* cons
 }
 
 #define mk_lang_forb1_id mk_lang_for_constants_bi
-#define mk_lang_forb_file "mk_lang_bui_inl_tofrom_bi_filec.h"
+#define mk_lang_forb_file "mk_lang_bui_inl_tofrom_bi_inl_filec.h"
+#define mk_lang_bui_inl_tofrom_bi_for_bi mk_lang_forb_bi
 #include "mk_lang_forb1.h"
 #undef mk_lang_forb1_id
 #undef mk_lang_forb_file
+#undef mk_lang_bui_inl_tofrom_bi_for_bi
 
 #define mk_lang_forb2_id mk_lang_for_constants_bui
 #define mk_lang_forb1_id mk_lang_for_constants_endian
-#define mk_lang_forb_file "mk_lang_bui_inl_tofrom_buis_filec.h"
+#define mk_lang_forb_file "mk_lang_bui_inl_tofrom_buis_inl_filec.h"
+#define mk_lang_bui_inl_tofrom_buis_for_bui mk_lang_forb_bui
+#define mk_lang_bui_inl_tofrom_buis_for_endian mk_lang_forb_endian
 #include "mk_lang_forb2.h"
 #undef mk_lang_forb2_id
 #undef mk_lang_forb1_id
 #undef mk_lang_forb_file
+#undef mk_lang_bui_inl_tofrom_buis_for_bui
+#undef mk_lang_bui_inl_tofrom_buis_for_endian
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_is_zero(mk_lang_bui_inl_defd_type const* const x) mk_lang_noexcept
 {

@@ -1,0 +1,6 @@
+#undef mk_lang_bui_inl_tofrom_buis_inl_defd_bui_t
+#undef mk_lang_bui_inl_tofrom_buis_inl_defd_fn_to
+#undef mk_lang_bui_inl_tofrom_buis_inl_defd_fn_from
+#undef mk_lang_bui_inl_tofrom_buis_inl_defd_sizeof_bui_t
+#undef mk_lang_bui_inl_tofrom_buis_inl_defd_count
+#undef mk_lang_bui_inl_tofrom_buis_inl_defd_idx

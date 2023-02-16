@@ -24,16 +24,16 @@ defined mk_lang_bui_divmod_name
 #define mk_lang_bui_divmod_inl_defd_bt2_has 1
 #define mk_lang_bui_divmod_inl_defd_bt3_has 1
 #else
-#define mk_lang_bui_divmod_inl_defd_bt mk_lang_concat(mk_lang_concat(mk_lang_bi_, mk_lang_fora_bui_tn), _t)
-#define mk_lang_bui_divmod_inl_defd_bt2 mk_lang_concat(mk_lang_concat(mk_lang_bui_to2_, mk_lang_fora_bui_tn), _t)
-#define mk_lang_bui_divmod_inl_defd_bt3 mk_lang_concat(mk_lang_concat(mk_lang_bui_to3_, mk_lang_fora_bui_tn), _t)
-#define mk_lang_bui_divmod_inl_defd_lena mk_lang_fora_count_n
-#define mk_lang_bui_divmod_inl_defd_lenb mk_lang_fora_count2_n
-#define mk_lang_bui_divmod_inl_defd_endian mk_lang_fora_endian_value
-#define mk_lang_bui_divmod_inl_defd_alg mk_lang_fora_divalg_id
-#define mk_lang_bui_divmod_inl_defd_name mk_lang_concat(mk_lang_concat(mk_lang_concat(mk_lang_concat(mk_lang_concat(mk_lang_concat(mk_lang_concat(mk_lang_concat(mk_lang_fora_bui_tn, _), mk_lang_fora_count_n), _), mk_lang_fora_count2_n), _), mk_lang_fora_endian_name), _), mk_lang_fora_divalg_id)
-#define mk_lang_bui_divmod_inl_defd_bt2_has mk_lang_concat(mk_lang_concat(mk_lang_bui_to2_, mk_lang_fora_bui_tn), _has)
-#define mk_lang_bui_divmod_inl_defd_bt3_has mk_lang_concat(mk_lang_concat(mk_lang_bui_to3_, mk_lang_fora_bui_tn), _has)
+#define mk_lang_bui_divmod_inl_defd_bt mk_lang_concat(mk_lang_concat(mk_lang_bi_, mk_lang_concat(mk_lang_bui_divmod_for_bui, _tn)), _t)
+#define mk_lang_bui_divmod_inl_defd_bt2 mk_lang_concat(mk_lang_concat(mk_lang_bui_to2_, mk_lang_concat(mk_lang_bui_divmod_for_bui, _tn)), _t)
+#define mk_lang_bui_divmod_inl_defd_bt3 mk_lang_concat(mk_lang_concat(mk_lang_bui_to3_, mk_lang_concat(mk_lang_bui_divmod_for_bui, _tn)), _t)
+#define mk_lang_bui_divmod_inl_defd_lena mk_lang_concat(mk_lang_bui_divmod_for_count, _n)
+#define mk_lang_bui_divmod_inl_defd_lenb mk_lang_concat(mk_lang_bui_divmod_for_count2, _n)
+#define mk_lang_bui_divmod_inl_defd_endian mk_lang_concat(mk_lang_bui_divmod_for_endian, _value)
+#define mk_lang_bui_divmod_inl_defd_alg mk_lang_concat(mk_lang_bui_divmod_for_divalg, _id)
+#define mk_lang_bui_divmod_inl_defd_name mk_lang_concat(mk_lang_concat(mk_lang_concat(mk_lang_concat(mk_lang_concat(mk_lang_concat(mk_lang_concat(mk_lang_concat(mk_lang_concat(mk_lang_bui_divmod_for_bui, _tn), _), mk_lang_concat(mk_lang_bui_divmod_for_count, _n)), _), mk_lang_concat(mk_lang_bui_divmod_for_count2, _n)), _), mk_lang_concat(mk_lang_bui_divmod_for_endian, _name)), _), mk_lang_concat(mk_lang_bui_divmod_for_divalg, _id))
+#define mk_lang_bui_divmod_inl_defd_bt2_has mk_lang_concat(mk_lang_concat(mk_lang_bui_to2_, mk_lang_concat(mk_lang_bui_divmod_for_bui, _tn)), _has)
+#define mk_lang_bui_divmod_inl_defd_bt3_has mk_lang_concat(mk_lang_concat(mk_lang_bui_to3_, mk_lang_concat(mk_lang_bui_divmod_for_bui, _tn)), _has)
 #endif
 
 #define mk_lang_bui_divmod_inl_defd_fn mk_lang_concat(mk_lang_bui_divmod_, mk_lang_bui_divmod_inl_defd_name)
