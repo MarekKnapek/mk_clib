@@ -1,4 +1,5 @@
 #include "mk_lang_bool.h"
+#include "mk_lang_for_constants.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
@@ -19,6 +20,14 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_set_max(mk_sl_cui_inl_defd_t* const x) mk_
 mk_lang_jumbo void mk_sl_cui_inl_defd_set_one(mk_sl_cui_inl_defd_t* const x) mk_lang_noexcept;
 mk_lang_jumbo void mk_sl_cui_inl_defd_set_bit(mk_sl_cui_inl_defd_t* const x, int const bit_idx) mk_lang_noexcept;
 mk_lang_jumbo void mk_sl_cui_inl_defd_set_mask(mk_sl_cui_inl_defd_t* const x, int const bits_count) mk_lang_noexcept;
+
+#define mk_lang_forb1_id mk_lang_for_constants_bi
+#define mk_lang_forb_file "mk_sl_cui_inl_tofrom_bi_inl_fileh.h"
+#define mk_sl_cui_inl_tofrom_bi_for_bi mk_lang_forb_bi
+#include "mk_lang_forb1.h"
+#undef mk_lang_forb1_id
+#undef mk_lang_forb_file
+#undef mk_sl_cui_inl_tofrom_bi_for_bi
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_defd_is_zero(mk_sl_cui_inl_defd_t const* const x) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_defd_is_max(mk_sl_cui_inl_defd_t const* const x) mk_lang_noexcept;
