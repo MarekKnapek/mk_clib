@@ -103,6 +103,10 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_inl_defu.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_inl_filec.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_inl_fileh.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_inl_tofrom_bi_inl_defd.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_inl_tofrom_bi_inl_defu.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_inl_tofrom_bi_inl_filec.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_inl_tofrom_bi_inl_fileh.h"><Filter>src</Filter></ClInclude>
 	</ItemGroup>
 	<ItemGroup>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_fuzz.c"><Filter>src</Filter></ClCompile>
