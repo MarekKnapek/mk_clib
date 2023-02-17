@@ -156,7 +156,14 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_set_mask(unsigned char const* const d
 	test(bui1 == bui2);
 }
 
-/* todo to/form bi */
+#define mk_lang_forb1_id mk_lang_for_constants_bi
+#define mk_lang_forb_file "mk_sl_cui_fuzz_inl_tofrom_bi_inl_func.h"
+#define mk_sl_cui_inl_tofrom_bi_for_bi mk_lang_forb_bi
+#include "mk_lang_forb1.h"
+#undef mk_lang_forb1_id
+#undef mk_lang_forb_file
+#undef mk_sl_cui_inl_tofrom_bi_for_bi
+
 /* todo to/from buis */
 
 mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_is_zero(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
@@ -373,7 +380,13 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_fn(unsigned char const* const data, m
 	mk_sl_cui_fuzz_inl_defd_set_one(data, size);
 	mk_sl_cui_fuzz_inl_defd_set_bit(data, size);
 	mk_sl_cui_fuzz_inl_defd_set_mask(data, size);
-	/*#include "mk_sl_cui_fuzz_inl_func_bi_call.h"*/
+	#define mk_lang_forb1_id mk_lang_for_constants_bi
+	#define mk_lang_forb_file "mk_sl_cui_fuzz_inl_tofrom_bi_inl_call.h"
+	#define mk_sl_cui_inl_tofrom_bi_for_bi mk_lang_forb_bi
+	#include "mk_lang_forb1.h"
+	#undef mk_lang_forb1_id
+	#undef mk_lang_forb_file
+	#undef mk_sl_cui_inl_tofrom_bi_for_bi
 	mk_sl_cui_fuzz_inl_defd_is_zero(data, size);
 	mk_sl_cui_fuzz_inl_defd_is_max(data, size);
 	mk_sl_cui_fuzz_inl_defd_eq(data, size);
