@@ -3,6 +3,20 @@
 #undef mk_sl_cui_fuzz_inl_defd_to_bi_ulllong
 #undef mk_sl_cui_fuzz_inl_defd_from_bi_ulllong
 
+#undef mk_sl_cui_fuzz_inl_defd_eq_restrict
+#undef mk_sl_cui_fuzz_inl_defd_ne_restrict
+#undef mk_sl_cui_fuzz_inl_defd_lt_restrict
+#undef mk_sl_cui_fuzz_inl_defd_le_restrict
+#undef mk_sl_cui_fuzz_inl_defd_gt_restrict
+#undef mk_sl_cui_fuzz_inl_defd_ge_restrict
+
+#undef mk_sl_cui_fuzz_inl_defd_eq_alias
+#undef mk_sl_cui_fuzz_inl_defd_ne_alias
+#undef mk_sl_cui_fuzz_inl_defd_lt_alias
+#undef mk_sl_cui_fuzz_inl_defd_le_alias
+#undef mk_sl_cui_fuzz_inl_defd_gt_alias
+#undef mk_sl_cui_fuzz_inl_defd_ge_alias
+
 #undef mk_sl_cui_fuzz_inl_defd_set_zero
 #undef mk_sl_cui_fuzz_inl_defd_set_max
 #undef mk_sl_cui_fuzz_inl_defd_set_one

@@ -214,7 +214,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_is_max(unsigned char const* const dat
 	test(mk_sl_cui_inl_defd_is_max(&cui) == mk_lang_bui_ulllong_is_max(&bui));
 }
 
-mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_eq(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_eq_restrict(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
 {
 	unsigned char const* d;
 	mk_lang_size_t s;
@@ -242,7 +242,32 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_eq(unsigned char const* const data, m
 	test(mk_sl_cui_inl_defd_eq(&cui1, &cui2) == mk_lang_bui_ulllong_eq(&bui1, &bui2));
 }
 
-mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_ne(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_eq_alias(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	unsigned char const* d;
+	mk_lang_size_t s;
+	mk_sl_cui_inl_defd_t cui;
+	mk_lang_bi_ulllong_t bui;
+
+	d = data;
+	s = size;
+	check_data(sizeof(cui));
+	memcpy(&cui, d, sizeof(cui));
+	advance(sizeof(cui));
+	check_data(sizeof(bui));
+	memcpy(&bui, d, sizeof(bui));
+	advance(sizeof(bui));
+	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui, &bui);
+	test(mk_sl_cui_inl_defd_eq(&cui, &cui) == mk_lang_bui_ulllong_eq(&bui, &bui));
+}
+
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_eq(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	mk_sl_cui_fuzz_inl_defd_eq_restrict(data, size);
+	mk_sl_cui_fuzz_inl_defd_eq_alias(data, size);
+}
+
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_ne_restrict(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
 {
 	unsigned char const* d;
 	mk_lang_size_t s;
@@ -270,7 +295,32 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_ne(unsigned char const* const data, m
 	test(mk_sl_cui_inl_defd_ne(&cui1, &cui2) == mk_lang_bui_ulllong_ne(&bui1, &bui2));
 }
 
-mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_lt(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_ne_alias(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	unsigned char const* d;
+	mk_lang_size_t s;
+	mk_sl_cui_inl_defd_t cui;
+	mk_lang_bi_ulllong_t bui;
+
+	d = data;
+	s = size;
+	check_data(sizeof(cui));
+	memcpy(&cui, d, sizeof(cui));
+	advance(sizeof(cui));
+	check_data(sizeof(bui));
+	memcpy(&bui, d, sizeof(bui));
+	advance(sizeof(bui));
+	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui, &bui);
+	test(mk_sl_cui_inl_defd_ne(&cui, &cui) == mk_lang_bui_ulllong_ne(&bui, &bui));
+}
+
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_ne(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	mk_sl_cui_fuzz_inl_defd_ne_restrict(data, size);
+	mk_sl_cui_fuzz_inl_defd_ne_alias(data, size);
+}
+
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_lt_restrict(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
 {
 	unsigned char const* d;
 	mk_lang_size_t s;
@@ -298,7 +348,32 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_lt(unsigned char const* const data, m
 	test(mk_sl_cui_inl_defd_lt(&cui1, &cui2) == mk_lang_bui_ulllong_lt(&bui1, &bui2));
 }
 
-mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_le(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_lt_alias(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	unsigned char const* d;
+	mk_lang_size_t s;
+	mk_sl_cui_inl_defd_t cui;
+	mk_lang_bi_ulllong_t bui;
+
+	d = data;
+	s = size;
+	check_data(sizeof(cui));
+	memcpy(&cui, d, sizeof(cui));
+	advance(sizeof(cui));
+	check_data(sizeof(bui));
+	memcpy(&bui, d, sizeof(bui));
+	advance(sizeof(bui));
+	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui, &bui);
+	test(mk_sl_cui_inl_defd_lt(&cui, &cui) == mk_lang_bui_ulllong_lt(&bui, &bui));
+}
+
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_lt(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	mk_sl_cui_fuzz_inl_defd_lt_restrict(data, size);
+	mk_sl_cui_fuzz_inl_defd_lt_alias(data, size);
+}
+
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_le_restrict(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
 {
 	unsigned char const* d;
 	mk_lang_size_t s;
@@ -326,7 +401,32 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_le(unsigned char const* const data, m
 	test(mk_sl_cui_inl_defd_le(&cui1, &cui2) == mk_lang_bui_ulllong_le(&bui1, &bui2));
 }
 
-mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_gt(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_le_alias(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	unsigned char const* d;
+	mk_lang_size_t s;
+	mk_sl_cui_inl_defd_t cui;
+	mk_lang_bi_ulllong_t bui;
+
+	d = data;
+	s = size;
+	check_data(sizeof(cui));
+	memcpy(&cui, d, sizeof(cui));
+	advance(sizeof(cui));
+	check_data(sizeof(bui));
+	memcpy(&bui, d, sizeof(bui));
+	advance(sizeof(bui));
+	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui, &bui);
+	test(mk_sl_cui_inl_defd_le(&cui, &cui) == mk_lang_bui_ulllong_le(&bui, &bui));
+}
+
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_le(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	mk_sl_cui_fuzz_inl_defd_le_restrict(data, size);
+	mk_sl_cui_fuzz_inl_defd_le_alias(data, size);
+}
+
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_gt_restrict(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
 {
 	unsigned char const* d;
 	mk_lang_size_t s;
@@ -354,7 +454,32 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_gt(unsigned char const* const data, m
 	test(mk_sl_cui_inl_defd_gt(&cui1, &cui2) == mk_lang_bui_ulllong_gt(&bui1, &bui2));
 }
 
-mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_ge(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_gt_alias(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	unsigned char const* d;
+	mk_lang_size_t s;
+	mk_sl_cui_inl_defd_t cui;
+	mk_lang_bi_ulllong_t bui;
+
+	d = data;
+	s = size;
+	check_data(sizeof(cui));
+	memcpy(&cui, d, sizeof(cui));
+	advance(sizeof(cui));
+	check_data(sizeof(bui));
+	memcpy(&bui, d, sizeof(bui));
+	advance(sizeof(bui));
+	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui, &bui);
+	test(mk_sl_cui_inl_defd_gt(&cui, &cui) == mk_lang_bui_ulllong_gt(&bui, &bui));
+}
+
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_gt(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	mk_sl_cui_fuzz_inl_defd_gt_restrict(data, size);
+	mk_sl_cui_fuzz_inl_defd_gt_alias(data, size);
+}
+
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_ge_restrict(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
 {
 	unsigned char const* d;
 	mk_lang_size_t s;
@@ -380,6 +505,31 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_ge(unsigned char const* const data, m
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui1, &bui1);
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui2, &bui2);
 	test(mk_sl_cui_inl_defd_ge(&cui1, &cui2) == mk_lang_bui_ulllong_ge(&bui1, &bui2));
+}
+
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_ge_alias(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	unsigned char const* d;
+	mk_lang_size_t s;
+	mk_sl_cui_inl_defd_t cui;
+	mk_lang_bi_ulllong_t bui;
+
+	d = data;
+	s = size;
+	check_data(sizeof(cui));
+	memcpy(&cui, d, sizeof(cui));
+	advance(sizeof(cui));
+	check_data(sizeof(bui));
+	memcpy(&bui, d, sizeof(bui));
+	advance(sizeof(bui));
+	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui, &bui);
+	test(mk_sl_cui_inl_defd_ge(&cui, &cui) == mk_lang_bui_ulllong_ge(&bui, &bui));
+}
+
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_ge(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	mk_sl_cui_fuzz_inl_defd_ge_restrict(data, size);
+	mk_sl_cui_fuzz_inl_defd_ge_alias(data, size);
 }
 
 mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_inc2(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
