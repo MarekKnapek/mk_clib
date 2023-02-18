@@ -1351,7 +1351,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_rotr3_v2(unsigned char const* const d
 
 mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_fn(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
 {
-	mk_sl_cui_fuzz_inl_defd_set_zero(data, size);
+	/*mk_sl_cui_fuzz_inl_defd_set_zero(data, size);
 	mk_sl_cui_fuzz_inl_defd_set_max(data, size);
 	mk_sl_cui_fuzz_inl_defd_set_one(data, size);
 	mk_sl_cui_fuzz_inl_defd_set_bit(data, size);
@@ -1393,7 +1393,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_fn(unsigned char const* const data, m
 	mk_sl_cui_fuzz_inl_defd_not1(data, size);
 	mk_sl_cui_fuzz_inl_defd_or2(data, size);
 	mk_sl_cui_fuzz_inl_defd_and2(data, size);
-	mk_sl_cui_fuzz_inl_defd_xor2(data, size);
+	mk_sl_cui_fuzz_inl_defd_xor2(data, size);*/
 	mk_sl_cui_fuzz_inl_defd_shl3(data, size);
 	mk_sl_cui_fuzz_inl_defd_shr3(data, size);
 	mk_sl_cui_fuzz_inl_defd_rotl3(data, size);

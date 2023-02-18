@@ -961,8 +961,14 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_rotr3_v2(mk_sl_cui_inl_defd_t const* const
 	mk_lang_assert(c);
 
 	mk_sl_cui_inl_defd_base_rotr3(&a->m_data[0], b, &c->m_data[0]);
-#else
+#elif mk_sl_cui_inl_defd_count == 2
 	mk_lang_assert(a);
+	mk_lang_assert(b > 0 && b < mk_sl_cui_inl_defd_bits);
+	mk_lang_assert(c);
+
+	mk_sl_cui_inl_defd_rotr3(a, b, c);
+#else
+	/*mk_lang_assert(a);
 	mk_lang_assert(b > 0 && b < mk_sl_cui_inl_defd_bits);
 	mk_lang_assert(c);
 
@@ -973,6 +979,51 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_rotr3_v2(mk_sl_cui_inl_defd_t const* const
 	else
 	{
 		mk_sl_cui_inl_defd_rotr3(a, b, c);
+	}*/
+	int big;
+	int smol;
+	int smoli;
+	int smola;
+	int smolb;
+	int chains;
+	int chainl;
+	mk_sl_cui_inl_defd_base_type ta;
+	mk_sl_cui_inl_defd_base_type tb;
+	mk_sl_cui_inl_defd_base_type tc;
+	mk_sl_cui_inl_defd_base_type td;
+	int j;
+	int i;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b > 0 && b < mk_sl_cui_inl_defd_bits);
+	mk_lang_assert(c);
+
+	big = b / mk_sl_cui_inl_defd_base_bits;
+	smol = b % mk_sl_cui_inl_defd_base_bits;
+	smoli = mk_sl_cui_inl_defd_base_bits - smol;
+	smola = smoli / 2;
+	smolb = smoli - smola;
+	mk_lang_assert(big >= 0 && big < mk_sl_cui_inl_defd_count);
+	mk_lang_assert(smol >= 0 && smol < mk_sl_cui_inl_defd_base_bits);
+	mk_lang_assert(smoli >= 1 && smoli <= mk_sl_cui_inl_defd_base_bits);
+	mk_lang_assert(smola + smolb == smoli);
+	chains = (((mk_sl_cui_inl_defd_count % big) == 0) ? (mk_sl_cui_inl_defd_count / big) : (1));
+	chainl = mk_sl_cui_inl_defd_count / chains;
+	for(j = 0; j != chains; ++j)
+	{
+		ta = a->m_data[mk_sl_cui_inl_defd_idx(j)];
+		tb = a->m_data[mk_sl_cui_inl_defd_idx(j + 1)];
+		for(i = 0; i != chainl - 1; ++i)
+		{
+			mk_sl_cui_inl_defd_base_shr3(&a->m_data[mk_sl_cui_inl_defd_idx((((i + 1) * big) + j) % mk_sl_cui_inl_defd_count)], smol, &tc);
+			mk_sl_cui_inl_defd_base_shl3(&a->m_data[mk_sl_cui_inl_defd_idx((((i + 1) * big) + j + 1) % mk_sl_cui_inl_defd_count)], smola, &td);
+			mk_sl_cui_inl_defd_base_shl2(&td, smolb);
+			mk_sl_cui_inl_defd_base_or3(&tc, &td, &c->m_data[mk_sl_cui_inl_defd_idx((((i + 0) * big) + j) % mk_sl_cui_inl_defd_count)]);
+		}
+		mk_sl_cui_inl_defd_base_shr3(&ta, smol, &tc);
+		mk_sl_cui_inl_defd_base_shl3(&tb, smola, &td);
+		mk_sl_cui_inl_defd_base_shl2(&td, smolb);
+		mk_sl_cui_inl_defd_base_or3(&tc, &td, &c->m_data[mk_sl_cui_inl_defd_idx((((i + 0) * big) + j) % mk_sl_cui_inl_defd_count)]);
 	}
 #endif
 }
