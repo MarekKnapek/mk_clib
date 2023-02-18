@@ -70,7 +70,7 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_set_bit(mk_sl_cui_inl_defd_t* const x, int
 	mk_sl_cui_inl_defd_base_set_bit(&x->m_data[0], bit_idx);
 #else
 	mk_lang_assert(x);
-	mk_lang_assert(bit_idx >= 0 && bit_idx < ((int)(mk_sl_cui_inl_defd_bits)));
+	mk_lang_assert(bit_idx >= 0 && bit_idx < mk_sl_cui_inl_defd_bits);
 
 	mk_sl_cui_inl_defd_set_zero(x);
 	mk_sl_cui_inl_defd_base_set_bit(&x->m_data[mk_sl_cui_inl_defd_idx(bit_idx / mk_sl_cui_inl_defd_base_bits)], bit_idx % mk_sl_cui_inl_defd_base_bits);
@@ -86,7 +86,7 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_set_mask(mk_sl_cui_inl_defd_t* const x, in
 	int i;
 
 	mk_lang_assert(x);
-	mk_lang_assert(bits_count >= 1 && bits_count <= ((int)(mk_sl_cui_inl_defd_bits)));
+	mk_lang_assert(bits_count >= 1 && bits_count <= mk_sl_cui_inl_defd_bits);
 
 	for(i = 0; i != bits_count / mk_sl_cui_inl_defd_base_bits; ++i)
 	{
@@ -640,6 +640,411 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_xor2(mk_sl_cui_inl_defd_t* const a, mk_sl_
 	for(i = 0; i != mk_sl_cui_inl_defd_count; ++i)
 	{
 		mk_sl_cui_inl_defd_base_xor2(&a->m_data[mk_sl_cui_inl_defd_idx(i)], &b->m_data[mk_sl_cui_inl_defd_idx(i)]);
+	}
+#endif
+}
+
+
+mk_lang_jumbo void mk_sl_cui_inl_defd_shl3(mk_sl_cui_inl_defd_t const* const a, int const b, mk_sl_cui_inl_defd_t* const c) mk_lang_noexcept
+{
+#if mk_sl_cui_inl_defd_count == 1
+	mk_lang_assert(a);
+	mk_lang_assert(b >= 0 && b < mk_sl_cui_inl_defd_bits);
+	mk_lang_assert(c);
+	mk_sl_cui_inl_defd_base_shl3(&a->m_data[0], b, &c->m_data[0]);
+#else
+	int i;
+	int big;
+	int smol;
+	mk_sl_cui_inl_defd_base_type t;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b >= 0 && b < mk_sl_cui_inl_defd_bits);
+	mk_lang_assert(c);
+
+	big = ((int)(((int)(b)) / ((int)(mk_sl_cui_inl_defd_base_bits))));
+	smol = ((int)(((int)(b)) % ((int)(mk_sl_cui_inl_defd_base_bits))));
+	if(smol == 0)
+	{
+		for(i = 0; i != mk_sl_cui_inl_defd_count - big; ++i)
+		{
+			c->m_data[mk_sl_cui_inl_defd_idx((mk_sl_cui_inl_defd_count - 1) - i)] = a->m_data[mk_sl_cui_inl_defd_idx(((mk_sl_cui_inl_defd_count - 1) - big) - i)];
+		}
+		for(; i != mk_sl_cui_inl_defd_count; ++i)
+		{
+			mk_sl_cui_inl_defd_base_set_zero(&c->m_data[mk_sl_cui_inl_defd_idx((mk_sl_cui_inl_defd_count - 1) - i)]);
+		}
+	}
+	else
+	{
+		for(i = 0; i != mk_sl_cui_inl_defd_count - big - 1; ++i)
+		{
+			mk_sl_cui_inl_defd_base_shl3(&a->m_data[mk_sl_cui_inl_defd_idx((((mk_sl_cui_inl_defd_count - 1) - 0) - big) - i)], smol, &c->m_data[mk_sl_cui_inl_defd_idx((mk_sl_cui_inl_defd_count - 1) - i)]);
+			mk_sl_cui_inl_defd_base_shr3(&a->m_data[mk_sl_cui_inl_defd_idx((((mk_sl_cui_inl_defd_count - 1) - 1) - big) - i)], mk_sl_cui_inl_defd_base_bits - smol, &t);
+			mk_sl_cui_inl_defd_base_or2(&c->m_data[mk_sl_cui_inl_defd_idx((mk_sl_cui_inl_defd_count - 1) - i)], &t);
+		}
+		mk_sl_cui_inl_defd_base_shl3(&a->m_data[mk_sl_cui_inl_defd_idx((((mk_sl_cui_inl_defd_count - 1) - 0) - big) - i)], smol, &c->m_data[mk_sl_cui_inl_defd_idx((mk_sl_cui_inl_defd_count - 1) - i)]);
+		for(++i; i != mk_sl_cui_inl_defd_count; ++i)
+		{
+			mk_sl_cui_inl_defd_base_set_zero(&c->m_data[mk_sl_cui_inl_defd_idx((mk_sl_cui_inl_defd_count - 1) - i)]);
+		}
+	}
+#endif
+}
+
+mk_lang_jumbo void mk_sl_cui_inl_defd_shr3(mk_sl_cui_inl_defd_t const* const a, int const b, mk_sl_cui_inl_defd_t* const c) mk_lang_noexcept
+{
+#if mk_sl_cui_inl_defd_count == 1
+	mk_lang_assert(a);
+	mk_lang_assert(b >= 0 && b < mk_sl_cui_inl_defd_bits);
+	mk_lang_assert(c);
+	mk_sl_cui_inl_defd_base_shr3(&a->m_data[0], b, &c->m_data[0]);
+#else
+	int i;
+	int big;
+	int smol;
+	mk_sl_cui_inl_defd_base_type t;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b >= 0 && b < mk_sl_cui_inl_defd_bits);
+	mk_lang_assert(c);
+
+	big = ((int)(((int)(b)) / ((int)(mk_sl_cui_inl_defd_base_bits))));
+	smol = ((int)(((int)(b)) % ((int)(mk_sl_cui_inl_defd_base_bits))));
+	if(smol == 0)
+	{
+		for(i = 0; i != mk_sl_cui_inl_defd_count - big; ++i)
+		{
+			c->m_data[mk_sl_cui_inl_defd_idx(i)] = a->m_data[mk_sl_cui_inl_defd_idx(big + i)];
+		}
+		for(; i != mk_sl_cui_inl_defd_count; ++i)
+		{
+			mk_sl_cui_inl_defd_base_set_zero(&c->m_data[mk_sl_cui_inl_defd_idx(i)]);
+		}
+	}
+	else
+	{
+		for(i = 0; i != mk_sl_cui_inl_defd_count - big - 1; ++i)
+		{
+			mk_sl_cui_inl_defd_base_shr3(&a->m_data[mk_sl_cui_inl_defd_idx(big + 0 + i)], smol, &c->m_data[mk_sl_cui_inl_defd_idx(i)]);
+			mk_sl_cui_inl_defd_base_shl3(&a->m_data[mk_sl_cui_inl_defd_idx(big + 1 + i)], mk_sl_cui_inl_defd_base_bits - smol, &t);
+			mk_sl_cui_inl_defd_base_or2(&c->m_data[mk_sl_cui_inl_defd_idx(i)], &t);
+		}
+		mk_sl_cui_inl_defd_base_shr3(&a->m_data[mk_sl_cui_inl_defd_idx(big + i)], smol, &c->m_data[mk_sl_cui_inl_defd_idx(i)]);
+		for(++i; i != mk_sl_cui_inl_defd_count; ++i)
+		{
+			mk_sl_cui_inl_defd_base_set_zero(&c->m_data[mk_sl_cui_inl_defd_idx(i)]);
+		}
+	}
+#endif
+}
+
+mk_lang_jumbo void mk_sl_cui_inl_defd_rotl3(mk_sl_cui_inl_defd_t const* const a, int const b, mk_sl_cui_inl_defd_t* const c) mk_lang_noexcept
+{
+#if mk_sl_cui_inl_defd_count == 1
+	mk_lang_assert(a);
+	mk_lang_assert(b >= 1 && b < mk_sl_cui_inl_defd_bits);
+	mk_lang_assert(c);
+	mk_sl_cui_inl_defd_base_rotl3(&a->m_data[0], b, &c->m_data[0]);
+#else
+	mk_sl_cui_inl_defd_t ta;
+	mk_sl_cui_inl_defd_t tb;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b >= 1 && b < mk_sl_cui_inl_defd_bits);
+	mk_lang_assert(c);
+
+	mk_sl_cui_inl_defd_shl3(a, b, &ta);
+	mk_sl_cui_inl_defd_shr3(a, mk_sl_cui_inl_defd_bits - b, &tb);
+	mk_sl_cui_inl_defd_or3(&ta, &tb, c);
+#endif
+}
+
+mk_lang_jumbo void mk_sl_cui_inl_defd_rotr3(mk_sl_cui_inl_defd_t const* const a, int const b, mk_sl_cui_inl_defd_t* const c) mk_lang_noexcept
+{
+#if mk_sl_cui_inl_defd_count == 1
+	mk_lang_assert(a);
+	mk_lang_assert(b >= 1 && b < mk_sl_cui_inl_defd_bits);
+	mk_lang_assert(c);
+	mk_sl_cui_inl_defd_base_rotr3(&a->m_data[0], b, &c->m_data[0]);
+#else
+	mk_sl_cui_inl_defd_t ta;
+	mk_sl_cui_inl_defd_t tb;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b >= 1 && b < mk_sl_cui_inl_defd_bits);
+	mk_lang_assert(c);
+
+	mk_sl_cui_inl_defd_shr3(a, b, &ta);
+	mk_sl_cui_inl_defd_shl3(a, mk_sl_cui_inl_defd_bits - b, &tb);
+	mk_sl_cui_inl_defd_or3(&ta, &tb, c);
+#endif
+}
+
+mk_lang_jumbo void mk_sl_cui_inl_defd_rotl3_v2_simple3(mk_sl_cui_inl_defd_t const* const a, int const b, mk_sl_cui_inl_defd_t* const c) mk_lang_noexcept
+{
+	int n;
+	int j;
+	mk_sl_cui_inl_defd_base_type t;
+	int i;
+
+	mk_lang_assert(mk_sl_cui_inl_defd_count > 2);
+	mk_lang_assert(a);
+	mk_lang_assert(b > 0 && b <= mk_sl_cui_inl_defd_count / 2);
+	mk_lang_assert(c);
+
+	if(mk_sl_cui_inl_defd_count % b == 0)
+	{
+		n = mk_sl_cui_inl_defd_count / b;
+		for(j = 0; j != b; ++j)
+		{
+			t = a->m_data[mk_sl_cui_inl_defd_idx((mk_sl_cui_inl_defd_count - 1) - (j))];
+			for(i = 0; i != n - 1; ++i)
+			{
+				c->m_data[mk_sl_cui_inl_defd_idx((mk_sl_cui_inl_defd_count - 1) - (((i + 0) * b) + j))] = a->m_data[mk_sl_cui_inl_defd_idx((mk_sl_cui_inl_defd_count - 1) - (((i + 1) * b) + j))];
+			}
+			c->m_data[mk_sl_cui_inl_defd_idx((mk_sl_cui_inl_defd_count - 1) - (((i + 0) * b) + j))] = t;
+		}
+	}
+	else
+	{
+		t = a->m_data[mk_sl_cui_inl_defd_idx((mk_sl_cui_inl_defd_count - 1) - (0))];
+		for(i = 0; i != mk_sl_cui_inl_defd_count - 1; ++i)
+		{
+			c->m_data[mk_sl_cui_inl_defd_idx((mk_sl_cui_inl_defd_count - 1) - (((i + 0) * b) % mk_sl_cui_inl_defd_count))] = a->m_data[mk_sl_cui_inl_defd_idx((mk_sl_cui_inl_defd_count - 1) - (((i + 1) * b) % mk_sl_cui_inl_defd_count))];
+		}
+		c->m_data[mk_sl_cui_inl_defd_idx((mk_sl_cui_inl_defd_count - 1) - (((i + 0) * b) % mk_sl_cui_inl_defd_count))] = t;
+	}
+}
+
+mk_lang_jumbo void mk_sl_cui_inl_defd_rotr3_v2_simple3(mk_sl_cui_inl_defd_t const* const a, int const b, mk_sl_cui_inl_defd_t* const c) mk_lang_noexcept
+{
+	int n;
+	int j;
+	mk_sl_cui_inl_defd_base_type t;
+	int i;
+
+	mk_lang_assert(mk_sl_cui_inl_defd_count > 2);
+	mk_lang_assert(a);
+	mk_lang_assert(b > 0 && b <= mk_sl_cui_inl_defd_count / 2);
+	mk_lang_assert(c);
+
+	if(mk_sl_cui_inl_defd_count % b == 0)
+	{
+		n = mk_sl_cui_inl_defd_count / b;
+		for(j = 0; j != b; ++j)
+		{
+			t = a->m_data[mk_sl_cui_inl_defd_idx(j)];
+			for(i = 0; i != n - 1; ++i)
+			{
+				c->m_data[mk_sl_cui_inl_defd_idx(((i + 0) * b) + j)] = a->m_data[mk_sl_cui_inl_defd_idx(((i + 1) * b) + j)];
+			}
+			c->m_data[mk_sl_cui_inl_defd_idx(((i + 0) * b) + j)] = t;
+		}
+	}
+	else
+	{
+		t = a->m_data[mk_sl_cui_inl_defd_idx(0)];
+		for(i = 0; i != mk_sl_cui_inl_defd_count - 1; ++i)
+		{
+			c->m_data[mk_sl_cui_inl_defd_idx(((i + 0) * b) % mk_sl_cui_inl_defd_count)] = a->m_data[mk_sl_cui_inl_defd_idx(((i + 1) * b) % mk_sl_cui_inl_defd_count)];
+		}
+		c->m_data[mk_sl_cui_inl_defd_idx(((i + 0) * b) % mk_sl_cui_inl_defd_count)] = t;
+	}
+}
+
+mk_lang_jumbo void mk_sl_cui_inl_defd_rotl3_v2_simple2(mk_sl_cui_inl_defd_t const* const a, int const b, mk_sl_cui_inl_defd_t* const c) mk_lang_noexcept
+{
+	mk_lang_assert(mk_sl_cui_inl_defd_count > 2);
+	mk_lang_assert(a);
+	mk_lang_assert(b > 0 && b < mk_sl_cui_inl_defd_count);
+	mk_lang_assert(c);
+
+	if(b > mk_sl_cui_inl_defd_count / 2)
+	{
+		mk_sl_cui_inl_defd_rotr3_v2_simple3(a, mk_sl_cui_inl_defd_count - b, c);
+	}
+	else
+	{
+		mk_sl_cui_inl_defd_rotl3_v2_simple3(a, b, c);
+	}
+}
+
+mk_lang_jumbo void mk_sl_cui_inl_defd_rotr3_v2_simple2(mk_sl_cui_inl_defd_t const* const a, int const b, mk_sl_cui_inl_defd_t* const c) mk_lang_noexcept
+{
+	mk_lang_assert(mk_sl_cui_inl_defd_count > 2);
+	mk_lang_assert(a);
+	mk_lang_assert(b > 0 && b < mk_sl_cui_inl_defd_count);
+	mk_lang_assert(c);
+
+	if(b > mk_sl_cui_inl_defd_count / 2)
+	{
+		mk_sl_cui_inl_defd_rotl3_v2_simple3(a, mk_sl_cui_inl_defd_count - b, c);
+	}
+	else
+	{
+		mk_sl_cui_inl_defd_rotr3_v2_simple3(a, b, c);
+	}
+}
+
+mk_lang_jumbo void mk_sl_cui_inl_defd_rotl3_v2_simple1(mk_sl_cui_inl_defd_t const* const a, int const b, mk_sl_cui_inl_defd_t* const c) mk_lang_noexcept
+{
+#if mk_sl_cui_inl_defd_count == 2
+	mk_sl_cui_inl_defd_base_type t;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b == 1);
+	mk_lang_assert(c);
+
+	t = a->m_data[0];
+	c->m_data[0] = a->m_data[1];
+	c->m_data[1] = t;
+#else
+	mk_lang_assert(a);
+	mk_lang_assert(b > 0 && b < mk_sl_cui_inl_defd_count);
+	mk_lang_assert(c);
+
+	mk_sl_cui_inl_defd_rotl3_v2_simple2(a, b, c);
+#endif
+}
+
+mk_lang_jumbo void mk_sl_cui_inl_defd_rotr3_v2_simple1(mk_sl_cui_inl_defd_t const* const a, int const b, mk_sl_cui_inl_defd_t* const c) mk_lang_noexcept
+{
+#if mk_sl_cui_inl_defd_count == 2
+	mk_sl_cui_inl_defd_base_type t;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b == 1);
+	mk_lang_assert(c);
+
+	t = a->m_data[0];
+	c->m_data[0] = a->m_data[1];
+	c->m_data[1] = t;
+#else
+	mk_lang_assert(a);
+	mk_lang_assert(b > 0 && b < mk_sl_cui_inl_defd_count);
+	mk_lang_assert(c);
+
+	mk_sl_cui_inl_defd_rotr3_v2_simple2(a, b, c);
+#endif
+}
+
+mk_lang_jumbo void mk_sl_cui_inl_defd_rotl3_v2(mk_sl_cui_inl_defd_t const* const a, int const b, mk_sl_cui_inl_defd_t* const c) mk_lang_noexcept
+{
+#if mk_sl_cui_inl_defd_count == 1
+	mk_lang_assert(a);
+	mk_lang_assert(b > 0 && b < mk_sl_cui_inl_defd_bits);
+	mk_lang_assert(c);
+
+	mk_sl_cui_inl_defd_base_rotl3(&a->m_data[0], b, &c->m_data[0]);
+#else
+	mk_lang_assert(a);
+	mk_lang_assert(b > 0 && b < mk_sl_cui_inl_defd_bits);
+	mk_lang_assert(c);
+
+	if(b % mk_sl_cui_inl_defd_base_bits == 0)
+	{
+		mk_sl_cui_inl_defd_rotl3_v2_simple1(a, b / mk_sl_cui_inl_defd_base_bits, c);
+	}
+	else
+	{
+		mk_sl_cui_inl_defd_rotl3(a, b, c);
+	}
+#endif
+}
+
+mk_lang_jumbo void mk_sl_cui_inl_defd_rotr3_v2(mk_sl_cui_inl_defd_t const* const a, int const b, mk_sl_cui_inl_defd_t* const c) mk_lang_noexcept
+{
+#if mk_sl_cui_inl_defd_count == 1
+	mk_lang_assert(a);
+	mk_lang_assert(b > 0 && b < mk_sl_cui_inl_defd_bits);
+	mk_lang_assert(c);
+
+	mk_sl_cui_inl_defd_base_rotr3(&a->m_data[0], b, &c->m_data[0]);
+#else
+	mk_lang_assert(a);
+	mk_lang_assert(b > 0 && b < mk_sl_cui_inl_defd_bits);
+	mk_lang_assert(c);
+
+	if(b % mk_sl_cui_inl_defd_base_bits == 0)
+	{
+		mk_sl_cui_inl_defd_rotr3_v2_simple1(a, b / mk_sl_cui_inl_defd_base_bits, c);
+	}
+	else
+	{
+		mk_sl_cui_inl_defd_rotr3(a, b, c);
+	}
+#endif
+}
+
+mk_lang_jumbo void mk_sl_cui_inl_defd_shl2(mk_sl_cui_inl_defd_t* const a, int const b) mk_lang_noexcept
+{
+#if mk_sl_cui_inl_defd_count == 1
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_sl_cui_inl_defd_base_shl2(&a->m_data[0], b);
+#else
+	int i;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	for(i = 0; i != mk_sl_cui_inl_defd_count; ++i)
+	{
+	}
+#endif
+}
+
+mk_lang_jumbo void mk_sl_cui_inl_defd_shr2(mk_sl_cui_inl_defd_t* const a, int const b) mk_lang_noexcept
+{
+#if mk_sl_cui_inl_defd_count == 1
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_sl_cui_inl_defd_base_shr2(&a->m_data[0], b);
+#else
+	int i;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	for(i = 0; i != mk_sl_cui_inl_defd_count; ++i)
+	{
+	}
+#endif
+}
+
+mk_lang_jumbo void mk_sl_cui_inl_defd_rotl2(mk_sl_cui_inl_defd_t* const a, int const b) mk_lang_noexcept
+{
+#if mk_sl_cui_inl_defd_count == 1
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_sl_cui_inl_defd_base_rotl2(&a->m_data[0], b);
+#else
+	int i;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	for(i = 0; i != mk_sl_cui_inl_defd_count; ++i)
+	{
+	}
+#endif
+}
+
+mk_lang_jumbo void mk_sl_cui_inl_defd_rotr2(mk_sl_cui_inl_defd_t* const a, int const b) mk_lang_noexcept
+{
+#if mk_sl_cui_inl_defd_count == 1
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_sl_cui_inl_defd_base_rotr2(&a->m_data[0], b);
+#else
+	int i;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	for(i = 0; i != mk_sl_cui_inl_defd_count; ++i)
+	{
 	}
 #endif
 }

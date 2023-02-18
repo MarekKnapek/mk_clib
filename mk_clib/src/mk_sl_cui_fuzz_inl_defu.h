@@ -18,6 +18,12 @@
 #undef mk_sl_cui_fuzz_inl_defd_or2_restrict
 #undef mk_sl_cui_fuzz_inl_defd_and2_restrict
 #undef mk_sl_cui_fuzz_inl_defd_xor2_restrict
+#undef mk_sl_cui_fuzz_inl_defd_shl3_restrict
+#undef mk_sl_cui_fuzz_inl_defd_shr3_restrict
+#undef mk_sl_cui_fuzz_inl_defd_rotl3_restrict
+#undef mk_sl_cui_fuzz_inl_defd_rotr3_restrict
+#undef mk_sl_cui_fuzz_inl_defd_rotl3_v2_restrict
+#undef mk_sl_cui_fuzz_inl_defd_rotr3_v2_restrict
 
 #undef mk_sl_cui_fuzz_inl_defd_eq_alias
 #undef mk_sl_cui_fuzz_inl_defd_ne_alias
@@ -53,3 +59,9 @@
 #undef mk_sl_cui_fuzz_inl_defd_or2
 #undef mk_sl_cui_fuzz_inl_defd_and2
 #undef mk_sl_cui_fuzz_inl_defd_xor2
+#undef mk_sl_cui_fuzz_inl_defd_shl3
+#undef mk_sl_cui_fuzz_inl_defd_shr3
+#undef mk_sl_cui_fuzz_inl_defd_rotl3
+#undef mk_sl_cui_fuzz_inl_defd_rotr3
+#undef mk_sl_cui_fuzz_inl_defd_rotl3_v2
+#undef mk_sl_cui_fuzz_inl_defd_rotr3_v2

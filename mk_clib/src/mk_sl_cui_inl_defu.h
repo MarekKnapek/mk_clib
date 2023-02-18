@@ -100,6 +100,14 @@
 #undef mk_sl_cui_inl_defd_shr3
 #undef mk_sl_cui_inl_defd_rotl3
 #undef mk_sl_cui_inl_defd_rotr3
+#undef mk_sl_cui_inl_defd_rotr3_v2_simple3
+#undef mk_sl_cui_inl_defd_rotl3_v2_simple3
+#undef mk_sl_cui_inl_defd_rotr3_v2_simple2
+#undef mk_sl_cui_inl_defd_rotl3_v2_simple2
+#undef mk_sl_cui_inl_defd_rotr3_v2_simple1
+#undef mk_sl_cui_inl_defd_rotl3_v2_simple1
+#undef mk_sl_cui_inl_defd_rotl3_v2
+#undef mk_sl_cui_inl_defd_rotr3_v2
 #undef mk_sl_cui_inl_defd_shl2
 #undef mk_sl_cui_inl_defd_shr2
 #undef mk_sl_cui_inl_defd_rotl2
