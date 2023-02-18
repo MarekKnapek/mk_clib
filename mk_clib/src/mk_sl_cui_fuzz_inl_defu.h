@@ -9,6 +9,8 @@
 #undef mk_sl_cui_fuzz_inl_defd_le_restrict
 #undef mk_sl_cui_fuzz_inl_defd_gt_restrict
 #undef mk_sl_cui_fuzz_inl_defd_ge_restrict
+#undef mk_sl_cui_fuzz_inl_defd_inc2_restrict
+#undef mk_sl_cui_fuzz_inl_defd_dec2_restrict
 
 #undef mk_sl_cui_fuzz_inl_defd_eq_alias
 #undef mk_sl_cui_fuzz_inl_defd_ne_alias
@@ -16,6 +18,8 @@
 #undef mk_sl_cui_fuzz_inl_defd_le_alias
 #undef mk_sl_cui_fuzz_inl_defd_gt_alias
 #undef mk_sl_cui_fuzz_inl_defd_ge_alias
+#undef mk_sl_cui_fuzz_inl_defd_inc2_alias
+#undef mk_sl_cui_fuzz_inl_defd_dec2_alias
 
 #undef mk_sl_cui_fuzz_inl_defd_set_zero
 #undef mk_sl_cui_fuzz_inl_defd_set_max

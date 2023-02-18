@@ -532,7 +532,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_ge(unsigned char const* const data, m
 	mk_sl_cui_fuzz_inl_defd_ge_alias(data, size);
 }
 
-mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_inc2(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_inc2_restrict(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
 {
 	unsigned char const* d;
 	mk_lang_size_t s;
@@ -566,7 +566,39 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_inc2(unsigned char const* const data,
 	test(buir2 == buir1);
 }
 
-mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_dec2(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_inc2_alias(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	unsigned char const* d;
+	mk_lang_size_t s;
+	mk_lang_bi_ulllong_t bui;
+	mk_sl_cui_inl_defd_t cui;
+	mk_lang_bi_ulllong_t buir;
+
+	d = data;
+	s = size;
+	check_data(sizeof(bui));
+	memcpy(&bui, d, sizeof(bui));
+	advance(sizeof(bui));
+	check_data(sizeof(cui));
+	memcpy(&cui, d, sizeof(cui));
+	advance(sizeof(cui));
+	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui, &bui);
+	mk_lang_bui_ulllong_inc2(&bui, &bui);
+	mk_sl_cui_inl_defd_inc2(&cui, &cui);
+	check_data(sizeof(buir));
+	memcpy(&buir, d, sizeof(buir));
+	advance(sizeof(buir));
+	mk_sl_cui_fuzz_inl_defd_to_bi_ulllong(&cui, &buir);
+	test(buir == bui);
+}
+
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_inc2(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	mk_sl_cui_fuzz_inl_defd_inc2_restrict(data, size);
+	mk_sl_cui_fuzz_inl_defd_inc2_alias(data, size);
+}
+
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_dec2_restrict(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
 {
 	unsigned char const* d;
 	mk_lang_size_t s;
@@ -598,6 +630,38 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_dec2(unsigned char const* const data,
 	advance(sizeof(buir2));
 	mk_sl_cui_fuzz_inl_defd_to_bi_ulllong(&cuir1, &buir2);
 	test(buir2 == buir1);
+}
+
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_dec2_alias(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	unsigned char const* d;
+	mk_lang_size_t s;
+	mk_lang_bi_ulllong_t bui;
+	mk_sl_cui_inl_defd_t cui;
+	mk_lang_bi_ulllong_t buir;
+
+	d = data;
+	s = size;
+	check_data(sizeof(bui));
+	memcpy(&bui, d, sizeof(bui));
+	advance(sizeof(bui));
+	check_data(sizeof(cui));
+	memcpy(&cui, d, sizeof(cui));
+	advance(sizeof(cui));
+	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui, &bui);
+	mk_lang_bui_ulllong_dec2(&bui, &bui);
+	mk_sl_cui_inl_defd_dec2(&cui, &cui);
+	check_data(sizeof(buir));
+	memcpy(&buir, d, sizeof(buir));
+	advance(sizeof(buir));
+	mk_sl_cui_fuzz_inl_defd_to_bi_ulllong(&cui, &buir);
+	test(buir == bui);
+}
+
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_dec2(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	mk_sl_cui_fuzz_inl_defd_dec2_restrict(data, size);
+	mk_sl_cui_fuzz_inl_defd_dec2_alias(data, size);
 }
 
 mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_inc1(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
