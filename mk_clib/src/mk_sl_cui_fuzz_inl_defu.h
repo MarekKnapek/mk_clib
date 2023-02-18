@@ -11,6 +11,13 @@
 #undef mk_sl_cui_fuzz_inl_defd_ge_restrict
 #undef mk_sl_cui_fuzz_inl_defd_inc2_restrict
 #undef mk_sl_cui_fuzz_inl_defd_dec2_restrict
+#undef mk_sl_cui_fuzz_inl_defd_not2_restrict
+#undef mk_sl_cui_fuzz_inl_defd_or3_restrict
+#undef mk_sl_cui_fuzz_inl_defd_and3_restrict
+#undef mk_sl_cui_fuzz_inl_defd_xor3_restrict
+#undef mk_sl_cui_fuzz_inl_defd_or2_restrict
+#undef mk_sl_cui_fuzz_inl_defd_and2_restrict
+#undef mk_sl_cui_fuzz_inl_defd_xor2_restrict
 
 #undef mk_sl_cui_fuzz_inl_defd_eq_alias
 #undef mk_sl_cui_fuzz_inl_defd_ne_alias
@@ -38,3 +45,11 @@
 #undef mk_sl_cui_fuzz_inl_defd_dec2
 #undef mk_sl_cui_fuzz_inl_defd_inc1
 #undef mk_sl_cui_fuzz_inl_defd_dec1
+#undef mk_sl_cui_fuzz_inl_defd_not2
+#undef mk_sl_cui_fuzz_inl_defd_or3
+#undef mk_sl_cui_fuzz_inl_defd_and3
+#undef mk_sl_cui_fuzz_inl_defd_xor3
+#undef mk_sl_cui_fuzz_inl_defd_not1
+#undef mk_sl_cui_fuzz_inl_defd_or2
+#undef mk_sl_cui_fuzz_inl_defd_and2
+#undef mk_sl_cui_fuzz_inl_defd_xor2
