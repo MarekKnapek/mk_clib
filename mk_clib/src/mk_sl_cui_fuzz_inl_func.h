@@ -158,11 +158,11 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_set_mask(unsigned char const* const d
 
 #define mk_lang_forb1_id mk_lang_for_constants_bi
 #define mk_lang_forb_file "mk_sl_cui_fuzz_inl_tofrom_bi_inl_func.h"
-#define mk_sl_cui_inl_tofrom_bi_for_bi mk_lang_forb_bi
+#define mk_sl_cui_fuzz_inl_tofrom_bi_for_bi mk_lang_forb_bi
 #include "mk_lang_forb1.h"
 #undef mk_lang_forb1_id
 #undef mk_lang_forb_file
-#undef mk_sl_cui_inl_tofrom_bi_for_bi
+#undef mk_sl_cui_fuzz_inl_tofrom_bi_for_bi
 
 /* todo to/from buis */
 
@@ -382,11 +382,11 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_fn(unsigned char const* const data, m
 	mk_sl_cui_fuzz_inl_defd_set_mask(data, size);
 	#define mk_lang_forb1_id mk_lang_for_constants_bi
 	#define mk_lang_forb_file "mk_sl_cui_fuzz_inl_tofrom_bi_inl_call.h"
-	#define mk_sl_cui_inl_tofrom_bi_for_bi mk_lang_forb_bi
+	#define mk_sl_cui_fuzz_inl_tofrom_bi_for_bi mk_lang_forb_bi
 	#include "mk_lang_forb1.h"
 	#undef mk_lang_forb1_id
 	#undef mk_lang_forb_file
-	#undef mk_sl_cui_inl_tofrom_bi_for_bi
+	#undef mk_sl_cui_fuzz_inl_tofrom_bi_for_bi
 	mk_sl_cui_fuzz_inl_defd_is_zero(data, size);
 	mk_sl_cui_fuzz_inl_defd_is_max(data, size);
 	mk_sl_cui_fuzz_inl_defd_eq(data, size);
