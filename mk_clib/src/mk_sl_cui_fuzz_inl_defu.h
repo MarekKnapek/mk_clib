@@ -16,3 +16,7 @@
 #undef mk_sl_cui_fuzz_inl_defd_le
 #undef mk_sl_cui_fuzz_inl_defd_gt
 #undef mk_sl_cui_fuzz_inl_defd_ge
+#undef mk_sl_cui_fuzz_inl_defd_inc2
+#undef mk_sl_cui_fuzz_inl_defd_dec2
+#undef mk_sl_cui_fuzz_inl_defd_inc1
+#undef mk_sl_cui_fuzz_inl_defd_dec1

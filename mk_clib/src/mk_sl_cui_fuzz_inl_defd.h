@@ -16,3 +16,7 @@
 #define mk_sl_cui_fuzz_inl_defd_le mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _le)
 #define mk_sl_cui_fuzz_inl_defd_gt mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _gt)
 #define mk_sl_cui_fuzz_inl_defd_ge mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _ge)
+#define mk_sl_cui_fuzz_inl_defd_inc2 mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _inc2)
+#define mk_sl_cui_fuzz_inl_defd_dec2 mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _dec2)
+#define mk_sl_cui_fuzz_inl_defd_inc1 mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _inc1)
+#define mk_sl_cui_fuzz_inl_defd_dec1 mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _dec1)
