@@ -64,6 +64,7 @@
 #undef mk_sl_cui_inl_defd_s
 #undef mk_sl_cui_inl_defd_t
 
+#undef mk_sl_cui_inl_defd_bits
 #undef mk_sl_cui_inl_defd_idx
 
 #undef mk_sl_cui_inl_defd_set_zero
