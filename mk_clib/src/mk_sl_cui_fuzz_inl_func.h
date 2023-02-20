@@ -1,4 +1,5 @@
 #include "mk_lang_assert.h"
+#include "mk_lang_bool.h"
 #include "mk_lang_charbit.h"
 #include "mk_lang_crash.h"
 #include "mk_lang_jumbo.h"
@@ -2008,6 +2009,401 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_rotr2(unsigned char const* const data
 	test(buir == bui);
 }
 
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_add_cc_restrict(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	unsigned char const* d;
+	mk_lang_size_t s;
+	mk_sl_cui_inl_defd_t cui1;
+	mk_sl_cui_inl_defd_t cui2;
+	mk_lang_bi_ulllong_t bui1;
+	mk_lang_bi_ulllong_t bui2;
+
+	d = data;
+	s = size;
+	check_data(sizeof(cui1));
+	memcpy(&cui1, d, sizeof(cui1));
+	advance(sizeof(cui1));
+	check_data(sizeof(cui2));
+	memcpy(&cui2, d, sizeof(cui2));
+	advance(sizeof(cui2));
+	check_data(sizeof(bui1));
+	memcpy(&bui1, d, sizeof(bui1));
+	advance(sizeof(bui1));
+	check_data(sizeof(bui2));
+	memcpy(&bui2, d, sizeof(bui2));
+	advance(sizeof(bui2));
+	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui1, &bui1);
+	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui2, &bui2);
+	test(mk_sl_cui_inl_defd_would_overflow_add_cc(&cui1, &cui2) == mk_lang_bui_ulllong_would_overflow_add_cc(&bui1, &bui2));
+}
+
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_add_cc_alias(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	unsigned char const* d;
+	mk_lang_size_t s;
+	mk_sl_cui_inl_defd_t cui;
+	mk_lang_bi_ulllong_t bui;
+
+	d = data;
+	s = size;
+	check_data(sizeof(cui));
+	memcpy(&cui, d, sizeof(cui));
+	advance(sizeof(cui));
+	check_data(sizeof(bui));
+	memcpy(&bui, d, sizeof(bui));
+	advance(sizeof(bui));
+	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui, &bui);
+	test(mk_sl_cui_inl_defd_would_overflow_add_cc(&cui, &cui) == mk_lang_bui_ulllong_would_overflow_add_cc(&bui, &bui));
+}
+
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_add_cc(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	mk_sl_cui_fuzz_inl_defd_would_overflow_add_cc_restrict(data, size);
+	mk_sl_cui_fuzz_inl_defd_would_overflow_add_cc_alias(data, size);
+}
+
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_add_cs_restrict(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	unsigned char const* d;
+	mk_lang_size_t s;
+	mk_sl_cui_inl_defd_t cui1;
+	mk_sl_cui_inl_defd_t cui2;
+	mk_lang_bi_ulllong_t bui1;
+	mk_lang_bi_ulllong_t bui2;
+
+	d = data;
+	s = size;
+	check_data(sizeof(cui1));
+	memcpy(&cui1, d, sizeof(cui1));
+	advance(sizeof(cui1));
+	check_data(sizeof(cui2));
+	memcpy(&cui2, d, sizeof(cui2));
+	advance(sizeof(cui2));
+	check_data(sizeof(bui1));
+	memcpy(&bui1, d, sizeof(bui1));
+	advance(sizeof(bui1));
+	check_data(sizeof(bui2));
+	memcpy(&bui2, d, sizeof(bui2));
+	advance(sizeof(bui2));
+	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui1, &bui1);
+	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui2, &bui2);
+	test(mk_sl_cui_inl_defd_would_overflow_add_cs(&cui1, &cui2) == mk_lang_bui_ulllong_would_overflow_add_cs(&bui1, &bui2));
+}
+
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_add_cs_alias(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	unsigned char const* d;
+	mk_lang_size_t s;
+	mk_sl_cui_inl_defd_t cui;
+	mk_lang_bi_ulllong_t bui;
+
+	d = data;
+	s = size;
+	check_data(sizeof(cui));
+	memcpy(&cui, d, sizeof(cui));
+	advance(sizeof(cui));
+	check_data(sizeof(bui));
+	memcpy(&bui, d, sizeof(bui));
+	advance(sizeof(bui));
+	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui, &bui);
+	test(mk_sl_cui_inl_defd_would_overflow_add_cs(&cui, &cui) == mk_lang_bui_ulllong_would_overflow_add_cs(&bui, &bui));
+}
+
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_add_cs(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	mk_sl_cui_fuzz_inl_defd_would_overflow_add_cs_restrict(data, size);
+	mk_sl_cui_fuzz_inl_defd_would_overflow_add_cs_alias(data, size);
+}
+
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_add_restrict(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	unsigned char const* d;
+	mk_lang_size_t s;
+	mk_sl_cui_inl_defd_t cui1;
+	mk_sl_cui_inl_defd_t cui2;
+	mk_lang_bi_ulllong_t bui1;
+	mk_lang_bi_ulllong_t bui2;
+	unsigned char b_;
+	mk_lang_bool_t b;
+
+	d = data;
+	s = size;
+	check_data(sizeof(cui1));
+	memcpy(&cui1, d, sizeof(cui1));
+	advance(sizeof(cui1));
+	check_data(sizeof(cui2));
+	memcpy(&cui2, d, sizeof(cui2));
+	advance(sizeof(cui2));
+	check_data(sizeof(bui1));
+	memcpy(&bui1, d, sizeof(bui1));
+	advance(sizeof(bui1));
+	check_data(sizeof(bui2));
+	memcpy(&bui2, d, sizeof(bui2));
+	advance(sizeof(bui2));
+	check_data(sizeof(b_));
+	memcpy(&b_, d, sizeof(b_));
+	advance(sizeof(b_));
+	b = b_ & 1u;
+	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui1, &bui1);
+	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui2, &bui2);
+	test(mk_sl_cui_inl_defd_would_overflow_add(&cui1, &cui2, b) == mk_lang_bui_ulllong_would_overflow_add(&bui1, &bui2, b));
+}
+
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_add_alias(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	unsigned char const* d;
+	mk_lang_size_t s;
+	mk_sl_cui_inl_defd_t cui;
+	mk_lang_bi_ulllong_t bui;
+	unsigned char b_;
+	mk_lang_bool_t b;
+
+	d = data;
+	s = size;
+	check_data(sizeof(cui));
+	memcpy(&cui, d, sizeof(cui));
+	advance(sizeof(cui));
+	check_data(sizeof(bui));
+	memcpy(&bui, d, sizeof(bui));
+	advance(sizeof(bui));
+	check_data(sizeof(b_));
+	memcpy(&b_, d, sizeof(b_));
+	advance(sizeof(b_));
+	b = b_ & 1u;
+	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui, &bui);
+	test(mk_sl_cui_inl_defd_would_overflow_add(&cui, &cui, b) == mk_lang_bui_ulllong_would_overflow_add(&bui, &bui, b));
+}
+
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_add(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	mk_sl_cui_fuzz_inl_defd_would_overflow_add_restrict(data, size);
+	mk_sl_cui_fuzz_inl_defd_would_overflow_add_alias(data, size);
+}
+
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_sub_cc_restrict(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	unsigned char const* d;
+	mk_lang_size_t s;
+	mk_sl_cui_inl_defd_t cui1;
+	mk_sl_cui_inl_defd_t cui2;
+	mk_lang_bi_ulllong_t bui1;
+	mk_lang_bi_ulllong_t bui2;
+
+	d = data;
+	s = size;
+	check_data(sizeof(cui1));
+	memcpy(&cui1, d, sizeof(cui1));
+	advance(sizeof(cui1));
+	check_data(sizeof(cui2));
+	memcpy(&cui2, d, sizeof(cui2));
+	advance(sizeof(cui2));
+	check_data(sizeof(bui1));
+	memcpy(&bui1, d, sizeof(bui1));
+	advance(sizeof(bui1));
+	check_data(sizeof(bui2));
+	memcpy(&bui2, d, sizeof(bui2));
+	advance(sizeof(bui2));
+	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui1, &bui1);
+	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui2, &bui2);
+	test(mk_sl_cui_inl_defd_would_overflow_sub_cc(&cui1, &cui2) == mk_lang_bui_ulllong_would_overflow_sub_cc(&bui1, &bui2));
+}
+
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_sub_cc_alias(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	unsigned char const* d;
+	mk_lang_size_t s;
+	mk_sl_cui_inl_defd_t cui;
+	mk_lang_bi_ulllong_t bui;
+
+	d = data;
+	s = size;
+	check_data(sizeof(cui));
+	memcpy(&cui, d, sizeof(cui));
+	advance(sizeof(cui));
+	check_data(sizeof(bui));
+	memcpy(&bui, d, sizeof(bui));
+	advance(sizeof(bui));
+	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui, &bui);
+	test(mk_sl_cui_inl_defd_would_overflow_sub_cc(&cui, &cui) == mk_lang_bui_ulllong_would_overflow_sub_cc(&bui, &bui));
+}
+
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_sub_cc(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	mk_sl_cui_fuzz_inl_defd_would_overflow_sub_cc_restrict(data, size);
+	mk_sl_cui_fuzz_inl_defd_would_overflow_sub_cc_alias(data, size);
+}
+
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_sub_cs_restrict(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	unsigned char const* d;
+	mk_lang_size_t s;
+	mk_sl_cui_inl_defd_t cui1;
+	mk_sl_cui_inl_defd_t cui2;
+	mk_lang_bi_ulllong_t bui1;
+	mk_lang_bi_ulllong_t bui2;
+
+	d = data;
+	s = size;
+	check_data(sizeof(cui1));
+	memcpy(&cui1, d, sizeof(cui1));
+	advance(sizeof(cui1));
+	check_data(sizeof(cui2));
+	memcpy(&cui2, d, sizeof(cui2));
+	advance(sizeof(cui2));
+	check_data(sizeof(bui1));
+	memcpy(&bui1, d, sizeof(bui1));
+	advance(sizeof(bui1));
+	check_data(sizeof(bui2));
+	memcpy(&bui2, d, sizeof(bui2));
+	advance(sizeof(bui2));
+	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui1, &bui1);
+	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui2, &bui2);
+	test(mk_sl_cui_inl_defd_would_overflow_sub_cs(&cui1, &cui2) == mk_lang_bui_ulllong_would_overflow_sub_cs(&bui1, &bui2));
+}
+
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_sub_cs_alias(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	unsigned char const* d;
+	mk_lang_size_t s;
+	mk_sl_cui_inl_defd_t cui;
+	mk_lang_bi_ulllong_t bui;
+
+	d = data;
+	s = size;
+	check_data(sizeof(cui));
+	memcpy(&cui, d, sizeof(cui));
+	advance(sizeof(cui));
+	check_data(sizeof(bui));
+	memcpy(&bui, d, sizeof(bui));
+	advance(sizeof(bui));
+	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui, &bui);
+	test(mk_sl_cui_inl_defd_would_overflow_sub_cs(&cui, &cui) == mk_lang_bui_ulllong_would_overflow_sub_cs(&bui, &bui));
+}
+
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_sub_cs(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	mk_sl_cui_fuzz_inl_defd_would_overflow_sub_cs_restrict(data, size);
+	mk_sl_cui_fuzz_inl_defd_would_overflow_sub_cs_alias(data, size);
+}
+
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_sub_restrict(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	unsigned char const* d;
+	mk_lang_size_t s;
+	mk_sl_cui_inl_defd_t cui1;
+	mk_sl_cui_inl_defd_t cui2;
+	mk_lang_bi_ulllong_t bui1;
+	mk_lang_bi_ulllong_t bui2;
+	unsigned char b_;
+	mk_lang_bool_t b;
+
+	d = data;
+	s = size;
+	check_data(sizeof(cui1));
+	memcpy(&cui1, d, sizeof(cui1));
+	advance(sizeof(cui1));
+	check_data(sizeof(cui2));
+	memcpy(&cui2, d, sizeof(cui2));
+	advance(sizeof(cui2));
+	check_data(sizeof(bui1));
+	memcpy(&bui1, d, sizeof(bui1));
+	advance(sizeof(bui1));
+	check_data(sizeof(bui2));
+	memcpy(&bui2, d, sizeof(bui2));
+	advance(sizeof(bui2));
+	check_data(sizeof(b_));
+	memcpy(&b_, d, sizeof(b_));
+	advance(sizeof(b_));
+	b = b_ & 1u;
+	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui1, &bui1);
+	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui2, &bui2);
+	test(mk_sl_cui_inl_defd_would_overflow_sub(&cui1, &cui2, b) == mk_lang_bui_ulllong_would_overflow_sub(&bui1, &bui2, b));
+}
+
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_sub_alias(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	unsigned char const* d;
+	mk_lang_size_t s;
+	mk_sl_cui_inl_defd_t cui;
+	mk_lang_bi_ulllong_t bui;
+	unsigned char b_;
+	mk_lang_bool_t b;
+
+	d = data;
+	s = size;
+	check_data(sizeof(cui));
+	memcpy(&cui, d, sizeof(cui));
+	advance(sizeof(cui));
+	check_data(sizeof(bui));
+	memcpy(&bui, d, sizeof(bui));
+	advance(sizeof(bui));
+	check_data(sizeof(b_));
+	memcpy(&b_, d, sizeof(b_));
+	advance(sizeof(b_));
+	b = b_ & 1u;
+	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui, &bui);
+	test(mk_sl_cui_inl_defd_would_overflow_sub(&cui, &cui, b) == mk_lang_bui_ulllong_would_overflow_sub(&bui, &bui, b));
+}
+
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_sub(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	mk_sl_cui_fuzz_inl_defd_would_overflow_sub_restrict(data, size);
+	mk_sl_cui_fuzz_inl_defd_would_overflow_sub_alias(data, size);
+}
+
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_mul_restrict(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	unsigned char const* d;
+	mk_lang_size_t s;
+	mk_sl_cui_inl_defd_t cui1;
+	mk_sl_cui_inl_defd_t cui2;
+	mk_lang_bi_ulllong_t bui1;
+	mk_lang_bi_ulllong_t bui2;
+
+	d = data;
+	s = size;
+	check_data(sizeof(cui1));
+	memcpy(&cui1, d, sizeof(cui1));
+	advance(sizeof(cui1));
+	check_data(sizeof(cui2));
+	memcpy(&cui2, d, sizeof(cui2));
+	advance(sizeof(cui2));
+	check_data(sizeof(bui1));
+	memcpy(&bui1, d, sizeof(bui1));
+	advance(sizeof(bui1));
+	check_data(sizeof(bui2));
+	memcpy(&bui2, d, sizeof(bui2));
+	advance(sizeof(bui2));
+	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui1, &bui1);
+	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui2, &bui2);
+	test(mk_sl_cui_inl_defd_would_overflow_mul(&cui1, &cui2) == mk_lang_bui_ulllong_would_overflow_mul(&bui1, &bui2));
+}
+
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_mul_alias(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	unsigned char const* d;
+	mk_lang_size_t s;
+	mk_sl_cui_inl_defd_t cui;
+	mk_lang_bi_ulllong_t bui;
+
+	d = data;
+	s = size;
+	check_data(sizeof(cui));
+	memcpy(&cui, d, sizeof(cui));
+	advance(sizeof(cui));
+	check_data(sizeof(bui));
+	memcpy(&bui, d, sizeof(bui));
+	advance(sizeof(bui));
+	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui, &bui);
+	test(mk_sl_cui_inl_defd_would_overflow_mul(&cui, &cui) == mk_lang_bui_ulllong_would_overflow_mul(&bui, &bui));
+}
+
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_mul(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	mk_sl_cui_fuzz_inl_defd_would_overflow_mul_restrict(data, size);
+	mk_sl_cui_fuzz_inl_defd_would_overflow_mul_alias(data, size);
+}
+
 
 mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_fn(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
 {
@@ -2062,6 +2458,13 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_fn(unsigned char const* const data, m
 	mk_sl_cui_fuzz_inl_defd_shr2(data, size);
 	mk_sl_cui_fuzz_inl_defd_rotl2(data, size);
 	mk_sl_cui_fuzz_inl_defd_rotr2(data, size);
+	mk_sl_cui_fuzz_inl_defd_would_overflow_add_cc(data, size);
+	mk_sl_cui_fuzz_inl_defd_would_overflow_add_cs(data, size);
+	mk_sl_cui_fuzz_inl_defd_would_overflow_add(data, size);
+	mk_sl_cui_fuzz_inl_defd_would_overflow_sub_cc(data, size);
+	mk_sl_cui_fuzz_inl_defd_would_overflow_sub_cs(data, size);
+	mk_sl_cui_fuzz_inl_defd_would_overflow_sub(data, size);
+	/*mk_sl_cui_fuzz_inl_defd_would_overflow_mul(data, size);*/
 }
 
 

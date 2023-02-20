@@ -802,4 +802,97 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_rotr2(mk_sl_cui_inl_defd_t* const a, int c
 }
 
 
+mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_defd_would_overflow_add_cc(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b) mk_lang_noexcept
+{
+#if mk_sl_cui_inl_defd_count == 1
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	return mk_sl_cui_inl_defd_base_would_overflow_add_cc(&a->m_data[0], &b->m_data[0]);
+#else
+	int i;
+	mk_sl_cui_inl_defd_base_type ta;
+	mk_sl_cui_inl_defd_base_type tb;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	mk_sl_cui_inl_defd_base_set_max(&ta);
+	for(i = 0; i != mk_sl_cui_inl_defd_count; ++i)
+	{
+		mk_sl_cui_inl_defd_base_sub3_wrap_cid_cod(&ta, &a->m_data[mk_sl_cui_inl_defd_idx((mk_sl_cui_inl_defd_count - 1) - i)], &tb);
+		if(mk_sl_cui_inl_defd_base_lt(&tb, &b->m_data[mk_sl_cui_inl_defd_idx((mk_sl_cui_inl_defd_count - 1) - i)]))
+		{
+			return mk_lang_true;
+		}
+		else if(mk_sl_cui_inl_defd_base_gt(&tb, &b->m_data[mk_sl_cui_inl_defd_idx((mk_sl_cui_inl_defd_count - 1) - i)]))
+		{
+			return mk_lang_false;
+		}
+	}
+	return mk_lang_false;
+#endif
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_defd_would_overflow_add_cs(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b) mk_lang_noexcept
+{
+#if mk_sl_cui_inl_defd_count == 1
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	return mk_sl_cui_inl_defd_base_would_overflow_add_cs(&a->m_data[0], &b->m_data[0]);
+#else
+	int i;
+	mk_sl_cui_inl_defd_base_type ta;
+	mk_sl_cui_inl_defd_base_type tb;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	mk_sl_cui_inl_defd_base_set_max(&ta);
+	for(i = 0; i != mk_sl_cui_inl_defd_count; ++i)
+	{
+		mk_sl_cui_inl_defd_base_sub3_wrap_cid_cod(&ta, &a->m_data[mk_sl_cui_inl_defd_idx((mk_sl_cui_inl_defd_count - 1) - i)], &tb);
+		if(mk_sl_cui_inl_defd_base_lt(&tb, &b->m_data[mk_sl_cui_inl_defd_idx((mk_sl_cui_inl_defd_count - 1) - i)]))
+		{
+			return mk_lang_true;
+		}
+		else if(mk_sl_cui_inl_defd_base_gt(&tb, &b->m_data[mk_sl_cui_inl_defd_idx((mk_sl_cui_inl_defd_count - 1) - i)]))
+		{
+			return mk_lang_false;
+		}
+	}
+	return mk_lang_true;
+#endif
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_defd_would_overflow_add(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b, mk_lang_bool_t const cf) mk_lang_noexcept
+{
+	return cf ? mk_sl_cui_inl_defd_would_overflow_add_cs(a, b) : mk_sl_cui_inl_defd_would_overflow_add_cc(a, b);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_defd_would_overflow_sub_cc(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b) mk_lang_noexcept
+{
+	return mk_sl_cui_inl_defd_lt(a, b);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_defd_would_overflow_sub_cs(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b) mk_lang_noexcept
+{
+	return mk_sl_cui_inl_defd_le(a, b);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_defd_would_overflow_sub(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b, mk_lang_bool_t const cf) mk_lang_noexcept
+{
+	return cf ? mk_sl_cui_inl_defd_would_overflow_sub_cs(a, b) : mk_sl_cui_inl_defd_would_overflow_sub_cc(a, b);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_defd_would_overflow_mul(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b) mk_lang_noexcept
+{
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	return 0; /*todo*/
+}
+
+
 #include "mk_sl_cui_inl_defu.h"

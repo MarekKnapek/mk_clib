@@ -301,7 +301,12 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_would_overfl
 	mk_lang_assert(a);
 	mk_lang_assert(b);
 
-	return (((mk_lang_bui_inl_defd_type)(((mk_lang_bui_inl_defd_type)(~((mk_lang_bui_inl_defd_type)(0)))) - ((mk_lang_bui_inl_defd_type)(*a)))) <= ((mk_lang_bui_inl_defd_type)(*b)));
+	return ((mk_lang_bui_inl_defd_type)(((mk_lang_bui_inl_defd_type)(~((mk_lang_bui_inl_defd_type)(0)))) - ((mk_lang_bui_inl_defd_type)(*a)))) <= ((mk_lang_bui_inl_defd_type)(*b));
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_would_overflow_add(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_bool_t const cf) mk_lang_noexcept
+{
+	return cf ? mk_lang_bui_inl_defd_would_overflow_add_cs(a, b) : mk_lang_bui_inl_defd_would_overflow_add_cc(a, b);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_would_overflow_sub_cc(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b) mk_lang_noexcept
@@ -317,7 +322,12 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_would_overfl
 	mk_lang_assert(a);
 	mk_lang_assert(b);
 
-	return (((mk_lang_bui_inl_defd_type)(*a)) <= ((mk_lang_bui_inl_defd_type)(*b)));
+	return ((mk_lang_bui_inl_defd_type)(*a)) <= ((mk_lang_bui_inl_defd_type)(*b));
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_would_overflow_sub(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_bool_t const cf) mk_lang_noexcept
+{
+	return cf ? mk_lang_bui_inl_defd_would_overflow_sub_cs(a, b) : mk_lang_bui_inl_defd_would_overflow_sub_cc(a, b);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_would_overflow_mul(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b) mk_lang_noexcept

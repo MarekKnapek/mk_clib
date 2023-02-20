@@ -42,8 +42,10 @@
 
 #undef mk_lang_bui_inl_defd_would_overflow_add_cc
 #undef mk_lang_bui_inl_defd_would_overflow_add_cs
+#undef mk_lang_bui_inl_defd_would_overflow_add
 #undef mk_lang_bui_inl_defd_would_overflow_sub_cc
 #undef mk_lang_bui_inl_defd_would_overflow_sub_cs
+#undef mk_lang_bui_inl_defd_would_overflow_sub
 #undef mk_lang_bui_inl_defd_would_overflow_mul
 
 #undef mk_lang_bui_inl_defd_add3_wrap_cid_cod

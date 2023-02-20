@@ -38,6 +38,13 @@
 #undef mk_sl_cui_inl_defd_base_shr2
 #undef mk_sl_cui_inl_defd_base_rotl2
 #undef mk_sl_cui_inl_defd_base_rotr2
+#undef mk_sl_cui_inl_defd_base_would_overflow_add_cc
+#undef mk_sl_cui_inl_defd_base_would_overflow_add_cs
+#undef mk_sl_cui_inl_defd_base_would_overflow_add
+#undef mk_sl_cui_inl_defd_base_would_overflow_sub_cc
+#undef mk_sl_cui_inl_defd_base_would_overflow_sub_cs
+#undef mk_sl_cui_inl_defd_base_would_overflow_sub
+#undef mk_sl_cui_inl_defd_would_overflow_mul
 #undef mk_sl_cui_inl_defd_base_add3_wrap_cid_cod
 #undef mk_sl_cui_inl_defd_base_add3_wrap_cid_coe
 #undef mk_sl_cui_inl_defd_base_add3_wrap_cie_cod
@@ -104,6 +111,14 @@
 #undef mk_sl_cui_inl_defd_shr2
 #undef mk_sl_cui_inl_defd_rotl2
 #undef mk_sl_cui_inl_defd_rotr2
+
+#undef mk_sl_cui_inl_defd_would_overflow_add_cc
+#undef mk_sl_cui_inl_defd_would_overflow_add_cs
+#undef mk_sl_cui_inl_defd_would_overflow_add
+#undef mk_sl_cui_inl_defd_would_overflow_sub_cc
+#undef mk_sl_cui_inl_defd_would_overflow_sub_cs
+#undef mk_sl_cui_inl_defd_would_overflow_sub
+#undef mk_sl_cui_inl_defd_would_overflow_mul
 
 #undef mk_sl_cui_inl_defd_add3_wrap_cid_cod
 #undef mk_sl_cui_inl_defd_add3_wrap_cid_coe
