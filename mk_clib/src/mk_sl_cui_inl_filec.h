@@ -70,7 +70,7 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_set_bit(mk_sl_cui_inl_defd_t* const x, int
 	mk_sl_cui_inl_defd_base_set_bit(&x->m_data[0], bit_idx);
 #else
 	mk_lang_assert(x);
-	mk_lang_assert(bit_idx >= 0 && bit_idx < ((int)(mk_sl_cui_inl_defd_bits)));
+	mk_lang_assert(bit_idx >= 0 && bit_idx < mk_sl_cui_inl_defd_bits);
 
 	mk_sl_cui_inl_defd_set_zero(x);
 	mk_sl_cui_inl_defd_base_set_bit(&x->m_data[mk_sl_cui_inl_defd_idx(bit_idx / mk_sl_cui_inl_defd_base_bits)], bit_idx % mk_sl_cui_inl_defd_base_bits);
@@ -86,7 +86,7 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_set_mask(mk_sl_cui_inl_defd_t* const x, in
 	int i;
 
 	mk_lang_assert(x);
-	mk_lang_assert(bits_count >= 1 && bits_count <= ((int)(mk_sl_cui_inl_defd_bits)));
+	mk_lang_assert(bits_count >= 1 && bits_count <= mk_sl_cui_inl_defd_bits);
 
 	for(i = 0; i != bits_count / mk_sl_cui_inl_defd_base_bits; ++i)
 	{
