@@ -1747,7 +1747,6 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_rotl3_restrict(unsigned char const* c
 	memcpy(&val_, d, sizeof(val_));
 	advance(sizeof(val_));
 	val = ((int)(((unsigned)(val_)) % (mk_sl_cui_inl_defd_bits - 1))) + 1;
-	if(val % mk_sl_cui_inl_defd_base_bits != 0) return;
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui1, &bui1);
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui2, &bui2);
 	mk_sl_cui_inl_defd_rotl3(&cui1, val, &cui2);
@@ -1781,7 +1780,6 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_rotl3_alias(unsigned char const* cons
 	memcpy(&val_, d, sizeof(val_));
 	advance(sizeof(val_));
 	val = ((int)(((unsigned)(val_)) % (mk_sl_cui_inl_defd_bits - 1))) + 1;
-	if(val % mk_sl_cui_inl_defd_base_bits != 0) return;
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui, &bui);
 	mk_sl_cui_inl_defd_rotl3(&cui, val, &cui);
 	mk_lang_bui_ulllong_rotl3(&bui, val, &bui);
@@ -1828,7 +1826,6 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_rotr3_restrict(unsigned char const* c
 	memcpy(&val_, d, sizeof(val_));
 	advance(sizeof(val_));
 	val = ((int)(((unsigned)(val_)) % (mk_sl_cui_inl_defd_bits - 1))) + 1;
-	if(val % mk_sl_cui_inl_defd_base_bits != 0) return;
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui1, &bui1);
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui2, &bui2);
 	mk_sl_cui_inl_defd_rotr3(&cui1, val, &cui2);
@@ -1862,7 +1859,6 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_rotr3_alias(unsigned char const* cons
 	memcpy(&val_, d, sizeof(val_));
 	advance(sizeof(val_));
 	val = ((int)(((unsigned)(val_)) % (mk_sl_cui_inl_defd_bits - 1))) + 1;
-	if(val % mk_sl_cui_inl_defd_base_bits != 0) return;
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui, &bui);
 	mk_sl_cui_inl_defd_rotr3(&cui, val, &cui);
 	mk_lang_bui_ulllong_rotr3(&bui, val, &bui);
@@ -1965,7 +1961,6 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_rotl2(unsigned char const* const data
 	memcpy(&val_, d, sizeof(val_));
 	advance(sizeof(val_));
 	val = ((int)(((unsigned)(val_)) % (mk_sl_cui_inl_defd_bits - 1))) + 1;
-	if(val % mk_sl_cui_inl_defd_base_bits != 0) return;
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui, &bui);
 	mk_sl_cui_inl_defd_rotl2(&cui, val);
 	mk_lang_bui_ulllong_rotl2(&bui, val);
@@ -1998,7 +1993,6 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_rotr2(unsigned char const* const data
 	memcpy(&val_, d, sizeof(val_));
 	advance(sizeof(val_));
 	val = ((int)(((unsigned)(val_)) % (mk_sl_cui_inl_defd_bits - 1))) + 1;
-	if(val % mk_sl_cui_inl_defd_base_bits != 0) return;
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui, &bui);
 	mk_sl_cui_inl_defd_rotr2(&cui, val);
 	mk_lang_bui_ulllong_rotr2(&bui, val);
