@@ -999,4 +999,25 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_add3_wrap_cie_coe(mk_sl_cui_inl_defd_t con
 #endif
 }
 
+mk_lang_jumbo void mk_sl_cui_inl_defd_add2_wrap_cid_cod(mk_sl_cui_inl_defd_t* const a, mk_sl_cui_inl_defd_t const* const b) mk_lang_noexcept
+{
+	mk_sl_cui_inl_defd_add3_wrap_cid_cod(a, b, a);
+}
+
+mk_lang_jumbo void mk_sl_cui_inl_defd_add2_wrap_cid_coe(mk_sl_cui_inl_defd_t* const a, mk_sl_cui_inl_defd_t const* const b, mk_lang_bool_t* const co) mk_lang_noexcept
+{
+	mk_sl_cui_inl_defd_add3_wrap_cid_coe(a, b, a, co);
+}
+
+mk_lang_jumbo void mk_sl_cui_inl_defd_add2_wrap_cie_cod(mk_sl_cui_inl_defd_t* const a, mk_sl_cui_inl_defd_t const* const b, mk_lang_bool_t const ci) mk_lang_noexcept
+{
+	mk_sl_cui_inl_defd_add3_wrap_cie_cod(a, b, ci, a);
+}
+
+mk_lang_jumbo void mk_sl_cui_inl_defd_add2_wrap_cie_coe(mk_sl_cui_inl_defd_t* const a, mk_sl_cui_inl_defd_t const* const b, mk_lang_bool_t const ci, mk_lang_bool_t* const co) mk_lang_noexcept
+{
+	mk_sl_cui_inl_defd_add3_wrap_cie_coe(a, b, ci, a, co);
+}
+
+
 #include "mk_sl_cui_inl_defu.h"
