@@ -27,6 +27,22 @@
 #undef mk_sl_cui_fuzz_inl_defd_ge_alias
 #undef mk_sl_cui_fuzz_inl_defd_inc2_alias
 #undef mk_sl_cui_fuzz_inl_defd_dec2_alias
+#undef mk_sl_cui_fuzz_inl_defd_not2_alias
+#undef mk_sl_cui_fuzz_inl_defd_or3_alias_ab
+#undef mk_sl_cui_fuzz_inl_defd_or3_alias_ac
+#undef mk_sl_cui_fuzz_inl_defd_or3_alias_bc
+#undef mk_sl_cui_fuzz_inl_defd_or3_alias_abc
+#undef mk_sl_cui_fuzz_inl_defd_and3_alias_ab
+#undef mk_sl_cui_fuzz_inl_defd_and3_alias_ac
+#undef mk_sl_cui_fuzz_inl_defd_and3_alias_bc
+#undef mk_sl_cui_fuzz_inl_defd_and3_alias_abc
+#undef mk_sl_cui_fuzz_inl_defd_xor3_alias_ab
+#undef mk_sl_cui_fuzz_inl_defd_xor3_alias_ac
+#undef mk_sl_cui_fuzz_inl_defd_xor3_alias_bc
+#undef mk_sl_cui_fuzz_inl_defd_xor3_alias_abc
+#undef mk_sl_cui_fuzz_inl_defd_or2_alias
+#undef mk_sl_cui_fuzz_inl_defd_and2_alias
+#undef mk_sl_cui_fuzz_inl_defd_xor2_alias
 
 #undef mk_sl_cui_fuzz_inl_defd_set_zero
 #undef mk_sl_cui_fuzz_inl_defd_set_max
