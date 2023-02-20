@@ -31,6 +31,7 @@
 #undef mk_sl_cui_fuzz_inl_defd_would_overflow_mul_restrict
 #undef mk_sl_cui_fuzz_inl_defd_add3_wrap_cid_cod_restrict
 #undef mk_sl_cui_fuzz_inl_defd_add3_wrap_cid_coe_restrict
+#undef mk_sl_cui_fuzz_inl_defd_add3_wrap_cie_cod_restrict
 
 #undef mk_sl_cui_fuzz_inl_defd_eq_alias
 #undef mk_sl_cui_fuzz_inl_defd_ne_alias
@@ -75,6 +76,10 @@
 #undef mk_sl_cui_fuzz_inl_defd_add3_wrap_cid_coe_alias_ac
 #undef mk_sl_cui_fuzz_inl_defd_add3_wrap_cid_coe_alias_bc
 #undef mk_sl_cui_fuzz_inl_defd_add3_wrap_cid_coe_alias_abc
+#undef mk_sl_cui_fuzz_inl_defd_add3_wrap_cie_cod_alias_ab
+#undef mk_sl_cui_fuzz_inl_defd_add3_wrap_cie_cod_alias_ac
+#undef mk_sl_cui_fuzz_inl_defd_add3_wrap_cie_cod_alias_bc
+#undef mk_sl_cui_fuzz_inl_defd_add3_wrap_cie_cod_alias_abc
 
 #undef mk_sl_cui_fuzz_inl_defd_set_zero
 #undef mk_sl_cui_fuzz_inl_defd_set_max
@@ -118,3 +123,4 @@
 #undef mk_sl_cui_fuzz_inl_defd_would_overflow_mul
 #undef mk_sl_cui_fuzz_inl_defd_add3_wrap_cid_cod
 #undef mk_sl_cui_fuzz_inl_defd_add3_wrap_cid_coe
+#undef mk_sl_cui_fuzz_inl_defd_add3_wrap_cie_cod
