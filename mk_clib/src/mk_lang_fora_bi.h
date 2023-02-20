@@ -50,7 +50,7 @@
 #include mk_lang_fora_bi_file
 #undef mk_lang_fora_bi_tn
 
-#define mk_lang_fora_bi_tn uintptr
+/*#define mk_lang_fora_bi_tn uintptr
 #include mk_lang_fora_bi_file
 #undef mk_lang_fora_bi_tn
 
@@ -68,6 +68,6 @@
 
 #define mk_lang_fora_bi_tn size
 #include mk_lang_fora_bi_file
-#undef mk_lang_fora_bi_tn
+#undef mk_lang_fora_bi_tn*/
 
 #undef mk_lang_fora_bi_file

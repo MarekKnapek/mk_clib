@@ -22,7 +22,7 @@
 #include mk_lang_fora_bui2_file
 #undef mk_lang_fora_bui2_tn
 
-#define mk_lang_fora_bui2_tn uintptr
+/*#define mk_lang_fora_bui2_tn uintptr
 #include mk_lang_fora_bui2_file
 #undef mk_lang_fora_bui2_tn
 
@@ -32,6 +32,6 @@
 
 #define mk_lang_fora_bui2_tn size
 #include mk_lang_fora_bui2_file
-#undef mk_lang_fora_bui2_tn
+#undef mk_lang_fora_bui2_tn*/
 
 #undef mk_lang_fora_bui2_file

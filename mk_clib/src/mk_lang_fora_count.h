@@ -30,7 +30,7 @@
 #include mk_lang_fora_count_file
 #undef mk_lang_fora_count_n
 
-#define mk_lang_fora_count_n 9
+/*#define mk_lang_fora_count_n 9
 #include mk_lang_fora_count_file
 #undef mk_lang_fora_count_n
 
@@ -60,6 +60,6 @@
 
 #define mk_lang_fora_count_n 16
 #include mk_lang_fora_count_file
-#undef mk_lang_fora_count_n
+#undef mk_lang_fora_count_n*/
 
 #undef mk_lang_fora_count_file

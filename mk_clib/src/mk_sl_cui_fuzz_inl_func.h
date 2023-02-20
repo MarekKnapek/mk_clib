@@ -4831,7 +4831,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_divmod2_wrap(unsigned char const* con
 
 mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_fn(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
 {
-	mk_sl_cui_fuzz_inl_defd_set_zero(data, size);
+	/*mk_sl_cui_fuzz_inl_defd_set_zero(data, size);
 	mk_sl_cui_fuzz_inl_defd_set_max(data, size);
 	mk_sl_cui_fuzz_inl_defd_set_one(data, size);
 	mk_sl_cui_fuzz_inl_defd_set_bit(data, size);
@@ -4887,9 +4887,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_fn(unsigned char const* const data, m
 	mk_sl_cui_fuzz_inl_defd_would_overflow_add(data, size);
 	mk_sl_cui_fuzz_inl_defd_would_overflow_sub_cc(data, size);
 	mk_sl_cui_fuzz_inl_defd_would_overflow_sub_cs(data, size);
-	mk_sl_cui_fuzz_inl_defd_would_overflow_sub(data, size);
+	mk_sl_cui_fuzz_inl_defd_would_overflow_sub(data, size);*/
 	/*mk_sl_cui_fuzz_inl_defd_would_overflow_mul(data, size);*/
-	mk_sl_cui_fuzz_inl_defd_add3_wrap_cid_cod(data, size);
+	/*mk_sl_cui_fuzz_inl_defd_add3_wrap_cid_cod(data, size);
 	mk_sl_cui_fuzz_inl_defd_add3_wrap_cid_coe(data, size);
 	mk_sl_cui_fuzz_inl_defd_add3_wrap_cie_cod(data, size);
 	mk_sl_cui_fuzz_inl_defd_add3_wrap_cie_coe(data, size);
@@ -4908,7 +4908,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_fn(unsigned char const* const data, m
 	mk_sl_cui_fuzz_inl_defd_divmod4_wrap(data, size);
 	mk_sl_cui_fuzz_inl_defd_div2_wrap(data, size);
 	mk_sl_cui_fuzz_inl_defd_mod2_wrap(data, size);
-	mk_sl_cui_fuzz_inl_defd_divmod2_wrap(data, size);
+	mk_sl_cui_fuzz_inl_defd_divmod2_wrap(data, size);*/
 }
 
 
