@@ -1145,4 +1145,166 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_sub2_wrap_cie_coe(mk_sl_cui_inl_defd_t* co
 }
 
 
+mk_lang_jumbo void mk_sl_cui_inl_defd_mul3_wrap_lo_restrict(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b, mk_sl_cui_inl_defd_t* const c) mk_lang_noexcept
+{
+#if mk_sl_cui_inl_defd_count == 2
+	mk_sl_cui_inl_defd_base_type ta;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(c);
+	mk_lang_assert(c != a && c != b);
+
+	mk_sl_cui_inl_defd_base_mul4_wrap_wi(&a->m_data[mk_sl_cui_inl_defd_idx(0)], &b->m_data[mk_sl_cui_inl_defd_idx(0)], &c->m_data[mk_sl_cui_inl_defd_idx(0)], &c->m_data[mk_sl_cui_inl_defd_idx(1)]);
+	mk_sl_cui_inl_defd_base_mul3_wrap_lo(&a->m_data[mk_sl_cui_inl_defd_idx(1)], &b->m_data[mk_sl_cui_inl_defd_idx(0)], &ta);
+	mk_sl_cui_inl_defd_base_add2_wrap_cid_cod(&c->m_data[mk_sl_cui_inl_defd_idx(1)], &ta);
+	mk_sl_cui_inl_defd_base_mul3_wrap_lo(&a->m_data[mk_sl_cui_inl_defd_idx(0)], &b->m_data[mk_sl_cui_inl_defd_idx(1)], &ta);
+	mk_sl_cui_inl_defd_base_add2_wrap_cid_cod(&c->m_data[mk_sl_cui_inl_defd_idx(1)], &ta);
+#elif mk_sl_cui_inl_defd_count == 3
+	mk_sl_cui_inl_defd_base_type ta;
+	mk_lang_bool_t cf;
+	mk_sl_cui_inl_defd_base_type tb;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(c);
+	mk_lang_assert(c != a && c != b);
+
+	mk_sl_cui_inl_defd_base_mul4_wrap_wi(&a->m_data[mk_sl_cui_inl_defd_idx(0)], &b->m_data[mk_sl_cui_inl_defd_idx(0)], &c->m_data[mk_sl_cui_inl_defd_idx(0)], &c->m_data[mk_sl_cui_inl_defd_idx(1)]);
+	mk_sl_cui_inl_defd_base_mul4_wrap_wi(&a->m_data[mk_sl_cui_inl_defd_idx(1)], &b->m_data[mk_sl_cui_inl_defd_idx(0)], &ta, &c->m_data[mk_sl_cui_inl_defd_idx(2)]);
+	mk_sl_cui_inl_defd_base_add2_wrap_cid_coe(&c->m_data[mk_sl_cui_inl_defd_idx(1)], &ta, &cf);
+	if(cf) mk_sl_cui_inl_defd_base_inc1(&c->m_data[mk_sl_cui_inl_defd_idx(2)]);
+	mk_sl_cui_inl_defd_base_mul4_wrap_wi(&a->m_data[mk_sl_cui_inl_defd_idx(0)], &b->m_data[mk_sl_cui_inl_defd_idx(1)], &ta, &tb);
+	mk_sl_cui_inl_defd_base_add2_wrap_cid_coe(&c->m_data[mk_sl_cui_inl_defd_idx(1)], &ta, &cf);
+	mk_sl_cui_inl_defd_base_add2_wrap_cie_cod(&c->m_data[mk_sl_cui_inl_defd_idx(2)], &tb, cf);
+	mk_sl_cui_inl_defd_base_mul3_wrap_lo(&a->m_data[mk_sl_cui_inl_defd_idx(2)], &b->m_data[mk_sl_cui_inl_defd_idx(0)], &ta);
+	mk_sl_cui_inl_defd_base_add2_wrap_cid_cod(&c->m_data[mk_sl_cui_inl_defd_idx(2)], &ta);
+	mk_sl_cui_inl_defd_base_mul3_wrap_lo(&a->m_data[mk_sl_cui_inl_defd_idx(1)], &b->m_data[mk_sl_cui_inl_defd_idx(1)], &ta);
+	mk_sl_cui_inl_defd_base_add2_wrap_cid_cod(&c->m_data[mk_sl_cui_inl_defd_idx(2)], &ta);
+	mk_sl_cui_inl_defd_base_mul3_wrap_lo(&a->m_data[mk_sl_cui_inl_defd_idx(0)], &b->m_data[mk_sl_cui_inl_defd_idx(2)], &ta);
+	mk_sl_cui_inl_defd_base_add2_wrap_cid_cod(&c->m_data[mk_sl_cui_inl_defd_idx(2)], &ta);
+#elif mk_sl_cui_inl_defd_count == 4
+	mk_sl_cui_inl_defd_base_type ta;
+	mk_lang_bool_t cf;
+	mk_sl_cui_inl_defd_base_type tb;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(c);
+	mk_lang_assert(c != a && c != b);
+
+	mk_sl_cui_inl_defd_base_mul4_wrap_wi(&a->m_data[mk_sl_cui_inl_defd_idx(0)], &b->m_data[mk_sl_cui_inl_defd_idx(0)], &c->m_data[mk_sl_cui_inl_defd_idx(0)], &c->m_data[mk_sl_cui_inl_defd_idx(1)]);
+	mk_sl_cui_inl_defd_base_mul4_wrap_wi(&a->m_data[mk_sl_cui_inl_defd_idx(1)], &b->m_data[mk_sl_cui_inl_defd_idx(0)], &ta, &c->m_data[mk_sl_cui_inl_defd_idx(2)]);
+	mk_sl_cui_inl_defd_base_add2_wrap_cid_coe(&c->m_data[mk_sl_cui_inl_defd_idx(1)], &ta, &cf);
+	if(cf) mk_sl_cui_inl_defd_base_inc1(&c->m_data[mk_sl_cui_inl_defd_idx(2)]);
+	mk_sl_cui_inl_defd_base_mul4_wrap_wi(&a->m_data[mk_sl_cui_inl_defd_idx(0)], &b->m_data[mk_sl_cui_inl_defd_idx(1)], &ta, &tb);
+	mk_sl_cui_inl_defd_base_add2_wrap_cid_coe(&c->m_data[mk_sl_cui_inl_defd_idx(1)], &ta, &cf);
+	mk_sl_cui_inl_defd_base_add2_wrap_cie_coe(&c->m_data[mk_sl_cui_inl_defd_idx(2)], &tb, cf, &cf);
+	if(cf) mk_sl_cui_inl_defd_base_set_one(&c->m_data[mk_sl_cui_inl_defd_idx(3)]); else mk_sl_cui_inl_defd_base_set_zero(&c->m_data[mk_sl_cui_inl_defd_idx(3)]);
+	mk_sl_cui_inl_defd_base_mul4_wrap_wi(&a->m_data[mk_sl_cui_inl_defd_idx(2)], &b->m_data[mk_sl_cui_inl_defd_idx(0)], &ta, &tb);
+	mk_sl_cui_inl_defd_base_add2_wrap_cid_coe(&c->m_data[mk_sl_cui_inl_defd_idx(2)], &ta, &cf);
+	mk_sl_cui_inl_defd_base_add2_wrap_cie_cod(&c->m_data[mk_sl_cui_inl_defd_idx(3)], &tb, cf);
+	mk_sl_cui_inl_defd_base_mul4_wrap_wi(&a->m_data[mk_sl_cui_inl_defd_idx(1)], &b->m_data[mk_sl_cui_inl_defd_idx(1)], &ta, &tb);
+	mk_sl_cui_inl_defd_base_add2_wrap_cid_coe(&c->m_data[mk_sl_cui_inl_defd_idx(2)], &ta, &cf);
+	mk_sl_cui_inl_defd_base_add2_wrap_cie_cod(&c->m_data[mk_sl_cui_inl_defd_idx(3)], &tb, cf);
+	mk_sl_cui_inl_defd_base_mul4_wrap_wi(&a->m_data[mk_sl_cui_inl_defd_idx(0)], &b->m_data[mk_sl_cui_inl_defd_idx(2)], &ta, &tb);
+	mk_sl_cui_inl_defd_base_add2_wrap_cid_coe(&c->m_data[mk_sl_cui_inl_defd_idx(2)], &ta, &cf);
+	mk_sl_cui_inl_defd_base_add2_wrap_cie_cod(&c->m_data[mk_sl_cui_inl_defd_idx(3)], &tb, cf);
+	mk_sl_cui_inl_defd_base_mul3_wrap_lo(&a->m_data[mk_sl_cui_inl_defd_idx(3)], &b->m_data[mk_sl_cui_inl_defd_idx(0)], &ta);
+	mk_sl_cui_inl_defd_base_add2_wrap_cid_cod(&c->m_data[mk_sl_cui_inl_defd_idx(3)], &ta);
+	mk_sl_cui_inl_defd_base_mul3_wrap_lo(&a->m_data[mk_sl_cui_inl_defd_idx(2)], &b->m_data[mk_sl_cui_inl_defd_idx(1)], &ta);
+	mk_sl_cui_inl_defd_base_add2_wrap_cid_cod(&c->m_data[mk_sl_cui_inl_defd_idx(3)], &ta);
+	mk_sl_cui_inl_defd_base_mul3_wrap_lo(&a->m_data[mk_sl_cui_inl_defd_idx(1)], &b->m_data[mk_sl_cui_inl_defd_idx(2)], &ta);
+	mk_sl_cui_inl_defd_base_add2_wrap_cid_cod(&c->m_data[mk_sl_cui_inl_defd_idx(3)], &ta);
+	mk_sl_cui_inl_defd_base_mul3_wrap_lo(&a->m_data[mk_sl_cui_inl_defd_idx(0)], &b->m_data[mk_sl_cui_inl_defd_idx(3)], &ta);
+	mk_sl_cui_inl_defd_base_add2_wrap_cid_cod(&c->m_data[mk_sl_cui_inl_defd_idx(3)], &ta);
+#else
+	mk_sl_cui_inl_defd_base_type ta;
+	mk_lang_bool_t cf;
+	mk_sl_cui_inl_defd_base_type tb;
+	int j;
+	int i;
+
+	mk_lang_static_assert(mk_sl_cui_inl_defd_count > 4);
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(c);
+	mk_lang_assert(c != a && c != b);
+
+	mk_sl_cui_inl_defd_base_mul4_wrap_wi(&a->m_data[mk_sl_cui_inl_defd_idx(0)], &b->m_data[mk_sl_cui_inl_defd_idx(0)], &c->m_data[mk_sl_cui_inl_defd_idx(0)], &c->m_data[mk_sl_cui_inl_defd_idx(1)]);
+	mk_sl_cui_inl_defd_base_mul4_wrap_wi(&a->m_data[mk_sl_cui_inl_defd_idx(1)], &b->m_data[mk_sl_cui_inl_defd_idx(0)], &ta, &c->m_data[mk_sl_cui_inl_defd_idx(2)]);
+	mk_sl_cui_inl_defd_base_add2_wrap_cid_coe(&c->m_data[mk_sl_cui_inl_defd_idx(1)], &ta, &cf);
+	if(cf) mk_sl_cui_inl_defd_base_inc1(&c->m_data[mk_sl_cui_inl_defd_idx(2)]);
+	mk_sl_cui_inl_defd_base_mul4_wrap_wi(&a->m_data[mk_sl_cui_inl_defd_idx(0)], &b->m_data[mk_sl_cui_inl_defd_idx(1)], &ta, &tb);
+	mk_sl_cui_inl_defd_base_add2_wrap_cid_coe(&c->m_data[mk_sl_cui_inl_defd_idx(1)], &ta, &cf);
+	mk_sl_cui_inl_defd_base_add2_wrap_cie_coe(&c->m_data[mk_sl_cui_inl_defd_idx(2)], &tb, cf, &cf);
+	if(cf) mk_sl_cui_inl_defd_base_set_one(&c->m_data[mk_sl_cui_inl_defd_idx(3)]); else mk_sl_cui_inl_defd_base_set_zero(&c->m_data[mk_sl_cui_inl_defd_idx(3)]);
+	for(j = 2; j != mk_sl_cui_inl_defd_count - 2; ++j)
+	{
+		mk_sl_cui_inl_defd_base_mul4_wrap_wi(&a->m_data[mk_sl_cui_inl_defd_idx(j)], &b->m_data[mk_sl_cui_inl_defd_idx(0)], &ta, &tb);
+		mk_sl_cui_inl_defd_base_add2_wrap_cid_coe(&c->m_data[mk_sl_cui_inl_defd_idx(j)], &ta, &cf);
+		mk_sl_cui_inl_defd_base_add2_wrap_cie_coe(&c->m_data[mk_sl_cui_inl_defd_idx(j + 1)], &tb, cf, &cf);
+		if(cf) mk_sl_cui_inl_defd_base_set_one(&c->m_data[mk_sl_cui_inl_defd_idx(j + 2)]); else mk_sl_cui_inl_defd_base_set_zero(&c->m_data[mk_sl_cui_inl_defd_idx(j + 2)]);
+		for(i = 1; i != j + 1; ++i)
+		{
+			mk_sl_cui_inl_defd_base_mul4_wrap_wi(&a->m_data[mk_sl_cui_inl_defd_idx(j - i)], &b->m_data[mk_sl_cui_inl_defd_idx(i)], &ta, &tb);
+			mk_sl_cui_inl_defd_base_add2_wrap_cid_coe(&c->m_data[mk_sl_cui_inl_defd_idx(j)], &ta, &cf);
+			mk_sl_cui_inl_defd_base_add2_wrap_cie_coe(&c->m_data[mk_sl_cui_inl_defd_idx(j + 1)], &tb, cf, &cf);
+			if(cf) mk_sl_cui_inl_defd_base_inc1(&c->m_data[mk_sl_cui_inl_defd_idx(j + 2)]);
+		}
+	}
+	for(i = 0; i != j + 1; ++i)
+	{
+		mk_sl_cui_inl_defd_base_mul4_wrap_wi(&a->m_data[mk_sl_cui_inl_defd_idx(j - i)], &b->m_data[mk_sl_cui_inl_defd_idx(i)], &ta, &tb);
+		mk_sl_cui_inl_defd_base_add2_wrap_cid_coe(&c->m_data[mk_sl_cui_inl_defd_idx(j)], &ta, &cf);
+		mk_sl_cui_inl_defd_base_add2_wrap_cie_cod(&c->m_data[mk_sl_cui_inl_defd_idx(j + 1)], &tb, cf);
+	}
+	++j;
+	for(i = 0; i != j + 1; ++i)
+	{
+		mk_sl_cui_inl_defd_base_mul3_wrap_lo(&a->m_data[mk_sl_cui_inl_defd_idx(j - i)], &b->m_data[mk_sl_cui_inl_defd_idx(i)], &ta);
+		mk_sl_cui_inl_defd_base_add2_wrap_cid_cod(&c->m_data[mk_sl_cui_inl_defd_idx(j)], &ta);
+	}
+#endif
+}
+
+mk_lang_jumbo void mk_sl_cui_inl_defd_mul3_wrap_lo_alias(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b, mk_sl_cui_inl_defd_t* const c) mk_lang_noexcept
+{
+	mk_sl_cui_inl_defd_t cc;
+
+	mk_lang_static_assert(mk_sl_cui_inl_defd_count >= 2);
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(c);
+	mk_lang_assert(c == a || c == b);
+
+	mk_sl_cui_inl_defd_mul3_wrap_lo_restrict(a, b, &cc);
+	*c = cc;
+}
+
+mk_lang_jumbo void mk_sl_cui_inl_defd_mul3_wrap_lo(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b, mk_sl_cui_inl_defd_t* const c) mk_lang_noexcept
+{
+#if mk_sl_cui_inl_defd_count == 1
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(c);
+
+	mk_sl_cui_inl_defd_base_mul3_wrap_lo(&a->m_data[0], &b->m_data[0], &c->m_data[0]);
+#else
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(c);
+
+	if(c != a && c != b)
+	{
+		mk_sl_cui_inl_defd_mul3_wrap_lo_restrict(a, b, c);
+	}
+	else
+	{
+		mk_sl_cui_inl_defd_mul3_wrap_lo_alias(a, b, c);
+	}
+#endif
+}
+
+
 #include "mk_sl_cui_inl_defu.h"

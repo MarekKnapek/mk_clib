@@ -37,6 +37,7 @@
 #define mk_sl_cui_fuzz_inl_defd_sub3_wrap_cid_coe_restrict mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _sub3_wrap_cid_coe_restrict)
 #define mk_sl_cui_fuzz_inl_defd_sub3_wrap_cie_cod_restrict mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _sub3_wrap_cie_cod_restrict)
 #define mk_sl_cui_fuzz_inl_defd_sub3_wrap_cie_coe_restrict mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _sub3_wrap_cie_coe_restrict)
+#define mk_sl_cui_fuzz_inl_defd_mul3_wrap_lo_restrict mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _mul3_wrap_lo_restrict)
 
 #define mk_sl_cui_fuzz_inl_defd_eq_alias mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _eq_alias)
 #define mk_sl_cui_fuzz_inl_defd_ne_alias mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _ne_alias)
@@ -105,6 +106,10 @@
 #define mk_sl_cui_fuzz_inl_defd_sub3_wrap_cie_coe_alias_ac mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _sub3_wrap_cie_coe_alias_ac)
 #define mk_sl_cui_fuzz_inl_defd_sub3_wrap_cie_coe_alias_bc mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _sub3_wrap_cie_coe_alias_bc)
 #define mk_sl_cui_fuzz_inl_defd_sub3_wrap_cie_coe_alias_abc mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _sub3_wrap_cie_coe_alias_abc)
+#define mk_sl_cui_fuzz_inl_defd_mul3_wrap_lo_alias_ab mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _mul3_wrap_lo_alias_ab)
+#define mk_sl_cui_fuzz_inl_defd_mul3_wrap_lo_alias_ac mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _mul3_wrap_lo_alias_ac)
+#define mk_sl_cui_fuzz_inl_defd_mul3_wrap_lo_alias_bc mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _mul3_wrap_lo_alias_bb)
+#define mk_sl_cui_fuzz_inl_defd_mul3_wrap_lo_alias_abc mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _mul3_wrap_lo_alias_abc)
 
 #define mk_sl_cui_fuzz_inl_defd_set_zero mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _set_zero)
 #define mk_sl_cui_fuzz_inl_defd_set_max mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _set_max)
@@ -154,3 +159,4 @@
 #define mk_sl_cui_fuzz_inl_defd_sub3_wrap_cid_coe mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _sub3_wrap_cid_coe)
 #define mk_sl_cui_fuzz_inl_defd_sub3_wrap_cie_cod mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _sub3_wrap_cie_cod)
 #define mk_sl_cui_fuzz_inl_defd_sub3_wrap_cie_coe mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _sub3_wrap_cie_coe)
+#define mk_sl_cui_fuzz_inl_defd_mul3_wrap_lo mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _mul3_wrap_lo)
