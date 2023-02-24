@@ -9,6 +9,7 @@
 #include "mk_lang_min.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_sizeof.h"
+#include "mk_lang_static_assert.h"
 
 
 #include "mk_lang_bui_divmod_inl_defd.h"
@@ -17,6 +18,8 @@
 
 mk_lang_jumbo void mk_lang_bui_divmod_inl_defd_fn(mk_lang_bui_divmod_inl_defd_bt const* const a, mk_lang_bui_divmod_inl_defd_bt const* const b, mk_lang_bui_divmod_inl_defd_bt* const c, mk_lang_bui_divmod_inl_defd_bt* const d) mk_lang_noexcept
 {
+	mk_lang_static_assert(mk_lang_bui_divmod_inl_defd_lena >= 1 && mk_lang_bui_divmod_inl_defd_lena <= 128); /* todo 128? */
+	mk_lang_static_assert(mk_lang_bui_divmod_inl_defd_lenb >= 1 && mk_lang_bui_divmod_inl_defd_lenb <= 128); /* todo 128? */
 	mk_lang_assert(a);
 	mk_lang_assert(b);
 	mk_lang_assert(c);
@@ -33,8 +36,6 @@ mk_lang_jumbo void mk_lang_bui_divmod_inl_defd_fn(mk_lang_bui_divmod_inl_defd_bt
 	mk_lang_assert(!(d >= a && d < a + mk_lang_bui_divmod_inl_defd_lena));
 	mk_lang_assert(!(d >= b && d < b + mk_lang_bui_divmod_inl_defd_lenb));
 	mk_lang_assert(!(d >= c && d < c + mk_lang_bui_divmod_inl_defd_lenc));
-	mk_lang_assert(mk_lang_bui_divmod_inl_defd_lena >= 1 && mk_lang_bui_divmod_inl_defd_lena <= 128); /* todo 128? */
-	mk_lang_assert(mk_lang_bui_divmod_inl_defd_lenb >= 1 && mk_lang_bui_divmod_inl_defd_lenb <= 128); /* todo 128? */
 
 	#if mk_lang_bui_divmod_inl_defd_lena == 1 && mk_lang_bui_divmod_inl_defd_lenb == 1
 	{
@@ -46,7 +47,7 @@ mk_lang_jumbo void mk_lang_bui_divmod_inl_defd_fn(mk_lang_bui_divmod_inl_defd_bt
 		int lena;
 		int i;
 
-		mk_lang_assert(sizeof(mk_lang_bui_divmod_inl_defd_bt2) >= 2 * sizeof(mk_lang_bui_divmod_inl_defd_bt));
+		mk_lang_static_assert(sizeof(mk_lang_bui_divmod_inl_defd_bt2) >= 2 * sizeof(mk_lang_bui_divmod_inl_defd_bt));
 
 		lena = 0;
 		for(i = 0; i != mk_lang_bui_divmod_inl_defd_lena; ++i)
@@ -75,7 +76,7 @@ mk_lang_jumbo void mk_lang_bui_divmod_inl_defd_fn(mk_lang_bui_divmod_inl_defd_bt
 			mk_lang_bui_divmod_inl_defd_bt tb;
 			mk_lang_bui_divmod_inl_defd_bt2 tc;
 
-			mk_lang_assert(sizeof(mk_lang_bui_divmod_inl_defd_bt2) >= 2 * sizeof(mk_lang_bui_divmod_inl_defd_bt));
+			mk_lang_static_assert(sizeof(mk_lang_bui_divmod_inl_defd_bt2) >= 2 * sizeof(mk_lang_bui_divmod_inl_defd_bt));
 			mk_lang_assert(b[mk_lang_bui_divmod_inl_defd_endian_idxb(0)] != ((mk_lang_bui_divmod_inl_defd_bt)(0)));
 
 			for(i = 0; i != mk_lang_bui_divmod_inl_defd_lena - lena; ++i)
@@ -148,7 +149,7 @@ mk_lang_jumbo void mk_lang_bui_divmod_inl_defd_fn(mk_lang_bui_divmod_inl_defd_bt
 				mk_lang_bui_divmod_inl_defd_bt tb;
 				mk_lang_bui_divmod_inl_defd_bt2 tc;
 
-				mk_lang_assert(sizeof(mk_lang_bui_divmod_inl_defd_bt2) >= 2 * sizeof(mk_lang_bui_divmod_inl_defd_bt));
+				mk_lang_static_assert(sizeof(mk_lang_bui_divmod_inl_defd_bt2) >= 2 * sizeof(mk_lang_bui_divmod_inl_defd_bt));
 
 				for(i = 0; i != mk_lang_bui_divmod_inl_defd_lena - lena; ++i)
 				{
@@ -193,7 +194,7 @@ mk_lang_jumbo void mk_lang_bui_divmod_inl_defd_fn(mk_lang_bui_divmod_inl_defd_bt
 				mk_lang_bui_divmod_inl_defd_bt bb[mk_lang_bui_divmod_inl_defd_lenb];
 				int id;
 
-				mk_lang_assert(sizeof(mk_lang_bui_divmod_inl_defd_bt2) >= 2 * sizeof(mk_lang_bui_divmod_inl_defd_bt));
+				mk_lang_static_assert(sizeof(mk_lang_bui_divmod_inl_defd_bt2) >= 2 * sizeof(mk_lang_bui_divmod_inl_defd_bt));
 
 				for(i = 0; i != mk_lang_bui_divmod_inl_defd_lenc - (lena - lenb + 1); ++i)
 				{
@@ -262,7 +263,7 @@ mk_lang_jumbo void mk_lang_bui_divmod_inl_defd_fn(mk_lang_bui_divmod_inl_defd_bt
 						));
 					dn = bb[lenb - 1];
 					#elif mk_lang_bui_divmod_inl_defd_alg == 3
-					mk_lang_assert(sizeof(mk_lang_bui_divmod_inl_defd_bt3) >= 3 * sizeof(mk_lang_bui_divmod_inl_defd_bt));
+					mk_lang_static_assert(sizeof(mk_lang_bui_divmod_inl_defd_bt3) >= 3 * sizeof(mk_lang_bui_divmod_inl_defd_bt));
 					rn =
 						((mk_lang_bui_divmod_inl_defd_bt3)(
 							((mk_lang_bui_divmod_inl_defd_bt3)(
