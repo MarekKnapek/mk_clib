@@ -1919,3 +1919,11 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_divmod2_wrap(mk_sl_cui_inl_defd_t* const a
 
 
 #include "mk_sl_cui_inl_defu.h"
+
+
+#undef mk_sl_cui_name
+#undef mk_sl_cui_base_type
+#undef mk_sl_cui_base_name
+#undef mk_sl_cui_base_bits
+#undef mk_sl_cui_count
+#undef mk_sl_cui_endian
