@@ -104,6 +104,7 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_set_mask(mk_sl_cui_inl_defd_t* const x, in
 #endif
 }
 
+#include "mk_lang_bui.h"
 #define mk_lang_forb1_id mk_lang_for_constants_bi
 #define mk_lang_forb_file "mk_sl_cui_inl_tofrom_bi_inl_filec.h"
 #define mk_sl_cui_inl_tofrom_bi_for_bi mk_lang_forb_bi
