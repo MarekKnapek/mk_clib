@@ -167,3 +167,6 @@
 #undef mk_sl_cui_fuzz_inl_defd_mul3_wrap_lo
 #undef mk_sl_cui_fuzz_inl_defd_mul3_wrap_hi
 #undef mk_sl_cui_fuzz_inl_defd_mul4_wrap_wi
+#undef mk_sl_cui_fuzz_inl_defd_mul2_wrap_lo
+#undef mk_sl_cui_fuzz_inl_defd_mul2_wrap_hi
+#undef mk_sl_cui_fuzz_inl_defd_mul2_wrap_wi

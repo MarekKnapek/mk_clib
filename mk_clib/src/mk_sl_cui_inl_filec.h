@@ -1779,5 +1779,20 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_mul4_wrap_wi(mk_sl_cui_inl_defd_t const* c
 #endif
 }
 
+mk_lang_jumbo void mk_sl_cui_inl_defd_mul2_wrap_lo(mk_sl_cui_inl_defd_t* const a, mk_sl_cui_inl_defd_t const* const b) mk_lang_noexcept
+{
+	mk_sl_cui_inl_defd_mul3_wrap_lo(a, b, a);
+}
+
+mk_lang_jumbo void mk_sl_cui_inl_defd_mul2_wrap_hi(mk_sl_cui_inl_defd_t* const a, mk_sl_cui_inl_defd_t const* const b) mk_lang_noexcept
+{
+	mk_sl_cui_inl_defd_mul3_wrap_hi(a, b, a);
+}
+
+mk_lang_jumbo void mk_sl_cui_inl_defd_mul2_wrap_wi(mk_sl_cui_inl_defd_t* const a, mk_sl_cui_inl_defd_t* const b) mk_lang_noexcept
+{
+	mk_sl_cui_inl_defd_mul4_wrap_wi(a, b, a, b);
+}
+
 
 #include "mk_sl_cui_inl_defu.h"
