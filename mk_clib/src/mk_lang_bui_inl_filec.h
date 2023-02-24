@@ -593,6 +593,7 @@ mk_lang_jumbo void mk_lang_bui_inl_defd_mul4_wrap_wi(mk_lang_bui_inl_defd_type c
 	mk_lang_assert(b);
 	mk_lang_assert(c);
 	mk_lang_assert(d);
+	mk_lang_assert(c != d);
 
 	aa = ((mk_lang_bi_ushort_t)(*a));
 	bb = ((mk_lang_bi_ushort_t)(*b));
@@ -608,6 +609,7 @@ mk_lang_jumbo void mk_lang_bui_inl_defd_mul4_wrap_wi(mk_lang_bui_inl_defd_type c
 	mk_lang_assert(b);
 	mk_lang_assert(c);
 	mk_lang_assert(d);
+	mk_lang_assert(c != d);
 
 	aa = ((mk_lang_bi_uint_t)(*a));
 	bb = ((mk_lang_bi_uint_t)(*b));
@@ -623,6 +625,7 @@ mk_lang_jumbo void mk_lang_bui_inl_defd_mul4_wrap_wi(mk_lang_bui_inl_defd_type c
 	mk_lang_assert(b);
 	mk_lang_assert(c);
 	mk_lang_assert(d);
+	mk_lang_assert(c != d);
 
 	aa = ((mk_lang_bi_ulong_t)(*a));
 	bb = ((mk_lang_bi_ulong_t)(*b));
@@ -638,6 +641,7 @@ mk_lang_jumbo void mk_lang_bui_inl_defd_mul4_wrap_wi(mk_lang_bui_inl_defd_type c
 	mk_lang_assert(b);
 	mk_lang_assert(c);
 	mk_lang_assert(d);
+	mk_lang_assert(c != d);
 
 	aa = ((mk_lang_bi_ullong_t)(*a));
 	bb = ((mk_lang_bi_ullong_t)(*b));
@@ -653,6 +657,7 @@ mk_lang_jumbo void mk_lang_bui_inl_defd_mul4_wrap_wi(mk_lang_bui_inl_defd_type c
 	mk_lang_assert(b);
 	mk_lang_assert(c);
 	mk_lang_assert(d);
+	mk_lang_assert(c != d);
 
 	aa = ((mk_lang_bi_ulllong_t)(*a));
 	bb = ((mk_lang_bi_ulllong_t)(*b));
@@ -668,6 +673,7 @@ mk_lang_jumbo void mk_lang_bui_inl_defd_mul4_wrap_wi(mk_lang_bui_inl_defd_type c
 	mk_lang_assert(b);
 	mk_lang_assert(c);
 	mk_lang_assert(d);
+	mk_lang_assert(c != d);
 
 	aa = ((unsigned int)(*a));
 	bb = ((unsigned int)(*b));
@@ -687,6 +693,7 @@ mk_lang_jumbo void mk_lang_bui_inl_defd_mul4_wrap_wi(mk_lang_bui_inl_defd_type c
 	mk_lang_assert(b);
 	mk_lang_assert(c);
 	mk_lang_assert(d);
+	mk_lang_assert(c != d);
 
 	aa = ((unsigned __int64)(*a));
 	bb = ((unsigned __int64)(*b));
@@ -700,6 +707,7 @@ mk_lang_jumbo void mk_lang_bui_inl_defd_mul4_wrap_wi(mk_lang_bui_inl_defd_type c
 	mk_lang_assert(b);
 	mk_lang_assert(c);
 	mk_lang_assert(d);
+	mk_lang_assert(c != d);
 
 	aa = ((unsigned __int64)(*a));
 	bb = ((unsigned __int64)(*b));
@@ -723,6 +731,7 @@ mk_lang_jumbo void mk_lang_bui_inl_defd_mul4_wrap_wi(mk_lang_bui_inl_defd_type c
 	mk_lang_assert(b);
 	mk_lang_assert(c);
 	mk_lang_assert(d);
+	mk_lang_assert(c != d);
 
 	alo = ((mk_lang_bui_inl_defd_type)(((mk_lang_bui_inl_defd_type)(*a)) & mask));
 	ahi = ((mk_lang_bui_inl_defd_type)(((mk_lang_bui_inl_defd_type)(*a)) >> shift));
@@ -783,6 +792,7 @@ mk_lang_jumbo void mk_lang_bui_inl_defd_divmod4_wrap(mk_lang_bui_inl_defd_type c
 	mk_lang_assert(b);
 	mk_lang_assert(c);
 	mk_lang_assert(d);
+	mk_lang_assert(c != d);
 
 	aa = ((mk_lang_bui_inl_defd_type)(*a));
 	bb = ((mk_lang_bui_inl_defd_type)(*b));

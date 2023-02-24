@@ -1574,6 +1574,7 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_mul4_wrap_wi_restrict(mk_sl_cui_inl_defd_t
 	mk_lang_assert(b);
 	mk_lang_assert(c);
 	mk_lang_assert(d);
+	mk_lang_assert(c != d);
 	mk_lang_assert(c != a && c != b && d != a && d != b);
 
 	out[0] = c;
@@ -1609,6 +1610,7 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_mul4_wrap_wi_restrict(mk_sl_cui_inl_defd_t
 	mk_lang_assert(b);
 	mk_lang_assert(c);
 	mk_lang_assert(d);
+	mk_lang_assert(c != d);
 	mk_lang_assert(c != a && c != b && d != a && d != b);
 
 	out[0] = c;
@@ -1688,6 +1690,7 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_mul4_wrap_wi_restrict(mk_sl_cui_inl_defd_t
 	mk_lang_assert(b);
 	mk_lang_assert(c);
 	mk_lang_assert(d);
+	mk_lang_assert(c != d);
 	mk_lang_assert(c != a && c != b && d != a && d != b);
 
 	out[0] = c;
@@ -1746,6 +1749,7 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_mul4_wrap_wi_alias(mk_sl_cui_inl_defd_t co
 	mk_lang_assert(b);
 	mk_lang_assert(c);
 	mk_lang_assert(d);
+	mk_lang_assert(c != d);
 	mk_lang_assert(c == a || c == b || d == a || d == b);
 
 	mk_sl_cui_inl_defd_mul4_wrap_wi_restrict(a, b, &cc, &dd);
@@ -1760,6 +1764,7 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_mul4_wrap_wi(mk_sl_cui_inl_defd_t const* c
 	mk_lang_assert(b);
 	mk_lang_assert(c);
 	mk_lang_assert(d);
+	mk_lang_assert(c != d);
 
 	mk_sl_cui_inl_defd_base_mul4_wrap_wi(&a->m_data[0], &b->m_data[0], &c->m_data[0], &d->m_data[0]);
 #else
@@ -1767,6 +1772,7 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_mul4_wrap_wi(mk_sl_cui_inl_defd_t const* c
 	mk_lang_assert(b);
 	mk_lang_assert(c);
 	mk_lang_assert(d);
+	mk_lang_assert(c != d);
 
 	if(c != a && c != b && d != a && d != b)
 	{
