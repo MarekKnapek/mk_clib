@@ -242,6 +242,6 @@
 #include "mk_lang_bui_divmod_inl_filec.h"
 #endif
 
-#define mk_sl_cui_inl_filec_div_convert_to_buis mk_lang_concat(mk_lang_concat(mk_lang_concat(mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _to_buis_), mk_sl_cui_inl_filec_div_tn), _), mk_lang_concat(mk_sl_cui_for_endian, _name)) /* todo endian name */
-#define mk_sl_cui_inl_filec_div_convert_from_buis mk_lang_concat(mk_lang_concat(mk_lang_concat(mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _from_buis_), mk_sl_cui_inl_filec_div_tn), _), mk_lang_concat(mk_sl_cui_for_endian, _name))
+#define mk_sl_cui_inl_filec_div_convert_to_buis mk_lang_concat(mk_lang_concat(mk_lang_concat(mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _to_buis_), mk_sl_cui_inl_filec_div_tn), _), mk_sl_cui_inl_defd_endian_name)
+#define mk_sl_cui_inl_filec_div_convert_from_buis mk_lang_concat(mk_lang_concat(mk_lang_concat(mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _from_buis_), mk_sl_cui_inl_filec_div_tn), _), mk_sl_cui_inl_defd_endian_name)
 #define mk_sl_cui_inl_filec_div_fn mk_lang_concat(mk_lang_bui_divmod_, mk_sl_cui_inl_defd_name)

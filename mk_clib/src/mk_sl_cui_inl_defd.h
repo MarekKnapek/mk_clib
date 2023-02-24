@@ -25,6 +25,11 @@
 #define mk_sl_cui_inl_defd_count mk_lang_concat(mk_sl_cui_for_count, _n)
 #define mk_sl_cui_inl_defd_endian mk_lang_concat(mk_sl_cui_for_endian, _value)
 #endif
+#if mk_sl_cui_inl_defd_endian == mk_lang_endian_little
+#define mk_sl_cui_inl_defd_endian_name le
+#elif mk_sl_cui_inl_defd_endian == mk_lang_endian_big
+#define mk_sl_cui_inl_defd_endian_name be
+#endif
 
 #define mk_sl_cui_inl_defd_base_set_zero mk_lang_concat(mk_sl_cui_inl_defd_base_name, _set_zero)
 #define mk_sl_cui_inl_defd_base_set_max mk_lang_concat(mk_sl_cui_inl_defd_base_name, _set_max)

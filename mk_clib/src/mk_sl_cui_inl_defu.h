@@ -4,6 +4,7 @@
 #undef mk_sl_cui_inl_defd_base_bits
 #undef mk_sl_cui_inl_defd_count
 #undef mk_sl_cui_inl_defd_endian
+#undef mk_sl_cui_inl_defd_endian_name
 
 #undef mk_sl_cui_inl_defd_base_set_zero
 #undef mk_sl_cui_inl_defd_base_set_max
