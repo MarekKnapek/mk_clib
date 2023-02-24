@@ -1801,4 +1801,120 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_mul2_wrap_wi(mk_sl_cui_inl_defd_t* const a
 }
 
 
+mk_lang_jumbo void mk_sl_cui_inl_defd_div3_wrap(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b, mk_sl_cui_inl_defd_t* const c) mk_lang_noexcept
+{
+#if mk_sl_cui_inl_defd_count == 1
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(c);
+
+	mk_sl_cui_inl_defd_base_div3_wrap(&a->m_data[0], &b->m_data[0], &c->m_data[0]);
+#else
+	mk_sl_cui_inl_defd_t d;
+
+	mk_sl_cui_inl_defd_divmod4_wrap(a, b, c, &d);
+#endif
+}
+
+mk_lang_jumbo void mk_sl_cui_inl_defd_mod3_wrap(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b, mk_sl_cui_inl_defd_t* const c) mk_lang_noexcept
+{
+#if mk_sl_cui_inl_defd_count == 1
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(c);
+
+	mk_sl_cui_inl_defd_base_mod3_wrap(&a->m_data[0], &b->m_data[0], &c->m_data[0]);
+#else
+	mk_sl_cui_inl_defd_t d;
+
+	mk_sl_cui_inl_defd_divmod4_wrap(a, b, &d, c);
+#endif
+}
+
+#include "mk_sl_cui_inl_filec_div_defd.h"
+mk_lang_jumbo void mk_sl_cui_inl_defd_divmod4_wrap_restrict(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b, mk_sl_cui_inl_defd_t* const c, mk_sl_cui_inl_defd_t* const d) mk_lang_noexcept
+{
+	mk_sl_cui_inl_filec_div_t aa[mk_sl_cui_inl_filec_div_count];
+	mk_sl_cui_inl_filec_div_t bb[mk_sl_cui_inl_filec_div_count];
+	mk_sl_cui_inl_filec_div_t cc[mk_sl_cui_inl_filec_div_count];
+	mk_sl_cui_inl_filec_div_t dd[mk_sl_cui_inl_filec_div_count];
+
+	mk_lang_static_assert(mk_sl_cui_inl_defd_count >= 2);
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(c);
+	mk_lang_assert(d);
+	mk_lang_assert(c != d);
+	mk_lang_assert(c != a && c != b && d != a && d != b);
+
+	mk_sl_cui_inl_filec_div_convert_to_buis(a, &aa[0]); /* todo avoid copy back and forth if detected bui as base type */
+	mk_sl_cui_inl_filec_div_convert_to_buis(b, &bb[0]);
+	mk_sl_cui_inl_filec_div_fn(&aa[0], &bb[0], &cc[0], &dd[0]);
+	mk_sl_cui_inl_filec_div_convert_from_buis(c, &cc[0]);
+	mk_sl_cui_inl_filec_div_convert_from_buis(d, &dd[0]);
+}
+#include "mk_sl_cui_inl_filec_div_defu.h"
+
+mk_lang_jumbo void mk_sl_cui_inl_defd_divmod4_wrap_alias(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b, mk_sl_cui_inl_defd_t* const c, mk_sl_cui_inl_defd_t* const d) mk_lang_noexcept
+{
+	mk_sl_cui_inl_defd_t cc;
+	mk_sl_cui_inl_defd_t dd;
+
+	mk_lang_static_assert(mk_sl_cui_inl_defd_count >= 2);
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(c);
+	mk_lang_assert(d);
+	mk_lang_assert(c != d);
+	mk_lang_assert(c == a || c == b || d == a || d == b);
+
+	mk_sl_cui_inl_defd_divmod4_wrap_restrict(a, b, &cc, &dd);
+	*c = cc;
+	*d = dd;
+}
+
+mk_lang_jumbo void mk_sl_cui_inl_defd_divmod4_wrap(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b, mk_sl_cui_inl_defd_t* const c, mk_sl_cui_inl_defd_t* const d) mk_lang_noexcept
+{
+#if mk_sl_cui_inl_defd_count == 1
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(c);
+	mk_lang_assert(d);
+	mk_lang_assert(c != d);
+
+	mk_sl_cui_inl_defd_base_divmod4_wrap(&a->m_data[0], &b->m_data[0], &c->m_data[0], &d->m_data[0]);
+#else
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(c);
+	mk_lang_assert(d);
+	mk_lang_assert(c != d);
+
+	if(c != a && c != b && d != a && d != b) /* todo alias/restrict possibly not needed */
+	{
+		mk_sl_cui_inl_defd_divmod4_wrap_restrict(a, b, c, d);
+	}
+	else
+	{
+		mk_sl_cui_inl_defd_divmod4_wrap_alias(a, b, c, d);
+	}
+#endif
+}
+
+mk_lang_jumbo void mk_sl_cui_inl_defd_div2_wrap(mk_sl_cui_inl_defd_t* const a, mk_sl_cui_inl_defd_t const* const b) mk_lang_noexcept
+{
+	mk_sl_cui_inl_defd_div3_wrap(a, b, a);
+}
+
+mk_lang_jumbo void mk_sl_cui_inl_defd_mod2_wrap(mk_sl_cui_inl_defd_t* const a, mk_sl_cui_inl_defd_t const* const b) mk_lang_noexcept
+{
+	mk_sl_cui_inl_defd_mod3_wrap(a, b, a);
+}
+
+mk_lang_jumbo void mk_sl_cui_inl_defd_divmod2_wrap(mk_sl_cui_inl_defd_t* const a, mk_sl_cui_inl_defd_t* const b) mk_lang_noexcept
+{
+	mk_sl_cui_inl_defd_divmod4_wrap(a, b, a, b);
+}
+
+
 #include "mk_sl_cui_inl_defu.h"

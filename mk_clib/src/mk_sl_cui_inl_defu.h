@@ -67,6 +67,12 @@
 #undef mk_sl_cui_inl_defd_base_mul2_wrap_lo
 #undef mk_sl_cui_inl_defd_base_mul2_wrap_hi
 #undef mk_sl_cui_inl_defd_base_mul2_wrap_wi
+#undef mk_sl_cui_inl_defd_base_div3_wrap
+#undef mk_sl_cui_inl_defd_base_mod3_wrap
+#undef mk_sl_cui_inl_defd_base_divmod4_wrap
+#undef mk_sl_cui_inl_defd_base_div2_wrap
+#undef mk_sl_cui_inl_defd_base_mod2_wrap
+#undef mk_sl_cui_inl_defd_base_divmod2_wrap
 
 #undef mk_sl_cui_inl_defd_s
 #undef mk_sl_cui_inl_defd_t
@@ -151,3 +157,13 @@
 #undef mk_sl_cui_inl_defd_mul2_wrap_lo
 #undef mk_sl_cui_inl_defd_mul2_wrap_hi
 #undef mk_sl_cui_inl_defd_mul2_wrap_wi
+
+#undef mk_sl_cui_inl_defd_divmod4_wrap_restrict
+#undef mk_sl_cui_inl_defd_divmod4_wrap_alias
+
+#undef mk_sl_cui_inl_defd_div3_wrap
+#undef mk_sl_cui_inl_defd_mod3_wrap
+#undef mk_sl_cui_inl_defd_divmod4_wrap
+#undef mk_sl_cui_inl_defd_div2_wrap
+#undef mk_sl_cui_inl_defd_mod2_wrap
+#undef mk_sl_cui_inl_defd_divmod2_wrap

@@ -88,6 +88,12 @@
 #define mk_sl_cui_inl_defd_base_mul2_wrap_lo mk_lang_concat(mk_sl_cui_inl_defd_base_name, _mul2_wrap_lo)
 #define mk_sl_cui_inl_defd_base_mul2_wrap_hi mk_lang_concat(mk_sl_cui_inl_defd_base_name, _mul2_wrap_hi)
 #define mk_sl_cui_inl_defd_base_mul2_wrap_wi mk_lang_concat(mk_sl_cui_inl_defd_base_name, _mul2_wrap_wi)
+#define mk_sl_cui_inl_defd_base_div3_wrap mk_lang_concat(mk_sl_cui_inl_defd_base_name, _div3_wrap)
+#define mk_sl_cui_inl_defd_base_mod3_wrap mk_lang_concat(mk_sl_cui_inl_defd_base_name, _mod3_wrap)
+#define mk_sl_cui_inl_defd_base_divmod4_wrap mk_lang_concat(mk_sl_cui_inl_defd_base_name, _divmod4_wrap)
+#define mk_sl_cui_inl_defd_base_div2_wrap mk_lang_concat(mk_sl_cui_inl_defd_base_name, _div2_wrap)
+#define mk_sl_cui_inl_defd_base_mod2_wrap mk_lang_concat(mk_sl_cui_inl_defd_base_name, _mod2_wrap)
+#define mk_sl_cui_inl_defd_base_divmod2_wrap mk_lang_concat(mk_sl_cui_inl_defd_base_name, _divmod2_wrap)
 
 #define mk_sl_cui_inl_defd_s mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _s)
 #define mk_sl_cui_inl_defd_t mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _t)
@@ -172,3 +178,13 @@
 #define mk_sl_cui_inl_defd_mul2_wrap_lo mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _mul2_wrap_lo)
 #define mk_sl_cui_inl_defd_mul2_wrap_hi mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _mul2_wrap_hi)
 #define mk_sl_cui_inl_defd_mul2_wrap_wi mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _mul2_wrap_wi)
+
+#define mk_sl_cui_inl_defd_divmod4_wrap_restrict mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _divmod4_wrap_restrict)
+#define mk_sl_cui_inl_defd_divmod4_wrap_alias mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _divmod4_wrap_alias)
+
+#define mk_sl_cui_inl_defd_div3_wrap mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _div3_wrap)
+#define mk_sl_cui_inl_defd_mod3_wrap mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _mod3_wrap)
+#define mk_sl_cui_inl_defd_divmod4_wrap mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _divmod4_wrap)
+#define mk_sl_cui_inl_defd_div2_wrap mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _div2_wrap)
+#define mk_sl_cui_inl_defd_mod2_wrap mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _mod2_wrap)
+#define mk_sl_cui_inl_defd_divmod2_wrap mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _divmod2_wrap)
