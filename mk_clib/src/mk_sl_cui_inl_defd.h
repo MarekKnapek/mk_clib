@@ -193,3 +193,5 @@
 #define mk_sl_cui_inl_defd_div2_wrap mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _div2_wrap)
 #define mk_sl_cui_inl_defd_mod2_wrap mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _mod2_wrap)
 #define mk_sl_cui_inl_defd_divmod2_wrap mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _divmod2_wrap)
+
+#define mk_sl_cui_inl_defd_to_str_dec_n mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _to_str_dec_n)
