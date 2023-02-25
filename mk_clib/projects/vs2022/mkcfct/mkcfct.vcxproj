@@ -19,13 +19,13 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<ItemGroup>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\app\factorial.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\app\mkcfct.c"/>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
 		<VCProjectVersion>16.0</VCProjectVersion>
 		<Keyword>Win32Proj</Keyword>
 		<ProjectGuid>{658933b8-56b8-4158-9a0c-300b9c4feac6}</ProjectGuid>
-		<RootNamespace>factorial</RootNamespace>
+		<RootNamespace>mkcfct</RootNamespace>
 		<WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
 	</PropertyGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>

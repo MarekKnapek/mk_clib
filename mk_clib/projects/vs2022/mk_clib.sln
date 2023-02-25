@@ -19,7 +19,7 @@ Project("{8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942}") = "mkct", "mkct\mkct.vcxproj",
 		{daee6d32-db72-46dc-9a17-b38426c518f3} = {daee6d32-db72-46dc-9a17-b38426c518f3}
 	EndProjectSection
 EndProject
-Project("{8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942}") = "factorial", "factorial\factorial.vcxproj", "{658933b8-56b8-4158-9a0c-300b9c4feac6}"
+Project("{8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942}") = "mkcfct", "mkcfct\mkcfct.vcxproj", "{658933b8-56b8-4158-9a0c-300b9c4feac6}"
 	ProjectSection(ProjectDependencies) = postProject
 		{daee6d32-db72-46dc-9a17-b38426c518f3} = {daee6d32-db72-46dc-9a17-b38426c518f3}
 	EndProjectSection
