@@ -1,3 +1,9 @@
+/dos16com/mkcfct.com
+/dos16com/mkcfct.err
+/dos16com/mkcfct.lk1
+/dos16com/mkcfct.mk1
+/dos16com/mkcfct.obj
+
 /dos16com/mkci.com
 /dos16com/mkci.err
 /dos16com/mkci.lk1
@@ -11,6 +17,13 @@
 /dos16com/mkct.map
 /dos16com/mkct.mk1
 /dos16com/mkct.obj
+
+
+/dos16exe/mkcfct.err
+/dos16exe/mkcfct.exe
+/dos16exe/mkcfct.lk1
+/dos16exe/mkcfct.mk1
+/dos16exe/mkcfct.obj
 
 /dos16exe/mkci.err
 /dos16exe/mkci.exe
@@ -26,6 +39,13 @@
 /dos16exe/mkct.mk1
 /dos16exe/mkct.obj
 
+
+/winnt/mkcfct.err
+/winnt/mkcfct.exe
+/winnt/mkcfct.lk1
+/winnt/mkcfct.mk1
+/winnt/mkcfct.obj
+
 /winnt/mkci.err
 /winnt/mkci.exe
 /winnt/mkci.lk1
@@ -39,5 +59,6 @@
 /winnt/mkct.map
 /winnt/mkct.mk1
 /winnt/mkct.obj
+
 
 /mk_clib.mk
