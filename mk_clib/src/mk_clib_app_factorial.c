@@ -53,6 +53,8 @@ mk_lang_jumbo void mk_clib_app_factorial_compute_and_print(int const n) mk_lang_
 	mk_sl_cui_fct_t a;
 	mk_sl_cui_fct_t b;
 	int i;
+	int tn;
+	char buff[8 * 1024]; /* todo compute and export this value */
 
 	mk_lang_assert(n >= nmin && n <= nmax);
 
@@ -63,15 +65,11 @@ mk_lang_jumbo void mk_clib_app_factorial_compute_and_print(int const n) mk_lang_
 		mk_sl_cui_fct_inc1(&b);
 		mk_sl_cui_fct_mul2_wrap_lo(&a, &b);
 	}
-	{
-		/* tmp */
-		unsigned un;
-		int tn;
-		mk_sl_cui_fct_to_bi_uint(&a, &un);
-		tn = printf("%u\n", un);
-		mk_lang_assert(tn >= 0);
-		/* tmp */
-	}
+	tn = mk_sl_cui_fct_to_str_dec_n(&a, &buff[0], ((int)(sizeof(buff) / sizeof(*buff))));
+	mk_lang_assert(tn >= 0);
+	buff[tn] = '\0';
+	tn = printf("%s\n", &buff[0]);
+	mk_lang_assert(tn >= 0);
 }
 
 
