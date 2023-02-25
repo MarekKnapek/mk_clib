@@ -7,6 +7,8 @@
 #include "mk_lang_noexcept.h"
 #include "mk_lang_static_assert.h"
 
+#include <string.h> /* memcpy */
+
 
 #include "mk_sl_cui_inl_defd.h"
 
@@ -1915,6 +1917,68 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_mod2_wrap(mk_sl_cui_inl_defd_t* const a, m
 mk_lang_jumbo void mk_sl_cui_inl_defd_divmod2_wrap(mk_sl_cui_inl_defd_t* const a, mk_sl_cui_inl_defd_t* const b) mk_lang_noexcept
 {
 	mk_sl_cui_inl_defd_divmod4_wrap(a, b, a, b);
+}
+
+
+mk_lang_nodiscard mk_lang_jumbo int mk_sl_cui_inl_defd_to_str_dec_n(mk_sl_cui_inl_defd_t const* const x, char* const str, int const str_len) mk_lang_noexcept
+{
+	#define log_constant 19728ul /* floor(log10(2) * (2^16)) */
+	#define worst_case_len (((mk_sl_cui_inl_defd_bits * log_constant) >> 16) + 1)
+	#define mk_sl_cui_inl_defd_to_bi_sint mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _to_bi_sint)
+	#define mk_sl_cui_inl_defd_from_bi_sint mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _from_bi_sint)
+
+	static char const s_symbols[] =
+	{
+		'0',
+		'1',
+		'2',
+		'3',
+		'4',
+		'5',
+		'6',
+		'7',
+		'8',
+		'9'
+	};
+
+	int i;
+	int n;
+	mk_sl_cui_inl_defd_t base;
+	mk_sl_cui_inl_defd_t a;
+	mk_sl_cui_inl_defd_t b;
+	char buff[worst_case_len];
+
+	mk_lang_assert(x);
+	mk_lang_assert(str || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	i = worst_case_len;
+	n = 10;
+	mk_sl_cui_inl_defd_from_bi_sint(&base, &n);
+	a = *x;
+	for(;;)
+	{
+		mk_sl_cui_inl_defd_divmod4_wrap(&a, &base, &a, &b); /* todo introduce small division operation */
+		mk_sl_cui_inl_defd_to_bi_sint(&b, &n);
+		mk_lang_assert(n >= 0 && n < 10);
+		buff[--i] = s_symbols[n];
+		if(mk_sl_cui_inl_defd_is_zero(&a))
+		{
+			break;
+		}
+	}
+	i = worst_case_len - i;
+	if(i > str_len)
+	{
+		return -i;
+	}
+	memcpy(str, buff + (worst_case_len - i), i * sizeof(char));
+	return i;
+
+	#undef log_constant
+	#undef worst_case_len
+	#undef mk_sl_cui_inl_defd_to_bi_sint
+	#undef mk_sl_cui_inl_defd_from_bi_sint
 }
 
 

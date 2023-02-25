@@ -168,3 +168,5 @@
 #undef mk_sl_cui_inl_defd_div2_wrap
 #undef mk_sl_cui_inl_defd_mod2_wrap
 #undef mk_sl_cui_inl_defd_divmod2_wrap
+
+#undef mk_sl_cui_inl_defd_to_str_dec_n
