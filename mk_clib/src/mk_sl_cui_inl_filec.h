@@ -1148,6 +1148,7 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_sub2_wrap_cie_coe(mk_sl_cui_inl_defd_t* co
 }
 
 
+#if mk_sl_cui_inl_defd_count != 1
 mk_lang_jumbo void mk_sl_cui_inl_defd_mul3_wrap_lo_restrict(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b, mk_sl_cui_inl_defd_t* const c) mk_lang_noexcept
 {
 #if mk_sl_cui_inl_defd_count == 2
@@ -1284,6 +1285,7 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_mul3_wrap_lo_alias(mk_sl_cui_inl_defd_t co
 	mk_sl_cui_inl_defd_mul3_wrap_lo_restrict(a, b, &cc);
 	*c = cc;
 }
+#endif
 
 mk_lang_jumbo void mk_sl_cui_inl_defd_mul3_wrap_lo(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b, mk_sl_cui_inl_defd_t* const c) mk_lang_noexcept
 {
@@ -1309,6 +1311,7 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_mul3_wrap_lo(mk_sl_cui_inl_defd_t const* c
 #endif
 }
 
+#if mk_sl_cui_inl_defd_count != 1
 mk_lang_jumbo void mk_sl_cui_inl_defd_mul3_wrap_hi_restrict(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b, mk_sl_cui_inl_defd_t* const c) mk_lang_noexcept
 {
 #if mk_sl_cui_inl_defd_count == 2
@@ -1538,6 +1541,7 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_mul3_wrap_hi_alias(mk_sl_cui_inl_defd_t co
 	mk_sl_cui_inl_defd_mul3_wrap_hi_restrict(a, b, &cc);
 	*c = cc;
 }
+#endif
 
 mk_lang_jumbo void mk_sl_cui_inl_defd_mul3_wrap_hi(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b, mk_sl_cui_inl_defd_t* const c) mk_lang_noexcept
 {
@@ -1563,6 +1567,7 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_mul3_wrap_hi(mk_sl_cui_inl_defd_t const* c
 #endif
 }
 
+#if mk_sl_cui_inl_defd_count != 1
 mk_lang_jumbo void mk_sl_cui_inl_defd_mul4_wrap_wi_restrict(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b, mk_sl_cui_inl_defd_t* const c, mk_sl_cui_inl_defd_t* const d) mk_lang_noexcept
 {
 #if mk_sl_cui_inl_defd_count == 2
@@ -1759,6 +1764,7 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_mul4_wrap_wi_alias(mk_sl_cui_inl_defd_t co
 	*c = cc;
 	*d = dd;
 }
+#endif
 
 mk_lang_jumbo void mk_sl_cui_inl_defd_mul4_wrap_wi(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b, mk_sl_cui_inl_defd_t* const c, mk_sl_cui_inl_defd_t* const d) mk_lang_noexcept
 {
@@ -1834,6 +1840,7 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_mod3_wrap(mk_sl_cui_inl_defd_t const* cons
 #endif
 }
 
+#if mk_sl_cui_inl_defd_count != 1
 #include "mk_sl_cui_inl_filec_div_defd.h"
 mk_lang_jumbo void mk_sl_cui_inl_defd_divmod4_wrap_restrict(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b, mk_sl_cui_inl_defd_t* const c, mk_sl_cui_inl_defd_t* const d) mk_lang_noexcept
 {
@@ -1875,6 +1882,7 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_divmod4_wrap_alias(mk_sl_cui_inl_defd_t co
 	*c = cc;
 	*d = dd;
 }
+#endif
 
 mk_lang_jumbo void mk_sl_cui_inl_defd_divmod4_wrap(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b, mk_sl_cui_inl_defd_t* const c, mk_sl_cui_inl_defd_t* const d) mk_lang_noexcept
 {
