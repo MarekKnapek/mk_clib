@@ -36,19 +36,28 @@ defined mk_lang_bui_divmod_name
 #define mk_lang_bui_divmod_inl_defd_bt3_has mk_lang_concat(mk_lang_concat(mk_lang_bui_to3_, mk_lang_concat(mk_lang_bui_divmod_for_bui, _tn)), _has)
 #endif
 
-#define mk_lang_bui_divmod_inl_defd_fn mk_lang_concat(mk_lang_bui_divmod_, mk_lang_bui_divmod_inl_defd_name)
 #define mk_lang_bui_divmod_inl_defd_lenc mk_lang_bui_divmod_inl_defd_lena
 #define mk_lang_bui_divmod_inl_defd_lend mk_lang_min(mk_lang_bui_divmod_inl_defd_lena, mk_lang_bui_divmod_inl_defd_lenb)
+#define mk_lang_bui_divmod_inl_defd_fn_simple_lena mk_lang_concat(mk_lang_concat(mk_lang_bui_divmod_, mk_lang_bui_divmod_inl_defd_name), _simple_lena)
+#define mk_lang_bui_divmod_inl_defd_fn_simple_lenb mk_lang_concat(mk_lang_concat(mk_lang_bui_divmod_, mk_lang_bui_divmod_inl_defd_name), _simple_lenb)
+#define mk_lang_bui_divmod_inl_defd_fn_simple_1_1 mk_lang_concat(mk_lang_concat(mk_lang_bui_divmod_, mk_lang_bui_divmod_inl_defd_name), _simple_1_1)
+#define mk_lang_bui_divmod_inl_defd_fn_simple_0 mk_lang_concat(mk_lang_concat(mk_lang_bui_divmod_, mk_lang_bui_divmod_inl_defd_name), _simple_0)
+#define mk_lang_bui_divmod_inl_defd_fn_simple_bigger mk_lang_concat(mk_lang_concat(mk_lang_bui_divmod_, mk_lang_bui_divmod_inl_defd_name), _simple_bigger)
+#define mk_lang_bui_divmod_inl_defd_fn_simple_x_1 mk_lang_concat(mk_lang_concat(mk_lang_bui_divmod_, mk_lang_bui_divmod_inl_defd_name), _simple_x_1)
+#define mk_lang_bui_divmod_inl_defd_fn_simple_n_1 mk_lang_concat(mk_lang_concat(mk_lang_bui_divmod_, mk_lang_bui_divmod_inl_defd_name), _simple_n_1)
+#define mk_lang_bui_divmod_inl_defd_fn_complex_n_n mk_lang_concat(mk_lang_concat(mk_lang_bui_divmod_, mk_lang_bui_divmod_inl_defd_name), _complex_n_n)
+#define mk_lang_bui_divmod_inl_defd_fn_simple_n_n mk_lang_concat(mk_lang_concat(mk_lang_bui_divmod_, mk_lang_bui_divmod_inl_defd_name), _simple_n_n)
+#define mk_lang_bui_divmod_inl_defd_fn mk_lang_concat(mk_lang_bui_divmod_, mk_lang_bui_divmod_inl_defd_name)
 
 #if mk_lang_bui_divmod_inl_defd_endian == mk_lang_endian_little
 #define mk_lang_bui_divmod_inl_defd_endian_idxa(x) (x)
 #define mk_lang_bui_divmod_inl_defd_endian_idxb(x) (x)
-#define mk_lang_bui_divmod_inl_defd_endian_idxc(x) (mk_lang_bui_divmod_inl_defd_endian_idxa(x))
+#define mk_lang_bui_divmod_inl_defd_endian_idxc(x) (x)
 #define mk_lang_bui_divmod_inl_defd_endian_idxd(x) (x)
 #elif mk_lang_bui_divmod_inl_defd_endian == mk_lang_endian_big
 #define mk_lang_bui_divmod_inl_defd_endian_idxa(x) ((mk_lang_bui_divmod_inl_defd_lena - 1) - (x))
 #define mk_lang_bui_divmod_inl_defd_endian_idxb(x) ((mk_lang_bui_divmod_inl_defd_lenb - 1) - (x))
-#define mk_lang_bui_divmod_inl_defd_endian_idxc(x) (mk_lang_bui_divmod_inl_defd_endian_idxa(x))
+#define mk_lang_bui_divmod_inl_defd_endian_idxc(x) ((mk_lang_bui_divmod_inl_defd_lenc - 1) - (x))
 #define mk_lang_bui_divmod_inl_defd_endian_idxd(x) ((mk_lang_bui_divmod_inl_defd_lend - 1) - (x))
 #endif
 

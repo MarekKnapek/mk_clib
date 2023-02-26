@@ -9,9 +9,18 @@
 #undef mk_lang_bui_divmod_inl_defd_bt2_has
 #undef mk_lang_bui_divmod_inl_defd_bt3_has
 
-#undef mk_lang_bui_divmod_inl_defd_fn
 #undef mk_lang_bui_divmod_inl_defd_lenc
 #undef mk_lang_bui_divmod_inl_defd_lend
+#undef mk_lang_bui_divmod_inl_defd_fn_simple_lena
+#undef mk_lang_bui_divmod_inl_defd_fn_simple_lenb
+#undef mk_lang_bui_divmod_inl_defd_fn_simple_1_1
+#undef mk_lang_bui_divmod_inl_defd_fn_simple_0
+#undef mk_lang_bui_divmod_inl_defd_fn_simple_bigger
+#undef mk_lang_bui_divmod_inl_defd_fn_simple_x_1
+#undef mk_lang_bui_divmod_inl_defd_fn_simple_n_1
+#undef mk_lang_bui_divmod_inl_defd_fn_complex_n_n
+#undef mk_lang_bui_divmod_inl_defd_fn_simple_n_n
+#undef mk_lang_bui_divmod_inl_defd_fn
 
 #undef mk_lang_bui_divmod_inl_defd_endian_idxa
 #undef mk_lang_bui_divmod_inl_defd_endian_idxb
