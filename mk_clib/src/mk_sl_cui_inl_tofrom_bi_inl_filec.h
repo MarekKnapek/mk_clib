@@ -57,7 +57,7 @@ mk_lang_jumbo void mk_sl_cui_inl_tofrom_bi_inl_defd_fn_from(mk_sl_cui_inl_defd_t
 	mk_lang_assert(x);
 	mk_lang_assert(src);
 
-	s = ((mk_sl_cui_inl_tofrom_bi_inl_defd_bi_t)(*src));
+	s = ((mk_sl_cui_inl_tofrom_bi_inl_defd_bui_t)(*src));
 	mk_sl_cui_inl_tofrom_bi_inl_defd_base_from_bui(&x->m_data[mk_sl_cui_inl_defd_idx(0)], &s);
 	for(i = 1; i != mk_sl_cui_inl_tofrom_bi_inl_defd_parts; ++i)
 	{
