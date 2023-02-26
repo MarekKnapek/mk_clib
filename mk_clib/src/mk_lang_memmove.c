@@ -1,0 +1,35 @@
+#include "mk_lang_memmove.h"
+
+#include "mk_lang_assert.h"
+#include "mk_lang_jumbo.h"
+#include "mk_lang_memcpy.h"
+#include "mk_lang_noexcept.h"
+#include "mk_lang_sizet.h"
+
+
+mk_lang_jumbo void mk_lang_memmove(void* const dst, void const* const src, mk_lang_size_t const cnt) mk_lang_noexcept
+{
+	unsigned char* d;
+	unsigned char const* s;
+	mk_lang_size_t i;
+
+	mk_lang_assert(dst);
+	mk_lang_assert(src);
+	mk_lang_assert(cnt != 0);
+
+	d = ((unsigned char*)(dst));
+	s = ((unsigned char const*)(src));
+	if(d >= s && d < s + cnt)
+	{
+		d = d + (cnt - 1);
+		s = s + (cnt - 1);
+		for(i = 0; i != cnt; ++i, --d, --s)
+		{
+			*d = *s;
+		}
+	}
+	else
+	{
+		mk_lang_memcpy(dst, src, cnt);
+	}
+}
