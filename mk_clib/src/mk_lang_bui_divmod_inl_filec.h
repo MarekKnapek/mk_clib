@@ -18,8 +18,6 @@
 
 mk_lang_jumbo void mk_lang_bui_divmod_inl_defd_fn(mk_lang_bui_divmod_inl_defd_bt const* const a, mk_lang_bui_divmod_inl_defd_bt const* const b, mk_lang_bui_divmod_inl_defd_bt* const c, mk_lang_bui_divmod_inl_defd_bt* const d) mk_lang_noexcept
 {
-	mk_lang_static_assert(mk_lang_bui_divmod_inl_defd_lena >= 1 && mk_lang_bui_divmod_inl_defd_lena <= 16384); /* todo 16384? */
-	mk_lang_static_assert(mk_lang_bui_divmod_inl_defd_lenb >= 1 && mk_lang_bui_divmod_inl_defd_lenb <= 16384); /* todo 16384? */
 	mk_lang_assert(a);
 	mk_lang_assert(b);
 	mk_lang_assert(c);
