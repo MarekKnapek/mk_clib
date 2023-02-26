@@ -1930,8 +1930,6 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_divmod2_wrap(mk_sl_cui_inl_defd_t* const a
 
 mk_lang_nodiscard mk_lang_jumbo int mk_sl_cui_inl_defd_to_str_dec_n(mk_sl_cui_inl_defd_t const* const x, char* const str, int const str_len) mk_lang_noexcept
 {
-	#define log_constant 19728ul /* floor(log10(2) * (2^16)) */
-	#define worst_case_len ((int)(((mk_sl_cui_inl_defd_bits * log_constant) >> 16) + 1))
 	#define mk_sl_cui_inl_defd_to_bi_sint mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _to_bi_sint)
 	#define mk_sl_cui_inl_defd_from_bi_sint mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _from_bi_sint)
 
@@ -1954,13 +1952,13 @@ mk_lang_nodiscard mk_lang_jumbo int mk_sl_cui_inl_defd_to_str_dec_n(mk_sl_cui_in
 	mk_sl_cui_inl_defd_t base;
 	mk_sl_cui_inl_defd_t a;
 	mk_sl_cui_inl_defd_t b;
-	char buff[worst_case_len];
+	char buff[mk_sl_cui_inl_defd_to_str_dec_lene];
 
 	mk_lang_assert(x);
 	mk_lang_assert(str || str_len == 0);
 	mk_lang_assert(str_len >= 0);
 
-	i = worst_case_len;
+	i = mk_sl_cui_inl_defd_to_str_dec_lene;
 	n = 10;
 	mk_sl_cui_inl_defd_from_bi_sint(&base, &n);
 	a = *x;
@@ -1975,16 +1973,14 @@ mk_lang_nodiscard mk_lang_jumbo int mk_sl_cui_inl_defd_to_str_dec_n(mk_sl_cui_in
 			break;
 		}
 	}
-	i = worst_case_len - i;
+	i = ((int)(mk_sl_cui_inl_defd_to_str_dec_lene)) - i;
 	if(i > str_len)
 	{
 		return -i;
 	}
-	mk_lang_memcpy(str, buff + (worst_case_len - i), ((unsigned)(i)) * sizeof(char));
+	mk_lang_memcpy(str, buff + (((int)(mk_sl_cui_inl_defd_to_str_dec_lene)) - i), ((unsigned)(i)) * sizeof(char));
 	return i;
 
-	#undef log_constant
-	#undef worst_case_len
 	#undef mk_sl_cui_inl_defd_to_bi_sint
 	#undef mk_sl_cui_inl_defd_from_bi_sint
 }

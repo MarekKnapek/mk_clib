@@ -3,7 +3,9 @@
 
 
 #include "mk_lang_bui.h"
+#include "mk_lang_charbit.h"
 #include "mk_lang_for_constants.h"
+#include "mk_lang_sizeof.h"
 
 
 #define mk_lang_fora3_id mk_lang_for_constants_bui

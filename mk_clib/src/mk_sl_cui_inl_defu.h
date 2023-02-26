@@ -169,4 +169,7 @@
 #undef mk_sl_cui_inl_defd_mod2_wrap
 #undef mk_sl_cui_inl_defd_divmod2_wrap
 
+#undef mk_sl_cui_inl_defd_to_str_dec_log
+#undef mk_sl_cui_inl_defd_to_str_dec_lenv
+#undef mk_sl_cui_inl_defd_to_str_dec_lene
 #undef mk_sl_cui_inl_defd_to_str_dec_n
