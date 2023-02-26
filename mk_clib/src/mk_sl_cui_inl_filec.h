@@ -1928,31 +1928,41 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_divmod2_wrap(mk_sl_cui_inl_defd_t* const a
 }
 
 
+#define mk_sl_cui_inl_defd_want_smol
+#include "mk_sl_cui_inl_filec_div_defd.h"
+mk_lang_jumbo void mk_sl_cui_inl_defd_divmod_smol(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_base_type const* const b, mk_sl_cui_inl_defd_t* const c, mk_sl_cui_inl_defd_base_type* const d) mk_lang_noexcept
+{
+	mk_sl_cui_inl_filec_div_t aa[mk_sl_cui_inl_filec_div_count]; /* todo avoid converting back and forth */
+	mk_sl_cui_inl_filec_div_t bb;
+	mk_sl_cui_inl_filec_div_t cc[mk_sl_cui_inl_filec_div_count];
+	mk_sl_cui_inl_filec_div_t dd;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(c);
+	mk_lang_assert(d);
+
+	mk_sl_cui_inl_filec_div_convert_to_buis(a, &aa[0]);
+	mk_sl_cui_inl_filec_div_convert_to_bui(b, &bb);
+	mk_sl_cui_inl_filec_div_fn(&aa[0], &bb, &cc[0], &dd);
+	mk_sl_cui_inl_filec_div_convert_from_buis(c, &cc[0]);
+	mk_sl_cui_inl_filec_div_convert_from_bui(d, &dd);
+}
+#include "mk_sl_cui_inl_filec_div_defu.h"
+
 mk_lang_nodiscard mk_lang_jumbo int mk_sl_cui_inl_defd_to_str_dec_n(mk_sl_cui_inl_defd_t const* const x, char* const str, int const str_len) mk_lang_noexcept
 {
-	#define mk_sl_cui_inl_defd_to_bi_sint mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _to_bi_sint)
-	#define mk_sl_cui_inl_defd_from_bi_sint mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _from_bi_sint)
+	#define mk_sl_cui_inl_defd_base_to_bi_sint mk_lang_concat(mk_sl_cui_inl_defd_base_name, _to_bi_sint)
+	#define mk_sl_cui_inl_defd_base_from_bi_sint mk_lang_concat(mk_sl_cui_inl_defd_base_name, _from_bi_sint)
 
-	static char const s_symbols[] =
-	{
-		'0',
-		'1',
-		'2',
-		'3',
-		'4',
-		'5',
-		'6',
-		'7',
-		'8',
-		'9'
-	};
+	static char const s_symbols[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
 	int i;
 	int n;
-	mk_sl_cui_inl_defd_t base;
+	mk_sl_cui_inl_defd_base_type base;
 	mk_sl_cui_inl_defd_t a;
-	mk_sl_cui_inl_defd_t b;
-	char buff[mk_sl_cui_inl_defd_to_str_dec_lene];
+	mk_sl_cui_inl_defd_base_type b;
+	char buff[mk_sl_cui_inl_defd_to_str_dec_lene]; /* todo use buff form caller */
 
 	mk_lang_assert(x);
 	mk_lang_assert(str || str_len == 0);
@@ -1960,12 +1970,12 @@ mk_lang_nodiscard mk_lang_jumbo int mk_sl_cui_inl_defd_to_str_dec_n(mk_sl_cui_in
 
 	i = mk_sl_cui_inl_defd_to_str_dec_lene;
 	n = 10;
-	mk_sl_cui_inl_defd_from_bi_sint(&base, &n);
+	mk_sl_cui_inl_defd_base_from_bi_sint(&base, &n);
 	a = *x;
 	for(;;)
 	{
-		mk_sl_cui_inl_defd_divmod4_wrap(&a, &base, &a, &b); /* todo introduce small division operation */
-		mk_sl_cui_inl_defd_to_bi_sint(&b, &n);
+		mk_sl_cui_inl_defd_divmod_smol(&a, &base, &a, &b);
+		mk_sl_cui_inl_defd_base_to_bi_sint(&b, &n);
 		mk_lang_assert(n >= 0 && n < 10);
 		buff[--i] = s_symbols[n];
 		if(mk_sl_cui_inl_defd_is_zero(&a))
