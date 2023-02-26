@@ -3,12 +3,11 @@
 #include "mk_lang_for_constants.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_max.h"
+#include "mk_lang_memcpy.h"
 #include "mk_lang_min.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_static_assert.h"
-
-#include <string.h> /* memcpy */
 
 
 #include "mk_sl_cui_inl_defd.h"
@@ -1932,7 +1931,7 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_divmod2_wrap(mk_sl_cui_inl_defd_t* const a
 mk_lang_nodiscard mk_lang_jumbo int mk_sl_cui_inl_defd_to_str_dec_n(mk_sl_cui_inl_defd_t const* const x, char* const str, int const str_len) mk_lang_noexcept
 {
 	#define log_constant 19728ul /* floor(log10(2) * (2^16)) */
-	#define worst_case_len (((mk_sl_cui_inl_defd_bits * log_constant) >> 16) + 1)
+	#define worst_case_len ((int)(((mk_sl_cui_inl_defd_bits * log_constant) >> 16) + 1))
 	#define mk_sl_cui_inl_defd_to_bi_sint mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _to_bi_sint)
 	#define mk_sl_cui_inl_defd_from_bi_sint mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _from_bi_sint)
 
@@ -1981,7 +1980,7 @@ mk_lang_nodiscard mk_lang_jumbo int mk_sl_cui_inl_defd_to_str_dec_n(mk_sl_cui_in
 	{
 		return -i;
 	}
-	memcpy(str, buff + (worst_case_len - i), i * sizeof(char));
+	mk_lang_memcpy(str, buff + (worst_case_len - i), ((unsigned)(i)) * sizeof(char));
 	return i;
 
 	#undef log_constant
