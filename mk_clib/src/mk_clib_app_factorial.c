@@ -3,6 +3,7 @@
 #include "mk_lang_assert.h"
 #include "mk_lang_bi.h"
 #include "mk_lang_charbit.h"
+#include "mk_lang_div_roundup.h"
 #include "mk_lang_endian.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
@@ -17,7 +18,7 @@
 #define mk_sl_cui_base_type mk_lang_bi_uint_t
 #define mk_sl_cui_base_name mk_lang_bui_fct
 #define mk_sl_cui_base_bits (mk_lang_sizeof_bi_uint_t * mk_lang_charbit)
-#define mk_sl_cui_count ((9 * 1024) / mk_sl_cui_base_bits)
+#define mk_sl_cui_count mk_lang_div_roundup(19072, mk_sl_cui_base_bits)
 #define mk_sl_cui_endian mk_lang_endian_little
 #include "mk_sl_cui_inl_fileh.h"
 #include "mk_sl_cui_inl_filec.h"
@@ -27,7 +28,7 @@
 
 
 #define nmin 1
-#define nmax 1000
+#define nmax 2000
 #define tostr_(x) #x
 #define tostr(x) tostr_(x)
 
@@ -54,7 +55,7 @@ mk_lang_jumbo void mk_clib_app_factorial_compute_and_print(int const n) mk_lang_
 	mk_sl_cui_fct_t b;
 	int i;
 	int tn;
-	char buff[8 * 1024]; /* todo compute and export this value */
+	char buff[5736];
 
 	mk_lang_assert(n >= nmin && n <= nmax);
 
