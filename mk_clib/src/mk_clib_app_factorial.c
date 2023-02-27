@@ -53,22 +53,31 @@ mk_lang_jumbo char const* mk_clib_app_factorial_get_exe_name(char const* const a
 
 mk_lang_jumbo void mk_clib_app_factorial_compute_and_print(int const n) mk_lang_noexcept
 {
-	mk_sl_cui_fct_t a;
+	mk_sl_cui_fct_t* pa1;
+	mk_sl_cui_fct_t a1;
+	mk_sl_cui_fct_t* pa2;
+	mk_sl_cui_fct_t a2;
 	mk_sl_cui_fct_t b;
 	int i;
+	mk_sl_cui_fct_t* pa3;
 	int tn;
 	char buff[mk_sl_cui_fct_to_str_dec_len + 1];
 
 	mk_lang_assert(n >= nmin && n <= nmax);
 
-	mk_sl_cui_fct_set_one(&a);
-	b = a;
+	pa1 = &a1;
+	pa2 = &a2;
+	mk_sl_cui_fct_set_one(pa1);
+	b = *pa1;
 	for(i = 1; i != n; ++i)
 	{
 		mk_sl_cui_fct_inc1(&b);
-		mk_sl_cui_fct_mul2_wrap_lo(&a, &b);
+		mk_sl_cui_fct_mul3_wrap_lo(pa1, &b, pa2);
+		pa3 = pa1;
+		pa1 = pa2;
+		pa2 = pa3;
 	}
-	tn = mk_sl_cui_fct_to_str_dec_n(&a, &buff[0], ((int)(sizeof(buff) / sizeof(*buff))) - 1);
+	tn = mk_sl_cui_fct_to_str_dec_n(pa1, &buff[0], ((int)(sizeof(buff) / sizeof(*buff))) - 1);
 	mk_lang_assert(tn != 0);
 	buff[tn] = '\0';
 	tn = printf("%s\n", &buff[0]);
