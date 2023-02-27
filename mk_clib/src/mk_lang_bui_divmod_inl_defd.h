@@ -5,14 +5,15 @@
 
 
 #if \
-defined mk_lang_bui_divmod_bt && \
-defined mk_lang_bui_divmod_bt2 && \
-defined mk_lang_bui_divmod_bt3 && \
-defined mk_lang_bui_divmod_lena && \
-defined mk_lang_bui_divmod_lenb && \
-defined mk_lang_bui_divmod_endian && \
-defined mk_lang_bui_divmod_alg && \
-defined mk_lang_bui_divmod_name
+	defined mk_lang_bui_divmod_bt && \
+	defined mk_lang_bui_divmod_bt2 && \
+	defined mk_lang_bui_divmod_bt3 && \
+	defined mk_lang_bui_divmod_lena && \
+	defined mk_lang_bui_divmod_lenb && \
+	defined mk_lang_bui_divmod_endian && \
+	defined mk_lang_bui_divmod_alg && \
+	defined mk_lang_bui_divmod_name && \
+	1
 #define mk_lang_bui_divmod_inl_defd_bt mk_lang_bui_divmod_bt
 #define mk_lang_bui_divmod_inl_defd_bt2 mk_lang_bui_divmod_bt2
 #define mk_lang_bui_divmod_inl_defd_bt3 mk_lang_bui_divmod_bt3
@@ -23,6 +24,24 @@ defined mk_lang_bui_divmod_name
 #define mk_lang_bui_divmod_inl_defd_name mk_lang_bui_divmod_name
 #define mk_lang_bui_divmod_inl_defd_bt2_has 1
 #define mk_lang_bui_divmod_inl_defd_bt3_has 1
+#elif \
+	defined mk_lang_bui_divmod_bt && \
+	defined mk_lang_bui_divmod_bt2 && \
+	defined mk_lang_bui_divmod_lena && \
+	defined mk_lang_bui_divmod_lenb && \
+	defined mk_lang_bui_divmod_endian && \
+	defined mk_lang_bui_divmod_alg && \
+	defined mk_lang_bui_divmod_name && \
+	1
+#define mk_lang_bui_divmod_inl_defd_bt mk_lang_bui_divmod_bt
+#define mk_lang_bui_divmod_inl_defd_bt2 mk_lang_bui_divmod_bt2
+#define mk_lang_bui_divmod_inl_defd_lena mk_lang_bui_divmod_lena
+#define mk_lang_bui_divmod_inl_defd_lenb mk_lang_bui_divmod_lenb
+#define mk_lang_bui_divmod_inl_defd_endian mk_lang_bui_divmod_endian
+#define mk_lang_bui_divmod_inl_defd_alg mk_lang_bui_divmod_alg
+#define mk_lang_bui_divmod_inl_defd_name mk_lang_bui_divmod_name
+#define mk_lang_bui_divmod_inl_defd_bt2_has 1
+#define mk_lang_bui_divmod_inl_defd_bt3_has 0
 #else
 #define mk_lang_bui_divmod_inl_defd_bt mk_lang_concat(mk_lang_concat(mk_lang_bi_, mk_lang_concat(mk_lang_bui_divmod_for_bui, _tn)), _t)
 #define mk_lang_bui_divmod_inl_defd_bt2 mk_lang_concat(mk_lang_concat(mk_lang_bui_to2_, mk_lang_concat(mk_lang_bui_divmod_for_bui, _tn)), _t)

@@ -17,6 +17,12 @@
 #define mk_sl_cui_inl_defd_base_bits mk_sl_cui_base_bits
 #define mk_sl_cui_inl_defd_count mk_sl_cui_count
 #define mk_sl_cui_inl_defd_endian mk_sl_cui_endian
+#if defined mk_sl_cui_base_is_bui && defined mk_sl_cui_base_bui_tn
+#define mk_sl_cui_inl_defd_base_is_bui mk_sl_cui_base_is_bui
+#define mk_sl_cui_inl_defd_base_bui_tn mk_sl_cui_base_bui_tn
+#else
+#define mk_sl_cui_inl_defd_base_is_bui 0
+#endif
 #else
 #define mk_sl_cui_inl_defd_name mk_lang_concat(mk_lang_concat(mk_lang_concat(mk_sl_cui_for_bui, _tn), mk_lang_concat(mk_sl_cui_for_count, _n)), mk_lang_concat(mk_sl_cui_for_endian, _name))
 #define mk_sl_cui_inl_defd_base_type mk_lang_concat(mk_lang_concat(mk_lang_bi_, mk_lang_concat(mk_sl_cui_for_bui, _tn)), _t)
@@ -24,6 +30,8 @@
 #define mk_sl_cui_inl_defd_base_bits (mk_lang_concat(mk_lang_concat(mk_lang_sizeof_bi_, mk_lang_concat(mk_sl_cui_for_bui, _tn)), _t) * mk_lang_charbit)
 #define mk_sl_cui_inl_defd_count mk_lang_concat(mk_sl_cui_for_count, _n)
 #define mk_sl_cui_inl_defd_endian mk_lang_concat(mk_sl_cui_for_endian, _value)
+#define mk_sl_cui_inl_defd_base_is_bui 1
+#define mk_sl_cui_inl_defd_base_bui_tn mk_lang_concat(mk_sl_cui_for_bui, _tn)
 #endif
 #if mk_sl_cui_inl_defd_endian == mk_lang_endian_little
 #define mk_sl_cui_inl_defd_endian_name le

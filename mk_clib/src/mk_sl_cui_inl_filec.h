@@ -1844,10 +1844,21 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_mod3_wrap(mk_sl_cui_inl_defd_t const* cons
 #include "mk_sl_cui_inl_filec_div_defd.h"
 mk_lang_jumbo void mk_sl_cui_inl_defd_divmod4_wrap_restrict(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b, mk_sl_cui_inl_defd_t* const c, mk_sl_cui_inl_defd_t* const d) mk_lang_noexcept
 {
+#if mk_sl_cui_inl_filec_div_need_convert == 1
 	mk_sl_cui_inl_filec_div_t aa[mk_sl_cui_inl_filec_div_count];
 	mk_sl_cui_inl_filec_div_t bb[mk_sl_cui_inl_filec_div_count];
 	mk_sl_cui_inl_filec_div_t cc[mk_sl_cui_inl_filec_div_count];
 	mk_sl_cui_inl_filec_div_t dd[mk_sl_cui_inl_filec_div_count];
+	mk_sl_cui_inl_filec_div_t const* pa;
+	mk_sl_cui_inl_filec_div_t const* pb;
+	mk_sl_cui_inl_filec_div_t* pc;
+	mk_sl_cui_inl_filec_div_t* pd;
+#else
+	mk_sl_cui_inl_defd_base_type const* pa;
+	mk_sl_cui_inl_defd_base_type const* pb;
+	mk_sl_cui_inl_defd_base_type* pc;
+	mk_sl_cui_inl_defd_base_type* pd;
+#endif
 
 	mk_lang_static_assert(mk_sl_cui_inl_defd_count >= 2);
 	mk_lang_assert(a);
@@ -1857,11 +1868,24 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_divmod4_wrap_restrict(mk_sl_cui_inl_defd_t
 	mk_lang_assert(c != d);
 	mk_lang_assert(c != a && c != b && d != a && d != b);
 
-	mk_sl_cui_inl_filec_div_convert_to_buis(a, &aa[0]); /* todo avoid copy back and forth if detected bui as base type */
+#if mk_sl_cui_inl_filec_div_need_convert == 1
+	mk_sl_cui_inl_filec_div_convert_to_buis(a, &aa[0]);
 	mk_sl_cui_inl_filec_div_convert_to_buis(b, &bb[0]);
-	mk_sl_cui_inl_filec_div_fn(&aa[0], &bb[0], &cc[0], &dd[0]);
+	pa = &aa[0];
+	pb = &bb[0];
+	pc = &cc[0];
+	pd = &dd[0];
+#else
+	pa = &a->m_data[0];
+	pb = &b->m_data[0];
+	pc = &c->m_data[0];
+	pd = &d->m_data[0];
+#endif
+	mk_sl_cui_inl_filec_div_fn(pa, pb, pc, pd);
+#if mk_sl_cui_inl_filec_div_need_convert == 1
 	mk_sl_cui_inl_filec_div_convert_from_buis(c, &cc[0]);
 	mk_sl_cui_inl_filec_div_convert_from_buis(d, &dd[0]);
+#endif
 }
 #include "mk_sl_cui_inl_filec_div_defu.h"
 
@@ -1932,21 +1956,45 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_divmod2_wrap(mk_sl_cui_inl_defd_t* const a
 #include "mk_sl_cui_inl_filec_div_defd.h"
 mk_lang_jumbo void mk_sl_cui_inl_defd_divmod_smol(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_base_type const* const b, mk_sl_cui_inl_defd_t* const c, mk_sl_cui_inl_defd_base_type* const d) mk_lang_noexcept
 {
-	mk_sl_cui_inl_filec_div_t aa[mk_sl_cui_inl_filec_div_count]; /* todo avoid converting back and forth */
+#if mk_sl_cui_inl_filec_div_need_convert == 1
+	mk_sl_cui_inl_filec_div_t aa[mk_sl_cui_inl_filec_div_count];
 	mk_sl_cui_inl_filec_div_t bb;
 	mk_sl_cui_inl_filec_div_t cc[mk_sl_cui_inl_filec_div_count];
 	mk_sl_cui_inl_filec_div_t dd;
+	mk_sl_cui_inl_filec_div_t const* pa;
+	mk_sl_cui_inl_filec_div_t const* pb;
+	mk_sl_cui_inl_filec_div_t* pc;
+	mk_sl_cui_inl_filec_div_t* pd;
+#else
+	mk_sl_cui_inl_defd_base_type const* pa;
+	mk_sl_cui_inl_defd_base_type const* pb;
+	mk_sl_cui_inl_defd_base_type* pc;
+	mk_sl_cui_inl_defd_base_type* pd;
+#endif
 
 	mk_lang_assert(a);
 	mk_lang_assert(b);
 	mk_lang_assert(c);
 	mk_lang_assert(d);
 
+#if mk_sl_cui_inl_filec_div_need_convert == 1
 	mk_sl_cui_inl_filec_div_convert_to_buis(a, &aa[0]);
 	mk_sl_cui_inl_filec_div_convert_to_bui(b, &bb);
-	mk_sl_cui_inl_filec_div_fn(&aa[0], &bb, &cc[0], &dd);
+	pa = &aa[0];
+	pb = &bb;
+	pc = &cc[0];
+	pd = &dd;
+#else
+	pa = &a->m_data[0];
+	pb = b;
+	pc = &c->m_data[0];
+	pd = d;
+#endif
+	mk_sl_cui_inl_filec_div_fn(pa, pb, pc, pd);
+#if mk_sl_cui_inl_filec_div_need_convert == 1
 	mk_sl_cui_inl_filec_div_convert_from_buis(c, &cc[0]);
 	mk_sl_cui_inl_filec_div_convert_from_bui(d, &dd);
+#endif
 }
 #include "mk_sl_cui_inl_filec_div_defu.h"
 
@@ -1960,7 +2008,11 @@ mk_lang_nodiscard mk_lang_jumbo int mk_sl_cui_inl_defd_to_str_dec_n(mk_sl_cui_in
 	int i;
 	int n;
 	mk_sl_cui_inl_defd_base_type base;
-	mk_sl_cui_inl_defd_t a;
+	mk_sl_cui_inl_defd_t* pa1;
+	mk_sl_cui_inl_defd_t a1;
+	mk_sl_cui_inl_defd_t* pa2;
+	mk_sl_cui_inl_defd_t a2;
+	mk_sl_cui_inl_defd_t* pa3;
 	mk_sl_cui_inl_defd_base_type b;
 	char buff[mk_sl_cui_inl_defd_to_str_dec_lene]; /* todo use buff form caller */
 
@@ -1971,14 +2023,19 @@ mk_lang_nodiscard mk_lang_jumbo int mk_sl_cui_inl_defd_to_str_dec_n(mk_sl_cui_in
 	i = mk_sl_cui_inl_defd_to_str_dec_lene;
 	n = 10;
 	mk_sl_cui_inl_defd_base_from_bi_sint(&base, &n);
-	a = *x;
+	pa1 = &a1;
+	pa2 = &a2;
+	*pa2 = *x;
 	for(;;)
 	{
-		mk_sl_cui_inl_defd_divmod_smol(&a, &base, &a, &b);
+		pa3 = pa1;
+		pa1 = pa2;
+		pa2 = pa3;
+		mk_sl_cui_inl_defd_divmod_smol(pa1, &base, pa2, &b);
 		mk_sl_cui_inl_defd_base_to_bi_sint(&b, &n);
 		mk_lang_assert(n >= 0 && n < 10);
 		buff[--i] = s_symbols[n];
-		if(mk_sl_cui_inl_defd_is_zero(&a))
+		if(mk_sl_cui_inl_defd_is_zero(pa2))
 		{
 			break;
 		}
@@ -2005,3 +2062,5 @@ mk_lang_nodiscard mk_lang_jumbo int mk_sl_cui_inl_defd_to_str_dec_n(mk_sl_cui_in
 #undef mk_sl_cui_base_bits
 #undef mk_sl_cui_count
 #undef mk_sl_cui_endian
+#undef mk_sl_cui_base_is_bui
+#undef mk_sl_cui_base_bui_tn

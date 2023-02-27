@@ -20,6 +20,8 @@
 #define mk_sl_cui_base_bits (mk_lang_sizeof_bi_uint_t * mk_lang_charbit)
 #define mk_sl_cui_count mk_lang_div_roundup(19072, mk_sl_cui_base_bits)
 #define mk_sl_cui_endian mk_lang_endian_little
+#define mk_sl_cui_base_is_bui 1
+#define mk_sl_cui_base_bui_tn uint
 #include "mk_sl_cui_inl_fileh.h"
 #include "mk_sl_cui_inl_filec.h"
 
