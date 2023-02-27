@@ -10,6 +10,8 @@
 #define mk_lang_noreturn _Noreturn
 #elif defined _MSC_VER && _MSC_VER >= 1200 /* vs 6 */ /* todo maybe ealier */
 #define mk_lang_noreturn __declspec(noreturn)
+#else
+#define mk_lang_noreturn
 #endif
 
 
