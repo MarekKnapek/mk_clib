@@ -2040,7 +2040,7 @@ mk_lang_nodiscard mk_lang_jumbo int mk_sl_cui_inl_defd_to_str_dec_n(mk_sl_cui_in
 		}
 		if(i == 0)
 		{
-			return -1;
+			return 0;
 		}
 	}
 	if(i != 0)

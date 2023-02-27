@@ -69,7 +69,7 @@ mk_lang_jumbo void mk_clib_app_factorial_compute_and_print(int const n) mk_lang_
 		mk_sl_cui_fct_mul2_wrap_lo(&a, &b);
 	}
 	tn = mk_sl_cui_fct_to_str_dec_n(&a, &buff[0], ((int)(sizeof(buff) / sizeof(*buff))) - 1);
-	mk_lang_assert(tn >= 0);
+	mk_lang_assert(tn != 0);
 	buff[tn] = '\0';
 	tn = printf("%s\n", &buff[0]);
 	mk_lang_assert(tn >= 0);
