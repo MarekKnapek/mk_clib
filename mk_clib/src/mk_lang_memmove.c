@@ -2,7 +2,6 @@
 
 #include "mk_lang_assert.h"
 #include "mk_lang_jumbo.h"
-#include "mk_lang_memcpy.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_sizet.h"
 
@@ -30,6 +29,9 @@ mk_lang_jumbo void mk_lang_memmove(void* const dst, void const* const src, mk_la
 	}
 	else
 	{
-		mk_lang_memcpy(dst, src, cnt);
+		for(i = 0; i != cnt; ++i, ++d, ++s)
+		{
+			*d = *s;
+		}
 	}
 }
