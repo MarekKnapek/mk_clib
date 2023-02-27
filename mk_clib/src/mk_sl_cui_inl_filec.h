@@ -3,7 +3,7 @@
 #include "mk_lang_for_constants.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_max.h"
-#include "mk_lang_memcpy.h"
+#include "mk_lang_memmove.h"
 #include "mk_lang_min.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
@@ -2014,13 +2014,12 @@ mk_lang_nodiscard mk_lang_jumbo int mk_sl_cui_inl_defd_to_str_dec_n(mk_sl_cui_in
 	mk_sl_cui_inl_defd_t a2;
 	mk_sl_cui_inl_defd_t* pa3;
 	mk_sl_cui_inl_defd_base_type b;
-	char buff[mk_sl_cui_inl_defd_to_str_dec_lene]; /* todo use buff form caller */
 
 	mk_lang_assert(x);
 	mk_lang_assert(str || str_len == 0);
 	mk_lang_assert(str_len >= 0);
 
-	i = mk_sl_cui_inl_defd_to_str_dec_lene;
+	i = str_len;
 	n = 10;
 	mk_sl_cui_inl_defd_base_from_bi_sint(&base, &n);
 	pa1 = &a1;
@@ -2034,19 +2033,21 @@ mk_lang_nodiscard mk_lang_jumbo int mk_sl_cui_inl_defd_to_str_dec_n(mk_sl_cui_in
 		mk_sl_cui_inl_defd_divmod_smol(pa1, &base, pa2, &b);
 		mk_sl_cui_inl_defd_base_to_bi_sint(&b, &n);
 		mk_lang_assert(n >= 0 && n < 10);
-		buff[--i] = s_symbols[n];
+		str[--i] = s_symbols[n];
 		if(mk_sl_cui_inl_defd_is_zero(pa2))
 		{
 			break;
 		}
+		if(i == 0)
+		{
+			return -1;
+		}
 	}
-	i = ((int)(mk_sl_cui_inl_defd_to_str_dec_lene)) - i;
-	if(i > str_len)
+	if(i != 0)
 	{
-		return -i;
+		mk_lang_memmove(str, str + i, ((unsigned)(str_len - i)) * sizeof(char));
 	}
-	mk_lang_memcpy(str, buff + (((int)(mk_sl_cui_inl_defd_to_str_dec_lene)) - i), ((unsigned)(i)) * sizeof(char));
-	return i;
+	return str_len - i;
 
 	#undef mk_sl_cui_inl_defd_to_bi_sint
 	#undef mk_sl_cui_inl_defd_from_bi_sint
