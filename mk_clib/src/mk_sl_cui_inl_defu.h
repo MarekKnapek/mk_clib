@@ -175,4 +175,7 @@
 #undef mk_sl_cui_inl_defd_to_str_dec_lenv
 #undef mk_sl_cui_inl_defd_to_str_dec_lene
 #undef mk_sl_cui_inl_defd_divmod_smol
+#undef mk_sl_cui_inl_defd_mul3_wrap_lo_smol
+#undef mk_sl_cui_inl_defd_add2_wrap_cid_cod_smol
 #undef mk_sl_cui_inl_defd_to_str_dec_n
+#undef mk_sl_cui_inl_defd_from_str_dec_n

@@ -115,6 +115,7 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_divmod2_wrap(mk_sl_cui_inl_defd_t* const a
 
 enum { mk_sl_cui_inl_defd_to_str_dec_lene = mk_sl_cui_inl_defd_to_str_dec_lenv };
 mk_lang_nodiscard mk_lang_jumbo int mk_sl_cui_inl_defd_to_str_dec_n(mk_sl_cui_inl_defd_t const* const x, char* const str, int const str_len) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo int mk_sl_cui_inl_defd_from_str_dec_n(mk_sl_cui_inl_defd_t* const x, char const* const str, int const str_len) mk_lang_noexcept;
 
 
 #include "mk_sl_cui_inl_defu.h"
