@@ -4828,6 +4828,28 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_divmod2_wrap(unsigned char const* con
 	test(buir2 == bui[1]);
 }
 
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_tofrom_str(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	unsigned char const* d;
+	mk_lang_size_t s;
+	mk_sl_cui_inl_defd_t cui1;
+	mk_sl_cui_inl_defd_t cui2;
+	char buff[mk_sl_cui_inl_defd_to_str_dec_lenv];
+	int n;
+	int m;
+
+	d = data;
+	s = size;
+	check_data(sizeof(cui1)); memcpy(&cui1, d, sizeof(cui1)); advance(sizeof(cui1));
+	check_data(sizeof(cui2)); memcpy(&cui2, d, sizeof(cui2)); advance(sizeof(cui2));
+	check_data(sizeof(buff)); memcpy(&buff, d, sizeof(buff)); advance(sizeof(buff));
+	n = mk_sl_cui_inl_defd_to_str_dec_n(&cui1, &buff[0], ((int)(mk_sl_cui_inl_defd_to_str_dec_lenv)));
+	test(n >= 1 && n <= mk_sl_cui_inl_defd_to_str_dec_lenv);
+	m = mk_sl_cui_inl_defd_from_str_dec_n(&cui2, buff, n);
+	test(m == n);
+	test(mk_sl_cui_inl_defd_eq(&cui2, &cui1));
+}
+
 
 mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_fn(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
 {
@@ -4909,6 +4931,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_fn(unsigned char const* const data, m
 	mk_sl_cui_fuzz_inl_defd_div2_wrap(data, size);
 	mk_sl_cui_fuzz_inl_defd_mod2_wrap(data, size);
 	mk_sl_cui_fuzz_inl_defd_divmod2_wrap(data, size);
+	mk_sl_cui_fuzz_inl_defd_tofrom_str(data, size);
 }
 
 

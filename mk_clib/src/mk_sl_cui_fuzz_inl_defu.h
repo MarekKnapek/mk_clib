@@ -176,3 +176,4 @@
 #undef mk_sl_cui_fuzz_inl_defd_div2_wrap
 #undef mk_sl_cui_fuzz_inl_defd_mod2_wrap
 #undef mk_sl_cui_fuzz_inl_defd_divmod2_wrap
+#undef mk_sl_cui_fuzz_inl_defd_tofrom_str
