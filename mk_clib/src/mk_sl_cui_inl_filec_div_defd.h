@@ -17,6 +17,7 @@
 
 #if mk_sl_cui_inl_defd_base_is_bui == 1 && mk_lang_concat(mk_lang_concat(mk_lang_bui_to2_, mk_sl_cui_inl_defd_base_bui_tn), _has) && mk_lang_concat(mk_lang_concat(mk_lang_bui_to3_, mk_sl_cui_inl_defd_base_bui_tn), _has)
 #define mk_sl_cui_inl_filec_div_need_convert 0
+#define mk_sl_cui_inl_filec_div_t mk_sl_cui_inl_defd_base_type
 #define mk_lang_bui_divmod_bt mk_lang_concat(mk_lang_concat(mk_lang_bi_, mk_sl_cui_inl_defd_base_bui_tn), _t)
 #define mk_lang_bui_divmod_bt2 mk_lang_concat(mk_lang_concat(mk_lang_bui_to2_, mk_sl_cui_inl_defd_base_bui_tn), _t)
 #define mk_lang_bui_divmod_bt3 mk_lang_concat(mk_lang_concat(mk_lang_bui_to3_, mk_sl_cui_inl_defd_base_bui_tn), _t)
@@ -29,6 +30,7 @@
 #include "mk_lang_bui_divmod_inl_filec.h"
 #elif mk_sl_cui_inl_defd_base_is_bui == 1 && mk_lang_concat(mk_lang_concat(mk_lang_bui_to2_, mk_sl_cui_inl_defd_base_bui_tn), _has)
 #define mk_sl_cui_inl_filec_div_need_convert 0
+#define mk_sl_cui_inl_filec_div_t mk_sl_cui_inl_defd_base_type
 #define mk_lang_bui_divmod_bt mk_lang_concat(mk_lang_concat(mk_lang_bi_, mk_sl_cui_inl_defd_base_bui_tn), _t)
 #define mk_lang_bui_divmod_bt2 mk_lang_concat(mk_lang_concat(mk_lang_bui_to2_, mk_sl_cui_inl_defd_base_bui_tn), _t)
 #define mk_lang_bui_divmod_lena mk_sl_cui_inl_defd_count

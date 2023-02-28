@@ -1849,16 +1849,11 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_divmod4_wrap_restrict(mk_sl_cui_inl_defd_t
 	mk_sl_cui_inl_filec_div_t bb[mk_sl_cui_inl_filec_div_count];
 	mk_sl_cui_inl_filec_div_t cc[mk_sl_cui_inl_filec_div_count];
 	mk_sl_cui_inl_filec_div_t dd[mk_sl_cui_inl_filec_div_count];
+#endif
 	mk_sl_cui_inl_filec_div_t const* pa;
 	mk_sl_cui_inl_filec_div_t const* pb;
 	mk_sl_cui_inl_filec_div_t* pc;
 	mk_sl_cui_inl_filec_div_t* pd;
-#else
-	mk_sl_cui_inl_defd_base_type const* pa;
-	mk_sl_cui_inl_defd_base_type const* pb;
-	mk_sl_cui_inl_defd_base_type* pc;
-	mk_sl_cui_inl_defd_base_type* pd;
-#endif
 
 	mk_lang_static_assert(mk_sl_cui_inl_defd_count >= 2);
 	mk_lang_assert(a);
@@ -1961,16 +1956,11 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_divmod_smol(mk_sl_cui_inl_defd_t const* co
 	mk_sl_cui_inl_filec_div_t bb;
 	mk_sl_cui_inl_filec_div_t cc[mk_sl_cui_inl_filec_div_count];
 	mk_sl_cui_inl_filec_div_t dd;
+#endif
 	mk_sl_cui_inl_filec_div_t const* pa;
 	mk_sl_cui_inl_filec_div_t const* pb;
 	mk_sl_cui_inl_filec_div_t* pc;
 	mk_sl_cui_inl_filec_div_t* pd;
-#else
-	mk_sl_cui_inl_defd_base_type const* pa;
-	mk_sl_cui_inl_defd_base_type const* pb;
-	mk_sl_cui_inl_defd_base_type* pc;
-	mk_sl_cui_inl_defd_base_type* pd;
-#endif
 
 	mk_lang_assert(a);
 	mk_lang_assert(b);
