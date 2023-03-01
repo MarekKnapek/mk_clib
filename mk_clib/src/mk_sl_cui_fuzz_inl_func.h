@@ -4,16 +4,16 @@
 #include "mk_lang_crash.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_likely.h"
+#include "mk_lang_min.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_sizeof.h"
 #include "mk_lang_sizet.h"
 
-#include <string.h> /* memcpy */
+#include <string.h> /* memcpy memcmp */
 
 
 #include "mk_sl_cui_inl_defd.h"
 #include "mk_sl_cui_fuzz_inl_defd.h"
-#if mk_sl_cui_inl_defd_bits == (mk_lang_sizeof_bi_ulllong_t * mk_lang_charbit)
 
 
 #define test(x) if(!(x)) mk_lang_unlikely mk_lang_crash(); ((void)(0))
@@ -22,6 +22,7 @@
 #define advance(x) { mk_lang_size_t a; a = (x); mk_lang_assert(a <= s); d += a; s -= a; } ((void)(0))
 
 
+#if mk_sl_cui_inl_defd_bits == (mk_lang_sizeof_bi_ulllong_t * mk_lang_charbit)
 mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_set_zero(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
 {
 	unsigned char const* d;
@@ -4827,6 +4828,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_divmod2_wrap(unsigned char const* con
 	test(buir1 == bui[0]);
 	test(buir2 == bui[1]);
 }
+#endif
 
 mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_tofrom_str(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
 {
@@ -4850,9 +4852,35 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_tofrom_str(unsigned char const* const
 	test(mk_sl_cui_inl_defd_eq(&cui2, &cui1));
 }
 
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_fromto_str(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+{
+	unsigned char const* d;
+	mk_lang_size_t s;
+	mk_sl_cui_inl_defd_t cui;
+	char buff[mk_sl_cui_inl_defd_to_str_dec_lenv];
+	int n;
+	int m;
+
+	d = data;
+	s = size;
+	check_data(sizeof(cui)); memcpy(&cui, d, sizeof(cui)); advance(sizeof(cui));
+	check_data(sizeof(buff)); memcpy(&buff, d, sizeof(buff)); advance(sizeof(buff));
+	check_data(1);
+	n = mk_sl_cui_inl_defd_from_str_dec_n(&cui, ((char const*)(d)), ((int)(s)));
+	if(n == 0) return;
+	if(n < 0)
+	{
+		n = -n;
+	}
+	m = mk_sl_cui_inl_defd_to_str_dec_n(&cui, &buff[0], mk_lang_min(((int)(mk_sl_cui_inl_defd_to_str_dec_lenv)), n));
+	test(m <= n);
+	test(memcmp(buff, d + (n - m), m) == 0);
+}
+
 
 mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_fn(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
 {
+	#if mk_sl_cui_inl_defd_bits == (mk_lang_sizeof_bi_ulllong_t * mk_lang_charbit)
 	mk_sl_cui_fuzz_inl_defd_set_zero(data, size);
 	mk_sl_cui_fuzz_inl_defd_set_max(data, size);
 	mk_sl_cui_fuzz_inl_defd_set_one(data, size);
@@ -4931,7 +4959,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_fn(unsigned char const* const data, m
 	mk_sl_cui_fuzz_inl_defd_div2_wrap(data, size);
 	mk_sl_cui_fuzz_inl_defd_mod2_wrap(data, size);
 	mk_sl_cui_fuzz_inl_defd_divmod2_wrap(data, size);
+	#endif
 	mk_sl_cui_fuzz_inl_defd_tofrom_str(data, size);
+	mk_sl_cui_fuzz_inl_defd_fromto_str(data, size);
 }
 
 
@@ -4941,6 +4971,5 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_fn(unsigned char const* const data, m
 #undef advance
 
 
-#endif
 #include "mk_sl_cui_fuzz_inl_defu.h"
 #include "mk_sl_cui_inl_defu.h"

@@ -2233,7 +2233,7 @@ mk_lang_nodiscard mk_lang_jumbo int mk_sl_cui_inl_defd_from_str_dec_n(mk_sl_cui_
 		{
 			break;
 		}
-		if(!(mk_sl_cui_inl_defd_lt(px1, &s_border_value) || i <= s_border_digit))
+		if(!(mk_sl_cui_inl_defd_lt(px1, &s_border_value) || (mk_sl_cui_inl_defd_eq(px1, &s_border_value) && i <= s_border_digit)))
 		{
 			overflow = -1;
 			break;
@@ -2249,7 +2249,7 @@ mk_lang_nodiscard mk_lang_jumbo int mk_sl_cui_inl_defd_from_str_dec_n(mk_sl_cui_
 	{
 		*x = xx;
 	}
-	return ((int)(it - str)) * overflow;
+	return ((int)(((int)(it - str)) * overflow));
 
 	#undef mk_sl_cui_inl_defd_to_bi_sint
 	#undef mk_sl_cui_inl_defd_from_bi_sint

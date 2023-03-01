@@ -177,3 +177,4 @@
 #define mk_sl_cui_fuzz_inl_defd_mod2_wrap mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _mod2_wrap)
 #define mk_sl_cui_fuzz_inl_defd_divmod2_wrap mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _divmod2_wrap)
 #define mk_sl_cui_fuzz_inl_defd_tofrom_str mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _tofrom_str)
+#define mk_sl_cui_fuzz_inl_defd_fromto_str mk_lang_concat(mk_lang_concat(mk_sl_cui_fuzz_, mk_sl_cui_inl_defd_name), _fromto_str)
