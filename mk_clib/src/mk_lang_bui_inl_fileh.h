@@ -106,4 +106,4 @@ mk_lang_jumbo void mk_lang_bui_inl_defd_mod2_wrap(mk_lang_bui_inl_defd_type* con
 mk_lang_jumbo void mk_lang_bui_inl_defd_divmod2_wrap(mk_lang_bui_inl_defd_type* const a, mk_lang_bui_inl_defd_type* const b) mk_lang_noexcept;
 
 
-#include "mk_lang_bui_inl_defd.h"
+#include "mk_lang_bui_inl_defu.h"
