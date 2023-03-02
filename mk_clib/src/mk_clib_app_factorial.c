@@ -101,6 +101,7 @@ mk_lang_jumbo void mk_clib_app_factorial_compute_and_print(int const n) mk_lang_
 #define flt_exponent_bias flt_b32_exponent_bias
 #define flt_need_bitsa (1 + flt_exponent_bias + 1)
 #define flt_need_bitsb (flt_fraction_len + flt_exponent_bias)
+#define flt_has_bitsb (mk_lang_div_roundup(flt_need_bitsb, (mk_lang_sizeof_bi_uint_t * mk_lang_charbit)) * (mk_lang_sizeof_bi_uint_t * mk_lang_charbit))
 
 #define mk_lang_bui_name flt
 #define mk_lang_bui_type mk_lang_bi_uint_t
@@ -158,12 +159,13 @@ static void dothis(double d)
 		flt_kind_nan
 	};
 
+	static char const s_symbols[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+
 	float f;
 	mk_sl_cui_flt_t cui;
 	mk_sl_cui_flt_t ta;
 	mk_sl_cui_flt_t tb;
 	mk_lang_bool_t is_negative;
-	mk_sl_cui_flt_t exponent;
 	mk_sl_cui_flt_t fraction;
 	enum flt_kind kind;
 	int ti;
@@ -174,10 +176,16 @@ static void dothis(double d)
 		mk_sl_cui_fltba_t biga;
 		mk_sl_cui_fltbb_t bigb;
 	} u;
-	unsigned int uints[mk_lang_div_roundup(mk_lang_max(flt_need_bitsa, flt_need_bitsb), sizeof(unsigned int) * mk_lang_charbit)];
+	mk_lang_bi_uint_t uints[mk_lang_div_roundup(mk_lang_max(flt_need_bitsa, flt_need_bitsb), mk_lang_sizeof_bi_uint_t * mk_lang_charbit)];
 	int i;
 	char buff[1 + mk_sl_cui_fltba_to_str_dec_len + 1];
 	char* pbuff;
+	mk_lang_bi_uint_t base;
+	mk_lang_bi_uint_t rem;
+	mk_sl_cui_fltbb_t bigb2;
+	mk_sl_cui_fltbb_t* pbb1;
+	mk_sl_cui_fltbb_t* pbb2;
+	mk_sl_cui_fltbb_t* pbb3;
 
 	f = ((float)(d));
 	mk_lang_assert(sizeof(f) == sizeof(cui));
@@ -231,7 +239,7 @@ static void dothis(double d)
 	mk_sl_cui_flt_set_bit(&ta, flt_fraction_len);
 	mk_sl_cui_flt_or2(&ta, &fraction);
 	mk_sl_cui_flt_to_buis_uint_le(&ta, &uints[0]);
-	for(i = mk_lang_div_roundup(flt_len, sizeof(unsigned) * mk_lang_charbit); i != ((int)(sizeof(uints) / sizeof(uints[0]))); ++i)
+	for(i = mk_lang_div_roundup(flt_len, mk_lang_sizeof_bi_uint_t * mk_lang_charbit); i != ((int)(sizeof(uints) / sizeof(uints[0]))); ++i)
 	{
 		uints[i] = 0u;
 	}
@@ -255,12 +263,27 @@ static void dothis(double d)
 	pbuff = buff + ((int)(is_negative));
 	ti = mk_sl_cui_fltba_to_str_dec_n(&u.biga, pbuff, ((int)(sizeof(buff) / sizeof(buff[0]) - 1 - 1)));
 	mk_lang_assert(ti > 0 && ti <= ((int)(sizeof(buff) / sizeof(buff[0]) - 1 - 1)));
-	pbuff[ti] = '\0';/**/
-	printf("%s\n", buff);/**/
+	pbuff = pbuff + ti;
+	*pbuff = '.';
+	++pbuff;
 	mk_sl_cui_fltbb_from_buis_uint_le(&u.bigb, &uints[0]);
-	ti = flt_need_bitsb - flt_fraction_len + exponent_decoded;
+	ti = flt_has_bitsb - flt_fraction_len + exponent_decoded;
 	mk_sl_cui_fltbb_shl2(&u.bigb, ti);
-	/* todo repeated mul by ten, write overflow */
+	base = 10;
+	pbb1 = &u.bigb;
+	pbb2 = &bigb2;
+	do
+	{
+		mk_sl_cui_fltbb_mul4_wrap_wi_smol(pbb1, &base, pbb2, &rem);
+		mk_lang_assert(rem < ((mk_lang_bi_uint_t)(sizeof(s_symbols) / sizeof(s_symbols[0]))));
+		*pbuff = s_symbols[rem];
+		++pbuff;
+		pbb3 = pbb1;
+		pbb1 = pbb2;
+		pbb2 = pbb3;
+	}while(!mk_sl_cui_fltbb_is_zero(pbb1));
+	*pbuff = '\0';
+	printf("%s\n", buff);
 }
 
 
