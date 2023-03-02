@@ -85,20 +85,28 @@ mk_lang_jumbo void mk_clib_app_factorial_compute_and_print(int const n) mk_lang_
 }
 
 
-#define flt_b32_len 32
-#define flt_b32_exponent_len 8
-#define flt_b32_fraction_len 23
-#define flt_b32_exponent_bias 127
+#define mk_lang_pow_8(a, b) 1
+#define mk_lang_pow_7(a, b) (((b) == 0) ? (1) : (((b) == 1) ? (a) : ((mk_lang_pow_8((a), ((b) / 2))) * (mk_lang_pow_8((a), ((b) / 2))) * ((((b) % 2) == 0) ? (1) : (a)))))
+#define mk_lang_pow_6(a, b) (((b) == 0) ? (1) : (((b) == 1) ? (a) : ((mk_lang_pow_7((a), ((b) / 2))) * (mk_lang_pow_7((a), ((b) / 2))) * ((((b) % 2) == 0) ? (1) : (a)))))
+#define mk_lang_pow_5(a, b) (((b) == 0) ? (1) : (((b) == 1) ? (a) : ((mk_lang_pow_6((a), ((b) / 2))) * (mk_lang_pow_6((a), ((b) / 2))) * ((((b) % 2) == 0) ? (1) : (a)))))
+#define mk_lang_pow_4(a, b) (((b) == 0) ? (1) : (((b) == 1) ? (a) : ((mk_lang_pow_5((a), ((b) / 2))) * (mk_lang_pow_5((a), ((b) / 2))) * ((((b) % 2) == 0) ? (1) : (a)))))
+#define mk_lang_pow_3(a, b) (((b) == 0) ? (1) : (((b) == 1) ? (a) : ((mk_lang_pow_4((a), ((b) / 2))) * (mk_lang_pow_4((a), ((b) / 2))) * ((((b) % 2) == 0) ? (1) : (a)))))
+#define mk_lang_pow_2(a, b) (((b) == 0) ? (1) : (((b) == 1) ? (a) : ((mk_lang_pow_3((a), ((b) / 2))) * (mk_lang_pow_3((a), ((b) / 2))) * ((((b) % 2) == 0) ? (1) : (a)))))
+#define mk_lang_pow_1(a, b) (((b) == 0) ? (1) : (((b) == 1) ? (a) : ((mk_lang_pow_2((a), ((b) / 2))) * (mk_lang_pow_2((a), ((b) / 2))) * ((((b) % 2) == 0) ? (1) : (a)))))
+#define mk_lang_pow_0(a, b) (((b) == 0) ? (1) : (((b) == 1) ? (a) : ((mk_lang_pow_1((a), ((b) / 2))) * (mk_lang_pow_1((a), ((b) / 2))) * ((((b) % 2) == 0) ? (1) : (a)))))
+#define mk_lang_pow(a, b) (mk_lang_pow_0((a), (b)))
 
-#define flt_b64_len 64
-#define flt_b64_exponent_len 11
-#define flt_b64_fraction_len 52
-#define flt_b64_exponent_bias 1023
 
-#define flt_len flt_b32_len
-#define flt_exponent_len flt_b32_exponent_len
-#define flt_fraction_len flt_b32_fraction_len
-#define flt_exponent_bias flt_b32_exponent_bias
+#define flt_b32_bits 32
+#define flt_b32_fraction_bits 23
+
+#define flt_b64_bits 64
+#define flt_b64_fraction_bits 52
+
+#define flt_bits flt_b32_bits
+#define flt_exponent_bits (flt_bits - 1 - flt_fraction_bits)
+#define flt_fraction_bits flt_b32_fraction_bits
+#define flt_exponent_bias 
 #define flt_need_bitsa (1 + flt_exponent_bias + 1)
 #define flt_need_bitsb (flt_fraction_len + flt_exponent_bias)
 #define flt_has_bitsb (mk_lang_div_roundup(flt_need_bitsb, (mk_lang_sizeof_bi_uint_t * mk_lang_charbit)) * (mk_lang_sizeof_bi_uint_t * mk_lang_charbit))
@@ -217,72 +225,79 @@ static void dothis(double d)
 			kind = flt_kind_subnormal;
 		}
 	}
-	else
+	else if(exponent_encoded == flt_exponent_bias * 2 + 1)
 	{
-		if(exponent_encoded == flt_exponent_bias * 2 + 1)
+		if(mk_sl_cui_flt_is_zero(&fraction))
 		{
-			if(mk_sl_cui_flt_is_zero(&fraction))
-			{
-				kind = flt_kind_infinity;
-			}
-			else
-			{
-				kind = flt_kind_nan;
-			}
+			kind = flt_kind_infinity;
 		}
 		else
 		{
-			kind = flt_kind_normal;
+			kind = flt_kind_nan;
 		}
-	}
-
-	mk_sl_cui_flt_set_bit(&ta, flt_fraction_len);
-	mk_sl_cui_flt_or2(&ta, &fraction);
-	mk_sl_cui_flt_to_buis_uint_le(&ta, &uints[0]);
-	for(i = mk_lang_div_roundup(flt_len, mk_lang_sizeof_bi_uint_t * mk_lang_charbit); i != ((int)(sizeof(uints) / sizeof(uints[0]))); ++i)
-	{
-		uints[i] = 0u;
-	}
-	mk_sl_cui_fltba_from_buis_uint_le(&u.biga, &uints[0]);
-	ti = exponent_decoded - flt_fraction_len;
-	if(ti == 0)
-	{
-	}
-	else if(ti < 0)
-	{
-		mk_sl_cui_fltba_shr2(&u.biga, -ti);
 	}
 	else
 	{
-		mk_sl_cui_fltba_shl2(&u.biga, ti);
+		kind = flt_kind_normal;
 	}
-	if(is_negative)
+
+	if(kind == flt_kind_normal)
 	{
-		buff[0] = '-';
-	}
-	pbuff = buff + ((int)(is_negative));
-	ti = mk_sl_cui_fltba_to_str_dec_n(&u.biga, pbuff, ((int)(sizeof(buff) / sizeof(buff[0]) - 1 - 1)));
-	mk_lang_assert(ti > 0 && ti <= ((int)(sizeof(buff) / sizeof(buff[0]) - 1 - 1)));
-	pbuff = pbuff + ti;
-	*pbuff = '.';
-	++pbuff;
-	mk_sl_cui_fltbb_from_buis_uint_le(&u.bigb, &uints[0]);
-	ti = flt_has_bitsb - flt_fraction_len + exponent_decoded;
-	mk_sl_cui_fltbb_shl2(&u.bigb, ti);
-	base = 10;
-	pbb1 = &u.bigb;
-	pbb2 = &bigb2;
-	do
-	{
-		mk_sl_cui_fltbb_mul4_wrap_wi_smol(pbb1, &base, pbb2, &rem);
-		mk_lang_assert(rem < ((mk_lang_bi_uint_t)(sizeof(s_symbols) / sizeof(s_symbols[0]))));
-		*pbuff = s_symbols[rem];
+		mk_sl_cui_flt_set_bit(&ta, flt_fraction_len);
+		mk_sl_cui_flt_or2(&ta, &fraction);
+		mk_sl_cui_flt_to_buis_uint_le(&ta, &uints[0]);
+		for(i = mk_lang_div_roundup(flt_len, mk_lang_sizeof_bi_uint_t * mk_lang_charbit); i != ((int)(sizeof(uints) / sizeof(uints[0]))); ++i)
+		{
+			uints[i] = 0u;
+		}
+		mk_sl_cui_fltba_from_buis_uint_le(&u.biga, &uints[0]);
+		ti = exponent_decoded - flt_fraction_len;
+		if(ti == 0)
+		{
+		}
+		else if(ti < 0)
+		{
+			mk_sl_cui_fltba_shr2(&u.biga, -ti);
+		}
+		else
+		{
+			mk_sl_cui_fltba_shl2(&u.biga, ti);
+		}
+		if(is_negative)
+		{
+			buff[0] = '-';
+		}
+		pbuff = buff + ((int)(is_negative));
+		ti = mk_sl_cui_fltba_to_str_dec_n(&u.biga, pbuff, ((int)(sizeof(buff) / sizeof(buff[0]) - 1 - 1)));
+		mk_lang_assert(ti > 0 && ti <= ((int)(sizeof(buff) / sizeof(buff[0]) - 1 - 1)));
+		pbuff = pbuff + ti;
+		*pbuff = '.';
 		++pbuff;
-		pbb3 = pbb1;
-		pbb1 = pbb2;
-		pbb2 = pbb3;
-	}while(!mk_sl_cui_fltbb_is_zero(pbb1));
-	*pbuff = '\0';
+		if(exponent_decoded >= flt_fraction_len)
+		{
+			mk_sl_cui_fltbb_set_zero(&u.bigb);
+		}
+		else
+		{
+			mk_sl_cui_fltbb_from_buis_uint_le(&u.bigb, &uints[0]);
+			ti = flt_has_bitsb - flt_fraction_len + exponent_decoded;
+			mk_sl_cui_fltbb_shl2(&u.bigb, ti);
+		}
+		base = 10;
+		pbb1 = &u.bigb;
+		pbb2 = &bigb2;
+		do
+		{
+			mk_sl_cui_fltbb_mul4_wrap_wi_smol(pbb1, &base, pbb2, &rem);
+			mk_lang_assert(rem < ((mk_lang_bi_uint_t)(sizeof(s_symbols) / sizeof(s_symbols[0]))));
+			*pbuff = s_symbols[rem];
+			++pbuff;
+			pbb3 = pbb1;
+			pbb1 = pbb2;
+			pbb2 = pbb3;
+		}while(!mk_sl_cui_fltbb_is_zero(pbb1));
+		*pbuff = '\0';
+	}
 	printf("%s\n", buff);
 }
 
