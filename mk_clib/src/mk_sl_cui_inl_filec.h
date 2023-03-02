@@ -2101,6 +2101,104 @@ mk_lang_jumbo void mk_sl_cui_inl_defd_add2_wrap_cid_cod_smol(mk_sl_cui_inl_defd_
 #endif
 }
 
+mk_lang_jumbo void mk_sl_cui_inl_defd_mul4_wrap_wi_smol(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_base_type const* const b, mk_sl_cui_inl_defd_t* const c, mk_sl_cui_inl_defd_base_type* const d) mk_lang_noexcept
+{
+#if mk_sl_cui_inl_defd_count == 1
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(c);
+	mk_lang_assert(d);
+	mk_lang_assert(c != a);
+	mk_lang_assert(d != b);
+	mk_lang_assert(!(d >= &a->m_data[0] && d < &a->m_data[mk_sl_cui_inl_defd_count]));
+
+	mk_sl_cui_inl_defd_base_mul4_wrap_wi(&a->m_data[0], b, &c->m_data[0], d);
+#elif mk_sl_cui_inl_defd_count == 2
+	mk_sl_cui_inl_defd_base_type t;
+	mk_lang_bool_t cf;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(c);
+	mk_lang_assert(d);
+	mk_lang_assert(c != a);
+	mk_lang_assert(d != b);
+	mk_lang_assert(!(d >= &a->m_data[0] && d < &a->m_data[mk_sl_cui_inl_defd_count]));
+
+	mk_sl_cui_inl_defd_base_mul4_wrap_wi(&a->m_data[mk_sl_cui_inl_defd_idx(0)], b, &c->m_data[mk_sl_cui_inl_defd_idx(0)], &c->m_data[mk_sl_cui_inl_defd_idx(1)]);
+	mk_sl_cui_inl_defd_base_mul4_wrap_wi(&a->m_data[mk_sl_cui_inl_defd_idx(1)], b, &t, d);
+	mk_sl_cui_inl_defd_base_add2_wrap_cid_coe(&c->m_data[mk_sl_cui_inl_defd_idx(1)], &t, &cf);
+	if(cf) mk_sl_cui_inl_defd_base_dec1(d);
+#elif mk_sl_cui_inl_defd_count == 3
+	mk_sl_cui_inl_defd_base_type t;
+	mk_lang_bool_t cf;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(c);
+	mk_lang_assert(d);
+	mk_lang_assert(c != a);
+	mk_lang_assert(d != b);
+	mk_lang_assert(!(d >= &a->m_data[0] && d < &a->m_data[mk_sl_cui_inl_defd_count]));
+
+	mk_sl_cui_inl_defd_base_mul4_wrap_wi(&a->m_data[mk_sl_cui_inl_defd_idx(0)], b, &c->m_data[mk_sl_cui_inl_defd_idx(0)], &c->m_data[mk_sl_cui_inl_defd_idx(1)]);
+	mk_sl_cui_inl_defd_base_mul4_wrap_wi(&a->m_data[mk_sl_cui_inl_defd_idx(1)], b, &t, &c->m_data[mk_sl_cui_inl_defd_idx(2)]);
+	mk_sl_cui_inl_defd_base_add2_wrap_cid_coe(&c->m_data[mk_sl_cui_inl_defd_idx(1)], &t, &cf);
+	if(cf) mk_sl_cui_inl_defd_base_inc1(&c->m_data[mk_sl_cui_inl_defd_idx(2)]);
+	mk_sl_cui_inl_defd_base_mul4_wrap_wi(&a->m_data[mk_sl_cui_inl_defd_idx(2)], b, &t, d);
+	mk_sl_cui_inl_defd_base_add2_wrap_cid_coe(&c->m_data[mk_sl_cui_inl_defd_idx(2)], &t, &cf);
+	if(cf) mk_sl_cui_inl_defd_base_inc1(d);
+#elif mk_sl_cui_inl_defd_count == 4
+	mk_sl_cui_inl_defd_base_type t;
+	mk_lang_bool_t cf;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(c);
+	mk_lang_assert(d);
+	mk_lang_assert(c != a);
+	mk_lang_assert(d != b);
+	mk_lang_assert(!(d >= &a->m_data[0] && d < &a->m_data[mk_sl_cui_inl_defd_count]));
+
+	mk_sl_cui_inl_defd_base_mul4_wrap_wi(&a->m_data[mk_sl_cui_inl_defd_idx(0)], b, &c->m_data[mk_sl_cui_inl_defd_idx(0)], &c->m_data[mk_sl_cui_inl_defd_idx(1)]);
+	mk_sl_cui_inl_defd_base_mul4_wrap_wi(&a->m_data[mk_sl_cui_inl_defd_idx(1)], b, &t, &c->m_data[mk_sl_cui_inl_defd_idx(2)]);
+	mk_sl_cui_inl_defd_base_add2_wrap_cid_coe(&c->m_data[mk_sl_cui_inl_defd_idx(1)], &t, &cf);
+	if(cf) mk_sl_cui_inl_defd_base_inc1(&c->m_data[mk_sl_cui_inl_defd_idx(2)]);
+	mk_sl_cui_inl_defd_base_mul4_wrap_wi(&a->m_data[mk_sl_cui_inl_defd_idx(2)], b, &t, &c->m_data[mk_sl_cui_inl_defd_idx(3)]);
+	mk_sl_cui_inl_defd_base_add2_wrap_cid_coe(&c->m_data[mk_sl_cui_inl_defd_idx(2)], &t, &cf);
+	if(cf) mk_sl_cui_inl_defd_base_inc1(&c->m_data[mk_sl_cui_inl_defd_idx(3)]);
+	mk_sl_cui_inl_defd_base_mul4_wrap_wi(&a->m_data[mk_sl_cui_inl_defd_idx(3)], b, &t, d);
+	mk_sl_cui_inl_defd_base_add2_wrap_cid_coe(&c->m_data[mk_sl_cui_inl_defd_idx(3)], &t, &cf);
+	if(cf) mk_sl_cui_inl_defd_base_inc1(d);
+#else
+	mk_sl_cui_inl_defd_base_type t;
+	mk_lang_bool_t cf;
+	int i;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(c);
+	mk_lang_assert(!(b >= &a->m_data[0] && b < &a->m_data[mk_sl_cui_inl_defd_count]));
+	mk_lang_assert(!(b >= &c->m_data[0] && b < &c->m_data[mk_sl_cui_inl_defd_count]));
+	mk_lang_assert(c != a);
+
+	mk_sl_cui_inl_defd_base_mul4_wrap_wi(&a->m_data[mk_sl_cui_inl_defd_idx(0)], b, &c->m_data[mk_sl_cui_inl_defd_idx(0)], &c->m_data[mk_sl_cui_inl_defd_idx(1)]);
+	mk_sl_cui_inl_defd_base_mul4_wrap_wi(&a->m_data[mk_sl_cui_inl_defd_idx(1)], b, &t, &c->m_data[mk_sl_cui_inl_defd_idx(2)]);
+	mk_sl_cui_inl_defd_base_add2_wrap_cid_coe(&c->m_data[mk_sl_cui_inl_defd_idx(1)], &t, &cf);
+	if(cf) mk_sl_cui_inl_defd_base_inc1(&c->m_data[mk_sl_cui_inl_defd_idx(2)]);
+	for(i = 2; i != mk_sl_cui_inl_defd_count - 1; ++i)
+	{
+		mk_sl_cui_inl_defd_base_mul4_wrap_wi(&a->m_data[mk_sl_cui_inl_defd_idx(i)], b, &t, &c->m_data[mk_sl_cui_inl_defd_idx(i + 1)]);
+		mk_sl_cui_inl_defd_base_add2_wrap_cid_coe(&c->m_data[mk_sl_cui_inl_defd_idx(i)], &t, &cf);
+		if(cf) mk_sl_cui_inl_defd_base_inc1(&c->m_data[mk_sl_cui_inl_defd_idx(i + 1)]);
+	}
+	mk_sl_cui_inl_defd_base_mul4_wrap_wi(&a->m_data[mk_sl_cui_inl_defd_idx(mk_sl_cui_inl_defd_count - 1)], b, &t, d);
+	mk_sl_cui_inl_defd_base_add2_wrap_cid_coe(&c->m_data[mk_sl_cui_inl_defd_idx(mk_sl_cui_inl_defd_count - 1)], &t, &cf);
+	if(cf) mk_sl_cui_inl_defd_base_inc1(d);
+#endif
+}
+
+
 mk_lang_nodiscard mk_lang_jumbo int mk_sl_cui_inl_defd_to_str_dec_n(mk_sl_cui_inl_defd_t const* const x, char* const str, int const str_len) mk_lang_noexcept
 {
 	#define mk_sl_cui_inl_defd_base_to_bi_sint mk_lang_concat(mk_sl_cui_inl_defd_base_name, _to_bi_sint)
