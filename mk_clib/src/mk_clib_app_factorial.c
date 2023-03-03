@@ -102,8 +102,8 @@ mk_lang_jumbo void mk_clib_app_factorial_compute_and_print(int const n) mk_lang_
 #define flt_exponent_bias (mk_lang_pow(2, flt_exponent_bits - 1) - 1)
 #define flt_exponent_encoded_min 0
 #define flt_exponent_encoded_max (mk_lang_pow(2, flt_exponent_bits) - 1)
-#define flt_exponent_decoded_min (flt_exponent_encoded_min - flt_exponent_bias)
-#define flt_exponent_decoded_max (flt_exponent_encoded_max - flt_exponent_bias)
+#define flt_exponent_decoded_min (flt_exponent_encoded_min + 1 - flt_exponent_bias)
+#define flt_exponent_decoded_max (flt_exponent_encoded_max - 1 - flt_exponent_bias)
 #define flt_need_bitsa (1 + flt_exponent_decoded_max)
 #define flt_need_bitsb (flt_fraction_bits + (-flt_exponent_decoded_min))
 #define flt_has_bitsb (mk_lang_div_roundup(flt_need_bitsb, (mk_lang_sizeof_bi_uint_t * mk_lang_charbit)) * (mk_lang_sizeof_bi_uint_t * mk_lang_charbit))
@@ -186,7 +186,7 @@ static void dothis(double d)
 	flt_bigab_t bigab;
 	mk_lang_bi_uint_t uints[mk_lang_div_roundup(mk_lang_max(flt_need_bitsa, flt_need_bitsb), mk_lang_sizeof_bi_uint_t * mk_lang_charbit)];
 	int i;
-	char buff[1 + mk_sl_cui_fltba_to_str_dec_len + 1];
+	char buff[mk_sl_cui_fltba_to_str_dec_len + 2 + 1];
 	char* pbuff;
 	mk_lang_bi_uint_t base;
 	mk_lang_bi_uint_t rem;
