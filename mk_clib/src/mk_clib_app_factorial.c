@@ -186,7 +186,7 @@ static void dothis(double d)
 	flt_bigab_t bigab;
 	mk_lang_bi_uint_t uints[mk_lang_div_roundup(mk_lang_max(flt_need_bitsa, flt_need_bitsb), mk_lang_sizeof_bi_uint_t * mk_lang_charbit)];
 	int i;
-	char buff[mk_sl_cui_fltba_to_str_dec_len + 2 + 1];
+	char buff[(((mk_lang_max(flt_need_bitsa, flt_need_bitsb) * 19728ul) >> 16) + 1) + 2 + 1 + 999];
 	char* pbuff;
 	mk_lang_bi_uint_t base;
 	mk_lang_bi_uint_t rem;
@@ -257,25 +257,35 @@ static void dothis(double d)
 		{
 			uints[i] = 0u;
 		}
-		mk_sl_cui_fltba_from_buis_uint_le(&bigab.m_a, &uints[0]);
-		ti = exponent_decoded - flt_fraction_bits;
-		if(ti == 0)
+		if(exponent_decoded <= -1)
 		{
-		}
-		else if(ti < 0)
-		{
-			mk_sl_cui_fltba_shr2(&bigab.m_a, -ti);
+			*pbuff = '0';
+			++pbuff;
+			*pbuff = '.';
+			++pbuff;
 		}
 		else
 		{
-			mk_sl_cui_fltba_shl2(&bigab.m_a, ti);
+			mk_sl_cui_fltba_from_buis_uint_le(&bigab.m_a, &uints[0]);
+			ti = exponent_decoded - flt_fraction_bits;
+			if(ti == 0)
+			{
+			}
+			else if(ti < 0)
+			{
+				mk_sl_cui_fltba_shr2(&bigab.m_a, -ti);
+			}
+			else
+			{
+				mk_sl_cui_fltba_shl2(&bigab.m_a, ti);
+			}
+			tn = ((int)(sizeof(buff) / sizeof(buff[0]))) - ((int)(pbuff - buff)) - 1;
+			ti = mk_sl_cui_fltba_to_str_dec_n(&bigab.m_a, pbuff, tn);
+			mk_lang_assert(ti > 0 && ti <= tn);
+			pbuff += ti;
+			*pbuff = '.';
+			++pbuff;
 		}
-		tn = ((int)(sizeof(buff) / sizeof(buff[0]))) - ((int)(pbuff - buff)) - 1;
-		ti = mk_sl_cui_fltba_to_str_dec_n(&bigab.m_a, pbuff, tn);
-		mk_lang_assert(ti > 0 && ti <= tn);
-		pbuff += ti;
-		*pbuff = '.';
-		++pbuff;
 	}
 	else if(kind == flt_kind_subnormal)
 	{
