@@ -186,7 +186,7 @@ static void dothis(double d)
 	flt_bigab_t bigab;
 	mk_lang_bi_uint_t uints[mk_lang_div_roundup(mk_lang_max(flt_need_bitsa, flt_need_bitsb), mk_lang_sizeof_bi_uint_t * mk_lang_charbit)];
 	int i;
-	char buff[(((mk_lang_max(flt_need_bitsa, flt_need_bitsb) * 19728ul) >> 16) + 1) + 2 + 1 + 999];
+	char buff[1 + mk_lang_max(((flt_need_bitsa * 19728ul) >> 16) + 1, (-flt_exponent_decoded_min) + flt_fraction_bits) + 2 + 1];
 	char* pbuff;
 	mk_lang_bi_uint_t base;
 	mk_lang_bi_uint_t rem;
@@ -206,9 +206,7 @@ static void dothis(double d)
 	mk_sl_cui_flt_set_mask(&tb, flt_exponent_bits);
 	mk_sl_cui_flt_and2(&ta, &tb);
 	mk_sl_cui_flt_to_bi_sint(&ta, &exponent_encoded);
-	exponent_decoded = exponent_encoded - flt_exponent_bias;
 	mk_lang_assert(exponent_encoded >= flt_exponent_encoded_min && exponent_encoded <= flt_exponent_encoded_max);
-	mk_lang_assert(exponent_decoded >= flt_exponent_decoded_min && exponent_decoded <= flt_exponent_decoded_max);
 
 	mk_sl_cui_flt_set_mask(&ta, flt_fraction_bits);
 	mk_sl_cui_flt_and3(&cui, &ta, &fraction);
@@ -250,13 +248,18 @@ static void dothis(double d)
 		mk_sl_cui_flt_set_bit(&ta, flt_fraction_bits);
 		mk_sl_cui_flt_or2(&fraction, &ta);
 	}
-	if(kind == flt_kind_normal)
+	if(kind == flt_kind_normal || kind == flt_kind_subnormal)
 	{
 		mk_sl_cui_flt_to_buis_uint_le(&fraction, &uints[0]);
 		for(i = mk_lang_div_roundup(flt_bits, mk_lang_sizeof_bi_uint_t * mk_lang_charbit); i != ((int)(sizeof(uints) / sizeof(uints[0]))); ++i)
 		{
 			uints[i] = 0u;
 		}
+	}
+	if(kind == flt_kind_normal)
+	{
+		exponent_decoded = exponent_encoded - flt_exponent_bias;
+		mk_lang_assert(exponent_decoded >= flt_exponent_decoded_min && exponent_decoded <= flt_exponent_decoded_max);
 		if(exponent_decoded <= -1)
 		{
 			*pbuff = '0';
