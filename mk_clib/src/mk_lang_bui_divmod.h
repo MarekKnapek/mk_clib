@@ -4,6 +4,7 @@
 
 #include "mk_lang_bi.h"
 #include "mk_lang_for_constants.h"
+#include "mk_lang_jumbo.h"
 
 
 #define mk_lang_fora5_id mk_lang_for_constants_bui
