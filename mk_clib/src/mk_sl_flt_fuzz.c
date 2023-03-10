@@ -15,20 +15,38 @@ mk_lang_jumbo void mk_sl_flt_fuzz(unsigned char const* const data, mk_lang_size_
 {
 	#define test(x) if(!(x)) mk_lang_unlikely mk_lang_crash(); ((void)(0))
 
-	float f;
-	int tn;
-	char buff[mk_sl_flt_float_to_string_dec_basic_len_v + 1];
-	int ti;
-	float fb;
+	{
+		float flta;
+		int tn;
+		char buff[mk_sl_flt_float_to_string_dec_basic_len_v + 1];
+		int ti;
+		float fltb;
 
-	if(size < sizeof(float)) return;
-	mk_lang_memcpy(&f, data, sizeof(f));
-	tn = ((int)(sizeof(buff) / sizeof(buff[0]) - 1));
-	ti = mk_sl_flt_float_to_string_dec_basic_n(&f, &buff[0], tn);
-	test(ti > 0 && ti <= tn);
-	buff[ti] = '\0';
-	fb = ((float)(atof(buff)));
-	test((fb == f) || (f != f && fb != fb));
+		if(size < sizeof(flta)) return;
+		mk_lang_memcpy(&flta, data, sizeof(flta));
+		tn = ((int)(sizeof(buff) / sizeof(buff[0]) - 1));
+		ti = mk_sl_flt_float_to_string_dec_basic_n(&flta, &buff[0], tn);
+		test(ti > 0 && ti <= tn);
+		buff[ti] = '\0';
+		fltb = ((float)(atof(buff)));
+		test((fltb == flta) || (flta != flta && fltb != fltb));
+	}
+	{
+		double flta;
+		int tn;
+		char buff[mk_sl_flt_double_to_string_dec_basic_len_v + 1];
+		int ti;
+		double fltb;
+
+		if(size < sizeof(flta)) return;
+		mk_lang_memcpy(&flta, data, sizeof(flta));
+		tn = ((int)(sizeof(buff) / sizeof(buff[0]) - 1));
+		ti = mk_sl_flt_double_to_string_dec_basic_n(&flta, &buff[0], tn);
+		test(ti > 0 && ti <= tn);
+		buff[ti] = '\0';
+		fltb = ((double)(atof(buff)));
+		test((fltb == flta) || (flta != flta && fltb != fltb));
+	}
 
 	#undef test
 }

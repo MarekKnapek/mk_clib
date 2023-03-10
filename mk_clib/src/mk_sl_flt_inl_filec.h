@@ -165,7 +165,7 @@ mk_lang_nodiscard mk_lang_jumbo int mk_sl_flt_defd_to_string_dec_basic_n(void co
 	{
 		if(kind == flt_kind_e_subnormal)
 		{
-			exponent_decoded = -126; /* todo generalize */
+			exponent_decoded = mk_sl_flt_defd_exponent_decoded_min;
 		}
 		if(exponent_decoded >= mk_sl_flt_defd_fraction_bits)
 		{
