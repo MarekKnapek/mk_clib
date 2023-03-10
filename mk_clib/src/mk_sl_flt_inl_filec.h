@@ -202,7 +202,7 @@ mk_lang_nodiscard mk_lang_jumbo int mk_sl_flt_defd_to_string_dec_basic_n(void co
 	}
 	else if(kind == flt_kind_e_infinity)
 	{
-		tn = ((int)(sizeof(s_inf) / sizeof(s_inf)));
+		tn = ((int)(sizeof(s_inf) / sizeof(s_inf[0])));
 		for(i = 0; i != tn; ++i)
 		{
 			*pstr = s_inf[i];
@@ -212,7 +212,7 @@ mk_lang_nodiscard mk_lang_jumbo int mk_sl_flt_defd_to_string_dec_basic_n(void co
 	else
 	{
 		mk_lang_assert(kind == flt_kind_e_nan);
-		tn = ((int)(sizeof(s_nan) / sizeof(s_nan)));
+		tn = ((int)(sizeof(s_nan) / sizeof(s_nan[0])));
 		for(i = 0; i != tn; ++i)
 		{
 			*pstr = s_nan[i];

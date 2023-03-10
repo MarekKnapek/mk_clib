@@ -8,6 +8,8 @@
 #include "mk_lang_sizet.h"
 #include "mk_sl_flt.h"
 
+#include <stdlib.h> /* atof */
+
 
 mk_lang_jumbo void mk_sl_flt_fuzz(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
 {
@@ -15,17 +17,18 @@ mk_lang_jumbo void mk_sl_flt_fuzz(unsigned char const* const data, mk_lang_size_
 
 	float f;
 	int tn;
-	char buff[mk_sl_flt_float_to_string_dec_basic_len_v];
+	char buff[mk_sl_flt_float_to_string_dec_basic_len_v + 1];
 	int ti;
+	float fb;
 
-	if(size < sizeof(float))
-	{
-		return;
-	}
+	if(size < sizeof(float)) return;
 	mk_lang_memcpy(&f, data, sizeof(f));
-	tn = ((int)(sizeof(buff) / sizeof(buff[0])));
+	tn = ((int)(sizeof(buff) / sizeof(buff[0]) - 1));
 	ti = mk_sl_flt_float_to_string_dec_basic_n(&f, &buff[0], tn);
 	test(ti > 0 && ti <= tn);
+	buff[ti] = '\0';
+	fb = ((float)(atof(buff)));
+	test((fb == f) || (f != f && fb != fb));
 
 	#undef test
 }
