@@ -32,6 +32,8 @@ mk_lang_nodiscard mk_lang_jumbo int mk_sl_flt_defd_to_string_dec_basic_n(void co
 	static char const s_minus = '-';
 	static char const s_dot = '.';
 	static char const s_symbols[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+	static char const s_nan[] = {'n', 'a', 'n'};
+	static char const s_inf[] = {'i', 'n', 'f'};
 
 	mk_sl_flt_defd_cui_t cui;
 	mk_sl_flt_defd_cui_t ta;
@@ -188,6 +190,35 @@ mk_lang_nodiscard mk_lang_jumbo int mk_sl_flt_defd_to_string_dec_basic_n(void co
 				pbb2 = pbb3;
 			}while(!mk_sl_flt_defd_cuibb_is_zero(pbb1));
 		}
+	}
+	else if(kind == flt_kind_e_zero)
+	{
+		*pstr = s_symbols[0];
+		++pstr;
+		*pstr = s_dot;
+		++pstr;
+		*pstr = s_symbols[0];
+		++pstr;
+	}
+	else if(kind == flt_kind_e_infinity)
+	{
+		tn = ((int)(sizeof(s_inf) / sizeof(s_inf)));
+		for(i = 0; i != tn; ++i)
+		{
+			*pstr = s_inf[i];
+			++pstr;
+		}
+	}
+	else
+	{
+		mk_lang_assert(kind == flt_kind_e_nan);
+		tn = ((int)(sizeof(s_nan) / sizeof(s_nan)));
+		for(i = 0; i != tn; ++i)
+		{
+			*pstr = s_nan[i];
+			++pstr;
+		}
+		/* todo print fraction bits */
 	}
 	return ((int)(pstr - str));
 }

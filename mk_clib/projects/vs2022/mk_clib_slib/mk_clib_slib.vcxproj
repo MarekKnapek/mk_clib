@@ -142,6 +142,7 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_inl_tofrom_buis_inl_filec.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_inl_tofrom_buis_inl_fileh.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_flt.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_flt_fuzz.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_flt_inl_defcd.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_flt_inl_defcu.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_flt_inl_defhd.h"/>
@@ -168,6 +169,7 @@
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_flt.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_flt_fuzz.c"/>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
 		<VCProjectVersion>16.0</VCProjectVersion>
