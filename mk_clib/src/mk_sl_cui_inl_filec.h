@@ -3,7 +3,7 @@
 #include "mk_lang_for_constants.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_max.h"
-#include "mk_lang_memmove.h"
+#include "mk_lang_memmove_obj.h"
 #include "mk_lang_min.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
@@ -2246,7 +2246,7 @@ mk_lang_nodiscard mk_lang_jumbo int mk_sl_cui_inl_defd_to_str_dec_n(mk_sl_cui_in
 	}
 	if(i != 0)
 	{
-		mk_lang_memmove(str, str + i, ((unsigned)(str_len - i)) * sizeof(char));
+		mk_lang_memmove_obj_pchar(str, str + i, ((unsigned)(str_len - i)) * sizeof(char));
 	}
 	return str_len - i;
 
