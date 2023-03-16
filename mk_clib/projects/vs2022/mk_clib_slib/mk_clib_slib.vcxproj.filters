@@ -92,6 +92,9 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_max.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcpy.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memmove.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memmove_obj.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memmove_obj_inl_filec.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memmove_obj_inl_fileh.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_min.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_nodiscard.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_noexcept.h"><Filter>src</Filter></ClInclude>
@@ -152,6 +155,7 @@
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_crash.c"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcpy.c"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memmove.c"><Filter>src</Filter></ClCompile>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memmove_obj.c"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_sizeof_test.c"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui.c"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz.c"><Filter>src</Filter></ClCompile>
