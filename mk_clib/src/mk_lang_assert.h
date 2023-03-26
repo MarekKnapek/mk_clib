@@ -2,6 +2,9 @@
 #define mk_include_guard_lang_assert
 
 
+#include "mk_lang_gnuc.h"
+
+
 #define mk_lang_assert_mode_test_crash 1
 #define mk_lang_assert_mode_assume 2
 #define mk_lang_assert_mode_assert 3
@@ -35,7 +38,7 @@
 #define mk_lang_assert(x) ((void)((x) ? ((void)(0)) : ((void)(unreachable()))))
 #elif defined _MSC_VER && _MSC_VER >= 1200 /* vs 6 */
 #define mk_lang_assert(x) __assume(x)
-#elif defined __GNUC__ && defined __GNUC_MINOR__ && __GNUC__ * 100 + __GNUC_MINOR__ >= 405
+#elif mk_lang_gnuc_is_at_least(4, 5)
 #define mk_lang_assert(x) ((void)((x) ? ((void)(0)) : ((void)(__builtin_unreachable()))))
 #elif defined __has_builtin
 #if __has_builtin(__builtin_unreachable)

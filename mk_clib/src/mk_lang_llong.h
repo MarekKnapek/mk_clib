@@ -2,6 +2,9 @@
 #define mk_include_guard_lang_llong
 
 
+#include "mk_lang_gnuc.h"
+
+
 #if defined __cplusplus && __cplusplus >= 201103l
 #define mk_lang_llong_has 1
 #define mk_lang_ullong_t unsigned long long int
@@ -44,7 +47,7 @@
 #define mk_lang_sllong_t signed __int64
 #define mk_lang_ullong_c(x) x ## ui64
 #define mk_lang_sllong_c(x) x ## i64
-#elif defined __GNUC__ && defined __GNUC_MINOR__ && __GNUC__ * 100 + __GNUC_MINOR__ >= 302
+#elif mk_lang_gnuc_is_at_least(3, 2)
 #define mk_lang_llong_has 1
 #define mk_lang_ullong_t unsigned long long int
 #define mk_lang_sllong_t signed long long int
