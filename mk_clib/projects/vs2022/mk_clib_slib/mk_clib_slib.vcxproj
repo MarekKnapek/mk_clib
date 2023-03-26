@@ -23,6 +23,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_factorial.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_factorial_cpp.hpp"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_fuzz.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_info.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_test.h"/>
@@ -165,6 +166,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_factorial.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_factorial_cpp.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_fuzz.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_info.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_test.c"/>
@@ -255,6 +257,7 @@
 			<PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<ConformanceMode>true</ConformanceMode>
 			<MultiProcessorCompilation>true</MultiProcessorCompilation>
+			<LanguageStandard>stdcpp14</LanguageStandard>
 		</ClCompile>
 		<Link>
 			<SubSystem>
@@ -271,6 +274,7 @@
 			<PreprocessorDefinitions>mk_lang_jumbo_want=0;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<ConformanceMode>true</ConformanceMode>
 			<MultiProcessorCompilation>true</MultiProcessorCompilation>
+			<LanguageStandard>stdcpp14</LanguageStandard>
 		</ClCompile>
 		<Link>
 			<SubSystem>
@@ -287,6 +291,7 @@
 			<PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<ConformanceMode>true</ConformanceMode>
 			<MultiProcessorCompilation>true</MultiProcessorCompilation>
+			<LanguageStandard>stdcpp14</LanguageStandard>
 		</ClCompile>
 		<Link>
 			<SubSystem>
@@ -303,6 +308,7 @@
 			<PreprocessorDefinitions>mk_lang_jumbo_want=0;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<ConformanceMode>true</ConformanceMode>
 			<MultiProcessorCompilation>true</MultiProcessorCompilation>
+			<LanguageStandard>stdcpp14</LanguageStandard>
 		</ClCompile>
 		<Link>
 			<SubSystem>
