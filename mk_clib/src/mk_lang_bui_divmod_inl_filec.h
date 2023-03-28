@@ -4,6 +4,7 @@
 #include "mk_lang_bui_to2.h"
 #include "mk_lang_bui_to3.h"
 #include "mk_lang_charbit.h"
+#include "mk_lang_constexpr.h"
 #include "mk_lang_endian.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_min.h"
@@ -20,10 +21,10 @@
 
 #if mk_lang_bui_divmod_inl_defd_lena == 1 && mk_lang_bui_divmod_inl_defd_lenb == 1
 
-mk_lang_jumbo void mk_lang_bui_divmod_inl_defd_fn_simple_1_1(mk_lang_bui_divmod_inl_defd_bt const* const a, mk_lang_bui_divmod_inl_defd_bt const* const b, mk_lang_bui_divmod_inl_defd_bt* const c, mk_lang_bui_divmod_inl_defd_bt* const d) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_divmod_inl_defd_fn_simple_1_1(mk_lang_bui_divmod_inl_defd_bt const* const a, mk_lang_bui_divmod_inl_defd_bt const* const b, mk_lang_bui_divmod_inl_defd_bt* const c, mk_lang_bui_divmod_inl_defd_bt* const d) mk_lang_noexcept
 {
-	mk_lang_bui_divmod_inl_defd_bt aa;
-	mk_lang_bui_divmod_inl_defd_bt bb;
+	mk_lang_bui_divmod_inl_defd_bt aa mk_lang_constexpr_init;
+	mk_lang_bui_divmod_inl_defd_bt bb mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -42,10 +43,10 @@ mk_lang_jumbo void mk_lang_bui_divmod_inl_defd_fn_simple_1_1(mk_lang_bui_divmod_
 
 #else
 
-mk_lang_nodiscard mk_lang_jumbo int mk_lang_bui_divmod_inl_defd_fn_simple_lena(mk_lang_bui_divmod_inl_defd_bt const* const a) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_lang_bui_divmod_inl_defd_fn_simple_lena(mk_lang_bui_divmod_inl_defd_bt const* const a) mk_lang_noexcept
 {
-	int lena;
-	int i;
+	int lena mk_lang_constexpr_init;
+	int i mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
 
@@ -62,10 +63,10 @@ mk_lang_nodiscard mk_lang_jumbo int mk_lang_bui_divmod_inl_defd_fn_simple_lena(m
 	return lena;
 }
 
-mk_lang_nodiscard mk_lang_jumbo int mk_lang_bui_divmod_inl_defd_fn_simple_lenb(mk_lang_bui_divmod_inl_defd_bt const* const b) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_lang_bui_divmod_inl_defd_fn_simple_lenb(mk_lang_bui_divmod_inl_defd_bt const* const b) mk_lang_noexcept
 {
-	int lenb;
-	int i;
+	int lenb mk_lang_constexpr_init;
+	int i mk_lang_constexpr_init;
 
 	mk_lang_assert(b);
 
@@ -82,9 +83,9 @@ mk_lang_nodiscard mk_lang_jumbo int mk_lang_bui_divmod_inl_defd_fn_simple_lenb(m
 	return lenb;
 }
 
-mk_lang_jumbo void mk_lang_bui_divmod_inl_defd_fn_simple_0(mk_lang_bui_divmod_inl_defd_bt const* const a__, mk_lang_bui_divmod_inl_defd_bt const* const b__, mk_lang_bui_divmod_inl_defd_bt* const c, mk_lang_bui_divmod_inl_defd_bt* const d) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_divmod_inl_defd_fn_simple_0(mk_lang_bui_divmod_inl_defd_bt const* const a__, mk_lang_bui_divmod_inl_defd_bt const* const b__, mk_lang_bui_divmod_inl_defd_bt* const c, mk_lang_bui_divmod_inl_defd_bt* const d) mk_lang_noexcept
 {
-	int i;
+	int i mk_lang_constexpr_init;
 
 	((void)(a__));
 	((void)(b__));
@@ -103,9 +104,9 @@ mk_lang_jumbo void mk_lang_bui_divmod_inl_defd_fn_simple_0(mk_lang_bui_divmod_in
 	}
 }
 
-mk_lang_jumbo void mk_lang_bui_divmod_inl_defd_fn_simple_bigger(mk_lang_bui_divmod_inl_defd_bt const* const a, mk_lang_bui_divmod_inl_defd_bt const* const b__, mk_lang_bui_divmod_inl_defd_bt* const c, mk_lang_bui_divmod_inl_defd_bt* const d) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_divmod_inl_defd_fn_simple_bigger(mk_lang_bui_divmod_inl_defd_bt const* const a, mk_lang_bui_divmod_inl_defd_bt const* const b__, mk_lang_bui_divmod_inl_defd_bt* const c, mk_lang_bui_divmod_inl_defd_bt* const d) mk_lang_noexcept
 {
-	int i;
+	int i mk_lang_constexpr_init;
 
 	mk_lang_static_assert(mk_lang_bui_divmod_inl_defd_lend <= mk_lang_bui_divmod_inl_defd_lena);
 	mk_lang_assert(a);
@@ -132,13 +133,13 @@ mk_lang_jumbo void mk_lang_bui_divmod_inl_defd_fn_simple_bigger(mk_lang_bui_divm
 	}
 }
 
-mk_lang_jumbo void mk_lang_bui_divmod_inl_defd_fn_simple_x_1(mk_lang_bui_divmod_inl_defd_bt const* const a, mk_lang_bui_divmod_inl_defd_bt const* const b, mk_lang_bui_divmod_inl_defd_bt* const c, mk_lang_bui_divmod_inl_defd_bt* const d, int const lena) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_divmod_inl_defd_fn_simple_x_1(mk_lang_bui_divmod_inl_defd_bt const* const a, mk_lang_bui_divmod_inl_defd_bt const* const b, mk_lang_bui_divmod_inl_defd_bt* const c, mk_lang_bui_divmod_inl_defd_bt* const d, int const lena) mk_lang_noexcept
 {
-	mk_lang_bui_divmod_inl_defd_bt bb;
-	int i;
-	mk_lang_bui_divmod_inl_defd_bt ta;
-	mk_lang_bui_divmod_inl_defd_bt tb;
-	mk_lang_bui_divmod_inl_defd_bt2 tc;
+	mk_lang_bui_divmod_inl_defd_bt bb mk_lang_constexpr_init;
+	int i mk_lang_constexpr_init;
+	mk_lang_bui_divmod_inl_defd_bt ta mk_lang_constexpr_init;
+	mk_lang_bui_divmod_inl_defd_bt tb mk_lang_constexpr_init;
+	mk_lang_bui_divmod_inl_defd_bt2 tc mk_lang_constexpr_init;
 
 	mk_lang_static_assert(sizeof(mk_lang_bui_divmod_inl_defd_bt2) >= 2 * sizeof(mk_lang_bui_divmod_inl_defd_bt));
 	mk_lang_assert(a);
@@ -178,9 +179,9 @@ mk_lang_jumbo void mk_lang_bui_divmod_inl_defd_fn_simple_x_1(mk_lang_bui_divmod_
 	d[mk_lang_bui_divmod_inl_defd_endian_idxd(0)] = tb;
 }
 
-mk_lang_jumbo void mk_lang_bui_divmod_inl_defd_fn_simple_n_1(mk_lang_bui_divmod_inl_defd_bt const* const a, mk_lang_bui_divmod_inl_defd_bt const* const b, mk_lang_bui_divmod_inl_defd_bt* const c, mk_lang_bui_divmod_inl_defd_bt* const d) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_divmod_inl_defd_fn_simple_n_1(mk_lang_bui_divmod_inl_defd_bt const* const a, mk_lang_bui_divmod_inl_defd_bt const* const b, mk_lang_bui_divmod_inl_defd_bt* const c, mk_lang_bui_divmod_inl_defd_bt* const d) mk_lang_noexcept
 {
-	int lena;
+	int lena mk_lang_constexpr_init;
 
 	lena = mk_lang_bui_divmod_inl_defd_fn_simple_lena(a);
 	if(lena == 0)
@@ -196,27 +197,27 @@ mk_lang_jumbo void mk_lang_bui_divmod_inl_defd_fn_simple_n_1(mk_lang_bui_divmod_
 
 #if mk_lang_bui_divmod_inl_defd_lena >= 2 && mk_lang_bui_divmod_inl_defd_lenb >= 2
 
-mk_lang_jumbo void mk_lang_bui_divmod_inl_defd_fn_complex_n_n(mk_lang_bui_divmod_inl_defd_bt const* const a, mk_lang_bui_divmod_inl_defd_bt const* const b, mk_lang_bui_divmod_inl_defd_bt* const c, mk_lang_bui_divmod_inl_defd_bt* const d, int const lena, int const lenb) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_divmod_inl_defd_fn_complex_n_n(mk_lang_bui_divmod_inl_defd_bt const* const a, mk_lang_bui_divmod_inl_defd_bt const* const b, mk_lang_bui_divmod_inl_defd_bt* const c, mk_lang_bui_divmod_inl_defd_bt* const d, int const lena, int const lenb) mk_lang_noexcept
 {
-	int i;
-	mk_lang_bui_divmod_inl_defd_bt f;
-	mk_lang_bui_divmod_inl_defd_bt2 ta;
-	mk_lang_bui_divmod_inl_defd_bt aa[mk_lang_bui_divmod_inl_defd_lena + 1];
-	mk_lang_bui_divmod_inl_defd_bt tb;
-	mk_lang_bui_divmod_inl_defd_bt bb[mk_lang_bui_divmod_inl_defd_lenb];
-	int id;
+	int i mk_lang_constexpr_init;
+	mk_lang_bui_divmod_inl_defd_bt f mk_lang_constexpr_init;
+	mk_lang_bui_divmod_inl_defd_bt2 ta mk_lang_constexpr_init;
+	mk_lang_bui_divmod_inl_defd_bt aa[mk_lang_bui_divmod_inl_defd_lena + 1] mk_lang_constexpr_init;
+	mk_lang_bui_divmod_inl_defd_bt tb mk_lang_constexpr_init;
+	mk_lang_bui_divmod_inl_defd_bt bb[mk_lang_bui_divmod_inl_defd_lenb] mk_lang_constexpr_init;
+	int id mk_lang_constexpr_init;
 	#if mk_lang_bui_divmod_inl_defd_alg == 2
-	mk_lang_bui_divmod_inl_defd_bt2 rn;
-	mk_lang_bui_divmod_inl_defd_bt dn;
+	mk_lang_bui_divmod_inl_defd_bt2 rn mk_lang_constexpr_init;
+	mk_lang_bui_divmod_inl_defd_bt dn mk_lang_constexpr_init;
 	#elif mk_lang_bui_divmod_inl_defd_alg == 3
-	mk_lang_bui_divmod_inl_defd_bt3 rn;
-	mk_lang_bui_divmod_inl_defd_bt2 dn;
+	mk_lang_bui_divmod_inl_defd_bt3 rn mk_lang_constexpr_init;
+	mk_lang_bui_divmod_inl_defd_bt2 dn mk_lang_constexpr_init;
 	#endif
-	mk_lang_bui_divmod_inl_defd_bt dq[mk_lang_bui_divmod_inl_defd_lenb + 1];
-	mk_lang_bui_divmod_inl_defd_bt tc;
-	mk_lang_bool_t overshoot;
-	mk_lang_bool_t borrow1;
-	mk_lang_bool_t borrow2;
+	mk_lang_bui_divmod_inl_defd_bt dq[mk_lang_bui_divmod_inl_defd_lenb + 1] mk_lang_constexpr_init;
+	mk_lang_bui_divmod_inl_defd_bt tc mk_lang_constexpr_init;
+	mk_lang_bool_t overshoot mk_lang_constexpr_init;
+	mk_lang_bool_t borrow1 mk_lang_constexpr_init;
+	mk_lang_bool_t borrow2 mk_lang_constexpr_init;
 
 	mk_lang_static_assert(sizeof(mk_lang_bui_divmod_inl_defd_bt2) >= 2 * sizeof(mk_lang_bui_divmod_inl_defd_bt));
 	#if mk_lang_bui_divmod_inl_defd_alg == 2
@@ -420,10 +421,10 @@ mk_lang_jumbo void mk_lang_bui_divmod_inl_defd_fn_complex_n_n(mk_lang_bui_divmod
 #elif mk_lang_bui_divmod_inl_defd_lenb == 1
 #else
 
-mk_lang_jumbo void mk_lang_bui_divmod_inl_defd_fn_simple_n_n(mk_lang_bui_divmod_inl_defd_bt const* const a, mk_lang_bui_divmod_inl_defd_bt const* const b, mk_lang_bui_divmod_inl_defd_bt* const c, mk_lang_bui_divmod_inl_defd_bt* const d) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_divmod_inl_defd_fn_simple_n_n(mk_lang_bui_divmod_inl_defd_bt const* const a, mk_lang_bui_divmod_inl_defd_bt const* const b, mk_lang_bui_divmod_inl_defd_bt* const c, mk_lang_bui_divmod_inl_defd_bt* const d) mk_lang_noexcept
 {
-	int lena;
-	int lenb;
+	int lena mk_lang_constexpr_init;
+	int lenb mk_lang_constexpr_init;
 
 	lena = mk_lang_bui_divmod_inl_defd_fn_simple_lena(a);
 	if(lena == 0)
@@ -461,7 +462,7 @@ mk_lang_jumbo void mk_lang_bui_divmod_inl_defd_fn_simple_n_n(mk_lang_bui_divmod_
 #endif
 
 
-mk_lang_jumbo void mk_lang_bui_divmod_inl_defd_fn(mk_lang_bui_divmod_inl_defd_bt const* const a, mk_lang_bui_divmod_inl_defd_bt const* const b, mk_lang_bui_divmod_inl_defd_bt* const c, mk_lang_bui_divmod_inl_defd_bt* const d) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_divmod_inl_defd_fn(mk_lang_bui_divmod_inl_defd_bt const* const a, mk_lang_bui_divmod_inl_defd_bt const* const b, mk_lang_bui_divmod_inl_defd_bt* const c, mk_lang_bui_divmod_inl_defd_bt* const d) mk_lang_noexcept
 {
 #if mk_lang_bui_divmod_inl_defd_lena == 1 && mk_lang_bui_divmod_inl_defd_lenb == 1
 	mk_lang_bui_divmod_inl_defd_fn_simple_1_1(a, b, c, d);

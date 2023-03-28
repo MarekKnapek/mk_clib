@@ -1,7 +1,7 @@
 #include "mk_sl_cui_inl_tofrom_buis_inl_defd.h"
 
 
-mk_lang_jumbo void mk_sl_cui_inl_tofrom_buis_inl_defd_fn_to(mk_sl_cui_inl_defd_t const* const x, mk_sl_cui_inl_tofrom_buis_inl_defd_bui_t* const dst) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_tofrom_buis_inl_defd_fn_to(mk_sl_cui_inl_defd_t const* const x, mk_sl_cui_inl_tofrom_buis_inl_defd_bui_t* const dst) mk_lang_noexcept
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -9,7 +9,7 @@ mk_lang_jumbo void mk_sl_cui_inl_tofrom_buis_inl_defd_fn_to(mk_sl_cui_inl_defd_t
 
 	mk_sl_cui_inl_tofrom_buis_inl_defd_base_to_buis(&x->m_data[0], dst);
 #elif mk_sl_cui_inl_defd_base_bits == mk_sl_cui_inl_tofrom_buis_inl_defd_bui_bits_t
-	int i;
+	int i mk_lang_constexpr_init;
 
 	mk_lang_assert(x);
 	mk_lang_assert(dst);
@@ -19,7 +19,7 @@ mk_lang_jumbo void mk_sl_cui_inl_tofrom_buis_inl_defd_fn_to(mk_sl_cui_inl_defd_t
 		mk_sl_cui_inl_tofrom_buis_inl_defd_base_to_bi(&x->m_data[mk_sl_cui_inl_defd_idx(i)], &dst[mk_sl_cui_inl_tofrom_buis_inl_defd_bui_idx(i)]);
 	}
 #elif ((mk_sl_cui_inl_defd_base_bits > mk_sl_cui_inl_tofrom_buis_inl_defd_bui_bits_t) && ((mk_sl_cui_inl_defd_base_bits % mk_sl_cui_inl_tofrom_buis_inl_defd_bui_bits_t) == 0))
-	int i;
+	int i mk_lang_constexpr_init;
 
 	mk_lang_assert(x);
 	mk_lang_assert(dst);
@@ -29,10 +29,10 @@ mk_lang_jumbo void mk_sl_cui_inl_tofrom_buis_inl_defd_fn_to(mk_sl_cui_inl_defd_t
 		mk_sl_cui_inl_tofrom_buis_inl_defd_base_to_buis(&x->m_data[mk_sl_cui_inl_defd_idx(i)], &dst[mk_sl_cui_inl_tofrom_buis_inl_defd_bui_idx(i * mk_sl_cui_inl_tofrom_buis_inl_defd_ratio_base_bui) - ((mk_sl_cui_inl_tofrom_buis_inl_defd_endian_value == mk_lang_endian_big) ? (mk_sl_cui_inl_tofrom_buis_inl_defd_ratio_base_bui - 1) : (0))]);
 	}
 #elif ((mk_sl_cui_inl_tofrom_buis_inl_defd_bui_bits_t > mk_sl_cui_inl_defd_base_bits) && ((mk_sl_cui_inl_tofrom_buis_inl_defd_bui_bits_t % mk_sl_cui_inl_defd_base_bits) == 0))
-	int i;
-	mk_sl_cui_inl_tofrom_buis_inl_defd_bui_t ta;
-	int j;
-	mk_sl_cui_inl_tofrom_buis_inl_defd_bui_t tb;
+	int i mk_lang_constexpr_init;
+	mk_sl_cui_inl_tofrom_buis_inl_defd_bui_t ta mk_lang_constexpr_init;
+	int j mk_lang_constexpr_init;
+	mk_sl_cui_inl_tofrom_buis_inl_defd_bui_t tb mk_lang_constexpr_init;
 
 	mk_lang_assert(x);
 	mk_lang_assert(dst);
@@ -65,7 +65,7 @@ mk_lang_jumbo void mk_sl_cui_inl_tofrom_buis_inl_defd_fn_to(mk_sl_cui_inl_defd_t
 #endif
 }
 
-mk_lang_jumbo void mk_sl_cui_inl_tofrom_buis_inl_defd_fn_from(mk_sl_cui_inl_defd_t* const x, mk_sl_cui_inl_tofrom_buis_inl_defd_bui_t const* const src) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_tofrom_buis_inl_defd_fn_from(mk_sl_cui_inl_defd_t* const x, mk_sl_cui_inl_tofrom_buis_inl_defd_bui_t const* const src) mk_lang_noexcept
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -73,7 +73,7 @@ mk_lang_jumbo void mk_sl_cui_inl_tofrom_buis_inl_defd_fn_from(mk_sl_cui_inl_defd
 
 	mk_sl_cui_inl_tofrom_buis_inl_defd_base_from_buis(&x->m_data[0], src);
 #elif mk_sl_cui_inl_defd_base_bits == mk_sl_cui_inl_tofrom_buis_inl_defd_bui_bits_t
-	int i;
+	int i mk_lang_constexpr_init;
 
 	mk_lang_assert(x);
 	mk_lang_assert(src);
@@ -83,7 +83,7 @@ mk_lang_jumbo void mk_sl_cui_inl_tofrom_buis_inl_defd_fn_from(mk_sl_cui_inl_defd
 		mk_sl_cui_inl_tofrom_buis_inl_defd_base_from_bi(&x->m_data[mk_sl_cui_inl_defd_idx(i)], &src[mk_sl_cui_inl_tofrom_buis_inl_defd_bui_idx(i)]);
 	}
 #elif ((mk_sl_cui_inl_defd_base_bits > mk_sl_cui_inl_tofrom_buis_inl_defd_bui_bits_t) && ((mk_sl_cui_inl_defd_base_bits % mk_sl_cui_inl_tofrom_buis_inl_defd_bui_bits_t) == 0))
-	int i;
+	int i mk_lang_constexpr_init;
 
 	mk_lang_assert(x);
 	mk_lang_assert(src);
@@ -93,9 +93,9 @@ mk_lang_jumbo void mk_sl_cui_inl_tofrom_buis_inl_defd_fn_from(mk_sl_cui_inl_defd
 		mk_sl_cui_inl_tofrom_buis_inl_defd_base_from_buis(&x->m_data[mk_sl_cui_inl_defd_idx(i)], &src[mk_sl_cui_inl_tofrom_buis_inl_defd_bui_idx(i * mk_sl_cui_inl_tofrom_buis_inl_defd_ratio_base_bui) - ((mk_sl_cui_inl_tofrom_buis_inl_defd_endian_value == mk_lang_endian_big) ? (mk_sl_cui_inl_tofrom_buis_inl_defd_ratio_base_bui - 1) : (0))]);
 	}
 #elif ((mk_sl_cui_inl_tofrom_buis_inl_defd_bui_bits_t > mk_sl_cui_inl_defd_base_bits) && ((mk_sl_cui_inl_tofrom_buis_inl_defd_bui_bits_t % mk_sl_cui_inl_defd_base_bits) == 0))
-	int i;
-	mk_sl_cui_inl_tofrom_buis_inl_defd_bui_t ta;
-	int j;
+	int i mk_lang_constexpr_init;
+	mk_sl_cui_inl_tofrom_buis_inl_defd_bui_t ta mk_lang_constexpr_init;
+	int j mk_lang_constexpr_init;
 
 	mk_lang_assert(x);
 	mk_lang_assert(src);

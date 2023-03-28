@@ -1,5 +1,6 @@
 #include "mk_lang_assert.h"
 #include "mk_lang_charbit.h"
+#include "mk_lang_constexpr.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_sizeof.h"
@@ -8,7 +9,7 @@
 #include "mk_lang_bui_inl_tofrom_buis_inl_defd.h"
 
 
-mk_lang_jumbo void mk_lang_bui_inl_tofrom_buis_inl_defd_fn_to(mk_lang_bui_inl_defd_type const* const x, mk_lang_bui_inl_tofrom_buis_inl_defd_bui_t* const dst) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_tofrom_buis_inl_defd_fn_to(mk_lang_bui_inl_defd_type const* const x, mk_lang_bui_inl_tofrom_buis_inl_defd_bui_t* const dst) mk_lang_noexcept
 {
 #if mk_lang_bui_inl_defd_sizeof <= mk_lang_bui_inl_tofrom_buis_inl_defd_sizeof_bui_t
 	mk_lang_assert(x);
@@ -16,8 +17,8 @@ mk_lang_jumbo void mk_lang_bui_inl_tofrom_buis_inl_defd_fn_to(mk_lang_bui_inl_de
 
 	*dst = ((mk_lang_bui_inl_tofrom_buis_inl_defd_bui_t)(*x));
 #else
-	mk_lang_bui_inl_defd_type xx;
-	int i;
+	mk_lang_bui_inl_defd_type xx mk_lang_constexpr_init;
+	int i mk_lang_constexpr_init;
 
 	mk_lang_assert(x);
 	mk_lang_assert(dst);
@@ -32,7 +33,7 @@ mk_lang_jumbo void mk_lang_bui_inl_tofrom_buis_inl_defd_fn_to(mk_lang_bui_inl_de
 #endif
 }
 
-mk_lang_jumbo void mk_lang_bui_inl_tofrom_buis_inl_defd_fn_from(mk_lang_bui_inl_defd_type* const x, mk_lang_bui_inl_tofrom_buis_inl_defd_bui_t const* const src) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_tofrom_buis_inl_defd_fn_from(mk_lang_bui_inl_defd_type* const x, mk_lang_bui_inl_tofrom_buis_inl_defd_bui_t const* const src) mk_lang_noexcept
 {
 #if mk_lang_bui_inl_defd_sizeof <= mk_lang_bui_inl_tofrom_buis_inl_defd_sizeof_bui_t
 	mk_lang_assert(x);
@@ -40,8 +41,8 @@ mk_lang_jumbo void mk_lang_bui_inl_tofrom_buis_inl_defd_fn_from(mk_lang_bui_inl_
 
 	*x = ((mk_lang_bui_inl_defd_type)(*src));
 #else
-	mk_lang_bui_inl_defd_type xx;
-	int i;
+	mk_lang_bui_inl_defd_type xx mk_lang_constexpr_init;
+	int i mk_lang_constexpr_init;
 
 	mk_lang_assert(x);
 	mk_lang_assert(src);
