@@ -1,3 +1,4 @@
+#undef mk_lang_bui_divmod_inl_defd_btn
 #undef mk_lang_bui_divmod_inl_defd_bt
 #undef mk_lang_bui_divmod_inl_defd_bt2
 #undef mk_lang_bui_divmod_inl_defd_bt3
@@ -11,6 +12,7 @@
 
 #undef mk_lang_bui_divmod_inl_defd_lenc
 #undef mk_lang_bui_divmod_inl_defd_lend
+#undef mk_lang_bui_divmod_inl_defd_fn_overlap
 #undef mk_lang_bui_divmod_inl_defd_fn_simple_lena
 #undef mk_lang_bui_divmod_inl_defd_fn_simple_lenb
 #undef mk_lang_bui_divmod_inl_defd_fn_simple_1_1

@@ -9,6 +9,7 @@
 #include "mk_lang_min.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_overlap.h"
 #include "mk_lang_sizeof.h"
 #include "mk_lang_static_assert.h"
 
@@ -29,7 +30,7 @@ mk_lang_jumbo void mk_lang_bui_divmod_inl_defd_fn_simple_1_1(mk_lang_bui_divmod_
 	mk_lang_assert(c);
 	mk_lang_assert(d);
 	mk_lang_assert(c != d);
-	mk_lang_assert(!(c >= d && c < d + mk_lang_bui_divmod_inl_defd_lend));
+	mk_lang_assert(!(c >= d && c < d + mk_lang_bui_divmod_inl_defd_lend)); /* todo overlap */
 	mk_lang_assert(!(d >= c && d < c + mk_lang_bui_divmod_inl_defd_lenc));
 	mk_lang_assert(*b != ((mk_lang_bui_divmod_inl_defd_bt)(0)));
 
@@ -90,8 +91,7 @@ mk_lang_jumbo void mk_lang_bui_divmod_inl_defd_fn_simple_0(mk_lang_bui_divmod_in
 	mk_lang_assert(c);
 	mk_lang_assert(d);
 	mk_lang_assert(c != d);
-	mk_lang_assert(!(c >= d && c < d + mk_lang_bui_divmod_inl_defd_lend));
-	mk_lang_assert(!(d >= c && d < c + mk_lang_bui_divmod_inl_defd_lenc));
+	mk_lang_assert(!mk_lang_bui_divmod_inl_defd_fn_overlap(c, mk_lang_bui_divmod_inl_defd_lenc, d, mk_lang_bui_divmod_inl_defd_lend));
 
 	for(i = 0; i != mk_lang_bui_divmod_inl_defd_lenc; ++i)
 	{
@@ -117,7 +117,7 @@ mk_lang_jumbo void mk_lang_bui_divmod_inl_defd_fn_simple_bigger(mk_lang_bui_divm
 	mk_lang_assert(c != d);
 	mk_lang_assert(!(a >= c && a < c + mk_lang_bui_divmod_inl_defd_lenc));
 	mk_lang_assert(!(a >= d && a < d + mk_lang_bui_divmod_inl_defd_lend));
-	mk_lang_assert(!(c >= a && c < a + mk_lang_bui_divmod_inl_defd_lena));
+	mk_lang_assert(!(c >= a && c < a + mk_lang_bui_divmod_inl_defd_lena)); /* todo overlap */
 	mk_lang_assert(!(c >= d && c < d + mk_lang_bui_divmod_inl_defd_lend));
 	mk_lang_assert(!(d >= a && d < a + mk_lang_bui_divmod_inl_defd_lena));
 	mk_lang_assert(!(d >= c && d < c + mk_lang_bui_divmod_inl_defd_lenc));
@@ -148,12 +148,9 @@ mk_lang_jumbo void mk_lang_bui_divmod_inl_defd_fn_simple_x_1(mk_lang_bui_divmod_
 	mk_lang_assert(a != c);
 	mk_lang_assert(a != d);
 	mk_lang_assert(c != d);
-	mk_lang_assert(!(a >= c && a < c + mk_lang_bui_divmod_inl_defd_lenc));
-	mk_lang_assert(!(a >= d && a < d + mk_lang_bui_divmod_inl_defd_lend));
-	mk_lang_assert(!(c >= a && c < a + mk_lang_bui_divmod_inl_defd_lena));
-	mk_lang_assert(!(c >= d && c < d + mk_lang_bui_divmod_inl_defd_lend));
-	mk_lang_assert(!(d >= a && d < a + mk_lang_bui_divmod_inl_defd_lena));
-	mk_lang_assert(!(d >= c && d < c + mk_lang_bui_divmod_inl_defd_lenc));
+	mk_lang_assert(!mk_lang_bui_divmod_inl_defd_fn_overlap(a, mk_lang_bui_divmod_inl_defd_lena, c, mk_lang_bui_divmod_inl_defd_lenc));
+	mk_lang_assert(!mk_lang_bui_divmod_inl_defd_fn_overlap(a, mk_lang_bui_divmod_inl_defd_lena, d, mk_lang_bui_divmod_inl_defd_lend));
+	mk_lang_assert(!mk_lang_bui_divmod_inl_defd_fn_overlap(c, mk_lang_bui_divmod_inl_defd_lenc, d, mk_lang_bui_divmod_inl_defd_lend));
 	mk_lang_assert(b[mk_lang_bui_divmod_inl_defd_endian_idxb(0)] != ((mk_lang_bui_divmod_inl_defd_bt)(0)));
 	mk_lang_assert(lena >= 1 && lena <= mk_lang_bui_divmod_inl_defd_lena);
 
@@ -239,7 +236,7 @@ mk_lang_jumbo void mk_lang_bui_divmod_inl_defd_fn_complex_n_n(mk_lang_bui_divmod
 	mk_lang_assert(!(a >= d && a < d + mk_lang_bui_divmod_inl_defd_lend));
 	mk_lang_assert(!(b >= c && b < c + mk_lang_bui_divmod_inl_defd_lenc));
 	mk_lang_assert(!(b >= d && b < d + mk_lang_bui_divmod_inl_defd_lend));
-	mk_lang_assert(!(c >= a && c < a + mk_lang_bui_divmod_inl_defd_lena));
+	mk_lang_assert(!(c >= a && c < a + mk_lang_bui_divmod_inl_defd_lena)); /* todo overlap */
 	mk_lang_assert(!(c >= b && c < b + mk_lang_bui_divmod_inl_defd_lenb));
 	mk_lang_assert(!(c >= d && c < d + mk_lang_bui_divmod_inl_defd_lend));
 	mk_lang_assert(!(d >= a && d < a + mk_lang_bui_divmod_inl_defd_lena));
@@ -480,6 +477,7 @@ mk_lang_jumbo void mk_lang_bui_divmod_inl_defd_fn(mk_lang_bui_divmod_inl_defd_bt
 #include "mk_lang_bui_divmod_inl_defu.h"
 
 
+#undef mk_lang_bui_divmod_btn
 #undef mk_lang_bui_divmod_bt
 #undef mk_lang_bui_divmod_bt2
 #undef mk_lang_bui_divmod_bt3
