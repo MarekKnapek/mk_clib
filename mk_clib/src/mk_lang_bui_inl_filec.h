@@ -1,6 +1,7 @@
 #include "mk_lang_assert.h"
 #include "mk_lang_bool.h"
 #include "mk_lang_charbit.h"
+#include "mk_lang_intrinsic.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
@@ -8,6 +9,7 @@
 #include "mk_lang_static_assert.h"
 
 
+#if mk_lang_intrinsic_want
 #if defined _MSC_VER && _MSC_VER >= 1700 /* vs 2012 */ && defined _M_AMD64
 #include <intrin.h>
 #pragma intrinsic(_umul128)
@@ -23,6 +25,7 @@
 #if defined _MSC_VER && _MSC_VER >= 1500 /* vs 2008 */ && defined _M_AMD64
 #include <intrin.h>
 #pragma intrinsic(__ull_rshift)
+#endif
 #endif
 
 
@@ -524,7 +527,7 @@ mk_lang_jumbo void mk_lang_bui_inl_defd_mul3_wrap_hi(mk_lang_bui_inl_defd_type c
 	mk_lang_assert(c);
 
 	*c = ((mk_lang_bui_inl_defd_type)(((mk_lang_bi_ulllong_t)(((mk_lang_bi_ulllong_t)(*a)) * ((mk_lang_bi_ulllong_t)(*b)))) >> ((int)(mk_lang_bui_inl_defd_sizeof * mk_lang_charbit))));
-#elif defined _MSC_VER && _MSC_VER >= 1500 /* vs 2008 */ && (defined _M_IX86 || defined _M_AMD64) && mk_lang_bui_inl_defd_sizeof * mk_lang_charbit == 32
+#elif mk_lang_intrinsic_want && defined _MSC_VER && _MSC_VER >= 1500 /* vs 2008 */ && (defined _M_IX86 || defined _M_AMD64) && mk_lang_bui_inl_defd_sizeof * mk_lang_charbit == 32
 	mk_lang_assert(a);
 	mk_lang_assert(b);
 	mk_lang_assert(c);
@@ -534,7 +537,7 @@ mk_lang_jumbo void mk_lang_bui_inl_defd_mul3_wrap_hi(mk_lang_bui_inl_defd_type c
 	#else
 	*c = ((mk_lang_bui_inl_defd_type)(__emulu(((unsigned int)(*a)), ((unsigned int)(*b))) >> 32));
 	#endif
-#elif defined _MSC_VER && _MSC_VER >= 1700 /* vs 2012 */ && defined _M_AMD64 && mk_lang_bui_inl_defd_sizeof * mk_lang_charbit == 64
+#elif mk_lang_intrinsic_want && defined _MSC_VER && _MSC_VER >= 1700 /* vs 2012 */ && defined _M_AMD64 && mk_lang_bui_inl_defd_sizeof * mk_lang_charbit == 64
 	unsigned __int64 cc;
 
 	mk_lang_assert(a);
@@ -543,7 +546,7 @@ mk_lang_jumbo void mk_lang_bui_inl_defd_mul3_wrap_hi(mk_lang_bui_inl_defd_type c
 
 	_umul128(((unsigned __int64)(*a)), ((unsigned __int64)(*b)), &cc);
 	*c = ((mk_lang_bui_inl_defd_type)(cc));
-#elif defined _MSC_VER && _MSC_VER >= 1600 /* vs 2010 */ && (defined _M_AMD64 || defined _M_IA64 || defined _M_ARM64) && mk_lang_bui_inl_defd_sizeof * mk_lang_charbit == 64
+#elif mk_lang_intrinsic_want && defined _MSC_VER && _MSC_VER >= 1600 /* vs 2010 */ && (defined _M_AMD64 || defined _M_IA64 || defined _M_ARM64) && mk_lang_bui_inl_defd_sizeof * mk_lang_charbit == 64
 	mk_lang_assert(a);
 	mk_lang_assert(b);
 	mk_lang_assert(c);
@@ -664,7 +667,7 @@ mk_lang_jumbo void mk_lang_bui_inl_defd_mul4_wrap_wi(mk_lang_bui_inl_defd_type c
 	cc = ((mk_lang_bi_ulllong_t)(aa * bb));
 	*c = ((mk_lang_bui_inl_defd_type)(cc));
 	*d = ((mk_lang_bui_inl_defd_type)(cc >> ((int)(mk_lang_bui_inl_defd_sizeof * mk_lang_charbit))));
-#elif defined _MSC_VER && _MSC_VER >= 1500 /* vs 2008 */ && (defined _M_IX86 || defined _M_AMD64) && mk_lang_bui_inl_defd_sizeof * mk_lang_charbit == 32
+#elif mk_lang_intrinsic_want && defined _MSC_VER && _MSC_VER >= 1500 /* vs 2008 */ && (defined _M_IX86 || defined _M_AMD64) && mk_lang_bui_inl_defd_sizeof * mk_lang_charbit == 32
 	unsigned int aa;
 	unsigned int bb;
 	unsigned __int64 cc;
@@ -684,7 +687,7 @@ mk_lang_jumbo void mk_lang_bui_inl_defd_mul4_wrap_wi(mk_lang_bui_inl_defd_type c
 	#else
 	*d = ((mk_lang_bui_inl_defd_type)(cc >> 32));
 	#endif
-#elif defined _MSC_VER && _MSC_VER >= 1700 /* vs 2012 */ && defined _M_AMD64 && mk_lang_bui_inl_defd_sizeof * mk_lang_charbit == 64
+#elif mk_lang_intrinsic_want && defined _MSC_VER && _MSC_VER >= 1700 /* vs 2012 */ && defined _M_AMD64 && mk_lang_bui_inl_defd_sizeof * mk_lang_charbit == 64
 	unsigned __int64 aa;
 	unsigned __int64 bb;
 	unsigned __int64 cc;
@@ -699,7 +702,7 @@ mk_lang_jumbo void mk_lang_bui_inl_defd_mul4_wrap_wi(mk_lang_bui_inl_defd_type c
 	bb = ((unsigned __int64)(*b));
 	*c = ((mk_lang_bui_inl_defd_type)(_umul128(aa, bb, &cc)));
 	*d = ((mk_lang_bui_inl_defd_type)(cc));
-#elif defined _MSC_VER && _MSC_VER >= 1600 /* vs 2010 */ && (defined _M_AMD64 || defined _M_IA64 || defined _M_ARM64) && mk_lang_bui_inl_defd_sizeof * mk_lang_charbit == 64
+#elif mk_lang_intrinsic_want && defined _MSC_VER && _MSC_VER >= 1600 /* vs 2010 */ && (defined _M_AMD64 || defined _M_IA64 || defined _M_ARM64) && mk_lang_bui_inl_defd_sizeof * mk_lang_charbit == 64
 	unsigned __int64 aa;
 	unsigned __int64 bb;
 
