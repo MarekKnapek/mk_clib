@@ -4846,7 +4846,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_tofrom_str(unsigned char const* const
 	check_data(sizeof(cui2)); memcpy(&cui2, d, sizeof(cui2)); advance(sizeof(cui2));
 	check_data(sizeof(buff)); memcpy(&buff, d, sizeof(buff)); advance(sizeof(buff));
 	n = mk_sl_cui_inl_defd_to_str_dec_n(&cui1, &buff[0], ((int)(mk_sl_cui_inl_defd_to_str_dec_lenv)));
-	test(n >= 1 && n <= mk_sl_cui_inl_defd_to_str_dec_lenv);
+	test(n >= 1 && n <= ((int)(mk_sl_cui_inl_defd_to_str_dec_lenv)));
 	m = mk_sl_cui_inl_defd_from_str_dec_n(&cui2, buff, n);
 	test(m == n);
 	test(mk_sl_cui_inl_defd_eq(&cui2, &cui1));
