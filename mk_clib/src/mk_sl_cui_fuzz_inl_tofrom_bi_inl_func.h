@@ -30,6 +30,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_tofrom_bi_inl_defd_fn(unsigned char const*
 	advance(sizeof(bir2));
 	mk_sl_cui_fuzz_inl_tofrom_bi_inl_defd_cui_from_bi(&cui, &bi);
 	mk_sl_cui_fuzz_inl_tofrom_bi_inl_defd_bui_from_bi(&bui, &bi);
+	mk_sl_cui_fuzz_inl_defd_mask(&bui);
 	mk_sl_cui_fuzz_inl_tofrom_bi_inl_defd_cui_to_bi(&cui, &bir1);
 	mk_sl_cui_fuzz_inl_tofrom_bi_inl_defd_bui_to_bi(&bui, &bir2);
 	test(bir1 == bir2);

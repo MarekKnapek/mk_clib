@@ -116,6 +116,7 @@
 #undef mk_sl_cui_fuzz_inl_defd_mul3_wrap_hi_alias_bc
 #undef mk_sl_cui_fuzz_inl_defd_mul3_wrap_hi_alias_abc
 
+#undef mk_sl_cui_fuzz_inl_defd_mask
 #undef mk_sl_cui_fuzz_inl_defd_set_zero
 #undef mk_sl_cui_fuzz_inl_defd_set_max
 #undef mk_sl_cui_fuzz_inl_defd_set_one
