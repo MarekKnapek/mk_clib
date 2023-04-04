@@ -1,13 +1,15 @@
 #define mk_lang_jumbo_want 1
 
+#include "mk_lang_constexpr.h"
+#include "mk_lang_cpp.h"
+#include "mk_lang_noexcept.h"
+
+#if mk_lang_constexpr_has
 #include "mk_lang_assert.h"
 #include "mk_lang_bi.h"
 #include "mk_lang_bool.h"
-#include "mk_lang_constexpr.h"
-#include "mk_lang_cpp.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
-#include "mk_lang_noexcept.h"
 #include "mk_lang_sizeof.h"
 #include "mk_lang_static_assert.h"
 #define mk_lang_bui_name cnstxpr
@@ -25,8 +27,10 @@
 #define mk_sl_cui_base_bui_tn uint
 #include "mk_sl_cui_inl_fileh.h"
 #include "mk_sl_cui_inl_filec.h"
+#endif
 
 
+#if mk_lang_constexpr_has
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_lang_constexpr_test_(void) mk_lang_noexcept
 {
 	{
@@ -215,11 +219,14 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_lang_constexpr_test_(vo
 		return ret;
 	}
 }
+#endif
 
 
 mk_lang_extern_c void mk_lang_constexpr_test(void) mk_lang_noexcept
 {
+#if mk_lang_constexpr_has
 	static mk_lang_constexpr auto const s_x = mk_lang_constexpr_test_();
 
 	mk_lang_static_assert(s_x == 0);
+#endif
 }
