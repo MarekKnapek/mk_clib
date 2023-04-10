@@ -1,3 +1,4 @@
+#undef mk_lang_jumbo_want
 #define mk_lang_jumbo_want 1
 
 #include "mk_lang_assert.h"
