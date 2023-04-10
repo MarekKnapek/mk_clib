@@ -47,7 +47,6 @@ mk_lang_nodiscard mk_lang_jumbo int mk_sl_flt_defd_to_string_dec_basic_n(void co
 	int ti;
 	int tn;
 	flt_bigab_t bigab;
-	mk_lang_bi_uint_t uints[mk_sl_flt_defd_bui_count];
 	int i;
 	char* pstr;
 	mk_lang_bi_uint_t base;
@@ -107,15 +106,6 @@ mk_lang_nodiscard mk_lang_jumbo int mk_sl_flt_defd_to_string_dec_basic_n(void co
 		mk_sl_flt_defd_cui_set_bit(&ta, mk_sl_flt_defd_fraction_bits);
 		mk_sl_flt_defd_cui_or2(&fraction, &ta);
 	}
-	if(kind == flt_kind_e_normal || kind == flt_kind_e_subnormal)
-	{
-		/* todo create new from arbitrary cui to arbitrary different cui conversion */
-		mk_sl_flt_defd_cui_to_buis_uint_le(&fraction, &uints[0]);
-		for(i = mk_lang_div_roundup(mk_sl_flt_defd_bits, mk_sl_flt_defd_bui_bits); i != ((int)(sizeof(uints) / sizeof(uints[0]))); ++i)
-		{
-			uints[i] = 0u;
-		}
-	}
 	if(kind == flt_kind_e_normal)
 	{
 		exponent_decoded = exponent_encoded - mk_sl_flt_defd_exponent_bias;
@@ -127,7 +117,7 @@ mk_lang_nodiscard mk_lang_jumbo int mk_sl_flt_defd_to_string_dec_basic_n(void co
 		}
 		else
 		{
-			mk_sl_flt_defd_cuiba_from_buis_uint_le(&bigab.m_a, &uints[0]);
+			mk_sl_flt_defd_convert_to_biga(&fraction, &bigab.m_a);
 			ti = exponent_decoded - mk_sl_flt_defd_fraction_bits;
 			if(ti == 0)
 			{
@@ -166,7 +156,7 @@ mk_lang_nodiscard mk_lang_jumbo int mk_sl_flt_defd_to_string_dec_basic_n(void co
 		}
 		else
 		{
-			mk_sl_flt_defd_cuibb_from_buis_uint_le(&bigab.m_b, &uints[0]);
+			mk_sl_flt_defd_convert_to_bigb(&fraction, &bigab.m_b);
 			ti = mk_sl_flt_defd_has_bits_b - (mk_sl_flt_defd_fraction_bits - exponent_decoded);
 			mk_sl_flt_defd_cuibb_shl2(&bigab.m_b, ti);
 			base = 10u;
@@ -204,7 +194,6 @@ mk_lang_nodiscard mk_lang_jumbo int mk_sl_flt_defd_to_string_dec_basic_n(void co
 		{
 			if(((int)(pstr - str)) == str_len) mk_lang_unlikely return 0; *pstr = s_nan[i]; ++pstr;
 		}
-		/* todo print fraction bits */
 	}
 	return ((int)(pstr - str));
 }

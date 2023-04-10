@@ -2,7 +2,6 @@
 #undef mk_sl_flt_defd_bui_t
 #undef mk_sl_flt_defd_bui_sizeof
 #undef mk_sl_flt_defd_bui_bits
-#undef mk_sl_flt_defd_bui_count
 #undef mk_sl_flt_defd_has_bits_b
 
 #undef mk_sl_flt_defd_cui
@@ -31,3 +30,6 @@
 #undef mk_sl_flt_defd_cuibb_is_zero
 #undef mk_sl_flt_defd_cuibb_shl2
 #undef mk_sl_flt_defd_cuibb_mul4_wrap_wi_smol
+
+#undef mk_sl_flt_defd_convert_to_biga
+#undef mk_sl_flt_defd_convert_to_bigb

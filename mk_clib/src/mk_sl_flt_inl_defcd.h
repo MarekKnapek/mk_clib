@@ -10,7 +10,6 @@
 #define mk_sl_flt_defd_bui_t mk_lang_concat(mk_lang_concat(mk_lang_bi_, mk_sl_flt_defd_bui_tn), _t)
 #define mk_sl_flt_defd_bui_sizeof mk_lang_concat(mk_lang_concat(mk_lang_sizeof_bi_, mk_sl_flt_defd_bui_tn), _t)
 #define mk_sl_flt_defd_bui_bits (mk_sl_flt_defd_bui_sizeof * mk_lang_charbit)
-#define mk_sl_flt_defd_bui_count (mk_lang_div_roundup(mk_lang_max(mk_sl_flt_defd_need_bits_a, mk_sl_flt_defd_need_bits_b), mk_sl_flt_defd_bui_bits))
 #define mk_sl_flt_defd_has_bits_b (mk_lang_div_roundup(mk_sl_flt_defd_need_bits_b, (mk_sl_flt_defd_bui_sizeof * mk_lang_charbit)) * (mk_sl_flt_defd_bui_sizeof * mk_lang_charbit))
 
 
@@ -76,3 +75,43 @@
 #define mk_sl_flt_defd_cuibb_is_zero mk_lang_concat(mk_sl_flt_defd_cuibb, _is_zero)
 #define mk_sl_flt_defd_cuibb_shl2 mk_lang_concat(mk_sl_flt_defd_cuibb, _shl2)
 #define mk_sl_flt_defd_cuibb_mul4_wrap_wi_smol mk_lang_concat(mk_sl_flt_defd_cuibb, _mul4_wrap_wi_smol)
+
+#define mk_sl_cui_convert_a_name mk_lang_concat(mk_sl_flt_, mk_sl_flt_defd_name)
+#define mk_sl_cui_convert_a_base_type mk_sl_flt_defd_bui_t
+#define mk_sl_cui_convert_a_base_name mk_lang_concat(mk_lang_bui_, mk_lang_concat(mk_sl_flt_, mk_sl_flt_defd_name))
+#define mk_sl_cui_convert_a_base_bits (mk_sl_flt_defd_bui_sizeof * mk_lang_charbit)
+#define mk_sl_cui_convert_a_count mk_lang_div_roundup(mk_sl_flt_defd_bits, (mk_sl_flt_defd_bui_sizeof * mk_lang_charbit))
+#define mk_sl_cui_convert_a_endian mk_lang_endian_little
+#define mk_sl_cui_convert_a_base_is_bui 1
+#define mk_sl_cui_convert_a_base_bui_tn mk_sl_flt_defd_bui_tn
+#define mk_sl_cui_convert_b_name mk_lang_concat(mk_lang_concat(mk_sl_flt_, mk_sl_flt_defd_name), biga)
+#define mk_sl_cui_convert_b_base_type mk_sl_flt_defd_bui_t
+#define mk_sl_cui_convert_b_base_name mk_lang_concat(mk_lang_bui_, mk_lang_concat(mk_sl_flt_, mk_sl_flt_defd_name))
+#define mk_sl_cui_convert_b_base_bits (mk_sl_flt_defd_bui_sizeof * mk_lang_charbit)
+#define mk_sl_cui_convert_b_count mk_lang_div_roundup(mk_sl_flt_defd_need_bits_b, (mk_sl_flt_defd_bui_sizeof * mk_lang_charbit))
+#define mk_sl_cui_convert_b_endian mk_lang_endian_little
+#define mk_sl_cui_convert_b_base_is_bui 1
+#define mk_sl_cui_convert_b_base_bui_tn mk_sl_flt_defd_bui_tn
+#include "mk_sl_cui_convert_inl_fileh.h"
+#include "mk_sl_cui_convert_inl_filec.h"
+#define mk_sl_flt_defd_convert_to_biga mk_lang_concat(mk_lang_concat(mk_lang_concat(mk_sl_cui_convert_, mk_lang_concat(mk_sl_flt_, mk_sl_flt_defd_name)), _to_), mk_lang_concat(mk_lang_concat(mk_sl_flt_, mk_sl_flt_defd_name), biga))
+
+#define mk_sl_cui_convert_a_name mk_lang_concat(mk_sl_flt_, mk_sl_flt_defd_name)
+#define mk_sl_cui_convert_a_base_type mk_sl_flt_defd_bui_t
+#define mk_sl_cui_convert_a_base_name mk_lang_concat(mk_lang_bui_, mk_lang_concat(mk_sl_flt_, mk_sl_flt_defd_name))
+#define mk_sl_cui_convert_a_base_bits (mk_sl_flt_defd_bui_sizeof * mk_lang_charbit)
+#define mk_sl_cui_convert_a_count mk_lang_div_roundup(mk_sl_flt_defd_bits, (mk_sl_flt_defd_bui_sizeof * mk_lang_charbit))
+#define mk_sl_cui_convert_a_endian mk_lang_endian_little
+#define mk_sl_cui_convert_a_base_is_bui 1
+#define mk_sl_cui_convert_a_base_bui_tn mk_sl_flt_defd_bui_tn
+#define mk_sl_cui_convert_b_name mk_lang_concat(mk_lang_concat(mk_sl_flt_, mk_sl_flt_defd_name), bigb)
+#define mk_sl_cui_convert_b_base_type mk_sl_flt_defd_bui_t
+#define mk_sl_cui_convert_b_base_name mk_lang_concat(mk_lang_bui_, mk_lang_concat(mk_sl_flt_, mk_sl_flt_defd_name))
+#define mk_sl_cui_convert_b_base_bits (mk_sl_flt_defd_bui_sizeof * mk_lang_charbit)
+#define mk_sl_cui_convert_b_count mk_lang_div_roundup(mk_sl_flt_defd_need_bits_b, (mk_sl_flt_defd_bui_sizeof * mk_lang_charbit))
+#define mk_sl_cui_convert_b_endian mk_lang_endian_little
+#define mk_sl_cui_convert_b_base_is_bui 1
+#define mk_sl_cui_convert_b_base_bui_tn mk_sl_flt_defd_bui_tn
+#include "mk_sl_cui_convert_inl_fileh.h"
+#include "mk_sl_cui_convert_inl_filec.h"
+#define mk_sl_flt_defd_convert_to_bigb mk_lang_concat(mk_lang_concat(mk_lang_concat(mk_sl_cui_convert_, mk_lang_concat(mk_sl_flt_, mk_sl_flt_defd_name)), _to_), mk_lang_concat(mk_lang_concat(mk_sl_flt_, mk_sl_flt_defd_name), bigb))
