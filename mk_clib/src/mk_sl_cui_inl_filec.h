@@ -2205,7 +2205,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_cui_inl_defd_to_str_
 	#define mk_sl_cui_inl_defd_base_to_bi_sint mk_lang_concat(mk_sl_cui_inl_defd_base_name, _to_bi_sint)
 	#define mk_sl_cui_inl_defd_base_from_bi_sint mk_lang_concat(mk_sl_cui_inl_defd_base_name, _from_bi_sint)
 
-	char const s_symbols[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+	mk_lang_constexpr_static char const s_symbols[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
 	int i mk_lang_constexpr_init;
 	int n mk_lang_constexpr_init;
@@ -2261,7 +2261,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_cui_inl_defd_from_st
 	#define mk_sl_cui_inl_defd_base_from_bi_sint mk_lang_concat(mk_sl_cui_inl_defd_base_name, _from_bi_sint)
 	#define mk_sl_cui_inl_defd_from_bi_sint mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _from_bi_sint)
 
-	mk_lang_constexpr char const s_symbols[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+	mk_lang_constexpr_static char const s_symbols[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
 	mk_sl_cui_inl_defd_base_type s_base mk_lang_constexpr_init;
 	mk_sl_cui_inl_defd_t s_border_value mk_lang_constexpr_init;
