@@ -9,11 +9,13 @@
 #include "mk_lang_noexcept.h"
 #include "mk_lang_null.h"
 #include "mk_lang_sizeof.h"
+
 #define mk_lang_bui_name fct
 #define mk_lang_bui_type mk_lang_bi_uint_t
 #define mk_lang_bui_sizeof mk_lang_sizeof_bi_uint_t
 #include "mk_lang_bui_inl_fileh.h"
 #include "mk_lang_bui_inl_filec.h"
+
 #define mk_sl_cui_name fct
 #define mk_sl_cui_base_type mk_lang_bi_uint_t
 #define mk_sl_cui_base_name mk_lang_bui_fct
@@ -25,8 +27,19 @@
 #include "mk_sl_cui_inl_fileh.h"
 #include "mk_sl_cui_inl_filec.h"
 
+#define mk_sl_cui_name hlp
+#define mk_sl_cui_base_type mk_lang_bi_uint_t
+#define mk_sl_cui_base_name mk_lang_bui_fct
+#define mk_sl_cui_base_bits (mk_lang_sizeof_bi_uint_t * mk_lang_charbit)
+#define mk_sl_cui_count 1
+#define mk_sl_cui_endian mk_lang_endian_little
+#define mk_sl_cui_base_is_bui 1
+#define mk_sl_cui_base_bui_tn uint
+#include "mk_sl_cui_inl_fileh.h"
+#include "mk_sl_cui_inl_filec.h"
+
 #include <stdio.h> /* printf */
-#include <stdlib.h> /* atoi */
+#include <string.h> /* strlen */
 
 
 #define nmin 1
@@ -87,24 +100,30 @@ mk_lang_jumbo void mk_clib_app_factorial_compute_and_print(int const n) mk_lang_
 
 mk_lang_jumbo int mk_clib_app_factorial(int const argc, char const* const* const argv) mk_lang_noexcept
 {
+	int tn;
+	int n;
+	mk_sl_cui_hlp_t hlp;
+
 	if(argc < 1)
 	{
 		return 1;
 	}
 	else if(argc != 2)
 	{
-		int tn;
 		tn = printf("Example usage: %s 5\n", mk_clib_app_factorial_get_exe_name(argv[0]));
 		mk_lang_assert(tn >= 0);
 		return 0;
 	}
 	else
 	{
-		int n;
-		n = atoi(argv[1]);
+		n = 0;
+		tn = mk_sl_cui_hlp_from_str_dec_n(&hlp, argv[1], strlen(argv[1]));
+		if(tn > 0)
+		{
+			mk_sl_cui_hlp_to_bi_sint(&hlp, &n);
+		}
 		if(!(n >= nmin && n <= nmax))
 		{
-			int tn;
 			tn = printf("Please enter value between " tostr(nmin) " and " tostr(nmax) ", you entered %d.\n", n);
 			mk_lang_assert(tn >= 0);
 			return 0;
