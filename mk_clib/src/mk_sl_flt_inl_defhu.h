@@ -17,4 +17,5 @@
 #undef mk_sl_flt_defd_to_string_dec_basic_len_t
 #undef mk_sl_flt_defd_to_string_dec_basic_len_v
 #undef mk_sl_flt_defd_to_string_dec_basic_len_n
+#undef mk_sl_flt_defd_bytes_to_string_dec_basic_n
 #undef mk_sl_flt_defd_to_string_dec_basic_n

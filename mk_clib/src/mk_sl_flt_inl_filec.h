@@ -1,5 +1,6 @@
 #include "mk_lang_assert.h"
 #include "mk_lang_bool.h"
+#include "mk_lang_constexpr.h"
 #include "mk_lang_div_roundup.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_likely.h"
@@ -11,7 +12,7 @@
 #include "mk_sl_flt_inl_defcd.h"
 
 
-mk_lang_nodiscard mk_lang_jumbo int mk_sl_flt_defd_to_string_dec_basic_n(void const* const x, char* const str, int const str_len) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_flt_defd_bytes_to_string_dec_basic_n(unsigned char const* const x, char* const str, int const str_len) mk_lang_noexcept
 {
 	enum flt_kind_e
 	{
@@ -30,31 +31,31 @@ mk_lang_nodiscard mk_lang_jumbo int mk_sl_flt_defd_to_string_dec_basic_n(void co
 	};
 	typedef union flt_bigab_u flt_bigab_t;
 
-	static char const s_minus = '-';
-	static char const s_dot = '.';
-	static char const s_symbols[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
-	static char const s_nan[] = {'n', 'a', 'n'};
-	static char const s_inf[] = {'i', 'n', 'f'};
+	mk_lang_constexpr_static char const s_minus = '-';
+	mk_lang_constexpr_static char const s_dot = '.';
+	mk_lang_constexpr_static char const s_symbols[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+	mk_lang_constexpr_static char const s_nan[] = {'n', 'a', 'n'};
+	mk_lang_constexpr_static char const s_inf[] = {'i', 'n', 'f'};
 
-	mk_sl_flt_defd_cui_t cui;
-	mk_sl_flt_defd_cui_t ta;
-	mk_sl_flt_defd_cui_t tb;
-	mk_lang_bool_t is_negative;
-	int exponent_encoded;
-	int exponent_decoded;
-	mk_sl_flt_defd_cui_t fraction;
-	flt_kind_t kind;
-	int ti;
-	int tn;
-	flt_bigab_t bigab;
-	int i;
-	char* pstr;
-	mk_lang_bi_uint_t base;
-	mk_lang_bi_uint_t rem;
-	mk_sl_flt_defd_cuibb_t bigb2;
-	mk_sl_flt_defd_cuibb_t* pbb1;
-	mk_sl_flt_defd_cuibb_t* pbb2;
-	mk_sl_flt_defd_cuibb_t* pbb3;
+	mk_sl_flt_defd_cui_t cui mk_lang_constexpr_init;
+	mk_sl_flt_defd_cui_t ta mk_lang_constexpr_init;
+	mk_sl_flt_defd_cui_t tb mk_lang_constexpr_init;
+	mk_lang_bool_t is_negative mk_lang_constexpr_init;
+	int exponent_encoded mk_lang_constexpr_init;
+	int exponent_decoded mk_lang_constexpr_init;
+	mk_sl_flt_defd_cui_t fraction mk_lang_constexpr_init;
+	flt_kind_t kind mk_lang_constexpr_init;
+	int ti mk_lang_constexpr_init;
+	int tn mk_lang_constexpr_init;
+	flt_bigab_t bigab mk_lang_constexpr_init;
+	int i mk_lang_constexpr_init;
+	char* pstr mk_lang_constexpr_init;
+	mk_lang_bi_uint_t base mk_lang_constexpr_init;
+	mk_lang_bi_uint_t rem mk_lang_constexpr_init;
+	mk_sl_flt_defd_cuibb_t bigb2 mk_lang_constexpr_init;
+	mk_sl_flt_defd_cuibb_t* pbb1 mk_lang_constexpr_init;
+	mk_sl_flt_defd_cuibb_t* pbb2 mk_lang_constexpr_init;
+	mk_sl_flt_defd_cuibb_t* pbb3 mk_lang_constexpr_init;
 
 	mk_lang_assert(x);
 	mk_lang_assert(str);
@@ -196,6 +197,11 @@ mk_lang_nodiscard mk_lang_jumbo int mk_sl_flt_defd_to_string_dec_basic_n(void co
 		}
 	}
 	return ((int)(pstr - str));
+}
+
+mk_lang_nodiscard mk_lang_jumbo int mk_sl_flt_defd_to_string_dec_basic_n(void const* const x, char* const str, int const str_len) mk_lang_noexcept
+{
+	return mk_sl_flt_defd_bytes_to_string_dec_basic_n(((unsigned char const*)(x)), str, str_len);
 }
 
 
