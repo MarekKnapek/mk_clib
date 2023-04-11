@@ -8,6 +8,7 @@
 #include "mk_lang_min.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_overlap.h"
 #include "mk_lang_static_assert.h"
 
 
@@ -2179,9 +2180,11 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_mul4_wrap_wi_smol(mk_sl_
 	mk_lang_assert(a);
 	mk_lang_assert(b);
 	mk_lang_assert(c);
-	mk_lang_assert(!(b >= &a->m_data[0] && b < &a->m_data[mk_sl_cui_inl_defd_count]));
-	mk_lang_assert(!(b >= &c->m_data[0] && b < &c->m_data[mk_sl_cui_inl_defd_count]));
-	mk_lang_assert(c != a);
+	mk_lang_assert(d);
+	mk_lang_assert(!mk_sl_cui_inl_defd_overlap(c->m_data, mk_sl_cui_inl_defd_count, a->m_data, mk_sl_cui_inl_defd_count));
+	mk_lang_assert(!mk_sl_cui_inl_defd_overlap(c->m_data, mk_sl_cui_inl_defd_count, b, 1));
+	mk_lang_assert(!mk_sl_cui_inl_defd_overlap(d, 1, a->m_data, mk_sl_cui_inl_defd_count));
+	mk_lang_assert(!mk_sl_cui_inl_defd_overlap(d, 1, b, 1));
 
 	mk_sl_cui_inl_defd_base_mul4_wrap_wi(&a->m_data[mk_sl_cui_inl_defd_idx(0)], b, &c->m_data[mk_sl_cui_inl_defd_idx(0)], &c->m_data[mk_sl_cui_inl_defd_idx(1)]);
 	mk_sl_cui_inl_defd_base_mul4_wrap_wi(&a->m_data[mk_sl_cui_inl_defd_idx(1)], b, &t, &c->m_data[mk_sl_cui_inl_defd_idx(2)]);

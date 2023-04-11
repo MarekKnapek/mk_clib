@@ -88,7 +88,7 @@
 #define mk_sl_cui_convert_b_base_type mk_sl_flt_defd_bui_t
 #define mk_sl_cui_convert_b_base_name mk_lang_concat(mk_lang_bui_, mk_lang_concat(mk_sl_flt_, mk_sl_flt_defd_name))
 #define mk_sl_cui_convert_b_base_bits (mk_sl_flt_defd_bui_sizeof * mk_lang_charbit)
-#define mk_sl_cui_convert_b_count mk_lang_div_roundup(mk_sl_flt_defd_need_bits_b, (mk_sl_flt_defd_bui_sizeof * mk_lang_charbit))
+#define mk_sl_cui_convert_b_count mk_lang_div_roundup(mk_sl_flt_defd_need_bits_a, (mk_sl_flt_defd_bui_sizeof * mk_lang_charbit))
 #define mk_sl_cui_convert_b_endian mk_lang_endian_little
 #define mk_sl_cui_convert_b_base_is_bui 1
 #define mk_sl_cui_convert_b_base_bui_tn mk_sl_flt_defd_bui_tn

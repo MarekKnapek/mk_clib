@@ -16,19 +16,19 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_convert_inl_defd_fn_a_to_b(mk_sl_
 
 	b->m_data[0] = ((mk_sl_cui_convert_inl_defd_b_base_t)(a->m_data[0]));
 #elif mk_sl_cui_convert_inl_defd_a_base_is_bui == 1 && mk_sl_cui_convert_inl_defd_b_base_is_bui == 1 && mk_sl_cui_convert_inl_defd_a_base_bits == mk_sl_cui_convert_inl_defd_b_base_bits
-	int i;
+	int i mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
 	mk_lang_assert(b);
 
 	for(i = 0; i != mk_lang_min(mk_sl_cui_convert_inl_defd_a_count, mk_sl_cui_convert_inl_defd_b_count); ++i)
 	{
-		b->m_data[mk_sl_cui_convert_inl_defd_a_idx(i)] = ((mk_sl_cui_convert_inl_defd_b_base_t)(a->m_data[mk_sl_cui_convert_inl_defd_a_idx(i)]));
+		b->m_data[mk_sl_cui_convert_inl_defd_b_idx(i)] = ((mk_sl_cui_convert_inl_defd_b_base_t)(a->m_data[mk_sl_cui_convert_inl_defd_a_idx(i)]));
 	}
 	#if mk_sl_cui_convert_inl_defd_b_count > mk_sl_cui_convert_inl_defd_a_count
 	for(; i != mk_sl_cui_convert_inl_defd_b_count; ++i)
 	{
-		b->m_data[mk_sl_cui_convert_inl_defd_a_idx(i)] = ((mk_sl_cui_convert_inl_defd_b_base_t)(0));
+		b->m_data[mk_sl_cui_convert_inl_defd_b_idx(i)] = ((mk_sl_cui_convert_inl_defd_b_base_t)(0));
 	}
 	#endif
 #endif
