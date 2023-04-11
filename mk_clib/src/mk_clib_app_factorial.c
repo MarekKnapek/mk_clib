@@ -117,7 +117,7 @@ mk_lang_jumbo int mk_clib_app_factorial(int const argc, char const* const* const
 	else
 	{
 		n = 0;
-		tn = mk_sl_cui_hlp_from_str_dec_n(&hlp, argv[1], strlen(argv[1]));
+		tn = mk_sl_cui_hlp_from_str_dec_n(&hlp, argv[1], ((int)(strlen(argv[1]))));
 		if(tn > 0)
 		{
 			mk_sl_cui_hlp_to_bi_sint(&hlp, &n);
