@@ -2,6 +2,11 @@
 
 Hi, welcome to my library, this is place where I put all my C stuff. There is currently arbitrary length unsigned integer arithmetic stuff only.
 
+ - [bui example](#bui-example)
+ - [cui example](#cui-example)
+ - [factorial example](#factorial-example)
+ - [flt example](#flt-example)
+
 ## bui example
 
 Example usage of `mk_lang_bui` library, `bui` stands for basic unsigned integer. This is basically "just" wrapper around `unsigned char`, `unsigned short`, `unsigned int`, `unsigned long` and similar types wrapping all C language built-in operators. For example `+` becomes `add3`, `-=` becomes `sub2`, `<<` becomes `shl3` and so on.
