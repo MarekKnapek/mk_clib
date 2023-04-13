@@ -11,6 +11,7 @@ enum mk_sl_flt_defd_to_string_dec_basic_len_e { mk_sl_flt_defd_to_string_dec_bas
 typedef enum mk_sl_flt_defd_to_string_dec_basic_len_e mk_sl_flt_defd_to_string_dec_basic_len_t;
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_flt_defd_bytes_to_string_dec_basic_n(unsigned char const* const x, char* const str, int const str_len) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo int mk_sl_flt_defd_to_string_dec_basic_n(void const* const x, char* const str, int const str_len) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo int mk_sl_flt_defd_from_string_dec_n(void* const x, char const* const str, int const str_len) mk_lang_noexcept;
 
 
 #include "mk_sl_flt_inl_defhu.h"

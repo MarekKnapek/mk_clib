@@ -185,10 +185,11 @@
 #undef mk_sl_cui_inl_defd_mod2_wrap
 #undef mk_sl_cui_inl_defd_divmod2_wrap
 
-#undef mk_sl_cui_inl_defd_divmod_smol
-#undef mk_sl_cui_inl_defd_mul3_wrap_lo_smol
 #undef mk_sl_cui_inl_defd_add2_wrap_cid_cod_smol
+#undef mk_sl_cui_inl_defd_add3_wrap_cid_coe_smol
+#undef mk_sl_cui_inl_defd_mul3_wrap_lo_smol
 #undef mk_sl_cui_inl_defd_mul4_wrap_wi_smol
+#undef mk_sl_cui_inl_defd_divmod_smol
 
 #undef mk_sl_cui_inl_defd_to_str_dec_log
 #undef mk_sl_cui_inl_defd_to_str_dec_lenv

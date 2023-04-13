@@ -2102,46 +2102,65 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_divmod2_wrap(mk_sl_cui_i
 }
 
 
-#define mk_sl_cui_inl_defd_want_smol
-#include "mk_sl_cui_inl_filec_div_defd.h"
-mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_divmod_smol(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_base_type const* const b, mk_sl_cui_inl_defd_t* const c, mk_sl_cui_inl_defd_base_type* const d) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_add2_wrap_cid_cod_smol(mk_sl_cui_inl_defd_t* const a, mk_sl_cui_inl_defd_base_type const* const b) mk_lang_noexcept
 {
-#if mk_sl_cui_inl_filec_div_need_convert == 1
-	mk_sl_cui_inl_filec_div_t aa[mk_sl_cui_inl_filec_div_count] mk_lang_constexpr_init;
-	mk_sl_cui_inl_filec_div_t bb mk_lang_constexpr_init;
-	mk_sl_cui_inl_filec_div_t cc[mk_sl_cui_inl_filec_div_count] mk_lang_constexpr_init;
-	mk_sl_cui_inl_filec_div_t dd mk_lang_constexpr_init;
+#if mk_sl_cui_inl_defd_count == 1
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	
+	mk_sl_cui_inl_defd_base_add2_wrap_cid_cod(&a->m_data[0], b);
+#else
+	mk_lang_bool_t cf mk_lang_constexpr_init;
+	int i mk_lang_constexpr_init;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(!(b >= &a->m_data[0] && b < &a->m_data[mk_sl_cui_inl_defd_count]));
+	
+	mk_sl_cui_inl_defd_base_add2_wrap_cid_coe(&a->m_data[mk_sl_cui_inl_defd_idx(0)], b, &cf);
+	for(i = 1; i != mk_sl_cui_inl_defd_count - 1 && cf; ++i)
+	{
+		mk_sl_cui_inl_defd_base_inc1(&a->m_data[mk_sl_cui_inl_defd_idx(i)]);
+		cf = mk_sl_cui_inl_defd_base_is_zero(&a->m_data[mk_sl_cui_inl_defd_idx(i)]);
+	}
+	if(cf)
+	{
+		mk_sl_cui_inl_defd_base_inc1(&a->m_data[mk_sl_cui_inl_defd_idx(mk_sl_cui_inl_defd_count - 1)]);
+	}
 #endif
-	mk_sl_cui_inl_filec_div_t const* pa mk_lang_constexpr_init;
-	mk_sl_cui_inl_filec_div_t const* pb mk_lang_constexpr_init;
-	mk_sl_cui_inl_filec_div_t* pc mk_lang_constexpr_init;
-	mk_sl_cui_inl_filec_div_t* pd mk_lang_constexpr_init;
+}
+
+mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_add3_wrap_cid_coe_smol(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_base_type const* const b, mk_sl_cui_inl_defd_t* const c, mk_lang_bool_t* const co) mk_lang_noexcept
+{
+#if mk_sl_cui_inl_defd_count == 1
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(c);
+	mk_lang_assert(co);
+	
+	mk_sl_cui_inl_defd_base_add3_wrap_cid_coe(&a->m_data[0], b, &c->m_data[0], co);
+#else
+	mk_lang_bool_t cf mk_lang_constexpr_init;
+	int i mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
 	mk_lang_assert(b);
 	mk_lang_assert(c);
-	mk_lang_assert(d);
-
-#if mk_sl_cui_inl_filec_div_need_convert == 1
-	mk_sl_cui_inl_filec_div_convert_to_buis(a, &aa[0]);
-	mk_sl_cui_inl_filec_div_convert_to_bui(b, &bb);
-	pa = &aa[0];
-	pb = &bb;
-	pc = &cc[0];
-	pd = &dd;
-#else
-	pa = &a->m_data[0];
-	pb = b;
-	pc = &c->m_data[0];
-	pd = d;
-#endif
-	mk_sl_cui_inl_filec_div_fn(pa, pb, pc, pd);
-#if mk_sl_cui_inl_filec_div_need_convert == 1
-	mk_sl_cui_inl_filec_div_convert_from_buis(c, &cc[0]);
-	mk_sl_cui_inl_filec_div_convert_from_bui(d, &dd);
+	mk_lang_assert(co);
+	
+	mk_sl_cui_inl_defd_base_add3_wrap_cid_coe(&a->m_data[mk_sl_cui_inl_defd_idx(0)], b, &c->m_data[mk_sl_cui_inl_defd_idx(0)], &cf);
+	for(i = 1; i != mk_sl_cui_inl_defd_count && cf; ++i)
+	{
+		mk_sl_cui_inl_defd_base_inc2(&a->m_data[mk_sl_cui_inl_defd_idx(i)], &c->m_data[mk_sl_cui_inl_defd_idx(i)]);
+		cf = mk_sl_cui_inl_defd_base_is_zero(&c->m_data[mk_sl_cui_inl_defd_idx(i)]);
+	}
+	for(; i != mk_sl_cui_inl_defd_count; ++i)
+	{
+		c->m_data[mk_sl_cui_inl_defd_idx(i)] = a->m_data[mk_sl_cui_inl_defd_idx(i)];
+	}
+	*co = cf;
 #endif
 }
-#include "mk_sl_cui_inl_filec_div_defu.h"
 
 mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_mul3_wrap_lo_smol(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_base_type const* const b, mk_sl_cui_inl_defd_t* const c) mk_lang_noexcept
 {
@@ -2225,34 +2244,6 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_mul3_wrap_lo_smol(mk_sl_
 	}
 	mk_sl_cui_inl_defd_base_mul3_wrap_lo(&a->m_data[mk_sl_cui_inl_defd_idx(mk_sl_cui_inl_defd_count - 1)], b, &t);
 	mk_sl_cui_inl_defd_base_add2_wrap_cid_cod(&c->m_data[mk_sl_cui_inl_defd_idx(mk_sl_cui_inl_defd_count - 1)], &t);
-#endif
-}
-
-mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_add2_wrap_cid_cod_smol(mk_sl_cui_inl_defd_t* const a, mk_sl_cui_inl_defd_base_type const* const b) mk_lang_noexcept
-{
-#if mk_sl_cui_inl_defd_count == 1
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	
-	mk_sl_cui_inl_defd_base_add2_wrap_cid_cod(&a->m_data[0], b);
-#else
-	mk_lang_bool_t cf mk_lang_constexpr_init;
-	int i mk_lang_constexpr_init;
-
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(!(b >= &a->m_data[0] && b < &a->m_data[mk_sl_cui_inl_defd_count]));
-	
-	mk_sl_cui_inl_defd_base_add2_wrap_cid_coe(&a->m_data[mk_sl_cui_inl_defd_idx(0)], b, &cf);
-	for(i = 1; i != mk_sl_cui_inl_defd_count - 1 && cf; ++i)
-	{
-		mk_sl_cui_inl_defd_base_inc1(&a->m_data[mk_sl_cui_inl_defd_idx(i)]);
-		cf = mk_sl_cui_inl_defd_base_is_zero(&a->m_data[mk_sl_cui_inl_defd_idx(i)]);
-	}
-	if(cf)
-	{
-		mk_sl_cui_inl_defd_base_inc1(&a->m_data[mk_sl_cui_inl_defd_idx(mk_sl_cui_inl_defd_count - 1)]);
-	}
 #endif
 }
 
@@ -2354,6 +2345,47 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_mul4_wrap_wi_smol(mk_sl_
 	if(cf) mk_sl_cui_inl_defd_base_inc1(d);
 #endif
 }
+
+#define mk_sl_cui_inl_defd_want_smol
+#include "mk_sl_cui_inl_filec_div_defd.h"
+mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_divmod_smol(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_base_type const* const b, mk_sl_cui_inl_defd_t* const c, mk_sl_cui_inl_defd_base_type* const d) mk_lang_noexcept
+{
+#if mk_sl_cui_inl_filec_div_need_convert == 1
+	mk_sl_cui_inl_filec_div_t aa[mk_sl_cui_inl_filec_div_count] mk_lang_constexpr_init;
+	mk_sl_cui_inl_filec_div_t bb mk_lang_constexpr_init;
+	mk_sl_cui_inl_filec_div_t cc[mk_sl_cui_inl_filec_div_count] mk_lang_constexpr_init;
+	mk_sl_cui_inl_filec_div_t dd mk_lang_constexpr_init;
+#endif
+	mk_sl_cui_inl_filec_div_t const* pa mk_lang_constexpr_init;
+	mk_sl_cui_inl_filec_div_t const* pb mk_lang_constexpr_init;
+	mk_sl_cui_inl_filec_div_t* pc mk_lang_constexpr_init;
+	mk_sl_cui_inl_filec_div_t* pd mk_lang_constexpr_init;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(c);
+	mk_lang_assert(d);
+
+#if mk_sl_cui_inl_filec_div_need_convert == 1
+	mk_sl_cui_inl_filec_div_convert_to_buis(a, &aa[0]);
+	mk_sl_cui_inl_filec_div_convert_to_bui(b, &bb);
+	pa = &aa[0];
+	pb = &bb;
+	pc = &cc[0];
+	pd = &dd;
+#else
+	pa = &a->m_data[0];
+	pb = b;
+	pc = &c->m_data[0];
+	pd = d;
+#endif
+	mk_sl_cui_inl_filec_div_fn(pa, pb, pc, pd);
+#if mk_sl_cui_inl_filec_div_need_convert == 1
+	mk_sl_cui_inl_filec_div_convert_from_buis(c, &cc[0]);
+	mk_sl_cui_inl_filec_div_convert_from_bui(d, &dd);
+#endif
+}
+#include "mk_sl_cui_inl_filec_div_defu.h"
 
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_cui_inl_defd_to_str_dec_n(mk_sl_cui_inl_defd_t const* const x, char* const str, int const str_len) mk_lang_noexcept

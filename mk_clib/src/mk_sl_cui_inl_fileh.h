@@ -121,10 +121,11 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_div2_wrap(mk_sl_cui_inl_
 mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_mod2_wrap(mk_sl_cui_inl_defd_t* const a, mk_sl_cui_inl_defd_t const* const b) mk_lang_noexcept;
 mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_divmod2_wrap(mk_sl_cui_inl_defd_t* const a, mk_sl_cui_inl_defd_t* const b) mk_lang_noexcept;
 
-mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_divmod_smol(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_base_type const* const b, mk_sl_cui_inl_defd_t* const c, mk_sl_cui_inl_defd_base_type* const d) mk_lang_noexcept;
-mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_mul3_wrap_lo_smol(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_base_type const* const b, mk_sl_cui_inl_defd_t* const c) mk_lang_noexcept;
 mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_add2_wrap_cid_cod_smol(mk_sl_cui_inl_defd_t* const a, mk_sl_cui_inl_defd_base_type const* const b) mk_lang_noexcept;
+mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_add3_wrap_cid_coe_smol(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_base_type const* const b, mk_sl_cui_inl_defd_t* const c, mk_lang_bool_t* const co) mk_lang_noexcept;
+mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_mul3_wrap_lo_smol(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_base_type const* const b, mk_sl_cui_inl_defd_t* const c) mk_lang_noexcept;
 mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_mul4_wrap_wi_smol(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_base_type const* const b, mk_sl_cui_inl_defd_t* const c, mk_sl_cui_inl_defd_base_type* const d) mk_lang_noexcept;
+mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_divmod_smol(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_base_type const* const b, mk_sl_cui_inl_defd_t* const c, mk_sl_cui_inl_defd_base_type* const d) mk_lang_noexcept;
 
 enum { mk_sl_cui_inl_defd_to_str_dec_lene = mk_sl_cui_inl_defd_to_str_dec_lenv };
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_cui_inl_defd_to_str_dec_n(mk_sl_cui_inl_defd_t const* const x, char* const str, int const str_len) mk_lang_noexcept;

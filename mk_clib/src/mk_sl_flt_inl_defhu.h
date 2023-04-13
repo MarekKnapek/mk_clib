@@ -19,3 +19,4 @@
 #undef mk_sl_flt_defd_to_string_dec_basic_len_n
 #undef mk_sl_flt_defd_bytes_to_string_dec_basic_n
 #undef mk_sl_flt_defd_to_string_dec_basic_n
+#undef mk_sl_flt_defd_from_string_dec_n

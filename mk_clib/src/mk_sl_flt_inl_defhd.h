@@ -25,3 +25,4 @@
 #define mk_sl_flt_defd_to_string_dec_basic_len_n ((int)(mk_sl_flt_defd_needs_symbols_10))
 #define mk_sl_flt_defd_bytes_to_string_dec_basic_n mk_lang_concat(mk_lang_concat(mk_sl_flt_, mk_sl_flt_defd_name), _bytes_to_string_dec_basic_n)
 #define mk_sl_flt_defd_to_string_dec_basic_n mk_lang_concat(mk_lang_concat(mk_sl_flt_, mk_sl_flt_defd_name), _to_string_dec_basic_n)
+#define mk_sl_flt_defd_from_string_dec_n  mk_lang_concat(mk_lang_concat(mk_sl_flt_, mk_sl_flt_defd_name), _from_string_dec_n)

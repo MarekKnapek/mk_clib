@@ -204,6 +204,145 @@ mk_lang_nodiscard mk_lang_jumbo int mk_sl_flt_defd_to_string_dec_basic_n(void co
 	return mk_sl_flt_defd_bytes_to_string_dec_basic_n(((unsigned char const*)(x)), str, str_len);
 }
 
+mk_lang_nodiscard mk_lang_jumbo int mk_sl_flt_defd_from_string_dec_n(void* const x, char const* const str, int const str_len) mk_lang_noexcept
+{
+	mk_lang_constexpr_static char const s_minus = '-';
+	mk_lang_constexpr_static char const s_plus = '+';
+	mk_lang_constexpr_static char const s_symbols[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+
+	char const* ptr;
+	int rem;
+	char e;
+	mk_lang_bool_t is_negative;
+	int i;
+	mk_sl_flt_defd_cuiba_t biga;
+	mk_sl_flt_defd_bui_t smola;
+	mk_sl_flt_defd_cuiba_t biga2;
+	mk_sl_flt_defd_bui_t smolb;
+	mk_lang_bool_t cf;
+	int clz;
+	int tn;
+	mk_sl_flt_defd_cui_t num;
+	int exponent_decoded;
+	int exponent_encoded;
+	mk_sl_flt_defd_cui_t ta;
+
+	mk_lang_assert(x);
+	mk_lang_assert(str);
+	mk_lang_assert(str_len > 0);
+
+	ptr = str;
+	rem = str_len;
+	e = *ptr;
+	if(e == s_minus)
+	{
+		++ptr;
+		--rem;
+		if(rem == 0)
+		{
+			return 0;
+		}
+		is_negative = mk_lang_true;
+	}
+	else if(e == s_plus)
+	{
+		++ptr;
+		--rem;
+		if(rem == 0)
+		{
+			return 0;
+		}
+		is_negative = mk_lang_false;
+	}
+	else
+	{
+		is_negative = mk_lang_false;
+	}
+	e = *ptr;
+	++ptr;
+	--rem;
+	for(i = 0; i != ((int)(sizeof(s_symbols) / sizeof(s_symbols[0]))); ++i)
+	{
+		if(e == s_symbols[i])
+		{
+			break;
+		}
+	}
+	if(i == ((int)(sizeof(s_symbols) / sizeof(s_symbols[0]))))
+	{
+		return 0;
+	}
+	mk_sl_flt_defd_cuiba_from_bi_sint(&biga, &i);
+	while(rem != 0)
+	{
+		e = *ptr;
+		++ptr;
+		--rem;
+		for(i = 0; i != ((int)(sizeof(s_symbols) / sizeof(s_symbols[0]))); ++i)
+		{
+			if(e == s_symbols[i])
+			{
+				break;
+			}
+		}
+		if(i == ((int)(sizeof(s_symbols) / sizeof(s_symbols[0]))))
+		{
+			break;
+		}
+		smola = ((mk_sl_flt_defd_bui_t)(10));
+		mk_sl_flt_defd_cuiba_mul4_wrap_wi_smol(&biga, &smola, &biga2, &smolb);
+		if(smolb != 0)
+		{
+			break;
+		}
+		smolb = ((mk_sl_flt_defd_bui_t)(i));
+		mk_sl_flt_defd_cuiba_add3_wrap_cid_coe_smol(&biga2, &smolb, &biga, &cf);
+		if(cf)
+		{
+			biga = biga2;
+			break;
+		}
+	};
+	if(mk_sl_flt_defd_cuiba_is_zero(&biga))
+	{
+		mk_sl_flt_defd_cui_set_zero(&num);
+	}
+	else
+	{
+		clz = mk_sl_flt_defd_cuiba_count_leading_zeros(&biga);
+		tn = mk_sl_flt_defd_has_bits_a - mk_sl_flt_defd_fraction_bits - 1 - clz;
+		if(tn > 0)
+		{
+			mk_sl_flt_defd_cuiba_shr2(&biga, tn);
+		}
+		else if(tn < 0)
+		{
+			mk_sl_flt_defd_cuiba_shl2(&biga, -tn);
+		}
+		else
+		{
+		}
+		mk_sl_flt_defd_convert_to_num(&biga, &num);
+		mk_sl_flt_defd_cui_set_mask(&ta, mk_sl_flt_defd_fraction_bits);
+		mk_sl_flt_defd_cui_and2(&num, &ta);
+		exponent_decoded = mk_sl_flt_defd_fraction_bits + tn;
+		exponent_encoded = exponent_decoded + mk_sl_flt_defd_exponent_bias;
+		mk_lang_assert(exponent_decoded >= mk_sl_flt_defd_exponent_decoded_min && exponent_decoded <= mk_sl_flt_defd_exponent_decoded_max);
+		mk_lang_assert(exponent_encoded >= mk_sl_flt_defd_exponent_encoded_min && exponent_encoded <= mk_sl_flt_defd_exponent_encoded_max);
+		mk_sl_flt_defd_cui_from_bi_sint(&ta, &exponent_encoded);
+		mk_sl_flt_defd_cui_shl2(&ta, mk_sl_flt_defd_fraction_bits);
+		mk_sl_flt_defd_cui_or2(&num, &ta);
+	}
+	if(is_negative)
+	{
+		mk_sl_flt_defd_cui_set_bit(&ta, mk_sl_flt_defd_bits - 1);
+		mk_sl_flt_defd_cui_or2(&num, &ta);
+	}
+	mk_sl_flt_defd_cui_to_buis_uchar_le(&num, ((unsigned char*)(x)));
+	mk_lang_assert(((int)(ptr - str)) == (str_len - rem));
+	return str_len - rem;
+}
+
 
 #include "mk_sl_flt_inl_defcu.h"
 #include "mk_sl_flt_inl_defhu.h"
