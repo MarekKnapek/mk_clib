@@ -42,6 +42,13 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_set_mask(mk_sl_cui_inl_d
 #undef mk_sl_cui_inl_tofrom_buis_for_bui
 #undef mk_sl_cui_inl_tofrom_buis_for_endian
 
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_cui_inl_defd_count_leading_zeros(mk_sl_cui_inl_defd_t const* const x) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_cui_inl_defd_count_leading_ones(mk_sl_cui_inl_defd_t const* const x) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_cui_inl_defd_count_trailing_zeros(mk_sl_cui_inl_defd_t const* const x) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_cui_inl_defd_count_trailing_ones(mk_sl_cui_inl_defd_t const* const x) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_cui_inl_defd_count_zeros(mk_sl_cui_inl_defd_t const* const x) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_cui_inl_defd_count_ones(mk_sl_cui_inl_defd_t const* const x) mk_lang_noexcept;
+
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_defd_is_zero(mk_sl_cui_inl_defd_t const* const x) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_defd_is_max(mk_sl_cui_inl_defd_t const* const x) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_defd_eq(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b) mk_lang_noexcept;

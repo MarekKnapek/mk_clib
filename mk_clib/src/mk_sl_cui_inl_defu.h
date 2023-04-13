@@ -13,6 +13,12 @@
 #undef mk_sl_cui_inl_defd_base_set_one
 #undef mk_sl_cui_inl_defd_base_set_bit
 #undef mk_sl_cui_inl_defd_base_set_mask
+#undef mk_sl_cui_inl_defd_base_count_leading_zeros
+#undef mk_sl_cui_inl_defd_base_count_leading_ones
+#undef mk_sl_cui_inl_defd_base_count_trailing_zeros
+#undef mk_sl_cui_inl_defd_base_count_trailing_ones
+#undef mk_sl_cui_inl_defd_base_count_zeros
+#undef mk_sl_cui_inl_defd_base_count_ones
 #undef mk_sl_cui_inl_defd_base_is_zero
 #undef mk_sl_cui_inl_defd_base_is_max
 #undef mk_sl_cui_inl_defd_base_eq
@@ -89,6 +95,13 @@
 #undef mk_sl_cui_inl_defd_set_one
 #undef mk_sl_cui_inl_defd_set_bit
 #undef mk_sl_cui_inl_defd_set_mask
+
+#undef mk_sl_cui_inl_defd_count_leading_zeros
+#undef mk_sl_cui_inl_defd_count_leading_ones
+#undef mk_sl_cui_inl_defd_count_trailing_zeros
+#undef mk_sl_cui_inl_defd_count_trailing_ones
+#undef mk_sl_cui_inl_defd_count_zeros
+#undef mk_sl_cui_inl_defd_count_ones
 
 #undef mk_sl_cui_inl_defd_is_zero
 #undef mk_sl_cui_inl_defd_is_max
