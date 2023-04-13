@@ -104,6 +104,114 @@ mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_set_mask(mk_lang_bui_i
 #undef mk_lang_bui_inl_tofrom_buis_for_bui
 #undef mk_lang_bui_inl_tofrom_buis_for_endian
 
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_lang_bui_inl_defd_count_leading_zeros(mk_lang_bui_inl_defd_type const* const x) mk_lang_noexcept
+{
+	int cnt mk_lang_constexpr_init;
+	int n mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_type xx mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_type yy mk_lang_constexpr_init;
+
+	mk_lang_assert(x);
+
+	cnt = mk_lang_bui_inl_defd_sizeof * mk_lang_charbit;
+	n = cnt / 2;
+	xx = ((mk_lang_bui_inl_defd_type)(*x));
+	do
+	{
+		yy = ((mk_lang_bui_inl_defd_type)(xx >> n));
+		if(yy != ((mk_lang_bui_inl_defd_type)(0)))
+		{
+			cnt -= n;
+			xx = yy;
+		}
+		n /= 2;
+	}while(n != 1);
+	yy = ((mk_lang_bui_inl_defd_type)(xx >> 1));
+	if(yy != ((mk_lang_bui_inl_defd_type)(0)))
+	{
+		return cnt - 2;
+	}
+	else
+	{
+		return cnt - ((int)(xx));
+	}
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_lang_bui_inl_defd_count_leading_ones(mk_lang_bui_inl_defd_type const* const x) mk_lang_noexcept
+{
+	mk_lang_bui_inl_defd_type xx mk_lang_constexpr_init;
+
+	mk_lang_assert(x);
+
+	xx = ((mk_lang_bui_inl_defd_type)(~((mk_lang_bui_inl_defd_type)(*x))));
+	return mk_lang_bui_inl_defd_count_leading_zeros(&xx);
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_lang_bui_inl_defd_count_trailing_zeros(mk_lang_bui_inl_defd_type const* const x) mk_lang_noexcept
+{
+	int cnt mk_lang_constexpr_init;
+	int n mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_type xx mk_lang_constexpr_init;
+
+	mk_lang_assert(x);
+
+	if(((mk_lang_bui_inl_defd_type)(*x)) == ((mk_lang_bui_inl_defd_type)(0)))
+	{
+		return mk_lang_bui_inl_defd_sizeof * mk_lang_charbit;
+	}
+	cnt = 1;
+	n = mk_lang_bui_inl_defd_sizeof * mk_lang_charbit / 2;
+	xx = ((mk_lang_bui_inl_defd_type)(*x));
+	do
+	{
+		if((xx & ((mk_lang_bui_inl_defd_type)(((mk_lang_bui_inl_defd_type)(((mk_lang_bui_inl_defd_type)(1)) << n)) - ((mk_lang_bui_inl_defd_type)(1))))) == ((mk_lang_bui_inl_defd_type)(0)))
+		{
+			cnt += n;
+			xx = ((mk_lang_bui_inl_defd_type)(xx >> n));
+		}
+		n /= 2;
+	}while(n != 1);
+	return cnt - ((int)(((mk_lang_bui_inl_defd_type)((xx & ((mk_lang_bui_inl_defd_type)(1)))))));
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_lang_bui_inl_defd_count_trailing_ones(mk_lang_bui_inl_defd_type const* const x) mk_lang_noexcept
+{
+	mk_lang_bui_inl_defd_type xx mk_lang_constexpr_init;
+
+	mk_lang_assert(x);
+
+	xx = ((mk_lang_bui_inl_defd_type)(~((mk_lang_bui_inl_defd_type)(*x))));
+	return mk_lang_bui_inl_defd_count_trailing_zeros(&xx);
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_lang_bui_inl_defd_count_zeros(mk_lang_bui_inl_defd_type const* const x) mk_lang_noexcept
+{
+	mk_lang_bui_inl_defd_type xx mk_lang_constexpr_init;
+
+	mk_lang_assert(x);
+
+	xx = ((mk_lang_bui_inl_defd_type)(~((mk_lang_bui_inl_defd_type)(*x))));
+	return mk_lang_bui_inl_defd_count_ones(&xx);
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_lang_bui_inl_defd_count_ones(mk_lang_bui_inl_defd_type const* const x) mk_lang_noexcept
+{
+	int cnt mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_type xx mk_lang_constexpr_init;
+
+	mk_lang_assert(x);
+
+	cnt = 0;
+	xx = ((mk_lang_bui_inl_defd_type)(*x));
+	while(xx != ((mk_lang_bui_inl_defd_type)(0)))
+	{
+		++cnt;
+		xx = ((mk_lang_bui_inl_defd_type)(xx & ((mk_lang_bui_inl_defd_type)(xx - ((mk_lang_bui_inl_defd_type)(1))))));
+	}
+	return cnt;
+}
+
+
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_is_zero(mk_lang_bui_inl_defd_type const* const x) mk_lang_noexcept
 {
 	mk_lang_assert(x);

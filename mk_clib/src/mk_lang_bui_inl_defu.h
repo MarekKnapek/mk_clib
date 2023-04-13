@@ -8,6 +8,13 @@
 #undef mk_lang_bui_inl_defd_set_bit
 #undef mk_lang_bui_inl_defd_set_mask
 
+#undef mk_lang_bui_inl_defd_count_leading_zeros
+#undef mk_lang_bui_inl_defd_count_leading_ones
+#undef mk_lang_bui_inl_defd_count_trailing_zeros
+#undef mk_lang_bui_inl_defd_count_trailing_ones
+#undef mk_lang_bui_inl_defd_count_zeros
+#undef mk_lang_bui_inl_defd_count_ones
+
 #undef mk_lang_bui_inl_defd_is_zero
 #undef mk_lang_bui_inl_defd_is_max
 #undef mk_lang_bui_inl_defd_eq

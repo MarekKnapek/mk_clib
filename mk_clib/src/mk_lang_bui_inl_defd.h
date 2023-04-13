@@ -21,6 +21,13 @@
 #define mk_lang_bui_inl_defd_set_bit mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_inl_defd_name), _set_bit)
 #define mk_lang_bui_inl_defd_set_mask mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_inl_defd_name), _set_mask)
 
+#define mk_lang_bui_inl_defd_count_leading_zeros mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_inl_defd_name), _count_leading_zeros)
+#define mk_lang_bui_inl_defd_count_leading_ones mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_inl_defd_name), _count_leading_ones)
+#define mk_lang_bui_inl_defd_count_trailing_zeros mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_inl_defd_name), _count_trailing_zeros)
+#define mk_lang_bui_inl_defd_count_trailing_ones mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_inl_defd_name), _count_trailing_ones)
+#define mk_lang_bui_inl_defd_count_zeros mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_inl_defd_name), _count_zeros)
+#define mk_lang_bui_inl_defd_count_ones mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_inl_defd_name), _count_ones)
+
 #define mk_lang_bui_inl_defd_is_zero mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_inl_defd_name), _is_zero)
 #define mk_lang_bui_inl_defd_is_max mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_inl_defd_name), _is_max)
 #define mk_lang_bui_inl_defd_eq mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_inl_defd_name), _eq)
