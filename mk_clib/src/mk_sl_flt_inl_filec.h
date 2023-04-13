@@ -223,6 +223,7 @@ mk_lang_nodiscard mk_lang_jumbo int mk_sl_flt_defd_from_string_dec_n(void* const
 	int clz;
 	int tn;
 	mk_sl_flt_defd_cui_t num;
+	unsigned int ui;
 	int exponent_decoded;
 	int exponent_encoded;
 	mk_sl_flt_defd_cui_t ta;
@@ -313,16 +314,24 @@ mk_lang_nodiscard mk_lang_jumbo int mk_sl_flt_defd_from_string_dec_n(void* const
 		tn = mk_sl_flt_defd_has_bits_a - mk_sl_flt_defd_fraction_bits - 1 - clz;
 		if(tn > 0)
 		{
-			mk_sl_flt_defd_cuiba_shr2(&biga, tn);
+			mk_sl_flt_defd_cuiba_shr2(&biga, tn - 1);
+			mk_sl_flt_defd_convert_to_num(&biga, &num);
+			mk_sl_flt_defd_cui_to_bi_uint(&num, &ui);
+			if((ui & 0x1u) == 0x1u)
+			{
+				mk_sl_flt_defd_cui_inc1(&num);
+			}
+			mk_sl_flt_defd_cui_shr2(&num, 1);
 		}
 		else if(tn < 0)
 		{
 			mk_sl_flt_defd_cuiba_shl2(&biga, -tn);
+			mk_sl_flt_defd_convert_to_num(&biga, &num);
 		}
 		else
 		{
+			mk_sl_flt_defd_convert_to_num(&biga, &num);
 		}
-		mk_sl_flt_defd_convert_to_num(&biga, &num);
 		mk_sl_flt_defd_cui_set_mask(&ta, mk_sl_flt_defd_fraction_bits);
 		mk_sl_flt_defd_cui_and2(&num, &ta);
 		exponent_decoded = mk_sl_flt_defd_fraction_bits + tn;
