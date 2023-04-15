@@ -20,6 +20,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_overlap
 	mk_lang_assert(arr2);
 	mk_lang_assert(len2 >= 1);
 
+#if mk_lang_constexpr_has
 	for(i = 0; i != len1; ++i)
 	{
 		for(j = 0; j != len2; ++j)
@@ -31,6 +32,11 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_overlap
 		}
 	}
 	return mk_lang_false;
+#else
+	return
+		((arr1 >= arr2) && (arr1 < (arr2 + len2))) ||
+		((arr2 >= arr1) && (arr2 < (arr1 + len1)));
+#endif
 }
 
 
