@@ -6,7 +6,7 @@
 #include "mk_lang_sizet.h"
 #include "mk_sl_cui_fuzz.h"
 #include "mk_sl_flt_fuzz.h"
-#include "mk_sl_flt_parse_fuzz.h"
+#include "mk_sl_flt_parse_fuzz.hpp"
 
 
 mk_lang_jumbo void mk_clib_fuzz(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
