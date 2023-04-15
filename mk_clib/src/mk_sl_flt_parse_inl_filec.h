@@ -1,5 +1,6 @@
 #include "mk_lang_assert.h"
 #include "mk_lang_constexpr.h"
+#include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
@@ -7,6 +8,62 @@
 
 
 #include "mk_sl_flt_parse_inl_defcd.h"
+
+
+mk_lang_constexpr static mk_lang_inline void mk_sl_flt_parse_inl_defcd_generate_zero(unsigned char* const x, mk_lang_bool_t const is_negative) mk_lang_noexcept
+{
+	mk_sl_flt_parse_inl_defcd_cui_t cui1 mk_lang_constexpr_init;
+
+	mk_lang_assert(x);
+
+	if(!is_negative)
+	{
+		mk_sl_flt_parse_inl_defcd_cui_set_zero(&cui1);
+	}
+	else
+	{
+		mk_sl_flt_parse_inl_defcd_cui_set_bit(&cui1, mk_sl_flt_parse_inl_defcd_bits - 1);
+	}
+	mk_sl_flt_parse_inl_defcd_cui_to_buis_uchar_le(&cui1, x);
+}
+
+mk_lang_constexpr static mk_lang_inline void mk_sl_flt_parse_inl_defcd_generate_inf(unsigned char* const x, mk_lang_bool_t const is_negative) mk_lang_noexcept
+{
+	mk_sl_flt_parse_inl_defcd_cui_t cui1 mk_lang_constexpr_init;
+	mk_sl_flt_parse_inl_defcd_cui_t cui2 mk_lang_constexpr_init;
+
+	mk_lang_assert(x);
+
+	mk_sl_flt_parse_inl_defcd_cui_set_mask(&cui1, mk_sl_flt_parse_inl_defcd_exponent_bits);
+	mk_sl_flt_parse_inl_defcd_cui_shl2(&cui1, mk_sl_flt_parse_inl_defcd_fraction_bits);
+	if(is_negative)
+	{
+		mk_sl_flt_parse_inl_defcd_cui_set_bit(&cui2, mk_sl_flt_parse_inl_defcd_bits - 1);
+		mk_sl_flt_parse_inl_defcd_cui_or2(&cui1, &cui2);
+	}
+	mk_sl_flt_parse_inl_defcd_cui_to_buis_uchar_le(&cui1, x);
+}
+
+mk_lang_constexpr static mk_lang_inline void mk_sl_flt_parse_inl_defcd_generate_number(unsigned char* const x, mk_sl_flt_parse_inl_defcd_cui_t* const cui1, mk_lang_bool_t const is_negative, int const exponent_encoded) mk_lang_noexcept
+{
+	mk_sl_flt_parse_inl_defcd_cui_t cui2 mk_lang_constexpr_init;
+
+	mk_lang_assert(x);
+	mk_lang_assert(cui1);
+	mk_lang_assert(exponent_encoded >= mk_sl_flt_parse_inl_defcd_exponent_encoded_min && exponent_encoded <= mk_sl_flt_parse_inl_defcd_exponent_encoded_max);
+
+	mk_sl_flt_parse_inl_defcd_cui_set_mask(&cui2, mk_sl_flt_parse_inl_defcd_fraction_bits);
+	mk_sl_flt_parse_inl_defcd_cui_and2(cui1, &cui2);
+	mk_sl_flt_parse_inl_defcd_cui_from_bi_sint(&cui2, &exponent_encoded);
+	mk_sl_flt_parse_inl_defcd_cui_shl2(&cui2, mk_sl_flt_parse_inl_defcd_fraction_bits);
+	mk_sl_flt_parse_inl_defcd_cui_or2(cui1, &cui2);
+	if(is_negative)
+	{
+		mk_sl_flt_parse_inl_defcd_cui_set_bit(&cui2, mk_sl_flt_parse_inl_defcd_cui_has_bits - 1);
+		mk_sl_flt_parse_inl_defcd_cui_or2(cui1, &cui2);
+	}
+	mk_sl_flt_parse_inl_defcd_cui_to_buis_uchar_le(cui1, x);
+}
 
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_flt_parse_inl_defcd_uchars_from_string_dec_n(unsigned char* const x, char const* const str, int const str_len) mk_lang_noexcept
@@ -84,15 +141,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_flt_parse_inl_defcd_
 		{
 			if(rem == 0)
 			{
-				if(!is_negative)
-				{
-					mk_sl_flt_parse_inl_defcd_cui_set_zero(&cui1);
-				}
-				else
-				{
-					mk_sl_flt_parse_inl_defcd_cui_set_bit(&cui1, mk_sl_flt_parse_inl_defcd_bits - 1);
-				}
-				mk_sl_flt_parse_inl_defcd_cui_to_buis_uchar_le(&cui1, x);
+				mk_sl_flt_parse_inl_defcd_generate_zero(x, is_negative);
 				mk_lang_assert(((int)(ptr - str)) == (str_len - rem));
 				return str_len - rem;
 			}
@@ -118,15 +167,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_flt_parse_inl_defcd_
 	{
 		if(have_something)
 		{
-			if(!is_negative)
-			{
-				mk_sl_flt_parse_inl_defcd_cui_set_zero(&cui1);
-			}
-			else
-			{
-				mk_sl_flt_parse_inl_defcd_cui_set_bit(&cui1, mk_sl_flt_parse_inl_defcd_bits - 1);
-			}
-			mk_sl_flt_parse_inl_defcd_cui_to_buis_uchar_le(&cui1, x);
+			mk_sl_flt_parse_inl_defcd_generate_zero(x, is_negative);
 			mk_lang_assert(((int)(ptr - str)) == (str_len - rem));
 			return str_len - rem;
 		}
@@ -163,14 +204,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_flt_parse_inl_defcd_
 		}
 		if(((int)(ptr - first_nz)) >= mk_sl_flt_parse_inl_defcd_max_nz_digits_pre_dot)
 		{
-			mk_sl_flt_parse_inl_defcd_cui_set_mask(&cui1, mk_sl_flt_parse_inl_defcd_exponent_bits);
-			mk_sl_flt_parse_inl_defcd_cui_shl2(&cui1, mk_sl_flt_parse_inl_defcd_fraction_bits);
-			if(is_negative)
-			{
-				mk_sl_flt_parse_inl_defcd_cui_set_bit(&cui2, mk_sl_flt_parse_inl_defcd_bits - 1);
-				mk_sl_flt_parse_inl_defcd_cui_or2(&cui1, &cui2);
-			}
-			mk_sl_flt_parse_inl_defcd_cui_to_buis_uchar_le(&cui1, x);
+			mk_sl_flt_parse_inl_defcd_generate_inf(x, is_negative);
 			mk_lang_assert(((int)(ptr - str)) == (str_len - rem));
 			return str_len - rem;
 		}
@@ -250,30 +284,13 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_flt_parse_inl_defcd_
 	exponent_encoded = exponent_decoded + mk_sl_flt_parse_inl_defcd_exponent_bias;
 	if(exponent_encoded >= mk_sl_flt_parse_inl_defcd_exponent_encoded_max)
 	{
-		mk_sl_flt_parse_inl_defcd_cui_set_mask(&cui1, mk_sl_flt_parse_inl_defcd_exponent_bits);
-		mk_sl_flt_parse_inl_defcd_cui_shl2(&cui1, mk_sl_flt_parse_inl_defcd_fraction_bits);
-		if(is_negative)
-		{
-			mk_sl_flt_parse_inl_defcd_cui_set_bit(&cui2, mk_sl_flt_parse_inl_defcd_bits - 1);
-			mk_sl_flt_parse_inl_defcd_cui_or2(&cui1, &cui2);
-		}
-		mk_sl_flt_parse_inl_defcd_cui_to_buis_uchar_le(&cui1, x);
+		mk_sl_flt_parse_inl_defcd_generate_inf(x, is_negative);
 		mk_lang_assert(((int)(ptr - str)) == (str_len - rem));
 		return str_len - rem;
 	}
 	mk_lang_assert(exponent_decoded >= mk_sl_flt_parse_inl_defcd_exponent_decoded_min && exponent_decoded <= mk_sl_flt_parse_inl_defcd_exponent_decoded_max);
 	mk_lang_assert(exponent_encoded >= mk_sl_flt_parse_inl_defcd_exponent_encoded_min && exponent_encoded <= mk_sl_flt_parse_inl_defcd_exponent_encoded_max);
-	mk_sl_flt_parse_inl_defcd_cui_set_mask(&cui2, mk_sl_flt_parse_inl_defcd_fraction_bits);
-	mk_sl_flt_parse_inl_defcd_cui_and2(&cui1, &cui2);
-	mk_sl_flt_parse_inl_defcd_cui_from_bi_sint(&cui2, &exponent_encoded);
-	mk_sl_flt_parse_inl_defcd_cui_shl2(&cui2, mk_sl_flt_parse_inl_defcd_fraction_bits);
-	mk_sl_flt_parse_inl_defcd_cui_or2(&cui1, &cui2);
-	if(is_negative)
-	{
-		mk_sl_flt_parse_inl_defcd_cui_set_bit(&cui2, mk_sl_flt_parse_inl_defcd_cui_has_bits - 1);
-		mk_sl_flt_parse_inl_defcd_cui_or2(&cui1, &cui2);
-	}
-	mk_sl_flt_parse_inl_defcd_cui_to_buis_uchar_le(&cui1, x);
+	mk_sl_flt_parse_inl_defcd_generate_number(x, &cui1, is_negative, exponent_encoded);
 	mk_lang_assert(((int)(ptr - str)) == (str_len - rem));
 	return str_len - rem;
 }
