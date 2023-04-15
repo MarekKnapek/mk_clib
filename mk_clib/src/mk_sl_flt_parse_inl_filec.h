@@ -44,6 +44,24 @@ mk_lang_constexpr static mk_lang_inline void mk_sl_flt_parse_inl_defcd_generate_
 	mk_sl_flt_parse_inl_defcd_cui_to_buis_uchar_le(&cui1, x);
 }
 
+mk_lang_constexpr static mk_lang_inline void mk_sl_flt_parse_inl_defcd_generate_nan(unsigned char* const x, mk_lang_bool_t const is_negative) mk_lang_noexcept
+{
+	mk_sl_flt_parse_inl_defcd_cui_t cui1 mk_lang_constexpr_init;
+	mk_sl_flt_parse_inl_defcd_cui_t cui2 mk_lang_constexpr_init;
+
+	mk_lang_assert(x);
+
+	mk_sl_flt_parse_inl_defcd_cui_set_mask(&cui1, mk_sl_flt_parse_inl_defcd_exponent_bits);
+	mk_sl_flt_parse_inl_defcd_cui_shl2(&cui1, mk_sl_flt_parse_inl_defcd_fraction_bits);
+	if(is_negative)
+	{
+		mk_sl_flt_parse_inl_defcd_cui_set_bit(&cui2, mk_sl_flt_parse_inl_defcd_bits - 1);
+		mk_sl_flt_parse_inl_defcd_cui_or2(&cui1, &cui2);
+	}
+	mk_sl_flt_parse_inl_defcd_cui_inc1(&cui1);
+	mk_sl_flt_parse_inl_defcd_cui_to_buis_uchar_le(&cui1, x);
+}
+
 mk_lang_constexpr static mk_lang_inline void mk_sl_flt_parse_inl_defcd_generate_number(unsigned char* const x, mk_sl_flt_parse_inl_defcd_cui_t* const cui1, mk_lang_bool_t const is_negative, int const exponent_encoded) mk_lang_noexcept
 {
 	mk_sl_flt_parse_inl_defcd_cui_t cui2 mk_lang_constexpr_init;
@@ -65,12 +83,32 @@ mk_lang_constexpr static mk_lang_inline void mk_sl_flt_parse_inl_defcd_generate_
 	mk_sl_flt_parse_inl_defcd_cui_to_buis_uchar_le(cui1, x);
 }
 
+mk_lang_constexpr static mk_lang_inline mk_lang_bool_t mk_sl_flt_parse_inl_defcd_allof(char const* const a, char const* const b, int const len) mk_lang_noexcept
+{
+	int i mk_lang_constexpr_init;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(len >= 0);
+
+	for(i = 0; i != len; ++i)
+	{
+		if(a[i] != b[i])
+		{
+			return mk_lang_false;
+		}
+	}
+	return mk_lang_true;
+}
+
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_flt_parse_inl_defcd_uchars_from_string_dec_n(unsigned char* const x, char const* const str, int const str_len) mk_lang_noexcept
 {
 	mk_lang_constexpr_static char const s_plus = '+';
 	mk_lang_constexpr_static char const s_minus = '-';
 	mk_lang_constexpr_static char const s_dot = '.';
+	mk_lang_constexpr_static char const s_nan[] = {'n', 'a', 'n'};
+	mk_lang_constexpr_static char const s_inf[] = {'i', 'n', 'f'};
 	mk_lang_constexpr_static char const s_symbols[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
 	char const* ptr mk_lang_constexpr_init;
@@ -124,6 +162,23 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_flt_parse_inl_defcd_
 		is_negative = mk_lang_false;
 		--ptr;
 		++rem;
+	}
+
+	if(rem >= ((int)(sizeof(s_inf) / sizeof(s_inf[0]))) && mk_sl_flt_parse_inl_defcd_allof(ptr, s_inf, ((int)(sizeof(s_inf) / sizeof(s_inf[0])))))
+	{
+		ptr += ((int)(sizeof(s_inf) / sizeof(s_inf[0])));
+		rem -= ((int)(sizeof(s_inf) / sizeof(s_inf[0])));
+		mk_sl_flt_parse_inl_defcd_generate_inf(x, is_negative);
+		mk_lang_assert(((int)(ptr - str)) == (str_len - rem));
+		return str_len - rem;
+	}
+	else if(rem >= ((int)(sizeof(s_nan) / sizeof(s_nan[0]))) && mk_sl_flt_parse_inl_defcd_allof(ptr, s_nan, ((int)(sizeof(s_nan) / sizeof(s_nan[0])))))
+	{
+		ptr += ((int)(sizeof(s_nan) / sizeof(s_nan[0])));
+		rem -= ((int)(sizeof(s_nan) / sizeof(s_nan[0])));
+		mk_sl_flt_parse_inl_defcd_generate_nan(x, is_negative);
+		mk_lang_assert(((int)(ptr - str)) == (str_len - rem));
+		return str_len - rem;
 	}
 
 	if(rem == 0)
