@@ -1,3 +1,5 @@
+#undef mk_lang_jumbo_want
+#define mk_lang_jumbo_want 1
 #include "mk_sl_flt_parse_fuzz.hpp"
 
 #include "mk_lang_assert.h"
