@@ -4,6 +4,8 @@
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_overlap.h"
+#include "mk_lang_restrict.h"
 #include "mk_lang_static_assert.h"
 
 
@@ -75,13 +77,14 @@ mk_lang_constexpr static mk_lang_inline void mk_sl_flt_parse_inl_defcd_generate_
 	mk_sl_flt_parse_inl_defcd_cui_to_buis_uchar_le(cui1, x);
 }
 
-mk_lang_constexpr static mk_lang_inline mk_lang_bool_t mk_sl_flt_parse_inl_defcd_allof(char const* const a, char const* const b, int const len) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_bool_t mk_sl_flt_parse_inl_defcd_allof(char const* const mk_lang_restrict a, char const* const mk_lang_restrict b, int const len) mk_lang_noexcept
 {
 	int i mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
 	mk_lang_assert(b);
 	mk_lang_assert(len >= 0);
+	mk_lang_assert(!mk_lang_overlap_pchar(a, len, b, len));
 
 	for(i = 0; i != len; ++i)
 	{
