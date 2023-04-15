@@ -99,12 +99,17 @@ mk_lang_constexpr static mk_lang_inline mk_lang_bool_t mk_sl_flt_parse_inl_defcd
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_flt_parse_inl_defcd_uchars_from_string_dec_n(unsigned char* const x, char const* const str, int const str_len) mk_lang_noexcept
 {
+	#define arr_len(x) ((int)(sizeof(x) / sizeof(x[0])))
+
 	mk_lang_constexpr_static char const s_plus = '+';
 	mk_lang_constexpr_static char const s_minus = '-';
 	mk_lang_constexpr_static char const s_dot = '.';
 	mk_lang_constexpr_static char const s_nan[] = {'n', 'a', 'n'};
 	mk_lang_constexpr_static char const s_inf[] = {'i', 'n', 'f'};
 	mk_lang_constexpr_static char const s_symbols[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+	mk_lang_constexpr_static int const s_nan_len = arr_len(s_nan);
+	mk_lang_constexpr_static int const s_inf_len = arr_len(s_inf);
+	mk_lang_constexpr_static int const s_symbols_len = arr_len(s_symbols);
 
 	char const* ptr mk_lang_constexpr_init;
 	int rem mk_lang_constexpr_init;
@@ -159,19 +164,18 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_flt_parse_inl_defcd_
 		++rem;
 	}
 
-	if(rem >= ((int)(sizeof(s_inf) / sizeof(s_inf[0]))) && mk_sl_flt_parse_inl_defcd_allof(ptr, s_inf, ((int)(sizeof(s_inf) / sizeof(s_inf[0])))))
+	if(rem >= s_inf_len && mk_sl_flt_parse_inl_defcd_allof(ptr, s_inf, s_inf_len))
 	{
-		ptr += ((int)(sizeof(s_inf) / sizeof(s_inf[0])));
-		rem -= ((int)(sizeof(s_inf) / sizeof(s_inf[0])));
+		ptr += s_inf_len;
+		rem -= s_inf_len;
 		mk_sl_flt_parse_inl_defcd_generate_inf(x, is_negative);
 		mk_lang_assert(((int)(ptr - str)) == (str_len - rem));
 		return str_len - rem;
 	}
-	else if(rem >= ((int)(sizeof(s_nan) / sizeof(s_nan[0]))) && mk_sl_flt_parse_inl_defcd_allof(ptr, s_nan, ((int)(sizeof(s_nan) / sizeof(s_nan[0])))))
+	else if(rem >= s_nan_len && mk_sl_flt_parse_inl_defcd_allof(ptr, s_nan, s_nan_len))
 	{
-		ptr += ((int)(sizeof(s_nan) / sizeof(s_nan[0])));
-		rem -= ((int)(sizeof(s_nan) / sizeof(s_nan[0])));
-		mk_sl_flt_parse_inl_defcd_generate_nan(x, is_negative);
+		ptr += s_nan_len;
+		rem -= s_nan_len;
 		mk_sl_flt_parse_inl_defcd_generate_nan(x);
 		mk_lang_assert(((int)(ptr - str)) == (str_len - rem));
 		return str_len - rem;
@@ -207,14 +211,14 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_flt_parse_inl_defcd_
 	}
 	mk_lang_assert(rem >= 0);
 
-	for(i = 0; i != ((int)(sizeof(s_symbols) / sizeof(s_symbols[0]))); ++i)
+	for(i = 0; i != s_symbols_len; ++i)
 	{
 		if(e == s_symbols[i])
 		{
 			break;
 		}
 	}
-	if(i == ((int)(sizeof(s_symbols) / sizeof(s_symbols[0]))))
+	if(i == s_symbols_len)
 	{
 		if(have_something)
 		{
@@ -242,14 +246,14 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_flt_parse_inl_defcd_
 		e = *ptr;
 		++ptr;
 		--rem;
-		for(i = 0; i != ((int)(sizeof(s_symbols) / sizeof(s_symbols[0]))); ++i)
+		for(i = 0; i != s_symbols_len; ++i)
 		{
 			if(e == s_symbols[i])
 			{
 				break;
 			}
 		}
-		if(i == ((int)(sizeof(s_symbols) / sizeof(s_symbols[0]))))
+		if(i == s_symbols_len)
 		{
 			break;
 		}
@@ -344,6 +348,8 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_flt_parse_inl_defcd_
 	mk_sl_flt_parse_inl_defcd_generate_number(x, &cui1, is_negative, exponent_encoded);
 	mk_lang_assert(((int)(ptr - str)) == (str_len - rem));
 	return str_len - rem;
+
+	#undef arr_len;
 }
 
 mk_lang_nodiscard mk_lang_jumbo int mk_sl_flt_parse_inl_defcd_void_from_string_dec_n(void* const x, char const* const str, int const str_len) mk_lang_noexcept
