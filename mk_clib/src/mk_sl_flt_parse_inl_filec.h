@@ -359,3 +359,8 @@ mk_lang_nodiscard mk_lang_jumbo int mk_sl_flt_parse_inl_defcd_void_from_string_d
 
 
 #include "mk_sl_flt_parse_inl_defcu.h"
+
+
+#undef mk_sl_flt_name
+#undef mk_sl_flt_bits
+#undef mk_sl_flt_fraction_bits
