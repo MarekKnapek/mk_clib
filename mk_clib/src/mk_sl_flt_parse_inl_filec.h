@@ -349,7 +349,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_flt_parse_inl_defcd_
 	mk_lang_assert(((int)(ptr - str)) == (str_len - rem));
 	return str_len - rem;
 
-	#undef arr_len;
+	#undef arr_len
 }
 
 mk_lang_nodiscard mk_lang_jumbo int mk_sl_flt_parse_inl_defcd_void_from_string_dec_n(void* const x, char const* const str, int const str_len) mk_lang_noexcept
