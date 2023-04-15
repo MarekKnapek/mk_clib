@@ -1,6 +1,7 @@
 #include "mk_sl_flt_parse_fuzz.hpp"
 
 #include "mk_lang_assert.h"
+#include "mk_lang_cpp.h"
 #include "mk_lang_crash.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_likely.h"
@@ -23,7 +24,7 @@
 #include <charconv> /* std::from_chars */
 
 
-mk_lang_jumbo void mk_sl_flt_parse_fuzz(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+mk_lang_extern_c mk_lang_jumbo void mk_sl_flt_parse_fuzz(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
 {
 	#define test(x) if(!(x)) mk_lang_unlikely mk_lang_crash(); ((void)(0))
 

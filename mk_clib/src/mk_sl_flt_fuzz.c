@@ -7,6 +7,7 @@
 #include "mk_lang_memcpy.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_sizet.h"
+#include "mk_sl_flt.h"
 
 #include <string.h> /* memcpy */
 #include <stdlib.h> /* malloc atof free */
