@@ -220,6 +220,7 @@
 #define mk_sl_cui_inl_defd_add3_wrap_cid_coe_smol mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _add3_wrap_cid_coe_smol)
 #define mk_sl_cui_inl_defd_mul3_wrap_lo_smol mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _mul3_wrap_lo_smol)
 #define mk_sl_cui_inl_defd_mul4_wrap_wi_smol mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _mul4_wrap_wi_smol)
+#define mk_sl_cui_inl_defd_mul2_wrap_lo_smol mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _mul2_wrap_lo_smol)
 #define mk_sl_cui_inl_defd_divmod_smol mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _divmod_smol)
 
 #define mk_sl_cui_inl_defd_to_str_dec_log 19728ul /* floor(log10(2) * (2^16)) */

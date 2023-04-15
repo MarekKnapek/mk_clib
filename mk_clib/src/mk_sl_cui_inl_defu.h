@@ -189,6 +189,7 @@
 #undef mk_sl_cui_inl_defd_add3_wrap_cid_coe_smol
 #undef mk_sl_cui_inl_defd_mul3_wrap_lo_smol
 #undef mk_sl_cui_inl_defd_mul4_wrap_wi_smol
+#undef mk_sl_cui_inl_defd_mul2_wrap_lo_smol
 #undef mk_sl_cui_inl_defd_divmod_smol
 
 #undef mk_sl_cui_inl_defd_to_str_dec_log

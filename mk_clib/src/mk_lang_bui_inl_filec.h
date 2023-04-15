@@ -70,18 +70,25 @@ mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_set_mask(mk_lang_bui_i
 	#endif
 
 	mk_lang_assert(x);
-	mk_lang_assert(bits_count >= 1 && bits_count <= ((int)(((int)(sizeof(mk_lang_bui_inl_defd_type))) * ((int)(mk_lang_charbit)))));
+	mk_lang_assert(bits_count >= 0 && bits_count <= ((int)(((int)(sizeof(mk_lang_bui_inl_defd_type))) * ((int)(mk_lang_charbit)))));
 
-	#if defined NDEBUG
-	*x = ((mk_lang_bui_inl_defd_type)(((mk_lang_bui_inl_defd_type)(((mk_lang_bui_inl_defd_type)(((mk_lang_bui_inl_defd_type)(((mk_lang_bui_inl_defd_type)(1)) << ((int)(bits_count - 1)))) - ((mk_lang_bui_inl_defd_type)(1)))) << ((int)(1)))) + ((mk_lang_bui_inl_defd_type)(1))));
-	#else
-	tmp = ((mk_lang_bui_inl_defd_type)(1));
-	tmp = ((mk_lang_bui_inl_defd_type)(tmp << ((int)(bits_count - 1))));
-	tmp = ((mk_lang_bui_inl_defd_type)(tmp - ((mk_lang_bui_inl_defd_type)(1))));
-	tmp = ((mk_lang_bui_inl_defd_type)(tmp << ((int)(1))));
-	tmp = ((mk_lang_bui_inl_defd_type)(tmp + ((mk_lang_bui_inl_defd_type)(1))));
-	*x = tmp;
-	#endif
+	if(bits_count == 0)
+	{
+		mk_lang_bui_inl_defd_set_zero(x);
+	}
+	else
+	{
+		#if defined NDEBUG
+		*x = ((mk_lang_bui_inl_defd_type)(((mk_lang_bui_inl_defd_type)(((mk_lang_bui_inl_defd_type)(((mk_lang_bui_inl_defd_type)(((mk_lang_bui_inl_defd_type)(1)) << ((int)(bits_count - 1)))) - ((mk_lang_bui_inl_defd_type)(1)))) << ((int)(1)))) + ((mk_lang_bui_inl_defd_type)(1))));
+		#else
+		tmp = ((mk_lang_bui_inl_defd_type)(1));
+		tmp = ((mk_lang_bui_inl_defd_type)(tmp << ((int)(bits_count - 1))));
+		tmp = ((mk_lang_bui_inl_defd_type)(tmp - ((mk_lang_bui_inl_defd_type)(1))));
+		tmp = ((mk_lang_bui_inl_defd_type)(tmp << ((int)(1))));
+		tmp = ((mk_lang_bui_inl_defd_type)(tmp + ((mk_lang_bui_inl_defd_type)(1))));
+		*x = tmp;
+		#endif
+	}
 }
 
 #define mk_lang_forb1_id mk_lang_for_constants_bi

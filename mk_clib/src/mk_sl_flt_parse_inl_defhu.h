@@ -1,0 +1,5 @@
+#undef mk_sl_flt_parse_inl_defhd_name
+#undef mk_sl_flt_parse_inl_defhd_prefix
+
+#undef mk_sl_flt_parse_inl_defhd_uchars_from_string_dec_n
+#undef mk_sl_flt_parse_inl_defhd_void_from_string_dec_n

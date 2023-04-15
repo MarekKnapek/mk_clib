@@ -90,7 +90,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_set_mask(mk_sl_cui_inl_d
 	int i mk_lang_constexpr_init;
 
 	mk_lang_assert(x);
-	mk_lang_assert(bits_count >= 1 && bits_count <= mk_sl_cui_inl_defd_bits);
+	mk_lang_assert(bits_count >= 0 && bits_count <= mk_sl_cui_inl_defd_bits);
 
 	for(i = 0; i != bits_count / mk_sl_cui_inl_defd_base_bits; ++i)
 	{
@@ -2343,6 +2343,24 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_mul4_wrap_wi_smol(mk_sl_
 	mk_sl_cui_inl_defd_base_mul4_wrap_wi(&a->m_data[mk_sl_cui_inl_defd_idx(mk_sl_cui_inl_defd_count - 1)], b, &t, d);
 	mk_sl_cui_inl_defd_base_add2_wrap_cid_coe(&c->m_data[mk_sl_cui_inl_defd_idx(mk_sl_cui_inl_defd_count - 1)], &t, &cf);
 	if(cf) mk_sl_cui_inl_defd_base_inc1(d);
+#endif
+}
+
+mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_mul2_wrap_lo_smol(mk_sl_cui_inl_defd_t* const a, mk_sl_cui_inl_defd_base_type const* const b) mk_lang_noexcept
+{
+#if mk_sl_cui_inl_defd_count == 1
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	
+	mk_sl_cui_inl_defd_base_mul2_wrap_lo(&a->m_data[0], b);
+#else
+	mk_sl_cui_inl_defd_t c mk_lang_constexpr_init;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	
+	mk_sl_cui_inl_defd_mul3_wrap_lo_smol(a, b, &c);
+	*a = c;
 #endif
 }
 

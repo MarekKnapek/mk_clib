@@ -8,14 +8,15 @@
 #include "mk_lang_noexcept.h"
 #include "mk_lang_sizet.h"
 
-#define mk_sl_flt_name float
+#define mk_sl_flt_name fzflt
 #define mk_sl_flt_bits 32
 #define mk_sl_flt_fraction_bits 23
-#include "mk_sl_flt_inl_fileh.h"
-#include "mk_sl_flt_inl_filec.h"
+#include "mk_sl_flt_parse_inl_fileh.h"
+#include "mk_sl_flt_parse_inl_filec.h"
 
 #include <string.h> /* memcpy */
 #include <stdlib.h> /* malloc atof free */
+#include <charconv> /* std::from_chars */
 
 
 mk_lang_jumbo void mk_sl_flt_fuzz(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
@@ -80,13 +81,17 @@ mk_lang_jumbo void mk_sl_flt_fuzz(unsigned char const* const data, mk_lang_size_
 		float fb;
 
 		if(size == 0) break;
-		n = mk_sl_flt_float_from_string_dec_n(&fa, ((char const*)(data)), ((int)(size)));
+		n = mk_sl_flt_parse_fzflt_void_from_string_dec_n(&fa, ((char const*)(data)), ((int)(size)));
 		mk_lang_assert(n >= 0 && n <= ((int)(size)));
 		if(n == 0) break;
 		buff = ((char*)(malloc(n + 1))); if(!buff) break;
-		memcpy(buff, data, n);
-		buff[n] = '\0';
-		fb = ((float)(atof(buff)));
+		memcpy(buff, data, n); buff[n] = '\0';
+		/*fb = ((float)(atof(buff)));*/
+		{
+			std::from_chars_result res;
+			res = std::from_chars(buff + (buff[0] == '+' ? 1 : 0), buff + size, fb);
+			mk_lang_assert(res.ec == std::errc::result_out_of_range || res.ec == std::errc{});
+		}
 		free(buff);
 		test((fa == fb) || (fa != fa && fb != fb));
 	}while(0);
