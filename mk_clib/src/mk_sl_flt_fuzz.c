@@ -8,15 +8,25 @@
 #include "mk_lang_noexcept.h"
 #include "mk_lang_sizet.h"
 
+#if (defined __cplusplus && __cplusplus >= 201703l) || (defined _MSVC_LANG && _MSVC_LANG >= 201703l)
 #define mk_sl_flt_name fzflt
 #define mk_sl_flt_bits 32
 #define mk_sl_flt_fraction_bits 23
 #include "mk_sl_flt_parse_inl_fileh.h"
 #include "mk_sl_flt_parse_inl_filec.h"
 
+#define mk_sl_flt_name fzdbl
+#define mk_sl_flt_bits 64
+#define mk_sl_flt_fraction_bits 52
+#include "mk_sl_flt_parse_inl_fileh.h"
+#include "mk_sl_flt_parse_inl_filec.h"
+#endif
+
 #include <string.h> /* memcpy */
 #include <stdlib.h> /* malloc atof free */
+#if (defined __cplusplus && __cplusplus >= 201703l) || (defined _MSVC_LANG && _MSVC_LANG >= 201703l)
 #include <charconv> /* std::from_chars */
+#endif
 
 
 mk_lang_jumbo void mk_sl_flt_fuzz(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
@@ -73,28 +83,36 @@ mk_lang_jumbo void mk_sl_flt_fuzz(unsigned char const* const data, mk_lang_size_
 		test((fltb == flta) || (flta != flta && fltb != fltb));
 		free(buff);
 	}while(0);*/
+#if (defined __cplusplus && __cplusplus >= 201703l) || (defined _MSVC_LANG && _MSVC_LANG >= 201703l)
 	do
 	{
 		float fa;
 		int n;
-		char* buff;
+		std::from_chars_result res;
 		float fb;
 
-		if(size == 0) break;
-		n = mk_sl_flt_parse_fzflt_void_from_string_dec_n(&fa, ((char const*)(data)), ((int)(size)));
+		n = mk_sl_flt_parse_fzflt_void_from_string_dec_n(((void*)(&fa)), ((char const*)(data)), ((int)(size)));
 		mk_lang_assert(n >= 0 && n <= ((int)(size)));
 		if(n == 0) break;
-		buff = ((char*)(malloc(n + 1))); if(!buff) break;
-		memcpy(buff, data, n); buff[n] = '\0';
-		/*fb = ((float)(atof(buff)));*/
-		{
-			std::from_chars_result res;
-			res = std::from_chars(buff + (buff[0] == '+' ? 1 : 0), buff + size, fb);
-			mk_lang_assert(res.ec == std::errc::result_out_of_range || res.ec == std::errc{});
-		}
-		free(buff);
+		res = std::from_chars(data + (((char const*)(data))[0] == '+' ? 1 : 0), data + size, fb);
+		mk_lang_assert(res.ec == std::errc::result_out_of_range || res.ec == std::errc{});
 		test((fa == fb) || (fa != fa && fb != fb));
 	}while(0);
+	do
+	{
+		double fa;
+		int n;
+		std::from_chars_result res;
+		double fb;
+
+		n = mk_sl_flt_parse_fzdbl_void_from_string_dec_n(((void*)(&fa)), ((char const*)(data)), ((int)(size)));
+		mk_lang_assert(n >= 0 && n <= ((int)(size)));
+		if(n == 0) break;
+		res = std::from_chars(data + (((char const*)(data))[0] == '+' ? 1 : 0), data + size, fb);
+		mk_lang_assert(res.ec == std::errc::result_out_of_range || res.ec == std::errc{});
+		test((fa == fb) || (fa != fa && fb != fb));
+	}while(0);
+#endif
 
 	#undef test
 }
