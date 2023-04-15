@@ -77,7 +77,7 @@ mk_lang_constexpr static mk_lang_inline void mk_sl_flt_parse_inl_defcd_generate_
 	mk_sl_flt_parse_inl_defcd_cui_to_buis_uchar_le(cui1, x);
 }
 
-mk_lang_constexpr static mk_lang_inline mk_lang_bool_t mk_sl_flt_parse_inl_defcd_allof(char const* const mk_lang_restrict a, char const* const mk_lang_restrict b, int const len) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_bool_t mk_sl_flt_parse_inl_defcd_all_of(char const* const mk_lang_restrict a, char const* const mk_lang_restrict b, int const len) mk_lang_noexcept
 {
 	int i mk_lang_constexpr_init;
 
@@ -164,7 +164,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_flt_parse_inl_defcd_
 		++rem;
 	}
 
-	if(rem >= s_inf_len && mk_sl_flt_parse_inl_defcd_allof(ptr, s_inf, s_inf_len))
+	if(rem >= s_inf_len && mk_sl_flt_parse_inl_defcd_all_of(ptr, s_inf, s_inf_len))
 	{
 		ptr += s_inf_len;
 		rem -= s_inf_len;
@@ -172,7 +172,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_flt_parse_inl_defcd_
 		mk_lang_assert(((int)(ptr - str)) == (str_len - rem));
 		return str_len - rem;
 	}
-	else if(rem >= s_nan_len && mk_sl_flt_parse_inl_defcd_allof(ptr, s_nan, s_nan_len))
+	else if(rem >= s_nan_len && mk_sl_flt_parse_inl_defcd_all_of(ptr, s_nan, s_nan_len))
 	{
 		ptr += s_nan_len;
 		rem -= s_nan_len;
