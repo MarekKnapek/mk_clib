@@ -46,7 +46,7 @@ mk_lang_constexpr static mk_lang_inline void mk_sl_flt_parse_inl_defcd_generate_
 	mk_sl_flt_parse_inl_defcd_cui_to_buis_uchar_le(&cui1, x);
 }
 
-mk_lang_constexpr static mk_lang_inline void mk_sl_flt_parse_inl_defcd_generate_nan(unsigned char* const x, mk_lang_bool_t const is_negative) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline void mk_sl_flt_parse_inl_defcd_generate_nan(unsigned char* const x) mk_lang_noexcept
 {
 	mk_sl_flt_parse_inl_defcd_cui_t cui1 mk_lang_constexpr_init;
 
@@ -172,6 +172,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_flt_parse_inl_defcd_
 		ptr += ((int)(sizeof(s_nan) / sizeof(s_nan[0])));
 		rem -= ((int)(sizeof(s_nan) / sizeof(s_nan[0])));
 		mk_sl_flt_parse_inl_defcd_generate_nan(x, is_negative);
+		mk_sl_flt_parse_inl_defcd_generate_nan(x);
 		mk_lang_assert(((int)(ptr - str)) == (str_len - rem));
 		return str_len - rem;
 	}
