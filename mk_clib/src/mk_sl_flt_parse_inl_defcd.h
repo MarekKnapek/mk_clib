@@ -41,7 +41,7 @@
 #define mk_sl_flt_parse_inl_defcd_cui_has_bits (mk_sl_flt_parse_inl_defcd_cui_count * mk_sl_flt_parse_inl_defcd_bui_sizebits)
 
 #define mk_sl_flt_parse_inl_defcd_big_name mk_lang_concat(mk_sl_flt_parse_inl_defcd_prefix, _big)
-#define mk_sl_flt_parse_inl_defcd_big_needs_bits 426 /* log2(10^128) */
+#define mk_sl_flt_parse_inl_defcd_big_needs_bits (mk_sl_flt_parse_inl_defcd_exponent_decoded_max + 4) /* +4 just in case */
 #define mk_sl_flt_parse_inl_defcd_big_count mk_lang_div_roundup(mk_sl_flt_parse_inl_defcd_big_needs_bits, mk_sl_flt_parse_inl_defcd_bui_sizebits)
 #define mk_sl_flt_parse_inl_defcd_big_has_bits (mk_sl_flt_parse_inl_defcd_big_count * mk_sl_flt_parse_inl_defcd_bui_sizebits)
 
