@@ -5,6 +5,7 @@
 #include "mk_lang_bool.h"
 #include "mk_lang_cpp.h"
 #include "mk_lang_jumbo.h"
+#include "mk_lang_memmove_obj.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_sizet.h"
 
@@ -28,19 +29,33 @@ mk_lang_jumbo int mk_clib_app_fuzz(unsigned char const* const data, mk_lang_size
 
 mk_lang_jumbo mk_lang_size_t mk_clib_app_fuzz_mutate(unsigned char* const data, mk_lang_size_t const size, mk_lang_size_t const size_max, unsigned const seed) mk_lang_noexcept
 {
-	if((seed % 2u) == 0u)
+	if(size >= 4)
 	{
-		return LLVMFuzzerMutate(data, size, size_max);
-	}
-	else
-	{
-		if(size == 0)
+		switch(seed % 4)
 		{
-			return 0;
-		}
-		else
-		{
-			return size - 1;
+			case 0:
+			{
+				return LLVMFuzzerMutate(data, size, size_max);
+			}
+			break;
+			case 1:
+			{
+				return size - 1;
+			}
+			break;
+			case 2:
+			{
+				data[size - 2] = data[size - 1];
+				return size - 1;
+			}
+			break;
+			case 3:
+			{
+				mk_lang_memmove_obj_uchar(data, data + 1, size - 1);
+				return size - 1;
+			}
+			break;
 		}
 	}
+	return LLVMFuzzerMutate(data, size, size_max);
 }
