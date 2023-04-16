@@ -12,6 +12,9 @@
 #include "mk_sl_flt_parse_inl_defcd.h"
 
 
+#define arr_len(x) ((int)(sizeof(x) / sizeof(x[0])))
+
+
 mk_lang_constexpr static mk_lang_inline void mk_sl_flt_parse_inl_defcd_generate_zero(unsigned char* const x, mk_lang_bool_t const is_negative) mk_lang_noexcept
 {
 	mk_sl_flt_parse_inl_defcd_cui_t cui1 mk_lang_constexpr_init;
@@ -96,11 +99,26 @@ mk_lang_constexpr static mk_lang_inline mk_lang_bool_t mk_sl_flt_parse_inl_defcd
 	return mk_lang_true;
 }
 
+mk_lang_constexpr static mk_lang_inline int mk_sl_flt_parse_inl_defcd_char_to_digit(char const e) mk_lang_noexcept
+{
+	mk_lang_constexpr_static char const s_symbols[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+	mk_lang_constexpr_static int const s_symbols_len = arr_len(s_symbols);
+
+	int i mk_lang_constexpr_init;
+
+	for(i = 0; i != s_symbols_len; ++i)
+	{
+		if(e == s_symbols[i])
+		{
+			break;
+		}
+	}
+	return i;
+}
+
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_flt_parse_inl_defcd_uchars_from_string_dec_n(unsigned char* const x, char const* const str, int const str_len) mk_lang_noexcept
 {
-	#define arr_len(x) ((int)(sizeof(x) / sizeof(x[0])))
-
 	mk_lang_constexpr_static char const s_plus = '+';
 	mk_lang_constexpr_static char const s_minus = '-';
 	mk_lang_constexpr_static char const s_dot = '.';
@@ -211,13 +229,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_flt_parse_inl_defcd_
 	}
 	mk_lang_assert(rem >= 0);
 
-	for(i = 0; i != s_symbols_len; ++i)
-	{
-		if(e == s_symbols[i])
-		{
-			break;
-		}
-	}
+	i = mk_sl_flt_parse_inl_defcd_char_to_digit(e);
 	if(i == s_symbols_len)
 	{
 		if(have_something)
@@ -248,13 +260,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_flt_parse_inl_defcd_
 		e = *ptr;
 		++ptr;
 		--rem;
-		for(i = 0; i != s_symbols_len; ++i)
-		{
-			if(e == s_symbols[i])
-			{
-				break;
-			}
-		}
+		i = mk_sl_flt_parse_inl_defcd_char_to_digit(e);
 		if(i == s_symbols_len)
 		{
 			--ptr;
@@ -352,14 +358,15 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_flt_parse_inl_defcd_
 	mk_sl_flt_parse_inl_defcd_generate_number(x, &cui1, is_negative, exponent_encoded);
 	mk_lang_assert(((int)(ptr - str)) == (str_len - rem));
 	return str_len - rem;
-
-	#undef arr_len
 }
 
 mk_lang_nodiscard mk_lang_jumbo int mk_sl_flt_parse_inl_defcd_void_from_string_dec_n(void* const x, char const* const str, int const str_len) mk_lang_noexcept
 {
 	return mk_sl_flt_parse_inl_defcd_uchars_from_string_dec_n(((unsigned char*)(x)), str, str_len);
 }
+
+
+#undef arr_len
 
 
 #include "mk_sl_flt_parse_inl_defcu.h"

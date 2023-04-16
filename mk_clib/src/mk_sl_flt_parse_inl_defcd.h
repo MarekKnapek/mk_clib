@@ -19,6 +19,7 @@
 #define mk_sl_flt_parse_inl_defcd_generate_nan mk_lang_concat(mk_sl_flt_parse_inl_defcd_prefix, _generate_nan)
 #define mk_sl_flt_parse_inl_defcd_generate_number mk_lang_concat(mk_sl_flt_parse_inl_defcd_prefix, _generate_number)
 #define mk_sl_flt_parse_inl_defcd_all_of mk_lang_concat(mk_sl_flt_parse_inl_defcd_prefix, _all_of)
+#define mk_sl_flt_parse_inl_defcd_char_to_digit mk_lang_concat(mk_sl_flt_parse_inl_defcd_prefix, _char_to_digit)
 
 #define mk_sl_flt_parse_inl_defcd_exponent_bits (mk_sl_flt_parse_inl_defcd_bits - 1 - mk_sl_flt_parse_inl_defcd_fraction_bits)
 #define mk_sl_flt_parse_inl_defcd_exponent_bias (mk_lang_pow(2, mk_sl_flt_parse_inl_defcd_exponent_bits - 1) - 1)

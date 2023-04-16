@@ -11,6 +11,7 @@
 #undef mk_sl_flt_parse_inl_defcd_generate_nan
 #undef mk_sl_flt_parse_inl_defcd_generate_number
 #undef mk_sl_flt_parse_inl_defcd_all_of
+#undef mk_sl_flt_parse_inl_defcd_char_to_digit
 
 #undef mk_sl_flt_parse_inl_defcd_exponent_bits
 #undef mk_sl_flt_parse_inl_defcd_exponent_bias
