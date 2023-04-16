@@ -255,6 +255,8 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_flt_parse_inl_defcd_
 		}
 		if(i == s_symbols_len)
 		{
+			--ptr;
+			++rem;
 			break;
 		}
 		if(((int)(ptr - first_nz)) >= mk_sl_flt_parse_inl_defcd_max_nz_digits_pre_dot)

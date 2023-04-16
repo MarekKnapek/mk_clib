@@ -52,7 +52,7 @@ mk_lang_extern_c mk_lang_jumbo void mk_sl_flt_parse_fuzz(unsigned char const* co
 		res = std::from_chars(d + (d[0] == '+' ? 1 : 0), d + n, fb);
 		mk_lang_assert(res.ec == std::errc::result_out_of_range || res.ec == std::errc{});
 		test((fa == fb) || (fa != fa && fb != fb));
-		test(res.ptr == d + n - 1);
+		test(res.ptr == d + n);
 	}while(0);
 	do
 	{
@@ -71,7 +71,7 @@ mk_lang_extern_c mk_lang_jumbo void mk_sl_flt_parse_fuzz(unsigned char const* co
 		res = std::from_chars(d + (d[0] == '+' ? 1 : 0), d + n, fb);
 		mk_lang_assert(res.ec == std::errc::result_out_of_range || res.ec == std::errc{});
 		test((fa == fb) || (fa != fa && fb != fb));
-		test(res.ptr == d + n - 1);
+		test(res.ptr == d + n);
 	}while(0);
 
 	#undef test
