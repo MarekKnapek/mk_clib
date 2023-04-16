@@ -66,6 +66,12 @@ mk_lang_jumbo void mk_lang_info_macros_print_normal(void) mk_lang_noexcept
 	printf("Macro __I86__ is not defined.\n");
 	#endif
 
+	#if defined __POCC__
+	printf("Macro __POCC__ is \"" to_str(__POCC__) "\".\n");
+	#else
+	printf("Macro __POCC__ is not defined.\n");
+	#endif
+
 	#if defined __SIZEOF_INT128__
 	printf("Macro __SIZEOF_INT128__ is \"" to_str(__SIZEOF_INT128__) "\".\n");
 	#else
@@ -88,6 +94,18 @@ mk_lang_jumbo void mk_lang_info_macros_print_normal(void) mk_lang_noexcept
 	printf("Macro __WATCOMC__ is \"" to_str(__WATCOMC__) "\".\n");
 	#else
 	printf("Macro __WATCOMC__ is not defined.\n");
+	#endif
+
+	#if defined __x86_64__
+	printf("Macro __x86_64__ is \"" to_str(__x86_64__) "\".\n");
+	#else
+	printf("Macro __x86_64__ is not defined.\n");
+	#endif
+
+	#if defined __x86__
+	printf("Macro __x86__ is \"" to_str(__x86__) "\".\n");
+	#else
+	printf("Macro __x86__ is not defined.\n");
 	#endif
 
 	#if defined _M_ALPHA
