@@ -1,7 +1,7 @@
-#undef mk_lang_jumbo_want
-#define mk_lang_jumbo_want 1
 #include "mk_sl_flt_parse_fuzz.hpp"
 
+extern "C"
+{
 #include "mk_lang_assert.h"
 #include "mk_lang_cpp.h"
 #include "mk_lang_crash.h"
@@ -22,6 +22,7 @@
 #define mk_sl_flt_fraction_bits 52
 #include "mk_sl_flt_parse_inl_fileh.h"
 #include "mk_sl_flt_parse_inl_filec.h"
+}
 
 #include <charconv> /* std::from_chars */
 
@@ -51,7 +52,7 @@ mk_lang_extern_c mk_lang_jumbo void mk_sl_flt_parse_fuzz(unsigned char const* co
 		res = std::from_chars(d + (d[0] == '+' ? 1 : 0), d + n, fb);
 		mk_lang_assert(res.ec == std::errc::result_out_of_range || res.ec == std::errc{});
 		test((fa == fb) || (fa != fa && fb != fb));
-		//test(res.ptr == d + n);
+		test(res.ptr == d + n - 1);
 	}while(0);
 	do
 	{
@@ -70,7 +71,7 @@ mk_lang_extern_c mk_lang_jumbo void mk_sl_flt_parse_fuzz(unsigned char const* co
 		res = std::from_chars(d + (d[0] == '+' ? 1 : 0), d + n, fb);
 		mk_lang_assert(res.ec == std::errc::result_out_of_range || res.ec == std::errc{});
 		test((fa == fb) || (fa != fa && fb != fb));
-		//test(res.ptr == d + n);
+		test(res.ptr == d + n - 1);
 	}while(0);
 
 	#undef test

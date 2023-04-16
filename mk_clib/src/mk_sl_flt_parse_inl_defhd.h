@@ -2,7 +2,7 @@
 
 
 #define mk_sl_flt_parse_inl_defhd_name mk_sl_flt_name
-#define mk_sl_flt_parse_inl_defhd_prefix mk_lang_concat(mk_sl_flt_parse_, mk_sl_flt_parse_inl_defcd_name)
+#define mk_sl_flt_parse_inl_defhd_prefix mk_lang_concat(mk_sl_flt_parse_, mk_sl_flt_parse_inl_defhd_name)
 
 #define mk_sl_flt_parse_inl_defhd_uchars_from_string_dec_n mk_lang_concat(mk_sl_flt_parse_inl_defhd_prefix, _uchars_from_string_dec_n)
 #define mk_sl_flt_parse_inl_defhd_void_from_string_dec_n mk_lang_concat(mk_sl_flt_parse_inl_defhd_prefix, _void_from_string_dec_n)
