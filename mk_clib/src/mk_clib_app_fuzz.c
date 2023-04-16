@@ -31,28 +31,34 @@ mk_lang_jumbo mk_lang_size_t mk_clib_app_fuzz_mutate(unsigned char* const data, 
 {
 	if(size >= 4)
 	{
-		switch(seed % 4)
+		switch(seed % 5)
 		{
 			case 0:
-			{
-				return LLVMFuzzerMutate(data, size, size_max);
-			}
-			break;
-			case 1:
 			{
 				return size - 1;
 			}
 			break;
-			case 2:
+			case 1:
 			{
 				data[size - 2] = data[size - 1];
 				return size - 1;
 			}
 			break;
-			case 3:
+			case 2:
 			{
 				mk_lang_memmove_obj_uchar(data, data + 1, size - 1);
 				return size - 1;
+			}
+			break;
+			case 3:
+			{
+				mk_lang_memmove_obj_uchar(data + 1, data + 2, size - 2);
+				return size - 1;
+			}
+			break;
+			default:
+			{
+				return LLVMFuzzerMutate(data, size, size_max);
 			}
 			break;
 		}
