@@ -104,11 +104,11 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_flt_parse_inl_defcd_
 	mk_lang_constexpr_static char const s_plus = '+';
 	mk_lang_constexpr_static char const s_minus = '-';
 	mk_lang_constexpr_static char const s_dot = '.';
-	mk_lang_constexpr_static char const s_nan[] = {'n', 'a', 'n'};
 	mk_lang_constexpr_static char const s_inf[] = {'i', 'n', 'f'};
+	mk_lang_constexpr_static char const s_nan[] = {'n', 'a', 'n'};
 	mk_lang_constexpr_static char const s_symbols[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
-	mk_lang_constexpr_static int const s_nan_len = arr_len(s_nan);
 	mk_lang_constexpr_static int const s_inf_len = arr_len(s_inf);
+	mk_lang_constexpr_static int const s_nan_len = arr_len(s_nan);
 	mk_lang_constexpr_static int const s_symbols_len = arr_len(s_symbols);
 
 	char const* ptr mk_lang_constexpr_init;
