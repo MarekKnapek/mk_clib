@@ -1,5 +1,11 @@
 #undef mk_sl_flt_parse_inl_defhd_name
 #undef mk_sl_flt_parse_inl_defhd_prefix
 
+#undef mk_sl_flt_parse_inl_defhd_result_e
+#undef mk_sl_flt_parse_inl_defhd_result_t
+#undef mk_sl_flt_parse_inl_defhd_result_e_ok
+#undef mk_sl_flt_parse_inl_defhd_result_e_invalid
+#undef mk_sl_flt_parse_inl_defhd_result_e_out_of_range
+
 #undef mk_sl_flt_parse_inl_defhd_uchars_from_string_dec_n
 #undef mk_sl_flt_parse_inl_defhd_void_from_string_dec_n

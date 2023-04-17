@@ -3,6 +3,12 @@
 #undef mk_sl_flt_parse_inl_defcd_fraction_bits
 #undef mk_sl_flt_parse_inl_defcd_prefix
 
+#undef mk_sl_flt_parse_inl_defcd_result_e
+#undef mk_sl_flt_parse_inl_defcd_result_t
+#undef mk_sl_flt_parse_inl_defcd_result_e_ok
+#undef mk_sl_flt_parse_inl_defcd_result_e_invalid
+#undef mk_sl_flt_parse_inl_defcd_result_e_out_of_range
+
 #undef mk_sl_flt_parse_inl_defcd_uchars_from_string_dec_n
 #undef mk_sl_flt_parse_inl_defcd_void_from_string_dec_n
 
@@ -10,8 +16,13 @@
 #undef mk_sl_flt_parse_inl_defcd_generate_inf
 #undef mk_sl_flt_parse_inl_defcd_generate_nan
 #undef mk_sl_flt_parse_inl_defcd_generate_number
-#undef mk_sl_flt_parse_inl_defcd_all_of
 #undef mk_sl_flt_parse_inl_defcd_char_to_digit
+#undef mk_sl_flt_parse_inl_defcd_all_of
+#undef mk_sl_flt_parse_inl_defcd_get_plus_minus
+#undef mk_sl_flt_parse_inl_defcd_get_inf
+#undef mk_sl_flt_parse_inl_defcd_get_nan
+#undef mk_sl_flt_parse_inl_defcd_get_leading_zeros
+#undef mk_sl_flt_parse_inl_defcd_get_big_int
 
 #undef mk_sl_flt_parse_inl_defcd_exponent_bits
 #undef mk_sl_flt_parse_inl_defcd_exponent_bias

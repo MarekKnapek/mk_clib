@@ -27,7 +27,7 @@ extern "C"
 #include <charconv> /* std::from_chars */
 
 
-mk_lang_extern_c mk_lang_jumbo void mk_sl_flt_parse_fuzz(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+mk_lang_extern_c void mk_sl_flt_parse_fuzz(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
 {
 	#define test(x) if(!(x)) mk_lang_unlikely mk_lang_crash(); ((void)(0))
 
@@ -40,38 +40,40 @@ mk_lang_extern_c mk_lang_jumbo void mk_sl_flt_parse_fuzz(unsigned char const* co
 		char const* d;
 		int s;
 		float fa;
-		int n;
-		std::from_chars_result res;
+		int c;
+		mk_sl_flt_parse_fzflt_result_t ra;
+		std::from_chars_result rb;
 		float fb;
 
 		d = ((char const*)(data));
 		s = ((int)(size));
-		n = mk_sl_flt_parse_fzflt_void_from_string_dec_n(&fa, d, s);
-		mk_lang_assert(n >= 0 && n <= s);
-		if(n == 0) break;
-		res = std::from_chars(d + (d[0] == '+' ? 1 : 0), d + n, fb);
-		mk_lang_assert(res.ec == std::errc::result_out_of_range || res.ec == std::errc{});
+		mk_sl_flt_parse_fzflt_void_from_string_dec_n(&fa, d, s, &c, &ra);
+		mk_lang_assert(c >= 0 && c <= s);
+		if(ra == mk_sl_flt_parse_fzflt_result_e_invalid) break; /* todo test also invalid */
+		rb = std::from_chars(d + ((d[0] == '+') ? 1 : 0), d + c, fb); /* todo test s length */
+		mk_lang_assert((rb.ec == std::errc{} && ra == mk_sl_flt_parse_fzflt_result_e_ok) || (rb.ec == std::errc::result_out_of_range && ra == mk_sl_flt_parse_fzflt_result_e_out_of_range));
 		test((fa == fb) || (fa != fa && fb != fb));
-		test(res.ptr == d + n);
+		test(rb.ptr == d + c);
 	}while(0);
 	do
 	{
 		char const* d;
 		int s;
 		double fa;
-		int n;
-		std::from_chars_result res;
+		int c;
+		mk_sl_flt_parse_fzdbl_result_t ra;
+		std::from_chars_result rb;
 		double fb;
 
 		d = ((char const*)(data));
 		s = ((int)(size));
-		n = mk_sl_flt_parse_fzdbl_void_from_string_dec_n(&fa, d, s);
-		mk_lang_assert(n >= 0 && n <= s);
-		if(n == 0) break;
-		res = std::from_chars(d + (d[0] == '+' ? 1 : 0), d + n, fb);
-		mk_lang_assert(res.ec == std::errc::result_out_of_range || res.ec == std::errc{});
+		mk_sl_flt_parse_fzdbl_void_from_string_dec_n(&fa, d, s, &c, &ra);
+		mk_lang_assert(c >= 0 && c <= s);
+		if(ra == mk_sl_flt_parse_fzdbl_result_e_invalid) break; /* todo test also invalid */
+		rb = std::from_chars(d + ((d[0] == '+') ? 1 : 0), d + c, fb); /* todo test s length */
+		mk_lang_assert((rb.ec == std::errc{} && ra == mk_sl_flt_parse_fzdbl_result_e_ok) || (rb.ec == std::errc::result_out_of_range && ra == mk_sl_flt_parse_fzdbl_result_e_out_of_range));
 		test((fa == fb) || (fa != fa && fb != fb));
-		test(res.ptr == d + n);
+		test(rb.ptr == d + c);
 	}while(0);
 
 	#undef test
