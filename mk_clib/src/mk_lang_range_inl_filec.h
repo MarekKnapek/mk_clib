@@ -21,7 +21,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_range_i
 	mk_lang_size_t i;
 
 	acc = 0;
-	for(it = beign; it != end; ++it)
+	for(it = begin; it != end; ++it)
 	{
 		ptr = ((unsigned char const volatile*)(it));
 		for(i = 0; i != sizeof(*it); ++i)
@@ -42,7 +42,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_range_i
 {
 	mk_lang_assert(begin || size == 0);
 
-	return mk_lang_range_is_valid_ptr_size(begin, begin + size);
+	return mk_lang_range_is_valid_ptr_ptr(begin, begin + size);
 }
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_range_is_valid_ptr_int(mk_lang_range_t const* const begin, int const size) mk_lang_noexcept
