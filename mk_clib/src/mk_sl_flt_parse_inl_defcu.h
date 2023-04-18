@@ -23,6 +23,7 @@
 #undef mk_sl_flt_parse_inl_defcd_get_nan
 #undef mk_sl_flt_parse_inl_defcd_get_leading_zeros
 #undef mk_sl_flt_parse_inl_defcd_get_big_int
+#undef mk_sl_flt_parse_inl_defcd_big_int_to_float
 
 #undef mk_sl_flt_parse_inl_defcd_exponent_bits
 #undef mk_sl_flt_parse_inl_defcd_exponent_bias

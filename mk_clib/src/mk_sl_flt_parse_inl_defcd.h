@@ -31,6 +31,7 @@
 #define mk_sl_flt_parse_inl_defcd_get_nan mk_lang_concat(mk_sl_flt_parse_inl_defcd_prefix, _get_nan)
 #define mk_sl_flt_parse_inl_defcd_get_leading_zeros mk_lang_concat(mk_sl_flt_parse_inl_defcd_prefix, _get_leading_zeros)
 #define mk_sl_flt_parse_inl_defcd_get_big_int mk_lang_concat(mk_sl_flt_parse_inl_defcd_prefix, _get_big_int)
+#define mk_sl_flt_parse_inl_defcd_big_int_to_float mk_lang_concat(mk_sl_flt_parse_inl_defcd_prefix, _big_int_to_float)
 
 #define mk_sl_flt_parse_inl_defcd_exponent_bits (mk_sl_flt_parse_inl_defcd_bits - 1 - mk_sl_flt_parse_inl_defcd_fraction_bits)
 #define mk_sl_flt_parse_inl_defcd_exponent_bias (mk_lang_pow(2, mk_sl_flt_parse_inl_defcd_exponent_bits - 1) - 1)
