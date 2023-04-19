@@ -212,7 +212,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_bool_t mk_sl_f
 	char const* ptr mk_lang_constexpr_init;
 	int rem mk_lang_constexpr_init;
 	char e mk_lang_constexpr_init;
-	mk_lang_bool_t have_something mk_lang_constexpr_init;
+	mk_lang_bool_t have_zero mk_lang_constexpr_init;
 
 	ptr = *str;
 	rem = *str_len;
@@ -220,7 +220,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_bool_t mk_sl_f
 	e = *ptr;
 	++ptr;
 	--rem;
-	have_something = e == s_zero;
+	have_zero = e == s_zero;
 	while(e == s_zero && rem != 0)
 	{
 		e = *ptr;
@@ -231,7 +231,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_bool_t mk_sl_f
 	rem += ((e != s_zero) ? 1 : 0);
 	*str = ptr;
 	*str_len = rem;
-	return have_something;
+	return have_zero;
 }
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_sl_flt_parse_inl_defcd_result_t mk_sl_flt_parse_inl_defcd_get_big_int(char const** const str, int* const str_len, mk_sl_flt_parse_inl_defcd_big_t* const big) mk_lang_noexcept
@@ -412,9 +412,11 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_flt_parse_inl_defcd_uchars_from_strin
 	char const* ptr mk_lang_constexpr_init;
 	int rem mk_lang_constexpr_init;
 	mk_lang_bool_t is_negative mk_lang_constexpr_init;
-	mk_lang_bool_t have_something mk_lang_constexpr_init;
+	mk_lang_bool_t have_zero mk_lang_constexpr_init;
+	mk_sl_flt_parse_inl_defcd_result_t before_dot mk_lang_constexpr_init;
 	mk_sl_flt_parse_inl_defcd_big_t big1 mk_lang_constexpr_init;
 	mk_lang_bool_t is_too_big mk_lang_constexpr_init;
+	mk_sl_flt_parse_inl_defcd_big_t big2 mk_lang_constexpr_init;
 
 	mk_lang_assert(x);
 	mk_lang_assert(str || str_len == 0);
@@ -458,60 +460,54 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_flt_parse_inl_defcd_uchars_from_strin
 		return;
 	}
 	mk_lang_assert(rem > 0);
-	have_something = mk_sl_flt_parse_inl_defcd_get_leading_zeros(&ptr, &rem);
-	switch(mk_sl_flt_parse_inl_defcd_get_big_int(&ptr, &rem, &big1))
+	have_zero = mk_sl_flt_parse_inl_defcd_get_leading_zeros(&ptr, &rem);
+	before_dot = mk_sl_flt_parse_inl_defcd_get_big_int(&ptr, &rem, &big1);
+	if(before_dot == mk_sl_flt_parse_inl_defcd_result_e_invalid && have_zero)
 	{
-		case mk_sl_flt_parse_inl_defcd_result_e_ok:
-		{
-			/* intentionally left blank */
-		}
-		break;
-		case mk_sl_flt_parse_inl_defcd_result_e_invalid:
-		{
-			if(have_something)
-			{
-				mk_sl_flt_parse_inl_defcd_generate_zero(is_negative, x);
-				mk_lang_assert(((int)(ptr - str)) == (str_len - rem));
-				*consummed = str_len - rem;
-				*result = mk_sl_flt_parse_inl_defcd_result_e_ok;
-				return;
-			}
-			else
-			{
-				mk_lang_assert(((int)(ptr - str)) == (str_len - rem));
-				*consummed = str_len - rem;
-				*result = mk_sl_flt_parse_inl_defcd_result_e_invalid;
-				return;
-			}
-		}
-		break;
-		case mk_sl_flt_parse_inl_defcd_result_e_out_of_range:
-		{
-			mk_sl_flt_parse_inl_defcd_generate_inf(is_negative, x);
-			mk_lang_assert(((int)(ptr - str)) == (str_len - rem));
-			*consummed = str_len - rem;
-			*result = mk_sl_flt_parse_inl_defcd_result_e_out_of_range;
-			return;
-		}
-		break;
-	}
-	if(rem == 0)
-	{
-		is_too_big = mk_sl_flt_parse_inl_defcd_big_int_to_float(&big1, is_negative, x);
+		mk_sl_flt_parse_inl_defcd_generate_zero(is_negative, x);
 		mk_lang_assert(((int)(ptr - str)) == (str_len - rem));
 		*consummed = str_len - rem;
-		*result = is_too_big ? mk_sl_flt_parse_inl_defcd_result_e_out_of_range : mk_sl_flt_parse_inl_defcd_result_e_ok;
+		*result = mk_sl_flt_parse_inl_defcd_result_e_ok;
 		return;
-		}
-	if(*ptr != s_dot)
+	}
+	if(before_dot == mk_sl_flt_parse_inl_defcd_result_e_invalid && !have_zero)
 	{
+		mk_lang_assert(((int)(ptr - str)) == (str_len - rem));
+		*consummed = str_len - rem;
+		*result = mk_sl_flt_parse_inl_defcd_result_e_invalid;
+		return;
+	}
+	if(before_dot == mk_sl_flt_parse_inl_defcd_result_e_out_of_range)
+	{
+		mk_sl_flt_parse_inl_defcd_generate_inf(is_negative, x);
+		mk_lang_assert(((int)(ptr - str)) == (str_len - rem));
+		*consummed = str_len - rem;
+		*result = mk_sl_flt_parse_inl_defcd_result_e_out_of_range;
+		return;
+	}
+	mk_lang_assert(before_dot == mk_sl_flt_parse_inl_defcd_result_e_ok);
+	if(rem == 0 || *ptr != s_dot || rem == 1)
+	{
+		ptr += ((!(rem == 0 || *ptr != s_dot)) ? 1 : 0);
+		rem -= ((!(rem == 0 || *ptr != s_dot)) ? 1 : 0);
 		is_too_big = mk_sl_flt_parse_inl_defcd_big_int_to_float(&big1, is_negative, x);
 		mk_lang_assert(((int)(ptr - str)) == (str_len - rem));
 		*consummed = str_len - rem;
 		*result = is_too_big ? mk_sl_flt_parse_inl_defcd_result_e_out_of_range : mk_sl_flt_parse_inl_defcd_result_e_ok;
 		return;
 	}
-	mk_lang_assert(0); /* todo dot */
+	mk_lang_assert(rem > 1);
+	mk_lang_assert(*ptr == s_dot);
+	++ptr;
+	--rem;
+	mk_lang_assert(rem > 0);
+	/*
+	todo
+	continue parsing digits
+	remember how many digits after dot
+	beware of zero before dot
+	continue parsing even after have enuf bits becase tailing bits and return end iterator
+	*/
 }
 
 mk_lang_jumbo void mk_sl_flt_parse_inl_defcd_void_from_string_dec_n(void* const x, char const* const str, int const str_len, int* const consummed, mk_sl_flt_parse_inl_defcd_result_t* const result) mk_lang_noexcept
