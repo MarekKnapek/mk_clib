@@ -15,6 +15,11 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_convert_inl_defd_fn_a_to_b(mk_sl_
 	mk_lang_assert(b);
 
 	b->m_data[0] = ((mk_sl_cui_convert_inl_defd_b_base_t)(a->m_data[0]));
+#elif mk_sl_cui_convert_inl_defd_a_base_is_bui == 1 && mk_sl_cui_convert_inl_defd_b_base_is_bui == 1 && mk_sl_cui_convert_inl_defd_a_base_bits == mk_sl_cui_convert_inl_defd_b_base_bits && mk_sl_cui_convert_inl_defd_b_count == 1
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	b->m_data[0] = ((mk_sl_cui_convert_inl_defd_b_base_t)(a->m_data[mk_sl_cui_convert_inl_defd_a_idx(0)]));
 #elif mk_sl_cui_convert_inl_defd_a_base_is_bui == 1 && mk_sl_cui_convert_inl_defd_b_base_is_bui == 1 && mk_sl_cui_convert_inl_defd_a_base_bits == mk_sl_cui_convert_inl_defd_b_base_bits
 	int i mk_lang_constexpr_init;
 
