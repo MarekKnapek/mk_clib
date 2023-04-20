@@ -113,10 +113,10 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_bool_t mk_sl_f
 	return mk_lang_true;
 }
 
-mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_bool_t mk_sl_flt_parse_inl_defcd_get_plus_minus(char const** const str, int* const str_len) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_bool_t mk_sl_flt_parse_inl_defcd_get_minus_plus(char const** const str, int* const str_len) mk_lang_noexcept
 {
-	mk_lang_constexpr_static char const s_plus = '+';
 	mk_lang_constexpr_static char const s_minus = '-';
+	mk_lang_constexpr_static char const s_plus = '+';
 
 	char const* ptr mk_lang_constexpr_init;
 	int rem mk_lang_constexpr_init;
@@ -132,13 +132,13 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_bool_t mk_sl_f
 	e = *ptr;
 	++ptr;
 	--rem;
-	if(e == s_plus)
-	{
-		is_negative = mk_lang_false;
-	}
-	else if(e == s_minus)
+	if(e == s_minus)
 	{
 		is_negative = mk_lang_true;
+	}
+	else if(e == s_plus)
+	{
+		is_negative = mk_lang_false;
 	}
 	else
 	{

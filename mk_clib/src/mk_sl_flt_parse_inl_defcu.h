@@ -18,7 +18,7 @@
 #undef mk_sl_flt_parse_inl_defcd_generate_number
 #undef mk_sl_flt_parse_inl_defcd_char_to_digit
 #undef mk_sl_flt_parse_inl_defcd_all_of
-#undef mk_sl_flt_parse_inl_defcd_get_plus_minus
+#undef mk_sl_flt_parse_inl_defcd_get_minus_plus
 #undef mk_sl_flt_parse_inl_defcd_get_inf
 #undef mk_sl_flt_parse_inl_defcd_get_nan
 #undef mk_sl_flt_parse_inl_defcd_get_leading_zeros
