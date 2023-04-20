@@ -12,7 +12,7 @@
 #include "mk_lang_range_inl_defd.h"
 
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_range_is_valid_ptr_ptr(mk_lang_range_t const* const begin, mk_lang_range_t const* const end) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_range_is_valid_ro_ptr_ptr(mk_lang_range_t const* const begin, mk_lang_range_t const* const end) mk_lang_noexcept
 {
 #if !defined NDEBUG && !mk_lang_constexpr_has
 	unsigned acc;
@@ -38,21 +38,59 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_range_i
 #endif
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_range_is_valid_ptr_size(mk_lang_range_t const* const begin, mk_lang_size_t const size) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_range_is_valid_ro_ptr_size(mk_lang_range_t const* const begin, mk_lang_size_t const size) mk_lang_noexcept
 {
 	mk_lang_assert(begin || size == 0);
 
-	return mk_lang_range_is_valid_ptr_ptr(begin, begin + size);
+	return mk_lang_range_is_valid_ro_ptr_ptr(begin, begin + size);
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_range_is_valid_ptr_int(mk_lang_range_t const* const begin, int const size) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_range_is_valid_ro_ptr_int(mk_lang_range_t const* const begin, int const size) mk_lang_noexcept
 {
 	mk_lang_static_assert(mk_lang_sizeof_bi_size_t >= mk_lang_sizeof_bi_sint_t);
 
 	mk_lang_assert(begin || size == 0);
 	mk_lang_assert(size >= 0);
 
-	return mk_lang_range_is_valid_ptr_size(begin, ((mk_lang_size_t)(size)));
+	return mk_lang_range_is_valid_ro_ptr_size(begin, ((mk_lang_size_t)(size)));
+}
+
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_range_is_valid_rw_ptr_ptr(mk_lang_range_t* const begin, mk_lang_range_t const* const end) mk_lang_noexcept
+{
+#if !defined NDEBUG && !mk_lang_constexpr_has
+	mk_lang_range_t	volatile* it;
+	unsigned char volatile* ptr;
+	mk_lang_size_t i;
+
+	if(!mk_lang_range_is_valid_ro_ptr_ptr(begin, end))
+	{
+		return mk_lang_false;
+	}
+	for(it = begin; it != end; ++it)
+	{
+		ptr = ((unsigned char volatile*)(it));
+		for(i = 0; i != sizeof(*it); ++i)
+		{
+			ptr[i] = 0x00u;
+		}
+	}
+	return mk_lang_true;
+#else
+	((void)(begin));
+	((void)(end));
+	return mk_lang_true;
+#endif
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_range_is_valid_rw_ptr_size(mk_lang_range_t* const begin, mk_lang_size_t const size) mk_lang_noexcept
+{
+	return mk_lang_range_is_valid_rw_ptr_ptr(begin, begin + size);
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_range_is_valid_rw_ptr_int(mk_lang_range_t* const begin, int const size) mk_lang_noexcept
+{
+	return mk_lang_range_is_valid_rw_ptr_size(begin, ((mk_lang_size_t)(size)));
 }
 
 
