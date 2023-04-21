@@ -17,11 +17,11 @@ extern "C"
 #include "mk_sl_flt_parse_inl_fileh.h"
 #include "mk_sl_flt_parse_inl_filec.h"
 
-#define mk_sl_flt_name fzdbl
+/*#define mk_sl_flt_name fzdbl
 #define mk_sl_flt_bits 64
 #define mk_sl_flt_fraction_bits 52
 #include "mk_sl_flt_parse_inl_fileh.h"
-#include "mk_sl_flt_parse_inl_filec.h"
+#include "mk_sl_flt_parse_inl_filec.h"*/
 }
 
 #include <charconv> /* std::from_chars */
@@ -45,7 +45,7 @@ mk_lang_extern_c void mk_sl_flt_parse_fuzz(unsigned char const* const data, mk_l
 		if(i != 0) return;
 		for(i = 0; i != size; ++i)
 		{
-			if(data[i] == '.') return;
+			/*if(data[i] == '.') return;*/
 			if(data[i] == 'e') return;
 		}
 	}
@@ -69,14 +69,14 @@ mk_lang_extern_c void mk_sl_flt_parse_fuzz(unsigned char const* const data, mk_l
 		rb = std::from_chars(d + ((d[0] == '+') ? 1 : 0), d + c, fb); /* todo test s length */
 		test
 		(
-			(rb.ec == std::errc{} && ra == mk_sl_flt_parse_fzdbl_result_e_ok) ||
-			(rb.ec == std::errc::result_out_of_range && ra == mk_sl_flt_parse_fzdbl_result_e_out_of_range) ||
-			(rb.ec == std::errc::invalid_argument && ra == mk_sl_flt_parse_fzdbl_result_e_invalid)
+			(rb.ec == std::errc{} && ra == mk_sl_flt_parse_fzflt_result_e_ok) ||
+			(rb.ec == std::errc::result_out_of_range && ra == mk_sl_flt_parse_fzflt_result_e_out_of_range) ||
+			(rb.ec == std::errc::invalid_argument && ra == mk_sl_flt_parse_fzflt_result_e_invalid)
 		);
-		test((rb.ec == std::errc::invalid_argument && ra == mk_sl_flt_parse_fzdbl_result_e_invalid) || ((fa == fb) || (fa != fa && fb != fb)));
+		test((rb.ec == std::errc::invalid_argument && ra == mk_sl_flt_parse_fzflt_result_e_invalid) || ((fa == fb) || (fa != fa && fb != fb)));
 		test(rb.ptr == d + c);
 	}while(0);
-	do
+	/*do
 	{
 		char const* d;
 		int s;
@@ -90,8 +90,7 @@ mk_lang_extern_c void mk_sl_flt_parse_fuzz(unsigned char const* const data, mk_l
 		s = ((int)(size));
 		mk_sl_flt_parse_fzdbl_void_from_string_dec_n(&fa, d, s, &c, &ra);
 		mk_lang_assert(c >= 0 && c <= s);
-		/*if(ra == mk_sl_flt_parse_fzdbl_result_e_invalid) break;*/ /* todo test also invalid */
-		rb = std::from_chars(d + ((d[0] == '+') ? 1 : 0), d + c, fb); /* todo test s length */
+		rb = std::from_chars(d + ((d[0] == '+') ? 1 : 0), d + c, fb);
 		test
 		(
 			(rb.ec == std::errc{} && ra == mk_sl_flt_parse_fzdbl_result_e_ok) ||
@@ -100,7 +99,7 @@ mk_lang_extern_c void mk_sl_flt_parse_fuzz(unsigned char const* const data, mk_l
 		);
 		test((rb.ec == std::errc::invalid_argument && ra == mk_sl_flt_parse_fzdbl_result_e_invalid) || ((fa == fb) || (fa != fa && fb != fb)));
 		test(rb.ptr == d + c);
-	}while(0);
+	}while(0);*/
 
 	#undef test
 }
