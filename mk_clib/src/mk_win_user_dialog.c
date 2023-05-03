@@ -15,7 +15,6 @@
 #include "mk_win_user_window.h"
 
 
-
 union mk_win_user_dialog_fonts_u
 {
 	mk_win_gdi_font_a_t m_a;
@@ -26,8 +25,11 @@ typedef mk_win_base_sintptr_t(mk_win_base_stdcall*mk_win_user_dialog_dlgproc_t)(
 
 
 mk_win_base_dll_import mk_win_base_sintptr_t mk_win_base_stdcall DialogBoxIndirectParamA(mk_win_base_instance_t, mk_win_user_dialog_dlg_template_lpct, mk_win_user_window_t, mk_win_user_dialog_dlgproc_t, mk_win_user_window_lparam_t) mk_lang_noexcept;
+mk_win_base_dll_import int mk_win_base_stdcall MessageBoxA(mk_win_user_window_t, mk_win_base_pchar_lpct, mk_win_base_pchar_lpct, mk_win_base_uint_t) mk_lang_noexcept;
+
 mk_win_base_dll_import mk_win_base_sintptr_t mk_win_base_stdcall DialogBoxIndirectParamW(mk_win_base_instance_t, mk_win_user_dialog_dlg_template_lpct, mk_win_user_window_t, mk_win_user_dialog_dlgproc_t, mk_win_user_window_lparam_t) mk_lang_noexcept;
-mk_win_base_dll_import mk_win_user_window_lresult_t mk_win_base_stdcall DefDlgProcW(mk_win_user_window_t, mk_win_base_uint_t, mk_win_user_window_wparam_t, mk_win_user_window_lparam_t) mk_lang_noexcept;
+mk_win_base_dll_import int mk_win_base_stdcall MessageBoxW(mk_win_user_window_t, mk_win_base_wchar_lpct, mk_win_base_wchar_lpct, mk_win_base_uint_t) mk_lang_noexcept;
+
 mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall EndDialog(mk_win_user_window_t, mk_win_base_sintptr_t) mk_lang_noexcept;
 mk_win_base_dll_import mk_win_user_window_t mk_win_base_stdcall GetDlgItem(mk_win_user_window_t, int) mk_lang_noexcept;
 mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall GetWindowRect(mk_win_user_window_t, mk_win_base_rect_lpt) mk_lang_noexcept;
@@ -58,6 +60,14 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_sintptr_t mk_win_user_dialog_a_indir
 	return res;
 }
 
+mk_lang_nodiscard mk_lang_jumbo int mk_win_user_dialog_a_msgbox(mk_win_user_window_t const parent, mk_win_base_pchar_lpct const text, mk_win_base_pchar_lpct const caption, mk_win_user_dialog_messagebox_t const type) mk_lang_noexcept
+{
+	int button;
+
+	button = MessageBoxA(parent, text, caption, ((mk_win_base_uint_t)(type)));
+	return button;
+}
+
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_sintptr_t mk_win_user_dialog_w_indirect_param(mk_win_base_instance_t const instance, mk_win_user_dialog_dlg_template_lpct const dlg, mk_win_user_window_t const parent, mk_win_user_dialog_dlgproc_t const proc, mk_win_user_window_lparam_t const param) mk_lang_noexcept
 {
@@ -73,6 +83,14 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_sintptr_t mk_win_user_dialog_w_indir
 
 	res = DialogBoxIndirectParamW(instance, ((mk_win_user_dialog_dlg_template_lpct)(dlg)), parent, proc, param);
 	return res;
+}
+
+mk_lang_nodiscard mk_lang_jumbo int mk_win_user_dialog_w_msgbox(mk_win_user_window_t const parent, mk_win_base_wchar_lpct const text, mk_win_base_wchar_lpct const caption, mk_win_user_dialog_messagebox_t const type) mk_lang_noexcept
+{
+	int button;
+
+	button = MessageBoxW(parent, text, caption, ((mk_win_base_uint_t)(type)));
+	return button;
 }
 
 
@@ -133,6 +151,37 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_sintptr_t mk_win_user_dialog_t_indir
 			return mk_win_user_dialog_w_indirect_param_ex(instance, dlg, parent, proc, param);
 		#else
 			return mk_win_user_dialog_w_indirect_param_ex(instance, dlg, parent, proc, param);
+		#endif
+	}
+#endif
+}
+
+mk_lang_nodiscard mk_lang_jumbo int mk_win_user_dialog_t_msgbox(mk_win_user_window_t const parent, mk_win_tstring_tchar_lpct const text, mk_win_tstring_tchar_lpct const caption, mk_win_user_dialog_messagebox_t const type) mk_lang_noexcept
+{
+#if mk_win_unicode_api == mk_win_unicode_api_oold
+#elif mk_win_unicode_api == mk_win_unicode_api_ansi && mk_win_tstring_enc == mk_win_tstring_enc_ansi
+	return mk_win_user_dialog_a_msgbox(parent, text, caption, type);
+#elif mk_win_unicode_api == mk_win_unicode_api_ansi && mk_win_tstring_enc != mk_win_tstring_enc_ansi
+	return mk_win_user_dialog_a_msgbox(parent, mk_win_tstring_tstr_to_ansi_zt_nofail(text).m_str, mk_win_tstring_tstr_to_ansi_zt_nofail(caption).m_str, type);
+#elif mk_win_unicode_api == mk_win_unicode_api_wide && mk_win_tstring_enc == mk_win_tstring_enc_wide
+	return mk_win_user_dialog_w_msgbox(parent, text, caption, type);
+#elif mk_win_unicode_api == mk_win_unicode_api_wide && mk_win_tstring_enc != mk_win_tstring_enc_wide
+	return mk_win_user_dialog_w_msgbox(parent, mk_win_tstring_tstr_to_wide_zt_nofail(text).m_str, mk_win_tstring_tstr_to_wide_zt_nofail(caption).m_str, type);
+#elif mk_win_unicode_api == mk_win_unicode_api_both
+	if(!mk_win_unicode_api_is_wide())
+	{
+		#if mk_win_tstring_enc == mk_win_tstring_enc_ansi
+			return mk_win_user_dialog_a_msgbox(parent, text, caption, type);
+		#else
+			return mk_win_user_dialog_a_msgbox(parent, mk_win_tstring_tstr_to_ansi_zt_nofail(text).m_str, mk_win_tstring_tstr_to_ansi_zt_nofail(caption).m_str, type);
+		#endif
+	}
+	else
+	{
+		#if mk_win_tstring_enc == mk_win_tstring_enc_wide
+			return mk_win_user_dialog_w_msgbox(parent, text, caption, type);
+		#else
+			return mk_win_user_dialog_w_msgbox(parent, mk_win_tstring_tstr_to_wide_zt_nofail(text).m_str, mk_win_tstring_tstr_to_wide_zt_nofail(caption).m_str, type);
 		#endif
 	}
 #endif
@@ -242,8 +291,8 @@ mk_lang_jumbo mk_win_user_dialog_two_ints_t mk_win_user_dialog_get_ctrl_size_any
   dlg->m_style_ex = 0;
   dlg->m_style = mk_win_user_dialog_style_e_shellfont | mk_win_user_window_style_e_overlappedwindow;
   dlg->m_count = 1;
-  dlg->m_x = 100;
-  dlg->m_y = 200;
+  dlg->m_left = 100;
+  dlg->m_top = 200;
   dlg->m_width = 300;
   dlg->m_height = 400;
   dlg->m_menu = 0;

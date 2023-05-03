@@ -189,8 +189,6 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_tstring_mem_with_size_pt mk_win_tstring_g
 mk_lang_jumbo void mk_win_tstring_resize_mws(mk_lang_exception_pt const ex, mk_win_tstring_mem_with_size_pt const mws, int const size_bytes) mk_lang_noexcept
 {
 	mk_win_base_void_lpt new_mem;
-	mk_win_base_size_t new_size_bytes_;
-	int new_size_bytes;
 
 	mk_lang_assert(ex);
 	mk_lang_assert(mws);
@@ -202,22 +200,16 @@ mk_lang_jumbo void mk_win_tstring_resize_mws(mk_lang_exception_pt const ex, mk_w
 		mk_win_main_heap_allocate(ex, size_bytes, &new_mem);
 		mk_lang_exception_if_is_return(ex);
 		mk_lang_assert(new_mem);
-		mk_win_main_heap_size(new_mem, &new_size_bytes_);
-		new_size_bytes = ((int)(new_size_bytes_));
-		mk_lang_assert(new_size_bytes >= size_bytes);
 		mws->m_mem = new_mem;
-		mws->m_size_bytes = new_size_bytes;
+		mws->m_size_bytes = size_bytes;
 	}
 	else if(size_bytes > mws->m_size_bytes)
 	{
 		mk_win_main_heap_reallocate(ex, mws->m_mem, mws->m_size_bytes, size_bytes, &new_mem);
 		mk_lang_exception_if_is_return(ex);
 		mk_lang_assert(new_mem);
-		mk_win_main_heap_size(new_mem, &new_size_bytes_);
-		new_size_bytes = ((int)(new_size_bytes_));
-		mk_lang_assert(new_size_bytes >= size_bytes);
 		mws->m_mem = new_mem;
-		mws->m_size_bytes = new_size_bytes;
+		mws->m_size_bytes = size_bytes;
 	}
 }
 

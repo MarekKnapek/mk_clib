@@ -6,6 +6,7 @@
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_win_base.h"
+#include "mk_win_tstring.h"
 #include "mk_win_user_window.h"
 
 
@@ -116,6 +117,49 @@ enum mk_win_user_dialog_font_charset_e
 };
 typedef enum mk_win_user_dialog_font_charset_e mk_win_user_dialog_font_charset_t;
 
+enum mk_win_user_dialog_messagebox_e
+{
+	mk_win_user_dialog_messagebox_e_ok                        = 0x00000000ul,
+	mk_win_user_dialog_messagebox_e_okcancel                  = 0x00000001ul,
+	mk_win_user_dialog_messagebox_e_abortretryignore          = 0x00000002ul,
+	mk_win_user_dialog_messagebox_e_yesnocancel               = 0x00000003ul,
+	mk_win_user_dialog_messagebox_e_yesno                     = 0x00000004ul,
+	mk_win_user_dialog_messagebox_e_retrycancel               = 0x00000005ul,
+	mk_win_user_dialog_messagebox_e_canceltrycontinue         = 0x00000006ul, /* winver >= 0x0500 */
+	mk_win_user_dialog_messagebox_e_iconhand                  = 0x00000010ul,
+	mk_win_user_dialog_messagebox_e_iconquestion              = 0x00000020ul,
+	mk_win_user_dialog_messagebox_e_iconexclamation           = 0x00000030ul,
+	mk_win_user_dialog_messagebox_e_iconasterisk              = 0x00000040ul,
+	mk_win_user_dialog_messagebox_e_usericon                  = 0x00000080ul, /* winver >= 0x0400 */
+	mk_win_user_dialog_messagebox_e_iconerror                 = mk_win_user_dialog_messagebox_e_iconhand, /* winver >= 0x0400 */
+	mk_win_user_dialog_messagebox_e_iconwarning               = mk_win_user_dialog_messagebox_e_iconexclamation, /* winver >= 0x0400 */
+	mk_win_user_dialog_messagebox_e_iconinformation           = mk_win_user_dialog_messagebox_e_iconasterisk,
+	mk_win_user_dialog_messagebox_e_iconstop                  = mk_win_user_dialog_messagebox_e_iconhand,
+	mk_win_user_dialog_messagebox_e_defbutton1                = 0x00000000ul,
+	mk_win_user_dialog_messagebox_e_defbutton2                = 0x00000100ul,
+	mk_win_user_dialog_messagebox_e_defbutton3                = 0x00000200ul,
+	mk_win_user_dialog_messagebox_e_defbutton4                = 0x00000300ul, /* winver >= 0x0400 */
+	mk_win_user_dialog_messagebox_e_applmodal                 = 0x00000000ul,
+	mk_win_user_dialog_messagebox_e_systemmodal               = 0x00001000ul,
+	mk_win_user_dialog_messagebox_e_taskmodal                 = 0x00002000ul,
+	mk_win_user_dialog_messagebox_e_help                      = 0x00004000ul, /* winver >= 0x0400 */
+	mk_win_user_dialog_messagebox_e_nofocus                   = 0x00008000ul,
+	mk_win_user_dialog_messagebox_e_setforeground             = 0x00010000ul,
+	mk_win_user_dialog_messagebox_e_default_desktop_only      = 0x00020000ul,
+	mk_win_user_dialog_messagebox_e_topmost                   = 0x00040000ul, /* winver >= 0x0400 */
+	mk_win_user_dialog_messagebox_e_right                     = 0x00080000ul, /* winver >= 0x0400 */
+	mk_win_user_dialog_messagebox_e_rtlreading                = 0x00100000ul, /* winver >= 0x0400 */
+	mk_win_user_dialog_messagebox_e_service_notification      = 0x00200000ul, /* win32_winnt >= 0x0400 */
+	mk_win_user_dialog_messagebox_e_service_notification_nt3x = 0x00040000ul,
+	mk_win_user_dialog_messagebox_e_typemask                  = 0x0000000ful,
+	mk_win_user_dialog_messagebox_e_iconmask                  = 0x000000f0ul,
+	mk_win_user_dialog_messagebox_e_defmask                   = 0x00000f00ul,
+	mk_win_user_dialog_messagebox_e_modemask                  = 0x00003000ul,
+	mk_win_user_dialog_messagebox_e_miscmask                  = 0x0000c000ul,
+	mk_win_user_dialog_messagebox_e_dummy_end = 0
+};
+typedef enum mk_win_user_dialog_messagebox_e mk_win_user_dialog_messagebox_t;
+
 
 #if defined _MSC_VER
 #pragma pack(push, 1) /* todo rly needed? */
@@ -129,6 +173,11 @@ struct mk_win_user_dialog_dlg_template_s
 	mk_win_base_sshort_t m_top;
 	mk_win_base_sshort_t m_width;
 	mk_win_base_sshort_t m_height;
+	mk_win_base_word_t m_menu;
+	mk_win_base_word_t m_class;
+	mk_win_base_wchar_t m_title;
+	mk_win_base_word_t m_point_size;
+	mk_win_base_wchar_t m_typeface;
 };
 typedef struct mk_win_user_dialog_dlg_template_s mk_win_user_dialog_dlg_template_t;
 typedef mk_win_user_dialog_dlg_template_t const mk_win_user_dialog_dlg_template_ct;
@@ -154,6 +203,9 @@ struct mk_win_user_dialog_itm_template_s
 	mk_win_base_sshort_t m_width;
 	mk_win_base_sshort_t m_height;
 	mk_win_base_word_t m_id;
+	mk_win_base_word_t m_class[2];
+	mk_win_base_word_t m_title;
+	mk_win_base_word_t m_extra_count;
 };
 typedef struct mk_win_user_dialog_itm_template_s mk_win_user_dialog_itm_template_t;
 typedef mk_win_user_dialog_itm_template_t const mk_win_user_dialog_itm_template_ct;
@@ -178,8 +230,8 @@ struct mk_win_user_dialog_dlg_templateex_s
 	mk_win_base_dword_t m_style_ex;
 	mk_win_base_dword_t m_style;
 	mk_win_base_word_t m_count;
-	mk_win_base_sshort_t m_x;
-	mk_win_base_sshort_t m_y;
+	mk_win_base_sshort_t m_left;
+	mk_win_base_sshort_t m_top;
 	mk_win_base_sshort_t m_width;
 	mk_win_base_sshort_t m_height;
 	mk_win_base_word_t m_menu;
@@ -246,15 +298,18 @@ typedef mk_win_base_sintptr_t(mk_win_base_far mk_win_base_stdcall*mk_win_user_di
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_sintptr_t mk_win_user_dialog_a_indirect_param(mk_win_base_instance_t const instance, mk_win_user_dialog_dlg_template_lpct const dlg, mk_win_user_window_t const parent, mk_win_user_dialog_dlgproc_t const proc, mk_win_user_window_lparam_t const param) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_sintptr_t mk_win_user_dialog_a_indirect_param_ex(mk_win_base_instance_t const instance, mk_win_user_dialog_dlg_templateex_lpct const dlg, mk_win_user_window_t const parent, mk_win_user_dialog_dlgproc_t const proc, mk_win_user_window_lparam_t const param) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo int mk_win_user_dialog_a_msgbox(mk_win_user_window_t const parent, mk_win_base_pchar_lpct const text, mk_win_base_pchar_lpct const caption, mk_win_user_dialog_messagebox_t const type) mk_lang_noexcept;
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_sintptr_t mk_win_user_dialog_w_indirect_param(mk_win_base_instance_t const instance, mk_win_user_dialog_dlg_template_lpct const dlg, mk_win_user_window_t const parent, mk_win_user_dialog_dlgproc_t const proc, mk_win_user_window_lparam_t const param) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_sintptr_t mk_win_user_dialog_w_indirect_param_ex(mk_win_base_instance_t const instance, mk_win_user_dialog_dlg_templateex_lpct const dlg, mk_win_user_window_t const parent, mk_win_user_dialog_dlgproc_t const proc, mk_win_user_window_lparam_t const param) mk_lang_noexcept;
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_sintptr_t mk_win_user_dialog_t_indirect_param(mk_win_base_instance_t const instance, mk_win_user_dialog_dlg_template_lpct const dlg, mk_win_user_window_t const parent, mk_win_user_dialog_dlgproc_t const proc, mk_win_user_window_lparam_t const param) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_sintptr_t mk_win_user_dialog_t_indirect_param_ex(mk_win_base_instance_t const instance, mk_win_user_dialog_dlg_templateex_lpct const dlg, mk_win_user_window_t const parent, mk_win_user_dialog_dlgproc_t const proc, mk_win_user_window_lparam_t const param) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo int mk_win_user_dialog_w_msgbox(mk_win_user_window_t const parent, mk_win_base_wchar_lpct const text, mk_win_base_wchar_lpct const caption, mk_win_user_dialog_messagebox_t const type) mk_lang_noexcept;
 
 mk_lang_jumbo mk_win_base_bool_t mk_win_user_dialog_end(mk_win_user_window_t const dialog, mk_win_base_sintptr_t const result) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_user_window_t mk_win_user_dialog_get_item(mk_win_user_window_t const dialog, int const ctrl_id) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo int mk_win_user_dialog_t_msgbox(mk_win_user_window_t const parent, mk_win_tstring_tchar_lpct const text, mk_win_tstring_tchar_lpct const caption, mk_win_user_dialog_messagebox_t const type) mk_lang_noexcept;
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_void_lpct mk_win_user_dialog_get_ctrl_font(void) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_user_dialog_two_ints_t mk_win_user_dialog_get_ctrl_size_margins(mk_win_base_instance_t const instance) mk_lang_noexcept;

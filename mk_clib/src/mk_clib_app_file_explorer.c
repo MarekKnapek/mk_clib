@@ -18,6 +18,7 @@
 #include "mk_win_ctrl_impl_mprogressbar.h"
 #include "mk_win_gdi_font.h"
 #include "mk_win_kernel_files.h"
+#include "mk_win_kernel_system_information.h"
 #include "mk_win_main_heap.h"
 #include "mk_win_tstring.h"
 #include "mk_win_user_brush.h"
@@ -105,6 +106,8 @@ mk_win_base_dll_import mk_win_base_dword_t mk_win_base_stdcall GetTickCount(void
 static mk_win_user_window_wndproc_t g_mk_clib_app_file_explorer_prev_listbox_proc;
 
 
+mk_lang_nodiscard static mk_lang_inline int mk_clib_app_file_explorer_run_dialog(void) mk_lang_noexcept;
+mk_lang_nodiscard static mk_lang_inline int mk_clib_app_file_explorer_run_dialog_ex(void) mk_lang_noexcept;
 mk_lang_nodiscard static mk_lang_inline mk_win_base_sshort_t mk_clib_app_file_explorer_max_f(mk_win_base_sshort_t const a, mk_win_base_sshort_t const b) mk_lang_noexcept;
 static mk_lang_inline void* mk_clib_app_file_explorer_round_up_s(void const* ptr, mk_win_base_size_t const size) mk_lang_noexcept;
 static mk_lang_inline void* mk_clib_app_file_explorer_round_up_i(void const* ptr, int const size) mk_lang_noexcept;
@@ -132,6 +135,381 @@ static mk_win_base_sintptr_t mk_win_base_stdcall mk_clib_app_file_explorer_dlgpr
 
 
 mk_lang_jumbo int mk_clib_app_file_explorer_winmain(mk_win_base_instance_t const instance, mk_win_base_instance_t const previous, mk_win_tstring_tchar_lpct const cmd, int const show) mk_lang_noexcept
+{
+	mk_win_base_dword_t version;
+	mk_lang_bool_t nt;
+	unsigned char major;
+	unsigned char minor;
+	int ret;
+
+	mk_lang_assert(instance);
+	((void)(previous));
+	((void)(cmd));
+	((void)(show));
+
+	mk_lang_exception_test();
+	mk_win_main_heap_create();
+	mk_win_tstring_init();
+	InitCommonControls();
+	mk_win_ctrl_impl_mprogressbar_register();
+
+	g_instance = instance;
+	g_size_margin = mk_win_user_dialog_get_ctrl_size_margins(g_instance);
+	g_size_related_unrelated = mk_win_user_dialog_get_ctrl_size_related_unrelated(g_instance);
+	g_size_edit = mk_win_user_dialog_get_ctrl_size_edit(g_instance);
+	g_size_static = mk_win_user_dialog_get_ctrl_size_static(g_instance);
+	g_size_progressbar = mk_win_user_dialog_get_ctrl_size_progressbar(g_instance);
+
+	version = mk_win_kernel_system_information_get_version();
+	nt = (version >> 31) == 0;
+	major = ((unsigned char)((version >> 0) & 0xff));
+	minor = ((unsigned char)((version >> 8) & 0xff));
+	if(nt && (major > 3 || (major == 3 && minor >= 51)))
+	{
+		ret = mk_clib_app_file_explorer_run_dialog_ex();
+	}
+	else
+	{
+		ret = mk_clib_app_file_explorer_run_dialog();
+	}
+
+	mk_win_ctrl_impl_mprogressbar_unregister();
+	mk_win_tstring_deinit();
+	mk_win_main_heap_destroy();
+
+	return ret;
+}
+
+
+mk_lang_nodiscard static mk_lang_inline int mk_clib_app_file_explorer_run_dialog(void) mk_lang_noexcept
+{
+	static mk_win_base_wchar_t const s_msshelldlg[] = L"MS Shell Dlg";
+	static mk_win_base_wchar_t const s_window_title[] = L"File Explorer";
+	static mk_win_base_wchar_t const s_name_title[] = L"Name";
+	static mk_win_base_wchar_t const s_type_title[] = L"Type";
+	static mk_win_base_wchar_t const s_detail_title[] = L"Detail";
+	static mk_win_base_wchar_t const s_attributes_title[] = L"Attributes";
+	static int const s_msshelldlg_len = ((int)(sizeof(s_msshelldlg) / sizeof(s_msshelldlg[0])));
+	static int const s_window_title_len = ((int)(sizeof(s_window_title) / sizeof(s_window_title[0])));
+	static int const s_name_title_len = ((int)(sizeof(s_name_title) / sizeof(s_name_title[0])));
+	static int const s_type_title_len = ((int)(sizeof(s_type_title) / sizeof(s_type_title[0])));
+	static int const s_detail_title_len = ((int)(sizeof(s_detail_title) / sizeof(s_detail_title[0])));
+	static int const s_attributes_title_len = ((int)(sizeof(s_attributes_title) / sizeof(s_attributes_title[0])));
+
+	mk_win_base_sshort_t ctrl_listbox_x;
+	mk_win_base_sshort_t ctrl_listbox_y;
+	mk_win_base_sshort_t ctrl_listbox_w;
+	mk_win_base_sshort_t ctrl_listbox_h;
+	mk_win_base_sshort_t ctrl_static_name_label_x;
+	mk_win_base_sshort_t ctrl_static_name_label_y;
+	mk_win_base_sshort_t ctrl_static_name_label_w;
+	mk_win_base_sshort_t ctrl_static_name_label_h;
+	mk_win_base_sshort_t ctrl_edit_name_value_x;
+	mk_win_base_sshort_t ctrl_edit_name_value_y;
+	mk_win_base_sshort_t ctrl_edit_name_value_w;
+	mk_win_base_sshort_t ctrl_edit_name_value_h;
+	mk_win_base_sshort_t ctrl_static_type_label_x;
+	mk_win_base_sshort_t ctrl_static_type_label_y;
+	mk_win_base_sshort_t ctrl_static_type_label_w;
+	mk_win_base_sshort_t ctrl_static_type_label_h;
+	mk_win_base_sshort_t ctrl_edit_type_value_x;
+	mk_win_base_sshort_t ctrl_edit_type_value_y;
+	mk_win_base_sshort_t ctrl_edit_type_value_w;
+	mk_win_base_sshort_t ctrl_edit_type_value_h;
+	mk_win_base_sshort_t ctrl_static_detail_label_x;
+	mk_win_base_sshort_t ctrl_static_detail_label_y;
+	mk_win_base_sshort_t ctrl_static_detail_label_w;
+	mk_win_base_sshort_t ctrl_static_detail_label_h;
+	mk_win_base_sshort_t ctrl_edit_detail_value_x;
+	mk_win_base_sshort_t ctrl_edit_detail_value_y;
+	mk_win_base_sshort_t ctrl_edit_detail_value_w;
+	mk_win_base_sshort_t ctrl_edit_detail_value_h;
+	mk_win_base_sshort_t ctrl_static_attributes_label_x;
+	mk_win_base_sshort_t ctrl_static_attributes_label_y;
+	mk_win_base_sshort_t ctrl_static_attributes_label_w;
+	mk_win_base_sshort_t ctrl_static_attributes_label_h;
+	mk_win_base_sshort_t ctrl_static_attributes_value_x;
+	mk_win_base_sshort_t ctrl_static_attributes_value_y;
+	mk_win_base_sshort_t ctrl_static_attributes_value_w;
+	mk_win_base_sshort_t ctrl_static_attributes_value_h;
+	mk_win_base_sshort_t ctrl_listbox_attributes_x;
+	mk_win_base_sshort_t ctrl_listbox_attributes_y;
+	mk_win_base_sshort_t ctrl_listbox_attributes_w;
+	mk_win_base_sshort_t ctrl_listbox_attributes_h;
+	mk_win_base_sshort_t dlg_w;
+	mk_win_base_sshort_t dlg_h;
+	mk_win_user_dialog_dlg_template_pt dlg;
+	unsigned char template_buffer[1024];
+	int i;
+	mk_win_user_dialog_dlg_template_pt dlg2;
+	mk_win_user_dialog_itm_template_pt ctrl_listbox;
+	mk_win_user_dialog_itm_template_pt ctrl2;
+	mk_win_user_dialog_itm_template_pt ctrl_static_name_label;
+	mk_win_user_dialog_itm_template_pt ctrl_edit_name_value;
+	mk_win_user_dialog_itm_template_pt ctrl_static_type_label;
+	mk_win_user_dialog_itm_template_pt ctrl_edit_type_value;
+	mk_win_user_dialog_itm_template_pt ctrl_static_detail_label;
+	mk_win_user_dialog_itm_template_pt ctrl_edit_detail_value;
+	mk_win_user_dialog_itm_template_pt ctrl_static_attributes;
+	mk_win_user_dialog_itm_template_pt ctrl_edit_attributes;
+	mk_win_user_dialog_itm_template_pt ctrl_listbox_attributes;
+	mk_win_base_sintptr_t res;
+	int ret;
+
+	ctrl_listbox_x = mk_win_user_dialog_space_dlg_margin;
+	ctrl_listbox_y = mk_win_user_dialog_space_dlg_margin;
+	ctrl_listbox_w = mk_win_user_dialog_size_progressb_w;
+	ctrl_listbox_h = mk_win_user_dialog_size_static_h * (8 + 1);
+	ctrl_static_name_label_x = ctrl_listbox_x;
+	ctrl_static_name_label_y = ctrl_listbox_y + ctrl_listbox_h + mk_win_user_dialog_space_related_ctrl;
+	ctrl_static_name_label_w = mk_win_user_dialog_size_button_w;
+	ctrl_static_name_label_h = mk_lang_max(mk_win_user_dialog_size_static_h, mk_win_user_dialog_size_edit1_h);
+	ctrl_edit_name_value_x = ctrl_static_name_label_x + ctrl_static_name_label_w + mk_win_user_dialog_space_related_ctrl;
+	ctrl_edit_name_value_y = ctrl_static_name_label_y;
+	ctrl_edit_name_value_w = mk_win_user_dialog_size_progressb_w - mk_win_user_dialog_space_related_ctrl - mk_win_user_dialog_size_button_w;
+	ctrl_edit_name_value_h = ctrl_static_name_label_h;
+	ctrl_static_type_label_x = ctrl_static_name_label_x;
+	ctrl_static_type_label_y = ctrl_static_name_label_y + mk_lang_max(ctrl_static_name_label_h, ctrl_edit_name_value_h) + mk_win_user_dialog_space_related_ctrl;
+	ctrl_static_type_label_w = ctrl_static_name_label_w;
+	ctrl_static_type_label_h = ctrl_static_name_label_h;
+	ctrl_edit_type_value_x = ctrl_edit_name_value_x;
+	ctrl_edit_type_value_y = ctrl_static_type_label_y;
+	ctrl_edit_type_value_w = ctrl_edit_name_value_w;
+	ctrl_edit_type_value_h = ctrl_edit_name_value_h;
+	ctrl_static_detail_label_x = ctrl_static_type_label_x;
+	ctrl_static_detail_label_y = ctrl_static_type_label_y + mk_lang_max(ctrl_static_type_label_h, ctrl_edit_type_value_h) + mk_win_user_dialog_space_related_ctrl;
+	ctrl_static_detail_label_w = ctrl_static_type_label_w;
+	ctrl_static_detail_label_h = ctrl_static_type_label_h;
+	ctrl_edit_detail_value_x = ctrl_edit_type_value_x;
+	ctrl_edit_detail_value_y = ctrl_static_detail_label_y;
+	ctrl_edit_detail_value_w = ctrl_edit_type_value_w;
+	ctrl_edit_detail_value_h = ctrl_edit_type_value_h;
+	ctrl_static_attributes_label_x = ctrl_static_detail_label_x;
+	ctrl_static_attributes_label_y = ctrl_static_detail_label_y + mk_lang_max(ctrl_static_detail_label_h, ctrl_edit_detail_value_h) + mk_win_user_dialog_space_related_ctrl;
+	ctrl_static_attributes_label_w = ctrl_static_detail_label_w;
+	ctrl_static_attributes_label_h = ctrl_static_detail_label_h;
+	ctrl_static_attributes_value_x = ctrl_edit_detail_value_x;
+	ctrl_static_attributes_value_y = ctrl_static_attributes_label_y;
+	ctrl_static_attributes_value_w = ctrl_edit_detail_value_w;
+	ctrl_static_attributes_value_h = ctrl_edit_detail_value_h;
+	ctrl_listbox_attributes_x = ctrl_static_attributes_label_x;
+	ctrl_listbox_attributes_y = ctrl_static_attributes_label_y + mk_lang_max(ctrl_static_attributes_label_h, ctrl_static_attributes_value_h) + mk_win_user_dialog_space_related_ctrl;
+	ctrl_listbox_attributes_w = ctrl_listbox_w;
+	ctrl_listbox_attributes_h = mk_win_user_dialog_size_static_h * (3 + 1);
+	dlg_w = mk_win_user_dialog_space_dlg_margin + mk_win_user_dialog_size_progressb_w + mk_win_user_dialog_space_dlg_margin;
+	dlg_h = mk_clib_app_file_explorer_max_m(mk_clib_app_file_explorer_max_m(mk_clib_app_file_explorer_max_m(mk_clib_app_file_explorer_max_m(mk_clib_app_file_explorer_max_m(mk_clib_app_file_explorer_max_m(mk_clib_app_file_explorer_max_m(mk_clib_app_file_explorer_max_m(mk_clib_app_file_explorer_max_m(mk_clib_app_file_explorer_max_m(
+		0,
+		ctrl_listbox_y + ctrl_listbox_h),
+		ctrl_static_name_label_y + ctrl_static_name_label_h),
+		ctrl_static_type_label_y + ctrl_static_type_label_h),
+		ctrl_edit_type_value_y + ctrl_edit_type_value_h),
+		ctrl_static_detail_label_y + ctrl_static_detail_label_h),
+		ctrl_edit_detail_value_y + ctrl_edit_detail_value_h),
+		ctrl_static_attributes_label_y + ctrl_static_attributes_label_h),
+		ctrl_static_attributes_value_y + ctrl_static_attributes_value_h),
+		ctrl_listbox_attributes_y + ctrl_listbox_attributes_h),
+		0) +
+		mk_win_user_dialog_space_dlg_margin;
+	dlg = ((mk_win_user_dialog_dlg_template_pt)(mk_clib_app_file_explorer_round_up_s(template_buffer, sizeof(mk_win_base_dword_t))));
+	dlg->m_style = mk_win_user_dialog_style_e_shellfont | mk_win_user_window_style_e_overlappedwindow &~ mk_win_user_window_style_e_maximizebox &~ mk_win_user_window_style_e_thickframe;
+	dlg->m_style_ex = 0;
+	dlg->m_count = 10;
+	dlg->m_left = 0;
+	dlg->m_top = 0;
+	dlg->m_width = dlg_w;
+	dlg->m_height = dlg_h;
+	dlg->m_menu = 0;
+	dlg->m_class = 0;
+	for(i = 0; i != s_window_title_len; ++i) (&dlg->m_title)[i] = s_window_title[i];
+	dlg2 = ((mk_win_user_dialog_dlg_template_pt)(((mk_win_base_wchar_pt)(dlg)) + (s_window_title_len - 1)));
+	dlg2->m_point_size = 8;
+	for(i = 0; i != s_msshelldlg_len; ++i) (&dlg2->m_typeface)[i] = s_msshelldlg[i];
+
+	ctrl_listbox = ((mk_win_user_dialog_itm_template_pt)(mk_clib_app_file_explorer_round_up_s(((mk_win_base_wchar_pct)(dlg + 1)) + (s_window_title_len - 1) + (s_msshelldlg_len - 1), sizeof(mk_win_base_dword_t))));
+	ctrl_listbox->m_style =
+		mk_win_user_ctrl_listbox_style_e_notify |
+		mk_win_user_ctrl_listbox_style_e_nointegralheight |
+		mk_win_user_window_style_e_hscroll |
+		mk_win_user_window_style_e_vscroll |
+		mk_win_user_window_style_e_border |
+		mk_win_user_window_style_e_visible |
+		mk_win_user_window_style_e_child |
+		0;
+	ctrl_listbox->m_style_ex = 0;
+	ctrl_listbox->m_left = ctrl_listbox_x;
+	ctrl_listbox->m_top = ctrl_listbox_y;
+	ctrl_listbox->m_width = ctrl_listbox_w;
+	ctrl_listbox->m_height = ctrl_listbox_h;
+	ctrl_listbox->m_id = s_mk_clib_app_file_explorer_ctrl_id_listbox_main;
+	ctrl_listbox->m_class[0] = mk_win_user_dialog_class_is_atom;
+	ctrl_listbox->m_class[1] = mk_win_user_dialog_class_id_listbox;
+	ctrl_listbox->m_title = 0;
+	ctrl_listbox->m_extra_count = 0;
+
+	ctrl_static_name_label = ((mk_win_user_dialog_itm_template_pt)(mk_clib_app_file_explorer_round_up_s(ctrl_listbox + 1, sizeof(mk_win_base_dword_t))));
+	ctrl_static_name_label->m_style =
+		mk_win_user_window_style_e_visible |
+		mk_win_user_window_style_e_child |
+		0;
+	ctrl_static_name_label->m_style_ex = 0;
+	ctrl_static_name_label->m_left = ctrl_static_name_label_x;
+	ctrl_static_name_label->m_top = ctrl_static_name_label_y;
+	ctrl_static_name_label->m_width = ctrl_static_name_label_w;
+	ctrl_static_name_label->m_height = ctrl_static_name_label_h;
+	ctrl_static_name_label->m_id = s_mk_clib_app_file_explorer_ctrl_id_static_name_label;
+	ctrl_static_name_label->m_class[0] = mk_win_user_dialog_class_is_atom;
+	ctrl_static_name_label->m_class[1] = mk_win_user_dialog_class_id_static;
+	for(i = 0; i != s_name_title_len; ++i) (&ctrl_static_name_label->m_title)[i] = s_name_title[i];
+	ctrl2 = ((mk_win_user_dialog_itm_template_pt)(((mk_win_base_wchar_pt)(ctrl_static_name_label)) + (s_name_title_len - 1)));
+	ctrl2->m_extra_count = 0;
+
+	ctrl_edit_name_value = ((mk_win_user_dialog_itm_template_pt)(mk_clib_app_file_explorer_round_up_s(((mk_win_base_wchar_pct)(ctrl_static_name_label + 1)) + (s_name_title_len - 1), sizeof(mk_win_base_dword_t))));
+	ctrl_edit_name_value->m_style =
+		mk_win_user_ctrl_edit_style_e_autohscroll |
+		mk_win_user_ctrl_edit_style_e_readonly |
+		mk_win_user_window_style_e_visible |
+		mk_win_user_window_style_e_child |
+		0;
+	ctrl_edit_name_value->m_style_ex = 0;
+	ctrl_edit_name_value->m_left = ctrl_edit_name_value_x;
+	ctrl_edit_name_value->m_top = ctrl_edit_name_value_y;
+	ctrl_edit_name_value->m_width = ctrl_edit_name_value_w;
+	ctrl_edit_name_value->m_height = ctrl_edit_name_value_h;
+	ctrl_edit_name_value->m_id = s_mk_clib_app_file_explorer_ctrl_id_edit_name_value;
+	ctrl_edit_name_value->m_class[0] = mk_win_user_dialog_class_is_atom;
+	ctrl_edit_name_value->m_class[1] = mk_win_user_dialog_class_id_edit;
+	ctrl_edit_name_value->m_title = 0;
+	ctrl_edit_name_value->m_extra_count = 0;
+
+	ctrl_static_type_label = ((mk_win_user_dialog_itm_template_pt)(mk_clib_app_file_explorer_round_up_s(ctrl_edit_name_value + 1, sizeof(mk_win_base_dword_t))));
+	ctrl_static_type_label->m_style =
+		mk_win_user_window_style_e_visible |
+		mk_win_user_window_style_e_child |
+		0;
+	ctrl_static_type_label->m_style_ex = 0;
+	ctrl_static_type_label->m_left = ctrl_static_type_label_x;
+	ctrl_static_type_label->m_top = ctrl_static_type_label_y;
+	ctrl_static_type_label->m_width = ctrl_static_type_label_w;
+	ctrl_static_type_label->m_height = ctrl_static_type_label_h;
+	ctrl_static_type_label->m_id = s_mk_clib_app_file_explorer_ctrl_id_static_type_label;
+	ctrl_static_type_label->m_class[0] = mk_win_user_dialog_class_is_atom;
+	ctrl_static_type_label->m_class[1] = mk_win_user_dialog_class_id_static;
+	for(i = 0; i != s_type_title_len; ++i) (&ctrl_static_type_label->m_title)[i] = s_type_title[i];
+	ctrl2 = ((mk_win_user_dialog_itm_template_pt)(((mk_win_base_wchar_pt)(ctrl_static_type_label)) + (s_type_title_len - 1)));
+	ctrl2->m_extra_count = 0;
+
+	ctrl_edit_type_value = ((mk_win_user_dialog_itm_template_pt)(mk_clib_app_file_explorer_round_up_s(((mk_win_base_wchar_pct)(ctrl_static_type_label + 1)) + (s_type_title_len - 1), sizeof(mk_win_base_dword_t))));
+	ctrl_edit_type_value->m_style =
+		mk_win_user_ctrl_edit_style_e_autohscroll |
+		mk_win_user_ctrl_edit_style_e_readonly |
+		mk_win_user_window_style_e_visible |
+		mk_win_user_window_style_e_child |
+		0;
+	ctrl_edit_type_value->m_style_ex = 0;
+	ctrl_edit_type_value->m_left = ctrl_edit_type_value_x;
+	ctrl_edit_type_value->m_top = ctrl_edit_type_value_y;
+	ctrl_edit_type_value->m_width = ctrl_edit_type_value_w;
+	ctrl_edit_type_value->m_height = ctrl_edit_type_value_h;
+	ctrl_edit_type_value->m_id = s_mk_clib_app_file_explorer_ctrl_id_edit_type_value;
+	ctrl_edit_type_value->m_class[0] = mk_win_user_dialog_class_is_atom;
+	ctrl_edit_type_value->m_class[1] = mk_win_user_dialog_class_id_edit;
+	ctrl_edit_type_value->m_title = 0;
+	ctrl_edit_type_value->m_extra_count = 0;
+
+	ctrl_static_detail_label = ((mk_win_user_dialog_itm_template_pt)(mk_clib_app_file_explorer_round_up_s(ctrl_edit_type_value + 1, sizeof(mk_win_base_dword_t))));
+	ctrl_static_detail_label->m_style =
+		mk_win_user_window_style_e_visible |
+		mk_win_user_window_style_e_child |
+		0;
+	ctrl_static_detail_label->m_style_ex = 0;
+	ctrl_static_detail_label->m_left = ctrl_static_detail_label_x;
+	ctrl_static_detail_label->m_top = ctrl_static_detail_label_y;
+	ctrl_static_detail_label->m_width = ctrl_static_detail_label_w;
+	ctrl_static_detail_label->m_height = ctrl_static_detail_label_h;
+	ctrl_static_detail_label->m_id = s_mk_clib_app_file_explorer_ctrl_id_static_detail_label;
+	ctrl_static_detail_label->m_class[0] = mk_win_user_dialog_class_is_atom;
+	ctrl_static_detail_label->m_class[1] = mk_win_user_dialog_class_id_static;
+	for(i = 0; i != s_detail_title_len; ++i) (&ctrl_static_detail_label->m_title)[i] = s_detail_title[i];
+	ctrl2 = ((mk_win_user_dialog_itm_template_pt)(((mk_win_base_wchar_pt)(ctrl_static_detail_label)) + (s_detail_title_len - 1)));
+	ctrl2->m_extra_count = 0;
+
+	ctrl_edit_detail_value = ((mk_win_user_dialog_itm_template_pt)(mk_clib_app_file_explorer_round_up_s(((mk_win_base_wchar_pct)(ctrl_static_detail_label + 1)) + (s_detail_title_len - 1), sizeof(mk_win_base_dword_t))));
+	ctrl_edit_detail_value->m_style =
+		mk_win_user_ctrl_edit_style_e_autohscroll |
+		mk_win_user_ctrl_edit_style_e_readonly |
+		mk_win_user_window_style_e_visible |
+		mk_win_user_window_style_e_child |
+		0;
+	ctrl_edit_detail_value->m_style_ex = 0;
+	ctrl_edit_detail_value->m_left = ctrl_edit_detail_value_x;
+	ctrl_edit_detail_value->m_top = ctrl_edit_detail_value_y;
+	ctrl_edit_detail_value->m_width = ctrl_edit_detail_value_w;
+	ctrl_edit_detail_value->m_height = ctrl_edit_detail_value_h;
+	ctrl_edit_detail_value->m_id = s_mk_clib_app_file_explorer_ctrl_id_edit_detail_value;
+	ctrl_edit_detail_value->m_class[0] = mk_win_user_dialog_class_is_atom;
+	ctrl_edit_detail_value->m_class[1] = mk_win_user_dialog_class_id_edit;
+	ctrl_edit_detail_value->m_title = 0;
+	ctrl_edit_detail_value->m_extra_count = 0;
+
+	ctrl_static_attributes = ((mk_win_user_dialog_itm_template_pt)(mk_clib_app_file_explorer_round_up_s(ctrl_edit_detail_value + 1, sizeof(mk_win_base_dword_t))));
+	ctrl_static_attributes->m_style =
+		mk_win_user_window_style_e_child |
+		0;
+	ctrl_static_attributes->m_style_ex = 0;
+	ctrl_static_attributes->m_left = ctrl_static_attributes_label_x;
+	ctrl_static_attributes->m_top = ctrl_static_attributes_label_y;
+	ctrl_static_attributes->m_width = ctrl_static_attributes_label_w;
+	ctrl_static_attributes->m_height = ctrl_static_attributes_label_h;
+	ctrl_static_attributes->m_id = s_mk_clib_app_file_explorer_ctrl_id_static_attributes_label;
+	ctrl_static_attributes->m_class[0] = mk_win_user_dialog_class_is_atom;
+	ctrl_static_attributes->m_class[1] = mk_win_user_dialog_class_id_static;
+	for(i = 0; i != s_attributes_title_len; ++i) (&ctrl_static_attributes->m_title)[i] = s_attributes_title[i];
+	ctrl2 = ((mk_win_user_dialog_itm_template_pt)(((mk_win_base_wchar_pt)(ctrl_static_attributes)) + (s_attributes_title_len - 1)));
+	ctrl2->m_extra_count = 0;
+
+	ctrl_edit_attributes = ((mk_win_user_dialog_itm_template_pt)(mk_clib_app_file_explorer_round_up_s(((mk_win_base_wchar_pct)(ctrl_static_attributes + 1)) + (s_attributes_title_len - 1), sizeof(mk_win_base_dword_t))));
+	ctrl_edit_attributes->m_style =
+		mk_win_user_ctrl_edit_style_e_autohscroll |
+		mk_win_user_ctrl_edit_style_e_readonly |
+		mk_win_user_window_style_e_visible |
+		mk_win_user_window_style_e_child |
+		0;
+	ctrl_edit_attributes->m_style_ex = 0;
+	ctrl_edit_attributes->m_left = ctrl_static_attributes_value_x;
+	ctrl_edit_attributes->m_top = ctrl_static_attributes_value_y;
+	ctrl_edit_attributes->m_width = ctrl_static_attributes_value_w;
+	ctrl_edit_attributes->m_height = ctrl_static_attributes_value_h;
+	ctrl_edit_attributes->m_id = s_mk_clib_app_file_explorer_ctrl_id_edit_attributes_value;
+	ctrl_edit_attributes->m_class[0] = mk_win_user_dialog_class_is_atom;
+	ctrl_edit_attributes->m_class[1] = mk_win_user_dialog_class_id_edit;
+	ctrl_edit_attributes->m_title = 0;
+	ctrl_edit_attributes->m_extra_count = 0;
+
+	ctrl_listbox_attributes = ((mk_win_user_dialog_itm_template_pt)(mk_clib_app_file_explorer_round_up_s(((mk_win_base_wchar_pct)(ctrl_edit_attributes + 1)), sizeof(mk_win_base_dword_t))));
+	ctrl_listbox_attributes->m_style =
+		mk_win_user_ctrl_listbox_style_e_nointegralheight |
+		mk_win_user_window_style_e_hscroll |
+		mk_win_user_window_style_e_vscroll |
+		mk_win_user_window_style_e_border |
+		mk_win_user_window_style_e_child |
+		0;
+	ctrl_listbox_attributes->m_style_ex = 0;
+	ctrl_listbox_attributes->m_left = ctrl_listbox_attributes_x;
+	ctrl_listbox_attributes->m_top = ctrl_listbox_attributes_y;
+	ctrl_listbox_attributes->m_width = ctrl_listbox_attributes_w;
+	ctrl_listbox_attributes->m_height = ctrl_listbox_attributes_h;
+	ctrl_listbox_attributes->m_id = s_mk_clib_app_file_explorer_ctrl_id_listbox_attributes_data;
+	ctrl_listbox_attributes->m_class[0] = mk_win_user_dialog_class_is_atom;
+	ctrl_listbox_attributes->m_class[1] = mk_win_user_dialog_class_id_listbox;
+	ctrl_listbox_attributes->m_title = 0;
+	ctrl_listbox_attributes->m_extra_count = 0;
+
+	res = mk_win_user_dialog_t_indirect_param(g_instance, dlg, mk_win_base_null, &mk_clib_app_file_explorer_dlgproc, 0);
+	ret = ((int)(res));
+	return ret;
+}
+
+mk_lang_nodiscard static mk_lang_inline int mk_clib_app_file_explorer_run_dialog_ex(void) mk_lang_noexcept
 {
 	static mk_win_base_wchar_t const s_msshelldlg[] = L"MS Shell Dlg";
 	static mk_win_base_wchar_t const s_window_title[] = L"File Explorer";
@@ -204,24 +582,7 @@ mk_lang_jumbo int mk_clib_app_file_explorer_winmain(mk_win_base_instance_t const
 	mk_win_user_dialog_itm_templateex_pt ctrl_edit_attributes;
 	mk_win_user_dialog_itm_templateex_pt ctrl_listbox_attributes;
 	mk_win_base_sintptr_t res;
-
-	mk_lang_assert(instance);
-	((void)(previous));
-	((void)(cmd));
-	((void)(show));
-
-	mk_lang_exception_test();
-	mk_win_main_heap_create();
-	mk_win_tstring_init();
-	InitCommonControls();
-	mk_win_ctrl_impl_mprogressbar_register();
-
-	g_instance = instance;
-	g_size_margin = mk_win_user_dialog_get_ctrl_size_margins(g_instance);
-	g_size_related_unrelated = mk_win_user_dialog_get_ctrl_size_related_unrelated(g_instance);
-	g_size_edit = mk_win_user_dialog_get_ctrl_size_edit(g_instance);
-	g_size_static = mk_win_user_dialog_get_ctrl_size_static(g_instance);
-	g_size_progressbar = mk_win_user_dialog_get_ctrl_size_progressbar(g_instance);
+	int ret;
 
 	ctrl_listbox_x = mk_win_user_dialog_space_dlg_margin;
 	ctrl_listbox_y = mk_win_user_dialog_space_dlg_margin;
@@ -284,8 +645,8 @@ mk_lang_jumbo int mk_clib_app_file_explorer_winmain(mk_win_base_instance_t const
 	dlg->m_style_ex = 0;
 	dlg->m_style = mk_win_user_dialog_style_e_shellfont | mk_win_user_window_style_e_overlappedwindow &~ mk_win_user_window_style_e_maximizebox &~ mk_win_user_window_style_e_thickframe;
 	dlg->m_count = 10;
-	dlg->m_x = 0;
-	dlg->m_y = 0;
+	dlg->m_left = 0;
+	dlg->m_top = 0;
 	dlg->m_width = dlg_w;
 	dlg->m_height = dlg_h;
 	dlg->m_menu = 0;
@@ -488,14 +849,9 @@ mk_lang_jumbo int mk_clib_app_file_explorer_winmain(mk_win_base_instance_t const
 	ctrl_listbox_attributes->m_extra_count = 0;
 
 	res = mk_win_user_dialog_t_indirect_param_ex(g_instance, dlg, mk_win_base_null, &mk_clib_app_file_explorer_dlgproc, 0);
-
-	mk_win_ctrl_impl_mprogressbar_unregister();
-	mk_win_tstring_deinit();
-	mk_win_main_heap_destroy();
-
-	return ((int)(res));
+	ret = ((int)(res));
+	return ret;
 }
-
 
 mk_lang_nodiscard static mk_lang_inline mk_win_base_sshort_t mk_clib_app_file_explorer_max_f(mk_win_base_sshort_t const a, mk_win_base_sshort_t const b) mk_lang_noexcept
 {
@@ -604,7 +960,8 @@ static mk_lang_inline void mk_clib_app_file_explorer_on_selection(mk_win_user_wi
 	mk_win_kernel_files_attribute_t attr;
 	unsigned long int ul;
 	mk_sl_cui_fe_t cui;
-	char attr_str[mk_sl_cui_fe_to_str_hex_full_len + 1];
+	char attr_str[2 + mk_sl_cui_fe_to_str_hex_full_len + 1];
+	char* pstr;
 	int len;
 	int i;
 
@@ -644,8 +1001,11 @@ static mk_lang_inline void mk_clib_app_file_explorer_on_selection(mk_win_user_wi
 		attr = mk_lib_fe_get_attributes(fe, idx);
 		ul = ((unsigned long int)(attr));
 		mk_sl_cui_fe_from_bi_ulong(&cui, &ul);
-		len = mk_sl_cui_fe_to_str_hex_full_n(&cui, attr_str, mk_sl_cui_fe_to_str_hex_full_len); mk_lang_assert(len == mk_sl_cui_fe_to_str_hex_full_len);
-		attr_str[len] = '\0';
+		attr_str[0] = '0';
+		attr_str[1] = 'x';
+		pstr = attr_str + 2;
+		len = mk_sl_cui_fe_to_str_hex_full_n(&cui, pstr, mk_sl_cui_fe_to_str_hex_full_len); mk_lang_assert(len == mk_sl_cui_fe_to_str_hex_full_len);
+		pstr[len] = '\0';
 		lres = mk_win_user_message_t_send(attr_value, mk_win_user_message_id_e_settext, 0, ((mk_win_user_window_lparam_t)(mk_win_tstring_tstr_to_wnds_zt_nofail(mk_win_tstring_asci_to_tstr_zt_nofail(attr_str).m_str)))); ((void)(lres));
 		lres = mk_win_user_message_t_send(attr_data, mk_win_user_ctrl_listbox_message_e_resetcontent, 0, 0); ((void)(lres));
 		for(i = 0; i != 32; ++i)
