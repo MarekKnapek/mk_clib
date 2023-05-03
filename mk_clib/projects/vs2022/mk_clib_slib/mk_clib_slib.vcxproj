@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<ItemGroup Label="ProjectConfigurations">
+		<ProjectConfiguration Include="DebugNoASan|Win32">
+			<Configuration>DebugNoASan</Configuration>
+			<Platform>Win32</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="DebugNoASan|x64">
+			<Configuration>DebugNoASan</Configuration>
+			<Platform>x64</Platform>
+		</ProjectConfiguration>
 		<ProjectConfiguration Include="Debug|Win32">
 			<Configuration>Debug</Configuration>
 			<Platform>Win32</Platform>
@@ -24,10 +32,12 @@
 	<ItemGroup>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_factorial.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_factorial_cpp.hpp"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_file_explorer.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_flt.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_flt_cpp.hpp"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_fuzz.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_info.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_simple_window.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_test.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_fuzz.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_test.h"/>
@@ -73,6 +83,9 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_crash.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_div_roundup.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_endian.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_exception.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_exception_data.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_exception_out_of_memory.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_for_constants.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_fora1.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_fora2.h"/>
@@ -126,11 +139,13 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_overlap.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_overlap_inl_filec.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_overlap_inl_fileh.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_pow.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_restrict.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_sizeof.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_sizeof_test.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_sizet.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_static_assert.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_fe.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_convert_inl_defd.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_convert_inl_defu.h"/>
@@ -152,6 +167,8 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_inl_defd.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_inl_defu.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_inl_filec.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_inl_filec_div_defd.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_inl_filec_div_defu.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_inl_fileh.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_inl_tofrom_bi_inl_defd.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_inl_tofrom_bi_inl_defu.h"/>
@@ -169,14 +186,52 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_flt_inl_defhu.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_flt_inl_filec.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_flt_inl_fileh.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_mallocator.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_mallocator_lang.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_mallocator_win_heap.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_mallocator_win_process_heap.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_base.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_ctrl_impl_mprogressbar.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_gdi.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_gdi_bitmap.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_gdi_dc.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_gdi_font.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_gdi_object.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_atom.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_dll.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_errors.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_files.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_heap.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_main_heap.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_sal.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_tstring.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_unicode_api.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_user_brush.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_user_class.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_user_color.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_user_ctrl_edit.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_user_ctrl_listbox.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_user_ctrl_mprogressbar.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_user_ctrl_progressbar.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_user_ctrl_static.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_user_cursor.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_user_dialog.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_user_icon.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_user_menu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_user_message.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_user_timer.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_user_window.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_winmain.h"/>
 	</ItemGroup>
 	<ItemGroup>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_factorial.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_factorial_cpp.cpp"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_file_explorer.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_flt.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_flt_cpp.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_fuzz.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_info.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_simple_window.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_test.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_fuzz.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_test.c"/>
@@ -187,16 +242,55 @@
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_fuzz.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_constexpr_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_crash.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_exception.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_exception_data.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_exception_out_of_memory.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcpy.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcpy_obj.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memmove.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memmove_obj.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_overlap.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_sizeof_test.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_fe.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_flt.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_flt_fuzz.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_mallocator.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_mallocator_lang.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_mallocator_win_heap.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_mallocator_win_process_heap.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_ctrl_impl_mprogressbar.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_gdi.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_gdi_bitmap.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_gdi_dc.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_gdi_font.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_gdi_object.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_atom.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_dll.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_errors.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_files.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_heap.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_main_heap.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_tstring.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_unicode_api.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_user_brush.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_user_class.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_user_ctrl_edit.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_user_ctrl_listbox.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_user_ctrl_mprogressbar.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_user_ctrl_progressbar.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_user_ctrl_static.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_user_cursor.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_user_dialog.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_user_icon.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_user_menu.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_user_message.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_user_timer.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_user_window.c"/>
+	</ItemGroup>
+	<ItemGroup>
+		<Xml Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_comctl6.xml"/>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
 		<VCProjectVersion>16.0</VCProjectVersion>
@@ -211,8 +305,13 @@
 		<UseDebugLibraries>true</UseDebugLibraries>
 		<PlatformToolset>v143</PlatformToolset>
 		<CharacterSet>Unicode</CharacterSet>
-		<EnableASAN>true</EnableASAN>
-		<EnableFuzzer>true</EnableFuzzer>
+		<PreferredToolArchitecture>x64</PreferredToolArchitecture>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugNoASan|Win32'" Label="Configuration">
+		<ConfigurationType>StaticLibrary</ConfigurationType>
+		<UseDebugLibraries>true</UseDebugLibraries>
+		<PlatformToolset>v143</PlatformToolset>
+		<CharacterSet>Unicode</CharacterSet>
 		<PreferredToolArchitecture>x64</PreferredToolArchitecture>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -228,8 +327,13 @@
 		<UseDebugLibraries>true</UseDebugLibraries>
 		<PlatformToolset>v143</PlatformToolset>
 		<CharacterSet>Unicode</CharacterSet>
-		<EnableASAN>true</EnableASAN>
-		<EnableFuzzer>true</EnableFuzzer>
+		<PreferredToolArchitecture>x64</PreferredToolArchitecture>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugNoASan|x64'" Label="Configuration">
+		<ConfigurationType>StaticLibrary</ConfigurationType>
+		<UseDebugLibraries>true</UseDebugLibraries>
+		<PlatformToolset>v143</PlatformToolset>
+		<CharacterSet>Unicode</CharacterSet>
 		<PreferredToolArchitecture>x64</PreferredToolArchitecture>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -248,10 +352,16 @@
 	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
 		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
 	</ImportGroup>
+	<ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugNoASan|Win32'" Label="PropertySheets">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+	</ImportGroup>
 	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
 		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
 	</ImportGroup>
 	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+	</ImportGroup>
+	<ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugNoASan|x64'" Label="PropertySheets">
 		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
 	</ImportGroup>
 	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -266,6 +376,25 @@
 			<ConformanceMode>true</ConformanceMode>
 			<MultiProcessorCompilation>true</MultiProcessorCompilation>
 			<LanguageStandard>stdcpp20</LanguageStandard>
+			<LanguageStandard_C>stdc17</LanguageStandard_C>
+			<AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<Link>
+			<SubSystem>
+			</SubSystem>
+			<GenerateDebugInformation>true</GenerateDebugInformation>
+		</Link>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugNoASan|Win32'">
+		<ClCompile>
+			<WarningLevel>EnableAllWarnings</WarningLevel>
+			<SDLCheck>true</SDLCheck>
+			<PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<ConformanceMode>true</ConformanceMode>
+			<MultiProcessorCompilation>true</MultiProcessorCompilation>
+			<LanguageStandard>stdcpp20</LanguageStandard>
+			<LanguageStandard_C>stdc17</LanguageStandard_C>
+			<AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
 		</ClCompile>
 		<Link>
 			<SubSystem>
@@ -283,6 +412,8 @@
 			<ConformanceMode>true</ConformanceMode>
 			<MultiProcessorCompilation>true</MultiProcessorCompilation>
 			<LanguageStandard>stdcpp20</LanguageStandard>
+			<LanguageStandard_C>stdc17</LanguageStandard_C>
+			<AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
 		</ClCompile>
 		<Link>
 			<SubSystem>
@@ -300,6 +431,25 @@
 			<ConformanceMode>true</ConformanceMode>
 			<MultiProcessorCompilation>true</MultiProcessorCompilation>
 			<LanguageStandard>stdcpp20</LanguageStandard>
+			<LanguageStandard_C>stdc17</LanguageStandard_C>
+			<AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<Link>
+			<SubSystem>
+			</SubSystem>
+			<GenerateDebugInformation>true</GenerateDebugInformation>
+		</Link>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugNoASan|x64'">
+		<ClCompile>
+			<WarningLevel>EnableAllWarnings</WarningLevel>
+			<SDLCheck>true</SDLCheck>
+			<PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<ConformanceMode>true</ConformanceMode>
+			<MultiProcessorCompilation>true</MultiProcessorCompilation>
+			<LanguageStandard>stdcpp20</LanguageStandard>
+			<LanguageStandard_C>stdc17</LanguageStandard_C>
+			<AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
 		</ClCompile>
 		<Link>
 			<SubSystem>
@@ -317,6 +467,8 @@
 			<ConformanceMode>true</ConformanceMode>
 			<MultiProcessorCompilation>true</MultiProcessorCompilation>
 			<LanguageStandard>stdcpp20</LanguageStandard>
+			<LanguageStandard_C>stdc17</LanguageStandard_C>
+			<AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
 		</ClCompile>
 		<Link>
 			<SubSystem>

@@ -193,5 +193,8 @@
 #undef mk_sl_cui_inl_defd_to_str_dec_log
 #undef mk_sl_cui_inl_defd_to_str_dec_lenv
 #undef mk_sl_cui_inl_defd_to_str_dec_lene
+#undef mk_sl_cui_inl_defd_to_str_hex_full_lenv
+#undef mk_sl_cui_inl_defd_to_str_hex_full_lene
 #undef mk_sl_cui_inl_defd_to_str_dec_n
 #undef mk_sl_cui_inl_defd_from_str_dec_n
+#undef mk_sl_cui_inl_defd_to_str_hex_full_n

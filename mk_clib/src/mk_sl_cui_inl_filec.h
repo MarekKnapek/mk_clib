@@ -1,6 +1,8 @@
 #include "mk_lang_assert.h"
 #include "mk_lang_bool.h"
+#include "mk_lang_charbit.h"
 #include "mk_lang_constexpr.h"
+#include "mk_lang_div_roundup.h"
 #include "mk_lang_for_constants.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_max.h"
@@ -2508,6 +2510,43 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_cui_inl_defd_from_st
 	#undef mk_sl_cui_inl_defd_to_bi_sint
 	#undef mk_sl_cui_inl_defd_from_bi_sint
 	#undef mk_sl_cui_inl_defd_from_bi_sint
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_cui_inl_defd_to_str_hex_full_n(mk_sl_cui_inl_defd_t const* const x, char* const str, int const str_len) mk_lang_noexcept
+{
+	#define mk_sl_cui_inl_defd_to_bi_uchar mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _to_bi_uchar)
+
+	mk_lang_constexpr_static char const s_symbols[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+
+	mk_sl_cui_inl_defd_t xx mk_lang_constexpr_init;
+	int idx mk_lang_constexpr_init;
+	int n mk_lang_constexpr_init;
+	int i mk_lang_constexpr_init;
+	unsigned char uc mk_lang_constexpr_init;
+	int digit mk_lang_constexpr_init;
+
+	mk_lang_assert(x);
+	mk_lang_assert(str);
+	mk_lang_assert(str_len >= 2 * mk_lang_div_roundup(mk_sl_cui_inl_defd_bits, mk_lang_charbit));
+
+	xx = *x;
+	idx = 0;
+	n = mk_lang_div_roundup(mk_sl_cui_inl_defd_bits, mk_lang_charbit);
+	for(i = 0; i != n; ++i)
+	{
+		mk_sl_cui_inl_defd_to_bi_uchar(&xx, &uc);
+		digit = ((int)((uc >> 0) & 0x0f));
+		str[2 * n - 1 - idx] = s_symbols[digit];
+		++idx;
+		digit = ((int)((uc >> 4) & 0x0f));
+		str[2 * n - 1 - idx] = s_symbols[digit];
+		++idx;
+		mk_sl_cui_inl_defd_shr2(&xx, mk_lang_charbit);
+	}
+	mk_lang_assert(mk_sl_cui_inl_defd_is_zero(&xx));
+	return 2 * n;
+
+	#undef mk_sl_cui_inl_defd_to_bi_uchar
 }
 
 

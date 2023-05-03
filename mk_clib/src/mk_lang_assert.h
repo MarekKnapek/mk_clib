@@ -51,11 +51,15 @@
 #endif
 #elif mk_lang_assert_mode == mk_lang_assert_mode_assert
 #if defined __cplusplus
+#include "mk_lang_crash.h"
+#include "mk_lang_likely.h"
 #include <cassert> /* assert */
-#define mk_lang_assert assert
+#define mk_lang_assert(x) ((void)(assert(x), ((void)((x) ? ((void)(0)) : ((void)(mk_lang_unlikely mk_lang_crash()))))))
 #else
+#include "mk_lang_crash.h"
+#include "mk_lang_likely.h"
 #include <assert.h> /* assert */
-#define mk_lang_assert assert
+#define mk_lang_assert(x) ((void)(assert(x), ((void)((x) ? ((void)(0)) : ((void)(mk_lang_unlikely mk_lang_crash()))))))
 #endif
 #endif
 

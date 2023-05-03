@@ -1,6 +1,7 @@
-#include "mk_lang_concat.h"
-#include "mk_lang_endian.h"
 #include "mk_lang_assert.h"
+#include "mk_lang_concat.h"
+#include "mk_lang_div_roundup.h"
+#include "mk_lang_endian.h"
 
 
 #if \
@@ -224,5 +225,8 @@
 #define mk_sl_cui_inl_defd_to_str_dec_log 19728ul /* floor(log10(2) * (2^16)) */
 #define mk_sl_cui_inl_defd_to_str_dec_lenv (((mk_sl_cui_inl_defd_bits * mk_sl_cui_inl_defd_to_str_dec_log) >> 16) + 1)
 #define mk_sl_cui_inl_defd_to_str_dec_lene mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _to_str_dec_len)
+#define mk_sl_cui_inl_defd_to_str_hex_full_lenv (2 * mk_lang_div_roundup(mk_sl_cui_inl_defd_bits, mk_lang_charbit))
+#define mk_sl_cui_inl_defd_to_str_hex_full_lene mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _to_str_hex_full_len)
 #define mk_sl_cui_inl_defd_to_str_dec_n mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _to_str_dec_n)
 #define mk_sl_cui_inl_defd_from_str_dec_n mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _from_str_dec_n)
+#define mk_sl_cui_inl_defd_to_str_hex_full_n mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _to_str_hex_full_n)

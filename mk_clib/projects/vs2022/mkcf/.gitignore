@@ -1,4 +1,5 @@
 /corpus/*
 /Debug/
+/DebugNoASan/
 /Release/
 /x64/

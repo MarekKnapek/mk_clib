@@ -19,6 +19,9 @@
 #define mk_lang_true ((mk_lang_bool_t)(1))
 #define mk_lang_false ((mk_lang_bool_t)(0))
 #endif
+typedef mk_lang_bool_t const mk_lang_bool_ct;
+typedef mk_lang_bool_t* mk_lang_bool_pt;
+typedef mk_lang_bool_t const* mk_lang_bool_pct;
 
 
 #endif
