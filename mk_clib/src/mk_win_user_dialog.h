@@ -203,8 +203,8 @@ struct mk_win_user_dialog_itm_template_s
 	mk_win_base_sshort_t m_width;
 	mk_win_base_sshort_t m_height;
 	mk_win_base_word_t m_id;
-	mk_win_base_word_t m_class[2];
-	mk_win_base_word_t m_title;
+	mk_win_base_wchar_t m_class[2];
+	mk_win_base_wchar_t m_title;
 	mk_win_base_word_t m_extra_count;
 };
 typedef struct mk_win_user_dialog_itm_template_s mk_win_user_dialog_itm_template_t;
@@ -268,8 +268,8 @@ struct mk_win_user_dialog_itm_templateex_s
 	mk_win_base_sshort_t m_width;
 	mk_win_base_sshort_t m_height;
 	mk_win_base_dword_t m_id;
-	mk_win_base_word_t m_class[2];
-	mk_win_base_word_t m_title;
+	mk_win_base_wchar_t m_class[2];
+	mk_win_base_wchar_t m_title;
 	mk_win_base_word_t m_extra_count;
 };
 typedef struct mk_win_user_dialog_itm_templateex_s mk_win_user_dialog_itm_templateex_t;

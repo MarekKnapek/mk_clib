@@ -9,7 +9,7 @@
 #include "mk_win_user_window.h"
 
 
-#if defined _MSC_VER && _MSC_VER >= 1935
+#if defined _MSC_VER && _MSC_VER == 1935
 #pragma warning(push)
 #pragma warning(disable:4820) /* warning C4820: 'xxx': 'xxx' bytes padding added after data member 'xxx' */
 #endif
@@ -27,7 +27,7 @@ typedef mk_win_ctrl_impl_mprogressbar_t mk_win_base_far* mk_win_ctrl_impl_mprogr
 typedef mk_win_ctrl_impl_mprogressbar_t mk_win_base_far const* mk_win_ctrl_impl_mprogressbar_lpct;
 typedef mk_win_ctrl_impl_mprogressbar_t mk_win_base_near* mk_win_ctrl_impl_mprogressbar_npt;
 typedef mk_win_ctrl_impl_mprogressbar_t mk_win_base_near const* mk_win_ctrl_impl_mprogressbar_npct;
-#if defined _MSC_VER && _MSC_VER >= 1935
+#if defined _MSC_VER && _MSC_VER == 1935
 #pragma warning(pop)
 #endif
 

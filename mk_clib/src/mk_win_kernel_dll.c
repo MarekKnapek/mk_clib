@@ -38,7 +38,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_kernel_dll_module_t mk_win_kernel_dll_a_g
 
 mk_lang_jumbo mk_win_base_bool_t mk_win_kernel_dll_a_get_handle_ex(mk_win_kernel_dll_get_handle_ex_t const flags, mk_win_base_pchar_lpct const name, mk_win_kernel_dll_module_lpt const module) mk_lang_noexcept
 {
-	#if defined _MSC_VER && _MSC_VER >= 1935
+	#if defined _MSC_VER && _MSC_VER == 1935
 	#pragma warning(push)
 	#pragma warning(disable:4191) /* warning C4191: 'type cast': unsafe conversion from 'xxx' to 'xxx' */
 	#endif
@@ -66,7 +66,7 @@ mk_lang_jumbo mk_win_base_bool_t mk_win_kernel_dll_a_get_handle_ex(mk_win_kernel
 		return mk_win_base_true;
 	}
 
-	#if defined _MSC_VER && _MSC_VER >= 1935
+	#if defined _MSC_VER && _MSC_VER == 1935
 	#pragma warning(pop)
 	#endif
 }
@@ -82,7 +82,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_kernel_dll_module_t mk_win_kernel_dll_w_g
 
 mk_lang_jumbo mk_win_base_bool_t mk_win_kernel_dll_w_get_handle_ex(mk_win_kernel_dll_get_handle_ex_t const flags, mk_win_base_wchar_lpct const name, mk_win_kernel_dll_module_lpt const module) mk_lang_noexcept
 {
-	#if defined _MSC_VER && _MSC_VER >= 1935
+	#if defined _MSC_VER && _MSC_VER == 1935
 	#pragma warning(push)
 	#pragma warning(disable:4191) /* warning C4191: 'type cast': unsafe conversion from 'xxx' to 'xxx' */
 	#endif
@@ -110,7 +110,7 @@ mk_lang_jumbo mk_win_base_bool_t mk_win_kernel_dll_w_get_handle_ex(mk_win_kernel
 		return mk_win_base_true;
 	}
 
-	#if defined _MSC_VER && _MSC_VER >= 1935
+	#if defined _MSC_VER && _MSC_VER == 1935
 	#pragma warning(pop)
 	#endif
 }

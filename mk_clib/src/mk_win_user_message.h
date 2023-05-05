@@ -10,265 +10,265 @@
 
 enum mk_win_user_message_id_e
 {
-	mk_win_user_message_id_e_null                           = 0x0000,
-	mk_win_user_message_id_e_create                         = 0x0001,
-	mk_win_user_message_id_e_destroy                        = 0x0002,
-	mk_win_user_message_id_e_move                           = 0x0003,
-	mk_win_user_message_id_e_size                           = 0x0005,
-	mk_win_user_message_id_e_activate                       = 0x0006,
-	mk_win_user_message_id_e_setfocus                       = 0x0007,
-	mk_win_user_message_id_e_killfocus                      = 0x0008,
-	mk_win_user_message_id_e_enable                         = 0x000a,
-	mk_win_user_message_id_e_setredraw                      = 0x000b,
-	mk_win_user_message_id_e_settext                        = 0x000c,
-	mk_win_user_message_id_e_gettext                        = 0x000d,
-	mk_win_user_message_id_e_gettextlength                  = 0x000e,
-	mk_win_user_message_id_e_paint                          = 0x000f,
-	mk_win_user_message_id_e_close                          = 0x0010,
-	mk_win_user_message_id_e_queryendsession                = 0x0011, /* not _win32_wce */
-	mk_win_user_message_id_e_queryopen                      = 0x0013, /* not _win32_wce */
-	mk_win_user_message_id_e_endsession                     = 0x0016, /* not _win32_wce */
-	mk_win_user_message_id_e_quit                           = 0x0012,
-	mk_win_user_message_id_e_erasebkgnd                     = 0x0014,
-	mk_win_user_message_id_e_syscolorchange                 = 0x0015,
-	mk_win_user_message_id_e_showwindow                     = 0x0018,
-	mk_win_user_message_id_e_wininichange                   = 0x001a,
-	mk_win_user_message_id_e_devmodechange                  = 0x001b,
-	mk_win_user_message_id_e_activateapp                    = 0x001c,
-	mk_win_user_message_id_e_fontchange                     = 0x001d,
-	mk_win_user_message_id_e_timechange                     = 0x001e,
-	mk_win_user_message_id_e_cancelmode                     = 0x001f,
-	mk_win_user_message_id_e_setcursor                      = 0x0020,
-	mk_win_user_message_id_e_mouseactivate                  = 0x0021,
-	mk_win_user_message_id_e_childactivate                  = 0x0022,
-	mk_win_user_message_id_e_queuesync                      = 0x0023,
-	mk_win_user_message_id_e_getminmaxinfo                  = 0x0024,
-	mk_win_user_message_id_e_painticon                      = 0x0026,
-	mk_win_user_message_id_e_iconerasebkgnd                 = 0x0027,
-	mk_win_user_message_id_e_nextdlgctl                     = 0x0028,
-	mk_win_user_message_id_e_spoolerstatus                  = 0x002a,
-	mk_win_user_message_id_e_drawitem                       = 0x002b,
-	mk_win_user_message_id_e_measureitem                    = 0x002c,
-	mk_win_user_message_id_e_deleteitem                     = 0x002d,
-	mk_win_user_message_id_e_vkeytoitem                     = 0x002e,
-	mk_win_user_message_id_e_chartoitem                     = 0x002f,
-	mk_win_user_message_id_e_setfont                        = 0x0030,
-	mk_win_user_message_id_e_getfont                        = 0x0031,
-	mk_win_user_message_id_e_sethotkey                      = 0x0032,
-	mk_win_user_message_id_e_gethotkey                      = 0x0033,
-	mk_win_user_message_id_e_querydragicon                  = 0x0037,
-	mk_win_user_message_id_e_compareitem                    = 0x0039,
-	mk_win_user_message_id_e_getobject                      = 0x003d, /* not _win32_wce && winver >= 0x0500 */
-	mk_win_user_message_id_e_compacting                     = 0x0041,
-	mk_win_user_message_id_e_commnotify                     = 0x0044,  /* no longer suported */
-	mk_win_user_message_id_e_windowposchanging              = 0x0046,
-	mk_win_user_message_id_e_windowposchanged               = 0x0047,
-	mk_win_user_message_id_e_power                          = 0x0048,
-	mk_win_user_message_id_e_copydata                       = 0x004a,
-	mk_win_user_message_id_e_canceljournal                  = 0x004b,
-	mk_win_user_message_id_e_notify                         = 0x004e, /* winver >= 0x0400 */
-	mk_win_user_message_id_e_inputlangchangerequest         = 0x0050, /* winver >= 0x0400 */
-	mk_win_user_message_id_e_inputlangchange                = 0x0051, /* winver >= 0x0400 */
-	mk_win_user_message_id_e_tcard                          = 0x0052, /* winver >= 0x0400 */
-	mk_win_user_message_id_e_help                           = 0x0053, /* winver >= 0x0400 */
-	mk_win_user_message_id_e_userchanged                    = 0x0054, /* winver >= 0x0400 */
-	mk_win_user_message_id_e_notifyformat                   = 0x0055, /* winver >= 0x0400 */
-	mk_win_user_message_id_e_contextmenu                    = 0x007b, /* winver >= 0x0400 */
-	mk_win_user_message_id_e_stylechanging                  = 0x007c, /* winver >= 0x0400 */
-	mk_win_user_message_id_e_stylechanged                   = 0x007d, /* winver >= 0x0400 */
-	mk_win_user_message_id_e_displaychange                  = 0x007e, /* winver >= 0x0400 */
-	mk_win_user_message_id_e_geticon                        = 0x007f, /* winver >= 0x0400 */
-	mk_win_user_message_id_e_seticon                        = 0x0080, /* winver >= 0x0400 */
-	mk_win_user_message_id_e_nccreate                       = 0x0081,
-	mk_win_user_message_id_e_ncdestroy                      = 0x0082,
-	mk_win_user_message_id_e_nccalcsize                     = 0x0083,
-	mk_win_user_message_id_e_nchittest                      = 0x0084,
-	mk_win_user_message_id_e_ncpaint                        = 0x0085,
-	mk_win_user_message_id_e_ncactivate                     = 0x0086,
-	mk_win_user_message_id_e_getdlgcode                     = 0x0087,
-	mk_win_user_message_id_e_syncpaint                      = 0x0088, /* not _win32_wce */
-	mk_win_user_message_id_e_ncmousemove                    = 0x00a0,
-	mk_win_user_message_id_e_nclbuttondown                  = 0x00a1,
-	mk_win_user_message_id_e_nclbuttonup                    = 0x00a2,
-	mk_win_user_message_id_e_nclbuttondblclk                = 0x00a3,
-	mk_win_user_message_id_e_ncrbuttondown                  = 0x00a4,
-	mk_win_user_message_id_e_ncrbuttonup                    = 0x00a5,
-	mk_win_user_message_id_e_ncrbuttondblclk                = 0x00a6,
-	mk_win_user_message_id_e_ncmbuttondown                  = 0x00a7,
-	mk_win_user_message_id_e_ncmbuttonup                    = 0x00a8,
-	mk_win_user_message_id_e_ncmbuttondblclk                = 0x00a9,
-	mk_win_user_message_id_e_ncxbuttondown                  = 0x00ab, /* _win32_winnt >= 0x0500 */
-	mk_win_user_message_id_e_ncxbuttonup                    = 0x00ac, /* _win32_winnt >= 0x0500 */
-	mk_win_user_message_id_e_ncxbuttondblclk                = 0x00ad, /* _win32_winnt >= 0x0500 */
-	mk_win_user_message_id_e_input_device_change            = 0x00fe, /* _win32_winnt >= 0x0501 */
-	mk_win_user_message_id_e_input                          = 0x00ff, /* _win32_winnt >= 0x0501 */
-	/*mk_win_user_message_id_e_keyfirst                       = 0x0100,*/
-	mk_win_user_message_id_e_keydown                        = 0x0100,
-	mk_win_user_message_id_e_keyup                          = 0x0101,
-	mk_win_user_message_id_e_char                           = 0x0102,
-	mk_win_user_message_id_e_deadchar                       = 0x0103,
-	mk_win_user_message_id_e_syskeydown                     = 0x0104,
-	mk_win_user_message_id_e_syskeyup                       = 0x0105,
-	mk_win_user_message_id_e_syschar                        = 0x0106,
-	mk_win_user_message_id_e_sysdeadchar                    = 0x0107,
-	mk_win_user_message_id_e_unichar                        = 0x0109, /* _win32_winnt >= 0x0501 */
-	/*mk_win_user_message_id_e_keylast                        = 0x0109,*/ /* _win32_winnt >= 0x0501 */
-	/*mk_win_user_message_id_e_keylast                        = 0x0108,*/ /* _win32_winnt < 0x0501 */
-	mk_win_user_message_id_e_ime_startcomposition           = 0x010d, /* winver >= 0x0400 */
-	mk_win_user_message_id_e_ime_endcomposition             = 0x010e, /* winver >= 0x0400 */
-	mk_win_user_message_id_e_ime_composition                = 0x010f, /* winver >= 0x0400 */
-	/*mk_win_user_message_id_e_ime_keylast                    = 0x010f,*/ /* winver >= 0x0400 */
-	mk_win_user_message_id_e_initdialog                     = 0x0110,
-	mk_win_user_message_id_e_command                        = 0x0111,
-	mk_win_user_message_id_e_syscommand                     = 0x0112,
-	mk_win_user_message_id_e_timer                          = 0x0113,
-	mk_win_user_message_id_e_hscroll                        = 0x0114,
-	mk_win_user_message_id_e_vscroll                        = 0x0115,
-	mk_win_user_message_id_e_initmenu                       = 0x0116,
-	mk_win_user_message_id_e_initmenupopup                  = 0x0117,
-	mk_win_user_message_id_e_gesture                        = 0x0119, /* winver >= 0x0601 */
-	mk_win_user_message_id_e_gesturenotify                  = 0x011a, /* winver >= 0x0601 */
-	mk_win_user_message_id_e_menuselect                     = 0x011f,
-	mk_win_user_message_id_e_menuchar                       = 0x0120,
-	mk_win_user_message_id_e_enteridle                      = 0x0121,
-	mk_win_user_message_id_e_menurbuttonup                  = 0x0122, /* not _win32_wce && winver >= 0x0500 */
-	mk_win_user_message_id_e_menudrag                       = 0x0123, /* not _win32_wce && winver >= 0x0500 */
-	mk_win_user_message_id_e_menugetobject                  = 0x0124, /* not _win32_wce && winver >= 0x0500 */
-	mk_win_user_message_id_e_uninitmenupopup                = 0x0125, /* not _win32_wce && winver >= 0x0500 */
-	mk_win_user_message_id_e_menucommand                    = 0x0126, /* not _win32_wce && winver >= 0x0500 */
-	mk_win_user_message_id_e_changeuistate                  = 0x0127, /* not _win32_wce && winver >= 0x0500 && _win32_winnt >= 0x0500 */
-	mk_win_user_message_id_e_updateuistate                  = 0x0128, /* not _win32_wce && winver >= 0x0500 && _win32_winnt >= 0x0500 */
-	mk_win_user_message_id_e_queryuistate                   = 0x0129, /* not _win32_wce && winver >= 0x0500 && _win32_winnt >= 0x0500 */
-	mk_win_user_message_id_e_ctlcolormsgbox                 = 0x0132,
-	mk_win_user_message_id_e_ctlcoloredit                   = 0x0133,
-	mk_win_user_message_id_e_ctlcolorlistbox                = 0x0134,
-	mk_win_user_message_id_e_ctlcolorbtn                    = 0x0135,
-	mk_win_user_message_id_e_ctlcolordlg                    = 0x0136,
-	mk_win_user_message_id_e_ctlcolorscrollbar              = 0x0137,
-	mk_win_user_message_id_e_ctlcolorstatic                 = 0x0138,
-	/*mk_win_user_message_id_e_mousefirst                     = 0x0200,*/
-	mk_win_user_message_id_e_mousemove                      = 0x0200,
-	mk_win_user_message_id_e_lbuttondown                    = 0x0201,
-	mk_win_user_message_id_e_lbuttonup                      = 0x0202,
-	mk_win_user_message_id_e_lbuttondblclk                  = 0x0203,
-	mk_win_user_message_id_e_rbuttondown                    = 0x0204,
-	mk_win_user_message_id_e_rbuttonup                      = 0x0205,
-	mk_win_user_message_id_e_rbuttondblclk                  = 0x0206,
-	mk_win_user_message_id_e_mbuttondown                    = 0x0207,
-	mk_win_user_message_id_e_mbuttonup                      = 0x0208,
-	mk_win_user_message_id_e_mbuttondblclk                  = 0x0209,
-	mk_win_user_message_id_e_mousewheel                     = 0x020a, /* _win32_winnt >= 0x0400 || _win32_windows > 0x0400 */
-	mk_win_user_message_id_e_xbuttondown                    = 0x020b, /* _win32_winnt >= 0x0500 */
-	mk_win_user_message_id_e_xbuttonup                      = 0x020c, /* _win32_winnt >= 0x0500 */
-	mk_win_user_message_id_e_xbuttondblclk                  = 0x020d, /* _win32_winnt >= 0x0500 */
-	mk_win_user_message_id_e_mousehwheel                    = 0x020e, /* _win32_winnt >= 0x0600 */
-	/*mk_win_user_message_id_e_mouselast                      = 0x020e,*/ /* _win32_winnt >= 0x0600 */
-	/*mk_win_user_message_id_e_mouselast                      = 0x020d,*/ /* _win32_winnt >= 0x0500 */
-	/*mk_win_user_message_id_e_mouselast                      = 0x020a,*/ /* _win32_winnt >= 0x0400 || _win32_windows > 0x0400 */
-	/*mk_win_user_message_id_e_mouselast                      = 0x0209,*/
-	mk_win_user_message_id_e_parentnotify                   = 0x0210,
-	mk_win_user_message_id_e_entermenuloop                  = 0x0211,
-	mk_win_user_message_id_e_exitmenuloop                   = 0x0212,
-	mk_win_user_message_id_e_nextmenu                       = 0x0213, /* winver >= 0x0400 */
-	mk_win_user_message_id_e_sizing                         = 0x0214, /* winver >= 0x0400 */
-	mk_win_user_message_id_e_capturechanged                 = 0x0215, /* winver >= 0x0400 */
-	mk_win_user_message_id_e_moving                         = 0x0216, /* winver >= 0x0400 */
-	mk_win_user_message_id_e_powerbroadcast                 = 0x0218, /* winver >= 0x0400 */
-	mk_win_user_message_id_e_devicechange                   = 0x0219, /* winver >= 0x0400 */
-	mk_win_user_message_id_e_mdicreate                      = 0x0220,
-	mk_win_user_message_id_e_mdidestroy                     = 0x0221,
-	mk_win_user_message_id_e_mdiactivate                    = 0x0222,
-	mk_win_user_message_id_e_mdirestore                     = 0x0223,
-	mk_win_user_message_id_e_mdinext                        = 0x0224,
-	mk_win_user_message_id_e_mdimaximize                    = 0x0225,
-	mk_win_user_message_id_e_mditile                        = 0x0226,
-	mk_win_user_message_id_e_mdicascade                     = 0x0227,
-	mk_win_user_message_id_e_mdiiconarrange                 = 0x0228,
-	mk_win_user_message_id_e_mdigetactive                   = 0x0229,
-	mk_win_user_message_id_e_mdisetmenu                     = 0x0230,
-	mk_win_user_message_id_e_entersizemove                  = 0x0231,
-	mk_win_user_message_id_e_exitsizemove                   = 0x0232,
-	mk_win_user_message_id_e_dropfiles                      = 0x0233,
-	mk_win_user_message_id_e_mdirefreshmenu                 = 0x0234,
-	mk_win_user_message_id_e_pointerdevicechange            = 0x0238, /* winver >= 0x0602 */
-	mk_win_user_message_id_e_pointerdeviceinrange           = 0x0239, /* winver >= 0x0602 */
-	mk_win_user_message_id_e_pointerdeviceoutofrange        = 0x023a, /* winver >= 0x0602 */
-	mk_win_user_message_id_e_touch                          = 0x0240, /* winver >= 0x0601 */
-	mk_win_user_message_id_e_ncpointerupdate                = 0x0241, /* winver >= 0x0602 */
-	mk_win_user_message_id_e_ncpointerdown                  = 0x0242, /* winver >= 0x0602 */
-	mk_win_user_message_id_e_ncpointerup                    = 0x0243, /* winver >= 0x0602 */
-	mk_win_user_message_id_e_pointerupdate                  = 0x0245, /* winver >= 0x0602 */
-	mk_win_user_message_id_e_pointerdown                    = 0x0246, /* winver >= 0x0602 */
-	mk_win_user_message_id_e_pointerup                      = 0x0247, /* winver >= 0x0602 */
-	mk_win_user_message_id_e_pointerenter                   = 0x0249, /* winver >= 0x0602 */
-	mk_win_user_message_id_e_pointerleave                   = 0x024a, /* winver >= 0x0602 */
-	mk_win_user_message_id_e_pointeractivate                = 0x024b, /* winver >= 0x0602 */
-	mk_win_user_message_id_e_pointercapturechanged          = 0x024c, /* winver >= 0x0602 */
-	mk_win_user_message_id_e_touchhittesting                = 0x024d, /* winver >= 0x0602 */
-	mk_win_user_message_id_e_pointerwheel                   = 0x024e, /* winver >= 0x0602 */
-	mk_win_user_message_id_e_pointerhwheel                  = 0x024f, /* winver >= 0x0602 */
-	mk_win_user_message_id_e_pointerroutedto                = 0x0251, /* winver >= 0x0602 */
-	mk_win_user_message_id_e_pointerroutedaway              = 0x0252, /* winver >= 0x0602 */
-	mk_win_user_message_id_e_pointerroutedreleased          = 0x0253, /* winver >= 0x0602 */
-	mk_win_user_message_id_e_ime_setcontext                 = 0x0281, /* winver >= 0x0400 */
-	mk_win_user_message_id_e_ime_notify                     = 0x0282, /* winver >= 0x0400 */
-	mk_win_user_message_id_e_ime_control                    = 0x0283, /* winver >= 0x0400 */
-	mk_win_user_message_id_e_ime_compositionfull            = 0x0284, /* winver >= 0x0400 */
-	mk_win_user_message_id_e_ime_select                     = 0x0285, /* winver >= 0x0400 */
-	mk_win_user_message_id_e_ime_char                       = 0x0286, /* winver >= 0x0400 */
-	mk_win_user_message_id_e_ime_request                    = 0x0288, /* winver >= 0x0500 */
-	mk_win_user_message_id_e_ime_keydown                    = 0x0290, /* winver >= 0x0400 */
-	mk_win_user_message_id_e_ime_keyup                      = 0x0291, /* winver >= 0x0400 */
-	mk_win_user_message_id_e_mousehover                     = 0x02a1, /* _win32_winnt >= 0x0400 || winver >= 0x0500 */
-	mk_win_user_message_id_e_mouseleave                     = 0x02a3, /* _win32_winnt >= 0x0400 || winver >= 0x0500 */
-	mk_win_user_message_id_e_ncmousehover                   = 0x02a0, /* winver >= 0x0500 */
-	mk_win_user_message_id_e_ncmouseleave                   = 0x02a2, /* winver >= 0x0500 */
-	mk_win_user_message_id_e_wtssession_change              = 0x02b1, /* _win32_winnt >= 0x0501 */
-	mk_win_user_message_id_e_tablet_first                   = 0x02c0, /* _win32_winnt >= 0x0501 */
-	mk_win_user_message_id_e_tablet_last                    = 0x02df, /* _win32_winnt >= 0x0501 */
-	mk_win_user_message_id_e_dpichanged                     = 0x02e0, /* winver >= 0x0601 */
-	mk_win_user_message_id_e_dpichanged_beforeparent        = 0x02e2, /* winver >= 0x0605 */
-	mk_win_user_message_id_e_dpichanged_afterparent         = 0x02e3, /* winver >= 0x0605 */
-	mk_win_user_message_id_e_getdpiscaledsize               = 0x02e4, /* winver >= 0x0605 */
-	mk_win_user_message_id_e_cut                            = 0x0300,
-	mk_win_user_message_id_e_copy                           = 0x0301,
-	mk_win_user_message_id_e_paste                          = 0x0302,
-	mk_win_user_message_id_e_clear                          = 0x0303,
-	mk_win_user_message_id_e_undo                           = 0x0304,
-	mk_win_user_message_id_e_renderformat                   = 0x0305,
-	mk_win_user_message_id_e_renderallformats               = 0x0306,
-	mk_win_user_message_id_e_destroyclipboard               = 0x0307,
-	mk_win_user_message_id_e_drawclipboard                  = 0x0308,
-	mk_win_user_message_id_e_paintclipboard                 = 0x0309,
-	mk_win_user_message_id_e_vscrollclipboard               = 0x030a,
-	mk_win_user_message_id_e_sizeclipboard                  = 0x030b,
-	mk_win_user_message_id_e_askcbformatname                = 0x030c,
-	mk_win_user_message_id_e_changecbchain                  = 0x030d,
-	mk_win_user_message_id_e_hscrollclipboard               = 0x030e,
-	mk_win_user_message_id_e_querynewpalette                = 0x030f,
-	mk_win_user_message_id_e_paletteischanging              = 0x0310,
-	mk_win_user_message_id_e_palettechanged                 = 0x0311,
-	mk_win_user_message_id_e_hotkey                         = 0x0312,
-	mk_win_user_message_id_e_print                          = 0x0317, /* winver >= 0x0400 */
-	mk_win_user_message_id_e_printclient                    = 0x0318, /* winver >= 0x0400 */
-	mk_win_user_message_id_e_appcommand                     = 0x0319, /* _win32_winnt >= 0x0500 */
-	mk_win_user_message_id_e_themechanged                   = 0x031a, /* _win32_winnt >= 0x0501 */
-	mk_win_user_message_id_e_clipboardupdate                = 0x031d, /* _win32_winnt >= 0x0501 */
-	mk_win_user_message_id_e_dwmcompositionchanged          = 0x031e, /* _win32_winnt >= 0x0600 */
-	mk_win_user_message_id_e_dwmncrenderingchanged          = 0x031f, /* _win32_winnt >= 0x0600 */
-	mk_win_user_message_id_e_dwmcolorizationcolorchanged    = 0x0320, /* _win32_winnt >= 0x0600 */
-	mk_win_user_message_id_e_dwmwindowmaximizedchange       = 0x0321, /* _win32_winnt >= 0x0600 */
-	mk_win_user_message_id_e_dwmsendiconicthumbnail         = 0x0323, /* _win32_winnt >= 0x0601 */
-	mk_win_user_message_id_e_dwmsendiconiclivepreviewbitmap = 0x0326, /* _win32_winnt >= 0x0601 */
-	mk_win_user_message_id_e_gettitlebarinfoex              = 0x033f, /* winver >= 0x0600 */
-	mk_win_user_message_id_e_handheldfirst                  = 0x0358, /* winver >= 0x0400 */
-	mk_win_user_message_id_e_handheldlast                   = 0x035f, /* winver >= 0x0400 */
-	mk_win_user_message_id_e_afxfirst                       = 0x0360, /* winver >= 0x0400 */
-	mk_win_user_message_id_e_afxlast                        = 0x037f, /* winver >= 0x0400 */
-	mk_win_user_message_id_e_penwinfirst                    = 0x0380,
-	mk_win_user_message_id_e_penwinlast                     = 0x038f,
-	mk_win_user_message_id_e_user                           = 0x0400,
-	mk_win_user_message_id_e_app                            = 0x8000, /* winver >= 0x0400 */
+	mk_win_user_message_id_e_null                           = 0x0000, /*     0 */
+	mk_win_user_message_id_e_create                         = 0x0001, /*     1 */
+	mk_win_user_message_id_e_destroy                        = 0x0002, /*     2 */
+	mk_win_user_message_id_e_move                           = 0x0003, /*     3 */
+	mk_win_user_message_id_e_size                           = 0x0005, /*     5 */
+	mk_win_user_message_id_e_activate                       = 0x0006, /*     6 */
+	mk_win_user_message_id_e_setfocus                       = 0x0007, /*     7 */
+	mk_win_user_message_id_e_killfocus                      = 0x0008, /*     8 */
+	mk_win_user_message_id_e_enable                         = 0x000a, /*    10 */
+	mk_win_user_message_id_e_setredraw                      = 0x000b, /*    11 */
+	mk_win_user_message_id_e_settext                        = 0x000c, /*    12 */
+	mk_win_user_message_id_e_gettext                        = 0x000d, /*    13 */
+	mk_win_user_message_id_e_gettextlength                  = 0x000e, /*    14 */
+	mk_win_user_message_id_e_paint                          = 0x000f, /*    15 */
+	mk_win_user_message_id_e_close                          = 0x0010, /*    16 */
+	mk_win_user_message_id_e_queryendsession                = 0x0011, /*    17 */ /* not _win32_wce */
+	mk_win_user_message_id_e_queryopen                      = 0x0013, /*    19 */ /* not _win32_wce */
+	mk_win_user_message_id_e_endsession                     = 0x0016, /*    22 */ /* not _win32_wce */
+	mk_win_user_message_id_e_quit                           = 0x0012, /*    18 */
+	mk_win_user_message_id_e_erasebkgnd                     = 0x0014, /*    20 */
+	mk_win_user_message_id_e_syscolorchange                 = 0x0015, /*    21 */
+	mk_win_user_message_id_e_showwindow                     = 0x0018, /*    24 */
+	mk_win_user_message_id_e_wininichange                   = 0x001a, /*    26 */
+	mk_win_user_message_id_e_devmodechange                  = 0x001b, /*    27 */
+	mk_win_user_message_id_e_activateapp                    = 0x001c, /*    28 */
+	mk_win_user_message_id_e_fontchange                     = 0x001d, /*    29 */
+	mk_win_user_message_id_e_timechange                     = 0x001e, /*    30 */
+	mk_win_user_message_id_e_cancelmode                     = 0x001f, /*    31 */
+	mk_win_user_message_id_e_setcursor                      = 0x0020, /*    32 */
+	mk_win_user_message_id_e_mouseactivate                  = 0x0021, /*    33 */
+	mk_win_user_message_id_e_childactivate                  = 0x0022, /*    34 */
+	mk_win_user_message_id_e_queuesync                      = 0x0023, /*    35 */
+	mk_win_user_message_id_e_getminmaxinfo                  = 0x0024, /*    36 */
+	mk_win_user_message_id_e_painticon                      = 0x0026, /*    38 */
+	mk_win_user_message_id_e_iconerasebkgnd                 = 0x0027, /*    39 */
+	mk_win_user_message_id_e_nextdlgctl                     = 0x0028, /*    40 */
+	mk_win_user_message_id_e_spoolerstatus                  = 0x002a, /*    42 */
+	mk_win_user_message_id_e_drawitem                       = 0x002b, /*    43 */
+	mk_win_user_message_id_e_measureitem                    = 0x002c, /*    44 */
+	mk_win_user_message_id_e_deleteitem                     = 0x002d, /*    45 */
+	mk_win_user_message_id_e_vkeytoitem                     = 0x002e, /*    46 */
+	mk_win_user_message_id_e_chartoitem                     = 0x002f, /*    47 */
+	mk_win_user_message_id_e_setfont                        = 0x0030, /*    48 */
+	mk_win_user_message_id_e_getfont                        = 0x0031, /*    49 */
+	mk_win_user_message_id_e_sethotkey                      = 0x0032, /*    50 */
+	mk_win_user_message_id_e_gethotkey                      = 0x0033, /*    51 */
+	mk_win_user_message_id_e_querydragicon                  = 0x0037, /*    55 */
+	mk_win_user_message_id_e_compareitem                    = 0x0039, /*    57 */
+	mk_win_user_message_id_e_getobject                      = 0x003d, /*    61 */ /* not _win32_wce && winver >= 0x0500 */
+	mk_win_user_message_id_e_compacting                     = 0x0041, /*    65 */
+	mk_win_user_message_id_e_commnotify                     = 0x0044, /*    68 */  /* no longer suported */
+	mk_win_user_message_id_e_windowposchanging              = 0x0046, /*    70 */
+	mk_win_user_message_id_e_windowposchanged               = 0x0047, /*    71 */
+	mk_win_user_message_id_e_power                          = 0x0048, /*    72 */
+	mk_win_user_message_id_e_copydata                       = 0x004a, /*    74 */
+	mk_win_user_message_id_e_canceljournal                  = 0x004b, /*    75 */
+	mk_win_user_message_id_e_notify                         = 0x004e, /*    78 */ /* winver >= 0x0400 */
+	mk_win_user_message_id_e_inputlangchangerequest         = 0x0050, /*    80 */ /* winver >= 0x0400 */
+	mk_win_user_message_id_e_inputlangchange                = 0x0051, /*    81 */ /* winver >= 0x0400 */
+	mk_win_user_message_id_e_tcard                          = 0x0052, /*    82 */ /* winver >= 0x0400 */
+	mk_win_user_message_id_e_help                           = 0x0053, /*    83 */ /* winver >= 0x0400 */
+	mk_win_user_message_id_e_userchanged                    = 0x0054, /*    84 */ /* winver >= 0x0400 */
+	mk_win_user_message_id_e_notifyformat                   = 0x0055, /*    85 */ /* winver >= 0x0400 */
+	mk_win_user_message_id_e_contextmenu                    = 0x007b, /*   123 */ /* winver >= 0x0400 */
+	mk_win_user_message_id_e_stylechanging                  = 0x007c, /*   124 */ /* winver >= 0x0400 */
+	mk_win_user_message_id_e_stylechanged                   = 0x007d, /*   125 */ /* winver >= 0x0400 */
+	mk_win_user_message_id_e_displaychange                  = 0x007e, /*   126 */ /* winver >= 0x0400 */
+	mk_win_user_message_id_e_geticon                        = 0x007f, /*   127 */ /* winver >= 0x0400 */
+	mk_win_user_message_id_e_seticon                        = 0x0080, /*   128 */ /* winver >= 0x0400 */
+	mk_win_user_message_id_e_nccreate                       = 0x0081, /*   129 */
+	mk_win_user_message_id_e_ncdestroy                      = 0x0082, /*   130 */
+	mk_win_user_message_id_e_nccalcsize                     = 0x0083, /*   131 */
+	mk_win_user_message_id_e_nchittest                      = 0x0084, /*   132 */
+	mk_win_user_message_id_e_ncpaint                        = 0x0085, /*   133 */
+	mk_win_user_message_id_e_ncactivate                     = 0x0086, /*   134 */
+	mk_win_user_message_id_e_getdlgcode                     = 0x0087, /*   135 */
+	mk_win_user_message_id_e_syncpaint                      = 0x0088, /*   136 */ /* not _win32_wce */
+	mk_win_user_message_id_e_ncmousemove                    = 0x00a0, /*   160 */
+	mk_win_user_message_id_e_nclbuttondown                  = 0x00a1, /*   161 */
+	mk_win_user_message_id_e_nclbuttonup                    = 0x00a2, /*   162 */
+	mk_win_user_message_id_e_nclbuttondblclk                = 0x00a3, /*   163 */
+	mk_win_user_message_id_e_ncrbuttondown                  = 0x00a4, /*   164 */
+	mk_win_user_message_id_e_ncrbuttonup                    = 0x00a5, /*   165 */
+	mk_win_user_message_id_e_ncrbuttondblclk                = 0x00a6, /*   166 */
+	mk_win_user_message_id_e_ncmbuttondown                  = 0x00a7, /*   167 */
+	mk_win_user_message_id_e_ncmbuttonup                    = 0x00a8, /*   168 */
+	mk_win_user_message_id_e_ncmbuttondblclk                = 0x00a9, /*   169 */
+	mk_win_user_message_id_e_ncxbuttondown                  = 0x00ab, /*   171 */ /* _win32_winnt >= 0x0500 */
+	mk_win_user_message_id_e_ncxbuttonup                    = 0x00ac, /*   172 */ /* _win32_winnt >= 0x0500 */
+	mk_win_user_message_id_e_ncxbuttondblclk                = 0x00ad, /*   173 */ /* _win32_winnt >= 0x0500 */
+	mk_win_user_message_id_e_input_device_change            = 0x00fe, /*   254 */ /* _win32_winnt >= 0x0501 */
+	mk_win_user_message_id_e_input                          = 0x00ff, /*   255 */ /* _win32_winnt >= 0x0501 */
+	/*mk_win_user_message_id_e_keyfirst                       = 0x0100,*/ /*   256 */
+	mk_win_user_message_id_e_keydown                        = 0x0100, /*   256 */
+	mk_win_user_message_id_e_keyup                          = 0x0101, /*   257 */
+	mk_win_user_message_id_e_char                           = 0x0102, /*   258 */
+	mk_win_user_message_id_e_deadchar                       = 0x0103, /*   259 */
+	mk_win_user_message_id_e_syskeydown                     = 0x0104, /*   260 */
+	mk_win_user_message_id_e_syskeyup                       = 0x0105, /*   261 */
+	mk_win_user_message_id_e_syschar                        = 0x0106, /*   262 */
+	mk_win_user_message_id_e_sysdeadchar                    = 0x0107, /*   263 */
+	mk_win_user_message_id_e_unichar                        = 0x0109, /*   265 */ /* _win32_winnt >= 0x0501 */
+	/*mk_win_user_message_id_e_keylast                        = 0x0109,*/ /*   265 */ /* _win32_winnt >= 0x0501 */
+	/*mk_win_user_message_id_e_keylast                        = 0x0108,*/ /*   264 */ /* _win32_winnt < 0x0501 */
+	mk_win_user_message_id_e_ime_startcomposition           = 0x010d, /*   269 */ /* winver >= 0x0400 */
+	mk_win_user_message_id_e_ime_endcomposition             = 0x010e, /*   270 */ /* winver >= 0x0400 */
+	mk_win_user_message_id_e_ime_composition                = 0x010f, /*   271 */ /* winver >= 0x0400 */
+	/*mk_win_user_message_id_e_ime_keylast                    = 0x010f,*/ /*   271 */ /* winver >= 0x0400 */
+	mk_win_user_message_id_e_initdialog                     = 0x0110, /*   272 */
+	mk_win_user_message_id_e_command                        = 0x0111, /*   273 */
+	mk_win_user_message_id_e_syscommand                     = 0x0112, /*   274 */
+	mk_win_user_message_id_e_timer                          = 0x0113, /*   275 */
+	mk_win_user_message_id_e_hscroll                        = 0x0114, /*   276 */
+	mk_win_user_message_id_e_vscroll                        = 0x0115, /*   277 */
+	mk_win_user_message_id_e_initmenu                       = 0x0116, /*   278 */
+	mk_win_user_message_id_e_initmenupopup                  = 0x0117, /*   279 */
+	mk_win_user_message_id_e_gesture                        = 0x0119, /*   281 */ /* winver >= 0x0601 */
+	mk_win_user_message_id_e_gesturenotify                  = 0x011a, /*   282 */ /* winver >= 0x0601 */
+	mk_win_user_message_id_e_menuselect                     = 0x011f, /*   287 */
+	mk_win_user_message_id_e_menuchar                       = 0x0120, /*   288 */
+	mk_win_user_message_id_e_enteridle                      = 0x0121, /*   289 */
+	mk_win_user_message_id_e_menurbuttonup                  = 0x0122, /*   290 */ /* not _win32_wce && winver >= 0x0500 */
+	mk_win_user_message_id_e_menudrag                       = 0x0123, /*   291 */ /* not _win32_wce && winver >= 0x0500 */
+	mk_win_user_message_id_e_menugetobject                  = 0x0124, /*   292 */ /* not _win32_wce && winver >= 0x0500 */
+	mk_win_user_message_id_e_uninitmenupopup                = 0x0125, /*   293 */ /* not _win32_wce && winver >= 0x0500 */
+	mk_win_user_message_id_e_menucommand                    = 0x0126, /*   294 */ /* not _win32_wce && winver >= 0x0500 */
+	mk_win_user_message_id_e_changeuistate                  = 0x0127, /*   295 */ /* not _win32_wce && winver >= 0x0500 && _win32_winnt >= 0x0500 */
+	mk_win_user_message_id_e_updateuistate                  = 0x0128, /*   296 */ /* not _win32_wce && winver >= 0x0500 && _win32_winnt >= 0x0500 */
+	mk_win_user_message_id_e_queryuistate                   = 0x0129, /*   297 */ /* not _win32_wce && winver >= 0x0500 && _win32_winnt >= 0x0500 */
+	mk_win_user_message_id_e_ctlcolormsgbox                 = 0x0132, /*   306 */
+	mk_win_user_message_id_e_ctlcoloredit                   = 0x0133, /*   307 */
+	mk_win_user_message_id_e_ctlcolorlistbox                = 0x0134, /*   308 */
+	mk_win_user_message_id_e_ctlcolorbtn                    = 0x0135, /*   309 */
+	mk_win_user_message_id_e_ctlcolordlg                    = 0x0136, /*   310 */
+	mk_win_user_message_id_e_ctlcolorscrollbar              = 0x0137, /*   311 */
+	mk_win_user_message_id_e_ctlcolorstatic                 = 0x0138, /*   312 */
+	/*mk_win_user_message_id_e_mousefirst                     = 0x0200,*/ /*   512 */
+	mk_win_user_message_id_e_mousemove                      = 0x0200, /*   512 */
+	mk_win_user_message_id_e_lbuttondown                    = 0x0201, /*   513 */
+	mk_win_user_message_id_e_lbuttonup                      = 0x0202, /*   514 */
+	mk_win_user_message_id_e_lbuttondblclk                  = 0x0203, /*   515 */
+	mk_win_user_message_id_e_rbuttondown                    = 0x0204, /*   516 */
+	mk_win_user_message_id_e_rbuttonup                      = 0x0205, /*   517 */
+	mk_win_user_message_id_e_rbuttondblclk                  = 0x0206, /*   518 */
+	mk_win_user_message_id_e_mbuttondown                    = 0x0207, /*   519 */
+	mk_win_user_message_id_e_mbuttonup                      = 0x0208, /*   520 */
+	mk_win_user_message_id_e_mbuttondblclk                  = 0x0209, /*   521 */
+	mk_win_user_message_id_e_mousewheel                     = 0x020a, /*   522 */ /* _win32_winnt >= 0x0400 || _win32_windows > 0x0400 */
+	mk_win_user_message_id_e_xbuttondown                    = 0x020b, /*   523 */ /* _win32_winnt >= 0x0500 */
+	mk_win_user_message_id_e_xbuttonup                      = 0x020c, /*   524 */ /* _win32_winnt >= 0x0500 */
+	mk_win_user_message_id_e_xbuttondblclk                  = 0x020d, /*   525 */ /* _win32_winnt >= 0x0500 */
+	mk_win_user_message_id_e_mousehwheel                    = 0x020e, /*   526 */ /* _win32_winnt >= 0x0600 */
+	/*mk_win_user_message_id_e_mouselast                      = 0x020e,*/ /*   526 */ /* _win32_winnt >= 0x0600 */
+	/*mk_win_user_message_id_e_mouselast                      = 0x020d,*/ /*   525 */ /* _win32_winnt >= 0x0500 */
+	/*mk_win_user_message_id_e_mouselast                      = 0x020a,*/ /*   522 */ /* _win32_winnt >= 0x0400 || _win32_windows > 0x0400 */
+	/*mk_win_user_message_id_e_mouselast                      = 0x0209,*/ /*   521 */
+	mk_win_user_message_id_e_parentnotify                   = 0x0210, /*   528 */
+	mk_win_user_message_id_e_entermenuloop                  = 0x0211, /*   529 */
+	mk_win_user_message_id_e_exitmenuloop                   = 0x0212, /*   530 */
+	mk_win_user_message_id_e_nextmenu                       = 0x0213, /*   531 */ /* winver >= 0x0400 */
+	mk_win_user_message_id_e_sizing                         = 0x0214, /*   532 */ /* winver >= 0x0400 */
+	mk_win_user_message_id_e_capturechanged                 = 0x0215, /*   533 */ /* winver >= 0x0400 */
+	mk_win_user_message_id_e_moving                         = 0x0216, /*   534 */ /* winver >= 0x0400 */
+	mk_win_user_message_id_e_powerbroadcast                 = 0x0218, /*   536 */ /* winver >= 0x0400 */
+	mk_win_user_message_id_e_devicechange                   = 0x0219, /*   537 */ /* winver >= 0x0400 */
+	mk_win_user_message_id_e_mdicreate                      = 0x0220, /*   544 */
+	mk_win_user_message_id_e_mdidestroy                     = 0x0221, /*   545 */
+	mk_win_user_message_id_e_mdiactivate                    = 0x0222, /*   546 */
+	mk_win_user_message_id_e_mdirestore                     = 0x0223, /*   547 */
+	mk_win_user_message_id_e_mdinext                        = 0x0224, /*   548 */
+	mk_win_user_message_id_e_mdimaximize                    = 0x0225, /*   549 */
+	mk_win_user_message_id_e_mditile                        = 0x0226, /*   550 */
+	mk_win_user_message_id_e_mdicascade                     = 0x0227, /*   551 */
+	mk_win_user_message_id_e_mdiiconarrange                 = 0x0228, /*   552 */
+	mk_win_user_message_id_e_mdigetactive                   = 0x0229, /*   553 */
+	mk_win_user_message_id_e_mdisetmenu                     = 0x0230, /*   560 */
+	mk_win_user_message_id_e_entersizemove                  = 0x0231, /*   561 */
+	mk_win_user_message_id_e_exitsizemove                   = 0x0232, /*   562 */
+	mk_win_user_message_id_e_dropfiles                      = 0x0233, /*   563 */
+	mk_win_user_message_id_e_mdirefreshmenu                 = 0x0234, /*   564 */
+	mk_win_user_message_id_e_pointerdevicechange            = 0x0238, /*   568 */ /* winver >= 0x0602 */
+	mk_win_user_message_id_e_pointerdeviceinrange           = 0x0239, /*   569 */ /* winver >= 0x0602 */
+	mk_win_user_message_id_e_pointerdeviceoutofrange        = 0x023a, /*   570 */ /* winver >= 0x0602 */
+	mk_win_user_message_id_e_touch                          = 0x0240, /*   576 */ /* winver >= 0x0601 */
+	mk_win_user_message_id_e_ncpointerupdate                = 0x0241, /*   577 */ /* winver >= 0x0602 */
+	mk_win_user_message_id_e_ncpointerdown                  = 0x0242, /*   578 */ /* winver >= 0x0602 */
+	mk_win_user_message_id_e_ncpointerup                    = 0x0243, /*   579 */ /* winver >= 0x0602 */
+	mk_win_user_message_id_e_pointerupdate                  = 0x0245, /*   581 */ /* winver >= 0x0602 */
+	mk_win_user_message_id_e_pointerdown                    = 0x0246, /*   582 */ /* winver >= 0x0602 */
+	mk_win_user_message_id_e_pointerup                      = 0x0247, /*   583 */ /* winver >= 0x0602 */
+	mk_win_user_message_id_e_pointerenter                   = 0x0249, /*   585 */ /* winver >= 0x0602 */
+	mk_win_user_message_id_e_pointerleave                   = 0x024a, /*   586 */ /* winver >= 0x0602 */
+	mk_win_user_message_id_e_pointeractivate                = 0x024b, /*   587 */ /* winver >= 0x0602 */
+	mk_win_user_message_id_e_pointercapturechanged          = 0x024c, /*   588 */ /* winver >= 0x0602 */
+	mk_win_user_message_id_e_touchhittesting                = 0x024d, /*   589 */ /* winver >= 0x0602 */
+	mk_win_user_message_id_e_pointerwheel                   = 0x024e, /*   590 */ /* winver >= 0x0602 */
+	mk_win_user_message_id_e_pointerhwheel                  = 0x024f, /*   591 */ /* winver >= 0x0602 */
+	mk_win_user_message_id_e_pointerroutedto                = 0x0251, /*   593 */ /* winver >= 0x0602 */
+	mk_win_user_message_id_e_pointerroutedaway              = 0x0252, /*   594 */ /* winver >= 0x0602 */
+	mk_win_user_message_id_e_pointerroutedreleased          = 0x0253, /*   595 */ /* winver >= 0x0602 */
+	mk_win_user_message_id_e_ime_setcontext                 = 0x0281, /*   641 */ /* winver >= 0x0400 */
+	mk_win_user_message_id_e_ime_notify                     = 0x0282, /*   642 */ /* winver >= 0x0400 */
+	mk_win_user_message_id_e_ime_control                    = 0x0283, /*   643 */ /* winver >= 0x0400 */
+	mk_win_user_message_id_e_ime_compositionfull            = 0x0284, /*   644 */ /* winver >= 0x0400 */
+	mk_win_user_message_id_e_ime_select                     = 0x0285, /*   645 */ /* winver >= 0x0400 */
+	mk_win_user_message_id_e_ime_char                       = 0x0286, /*   646 */ /* winver >= 0x0400 */
+	mk_win_user_message_id_e_ime_request                    = 0x0288, /*   648 */ /* winver >= 0x0500 */
+	mk_win_user_message_id_e_ime_keydown                    = 0x0290, /*   656 */ /* winver >= 0x0400 */
+	mk_win_user_message_id_e_ime_keyup                      = 0x0291, /*   657 */ /* winver >= 0x0400 */
+	mk_win_user_message_id_e_mousehover                     = 0x02a1, /*   673 */ /* _win32_winnt >= 0x0400 || winver >= 0x0500 */
+	mk_win_user_message_id_e_mouseleave                     = 0x02a3, /*   675 */ /* _win32_winnt >= 0x0400 || winver >= 0x0500 */
+	mk_win_user_message_id_e_ncmousehover                   = 0x02a0, /*   672 */ /* winver >= 0x0500 */
+	mk_win_user_message_id_e_ncmouseleave                   = 0x02a2, /*   674 */ /* winver >= 0x0500 */
+	mk_win_user_message_id_e_wtssession_change              = 0x02b1, /*   689 */ /* _win32_winnt >= 0x0501 */
+	mk_win_user_message_id_e_tablet_first                   = 0x02c0, /*   704 */ /* _win32_winnt >= 0x0501 */
+	mk_win_user_message_id_e_tablet_last                    = 0x02df, /*   735 */ /* _win32_winnt >= 0x0501 */
+	mk_win_user_message_id_e_dpichanged                     = 0x02e0, /*   736 */ /* winver >= 0x0601 */
+	mk_win_user_message_id_e_dpichanged_beforeparent        = 0x02e2, /*   738 */ /* winver >= 0x0605 */
+	mk_win_user_message_id_e_dpichanged_afterparent         = 0x02e3, /*   739 */ /* winver >= 0x0605 */
+	mk_win_user_message_id_e_getdpiscaledsize               = 0x02e4, /*   740 */ /* winver >= 0x0605 */
+	mk_win_user_message_id_e_cut                            = 0x0300, /*   768 */
+	mk_win_user_message_id_e_copy                           = 0x0301, /*   769 */
+	mk_win_user_message_id_e_paste                          = 0x0302, /*   770 */
+	mk_win_user_message_id_e_clear                          = 0x0303, /*   771 */
+	mk_win_user_message_id_e_undo                           = 0x0304, /*   772 */
+	mk_win_user_message_id_e_renderformat                   = 0x0305, /*   773 */
+	mk_win_user_message_id_e_renderallformats               = 0x0306, /*   774 */
+	mk_win_user_message_id_e_destroyclipboard               = 0x0307, /*   775 */
+	mk_win_user_message_id_e_drawclipboard                  = 0x0308, /*   776 */
+	mk_win_user_message_id_e_paintclipboard                 = 0x0309, /*   777 */
+	mk_win_user_message_id_e_vscrollclipboard               = 0x030a, /*   778 */
+	mk_win_user_message_id_e_sizeclipboard                  = 0x030b, /*   779 */
+	mk_win_user_message_id_e_askcbformatname                = 0x030c, /*   780 */
+	mk_win_user_message_id_e_changecbchain                  = 0x030d, /*   781 */
+	mk_win_user_message_id_e_hscrollclipboard               = 0x030e, /*   782 */
+	mk_win_user_message_id_e_querynewpalette                = 0x030f, /*   783 */
+	mk_win_user_message_id_e_paletteischanging              = 0x0310, /*   784 */
+	mk_win_user_message_id_e_palettechanged                 = 0x0311, /*   785 */
+	mk_win_user_message_id_e_hotkey                         = 0x0312, /*   786 */
+	mk_win_user_message_id_e_print                          = 0x0317, /*   791 */ /* winver >= 0x0400 */
+	mk_win_user_message_id_e_printclient                    = 0x0318, /*   792 */ /* winver >= 0x0400 */
+	mk_win_user_message_id_e_appcommand                     = 0x0319, /*   793 */ /* _win32_winnt >= 0x0500 */
+	mk_win_user_message_id_e_themechanged                   = 0x031a, /*   794 */ /* _win32_winnt >= 0x0501 */
+	mk_win_user_message_id_e_clipboardupdate                = 0x031d, /*   797 */ /* _win32_winnt >= 0x0501 */
+	mk_win_user_message_id_e_dwmcompositionchanged          = 0x031e, /*   798 */ /* _win32_winnt >= 0x0600 */
+	mk_win_user_message_id_e_dwmncrenderingchanged          = 0x031f, /*   799 */ /* _win32_winnt >= 0x0600 */
+	mk_win_user_message_id_e_dwmcolorizationcolorchanged    = 0x0320, /*   800 */ /* _win32_winnt >= 0x0600 */
+	mk_win_user_message_id_e_dwmwindowmaximizedchange       = 0x0321, /*   801 */ /* _win32_winnt >= 0x0600 */
+	mk_win_user_message_id_e_dwmsendiconicthumbnail         = 0x0323, /*   803 */ /* _win32_winnt >= 0x0601 */
+	mk_win_user_message_id_e_dwmsendiconiclivepreviewbitmap = 0x0326, /*   806 */ /* _win32_winnt >= 0x0601 */
+	mk_win_user_message_id_e_gettitlebarinfoex              = 0x033f, /*   831 */ /* winver >= 0x0600 */
+	mk_win_user_message_id_e_handheldfirst                  = 0x0358, /*   856 */ /* winver >= 0x0400 */
+	mk_win_user_message_id_e_handheldlast                   = 0x035f, /*   863 */ /* winver >= 0x0400 */
+	mk_win_user_message_id_e_afxfirst                       = 0x0360, /*   864 */ /* winver >= 0x0400 */
+	mk_win_user_message_id_e_afxlast                        = 0x037f, /*   895 */ /* winver >= 0x0400 */
+	mk_win_user_message_id_e_penwinfirst                    = 0x0380, /*   896 */
+	mk_win_user_message_id_e_penwinlast                     = 0x038f, /*   911 */
+	mk_win_user_message_id_e_user                           = 0x0400, /*  1024 */
+	mk_win_user_message_id_e_app                            = 0x8000, /* 32768 */ /* winver >= 0x0400 */
 	mk_win_user_message_id_e_settingchange                  = mk_win_user_message_id_e_wininichange, /* winver >= 0x0400 */
 	mk_win_user_message_id_e_dummy_end = 0
 };
@@ -536,7 +536,7 @@ enum mk_win_user_message_key_e
 typedef enum mk_win_user_message_key_e mk_win_user_message_key_t;
 
 
-#if defined _MSC_VER && _MSC_VER >= 1935
+#if defined _MSC_VER && _MSC_VER == 1935
 #pragma warning(push)
 #pragma warning(disable:4820) /* warning C4820: 'xxx': 'xxx' bytes padding added after data member 'xxx' */
 #endif
@@ -557,7 +557,7 @@ typedef mk_win_user_message_t mk_win_base_far* mk_win_user_message_lpt;
 typedef mk_win_user_message_t mk_win_base_far const* mk_win_user_message_lpct;
 typedef mk_win_user_message_t mk_win_base_near* mk_win_user_message_npt;
 typedef mk_win_user_message_t mk_win_base_near const* mk_win_user_message_npct;
-#if defined _MSC_VER && _MSC_VER >= 1935
+#if defined _MSC_VER && _MSC_VER == 1935
 #pragma warning(pop)
 #endif
 

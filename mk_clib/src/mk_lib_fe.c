@@ -8,6 +8,7 @@
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_win_base.h"
+#include "mk_win_kernel_errors.h"
 #include "mk_win_kernel_files.h"
 #include "mk_win_main_heap.h"
 #include "mk_win_tstring.h"
@@ -17,6 +18,23 @@ typedef int* int_pt;
 typedef int const* int_pct;
 
 
+static mk_lang_inline void mk_lib_fe_go_to_item_all(mk_lib_fe_lpt const fe) mk_lang_noexcept;
+static mk_lang_inline void mk_lib_fe_go_to_item_up(mk_lib_fe_lpt const fe) mk_lang_noexcept;
+static mk_lang_nodiscard mk_lang_bool_t mk_lib_fe_go_to_item_roots(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;
+static mk_lang_nodiscard mk_lang_inline mk_lang_bool_t mk_lib_fe_go_to_item_folders(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;
+static mk_lang_nodiscard mk_lang_inline mk_lang_bool_t mk_lib_fe_go_to_item_err_path_not_found(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;
+static mk_lang_nodiscard mk_lang_inline mk_lang_bool_t mk_lib_fe_go_to_item_err_access_denied(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;
+static mk_lang_nodiscard mk_lang_inline mk_lang_bool_t mk_lib_fe_go_to_item_err_not_ready(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;
+static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_name_short_str_roots(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;
+static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_name_short_str_folders(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;
+static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_name_short_str_err_path_not_found(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;
+static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_name_short_str_err_access_denied(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;
+static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_name_short_str_err_not_ready(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;
+static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_name_long_str_roots(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;
+static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_name_long_str_folders(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;
+static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_name_long_str_err_path_not_found(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;
+static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_name_long_str_err_access_denied(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;
+static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_name_long_str_err_not_ready(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;
 static mk_lang_inline void mk_lib_fe_resize(mk_win_base_void_lpt* const ptr, mk_win_base_size_t* const curr_size, mk_win_base_size_t const requested_size) mk_lang_noexcept;
 static mk_lang_inline int mk_lib_fe_ensure_has_length(mk_win_kernel_files_t_find_data_lpt const data) mk_lang_noexcept;
 static mk_lang_nodiscard mk_lang_inline mk_lang_bool_t mk_lib_fe_is_sorted(mk_win_kernel_files_t_find_data_lpct const a, mk_win_kernel_files_t_find_data_lpct const b) mk_lang_noexcept;
@@ -92,11 +110,191 @@ mk_lang_jumbo void mk_lib_fe_go_to_root(mk_lib_fe_lpt const fe) mk_lang_noexcept
 	fe->m_drives_count = cnt;
 }
 
-static mk_lang_inline void mk_lib_fe_go_to_item_both(mk_lib_fe_lpt const fe) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_lib_fe_go_to_item(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept
+{
+	mk_lang_assert(fe);
+
+	switch(fe->m_state)
+	{
+		case mk_lib_fe_state_e_init: mk_lang_assert(0); break;
+		case mk_lib_fe_state_e_roots: return mk_lib_fe_go_to_item_roots(fe, idx); break;
+		case mk_lib_fe_state_e_folders: return mk_lib_fe_go_to_item_folders(fe, idx); break;
+		case mk_lib_fe_state_e_err_path_not_found: return mk_lib_fe_go_to_item_err_path_not_found(fe, idx); break;
+		case mk_lib_fe_state_e_err_access_denied: return mk_lib_fe_go_to_item_err_access_denied(fe, idx); break;
+		case mk_lib_fe_state_e_err_not_ready: return mk_lib_fe_go_to_item_err_not_ready(fe, idx); break;
+	}
+	mk_lang_assert(0);
+}
+
+mk_lang_nodiscard mk_lang_jumbo int mk_lib_fe_get_count(mk_lib_fe_lpt const fe) mk_lang_noexcept
+{
+	mk_lang_assert(fe);
+
+	switch(fe->m_state)
+	{
+		case mk_lib_fe_state_e_init: mk_lang_assert(0); break;
+		case mk_lib_fe_state_e_roots: return fe->m_drives_count; break;
+		case mk_lib_fe_state_e_folders: return fe->m_strs_count + 1; break;
+		case mk_lib_fe_state_e_err_path_not_found: return 1; break;
+		case mk_lib_fe_state_e_err_access_denied: return 1; break;
+		case mk_lib_fe_state_e_err_not_ready: return 1; break;
+	}
+	mk_lang_assert(0);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_win_tstring_tchar_lpct mk_lib_fe_get_name_short_str(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept
+{
+	mk_lang_assert(fe);
+
+	switch(fe->m_state)
+	{
+		case mk_lib_fe_state_e_init: mk_lang_assert(0); break;
+		case mk_lib_fe_state_e_roots: return mk_lib_fe_get_name_short_str_roots(fe, idx); break;
+		case mk_lib_fe_state_e_folders: return mk_lib_fe_get_name_short_str_folders(fe, idx); break;
+		case mk_lib_fe_state_e_err_path_not_found: return mk_lib_fe_get_name_short_str_err_path_not_found(fe, idx); break;
+		case mk_lib_fe_state_e_err_access_denied: return mk_lib_fe_get_name_short_str_err_access_denied(fe, idx); break;
+		case mk_lib_fe_state_e_err_not_ready: return mk_lib_fe_get_name_short_str_err_not_ready(fe, idx); break;
+	}
+	mk_lang_assert(0);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_win_tstring_tchar_lpct mk_lib_fe_get_name_long_str(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept
+{
+	mk_lang_assert(fe);
+
+	switch(fe->m_state)
+	{
+		case mk_lib_fe_state_e_init: mk_lang_assert(0); break;
+		case mk_lib_fe_state_e_roots: return mk_lib_fe_get_name_long_str_roots(fe, idx); break;
+		case mk_lib_fe_state_e_folders: return mk_lib_fe_get_name_long_str_folders(fe, idx); break;
+		case mk_lib_fe_state_e_err_path_not_found: return mk_lib_fe_get_name_long_str_err_path_not_found(fe, idx); break;
+		case mk_lib_fe_state_e_err_access_denied: return mk_lib_fe_get_name_long_str_err_access_denied(fe, idx); break;
+		case mk_lib_fe_state_e_err_not_ready: return mk_lib_fe_get_name_long_str_err_not_ready(fe, idx); break;
+	}
+	mk_lang_assert(0);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_win_tstring_tchar_lpct mk_lib_fe_get_type_str(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept
+{
+	mk_lang_assert(fe);
+
+	switch(fe->m_state)
+	{
+		case mk_lib_fe_state_e_init: mk_lang_assert(0); break;
+		case mk_lib_fe_state_e_roots: return mk_win_tstring_tchar_c("drive"); break;
+		case mk_lib_fe_state_e_folders:
+		{
+			if(idx == 0)
+			{
+				return mk_win_tstring_tchar_c("");
+			}
+			else
+			{
+				return mk_win_tstring_tchar_c("file or directory"); break; /* todo */
+			}
+		}
+		break;
+		case mk_lib_fe_state_e_err_path_not_found: return mk_win_tstring_tchar_c("error"); break;
+		case mk_lib_fe_state_e_err_access_denied: return mk_win_tstring_tchar_c("error"); break;
+		case mk_lib_fe_state_e_err_not_ready: return mk_win_tstring_tchar_c("error"); break;
+	}
+	mk_lang_assert(0);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_win_tstring_tchar_lpct mk_lib_fe_get_detail_str(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept
+{
+	mk_win_base_size_t s;
+	mk_win_tstring_tchar_lpt drive_str;
+	mk_win_base_uint_t drive_type;
+
+	mk_lang_assert(fe);
+
+	switch(fe->m_state)
+	{
+		case mk_lib_fe_state_e_init:
+		{
+			mk_lang_assert(0);
+		}
+		break;
+		case mk_lib_fe_state_e_roots:
+		{
+			s = sizeof(mk_win_tstring_tchar_t);
+			mk_lib_fe_resize(&fe->m_str, &fe->m_str_capacity, (3 + 1) * s); mk_lang_assert(fe->m_str); mk_lang_assert(fe->m_str_capacity >= (3 + 1) * s);
+			drive_str = ((mk_win_tstring_tchar_lpt)(mk_lib_fe_get_name_short_str(fe, idx))); mk_lang_assert(drive_str); mk_lang_assert(*drive_str);
+			drive_str[2] = mk_win_tstring_tchar_c('\\');
+			drive_str[3] = mk_win_tstring_tchar_c('\0');
+			drive_type = mk_win_kernel_files_t_get_drive_type(drive_str);
+			drive_str[2] = mk_win_tstring_tchar_c('\0');
+			switch(drive_type)
+			{
+				case mk_win_kernel_files_drive_type_e_unknown: return mk_win_tstring_tchar_c("unknown"); break;
+				case mk_win_kernel_files_drive_type_e_no_root_dir: return mk_win_tstring_tchar_c("invalid"); break;
+				case mk_win_kernel_files_drive_type_e_removable: return mk_win_tstring_tchar_c("removable"); break;
+				case mk_win_kernel_files_drive_type_e_fixed: return mk_win_tstring_tchar_c("fixed"); break;
+				case mk_win_kernel_files_drive_type_e_remote: return mk_win_tstring_tchar_c("remote"); break;
+				case mk_win_kernel_files_drive_type_e_cdrom: return mk_win_tstring_tchar_c("cd rom"); break;
+				case mk_win_kernel_files_drive_type_e_ramdisk: return mk_win_tstring_tchar_c("ram disk"); break;
+				default: return mk_win_tstring_tchar_c("???"); break; /* todo display number */
+			}
+		}
+		break;
+		case mk_lib_fe_state_e_folders:
+		{
+			if(idx == 0)
+			{
+				return mk_win_tstring_tchar_c("");
+			}
+			else
+			{
+				return mk_win_tstring_tchar_c("???"); /* todo */
+			}
+		}
+		break;
+		case mk_lib_fe_state_e_err_path_not_found: return mk_win_tstring_tchar_c("path not found"); break;
+		case mk_lib_fe_state_e_err_access_denied: return mk_win_tstring_tchar_c("access denied"); break;
+		case mk_lib_fe_state_e_err_not_ready: return mk_win_tstring_tchar_c("device is not ready"); break;
+	}
+	mk_lang_assert(0);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_lib_fe_has_attributes(mk_lib_fe_lpct const fe, int const idx) mk_lang_noexcept
+{
+	mk_lang_assert(fe);
+
+	switch(fe->m_state)
+	{
+		case mk_lib_fe_state_e_init: mk_lang_assert(0); break;
+		case mk_lib_fe_state_e_roots: return mk_lang_false; break;
+		case mk_lib_fe_state_e_folders: return (idx == 0) ? mk_lang_false : mk_lang_true; break;
+		case mk_lib_fe_state_e_err_path_not_found: return mk_lang_false; break;
+		case mk_lib_fe_state_e_err_access_denied: return mk_lang_false; break;
+		case mk_lib_fe_state_e_err_not_ready: return mk_lang_false; break;
+	}
+	mk_lang_assert(0);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_win_kernel_files_attribute_t mk_lib_fe_get_attributes(mk_lib_fe_lpct const fe, int const idx) mk_lang_noexcept
+{
+	int ridx;
+	mk_win_kernel_files_t_find_data_lpct data;
+	mk_win_kernel_files_attribute_t attributes;
+
+	mk_lang_assert(fe);
+	mk_lang_assert(mk_lib_fe_has_attributes(fe, idx));
+
+	ridx = ((int_pt)(fe->m_sort))[idx - 1];
+	data = ((mk_win_kernel_files_t_find_data_lpct)(fe->m_strs));
+	attributes = data[ridx].m_attributes;
+	return attributes;
+}
+
+
+static mk_lang_inline void mk_lib_fe_go_to_item_all(mk_lib_fe_lpt const fe) mk_lang_noexcept
 {
 	mk_win_base_size_t s;
 	mk_win_kernel_files_t_find_data_lpt data;
 	mk_win_base_handle_t handle;
+	mk_win_kernel_errors_id_t err;
 	mk_win_base_bool_t closed;
 
 	mk_lang_assert(fe);
@@ -110,30 +308,71 @@ static mk_lang_inline void mk_lib_fe_go_to_item_both(mk_lib_fe_lpt const fe) mk_
 	handle = mk_win_kernel_files_t_find_first_file(fe->m_str, data);
 	if(handle == s_mk_win_base_handle_invalid)
 	{
-		/* todo ERROR_FILE_NOT_FOUND vs access denied */
-		return;
+		err = ((mk_win_kernel_errors_id_t)(mk_win_kernel_errors_get_last()));
+		if(err == mk_win_kernel_errors_id_e_path_not_found) fe->m_state = mk_lib_fe_state_e_err_path_not_found;
+		else if(err == mk_win_kernel_errors_id_e_access_denied) fe->m_state = mk_lib_fe_state_e_err_access_denied;
+		else if(err == mk_win_kernel_errors_id_e_not_ready) fe->m_state = mk_lib_fe_state_e_err_not_ready;
+		else
+		{
+			/* todo */
+		}
 	}
-	for(;;)
+	else
 	{
-		if
-		(
-			(data->m_name[0] == mk_win_tstring_tchar_c('.') && data->m_name[1] == mk_win_tstring_tchar_c('\0')) ||
-			(data->m_name[0] == mk_win_tstring_tchar_c('.') && data->m_name[1] == mk_win_tstring_tchar_c('.') && data->m_name[2] == mk_win_tstring_tchar_c('\0'))
-		)
+		for(;;)
 		{
-			--fe->m_strs_count;
+			if
+			(
+				(data->m_name[0] == mk_win_tstring_tchar_c('.') && data->m_name[1] == mk_win_tstring_tchar_c('\0')) ||
+				(data->m_name[0] == mk_win_tstring_tchar_c('.') && data->m_name[1] == mk_win_tstring_tchar_c('.') && data->m_name[2] == mk_win_tstring_tchar_c('\0'))
+			)
+			{
+				--fe->m_strs_count;
+			}
+			++fe->m_strs_count;
+			data->m_reserved_1 = 0;
+			mk_lib_fe_resize(&fe->m_strs, &fe->m_strs_capacity, (fe->m_strs_count + 1) * s); mk_lang_assert(fe->m_strs); mk_lang_assert(fe->m_strs_capacity >= (fe->m_strs_count + 1) * s);
+			data = ((mk_win_kernel_files_t_find_data_lpt)(fe->m_strs)) + fe->m_strs_count;
+			if(mk_win_kernel_files_t_find_next_file(handle, data) == 0)
+			{
+				err = ((mk_win_kernel_errors_id_t)(mk_win_kernel_errors_get_last()));
+				if(err != mk_win_kernel_errors_id_e_no_more_files)
+				{
+					/* todo */
+				}
+				break;
+			}
 		}
-		++fe->m_strs_count;
-		data->m_reserved_1 = 0;
-		mk_lib_fe_resize(&fe->m_strs, &fe->m_strs_capacity, (fe->m_strs_count + 1) * s); mk_lang_assert(fe->m_strs); mk_lang_assert(fe->m_strs_capacity >= (fe->m_strs_count + 1) * s);
-		data = ((mk_win_kernel_files_t_find_data_lpt)(fe->m_strs)) + fe->m_strs_count;
-		if(mk_win_kernel_files_t_find_next_file(handle, data) == 0) /* todo ERROR_NO_MORE_FILES */
-		{
-			break;
-		}
+		closed = mk_win_kernel_files_find_close(handle); mk_lang_assert(closed != 0);
+		mk_lib_fe_sort(fe);
 	}
-	closed = mk_win_kernel_files_find_close(handle); mk_lang_assert(closed != 0);
-	mk_lib_fe_sort(fe);
+}
+
+static mk_lang_inline void mk_lib_fe_go_to_item_up(mk_lib_fe_lpt const fe) mk_lang_noexcept
+{
+	mk_win_tstring_tchar_lpct ptr;
+
+	mk_lang_assert(fe);
+	mk_lang_assert(fe->m_state != mk_lib_fe_state_e_init);
+	mk_lang_assert(fe->m_state != mk_lib_fe_state_e_roots);
+
+	fe->m_str_len -= fe->m_addon_len;
+	fe->m_addon_len = 0;
+	if(fe->m_str_len == 2)
+	{
+		mk_lib_fe_go_to_root(fe);
+	}
+	else
+	{
+		fe->m_state = mk_lib_fe_state_e_folders;
+		for(ptr = fe->m_str + fe->m_str_len - 2; *ptr != mk_win_tstring_tchar_c('\\'); --ptr){}
+		fe->m_str_len -= ((int)(fe->m_str + fe->m_str_len - ptr));
+		fe->m_str[fe->m_str_len + 1] = mk_win_tstring_tchar_c('*');
+		fe->m_str[fe->m_str_len + 2] = mk_win_tstring_tchar_c('\0');
+		fe->m_str_len += 2;
+		fe->m_addon_len = 2;
+		mk_lib_fe_go_to_item_all(fe);
+	}
 }
 
 static mk_lang_nodiscard mk_lang_bool_t mk_lib_fe_go_to_item_roots(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept
@@ -153,18 +392,17 @@ static mk_lang_nodiscard mk_lang_bool_t mk_lib_fe_go_to_item_roots(mk_lib_fe_lpt
 	fe->m_str_len = 4;
 	fe->m_addon_len = 2;
 	fe->m_state = mk_lib_fe_state_e_folders;
-	mk_lib_fe_go_to_item_both(fe);
+	mk_lib_fe_go_to_item_all(fe);
 	return mk_lang_true;
 }
 
 static mk_lang_nodiscard mk_lang_inline mk_lang_bool_t mk_lib_fe_go_to_item_folders(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept
 {
-	mk_win_tstring_tchar_lpct ptr;
-	int i;
 	int ridx;
 	mk_win_kernel_files_t_find_data_lpt data;
 	int name_len;
 	mk_win_base_size_t s;
+	int i;
 
 	mk_lang_assert(fe);
 	mk_lang_assert(fe->m_state == mk_lib_fe_state_e_folders);
@@ -172,24 +410,8 @@ static mk_lang_nodiscard mk_lang_inline mk_lang_bool_t mk_lib_fe_go_to_item_fold
 
 	if(idx == 0)
 	{
-		fe->m_str_len -= fe->m_addon_len;
-		fe->m_addon_len = 0;
-		if(fe->m_str_len == 2)
-		{
-			mk_lib_fe_go_to_root(fe);
-			return mk_lang_true;
-		}
-		else
-		{
-			for(ptr = fe->m_str + fe->m_str_len - 2; *ptr != mk_win_tstring_tchar_c('\\'); --ptr){}
-			fe->m_str_len -= ((int)(fe->m_str + fe->m_str_len - ptr));
-			fe->m_str[fe->m_str_len + 1] = mk_win_tstring_tchar_c('*');
-			fe->m_str[fe->m_str_len + 2] = mk_win_tstring_tchar_c('\0');
-			fe->m_str_len += 2;
-			fe->m_addon_len = 2;
-			mk_lib_fe_go_to_item_both(fe);
-			return mk_lang_true;
-		}
+		mk_lib_fe_go_to_item_up(fe);
+		return mk_lang_true;
 	}
 	else
 	{
@@ -208,7 +430,7 @@ static mk_lang_nodiscard mk_lang_inline mk_lang_bool_t mk_lib_fe_go_to_item_fold
 			fe->m_str[fe->m_str_len + 1 + name_len + 2] = mk_win_tstring_tchar_c('\0');
 			fe->m_str_len += (1 + name_len + 2);
 			fe->m_addon_len = 2;
-			mk_lib_fe_go_to_item_both(fe);
+			mk_lib_fe_go_to_item_all(fe);
 			return mk_lang_true;
 		}
 		else
@@ -218,54 +440,34 @@ static mk_lang_nodiscard mk_lang_inline mk_lang_bool_t mk_lib_fe_go_to_item_fold
 	}
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_lib_fe_go_to_item(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept
+static mk_lang_nodiscard mk_lang_inline mk_lang_bool_t mk_lib_fe_go_to_item_err_path_not_found(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept
 {
 	mk_lang_assert(fe);
+	mk_lang_assert(fe->m_state == mk_lib_fe_state_e_err_path_not_found);
+	mk_lang_assert(idx == 0);
 
-	switch(fe->m_state)
-	{
-		case mk_lib_fe_state_e_init:
-		{
-			mk_lang_assert(0);
-		}
-		break;
-		case mk_lib_fe_state_e_roots:
-		{
-			return mk_lib_fe_go_to_item_roots(fe, idx);
-		}
-		break;
-		case mk_lib_fe_state_e_folders:
-		{
-			return mk_lib_fe_go_to_item_folders(fe, idx);
-		}
-		break;
-	}
-	mk_lang_assert(0);
+	mk_lib_fe_go_to_item_up(fe);
+	return mk_lang_true;
 }
 
-mk_lang_nodiscard mk_lang_jumbo int mk_lib_fe_get_count(mk_lib_fe_lpt const fe) mk_lang_noexcept
+static mk_lang_nodiscard mk_lang_inline mk_lang_bool_t mk_lib_fe_go_to_item_err_access_denied(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept
 {
 	mk_lang_assert(fe);
+	mk_lang_assert(fe->m_state == mk_lib_fe_state_e_err_access_denied);
+	mk_lang_assert(idx == 0);
 
-	switch(fe->m_state)
-	{
-		case mk_lib_fe_state_e_init:
-		{
-			mk_lang_assert(0);
-		}
-		break;
-		case mk_lib_fe_state_e_roots:
-		{
-			return fe->m_drives_count;
-		}
-		break;
-		case mk_lib_fe_state_e_folders:
-		{
-			return fe->m_strs_count + 1;
-		}
-		break;
-	}
-	mk_lang_assert(0);
+	mk_lib_fe_go_to_item_up(fe);
+	return mk_lang_true;
+}
+
+static mk_lang_nodiscard mk_lang_inline mk_lang_bool_t mk_lib_fe_go_to_item_err_not_ready(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept
+{
+	mk_lang_assert(fe);
+	mk_lang_assert(fe->m_state == mk_lib_fe_state_e_err_not_ready);
+	mk_lang_assert(idx == 0);
+
+	mk_lib_fe_go_to_item_up(fe);
+	return mk_lang_true;
 }
 
 static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_name_short_str_roots(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept
@@ -344,17 +546,37 @@ static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_
 	}
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_win_tstring_tchar_lpct mk_lib_fe_get_name_short_str(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept
+static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_name_short_str_err_path_not_found(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept
 {
-	mk_lang_assert(fe);
+	static mk_win_tstring_tchar_t const s_up[] = mk_win_tstring_tchar_c("> ..");
 
-	switch(fe->m_state)
-	{
-		case mk_lib_fe_state_e_init: mk_lang_assert(0); break;
-		case mk_lib_fe_state_e_roots: return mk_lib_fe_get_name_short_str_roots(fe, idx); break;
-		case mk_lib_fe_state_e_folders: return mk_lib_fe_get_name_short_str_folders(fe, idx); break;
-	}
-	mk_lang_assert(0);
+	mk_lang_assert(fe);
+	mk_lang_assert(fe->m_state == mk_lib_fe_state_e_err_path_not_found);
+	mk_lang_assert(idx == 0);
+
+	return s_up;
+}
+
+static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_name_short_str_err_access_denied(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept
+{
+	static mk_win_tstring_tchar_t const s_up[] = mk_win_tstring_tchar_c("> ..");
+
+	mk_lang_assert(fe);
+	mk_lang_assert(fe->m_state == mk_lib_fe_state_e_err_access_denied);
+	mk_lang_assert(idx == 0);
+
+	return s_up;
+}
+
+static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_name_short_str_err_not_ready(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept
+{
+	static mk_win_tstring_tchar_t const s_up[] = mk_win_tstring_tchar_c("> ..");
+
+	mk_lang_assert(fe);
+	mk_lang_assert(fe->m_state == mk_lib_fe_state_e_err_not_ready);
+	mk_lang_assert(idx == 0);
+
+	return s_up;
 }
 
 static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_name_long_str_roots(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept
@@ -399,151 +621,41 @@ static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_
 	}
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_win_tstring_tchar_lpct mk_lib_fe_get_name_long_str(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept
+static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_name_long_str_err_path_not_found(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept
 {
 	mk_lang_assert(fe);
+	mk_lang_assert(fe->m_state == mk_lib_fe_state_e_err_path_not_found);
+	mk_lang_assert(idx == 0);
 
-	switch(fe->m_state)
-	{
-		case mk_lib_fe_state_e_init: mk_lang_assert(0); break;
-		case mk_lib_fe_state_e_roots: return mk_lib_fe_get_name_long_str_roots(fe, idx); break;
-		case mk_lib_fe_state_e_folders: return mk_lib_fe_get_name_long_str_folders(fe, idx); break;
-	}
-	mk_lang_assert(0);
+	fe->m_str_len -= fe->m_addon_len;
+	fe->m_addon_len = 0;
+	fe->m_str[fe->m_str_len] = mk_win_tstring_tchar_c('\0');
+	return fe->m_str;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_win_tstring_tchar_lpct mk_lib_fe_get_type_str(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept
+static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_name_long_str_err_access_denied(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept
 {
 	mk_lang_assert(fe);
+	mk_lang_assert(fe->m_state == mk_lib_fe_state_e_err_access_denied);
+	mk_lang_assert(idx == 0);
 
-	switch(fe->m_state)
-	{
-		case mk_lib_fe_state_e_init:
-		{
-			mk_lang_assert(0);
-		}
-		break;
-		case mk_lib_fe_state_e_roots:
-		{
-			return mk_win_tstring_tchar_c("drive"); break;
-		}
-		break;
-		case mk_lib_fe_state_e_folders:
-		{
-			if(idx == 0)
-			{
-				return mk_win_tstring_tchar_c("");
-			}
-			else
-			{
-				return mk_win_tstring_tchar_c("file or directory"); break; /* todo */
-			}
-		}
-		break;
-	}
-	mk_lang_assert(0);
+	fe->m_str_len -= fe->m_addon_len;
+	fe->m_addon_len = 0;
+	fe->m_str[fe->m_str_len] = mk_win_tstring_tchar_c('\0');
+	return fe->m_str;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_win_tstring_tchar_lpct mk_lib_fe_get_detail_str(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept
-{
-	mk_win_base_size_t s;
-	mk_win_tstring_tchar_lpt drive_str;
-	mk_win_base_uint_t drive_type;
-
-	mk_lang_assert(fe);
-
-	switch(fe->m_state)
-	{
-		case mk_lib_fe_state_e_init:
-		{
-			mk_lang_assert(0);
-		}
-		break;
-		case mk_lib_fe_state_e_roots:
-		{
-			s = sizeof(mk_win_tstring_tchar_t);
-			mk_lib_fe_resize(&fe->m_str, &fe->m_str_capacity, (3 + 1) * s); mk_lang_assert(fe->m_str); mk_lang_assert(fe->m_str_capacity >= (3 + 1) * s);
-			drive_str = ((mk_win_tstring_tchar_lpt)(mk_lib_fe_get_name_short_str(fe, idx))); mk_lang_assert(drive_str); mk_lang_assert(*drive_str);
-			drive_str[2] = mk_win_tstring_tchar_c('\\');
-			drive_str[3] = mk_win_tstring_tchar_c('\0');
-			drive_type = mk_win_kernel_files_t_get_drive_type(drive_str);
-			drive_str[2] = mk_win_tstring_tchar_c('\0');
-			switch(drive_type)
-			{
-				case mk_win_kernel_files_drive_type_e_unknown: return mk_win_tstring_tchar_c("unknown"); break;
-				case mk_win_kernel_files_drive_type_e_no_root_dir: return mk_win_tstring_tchar_c("invalid"); break;
-				case mk_win_kernel_files_drive_type_e_removable: return mk_win_tstring_tchar_c("removable"); break;
-				case mk_win_kernel_files_drive_type_e_fixed: return mk_win_tstring_tchar_c("fixed"); break;
-				case mk_win_kernel_files_drive_type_e_remote: return mk_win_tstring_tchar_c("remote"); break;
-				case mk_win_kernel_files_drive_type_e_cdrom: return mk_win_tstring_tchar_c("cd rom"); break;
-				case mk_win_kernel_files_drive_type_e_ramdisk: return mk_win_tstring_tchar_c("ram disk"); break;
-				default: return mk_win_tstring_tchar_c("???"); break; /* todo display number */
-			}
-		}
-		break;
-		case mk_lib_fe_state_e_folders:
-		{
-			if(idx == 0)
-			{
-				return mk_win_tstring_tchar_c("");
-			}
-			else
-			{
-				return mk_win_tstring_tchar_c("???"); /* todo */
-			}
-		}
-		break;
-	}
-	mk_lang_assert(0);
-}
-
-mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_lib_fe_has_attributes(mk_lib_fe_lpct const fe, int const idx) mk_lang_noexcept
+static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_name_long_str_err_not_ready(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept
 {
 	mk_lang_assert(fe);
+	mk_lang_assert(fe->m_state == mk_lib_fe_state_e_err_not_ready);
+	mk_lang_assert(idx == 0);
 
-	switch(fe->m_state)
-	{
-		case mk_lib_fe_state_e_init:
-		{
-			mk_lang_assert(0);
-		}
-		break;
-		case mk_lib_fe_state_e_roots:
-		{
-			return mk_lang_false;
-		}
-		break;
-		case mk_lib_fe_state_e_folders:
-		{
-			if(idx == 0)
-			{
-				return mk_lang_false;
-			}
-			else
-			{
-				return mk_lang_true;
-			}
-		}
-		break;
-	}
-	mk_lang_assert(0);
+	fe->m_str_len -= fe->m_addon_len;
+	fe->m_addon_len = 0;
+	fe->m_str[fe->m_str_len] = mk_win_tstring_tchar_c('\0');
+	return fe->m_str;
 }
-
-mk_lang_nodiscard mk_lang_jumbo mk_win_kernel_files_attribute_t mk_lib_fe_get_attributes(mk_lib_fe_lpct const fe, int const idx) mk_lang_noexcept
-{
-	int ridx;
-	mk_win_kernel_files_t_find_data_lpct data;
-	mk_win_kernel_files_attribute_t attributes;
-
-	mk_lang_assert(fe);
-	mk_lang_assert(mk_lib_fe_has_attributes(fe, idx));
-
-	ridx = ((int_pt)(fe->m_sort))[idx - 1];
-	data = ((mk_win_kernel_files_t_find_data_lpct)(fe->m_strs));
-	attributes = data[ridx].m_attributes;
-	return attributes;
-}
-
 
 static mk_lang_inline void mk_lib_fe_resize(mk_win_base_void_lpt* const ptr, mk_win_base_size_t* const curr_size, mk_win_base_size_t const requested_size) mk_lang_noexcept
 {
@@ -552,7 +664,6 @@ static mk_lang_inline void mk_lib_fe_resize(mk_win_base_void_lpt* const ptr, mk_
 
 	mk_lang_assert(ptr);
 	mk_lang_assert(curr_size);
-	mk_lang_assert(requested_size != 0);
 	mk_lang_assert(*ptr || *curr_size == 0);
 
 	if(requested_size > *curr_size)
@@ -742,21 +853,21 @@ static mk_lang_inline void mk_lib_fe_sort_recursive(mk_win_kernel_files_t_find_d
 static mk_lang_inline void mk_lib_fe_sort(mk_lib_fe_lpt const fe) mk_lang_noexcept
 {
 	int n;
-	mk_win_kernel_files_t_find_data_lpct data;
 	mk_win_base_size_t s;
 	int_pt pi;
 	int i;
+	mk_win_kernel_files_t_find_data_lpct data;
 
 	mk_lang_assert(fe);
 
 	n = fe->m_strs_count;
+	s = sizeof(int);
+	mk_lib_fe_resize(&fe->m_sort, &fe->m_sort_capacity, 3 * n * s); mk_lang_assert(fe->m_sort); mk_lang_assert(fe->m_sort_capacity >= 3 * n * s);
+	pi = ((int_pt)(fe->m_sort));
+	for(i = 0; i != n; ++i){ pi[i] = i; }
 	if(n >= 2)
 	{
 		data = ((mk_win_kernel_files_t_find_data_lpct)(fe->m_strs));
-		s = sizeof(int);
-		mk_lib_fe_resize(&fe->m_sort, &fe->m_sort_capacity, 3 * n * s); mk_lang_assert(fe->m_sort); mk_lang_assert(fe->m_sort_capacity >= 3 * n * s);
- 		pi = ((int_pt)(fe->m_sort));
-		for(i = 0; i != n; ++i){ pi[i] = i; }
 		mk_lib_fe_sort_recursive(data, pi, n, pi + n, pi + 2 * n);
 		for(i = 0; i != n; ++i){ pi[i] = pi[n * 2 + i]; }
 	}

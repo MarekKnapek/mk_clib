@@ -53,7 +53,7 @@ typedef mk_win_tstring_tchar_t mk_win_base_near* mk_win_tstring_tchar_npt;
 typedef mk_win_tstring_tchar_t mk_win_base_near const* mk_win_tstring_tchar_npct;
 
 
-#if defined _MSC_VER && _MSC_VER >= 1935
+#if defined _MSC_VER && _MSC_VER == 1935
 #pragma warning(push)
 #pragma warning(disable:4820) /* warning C4820: 'xxx': 'xxx' bytes padding added after data member 'xxx' */
 #endif
@@ -70,11 +70,11 @@ typedef mk_win_tstring_mem_with_size_t mk_win_base_far* mk_win_tstring_mem_with_
 typedef mk_win_tstring_mem_with_size_t mk_win_base_far const* mk_win_tstring_mem_with_size_lpct;
 typedef mk_win_tstring_mem_with_size_t mk_win_base_near* mk_win_tstring_mem_with_size_npt;
 typedef mk_win_tstring_mem_with_size_t mk_win_base_near const* mk_win_tstring_mem_with_size_npct;
-#if defined _MSC_VER && _MSC_VER >= 1935
+#if defined _MSC_VER && _MSC_VER == 1935
 #pragma warning(pop)
 #endif
 
-#if defined _MSC_VER && _MSC_VER >= 1935
+#if defined _MSC_VER && _MSC_VER == 1935
 #pragma warning(push)
 #pragma warning(disable:4820) /* warning C4820: 'xxx': 'xxx' bytes padding added after data member 'xxx' */
 #endif
@@ -91,11 +91,11 @@ typedef mk_win_tstring_pstr_with_size_t mk_win_base_far* mk_win_tstring_pstr_wit
 typedef mk_win_tstring_pstr_with_size_t mk_win_base_far const* mk_win_tstring_pstr_with_size_lpct;
 typedef mk_win_tstring_pstr_with_size_t mk_win_base_near* mk_win_tstring_pstr_with_size_npt;
 typedef mk_win_tstring_pstr_with_size_t mk_win_base_near const* mk_win_tstring_pstr_with_size_npct;
-#if defined _MSC_VER && _MSC_VER >= 1935
+#if defined _MSC_VER && _MSC_VER == 1935
 #pragma warning(pop)
 #endif
 
-#if defined _MSC_VER && _MSC_VER >= 1935
+#if defined _MSC_VER && _MSC_VER == 1935
 #pragma warning(push)
 #pragma warning(disable:4820) /* warning C4820: 'xxx': 'xxx' bytes padding added after data member 'xxx' */
 #endif
@@ -112,7 +112,7 @@ typedef mk_win_tstring_wstr_with_size_t mk_win_base_far* mk_win_tstring_wstr_wit
 typedef mk_win_tstring_wstr_with_size_t mk_win_base_far const* mk_win_tstring_wstr_with_size_lpct;
 typedef mk_win_tstring_wstr_with_size_t mk_win_base_near* mk_win_tstring_wstr_with_size_npt;
 typedef mk_win_tstring_wstr_with_size_t mk_win_base_near const* mk_win_tstring_wstr_with_size_npct;
-#if defined _MSC_VER && _MSC_VER >= 1935
+#if defined _MSC_VER && _MSC_VER == 1935
 #pragma warning(pop)
 #endif
 
@@ -133,6 +133,8 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_tstring_tstr_with_size_t mk_win_tstring_a
 mk_lang_nodiscard mk_lang_jumbo mk_win_tstring_tstr_with_size_t mk_win_tstring_wide_to_tstr_buff_sz_nofail(mk_win_base_wchar_lpct const wide, int const wide_len_elements, mk_win_tstring_tchar_lpt const tstr, int const tstr_len_elements) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_tstring_tstr_with_size_t mk_win_tstring_ansi_to_tstr_buff_zt_nofail(mk_win_base_pchar_lpct const ansi, mk_win_tstring_tchar_lpt const tstr, int const tstr_len_elements) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_tstring_tstr_with_size_t mk_win_tstring_wide_to_tstr_buff_zt_nofail(mk_win_base_wchar_lpct const wide, mk_win_tstring_tchar_lpt const tstr, int const tstr_len_elements) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_win_tstring_pstr_with_size_t mk_win_tstring_tstr_to_ansi_sz_nofail(mk_win_tstring_tchar_lpct const tstr, int const tstr_len_elements) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_win_tstring_wstr_with_size_t mk_win_tstring_tstr_to_wide_sz_nofail(mk_win_tstring_tchar_lpct const tstr, int const tstr_len_elements) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_tstring_pstr_with_size_t mk_win_tstring_tstr_to_ansi_zt_nofail(mk_win_tstring_tchar_lpct const tstr) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_tstring_wstr_with_size_t mk_win_tstring_tstr_to_wide_zt_nofail(mk_win_tstring_tchar_lpct const tstr) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_tstring_tstr_with_size_t mk_win_tstring_asci_to_tstr_zt_nofail(mk_win_base_pchar_lpct const asci) mk_lang_noexcept;

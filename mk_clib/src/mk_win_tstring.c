@@ -58,14 +58,14 @@ mk_win_base_dll_import int mk_win_base_stdcall MultiByteToWideChar(mk_win_base_u
 mk_win_base_dll_import int mk_win_base_stdcall WideCharToMultiByte(mk_win_base_uint_t, mk_win_base_dword_t, mk_win_base_wchar_lpct, int, mk_win_base_pchar_lpt, int, mk_win_base_pchar_lpct, mk_win_base_bool_lpt) mk_lang_noexcept;
 
 
-#if defined _MSC_VER && _MSC_VER >= 1935
+#if defined _MSC_VER && _MSC_VER == 1935
 #pragma warning(push)
 #pragma warning(disable:4132) /* warning C4132: 'xxx': const object should be initialized */
 #endif
 #define s_mk_win_tstring_mws_elements 16
 static mk_win_base_pchar_t const s_mk_win_tstring_null_pchar;
 static mk_win_base_wchar_t const s_mk_win_tstring_null_wchar;
-#if defined _MSC_VER && _MSC_VER >= 1935
+#if defined _MSC_VER && _MSC_VER == 1935
 #pragma warning(pop)
 #endif
 
@@ -150,6 +150,8 @@ mk_lang_jumbo void mk_win_tstring_ansi_to_tstr_buff_sz_nmws(mk_lang_exception_pt
 mk_lang_jumbo void mk_win_tstring_wide_to_tstr_buff_sz_nmws(mk_lang_exception_pt const ex, mk_win_base_wchar_lpct const wide, int const wide_len_elements, mk_win_tstring_tchar_lpt const tstr, int const tstr_len_elements, mk_win_tstring_tstr_with_size_pt const tstr_out) mk_lang_noexcept;
 mk_lang_jumbo void mk_win_tstring_ansi_to_tstr_buff_zt_nmws(mk_lang_exception_pt const ex, mk_win_base_pchar_lpct const ansi, mk_win_tstring_tchar_lpt const tstr, int const tstr_len_elements, mk_win_tstring_tstr_with_size_pt const tstr_out) mk_lang_noexcept;
 mk_lang_jumbo void mk_win_tstring_wide_to_tstr_buff_zt_nmws(mk_lang_exception_pt const ex, mk_win_base_wchar_lpct const wide, mk_win_tstring_tchar_lpt const tstr, int const tstr_len_elements, mk_win_tstring_tstr_with_size_pt const tstr_out) mk_lang_noexcept;
+mk_lang_jumbo void mk_win_tstring_tstr_to_ansi_sz_nmws(mk_lang_exception_pt const ex, mk_win_tstring_tchar_lpct const tstr, int const tstr_len_elements, mk_win_tstring_pstr_with_size_pt const ansi) mk_lang_noexcept;
+mk_lang_jumbo void mk_win_tstring_tstr_to_wide_sz_nmws(mk_lang_exception_pt const ex, mk_win_tstring_tchar_lpct const tstr, int const tstr_len_elements, mk_win_tstring_wstr_with_size_pt const wide) mk_lang_noexcept;
 mk_lang_jumbo void mk_win_tstring_tstr_to_ansi_zt_nmws(mk_lang_exception_pt const ex, mk_win_tstring_tchar_lpct const tstr, mk_win_tstring_pstr_with_size_pt const ansi) mk_lang_noexcept;
 mk_lang_jumbo void mk_win_tstring_tstr_to_wide_zt_nmws(mk_lang_exception_pt const ex, mk_win_tstring_tchar_lpct const tstr, mk_win_tstring_wstr_with_size_pt const wide) mk_lang_noexcept;
 mk_lang_jumbo void mk_win_tstring_asci_to_tstr_zt_nmws(mk_lang_exception_pt const ex, mk_win_base_pchar_lpct const asci, mk_win_tstring_tstr_with_size_pt const tstr) mk_lang_noexcept;
@@ -213,7 +215,7 @@ mk_lang_jumbo void mk_win_tstring_resize_mws(mk_lang_exception_pt const ex, mk_w
 	}
 }
 
-#if defined _MSC_VER && _MSC_VER >= 1935
+#if defined _MSC_VER && _MSC_VER == 1935
 #pragma warning(push)
 #pragma warning(disable:4706) /* warning C4706: assignment within conditional expression */
 #endif
@@ -232,11 +234,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_win_tstring_validate_asci(mk_w
 	}
 	return mk_lang_true;
 }
-#if defined _MSC_VER && _MSC_VER >= 1935
+#if defined _MSC_VER && _MSC_VER == 1935
 #pragma warning(pop)
 #endif
 
-#if defined _MSC_VER && _MSC_VER >= 1935
+#if defined _MSC_VER && _MSC_VER == 1935
 #pragma warning(push)
 #pragma warning(disable:4706) /* warning C4706: assignment within conditional expression */
 #endif
@@ -319,11 +321,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_win_tstring_validate_utf8(mk_w
 	}
 	return mk_lang_true;
 }
-#if defined _MSC_VER && _MSC_VER >= 1935
+#if defined _MSC_VER && _MSC_VER == 1935
 #pragma warning(pop)
 #endif
 
-#if defined _MSC_VER && _MSC_VER >= 1935
+#if defined _MSC_VER && _MSC_VER == 1935
 #pragma warning(push)
 #pragma warning(disable:4706) /* warning C4706: assignment within conditional expression */
 #endif
@@ -375,7 +377,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_win_tstring_validate_wide(mk_w
 	}
 	return mk_lang_true;
 }
-#if defined _MSC_VER && _MSC_VER >= 1935
+#if defined _MSC_VER && _MSC_VER == 1935
 #pragma warning(pop)
 #endif
 
@@ -392,7 +394,7 @@ mk_lang_nodiscard mk_lang_jumbo int mk_win_tstring_ansi_to_wide_fallback(mk_win_
 
 	mk_lang_assert(cp == mk_win_tstring_cp_e_utf8);
 	mk_lang_assert(flags == mk_win_tstring_flags_mb_e_none);
-	mk_lang_assert(ansi && *ansi && (ansi_len_elements == -1 || !ansi[ansi_len_elements - 1]));
+	mk_lang_assert(ansi);
 	mk_lang_assert(ansi_len_elements >= 2 || ansi_len_elements == -1);
 	mk_lang_assert((wide && wide_len_elements >= 2) || (!wide && wide_len_elements == 0));
 	/* todo wide len is enough */
@@ -526,7 +528,7 @@ mk_lang_nodiscard mk_lang_jumbo int mk_win_tstring_wide_to_ansi_fallback(mk_win_
 
 	mk_lang_assert(cp == mk_win_tstring_cp_e_utf8);
 	mk_lang_assert(flags == mk_win_tstring_flags_wc_e_none);
-	mk_lang_assert(wide && *wide && (wide_len_elements == -1 || !wide[wide_len_elements - 1]));
+	mk_lang_assert(wide);
 	mk_lang_assert(wide_len_elements >= 2 || wide_len_elements == -1);
 	mk_lang_assert((ansi && ansi_len_elements >= 2) || (!ansi && ansi_len_elements == 0));
 	mk_lang_assert(!default_char);
@@ -688,14 +690,15 @@ mk_lang_jumbo void mk_win_tstring_asci_to_ansi_sz_wmws(mk_lang_exception_pt cons
 
 mk_lang_jumbo void mk_win_tstring_utf8_to_ansi_sz_wmws(mk_lang_exception_pt const ex, mk_win_base_pchar_lpct const utf8, int const utf8_len_elements, mk_win_tstring_mem_with_size_pt const mws, mk_win_tstring_pstr_with_size_pt const ansi) mk_lang_noexcept
 {
-	mk_lang_assert(0);
-	mk_lang_crash();
-	((void)(ex));
-	((void)(utf8));
-	((void)(utf8_len_elements));
-	((void)(mws));
-	((void)(ansi));
-	/* todo */
+	mk_win_tstring_wstr_with_size_t wide;
+
+	mk_lang_assert(ex);
+	mk_lang_assert(mws);
+	mk_lang_assert(ansi);
+
+	mk_win_tstring_utf8_to_wide_sz_wmws(ex, utf8, utf8_len_elements, mws, &wide);
+	mk_lang_exception_if_is_return(ex);
+	mk_win_tstring_wide_to_ansi_sz_nmws(ex, wide.m_str, wide.m_length_elements, ansi);
 }
 
 mk_lang_jumbo void mk_win_tstring_wide_to_ansi_sz_wmws(mk_lang_exception_pt const ex, mk_win_base_wchar_lpct const wide, int const wide_len_elements, mk_win_tstring_mem_with_size_pt const mws, mk_win_tstring_pstr_with_size_pt const ansi) mk_lang_noexcept
@@ -771,7 +774,7 @@ mk_lang_jumbo void mk_win_tstring_ansi_to_wide_sz_wmws(mk_lang_exception_pt cons
 		return;
 	}
 	converted1 = mk_win_tstring_ansi_to_wide_my(mk_win_tstring_cp_e_acp, mk_win_tstring_flags_mb_e_none, ansi, ansi_len_elements, mk_win_base_null, 0);
-	mk_lang_assert(converted1 >= 2);
+	mk_lang_assert(converted1 >= 1);
 	mk_win_tstring_resize_mws(ex, mws, converted1 * sizeof(mk_win_base_wchar_t));
 	mk_lang_exception_if_is_return(ex);
 	converted2 = mk_win_tstring_ansi_to_wide_my(mk_win_tstring_cp_e_acp, mk_win_tstring_flags_mb_e_none, ansi, ansi_len_elements, mws->m_mem, converted1);
@@ -782,13 +785,21 @@ mk_lang_jumbo void mk_win_tstring_ansi_to_wide_sz_wmws(mk_lang_exception_pt cons
 
 mk_lang_jumbo void mk_win_tstring_utf8_to_wide_sz_wmws(mk_lang_exception_pt const ex, mk_win_base_pchar_lpct const utf8, int const utf8_len_elements, mk_win_tstring_mem_with_size_pt const mws, mk_win_tstring_wstr_with_size_pt const wide) mk_lang_noexcept
 {
-	mk_lang_assert(0);
-	mk_lang_crash();
-	((void)(ex));
-	((void)(utf8));
-	((void)(utf8_len_elements));
-	((void)(mws));
-	((void)(wide));
+	int converted1;
+	int converted2;
+
+	mk_lang_assert(ex);
+	mk_lang_assert(mws);
+	mk_lang_assert(wide);
+
+	converted1 = mk_win_tstring_ansi_to_wide_my(mk_win_tstring_cp_e_utf8, mk_win_tstring_flags_mb_e_none, utf8, utf8_len_elements, mk_win_base_null, 0);
+	mk_lang_assert(converted1 >= 1);
+	mk_win_tstring_resize_mws(ex, mws, converted1 * sizeof(mk_win_base_wchar_t));
+	mk_lang_exception_if_is_return(ex);
+	converted2 = mk_win_tstring_ansi_to_wide_my(mk_win_tstring_cp_e_utf8, mk_win_tstring_flags_mb_e_none, utf8, utf8_len_elements, mws->m_mem, converted1);
+	mk_lang_assert(converted2 == converted1);
+	wide->m_str = mws->m_mem;
+	wide->m_length_elements = converted1;
 }
 
 mk_lang_jumbo void mk_win_tstring_ansi_to_asci_sz_wmws(mk_lang_exception_pt const ex, mk_win_base_pchar_lpct const ansi, int const ansi_len_elements, mk_win_tstring_mem_with_size_pt const mws, mk_win_tstring_pstr_with_size_pt const asci) mk_lang_noexcept
@@ -1409,6 +1420,37 @@ mk_lang_jumbo void mk_win_tstring_wide_to_tstr_buff_zt_nmws(mk_lang_exception_pt
 #endif
 }
 
+mk_lang_jumbo void mk_win_tstring_tstr_to_ansi_sz_nmws(mk_lang_exception_pt const ex, mk_win_tstring_tchar_lpct const tstr, int const tstr_len_elements, mk_win_tstring_pstr_with_size_pt const ansi) mk_lang_noexcept
+{
+#if mk_win_tstring_enc == mk_win_tstring_enc_asci
+	mk_win_tstring_asci_to_ansi_sz_nmws(ex, tstr, tstr_len_elements, ansi);
+#elif mk_win_tstring_enc == mk_win_tstring_enc_ansi
+	mk_lang_crash();
+#elif mk_win_tstring_enc == mk_win_tstring_enc_utf8
+	mk_win_tstring_utf8_to_ansi_sz_nmws(ex, tstr, tstr_len_elements, ansi);
+#elif mk_win_tstring_enc == mk_win_tstring_enc_wide
+	mk_win_tstring_wide_to_ansi_sz_nmws(ex, tstr, tstr_len_elements, ansi);
+#endif
+}
+
+mk_lang_jumbo void mk_win_tstring_tstr_to_wide_sz_nmws(mk_lang_exception_pt const ex, mk_win_tstring_tchar_lpct const tstr, int const tstr_len_elements, mk_win_tstring_wstr_with_size_pt const wide) mk_lang_noexcept
+{
+#if mk_win_tstring_enc == mk_win_tstring_enc_asci
+	mk_win_tstring_asci_to_wide_sz_nmws(ex, tstr, tstr_len_elements, wide);
+#elif mk_win_tstring_enc == mk_win_tstring_enc_ansi
+	mk_win_tstring_ansi_to_wide_sz_nmws(ex, tstr, tstr_len_elements, wide);
+#elif mk_win_tstring_enc == mk_win_tstring_enc_utf8
+	mk_win_tstring_utf8_to_wide_sz_nmws(ex, tstr, tstr_len_elements, wide);
+#elif mk_win_tstring_enc == mk_win_tstring_enc_wide
+	((void)(ex));
+	((void)(tstr));
+	((void)(tstr_len_elements));
+	((void)(wide));
+	mk_lang_assert(0);
+	mk_lang_crash();
+#endif
+}
+
 mk_lang_jumbo void mk_win_tstring_tstr_to_ansi_zt_nmws(mk_lang_exception_pt const ex, mk_win_tstring_tchar_lpct const tstr, mk_win_tstring_pstr_with_size_pt const ansi) mk_lang_noexcept
 {
 #if mk_win_tstring_enc == mk_win_tstring_enc_asci
@@ -1580,6 +1622,34 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_tstring_tstr_with_size_t mk_win_tstring_w
 	mk_win_tstring_wide_to_tstr_buff_zt_nmws(&ex, wide, tstr, tstr_len_elements, &tstr_ret);
 	if(mk_lang_exception_is(&ex)) mk_lang_crash();
 	return tstr_ret;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_win_tstring_pstr_with_size_t mk_win_tstring_tstr_to_ansi_sz_nofail(mk_win_tstring_tchar_lpct const tstr, int const tstr_len_elements) mk_lang_noexcept
+{
+	mk_lang_exception_t ex;
+	mk_win_tstring_pstr_with_size_t ansi_ret;
+
+	mk_lang_assert(tstr || tstr_len_elements == 0);
+	mk_lang_assert(tstr_len_elements >= 0);
+
+	mk_lang_exception_make_none(&ex);
+	mk_win_tstring_tstr_to_ansi_sz_nmws(&ex, tstr, tstr_len_elements, &ansi_ret);
+	if(mk_lang_exception_is(&ex)) mk_lang_crash();
+	return ansi_ret;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_win_tstring_wstr_with_size_t mk_win_tstring_tstr_to_wide_sz_nofail(mk_win_tstring_tchar_lpct const tstr, int const tstr_len_elements) mk_lang_noexcept
+{
+	mk_lang_exception_t ex;
+	mk_win_tstring_wstr_with_size_t wide_ret;
+
+	mk_lang_assert(tstr || tstr_len_elements == 0);
+	mk_lang_assert(tstr_len_elements >= 0);
+
+	mk_lang_exception_make_none(&ex);
+	mk_win_tstring_tstr_to_wide_sz_nmws(&ex, tstr, tstr_len_elements, &wide_ret);
+	if(mk_lang_exception_is(&ex)) mk_lang_crash();
+	return wide_ret;
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_tstring_pstr_with_size_t mk_win_tstring_tstr_to_ansi_zt_nofail(mk_win_tstring_tchar_lpct const tstr) mk_lang_noexcept

@@ -16,12 +16,15 @@ enum mk_lib_fe_state_e
 {
 	mk_lib_fe_state_e_init,
 	mk_lib_fe_state_e_roots,
-	mk_lib_fe_state_e_folders
+	mk_lib_fe_state_e_folders,
+	mk_lib_fe_state_e_err_path_not_found,
+	mk_lib_fe_state_e_err_access_denied,
+	mk_lib_fe_state_e_err_not_ready
 };
 typedef enum mk_lib_fe_state_e mk_lib_fe_state_t;
 
 
-#if defined _MSC_VER && _MSC_VER >= 1935
+#if defined _MSC_VER && _MSC_VER == 1935
 #pragma warning(push)
 #pragma warning(disable:4820) /* warning C4820: 'xxx': 'xxx' bytes padding added after data member 'xxx' */
 #endif
@@ -48,7 +51,7 @@ typedef mk_lib_fe_t mk_win_base_far* mk_lib_fe_lpt;
 typedef mk_lib_fe_t mk_win_base_far const* mk_lib_fe_lpct;
 typedef mk_lib_fe_t mk_win_base_near* mk_lib_fe_npt;
 typedef mk_lib_fe_t mk_win_base_near const* mk_lib_fe_npct;
-#if defined _MSC_VER && _MSC_VER >= 1935
+#if defined _MSC_VER && _MSC_VER == 1935
 #pragma warning(pop)
 #endif
 

@@ -64,6 +64,9 @@ typedef mk_win_gdi_font_w_t mk_win_base_near* mk_win_gdi_font_w_npt;
 typedef mk_win_gdi_font_w_t mk_win_base_near const* mk_win_gdi_font_w_npct;
 
 
+struct mk_win_gdi_font_handle_s; typedef struct mk_win_gdi_font_handle_s mk_win_gdi_font_handle_t; typedef mk_win_gdi_font_handle_t const* mk_win_gdi_font_t;
+
+
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_handle_t mk_win_gdi_font_a_create_indirect(mk_win_gdi_font_a_lpct const font) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_handle_t mk_win_gdi_font_w_create_indirect(mk_win_gdi_font_w_lpct const font) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_handle_t mk_win_gdi_font_t_create_indirect(mk_win_base_void_lpct const font) mk_lang_noexcept;

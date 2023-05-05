@@ -46,6 +46,9 @@ mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall EndPaint(mk_win_us
 mk_win_base_dll_import mk_win_user_window_t mk_win_base_stdcall SetFocus(mk_win_user_window_t) mk_lang_noexcept;
 mk_win_base_dll_import mk_win_user_window_t mk_win_base_stdcall GetParent(mk_win_user_window_t) mk_lang_noexcept;
 mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall ShowScrollBar(mk_win_user_window_t, int, mk_win_base_bool_t) mk_lang_noexcept;
+mk_win_base_dll_import mk_win_gdi_dc_t mk_win_base_stdcall GetDC(mk_win_user_window_t) mk_lang_noexcept;
+mk_win_base_dll_import int mk_win_base_stdcall ReleaseDC(mk_win_user_window_t, mk_win_gdi_dc_t) mk_lang_noexcept;
+mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall InvalidateRect(mk_win_user_window_t, mk_win_base_rect_lpct, mk_lang_bool_t) mk_lang_noexcept;
 
 mk_win_base_dll_import mk_win_user_window_t mk_win_base_stdcall GetDesktopWindow(void) mk_lang_noexcept;
 
@@ -584,6 +587,22 @@ mk_lang_jumbo mk_win_base_bool_t mk_win_user_window_show_scrollbar(mk_win_user_w
 	return shown;
 }
 
+mk_lang_jumbo mk_win_gdi_dc_t mk_win_user_window_get_dc(mk_win_user_window_t const window) mk_lang_noexcept
+{
+	mk_win_gdi_dc_t dc;
+
+	dc = GetDC(window);
+	return dc;
+}
+
+mk_lang_jumbo int mk_win_user_window_release_dc(mk_win_user_window_t const window, mk_win_gdi_dc_t const dc) mk_lang_noexcept
+{
+	int released;
+
+	released = ReleaseDC(window, dc);
+	return released;
+}
+
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_user_window_t mk_win_user_window_get_desktop(void) mk_lang_noexcept
 {
@@ -591,4 +610,12 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_user_window_t mk_win_user_window_get_desk
 
 	desktop = GetDesktopWindow();
 	return desktop;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_user_window_invalidate_rect(mk_win_user_window_t const window, mk_win_base_rect_lpct const rect, mk_win_base_bool_t const erase) mk_lang_noexcept
+{
+	mk_win_base_bool_t invalidated;
+
+	invalidated = InvalidateRect(window, rect, erase);
+	return invalidated;
 }

@@ -15,6 +15,7 @@
 #include "mk_lang_sizeof.h"
 #include "mk_lib_fe.h"
 #include "mk_win_base.h"
+#include "mk_win_ctrl_impl_mlistbox.h"
 #include "mk_win_ctrl_impl_mprogressbar.h"
 #include "mk_win_gdi_font.h"
 #include "mk_win_kernel_files.h"
@@ -26,6 +27,7 @@
 #include "mk_win_user_color.h"
 #include "mk_win_user_ctrl_edit.h"
 #include "mk_win_user_ctrl_listbox.h"
+#include "mk_win_user_ctrl_mlistbox.h"
 #include "mk_win_user_ctrl_mprogressbar.h"
 #include "mk_win_user_ctrl_static.h"
 #include "mk_win_user_cursor.h"
@@ -61,7 +63,7 @@ static mk_win_user_dialog_two_ints_t g_size_static;
 static mk_win_user_dialog_two_ints_t g_size_progressbar;
 
 
-#if defined _MSC_VER && _MSC_VER >= 1935
+#if defined _MSC_VER && _MSC_VER == 1935
 #pragma warning(push)
 #pragma warning(disable:4820) /* warning C4820: 'xxx': 'xxx' bytes padding added after data member 'xxx' */
 #endif
@@ -81,7 +83,7 @@ typedef mk_clib_app_file_explorer_context_t mk_win_base_far* mk_clib_app_file_ex
 typedef mk_clib_app_file_explorer_context_t mk_win_base_far const* mk_clib_app_file_explorer_context_lpct;
 typedef mk_clib_app_file_explorer_context_t mk_win_base_near* mk_clib_app_file_explorer_context_npt;
 typedef mk_clib_app_file_explorer_context_t mk_win_base_near const* mk_clib_app_file_explorer_context_npct;
-#if defined _MSC_VER && _MSC_VER >= 1935
+#if defined _MSC_VER && _MSC_VER == 1935
 #pragma warning(pop)
 #endif
 
@@ -118,6 +120,9 @@ static mk_lang_inline void mk_clib_app_file_explorer_go_to_root(mk_win_user_wind
 static mk_lang_inline void mk_clib_app_file_explorer_go_to_item(mk_win_user_window_t const dialog, int const idx) mk_lang_noexcept;
 static mk_lang_inline void mk_clib_app_file_explorer_dlgproc_on_destroy(mk_win_user_window_t const dialog, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_base_sintptr_pt const lres) mk_lang_noexcept;
 static mk_lang_inline void mk_clib_app_file_explorer_dlgproc_on_close(mk_win_user_window_t const dialog, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_base_sintptr_pt const lres) mk_lang_noexcept;
+static mk_lang_inline void mk_clib_app_file_explorer_dlgproc_on_notify_listbox_attributes_get_string(mk_win_user_window_t const dialog, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_base_sintptr_pt const lres) mk_lang_noexcept;
+static mk_lang_inline void mk_clib_app_file_explorer_dlgproc_on_notify_listbox_attributes(mk_win_user_window_t const dialog, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_base_sintptr_pt const lres) mk_lang_noexcept;
+static mk_lang_inline void mk_clib_app_file_explorer_dlgproc_on_notify(mk_win_user_window_t const dialog, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_base_sintptr_pt const lres) mk_lang_noexcept;
 static mk_lang_inline void mk_clib_app_file_explorer_dlgproc_on_initdialog(mk_win_user_window_t const dialog, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_base_sintptr_pt const lres) mk_lang_noexcept;
 static mk_lang_inline void mk_clib_app_file_explorer_dlgproc_on_command_list_selchange(mk_win_user_window_t const dialog, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_base_sintptr_pt const lres) mk_lang_noexcept;
 static mk_lang_inline void mk_clib_app_file_explorer_dlgproc_on_command_list_dblclk(mk_win_user_window_t const dialog, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_base_sintptr_pt const lres) mk_lang_noexcept;
@@ -152,6 +157,7 @@ mk_lang_jumbo int mk_clib_app_file_explorer_winmain(mk_win_base_instance_t const
 	mk_win_tstring_init();
 	InitCommonControls();
 	mk_win_ctrl_impl_mprogressbar_register();
+	mk_win_ctrl_impl_mlistbox_register();
 
 	g_instance = instance;
 	g_size_margin = mk_win_user_dialog_get_ctrl_size_margins(g_instance);
@@ -173,6 +179,7 @@ mk_lang_jumbo int mk_clib_app_file_explorer_winmain(mk_win_base_instance_t const
 		ret = mk_clib_app_file_explorer_run_dialog();
 	}
 
+	mk_win_ctrl_impl_mlistbox_unregister();
 	mk_win_ctrl_impl_mprogressbar_unregister();
 	mk_win_tstring_deinit();
 	mk_win_main_heap_destroy();
@@ -240,6 +247,7 @@ mk_lang_nodiscard static mk_lang_inline int mk_clib_app_file_explorer_run_dialog
 	mk_win_base_sshort_t dlg_h;
 	mk_win_user_dialog_dlg_template_pt dlg;
 	unsigned char template_buffer[1024];
+	int n;
 	int i;
 	mk_win_user_dialog_dlg_template_pt dlg2;
 	mk_win_user_dialog_itm_template_pt ctrl_listbox;
@@ -487,8 +495,6 @@ mk_lang_nodiscard static mk_lang_inline int mk_clib_app_file_explorer_run_dialog
 
 	ctrl_listbox_attributes = ((mk_win_user_dialog_itm_template_pt)(mk_clib_app_file_explorer_round_up_s(((mk_win_base_wchar_pct)(ctrl_edit_attributes + 1)), sizeof(mk_win_base_dword_t))));
 	ctrl_listbox_attributes->m_style =
-		mk_win_user_ctrl_listbox_style_e_nointegralheight |
-		mk_win_user_window_style_e_hscroll |
 		mk_win_user_window_style_e_vscroll |
 		mk_win_user_window_style_e_border |
 		mk_win_user_window_style_e_child |
@@ -499,10 +505,11 @@ mk_lang_nodiscard static mk_lang_inline int mk_clib_app_file_explorer_run_dialog
 	ctrl_listbox_attributes->m_width = ctrl_listbox_attributes_w;
 	ctrl_listbox_attributes->m_height = ctrl_listbox_attributes_h;
 	ctrl_listbox_attributes->m_id = s_mk_clib_app_file_explorer_ctrl_id_listbox_attributes_data;
-	ctrl_listbox_attributes->m_class[0] = mk_win_user_dialog_class_is_atom;
-	ctrl_listbox_attributes->m_class[1] = mk_win_user_dialog_class_id_listbox;
-	ctrl_listbox_attributes->m_title = 0;
-	ctrl_listbox_attributes->m_extra_count = 0;
+	n = ((int)(sizeof(mk_win_user_ctrl_mlistbox_name_w) / sizeof(mk_win_user_ctrl_mlistbox_name_w[0])));
+	for(i = 0; i != n; ++i) ctrl_listbox_attributes->m_class[i] = mk_win_user_ctrl_mlistbox_name_w[i];
+	ctrl2 = ((mk_win_user_dialog_itm_template_pt)(((mk_win_base_wchar_pt)(ctrl_listbox_attributes)) + (n - 1)));
+	ctrl2->m_title = 0;
+	ctrl2->m_extra_count = 0;
 
 	res = mk_win_user_dialog_t_indirect_param(g_instance, dlg, mk_win_base_null, &mk_clib_app_file_explorer_dlgproc, 0);
 	ret = ((int)(res));
@@ -568,6 +575,7 @@ mk_lang_nodiscard static mk_lang_inline int mk_clib_app_file_explorer_run_dialog
 	mk_win_base_sshort_t dlg_h;
 	mk_win_user_dialog_dlg_templateex_pt dlg;
 	unsigned char template_buffer[1024];
+	int n;
 	int i;
 	mk_win_user_dialog_dlg_templateex_pt dlg2;
 	mk_win_user_dialog_itm_templateex_pt ctrl_listbox;
@@ -832,8 +840,6 @@ mk_lang_nodiscard static mk_lang_inline int mk_clib_app_file_explorer_run_dialog
 	ctrl_listbox_attributes->m_help_id = 0;
 	ctrl_listbox_attributes->m_style_ex = 0;
 	ctrl_listbox_attributes->m_style =
-		mk_win_user_ctrl_listbox_style_e_nointegralheight |
-		mk_win_user_window_style_e_hscroll |
 		mk_win_user_window_style_e_vscroll |
 		mk_win_user_window_style_e_border |
 		mk_win_user_window_style_e_child |
@@ -843,10 +849,11 @@ mk_lang_nodiscard static mk_lang_inline int mk_clib_app_file_explorer_run_dialog
 	ctrl_listbox_attributes->m_width = ctrl_listbox_attributes_w;
 	ctrl_listbox_attributes->m_height = ctrl_listbox_attributes_h;
 	ctrl_listbox_attributes->m_id = s_mk_clib_app_file_explorer_ctrl_id_listbox_attributes_data;
-	ctrl_listbox_attributes->m_class[0] = mk_win_user_dialog_class_is_atom;
-	ctrl_listbox_attributes->m_class[1] = mk_win_user_dialog_class_id_listbox;
-	ctrl_listbox_attributes->m_title = 0;
-	ctrl_listbox_attributes->m_extra_count = 0;
+	n = ((int)(sizeof(mk_win_user_ctrl_mlistbox_name_w) / sizeof(mk_win_user_ctrl_mlistbox_name_w[0])));
+	for(i = 0; i != n; ++i) ctrl_listbox_attributes->m_class[i] = mk_win_user_ctrl_mlistbox_name_w[i];
+	ctrl2 = ((mk_win_user_dialog_itm_templateex_pt)(((mk_win_base_wchar_pt)(ctrl_listbox_attributes)) + (n - 1)));
+	ctrl2->m_title = 0;
+	ctrl2->m_extra_count = 0;
 
 	res = mk_win_user_dialog_t_indirect_param_ex(g_instance, dlg, mk_win_base_null, &mk_clib_app_file_explorer_dlgproc, 0);
 	ret = ((int)(res));
@@ -911,41 +918,6 @@ static mk_lang_inline void mk_clib_app_file_explorer_labels_clear(mk_win_user_wi
 
 static mk_lang_inline void mk_clib_app_file_explorer_on_selection(mk_win_user_window_t const dialog) mk_lang_noexcept
 {
-	static mk_win_base_pchar_t const* const s_attr_names[] = {
-		mk_win_kernel_files_attribute_name_e_readonly,
-		mk_win_kernel_files_attribute_name_e_hidden,
-		mk_win_kernel_files_attribute_name_e_system,
-		mk_win_kernel_files_attribute_name_e_unknown_3,
-		mk_win_kernel_files_attribute_name_e_directory,
-		mk_win_kernel_files_attribute_name_e_archive,
-		mk_win_kernel_files_attribute_name_e_device,
-		mk_win_kernel_files_attribute_name_e_normal,
-		mk_win_kernel_files_attribute_name_e_temporary,
-		mk_win_kernel_files_attribute_name_e_sparse_file,
-		mk_win_kernel_files_attribute_name_e_reparse_point,
-		mk_win_kernel_files_attribute_name_e_compressed,
-		mk_win_kernel_files_attribute_name_e_offline,
-		mk_win_kernel_files_attribute_name_e_not_content_indexed,
-		mk_win_kernel_files_attribute_name_e_encrypted,
-		mk_win_kernel_files_attribute_name_e_integrity_stream,
-		mk_win_kernel_files_attribute_name_e_virtual,
-		mk_win_kernel_files_attribute_name_e_no_scrub_data,
-		mk_win_kernel_files_attribute_name_e_ea,
-		mk_win_kernel_files_attribute_name_e_pinned,
-		mk_win_kernel_files_attribute_name_e_unpinned,
-		mk_win_kernel_files_attribute_name_e_unknown_21,
-		mk_win_kernel_files_attribute_name_e_recall_on_data_access,
-		mk_win_kernel_files_attribute_name_e_unknown_23,
-		mk_win_kernel_files_attribute_name_e_unknown_24,
-		mk_win_kernel_files_attribute_name_e_unknown_25,
-		mk_win_kernel_files_attribute_name_e_unknown_26,
-		mk_win_kernel_files_attribute_name_e_unknown_27,
-		mk_win_kernel_files_attribute_name_e_unknown_28,
-		mk_win_kernel_files_attribute_name_e_strictly_sequential,
-		mk_win_kernel_files_attribute_name_e_unknown_30,
-		mk_win_kernel_files_attribute_name_e_unknown_31,
-	};
-
 	mk_win_user_window_t listbox;
 	mk_win_user_window_lresult_t lres;
 	int idx;
@@ -963,7 +935,7 @@ static mk_lang_inline void mk_clib_app_file_explorer_on_selection(mk_win_user_wi
 	char attr_str[2 + mk_sl_cui_fe_to_str_hex_full_len + 1];
 	char* pstr;
 	int len;
-	int i;
+	mk_win_base_bool_t invalidated;
 
 	mk_lang_assert(dialog);
 
@@ -1007,15 +979,8 @@ static mk_lang_inline void mk_clib_app_file_explorer_on_selection(mk_win_user_wi
 		len = mk_sl_cui_fe_to_str_hex_full_n(&cui, pstr, mk_sl_cui_fe_to_str_hex_full_len); mk_lang_assert(len == mk_sl_cui_fe_to_str_hex_full_len);
 		pstr[len] = '\0';
 		lres = mk_win_user_message_t_send(attr_value, mk_win_user_message_id_e_settext, 0, ((mk_win_user_window_lparam_t)(mk_win_tstring_tstr_to_wnds_zt_nofail(mk_win_tstring_asci_to_tstr_zt_nofail(attr_str).m_str)))); ((void)(lres));
-		lres = mk_win_user_message_t_send(attr_data, mk_win_user_ctrl_listbox_message_e_resetcontent, 0, 0); ((void)(lres));
-		for(i = 0; i != 32; ++i)
-		{
-			if((ul & 0x01) != 0)
-			{
-				lres = mk_win_user_message_t_send(attr_data, mk_win_user_ctrl_listbox_message_e_addstring, 0, ((mk_win_user_window_lparam_t)(mk_win_tstring_tstr_to_wnds_zt_nofail(mk_win_tstring_asci_to_tstr_zt_nofail(s_attr_names[i]).m_str)))); mk_lang_assert(lres != mk_win_user_ctrl_listbox_err_e_err); mk_lang_assert(lres != mk_win_user_ctrl_listbox_err_e_errspace);
-			}
-			ul >>= 1;
-		}
+		lres = mk_win_user_message_t_send(attr_data, mk_win_user_ctrl_mlistbox_message_e_set_strings_count, 0, ((mk_win_user_window_lparam_t)(mk_sl_cui_fe_count_ones(&cui)))); ((void)(lres));
+		invalidated = mk_win_user_window_invalidate_rect(attr_data, mk_win_base_null, mk_win_base_false); mk_lang_assert(invalidated != 0);
 	}
 }
 
@@ -1098,6 +1063,160 @@ static mk_lang_inline void mk_clib_app_file_explorer_dlgproc_on_close(mk_win_use
 	((void)(lres));
 
 	ended = mk_win_user_dialog_end(dialog, 0); mk_lang_assert(ended != 0);
+}
+
+static mk_lang_inline void mk_clib_app_file_explorer_dlgproc_on_notify_listbox_attributes_get_string(mk_win_user_window_t const dialog, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_base_sintptr_pt const lres) mk_lang_noexcept
+{
+	static mk_win_tstring_tchar_t const* const s_attr_names[] =
+	{
+		mk_win_kernel_files_attribute_namet_e_readonly,
+		mk_win_kernel_files_attribute_namet_e_hidden,
+		mk_win_kernel_files_attribute_namet_e_system,
+		mk_win_kernel_files_attribute_namet_e_unknown_3,
+		mk_win_kernel_files_attribute_namet_e_directory,
+		mk_win_kernel_files_attribute_namet_e_archive,
+		mk_win_kernel_files_attribute_namet_e_device,
+		mk_win_kernel_files_attribute_namet_e_normal,
+		mk_win_kernel_files_attribute_namet_e_temporary,
+		mk_win_kernel_files_attribute_namet_e_sparse_file,
+		mk_win_kernel_files_attribute_namet_e_reparse_point,
+		mk_win_kernel_files_attribute_namet_e_compressed,
+		mk_win_kernel_files_attribute_namet_e_offline,
+		mk_win_kernel_files_attribute_namet_e_not_content_indexed,
+		mk_win_kernel_files_attribute_namet_e_encrypted,
+		mk_win_kernel_files_attribute_namet_e_integrity_stream,
+		mk_win_kernel_files_attribute_namet_e_virtual,
+		mk_win_kernel_files_attribute_namet_e_no_scrub_data,
+		mk_win_kernel_files_attribute_namet_e_ea,
+		mk_win_kernel_files_attribute_namet_e_pinned,
+		mk_win_kernel_files_attribute_namet_e_unpinned,
+		mk_win_kernel_files_attribute_namet_e_unknown_21,
+		mk_win_kernel_files_attribute_namet_e_recall_on_data_access,
+		mk_win_kernel_files_attribute_namet_e_unknown_23,
+		mk_win_kernel_files_attribute_namet_e_unknown_24,
+		mk_win_kernel_files_attribute_namet_e_unknown_25,
+		mk_win_kernel_files_attribute_namet_e_unknown_26,
+		mk_win_kernel_files_attribute_namet_e_unknown_27,
+		mk_win_kernel_files_attribute_namet_e_unknown_28,
+		mk_win_kernel_files_attribute_namet_e_strictly_sequential,
+		mk_win_kernel_files_attribute_namet_e_unknown_30,
+		mk_win_kernel_files_attribute_namet_e_unknown_31,
+	};
+	static int const s_attr_names_lens[] =
+	{
+		((int)(sizeof(mk_win_kernel_files_attribute_namet_e_readonly) / sizeof(mk_win_kernel_files_attribute_namet_e_readonly[0]) - 1)),
+		((int)(sizeof(mk_win_kernel_files_attribute_namet_e_hidden) / sizeof(mk_win_kernel_files_attribute_namet_e_hidden[0]) - 1)),
+		((int)(sizeof(mk_win_kernel_files_attribute_namet_e_system) / sizeof(mk_win_kernel_files_attribute_namet_e_system[0]) - 1)),
+		((int)(sizeof(mk_win_kernel_files_attribute_namet_e_unknown_3) / sizeof(mk_win_kernel_files_attribute_namet_e_unknown_3[0]) - 1)),
+		((int)(sizeof(mk_win_kernel_files_attribute_namet_e_directory) / sizeof(mk_win_kernel_files_attribute_namet_e_directory[0]) - 1)),
+		((int)(sizeof(mk_win_kernel_files_attribute_namet_e_archive) / sizeof(mk_win_kernel_files_attribute_namet_e_archive[0]) - 1)),
+		((int)(sizeof(mk_win_kernel_files_attribute_namet_e_device) / sizeof(mk_win_kernel_files_attribute_namet_e_device[0]) - 1)),
+		((int)(sizeof(mk_win_kernel_files_attribute_namet_e_normal) / sizeof(mk_win_kernel_files_attribute_namet_e_normal[0]) - 1)),
+		((int)(sizeof(mk_win_kernel_files_attribute_namet_e_temporary) / sizeof(mk_win_kernel_files_attribute_namet_e_temporary[0]) - 1)),
+		((int)(sizeof(mk_win_kernel_files_attribute_namet_e_sparse_file) / sizeof(mk_win_kernel_files_attribute_namet_e_sparse_file[0]) - 1)),
+		((int)(sizeof(mk_win_kernel_files_attribute_namet_e_reparse_point) / sizeof(mk_win_kernel_files_attribute_namet_e_reparse_point[0]) - 1)),
+		((int)(sizeof(mk_win_kernel_files_attribute_namet_e_compressed) / sizeof(mk_win_kernel_files_attribute_namet_e_compressed[0]) - 1)),
+		((int)(sizeof(mk_win_kernel_files_attribute_namet_e_offline) / sizeof(mk_win_kernel_files_attribute_namet_e_offline[0]) - 1)),
+		((int)(sizeof(mk_win_kernel_files_attribute_namet_e_not_content_indexed) / sizeof(mk_win_kernel_files_attribute_namet_e_not_content_indexed[0]) - 1)),
+		((int)(sizeof(mk_win_kernel_files_attribute_namet_e_encrypted) / sizeof(mk_win_kernel_files_attribute_namet_e_encrypted[0]) - 1)),
+		((int)(sizeof(mk_win_kernel_files_attribute_namet_e_integrity_stream) / sizeof(mk_win_kernel_files_attribute_namet_e_integrity_stream[0]) - 1)),
+		((int)(sizeof(mk_win_kernel_files_attribute_namet_e_virtual) / sizeof(mk_win_kernel_files_attribute_namet_e_virtual[0]) - 1)),
+		((int)(sizeof(mk_win_kernel_files_attribute_namet_e_no_scrub_data) / sizeof(mk_win_kernel_files_attribute_namet_e_no_scrub_data[0]) - 1)),
+		((int)(sizeof(mk_win_kernel_files_attribute_namet_e_ea) / sizeof(mk_win_kernel_files_attribute_namet_e_ea[0]) - 1)),
+		((int)(sizeof(mk_win_kernel_files_attribute_namet_e_pinned) / sizeof(mk_win_kernel_files_attribute_namet_e_pinned[0]) - 1)),
+		((int)(sizeof(mk_win_kernel_files_attribute_namet_e_unpinned) / sizeof(mk_win_kernel_files_attribute_namet_e_unpinned[0]) - 1)),
+		((int)(sizeof(mk_win_kernel_files_attribute_namet_e_unknown_21) / sizeof(mk_win_kernel_files_attribute_namet_e_unknown_21[0]) - 1)),
+		((int)(sizeof(mk_win_kernel_files_attribute_namet_e_recall_on_data_access) / sizeof(mk_win_kernel_files_attribute_namet_e_recall_on_data_access[0]) - 1)),
+		((int)(sizeof(mk_win_kernel_files_attribute_namet_e_unknown_23) / sizeof(mk_win_kernel_files_attribute_namet_e_unknown_23[0]) - 1)),
+		((int)(sizeof(mk_win_kernel_files_attribute_namet_e_unknown_24) / sizeof(mk_win_kernel_files_attribute_namet_e_unknown_24[0]) - 1)),
+		((int)(sizeof(mk_win_kernel_files_attribute_namet_e_unknown_25) / sizeof(mk_win_kernel_files_attribute_namet_e_unknown_25[0]) - 1)),
+		((int)(sizeof(mk_win_kernel_files_attribute_namet_e_unknown_26) / sizeof(mk_win_kernel_files_attribute_namet_e_unknown_26[0]) - 1)),
+		((int)(sizeof(mk_win_kernel_files_attribute_namet_e_unknown_27) / sizeof(mk_win_kernel_files_attribute_namet_e_unknown_27[0]) - 1)),
+		((int)(sizeof(mk_win_kernel_files_attribute_namet_e_unknown_28) / sizeof(mk_win_kernel_files_attribute_namet_e_unknown_28[0]) - 1)),
+		((int)(sizeof(mk_win_kernel_files_attribute_namet_e_strictly_sequential) / sizeof(mk_win_kernel_files_attribute_namet_e_strictly_sequential[0]) - 1)),
+		((int)(sizeof(mk_win_kernel_files_attribute_namet_e_unknown_30) / sizeof(mk_win_kernel_files_attribute_namet_e_unknown_30[0]) - 1)),
+		((int)(sizeof(mk_win_kernel_files_attribute_namet_e_unknown_31) / sizeof(mk_win_kernel_files_attribute_namet_e_unknown_31[0]) - 1)),
+	};
+
+	mk_win_user_ctrl_mlistbox_notify_get_string_lpt get_string;
+	int attr_idx;
+	mk_win_user_window_t listbox;
+	mk_win_user_window_lresult_t lr;
+	int item_idx;
+	mk_lib_fe_lpt fe;
+	mk_win_kernel_files_attribute_t attr;
+	unsigned long int ul;
+	int i;
+
+	mk_lang_assert(dialog);
+	mk_lang_assert(wparam == s_mk_clib_app_file_explorer_ctrl_id_listbox_attributes_data);
+	mk_lang_assert(lparam != 0);
+	mk_lang_assert(override_lres);
+	mk_lang_assert(lres);
+
+	get_string = ((mk_win_user_ctrl_mlistbox_notify_get_string_lpt)(lparam));
+	mk_lang_assert(get_string->m_hdr.m_from_window == mk_win_user_dialog_get_item(dialog, s_mk_clib_app_file_explorer_ctrl_id_listbox_attributes_data));
+	mk_lang_assert(get_string->m_hdr.m_from_id == s_mk_clib_app_file_explorer_ctrl_id_listbox_attributes_data);
+	mk_lang_assert(get_string->m_hdr.m_code == mk_win_user_ctrl_mlistbox_notify_e_get_string);
+	attr_idx = ((int)(get_string->m_idx)); mk_lang_assert(attr_idx >= 0);
+
+	listbox = mk_win_user_dialog_get_item(dialog, s_mk_clib_app_file_explorer_ctrl_id_listbox_main); mk_lang_assert(listbox);
+	lr = mk_win_user_message_t_send(listbox, mk_win_user_ctrl_listbox_message_e_getcursel, 0, 0);
+	mk_lang_assert(lr != ((mk_win_user_window_lresult_t)(mk_win_user_ctrl_listbox_err_e_err)));
+	item_idx = ((int)(lr)); mk_lang_assert(item_idx >= 0);
+
+	fe = ((mk_lib_fe_lpt)(mk_win_user_window_t_get_data(dialog, mk_win_user_window_data_idx_e_dlg_user))); mk_lang_assert(fe);
+	mk_lang_assert(mk_lib_fe_has_attributes(fe, item_idx));
+	attr = mk_lib_fe_get_attributes(fe, item_idx);
+	ul = ((unsigned long int)(attr));
+
+	for(i = 0; i != 32; ++i)
+	{
+		if((ul & 0x01) != 0)
+		{
+			if(attr_idx == 0)
+			{
+				break;
+			}
+			--attr_idx;
+		}
+		ul >>= 1;
+	}
+	mk_lang_assert(i != 32);
+	get_string->m_string = s_attr_names[i];
+	get_string->m_string_length = s_attr_names_lens[i];
+}
+
+static mk_lang_inline void mk_clib_app_file_explorer_dlgproc_on_notify_listbox_attributes(mk_win_user_window_t const dialog, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_base_sintptr_pt const lres) mk_lang_noexcept
+{
+	mk_win_user_ctrl_mlistbox_nmhdr_lpt hdr;
+
+	mk_lang_assert(dialog);
+	mk_lang_assert(wparam == s_mk_clib_app_file_explorer_ctrl_id_listbox_attributes_data);
+	mk_lang_assert(lparam != 0);
+	mk_lang_assert(override_lres);
+	mk_lang_assert(lres);
+
+	hdr = ((mk_win_user_ctrl_mlistbox_nmhdr_lpt)(lparam));
+	mk_lang_assert(hdr->m_from_window == mk_win_user_dialog_get_item(dialog, s_mk_clib_app_file_explorer_ctrl_id_listbox_attributes_data));
+	mk_lang_assert(hdr->m_from_id == s_mk_clib_app_file_explorer_ctrl_id_listbox_attributes_data);
+	switch(hdr->m_code)
+	{
+		case mk_win_user_ctrl_mlistbox_notify_e_get_string: mk_clib_app_file_explorer_dlgproc_on_notify_listbox_attributes_get_string(dialog, wparam, lparam, override_lres, lres); break;
+	}
+}
+
+static mk_lang_inline void mk_clib_app_file_explorer_dlgproc_on_notify(mk_win_user_window_t const dialog, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_base_sintptr_pt const lres) mk_lang_noexcept
+{
+	mk_lang_assert(dialog);
+	mk_lang_assert(lparam != 0);
+	mk_lang_assert(override_lres);
+	mk_lang_assert(lres);
+
+	switch(wparam)
+	{
+		case s_mk_clib_app_file_explorer_ctrl_id_listbox_attributes_data: mk_clib_app_file_explorer_dlgproc_on_notify_listbox_attributes(dialog, wparam, lparam, override_lres, lres); break;
+	}
 }
 
 static mk_lang_inline void mk_clib_app_file_explorer_dlgproc_on_initdialog(mk_win_user_window_t const dialog, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_base_sintptr_pt const lres) mk_lang_noexcept
@@ -1255,7 +1374,7 @@ static mk_win_user_window_lresult_t mk_win_base_stdcall mk_clib_app_file_explore
 
 static mk_win_base_sintptr_t mk_win_base_stdcall mk_clib_app_file_explorer_dlgproc(mk_win_user_window_t const dialog, mk_win_base_uint_t const msg_uid, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam) mk_lang_noexcept
 {
-	#if defined _MSC_VER && _MSC_VER >= 1935
+	#if defined _MSC_VER && _MSC_VER == 1935
 	#pragma warning(push)
 	#pragma warning(disable:4062) /* warning C4062: enumerator 'xxx' in switch of enum 'xxx' is not handled */
 	#endif
@@ -1274,6 +1393,7 @@ static mk_win_base_sintptr_t mk_win_base_stdcall mk_clib_app_file_explorer_dlgpr
 	{
 		case mk_win_user_message_id_e_destroy: mk_clib_app_file_explorer_dlgproc_on_destroy(dialog, wparam, lparam, &override_lres, &lres); break;
 		case mk_win_user_message_id_e_close: mk_clib_app_file_explorer_dlgproc_on_close(dialog, wparam, lparam, &override_lres, &lres); break;
+		case mk_win_user_message_id_e_notify: mk_clib_app_file_explorer_dlgproc_on_notify(dialog, wparam, lparam, &override_lres, &lres); break;
 		case mk_win_user_message_id_e_initdialog: mk_clib_app_file_explorer_dlgproc_on_initdialog(dialog, wparam, lparam, &override_lres, &lres); break;
 		case mk_win_user_message_id_e_command: mk_clib_app_file_explorer_dlgproc_on_command(dialog, wparam, lparam, &override_lres, &lres); break;
 	}
@@ -1305,7 +1425,7 @@ static mk_win_base_sintptr_t mk_win_base_stdcall mk_clib_app_file_explorer_dlgpr
 	}
 	return ((mk_win_base_sintptr_t)(mk_win_base_false));
 
-	#if defined _MSC_VER && _MSC_VER >= 1935
+	#if defined _MSC_VER && _MSC_VER == 1935
 	#pragma warning(pop)
 	#endif
 }

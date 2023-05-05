@@ -40,7 +40,7 @@ enum mk_win_user_class_style_e
 typedef enum mk_win_user_class_style_e mk_win_user_class_style_t;
 
 
-#if defined _MSC_VER && _MSC_VER >= 1935
+#if defined _MSC_VER && _MSC_VER == 1935
 #pragma warning(push)
 #pragma warning(disable:4820) /* warning C4820: 'xxx': 'xxx' bytes padding added after data member 'xxx' */
 #endif
@@ -65,11 +65,11 @@ typedef mk_win_user_class_a_t mk_win_base_far* mk_win_user_class_a_lpt;
 typedef mk_win_user_class_a_t mk_win_base_far const* mk_win_user_class_a_lpct;
 typedef mk_win_user_class_a_t mk_win_base_near* mk_win_user_class_a_npt;
 typedef mk_win_user_class_a_t mk_win_base_near const* mk_win_user_class_a_npct;
-#if defined _MSC_VER && _MSC_VER >= 1935
+#if defined _MSC_VER && _MSC_VER == 1935
 #pragma warning(pop)
 #endif
 
-#if defined _MSC_VER && _MSC_VER >= 1935
+#if defined _MSC_VER && _MSC_VER == 1935
 #pragma warning(push)
 #pragma warning(disable:4820) /* warning C4820: 'xxx': 'xxx' bytes padding added after data member 'xxx' */
 #endif
@@ -94,11 +94,11 @@ typedef mk_win_user_class_w_t mk_win_base_far* mk_win_user_class_w_lpt;
 typedef mk_win_user_class_w_t mk_win_base_far const* mk_win_user_class_w_lpct;
 typedef mk_win_user_class_w_t mk_win_base_near* mk_win_user_class_w_npt;
 typedef mk_win_user_class_w_t mk_win_base_near const* mk_win_user_class_w_npct;
-#if defined _MSC_VER && _MSC_VER >= 1935
+#if defined _MSC_VER && _MSC_VER == 1935
 #pragma warning(pop)
 #endif
 
-#if defined _MSC_VER && _MSC_VER >= 1935
+#if defined _MSC_VER && _MSC_VER == 1935
 #pragma warning(push)
 #pragma warning(disable:4820) /* warning C4820: 'xxx': 'xxx' bytes padding added after data member 'xxx' */
 #endif
@@ -123,7 +123,7 @@ typedef mk_win_user_class_t_t mk_win_base_far* mk_win_user_class_t_lpt;
 typedef mk_win_user_class_t_t mk_win_base_far const* mk_win_user_class_t_lpct;
 typedef mk_win_user_class_t_t mk_win_base_near* mk_win_user_class_t_npt;
 typedef mk_win_user_class_t_t mk_win_base_near const* mk_win_user_class_t_npct;
-#if defined _MSC_VER && _MSC_VER >= 1935
+#if defined _MSC_VER && _MSC_VER == 1935
 #pragma warning(pop)
 #endif
 

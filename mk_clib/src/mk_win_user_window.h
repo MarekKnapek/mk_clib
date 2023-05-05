@@ -150,7 +150,7 @@ typedef enum mk_win_user_window_show_scrollbar_e mk_win_user_window_show_scrollb
 #define mk_win_user_window_usedefault ((int)(0x80000000ul))
 
 
-#if defined _MSC_VER && _MSC_VER >= 1935
+#if defined _MSC_VER && _MSC_VER == 1935
 #pragma warning(push)
 #pragma warning(disable:4820) /* warning C4820: 'xxx': 'xxx' bytes padding added after data member 'xxx' */
 #endif
@@ -171,7 +171,7 @@ typedef mk_win_user_window_paint_t mk_win_base_far* mk_win_user_window_paint_lpt
 typedef mk_win_user_window_paint_t mk_win_base_far const* mk_win_user_window_paint_lpct;
 typedef mk_win_user_window_paint_t mk_win_base_near* mk_win_user_window_paint_npt;
 typedef mk_win_user_window_paint_t mk_win_base_near const* mk_win_user_window_paint_npct;
-#if defined _MSC_VER && _MSC_VER >= 1935
+#if defined _MSC_VER && _MSC_VER == 1935
 #pragma warning(pop)
 #endif
 
@@ -231,6 +231,10 @@ mk_lang_jumbo mk_win_base_bool_t mk_win_user_window_end_paint(mk_win_user_window
 mk_lang_jumbo mk_win_user_window_t mk_win_user_window_set_focus(mk_win_user_window_t const window) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_user_window_t mk_win_user_window_get_parent(mk_win_user_window_t const window) mk_lang_noexcept;
 mk_lang_jumbo mk_win_base_bool_t mk_win_user_window_show_scrollbar(mk_win_user_window_t const window, mk_win_user_window_show_scrollbar_t const bar, mk_win_base_bool_t const show) mk_lang_noexcept;
+mk_lang_jumbo mk_win_gdi_dc_t mk_win_user_window_get_dc(mk_win_user_window_t const window) mk_lang_noexcept;
+mk_lang_jumbo int mk_win_user_window_release_dc(mk_win_user_window_t const window, mk_win_gdi_dc_t const dc) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_user_window_invalidate_rect(mk_win_user_window_t const window, mk_win_base_rect_lpct const rect, mk_win_base_bool_t const erase) mk_lang_noexcept;
+
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_user_window_t mk_win_user_window_get_desktop(void) mk_lang_noexcept;
 

@@ -71,6 +71,7 @@ typedef unsigned char mk_win_base_uchar_t;
 typedef unsigned short int mk_win_base_ushort_t;
 typedef signed short int mk_win_base_sshort_t;
 typedef unsigned int mk_win_base_uint_t;
+typedef unsigned int mk_win_base_sint_t;
 typedef unsigned long int mk_win_base_ulong_t;
 typedef signed long int mk_win_base_slong_t;
 
@@ -105,6 +106,16 @@ typedef mk_win_base_ushort_t mk_win_base_far* mk_win_base_ushort_lpt;
 typedef mk_win_base_ushort_t mk_win_base_far const* mk_win_base_ushort_lpct;
 typedef mk_win_base_ushort_t mk_win_base_near* mk_win_base_ushort_npt;
 typedef mk_win_base_ushort_t mk_win_base_near const* mk_win_base_ushort_npct;
+
+typedef mk_win_base_sint_t const mk_win_base_sint_ct;
+typedef mk_win_base_sint_t* mk_win_base_sint_pt;
+typedef mk_win_base_sint_t const mk_win_base_sint_ct;
+typedef mk_win_base_sint_t* mk_win_base_sint_pt;
+typedef mk_win_base_sint_t const* mk_win_base_sint_pct;
+typedef mk_win_base_sint_t mk_win_base_far* mk_win_base_sint_lpt;
+typedef mk_win_base_sint_t mk_win_base_far const* mk_win_base_sint_lpct;
+typedef mk_win_base_sint_t mk_win_base_near* mk_win_base_sint_npt;
+typedef mk_win_base_sint_t mk_win_base_near const* mk_win_base_sint_npct;
 
 typedef mk_win_base_ulong_t const mk_win_base_ulong_ct;
 typedef mk_win_base_ulong_t* mk_win_base_ulong_pt;
@@ -177,6 +188,20 @@ typedef mk_win_base_point_t mk_win_base_far* mk_win_base_point_lpt;
 typedef mk_win_base_point_t mk_win_base_far const* mk_win_base_point_lpct;
 typedef mk_win_base_point_t mk_win_base_near* mk_win_base_point_npt;
 typedef mk_win_base_point_t mk_win_base_near const* mk_win_base_point_npct;
+
+struct mk_win_base_sizer_s
+{
+	signed long int m_w;
+	signed long int m_h;
+};
+typedef struct mk_win_base_sizer_s mk_win_base_sizer_t;
+typedef mk_win_base_sizer_t const mk_win_base_sizer_ct;
+typedef mk_win_base_sizer_t* mk_win_base_sizer_pt;
+typedef mk_win_base_sizer_t const* mk_win_base_sizer_pct;
+typedef mk_win_base_sizer_t mk_win_base_far* mk_win_base_sizer_lpt;
+typedef mk_win_base_sizer_t mk_win_base_far const* mk_win_base_sizer_lpct;
+typedef mk_win_base_sizer_t mk_win_base_near* mk_win_base_sizer_npt;
+typedef mk_win_base_sizer_t mk_win_base_near const* mk_win_base_sizer_npct;
 
 struct mk_win_base_rect_s
 {
