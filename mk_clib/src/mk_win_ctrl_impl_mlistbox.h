@@ -19,8 +19,9 @@ struct mk_win_ctrl_impl_mlistbox_s
 	mk_win_user_window_t m_self;
 	mk_win_gdi_font_t m_font;
 	int m_item_height;
-	int m_x_width;
-	mk_win_base_size_t m_strings_count;
+	int m_xwidth;
+	int m_strings_count;
+	int m_cur_sel;
 };
 typedef struct mk_win_ctrl_impl_mlistbox_s mk_win_ctrl_impl_mlistbox_t;
 typedef mk_win_ctrl_impl_mlistbox_t const mk_win_ctrl_impl_mlistbox_ct;

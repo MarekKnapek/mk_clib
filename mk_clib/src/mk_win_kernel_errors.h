@@ -3336,6 +3336,7 @@ typedef enum mk_win_kernel_errors_id_e mk_win_kernel_errors_id_t;
 
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_dword_t mk_win_kernel_errors_get_last(void) mk_lang_noexcept;
+mk_lang_jumbo void mk_win_kernel_errors_set_last(mk_win_kernel_errors_id_t const err) mk_lang_noexcept;
 
 
 #if mk_lang_jumbo_want == 1

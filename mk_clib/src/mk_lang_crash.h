@@ -7,16 +7,29 @@
 #include "mk_lang_noreturn.h"
 
 
-#if defined NDEBUG
-
-mk_lang_noreturn mk_lang_jumbo void mk_lang_crash(void) mk_lang_noexcept;
-
+#if defined mk_lang_crash_detail && mk_lang_crash_detail == 1
+#define mk_lang_crash_detail_impl 1
+#elif defined mk_lang_crash_detail && mk_lang_crash_detail == 0
+#define mk_lang_crash_detail_impl 0
 #else
+#if defined NDEBUG
+#define mk_lang_crash_detail_impl 0
+#else
+#define mk_lang_crash_detail_impl 1
+#endif
+#endif
+
+
+#if defined mk_lang_crash_detail_impl
 
 mk_lang_noreturn mk_lang_jumbo void mk_lang_crash_impl(char const* const file, int const line, char const* const line_str) mk_lang_noexcept;
 #define mk_lang_crash_to_string_2(x) # x
 #define mk_lang_crash_to_string(x) mk_lang_crash_to_string_2(x)
 #define mk_lang_crash() mk_lang_crash_impl(__FILE__ , __LINE__, mk_lang_crash_to_string(__LINE__))
+
+#else
+
+mk_lang_noreturn mk_lang_jumbo void mk_lang_crash(void) mk_lang_noexcept;
 
 #endif
 

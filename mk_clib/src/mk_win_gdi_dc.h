@@ -61,6 +61,8 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_gdi_object_t mk_win_gdi_dc_select_object(
 mk_lang_nodiscard mk_lang_jumbo mk_win_gdi_dc_bk_mode_t mk_win_gdi_dc_set_bk_mode(mk_win_gdi_dc_t const dc, mk_win_gdi_dc_bk_mode_t const mode) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo int mk_win_gdi_dc_fill_rect(mk_win_gdi_dc_t const dc, mk_win_base_rect_lpct const rect, mk_win_user_brush_t const brush) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo int mk_win_gdi_dc_frame_rect(mk_win_gdi_dc_t const dc, mk_win_base_rect_lpct const rect, mk_win_user_brush_t const brush) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_dword_t mk_win_gdi_dc_set_text_color(mk_win_gdi_dc_t const dc, mk_win_base_dword_t const color) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_dword_t mk_win_gdi_dc_set_background_color(mk_win_gdi_dc_t const dc, mk_win_base_dword_t const color) mk_lang_noexcept;
 
 
 #if mk_lang_jumbo_want == 1

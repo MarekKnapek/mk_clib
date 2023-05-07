@@ -532,8 +532,26 @@ enum mk_win_user_message_key_e
 	mk_win_user_message_key_e_pa1                             = 0xfd,
 	mk_win_user_message_key_e_oem_clear                       = 0xfe,
 	mk_win_user_message_key_e_reserved_ff                     = 0xff,
+	mk_win_user_message_key_e_dummy_end = 0
 };
 typedef enum mk_win_user_message_key_e mk_win_user_message_key_t;
+
+enum mk_win_user_message_dlg_code_e
+{
+	mk_win_user_message_dlg_code_e_wantarrows      = 0x0001ul,
+	mk_win_user_message_dlg_code_e_wanttab         = 0x0002ul,
+	mk_win_user_message_dlg_code_e_wantallkeys     = 0x0004ul,
+	mk_win_user_message_dlg_code_e_wantmessage     = 0x0004ul,
+	mk_win_user_message_dlg_code_e_hassetsel       = 0x0008ul,
+	mk_win_user_message_dlg_code_e_defpushbutton   = 0x0010ul,
+	mk_win_user_message_dlg_code_e_undefpushbutton = 0x0020ul,
+	mk_win_user_message_dlg_code_e_radiobutton     = 0x0040ul,
+	mk_win_user_message_dlg_code_e_wantchars       = 0x0080ul,
+	mk_win_user_message_dlg_code_e_static          = 0x0100ul,
+	mk_win_user_message_dlg_code_e_button          = 0x2000ul,
+	mk_win_user_message_dlg_code_e_dummy_end = 0
+};
+typedef enum mk_win_user_message_dlg_code_e mk_win_user_message_dlg_code_t;
 
 
 #if defined _MSC_VER && _MSC_VER == 1935

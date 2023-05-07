@@ -395,8 +395,8 @@ mk_lang_nodiscard mk_lang_jumbo int mk_win_tstring_ansi_to_wide_fallback(mk_win_
 	mk_lang_assert(cp == mk_win_tstring_cp_e_utf8);
 	mk_lang_assert(flags == mk_win_tstring_flags_mb_e_none);
 	mk_lang_assert(ansi);
-	mk_lang_assert(ansi_len_elements >= 2 || ansi_len_elements == -1);
-	mk_lang_assert((wide && wide_len_elements >= 2) || (!wide && wide_len_elements == 0));
+	mk_lang_assert(ansi_len_elements >= 1 || ansi_len_elements == -1);
+	mk_lang_assert((wide && wide_len_elements >= 1) || (!wide && wide_len_elements == 0));
 	/* todo wide len is enough */
 	mk_lang_assert(mk_win_tstring_validate_utf8(ansi));
 
@@ -529,8 +529,8 @@ mk_lang_nodiscard mk_lang_jumbo int mk_win_tstring_wide_to_ansi_fallback(mk_win_
 	mk_lang_assert(cp == mk_win_tstring_cp_e_utf8);
 	mk_lang_assert(flags == mk_win_tstring_flags_wc_e_none);
 	mk_lang_assert(wide);
-	mk_lang_assert(wide_len_elements >= 2 || wide_len_elements == -1);
-	mk_lang_assert((ansi && ansi_len_elements >= 2) || (!ansi && ansi_len_elements == 0));
+	mk_lang_assert(wide_len_elements >= 1 || wide_len_elements == -1);
+	mk_lang_assert((ansi && ansi_len_elements >= 1) || (!ansi && ansi_len_elements == 0));
 	mk_lang_assert(!default_char);
 	mk_lang_assert(!used_default_char);
 	/* todo ansi len is enough */

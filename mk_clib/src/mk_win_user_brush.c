@@ -10,6 +10,7 @@
 
 
 mk_win_base_dll_import mk_win_user_brush_t mk_win_base_stdcall GetSysColorBrush(int) mk_lang_noexcept;
+mk_win_base_dll_import mk_win_user_brush_t mk_win_base_stdcall CreateSolidBrush(mk_win_base_dword_t) mk_lang_noexcept;
 
 
 typedef mk_win_user_brush_t(mk_win_base_far mk_win_base_stdcall*mk_win_user_brush_GetSysColorBrush)(int) mk_lang_noexcept;
@@ -50,4 +51,12 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_user_brush_t mk_win_user_brush_get_syscol
 	#if defined _MSC_VER && _MSC_VER == 1935
 	#pragma warning(pop)
 	#endif
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_win_user_brush_t mk_win_user_brush_create_solid(mk_win_base_dword_t const color) mk_lang_noexcept
+{
+	mk_win_user_brush_t brush;
+
+	brush = CreateSolidBrush(color);
+	return brush;
 }

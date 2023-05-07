@@ -23,6 +23,9 @@ typedef enum mk_win_user_ctrl_mlistbox_style_e mk_win_user_ctrl_mlistbox_style_t
 
 enum mk_win_user_ctrl_mlistbox_notify_e
 {
+	mk_win_user_ctrl_mlistbox_notify_e_selchange,
+	mk_win_user_ctrl_mlistbox_notify_e_dblclk,
+	mk_win_user_ctrl_mlistbox_notify_e_return,
 	mk_win_user_ctrl_mlistbox_notify_e_get_string,
 	mk_win_user_ctrl_mlistbox_notify_e_dummy_end
 };
@@ -31,10 +34,21 @@ typedef enum mk_win_user_ctrl_mlistbox_notify_e mk_win_user_ctrl_mlistbox_notify
 enum mk_win_user_ctrl_mlistbox_message_e
 {
 	mk_win_user_ctrl_mlistbox_message_e_dummy_start = mk_win_user_message_id_e_user,
+	mk_win_user_ctrl_mlistbox_message_e_setcursel,
+	mk_win_user_ctrl_mlistbox_message_e_getcursel,
 	mk_win_user_ctrl_mlistbox_message_e_set_strings_count,
 	mk_win_user_ctrl_mlistbox_message_e_dummy_end
 };
 typedef enum mk_win_user_ctrl_mlistbox_message_e mk_win_user_ctrl_mlistbox_message_t;
+
+enum mk_win_user_ctrl_mlistbox_err_e
+{
+	mk_win_user_ctrl_mlistbox_err_e_okay     =  0, /* not used */
+	mk_win_user_ctrl_mlistbox_err_e_err      = -1,
+	mk_win_user_ctrl_mlistbox_err_e_errspace = -2, /* not used */
+	mk_win_user_ctrl_mlistbox_err_e_dummy_end = 0
+};
+typedef enum mk_win_user_ctrl_mlistbox_err_e mk_win_user_ctrl_mlistbox_err_t;
 
 
 struct mk_win_user_ctrl_mlistbox_nmhdr_s
@@ -59,7 +73,7 @@ typedef mk_win_user_ctrl_mlistbox_nmhdr_t mk_win_base_near const* mk_win_user_ct
 struct mk_win_user_ctrl_mlistbox_notify_get_string_s
 {
 	mk_win_user_ctrl_mlistbox_nmhdr_t m_hdr;
-	mk_win_base_size_t m_idx;
+	int m_idx;
 	mk_win_tstring_tchar_lpct m_string;
 	int m_string_length;
 };

@@ -44,7 +44,7 @@ typedef mk_win_gdi_bitmap_t mk_win_base_near const* mk_win_gdi_bitmap_npct;
 
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_gdi_bitmap_t mk_win_gdi_bitmap_create_compatible(mk_win_gdi_dc_t const dc, int const width, int const height) mk_lang_noexcept;
-mk_lang_jumbo mk_win_base_bool_t mk_win_gdi_bitmap_bitblt(mk_win_gdi_dc_t const dc, int const x, int const y, int const width, int const height, mk_win_gdi_dc_t const src, int const xsrc, int const ysrc, mk_win_gdi_bitmap_rop_t const rop) mk_lang_noexcept;
+mk_lang_jumbo mk_win_base_bool_t mk_win_gdi_bitmap_bitblt(mk_win_gdi_dc_t const dstdc, int const dstx, int const dsty, int const width, int const height, mk_win_gdi_dc_t const srcdc, int const srcx, int const srcy, mk_win_gdi_bitmap_rop_t const rop) mk_lang_noexcept;
 
 
 #if mk_lang_jumbo_want == 1

@@ -18,6 +18,9 @@ typedef int* int_pt;
 typedef int const* int_pct;
 
 
+static mk_win_tstring_tchar_t const s_mk_lib_fe_up[] = mk_win_tstring_tchar_c("> ..");
+
+
 static mk_lang_inline void mk_lib_fe_go_to_item_all(mk_lib_fe_lpt const fe) mk_lang_noexcept;
 static mk_lang_inline void mk_lib_fe_go_to_item_up(mk_lib_fe_lpt const fe) mk_lang_noexcept;
 static mk_lang_nodiscard mk_lang_bool_t mk_lib_fe_go_to_item_roots(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;
@@ -30,6 +33,11 @@ static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_
 static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_name_short_str_err_path_not_found(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;
 static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_name_short_str_err_access_denied(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;
 static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_name_short_str_err_not_ready(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;
+static mk_lang_nodiscard mk_lang_inline int mk_lib_fe_get_name_short_str_len_roots(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;
+static mk_lang_nodiscard mk_lang_inline int mk_lib_fe_get_name_short_str_len_folders(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;
+static mk_lang_nodiscard mk_lang_inline int mk_lib_fe_get_name_short_str_len_err_path_not_found(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;
+static mk_lang_nodiscard mk_lang_inline int mk_lib_fe_get_name_short_str_len_err_access_denied(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;
+static mk_lang_nodiscard mk_lang_inline int mk_lib_fe_get_name_short_str_len_err_not_ready(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;
 static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_name_long_str_roots(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;
 static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_name_long_str_folders(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;
 static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_name_long_str_err_path_not_found(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;
@@ -154,6 +162,22 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_tstring_tchar_lpct mk_lib_fe_get_name_sho
 		case mk_lib_fe_state_e_err_path_not_found: return mk_lib_fe_get_name_short_str_err_path_not_found(fe, idx); break;
 		case mk_lib_fe_state_e_err_access_denied: return mk_lib_fe_get_name_short_str_err_access_denied(fe, idx); break;
 		case mk_lib_fe_state_e_err_not_ready: return mk_lib_fe_get_name_short_str_err_not_ready(fe, idx); break;
+	}
+	mk_lang_assert(0);
+}
+
+mk_lang_nodiscard mk_lang_jumbo int mk_lib_fe_get_name_short_str_len(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept
+{
+	mk_lang_assert(fe);
+
+	switch(fe->m_state)
+	{
+		case mk_lib_fe_state_e_init: mk_lang_assert(0); break;
+		case mk_lib_fe_state_e_roots: return mk_lib_fe_get_name_short_str_len_roots(fe, idx); break;
+		case mk_lib_fe_state_e_folders: return mk_lib_fe_get_name_short_str_len_folders(fe, idx); break;
+		case mk_lib_fe_state_e_err_path_not_found: return mk_lib_fe_get_name_short_str_len_err_path_not_found(fe, idx); break;
+		case mk_lib_fe_state_e_err_access_denied: return mk_lib_fe_get_name_short_str_len_err_access_denied(fe, idx); break;
+		case mk_lib_fe_state_e_err_not_ready: return mk_lib_fe_get_name_short_str_len_err_not_ready(fe, idx); break;
 	}
 	mk_lang_assert(0);
 }
@@ -509,8 +533,6 @@ static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_
 
 static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_name_short_str_folders(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept
 {
-	static mk_win_tstring_tchar_t const s_up[] = mk_win_tstring_tchar_c("> ..");
-
 	int ridx;
 	mk_win_kernel_files_t_find_data_lpt data;
 	mk_win_base_size_t s;
@@ -523,7 +545,7 @@ static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_
 
 	if(idx == 0)
 	{
-		return s_up;
+		return s_mk_lib_fe_up;
 	}
 	else
 	{
@@ -534,7 +556,7 @@ static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_
 			name_len = mk_lib_fe_ensure_has_length(data);
 			s = sizeof(mk_win_tstring_tchar_t);
 			mk_lib_fe_resize(&fe->m_str, &fe->m_str_capacity, (fe->m_str_len + 1 + 2 + name_len + 1) * s); mk_lang_assert(fe->m_str); mk_lang_assert(fe->m_str_capacity >= (fe->m_str_len + 1 + 2 + name_len + 1) * s);
-			fe->m_str[fe->m_str_len + 1] = mk_win_tstring_tchar_c('>');
+			fe->m_str[fe->m_str_len + 1] = mk_win_tstring_tchar_c('>'); /* todo create dir prefix constant */
 			fe->m_str[fe->m_str_len + 2] = mk_win_tstring_tchar_c(' ');
 			for(i = 0; i != name_len + 1; ++i){ fe->m_str[fe->m_str_len + 3 + i] = data->m_name[i]; }
 			return fe->m_str + fe->m_str_len + 1;
@@ -548,35 +570,95 @@ static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_
 
 static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_name_short_str_err_path_not_found(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept
 {
-	static mk_win_tstring_tchar_t const s_up[] = mk_win_tstring_tchar_c("> ..");
-
 	mk_lang_assert(fe);
 	mk_lang_assert(fe->m_state == mk_lib_fe_state_e_err_path_not_found);
 	mk_lang_assert(idx == 0);
 
-	return s_up;
+	return s_mk_lib_fe_up;
 }
 
 static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_name_short_str_err_access_denied(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept
 {
-	static mk_win_tstring_tchar_t const s_up[] = mk_win_tstring_tchar_c("> ..");
-
 	mk_lang_assert(fe);
 	mk_lang_assert(fe->m_state == mk_lib_fe_state_e_err_access_denied);
 	mk_lang_assert(idx == 0);
 
-	return s_up;
+	return s_mk_lib_fe_up;
 }
 
 static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_name_short_str_err_not_ready(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept
 {
-	static mk_win_tstring_tchar_t const s_up[] = mk_win_tstring_tchar_c("> ..");
-
 	mk_lang_assert(fe);
 	mk_lang_assert(fe->m_state == mk_lib_fe_state_e_err_not_ready);
 	mk_lang_assert(idx == 0);
 
-	return s_up;
+	return s_mk_lib_fe_up;
+}
+
+static mk_lang_nodiscard mk_lang_inline int mk_lib_fe_get_name_short_str_len_roots(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept
+{
+	mk_lang_assert(fe);
+	mk_lang_assert(fe->m_state == mk_lib_fe_state_e_roots);
+	mk_lang_assert(idx >= 0 && idx < 'z' - 'a' + 1);
+
+	return 2;
+}
+
+static mk_lang_nodiscard mk_lang_inline int mk_lib_fe_get_name_short_str_len_folders(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept
+{
+	int ridx;
+	mk_win_kernel_files_t_find_data_lpt data;
+	int name_len;
+
+	mk_lang_assert(fe);
+	mk_lang_assert(fe->m_state == mk_lib_fe_state_e_folders);
+	mk_lang_assert(idx >= 0 && idx < fe->m_strs_count + 1);
+
+	if(idx == 0)
+	{
+		return ((int)(sizeof(s_mk_lib_fe_up) / sizeof(s_mk_lib_fe_up[0]) - 1));
+	}
+	else
+	{
+		ridx = ((int_pt)(fe->m_sort))[idx - 1];
+		data = ((mk_win_kernel_files_t_find_data_lpt)(fe->m_strs)) + ridx;
+		name_len = mk_lib_fe_ensure_has_length(data); mk_lang_assert(name_len > 0);
+		if((data->m_attributes & mk_win_kernel_files_attribute_e_directory) != 0)
+		{
+			return name_len + 2; /* todo create dir prefxi constant */
+		}
+		else
+		{
+			return name_len;
+		}
+	}
+}
+
+static mk_lang_nodiscard mk_lang_inline int mk_lib_fe_get_name_short_str_len_err_path_not_found(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept
+{
+	mk_lang_assert(fe);
+	mk_lang_assert(fe->m_state == mk_lib_fe_state_e_err_path_not_found);
+	mk_lang_assert(idx == 0);
+
+	return ((int)(sizeof(s_mk_lib_fe_up) / sizeof(s_mk_lib_fe_up[0]) - 1));
+}
+
+static mk_lang_nodiscard mk_lang_inline int mk_lib_fe_get_name_short_str_len_err_access_denied(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept
+{
+	mk_lang_assert(fe);
+	mk_lang_assert(fe->m_state == mk_lib_fe_state_e_err_access_denied);
+	mk_lang_assert(idx == 0);
+
+	return ((int)(sizeof(s_mk_lib_fe_up) / sizeof(s_mk_lib_fe_up[0]) - 1));
+}
+
+static mk_lang_nodiscard mk_lang_inline int mk_lib_fe_get_name_short_str_len_err_not_ready(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept
+{
+	mk_lang_assert(fe);
+	mk_lang_assert(fe->m_state == mk_lib_fe_state_e_err_not_ready);
+	mk_lang_assert(idx == 0);
+
+	return ((int)(sizeof(s_mk_lib_fe_up) / sizeof(s_mk_lib_fe_up[0]) - 1));
 }
 
 static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_name_long_str_roots(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept
@@ -589,8 +671,6 @@ static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_
 
 static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_name_long_str_folders(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept
 {
-	static mk_win_tstring_tchar_t const s_up[] = mk_win_tstring_tchar_c("");
-
 	int ridx;
 	mk_win_kernel_files_t_find_data_lpt data;
 	int name_len;
@@ -603,7 +683,7 @@ static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_
 
 	if(idx == 0)
 	{
-		return s_up;
+		return s_mk_lib_fe_up;
 	}
 	else
 	{
