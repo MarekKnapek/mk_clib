@@ -107,7 +107,7 @@ mk_lang_nodiscard static mk_lang_inline void* mk_clib_app_file_explorer_round_up
 mk_lang_nodiscard static mk_lang_inline void* mk_clib_app_file_explorer_round_up_i(void const* ptr, int const size) mk_lang_noexcept;
 static mk_lang_inline void mk_clib_app_file_explorer_labels_clear(mk_win_user_window_t const dialog) mk_lang_noexcept;
 static mk_lang_inline void mk_clib_app_file_explorer_on_selection(mk_win_user_window_t const dialog) mk_lang_noexcept;
-static mk_lang_inline void mk_clib_app_file_explorer_listbox_repopulate(mk_win_user_window_t const dialog, mk_lib_fe_lpt const fe) mk_lang_noexcept;
+static mk_lang_inline void mk_clib_app_file_explorer_listbox_repopulate(mk_win_user_window_t const dialog, mk_lib_fe_lpt const fe, int const select_idx) mk_lang_noexcept;
 static mk_lang_inline void mk_clib_app_file_explorer_go_to_root(mk_win_user_window_t const dialog) mk_lang_noexcept;
 static mk_lang_inline void mk_clib_app_file_explorer_go_to_item_idx(mk_win_user_window_t const dialog, int const idx) mk_lang_noexcept;
 static mk_lang_inline void mk_clib_app_file_explorer_go_to_item_curr(mk_win_user_window_t const dialog) mk_lang_noexcept;
@@ -327,6 +327,7 @@ mk_lang_nodiscard static mk_lang_inline int mk_clib_app_file_explorer_run_dialog
 
 	ctrl_listbox = ((mk_win_user_dialog_itm_template_pt)(mk_clib_app_file_explorer_round_up_s(((mk_win_base_wchar_pct)(dlg + 1)) + (s_window_title_len - 1) + (s_msshelldlg_len - 1), sizeof(mk_win_base_dword_t))));
 	ctrl_listbox->m_style =
+		mk_win_user_window_style_e_tabstop |
 		mk_win_user_window_style_e_hscroll |
 		mk_win_user_window_style_e_vscroll |
 		mk_win_user_window_style_e_border |
@@ -366,6 +367,7 @@ mk_lang_nodiscard static mk_lang_inline int mk_clib_app_file_explorer_run_dialog
 	ctrl_edit_name_value->m_style =
 		mk_win_user_ctrl_edit_style_e_autohscroll |
 		mk_win_user_ctrl_edit_style_e_readonly |
+		mk_win_user_window_style_e_tabstop |
 		mk_win_user_window_style_e_visible |
 		mk_win_user_window_style_e_child |
 		0;
@@ -401,6 +403,7 @@ mk_lang_nodiscard static mk_lang_inline int mk_clib_app_file_explorer_run_dialog
 	ctrl_edit_type_value->m_style =
 		mk_win_user_ctrl_edit_style_e_autohscroll |
 		mk_win_user_ctrl_edit_style_e_readonly |
+		mk_win_user_window_style_e_tabstop |
 		mk_win_user_window_style_e_visible |
 		mk_win_user_window_style_e_child |
 		0;
@@ -436,6 +439,7 @@ mk_lang_nodiscard static mk_lang_inline int mk_clib_app_file_explorer_run_dialog
 	ctrl_edit_detail_value->m_style =
 		mk_win_user_ctrl_edit_style_e_autohscroll |
 		mk_win_user_ctrl_edit_style_e_readonly |
+		mk_win_user_window_style_e_tabstop |
 		mk_win_user_window_style_e_visible |
 		mk_win_user_window_style_e_child |
 		0;
@@ -470,6 +474,7 @@ mk_lang_nodiscard static mk_lang_inline int mk_clib_app_file_explorer_run_dialog
 	ctrl_edit_attributes->m_style =
 		mk_win_user_ctrl_edit_style_e_autohscroll |
 		mk_win_user_ctrl_edit_style_e_readonly |
+		mk_win_user_window_style_e_tabstop |
 		mk_win_user_window_style_e_visible |
 		mk_win_user_window_style_e_child |
 		0;
@@ -486,6 +491,7 @@ mk_lang_nodiscard static mk_lang_inline int mk_clib_app_file_explorer_run_dialog
 
 	ctrl_listbox_attributes = ((mk_win_user_dialog_itm_template_pt)(mk_clib_app_file_explorer_round_up_s(ctrl_edit_attributes + 1, sizeof(mk_win_base_dword_t))));
 	ctrl_listbox_attributes->m_style =
+		mk_win_user_window_style_e_tabstop |
 		mk_win_user_window_style_e_vscroll |
 		mk_win_user_window_style_e_border |
 		mk_win_user_window_style_e_child |
@@ -662,6 +668,7 @@ mk_lang_nodiscard static mk_lang_inline int mk_clib_app_file_explorer_run_dialog
 	ctrl_listbox->m_help_id = 0;
 	ctrl_listbox->m_style_ex = 0;
 	ctrl_listbox->m_style =
+		mk_win_user_window_style_e_tabstop |
 		mk_win_user_window_style_e_hscroll |
 		mk_win_user_window_style_e_vscroll |
 		mk_win_user_window_style_e_border |
@@ -703,6 +710,7 @@ mk_lang_nodiscard static mk_lang_inline int mk_clib_app_file_explorer_run_dialog
 	ctrl_edit_name_value->m_style =
 		mk_win_user_ctrl_edit_style_e_autohscroll |
 		mk_win_user_ctrl_edit_style_e_readonly |
+		mk_win_user_window_style_e_tabstop |
 		mk_win_user_window_style_e_visible |
 		mk_win_user_window_style_e_child |
 		0;
@@ -740,6 +748,7 @@ mk_lang_nodiscard static mk_lang_inline int mk_clib_app_file_explorer_run_dialog
 	ctrl_edit_type_value->m_style =
 		mk_win_user_ctrl_edit_style_e_autohscroll |
 		mk_win_user_ctrl_edit_style_e_readonly |
+		mk_win_user_window_style_e_tabstop |
 		mk_win_user_window_style_e_visible |
 		mk_win_user_window_style_e_child |
 		0;
@@ -777,6 +786,7 @@ mk_lang_nodiscard static mk_lang_inline int mk_clib_app_file_explorer_run_dialog
 	ctrl_edit_detail_value->m_style =
 		mk_win_user_ctrl_edit_style_e_autohscroll |
 		mk_win_user_ctrl_edit_style_e_readonly |
+		mk_win_user_window_style_e_tabstop |
 		mk_win_user_window_style_e_visible |
 		mk_win_user_window_style_e_child |
 		0;
@@ -813,6 +823,7 @@ mk_lang_nodiscard static mk_lang_inline int mk_clib_app_file_explorer_run_dialog
 	ctrl_edit_attributes->m_style =
 		mk_win_user_ctrl_edit_style_e_autohscroll |
 		mk_win_user_ctrl_edit_style_e_readonly |
+		mk_win_user_window_style_e_tabstop |
 		mk_win_user_window_style_e_visible |
 		mk_win_user_window_style_e_child |
 		0;
@@ -830,6 +841,7 @@ mk_lang_nodiscard static mk_lang_inline int mk_clib_app_file_explorer_run_dialog
 	ctrl_listbox_attributes->m_help_id = 0;
 	ctrl_listbox_attributes->m_style_ex = 0;
 	ctrl_listbox_attributes->m_style =
+		mk_win_user_window_style_e_tabstop |
 		mk_win_user_window_style_e_vscroll |
 		mk_win_user_window_style_e_border |
 		mk_win_user_window_style_e_child |
@@ -925,7 +937,6 @@ static mk_lang_inline void mk_clib_app_file_explorer_on_selection(mk_win_user_wi
 	char attr_str[2 + mk_sl_cui_fe_to_str_hex_full_len + 1];
 	char* pstr;
 	int len;
-	mk_win_base_bool_t invalidated;
 
 	mk_lang_assert(dialog);
 
@@ -970,11 +981,10 @@ static mk_lang_inline void mk_clib_app_file_explorer_on_selection(mk_win_user_wi
 		pstr[len] = '\0';
 		lres = mk_win_user_message_t_send(attr_value, mk_win_user_message_id_e_settext, 0, ((mk_win_user_window_lparam_t)(mk_win_tstring_tstr_to_wnds_zt_nofail(mk_win_tstring_asci_to_tstr_zt_nofail(attr_str).m_str)))); ((void)(lres));
 		lres = mk_win_user_message_t_send(attr_data, mk_win_user_ctrl_mlistbox_message_e_set_strings_count, ((mk_win_user_window_wparam_t)(mk_sl_cui_fe_count_ones(&cui))), 0); ((void)(lres));
-		invalidated = mk_win_user_window_invalidate_rect(attr_data, mk_win_base_null, mk_win_base_false); mk_lang_assert(invalidated != 0);
 	}
 }
 
-static mk_lang_inline void mk_clib_app_file_explorer_listbox_repopulate(mk_win_user_window_t const dialog, mk_lib_fe_lpt const fe) mk_lang_noexcept
+static mk_lang_inline void mk_clib_app_file_explorer_listbox_repopulate(mk_win_user_window_t const dialog, mk_lib_fe_lpt const fe, int const select_idx) mk_lang_noexcept
 {
 	mk_win_user_window_t listbox;
 	mk_win_user_window_lresult_t lres;
@@ -984,9 +994,9 @@ static mk_lang_inline void mk_clib_app_file_explorer_listbox_repopulate(mk_win_u
 	mk_lang_assert(fe);
 
 	listbox = mk_win_user_dialog_get_item(dialog, s_mk_clib_app_file_explorer_ctrl_id_listbox_main); mk_lang_assert(listbox);
-	n = mk_lib_fe_get_count(fe); mk_lang_assert(n != 0);
+	n = mk_lib_fe_get_count(fe); mk_lang_assert(n != 0); mk_lang_assert(select_idx < n);
 	lres = mk_win_user_message_t_send(listbox, mk_win_user_ctrl_mlistbox_message_e_set_strings_count, ((mk_win_user_window_wparam_t)(n)), ((mk_win_user_window_lparam_t)(0))); ((void)(lres));
-	lres = mk_win_user_message_t_send(listbox, mk_win_user_ctrl_mlistbox_message_e_setcursel, ((mk_win_user_window_wparam_t)(0)), ((mk_win_user_window_lparam_t)(0))); mk_lang_assert(lres != ((mk_win_user_window_lresult_t)(mk_win_user_ctrl_mlistbox_err_e_err)));
+	lres = mk_win_user_message_t_send(listbox, mk_win_user_ctrl_mlistbox_message_e_setcursel, ((mk_win_user_window_wparam_t)(select_idx)), ((mk_win_user_window_lparam_t)(0))); mk_lang_assert(lres != ((mk_win_user_window_lresult_t)(mk_win_user_ctrl_mlistbox_err_e_err)));
 	mk_clib_app_file_explorer_on_selection(dialog);
 }
 
@@ -998,20 +1008,26 @@ static mk_lang_inline void mk_clib_app_file_explorer_go_to_root(mk_win_user_wind
 
 	fe = ((mk_lib_fe_lpt)(mk_win_user_window_t_get_data(dialog, mk_win_user_window_data_idx_e_dlg_user))); mk_lang_assert(fe);
 	mk_lib_fe_go_to_root(fe);
-	mk_clib_app_file_explorer_listbox_repopulate(dialog, fe);
+	mk_clib_app_file_explorer_listbox_repopulate(dialog, fe, 0);
 }
 
 static mk_lang_inline void mk_clib_app_file_explorer_go_to_item_idx(mk_win_user_window_t const dialog, int const idx) mk_lang_noexcept
 {
 	mk_lib_fe_lpt fe;
+	int depth_prev;
+	int depth_post;
+	int select_idx;
 
 	mk_lang_assert(dialog);
 	mk_lang_assert(idx >= 0);
 
 	fe = ((mk_lib_fe_lpt)(mk_win_user_window_t_get_data(dialog, mk_win_user_window_data_idx_e_dlg_user))); mk_lang_assert(fe);
+	depth_prev = mk_lib_fe_get_breadcrumb_depth(fe);
 	if(mk_lib_fe_go_to_item(fe, idx))
 	{
-		mk_clib_app_file_explorer_listbox_repopulate(dialog, fe);
+		depth_post = mk_lib_fe_get_breadcrumb_depth(fe);
+		select_idx = ((depth_post < depth_prev) ? (mk_lang_min(mk_lib_fe_get_count(fe) - 1, mk_lib_fe_get_breadcrumb_value(fe))) : (0));
+		mk_clib_app_file_explorer_listbox_repopulate(dialog, fe, select_idx);
 	}
 }
 

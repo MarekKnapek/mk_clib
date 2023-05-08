@@ -42,6 +42,9 @@ struct mk_lib_fe_s
 	int m_strs_count;
 	mk_win_base_uchar_lpt m_sort;
 	mk_win_base_size_t m_sort_capacity;
+	mk_win_base_sint_lpt m_breadcrumb;
+	mk_win_base_size_t m_breadcrumb_capacity;
+	int m_breadcrumb_cnt;
 };
 typedef struct mk_lib_fe_s mk_lib_fe_t;
 typedef mk_lib_fe_t const mk_lib_fe_ct;
@@ -63,6 +66,8 @@ mk_lang_nodiscard mk_lang_jumbo mk_lib_fe_state_t mk_lib_fe_get_state(mk_lib_fe_
 mk_lang_jumbo void mk_lib_fe_go_to_root(mk_lib_fe_lpt const fe) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_lib_fe_go_to_item(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo int mk_lib_fe_get_count(mk_lib_fe_lpt const fe) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo int mk_lib_fe_get_breadcrumb_depth(mk_lib_fe_lpt const fe) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo int mk_lib_fe_get_breadcrumb_value(mk_lib_fe_lpt const fe) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_tstring_tchar_lpct mk_lib_fe_get_name_short_str(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo int mk_lib_fe_get_name_short_str_len(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_tstring_tchar_lpct mk_lib_fe_get_name_long_str(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;

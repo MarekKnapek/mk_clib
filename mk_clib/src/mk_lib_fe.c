@@ -21,6 +21,8 @@ typedef int const* int_pct;
 static mk_win_tstring_tchar_t const s_mk_lib_fe_up[] = mk_win_tstring_tchar_c("> ..");
 
 
+static mk_lang_inline void mk_lib_fe_breadcrumb_go_dn(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;
+static mk_lang_inline void mk_lib_fe_breadcrumb_go_up(mk_lib_fe_lpt const fe) mk_lang_noexcept;
 static mk_lang_inline void mk_lib_fe_go_to_item_all(mk_lib_fe_lpt const fe) mk_lang_noexcept;
 static mk_lang_inline void mk_lib_fe_go_to_item_up(mk_lib_fe_lpt const fe) mk_lang_noexcept;
 static mk_lang_nodiscard mk_lang_bool_t mk_lib_fe_go_to_item_roots(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;
@@ -73,6 +75,9 @@ mk_lang_jumbo void mk_lib_fe_construct(mk_lib_fe_lpt const fe) mk_lang_noexcept
 	fe->m_strs_count = 0;
 	fe->m_sort = mk_win_base_null;
 	fe->m_sort_capacity = 0;
+	fe->m_breadcrumb = mk_win_base_null;
+	fe->m_breadcrumb_capacity = 0;
+	fe->m_breadcrumb_cnt = 0;
 }
 
 mk_lang_jumbo void mk_lib_fe_destroy(mk_lib_fe_lpt const fe) mk_lang_noexcept
@@ -80,6 +85,7 @@ mk_lang_jumbo void mk_lib_fe_destroy(mk_lib_fe_lpt const fe) mk_lang_noexcept
 	mk_win_main_heap_deallocate(fe->m_str, fe->m_str_capacity);
 	mk_win_main_heap_deallocate(fe->m_strs, fe->m_strs_capacity);
 	mk_win_main_heap_deallocate(fe->m_sort, fe->m_sort_capacity);
+	mk_win_main_heap_deallocate(fe->m_breadcrumb, fe->m_breadcrumb_capacity);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lib_fe_state_t mk_lib_fe_get_state(mk_lib_fe_lpct const fe) mk_lang_nodiscard
@@ -148,6 +154,21 @@ mk_lang_nodiscard mk_lang_jumbo int mk_lib_fe_get_count(mk_lib_fe_lpt const fe) 
 		case mk_lib_fe_state_e_err_not_ready: return 1; break;
 	}
 	mk_lang_assert(0);
+}
+
+mk_lang_nodiscard mk_lang_jumbo int mk_lib_fe_get_breadcrumb_depth(mk_lib_fe_lpt const fe) mk_lang_noexcept
+{
+	mk_lang_assert(fe);
+
+	return fe->m_breadcrumb_cnt;
+}
+
+mk_lang_nodiscard mk_lang_jumbo int mk_lib_fe_get_breadcrumb_value(mk_lib_fe_lpt const fe) mk_lang_noexcept
+{
+	mk_lang_assert(fe);
+	mk_lang_assert(fe->m_breadcrumb);
+
+	return fe->m_breadcrumb[fe->m_breadcrumb_cnt];
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_tstring_tchar_lpct mk_lib_fe_get_name_short_str(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept
@@ -313,6 +334,27 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_kernel_files_attribute_t mk_lib_fe_get_at
 }
 
 
+static mk_lang_inline void mk_lib_fe_breadcrumb_go_dn(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept
+{
+	mk_win_base_size_t s;
+
+	mk_lang_assert(fe);
+	mk_lang_assert(idx >= 0);
+
+	s = sizeof(mk_win_base_sint_t);
+	mk_lib_fe_resize(&fe->m_breadcrumb, &fe->m_breadcrumb_capacity, (fe->m_breadcrumb_cnt + 1) * s); mk_lang_assert(fe->m_breadcrumb); mk_lang_assert(fe->m_breadcrumb_capacity >= (fe->m_breadcrumb_cnt + 1) * s);
+	fe->m_breadcrumb[fe->m_breadcrumb_cnt] = idx;
+	++fe->m_breadcrumb_cnt;
+}
+
+static mk_lang_inline void mk_lib_fe_breadcrumb_go_up(mk_lib_fe_lpt const fe) mk_lang_noexcept
+{
+	mk_lang_assert(fe);
+	mk_lang_assert(fe->m_breadcrumb_cnt != 0);
+
+	--fe->m_breadcrumb_cnt;
+}
+
 static mk_lang_inline void mk_lib_fe_go_to_item_all(mk_lib_fe_lpt const fe) mk_lang_noexcept
 {
 	mk_win_base_size_t s;
@@ -380,6 +422,7 @@ static mk_lang_inline void mk_lib_fe_go_to_item_up(mk_lib_fe_lpt const fe) mk_la
 	mk_lang_assert(fe->m_state != mk_lib_fe_state_e_init);
 	mk_lang_assert(fe->m_state != mk_lib_fe_state_e_roots);
 
+	mk_lib_fe_breadcrumb_go_up(fe);
 	fe->m_str_len -= fe->m_addon_len;
 	fe->m_addon_len = 0;
 	if(fe->m_str_len == 2)
@@ -416,6 +459,7 @@ static mk_lang_nodiscard mk_lang_bool_t mk_lib_fe_go_to_item_roots(mk_lib_fe_lpt
 	fe->m_str_len = 4;
 	fe->m_addon_len = 2;
 	fe->m_state = mk_lib_fe_state_e_folders;
+	mk_lib_fe_breadcrumb_go_dn(fe, idx);
 	mk_lib_fe_go_to_item_all(fe);
 	return mk_lang_true;
 }
@@ -454,6 +498,7 @@ static mk_lang_nodiscard mk_lang_inline mk_lang_bool_t mk_lib_fe_go_to_item_fold
 			fe->m_str[fe->m_str_len + 1 + name_len + 2] = mk_win_tstring_tchar_c('\0');
 			fe->m_str_len += (1 + name_len + 2);
 			fe->m_addon_len = 2;
+			mk_lib_fe_breadcrumb_go_dn(fe, idx);
 			mk_lib_fe_go_to_item_all(fe);
 			return mk_lang_true;
 		}

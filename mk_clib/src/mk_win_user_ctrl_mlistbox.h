@@ -36,6 +36,8 @@ enum mk_win_user_ctrl_mlistbox_message_e
 	mk_win_user_ctrl_mlistbox_message_e_dummy_start = mk_win_user_message_id_e_user,
 	mk_win_user_ctrl_mlistbox_message_e_setcursel,
 	mk_win_user_ctrl_mlistbox_message_e_getcursel,
+	mk_win_user_ctrl_mlistbox_message_e_setcurscroll,
+	mk_win_user_ctrl_mlistbox_message_e_getcurscroll,
 	mk_win_user_ctrl_mlistbox_message_e_set_strings_count,
 	mk_win_user_ctrl_mlistbox_message_e_dummy_end
 };

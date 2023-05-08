@@ -18,8 +18,13 @@ struct mk_win_ctrl_impl_mlistbox_s
 {
 	mk_win_user_window_t m_self;
 	mk_win_gdi_font_t m_font;
+	mk_win_base_rect_t m_rect_client;
 	int m_item_height;
 	int m_xwidth;
+	int m_lines_fully_visible;
+	int m_lines_partially_visible;
+	int m_scroll_cur;
+	int m_scroll_max;
 	int m_strings_count;
 	int m_cur_sel;
 };
