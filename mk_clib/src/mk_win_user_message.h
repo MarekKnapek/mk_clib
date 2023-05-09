@@ -553,6 +553,20 @@ enum mk_win_user_message_dlg_code_e
 };
 typedef enum mk_win_user_message_dlg_code_e mk_win_user_message_dlg_code_t;
 
+enum mk_win_user_message_mouse_key_e
+{
+	mk_win_user_message_mouse_key_e_dummy_none = 0,
+	mk_win_user_message_mouse_key_e_lbutton  = 0x01,
+	mk_win_user_message_mouse_key_e_rbutton  = 0x02,
+	mk_win_user_message_mouse_key_e_shift    = 0x04,
+	mk_win_user_message_mouse_key_e_control  = 0x08,
+	mk_win_user_message_mouse_key_e_mbutton  = 0x10,
+	mk_win_user_message_mouse_key_e_xbutton1 = 0x20, /* win32_winnt >= 0x0500 */
+	mk_win_user_message_mouse_key_e_xbutton2 = 0x40, /* win32_winnt >= 0x0500 */
+	mk_win_user_message_mouse_key_e_dummy_end = 0
+};
+typedef enum mk_win_user_message_mouse_key_e mk_win_user_message_mouse_key_t;
+
 
 #if defined _MSC_VER && _MSC_VER == 1935
 #pragma warning(push)

@@ -16,26 +16,26 @@
 
 enum mk_win_user_class_style_e
 {
-	mk_win_user_class_style_e_dummy_0         = 0x0000,
-	mk_win_user_class_style_e_vredraw         = 0x0001,
-	mk_win_user_class_style_e_hredraw         = 0x0002,
-	mk_win_user_class_style_e_keycvtwindow    = 0x0004,
-	mk_win_user_class_style_e_dblclks         = 0x0008,
-	mk_win_user_class_style_e_unknown_10      = 0x0010,
-	mk_win_user_class_style_e_owndc           = 0x0020,
-	mk_win_user_class_style_e_classdc         = 0x0040,
-	mk_win_user_class_style_e_parentdc        = 0x0080,
-	mk_win_user_class_style_e_nokeycvt        = 0x0100,
-	mk_win_user_class_style_e_noclose         = 0x0200,
-	mk_win_user_class_style_e_unknown_400     = 0x0400,
-	mk_win_user_class_style_e_savebits        = 0x0800,
-	mk_win_user_class_style_e_bytealignclient = 0x1000,
-	mk_win_user_class_style_e_bytealignwindow = 0x2000,
-	mk_win_user_class_style_e_globalclass     = 0x4000,
-	mk_win_user_class_style_e_unknown_800     = 0x8000,
-	mk_win_user_class_style_e_ime             = 0x00010000,
-	mk_win_user_class_style_e_dropshadow      = 0x00020000,
-	mk_win_user_class_style_e_dummy_end       = 0
+	mk_win_user_class_style_e_dummy_none = 0,
+	mk_win_user_class_style_e_vredraw         =     0x0001ul,
+	mk_win_user_class_style_e_hredraw         =     0x0002ul,
+	mk_win_user_class_style_e_keycvtwindow    =     0x0004ul,
+	mk_win_user_class_style_e_dblclks         =     0x0008ul,
+	mk_win_user_class_style_e_unknown_10      =     0x0010ul,
+	mk_win_user_class_style_e_owndc           =     0x0020ul,
+	mk_win_user_class_style_e_classdc         =     0x0040ul,
+	mk_win_user_class_style_e_parentdc        =     0x0080ul,
+	mk_win_user_class_style_e_nokeycvt        =     0x0100ul,
+	mk_win_user_class_style_e_noclose         =     0x0200ul,
+	mk_win_user_class_style_e_unknown_400     =     0x0400ul,
+	mk_win_user_class_style_e_savebits        =     0x0800ul,
+	mk_win_user_class_style_e_bytealignclient =     0x1000ul,
+	mk_win_user_class_style_e_bytealignwindow =     0x2000ul,
+	mk_win_user_class_style_e_globalclass     =     0x4000ul,
+	mk_win_user_class_style_e_unknown_800     =     0x8000ul,
+	mk_win_user_class_style_e_ime             = 0x00010000ul,
+	mk_win_user_class_style_e_dropshadow      = 0x00020000ul,
+	mk_win_user_class_style_e_dummy_end = 0
 };
 typedef enum mk_win_user_class_style_e mk_win_user_class_style_t;
 

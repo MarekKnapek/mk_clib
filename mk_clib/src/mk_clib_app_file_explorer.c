@@ -901,7 +901,14 @@ mk_lang_nodiscard static mk_lang_inline void* mk_clib_app_file_explorer_round_up
 
 static mk_lang_inline void mk_clib_app_file_explorer_labels_clear(mk_win_user_window_t const dialog) mk_lang_noexcept
 {
-	static mk_win_tstring_tchar_t const s_text[] = mk_win_tstring_tchar_c("");
+	#if defined _MSC_VER && _MSC_VER == 1935
+	#pragma warning(push)
+	#pragma warning(disable:4132) /* warning C4132: 'xxx': const object should be initialized */
+	#endif
+	static mk_win_base_wchar_t const s_empty_text;
+	#if defined _MSC_VER && _MSC_VER == 1935
+	#pragma warning(pop)
+	#endif
 
 	mk_win_user_window_t ctrl;
 	mk_win_user_window_lresult_t lr;
@@ -909,13 +916,19 @@ static mk_lang_inline void mk_clib_app_file_explorer_labels_clear(mk_win_user_wi
 	mk_lang_assert(dialog);
 
 	ctrl = mk_win_user_dialog_get_item(dialog, s_mk_clib_app_file_explorer_ctrl_id_edit_name_value); mk_lang_assert(ctrl);
-	lr = mk_win_user_message_t_send(ctrl, mk_win_user_message_id_e_settext, 0, ((mk_win_user_window_lparam_t)(s_text))); ((void)(lr));
+	lr = mk_win_user_message_t_send(ctrl, mk_win_user_message_id_e_settext, 0, ((mk_win_user_window_lparam_t)(s_empty_text))); ((void)(lr));
 
 	ctrl = mk_win_user_dialog_get_item(dialog, s_mk_clib_app_file_explorer_ctrl_id_edit_type_value); mk_lang_assert(ctrl);
-	lr = mk_win_user_message_t_send(ctrl, mk_win_user_message_id_e_settext, 0, ((mk_win_user_window_lparam_t)(s_text))); ((void)(lr));
+	lr = mk_win_user_message_t_send(ctrl, mk_win_user_message_id_e_settext, 0, ((mk_win_user_window_lparam_t)(s_empty_text))); ((void)(lr));
 
 	ctrl = mk_win_user_dialog_get_item(dialog, s_mk_clib_app_file_explorer_ctrl_id_edit_detail_value); mk_lang_assert(ctrl);
-	lr = mk_win_user_message_t_send(ctrl, mk_win_user_message_id_e_settext, 0, ((mk_win_user_window_lparam_t)(s_text))); ((void)(lr));
+	lr = mk_win_user_message_t_send(ctrl, mk_win_user_message_id_e_settext, 0, ((mk_win_user_window_lparam_t)(s_empty_text))); ((void)(lr));
+
+	ctrl = mk_win_user_dialog_get_item(dialog, s_mk_clib_app_file_explorer_ctrl_id_edit_attributes_value); mk_lang_assert(ctrl);
+	lr = mk_win_user_message_t_send(ctrl, mk_win_user_message_id_e_settext, 0, ((mk_win_user_window_lparam_t)(s_empty_text))); ((void)(lr));
+
+	ctrl = mk_win_user_dialog_get_item(dialog, s_mk_clib_app_file_explorer_ctrl_id_listbox_attributes_data); mk_lang_assert(ctrl);
+	lr = mk_win_user_message_t_send(ctrl, mk_win_user_ctrl_mlistbox_message_e_set_strings_count, ((mk_win_user_window_wparam_t)(0)), 0); ((void)(lr));
 }
 
 static mk_lang_inline void mk_clib_app_file_explorer_on_selection(mk_win_user_window_t const dialog) mk_lang_noexcept

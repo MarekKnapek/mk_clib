@@ -99,8 +99,10 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_scrollbars_reset(mk_win_ctr
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_invalidate_item(mk_win_ctrl_impl_mlistbox_lpt const self, int const idx) mk_lang_noexcept;
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_do_scroll(mk_win_ctrl_impl_mlistbox_lpt const self, int const scroll_cur_new) mk_lang_noexcept;
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_do_scroll_to_make_visible(mk_win_ctrl_impl_mlistbox_lpt const self) mk_lang_noexcept;
-static mk_lang_inline void mk_win_ctrl_impl_mlistbox_do_select(mk_win_ctrl_impl_mlistbox_lpt const self, int const cur_sel_new) mk_lang_noexcept;
+static mk_lang_inline void mk_win_ctrl_impl_mlistbox_do_select_idx(mk_win_ctrl_impl_mlistbox_lpt const self, int const cur_sel_new) mk_lang_noexcept;
+static mk_lang_inline void mk_win_ctrl_impl_mlistbox_do_select_xy(mk_win_ctrl_impl_mlistbox_lpt const self, mk_win_base_sshort_t const x, mk_win_base_sshort_t const y) mk_lang_noexcept;
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_fire_selchange(mk_win_ctrl_impl_mlistbox_lpt const self) mk_lang_noexcept;
+static mk_lang_inline void mk_win_ctrl_impl_mlistbox_fire_lbuttondblclk(mk_win_ctrl_impl_mlistbox_lpt const self) mk_lang_noexcept;
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_fire_return(mk_win_ctrl_impl_mlistbox_lpt const self) mk_lang_noexcept;
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_create(mk_win_ctrl_impl_mlistbox_lpt const self, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_user_window_lresult_pt const lres) mk_lang_noexcept;
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_size(mk_win_ctrl_impl_mlistbox_lpt const self, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_user_window_lresult_pt const lres) mk_lang_noexcept;
@@ -117,6 +119,9 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_keydown_up(mk_win_ct
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_keydown_down(mk_win_ctrl_impl_mlistbox_lpt const self, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_user_window_lresult_pt const lres) mk_lang_noexcept;
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_keydown(mk_win_ctrl_impl_mlistbox_lpt const self, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_user_window_lresult_pt const lres) mk_lang_noexcept;
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_vscroll(mk_win_ctrl_impl_mlistbox_lpt const self, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_user_window_lresult_pt const lres) mk_lang_noexcept;
+static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_lbuttondown(mk_win_ctrl_impl_mlistbox_lpt const self, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_user_window_lresult_pt const lres) mk_lang_noexcept;
+static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_lbuttondblclk(mk_win_ctrl_impl_mlistbox_lpt const self, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_user_window_lresult_pt const lres) mk_lang_noexcept;
+static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_mousewheel(mk_win_ctrl_impl_mlistbox_lpt const self, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_user_window_lresult_pt const lres) mk_lang_noexcept;
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_setcursel(mk_win_ctrl_impl_mlistbox_lpt const self, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_user_window_lresult_pt const lres) mk_lang_noexcept;
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_getcursel(mk_win_ctrl_impl_mlistbox_lpt const self, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_user_window_lresult_pt const lres) mk_lang_noexcept;
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_setcurscroll(mk_win_ctrl_impl_mlistbox_lpt const self, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_user_window_lresult_pt const lres) mk_lang_noexcept;
@@ -132,7 +137,7 @@ mk_lang_jumbo void mk_win_ctrl_impl_mlistbox_register(void) mk_lang_noexcept
 	mk_lang_bool_t got;
 
 	mk_lang_assert(g_mk_win_ctrl_impl_mlistbox_atom == 0);
-	wc.m_style = 0;
+	wc.m_style = mk_win_user_class_style_e_dblclks;
 	wc.m_wndproc = &mk_win_ctrl_impl_mlistbox_wndproc;
 	wc.m_class_extra = 0;
 	wc.m_wnd_extra = sizeof(mk_win_ctrl_impl_mlistbox_lpt);
@@ -322,7 +327,7 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_do_scroll_to_make_visible(m
 	}
 }
 
-static mk_lang_inline void mk_win_ctrl_impl_mlistbox_do_select(mk_win_ctrl_impl_mlistbox_lpt const self, int const cur_sel_new) mk_lang_noexcept
+static mk_lang_inline void mk_win_ctrl_impl_mlistbox_do_select_idx(mk_win_ctrl_impl_mlistbox_lpt const self, int const cur_sel_new) mk_lang_noexcept
 {
 	int cur_sel_old;
 
@@ -343,6 +348,29 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_do_select(mk_win_ctrl_impl_
 	mk_win_ctrl_impl_mlistbox_fire_selchange(self);
 }
 
+static mk_lang_inline void mk_win_ctrl_impl_mlistbox_do_select_xy(mk_win_ctrl_impl_mlistbox_lpt const self, mk_win_base_sshort_t const x, mk_win_base_sshort_t const y) mk_lang_noexcept
+{
+	int cur_sel_new;
+
+	mk_lang_assert(self);
+	mk_lang_assert(self->m_self);
+	mk_lang_assert(self->m_item_height >= 1);
+
+	if(x < 0 || y < 0 || x > self->m_rect_client.m_right || y > self->m_rect_client.m_bottom)
+	{
+		cur_sel_new = -1;
+	}
+	else
+	{
+		cur_sel_new = self->m_scroll_cur + y / self->m_item_height;
+		if(cur_sel_new > self->m_strings_count - 1)
+		{
+			cur_sel_new = -1;
+		}
+	}
+	mk_win_ctrl_impl_mlistbox_do_select_idx(self, cur_sel_new);
+}
+
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_fire_selchange(mk_win_ctrl_impl_mlistbox_lpt const self) mk_lang_noexcept
 {
 	mk_win_base_word_t id;
@@ -353,6 +381,18 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_fire_selchange(mk_win_ctrl_
 
 	id = ((mk_win_base_word_t)(mk_win_user_window_t_get_data(self->m_self, mk_win_user_window_data_idx_e_id)));
 	lr = mk_win_user_message_t_send(mk_win_user_window_get_parent(self->m_self), mk_win_user_message_id_e_command, ((mk_win_user_window_wparam_t)(((mk_win_user_window_wparam_t)(((mk_win_user_window_wparam_t)(mk_win_user_ctrl_mlistbox_notify_e_selchange)) << 16)) | ((mk_win_user_window_wparam_t)(((mk_win_user_window_wparam_t)(id)) << 0)))), ((mk_win_user_window_lparam_t)(self->m_self))); ((void)(lr));
+}
+
+static mk_lang_inline void mk_win_ctrl_impl_mlistbox_fire_lbuttondblclk(mk_win_ctrl_impl_mlistbox_lpt const self) mk_lang_noexcept
+{
+	mk_win_base_word_t id;
+	mk_win_user_window_lresult_t lr;
+
+	mk_lang_assert(self);
+	mk_lang_assert(self->m_self);
+
+	id = ((mk_win_base_word_t)(mk_win_user_window_t_get_data(self->m_self, mk_win_user_window_data_idx_e_id)));
+	lr = mk_win_user_message_t_send(mk_win_user_window_get_parent(self->m_self), mk_win_user_message_id_e_command, ((mk_win_user_window_wparam_t)(((mk_win_user_window_wparam_t)(((mk_win_user_window_wparam_t)(mk_win_user_ctrl_mlistbox_notify_e_dblclk)) << 16)) | ((mk_win_user_window_wparam_t)(((mk_win_user_window_wparam_t)(id)) << 0)))), ((mk_win_user_window_lparam_t)(self->m_self))); ((void)(lr));
 }
 
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_fire_return(mk_win_ctrl_impl_mlistbox_lpt const self) mk_lang_noexcept
@@ -602,7 +642,7 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_keydown_prior(mk_win
 	mk_lang_assert(lres);
 
 	cur_sel_new = mk_lang_max(0, self->m_cur_sel - self->m_lines_fully_visible);
-	mk_win_ctrl_impl_mlistbox_do_select(self, cur_sel_new);
+	mk_win_ctrl_impl_mlistbox_do_select_idx(self, cur_sel_new);
 }
 
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_keydown_next(mk_win_ctrl_impl_mlistbox_lpt const self, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_user_window_lresult_pt const lres) mk_lang_noexcept
@@ -617,7 +657,7 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_keydown_next(mk_win_
 	mk_lang_assert(lres);
 
 	cur_sel_new = mk_lang_min(self->m_strings_count - 1, self->m_cur_sel + self->m_lines_fully_visible);
-	mk_win_ctrl_impl_mlistbox_do_select(self, cur_sel_new);
+	mk_win_ctrl_impl_mlistbox_do_select_idx(self, cur_sel_new);
 }
 
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_keydown_end(mk_win_ctrl_impl_mlistbox_lpt const self, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_user_window_lresult_pt const lres) mk_lang_noexcept
@@ -632,7 +672,7 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_keydown_end(mk_win_c
 	mk_lang_assert(lres);
 
 	cur_sel_new = self->m_strings_count - 1;
-	mk_win_ctrl_impl_mlistbox_do_select(self, cur_sel_new);
+	mk_win_ctrl_impl_mlistbox_do_select_idx(self, cur_sel_new);
 }
 
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_keydown_home(mk_win_ctrl_impl_mlistbox_lpt const self, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_user_window_lresult_pt const lres) mk_lang_noexcept
@@ -647,7 +687,7 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_keydown_home(mk_win_
 	mk_lang_assert(lres);
 
 	cur_sel_new = 0;
-	mk_win_ctrl_impl_mlistbox_do_select(self, cur_sel_new);
+	mk_win_ctrl_impl_mlistbox_do_select_idx(self, cur_sel_new);
 }
 
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_keydown_up(mk_win_ctrl_impl_mlistbox_lpt const self, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_user_window_lresult_pt const lres) mk_lang_noexcept
@@ -662,7 +702,7 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_keydown_up(mk_win_ct
 	mk_lang_assert(lres);
 
 	cur_sel_new = mk_lang_max(0, self->m_cur_sel - 1);
-	mk_win_ctrl_impl_mlistbox_do_select(self, cur_sel_new);
+	mk_win_ctrl_impl_mlistbox_do_select_idx(self, cur_sel_new);
 }
 
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_keydown_down(mk_win_ctrl_impl_mlistbox_lpt const self, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_user_window_lresult_pt const lres) mk_lang_noexcept
@@ -677,7 +717,7 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_keydown_down(mk_win_
 	mk_lang_assert(lres);
 
 	cur_sel_new = mk_lang_min(self->m_strings_count - 1, self->m_cur_sel + 1);
-	mk_win_ctrl_impl_mlistbox_do_select(self, cur_sel_new);
+	mk_win_ctrl_impl_mlistbox_do_select_idx(self, cur_sel_new);
 }
 
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_keydown(mk_win_ctrl_impl_mlistbox_lpt const self, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_user_window_lresult_pt const lres) mk_lang_noexcept
@@ -741,6 +781,73 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_vscroll(mk_win_ctrl_
 	mk_win_ctrl_impl_mlistbox_do_scroll(self, scroll_cur_new);
 }
 
+static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_lbuttondown(mk_win_ctrl_impl_mlistbox_lpt const self, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_user_window_lresult_pt const lres) mk_lang_noexcept
+{
+	mk_win_user_window_t prev;
+	mk_win_user_message_mouse_key_t mouse_key;
+	mk_win_base_sshort_t x;
+	mk_win_base_sshort_t y;
+
+	mk_lang_assert(self);
+	mk_lang_assert(self->m_self);
+	mk_lang_assert(override_lres);
+	mk_lang_assert(lres);
+
+	prev = mk_win_user_window_set_focus(self->m_self); ((void)(self));
+	mouse_key = ((mk_win_user_message_mouse_key_t)(wparam));
+	if(mouse_key == mk_win_user_message_mouse_key_e_lbutton)
+	{
+		x = ((mk_win_base_sshort_t)(((mk_win_base_ushort_t)(((mk_win_user_window_lparam_t)(((mk_win_user_window_lparam_t)(lparam >>  0)) & ((mk_win_user_window_lparam_t)(0xfffful))))))));
+		y = ((mk_win_base_sshort_t)(((mk_win_base_ushort_t)(((mk_win_user_window_lparam_t)(((mk_win_user_window_lparam_t)(lparam >> 16)) & ((mk_win_user_window_lparam_t)(0xfffful))))))));
+		mk_win_ctrl_impl_mlistbox_do_select_xy(self, x, y);
+	}
+}
+
+static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_lbuttondblclk(mk_win_ctrl_impl_mlistbox_lpt const self, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_user_window_lresult_pt const lres) mk_lang_noexcept
+{
+	mk_win_user_message_mouse_key_t mouse_key;
+	mk_win_base_sshort_t x;
+	mk_win_base_sshort_t y;
+
+	mk_lang_assert(self);
+	mk_lang_assert(self->m_self);
+	mk_lang_assert(override_lres);
+	mk_lang_assert(lres);
+
+	mouse_key = ((mk_win_user_message_mouse_key_t)(wparam));
+	if(mouse_key == mk_win_user_message_mouse_key_e_lbutton)
+	{
+		x = ((mk_win_base_sshort_t)(((mk_win_base_ushort_t)(((mk_win_user_window_lparam_t)(((mk_win_user_window_lparam_t)(lparam >>  0)) & ((mk_win_user_window_lparam_t)(0xfffful))))))));
+		y = ((mk_win_base_sshort_t)(((mk_win_base_ushort_t)(((mk_win_user_window_lparam_t)(((mk_win_user_window_lparam_t)(lparam >> 16)) & ((mk_win_user_window_lparam_t)(0xfffful))))))));
+		mk_win_ctrl_impl_mlistbox_do_select_xy(self, x, y);
+		mk_win_ctrl_impl_mlistbox_fire_lbuttondblclk(self);
+	}
+}
+
+static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_mousewheel(mk_win_ctrl_impl_mlistbox_lpt const self, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_user_window_lresult_pt const lres) mk_lang_noexcept
+{
+	mk_win_user_message_mouse_key_t mouse_key;
+	mk_win_base_sshort_t wheel_delta;
+	mk_win_base_sshort_t x;
+	mk_win_base_sshort_t y;
+	int scroll_cur_new;
+
+	mk_lang_assert(self);
+	mk_lang_assert(self->m_self);
+	mk_lang_assert(override_lres);
+	mk_lang_assert(lres);
+
+	mouse_key = ((mk_win_user_message_mouse_key_t)(((mk_win_base_ushort_t)(((mk_win_user_window_wparam_t)(((mk_win_user_window_wparam_t)(wparam >> 0)) & ((mk_win_user_window_wparam_t)(0xfffful))))))));
+	wheel_delta = ((mk_win_base_sshort_t)(((mk_win_base_ushort_t)(((mk_win_user_window_wparam_t)(((mk_win_user_window_wparam_t)(wparam >> 16)) & ((mk_win_user_window_wparam_t)(0xfffful))))))));
+	x = ((mk_win_base_sshort_t)(((mk_win_base_ushort_t)(((mk_win_user_window_lparam_t)(((mk_win_user_window_lparam_t)(lparam >>  0)) & ((mk_win_user_window_lparam_t)(0xfffful))))))));
+	y = ((mk_win_base_sshort_t)(((mk_win_base_ushort_t)(((mk_win_user_window_lparam_t)(((mk_win_user_window_lparam_t)(lparam >> 16)) & ((mk_win_user_window_lparam_t)(0xfffful))))))));
+	if(mouse_key == mk_win_user_message_mouse_key_e_dummy_none)
+	{
+		scroll_cur_new = mk_lang_clamp(self->m_scroll_cur - wheel_delta / 120, 0, self->m_scroll_max);
+		mk_win_ctrl_impl_mlistbox_do_scroll(self, scroll_cur_new);
+	}
+}
+
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_setcursel(mk_win_ctrl_impl_mlistbox_lpt const self, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_user_window_lresult_pt const lres) mk_lang_noexcept
 {
 	int cur_sel_new;
@@ -752,7 +859,7 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_setcursel(mk_win_ctr
 	mk_lang_assert(lres);
 
 	cur_sel_new = ((int)(wparam)); mk_lang_assert(cur_sel_new >= -1); mk_lang_assert(cur_sel_new < self->m_strings_count);
-	mk_win_ctrl_impl_mlistbox_do_select(self, cur_sel_new);
+	mk_win_ctrl_impl_mlistbox_do_select_idx(self, cur_sel_new);
 	*override_lres = mk_lang_true;
 	*lres = ((mk_win_user_window_lresult_t)(self->m_cur_sel));
 }
@@ -807,7 +914,7 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_set_strings_count(mk
 	mk_lang_assert(override_lres);
 	mk_lang_assert(lres);
 
-	mk_win_ctrl_impl_mlistbox_do_select(self, -1);
+	mk_win_ctrl_impl_mlistbox_do_select_idx(self, -1);
 	self->m_strings_count = ((int)(wparam)); mk_lang_assert(self->m_strings_count >= 0);
 	invalidated = mk_win_user_window_invalidate_rect(self->m_self, mk_win_base_null, mk_win_base_false); mk_lang_assert(invalidated != 0);
 	mk_win_ctrl_impl_mlistbox_recalculate_scroll_max(self);
@@ -832,6 +939,9 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg(mk_win_ctrl_impl_mli
 		case mk_win_user_message_id_e_getdlgcode: mk_win_ctrl_impl_mlistbox_on_msg_getdlgcode(self, wparam, lparam, override_lres, lres); break;
 		case mk_win_user_message_id_e_keydown: mk_win_ctrl_impl_mlistbox_on_msg_keydown(self, wparam, lparam, override_lres, lres); break;
 		case mk_win_user_message_id_e_vscroll: mk_win_ctrl_impl_mlistbox_on_msg_vscroll(self, wparam, lparam, override_lres, lres); break;
+		case mk_win_user_message_id_e_lbuttondown: mk_win_ctrl_impl_mlistbox_on_msg_lbuttondown(self, wparam, lparam, override_lres, lres); break;
+		case mk_win_user_message_id_e_lbuttondblclk: mk_win_ctrl_impl_mlistbox_on_msg_lbuttondblclk(self, wparam, lparam, override_lres, lres); break;
+		case mk_win_user_message_id_e_mousewheel: mk_win_ctrl_impl_mlistbox_on_msg_mousewheel(self, wparam, lparam, override_lres, lres); break;
 		case mk_win_user_ctrl_mlistbox_message_e_setcursel: mk_win_ctrl_impl_mlistbox_on_msg_setcursel(self, wparam, lparam, override_lres, lres); break;
 		case mk_win_user_ctrl_mlistbox_message_e_getcursel: mk_win_ctrl_impl_mlistbox_on_msg_getcursel(self, wparam, lparam, override_lres, lres); break;
 		case mk_win_user_ctrl_mlistbox_message_e_setcurscroll: mk_win_ctrl_impl_mlistbox_on_msg_setcurscroll(self, wparam, lparam, override_lres, lres); break;
