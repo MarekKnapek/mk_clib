@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_win_base
-#define mk_include_guard_win_base
+#ifndef include_guard_mk_win_base
+#define include_guard_mk_win_base
 
 
 #include "mk_lang_arch.h"

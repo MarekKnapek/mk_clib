@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_lang_cpp
-#define mk_include_guard_lang_cpp
+#ifndef include_guard_mk_lang_cpp
+#define include_guard_mk_lang_cpp
 
 
 #if defined __cplusplus

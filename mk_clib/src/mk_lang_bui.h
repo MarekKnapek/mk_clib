@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_lang_bui
-#define mk_include_guard_lang_bui
+#ifndef include_guard_mk_lang_bui
+#define include_guard_mk_lang_bui
 
 
 #include "mk_lang_bi.h"

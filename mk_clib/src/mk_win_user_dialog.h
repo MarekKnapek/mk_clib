@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_win_user_dialog
-#define mk_include_guard_win_user_dialog
+#ifndef include_guard_mk_win_user_dialog
+#define include_guard_mk_win_user_dialog
 
 
 #include "mk_lang_jumbo.h"

@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_win_user_menu
-#define mk_include_guard_win_user_menu
+#ifndef include_guard_mk_win_user_menu
+#define include_guard_mk_win_user_menu
 
 
 #include "mk_lang_jumbo.h"

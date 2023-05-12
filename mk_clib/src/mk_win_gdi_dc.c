@@ -21,6 +21,7 @@ mk_win_base_dll_import mk_win_gdi_object_t mk_win_base_stdcall SelectObject(mk_w
 mk_win_base_dll_import int mk_win_base_stdcall SetBkMode(mk_win_gdi_dc_t, int) mk_lang_noexcept;
 mk_win_base_dll_import int mk_win_base_stdcall FillRect(mk_win_gdi_dc_t, mk_win_base_rect_lpct, mk_win_user_brush_t) mk_lang_noexcept;
 mk_win_base_dll_import int mk_win_base_stdcall FrameRect(mk_win_gdi_dc_t, mk_win_base_rect_lpct, mk_win_user_brush_t) mk_lang_noexcept;
+mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall DrawFocusRect(mk_win_gdi_dc_t, mk_win_base_rect_lpct) mk_lang_noexcept;
 mk_win_base_dll_import mk_win_base_dword_t mk_win_base_stdcall SetTextColor(mk_win_gdi_dc_t, mk_win_base_dword_t) mk_lang_noexcept;
 mk_win_base_dll_import mk_win_base_dword_t mk_win_base_stdcall SetBkColor(mk_win_gdi_dc_t, mk_win_base_dword_t) mk_lang_noexcept;
 
@@ -184,6 +185,14 @@ mk_lang_nodiscard mk_lang_jumbo int mk_win_gdi_dc_frame_rect(mk_win_gdi_dc_t con
 
 	framed = FrameRect(dc, rect, brush);
 	return framed;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_gdi_dc_draw_focus_rect(mk_win_gdi_dc_t const dc, mk_win_base_rect_lpct const rect) mk_lang_noexcept
+{
+	mk_win_base_bool_t drawn;
+
+	drawn = DrawFocusRect(dc, rect);
+	return drawn;
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_dword_t mk_win_gdi_dc_set_text_color(mk_win_gdi_dc_t const dc, mk_win_base_dword_t const color) mk_lang_noexcept

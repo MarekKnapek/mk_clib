@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_win_main_heap
-#define mk_include_guard_win_main_heap
+#ifndef include_guard_mk_win_main_heap
+#define include_guard_mk_win_main_heap
 
 
 #include "mk_lang_exception.h"

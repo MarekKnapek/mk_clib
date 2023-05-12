@@ -15,6 +15,7 @@
 #include "mk_win_base.h"
 #include "mk_win_gdi_bitmap.h"
 #include "mk_win_gdi_dc.h"
+#include "mk_win_gdi_font.h"
 #include "mk_win_gdi_object.h"
 #include "mk_win_kernel_atom.h"
 #include "mk_win_kernel_dll.h"
@@ -106,6 +107,8 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_fire_lbuttondblclk(mk_win_c
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_fire_return(mk_win_ctrl_impl_mlistbox_lpt const self) mk_lang_noexcept;
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_create(mk_win_ctrl_impl_mlistbox_lpt const self, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_user_window_lresult_pt const lres) mk_lang_noexcept;
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_size(mk_win_ctrl_impl_mlistbox_lpt const self, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_user_window_lresult_pt const lres) mk_lang_noexcept;
+static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_setfocus(mk_win_ctrl_impl_mlistbox_lpt const self, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_user_window_lresult_pt const lres) mk_lang_noexcept;
+static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_killfocus(mk_win_ctrl_impl_mlistbox_lpt const self, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_user_window_lresult_pt const lres) mk_lang_noexcept;
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_paint(mk_win_ctrl_impl_mlistbox_lpt const self, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_user_window_lresult_pt const lres) mk_lang_noexcept;
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_setfont(mk_win_ctrl_impl_mlistbox_lpt const self, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_user_window_lresult_pt const lres) mk_lang_noexcept;
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_getfont(mk_win_ctrl_impl_mlistbox_lpt const self, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_user_window_lresult_pt const lres) mk_lang_noexcept;
@@ -295,7 +298,22 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_do_scroll(mk_win_ctrl_impl_
 	}
 	if(mk_lang_abs(scroll_delta) <= self->m_lines_partially_visible)
 	{
-		scrolled = ScrollWindow(self->m_self, 0, scroll_delta * self->m_item_height, mk_win_base_null, mk_win_base_null); mk_lang_assert(scrolled != 0);
+		if(self->m_has_focus)
+		{
+			if(self->m_cur_sel == -1)
+			{
+				invalidated = mk_win_user_window_invalidate_rect(self->m_self, mk_win_base_null, mk_win_base_false); mk_lang_assert(invalidated != 0);
+			}
+			else
+			{
+				mk_win_ctrl_impl_mlistbox_invalidate_item(self, self->m_cur_sel);
+				scrolled = ScrollWindow(self->m_self, 0, scroll_delta * self->m_item_height, mk_win_base_null, mk_win_base_null); mk_lang_assert(scrolled != 0);
+			}
+		}
+		else
+		{
+			scrolled = ScrollWindow(self->m_self, 0, scroll_delta * self->m_item_height, mk_win_base_null, mk_win_base_null); mk_lang_assert(scrolled != 0);
+		}
 	}
 	else
 	{
@@ -330,6 +348,7 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_do_scroll_to_make_visible(m
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_do_select_idx(mk_win_ctrl_impl_mlistbox_lpt const self, int const cur_sel_new) mk_lang_noexcept
 {
 	int cur_sel_old;
+	mk_win_base_bool_t invalidated;
 
 	mk_lang_assert(self);
 	mk_lang_assert(self->m_self);
@@ -344,6 +363,10 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_do_select_idx(mk_win_ctrl_i
 	self->m_cur_sel = cur_sel_new;
 	mk_win_ctrl_impl_mlistbox_invalidate_item(self, cur_sel_old);
 	mk_win_ctrl_impl_mlistbox_invalidate_item(self, cur_sel_new);
+	if(self->m_has_focus && (cur_sel_old == -1 || cur_sel_new == -1))
+	{
+		invalidated = mk_win_user_window_invalidate_rect(self->m_self, mk_win_base_null, mk_win_base_false); mk_lang_assert(invalidated != 0);
+	}
 	mk_win_ctrl_impl_mlistbox_do_scroll_to_make_visible(self);
 	mk_win_ctrl_impl_mlistbox_fire_selchange(self);
 }
@@ -432,6 +455,7 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_create(mk_win_ctrl_i
 	self->m_scroll_max = 0;
 	self->m_strings_count = 0;
 	self->m_cur_sel = ((int)(mk_win_user_ctrl_mlistbox_err_e_err));
+	self->m_has_focus = mk_lang_false;
 	mk_win_ctrl_impl_mlistbox_recalculate_font(self);
 	mk_win_ctrl_impl_mlistbox_recalculate_lines_visible(self);
 	mk_win_ctrl_impl_mlistbox_recalculate_scroll_max(self);
@@ -450,6 +474,50 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_size(mk_win_ctrl_imp
 
 	mk_win_ctrl_impl_mlistbox_recalculate_lines_visible(self);
 	mk_win_ctrl_impl_mlistbox_recalculate_scroll_max(self);
+}
+
+static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_setfocus(mk_win_ctrl_impl_mlistbox_lpt const self, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_user_window_lresult_pt const lres) mk_lang_noexcept
+{
+	mk_win_base_bool_t invalidated;
+
+	mk_lang_assert(self);
+	mk_lang_assert(self->m_self);
+	((void)(wparam));
+	((void)(lparam));
+	mk_lang_assert(override_lres);
+	mk_lang_assert(lres);
+
+	self->m_has_focus = mk_lang_true;
+	if(self->m_cur_sel == -1)
+	{
+		invalidated = mk_win_user_window_invalidate_rect(self->m_self, mk_win_base_null, mk_win_base_false); mk_lang_assert(invalidated != 0);
+	}
+	else
+	{
+		mk_win_ctrl_impl_mlistbox_invalidate_item(self, self->m_cur_sel);
+	}
+}
+
+static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_killfocus(mk_win_ctrl_impl_mlistbox_lpt const self, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_user_window_lresult_pt const lres) mk_lang_noexcept
+{
+	mk_win_base_bool_t invalidated;
+
+	mk_lang_assert(self);
+	mk_lang_assert(self->m_self);
+	((void)(wparam));
+	((void)(lparam));
+	mk_lang_assert(override_lres);
+	mk_lang_assert(lres);
+
+	self->m_has_focus = mk_lang_false;
+	if(self->m_cur_sel == -1)
+	{
+		invalidated = mk_win_user_window_invalidate_rect(self->m_self, mk_win_base_null, mk_win_base_false); mk_lang_assert(invalidated != 0);
+	}
+	else
+	{
+		mk_win_ctrl_impl_mlistbox_invalidate_item(self, self->m_cur_sel);
+	}
 }
 
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_paint(mk_win_ctrl_impl_mlistbox_lpt const self, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_user_window_lresult_pt const lres) mk_lang_noexcept
@@ -510,10 +578,10 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_paint(mk_win_ctrl_im
 	}
 	#endif
 	background_brush = mk_win_user_brush_get_syscolor(mk_win_user_color_id_e_window); mk_lang_assert(background_brush);
-	if(ps.m_erase != 0)
+	/*if(ps.m_erase != 0)
 	{
 		filled = mk_win_gdi_dc_fill_rect(dc_mem, &rect_mem_dc, background_brush); mk_lang_assert(filled != 0);
-	}
+	}*/
 	row_visual_repaint_beg = ps.m_rect.m_top / self->m_item_height;
 	row_visual_repaint_end = mk_lang_div_roundup(ps.m_rect.m_bottom, self->m_item_height); mk_lang_assert(row_visual_repaint_end > row_visual_repaint_beg);
 	row_data_repaint_beg = row_visual_repaint_beg + self->m_scroll_cur;
@@ -547,6 +615,10 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_paint(mk_win_ctrl_im
 		drawn = mk_win_gdi_dc_t_ext_text_out(dc_mem, self->m_xwidth - ps.m_rect.m_left, rect_mem_line.m_top, mk_win_gdi_dc_ext_text_out_options_e_opaque | mk_win_gdi_dc_ext_text_out_options_e_clipped, &rect_mem_line, notify_get_string.m_string, notify_get_string.m_string_length, mk_win_base_null); mk_lang_assert(drawn != 0);
 		if(idx == self->m_cur_sel)
 		{
+			if(self->m_has_focus)
+			{
+				drawn = mk_win_gdi_dc_draw_focus_rect(dc_mem, &rect_mem_line); mk_lang_assert(drawn != 0);
+			}
 			prev_foreground = mk_win_gdi_dc_set_text_color(dc_mem, prev_foreground); ((void)(prev_foreground));
 			prev_background = mk_win_gdi_dc_set_background_color(dc_mem, prev_background); ((void)(prev_background));
 		}
@@ -558,6 +630,14 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_paint(mk_win_ctrl_im
 	rect_blank.m_right = rect_mem_dc.m_right;
 	rect_blank.m_bottom = rect_mem_dc.m_bottom;
 	filled = mk_win_gdi_dc_fill_rect(dc_mem, &rect_blank, background_brush); mk_lang_assert(filled != 0);
+	if(self->m_has_focus && self->m_cur_sel == -1)
+	{
+		rect_mem_line.m_left = self->m_rect_client.m_left - ps.m_rect.m_left;
+		rect_mem_line.m_top = self->m_rect_client.m_top - ps.m_rect.m_top;
+		rect_mem_line.m_right = rect_mem_line.m_left + (self->m_rect_client.m_right - self->m_rect_client.m_left);
+		rect_mem_line.m_bottom = rect_mem_line.m_top + (self->m_rect_client.m_bottom - self->m_rect_client.m_top);
+		drawn = mk_win_gdi_dc_draw_focus_rect(dc_mem, &rect_mem_line); mk_lang_assert(drawn != 0);
+	}
 	blted = mk_win_gdi_bitmap_bitblt(dc, ps.m_rect.m_left, ps.m_rect.m_top, rect_mem_dc.m_right, rect_mem_dc.m_bottom, dc_mem, 0, 0, mk_win_gdi_bitmap_rop_e_srccopy); mk_lang_assert(blted != 0);
 	prev_bm = ((mk_win_gdi_bitmap_t)(mk_win_gdi_dc_select_object(dc_mem, ((mk_win_gdi_object_t)(prev_bm))))); mk_lang_assert(prev_bm == bm);
 	deleted = mk_win_gdi_object_delete(((mk_win_gdi_object_t)(bm))); mk_lang_assert(deleted != 0);
@@ -914,8 +994,9 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_set_strings_count(mk
 	mk_lang_assert(override_lres);
 	mk_lang_assert(lres);
 
-	mk_win_ctrl_impl_mlistbox_do_select_idx(self, -1);
+	self->m_scroll_cur = 0;
 	self->m_strings_count = ((int)(wparam)); mk_lang_assert(self->m_strings_count >= 0);
+	self->m_cur_sel = -1;
 	invalidated = mk_win_user_window_invalidate_rect(self->m_self, mk_win_base_null, mk_win_base_false); mk_lang_assert(invalidated != 0);
 	mk_win_ctrl_impl_mlistbox_recalculate_scroll_max(self);
 	mk_win_ctrl_impl_mlistbox_scrollbars_reset(self);
@@ -933,6 +1014,8 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg(mk_win_ctrl_impl_mli
 	{
 		case mk_win_user_message_id_e_create: mk_win_ctrl_impl_mlistbox_on_msg_create(self, wparam, lparam, override_lres, lres); break;
 		case mk_win_user_message_id_e_size: mk_win_ctrl_impl_mlistbox_on_msg_size(self, wparam, lparam, override_lres, lres); break;
+		case mk_win_user_message_id_e_setfocus: mk_win_ctrl_impl_mlistbox_on_msg_setfocus(self, wparam, lparam, override_lres, lres); break;
+		case mk_win_user_message_id_e_killfocus: mk_win_ctrl_impl_mlistbox_on_msg_killfocus(self, wparam, lparam, override_lres, lres); break;
 		case mk_win_user_message_id_e_paint: mk_win_ctrl_impl_mlistbox_on_msg_paint(self, wparam, lparam, override_lres, lres); break;
 		case mk_win_user_message_id_e_setfont: mk_win_ctrl_impl_mlistbox_on_msg_setfont(self, wparam, lparam, override_lres, lres); break;
 		case mk_win_user_message_id_e_getfont: mk_win_ctrl_impl_mlistbox_on_msg_getfont(self, wparam, lparam, override_lres, lres); break;

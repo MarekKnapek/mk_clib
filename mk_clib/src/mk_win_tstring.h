@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_win_tstring
-#define mk_include_guard_win_tstring
+#ifndef include_guard_mk_win_tstring
+#define include_guard_mk_win_tstring
 
 
 #include "mk_lang_bool.h"

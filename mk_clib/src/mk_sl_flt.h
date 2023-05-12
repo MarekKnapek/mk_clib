@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_sl_flt
-#define mk_include_guard_sl_flt
+#ifndef include_guard_mk_sl_flt
+#define include_guard_mk_sl_flt
 
 
 #include "mk_lang_jumbo.h"

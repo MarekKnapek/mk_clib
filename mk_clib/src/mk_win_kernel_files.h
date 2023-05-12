@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_win_kernel_files
-#define mk_include_guard_win_kernel_files
+#ifndef include_guard_mk_win_kernel_files
+#define include_guard_mk_win_kernel_files
 
 
 #include "mk_lang_jumbo.h"

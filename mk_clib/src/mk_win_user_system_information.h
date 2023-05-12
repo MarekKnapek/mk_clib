@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_win_user_system_information
-#define mk_include_guard_win_user_system_information
+#ifndef include_guard_mk_win_user_system_information
+#define include_guard_mk_win_user_system_information
 
 
 #include "mk_lang_jumbo.h"

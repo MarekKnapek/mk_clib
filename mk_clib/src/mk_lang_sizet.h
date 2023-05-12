@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_lang_sizet
-#define mk_include_guard_lang_sizet
+#ifndef include_guard_mk_lang_sizet
+#define include_guard_mk_lang_sizet
 
 
 #if defined __cplusplus

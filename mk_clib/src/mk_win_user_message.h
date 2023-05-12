@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_win_user_message
-#define mk_include_guard_win_user_message
+#ifndef include_guard_mk_win_user_message
+#define include_guard_mk_win_user_message
 
 
 #include "mk_lang_jumbo.h"

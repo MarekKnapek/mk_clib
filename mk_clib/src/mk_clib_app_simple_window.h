@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_clib_app_simple_window
-#define mk_include_guard_clib_app_simple_window
+#ifndef include_guard_mk_clib_app_simple_window
+#define include_guard_mk_clib_app_simple_window
 
 
 #include "mk_lang_jumbo.h"

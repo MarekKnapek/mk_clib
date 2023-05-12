@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_win_user_ctrl_static
-#define mk_include_guard_win_user_ctrl_static
+#ifndef include_guard_mk_win_user_ctrl_static
+#define include_guard_mk_win_user_ctrl_static
 
 
 #include "mk_lang_jumbo.h"

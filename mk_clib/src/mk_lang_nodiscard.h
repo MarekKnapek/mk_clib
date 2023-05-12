@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_lang_nodiscard
-#define mk_include_guard_lang_nodiscard
+#ifndef include_guard_mk_lang_nodiscard
+#define include_guard_mk_lang_nodiscard
 
 
 #if defined __cplusplus && __cplusplus >= 201703l

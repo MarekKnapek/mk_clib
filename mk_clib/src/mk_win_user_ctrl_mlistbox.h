@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_win_user_ctrl_mlistbox
-#define mk_include_guard_win_user_ctrl_mlistbox
+#ifndef include_guard_mk_win_user_ctrl_mlistbox
+#define include_guard_mk_win_user_ctrl_mlistbox
 
 
 #include "mk_lang_jumbo.h"

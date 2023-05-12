@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_lang_gnuc
-#define mk_include_guard_lang_gnuc
+#ifndef include_guard_mk_lang_gnuc
+#define include_guard_mk_lang_gnuc
 
 
 #if defined __GNUC__ && defined __GNUC_MINOR__

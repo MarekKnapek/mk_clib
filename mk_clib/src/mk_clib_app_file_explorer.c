@@ -100,6 +100,9 @@ mk_win_base_dll_import mk_win_base_dword_t mk_win_base_stdcall GetTickCount(void
 #define s_mk_clib_app_file_explorer_ctrl_id_listbox_attributes_data 9
 
 
+static mk_win_user_window_wndproc_t g_mk_clib_app_file_explorer_prev_listbox_main_proc; /* todo this should be per dialog, not global, in case of multiple dialogs in single process, but there is already fe per dialog */
+
+
 mk_lang_nodiscard static mk_lang_inline int mk_clib_app_file_explorer_run_dialog(void) mk_lang_noexcept;
 mk_lang_nodiscard static mk_lang_inline int mk_clib_app_file_explorer_run_dialog_ex(void) mk_lang_noexcept;
 mk_lang_nodiscard static mk_lang_inline mk_win_base_sshort_t mk_clib_app_file_explorer_max_f(mk_win_base_sshort_t const a, mk_win_base_sshort_t const b) mk_lang_noexcept;
@@ -107,10 +110,11 @@ mk_lang_nodiscard static mk_lang_inline void* mk_clib_app_file_explorer_round_up
 mk_lang_nodiscard static mk_lang_inline void* mk_clib_app_file_explorer_round_up_i(void const* ptr, int const size) mk_lang_noexcept;
 static mk_lang_inline void mk_clib_app_file_explorer_labels_clear(mk_win_user_window_t const dialog) mk_lang_noexcept;
 static mk_lang_inline void mk_clib_app_file_explorer_on_selection(mk_win_user_window_t const dialog) mk_lang_noexcept;
-static mk_lang_inline void mk_clib_app_file_explorer_listbox_repopulate(mk_win_user_window_t const dialog, mk_lib_fe_lpt const fe, int const select_idx) mk_lang_noexcept;
+static mk_lang_inline void mk_clib_app_file_explorer_repopulate_listbox_main(mk_win_user_window_t const dialog, mk_lib_fe_lpt const fe, int const select_idx) mk_lang_noexcept;
 static mk_lang_inline void mk_clib_app_file_explorer_go_to_root(mk_win_user_window_t const dialog) mk_lang_noexcept;
 static mk_lang_inline void mk_clib_app_file_explorer_go_to_item_idx(mk_win_user_window_t const dialog, int const idx) mk_lang_noexcept;
 static mk_lang_inline void mk_clib_app_file_explorer_go_to_item_curr(mk_win_user_window_t const dialog) mk_lang_noexcept;
+static mk_lang_inline void mk_clib_app_file_explorer_go_up(mk_win_user_window_t const dialog) mk_lang_noexcept;
 static mk_lang_inline void mk_clib_app_file_explorer_on_msg_destroy(mk_win_user_window_t const dialog, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_base_sintptr_pt const lres) mk_lang_noexcept;
 static mk_lang_inline void mk_clib_app_file_explorer_on_msg_close(mk_win_user_window_t const dialog, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_base_sintptr_pt const lres) mk_lang_noexcept;
 static mk_lang_inline void mk_clib_app_file_explorer_on_msg_notify_listbox_main_return(mk_win_user_window_t const dialog, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_base_sintptr_pt const lres) mk_lang_noexcept;
@@ -124,6 +128,7 @@ static mk_lang_inline void mk_clib_app_file_explorer_on_msg_command_list_selchan
 static mk_lang_inline void mk_clib_app_file_explorer_on_msg_command_list_dblclk(mk_win_user_window_t const dialog, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_base_sintptr_pt const lres) mk_lang_noexcept;
 static mk_lang_inline void mk_clib_app_file_explorer_on_msg_command_list(mk_win_user_window_t const dialog, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_base_sintptr_pt const lres) mk_lang_noexcept;
 static mk_lang_inline void mk_clib_app_file_explorer_on_msg_command(mk_win_user_window_t const dialog, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_base_sintptr_pt const lres) mk_lang_noexcept;
+static mk_win_user_window_lresult_t mk_win_base_stdcall mk_clib_app_file_explorer_listbox_main_proc(mk_win_user_window_t const listbox_main, mk_win_base_uint_t const msg_uid, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam) mk_lang_noexcept;
 static mk_win_base_sintptr_t mk_win_base_stdcall mk_clib_app_file_explorer_dlgproc(mk_win_user_window_t const dialog, mk_win_base_uint_t const msg_uid, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam) mk_lang_noexcept;
 
 
@@ -346,7 +351,7 @@ mk_lang_nodiscard static mk_lang_inline int mk_clib_app_file_explorer_run_dialog
 	ctrl2->m_title = 0;
 	ctrl2->m_extra_count = 0;
 
-	ctrl_static_name_label = ((mk_win_user_dialog_itm_template_pt)(mk_clib_app_file_explorer_round_up_s(((mk_win_tstring_tchar_pct)(ctrl_listbox + 1)) + (n - 2), sizeof(mk_win_base_dword_t))));
+	ctrl_static_name_label = ((mk_win_user_dialog_itm_template_pt)(mk_clib_app_file_explorer_round_up_s(((mk_win_base_wchar_pct)(ctrl_listbox + 1)) + (n - 2), sizeof(mk_win_base_dword_t))));
 	ctrl_static_name_label->m_style =
 		mk_win_user_window_style_e_visible |
 		mk_win_user_window_style_e_child |
@@ -933,7 +938,7 @@ static mk_lang_inline void mk_clib_app_file_explorer_labels_clear(mk_win_user_wi
 
 static mk_lang_inline void mk_clib_app_file_explorer_on_selection(mk_win_user_window_t const dialog) mk_lang_noexcept
 {
-	mk_win_user_window_t listbox;
+	mk_win_user_window_t listbox_main;
 	mk_win_user_window_lresult_t lres;
 	int idx;
 	mk_lib_fe_lpt fe;
@@ -953,8 +958,8 @@ static mk_lang_inline void mk_clib_app_file_explorer_on_selection(mk_win_user_wi
 
 	mk_lang_assert(dialog);
 
-	listbox = mk_win_user_dialog_get_item(dialog, s_mk_clib_app_file_explorer_ctrl_id_listbox_main); mk_lang_assert(listbox);
-	lres = mk_win_user_message_t_send(listbox, mk_win_user_ctrl_mlistbox_message_e_getcursel, 0, 0);
+	listbox_main = mk_win_user_dialog_get_item(dialog, s_mk_clib_app_file_explorer_ctrl_id_listbox_main); mk_lang_assert(listbox_main);
+	lres = mk_win_user_message_t_send(listbox_main, mk_win_user_ctrl_mlistbox_message_e_getcursel, 0, 0);
 	if(lres == ((mk_win_user_window_lresult_t)(mk_win_user_ctrl_mlistbox_err_e_err)))
 	{
 		mk_clib_app_file_explorer_labels_clear(dialog);
@@ -997,19 +1002,19 @@ static mk_lang_inline void mk_clib_app_file_explorer_on_selection(mk_win_user_wi
 	}
 }
 
-static mk_lang_inline void mk_clib_app_file_explorer_listbox_repopulate(mk_win_user_window_t const dialog, mk_lib_fe_lpt const fe, int const select_idx) mk_lang_noexcept
+static mk_lang_inline void mk_clib_app_file_explorer_repopulate_listbox_main(mk_win_user_window_t const dialog, mk_lib_fe_lpt const fe, int const select_idx) mk_lang_noexcept
 {
-	mk_win_user_window_t listbox;
+	mk_win_user_window_t listbox_main;
 	mk_win_user_window_lresult_t lres;
 	int n;
 
 	mk_lang_assert(dialog);
 	mk_lang_assert(fe);
 
-	listbox = mk_win_user_dialog_get_item(dialog, s_mk_clib_app_file_explorer_ctrl_id_listbox_main); mk_lang_assert(listbox);
+	listbox_main = mk_win_user_dialog_get_item(dialog, s_mk_clib_app_file_explorer_ctrl_id_listbox_main); mk_lang_assert(listbox_main);
 	n = mk_lib_fe_get_count(fe); mk_lang_assert(n != 0); mk_lang_assert(select_idx < n);
-	lres = mk_win_user_message_t_send(listbox, mk_win_user_ctrl_mlistbox_message_e_set_strings_count, ((mk_win_user_window_wparam_t)(n)), ((mk_win_user_window_lparam_t)(0))); ((void)(lres));
-	lres = mk_win_user_message_t_send(listbox, mk_win_user_ctrl_mlistbox_message_e_setcursel, ((mk_win_user_window_wparam_t)(select_idx)), ((mk_win_user_window_lparam_t)(0))); mk_lang_assert(lres != ((mk_win_user_window_lresult_t)(mk_win_user_ctrl_mlistbox_err_e_err)));
+	lres = mk_win_user_message_t_send(listbox_main, mk_win_user_ctrl_mlistbox_message_e_set_strings_count, ((mk_win_user_window_wparam_t)(n)), ((mk_win_user_window_lparam_t)(0))); ((void)(lres));
+	lres = mk_win_user_message_t_send(listbox_main, mk_win_user_ctrl_mlistbox_message_e_setcursel, ((mk_win_user_window_wparam_t)(select_idx)), ((mk_win_user_window_lparam_t)(0))); mk_lang_assert(lres != ((mk_win_user_window_lresult_t)(mk_win_user_ctrl_mlistbox_err_e_err)));
 	mk_clib_app_file_explorer_on_selection(dialog);
 }
 
@@ -1021,7 +1026,7 @@ static mk_lang_inline void mk_clib_app_file_explorer_go_to_root(mk_win_user_wind
 
 	fe = ((mk_lib_fe_lpt)(mk_win_user_window_t_get_data(dialog, mk_win_user_window_data_idx_e_dlg_user))); mk_lang_assert(fe);
 	mk_lib_fe_go_to_root(fe);
-	mk_clib_app_file_explorer_listbox_repopulate(dialog, fe, 0);
+	mk_clib_app_file_explorer_repopulate_listbox_main(dialog, fe, 0);
 }
 
 static mk_lang_inline void mk_clib_app_file_explorer_go_to_item_idx(mk_win_user_window_t const dialog, int const idx) mk_lang_noexcept
@@ -1040,7 +1045,7 @@ static mk_lang_inline void mk_clib_app_file_explorer_go_to_item_idx(mk_win_user_
 	{
 		depth_post = mk_lib_fe_get_breadcrumb_depth(fe);
 		select_idx = ((depth_post < depth_prev) ? (mk_lang_min(mk_lib_fe_get_count(fe) - 1, mk_lib_fe_get_breadcrumb_value(fe))) : (0));
-		mk_clib_app_file_explorer_listbox_repopulate(dialog, fe, select_idx);
+		mk_clib_app_file_explorer_repopulate_listbox_main(dialog, fe, select_idx);
 	}
 }
 
@@ -1058,6 +1063,25 @@ static mk_lang_inline void mk_clib_app_file_explorer_go_to_item_curr(mk_win_user
 	}
 	idx = ((int)(lr)); mk_lang_assert(idx >= 0);
 	mk_clib_app_file_explorer_go_to_item_idx(dialog, idx);
+}
+
+static mk_lang_inline void mk_clib_app_file_explorer_go_up(mk_win_user_window_t const dialog) mk_lang_noexcept
+{
+	mk_lib_fe_lpt fe;
+	int depth_prev;
+	int depth_post;
+	int select_idx;
+
+	mk_lang_assert(dialog);
+
+	fe = ((mk_lib_fe_lpt)(mk_win_user_window_t_get_data(dialog, mk_win_user_window_data_idx_e_dlg_user))); mk_lang_assert(fe);
+	depth_prev = mk_lib_fe_get_breadcrumb_depth(fe);
+	if(mk_lib_fe_go_up(fe))
+	{
+		depth_post = mk_lib_fe_get_breadcrumb_depth(fe);
+		select_idx = ((depth_post != depth_prev) ? (mk_lang_min(mk_lib_fe_get_count(fe) - 1, mk_lib_fe_get_breadcrumb_value(fe))) : (0));
+		mk_clib_app_file_explorer_repopulate_listbox_main(dialog, fe, select_idx);
+	}
 }
 
 static mk_lang_inline void mk_clib_app_file_explorer_on_msg_destroy(mk_win_user_window_t const dialog, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_base_sintptr_pt const lres) mk_lang_noexcept
@@ -1219,7 +1243,7 @@ static mk_lang_inline void mk_clib_app_file_explorer_on_msg_notify_listbox_attri
 
 	mk_win_user_ctrl_mlistbox_notify_get_string_lpt get_string;
 	int attr_idx;
-	mk_win_user_window_t listbox;
+	mk_win_user_window_t listbox_main;
 	mk_win_user_window_lresult_t lr;
 	int item_idx;
 	mk_lib_fe_lpt fe;
@@ -1239,8 +1263,8 @@ static mk_lang_inline void mk_clib_app_file_explorer_on_msg_notify_listbox_attri
 	mk_lang_assert(get_string->m_hdr.m_code == mk_win_user_ctrl_mlistbox_notify_e_get_string);
 	attr_idx = ((int)(get_string->m_idx)); mk_lang_assert(attr_idx >= 0);
 
-	listbox = mk_win_user_dialog_get_item(dialog, s_mk_clib_app_file_explorer_ctrl_id_listbox_main); mk_lang_assert(listbox);
-	lr = mk_win_user_message_t_send(listbox, mk_win_user_ctrl_mlistbox_message_e_getcursel, 0, 0);
+	listbox_main = mk_win_user_dialog_get_item(dialog, s_mk_clib_app_file_explorer_ctrl_id_listbox_main); mk_lang_assert(listbox_main);
+	lr = mk_win_user_message_t_send(listbox_main, mk_win_user_ctrl_mlistbox_message_e_getcursel, 0, 0);
 	mk_lang_assert(lr != ((mk_win_user_window_lresult_t)(mk_win_user_ctrl_mlistbox_err_e_err)));
 	item_idx = ((int)(lr)); mk_lang_assert(item_idx >= 0);
 
@@ -1310,14 +1334,14 @@ static mk_lang_inline void mk_clib_app_file_explorer_on_msg_initdialog(mk_win_us
 	mk_win_base_size_t size;
 	mk_lib_fe_lpt fe;
 	mk_win_base_uintptr_t prev_data;
-	mk_win_user_window_t listbox;
+	mk_win_user_window_t listbox_main;
 	mk_win_user_window_t prev_focus;
 
 	mk_lang_assert(dialog);
 	((void)(wparam));
 	((void)(lparam));
-	((void)(override_lres));
-	((void)(lres));
+	mk_lang_assert(override_lres);
+	mk_lang_assert(lres);
 
 	parent = mk_win_user_window_get_parent(dialog);
 	if(!parent)
@@ -1336,8 +1360,9 @@ static mk_lang_inline void mk_clib_app_file_explorer_on_msg_initdialog(mk_win_us
 	prev_data = mk_win_user_window_a_set_data(dialog, mk_win_user_window_data_idx_e_dlg_user, ((mk_win_base_uintptr_t)(fe))); mk_lang_assert(prev_data == 0);
 
 	mk_clib_app_file_explorer_go_to_root(dialog);
-	listbox = mk_win_user_dialog_get_item(dialog, s_mk_clib_app_file_explorer_ctrl_id_listbox_main); mk_lang_assert(listbox);
-	prev_focus = mk_win_user_window_set_focus(listbox); ((void)(prev_focus));
+	listbox_main = mk_win_user_dialog_get_item(dialog, s_mk_clib_app_file_explorer_ctrl_id_listbox_main); mk_lang_assert(listbox_main);
+	g_mk_clib_app_file_explorer_prev_listbox_main_proc = ((mk_win_user_window_wndproc_t)(mk_win_user_window_a_set_data(listbox_main, mk_win_user_window_data_idx_e_wndproc, ((mk_win_base_uintptr_t)(&mk_clib_app_file_explorer_listbox_main_proc))))); mk_lang_assert(g_mk_clib_app_file_explorer_prev_listbox_main_proc);
+	prev_focus = mk_win_user_window_set_focus(listbox_main); ((void)(prev_focus));
 }
 
 static mk_lang_inline void mk_clib_app_file_explorer_on_msg_command_list_selchange(mk_win_user_window_t const dialog, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_base_sintptr_pt const lres) mk_lang_noexcept
@@ -1413,6 +1438,29 @@ static mk_lang_inline void mk_clib_app_file_explorer_on_msg_command(mk_win_user_
 			case s_mk_clib_app_file_explorer_ctrl_id_listbox_main: mk_clib_app_file_explorer_on_msg_command_list(dialog, wparam, lparam, override_lres, lres); break;
 		}
 	}
+}
+
+static mk_win_user_window_lresult_t mk_win_base_stdcall mk_clib_app_file_explorer_listbox_main_proc(mk_win_user_window_t const listbox_main, mk_win_base_uint_t const msg_uid, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam) mk_lang_noexcept
+{
+	mk_win_user_message_id_t msg_id;
+	mk_win_user_message_key_t key_id;
+	mk_win_user_window_t parent;
+	mk_win_user_window_lresult_t lres;
+
+	mk_lang_assert(listbox_main);
+
+	msg_id = ((mk_win_user_message_id_t)(msg_uid));
+	if(msg_id == mk_win_user_message_id_e_keydown)
+	{
+		key_id = ((mk_win_user_message_key_t)(wparam));
+		if(key_id == mk_win_user_message_key_e_back)
+		{
+			parent = mk_win_user_window_get_parent(listbox_main); mk_lang_assert(parent);
+			mk_clib_app_file_explorer_go_up(parent);
+		}
+	}
+	lres = mk_win_user_window_a_call_proc(g_mk_clib_app_file_explorer_prev_listbox_main_proc, listbox_main, msg_uid, wparam, lparam);
+	return lres;
 }
 
 static mk_win_base_sintptr_t mk_win_base_stdcall mk_clib_app_file_explorer_dlgproc(mk_win_user_window_t const dialog, mk_win_base_uint_t const msg_uid, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam) mk_lang_noexcept

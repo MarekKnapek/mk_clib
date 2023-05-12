@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_lang_for_constants
-#define mk_include_guard_lang_for_constants
+#ifndef include_guard_mk_lang_for_constants
+#define include_guard_mk_lang_for_constants
 
 
 #define mk_lang_for_constants_bi 1

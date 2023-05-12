@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_win_color
-#define mk_include_guard_win_color
+#ifndef include_guard_mk_win_color
+#define include_guard_mk_win_color
 
 
 enum mk_win_user_color_id_e

@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_clib_app_test
-#define mk_include_guard_clib_app_test
+#ifndef include_guard_mk_clib_app_test
+#define include_guard_mk_clib_app_test
 
 
 #include "mk_lang_jumbo.h"

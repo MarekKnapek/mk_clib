@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_win_user_ctrl_mprogressbar
-#define mk_include_guard_win_user_ctrl_mprogressbar
+#ifndef include_guard_mk_win_user_ctrl_mprogressbar
+#define include_guard_mk_win_user_ctrl_mprogressbar
 
 
 #include "mk_lang_jumbo.h"

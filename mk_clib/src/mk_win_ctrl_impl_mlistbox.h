@@ -1,7 +1,8 @@
-#ifndef mk_include_guard_win_ctrl_impl_mlistbox
-#define mk_include_guard_win_ctrl_impl_mlistbox
+#ifndef include_guard_mk_win_ctrl_impl_mlistbox
+#define include_guard_mk_win_ctrl_impl_mlistbox
 
 
+#include "mk_lang_bool.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
 #include "mk_win_base.h"
@@ -27,6 +28,7 @@ struct mk_win_ctrl_impl_mlistbox_s
 	int m_scroll_max;
 	int m_strings_count;
 	int m_cur_sel;
+	mk_lang_bool_t m_has_focus;
 };
 typedef struct mk_win_ctrl_impl_mlistbox_s mk_win_ctrl_impl_mlistbox_t;
 typedef mk_win_ctrl_impl_mlistbox_t const mk_win_ctrl_impl_mlistbox_ct;

@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_win_user_timer
-#define mk_include_guard_win_user_timer
+#ifndef include_guard_mk_win_user_timer
+#define include_guard_mk_win_user_timer
 
 
 #include "mk_lang_jumbo.h"

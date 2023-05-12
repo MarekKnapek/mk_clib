@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_lang_constexpr
-#define mk_include_guard_lang_constexpr
+#ifndef include_guard_mk_lang_constexpr
+#define include_guard_mk_lang_constexpr
 
 
 #if defined __cplusplus && __cplusplus >= 202299l /* todo c++23 */

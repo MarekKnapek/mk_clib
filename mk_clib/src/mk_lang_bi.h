@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_lang_bi
-#define mk_include_guard_lang_bi
+#ifndef include_guard_mk_lang_bi
+#define include_guard_mk_lang_bi
 
 
 #include "mk_lang_intmaxt.h"

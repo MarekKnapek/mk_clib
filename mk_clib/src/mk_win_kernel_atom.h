@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_win_kernel_atom
-#define mk_include_guard_win_kernel_atom
+#ifndef include_guard_mk_win_kernel_atom
+#define include_guard_mk_win_kernel_atom
 
 
 #include "mk_lang_jumbo.h"

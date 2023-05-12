@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_lang_intrinsic
-#define mk_include_guard_lang_intrinsic
+#ifndef include_guard_mk_lang_intrinsic
+#define include_guard_mk_lang_intrinsic
 
 
 #include "mk_lang_constexpr.h"

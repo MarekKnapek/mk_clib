@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_lang_sizeof
-#define mk_include_guard_lang_sizeof
+#ifndef include_guard_mk_lang_sizeof
+#define include_guard_mk_lang_sizeof
 
 #include "mk_lang_arch.h"
 #include "mk_lang_intmaxt.h"

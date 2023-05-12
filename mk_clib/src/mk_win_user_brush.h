@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_win_user_brush
-#define mk_include_guard_win_user_brush
+#ifndef include_guard_mk_win_user_brush
+#define include_guard_mk_win_user_brush
 
 
 #include "mk_lang_jumbo.h"

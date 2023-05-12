@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_lang_lllong
-#define mk_include_guard_lang_lllong
+#ifndef include_guard_mk_lang_lllong
+#define include_guard_mk_lang_lllong
 
 
 #if defined __SIZEOF_INT128__ && __SIZEOF_INT128__ != 0

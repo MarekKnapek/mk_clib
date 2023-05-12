@@ -65,8 +65,7 @@ mk_lang_jumbo void mk_win_main_heap_destroy(void) mk_lang_noexcept
 
 	mk_lang_assert(mk_win_main_heap_statistics_get_live_blocks() == 0);
 	mk_lang_assert(mk_win_main_heap_statistics_get_live_bytes() == 0);
-	destroyed = mk_win_kernel_heap_destroy(g_mk_win_main_heap);
-	mk_lang_assert(destroyed != 0);
+	destroyed = mk_win_kernel_heap_destroy(g_mk_win_main_heap); mk_lang_assert(destroyed != 0);
 }
 
 mk_lang_jumbo void mk_win_main_heap_allocate(mk_lang_exception_t* const ex, mk_win_base_size_t const size_bytes, mk_win_base_void_lpt* const mem) mk_lang_noexcept
@@ -97,8 +96,7 @@ mk_lang_jumbo void mk_win_main_heap_deallocate(mk_win_base_void_lpct const mem, 
 
 	if(mem)
 	{
-		deallocated = mk_win_kernel_heap_deallocate(g_mk_win_main_heap, mk_win_kernel_heap_deallocate_flags_e_none, mem);
-		mk_lang_assert(deallocated != 0);
+		deallocated = mk_win_kernel_heap_deallocate(g_mk_win_main_heap, mk_win_kernel_heap_deallocate_flags_e_none, mem); mk_lang_assert(deallocated != 0);
 		mk_win_main_heap_statistics_deallocated(size_bytes);
 	}
 }

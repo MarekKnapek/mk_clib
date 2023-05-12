@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_lang_crash
-#define mk_include_guard_lang_crash
+#ifndef include_guard_mk_lang_crash
+#define include_guard_mk_lang_crash
 
 
 #include "mk_lang_jumbo.h"
@@ -20,7 +20,7 @@
 #endif
 
 
-#if defined mk_lang_crash_detail_impl
+#if mk_lang_crash_detail_impl
 
 mk_lang_noreturn mk_lang_jumbo void mk_lang_crash_impl(char const* const file, int const line, char const* const line_str) mk_lang_noexcept;
 #define mk_lang_crash_to_string_2(x) # x

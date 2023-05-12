@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_lang_static_assert
-#define mk_include_guard_lang_static_assert
+#ifndef include_guard_mk_lang_static_assert
+#define include_guard_mk_lang_static_assert
 
 
 #if defined __cplusplus && __cplusplus >= 201703l

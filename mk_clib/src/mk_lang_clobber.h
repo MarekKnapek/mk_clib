@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_lang_clobber
-#define mk_include_guard_lang_clobber
+#ifndef include_guard_mk_lang_clobber
+#define include_guard_mk_lang_clobber
 
 
 #include "mk_lang_jumbo.h"

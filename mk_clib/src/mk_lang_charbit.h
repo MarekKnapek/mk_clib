@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_lang_charbit
-#define mk_include_guard_lang_charbit
+#ifndef include_guard_mk_lang_charbit
+#define include_guard_mk_lang_charbit
 
 
 #if defined __cplusplus

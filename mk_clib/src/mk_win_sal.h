@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_win_sal
-#define mk_include_guard_win_sal
+#ifndef include_guard_mk_win_sal
+#define include_guard_mk_win_sal
 
 
 #if defined mk_win_sal_has && mk_win_sal_has == 1 /* todo how to determine? */

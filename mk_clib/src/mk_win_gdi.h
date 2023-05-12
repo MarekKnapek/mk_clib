@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_win_gdi
-#define mk_include_guard_win_gdi
+#ifndef include_guard_mk_win_gdi
+#define include_guard_mk_win_gdi
 
 
 #include "mk_lang_jumbo.h"
