@@ -1082,6 +1082,15 @@ static mk_lang_inline void mk_clib_app_file_explorer_go_up(mk_win_user_window_t 
 		select_idx = ((depth_post != depth_prev) ? (mk_lang_min(mk_lib_fe_get_count(fe) - 1, mk_lib_fe_get_breadcrumb_value(fe))) : (0));
 		mk_clib_app_file_explorer_repopulate_listbox_main(dialog, fe, select_idx);
 	}
+	else
+	{
+		if(depth_prev == 0)
+		{
+			mk_lib_fe_destroy(fe);
+			mk_lib_fe_construct(fe);
+			mk_clib_app_file_explorer_go_to_root(dialog);
+		}
+	}
 }
 
 static mk_lang_inline void mk_clib_app_file_explorer_on_msg_destroy(mk_win_user_window_t const dialog, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_base_sintptr_pt const lres) mk_lang_noexcept

@@ -11,6 +11,12 @@
 #include "mk_win_user_window.h"
 
 
+#define mk_win_ctrl_impl_mlistbox_scrollbar_vert_enabled_both 0
+#define mk_win_ctrl_impl_mlistbox_scrollbar_vert_disabled_both 1
+#define mk_win_ctrl_impl_mlistbox_scrollbar_vert_disabled_up 2
+#define mk_win_ctrl_impl_mlistbox_scrollbar_vert_disabled_dn 3
+
+
 #if defined _MSC_VER && _MSC_VER == 1935
 #pragma warning(push)
 #pragma warning(disable:4820) /* warning C4820: 'xxx': 'xxx' bytes padding added after data member 'xxx' */
@@ -24,6 +30,7 @@ struct mk_win_ctrl_impl_mlistbox_s
 	int m_xwidth;
 	int m_lines_fully_visible;
 	int m_lines_partially_visible;
+	int m_scroll_enabled;
 	int m_scroll_cur;
 	int m_scroll_max;
 	int m_strings_count;

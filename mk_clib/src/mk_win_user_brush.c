@@ -7,6 +7,7 @@
 #include "mk_win_base.h"
 #include "mk_win_kernel_dll.h"
 #include "mk_win_user_color.h"
+#include "mk_win_user_system_information.h"
 
 
 mk_win_base_dll_import mk_win_user_brush_t mk_win_base_stdcall GetSysColorBrush(int) mk_lang_noexcept;
@@ -43,8 +44,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_user_brush_t mk_win_user_brush_get_syscol
 	}
 	else
 	{
-		/* todo get color and create solid brush? get stock object? wite / black brush? */
-		brush = ((mk_win_user_brush_t)(((mk_win_base_uintptr_t)(color_id + 1))));
+		brush = mk_win_user_brush_create_solid(mk_win_user_system_information_get_color(color_id));
 	}
 	return brush;
 

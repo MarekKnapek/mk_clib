@@ -28,65 +28,9 @@
 #include "mk_win_user_ctrl_mlistbox.h"
 #include "mk_win_user_cursor.h"
 #include "mk_win_user_message.h"
+#include "mk_win_user_scroll_bars.h"
 #include "mk_win_user_system_information.h"
 #include "mk_win_user_window.h"
-
-
-
-
-
-enum scroll_bar_id_e
-{
-	scroll_bar_id_e_horz = 0,
-	scroll_bar_id_e_vert = 1,
-	scroll_bar_id_e_ctl  = 2,
-	scroll_bar_id_e_both = 3
-};
-typedef enum scroll_bar_id_e scroll_bar_id_t;
-
-enum scroll_bar_event_e
-{
-	scroll_bar_event_e_lineleft      = 0,
-	scroll_bar_event_e_lineup        = 0,
-	scroll_bar_event_e_lineright     = 1,
-	scroll_bar_event_e_linedown      = 1,
-	scroll_bar_event_e_pageleft      = 2,
-	scroll_bar_event_e_pageup        = 2,
-	scroll_bar_event_e_pageright     = 3,
-	scroll_bar_event_e_pagedown      = 3,
-	scroll_bar_event_e_thumbposition = 4,
-	scroll_bar_event_e_thumbtrack    = 5,
-	scroll_bar_event_e_left          = 6,
-	scroll_bar_event_e_top           = 6,
-	scroll_bar_event_e_right         = 7,
-	scroll_bar_event_e_bottom        = 7,
-	scroll_bar_event_e_endscroll     = 8
-};
-typedef enum scroll_bar_event_e scroll_bar_event_t;
-
-enum scroll_bar_enable_e
-{
-	scroll_bar_enable_e_enable_both   = 0,
-	scroll_bar_enable_e_disable_left  = 1,
-	scroll_bar_enable_e_disable_up    = 1,
-	scroll_bar_enable_e_disable_right = 2,
-	scroll_bar_enable_e_disable_down  = 2,
-	scroll_bar_enable_e_disable_both  = 3,
-	scroll_bar_enable_e_disable_ltup  = scroll_bar_enable_e_disable_left,
-	scroll_bar_enable_e_disable_rtdn  = scroll_bar_enable_e_disable_right
-};
-typedef enum scroll_bar_enable_e scroll_bar_enable_t;
-
-
-mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall ShowScrollBar(mk_win_user_window_t, int, mk_win_base_bool_t) mk_lang_noexcept;
-mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall SetScrollRange(mk_win_user_window_t, int, int, int, mk_win_base_bool_t) mk_lang_noexcept;
-mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall EnableScrollBar(mk_win_user_window_t, mk_win_base_uint_t, mk_win_base_uint_t) mk_lang_noexcept;
-mk_win_base_dll_import int mk_win_base_stdcall SetScrollPos(mk_win_user_window_t, int, int, mk_win_base_bool_t) mk_lang_noexcept;
-mk_win_base_dll_import int mk_win_base_stdcall GetScrollPos(mk_win_user_window_t, int) mk_lang_noexcept;
-mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall ScrollWindow(mk_win_user_window_t, int, int, mk_win_base_rect_lpct, mk_win_base_rect_lpct) mk_lang_noexcept;
-
-
-
 
 
 static mk_win_kernel_atom_t g_mk_win_ctrl_impl_mlistbox_atom;
@@ -95,6 +39,10 @@ static mk_win_kernel_atom_t g_mk_win_ctrl_impl_mlistbox_atom;
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_recalculate_font(mk_win_ctrl_impl_mlistbox_lpt const self) mk_lang_noexcept;
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_recalculate_lines_visible(mk_win_ctrl_impl_mlistbox_lpt const self) mk_lang_noexcept;
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_recalculate_scroll_max(mk_win_ctrl_impl_mlistbox_lpt const self) mk_lang_noexcept;
+static mk_lang_inline void mk_win_ctrl_impl_mlistbox_scrollbars_vert_enable_both(mk_win_ctrl_impl_mlistbox_lpt const self) mk_lang_noexcept;
+static mk_lang_inline void mk_win_ctrl_impl_mlistbox_scrollbars_vert_disable_both(mk_win_ctrl_impl_mlistbox_lpt const self) mk_lang_noexcept;
+static mk_lang_inline void mk_win_ctrl_impl_mlistbox_scrollbars_vert_disable_up(mk_win_ctrl_impl_mlistbox_lpt const self) mk_lang_noexcept;
+static mk_lang_inline void mk_win_ctrl_impl_mlistbox_scrollbars_vert_disable_dn(mk_win_ctrl_impl_mlistbox_lpt const self) mk_lang_noexcept;
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_scrollbars_init(mk_win_ctrl_impl_mlistbox_lpt const self) mk_lang_noexcept;
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_scrollbars_reset(mk_win_ctrl_impl_mlistbox_lpt const self) mk_lang_noexcept;
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_invalidate_item(mk_win_ctrl_impl_mlistbox_lpt const self, int const idx) mk_lang_noexcept;
@@ -140,6 +88,7 @@ mk_lang_jumbo void mk_win_ctrl_impl_mlistbox_register(void) mk_lang_noexcept
 	mk_lang_bool_t got;
 
 	mk_lang_assert(g_mk_win_ctrl_impl_mlistbox_atom == 0);
+
 	wc.m_style = mk_win_user_class_style_e_dblclks;
 	wc.m_wndproc = &mk_win_ctrl_impl_mlistbox_wndproc;
 	wc.m_class_extra = 0;
@@ -150,8 +99,7 @@ mk_lang_jumbo void mk_win_ctrl_impl_mlistbox_register(void) mk_lang_noexcept
 	wc.m_background = mk_win_base_null;
 	wc.m_menu_name = mk_win_base_null;
 	wc.m_class_name = mk_win_user_ctrl_mlistbox_name_t;
-	g_mk_win_ctrl_impl_mlistbox_atom = mk_win_user_class_t_register(&wc);
-	mk_lang_assert(g_mk_win_ctrl_impl_mlistbox_atom != 0);
+	g_mk_win_ctrl_impl_mlistbox_atom = mk_win_user_class_t_register(&wc); mk_lang_assert(g_mk_win_ctrl_impl_mlistbox_atom != 0);
 }
 
 mk_lang_jumbo void mk_win_ctrl_impl_mlistbox_unregister(void) mk_lang_noexcept
@@ -160,10 +108,10 @@ mk_lang_jumbo void mk_win_ctrl_impl_mlistbox_unregister(void) mk_lang_noexcept
 	mk_win_kernel_dll_module_t module;
 	mk_lang_bool_t unregistered;
 
-	got = mk_win_kernel_dll_t_get_handle_from_address(&g_mk_win_ctrl_impl_mlistbox_atom, &module);
-	mk_lang_assert(got != 0);
-	unregistered = mk_win_user_class_t_unregister_by_atom(g_mk_win_ctrl_impl_mlistbox_atom, ((mk_win_base_instance_t)(module)));
-	mk_lang_assert(unregistered == mk_win_base_true);
+	mk_lang_assert(g_mk_win_ctrl_impl_mlistbox_atom != 0);
+
+	got = mk_win_kernel_dll_t_get_handle_from_address(&g_mk_win_ctrl_impl_mlistbox_atom, &module); mk_lang_assert(got != 0);
+	unregistered = mk_win_user_class_t_unregister_by_name(mk_win_user_ctrl_mlistbox_name_t, ((mk_win_base_instance_t)(module))); mk_lang_assert(unregistered == mk_win_base_true);
 }
 
 
@@ -214,6 +162,62 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_recalculate_scroll_max(mk_w
 	self->m_scroll_max = mk_lang_max(0, self->m_strings_count - self->m_lines_fully_visible);
 }
 
+static mk_lang_inline void mk_win_ctrl_impl_mlistbox_scrollbars_vert_enable_both(mk_win_ctrl_impl_mlistbox_lpt const self) mk_lang_noexcept
+{
+	mk_win_base_bool_t enabled;
+
+	mk_lang_assert(self);
+
+	if(self->m_scroll_enabled != mk_win_ctrl_impl_mlistbox_scrollbar_vert_enabled_both)
+	{
+		mk_win_kernel_errors_set_last(mk_win_kernel_errors_id_e_success);
+		enabled = mk_win_user_scroll_bars_enable(self->m_self, mk_win_user_scroll_bars_id_e_vert, mk_win_user_scroll_bars_enable_e_enable_both); mk_lang_assert(enabled != 0 || mk_win_kernel_errors_get_last() == 0);
+		self->m_scroll_enabled = mk_win_ctrl_impl_mlistbox_scrollbar_vert_enabled_both;
+	}
+}
+
+static mk_lang_inline void mk_win_ctrl_impl_mlistbox_scrollbars_vert_disable_both(mk_win_ctrl_impl_mlistbox_lpt const self) mk_lang_noexcept
+{
+	mk_win_base_bool_t enabled;
+
+	mk_lang_assert(self);
+
+	if(self->m_scroll_enabled != mk_win_ctrl_impl_mlistbox_scrollbar_vert_disabled_both)
+	{
+		mk_win_kernel_errors_set_last(mk_win_kernel_errors_id_e_success);
+		enabled = mk_win_user_scroll_bars_enable(self->m_self, mk_win_user_scroll_bars_id_e_vert, mk_win_user_scroll_bars_enable_e_disable_both); mk_lang_assert(enabled != 0 || mk_win_kernel_errors_get_last() == 0);
+		self->m_scroll_enabled = mk_win_ctrl_impl_mlistbox_scrollbar_vert_disabled_both;
+	}
+}
+
+static mk_lang_inline void mk_win_ctrl_impl_mlistbox_scrollbars_vert_disable_up(mk_win_ctrl_impl_mlistbox_lpt const self) mk_lang_noexcept
+{
+	mk_win_base_bool_t enabled;
+
+	mk_lang_assert(self);
+
+	if(self->m_scroll_enabled != mk_win_ctrl_impl_mlistbox_scrollbar_vert_disabled_up)
+	{
+		mk_win_kernel_errors_set_last(mk_win_kernel_errors_id_e_success);
+		enabled = mk_win_user_scroll_bars_enable(self->m_self, mk_win_user_scroll_bars_id_e_vert, mk_win_user_scroll_bars_enable_e_disable_up); mk_lang_assert(enabled != 0 || mk_win_kernel_errors_get_last() == 0);
+		self->m_scroll_enabled = mk_win_ctrl_impl_mlistbox_scrollbar_vert_disabled_up;
+	}
+}
+
+static mk_lang_inline void mk_win_ctrl_impl_mlistbox_scrollbars_vert_disable_dn(mk_win_ctrl_impl_mlistbox_lpt const self) mk_lang_noexcept
+{
+	mk_win_base_bool_t enabled;
+
+	mk_lang_assert(self);
+
+	if(self->m_scroll_enabled != mk_win_ctrl_impl_mlistbox_scrollbar_vert_disabled_dn)
+	{
+		mk_win_kernel_errors_set_last(mk_win_kernel_errors_id_e_success);
+		enabled = mk_win_user_scroll_bars_enable(self->m_self, mk_win_user_scroll_bars_id_e_vert, mk_win_user_scroll_bars_enable_e_disable_down); mk_lang_assert(enabled != 0 || mk_win_kernel_errors_get_last() == 0);
+		self->m_scroll_enabled = mk_win_ctrl_impl_mlistbox_scrollbar_vert_disabled_dn;
+	}
+}
+
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_scrollbars_init(mk_win_ctrl_impl_mlistbox_lpt const self) mk_lang_noexcept
 {
 	mk_win_base_bool_t shown;
@@ -222,24 +226,30 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_scrollbars_init(mk_win_ctrl
 	mk_lang_assert(self->m_self);
 
 	mk_win_kernel_errors_set_last(mk_win_kernel_errors_id_e_success);
-	shown = ShowScrollBar(self->m_self, scroll_bar_id_e_horz, mk_win_base_false); mk_lang_assert(shown != 0);
-	shown = ShowScrollBar(self->m_self, scroll_bar_id_e_vert, mk_win_base_true); mk_lang_assert(shown != 0);
+	shown = mk_win_user_scroll_bars_show(self->m_self, mk_win_user_scroll_bars_id_e_horz, mk_win_base_false); mk_lang_assert(shown != 0);
+	shown = mk_win_user_scroll_bars_show(self->m_self, mk_win_user_scroll_bars_id_e_vert, mk_win_base_true); mk_lang_assert(shown != 0);
 }
 
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_scrollbars_reset(mk_win_ctrl_impl_mlistbox_lpt const self) mk_lang_noexcept
 {
 	mk_win_base_bool_t set;
-	mk_win_base_bool_t enabled;
 
 	mk_lang_assert(self);
 	mk_lang_assert(self->m_self);
 	mk_lang_assert(self->m_strings_count >= 0);
 
 	mk_win_kernel_errors_set_last(mk_win_kernel_errors_id_e_success);
-	set = SetScrollPos(self->m_self, scroll_bar_id_e_vert, 0, mk_win_base_false); mk_lang_assert(set != 0 || mk_win_kernel_errors_get_last() == 0);
-	set = SetScrollRange(self->m_self, scroll_bar_id_e_vert, 0, self->m_scroll_max == 0 ? 1 : self->m_scroll_max, mk_win_base_false); mk_lang_assert(set != 0);
-	enabled = EnableScrollBar(self->m_self, scroll_bar_id_e_vert, scroll_bar_enable_e_enable_both); mk_lang_assert(enabled != 0 || mk_win_kernel_errors_get_last() == 0);
-	enabled = EnableScrollBar(self->m_self, scroll_bar_id_e_vert, self->m_scroll_max == 0 ? scroll_bar_enable_e_disable_both : scroll_bar_enable_e_disable_up); mk_lang_assert(enabled != 0 || mk_win_kernel_errors_get_last() == 0);
+	set = mk_win_user_scroll_bars_set_pos(self->m_self, mk_win_user_scroll_bars_id_e_vert, 0, mk_win_base_false); mk_lang_assert(set != 0 || mk_win_kernel_errors_get_last() == 0);
+	set = mk_win_user_scroll_bars_set_range(self->m_self, mk_win_user_scroll_bars_id_e_vert, 0, self->m_scroll_max == 0 ? 1 : self->m_scroll_max, mk_win_base_false); mk_lang_assert(set != 0);
+	mk_win_ctrl_impl_mlistbox_scrollbars_vert_enable_both(self);
+	if(self->m_scroll_max == 0)
+	{
+		mk_win_ctrl_impl_mlistbox_scrollbars_vert_disable_both(self);
+	}
+	else
+	{
+		mk_win_ctrl_impl_mlistbox_scrollbars_vert_disable_up(self);
+	}
 }
 
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_invalidate_item(mk_win_ctrl_impl_mlistbox_lpt const self, int const idx) mk_lang_noexcept
@@ -270,7 +280,6 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_do_scroll(mk_win_ctrl_impl_
 {
 	int scroll_delta;
 	mk_win_base_bool_t set;
-	mk_win_base_bool_t enabled;
 	mk_win_base_bool_t scrolled;
 	mk_win_base_bool_t invalidated;
 
@@ -286,15 +295,15 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_do_scroll(mk_win_ctrl_impl_
 	scroll_delta = self->m_scroll_cur - scroll_cur_new;
 	self->m_scroll_cur = scroll_cur_new;
 	mk_win_kernel_errors_set_last(mk_win_kernel_errors_id_e_success);
-	set = SetScrollPos(self->m_self, scroll_bar_id_e_vert, scroll_cur_new, mk_win_base_true); mk_lang_assert(set != 0 || mk_win_kernel_errors_get_last() == 0);
-	enabled = EnableScrollBar(self->m_self, scroll_bar_id_e_vert, scroll_bar_enable_e_enable_both); mk_lang_assert(enabled != 0 || mk_win_kernel_errors_get_last() == 0);
+	set = mk_win_user_scroll_bars_set_pos(self->m_self, mk_win_user_scroll_bars_id_e_vert, scroll_cur_new, mk_win_base_true); mk_lang_assert(set != 0 || mk_win_kernel_errors_get_last() == 0);
+	mk_win_ctrl_impl_mlistbox_scrollbars_vert_enable_both(self);
 	if(scroll_cur_new == 0)
 	{
-		enabled = EnableScrollBar(self->m_self, scroll_bar_id_e_vert, scroll_bar_enable_e_disable_up); mk_lang_assert(enabled != 0 || mk_win_kernel_errors_get_last() == 0);
+		mk_win_ctrl_impl_mlistbox_scrollbars_vert_disable_up(self);
 	}
 	else if(scroll_cur_new == self->m_scroll_max)
 	{
-		enabled = EnableScrollBar(self->m_self, scroll_bar_id_e_vert, scroll_bar_enable_e_disable_down); mk_lang_assert(enabled != 0 || mk_win_kernel_errors_get_last() == 0);
+		mk_win_ctrl_impl_mlistbox_scrollbars_vert_disable_dn(self);
 	}
 	if(mk_lang_abs(scroll_delta) <= self->m_lines_partially_visible)
 	{
@@ -451,6 +460,7 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_create(mk_win_ctrl_i
 	self->m_xwidth = 1;
 	self->m_lines_fully_visible = 0;
 	self->m_lines_partially_visible = 0;
+	self->m_scroll_enabled = mk_win_ctrl_impl_mlistbox_scrollbar_vert_enabled_both;
 	self->m_scroll_cur = 0;
 	self->m_scroll_max = 0;
 	self->m_strings_count = 0;
@@ -524,6 +534,7 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_paint(mk_win_ctrl_im
 {
 	mk_win_gdi_dc_t dc;
 	mk_win_user_window_paint_t ps;
+	mk_win_base_bool_t ended;
 	mk_win_base_rect_t rect_mem_dc;
 	mk_win_gdi_dc_t dc_mem;
 	mk_win_gdi_bitmap_t bm;
@@ -550,7 +561,6 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_paint(mk_win_ctrl_im
 	mk_win_base_bool_t drawn;
 	mk_win_base_rect_t rect_blank;
 	mk_win_base_bool_t blted;
-	mk_win_base_bool_t ended;
 
 	mk_lang_assert(self);
 	mk_lang_assert(self->m_self);
@@ -559,8 +569,12 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_paint(mk_win_ctrl_im
 	mk_lang_assert(override_lres);
 	mk_lang_assert(lres);
 
-	mk_win_kernel_errors_set_last(mk_win_kernel_errors_id_e_success);
-	dc = mk_win_user_window_begin_paint(self->m_self, &ps); mk_lang_assert(dc); mk_lang_assert(ps.m_dc == dc); mk_lang_assert(ps.m_rect.m_left >= 0); mk_lang_assert(ps.m_rect.m_top >= 0); mk_lang_assert(ps.m_rect.m_right > ps.m_rect.m_left); mk_lang_assert(ps.m_rect.m_bottom > ps.m_rect.m_top);
+	dc = mk_win_user_window_begin_paint(self->m_self, &ps); mk_lang_assert(dc); mk_lang_assert(ps.m_dc == dc); mk_lang_assert(ps.m_rect.m_left >= 0); mk_lang_assert(ps.m_rect.m_top >= 0); mk_lang_assert(ps.m_rect.m_right >= ps.m_rect.m_left); mk_lang_assert(ps.m_rect.m_bottom >= ps.m_rect.m_top);
+	if(!(ps.m_rect.m_right > ps.m_rect.m_left && ps.m_rect.m_bottom > ps.m_rect.m_top))
+	{
+		ended = mk_win_user_window_end_paint(self->m_self, &ps); mk_lang_assert(ended != 0);
+		return;
+	}
 	rect_mem_dc.m_left = 0;
 	rect_mem_dc.m_top = 0;
 	rect_mem_dc.m_right = ps.m_rect.m_right - ps.m_rect.m_left; mk_lang_assert(rect_mem_dc.m_right > 0);
@@ -625,11 +639,14 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_paint(mk_win_ctrl_im
 		rect_mem_line.m_top += self->m_item_height;
 	}
 	if(self->m_font){ old_font = ((mk_win_gdi_font_t)(mk_win_gdi_dc_select_object(dc_mem, ((mk_win_gdi_object_t)(old_font))))); mk_lang_assert(old_font == self->m_font); }
-	rect_blank.m_left = rect_mem_dc.m_left;
-	rect_blank.m_top = rect_mem_line.m_top;
-	rect_blank.m_right = rect_mem_dc.m_right;
-	rect_blank.m_bottom = rect_mem_dc.m_bottom;
-	filled = mk_win_gdi_dc_fill_rect(dc_mem, &rect_blank, background_brush); mk_lang_assert(filled != 0);
+	if(rect_mem_dc.m_bottom - rect_mem_line.m_top >= 1)
+	{
+		rect_blank.m_left = rect_mem_dc.m_left;
+		rect_blank.m_top = rect_mem_line.m_top;
+		rect_blank.m_right = rect_mem_dc.m_right;
+		rect_blank.m_bottom = rect_mem_dc.m_bottom;
+		filled = mk_win_gdi_dc_fill_rect(dc_mem, &rect_blank, background_brush); mk_lang_assert(filled != 0);
+	}
 	if(self->m_has_focus && self->m_cur_sel == -1)
 	{
 		rect_mem_line.m_left = self->m_rect_client.m_left - ps.m_rect.m_left;
@@ -639,6 +656,7 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_paint(mk_win_ctrl_im
 		drawn = mk_win_gdi_dc_draw_focus_rect(dc_mem, &rect_mem_line); mk_lang_assert(drawn != 0);
 	}
 	blted = mk_win_gdi_bitmap_bitblt(dc, ps.m_rect.m_left, ps.m_rect.m_top, rect_mem_dc.m_right, rect_mem_dc.m_bottom, dc_mem, 0, 0, mk_win_gdi_bitmap_rop_e_srccopy); mk_lang_assert(blted != 0);
+	deleted = mk_win_gdi_object_delete(((mk_win_gdi_object_t)(background_brush))); mk_lang_assert(deleted != 0);
 	prev_bm = ((mk_win_gdi_bitmap_t)(mk_win_gdi_dc_select_object(dc_mem, ((mk_win_gdi_object_t)(prev_bm))))); mk_lang_assert(prev_bm == bm);
 	deleted = mk_win_gdi_object_delete(((mk_win_gdi_object_t)(bm))); mk_lang_assert(deleted != 0);
 	deleted = mk_win_gdi_dc_delete(dc_mem); mk_lang_assert(deleted != 0);
@@ -834,7 +852,7 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_keydown(mk_win_ctrl_
 
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_vscroll(mk_win_ctrl_impl_mlistbox_lpt const self, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_user_window_lresult_pt const lres) mk_lang_noexcept
 {
-	scroll_bar_event_t event;
+	mk_win_user_scroll_bars_event_t event;
 	int scroll_cur_new;
 
 	mk_lang_assert(self);
@@ -843,18 +861,18 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_vscroll(mk_win_ctrl_
 	mk_lang_assert(override_lres);
 	mk_lang_assert(lres);
 
-	event = ((scroll_bar_event_t)(((mk_win_base_word_t)(wparam))));
+	event = ((mk_win_user_scroll_bars_event_t)(((mk_win_base_word_t)(wparam))));
 	switch(event)
 	{
-		case scroll_bar_event_e_lineup: scroll_cur_new = self->m_scroll_cur - 1; break;
-		case scroll_bar_event_e_linedown: scroll_cur_new = self->m_scroll_cur + 1; break;
-		case scroll_bar_event_e_pageup: scroll_cur_new = self->m_scroll_cur - mk_lang_max(1, self->m_lines_fully_visible); break;
-		case scroll_bar_event_e_pagedown: scroll_cur_new = self->m_scroll_cur + mk_lang_max(1, self->m_lines_fully_visible); break;
-		case scroll_bar_event_e_thumbposition: scroll_cur_new = ((int)((wparam >> 16) & 0xfffful)); break; /* todo 16bit */
-		case scroll_bar_event_e_thumbtrack: scroll_cur_new = ((int)((wparam >> 16) & 0xfffful)); break; /* todo 16bit */
-		case scroll_bar_event_e_top: scroll_cur_new = 0; break;
-		case scroll_bar_event_e_bottom: scroll_cur_new = self->m_scroll_max; break;
-		case scroll_bar_event_e_endscroll: scroll_cur_new = self->m_scroll_cur; break;
+		case mk_win_user_scroll_bars_event_e_lineup: scroll_cur_new = self->m_scroll_cur - 1; break;
+		case mk_win_user_scroll_bars_event_e_linedown: scroll_cur_new = self->m_scroll_cur + 1; break;
+		case mk_win_user_scroll_bars_event_e_pageup: scroll_cur_new = self->m_scroll_cur - mk_lang_max(1, self->m_lines_fully_visible); break;
+		case mk_win_user_scroll_bars_event_e_pagedown: scroll_cur_new = self->m_scroll_cur + mk_lang_max(1, self->m_lines_fully_visible); break;
+		case mk_win_user_scroll_bars_event_e_thumbposition: scroll_cur_new = ((int)((wparam >> 16) & 0xfffful)); break; /* todo 16bit */
+		case mk_win_user_scroll_bars_event_e_thumbtrack: scroll_cur_new = ((int)((wparam >> 16) & 0xfffful)); break; /* todo 16bit */
+		case mk_win_user_scroll_bars_event_e_top: scroll_cur_new = 0; break;
+		case mk_win_user_scroll_bars_event_e_bottom: scroll_cur_new = self->m_scroll_max; break;
+		case mk_win_user_scroll_bars_event_e_endscroll: scroll_cur_new = self->m_scroll_cur; break;
 		default: mk_lang_assert(0); break;
 	}
 	scroll_cur_new = mk_lang_clamp(scroll_cur_new, 0, self->m_scroll_max);
