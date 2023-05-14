@@ -1,12 +1,18 @@
 #include "mk_lib_fe.h"
 
 #include "mk_lang_assert.h"
+#include "mk_lang_bi.h"
 #include "mk_lang_bool.h"
+#include "mk_lang_charbit.h"
+#include "mk_lang_div_roundup.h"
+#include "mk_lang_endian.h"
 #include "mk_lang_exception.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
+#include "mk_lang_memmove_obj.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_sizeof.h"
 #include "mk_sl_buffer_win_main_heap.h"
 #include "mk_win_base.h"
 #include "mk_win_kernel_errors.h"
@@ -51,6 +57,85 @@ typedef mk_lib_fe_data_t mk_win_base_near const* mk_lib_fe_data_npct;
 #include "mk_sl_vector_inl_fileh.h"
 #include "mk_sl_vector_inl_filec.h"
 
+#define mk_lang_bui_name feuchar
+#define mk_lang_bui_type mk_lang_bi_uchar_t
+#define mk_lang_bui_sizeof mk_lang_sizeof_bi_uchar_t
+#include "mk_lang_bui_inl_fileh.h"
+#include "mk_lang_bui_inl_filec.h"
+
+#define mk_lang_bui_name feushort
+#define mk_lang_bui_type mk_lang_bi_ushort_t
+#define mk_lang_bui_sizeof mk_lang_sizeof_bi_ushort_t
+#include "mk_lang_bui_inl_fileh.h"
+#include "mk_lang_bui_inl_filec.h"
+
+#define mk_lang_bui_name feuint
+#define mk_lang_bui_type mk_lang_bi_uint_t
+#define mk_lang_bui_sizeof mk_lang_sizeof_bi_uint_t
+#include "mk_lang_bui_inl_fileh.h"
+#include "mk_lang_bui_inl_filec.h"
+
+#define mk_lang_bui_name feulong
+#define mk_lang_bui_type mk_lang_bi_ulong_t
+#define mk_lang_bui_sizeof mk_lang_sizeof_bi_ulong_t
+#include "mk_lang_bui_inl_fileh.h"
+#include "mk_lang_bui_inl_filec.h"
+
+#define mk_sl_cui_name feuchar
+#define mk_sl_cui_base_type mk_lang_bi_uchar_t
+#define mk_sl_cui_base_name mk_lang_bui_feuchar
+#define mk_sl_cui_base_bits (mk_lang_sizeof_bi_uchar_t * mk_lang_charbit)
+#define mk_sl_cui_count 1
+#define mk_sl_cui_endian mk_lang_endian_little
+#define mk_sl_cui_base_is_bui 1
+#define mk_sl_cui_base_bui_tn uchar
+#include "mk_sl_cui_inl_fileh.h"
+#include "mk_sl_cui_inl_filec.h"
+
+#define mk_sl_cui_name feushort
+#define mk_sl_cui_base_type mk_lang_bi_ushort_t
+#define mk_sl_cui_base_name mk_lang_bui_feushort
+#define mk_sl_cui_base_bits (mk_lang_sizeof_bi_ushort_t * mk_lang_charbit)
+#define mk_sl_cui_count 1
+#define mk_sl_cui_endian mk_lang_endian_little
+#define mk_sl_cui_base_is_bui 1
+#define mk_sl_cui_base_bui_tn ushort
+#include "mk_sl_cui_inl_fileh.h"
+#include "mk_sl_cui_inl_filec.h"
+
+#define mk_sl_cui_name feuint
+#define mk_sl_cui_base_type mk_lang_bi_uint_t
+#define mk_sl_cui_base_name mk_lang_bui_feuint
+#define mk_sl_cui_base_bits (mk_lang_sizeof_bi_uint_t * mk_lang_charbit)
+#define mk_sl_cui_count 1
+#define mk_sl_cui_endian mk_lang_endian_little
+#define mk_sl_cui_base_is_bui 1
+#define mk_sl_cui_base_bui_tn uint
+#include "mk_sl_cui_inl_fileh.h"
+#include "mk_sl_cui_inl_filec.h"
+
+#define mk_sl_cui_name feulong
+#define mk_sl_cui_base_type mk_lang_bi_ulong_t
+#define mk_sl_cui_base_name mk_lang_bui_feulong
+#define mk_sl_cui_base_bits (mk_lang_sizeof_bi_ulong_t * mk_lang_charbit)
+#define mk_sl_cui_count 1
+#define mk_sl_cui_endian mk_lang_endian_little
+#define mk_sl_cui_base_is_bui 1
+#define mk_sl_cui_base_bui_tn ulong
+#include "mk_sl_cui_inl_fileh.h"
+#include "mk_sl_cui_inl_filec.h"
+
+#define mk_sl_cui_name feu64
+#define mk_sl_cui_base_type mk_lang_bi_ulong_t
+#define mk_sl_cui_base_name mk_lang_bui_feulong
+#define mk_sl_cui_base_bits (mk_lang_sizeof_bi_ulong_t * mk_lang_charbit)
+#define mk_sl_cui_count mk_lang_div_roundup(64, mk_sl_cui_base_bits)
+#define mk_sl_cui_endian mk_lang_endian_little
+#define mk_sl_cui_base_is_bui 1
+#define mk_sl_cui_base_bui_tn ulong
+#include "mk_sl_cui_inl_fileh.h"
+#include "mk_sl_cui_inl_filec.h"
+
 
 enum mk_lib_fe_state_e
 {
@@ -87,6 +172,32 @@ typedef mk_lib_fe_t mk_win_base_far* mk_lib_fe_lpt;
 typedef mk_lib_fe_t mk_win_base_far const* mk_lib_fe_lpct;
 typedef mk_lib_fe_t mk_win_base_near* mk_lib_fe_npt;
 typedef mk_lib_fe_t mk_win_base_near const* mk_lib_fe_npct;
+#if defined _MSC_VER && _MSC_VER == 1935
+#pragma warning(pop)
+#endif
+
+#if defined _MSC_VER && _MSC_VER == 1935
+#pragma warning(push)
+#pragma warning(disable:4820) /* warning C4820: 'xxx': 'xxx' bytes padding added after data member 'xxx' */
+#endif
+struct mk_lib_fe_timestamp_s
+{
+	unsigned short int m_year;
+	unsigned char m_month;
+	unsigned char m_day;
+	unsigned char m_hour;
+	unsigned char m_minute;
+	unsigned char m_second;
+	unsigned long int m_hundred_ns;
+};
+typedef struct mk_lib_fe_timestamp_s mk_lib_fe_timestamp_t;
+typedef mk_lib_fe_timestamp_t const mk_lib_fe_timestamp_ct;
+typedef mk_lib_fe_timestamp_t* mk_lib_fe_timestamp_pt;
+typedef mk_lib_fe_timestamp_t const* mk_lib_fe_timestamp_pct;
+typedef mk_lib_fe_timestamp_t mk_win_base_far* mk_lib_fe_timestamp_lpt;
+typedef mk_lib_fe_timestamp_t mk_win_base_far const* mk_lib_fe_timestamp_lpct;
+typedef mk_lib_fe_timestamp_t mk_win_base_near* mk_lib_fe_timestamp_npt;
+typedef mk_lib_fe_timestamp_t mk_win_base_near const* mk_lib_fe_timestamp_npct;
 #if defined _MSC_VER && _MSC_VER == 1935
 #pragma warning(pop)
 #endif
@@ -128,6 +239,9 @@ static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_
 static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_name_long_str_err_path_not_found(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;
 static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_name_long_str_err_access_denied(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;
 static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_name_long_str_err_not_ready(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;
+static mk_lang_inline void mk_lib_fe_timestamp_convert(mk_win_kernel_files_filetime_lpct const timestamp_win, mk_lib_fe_timestamp_lpt const timestamp_fe) mk_lang_noexcept;
+static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_timestamp_to_string(mk_lib_fe_lpt const fe, mk_lib_fe_timestamp_lpct const timestamp_fe) mk_lang_noexcept;
+static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_timestamp_created(mk_lib_fe_lpt const fe, mk_lib_fe_data_lpct const data) mk_lang_noexcept;
 static mk_lang_inline int mk_lib_fe_ensure_has_length(mk_lib_fe_data_lpt const data) mk_lang_noexcept;
 static mk_lang_nodiscard mk_lang_inline mk_lang_bool_t mk_lib_fe_is_sorted(mk_lib_fe_data_lpct const a, mk_lib_fe_data_lpct const b) mk_lang_noexcept;
 static mk_lang_inline void mk_lib_fe_sort_merge(mk_lib_fe_data_lpct const data, int_pct const input_a, int const cnt_a, int_pt const input_b, int const cnt_b, int_pt const output) mk_lang_noexcept;
@@ -926,6 +1040,182 @@ static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_
 	fe->m_addon_len = 0;
 	mk_sl_vector_fetchar_rw_get_data(&fe->m_str)[mk_sl_vector_fetchar_ro_get_count(&fe->m_str)] = mk_win_tstring_tchar_c('\0');
 	return mk_sl_vector_fetchar_ro_get_data(&fe->m_str);
+}
+
+static mk_lang_inline void mk_lib_fe_timestamp_convert(mk_win_kernel_files_filetime_lpct const timestamp_win, mk_lib_fe_timestamp_lpt const timestamp_fe) mk_lang_noexcept
+{
+	#define is_leap_year(x) (((x) % 4 == 0) && (((x) % 100 != 0) || ((x) % 400 == 0)))
+	#define number_of_days(x) ((((x) - 1ul) * s_days_in_year_normal) + (((x) - 1ul) / 4ul) - (((x) - 1ul) / 100ul) + (((x) - 1ul) / 400ul))
+
+	static unsigned long int const s_hundreds_ns_in_second = 1ul * 1000ul * 1000ul * 1000ul / 100ul;
+	static unsigned long int const s_seconds_in_day = 60ul * 60ul * 24ul;
+	static int const s_seconds_in_hour = 60 * 60;
+	static int const s_seconds_in_min = 60;
+	static int const s_days_in_year_normal = 365;
+	static int const s_days_in_year_leap = 365 + 1;
+	static int const s_year_start = 1601;
+	static signed char const s_month_lens[2][12] =
+		{
+			{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31},
+			{31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31},
+		};
+
+	mk_sl_cui_feu64_t u64;
+	mk_sl_cui_feu64_t seconds;
+	unsigned long int hundred_ns;
+	mk_sl_cui_feu64_t days;
+	unsigned long int seconds_in_day;
+	unsigned long int days2;
+	unsigned char hour;
+	unsigned char minute;
+	unsigned char second;
+	unsigned short int year;
+	int days3;
+	mk_lang_bool_t is_leap;
+	unsigned char month;
+	unsigned char day;
+
+	mk_lang_assert(timestamp_win);
+	mk_lang_assert(timestamp_fe);
+
+	mk_sl_cui_feu64_from_buis_uint_le(&u64, ((unsigned int const*)(timestamp_win)));
+	mk_sl_cui_feu64_divmod_smol(&u64, &s_hundreds_ns_in_second, &seconds, &hundred_ns);
+	mk_sl_cui_feu64_divmod_smol(&seconds, &s_seconds_in_day, &days, &seconds_in_day);
+	mk_sl_cui_feu64_to_bi_ulong(&days, &days2);
+	hour = ((unsigned char)(seconds_in_day / s_seconds_in_hour)); seconds_in_day = seconds_in_day % s_seconds_in_hour;
+	minute = ((unsigned char)(seconds_in_day / s_seconds_in_min)); seconds_in_day = seconds_in_day % s_seconds_in_min;
+	second = ((unsigned char)(seconds_in_day));
+	year = ((unsigned short int)(s_year_start + days2 / s_days_in_year_leap));
+	days2 = days2 - (number_of_days(year) - number_of_days(s_year_start));
+	for(;;)
+	{
+		days3 = is_leap_year(year) ? s_days_in_year_leap : s_days_in_year_normal;
+		if(days2 < ((unsigned long int)(days3)))
+		{
+			break;
+		}
+		days2 = days2 - days3;
+		year = year + 1;
+	}
+	is_leap = is_leap_year(year);
+	for(month = 0; ((int)(days2)) >= s_month_lens[is_leap ? 1 : 0][month]; ++month)
+	{
+		days2 = days2 - s_month_lens[is_leap ? 1 : 0][month];
+	}
+	month = month + 1;
+	day = ((unsigned char)(days2)) + 1;
+	mk_lang_assert(((signed long int)(year)) >= 1601 && year <= 60056);
+	mk_lang_assert(((signed long int)(month)) >= 1 && month <= 12);
+	mk_lang_assert(((signed long int)(day)) >= 1 && day <= 31);
+	mk_lang_assert(((signed long int)(hour)) >= 0 && hour <= 23);
+	mk_lang_assert(((signed long int)(minute)) >= 0 && minute <= 59);
+	mk_lang_assert(((signed long int)(second)) >= 0 && second <= 59);
+	mk_lang_assert(((signed long int)(hundred_ns)) >= 0 && hundred_ns <= 9999999ul);
+	timestamp_fe->m_year = year;
+	timestamp_fe->m_month = month;
+	timestamp_fe->m_day = day;
+	timestamp_fe->m_hour = hour;
+	timestamp_fe->m_minute = minute;
+	timestamp_fe->m_second = second;
+	timestamp_fe->m_hundred_ns = hundred_ns;
+
+	#undef is_leap_year
+	#undef number_of_days
+}
+
+static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_timestamp_to_string(mk_lib_fe_lpt const fe, mk_lib_fe_timestamp_lpct const timestamp_fe) mk_lang_noexcept
+{
+	#define s_max_timestamp_len 29 /* 60056-05-28T05:36:10.9551615Z */
+
+	mk_lang_exception_t ex;
+	mk_win_tstring_tchar_lpt tptr;
+	char* ptr;
+	char buff[s_max_timestamp_len];
+	int len;
+	int i;
+
+	mk_lang_assert(fe);
+	mk_lang_assert(timestamp_fe);
+
+	mk_lang_exception_make_none(&ex);
+	mk_sl_vector_fetchar_rw_reserve(&fe->m_str, &ex, mk_sl_vector_fetchar_ro_get_count(&fe->m_str) + 1 + s_max_timestamp_len + 1);
+	mk_lang_assert(!mk_lang_exception_is(&ex)); /* todo throw */
+	tptr = mk_sl_vector_fetchar_rw_get_data(&fe->m_str) + mk_sl_vector_fetchar_ro_get_count(&fe->m_str) + 1;
+	ptr = buff;
+	len = mk_sl_cui_feushort_to_str_dec_n(((mk_sl_cui_feushort_t const*)(&timestamp_fe->m_year)), ptr, s_max_timestamp_len - ((int)(ptr - buff)));
+	ptr += len;
+	ptr[0] = '-'; ++ptr;
+	len = mk_sl_cui_feuchar_to_str_dec_n(((mk_sl_cui_feuchar_t const*)(&timestamp_fe->m_month)), ptr, s_max_timestamp_len - ((int)(ptr - buff)));
+	if(len == 1)
+	{
+		ptr[1] = ptr[0];
+		ptr[0] = '0';
+		len = 2;
+	}
+	ptr += len;
+	ptr[0] = '-'; ++ptr;
+	len = mk_sl_cui_feuchar_to_str_dec_n(((mk_sl_cui_feuchar_t const*)(&timestamp_fe->m_day)), ptr, s_max_timestamp_len - ((int)(ptr - buff)));
+	if(len == 1)
+	{
+		ptr[1] = ptr[0];
+		ptr[0] = '0';
+		len = 2;
+	}
+	ptr += len;
+	ptr[0] = 'T'; ++ptr;
+	len = mk_sl_cui_feuchar_to_str_dec_n(((mk_sl_cui_feuchar_t const*)(&timestamp_fe->m_hour)), ptr, s_max_timestamp_len - ((int)(ptr - buff)));
+	if(len == 1)
+	{
+		ptr[1] = ptr[0];
+		ptr[0] = '0';
+		len = 2;
+	}
+	ptr += len;
+	ptr[0] = ':'; ++ptr;
+	len = mk_sl_cui_feuchar_to_str_dec_n(((mk_sl_cui_feuchar_t const*)(&timestamp_fe->m_minute)), ptr, s_max_timestamp_len - ((int)(ptr - buff)));
+	if(len == 1)
+	{
+		ptr[1] = ptr[0];
+		ptr[0] = '0';
+		len = 2;
+	}
+	ptr += len;
+	ptr[0] = ':'; ++ptr;
+	len = mk_sl_cui_feuchar_to_str_dec_n(((mk_sl_cui_feuchar_t const*)(&timestamp_fe->m_second)), ptr, s_max_timestamp_len - ((int)(ptr - buff)));
+	if(len == 1)
+	{
+		ptr[1] = ptr[0];
+		ptr[0] = '0';
+		len = 2;
+	}
+	ptr += len;
+	ptr[0] = '.'; ++ptr;
+	len = mk_sl_cui_feulong_to_str_dec_n(((mk_sl_cui_feulong_t const*)(&timestamp_fe->m_hundred_ns)), ptr, s_max_timestamp_len - ((int)(ptr - buff)));
+	if(len < 7)
+	{
+		mk_lang_memmove_obj_pchar(ptr + 7 - len, ptr, len);
+		for(i = 0; i != 7 - len; ++i){ ptr[i] = '0'; } /* todo memset obj */
+		len = 7;
+	}
+	ptr += len;
+	ptr[0] = 'Z'; ++ptr;
+	len = ((int)(ptr - buff));
+	for(i = 0; i != len; ++i){ tptr[i] = ((mk_win_tstring_tchar_t)(buff[i])); } /* assuming ascii to tchar is trivial */
+	tptr[len] = mk_win_tstring_tchar_c('\0');
+	return tptr;
+
+	#undef s_max_timestamp_len
+}
+
+static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_timestamp_created(mk_lib_fe_lpt const fe, mk_lib_fe_data_lpct const data) mk_lang_noexcept
+{
+	mk_lib_fe_timestamp_t timestamp_fe;
+
+	mk_lang_assert(fe);
+	mk_lang_assert(data);
+
+	mk_lib_fe_timestamp_convert(&data->m_data.m_created, &timestamp_fe);
+	return mk_lib_fe_timestamp_to_string(fe, &timestamp_fe);
 }
 
 static mk_lang_inline int mk_lib_fe_ensure_has_length(mk_lib_fe_data_lpt const data) mk_lang_noexcept
