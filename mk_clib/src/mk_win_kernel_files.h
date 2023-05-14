@@ -204,6 +204,15 @@ struct mk_win_kernel_files_filetime_s
 	mk_win_base_dword_t m_hi;
 };
 typedef struct mk_win_kernel_files_filetime_s mk_win_kernel_files_filetime_t;
+typedef mk_win_kernel_files_filetime_t const mk_win_kernel_files_filetime_ct;
+typedef mk_win_kernel_files_filetime_t* mk_win_kernel_files_filetime_pt;
+typedef mk_win_kernel_files_filetime_t const mk_win_kernel_files_filetime_ct;
+typedef mk_win_kernel_files_filetime_t* mk_win_kernel_files_filetime_pt;
+typedef mk_win_kernel_files_filetime_t const* mk_win_kernel_files_filetime_pct;
+typedef mk_win_kernel_files_filetime_t mk_win_base_far* mk_win_kernel_files_filetime_lpt;
+typedef mk_win_kernel_files_filetime_t mk_win_base_far const* mk_win_kernel_files_filetime_lpct;
+typedef mk_win_kernel_files_filetime_t mk_win_base_near* mk_win_kernel_files_filetime_npt;
+typedef mk_win_kernel_files_filetime_t mk_win_base_near const* mk_win_kernel_files_filetime_npct;
 
 #if defined _MSC_VER && _MSC_VER == 1935
 #pragma warning(push)
