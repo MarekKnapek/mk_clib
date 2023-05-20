@@ -150,7 +150,7 @@ typedef enum mk_win_user_window_show_scrollbar_e mk_win_user_window_show_scrollb
 #define mk_win_user_window_usedefault ((int)(0x80000000ul))
 
 
-#if defined _MSC_VER && _MSC_VER == 1935
+#if defined _MSC_VER && _MSC_VER == 1936
 #pragma warning(push)
 #pragma warning(disable:4820) /* warning C4820: 'xxx': 'xxx' bytes padding added after data member 'xxx' */
 #endif
@@ -171,7 +171,7 @@ typedef mk_win_user_window_paint_t mk_win_base_far* mk_win_user_window_paint_lpt
 typedef mk_win_user_window_paint_t mk_win_base_far const* mk_win_user_window_paint_lpct;
 typedef mk_win_user_window_paint_t mk_win_base_near* mk_win_user_window_paint_npt;
 typedef mk_win_user_window_paint_t mk_win_base_near const* mk_win_user_window_paint_npct;
-#if defined _MSC_VER && _MSC_VER == 1935
+#if defined _MSC_VER && _MSC_VER == 1936
 #pragma warning(pop)
 #endif
 

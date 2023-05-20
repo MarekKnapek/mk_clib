@@ -1,4 +1,4 @@
-#if defined _MSC_VER && _MSC_VER == 1935
+#if defined _MSC_VER && _MSC_VER == 1936
 #pragma warning(push)
 #pragma warning(disable:4464) /* warning C4464: relative include path contains '..' */
 #pragma warning(disable:4711) /* warning C4711: function 'xxx' selected for automatic inline expansion */
@@ -10,7 +10,7 @@
 #include "../src/mk_lang_sizet.h"
 #include "../src/mk_win_base.h"
 #include "../src/mk_win_winmain.h"
-#if defined _MSC_VER && _MSC_VER == 1935
+#if defined _MSC_VER && _MSC_VER == 1936
 #pragma warning(pop)
 #endif
 

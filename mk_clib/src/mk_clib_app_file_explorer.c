@@ -59,7 +59,7 @@ static mk_win_user_dialog_two_ints_t g_size_edit;
 static mk_win_user_dialog_two_ints_t g_size_static;
 
 
-#if defined _MSC_VER && _MSC_VER == 1935
+#if defined _MSC_VER && _MSC_VER == 1936
 #pragma warning(push)
 #pragma warning(disable:4820) /* warning C4820: 'xxx': 'xxx' bytes padding added after data member 'xxx' */
 #endif
@@ -78,7 +78,7 @@ typedef mk_clib_app_file_explorer_context_t mk_win_base_far* mk_clib_app_file_ex
 typedef mk_clib_app_file_explorer_context_t mk_win_base_far const* mk_clib_app_file_explorer_context_lpct;
 typedef mk_clib_app_file_explorer_context_t mk_win_base_near* mk_clib_app_file_explorer_context_npt;
 typedef mk_clib_app_file_explorer_context_t mk_win_base_near const* mk_clib_app_file_explorer_context_npct;
-#if defined _MSC_VER && _MSC_VER == 1935
+#if defined _MSC_VER && _MSC_VER == 1936
 #pragma warning(pop)
 #endif
 
@@ -906,12 +906,12 @@ mk_lang_nodiscard static mk_lang_inline void* mk_clib_app_file_explorer_round_up
 
 static mk_lang_inline void mk_clib_app_file_explorer_labels_clear(mk_win_user_window_t const dialog) mk_lang_noexcept
 {
-	#if defined _MSC_VER && _MSC_VER == 1935
+	#if defined _MSC_VER && _MSC_VER == 1936
 	#pragma warning(push)
 	#pragma warning(disable:4132) /* warning C4132: 'xxx': const object should be initialized */
 	#endif
 	static mk_win_base_wchar_t const s_empty_text;
-	#if defined _MSC_VER && _MSC_VER == 1935
+	#if defined _MSC_VER && _MSC_VER == 1936
 	#pragma warning(pop)
 	#endif
 
@@ -1474,7 +1474,7 @@ static mk_win_user_window_lresult_t mk_win_base_stdcall mk_clib_app_file_explore
 
 static mk_win_base_sintptr_t mk_win_base_stdcall mk_clib_app_file_explorer_dlgproc(mk_win_user_window_t const dialog, mk_win_base_uint_t const msg_uid, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam) mk_lang_noexcept
 {
-	#if defined _MSC_VER && _MSC_VER == 1935
+	#if defined _MSC_VER && _MSC_VER == 1936
 	#pragma warning(push)
 	#pragma warning(disable:4062) /* warning C4062: enumerator 'xxx' in switch of enum 'xxx' is not handled */
 	#endif
@@ -1525,7 +1525,7 @@ static mk_win_base_sintptr_t mk_win_base_stdcall mk_clib_app_file_explorer_dlgpr
 	}
 	return ((mk_win_base_sintptr_t)(mk_win_base_false));
 
-	#if defined _MSC_VER && _MSC_VER == 1935
+	#if defined _MSC_VER && _MSC_VER == 1936
 	#pragma warning(pop)
 	#endif
 }

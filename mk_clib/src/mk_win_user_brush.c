@@ -22,7 +22,7 @@ static mk_win_base_proc_t g_mk_win_user_brush_GetSysColorBrush;
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_user_brush_t mk_win_user_brush_get_syscolor(mk_win_user_color_id_t const color_id) mk_lang_noexcept
 {
-	#if defined _MSC_VER && _MSC_VER == 1935
+	#if defined _MSC_VER && _MSC_VER == 1936
 	#pragma warning(push)
 	#pragma warning(disable:4191) /* warning C4191: 'type cast': unsafe conversion from 'xxx' to 'xxx' */
 	#endif
@@ -48,7 +48,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_user_brush_t mk_win_user_brush_get_syscol
 	}
 	return brush;
 
-	#if defined _MSC_VER && _MSC_VER == 1935
+	#if defined _MSC_VER && _MSC_VER == 1936
 	#pragma warning(pop)
 	#endif
 }

@@ -820,7 +820,7 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_keydown_down(mk_win_
 
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_keydown(mk_win_ctrl_impl_mlistbox_lpt const self, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_user_window_lresult_pt const lres) mk_lang_noexcept
 {
-	#if defined _MSC_VER && _MSC_VER == 1935
+	#if defined _MSC_VER && _MSC_VER == 1936
 	#pragma warning(push)
 	#pragma warning(disable:4062) /* warning C4062: enumerator 'xxx' in switch of enum 'xxx' is not handled */
 	#endif
@@ -845,7 +845,7 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_keydown(mk_win_ctrl_
 		case mk_win_user_message_key_e_down: mk_win_ctrl_impl_mlistbox_on_msg_keydown_down(self, wparam, lparam, override_lres, lres); break;
 	}
 
-	#if defined _MSC_VER && _MSC_VER == 1935
+	#if defined _MSC_VER && _MSC_VER == 1936
 	#pragma warning(pop)
 	#endif
 }
@@ -1022,7 +1022,7 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg_set_strings_count(mk
 
 static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg(mk_win_ctrl_impl_mlistbox_lpt const self, mk_win_user_message_id_t const message, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_pt const override_lres, mk_win_user_window_lresult_pt const lres) mk_lang_noexcept
 {
-	#if defined _MSC_VER && _MSC_VER == 1935
+	#if defined _MSC_VER && _MSC_VER == 1936
 	#pragma warning(push)
 	#pragma warning(disable:4062) /* warning C4062: enumerator 'xxx' in switch of enum 'xxx' is not handled */
 	#pragma warning(disable:4063) /* warning C4063: case 'xxx' is not a valid value for switch of enum 'xxx' */
@@ -1050,7 +1050,7 @@ static mk_lang_inline void mk_win_ctrl_impl_mlistbox_on_msg(mk_win_ctrl_impl_mli
 		case mk_win_user_ctrl_mlistbox_message_e_set_strings_count: mk_win_ctrl_impl_mlistbox_on_msg_set_strings_count(self, wparam, lparam, override_lres, lres); break;
 	}
 
-	#if defined _MSC_VER && _MSC_VER == 1935
+	#if defined _MSC_VER && _MSC_VER == 1936
 	#pragma warning(pop)
 	#endif
 }

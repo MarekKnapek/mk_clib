@@ -58,14 +58,14 @@ mk_win_base_dll_import int mk_win_base_stdcall MultiByteToWideChar(mk_win_base_u
 mk_win_base_dll_import int mk_win_base_stdcall WideCharToMultiByte(mk_win_base_uint_t, mk_win_base_dword_t, mk_win_base_wchar_lpct, int, mk_win_base_pchar_lpt, int, mk_win_base_pchar_lpct, mk_win_base_bool_lpt) mk_lang_noexcept;
 
 
-#if defined _MSC_VER && _MSC_VER == 1935
+#if defined _MSC_VER && _MSC_VER == 1936
 #pragma warning(push)
 #pragma warning(disable:4132) /* warning C4132: 'xxx': const object should be initialized */
 #endif
 #define s_mk_win_tstring_mws_elements 16
 static mk_win_base_pchar_t const s_mk_win_tstring_null_pchar;
 static mk_win_base_wchar_t const s_mk_win_tstring_null_wchar;
-#if defined _MSC_VER && _MSC_VER == 1935
+#if defined _MSC_VER && _MSC_VER == 1936
 #pragma warning(pop)
 #endif
 
@@ -215,7 +215,7 @@ mk_lang_jumbo void mk_win_tstring_resize_mws(mk_lang_exception_pt const ex, mk_w
 	}
 }
 
-#if defined _MSC_VER && _MSC_VER == 1935
+#if defined _MSC_VER && _MSC_VER == 1936
 #pragma warning(push)
 #pragma warning(disable:4706) /* warning C4706: assignment within conditional expression */
 #endif
@@ -234,11 +234,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_win_tstring_validate_asci(mk_w
 	}
 	return mk_lang_true;
 }
-#if defined _MSC_VER && _MSC_VER == 1935
+#if defined _MSC_VER && _MSC_VER == 1936
 #pragma warning(pop)
 #endif
 
-#if defined _MSC_VER && _MSC_VER == 1935
+#if defined _MSC_VER && _MSC_VER == 1936
 #pragma warning(push)
 #pragma warning(disable:4706) /* warning C4706: assignment within conditional expression */
 #endif
@@ -321,11 +321,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_win_tstring_validate_utf8(mk_w
 	}
 	return mk_lang_true;
 }
-#if defined _MSC_VER && _MSC_VER == 1935
+#if defined _MSC_VER && _MSC_VER == 1936
 #pragma warning(pop)
 #endif
 
-#if defined _MSC_VER && _MSC_VER == 1935
+#if defined _MSC_VER && _MSC_VER == 1936
 #pragma warning(push)
 #pragma warning(disable:4706) /* warning C4706: assignment within conditional expression */
 #endif
@@ -377,7 +377,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_win_tstring_validate_wide(mk_w
 	}
 	return mk_lang_true;
 }
-#if defined _MSC_VER && _MSC_VER == 1935
+#if defined _MSC_VER && _MSC_VER == 1936
 #pragma warning(pop)
 #endif
 
