@@ -16,6 +16,7 @@
 #include "mk_lang_noexcept.h"
 #include "mk_lang_sizeof.h"
 #include "mk_lang_sizet.h"
+#include "mk_lang_types.h"
 #include "mk_sl_buffer_win_main_heap.h"
 #include "mk_win_base.h"
 #include "mk_win_kernel_errors.h"
@@ -1320,7 +1321,7 @@ static mk_lang_inline void mk_lib_fe_sort(mk_lib_fe_lpt const fe) mk_lang_noexce
 	mk_lang_exception_t ex;
 	mk_lang_size_t n;
 	mk_lang_bi_uint_t m;
-	mk_lang_bi_sint_pt proxy;
+	mk_lang_types_sint_pt proxy;
 	mk_lang_size_t i;
 
 	mk_lang_assert(fe);
