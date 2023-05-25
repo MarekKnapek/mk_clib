@@ -63,14 +63,6 @@ mk_lang_nodiscard mk_lang_jumbo mk_sl_vector_inl_defd_elem_pct mk_sl_vector_inl_
 }
 
 
-mk_lang_jumbo void mk_sl_vector_inl_defd_vector_rw_construct(mk_sl_vector_inl_defd_vector_pt const vector) mk_lang_noexcept
-{
-	mk_lang_assert(vector);
-
-	mk_sl_vector_inl_defd_buffer_rw_construct(&vector->m_buffer);
-	vector->m_count = 0;
-}
-
 mk_lang_jumbo void mk_sl_vector_inl_defd_vector_rw_destroy(mk_sl_vector_inl_defd_vector_pt const vector) mk_lang_noexcept
 {
 	mk_sl_vector_inl_defd_vector_ro_destroy(vector);
@@ -106,6 +98,15 @@ mk_lang_nodiscard mk_lang_jumbo mk_sl_vector_inl_defd_elem_pt mk_sl_vector_inl_d
 	return ((mk_sl_vector_inl_defd_elem_pt)(mk_sl_vector_inl_defd_vector_ro_get_data_back(vector)));
 }
 
+
+mk_lang_jumbo void mk_sl_vector_inl_defd_vector_rw_construct(mk_sl_vector_inl_defd_vector_pt const vector) mk_lang_noexcept
+{
+	mk_lang_assert(vector);
+
+	mk_sl_vector_inl_defd_buffer_rw_construct(&vector->m_buffer);
+	vector->m_count = 0;
+}
+
 mk_lang_jumbo void mk_sl_vector_inl_defd_vector_rw_reserve(mk_sl_vector_inl_defd_vector_pt const vector, mk_lang_exception_pt const ex, mk_lang_size_t const count) mk_lang_noexcept
 {
 	mk_lang_size_t size_requested;
@@ -131,6 +132,13 @@ mk_lang_jumbo void mk_sl_vector_inl_defd_vector_rw_reserve(mk_sl_vector_inl_defd
 		size_new *= 2;
 	}while(size_new < size_requested);
 	mk_sl_vector_inl_defd_buffer_rw_resize(&vector->m_buffer, ex, size_new);
+}
+
+mk_lang_jumbo void mk_sl_vector_inl_defd_vector_rw_resize(mk_sl_vector_inl_defd_vector_pt const vector, mk_lang_exception_pt const ex, mk_lang_size_t const count) mk_lang_noexcept
+{
+	mk_sl_vector_inl_defd_vector_rw_reserve(vector, ex, count);
+	mk_lang_exception_if_is_return(ex);
+	vector->m_count = count;
 }
 
 mk_lang_jumbo void mk_sl_vector_inl_defd_vector_rw_push_back(mk_sl_vector_inl_defd_vector_pt const vector, mk_lang_exception_pt const ex, mk_sl_vector_inl_defd_elem_pct const elem) mk_lang_noexcept
