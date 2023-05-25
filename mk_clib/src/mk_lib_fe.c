@@ -584,6 +584,7 @@ static mk_lang_inline void mk_lib_fe_breadcrumb_go_up(mk_lib_fe_lpt const fe) mk
 
 static mk_lang_inline void mk_lib_fe_go_to_item_all(mk_lib_fe_lpt const fe) mk_lang_noexcept
 {
+	mk_win_base_uint_t prev_errmode;
 	mk_lang_exception_t ex;
 	mk_lib_fe_data_lpt data;
 	mk_win_base_handle_t handle;
@@ -593,6 +594,7 @@ static mk_lang_inline void mk_lib_fe_go_to_item_all(mk_lib_fe_lpt const fe) mk_l
 	mk_lang_assert(fe);
 	mk_lang_assert(mk_sl_vector_fetchar_ro_get_count(&fe->m_str) >= 4);
 
+	prev_errmode = mk_win_kernel_errors_set_errmode(((mk_win_base_uint_t)(mk_win_kernel_errors_errmode_e_failcriticalerrors)));
 	mk_lang_exception_make_none(&ex);
 	mk_sl_vector_fedata_rw_clear(&fe->m_data);
 	mk_sl_vector_fedata_rw_reserve(&fe->m_data, &ex, mk_sl_vector_fedata_ro_get_count(&fe->m_data) + 1);
@@ -640,6 +642,7 @@ static mk_lang_inline void mk_lib_fe_go_to_item_all(mk_lib_fe_lpt const fe) mk_l
 		closed = mk_win_kernel_files_find_close(handle); mk_lang_assert(closed != 0);
 		mk_lib_fe_sort(fe);
 	}
+	prev_errmode = mk_win_kernel_errors_set_errmode(prev_errmode); ((void)(prev_errmode));
 }
 
 static mk_lang_inline void mk_lib_fe_go_to_item_up(mk_lib_fe_lpt const fe) mk_lang_noexcept
