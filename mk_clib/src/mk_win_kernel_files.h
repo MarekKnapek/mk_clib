@@ -6,6 +6,7 @@
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_win_base.h"
+#include "mk_win_kernel_time.h"
 #include "mk_win_tstring.h"
 
 
@@ -198,22 +199,6 @@ typedef enum mk_win_kernel_files_attribute_e mk_win_kernel_files_attribute_t;
 #define s_mk_win_kernel_files_max_path 260
 
 
-struct mk_win_kernel_files_filetime_s
-{
-	mk_win_base_dword_t m_lo;
-	mk_win_base_dword_t m_hi;
-};
-typedef struct mk_win_kernel_files_filetime_s mk_win_kernel_files_filetime_t;
-typedef mk_win_kernel_files_filetime_t const mk_win_kernel_files_filetime_ct;
-typedef mk_win_kernel_files_filetime_t* mk_win_kernel_files_filetime_pt;
-typedef mk_win_kernel_files_filetime_t const mk_win_kernel_files_filetime_ct;
-typedef mk_win_kernel_files_filetime_t* mk_win_kernel_files_filetime_pt;
-typedef mk_win_kernel_files_filetime_t const* mk_win_kernel_files_filetime_pct;
-typedef mk_win_kernel_files_filetime_t mk_win_base_far* mk_win_kernel_files_filetime_lpt;
-typedef mk_win_kernel_files_filetime_t mk_win_base_far const* mk_win_kernel_files_filetime_lpct;
-typedef mk_win_kernel_files_filetime_t mk_win_base_near* mk_win_kernel_files_filetime_npt;
-typedef mk_win_kernel_files_filetime_t mk_win_base_near const* mk_win_kernel_files_filetime_npct;
-
 #if defined _MSC_VER && _MSC_VER == 1936
 #pragma warning(push)
 #pragma warning(disable:4820) /* warning C4820: 'xxx': 'xxx' bytes padding added after data member 'xxx' */
@@ -221,9 +206,9 @@ typedef mk_win_kernel_files_filetime_t mk_win_base_near const* mk_win_kernel_fil
 struct mk_win_kernel_files_a_find_data_s
 {
 	mk_win_base_dword_t m_attributes;
-	mk_win_kernel_files_filetime_t m_created;
-	mk_win_kernel_files_filetime_t m_accessed;
-	mk_win_kernel_files_filetime_t m_written;
+	mk_win_kernel_time_file_time_t m_created;
+	mk_win_kernel_time_file_time_t m_accessed;
+	mk_win_kernel_time_file_time_t m_written;
 	mk_win_base_dword_t m_size_hi;
 	mk_win_base_dword_t m_size_lo;
 	mk_win_base_dword_t m_reserved_1;
@@ -248,9 +233,9 @@ typedef mk_win_kernel_files_a_find_data_t mk_win_base_near const* mk_win_kernel_
 struct mk_win_kernel_files_w_find_data_s
 {
 	mk_win_base_dword_t m_attributes;
-	mk_win_kernel_files_filetime_t m_created;
-	mk_win_kernel_files_filetime_t m_accessed;
-	mk_win_kernel_files_filetime_t m_written;
+	mk_win_kernel_time_file_time_t m_created;
+	mk_win_kernel_time_file_time_t m_accessed;
+	mk_win_kernel_time_file_time_t m_written;
 	mk_win_base_dword_t m_size_hi;
 	mk_win_base_dword_t m_size_lo;
 	mk_win_base_dword_t m_reserved_1;
