@@ -1760,4 +1760,3 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_wchar_lpt mk_win_tstring_allocate_wi
 	if(mk_lang_exception_is(&ex)) mk_lang_crash();
 	return wide_ret;
 }
-
