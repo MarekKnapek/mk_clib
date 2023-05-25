@@ -1468,7 +1468,7 @@ static mk_win_user_window_lresult_t mk_win_base_stdcall mk_clib_app_file_explore
 			mk_clib_app_file_explorer_go_up(parent);
 		}
 	}
-	lres = mk_win_user_window_a_call_proc(g_mk_clib_app_file_explorer_prev_listbox_main_proc, listbox_main, msg_uid, wparam, lparam);
+	lres = mk_win_user_window_t_call_proc(g_mk_clib_app_file_explorer_prev_listbox_main_proc, listbox_main, msg_uid, wparam, lparam);
 	return lres;
 }
 
