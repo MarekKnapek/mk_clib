@@ -16,7 +16,6 @@ mk_lang_jumbo void mk_lang_memcpy_obj_fn(mk_lang_memcpy_obj_t* const dst, mk_lan
 
 	mk_lang_assert(dst);
 	mk_lang_assert(src);
-	mk_lang_assert(cnt != 0);
 
 	d = dst;
 	s = src;
