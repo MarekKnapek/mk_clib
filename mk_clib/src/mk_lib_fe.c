@@ -9,10 +9,13 @@
 #include "mk_lang_exception.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
+#include "mk_lang_limits.h"
+#include "mk_lang_memcpy_obj.h"
 #include "mk_lang_memmove_obj.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_sizeof.h"
+#include "mk_lang_sizet.h"
 #include "mk_sl_buffer_win_main_heap.h"
 #include "mk_win_base.h"
 #include "mk_win_kernel_errors.h"
@@ -239,14 +242,31 @@ static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_
 static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_name_long_str_err_path_not_found(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;
 static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_name_long_str_err_access_denied(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;
 static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_name_long_str_err_not_ready(mk_lib_fe_lpt const fe, int const idx) mk_lang_noexcept;
-static mk_lang_inline void mk_lib_fe_timestamp_convert(mk_win_kernel_files_filetime_lpct const timestamp_win, mk_lib_fe_timestamp_lpt const timestamp_fe) mk_lang_noexcept;
+static mk_lang_inline void mk_lib_fe_timestamp_convert(mk_win_kernel_time_file_time_lpct const timestamp_win, mk_lib_fe_timestamp_lpt const timestamp_fe) mk_lang_noexcept;
 static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_timestamp_to_string(mk_lib_fe_lpt const fe, mk_lib_fe_timestamp_lpct const timestamp_fe) mk_lang_noexcept;
 static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_timestamp_created(mk_lib_fe_lpt const fe, mk_lib_fe_data_lpct const data) mk_lang_noexcept;
 static mk_lang_inline int mk_lib_fe_ensure_has_length(mk_lib_fe_data_lpt const data) mk_lang_noexcept;
 static mk_lang_nodiscard mk_lang_inline mk_lang_bool_t mk_lib_fe_is_sorted(mk_lib_fe_data_lpct const a, mk_lib_fe_data_lpct const b) mk_lang_noexcept;
-static mk_lang_inline void mk_lib_fe_sort_merge(mk_lib_fe_data_lpct const data, int_pct const input_a, int const cnt_a, int_pt const input_b, int const cnt_b, int_pt const output) mk_lang_noexcept;
-static mk_lang_inline void mk_lib_fe_sort_recursive(mk_lib_fe_data_lpct const data, int_pt const input, int const cnt, int_pt const tmp, int_pt const output) mk_lang_noexcept;
+static mk_lang_inline void mk_lib_fe_sort_merge_merge(mk_lib_fe_data_lpct const data, int_pct const input_a, int const cnt_a, int_pt const input_b, int const cnt_b, int_pt const output) mk_lang_noexcept;
+static mk_lang_inline void mk_lib_fe_sort_merge(mk_lib_fe_data_lpct const data, int_pt const input, int const cnt, int_pt const tmp) mk_lang_noexcept;
 static mk_lang_inline void mk_lib_fe_sort(mk_lib_fe_lpt const fe) mk_lang_noexcept;
+
+
+#define mk_lang_bui_name fedatacnt
+#define mk_lang_bui_type mk_lang_bi_uint_t
+#define mk_lang_bui_sizeof mk_lang_sizeof_bi_uint_t
+#include "mk_lang_bui_inl_fileh.h"
+#include "mk_lang_bui_inl_filec.h"
+
+#define mk_sl_sort_merge_name fedata
+#define mk_sl_sort_merge_data_t mk_lib_fe_data_t
+#define mk_sl_sort_merge_count_t mk_lang_bi_uint_t
+#define mk_sl_sort_merge_count_math_prefix mk_lang_bui_fedatacnt
+#define mk_sl_sort_merge_is_sorted mk_lib_fe_is_sorted
+#define mk_sl_sort_merge_proxy_t mk_lang_bi_sint_t
+#define mk_sl_sort_merge_first_round 0
+#include "mk_sl_sort_merge_inl_fileh.h"
+#include "mk_sl_sort_merge_inl_filec.h"
 
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_size_t mk_lib_fe_get_size(void) mk_lang_noexcept
@@ -1042,7 +1062,7 @@ static mk_lang_nodiscard mk_lang_inline mk_win_tstring_tchar_lpct mk_lib_fe_get_
 	return mk_sl_vector_fetchar_ro_get_data(&fe->m_str);
 }
 
-static mk_lang_inline void mk_lib_fe_timestamp_convert(mk_win_kernel_files_filetime_lpct const timestamp_win, mk_lib_fe_timestamp_lpt const timestamp_fe) mk_lang_noexcept
+static mk_lang_inline void mk_lib_fe_timestamp_convert(mk_win_kernel_time_file_time_lpct const timestamp_win, mk_lib_fe_timestamp_lpt const timestamp_fe) mk_lang_noexcept
 {
 	#define is_leap_year(x) (((x) % 4 == 0) && (((x) % 100 != 0) || ((x) % 400 == 0)))
 	#define number_of_days(x) ((((x) - 1ul) * s_days_in_year_normal) + (((x) - 1ul) / 4ul) - (((x) - 1ul) / 100ul) + (((x) - 1ul) / 400ul))
@@ -1295,114 +1315,24 @@ static mk_lang_nodiscard mk_lang_inline mk_lang_bool_t mk_lib_fe_is_sorted(mk_li
 	}
 }
 
-static mk_lang_inline void mk_lib_fe_sort_merge(mk_lib_fe_data_lpct const data, int_pct const input_a, int const cnt_a, int_pt const input_b, int const cnt_b, int_pt const output) mk_lang_noexcept
-{
-	int idx_a;
-	int idx_b;
-	int idx_o;
-
-	mk_lang_assert(data);
-	mk_lang_assert(input_a);
-	mk_lang_assert(cnt_a >= 1);
-	mk_lang_assert(input_b);
-	mk_lang_assert(cnt_b >= 1);
-	mk_lang_assert(output);
-	mk_lang_assert(!(input_a >= input_b && input_a < input_b + cnt_b));
-	mk_lang_assert(!(input_b >= input_a && input_b < input_a + cnt_a));
-	mk_lang_assert(!(input_a >= output && input_a < output + cnt_a + cnt_b));
-	mk_lang_assert(!(output >= input_a && output < input_a + cnt_a));
-	mk_lang_assert(!(input_b >= output && input_b < output + cnt_a + cnt_b));
-	mk_lang_assert(!(output >= input_b && output < input_b + cnt_b));
-
-	idx_a = 0;
-	idx_b = 0;
-	idx_o = 0;
-	while(idx_a != cnt_a && idx_b != cnt_b)
-	{
-		if(mk_lib_fe_is_sorted(&data[input_a[idx_a]], &data[input_b[idx_b]]))
-		{
-			output[idx_o++] = input_a[idx_a++];
-		}
-		else
-		{
-			output[idx_o++] = input_b[idx_b++];
-		}
-	}
-	while(idx_a != cnt_a)
-	{
-		output[idx_o++] = input_a[idx_a++];
-	}
-	while(idx_b != cnt_b)
-	{
-		output[idx_o++] = input_b[idx_b++];
-	}
-}
-
-static mk_lang_inline void mk_lib_fe_sort_recursive(mk_lib_fe_data_lpct const data, int_pt const input, int const cnt, int_pt const tmp, int_pt const output) mk_lang_noexcept
-{
-	int_pt begin_a;
-	int cnt_a;
-	int_pt tmp_a;
-	int_pt output_a;
-	int_pt begin_b;
-	int cnt_b;
-	int_pt tmp_b;
-	int_pt output_b;
-
-	mk_lang_assert(data);
-	mk_lang_assert(input);
-	mk_lang_assert(cnt >= 1);
-	mk_lang_assert(tmp);
-	mk_lang_assert(output);
-	mk_lang_assert(!(input >= tmp && input < tmp + cnt));
-	mk_lang_assert(!(tmp >= input && tmp < input + cnt));
-	mk_lang_assert(!(input >= output && input < output + cnt));
-	mk_lang_assert(!(output >= input && output < input + cnt));
-	mk_lang_assert(!(tmp >= output && tmp < output + cnt));
-	mk_lang_assert(!(output >= tmp && output < tmp + cnt));
-
-	if(cnt == 1)
-	{
-		output[0] = input[0];
-	}
-	else
-	{
-		begin_a = input;
-		cnt_a = cnt / 2;
-		tmp_a = tmp;
-		output_a = output;
-		begin_b = input + cnt_a;
-		cnt_b = cnt - cnt_a;
-		tmp_b = tmp + cnt_a;
-		output_b = output + cnt_a;
-		mk_lib_fe_sort_recursive(data, begin_a, cnt_a, output_a, tmp_a);
-		mk_lib_fe_sort_recursive(data, begin_b, cnt_b, output_b, tmp_b);
-		mk_lib_fe_sort_merge(data, tmp_a, cnt_a, tmp_b, cnt_b, output);
-	}
-}
-
 static mk_lang_inline void mk_lib_fe_sort(mk_lib_fe_lpt const fe) mk_lang_noexcept
 {
 	mk_lang_exception_t ex;
-	int n;
-	int_pt pi;
-	int i;
-	mk_lib_fe_data_lpct data;
+	mk_lang_size_t n;
+	mk_lang_bi_uint_t m;
+	mk_lang_bi_sint_pt proxy;
+	mk_lang_size_t i;
 
 	mk_lang_assert(fe);
 
 	mk_lang_exception_make_none(&ex);
-	n = ((int)(mk_sl_vector_fedata_ro_get_count(&fe->m_data)));
-	mk_sl_vector_feint_rw_reserve(&fe->m_sort, &ex, 3 * n);
+	n = mk_sl_vector_fedata_ro_get_count(&fe->m_data);
+	mk_lang_assert(n <= mk_lang_limits_size_max / 2);
+	mk_lang_assert(n <= ((mk_lang_size_t)(mk_lang_limits_sint_max)));
+	m = ((mk_lang_bi_uint_t)(n));
+	mk_sl_vector_feint_rw_resize(&fe->m_sort, &ex, 2 * n);
 	mk_lang_assert(!mk_lang_exception_is(&ex)); /* todo throw */
-	mk_sl_vector_feint_rw_clear(&fe->m_sort);
-	mk_sl_vector_feint_rw_push_back_from_capacity_n(&fe->m_sort, n);
-	pi = mk_sl_vector_feint_rw_get_data(&fe->m_sort);
-	for(i = 0; i != n; ++i){ pi[i] = i; }
-	if(n >= 2)
-	{
-		data = mk_sl_vector_fedata_ro_get_data(&fe->m_data);
-		mk_lib_fe_sort_recursive(data, pi, n, pi + n, pi + 2 * n);
-		for(i = 0; i != n; ++i){ pi[i] = pi[n * 2 + i]; }
-	}
+	proxy = mk_sl_vector_feint_rw_get_data(&fe->m_sort);
+	for(i = 0; i != n; ++i){ proxy[i] = ((mk_lang_bi_sint_t)(i)); }
+	mk_sl_sort_merge_fedata_proxy(mk_sl_vector_fedata_ro_get_data(&fe->m_data), proxy, m, proxy + n);
 }
