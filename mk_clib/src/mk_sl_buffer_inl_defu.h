@@ -1,3 +1,5 @@
+#undef mk_sl_buffer_inl_defd_prefix
+
 #undef mk_sl_buffer_inl_defd_buffer_s
 #undef mk_sl_buffer_inl_defd_buffer_t
 #undef mk_sl_buffer_inl_defd_buffer_ct
@@ -10,12 +12,13 @@
 #undef mk_sl_buffer_inl_defd_buffer_ro_is_empty
 #undef mk_sl_buffer_inl_defd_buffer_ro_get_data_at
 
-#undef mk_sl_buffer_inl_defd_buffer_rw_construct
 #undef mk_sl_buffer_inl_defd_buffer_rw_destroy
 #undef mk_sl_buffer_inl_defd_buffer_rw_get_data
 #undef mk_sl_buffer_inl_defd_buffer_rw_get_size
 #undef mk_sl_buffer_inl_defd_buffer_rw_is_empty
 #undef mk_sl_buffer_inl_defd_buffer_rw_get_data_at
+
+#undef mk_sl_buffer_inl_defd_buffer_rw_construct
 #undef mk_sl_buffer_inl_defd_buffer_rw_resize
 
 #undef mk_sl_buffer_inl_defd_mallocator_allocate
