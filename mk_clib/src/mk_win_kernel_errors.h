@@ -3334,9 +3334,21 @@ enum mk_win_kernel_errors_id_e
 };
 typedef enum mk_win_kernel_errors_id_e mk_win_kernel_errors_id_t;
 
+enum mk_win_kernel_errors_errmode_e
+{
+	mk_win_kernel_errors_errmode_e_default                = 0x0000u,
+	mk_win_kernel_errors_errmode_e_failcriticalerrors     = 0x0001u,
+	mk_win_kernel_errors_errmode_e_nogpfaulterrorbox      = 0x0002u,
+	mk_win_kernel_errors_errmode_e_noalignmentfaultexcept = 0x0004u,
+	mk_win_kernel_errors_errmode_e_noopenfileerrorbox     = 0x8000u,
+	mk_win_kernel_errors_errmode_e_dummy_end = 0
+};
+typedef enum mk_win_kernel_errors_errmode_e mk_win_kernel_errors_errmode_t;
+
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_dword_t mk_win_kernel_errors_get_last(void) mk_lang_noexcept;
 mk_lang_jumbo void mk_win_kernel_errors_set_last(mk_win_kernel_errors_id_t const err) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_uint_t mk_win_kernel_errors_set_errmode(mk_win_base_uint_t const errmode) mk_lang_noexcept;
 
 
 #if mk_lang_jumbo_want == 1
