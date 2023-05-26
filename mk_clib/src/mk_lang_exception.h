@@ -12,6 +12,7 @@ enum mk_lang_exception_id_e
 {
 	mk_lang_exception_id_e_none,
 	mk_lang_exception_id_e_out_of_memory,
+	mk_lang_exception_id_e_win_gle,
 	mk_lang_exception_id_e_dummy_end
 };
 typedef enum mk_lang_exception_id_e mk_lang_exception_id_t;
