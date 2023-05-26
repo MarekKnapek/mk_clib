@@ -5,6 +5,7 @@
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
+#include "mk_win_advapi_types.h"
 #include "mk_win_base.h"
 #include "mk_win_kernel_time.h"
 #include "mk_win_tstring.h"
@@ -196,6 +197,59 @@ typedef enum mk_win_kernel_files_attribute_e mk_win_kernel_files_attribute_t;
 #define mk_win_kernel_files_attribute_namet_e_unknown_31            mk_win_kernel_files_attribute_namea_e_unknown_31
 #endif
 
+enum mk_win_kernel_files_create_e
+{
+	mk_win_kernel_files_create_e_create_new        = 1,
+	mk_win_kernel_files_create_e_create_always     = 2,
+	mk_win_kernel_files_create_e_open_existing     = 3,
+	mk_win_kernel_files_create_e_open_always       = 4,
+	mk_win_kernel_files_create_e_truncate_existing = 5,
+	mk_win_kernel_files_create_e_dummy_end = 0
+};
+typedef enum mk_win_kernel_files_create_e mk_win_kernel_files_create_t;
+
+enum mk_win_kernel_files_flag_e
+{
+	mk_win_kernel_files_flag_e_open_requiring_oplock = 0x00040000ul,
+	mk_win_kernel_files_flag_e_first_pipe_instance   = 0x00080000ul,
+	mk_win_kernel_files_flag_e_open_no_recall        = 0x00100000ul,
+	mk_win_kernel_files_flag_e_open_reparse_point    = 0x00200000ul,
+	mk_win_kernel_files_flag_e_session_aware         = 0x00800000ul,
+	mk_win_kernel_files_flag_e_posix_semantics       = 0x01000000ul,
+	mk_win_kernel_files_flag_e_backup_semantics      = 0x02000000ul,
+	mk_win_kernel_files_flag_e_delete_on_close       = 0x04000000ul,
+	mk_win_kernel_files_flag_e_sequential_scan       = 0x08000000ul,
+	mk_win_kernel_files_flag_e_random_access         = 0x10000000ul,
+	mk_win_kernel_files_flag_e_no_buffering          = 0x20000000ul,
+	mk_win_kernel_files_flag_e_overlapped            = 0x40000000ul,
+	mk_win_kernel_files_flag_e_write_through         = 0x80000000ul,
+	mk_win_kernel_files_flag_e_dummy_end = 0
+};
+typedef enum mk_win_kernel_files_flag_e mk_win_kernel_files_flag_t;
+
+enum mk_win_kernel_files_share_e
+{
+	mk_win_kernel_files_share_e_read   = 0x00000001ul,
+	mk_win_kernel_files_share_e_write  = 0x00000002ul,
+	mk_win_kernel_files_share_e_delete = 0x00000004ul,
+	mk_win_kernel_files_share_e_dummy_end = 0
+};
+typedef enum mk_win_kernel_files_share_e mk_win_kernel_files_share_t;
+
+enum mk_win_kernel_files_sqos_e
+{
+	mk_win_kernel_files_sqos_e_anonymous        = 0x00000000ul,
+	mk_win_kernel_files_sqos_e_identification   = 0x00010000ul,
+	mk_win_kernel_files_sqos_e_impersonation    = 0x00020000ul,
+	mk_win_kernel_files_sqos_e_delegation       = 0x00030000ul,
+	mk_win_kernel_files_sqos_e_context_tracking = 0x00040000ul,
+	mk_win_kernel_files_sqos_e_effective_only   = 0x00080000ul,
+	mk_win_kernel_files_sqos_e_sqos_present     = 0x00100000ul,
+	mk_win_kernel_files_sqos_e_dummy_end = 0
+};
+typedef enum mk_win_kernel_files_sqos_e mk_win_kernel_files_sqos_t;
+
+
 #define s_mk_win_kernel_files_max_path 260
 
 
@@ -277,14 +331,17 @@ typedef mk_win_kernel_files_t_find_data_t mk_win_base_near const* mk_win_kernel_
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_uint_t mk_win_kernel_files_a_get_drive_type(mk_win_base_pchar_lpct const path) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_handle_t mk_win_kernel_files_a_find_first_file(mk_win_base_pchar_lpct const name, mk_win_kernel_files_a_find_data_lpt const data) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_kernel_files_a_find_next_file(mk_win_base_handle_t const handle, mk_win_kernel_files_a_find_data_lpt const data) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_handle_t mk_win_kernel_files_a_create_file(mk_win_base_pchar_lpct const file_name, mk_win_base_dword_t const desired_access, mk_win_base_dword_t const share_mode, mk_win_advapi_base_security_attributes_lpct const security_attributes, mk_win_base_dword_t const creation_disposition, mk_win_base_dword_t const flags_and_attributes, mk_win_base_handle_t const template_file) mk_lang_noexcept;
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_uint_t mk_win_kernel_files_w_get_drive_type(mk_win_base_wchar_lpct const path) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_handle_t mk_win_kernel_files_w_find_first_file(mk_win_base_wchar_lpct const name, mk_win_kernel_files_w_find_data_lpt const data) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_kernel_files_w_find_next_file(mk_win_base_handle_t const handle, mk_win_kernel_files_w_find_data_lpt const data) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_handle_t mk_win_kernel_files_w_create_file(mk_win_base_wchar_lpct const file_name, mk_win_base_dword_t const desired_access, mk_win_base_dword_t const share_mode, mk_win_advapi_base_security_attributes_lpct const security_attributes, mk_win_base_dword_t const creation_disposition, mk_win_base_dword_t const flags_and_attributes, mk_win_base_handle_t const template_file) mk_lang_noexcept;
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_uint_t mk_win_kernel_files_t_get_drive_type(mk_win_tstring_tchar_lpct const path) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_handle_t mk_win_kernel_files_t_find_first_file(mk_win_tstring_tchar_lpct const name, mk_win_kernel_files_t_find_data_lpt const data) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_kernel_files_t_find_next_file(mk_win_base_handle_t const handle, mk_win_kernel_files_t_find_data_lpt const data) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_handle_t mk_win_kernel_files_t_create_file(mk_win_tstring_tchar_lpct const file_name, mk_win_base_dword_t const desired_access, mk_win_base_dword_t const share_mode, mk_win_advapi_base_security_attributes_lpct const security_attributes, mk_win_base_dword_t const creation_disposition, mk_win_base_dword_t const flags_and_attributes, mk_win_base_handle_t const template_file) mk_lang_noexcept;
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_dword_t mk_win_kernel_files_get_logical_drives(void) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_kernel_files_find_close(mk_win_base_handle_t const handle) mk_lang_noexcept;

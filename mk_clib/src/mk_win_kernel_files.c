@@ -4,6 +4,7 @@
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
+#include "mk_win_advapi_types.h"
 #include "mk_win_base.h"
 #include "mk_win_tstring.h"
 
@@ -46,6 +47,14 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_kernel_files_a_find_ne
 	return found;
 }
 
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_handle_t mk_win_kernel_files_a_create_file(mk_win_base_pchar_lpct const file_name, mk_win_base_dword_t const desired_access, mk_win_base_dword_t const share_mode, mk_win_advapi_base_security_attributes_lpct const security_attributes, mk_win_base_dword_t const creation_disposition, mk_win_base_dword_t const flags_and_attributes, mk_win_base_handle_t const template_file) mk_lang_noexcept
+{
+	mk_win_base_handle_t file_handle;
+
+	file_handle = CreateFileA(file_name, desired_access, share_mode, security_attributes, creation_disposition, flags_and_attributes, template_file);
+	return file_handle;
+}
+
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_uint_t mk_win_kernel_files_w_get_drive_type(mk_win_base_wchar_lpct const path) mk_lang_noexcept
 {
@@ -69,6 +78,14 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_kernel_files_w_find_ne
 
 	found = FindNextFileW(handle, data);
 	return found;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_handle_t mk_win_kernel_files_w_create_file(mk_win_base_wchar_lpct const file_name, mk_win_base_dword_t const desired_access, mk_win_base_dword_t const share_mode, mk_win_advapi_base_security_attributes_lpct const security_attributes, mk_win_base_dword_t const creation_disposition, mk_win_base_dword_t const flags_and_attributes, mk_win_base_handle_t const template_file) mk_lang_noexcept
+{
+	mk_win_base_handle_t file_handle;
+
+	file_handle = CreateFileW(file_name, desired_access, share_mode, security_attributes, creation_disposition, flags_and_attributes, template_file);
+	return file_handle;
 }
 
 
@@ -192,6 +209,37 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_kernel_files_t_find_ne
 				mk_win_tstring_wide_to_tstr_buff_zt_nofail(dataw.m_name_83, data->m_name_83, ((int)(sizeof(data->m_name_83) / sizeof(data->m_name_83[0]))));
 			}
 			return found;
+		#endif
+	}
+#endif
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_handle_t mk_win_kernel_files_t_create_file(mk_win_tstring_tchar_lpct const file_name, mk_win_base_dword_t const desired_access, mk_win_base_dword_t const share_mode, mk_win_advapi_base_security_attributes_lpct const security_attributes, mk_win_base_dword_t const creation_disposition, mk_win_base_dword_t const flags_and_attributes, mk_win_base_handle_t const template_file) mk_lang_noexcept
+{
+#if mk_win_unicode_api == mk_win_unicode_api_oold
+#elif mk_win_unicode_api == mk_win_unicode_api_ansi && mk_win_tstring_enc == mk_win_tstring_enc_ansi
+	return mk_win_kernel_files_a_create_file(file_name, desired_access, share_mode, security_attributes, creation_disposition, flags_and_attributes, template_file);
+#elif mk_win_unicode_api == mk_win_unicode_api_ansi && mk_win_tstring_enc != mk_win_tstring_enc_ansi
+	return mk_win_kernel_files_a_create_file(mk_win_tstring_tstr_to_ansi_zt_nofail(file_name).m_str, desired_access, share_mode, security_attributes, creation_disposition, flags_and_attributes, template_file);
+#elif mk_win_unicode_api == mk_win_unicode_api_wide && mk_win_tstring_enc == mk_win_tstring_enc_wide
+	return mk_win_kernel_files_w_create_file(file_name, desired_access, share_mode, security_attributes, creation_disposition, flags_and_attributes, template_file);
+#elif mk_win_unicode_api == mk_win_unicode_api_wide && mk_win_tstring_enc != mk_win_tstring_enc_wide
+	return mk_win_kernel_files_w_create_file(mk_win_tstring_tstr_to_wide_zt_nofail(file_name).m_str, desired_access, share_mode, security_attributes, creation_disposition, flags_and_attributes, template_file);
+#elif mk_win_unicode_api == mk_win_unicode_api_both
+	if(!mk_win_unicode_api_is_wide())
+	{
+		#if mk_win_tstring_enc == mk_win_tstring_enc_ansi
+			return mk_win_kernel_files_a_create_file(file_name, desired_access, share_mode, security_attributes, creation_disposition, flags_and_attributes, template_file);
+		#else
+			return mk_win_kernel_files_a_create_file(mk_win_tstring_tstr_to_ansi_zt_nofail(file_name).m_str, desired_access, share_mode, security_attributes, creation_disposition, flags_and_attributes, template_file);
+		#endif
+	}
+	else
+	{
+		#if mk_win_tstring_enc == mk_win_tstring_enc_wide
+			return mk_win_kernel_files_w_create_file(file_name, desired_access, share_mode, security_attributes, creation_disposition, flags_and_attributes, template_file);
+		#else
+			return mk_win_kernel_files_w_create_file(mk_win_tstring_tstr_to_wide_zt_nofail(file_name).m_str, desired_access, share_mode, security_attributes, creation_disposition, flags_and_attributes, template_file);
 		#endif
 	}
 #endif
