@@ -66,7 +66,6 @@ struct mk_win_base_handle_instance_s; typedef struct mk_win_base_handle_instance
 #define mk_win_base_null mk_lang_null
 
 typedef void mk_win_base_void_t;
-typedef unsigned int mk_win_base_bool_t;
 typedef unsigned char mk_win_base_uchar_t;
 typedef unsigned short int mk_win_base_ushort_t;
 typedef signed short int mk_win_base_sshort_t;
@@ -76,9 +75,21 @@ typedef unsigned long int mk_win_base_ulong_t;
 typedef signed long int mk_win_base_slong_t;
 
 typedef unsigned short int mk_win_base_word_t;
+
 typedef unsigned int mk_win_base_dword_t;
+typedef mk_win_base_dword_t const mk_win_base_dword_ct;
+typedef mk_win_base_dword_t* mk_win_base_dword_pt;
+typedef mk_win_base_dword_t const* mk_win_base_dword_pct;
+typedef mk_win_base_dword_t mk_win_base_far* mk_win_base_dword_lpt;
+typedef mk_win_base_dword_t mk_win_base_far const* mk_win_base_dword_lpct;
+typedef mk_win_base_dword_t mk_win_base_near* mk_win_base_dword_npt;
+typedef mk_win_base_dword_t mk_win_base_near const* mk_win_base_dword_npct;
+#define mk_win_base_limits_dword_min ((mk_win_base_dword_t)(0))
+#define mk_win_base_limits_dword_max ((mk_win_base_dword_t)(((mk_win_base_dword_t)(0)) - ((mk_win_base_dword_t)(1))))
+
 typedef mk_win_base_uintptr_t mk_win_base_size_t;
 
+typedef unsigned int mk_win_base_bool_t;
 typedef mk_win_base_bool_t const mk_win_base_bool_ct;
 typedef mk_win_base_bool_t* mk_win_base_bool_pt;
 typedef mk_win_base_bool_t const* mk_win_base_bool_pct;
