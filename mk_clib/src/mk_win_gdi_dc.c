@@ -1,5 +1,6 @@
 #include "mk_win_gdi_dc.h"
 
+#include "mk_lang_cpp.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
@@ -9,21 +10,21 @@
 #include "mk_win_unicode_api.h"
 
 
-mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall GetTextExtentPoint32A(mk_win_gdi_dc_t, mk_win_base_pchar_lpct, int, mk_win_base_sizer_lpt) mk_lang_noexcept;
-mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall ExtTextOutA(mk_win_gdi_dc_t, int, int, mk_win_base_uint_t, mk_win_base_rect_lpct, mk_win_base_pchar_lpct, mk_win_base_uint_t, mk_win_base_sint_lpct) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall GetTextExtentPoint32A(mk_win_gdi_dc_t, mk_win_base_pchar_lpct, int, mk_win_base_sizer_lpt) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall ExtTextOutA(mk_win_gdi_dc_t, int, int, mk_win_base_uint_t, mk_win_base_rect_lpct, mk_win_base_pchar_lpct, mk_win_base_uint_t, mk_win_base_sint_lpct) mk_lang_noexcept;
 
-mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall GetTextExtentPoint32W(mk_win_gdi_dc_t, mk_win_base_wchar_lpct, int, mk_win_base_sizer_lpt) mk_lang_noexcept;
-mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall ExtTextOutW(mk_win_gdi_dc_t, int, int, mk_win_base_uint_t, mk_win_base_rect_lpct, mk_win_base_wchar_lpct, mk_win_base_uint_t, mk_win_base_sint_lpct) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall GetTextExtentPoint32W(mk_win_gdi_dc_t, mk_win_base_wchar_lpct, int, mk_win_base_sizer_lpt) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall ExtTextOutW(mk_win_gdi_dc_t, int, int, mk_win_base_uint_t, mk_win_base_rect_lpct, mk_win_base_wchar_lpct, mk_win_base_uint_t, mk_win_base_sint_lpct) mk_lang_noexcept;
 
-mk_win_base_dll_import mk_win_gdi_dc_t mk_win_base_stdcall CreateCompatibleDC(mk_win_gdi_dc_t) mk_lang_noexcept;
-mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall DeleteDC(mk_win_gdi_dc_t) mk_lang_noexcept;
-mk_win_base_dll_import mk_win_gdi_object_t mk_win_base_stdcall SelectObject(mk_win_gdi_dc_t, mk_win_gdi_object_t) mk_lang_noexcept;
-mk_win_base_dll_import int mk_win_base_stdcall SetBkMode(mk_win_gdi_dc_t, int) mk_lang_noexcept;
-mk_win_base_dll_import int mk_win_base_stdcall FillRect(mk_win_gdi_dc_t, mk_win_base_rect_lpct, mk_win_user_brush_t) mk_lang_noexcept;
-mk_win_base_dll_import int mk_win_base_stdcall FrameRect(mk_win_gdi_dc_t, mk_win_base_rect_lpct, mk_win_user_brush_t) mk_lang_noexcept;
-mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall DrawFocusRect(mk_win_gdi_dc_t, mk_win_base_rect_lpct) mk_lang_noexcept;
-mk_win_base_dll_import mk_win_base_dword_t mk_win_base_stdcall SetTextColor(mk_win_gdi_dc_t, mk_win_base_dword_t) mk_lang_noexcept;
-mk_win_base_dll_import mk_win_base_dword_t mk_win_base_stdcall SetBkColor(mk_win_gdi_dc_t, mk_win_base_dword_t) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_win_gdi_dc_t mk_win_base_stdcall CreateCompatibleDC(mk_win_gdi_dc_t) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall DeleteDC(mk_win_gdi_dc_t) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_win_gdi_object_t mk_win_base_stdcall SelectObject(mk_win_gdi_dc_t, mk_win_gdi_object_t) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import int mk_win_base_stdcall SetBkMode(mk_win_gdi_dc_t, int) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import int mk_win_base_stdcall FillRect(mk_win_gdi_dc_t, mk_win_base_rect_lpct, mk_win_user_brush_t) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import int mk_win_base_stdcall FrameRect(mk_win_gdi_dc_t, mk_win_base_rect_lpct, mk_win_user_brush_t) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall DrawFocusRect(mk_win_gdi_dc_t, mk_win_base_rect_lpct) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_win_base_dword_t mk_win_base_stdcall SetTextColor(mk_win_gdi_dc_t, mk_win_base_dword_t) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_win_base_dword_t mk_win_base_stdcall SetBkColor(mk_win_gdi_dc_t, mk_win_base_dword_t) mk_lang_noexcept;
 
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_gdi_dc_a_get_text_extent_point_32(mk_win_gdi_dc_t const dc, mk_win_base_pchar_lpct const text, int const text_len, mk_win_base_sizer_lpt const size) mk_lang_noexcept

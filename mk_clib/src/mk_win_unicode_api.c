@@ -4,6 +4,7 @@
 
 #include "mk_lang_assert.h"
 #include "mk_lang_bool.h"
+#include "mk_lang_cpp.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
@@ -12,7 +13,7 @@
 
 
 struct mk_win_user_icon_handle_s; typedef struct mk_win_user_icon_handle_s mk_win_user_icon_handle_t; typedef mk_win_user_icon_handle_t const* mk_win_user_icon_t;
-mk_win_base_dll_import mk_win_user_icon_t mk_win_base_stdcall LoadIconW(mk_win_sal_in_opt mk_win_base_instance_t, mk_win_sal_in mk_win_base_wchar_lpct) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_win_user_icon_t mk_win_base_stdcall LoadIconW(mk_win_sal_in_opt mk_win_base_instance_t, mk_win_sal_in mk_win_base_wchar_lpct) mk_lang_noexcept;
 
 
 enum mk_win_unicode_api_is_wide_e

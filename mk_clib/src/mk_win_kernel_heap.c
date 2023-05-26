@@ -1,19 +1,20 @@
 #include "mk_win_kernel_heap.h"
 
 #include "mk_lang_assert.h"
+#include "mk_lang_cpp.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_sizet.h"
 #include "mk_win_base.h"
 
 
-mk_win_base_dll_import mk_win_base_handle_t mk_win_base_stdcall GetProcessHeap(void) mk_lang_noexcept;
-mk_win_base_dll_import mk_win_base_handle_t mk_win_base_stdcall HeapCreate(mk_win_base_dword_t, mk_lang_size_t, mk_lang_size_t) mk_lang_noexcept;
-mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall HeapDestroy(mk_win_base_handle_t) mk_lang_noexcept;
-mk_win_base_dll_import mk_win_base_void_lpt mk_win_base_stdcall HeapAlloc(mk_win_base_handle_t, mk_win_base_dword_t, mk_lang_size_t) mk_lang_noexcept;
-mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall HeapFree(mk_win_base_handle_t, mk_win_base_dword_t, mk_win_base_void_lpct) mk_lang_noexcept;
-mk_win_base_dll_import mk_lang_size_t mk_win_base_stdcall HeapSize(mk_win_base_handle_t, mk_win_base_dword_t, mk_win_base_void_lpct) mk_lang_noexcept;
-mk_win_base_dll_import mk_win_base_void_lpt mk_win_base_stdcall HeapReAlloc(mk_win_base_handle_t, mk_win_base_dword_t, mk_win_base_void_lpct, mk_lang_size_t) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_win_base_handle_t mk_win_base_stdcall GetProcessHeap(void) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_win_base_handle_t mk_win_base_stdcall HeapCreate(mk_win_base_dword_t, mk_lang_size_t, mk_lang_size_t) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall HeapDestroy(mk_win_base_handle_t) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_win_base_void_lpt mk_win_base_stdcall HeapAlloc(mk_win_base_handle_t, mk_win_base_dword_t, mk_lang_size_t) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall HeapFree(mk_win_base_handle_t, mk_win_base_dword_t, mk_win_base_void_lpct) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_lang_size_t mk_win_base_stdcall HeapSize(mk_win_base_handle_t, mk_win_base_dword_t, mk_win_base_void_lpct) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_win_base_void_lpt mk_win_base_stdcall HeapReAlloc(mk_win_base_handle_t, mk_win_base_dword_t, mk_win_base_void_lpct, mk_lang_size_t) mk_lang_noexcept;
 
 
 mk_lang_jumbo mk_win_base_handle_t mk_win_kernel_heap_get_process(void) mk_lang_noexcept

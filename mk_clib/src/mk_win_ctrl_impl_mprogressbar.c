@@ -3,6 +3,7 @@
 #include "mk_lang_assert.h"
 #include "mk_lang_bool.h"
 #include "mk_lang_clobber.h"
+#include "mk_lang_cpp.h"
 #include "mk_lang_exception.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
@@ -33,7 +34,7 @@ static mk_lang_inline void mk_win_ctrl_impl_mprogressbar_on_msg(mk_win_ctrl_impl
 static mk_win_user_window_lresult_t mk_win_base_stdcall mk_win_ctrl_impl_mprogressbar_wndproc(mk_win_user_window_t const window, mk_win_base_uint_t const message_uint, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam) mk_lang_noexcept;
 
 
-mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall InvalidateRect(mk_win_user_window_t, mk_win_base_rect_lpct, mk_lang_bool_t) mk_lang_noexcept; /* todo move somewhere else */
+mk_lang_extern_c mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall InvalidateRect(mk_win_user_window_t, mk_win_base_rect_lpct, mk_lang_bool_t) mk_lang_noexcept; /* todo move somewhere else */
 
 
 static mk_win_kernel_atom_t g_mk_win_ctrl_impl_mprogressbar_atom;

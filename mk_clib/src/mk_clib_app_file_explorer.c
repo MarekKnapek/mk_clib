@@ -5,6 +5,7 @@
 #include "mk_lang_bool.h"
 #include "mk_lang_charbit.h"
 #include "mk_lang_clobber.h"
+#include "mk_lang_cpp.h"
 #include "mk_lang_exception.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
@@ -83,8 +84,8 @@ typedef mk_clib_app_file_explorer_context_t mk_win_base_near const* mk_clib_app_
 #endif
 
 
-mk_win_base_dll_import void mk_win_base_stdcall InitCommonControls(void) mk_lang_noexcept; /* todo move to commctrls */
-mk_win_base_dll_import mk_win_base_dword_t mk_win_base_stdcall GetTickCount(void) mk_lang_noexcept; /* todo move to time */
+mk_lang_extern_c mk_win_base_dll_import void mk_win_base_stdcall InitCommonControls(void) mk_lang_noexcept; /* todo move to commctrls */
+mk_lang_extern_c mk_win_base_dll_import mk_win_base_dword_t mk_win_base_stdcall GetTickCount(void) mk_lang_noexcept; /* todo move to time */
 
 
 #define s_timer_id 42

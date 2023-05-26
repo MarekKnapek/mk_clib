@@ -3,6 +3,7 @@
 #include "mk_lang_assert.h"
 #include "mk_lang_bool.h"
 #include "mk_lang_clobber.h"
+#include "mk_lang_cpp.h"
 #include "mk_lang_crash.h"
 #include "mk_lang_exception.h"
 #include "mk_lang_inline.h"
@@ -54,8 +55,8 @@ enum mk_win_tstring_flags_wc_e
 typedef enum mk_win_tstring_flags_wc_e mk_win_tstring_flags_wc_t;
 
 
-mk_win_base_dll_import int mk_win_base_stdcall MultiByteToWideChar(mk_win_base_uint_t, mk_win_base_dword_t, mk_win_base_pchar_lpct, int, mk_win_base_wchar_lpt, int) mk_lang_noexcept;
-mk_win_base_dll_import int mk_win_base_stdcall WideCharToMultiByte(mk_win_base_uint_t, mk_win_base_dword_t, mk_win_base_wchar_lpct, int, mk_win_base_pchar_lpt, int, mk_win_base_pchar_lpct, mk_win_base_bool_lpt) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import int mk_win_base_stdcall MultiByteToWideChar(mk_win_base_uint_t, mk_win_base_dword_t, mk_win_base_pchar_lpct, int, mk_win_base_wchar_lpt, int) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import int mk_win_base_stdcall WideCharToMultiByte(mk_win_base_uint_t, mk_win_base_dword_t, mk_win_base_wchar_lpct, int, mk_win_base_pchar_lpt, int, mk_win_base_pchar_lpct, mk_win_base_bool_lpt) mk_lang_noexcept;
 
 
 #if defined _MSC_VER && _MSC_VER == 1936

@@ -1,6 +1,7 @@
 #include "mk_clib_app_simple_window.h"
 
 #include "mk_lang_assert.h"
+#include "mk_lang_cpp.h"
 #include "mk_lang_exception.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
@@ -52,8 +53,8 @@ typedef mk_clib_app_simple_window_context_t mk_win_base_near* mk_clib_app_simple
 typedef mk_clib_app_simple_window_context_t mk_win_base_near const* mk_clib_app_simple_window_context_npct;
 
 
-mk_win_base_dll_import void mk_win_base_stdcall InitCommonControls(void) mk_lang_noexcept; /* todo move to commctrls */
-mk_win_base_dll_import mk_win_base_dword_t mk_win_base_stdcall GetTickCount(void) mk_lang_noexcept; /* todo move to time */
+mk_lang_extern_c mk_win_base_dll_import void mk_win_base_stdcall InitCommonControls(void) mk_lang_noexcept; /* todo move to commctrls */
+mk_lang_extern_c mk_win_base_dll_import mk_win_base_dword_t mk_win_base_stdcall GetTickCount(void) mk_lang_noexcept; /* todo move to time */
 
 
 static mk_lang_inline void mk_clib_app_simple_window_on_msg_create(mk_clib_app_simple_window_context_lpt const context, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_t* const override_lres, mk_win_user_window_lresult_t* const lres) mk_lang_noexcept;

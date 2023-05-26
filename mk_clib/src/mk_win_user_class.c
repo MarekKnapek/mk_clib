@@ -1,6 +1,7 @@
 #include "mk_win_user_class.h"
 
 #include "mk_lang_assert.h"
+#include "mk_lang_cpp.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_sizet.h"
@@ -11,11 +12,11 @@
 #include "mk_win_unicode_api.h"
 
 
-mk_win_base_dll_import mk_win_kernel_atom_t mk_win_base_stdcall RegisterClassA(mk_win_sal_in mk_win_user_class_a_lpct) mk_lang_noexcept;
-mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall UnregisterClassA(mk_win_sal_in mk_win_base_pchar_lpct, mk_win_sal_in_opt mk_win_base_instance_t) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_win_kernel_atom_t mk_win_base_stdcall RegisterClassA(mk_win_sal_in mk_win_user_class_a_lpct) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall UnregisterClassA(mk_win_sal_in mk_win_base_pchar_lpct, mk_win_sal_in_opt mk_win_base_instance_t) mk_lang_noexcept;
 
-mk_win_base_dll_import mk_win_kernel_atom_t mk_win_base_stdcall RegisterClassW(mk_win_sal_in mk_win_user_class_w_lpct) mk_lang_noexcept;
-mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall UnregisterClassW(mk_win_sal_in mk_win_base_wchar_lpct, mk_win_sal_in_opt mk_win_base_instance_t) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_win_kernel_atom_t mk_win_base_stdcall RegisterClassW(mk_win_sal_in mk_win_user_class_w_lpct) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall UnregisterClassW(mk_win_sal_in mk_win_base_wchar_lpct, mk_win_sal_in_opt mk_win_base_instance_t) mk_lang_noexcept;
 
 
 mk_lang_jumbo mk_win_kernel_atom_t mk_win_user_class_a_register(mk_win_user_class_a_lpct klass) mk_lang_noexcept

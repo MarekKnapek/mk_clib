@@ -1,5 +1,6 @@
 #include "mk_win_user_icon.h"
 
+#include "mk_lang_cpp.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
 #include "mk_win_base.h"
@@ -8,8 +9,8 @@
 #include "mk_win_unicode_api.h"
 
 
-mk_win_base_dll_import mk_win_user_icon_t mk_win_base_stdcall LoadIconA(mk_win_sal_in_opt mk_win_base_instance_t, mk_win_sal_in mk_win_base_pchar_lpct) mk_lang_noexcept;
-mk_win_base_dll_import mk_win_user_icon_t mk_win_base_stdcall LoadIconW(mk_win_sal_in_opt mk_win_base_instance_t, mk_win_sal_in mk_win_base_wchar_lpct) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_win_user_icon_t mk_win_base_stdcall LoadIconA(mk_win_sal_in_opt mk_win_base_instance_t, mk_win_sal_in mk_win_base_pchar_lpct) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_win_user_icon_t mk_win_base_stdcall LoadIconW(mk_win_sal_in_opt mk_win_base_instance_t, mk_win_sal_in mk_win_base_wchar_lpct) mk_lang_noexcept;
 
 
 mk_lang_jumbo mk_win_user_icon_t mk_win_user_icon_a_load_by_name(mk_win_base_instance_t const instance, mk_win_base_pchar_lpct const name) mk_lang_noexcept

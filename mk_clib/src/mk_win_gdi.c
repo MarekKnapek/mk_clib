@@ -1,5 +1,6 @@
 #include "mk_win_gdi.h"
 
+#include "mk_lang_cpp.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
 #include "mk_win_base.h"
@@ -7,8 +8,8 @@
 #include "mk_win_unicode_api.h"
 
 
-mk_win_base_dll_import int mk_win_base_stdcall GetObjectA(mk_win_base_handle_t, int, mk_win_base_void_lpt) mk_lang_noexcept;
-mk_win_base_dll_import int mk_win_base_stdcall GetObjectW(mk_win_base_handle_t, int, mk_win_base_void_lpt) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import int mk_win_base_stdcall GetObjectA(mk_win_base_handle_t, int, mk_win_base_void_lpt) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import int mk_win_base_stdcall GetObjectW(mk_win_base_handle_t, int, mk_win_base_void_lpt) mk_lang_noexcept;
 
 
 mk_lang_jumbo int mk_win_gdi_a_get_object(mk_win_base_handle_t const handle, int const size_bytes, mk_win_base_void_lpt const output) mk_lang_noexcept

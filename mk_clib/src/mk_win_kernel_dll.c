@@ -1,6 +1,7 @@
 #include "mk_win_kernel_dll.h"
 
 #include "mk_lang_assert.h"
+#include "mk_lang_cpp.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
@@ -11,13 +12,13 @@
 #include "mk_win_unicode_api.h"
 
 
-mk_win_base_dll_import mk_win_kernel_dll_module_t mk_win_base_stdcall GetModuleHandleA(mk_win_base_pchar_lpct) mk_lang_noexcept;
-mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall GetModuleHandleExA(mk_win_base_dword_t, mk_win_base_pchar_lpct, mk_win_kernel_dll_module_lpt) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_win_kernel_dll_module_t mk_win_base_stdcall GetModuleHandleA(mk_win_base_pchar_lpct) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall GetModuleHandleExA(mk_win_base_dword_t, mk_win_base_pchar_lpct, mk_win_kernel_dll_module_lpt) mk_lang_noexcept;
 
-mk_win_base_dll_import mk_win_kernel_dll_module_t mk_win_base_stdcall GetModuleHandleW(mk_win_base_wchar_lpct) mk_lang_noexcept;
-mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall GetModuleHandleExW(mk_win_base_dword_t, mk_win_base_wchar_lpct, mk_win_kernel_dll_module_lpt) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_win_kernel_dll_module_t mk_win_base_stdcall GetModuleHandleW(mk_win_base_wchar_lpct) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall GetModuleHandleExW(mk_win_base_dword_t, mk_win_base_wchar_lpct, mk_win_kernel_dll_module_lpt) mk_lang_noexcept;
 
-mk_win_base_dll_import mk_win_base_proc_t mk_win_base_stdcall GetProcAddress(mk_win_kernel_dll_module_t, mk_win_base_pchar_lpct) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_win_base_proc_t mk_win_base_stdcall GetProcAddress(mk_win_kernel_dll_module_t, mk_win_base_pchar_lpct) mk_lang_noexcept;
 
 
 typedef mk_win_base_bool_t(mk_win_base_far mk_win_base_stdcall*mk_win_kernel_dll_GetModuleHandleExA)(mk_win_base_dword_t, mk_win_base_pchar_lpct, mk_win_kernel_dll_module_lpt) mk_lang_noexcept;

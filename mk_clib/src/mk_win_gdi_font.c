@@ -1,5 +1,6 @@
 #include "mk_win_gdi_font.h"
 
+#include "mk_lang_cpp.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
@@ -8,8 +9,8 @@
 #include "mk_win_unicode_api.h"
 
 
-mk_win_base_dll_import mk_win_base_handle_t mk_win_base_stdcall CreateFontIndirectA(mk_win_gdi_font_a_lpct) mk_lang_noexcept;
-mk_win_base_dll_import mk_win_base_handle_t mk_win_base_stdcall CreateFontIndirectW(mk_win_gdi_font_w_lpct) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_win_base_handle_t mk_win_base_stdcall CreateFontIndirectA(mk_win_gdi_font_a_lpct) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_win_base_handle_t mk_win_base_stdcall CreateFontIndirectW(mk_win_gdi_font_w_lpct) mk_lang_noexcept;
 
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_handle_t mk_win_gdi_font_a_create_indirect(mk_win_gdi_font_a_lpct const font) mk_lang_noexcept

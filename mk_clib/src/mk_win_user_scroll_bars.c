@@ -1,17 +1,18 @@
 #include "mk_win_user_scroll_bars.h"
 
+#include "mk_lang_cpp.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_win_base.h"
 
 
-mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall ShowScrollBar(mk_win_user_window_t, int, mk_win_base_bool_t) mk_lang_noexcept;
-mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall EnableScrollBar(mk_win_user_window_t, mk_win_base_uint_t, mk_win_base_uint_t) mk_lang_noexcept;
-mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall SetScrollRange(mk_win_user_window_t, int, int, int, mk_win_base_bool_t) mk_lang_noexcept;
-mk_win_base_dll_import int mk_win_base_stdcall SetScrollPos(mk_win_user_window_t, int, int, mk_win_base_bool_t) mk_lang_noexcept;
-mk_win_base_dll_import int mk_win_base_stdcall GetScrollPos(mk_win_user_window_t, int) mk_lang_noexcept;
-mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall ScrollWindow(mk_win_user_window_t, int, int, mk_win_base_rect_lpct, mk_win_base_rect_lpct) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall ShowScrollBar(mk_win_user_window_t, int, mk_win_base_bool_t) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall EnableScrollBar(mk_win_user_window_t, mk_win_base_uint_t, mk_win_base_uint_t) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall SetScrollRange(mk_win_user_window_t, int, int, int, mk_win_base_bool_t) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import int mk_win_base_stdcall SetScrollPos(mk_win_user_window_t, int, int, mk_win_base_bool_t) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import int mk_win_base_stdcall GetScrollPos(mk_win_user_window_t, int) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall ScrollWindow(mk_win_user_window_t, int, int, mk_win_base_rect_lpct, mk_win_base_rect_lpct) mk_lang_noexcept;
 
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_user_scroll_bars_show(mk_win_user_window_t const window, mk_win_user_scroll_bars_id_t const id, mk_win_base_bool_t const show) mk_lang_noexcept

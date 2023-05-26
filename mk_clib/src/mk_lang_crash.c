@@ -1,14 +1,15 @@
 #include "mk_lang_crash.h"
 
+#include "mk_lang_cpp.h"
 #include "mk_lang_jumbo.h"
+#include "mk_lang_noexcept.h"
 #include "mk_lang_noreturn.h"
 #include "mk_lang_null.h"
-#include "mk_lang_noexcept.h"
 
 #if mk_lang_crash_detail_impl
 #include "mk_win_base.h"
 struct mk_win_user_window_handle_s; typedef struct mk_win_user_window_handle_s mk_win_user_window_handle_t; typedef mk_win_user_window_handle_t const* mk_win_user_window_t;
-mk_win_base_dll_import int mk_win_base_stdcall MessageBoxA(mk_win_user_window_t, mk_win_base_pchar_lpct, mk_win_base_pchar_lpct, mk_win_base_uint_t) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import int mk_win_base_stdcall MessageBoxA(mk_win_user_window_t, mk_win_base_pchar_lpct, mk_win_base_pchar_lpct, mk_win_base_uint_t) mk_lang_noexcept;
 #else
 #endif
 
