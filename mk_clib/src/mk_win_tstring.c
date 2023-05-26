@@ -731,10 +731,10 @@ mk_lang_jumbo void mk_win_tstring_wide_to_ansi_sz_wmws(mk_lang_exception_pt cons
 	mk_lang_assert(converted1 >= 2);
 	mk_win_tstring_resize_mws(ex, mws, converted1 * sizeof(mk_win_base_pchar_t));
 	mk_lang_exception_if_is_return(ex);
-	converted2 = mk_win_tstring_wide_to_ansi_my(mk_win_tstring_cp_e_acp, mk_win_tstring_flags_wc_e_no_best_fit_chars, wide, wide_len_elements, mws->m_mem, converted1, &s_default, &defaulted);
+	converted2 = mk_win_tstring_wide_to_ansi_my(mk_win_tstring_cp_e_acp, mk_win_tstring_flags_wc_e_no_best_fit_chars, wide, wide_len_elements, ((mk_win_base_pchar_lpt)(mws->m_mem)), converted1, &s_default, &defaulted);
 	mk_lang_assert(converted2 == converted1);
 	((void)(defaulted));
-	ansi->m_str = mws->m_mem;
+	ansi->m_str = ((mk_win_base_pchar_lpct)(mws->m_mem));
 	ansi->m_length_elements = converted1;
 }
 
@@ -777,9 +777,9 @@ mk_lang_jumbo void mk_win_tstring_ansi_to_wide_sz_wmws(mk_lang_exception_pt cons
 	mk_lang_assert(converted1 >= 1);
 	mk_win_tstring_resize_mws(ex, mws, converted1 * sizeof(mk_win_base_wchar_t));
 	mk_lang_exception_if_is_return(ex);
-	converted2 = mk_win_tstring_ansi_to_wide_my(mk_win_tstring_cp_e_acp, mk_win_tstring_flags_mb_e_none, ansi, ansi_len_elements, mws->m_mem, converted1);
+	converted2 = mk_win_tstring_ansi_to_wide_my(mk_win_tstring_cp_e_acp, mk_win_tstring_flags_mb_e_none, ansi, ansi_len_elements, ((mk_win_base_wchar_lpt)(mws->m_mem)), converted1);
 	mk_lang_assert(converted2 == converted1);
-	wide->m_str = mws->m_mem;
+	wide->m_str = ((mk_win_base_wchar_lpct)(mws->m_mem));
 	wide->m_length_elements = converted1;
 }
 
@@ -796,9 +796,9 @@ mk_lang_jumbo void mk_win_tstring_utf8_to_wide_sz_wmws(mk_lang_exception_pt cons
 	mk_lang_assert(converted1 >= 1);
 	mk_win_tstring_resize_mws(ex, mws, converted1 * sizeof(mk_win_base_wchar_t));
 	mk_lang_exception_if_is_return(ex);
-	converted2 = mk_win_tstring_ansi_to_wide_my(mk_win_tstring_cp_e_utf8, mk_win_tstring_flags_mb_e_none, utf8, utf8_len_elements, mws->m_mem, converted1);
+	converted2 = mk_win_tstring_ansi_to_wide_my(mk_win_tstring_cp_e_utf8, mk_win_tstring_flags_mb_e_none, utf8, utf8_len_elements, ((mk_win_base_wchar_lpt)(mws->m_mem)), converted1);
 	mk_lang_assert(converted2 == converted1);
-	wide->m_str = mws->m_mem;
+	wide->m_str = ((mk_win_base_wchar_lpct)(mws->m_mem));
 	wide->m_length_elements = converted1;
 }
 
@@ -914,10 +914,10 @@ mk_lang_jumbo void mk_win_tstring_wide_to_ansi_zt_wmws(mk_lang_exception_pt cons
 	mk_lang_assert(converted1 >= 2);
 	mk_win_tstring_resize_mws(ex, mws, converted1 * sizeof(mk_win_base_pchar_t));
 	mk_lang_exception_if_is_return(ex);
-	converted2 = mk_win_tstring_wide_to_ansi_my(mk_win_tstring_cp_e_acp, mk_win_tstring_flags_wc_e_no_best_fit_chars, wide, -1, mws->m_mem, converted1, &s_default, &defaulted);
+	converted2 = mk_win_tstring_wide_to_ansi_my(mk_win_tstring_cp_e_acp, mk_win_tstring_flags_wc_e_no_best_fit_chars, wide, -1, ((mk_win_base_pchar_lpt)(mws->m_mem)), converted1, &s_default, &defaulted);
 	mk_lang_assert(converted2 == converted1);
 	((void)(defaulted));
-	ansi->m_str = mws->m_mem;
+	ansi->m_str = ((mk_win_base_pchar_lpct)(mws->m_mem));
 	ansi->m_length_elements = converted1;
 }
 
@@ -949,7 +949,7 @@ mk_lang_jumbo void mk_win_tstring_asci_to_wide_zt_wmws(mk_lang_exception_pt cons
 	mk_win_tstring_resize_mws(ex, mws, n * sizeof(mk_win_base_wchar_t));
 	mk_lang_exception_if_is_return(ex);
 	for(i = 0; i != n; ++i) { ((mk_win_base_wchar_lpt)(mws->m_mem))[i] = ((mk_win_base_wchar_t)(asci[i])); }
-	wide->m_str = mws->m_mem;
+	wide->m_str = ((mk_win_base_wchar_lpct)(mws->m_mem));
 	wide->m_length_elements = n;
 }
 
@@ -978,9 +978,9 @@ mk_lang_jumbo void mk_win_tstring_ansi_to_wide_zt_wmws(mk_lang_exception_pt cons
 	mk_lang_assert(converted1 >= 2);
 	mk_win_tstring_resize_mws(ex, mws, converted1 * sizeof(mk_win_base_wchar_t));
 	mk_lang_exception_if_is_return(ex);
-	converted2 = mk_win_tstring_ansi_to_wide_my(mk_win_tstring_cp_e_acp, mk_win_tstring_flags_mb_e_none, ansi, -1, mws->m_mem, converted1);
+	converted2 = mk_win_tstring_ansi_to_wide_my(mk_win_tstring_cp_e_acp, mk_win_tstring_flags_mb_e_none, ansi, -1, ((mk_win_base_wchar_lpt)(mws->m_mem)), converted1);
 	mk_lang_assert(converted2 == converted1);
-	wide->m_str = mws->m_mem;
+	wide->m_str = ((mk_win_base_wchar_lpct)(mws->m_mem));
 	wide->m_length_elements = converted1;
 }
 
@@ -1009,9 +1009,9 @@ mk_lang_jumbo void mk_win_tstring_utf8_to_wide_zt_wmws(mk_lang_exception_pt cons
 	mk_lang_assert(converted1 >= 2);
 	mk_win_tstring_resize_mws(ex, mws, converted1 * sizeof(mk_win_base_wchar_t));
 	mk_lang_exception_if_is_return(ex);
-	converted2 = mk_win_tstring_ansi_to_wide_my(mk_win_tstring_cp_e_utf8, mk_win_tstring_flags_mb_e_none, utf8, -1, mws->m_mem, converted1);
+	converted2 = mk_win_tstring_ansi_to_wide_my(mk_win_tstring_cp_e_utf8, mk_win_tstring_flags_mb_e_none, utf8, -1, ((mk_win_base_wchar_lpt)(mws->m_mem)), converted1);
 	mk_lang_assert(converted2 == converted1);
-	wide->m_str = mws->m_mem;
+	wide->m_str = ((mk_win_base_wchar_lpct)(mws->m_mem));
 	wide->m_length_elements = converted1;
 }
 
@@ -1087,7 +1087,7 @@ mk_lang_jumbo void mk_win_tstring_asci_to_utf8_zt_wmws(mk_lang_exception_pt cons
 	mk_win_tstring_resize_mws(ex, mws, n * sizeof(mk_win_base_pchar_t));
 	mk_lang_exception_if_is_return(ex);
 	for(i = 0; i != n; ++i) { ((mk_win_base_pchar_lpt)(mws->m_mem))[i] = asci[i]; }
-	utf8->m_str = mws->m_mem;
+	utf8->m_str = ((mk_win_base_pchar_lpct)(mws->m_mem));
 	utf8->m_length_elements = n;
 }
 
@@ -1536,7 +1536,7 @@ mk_lang_jumbo void mk_win_tstring_allocate_ansi_ex(mk_lang_exception_pt const ex
 	mws = mk_win_tstring_get_next_mws();
 	mk_win_tstring_resize_mws(ex, mws, ansi_len_elements * ((int)(sizeof(mk_win_base_pchar_t))));
 	mk_lang_exception_if_is_return(ex);
-	*ansi = mws->m_mem;
+	*ansi = ((mk_win_base_pchar_lpt)(mws->m_mem));
 }
 
 mk_lang_jumbo void mk_win_tstring_allocate_wide_ex(mk_lang_exception_pt const ex, int const wide_len_elements, mk_win_base_wchar_lpt* const wide) mk_lang_noexcept
@@ -1550,7 +1550,7 @@ mk_lang_jumbo void mk_win_tstring_allocate_wide_ex(mk_lang_exception_pt const ex
 	mws = mk_win_tstring_get_next_mws();
 	mk_win_tstring_resize_mws(ex, mws, wide_len_elements * ((int)(sizeof(mk_win_base_wchar_t))));
 	mk_lang_exception_if_is_return(ex);
-	*wide = mws->m_mem;
+	*wide = ((mk_win_base_wchar_lpt)(mws->m_mem));
 }
 
 
