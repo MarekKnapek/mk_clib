@@ -345,6 +345,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_handle_t mk_win_kernel_files_t_creat
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_dword_t mk_win_kernel_files_get_logical_drives(void) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_kernel_files_find_close(mk_win_base_handle_t const handle) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_kernel_files_read_file(mk_win_base_handle_t const handle, mk_win_base_void_lpt const buffer, mk_win_base_dword_t const bytes_requested, mk_win_base_dword_lpt const bytes_read, mk_win_base_void_lpt const overlapped /*todo overlapped*/) mk_lang_noexcept;
 
 
 #if mk_lang_jumbo_want == 1
