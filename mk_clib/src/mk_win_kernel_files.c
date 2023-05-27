@@ -22,6 +22,7 @@ mk_lang_extern_c mk_win_base_dll_import mk_win_base_handle_t mk_win_base_stdcall
 mk_lang_extern_c mk_win_base_dll_import mk_win_base_dword_t mk_win_base_stdcall GetLogicalDrives(void) mk_lang_noexcept;
 mk_lang_extern_c mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall FindClose(mk_win_base_handle_t) mk_lang_noexcept;
 mk_lang_extern_c mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall ReadFile(mk_win_base_handle_t, mk_win_base_void_lpt, mk_win_base_dword_t, mk_win_base_dword_lpt, mk_win_base_void_lpt /*todo overlapped*/) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall WriteFile(mk_win_base_handle_t, mk_win_base_void_lpct, mk_win_base_dword_t, mk_win_base_dword_lpt, mk_win_base_void_lpt /*todo overlapped*/) mk_lang_noexcept;
 
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_uint_t mk_win_kernel_files_a_get_drive_type(mk_win_base_pchar_lpct const path) mk_lang_noexcept
@@ -269,4 +270,12 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_kernel_files_read_file
 
 	read = ReadFile(handle, buffer, bytes_requested, bytes_read, overlapped);
 	return read;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_kernel_files_write_file(mk_win_base_handle_t const handle, mk_win_base_void_lpct const buffer, mk_win_base_dword_t const bytes_to_write, mk_win_base_dword_lpt const bytes_written, mk_win_base_void_lpt const overlapped /*todo overlapped*/) mk_lang_noexcept
+{
+	mk_win_base_bool_t write;
+
+	write = WriteFile(handle, buffer, bytes_to_write, bytes_written, overlapped);
+	return write;
 }
