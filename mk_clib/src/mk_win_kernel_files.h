@@ -321,6 +321,23 @@ typedef mk_win_kernel_files_t_find_data_t mk_win_base_far const* mk_win_kernel_f
 typedef mk_win_kernel_files_t_find_data_t mk_win_base_near* mk_win_kernel_files_t_find_data_npt;
 typedef mk_win_kernel_files_t_find_data_t mk_win_base_near const* mk_win_kernel_files_t_find_data_npct;
 
+struct mk_win_kernel_files_overlapped_s
+{
+	mk_win_base_uintptr_t m_internal_lo;
+	mk_win_base_uintptr_t m_internal_hi;
+	mk_win_base_dword_t m_offset_lo;
+	mk_win_base_dword_t m_offset_hi;
+	mk_win_base_handle_t m_event;
+};
+typedef struct mk_win_kernel_files_overlapped_s mk_win_kernel_files_overlapped_t;
+typedef mk_win_kernel_files_overlapped_t const mk_win_kernel_files_overlapped_ct;
+typedef mk_win_kernel_files_overlapped_t* mk_win_kernel_files_overlapped_pt;
+typedef mk_win_kernel_files_overlapped_t const* mk_win_kernel_files_overlapped_pct;
+typedef mk_win_kernel_files_overlapped_t mk_win_base_far* mk_win_kernel_files_overlapped_lpt;
+typedef mk_win_kernel_files_overlapped_t mk_win_base_far const* mk_win_kernel_files_overlapped_lpct;
+typedef mk_win_kernel_files_overlapped_t mk_win_base_near* mk_win_kernel_files_overlapped_npt;
+typedef mk_win_kernel_files_overlapped_t mk_win_base_near const* mk_win_kernel_files_overlapped_npct;
+
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_uint_t mk_win_kernel_files_a_get_drive_type(mk_win_base_pchar_lpct const path) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_handle_t mk_win_kernel_files_a_find_first_file(mk_win_base_pchar_lpct const name, mk_win_kernel_files_a_find_data_lpt const data) mk_lang_noexcept;
@@ -339,8 +356,8 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_handle_t mk_win_kernel_files_t_creat
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_dword_t mk_win_kernel_files_get_logical_drives(void) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_kernel_files_find_close(mk_win_base_handle_t const handle) mk_lang_noexcept;
-mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_kernel_files_read_file(mk_win_base_handle_t const handle, mk_win_base_void_lpt const buffer, mk_win_base_dword_t const bytes_requested, mk_win_base_dword_lpt const bytes_read, mk_win_base_void_lpt const overlapped /*todo overlapped*/) mk_lang_noexcept;
-mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_kernel_files_write_file(mk_win_base_handle_t const handle, mk_win_base_void_lpct const buffer, mk_win_base_dword_t const bytes_to_write, mk_win_base_dword_lpt const bytes_written, mk_win_kernel_files_overlapped_lpt const overlapped /*todo overlapped*/) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_kernel_files_read_file(mk_win_base_handle_t const handle, mk_win_base_void_lpt const buffer, mk_win_base_dword_t const bytes_requested, mk_win_base_dword_lpt const bytes_read, mk_win_kernel_files_overlapped_lpt const overlapped) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_kernel_files_write_file(mk_win_base_handle_t const handle, mk_win_base_void_lpct const buffer, mk_win_base_dword_t const bytes_to_write, mk_win_base_dword_lpt const bytes_written, mk_win_kernel_files_overlapped_lpt const overlapped) mk_lang_noexcept;
 
 
 #if mk_lang_jumbo_want == 1
