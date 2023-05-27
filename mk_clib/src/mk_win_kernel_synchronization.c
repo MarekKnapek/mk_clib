@@ -11,7 +11,12 @@
 
 
 mk_lang_extern_c mk_win_base_dll_import mk_win_base_handle_t mk_win_base_stdcall CreateEventA(mk_win_advapi_base_security_attributes_lpct, mk_win_base_bool_t, mk_win_base_bool_t, mk_win_base_pchar_lpct) mk_lang_noexcept;
+
 mk_lang_extern_c mk_win_base_dll_import mk_win_base_handle_t mk_win_base_stdcall CreateEventW(mk_win_advapi_base_security_attributes_lpct, mk_win_base_bool_t, mk_win_base_bool_t, mk_win_base_wchar_lpct) mk_lang_noexcept;
+
+mk_lang_extern_c mk_win_base_dll_import mk_win_base_dword_t mk_win_base_stdcall WaitForSingleObject(mk_win_base_handle_t, mk_win_base_dword_t) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall GetOverlappedResult(mk_win_base_handle_t, mk_win_kernel_files_overlapped_lpct, mk_win_base_dword_lpt, mk_win_base_bool_t) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall ResetEvent(mk_win_base_handle_t) mk_lang_noexcept;
 
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_handle_t mk_win_kernel_synchronization_a_create_event(mk_win_advapi_base_security_attributes_lpct const security_attributes, mk_win_base_bool_t const manual_reset, mk_win_base_bool_t const initial_state, mk_win_base_pchar_lpct const name) mk_lang_noexcept
@@ -22,6 +27,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_handle_t mk_win_kernel_synchronizati
 	return event;
 }
 
+
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_handle_t mk_win_kernel_synchronization_w_create_event(mk_win_advapi_base_security_attributes_lpct const security_attributes, mk_win_base_bool_t const manual_reset, mk_win_base_bool_t const initial_state, mk_win_base_wchar_lpct const name) mk_lang_noexcept
 {
 	mk_win_base_handle_t event;
@@ -29,6 +35,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_handle_t mk_win_kernel_synchronizati
 	event = CreateEventW(security_attributes, manual_reset, initial_state, name);
 	return event;
 }
+
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_handle_t mk_win_kernel_synchronization_t_create_event(mk_win_advapi_base_security_attributes_lpct const security_attributes, mk_win_base_bool_t const manual_reset, mk_win_base_bool_t const initial_state, mk_win_tstring_tchar_lpct const name) mk_lang_noexcept
 {
@@ -59,4 +66,29 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_handle_t mk_win_kernel_synchronizati
 		#endif
 	}
 #endif
+}
+
+
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_dword_t mk_win_kernel_synchronization_wait_for_single_object(mk_win_base_handle_t const handle, mk_win_base_dword_t const timeout_ms) mk_lang_noexcept
+{
+	mk_win_base_dword_t waited;
+
+	waited = WaitForSingleObject(handle, timeout_ms);
+	return waited;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_kernel_synchronization_get_overlapped_result(mk_win_base_handle_t const file, mk_win_kernel_files_overlapped_lpct const overlapped, mk_win_base_dword_lpt const bytes_transfered, mk_win_base_bool_t const wait) mk_lang_noexcept
+{
+	mk_win_base_bool_t got;
+
+	got = GetOverlappedResult(file, overlapped, bytes_transfered, wait);
+	return got;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_kernel_synchronization_reset_event(mk_win_base_handle_t const event) mk_lang_noexcept
+{
+	mk_win_base_bool_t reseted;
+
+	reseted = ResetEvent(event);
+	return reseted;
 }
