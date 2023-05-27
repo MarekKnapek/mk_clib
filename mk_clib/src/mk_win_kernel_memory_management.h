@@ -10,14 +10,18 @@
 
 enum mk_win_kernel_memory_management_type_e
 {
-	mk_win_kernel_memory_management_type_e_commit      = 0x00001000ul,
-	mk_win_kernel_memory_management_type_e_reserve     = 0x00002000ul,
-	mk_win_kernel_memory_management_type_e_reset       = 0x00080000ul,
-	mk_win_kernel_memory_management_type_e_reset_undo  = 0x01000000ul,
-	mk_win_kernel_memory_management_type_e_write_watch = 0x00200000ul,
-	mk_win_kernel_memory_management_type_e_top_down    = 0x00100000ul,
-	mk_win_kernel_memory_management_type_e_physical    = 0x00400000ul,
-	mk_win_kernel_memory_management_type_e_large_pages = 0x20000000ul,
+	mk_win_kernel_memory_management_type_e_coalesce_placeholders = 0x00000001ul,
+	mk_win_kernel_memory_management_type_e_preserve_placeholder  = 0x00000002ul,
+	mk_win_kernel_memory_management_type_e_commit                = 0x00001000ul,
+	mk_win_kernel_memory_management_type_e_reserve               = 0x00002000ul,
+	mk_win_kernel_memory_management_type_e_decommit              = 0x00004000ul,
+	mk_win_kernel_memory_management_type_e_release               = 0x00008000ul,
+	mk_win_kernel_memory_management_type_e_reset                 = 0x00080000ul,
+	mk_win_kernel_memory_management_type_e_top_down              = 0x00100000ul,
+	mk_win_kernel_memory_management_type_e_write_watch           = 0x00200000ul,
+	mk_win_kernel_memory_management_type_e_physical              = 0x00400000ul,
+	mk_win_kernel_memory_management_type_e_reset_undo            = 0x01000000ul,
+	mk_win_kernel_memory_management_type_e_large_pages           = 0x20000000ul,
 	mk_win_kernel_memory_management_type_e_dummy_end = 0
 };
 typedef enum mk_win_kernel_memory_management_type_e mk_win_kernel_memory_management_type_t;
