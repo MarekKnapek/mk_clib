@@ -59,14 +59,20 @@ typedef unsigned long long int mk_win_base_uintptr_t;
 #define mk_win_base_stdcall __stdcall
 
 typedef void* mk_win_base_handle_t;
+typedef mk_win_base_handle_t const mk_win_base_handle_ct;
+typedef mk_win_base_handle_t* mk_win_base_handle_pt;
+typedef mk_win_base_handle_t const* mk_win_base_handle_pct;
+typedef mk_win_base_handle_t mk_win_base_far* mk_win_base_handle_lpt;
+typedef mk_win_base_handle_t mk_win_base_far const* mk_win_base_handle_lpct;
+typedef mk_win_base_handle_t mk_win_base_near* mk_win_base_handle_npt;
+typedef mk_win_base_handle_t mk_win_base_near const* mk_win_base_handle_npct;
+
 struct mk_win_base_handle_instance_s; typedef struct mk_win_base_handle_instance_s mk_win_base_handle_instance_t; typedef mk_win_base_handle_instance_t const* mk_win_base_instance_t;
 
 #define mk_win_base_false ((mk_win_base_bool_t)(0))
 #define mk_win_base_true ((mk_win_base_bool_t)(1))
 #define mk_win_base_null mk_lang_null
 
-typedef void mk_win_base_void_t;
-typedef unsigned char mk_win_base_uchar_t;
 typedef unsigned short int mk_win_base_ushort_t;
 typedef signed short int mk_win_base_sshort_t;
 typedef unsigned int mk_win_base_uint_t;
@@ -98,8 +104,7 @@ typedef mk_win_base_bool_t mk_win_base_far const* mk_win_base_bool_lpct;
 typedef mk_win_base_bool_t mk_win_base_near* mk_win_base_bool_npt;
 typedef mk_win_base_bool_t mk_win_base_near const* mk_win_base_bool_npct;
 
-typedef mk_win_base_uchar_t const mk_win_base_uchar_ct;
-typedef mk_win_base_uchar_t* mk_win_base_uchar_pt;
+typedef unsigned char mk_win_base_uchar_t;
 typedef mk_win_base_uchar_t const mk_win_base_uchar_ct;
 typedef mk_win_base_uchar_t* mk_win_base_uchar_pt;
 typedef mk_win_base_uchar_t const* mk_win_base_uchar_pct;
@@ -147,7 +152,7 @@ typedef mk_win_base_sintptr_t mk_win_base_far const* mk_win_base_sintptr_lpct;
 typedef mk_win_base_sintptr_t mk_win_base_near* mk_win_base_sintptr_npt;
 typedef mk_win_base_sintptr_t mk_win_base_near const* mk_win_base_sintptr_npct;
 
-typedef mk_win_base_void_t* mk_win_base_void_pt;
+typedef void mk_win_base_void_t;
 typedef mk_win_base_void_t const mk_win_base_void_ct;
 typedef mk_win_base_void_t* mk_win_base_void_pt;
 typedef mk_win_base_void_t const* mk_win_base_void_pct;
