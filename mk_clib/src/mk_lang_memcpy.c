@@ -15,7 +15,6 @@ mk_lang_jumbo void mk_lang_memcpy(void* const mk_lang_restrict dst, void const* 
 
 	mk_lang_assert(dst);
 	mk_lang_assert(src);
-	mk_lang_assert(cnt != 0);
 
 	d = ((unsigned char*)(dst));
 	s = ((unsigned char const*)(src));
