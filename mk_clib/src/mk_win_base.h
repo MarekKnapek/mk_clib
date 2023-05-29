@@ -5,6 +5,7 @@
 #include "mk_lang_arch.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_null.h"
+#include "mk_lang_sizeof.h"
 #include "mk_lang_sizet.h"
 
 #include <stddef.h> /* wchar_t */
@@ -82,6 +83,7 @@ typedef signed long int mk_win_base_slong_t;
 
 typedef unsigned short int mk_win_base_word_t;
 
+#define mk_win_base_sizeof_dword_t mk_lang_sizeof_bi_uint_t
 typedef unsigned int mk_win_base_dword_t;
 typedef mk_win_base_dword_t const mk_win_base_dword_ct;
 typedef mk_win_base_dword_t* mk_win_base_dword_pt;
