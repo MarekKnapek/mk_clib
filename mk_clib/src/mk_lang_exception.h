@@ -29,7 +29,7 @@ typedef mk_lang_exception_t* mk_lang_exception_pt;
 typedef mk_lang_exception_t const* mk_lang_exception_pct;
 
 
-#define mk_lang_exception_if_is_return(x) if(mk_lang_exception_is(ex)) return;
+#define mk_lang_exception_if_is_return(x) if(mk_lang_exception_is(x)) return;
 
 
 mk_lang_jumbo void mk_lang_exception_test(void) mk_lang_noexcept;
