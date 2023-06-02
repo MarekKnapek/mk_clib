@@ -7,6 +7,7 @@
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_sizet.h"
+#include "mk_lang_version.h"
 
 
 #if defined __cplusplus
@@ -17,7 +18,7 @@
 #else
 #include <stdlib.h> /* malloc free realloc free_sized */
 #define mk_sl_mallocator_lang_m(x) malloc((x))
-#if defined __STDC_VERSION__ && __STDC_VERSION__ >= 202299l /* todo c23 */
+#if mk_lang_version_at_least_c_23
 #define mk_sl_mallocator_lang_f(x, s) free_sized((x), (s))
 #else
 #define mk_sl_mallocator_lang_f(x, s) free((x))
