@@ -1,5 +1,5 @@
-#ifndef include_guard_mk_win_ctrl_impl_mlistbox
-#define include_guard_mk_win_ctrl_impl_mlistbox
+#ifndef mk_include_guard_mk_win_ctrl_impl_mlistbox
+#define mk_include_guard_mk_win_ctrl_impl_mlistbox
 
 
 #include "mk_lang_bool.h"

@@ -1,5 +1,5 @@
-#ifndef include_guard_mk_lang_intmaxt
-#define include_guard_mk_lang_intmaxt
+#ifndef mk_include_guard_mk_lang_intmaxt
+#define mk_include_guard_mk_lang_intmaxt
 
 
 #include "mk_lang_version.h"

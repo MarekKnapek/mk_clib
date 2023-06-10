@@ -1,5 +1,5 @@
-#ifndef include_guard_mk_lang_memmove
-#define include_guard_mk_lang_memmove
+#ifndef mk_include_guard_mk_lang_memmove
+#define mk_include_guard_mk_lang_memmove
 
 
 #include "mk_lang_jumbo.h"

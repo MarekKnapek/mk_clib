@@ -1,5 +1,5 @@
-#ifndef include_guard_mk_sl_buffer_lang
-#define include_guard_mk_sl_buffer_lang
+#ifndef mk_include_guard_mk_sl_buffer_lang
+#define mk_include_guard_mk_sl_buffer_lang
 
 
 #define mk_sl_buffer_t_name lang

@@ -1,5 +1,5 @@
-#ifndef include_guard_mk_sl_buffer_win_main_heap
-#define include_guard_mk_sl_buffer_win_main_heap
+#ifndef mk_include_guard_mk_sl_buffer_win_main_heap
+#define mk_include_guard_mk_sl_buffer_win_main_heap
 
 
 #define mk_sl_buffer_t_name win_main_heap

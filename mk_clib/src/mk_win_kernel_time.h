@@ -1,5 +1,5 @@
-#ifndef include_guard_mk_win_kernel_time
-#define include_guard_mk_win_kernel_time
+#ifndef mk_include_guard_mk_win_kernel_time
+#define mk_include_guard_mk_win_kernel_time
 
 
 #include "mk_lang_jumbo.h"

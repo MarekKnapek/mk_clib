@@ -1,5 +1,5 @@
-#ifndef include_guard_mk_win_sl_file_ostream
-#define include_guard_mk_win_sl_file_ostream
+#ifndef mk_include_guard_mk_win_sl_file_ostream
+#define mk_include_guard_mk_win_sl_file_ostream
 
 
 #include "mk_lang_exception.h"

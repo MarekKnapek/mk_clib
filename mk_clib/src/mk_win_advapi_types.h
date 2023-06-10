@@ -1,5 +1,5 @@
-#ifndef include_guard_mk_win_advapi_base
-#define include_guard_mk_win_advapi_base
+#ifndef mk_include_guard_mk_win_advapi_base
+#define mk_include_guard_mk_win_advapi_base
 
 
 #include "mk_lang_jumbo.h"

@@ -1,5 +1,5 @@
-#ifndef include_guard_mk_lang_version
-#define include_guard_mk_lang_version
+#ifndef mk_include_guard_mk_lang_version
+#define mk_include_guard_mk_lang_version
 
 
 #define mk_lang_version_value_c_99 199901l

@@ -1,5 +1,5 @@
-#ifndef include_guard_mk_win_gdi_font
-#define include_guard_mk_win_gdi_font
+#ifndef mk_include_guard_mk_win_gdi_font
+#define mk_include_guard_mk_win_gdi_font
 
 
 #include "mk_lang_jumbo.h"

@@ -1,5 +1,5 @@
-#ifndef include_guard_mk_clib_app_flt
-#define include_guard_mk_clib_app_flt
+#ifndef mk_include_guard_mk_clib_app_flt
+#define mk_include_guard_mk_clib_app_flt
 
 
 #include "mk_lang_jumbo.h"

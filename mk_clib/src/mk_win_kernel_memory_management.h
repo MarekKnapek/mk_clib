@@ -1,5 +1,5 @@
-#ifndef include_guard_mk_win_kernel_memory_management
-#define include_guard_mk_win_kernel_memory_management
+#ifndef mk_include_guard_mk_win_kernel_memory_management
+#define mk_include_guard_mk_win_kernel_memory_management
 
 
 #include "mk_lang_jumbo.h"

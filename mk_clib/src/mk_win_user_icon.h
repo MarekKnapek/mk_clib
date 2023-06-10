@@ -1,5 +1,5 @@
-#ifndef include_guard_mk_win_user_icon
-#define include_guard_mk_win_user_icon
+#ifndef mk_include_guard_mk_win_user_icon
+#define mk_include_guard_mk_win_user_icon
 
 
 #include "mk_lang_jumbo.h"

@@ -1,5 +1,5 @@
-#ifndef include_guard_mk_lang_exception_data
-#define include_guard_mk_lang_exception_data
+#ifndef mk_include_guard_mk_lang_exception_data
+#define mk_include_guard_mk_lang_exception_data
 
 
 #include "mk_lang_exception_out_of_memory.h"

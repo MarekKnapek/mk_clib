@@ -1,5 +1,5 @@
-#ifndef include_guard_mk_lib_fe
-#define include_guard_mk_lib_fe
+#ifndef mk_include_guard_mk_lib_fe
+#define mk_include_guard_mk_lib_fe
 
 
 #include "mk_lang_bool.h"

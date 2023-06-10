@@ -1,5 +1,5 @@
-#ifndef include_guard_mk_lang_nodiscard
-#define include_guard_mk_lang_nodiscard
+#ifndef mk_include_guard_mk_lang_nodiscard
+#define mk_include_guard_mk_lang_nodiscard
 
 
 #include "mk_lang_version.h"

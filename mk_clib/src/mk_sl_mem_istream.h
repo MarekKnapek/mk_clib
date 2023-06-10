@@ -1,5 +1,5 @@
-#ifndef include_guard_mk_sl_mem_istream
-#define include_guard_mk_sl_mem_istream
+#ifndef mk_include_guard_mk_sl_mem_istream
+#define mk_include_guard_mk_sl_mem_istream
 
 
 #include "mk_lang_exception.h"

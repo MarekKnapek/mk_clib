@@ -1,5 +1,5 @@
-#ifndef include_guard_mk_lang_limits
-#define include_guard_mk_lang_limits
+#ifndef mk_include_guard_mk_lang_limits
+#define mk_include_guard_mk_lang_limits
 
 
 #include "mk_lang_bi.h"

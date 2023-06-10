@@ -1,5 +1,5 @@
-#ifndef include_guard_mk_lang_exception
-#define include_guard_mk_lang_exception
+#ifndef mk_include_guard_mk_lang_exception
+#define mk_include_guard_mk_lang_exception
 
 
 #include "mk_lang_bool.h"

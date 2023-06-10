@@ -1,5 +1,5 @@
-#ifndef include_guard_mk_win_user_scroll_bars
-#define include_guard_mk_win_user_scroll_bars
+#ifndef mk_include_guard_mk_win_user_scroll_bars
+#define mk_include_guard_mk_win_user_scroll_bars
 
 
 #include "mk_lang_jumbo.h"

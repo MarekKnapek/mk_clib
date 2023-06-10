@@ -1,5 +1,5 @@
-#ifndef include_guard_mk_lang_assert
-#define include_guard_mk_lang_assert
+#ifndef mk_include_guard_mk_lang_assert
+#define mk_include_guard_mk_lang_assert
 
 
 #include "mk_lang_gnuc.h"

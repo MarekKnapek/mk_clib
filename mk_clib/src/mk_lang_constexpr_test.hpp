@@ -1,5 +1,5 @@
-#ifndef include_guard_mk_lang_constexpr_test
-#define include_guard_mk_lang_constexpr_test
+#ifndef mk_include_guard_mk_lang_constexpr_test
+#define mk_include_guard_mk_lang_constexpr_test
 
 
 #include "mk_lang_cpp.h"

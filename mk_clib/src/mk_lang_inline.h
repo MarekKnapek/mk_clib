@@ -1,5 +1,5 @@
-#ifndef include_guard_mk_lang_inline
-#define include_guard_mk_lang_inline
+#ifndef mk_include_guard_mk_lang_inline
+#define mk_include_guard_mk_lang_inline
 
 
 #include "mk_lang_version.h"

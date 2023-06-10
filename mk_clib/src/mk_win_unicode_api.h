@@ -1,5 +1,5 @@
-#ifndef include_guard_mk_win_unicode
-#define include_guard_mk_win_unicode
+#ifndef mk_include_guard_mk_win_unicode
+#define mk_include_guard_mk_win_unicode
 
 
 #include "mk_lang_arch.h"

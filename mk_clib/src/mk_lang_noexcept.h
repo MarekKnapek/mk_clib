@@ -1,5 +1,5 @@
-#ifndef include_guard_mk_lang_noexcept
-#define include_guard_mk_lang_noexcept
+#ifndef mk_include_guard_mk_lang_noexcept
+#define mk_include_guard_mk_lang_noexcept
 
 
 #include "mk_lang_version.h"

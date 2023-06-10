@@ -1,5 +1,5 @@
-#ifndef include_guard_mk_win_sl_exception_gle
-#define include_guard_mk_win_sl_exception_gle
+#ifndef mk_include_guard_mk_win_sl_exception_gle
+#define mk_include_guard_mk_win_sl_exception_gle
 
 
 #include "mk_lang_exception.h"

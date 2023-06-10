@@ -1,5 +1,5 @@
-#ifndef include_guard_mk_win_sl_copier
-#define include_guard_mk_win_sl_copier
+#ifndef mk_include_guard_mk_win_sl_copier
+#define mk_include_guard_mk_win_sl_copier
 
 
 #include "mk_lang_exception.h"

@@ -1,5 +1,5 @@
-#ifndef include_guard_mk_win_sl_tdw
-#define include_guard_mk_win_sl_tdw
+#ifndef mk_include_guard_mk_win_sl_tdw
+#define mk_include_guard_mk_win_sl_tdw
 
 
 #include "mk_lang_bi.h"

@@ -1,5 +1,5 @@
-#ifndef include_guard_mk_win_user_cursor
-#define include_guard_mk_win_user_cursor
+#ifndef mk_include_guard_mk_win_user_cursor
+#define mk_include_guard_mk_win_user_cursor
 
 
 #include "mk_lang_jumbo.h"

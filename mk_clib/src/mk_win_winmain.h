@@ -1,5 +1,5 @@
-#ifndef include_guard_mk_win_winmain
-#define include_guard_mk_win_winmain
+#ifndef mk_include_guard_mk_win_winmain
+#define mk_include_guard_mk_win_winmain
 
 
 #include "mk_lang_jumbo.h"

@@ -1,5 +1,5 @@
-#ifndef include_guard_mk_sl_cui
-#define include_guard_mk_sl_cui
+#ifndef mk_include_guard_mk_sl_cui
+#define mk_include_guard_mk_sl_cui
 
 
 #include "mk_lang_bui.h"

@@ -1,5 +1,5 @@
-#ifndef include_guard_mk_lang_concat
-#define include_guard_mk_lang_concat
+#ifndef mk_include_guard_mk_lang_concat
+#define mk_include_guard_mk_lang_concat
 
 
 #define mk_lang_concat_impl(a, b) a ## b

@@ -1,5 +1,5 @@
-#ifndef include_guard_mk_win_kernel_synchronization
-#define include_guard_mk_win_kernel_synchronization
+#ifndef mk_include_guard_mk_win_kernel_synchronization
+#define mk_include_guard_mk_win_kernel_synchronization
 
 
 #include "mk_lang_jumbo.h"

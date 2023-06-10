@@ -1,5 +1,5 @@
-#ifndef include_guard_mk_lang_memcpy_obj
-#define include_guard_mk_lang_memcpy_obj
+#ifndef mk_include_guard_mk_lang_memcpy_obj
+#define mk_include_guard_mk_lang_memcpy_obj
 
 
 #include "mk_lang_bi.h"
