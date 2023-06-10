@@ -15,6 +15,13 @@
 #define mk_lang_bui_inl_defd_sizeof mk_lang_concat(mk_lang_concat(mk_lang_sizeof_bi_, mk_lang_concat(mk_lang_bui_for_bui, _tn)), _t)
 #endif
 
+#define mk_lang_bui_inl_defd_prefix mk_lang_concat(mk_lang_bui_, mk_lang_bui_inl_defd_name)
+
+#define mk_lang_bui_inl_defd_t mk_lang_concat(mk_lang_bui_inl_defd_prefix, _t)
+#define mk_lang_bui_inl_defd_ct mk_lang_concat(mk_lang_bui_inl_defd_prefix, _ct)
+#define mk_lang_bui_inl_defd_pt mk_lang_concat(mk_lang_bui_inl_defd_prefix, _pt)
+#define mk_lang_bui_inl_defd_pct mk_lang_concat(mk_lang_bui_inl_defd_prefix, _pct)
+
 #define mk_lang_bui_inl_defd_set_zero mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_inl_defd_name), _set_zero)
 #define mk_lang_bui_inl_defd_set_max mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_inl_defd_name), _set_max)
 #define mk_lang_bui_inl_defd_set_one mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_inl_defd_name), _set_one)

@@ -1,0 +1,32 @@
+#include "mk_lang_exception.h"
+#include "mk_lang_jumbo.h"
+#include "mk_lang_noexcept.h"
+#include "mk_lang_types.h"
+#include "mk_win_base.h"
+#include "mk_win_tstring.h"
+
+
+#include "mk_win_sl_file_istream_buffered_inl_defd.h"
+
+
+struct mk_win_sl_file_istream_buffered_inl_defd_s
+{
+	mk_win_base_void_lpt m_state;
+};
+typedef struct mk_win_sl_file_istream_buffered_inl_defd_s mk_win_sl_file_istream_buffered_inl_defd_t;
+typedef mk_win_sl_file_istream_buffered_inl_defd_t const mk_win_sl_file_istream_buffered_inl_defd_ct;
+typedef mk_win_sl_file_istream_buffered_inl_defd_t* mk_win_sl_file_istream_buffered_inl_defd_pt;
+typedef mk_win_sl_file_istream_buffered_inl_defd_t const* mk_win_sl_file_istream_buffered_inl_defd_pct;
+typedef mk_win_sl_file_istream_buffered_inl_defd_t mk_win_base_far* mk_win_sl_file_istream_buffered_inl_defd_lpt;
+typedef mk_win_sl_file_istream_buffered_inl_defd_t mk_win_base_far const* mk_win_sl_file_istream_buffered_inl_defd_lpct;
+typedef mk_win_sl_file_istream_buffered_inl_defd_t mk_win_base_near* mk_win_sl_file_istream_buffered_inl_defd_npt;
+typedef mk_win_sl_file_istream_buffered_inl_defd_t mk_win_base_near const* mk_win_sl_file_istream_buffered_inl_defd_npct;
+
+
+mk_lang_jumbo void mk_win_sl_file_istream_buffered_inl_defd_rw_construct_from_file_handle(mk_win_sl_file_istream_buffered_inl_defd_pt const istream, mk_lang_exception_pt const ex, mk_win_base_handle_t const file_handle, mk_lang_types_bool_t const own) mk_lang_noexcept;
+mk_lang_jumbo void mk_win_sl_file_istream_buffered_inl_defd_rw_construct_from_file_name(mk_win_sl_file_istream_buffered_inl_defd_pt const istream, mk_lang_exception_pt const ex, mk_win_tstring_tchar_pct const file_name) mk_lang_noexcept;
+mk_lang_jumbo void mk_win_sl_file_istream_buffered_inl_defd_rw_destroy(mk_win_sl_file_istream_buffered_inl_defd_pt const istream) mk_lang_noexcept;
+mk_lang_jumbo void mk_win_sl_file_istream_buffered_inl_defd_rw_read(mk_win_sl_file_istream_buffered_inl_defd_pt const istream, mk_lang_exception_pt const ex, mk_lang_types_void_pt const destination, mk_lang_types_usize_t const bytes_to_read, mk_lang_types_usize_pt const bytes_read) mk_lang_noexcept;
+
+
+#include "mk_win_sl_file_istream_buffered_inl_defu.h"

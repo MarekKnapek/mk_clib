@@ -2,6 +2,12 @@
 #undef mk_lang_bui_inl_defd_type
 #undef mk_lang_bui_inl_defd_sizeof
 
+#undef mk_lang_bui_inl_defd_prefix
+
+#undef mk_lang_bui_inl_defd_t
+#undef mk_lang_bui_inl_defd_ct
+#undef mk_lang_bui_inl_defd_pct
+
 #undef mk_lang_bui_inl_defd_set_zero
 #undef mk_lang_bui_inl_defd_set_max
 #undef mk_lang_bui_inl_defd_set_one

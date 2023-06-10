@@ -8,6 +8,11 @@
 #include "mk_lang_bui_inl_defd.h"
 
 
+typedef mk_lang_bui_inl_defd_type mk_lang_bui_inl_defd_t;
+typedef mk_lang_bui_inl_defd_t const mk_lang_bui_inl_defd_ct;
+typedef mk_lang_bui_inl_defd_t* mk_lang_bui_inl_defd_pt;
+typedef mk_lang_bui_inl_defd_t const* mk_lang_bui_inl_defd_pct;
+
 mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_set_zero(mk_lang_bui_inl_defd_type* const x) mk_lang_noexcept;
 mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_set_max(mk_lang_bui_inl_defd_type* const x) mk_lang_noexcept;
 mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_set_one(mk_lang_bui_inl_defd_type* const x) mk_lang_noexcept;

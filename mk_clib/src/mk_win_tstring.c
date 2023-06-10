@@ -1,3 +1,9 @@
+#if defined _MSC_VER && _MSC_VER == 1936
+#pragma warning(push)
+#pragma warning(disable:4365)
+#endif
+
+
 #include "mk_win_tstring.h"
 
 #include "mk_lang_assert.h"
@@ -1761,3 +1767,8 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_wchar_lpt mk_win_tstring_allocate_wi
 	if(mk_lang_exception_is(&ex)) mk_lang_crash();
 	return wide_ret;
 }
+
+
+#if defined _MSC_VER && _MSC_VER == 1936
+#pragma warning(pop)
+#endif

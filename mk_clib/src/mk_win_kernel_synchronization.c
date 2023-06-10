@@ -15,6 +15,7 @@ mk_lang_extern_c mk_win_base_dll_import mk_win_base_handle_t mk_win_base_stdcall
 mk_lang_extern_c mk_win_base_dll_import mk_win_base_handle_t mk_win_base_stdcall CreateEventW(mk_win_advapi_base_security_attributes_lpct, mk_win_base_bool_t, mk_win_base_bool_t, mk_win_base_wchar_lpct) mk_lang_noexcept;
 
 mk_lang_extern_c mk_win_base_dll_import mk_win_base_dword_t mk_win_base_stdcall WaitForSingleObject(mk_win_base_handle_t, mk_win_base_dword_t) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_win_base_dword_t mk_win_base_stdcall WaitForMultipleObjects(mk_win_base_dword_t, mk_win_base_handle_lpct, mk_win_base_bool_t, mk_win_base_dword_t) mk_lang_noexcept;
 mk_lang_extern_c mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall GetOverlappedResult(mk_win_base_handle_t, mk_win_kernel_files_overlapped_lpct, mk_win_base_dword_lpt, mk_win_base_bool_t) mk_lang_noexcept;
 mk_lang_extern_c mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall ResetEvent(mk_win_base_handle_t) mk_lang_noexcept;
 
@@ -74,6 +75,14 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_dword_t mk_win_kernel_synchronizatio
 	mk_win_base_dword_t waited;
 
 	waited = WaitForSingleObject(handle, timeout_ms);
+	return waited;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_dword_t mk_win_kernel_synchronization_wait_for_multiple_objects(mk_win_base_dword_t const count, mk_win_base_handle_lpct const handles, mk_win_base_bool_t const wait_all, mk_win_base_dword_t timeout_ms) mk_lang_noexcept
+{
+	mk_win_base_dword_t waited;
+
+	waited = WaitForMultipleObjects(count, handles, wait_all, timeout_ms);
 	return waited;
 }
 

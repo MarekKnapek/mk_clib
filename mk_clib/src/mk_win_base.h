@@ -79,7 +79,6 @@ typedef signed short int mk_win_base_sshort_t;
 typedef unsigned int mk_win_base_uint_t;
 typedef unsigned int mk_win_base_sint_t;
 typedef unsigned long int mk_win_base_ulong_t;
-typedef signed long int mk_win_base_slong_t;
 
 typedef unsigned short int mk_win_base_word_t;
 
@@ -95,65 +94,6 @@ typedef mk_win_base_dword_t mk_win_base_near const* mk_win_base_dword_npct;
 #define mk_win_base_limits_dword_min ((mk_win_base_dword_t)(0))
 #define mk_win_base_limits_dword_max ((mk_win_base_dword_t)(((mk_win_base_dword_t)(0)) - ((mk_win_base_dword_t)(1))))
 
-typedef mk_win_base_uintptr_t mk_win_base_size_t;
-
-typedef unsigned int mk_win_base_bool_t;
-typedef mk_win_base_bool_t const mk_win_base_bool_ct;
-typedef mk_win_base_bool_t* mk_win_base_bool_pt;
-typedef mk_win_base_bool_t const* mk_win_base_bool_pct;
-typedef mk_win_base_bool_t mk_win_base_far* mk_win_base_bool_lpt;
-typedef mk_win_base_bool_t mk_win_base_far const* mk_win_base_bool_lpct;
-typedef mk_win_base_bool_t mk_win_base_near* mk_win_base_bool_npt;
-typedef mk_win_base_bool_t mk_win_base_near const* mk_win_base_bool_npct;
-
-typedef unsigned char mk_win_base_uchar_t;
-typedef mk_win_base_uchar_t const mk_win_base_uchar_ct;
-typedef mk_win_base_uchar_t* mk_win_base_uchar_pt;
-typedef mk_win_base_uchar_t const* mk_win_base_uchar_pct;
-typedef mk_win_base_uchar_t mk_win_base_far* mk_win_base_uchar_lpt;
-typedef mk_win_base_uchar_t mk_win_base_far const* mk_win_base_uchar_lpct;
-typedef mk_win_base_uchar_t mk_win_base_near* mk_win_base_uchar_npt;
-typedef mk_win_base_uchar_t mk_win_base_near const* mk_win_base_uchar_npct;
-
-typedef mk_win_base_ushort_t const mk_win_base_ushort_ct;
-typedef mk_win_base_ushort_t* mk_win_base_ushort_pt;
-typedef mk_win_base_ushort_t const mk_win_base_ushort_ct;
-typedef mk_win_base_ushort_t* mk_win_base_ushort_pt;
-typedef mk_win_base_ushort_t const* mk_win_base_ushort_pct;
-typedef mk_win_base_ushort_t mk_win_base_far* mk_win_base_ushort_lpt;
-typedef mk_win_base_ushort_t mk_win_base_far const* mk_win_base_ushort_lpct;
-typedef mk_win_base_ushort_t mk_win_base_near* mk_win_base_ushort_npt;
-typedef mk_win_base_ushort_t mk_win_base_near const* mk_win_base_ushort_npct;
-
-typedef mk_win_base_sint_t const mk_win_base_sint_ct;
-typedef mk_win_base_sint_t* mk_win_base_sint_pt;
-typedef mk_win_base_sint_t const mk_win_base_sint_ct;
-typedef mk_win_base_sint_t* mk_win_base_sint_pt;
-typedef mk_win_base_sint_t const* mk_win_base_sint_pct;
-typedef mk_win_base_sint_t mk_win_base_far* mk_win_base_sint_lpt;
-typedef mk_win_base_sint_t mk_win_base_far const* mk_win_base_sint_lpct;
-typedef mk_win_base_sint_t mk_win_base_near* mk_win_base_sint_npt;
-typedef mk_win_base_sint_t mk_win_base_near const* mk_win_base_sint_npct;
-
-typedef mk_win_base_ulong_t const mk_win_base_ulong_ct;
-typedef mk_win_base_ulong_t* mk_win_base_ulong_pt;
-typedef mk_win_base_ulong_t const mk_win_base_ulong_ct;
-typedef mk_win_base_ulong_t* mk_win_base_ulong_pt;
-typedef mk_win_base_ulong_t const* mk_win_base_ulong_pct;
-typedef mk_win_base_ulong_t mk_win_base_far* mk_win_base_ulong_lpt;
-typedef mk_win_base_ulong_t mk_win_base_far const* mk_win_base_ulong_lpct;
-typedef mk_win_base_ulong_t mk_win_base_near* mk_win_base_ulong_npt;
-typedef mk_win_base_ulong_t mk_win_base_near const* mk_win_base_ulong_npct;
-
-typedef mk_win_base_sintptr_t* mk_win_base_sintptr_pt;
-typedef mk_win_base_sintptr_t const mk_win_base_sintptr_ct;
-typedef mk_win_base_sintptr_t* mk_win_base_sintptr_pt;
-typedef mk_win_base_sintptr_t const* mk_win_base_sintptr_pct;
-typedef mk_win_base_sintptr_t mk_win_base_far* mk_win_base_sintptr_lpt;
-typedef mk_win_base_sintptr_t mk_win_base_far const* mk_win_base_sintptr_lpct;
-typedef mk_win_base_sintptr_t mk_win_base_near* mk_win_base_sintptr_npt;
-typedef mk_win_base_sintptr_t mk_win_base_near const* mk_win_base_sintptr_npct;
-
 typedef void mk_win_base_void_t;
 typedef mk_win_base_void_t const mk_win_base_void_ct;
 typedef mk_win_base_void_t* mk_win_base_void_pt;
@@ -163,14 +103,14 @@ typedef mk_win_base_void_t mk_win_base_far const* mk_win_base_void_lpct;
 typedef mk_win_base_void_t mk_win_base_near* mk_win_base_void_npt;
 typedef mk_win_base_void_t mk_win_base_near const* mk_win_base_void_npct;
 
-typedef mk_win_base_word_t* mk_win_base_word_pt;
-typedef mk_win_base_word_t const mk_win_base_word_ct;
-typedef mk_win_base_word_t* mk_win_base_word_pt;
-typedef mk_win_base_word_t const* mk_win_base_word_pct;
-typedef mk_win_base_word_t mk_win_base_far* mk_win_base_word_lpt;
-typedef mk_win_base_word_t mk_win_base_far const* mk_win_base_word_lpct;
-typedef mk_win_base_word_t mk_win_base_near* mk_win_base_word_npt;
-typedef mk_win_base_word_t mk_win_base_near const* mk_win_base_word_npct;
+typedef unsigned int mk_win_base_bool_t;
+typedef mk_win_base_bool_t const mk_win_base_bool_ct;
+typedef mk_win_base_bool_t* mk_win_base_bool_pt;
+typedef mk_win_base_bool_t const* mk_win_base_bool_pct;
+typedef mk_win_base_bool_t mk_win_base_far* mk_win_base_bool_lpt;
+typedef mk_win_base_bool_t mk_win_base_far const* mk_win_base_bool_lpct;
+typedef mk_win_base_bool_t mk_win_base_near* mk_win_base_bool_npt;
+typedef mk_win_base_bool_t mk_win_base_near const* mk_win_base_bool_npct;
 
 typedef char mk_win_base_pchar_t;
 typedef mk_win_base_pchar_t const mk_win_base_pchar_ct;
@@ -189,6 +129,75 @@ typedef mk_win_base_wchar_t mk_win_base_far* mk_win_base_wchar_lpt;
 typedef mk_win_base_wchar_t mk_win_base_far const* mk_win_base_wchar_lpct;
 typedef mk_win_base_wchar_t mk_win_base_near* mk_win_base_wchar_npt;
 typedef mk_win_base_wchar_t mk_win_base_near const* mk_win_base_wchar_npct;
+
+typedef unsigned char mk_win_base_uchar_t;
+typedef mk_win_base_uchar_t const mk_win_base_uchar_ct;
+typedef mk_win_base_uchar_t* mk_win_base_uchar_pt;
+typedef mk_win_base_uchar_t const* mk_win_base_uchar_pct;
+typedef mk_win_base_uchar_t mk_win_base_far* mk_win_base_uchar_lpt;
+typedef mk_win_base_uchar_t mk_win_base_far const* mk_win_base_uchar_lpct;
+typedef mk_win_base_uchar_t mk_win_base_near* mk_win_base_uchar_npt;
+typedef mk_win_base_uchar_t mk_win_base_near const* mk_win_base_uchar_npct;
+
+typedef mk_win_base_ushort_t const mk_win_base_ushort_ct;
+typedef mk_win_base_ushort_t* mk_win_base_ushort_pt;
+typedef mk_win_base_ushort_t const* mk_win_base_ushort_pct;
+typedef mk_win_base_ushort_t mk_win_base_far* mk_win_base_ushort_lpt;
+typedef mk_win_base_ushort_t mk_win_base_far const* mk_win_base_ushort_lpct;
+typedef mk_win_base_ushort_t mk_win_base_near* mk_win_base_ushort_npt;
+typedef mk_win_base_ushort_t mk_win_base_near const* mk_win_base_ushort_npct;
+
+typedef mk_win_base_sint_t const mk_win_base_sint_ct;
+typedef mk_win_base_sint_t* mk_win_base_sint_pt;
+typedef mk_win_base_sint_t const* mk_win_base_sint_pct;
+typedef mk_win_base_sint_t mk_win_base_far* mk_win_base_sint_lpt;
+typedef mk_win_base_sint_t mk_win_base_far const* mk_win_base_sint_lpct;
+typedef mk_win_base_sint_t mk_win_base_near* mk_win_base_sint_npt;
+typedef mk_win_base_sint_t mk_win_base_near const* mk_win_base_sint_npct;
+
+typedef mk_win_base_ulong_t const mk_win_base_ulong_ct;
+typedef mk_win_base_ulong_t* mk_win_base_ulong_pt;
+typedef mk_win_base_ulong_t const* mk_win_base_ulong_pct;
+typedef mk_win_base_ulong_t mk_win_base_far* mk_win_base_ulong_lpt;
+typedef mk_win_base_ulong_t mk_win_base_far const* mk_win_base_ulong_lpct;
+typedef mk_win_base_ulong_t mk_win_base_near* mk_win_base_ulong_npt;
+typedef mk_win_base_ulong_t mk_win_base_near const* mk_win_base_ulong_npct;
+
+typedef signed long int mk_win_base_slong_t;
+typedef mk_win_base_slong_t const mk_win_base_slong_ct;
+typedef mk_win_base_slong_t* mk_win_base_slong_pt;
+typedef mk_win_base_slong_t const* mk_win_base_slong_pct;
+typedef mk_win_base_slong_t mk_win_base_far* mk_win_base_slong_lpt;
+typedef mk_win_base_slong_t mk_win_base_far const* mk_win_base_slong_lpct;
+typedef mk_win_base_slong_t mk_win_base_near* mk_win_base_slong_npt;
+typedef mk_win_base_slong_t mk_win_base_near const* mk_win_base_slong_npct;
+
+typedef mk_win_base_sintptr_t* mk_win_base_sintptr_pt;
+typedef mk_win_base_sintptr_t const mk_win_base_sintptr_ct;
+typedef mk_win_base_sintptr_t* mk_win_base_sintptr_pt;
+typedef mk_win_base_sintptr_t const* mk_win_base_sintptr_pct;
+typedef mk_win_base_sintptr_t mk_win_base_far* mk_win_base_sintptr_lpt;
+typedef mk_win_base_sintptr_t mk_win_base_far const* mk_win_base_sintptr_lpct;
+typedef mk_win_base_sintptr_t mk_win_base_near* mk_win_base_sintptr_npt;
+typedef mk_win_base_sintptr_t mk_win_base_near const* mk_win_base_sintptr_npct;
+
+typedef mk_win_base_word_t* mk_win_base_word_pt;
+typedef mk_win_base_word_t const mk_win_base_word_ct;
+typedef mk_win_base_word_t* mk_win_base_word_pt;
+typedef mk_win_base_word_t const* mk_win_base_word_pct;
+typedef mk_win_base_word_t mk_win_base_far* mk_win_base_word_lpt;
+typedef mk_win_base_word_t mk_win_base_far const* mk_win_base_word_lpct;
+typedef mk_win_base_word_t mk_win_base_near* mk_win_base_word_npt;
+typedef mk_win_base_word_t mk_win_base_near const* mk_win_base_word_npct;
+
+typedef mk_win_base_uintptr_t mk_win_base_size_t;
+typedef mk_win_base_size_t const mk_win_base_size_ct;
+typedef mk_win_base_size_t* mk_win_base_size_pt;
+typedef mk_win_base_size_t const* mk_win_base_size_pct;
+typedef mk_win_base_size_t mk_win_base_far* mk_win_base_size_lpt;
+typedef mk_win_base_size_t mk_win_base_far const* mk_win_base_size_lpct;
+typedef mk_win_base_size_t mk_win_base_near* mk_win_base_size_npt;
+typedef mk_win_base_size_t mk_win_base_near const* mk_win_base_size_npct;
 
 typedef int(mk_win_base_far mk_win_base_stdcall*mk_win_base_proc_t)(int);
 #define mk_win_base_proc_not_found ((mk_win_base_proc_t)(0x100))

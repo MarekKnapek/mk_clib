@@ -13,6 +13,7 @@ enum mk_lang_exception_id_e
 	mk_lang_exception_id_e_none,
 	mk_lang_exception_id_e_out_of_memory,
 	mk_lang_exception_id_e_win_gle,
+	mk_lang_exception_id_e_win_sl_copier,
 	mk_lang_exception_id_e_dummy_end
 };
 typedef enum mk_lang_exception_id_e mk_lang_exception_id_t;
@@ -30,6 +31,9 @@ typedef mk_lang_exception_t const* mk_lang_exception_pct;
 
 
 #define mk_lang_exception_if_is_return(x) if(mk_lang_exception_is(x)) return;
+#define mk_lang_exception_if_is_break(x) if(mk_lang_exception_is(x)) break;
+#define mk_lang_exception_if_is_goto_exret(x) if(mk_lang_exception_is(x)) goto exret;
+#define mk_lang_exception_if_is_goto_label(x, label) if(mk_lang_exception_is(x)) goto label;
 
 
 mk_lang_jumbo void mk_lang_exception_test(void) mk_lang_noexcept;

@@ -54,7 +54,6 @@ typedef mk_clib_app_simple_window_context_t mk_win_base_near const* mk_clib_app_
 
 
 mk_lang_extern_c mk_win_base_dll_import void mk_win_base_stdcall InitCommonControls(void) mk_lang_noexcept; /* todo move to commctrls */
-mk_lang_extern_c mk_win_base_dll_import mk_win_base_dword_t mk_win_base_stdcall GetTickCount(void) mk_lang_noexcept; /* todo move to time */
 
 
 static mk_lang_inline void mk_clib_app_simple_window_on_msg_create(mk_clib_app_simple_window_context_lpt const context, mk_win_user_window_wparam_t const wparam, mk_win_user_window_lparam_t const lparam, mk_lang_bool_t* const override_lres, mk_win_user_window_lresult_t* const lres) mk_lang_noexcept;
@@ -265,7 +264,7 @@ static mk_lang_inline void mk_clib_app_simple_window_on_msg_create(mk_clib_app_s
 	sent = mk_win_user_message_t_send(context->m_progressbar, mk_win_user_message_id_e_setfont, ((mk_win_user_window_lparam_t)(font)), 0);
 	((void)(sent));
 
-	context->m_time = GetTickCount();
+	context->m_time = mk_win_kernel_time_get_tick_count();
 
 	width = g_size_margin.m_a + mk_lang_max(mk_lang_max(g_size_edit.m_a, g_size_static.m_a), g_size_progressbar.m_a) + g_size_margin.m_a;
 	height = g_size_margin.m_b + g_size_edit.m_b + g_size_related_unrelated.m_a + g_size_static.m_b + g_size_related_unrelated.m_b + g_size_progressbar.m_b + g_size_margin.m_b;
@@ -416,7 +415,7 @@ static mk_lang_inline void mk_clib_app_simple_window_on_msg_timer(mk_clib_app_si
 	mk_lang_assert(((mk_win_base_uintptr_t)(wparam)) == s_timer_id);
 	mk_lang_assert(lparam == 0);
 
-	time = GetTickCount();
+	time = mk_win_kernel_time_get_tick_count();
 	time_delta = mk_lang_min(1000, time - context->m_time);
 	context->m_time = time;
 	lrpos = mk_win_user_message_t_send(context->m_progressbar, mk_win_user_ctrl_mprogressbar_message_e_get_position, 0, 0);

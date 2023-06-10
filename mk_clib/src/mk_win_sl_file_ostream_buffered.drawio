@@ -1,0 +1,417 @@
+<mxfile host="app.diagrams.net" modified="2000-01-01T00:00:00.000Z" agent="" etag="" version="21.3.5" type="device">
+	<diagram name="Page-1" id="mk_win_sl_file_ostream_buffered">
+		<mxGraphModel dx="794" dy="554" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2336" pageHeight="1654" math="0" shadow="0">
+			<root>
+				<mxCell id="0"/>
+				<mxCell id="1" parent="0"/>
+				<mxCell parent="1" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;" id="block-start" value="start">
+					<mxGeometry as="geometry" x="40" y="40" width="120" height="60"/>
+				</mxCell>
+				<mxCell parent="1" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;" id="block-allocate" value="allocate">
+					<mxGeometry as="geometry" x="120" y="160" width="120" height="60"/>
+				</mxCell>
+				<mxCell parent="1" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;" id="block-construct_from_file_name" value="construct_from&lt;br&gt;file_name">
+					<mxGeometry as="geometry" x="200" y="280" width="120" height="60"/>
+				</mxCell>
+				<mxCell parent="1" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;" id="block-construct_from_file_handle" value="construct_from&lt;br&gt;file_handle">
+					<mxGeometry as="geometry" x="360" y="280" width="120" height="60"/>
+				</mxCell>
+				<mxCell parent="1" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;" id="block-write" value="write">
+					<mxGeometry as="geometry" x="440" y="400" width="120" height="60"/>
+				</mxCell>
+				<mxCell parent="1" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;" id="block-submit_write" value="submit_write">
+					<mxGeometry as="geometry" x="520" y="520" width="120" height="60"/>
+				</mxCell>
+				<mxCell parent="1" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;" id="block-close" value="close">
+					<mxGeometry as="geometry" x="600" y="640" width="120" height="60"/>
+				</mxCell>
+				<mxCell parent="1" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;" id="block-reconstruct_from_file_name" value="reconstruct_from&lt;br&gt;file_name">
+					<mxGeometry as="geometry" x="680" y="760" width="120" height="60"/>
+				</mxCell>
+				<mxCell parent="1" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;" id="block-reconstruct_from_file_handle" value="reconstruct_from&lt;br&gt;file_handle">
+					<mxGeometry as="geometry" x="840" y="760" width="120" height="60"/>
+				</mxCell>
+				<mxCell parent="1" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;" id="block-destroy" value="destroy">
+					<mxGeometry as="geometry" x="920" y="880" width="120" height="60"/>
+				</mxCell>
+				<mxCell parent="1" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;" id="block-deallocate" value="deallocate">
+					<mxGeometry as="geometry" x="1000" y="1000" width="120" height="60"/>
+				</mxCell>
+				<mxCell parent="1" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;" id="block-end" value="end">
+					<mxGeometry as="geometry" x="1080" y="1120" width="120" height="60"/>
+				</mxCell>
+				<mxCell parent="1" edge="1" value="" style="endArrow=classic;html=1;rounded=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" source="block-start" target="block-allocate" id="arrow-start-allocate">
+					<mxGeometry as="geometry" relative="1" height="50" width="50">
+						<mxPoint as="sourcePoint" x="320" y="390"/>
+						<mxPoint as="targetPoint" x="370" y="340"/>
+						<Array as="points">
+							<mxPoint x="100" y="130"/>
+							<mxPoint x="180" y="130"/>
+						</Array>
+					</mxGeometry>
+				</mxCell>
+				<mxCell parent="1" edge="1" value="" style="endArrow=classic;html=1;rounded=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" source="block-allocate" target="block-construct_from_file_name" id="arrow-allocate-construct_from_file_name">
+					<mxGeometry as="geometry" relative="1" height="50" width="50">
+						<mxPoint as="sourcePoint" x="330" y="120"/>
+						<mxPoint as="targetPoint" x="410" y="180"/>
+						<Array as="points">
+							<mxPoint x="180" y="250"/>
+							<mxPoint x="260" y="250"/>
+						</Array>
+					</mxGeometry>
+				</mxCell>
+				<mxCell parent="1" edge="1" value="" style="endArrow=classic;html=1;rounded=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" source="block-allocate" target="block-construct_from_file_handle" id="arrow-allocate-construct_from_file_handle">
+					<mxGeometry as="geometry" relative="1" height="50" width="50">
+						<mxPoint as="sourcePoint" x="370" y="150"/>
+						<mxPoint as="targetPoint" x="450" y="210"/>
+						<Array as="points">
+							<mxPoint x="180" y="250"/>
+							<mxPoint x="420" y="250"/>
+						</Array>
+					</mxGeometry>
+				</mxCell>
+				<mxCell parent="1" edge="1" value="" style="endArrow=classic;html=1;rounded=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" source="block-allocate" target="block-deallocate" id="arrow-allocate-deallocate">
+					<mxGeometry as="geometry" relative="1" height="50" width="50">
+						<mxPoint as="sourcePoint" x="320" y="50"/>
+						<mxPoint as="targetPoint" x="400" y="110"/>
+						<Array as="points">
+							<mxPoint x="180" y="250"/>
+							<mxPoint x="1060" y="250"/>
+						</Array>
+					</mxGeometry>
+				</mxCell>
+				<mxCell parent="1" edge="1" value="" style="endArrow=classic;html=1;rounded=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" source="block-construct_from_file_name" target="block-write" id="arrow-construct_from_file_name-write">
+					<mxGeometry as="geometry" relative="1" height="50" width="50">
+						<mxPoint as="sourcePoint" x="220" y="460"/>
+						<mxPoint as="targetPoint" x="590" y="610"/>
+						<Array as="points">
+							<mxPoint x="260" y="370"/>
+							<mxPoint x="500" y="370"/>
+						</Array>
+					</mxGeometry>
+				</mxCell>
+				<mxCell parent="1" edge="1" value="" style="endArrow=classic;html=1;rounded=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" source="block-construct_from_file_name" target="block-submit_write" id="arrow-construct_from_file_name-submit_write">
+					<mxGeometry as="geometry" relative="1" height="50" width="50">
+						<mxPoint as="sourcePoint" x="220" y="440"/>
+						<mxPoint as="targetPoint" x="700" y="620"/>
+						<Array as="points">
+							<mxPoint x="260" y="370"/>
+							<mxPoint x="580" y="370"/>
+						</Array>
+					</mxGeometry>
+				</mxCell>
+				<mxCell parent="1" edge="1" value="" style="endArrow=classic;html=1;rounded=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" source="block-construct_from_file_name" target="block-close" id="arrow-construct_from_file_name-close">
+					<mxGeometry as="geometry" relative="1" height="50" width="50">
+						<mxPoint as="sourcePoint" x="587" y="170"/>
+						<mxPoint as="targetPoint" x="827" y="230"/>
+						<Array as="points">
+							<mxPoint x="260" y="370"/>
+							<mxPoint x="660" y="370"/>
+						</Array>
+					</mxGeometry>
+				</mxCell>
+				<mxCell parent="1" edge="1" value="" style="endArrow=classic;html=1;rounded=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" source="block-construct_from_file_name" target="block-destroy" id="arrow-construct_from_file_name-destroy">
+					<mxGeometry as="geometry" relative="1" height="50" width="50">
+						<mxPoint as="sourcePoint" x="180" y="410"/>
+						<mxPoint as="targetPoint" x="420" y="470"/>
+						<Array as="points">
+							<mxPoint x="260" y="370"/>
+							<mxPoint x="980" y="370"/>
+						</Array>
+					</mxGeometry>
+				</mxCell>
+				<mxCell parent="1" edge="1" value="" style="endArrow=classic;html=1;rounded=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" source="block-construct_from_file_handle" target="block-write" id="arrow-construct_from_file_handle-write">
+					<mxGeometry as="geometry" relative="1" height="50" width="50">
+						<mxPoint as="sourcePoint" x="280" y="360"/>
+						<mxPoint as="targetPoint" x="650" y="510"/>
+						<Array as="points">
+							<mxPoint x="420" y="370"/>
+							<mxPoint x="500" y="370"/>
+						</Array>
+					</mxGeometry>
+				</mxCell>
+				<mxCell parent="1" edge="1" value="" style="endArrow=classic;html=1;rounded=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" source="block-construct_from_file_handle" target="block-submit_write" id="arrow-construct_from_file_handle-submit_write">
+					<mxGeometry as="geometry" relative="1" height="50" width="50">
+						<mxPoint as="sourcePoint" x="160" y="555"/>
+						<mxPoint as="targetPoint" x="640" y="735"/>
+						<Array as="points">
+							<mxPoint x="420" y="370"/>
+							<mxPoint x="580" y="370"/>
+							<mxPoint x="580" y="450"/>
+						</Array>
+					</mxGeometry>
+				</mxCell>
+				<mxCell parent="1" edge="1" value="" style="endArrow=classic;html=1;rounded=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" source="block-construct_from_file_handle" target="block-close" id="arrow-construct_from_file_handle-close">
+					<mxGeometry as="geometry" relative="1" height="50" width="50">
+						<mxPoint as="sourcePoint" x="500" y="270"/>
+						<mxPoint as="targetPoint" x="520" y="420"/>
+						<Array as="points">
+							<mxPoint x="420" y="370"/>
+							<mxPoint x="660" y="370"/>
+						</Array>
+					</mxGeometry>
+				</mxCell>
+				<mxCell parent="1" edge="1" value="" style="endArrow=classic;html=1;rounded=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" source="block-construct_from_file_handle" target="block-destroy" id="arrow-construct_from_file_handle-destroy">
+					<mxGeometry as="geometry" relative="1" height="50" width="50">
+						<mxPoint as="sourcePoint" x="550" y="300"/>
+						<mxPoint as="targetPoint" x="790" y="360"/>
+						<Array as="points">
+							<mxPoint x="420" y="370"/>
+							<mxPoint x="980" y="370"/>
+						</Array>
+					</mxGeometry>
+				</mxCell>
+				<mxCell parent="1" edge="1" value="" style="endArrow=classic;html=1;rounded=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" source="block-write" target="block-write" id="arrow-write-write">
+					<mxGeometry as="geometry" relative="1" height="50" width="50">
+						<mxPoint as="sourcePoint" x="330" y="440"/>
+						<mxPoint as="targetPoint" x="810" y="860"/>
+						<Array as="points">
+							<mxPoint x="500" y="490"/>
+							<mxPoint x="580" y="490"/>
+							<mxPoint x="580" y="370"/>
+							<mxPoint x="500" y="370"/>
+						</Array>
+					</mxGeometry>
+				</mxCell>
+				<mxCell parent="1" edge="1" value="" style="endArrow=classic;html=1;rounded=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" source="block-write" target="block-submit_write" id="arrow-write-submit_write">
+					<mxGeometry as="geometry" relative="1" height="50" width="50">
+						<mxPoint as="sourcePoint" x="250" y="440"/>
+						<mxPoint as="targetPoint" x="490" y="740"/>
+						<Array as="points">
+							<mxPoint x="500" y="490"/>
+							<mxPoint x="580" y="490"/>
+						</Array>
+					</mxGeometry>
+				</mxCell>
+				<mxCell parent="1" edge="1" value="" style="endArrow=classic;html=1;rounded=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" source="block-write" target="block-close" id="arrow-write-close">
+					<mxGeometry as="geometry" relative="1" height="50" width="50">
+						<mxPoint as="sourcePoint" x="500" y="460"/>
+						<mxPoint as="targetPoint" x="580" y="520"/>
+						<Array as="points">
+							<mxPoint x="500" y="490"/>
+							<mxPoint x="660" y="490"/>
+						</Array>
+					</mxGeometry>
+				</mxCell>
+				<mxCell parent="1" edge="1" value="" style="endArrow=classic;html=1;rounded=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" source="block-write" target="block-destroy" id="arrow-write-destroy">
+					<mxGeometry as="geometry" relative="1" height="50" width="50">
+						<mxPoint as="sourcePoint" x="500" y="460"/>
+						<mxPoint as="targetPoint" x="580" y="520"/>
+						<Array as="points">
+							<mxPoint x="500" y="490"/>
+							<mxPoint x="980" y="490"/>
+						</Array>
+					</mxGeometry>
+				</mxCell>
+				<mxCell parent="1" edge="1" value="" style="endArrow=classic;html=1;rounded=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" source="block-submit_write" target="block-write" id="arrow-submit_write-write">
+					<mxGeometry as="geometry" relative="1" height="50" width="50">
+						<mxPoint as="sourcePoint" x="740" y="480"/>
+						<mxPoint as="targetPoint" x="820" y="540"/>
+						<Array as="points">
+							<mxPoint x="580" y="610"/>
+							<mxPoint x="660" y="610"/>
+							<mxPoint x="660" y="370"/>
+							<mxPoint x="500" y="370"/>
+						</Array>
+					</mxGeometry>
+				</mxCell>
+				<mxCell parent="1" edge="1" value="" style="endArrow=classic;html=1;rounded=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" source="block-submit_write" target="block-submit_write" id="arrow-submit_write-submit_write">
+					<mxGeometry as="geometry" relative="1" height="50" width="50">
+						<mxPoint as="sourcePoint" x="600" y="600"/>
+						<mxPoint as="targetPoint" x="680" y="660"/>
+						<Array as="points">
+							<mxPoint x="580" y="610"/>
+							<mxPoint x="660" y="610"/>
+							<mxPoint x="660" y="490"/>
+							<mxPoint x="580" y="490"/>
+						</Array>
+					</mxGeometry>
+				</mxCell>
+				<mxCell parent="1" edge="1" value="" style="endArrow=classic;html=1;rounded=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" source="block-submit_write" target="block-close" id="arrow-submit_write-close">
+					<mxGeometry as="geometry" relative="1" height="50" width="50">
+						<mxPoint as="sourcePoint" x="530" y="630"/>
+						<mxPoint as="targetPoint" x="560" y="670"/>
+						<Array as="points">
+							<mxPoint x="580" y="610"/>
+							<mxPoint x="660" y="610"/>
+						</Array>
+					</mxGeometry>
+				</mxCell>
+				<mxCell parent="1" edge="1" value="" style="endArrow=classic;html=1;rounded=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" source="block-submit_write" target="block-destroy" id="arrow-submit_write-destroy">
+					<mxGeometry as="geometry" relative="1" height="50" width="50">
+						<mxPoint as="sourcePoint" x="590" y="590"/>
+						<mxPoint as="targetPoint" x="670" y="650"/>
+						<Array as="points">
+							<mxPoint x="580" y="610"/>
+							<mxPoint x="980" y="610"/>
+						</Array>
+					</mxGeometry>
+				</mxCell>
+				<mxCell parent="1" edge="1" value="" style="endArrow=classic;html=1;rounded=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" source="block-close" target="block-reconstruct_from_file_name" id="arrow-close-reconstruct_from_file_name">
+					<mxGeometry as="geometry" relative="1" height="50" width="50">
+						<mxPoint as="sourcePoint" x="660" y="700"/>
+						<mxPoint as="targetPoint" x="790" y="720"/>
+						<Array as="points">
+							<mxPoint x="660" y="730"/>
+							<mxPoint x="740" y="730"/>
+						</Array>
+					</mxGeometry>
+				</mxCell>
+				<mxCell parent="1" edge="1" value="" style="endArrow=classic;html=1;rounded=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" source="block-close" target="block-reconstruct_from_file_handle" id="arrow-close-reconstruct_from_file_handle">
+					<mxGeometry as="geometry" relative="1" height="50" width="50">
+						<mxPoint as="sourcePoint" x="820" y="700"/>
+						<mxPoint as="targetPoint" x="870" y="670"/>
+						<Array as="points">
+							<mxPoint x="660" y="730"/>
+							<mxPoint x="900" y="730"/>
+						</Array>
+					</mxGeometry>
+				</mxCell>
+				<mxCell parent="1" edge="1" value="" style="endArrow=classic;html=1;rounded=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" source="block-close" target="block-destroy" id="arrow-close-destroy">
+					<mxGeometry as="geometry" relative="1" height="50" width="50">
+						<mxPoint as="sourcePoint" x="620" y="620"/>
+						<mxPoint as="targetPoint" x="700" y="680"/>
+						<Array as="points">
+							<mxPoint x="660" y="730"/>
+							<mxPoint x="980" y="730"/>
+						</Array>
+					</mxGeometry>
+				</mxCell>
+				<mxCell parent="1" edge="1" value="" style="endArrow=classic;html=1;rounded=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" source="block-reconstruct_from_file_name" target="block-destroy" id="arrow-reconstruct_from_file_name-destroy">
+					<mxGeometry as="geometry" relative="1" height="50" width="50">
+						<mxPoint as="sourcePoint" x="740" y="820"/>
+						<mxPoint as="targetPoint" x="820" y="880"/>
+						<Array as="points">
+							<mxPoint x="740" y="850"/>
+							<mxPoint x="980" y="850"/>
+						</Array>
+					</mxGeometry>
+				</mxCell>
+				<mxCell parent="1" edge="1" value="" style="endArrow=classic;html=1;rounded=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" source="block-reconstruct_from_file_handle" target="block-destroy" id="arrow-reconstruct_from_file_handle-destroy">
+					<mxGeometry as="geometry" relative="1" height="50" width="50">
+						<mxPoint as="sourcePoint" x="900" y="820"/>
+						<mxPoint as="targetPoint" x="1090" y="830"/>
+						<Array as="points">
+							<mxPoint x="900" y="850"/>
+							<mxPoint x="980" y="850"/>
+						</Array>
+					</mxGeometry>
+				</mxCell>
+				<mxCell parent="1" edge="1" value="" style="endArrow=classic;html=1;rounded=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" source="block-destroy" target="block-construct_from_file_name" id="arrow-destroy-construct_from_file_name">
+					<mxGeometry as="geometry" relative="1" height="50" width="50">
+						<mxPoint as="sourcePoint" x="980" y="940"/>
+						<mxPoint as="targetPoint" x="62" y="350"/>
+						<Array as="points">
+							<mxPoint x="980" y="970"/>
+							<mxPoint x="1060" y="970"/>
+							<mxPoint x="1060" y="250"/>
+							<mxPoint x="260" y="250"/>
+						</Array>
+					</mxGeometry>
+				</mxCell>
+				<mxCell parent="1" edge="1" value="" style="endArrow=classic;html=1;rounded=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" source="block-destroy" target="block-construct_from_file_handle" id="arrow-destroy-construct_from_file_handle">
+					<mxGeometry as="geometry" relative="1" height="50" width="50">
+						<mxPoint as="sourcePoint" x="980" y="940"/>
+						<mxPoint as="targetPoint" x="320" y="430"/>
+						<Array as="points">
+							<mxPoint x="980" y="970"/>
+							<mxPoint x="1060" y="970"/>
+							<mxPoint x="1060" y="250"/>
+							<mxPoint x="420" y="250"/>
+						</Array>
+					</mxGeometry>
+				</mxCell>
+				<mxCell parent="1" edge="1" value="" style="endArrow=classic;html=1;rounded=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" source="block-destroy" target="block-deallocate" id="arrow-destroy-deallocate">
+					<mxGeometry as="geometry" relative="1" height="50" width="50">
+						<mxPoint as="sourcePoint" x="980" y="940"/>
+						<mxPoint as="targetPoint" x="1060" y="1000"/>
+						<Array as="points">
+							<mxPoint x="980" y="970"/>
+							<mxPoint x="1060" y="970"/>
+						</Array>
+					</mxGeometry>
+				</mxCell>
+				<mxCell parent="1" edge="1" value="" style="endArrow=classic;html=1;rounded=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" source="block-deallocate" target="block-allocate" id="arrow-deallocate-allocate">
+					<mxGeometry as="geometry" relative="1" height="50" width="50">
+						<mxPoint as="sourcePoint" x="1060" y="1060"/>
+						<mxPoint as="targetPoint" x="180" y="160"/>
+						<Array as="points">
+							<mxPoint x="1060" y="1090"/>
+							<mxPoint x="1140" y="1090"/>
+							<mxPoint x="1140" y="130"/>
+							<mxPoint x="180" y="130"/>
+						</Array>
+					</mxGeometry>
+				</mxCell>
+				<mxCell parent="1" edge="1" value="" style="endArrow=classic;html=1;rounded=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" source="block-deallocate" target="block-end" id="arrow-deallocate-end">
+					<mxGeometry as="geometry" relative="1" height="50" width="50">
+						<mxPoint as="sourcePoint" x="1130" y="970"/>
+						<mxPoint as="targetPoint" x="1210" y="1030"/>
+						<Array as="points">
+							<mxPoint x="1060" y="1090"/>
+							<mxPoint x="1140" y="1090"/>
+						</Array>
+					</mxGeometry>
+				</mxCell>
+				<mxCell parent="1" edge="1" value="" style="endArrow=classic;html=1;dashed=1;rounded=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" id="internal-construct_from_file_name-construct_from_file_handle" source="block-construct_from_file_name" target="block-construct_from_file_handle">
+					<mxGeometry  as="geometry" width="50" height="50" relative="1">
+						<mxPoint as="sourcePoint" x="290" y="430"/>
+						<mxPoint as="targetPoint" x="370" y="490"/>
+						<Array as="points">
+							<mxPoint x="290" y="360"/>
+							<mxPoint x="340" y="360"/>
+							<mxPoint x="340" y="260"/>
+							<mxPoint x="390" y="260"/>
+						</Array>
+					</mxGeometry>
+				</mxCell>
+				<mxCell parent="1" edge="1" value="" style="endArrow=classic;html=1;dashed=1;rounded=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" id="internal-construct_from_file_handle-reconstruct_from_file_handle" source="block-construct_from_file_handle" target="block-reconstruct_from_file_handle">
+					<mxGeometry  as="geometry" width="50" height="50" relative="1">
+						<mxPoint as="sourcePoint" x="300" y="350"/>
+						<mxPoint as="targetPoint" x="440" y="560"/>
+						<Array as="points">
+							<mxPoint x="450" y="360"/>
+							<mxPoint x="870" y="360"/>
+						</Array>
+					</mxGeometry>
+				</mxCell>
+				<mxCell parent="1" edge="1" value="" style="endArrow=classic;html=1;dashed=1;rounded=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" id="internal-close-submit_write" source="block-close" target="block-submit_write">
+					<mxGeometry  as="geometry" width="50" height="50" relative="1">
+						<mxPoint as="sourcePoint" x="690" y="700"/>
+						<mxPoint as="targetPoint" x="550" y="520"/>
+						<Array as="points">
+							<mxPoint x="690" y="720"/>
+							<mxPoint x="740" y="720"/>
+							<mxPoint x="740" y="500"/>
+							<mxPoint x="550" y="500"/>
+						</Array>
+					</mxGeometry>
+				</mxCell>
+				<mxCell parent="1" edge="1" value="" style="endArrow=classic;html=1;dashed=1;rounded=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" id="internal-reconstruct_from_file_name-reconstruct_from_file_handle" source="block-reconstruct_from_file_name" target="block-reconstruct_from_file_handle">
+					<mxGeometry  as="geometry" width="50" height="50" relative="1">
+						<mxPoint as="sourcePoint" x="770" y="820"/>
+						<mxPoint as="targetPoint" x="910" y="640"/>
+						<Array as="points">
+							<mxPoint x="770" y="840"/>
+							<mxPoint x="820" y="840"/>
+							<mxPoint x="820" y="740"/>
+							<mxPoint x="870" y="740"/>
+						</Array>
+					</mxGeometry>
+				</mxCell>
+				<mxCell parent="1" edge="1" value="" style="endArrow=classic;html=1;dashed=1;rounded=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" id="internal-destroy-close" source="block-destroy" target="block-close">
+					<mxGeometry  as="geometry" width="50" height="50" relative="1">
+						<mxPoint as="sourcePoint" x="730" y="940"/>
+						<mxPoint as="targetPoint" x="650" y="840"/>
+						<Array as="points">
+							<mxPoint x="1010" y="960"/>
+							<mxPoint x="1050" y="960"/>
+							<mxPoint x="1050" y="620"/>
+							<mxPoint x="630" y="620"/>
+						</Array>
+					</mxGeometry>
+				</mxCell>
+			</root>
+		</mxGraphModel>
+	</diagram>
+</mxfile>
