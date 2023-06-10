@@ -2,12 +2,15 @@
 #define mk_include_guard_mk_lang_intmaxt
 
 
-#if defined __cplusplus && __cplusplus >= 201103l
+#include "mk_lang_version.h"
+
+
+#if mk_lang_version_at_least_cpp_11
 #define mk_lang_intmaxt_has 1
 #include <cstdint> /* std::uintmax_t std::intmax_t */
 #define mk_lang_uintmax_t std::uintmax_t
 #define mk_lang_sintmax_t std::intmax_t
-#elif defined __STDC_VERSION__ && __STDC_VERSION__ >= 199901l
+#elif mk_lang_version_at_least_c_99
 #define mk_lang_intmaxt_has 1
 #include <stdint.h> /* uintmax_t intmax_t */
 #define mk_lang_uintmax_t uintmax_t

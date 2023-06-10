@@ -3,15 +3,16 @@
 
 
 #include "mk_lang_gnuc.h"
+#include "mk_lang_version.h"
 
 
-#if defined __cplusplus && __cplusplus >= 201103l
+#if mk_lang_version_at_least_cpp_11
 #define mk_lang_llong_has 1
 #define mk_lang_ullong_t unsigned long long int
 #define mk_lang_sllong_t signed long long int
 #define mk_lang_ullong_c(x) x ## ull
 #define mk_lang_sllong_c(x) x ## ll
-#elif defined __STDC_VERSION__ && __STDC_VERSION__ >= 199901l
+#elif mk_lang_version_at_least_c_99
 #define mk_lang_llong_has 1
 #define mk_lang_ullong_t unsigned long long int
 #define mk_lang_sllong_t signed long long int

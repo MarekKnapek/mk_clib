@@ -2,7 +2,10 @@
 #define mk_include_guard_mk_lang_intptrt
 
 
-#if defined __cplusplus && __cplusplus >= 201103l
+#include "mk_lang_version.h"
+
+
+#if mk_lang_version_at_least_cpp_11
 #include <cstdint> /* INTPTR_MIN INTPTR_MAX UINTPTR_MAX std::uintptr_t std::intptr_t */
 #if defined INTPTR_MIN && defined INTPTR_MAX && defined UINTPTR_MAX
 #define mk_lang_intptrt_has 1
@@ -11,7 +14,7 @@
 #else
 #define mk_lang_intptrt_has 0
 #endif
-#elif defined __STDC_VERSION__ && __STDC_VERSION__ >= 199901l
+#elif mk_lang_version_at_least_c_99
 #include <stdint.h> /* INTPTR_MIN INTPTR_MAX UINTPTR_MAX uintptr_t intptr_t */
 #if defined INTPTR_MIN && defined INTPTR_MAX && defined UINTPTR_MAX
 #define mk_lang_intptrt_has 1

@@ -2,9 +2,12 @@
 #define mk_include_guard_mk_lang_nodiscard
 
 
-#if defined __cplusplus && __cplusplus >= 201703l
+#include "mk_lang_version.h"
+
+
+#if mk_lang_version_at_least_cpp_17
 #define mk_lang_nodiscard [[nodiscard]]
-#elif defined __STDC_VERSION__ && __STDC_VERSION__ >= 202299l /* todo c23 */
+#elif mk_lang_version_at_least_c_23
 #define mk_lang_nodiscard [[nodiscard]]
 #else
 #define mk_lang_nodiscard
