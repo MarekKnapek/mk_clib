@@ -11,7 +11,7 @@
 #define mk_lang_limits_ulong_min   ((mk_lang_types_ulong_t  )(0))
 #define mk_lang_limits_ullong_min  ((mk_lang_types_ullong_t )(0))
 #define mk_lang_limits_ulllong_min ((mk_lang_types_ulllong_t)(0))
-#define mk_lang_limits_uinptr_min  ((mk_lang_types_uinptr_t )(0))
+#define mk_lang_limits_uinptr_min  ((mk_lang_types_uintptr_t)(0))
 #define mk_lang_limits_uintmax_min ((mk_lang_types_uintmax_t)(0))
 #define mk_lang_limits_usize_min   ((mk_lang_types_usize_t  )(0))
 
@@ -21,7 +21,7 @@
 #define mk_lang_limits_ulong_max   ((mk_lang_types_ulong_t  )(((mk_lang_types_ulong_t  )(0)) - ((mk_lang_types_ulong_t  )(1))))
 #define mk_lang_limits_ullong_max  ((mk_lang_types_ullong_t )(((mk_lang_types_ullong_t )(0)) - ((mk_lang_types_ullong_t )(1))))
 #define mk_lang_limits_ulllong_max ((mk_lang_types_ulllong_t)(((mk_lang_types_ulllong_t)(0)) - ((mk_lang_types_ulllong_t)(1))))
-#define mk_lang_limits_uinptr_max  ((mk_lang_types_uinptr_t )(((mk_lang_types_uinptr_t )(0)) - ((mk_lang_types_uinptr_t )(1))))
+#define mk_lang_limits_uintptr_max ((mk_lang_types_uintptr_t)(((mk_lang_types_uintptr_t)(0)) - ((mk_lang_types_uintptr_t)(1))))
 #define mk_lang_limits_uintmax_max ((mk_lang_types_uintmax_t)(((mk_lang_types_uintmax_t)(0)) - ((mk_lang_types_uintmax_t)(1))))
 #define mk_lang_limits_usize_max   ((mk_lang_types_usize_t  )(((mk_lang_types_usize_t  )(0)) - ((mk_lang_types_usize_t  )(1))))
 
