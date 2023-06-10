@@ -5,10 +5,10 @@
 #define mk_lang_arch_x8616 1001
 #define mk_lang_arch_x8632 1002
 #define mk_lang_arch_x8664 1003
-#define mk_lang_arch_ia64 1004
+#define mk_lang_arch_ia64  1004
 #define mk_lang_arch_alpha 1005
-#define mk_lang_arch_ppc 1006
-#define mk_lang_arch_mips 1007
+#define mk_lang_arch_ppc   1006
+#define mk_lang_arch_mips  1007
 #define mk_lang_arch_arm32 1008
 #define mk_lang_arch_arm64 1009
 
