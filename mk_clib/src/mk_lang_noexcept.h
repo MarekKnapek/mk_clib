@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_lang_noexcept
-#define mk_include_guard_lang_noexcept
+#ifndef mk_include_guard_mk_lang_noexcept
+#define mk_include_guard_mk_lang_noexcept
 
 
 #if defined __cplusplus && __cplusplus >= 201103l

@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_clib_app_factorial_cpp
-#define mk_include_guard_clib_app_factorial_cpp
+#ifndef mk_include_guard_mk_clib_app_factorial_cpp
+#define mk_include_guard_mk_clib_app_factorial_cpp
 
 
 #include "mk_lang_jumbo.h"

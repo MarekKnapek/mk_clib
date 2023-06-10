@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_lang_bool
-#define mk_include_guard_lang_bool
+#ifndef mk_include_guard_mk_lang_bool
+#define mk_include_guard_mk_lang_bool
 
 
 #if defined __cplusplus

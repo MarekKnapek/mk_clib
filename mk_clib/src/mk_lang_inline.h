@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_lang_inline
-#define mk_include_guard_lang_inline
+#ifndef mk_include_guard_mk_lang_inline
+#define mk_include_guard_mk_lang_inline
 
 
 #if defined __cplusplus && __cplusplus >= 199711l

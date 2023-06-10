@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_lang_overlap
-#define mk_include_guard_lang_overlap
+#ifndef mk_include_guard_mk_lang_overlap
+#define mk_include_guard_mk_lang_overlap
 
 
 #include "mk_lang_bi.h"

@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_lang_bui_divmod_fuzz
-#define mk_include_guard_lang_bui_divmod_fuzz
+#ifndef mk_include_guard_mk_lang_bui_divmod_fuzz
+#define mk_include_guard_mk_lang_bui_divmod_fuzz
 
 
 #include "mk_lang_jumbo.h"

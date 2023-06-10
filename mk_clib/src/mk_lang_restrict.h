@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_lang_restrict
-#define mk_include_guard_lang_restrict
+#ifndef mk_include_guard_mk_lang_restrict
+#define mk_include_guard_mk_lang_restrict
 
 
 #if defined __STDC_VERSION__ && __STDC_VERSION__ >= 199901l

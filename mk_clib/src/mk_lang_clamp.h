@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_lang_clamp
-#define mk_include_guard_lang_clamp
+#ifndef mk_include_guard_mk_lang_clamp
+#define mk_include_guard_mk_lang_clamp
 
 
 #include "mk_lang_max.h"

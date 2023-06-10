@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_lang_bui_to3
-#define mk_include_guard_lang_bui_to3
+#ifndef mk_include_guard_mk_lang_bui_to3
+#define mk_include_guard_mk_lang_bui_to3
 
 
 #include "mk_lang_sizeof.h"

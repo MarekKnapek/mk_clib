@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_sl_cui_fuzz
-#define mk_include_guard_sl_cui_fuzz
+#ifndef mk_include_guard_mk_sl_cui_fuzz
+#define mk_include_guard_mk_sl_cui_fuzz
 
 
 #include "mk_lang_jumbo.h"

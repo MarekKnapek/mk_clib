@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_lang_pow
-#define mk_include_guard_lang_pow
+#ifndef mk_include_guard_mk_lang_pow
+#define mk_include_guard_mk_lang_pow
 
 
 #define mk_lang_pow_8(a, b) 1

@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_lang_llong
-#define mk_include_guard_lang_llong
+#ifndef mk_include_guard_mk_lang_llong
+#define mk_include_guard_mk_lang_llong
 
 
 #include "mk_lang_gnuc.h"

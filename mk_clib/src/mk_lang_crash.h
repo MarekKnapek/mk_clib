@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_lang_crash
-#define mk_include_guard_lang_crash
+#ifndef mk_include_guard_mk_lang_crash
+#define mk_include_guard_mk_lang_crash
 
 
 #include "mk_lang_jumbo.h"

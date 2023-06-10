@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_lang_arch
-#define mk_include_guard_lang_arch
+#ifndef mk_include_guard_mk_lang_arch
+#define mk_include_guard_mk_lang_arch
 
 
 #define mk_lang_arch_x8616 1001

@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_clib_fuzz
-#define mk_include_guard_clib_fuzz
+#ifndef mk_include_guard_mk_clib_fuzz
+#define mk_include_guard_mk_clib_fuzz
 
 
 #include "mk_lang_jumbo.h"

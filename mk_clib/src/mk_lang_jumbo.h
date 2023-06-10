@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_lang_jumbo
-#define mk_include_guard_lang_jumbo
+#ifndef mk_include_guard_mk_lang_jumbo
+#define mk_include_guard_mk_lang_jumbo
 
 
 #if !defined mk_lang_jumbo_want

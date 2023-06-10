@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_lang_likely
-#define mk_include_guard_lang_likely
+#ifndef mk_include_guard_mk_lang_likely
+#define mk_include_guard_mk_lang_likely
 
 
 #if defined __cplusplus && __cplusplus >= 202002l
