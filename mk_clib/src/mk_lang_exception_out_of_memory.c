@@ -2,7 +2,6 @@
 
 #include "mk_lang_assert.h"
 #include "mk_lang_exception.h"
-#include "mk_lang_exception_data.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
@@ -16,6 +15,6 @@ mk_lang_jumbo void mk_lang_exception_out_of_memory_make(mk_lang_exception_pt con
 	mk_lang_assert(requested_bytes != 0);
 
 	ex->m_id = mk_lang_exception_id_e_out_of_memory;
-	out_of_memory = &((mk_lang_exception_data_pt)(&ex->m_data))->m_out_of_memory;
+	out_of_memory = ((mk_lang_exception_out_of_memory_pt)(&ex->m_data));
 	out_of_memory->m_requested_bytes = requested_bytes;
 }
