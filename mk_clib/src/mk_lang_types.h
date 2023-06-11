@@ -7,6 +7,7 @@
 #include "mk_lang_intptrt.h"
 #include "mk_lang_lllong.h"
 #include "mk_lang_llong.h"
+#include "mk_lang_restrict.h"
 #include "mk_lang_sizet.h"
 
 
@@ -97,6 +98,50 @@ typedef mk_lang_types_uintmax_t const* mk_lang_types_uintmax_pct;
 typedef mk_lang_types_sintmax_t const* mk_lang_types_sintmax_pct;
 typedef mk_lang_types_usize_t const* mk_lang_types_usize_pct;
 typedef mk_lang_types_ssize_t const* mk_lang_types_ssize_pct;
+
+typedef mk_lang_types_void_t* mk_lang_restrict mk_lang_types_void_prt;
+typedef mk_lang_types_bool_t* mk_lang_restrict mk_lang_types_bool_prt;
+typedef mk_lang_types_pchar_t* mk_lang_restrict mk_lang_types_pchar_prt;
+typedef mk_lang_types_uchar_t* mk_lang_restrict mk_lang_types_uchar_prt;
+typedef mk_lang_types_schar_t* mk_lang_restrict mk_lang_types_schar_prt;
+typedef mk_lang_types_ushort_t* mk_lang_restrict mk_lang_types_ushort_prt;
+typedef mk_lang_types_sshort_t* mk_lang_restrict mk_lang_types_sshort_prt;
+typedef mk_lang_types_uint_t* mk_lang_restrict mk_lang_types_uint_prt;
+typedef mk_lang_types_sint_t* mk_lang_restrict mk_lang_types_sint_prt;
+typedef mk_lang_types_ulong_t* mk_lang_restrict mk_lang_types_ulong_prt;
+typedef mk_lang_types_slong_t* mk_lang_restrict mk_lang_types_slong_prt;
+typedef mk_lang_types_ullong_t* mk_lang_restrict mk_lang_types_ullong_prt;
+typedef mk_lang_types_sllong_t* mk_lang_restrict mk_lang_types_sllong_prt;
+typedef mk_lang_types_ulllong_t* mk_lang_restrict mk_lang_types_ulllong_prt;
+typedef mk_lang_types_slllong_t* mk_lang_restrict mk_lang_types_slllong_prt;
+typedef mk_lang_types_uintptr_t* mk_lang_restrict mk_lang_types_uintptr_prt;
+typedef mk_lang_types_sintptr_t* mk_lang_restrict mk_lang_types_sintptr_prt;
+typedef mk_lang_types_uintmax_t* mk_lang_restrict mk_lang_types_uintmax_prt;
+typedef mk_lang_types_sintmax_t* mk_lang_restrict mk_lang_types_sintmax_prt;
+typedef mk_lang_types_usize_t* mk_lang_restrict mk_lang_types_usize_prt;
+typedef mk_lang_types_ssize_t* mk_lang_restrict mk_lang_types_ssize_prt;
+
+typedef mk_lang_types_void_t const* mk_lang_restrict mk_lang_types_void_prct;
+typedef mk_lang_types_bool_t const* mk_lang_restrict mk_lang_types_bool_prct;
+typedef mk_lang_types_pchar_t const* mk_lang_restrict mk_lang_types_pchar_prct;
+typedef mk_lang_types_uchar_t const* mk_lang_restrict mk_lang_types_uchar_prct;
+typedef mk_lang_types_schar_t const* mk_lang_restrict mk_lang_types_schar_prct;
+typedef mk_lang_types_ushort_t const* mk_lang_restrict mk_lang_types_ushort_prct;
+typedef mk_lang_types_sshort_t const* mk_lang_restrict mk_lang_types_sshort_prct;
+typedef mk_lang_types_uint_t const* mk_lang_restrict mk_lang_types_uint_prct;
+typedef mk_lang_types_sint_t const* mk_lang_restrict mk_lang_types_sint_prct;
+typedef mk_lang_types_ulong_t const* mk_lang_restrict mk_lang_types_ulong_prct;
+typedef mk_lang_types_slong_t const* mk_lang_restrict mk_lang_types_slong_prct;
+typedef mk_lang_types_ullong_t const* mk_lang_restrict mk_lang_types_ullong_prct;
+typedef mk_lang_types_sllong_t const* mk_lang_restrict mk_lang_types_sllong_prct;
+typedef mk_lang_types_ulllong_t const* mk_lang_restrict mk_lang_types_ulllong_prct;
+typedef mk_lang_types_slllong_t const* mk_lang_restrict mk_lang_types_slllong_prct;
+typedef mk_lang_types_uintptr_t const* mk_lang_restrict mk_lang_types_uintptr_prct;
+typedef mk_lang_types_sintptr_t const* mk_lang_restrict mk_lang_types_sintptr_prct;
+typedef mk_lang_types_uintmax_t const* mk_lang_restrict mk_lang_types_uintmax_prct;
+typedef mk_lang_types_sintmax_t const* mk_lang_restrict mk_lang_types_sintmax_prct;
+typedef mk_lang_types_usize_t const* mk_lang_restrict mk_lang_types_usize_prct;
+typedef mk_lang_types_ssize_t const* mk_lang_restrict mk_lang_types_ssize_prct;
 
 
 #endif
