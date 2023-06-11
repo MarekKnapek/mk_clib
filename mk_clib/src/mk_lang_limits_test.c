@@ -13,7 +13,7 @@ mk_lang_jumbo void mk_lang_limits_test(void) mk_lang_noexcept
 
 #if mk_lang_lllong_has
 #define ulllong_max ((mk_lang_ulllong_t)(((mk_lang_ulllong_t)(((mk_lang_ulllong_t)(mk_lang_ullong_c(0xffffffffffffffff))) << 64)) | ((mk_lang_ulllong_t)(mk_lang_ullong_c(0xffffffffffffffff)))))
-#define slllong_min ((mk_lang_slllong_t)(((mk_lang_slllong_t)(((mk_lang_slllong_t)(mk_lang_sllong_c(-9223372036854775807) - mk_lang_sllong_c(1))) << 64)) | ((mk_lang_slllong_t)(mk_lang_ullong_c(0x0000000000000000)))))
+#define slllong_min ((mk_lang_slllong_t)(((mk_lang_slllong_t)(((mk_lang_ulllong_t)(((mk_lang_slllong_t)(mk_lang_sllong_c(-9223372036854775807) - mk_lang_sllong_c(1))))) << 64)) | ((mk_lang_slllong_t)(mk_lang_ullong_c(0x0000000000000000)))))
 #define slllong_max ((mk_lang_slllong_t)(((mk_lang_slllong_t)(((mk_lang_slllong_t)(mk_lang_ullong_c(9223372036854775807))) << 64)) | ((mk_lang_slllong_t)(mk_lang_ullong_c(0xffffffffffffffff)))))
 #else
 #define ulllong_max (mk_lang_ullong_c(0xffffffffffffffff))
