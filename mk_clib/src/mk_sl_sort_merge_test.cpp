@@ -13,6 +13,7 @@
 #include "mk_lang_static_assert.h"
 #include "mk_lang_types.h"
 #include "mk_lang_version.h"
+#include "mk_lib_cpp_constexpr.hpp"
 
 
 #if mk_lang_version_at_least_cpp_14 || mk_lang_version_at_least_msvc_cpp_14
@@ -71,16 +72,13 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_sor
 #include "mk_sl_sort_merge_inl_fileh.h"
 #include "mk_sl_sort_merge_inl_filec.h"
 
-#include <array>
-#include <cstddef>
 
-
-template<std::size_t n>
+template<mk_lang_types_usize_t n>
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto sort_numbers1(int const(&arr)[n]) mk_lang_noexcept
 {
-	std::size_t i mk_lang_constexpr_init;
-	std::array<int, n> ret mk_lang_constexpr_init;
-	std::array<int, n> tmp mk_lang_constexpr_init;
+	mk_lang_types_usize_t i mk_lang_constexpr_init;
+	mk_lib_cpp_constexpr_array_t<int, n> ret mk_lang_constexpr_init;
+	mk_lib_cpp_constexpr_array_t<int, n> tmp mk_lang_constexpr_init;
 
 	for(i = 0; i != n; ++i)
 	{
@@ -90,12 +88,12 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto sort_numbers1(int const(&
 	return ret;
 }
 
-template<std::size_t n>
+template<mk_lang_types_usize_t n>
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto sort_numbers2(int const(&arr)[n]) mk_lang_noexcept
 {
-	std::size_t i mk_lang_constexpr_init;
-	std::array<int, n> ret mk_lang_constexpr_init;
-	std::array<int, n> tmp mk_lang_constexpr_init;
+	mk_lang_types_usize_t i mk_lang_constexpr_init;
+	mk_lib_cpp_constexpr_array_t<int, n> ret mk_lang_constexpr_init;
+	mk_lib_cpp_constexpr_array_t<int, n> tmp mk_lang_constexpr_init;
 
 	for(i = 0; i != n; ++i)
 	{
@@ -105,13 +103,13 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto sort_numbers2(int const(&
 	return ret;
 }
 
-template<std::size_t n>
+template<mk_lang_types_usize_t n>
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto sort_numbers3(int const(&arr)[n]) mk_lang_noexcept
 {
-	std::size_t i mk_lang_constexpr_init;
-	std::array<int, n> ret mk_lang_constexpr_init;
-	std::array<mk_lang_types_usize_t, n> proxy mk_lang_constexpr_init;
-	std::array<mk_lang_types_usize_t, n> tmp mk_lang_constexpr_init;
+	mk_lang_types_usize_t i mk_lang_constexpr_init;
+	mk_lib_cpp_constexpr_array_t<int, n> ret mk_lang_constexpr_init;
+	mk_lib_cpp_constexpr_array_t<mk_lang_types_usize_t, n> proxy mk_lang_constexpr_init;
+	mk_lib_cpp_constexpr_array_t<mk_lang_types_usize_t, n> tmp mk_lang_constexpr_init;
 
 	for(i = 0; i != n; ++i)
 	{
@@ -125,13 +123,13 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto sort_numbers3(int const(&
 	return ret;
 }
 
-template<std::size_t n>
+template<mk_lang_types_usize_t n>
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto sort_numbers4(int const(&arr)[n]) mk_lang_noexcept
 {
-	std::size_t i mk_lang_constexpr_init;
-	std::array<int, n> ret mk_lang_constexpr_init;
-	std::array<mk_lang_types_usize_t, n> proxy mk_lang_constexpr_init;
-	std::array<mk_lang_types_usize_t, n> tmp mk_lang_constexpr_init;
+	mk_lang_types_usize_t i mk_lang_constexpr_init;
+	mk_lib_cpp_constexpr_array_t<int, n> ret mk_lang_constexpr_init;
+	mk_lib_cpp_constexpr_array_t<mk_lang_types_usize_t, n> proxy mk_lang_constexpr_init;
+	mk_lib_cpp_constexpr_array_t<mk_lang_types_usize_t, n> tmp mk_lang_constexpr_init;
 
 	for(i = 0; i != n; ++i)
 	{
