@@ -40,6 +40,6 @@
 
 
 #if mk_lang_jumbo_want == 1
-#include "mk_sl_uint8.cpp"
+#include "mk_sl_uint8.c"
 #endif
 #endif

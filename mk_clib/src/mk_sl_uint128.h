@@ -152,6 +152,6 @@
 
 
 #if mk_lang_jumbo_want == 1
-#include "mk_sl_uint128.cpp"
+#include "mk_sl_uint128.c"
 #endif
 #endif
