@@ -14,7 +14,8 @@
 #include "mk_lang_inline.h"
 #define mk_lang_jumbo static mk_lang_inline
 #elif mk_lang_jumbo_want == 0
-#define mk_lang_jumbo
+#include "mk_lang_inline.h"
+#define mk_lang_jumbo mk_lang_inline
 #endif
 
 
