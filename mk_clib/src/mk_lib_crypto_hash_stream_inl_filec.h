@@ -43,7 +43,6 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_stream_inl_defd_append(m
 	int i mk_lang_constexpr_init;
 	mk_lang_types_usize_t blocks mk_lang_constexpr_init;
 	mk_lang_types_usize_t j mk_lang_constexpr_init;
-	mk_lib_crypto_hash_stream_inl_defd_base_block_t block mk_lang_constexpr_init;
 
 	mk_lang_assert(hash);
 	mk_lang_assert(data || size == 0);
@@ -82,7 +81,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_stream_inl_defd_append(m
 				{
 					mk_sl_cui_uint8_from_bi_uchar(&hash->m_block.m_uint8s[i], &ptr[j * mk_lib_crypto_hash_stream_inl_defd_base_block_len + i]);
 				}
-				mk_lib_crypto_hash_stream_inl_defd_base_append_blocks(&hash->m_base, &block, 1);
+				mk_lib_crypto_hash_stream_inl_defd_base_append_blocks(&hash->m_base, &hash->m_block, 1);
 			}
 		}
 		ptr += blocks * mk_lib_crypto_hash_stream_inl_defd_base_block_len;
