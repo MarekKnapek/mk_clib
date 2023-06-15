@@ -54,8 +54,7 @@ typedef mk_lib_crypto_hash_block_md2_digest_t const* mk_lib_crypto_hash_block_md
 
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_md2_init(mk_lib_crypto_hash_block_md2_pt const md2) mk_lang_noexcept;
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_md2_append_blocks(mk_lib_crypto_hash_block_md2_pt const md2, mk_lib_crypto_hash_block_md2_block_pct const pblocks, mk_lang_types_usize_t const nblocks) mk_lang_noexcept;
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_md2_pad_block(mk_lib_crypto_hash_block_md2_pct const md2, mk_lib_crypto_hash_block_md2_block_pt const block, int const idx) mk_lang_noexcept;
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_md2_finish(mk_lib_crypto_hash_block_md2_pt const md2, mk_lib_crypto_hash_block_md2_digest_pt const digest) mk_lang_noexcept;
+mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_md2_finish(mk_lib_crypto_hash_block_md2_pt const md2, mk_lib_crypto_hash_block_md2_block_pt const block, int const idx, mk_lib_crypto_hash_block_md2_digest_pt const digest) mk_lang_noexcept;
 
 
 #if mk_lang_jumbo_want == 1

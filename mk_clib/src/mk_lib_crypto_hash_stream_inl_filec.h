@@ -102,9 +102,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_stream_inl_defd_finish(m
 	mk_lang_assert(hash);
 	mk_lang_assert(digest);
 
-	mk_lib_crypto_hash_stream_inl_defd_base_pad_block(&hash->m_base, &hash->m_block, hash->m_idx);
-	mk_lib_crypto_hash_stream_inl_defd_base_append_blocks(&hash->m_base, &hash->m_block, 1);
-	mk_lib_crypto_hash_stream_inl_defd_base_finish(&hash->m_base, digest);
+	mk_lib_crypto_hash_stream_inl_defd_base_finish(&hash->m_base, &hash->m_block, hash->m_idx, digest);
 }
 
 

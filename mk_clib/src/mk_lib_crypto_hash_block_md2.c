@@ -131,7 +131,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_md2_append_blocks(
 	}
 }
 
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_md2_pad_block(mk_lib_crypto_hash_block_md2_pct const md2, mk_lib_crypto_hash_block_md2_block_pt const block, int const idx) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_md2_finish(mk_lib_crypto_hash_block_md2_pt const md2, mk_lib_crypto_hash_block_md2_block_pt const block, int const idx, mk_lib_crypto_hash_block_md2_digest_pt const digest) mk_lang_noexcept
 {
 	int rest mk_lang_constexpr_init;
 	mk_sl_cui_uint8_t ta mk_lang_constexpr_init;
@@ -140,6 +140,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_md2_pad_block(mk_l
 	mk_lang_assert(md2);
 	mk_lang_assert(block);
 	mk_lang_assert(idx >= 0 && idx < 16);
+	mk_lang_assert(digest);
 
 	rest = 16 - idx;
 	mk_sl_cui_uint8_from_bi_sint(&ta, &rest);
@@ -147,15 +148,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_md2_pad_block(mk_l
 	{
 		block->m_uint8s[idx + i] = ta;
 	}
-}
-
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_md2_finish(mk_lib_crypto_hash_block_md2_pt const md2, mk_lib_crypto_hash_block_md2_digest_pt const digest) mk_lang_noexcept
-{
-	int i mk_lang_constexpr_init;
-
-	mk_lang_assert(md2);
-	mk_lang_assert(digest);
-
+	mk_lib_crypto_hash_block_md2_append_blocks(md2, block, 1);
 	mk_lib_crypto_hash_block_md2_append_blocks(md2, &md2->m_checksum, 1);
 	for(i = 0; i != 16; ++i)
 	{
