@@ -23,8 +23,18 @@ typedef mk_lib_crypto_hash_block_md2_aligned48_t const mk_lib_crypto_hash_block_
 typedef mk_lib_crypto_hash_block_md2_aligned48_t* mk_lib_crypto_hash_block_md2_aligned48_pt;
 typedef mk_lib_crypto_hash_block_md2_aligned48_t const* mk_lib_crypto_hash_block_md2_aligned48_pct;
 
+union mk_lib_crypto_hash_block_md2_aligned256_u
+{
+	mk_sl_cui_uint8_t m_uint8s[0xff + 1];
+	mk_lang_types_ulllong_t m_ulllong;
+};
+typedef union mk_lib_crypto_hash_block_md2_aligned256_u mk_lib_crypto_hash_block_md2_aligned256_t;
+typedef mk_lib_crypto_hash_block_md2_aligned256_t const mk_lib_crypto_hash_block_md2_aligned256_ct;
+typedef mk_lib_crypto_hash_block_md2_aligned256_t* mk_lib_crypto_hash_block_md2_aligned256_pt;
+typedef mk_lib_crypto_hash_block_md2_aligned256_t const* mk_lib_crypto_hash_block_md2_aligned256_pct;
 
-mk_lang_constexpr_static unsigned char const mk_lib_crypto_hash_block_md2_table[0xff + 1] =
+
+mk_lang_constexpr_static mk_lib_crypto_hash_block_md2_aligned256_t const s_mk_lib_crypto_hash_block_md2_table =
 {
 	0x29, 0x2e, 0x43, 0xc9, 0xa2, 0xd8, 0x7c, 0x01, 0x3d, 0x36, 0x54, 0xa1, 0xec, 0xf0, 0x06, 0x13,
 	0x62, 0xa7, 0x05, 0xf3, 0xc0, 0xc7, 0x73, 0x8c, 0x98, 0x93, 0x2b, 0xd9, 0xbc, 0x4c, 0x82, 0xca,
@@ -54,6 +64,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_md2_init(mk_lib_cr
 	mk_lang_static_assert(sizeof(mk_lib_crypto_hash_block_md2_block_t) == 16);
 	mk_lang_static_assert(sizeof(mk_lib_crypto_hash_block_md2_digest_t) == 16);
 	mk_lang_static_assert(sizeof(mk_lib_crypto_hash_block_md2_aligned48_t) == 48);
+	mk_lang_static_assert(sizeof(mk_lib_crypto_hash_block_md2_aligned256_t) == 256);
 
 	for(i = 0; i != 16; ++i)
 	{
@@ -100,8 +111,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_md2_append_blocks(
 			for(k = 0; k != 48; ++k)
 			{
 				mk_lang_assert(t >= 0x00 && t <= 0xff);
-				mk_sl_cui_uint8_from_bi_uchar(&ta, &mk_lib_crypto_hash_block_md2_table[t]);
-				mk_sl_cui_uint8_xor2(&x.m_uint8s[k], &ta);
+				mk_sl_cui_uint8_xor2(&x.m_uint8s[k], &s_mk_lib_crypto_hash_block_md2_table.m_uint8s[t]);
 				mk_sl_cui_uint8_to_bi_uint(&x.m_uint8s[k], &t);
 			}
 			t = (t + j) & 0xff;
@@ -110,9 +120,8 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_md2_append_blocks(
 		for(j = 0; j != 16; ++j)
 		{
 			mk_sl_cui_uint8_xor2(&ta, &pblocks[iblock].m_uint8s[j]);
-			mk_sl_cui_uint8_to_bi_uint(&ta, &t);
-			mk_sl_cui_uint8_from_bi_uchar(&ta, &mk_lib_crypto_hash_block_md2_table[t]);
-			mk_sl_cui_uint8_xor2(&md2->m_checksum.m_uint8s[j], &ta);
+			mk_sl_cui_uint8_to_bi_uint(&ta, &t); mk_lang_assert(t >= 0x00 && t <= 0xff);
+			mk_sl_cui_uint8_xor2(&md2->m_checksum.m_uint8s[j], &s_mk_lib_crypto_hash_block_md2_table.m_uint8s[t]);
 			ta = md2->m_checksum.m_uint8s[j];
 		}
 	}
