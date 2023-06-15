@@ -95,7 +95,7 @@ mk_lang_extern_c void mk_lib_crypto_hash_stream_md2_test(void) mk_lang_noexcept
 
 	#endif
 
-	#define test(x) if(!(x)) mk_lang_unlikely mk_lang_crash(); ((void)(0))
+	#define test(x) if(!(x)) { mk_lang_unlikely mk_lang_assert(0); mk_lang_crash(); } ((void)(0))
 
 	static char const* const s_messages[] =
 	{

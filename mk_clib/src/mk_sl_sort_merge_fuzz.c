@@ -118,7 +118,7 @@ mk_lang_jumbo void mk_sl_sort_merge_fuzz_plain(unsigned char const* const data, 
 {
 	#define check(x) if(!(x)) return;
 	#define advance(x) d += (x); s -= (x); ((void)(0))
-	#define test(x) if(!(x)) mk_lang_unlikely mk_lang_crash(); ((void)(0))
+	#define test(x) if(!(x)) { mk_lang_unlikely mk_lang_assert(0); mk_lang_crash(); } ((void)(0))
 
 	mk_lang_types_uchar_pct d;
 	mk_lang_size_t s;
@@ -160,7 +160,7 @@ mk_lang_jumbo void mk_sl_sort_merge_fuzz_proxy(unsigned char const* const data, 
 {
 	#define check(x) if(!(x)) return;
 	#define advance(x) d += (x); s -= (x); ((void)(0))
-	#define test(x) if(!(x)) mk_lang_unlikely mk_lang_crash(); ((void)(0))
+	#define test(x) if(!(x)) { mk_lang_unlikely mk_lang_assert(0); mk_lang_crash(); } ((void)(0))
 
 	mk_lang_types_uchar_pct d;
 	mk_lang_size_t s;
@@ -209,7 +209,7 @@ mk_lang_jumbo void mk_sl_sort_merge_fuzz(unsigned char const* const data, mk_lan
 {
 	#define check(x) if(!(x)) return;
 	#define advance(x) d += (x); s -= (x); ((void)(0))
-	#define test(x) if(!(x)) mk_lang_unlikely mk_lang_crash(); ((void)(0))
+	#define test(x) if(!(x)) { mk_lang_unlikely mk_lang_assert(0); mk_lang_crash(); } ((void)(0))
 
 	mk_lang_types_uchar_pct d;
 	mk_lang_size_t s;

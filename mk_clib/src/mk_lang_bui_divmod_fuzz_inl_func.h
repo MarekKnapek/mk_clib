@@ -15,7 +15,7 @@
 
 mk_lang_jumbo void mk_lang_bui_divmod_fuzz_inl_func_defd_fn(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
 {
-	#define test(x) if(!(x)) mk_lang_unlikely mk_lang_crash(); ((void)(0))
+	#define test(x) if(!(x)) { mk_lang_unlikely mk_lang_assert(0); mk_lang_crash(); } ((void)(0))
 
 	#define check(x) if(!(x)) return; ((void)(0))
 	#define check_data(x) check(d && s >= (x)); ((void)(0))
