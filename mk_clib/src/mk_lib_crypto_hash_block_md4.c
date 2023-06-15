@@ -99,7 +99,7 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_md4_h(mk_s
 	mk_sl_cui_uint32_xor3(&ta, z, ret);
 }
 
-mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_md4_round_1(mk_sl_cui_uint32_pt const a, mk_sl_cui_uint32_pt const b, mk_sl_cui_uint32_pt const c, mk_sl_cui_uint32_pt const d, mk_lib_crypto_hash_block_md4_aligned64_pct const x, int const k, int const s) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_md4_round_1(mk_sl_cui_uint32_pt const a, mk_sl_cui_uint32_pct const b, mk_sl_cui_uint32_pct const c, mk_sl_cui_uint32_pct const d, mk_lib_crypto_hash_block_md4_block_pct const x, int const k, int const s) mk_lang_noexcept
 {
 	mk_sl_cui_uint32_t ta;
 	mk_sl_cui_uint32_t tb;
@@ -127,7 +127,7 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_md4_round_
 	mk_sl_cui_uint32_rotl2(a, s);
 }
 
-mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_md4_round_2(mk_sl_cui_uint32_pt const a, mk_sl_cui_uint32_pt const b, mk_sl_cui_uint32_pt const c, mk_sl_cui_uint32_pt const d, mk_lib_crypto_hash_block_md4_aligned64_pct const x, int const k, int const s) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_md4_round_2(mk_sl_cui_uint32_pt const a, mk_sl_cui_uint32_pct const b, mk_sl_cui_uint32_pct const c, mk_sl_cui_uint32_pct const d, mk_lib_crypto_hash_block_md4_block_pct const x, int const k, int const s) mk_lang_noexcept
 {
 	mk_sl_cui_uint32_t ta;
 
@@ -155,7 +155,7 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_md4_round_
 	mk_sl_cui_uint32_rotl2(a, s);
 }
 
-mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_md4_round_3(mk_sl_cui_uint32_pt const a, mk_sl_cui_uint32_pt const b, mk_sl_cui_uint32_pt const c, mk_sl_cui_uint32_pt const d, mk_lib_crypto_hash_block_md4_aligned64_pct const x, int const k, int const s) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_md4_round_3(mk_sl_cui_uint32_pt const a, mk_sl_cui_uint32_pct const b, mk_sl_cui_uint32_pct const c, mk_sl_cui_uint32_pct const d, mk_lib_crypto_hash_block_md4_block_pct const x, int const k, int const s) mk_lang_noexcept
 {
 	mk_sl_cui_uint32_t ta;
 	mk_sl_cui_uint32_t tb;
