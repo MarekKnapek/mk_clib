@@ -15,8 +15,8 @@
 
 union mk_lib_crypto_hash_block_md2_aligned48_u
 {
-	mk_lang_types_ulllong_t m_ulllong;
 	mk_sl_cui_uint8_t m_uint8s[48];
+	mk_lang_types_ulllong_t m_ulllong;
 };
 typedef union mk_lib_crypto_hash_block_md2_aligned48_u mk_lib_crypto_hash_block_md2_aligned48_t;
 typedef mk_lib_crypto_hash_block_md2_aligned48_t const mk_lib_crypto_hash_block_md2_aligned48_ct;
