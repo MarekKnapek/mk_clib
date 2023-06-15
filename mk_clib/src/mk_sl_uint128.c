@@ -6,21 +6,21 @@
 #include "mk_lang_types.h"
 
 
-#if mk_lang_charbit == 8 && mk_lang_sizeof_bi_ullong_t == 16
+#if mk_lang_charbit == 8 && mk_lang_sizeof_bi_ulllong_t == 16
 
-#define mk_lang_bui_name mk_sl_uint128_ullong
-#define mk_lang_bui_type mk_lang_types_ullong_t
-#define mk_lang_bui_sizeof mk_lang_sizeof_bi_ullong_t
+#define mk_lang_bui_name mk_sl_uint128_ulllong
+#define mk_lang_bui_type mk_lang_types_ulllong_t
+#define mk_lang_bui_sizeof mk_lang_sizeof_bi_ulllong_t
 #include "mk_lang_bui_inl_filec.h"
 
 #define mk_sl_cui_name uint128
-#define mk_sl_cui_base_type mk_lang_types_ullong_t
-#define mk_sl_cui_base_name mk_lang_bui_mk_sl_uint128_ullong
+#define mk_sl_cui_base_type mk_lang_types_ulllong_t
+#define mk_sl_cui_base_name mk_lang_bui_mk_sl_uint128_ulllong
 #define mk_sl_cui_base_bits 128
 #define mk_sl_cui_count 1
 #define mk_sl_cui_endian mk_lang_endian_little
 #define mk_sl_cui_base_is_bui 1
-#define mk_sl_cui_base_bui_tn ullong
+#define mk_sl_cui_base_bui_tn ulllong
 #include "mk_sl_cui_inl_filec.h"
 
 #elif mk_lang_charbit == 8 && mk_lang_sizeof_bi_ulong_t == 8
