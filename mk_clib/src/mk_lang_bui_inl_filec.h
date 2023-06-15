@@ -186,29 +186,29 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_lang_bui_inl_defd_count
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_lang_bui_inl_defd_count_zeros(mk_lang_bui_inl_defd_type const* const x) mk_lang_noexcept
 {
-	mk_lang_bui_inl_defd_type xx mk_lang_constexpr_init;
-
-	mk_lang_assert(x);
-
-	xx = ((mk_lang_bui_inl_defd_type)(~((mk_lang_bui_inl_defd_type)(*x))));
-	return mk_lang_bui_inl_defd_count_ones(&xx);
-}
-
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_lang_bui_inl_defd_count_ones(mk_lang_bui_inl_defd_type const* const x) mk_lang_noexcept
-{
 	int cnt mk_lang_constexpr_init;
 	mk_lang_bui_inl_defd_type xx mk_lang_constexpr_init;
 
 	mk_lang_assert(x);
 
-	cnt = 0;
+	cnt = ((int)(((int)(mk_lang_bui_inl_defd_sizeof)) * ((int)(mk_lang_charbit))));
 	xx = ((mk_lang_bui_inl_defd_type)(*x));
 	while(xx != ((mk_lang_bui_inl_defd_type)(0)))
 	{
-		++cnt;
+		--cnt;
 		xx = ((mk_lang_bui_inl_defd_type)(xx & ((mk_lang_bui_inl_defd_type)(xx - ((mk_lang_bui_inl_defd_type)(1))))));
 	}
 	return cnt;
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_lang_bui_inl_defd_count_ones(mk_lang_bui_inl_defd_type const* const x) mk_lang_noexcept
+{
+	mk_lang_bui_inl_defd_type xx mk_lang_constexpr_init;
+
+	mk_lang_assert(x);
+
+	xx = ((mk_lang_bui_inl_defd_type)(~((mk_lang_bui_inl_defd_type)(*x))));
+	return mk_lang_bui_inl_defd_count_zeros(&xx);
 }
 
 
@@ -386,7 +386,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_rotl3(mk_lang_bui_inl_
 	mk_lang_assert(b >= 1 && b < ((int)(sizeof(mk_lang_bui_inl_defd_type) * mk_lang_charbit)));
 	mk_lang_assert(c);
 
-	*c = ((mk_lang_bui_inl_defd_type)(((mk_lang_bui_inl_defd_type)(((mk_lang_bui_inl_defd_type)(*a)) << b)) | ((mk_lang_bui_inl_defd_type)(((mk_lang_bui_inl_defd_type)(*a)) >> ((int)(((int)(sizeof(mk_lang_bui_inl_defd_type) * mk_lang_charbit)) - b))))));
+	*c = ((mk_lang_bui_inl_defd_type)(((mk_lang_bui_inl_defd_type)(((mk_lang_bui_inl_defd_type)(*a)) << b)) | ((mk_lang_bui_inl_defd_type)(((mk_lang_bui_inl_defd_type)(*a)) >> ((int)(((int)(((int)(mk_lang_bui_inl_defd_sizeof)) * ((int)(mk_lang_charbit)))) - b))))));
 }
 
 mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_rotr3(mk_lang_bui_inl_defd_type const* const a, int const b, mk_lang_bui_inl_defd_type* const c) mk_lang_noexcept
@@ -395,7 +395,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_rotr3(mk_lang_bui_inl_
 	mk_lang_assert(b >= 1 && b < ((int)(sizeof(mk_lang_bui_inl_defd_type) * mk_lang_charbit)));
 	mk_lang_assert(c);
 
-	*c = ((mk_lang_bui_inl_defd_type)(((mk_lang_bui_inl_defd_type)(((mk_lang_bui_inl_defd_type)(*a)) >> b)) | ((mk_lang_bui_inl_defd_type)(((mk_lang_bui_inl_defd_type)(*a)) << ((int)(((int)(sizeof(mk_lang_bui_inl_defd_type) * mk_lang_charbit)) - b))))));
+	*c = ((mk_lang_bui_inl_defd_type)(((mk_lang_bui_inl_defd_type)(((mk_lang_bui_inl_defd_type)(*a)) >> b)) | ((mk_lang_bui_inl_defd_type)(((mk_lang_bui_inl_defd_type)(*a)) << ((int)(((int)(((int)(mk_lang_bui_inl_defd_sizeof)) * ((int)(mk_lang_charbit)))) - b))))));
 }
 
 mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_shl2(mk_lang_bui_inl_defd_type* const a, int const b) mk_lang_noexcept
@@ -662,7 +662,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_mul3_wrap_hi(mk_lang_b
 
 	*c = ((mk_lang_bui_inl_defd_type)(__umulh(((unsigned __int64)(*a)), ((unsigned __int64)(*b)))));
 #else
-	#define shift ((int)(((int)(((int)(sizeof(mk_lang_bui_inl_defd_type))) * ((int)(mk_lang_charbit)))) / ((int)(2))))
+	#define shift ((int)(((int)(((int)(mk_lang_bui_inl_defd_sizeof)) * ((int)(mk_lang_charbit)))) / ((int)(2))))
 	#define mask ((mk_lang_bui_inl_defd_type)(((mk_lang_bui_inl_defd_type)(((mk_lang_bui_inl_defd_type)(1)) << shift)) - ((mk_lang_bui_inl_defd_type)(1))))
 
 	mk_lang_bui_inl_defd_type alo mk_lang_constexpr_init;
@@ -674,7 +674,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_mul3_wrap_hi(mk_lang_b
 	mk_lang_bui_inl_defd_type bami mk_lang_constexpr_init;
 	mk_lang_bui_inl_defd_type abhi mk_lang_constexpr_init;
 
-	mk_lang_static_assert(((int)(((((int)(((int)(sizeof(mk_lang_bui_inl_defd_type))) * ((int)(mk_lang_charbit))))) % ((int)(2))))) == ((int)(0)));
+	mk_lang_static_assert(((int)(((((int)(((int)(mk_lang_bui_inl_defd_sizeof)) * ((int)(mk_lang_charbit))))) % ((int)(2))))) == ((int)(0)));
 	mk_lang_assert(a);
 	mk_lang_assert(b);
 	mk_lang_assert(c);
@@ -826,7 +826,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_mul4_wrap_wi(mk_lang_b
 	*c = ((mk_lang_bui_inl_defd_type)(((mk_lang_bui_inl_defd_type)(*a)) * ((mk_lang_bui_inl_defd_type)(*b))));
 	*d = ((mk_lang_bui_inl_defd_type)(__umulh(aa, bb)));
 #else
-	#define shift ((int)(((int)(((int)(sizeof(mk_lang_bui_inl_defd_type))) * ((int)(mk_lang_charbit)))) / ((int)(2))))
+	#define shift ((int)(((int)(((int)(mk_lang_bui_inl_defd_sizeof)) * ((int)(mk_lang_charbit)))) / ((int)(2))))
 	#define mask ((mk_lang_bui_inl_defd_type)(((mk_lang_bui_inl_defd_type)(((mk_lang_bui_inl_defd_type)(1)) << shift)) - ((mk_lang_bui_inl_defd_type)(1))))
 
 	mk_lang_bui_inl_defd_type alo mk_lang_constexpr_init;
