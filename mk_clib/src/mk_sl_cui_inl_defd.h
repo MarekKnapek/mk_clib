@@ -116,6 +116,9 @@
 
 #define mk_sl_cui_inl_defd_s mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _s)
 #define mk_sl_cui_inl_defd_t mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _t)
+#define mk_sl_cui_inl_defd_ct mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _ct)
+#define mk_sl_cui_inl_defd_pt mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _pt)
+#define mk_sl_cui_inl_defd_pct mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _pct)
 
 #define mk_sl_cui_inl_defd_bits (mk_sl_cui_inl_defd_count * mk_sl_cui_inl_defd_base_bits)
 #define mk_sl_cui_inl_defd_overlap mk_lang_concat(mk_lang_overlap_, mk_sl_cui_inl_defd_base_bui_tn)

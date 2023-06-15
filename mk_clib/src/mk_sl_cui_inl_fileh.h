@@ -14,6 +14,9 @@ struct mk_sl_cui_inl_defd_s
 	mk_sl_cui_inl_defd_base_type m_data[mk_sl_cui_inl_defd_count];
 };
 typedef struct mk_sl_cui_inl_defd_s mk_sl_cui_inl_defd_t;
+typedef mk_sl_cui_inl_defd_t const mk_sl_cui_inl_defd_ct;
+typedef mk_sl_cui_inl_defd_t* mk_sl_cui_inl_defd_pt;
+typedef mk_sl_cui_inl_defd_t const* mk_sl_cui_inl_defd_pct;
 
 
 mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_set_zero(mk_sl_cui_inl_defd_t* const x) mk_lang_noexcept;
