@@ -19,10 +19,10 @@
 
 mk_lang_constexpr_static mk_sl_cui_uint32_t const s_mk_lib_crypto_hash_block_md4_init[4] =
 {
-	{ 0x67452301ul },
-	{ 0xefcdab89ul },
-	{ 0x98badcfeul },
-	{ 0x10325476ul },
+	{{ 0x67452301ul }},
+	{{ 0xefcdab89ul }},
+	{{ 0x98badcfeul }},
+	{{ 0x10325476ul }},
 };
 mk_lang_constexpr_static mk_sl_cui_uint32_t const s_mk_lib_crypto_hash_block_md4_round_2_constant = {{ 0x5a827999ul }};
 mk_lang_constexpr_static mk_sl_cui_uint32_t const s_mk_lib_crypto_hash_block_md4_round_3_constant = {{ 0x6ed9eba1ul }};

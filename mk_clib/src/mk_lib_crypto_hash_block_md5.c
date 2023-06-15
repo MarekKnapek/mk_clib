@@ -18,29 +18,29 @@
 
 mk_lang_constexpr_static mk_sl_cui_uint32_t const s_mk_lib_crypto_hash_block_md5_init[4] =
 {
-	{ 0x67452301ul },
-	{ 0xefcdab89ul },
-	{ 0x98badcfeul },
-	{ 0x10325476ul },
+	{{ 0x67452301ul }},
+	{{ 0xefcdab89ul }},
+	{{ 0x98badcfeul }},
+	{{ 0x10325476ul }},
 };
 mk_lang_constexpr_static mk_sl_cui_uint32_t const s_mk_lib_crypto_hash_block_md5_table[64] =
 {
-	{ 0xd76aa478ul }, { 0xe8c7b756ul }, { 0x242070dbul }, { 0xc1bdceeeul },
-	{ 0xf57c0faful }, { 0x4787c62aul }, { 0xa8304613ul }, { 0xfd469501ul },
-	{ 0x698098d8ul }, { 0x8b44f7aful }, { 0xffff5bb1ul }, { 0x895cd7beul },
-	{ 0x6b901122ul }, { 0xfd987193ul }, { 0xa679438eul }, { 0x49b40821ul },
-	{ 0xf61e2562ul }, { 0xc040b340ul }, { 0x265e5a51ul }, { 0xe9b6c7aaul },
-	{ 0xd62f105dul }, { 0x02441453ul }, { 0xd8a1e681ul }, { 0xe7d3fbc8ul },
-	{ 0x21e1cde6ul }, { 0xc33707d6ul }, { 0xf4d50d87ul }, { 0x455a14edul },
-	{ 0xa9e3e905ul }, { 0xfcefa3f8ul }, { 0x676f02d9ul }, { 0x8d2a4c8aul },
-	{ 0xfffa3942ul }, { 0x8771f681ul }, { 0x6d9d6122ul }, { 0xfde5380cul },
-	{ 0xa4beea44ul }, { 0x4bdecfa9ul }, { 0xf6bb4b60ul }, { 0xbebfbc70ul },
-	{ 0x289b7ec6ul }, { 0xeaa127faul }, { 0xd4ef3085ul }, { 0x04881d05ul },
-	{ 0xd9d4d039ul }, { 0xe6db99e5ul }, { 0x1fa27cf8ul }, { 0xc4ac5665ul },
-	{ 0xf4292244ul }, { 0x432aff97ul }, { 0xab9423a7ul }, { 0xfc93a039ul },
-	{ 0x655b59c3ul }, { 0x8f0ccc92ul }, { 0xffeff47dul }, { 0x85845dd1ul },
-	{ 0x6fa87e4ful }, { 0xfe2ce6e0ul }, { 0xa3014314ul }, { 0x4e0811a1ul },
-	{ 0xf7537e82ul }, { 0xbd3af235ul }, { 0x2ad7d2bbul }, { 0xeb86d391ul },
+	{{ 0xd76aa478ul }}, {{ 0xe8c7b756ul }}, {{ 0x242070dbul }}, {{ 0xc1bdceeeul }},
+	{{ 0xf57c0faful }}, {{ 0x4787c62aul }}, {{ 0xa8304613ul }}, {{ 0xfd469501ul }},
+	{{ 0x698098d8ul }}, {{ 0x8b44f7aful }}, {{ 0xffff5bb1ul }}, {{ 0x895cd7beul }},
+	{{ 0x6b901122ul }}, {{ 0xfd987193ul }}, {{ 0xa679438eul }}, {{ 0x49b40821ul }},
+	{{ 0xf61e2562ul }}, {{ 0xc040b340ul }}, {{ 0x265e5a51ul }}, {{ 0xe9b6c7aaul }},
+	{{ 0xd62f105dul }}, {{ 0x02441453ul }}, {{ 0xd8a1e681ul }}, {{ 0xe7d3fbc8ul }},
+	{{ 0x21e1cde6ul }}, {{ 0xc33707d6ul }}, {{ 0xf4d50d87ul }}, {{ 0x455a14edul }},
+	{{ 0xa9e3e905ul }}, {{ 0xfcefa3f8ul }}, {{ 0x676f02d9ul }}, {{ 0x8d2a4c8aul }},
+	{{ 0xfffa3942ul }}, {{ 0x8771f681ul }}, {{ 0x6d9d6122ul }}, {{ 0xfde5380cul }},
+	{{ 0xa4beea44ul }}, {{ 0x4bdecfa9ul }}, {{ 0xf6bb4b60ul }}, {{ 0xbebfbc70ul }},
+	{{ 0x289b7ec6ul }}, {{ 0xeaa127faul }}, {{ 0xd4ef3085ul }}, {{ 0x04881d05ul }},
+	{{ 0xd9d4d039ul }}, {{ 0xe6db99e5ul }}, {{ 0x1fa27cf8ul }}, {{ 0xc4ac5665ul }},
+	{{ 0xf4292244ul }}, {{ 0x432aff97ul }}, {{ 0xab9423a7ul }}, {{ 0xfc93a039ul }},
+	{{ 0x655b59c3ul }}, {{ 0x8f0ccc92ul }}, {{ 0xffeff47dul }}, {{ 0x85845dd1ul }},
+	{{ 0x6fa87e4ful }}, {{ 0xfe2ce6e0ul }}, {{ 0xa3014314ul }}, {{ 0x4e0811a1ul }},
+	{{ 0xf7537e82ul }}, {{ 0xbd3af235ul }}, {{ 0x2ad7d2bbul }}, {{ 0xeb86d391ul }},
 };
 
 
