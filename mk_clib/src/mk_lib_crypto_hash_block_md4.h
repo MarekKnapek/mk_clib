@@ -11,9 +11,9 @@
 #include "mk_lang_noexcept.h"
 #include "mk_lang_stringify.h"
 #include "mk_lang_types.h"
-#include "mk_sl_uint8.h"
 #include "mk_sl_uint32.h"
 #include "mk_sl_uint64.h"
+#include "mk_sl_uint8.h"
 
 
 #define mk_lib_crypto_hash_block_md4_block_len 64
