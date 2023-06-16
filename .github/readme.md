@@ -2,12 +2,12 @@
 
 Hi, welcome to my library, this is place where I put all my C stuff. There is currently arbitrary length unsigned integer arithmetic stuff only.
 
- - [bui example](#bui-example)
- - [cui example](#cui-example)
- - [factorial example](#factorial-example)
- - [flt example](#flt-example)
+ - [bui](#bui)
+ - [cui](#cui)
+ - [factorial](#factorial)
+ - [flt](#flt)
 
-## bui example
+## bui
 
 Example usage of `mk_lang_bui` library, `bui` stands for basic unsigned integer. This is basically "just" wrapper around `unsigned char`, `unsigned short`, `unsigned int`, `unsigned long` and similar types wrapping all C language built-in operators. For example `+` becomes `add3`, `-=` becomes `sub2`, `<<` becomes `shl3` and so on.
 
@@ -45,7 +45,7 @@ $ echo $?
 25
 ```
 
-## cui example
+## cui
 
 Example usage of `mk_sl_cui` library, `cui` stands for composite unsigned integer. This is basically "just" an array of `n` `unsigned char`s, `unsigned short`s, `unsigned int`s, `unsigned long`s and similar types re-implementing all C language built-in operators. For example `+` becomes `add3`, `-=` becomes `sub2`, `<<` becomes `shl3` and so on.
 
@@ -101,7 +101,7 @@ $ ./a
 25
 ```
 
-## factorial example
+## factorial
 
 This is a factorial program implemented by using the `cui` library. It can compute any factorial between 1 and 2000.
 
@@ -113,7 +113,7 @@ $ ./a 42
 1405006117752879898543142606244511569936384000000000
 ```
 
-## flt example
+## flt
 
 This program prints contents of a floating point variable (assumed to be in ieee754 binary32 or binary64 format) using "basic" format. Basic format means non-scientific format. It prints all the decimal digits that could be extracted from the floating point representation, even if they are not necessary to round-trip the number back. It uses integer math from the `cui` library, no floating point math is performed.
 
