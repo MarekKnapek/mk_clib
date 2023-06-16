@@ -1,11 +1,14 @@
 # mk_clib
 
-Hi, welcome to my library, this is place where I put all my C stuff. There is currently arbitrary length unsigned integer arithmetic stuff only.
+Hi, welcome to my library, this is place where I put all my C stuff. There is arbitrary length unsigned integer arithmetic. Cryptographic hashes such as MD2, MD4 and MD5.
 
  - [bui](#bui)
  - [cui](#cui)
  - [factorial](#factorial)
  - [flt](#flt)
+ - [md2](#md2)
+ - [md4](#md4)
+ - [md5](#md5)
 
 ## bui
 
@@ -123,4 +126,121 @@ $ cd mk_clib/mk_clib/app/
 $ gcc -DNDEBUG mkcflt.c
 $ ./a -123.456
 -123.4560000000000030695446184836328029632568359375
+```
+
+## md2
+
+Example how to compute the MD2 hash.
+
+```c
+#include "mk_lib_crypto_hash_stream_md2.h"
+
+#include <assert.h> /* assert */
+#include <stdio.h> /* printf sprintf */
+
+
+int main(void)
+{
+	mk_lib_crypto_hash_stream_md2_t hash;
+	mk_lib_crypto_hash_block_md2_digest_t digest;
+	int i;
+	int t;
+	char str[mk_lib_crypto_hash_block_md2_digest_len * 2 + 1];
+
+	mk_lib_crypto_hash_stream_md2_init(&hash);
+	mk_lib_crypto_hash_stream_md2_append(&hash, ((unsigned char const*)("abcdef")), 6);
+	mk_lib_crypto_hash_stream_md2_append(&hash, ((unsigned char const*)("ghijklmnopqrstuvw")), 17);
+	mk_lib_crypto_hash_stream_md2_append(&hash, ((unsigned char const*)("xyz")), 3);
+	mk_lib_crypto_hash_stream_md2_finish(&hash, &digest);
+	for(i = 0; i != mk_lib_crypto_hash_block_md2_digest_len; ++i)
+	{
+		t = sprintf(str + 2 * i, "%02x", ((unsigned char const*)(&digest))[i]);
+		assert(t == 2);
+	}
+	t = printf("%s\n", str); /* 4e8ddff3650292ab5a4108c3aa47940b */
+	assert(t == mk_lib_crypto_hash_block_md2_digest_len * 2 + 1);
+}
+```
+```bash
+$ gcc -DNDEBUG example.c
+$ ./a
+4e8ddff3650292ab5a4108c3aa47940b
+```
+
+## md4
+
+Example how to compute the MD4 hash.
+
+```c
+#include "mk_lib_crypto_hash_stream_md4.h"
+
+#include <assert.h> /* assert */
+#include <stdio.h> /* printf sprintf */
+
+
+int main(void)
+{
+	mk_lib_crypto_hash_stream_md4_t hash;
+	mk_lib_crypto_hash_block_md4_digest_t digest;
+	int i;
+	int t;
+	char str[mk_lib_crypto_hash_block_md4_digest_len * 2 + 1];
+
+	mk_lib_crypto_hash_stream_md4_init(&hash);
+	mk_lib_crypto_hash_stream_md4_append(&hash, ((unsigned char const*)("abcdef")), 6);
+	mk_lib_crypto_hash_stream_md4_append(&hash, ((unsigned char const*)("ghijklmnopqrstuvw")), 17);
+	mk_lib_crypto_hash_stream_md4_append(&hash, ((unsigned char const*)("xyz")), 3);
+	mk_lib_crypto_hash_stream_md4_finish(&hash, &digest);
+	for(i = 0; i != mk_lib_crypto_hash_block_md4_digest_len; ++i)
+	{
+		t = sprintf(str + 2 * i, "%02x", ((unsigned char const*)(&digest))[i]);
+		assert(t == 2);
+	}
+	t = printf("%s\n", str); /* d79e1c308aa5bbcdeea8ed63df412da9 */
+	assert(t == mk_lib_crypto_hash_block_md4_digest_len * 2 + 1);
+}
+```
+```bash
+$ gcc -DNDEBUG example.c
+$ ./a
+d79e1c308aa5bbcdeea8ed63df412da9
+```
+
+## md5
+
+Example how to compute the MD5 hash.
+
+```c
+#include "mk_lib_crypto_hash_stream_md5.h"
+
+#include <assert.h> /* assert */
+#include <stdio.h> /* printf sprintf */
+
+
+int main(void)
+{
+	mk_lib_crypto_hash_stream_md5_t hash;
+	mk_lib_crypto_hash_block_md5_digest_t digest;
+	int i;
+	int t;
+	char str[mk_lib_crypto_hash_block_md5_digest_len * 2 + 1];
+
+	mk_lib_crypto_hash_stream_md5_init(&hash);
+	mk_lib_crypto_hash_stream_md5_append(&hash, ((unsigned char const*)("abcdef")), 6);
+	mk_lib_crypto_hash_stream_md5_append(&hash, ((unsigned char const*)("ghijklmnopqrstuvw")), 17);
+	mk_lib_crypto_hash_stream_md5_append(&hash, ((unsigned char const*)("xyz")), 3);
+	mk_lib_crypto_hash_stream_md5_finish(&hash, &digest);
+	for(i = 0; i != mk_lib_crypto_hash_block_md5_digest_len; ++i)
+	{
+		t = sprintf(str + 2 * i, "%02x", ((unsigned char const*)(&digest))[i]);
+		assert(t == 2);
+	}
+	t = printf("%s\n", str); /* c3fcd3d76192e4007dfb496cca67e13b */
+	assert(t == mk_lib_crypto_hash_block_md5_digest_len * 2 + 1);
+}
+```
+```bash
+$ gcc -DNDEBUG example.c
+$ ./a
+c3fcd3d76192e4007dfb496cca67e13b
 ```
