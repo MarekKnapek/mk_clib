@@ -2,7 +2,7 @@
 #define mk_include_guard_mk_lib_crypto_hash_block_sha1
 
 
-/* rfc3174 */
+/* rfc 3174 */
 /* nist fips pub 180-1 */
 /* nist fips pub 180-2 */
 /* nist fips pub 180-3 */

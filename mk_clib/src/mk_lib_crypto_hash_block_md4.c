@@ -1,7 +1,7 @@
 #include "mk_lib_crypto_hash_block_md4.h"
 
-/* rfc1186 */
-/* rfc1320 */
+/* rfc 1186 */
+/* rfc 1320 */
 
 #include "mk_lang_assert.h"
 #include "mk_lang_constexpr.h"

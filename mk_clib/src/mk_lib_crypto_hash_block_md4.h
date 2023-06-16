@@ -2,8 +2,8 @@
 #define mk_include_guard_mk_lib_crypto_hash_block_md4
 
 
-/* rfc1186 */
-/* rfc1320 */
+/* rfc 1186 */
+/* rfc 1320 */
 
 
 #include "mk_lang_constexpr.h"

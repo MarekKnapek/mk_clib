@@ -2,7 +2,7 @@
 #define mk_include_guard_mk_lib_crypto_hash_block_md5
 
 
-/* rfc1321 */
+/* rfc 1321 */
 
 
 #include "mk_lang_constexpr.h"
