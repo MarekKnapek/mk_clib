@@ -34,7 +34,7 @@ typedef mk_lib_crypto_hash_block_md2_aligned256_t* mk_lib_crypto_hash_block_md2_
 typedef mk_lib_crypto_hash_block_md2_aligned256_t const* mk_lib_crypto_hash_block_md2_aligned256_pct;
 
 
-mk_lang_constexpr_static mk_lib_crypto_hash_block_md2_aligned256_t const s_mk_lib_crypto_hash_block_md2_table =
+mk_lang_constexpr_static_inline mk_lib_crypto_hash_block_md2_aligned256_t const s_mk_lib_crypto_hash_block_md2_table =
 {{
 	{{ 0x29 }}, {{ 0x2e }}, {{ 0x43 }}, {{ 0xc9 }}, {{ 0xa2 }}, {{ 0xd8 }}, {{ 0x7c }}, {{ 0x01 }}, {{ 0x3d }}, {{ 0x36 }}, {{ 0x54 }}, {{ 0xa1 }}, {{ 0xec }}, {{ 0xf0 }}, {{ 0x06 }}, {{ 0x13 }},
 	{{ 0x62 }}, {{ 0xa7 }}, {{ 0x05 }}, {{ 0xf3 }}, {{ 0xc0 }}, {{ 0xc7 }}, {{ 0x73 }}, {{ 0x8c }}, {{ 0x98 }}, {{ 0x93 }}, {{ 0x2b }}, {{ 0xd9 }}, {{ 0xbc }}, {{ 0x4c }}, {{ 0x82 }}, {{ 0xca }},

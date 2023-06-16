@@ -17,21 +17,21 @@
 #include "mk_sl_uint8.h"
 
 
-mk_lang_constexpr_static mk_sl_cui_uint32_t const s_mk_lib_crypto_hash_block_md4_init[4] =
+mk_lang_constexpr_static_inline mk_sl_cui_uint32_t const s_mk_lib_crypto_hash_block_md4_init[4] =
 {
 	{{ 0x67452301ul }},
 	{{ 0xefcdab89ul }},
 	{{ 0x98badcfeul }},
 	{{ 0x10325476ul }},
 };
-mk_lang_constexpr_static mk_sl_cui_uint32_t const s_mk_lib_crypto_hash_block_md4_round_2_constant = {{ 0x5a827999ul }};
-mk_lang_constexpr_static mk_sl_cui_uint32_t const s_mk_lib_crypto_hash_block_md4_round_3_constant = {{ 0x6ed9eba1ul }};
+mk_lang_constexpr_static_inline mk_sl_cui_uint32_t const s_mk_lib_crypto_hash_block_md4_round_2_constant = {{ 0x5a827999ul }};
+mk_lang_constexpr_static_inline mk_sl_cui_uint32_t const s_mk_lib_crypto_hash_block_md4_round_3_constant = {{ 0x6ed9eba1ul }};
 
 
 mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_md4_f(mk_sl_cui_uint32_pct const x, mk_sl_cui_uint32_pct const y, mk_sl_cui_uint32_pct const z, mk_sl_cui_uint32_pt const ret) mk_lang_noexcept
 {
-	mk_sl_cui_uint32_t ta;
-	mk_sl_cui_uint32_t tb;
+	mk_sl_cui_uint32_t ta mk_lang_constexpr_init;
+	mk_sl_cui_uint32_t tb mk_lang_constexpr_init;
 
 	mk_lang_assert(x);
 	mk_lang_assert(y);
@@ -54,9 +54,9 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_md4_f(mk_s
 
 mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_md4_g(mk_sl_cui_uint32_pct const x, mk_sl_cui_uint32_pct const y, mk_sl_cui_uint32_pct const z, mk_sl_cui_uint32_pt const ret) mk_lang_noexcept
 {
-	mk_sl_cui_uint32_t ta;
-	mk_sl_cui_uint32_t tb;
-	mk_sl_cui_uint32_t tc;
+	mk_sl_cui_uint32_t ta mk_lang_constexpr_init;
+	mk_sl_cui_uint32_t tb mk_lang_constexpr_init;
+	mk_sl_cui_uint32_t tc mk_lang_constexpr_init;
 
 	mk_lang_assert(x);
 	mk_lang_assert(y);
@@ -80,7 +80,7 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_md4_g(mk_s
 
 mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_md4_h(mk_sl_cui_uint32_pct const x, mk_sl_cui_uint32_pct const y, mk_sl_cui_uint32_pct const z, mk_sl_cui_uint32_pt const ret) mk_lang_noexcept
 {
-	mk_sl_cui_uint32_t ta;
+	mk_sl_cui_uint32_t ta mk_lang_constexpr_init;
 
 	mk_lang_assert(x);
 	mk_lang_assert(y);
@@ -101,8 +101,8 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_md4_h(mk_s
 
 mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_md4_round_1(mk_sl_cui_uint32_pt const a, mk_sl_cui_uint32_pct const b, mk_sl_cui_uint32_pct const c, mk_sl_cui_uint32_pct const d, mk_lib_crypto_hash_block_md4_block_pct const x, int const k, int const s) mk_lang_noexcept
 {
-	mk_sl_cui_uint32_t ta;
-	mk_sl_cui_uint32_t tb;
+	mk_sl_cui_uint32_t ta mk_lang_constexpr_init;
+	mk_sl_cui_uint32_t tb mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -129,7 +129,7 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_md4_round_
 
 mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_md4_round_2(mk_sl_cui_uint32_pt const a, mk_sl_cui_uint32_pct const b, mk_sl_cui_uint32_pct const c, mk_sl_cui_uint32_pct const d, mk_lib_crypto_hash_block_md4_block_pct const x, int const k, int const s) mk_lang_noexcept
 {
-	mk_sl_cui_uint32_t ta;
+	mk_sl_cui_uint32_t ta mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -157,8 +157,8 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_md4_round_
 
 mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_md4_round_3(mk_sl_cui_uint32_pt const a, mk_sl_cui_uint32_pct const b, mk_sl_cui_uint32_pct const c, mk_sl_cui_uint32_pct const d, mk_lib_crypto_hash_block_md4_block_pct const x, int const k, int const s) mk_lang_noexcept
 {
-	mk_sl_cui_uint32_t ta;
-	mk_sl_cui_uint32_t tb;
+	mk_sl_cui_uint32_t ta mk_lang_constexpr_init;
+	mk_sl_cui_uint32_t tb mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -203,14 +203,14 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_md4_init(mk_lib_cr
 
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_md4_append_blocks(mk_lib_crypto_hash_block_md4_pt const md4, mk_lib_crypto_hash_block_md4_block_pct const pblocks, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
-	mk_sl_cui_uint64_t ta;
-	mk_sl_cui_uint32_t oldh[4];
-	mk_sl_cui_uint32_t h[4];
-	mk_sl_cui_uint32_pt a;
-	mk_sl_cui_uint32_pt b;
-	mk_sl_cui_uint32_pt c;
-	mk_sl_cui_uint32_pt d;
-	mk_lang_types_usize_t iblock;
+	mk_sl_cui_uint64_t ta mk_lang_constexpr_init;
+	mk_sl_cui_uint32_t oldh[4] mk_lang_constexpr_init;
+	mk_sl_cui_uint32_t h[4] mk_lang_constexpr_init;
+	mk_sl_cui_uint32_pt a mk_lang_constexpr_init;
+	mk_sl_cui_uint32_pt b mk_lang_constexpr_init;
+	mk_sl_cui_uint32_pt c mk_lang_constexpr_init;
+	mk_sl_cui_uint32_pt d mk_lang_constexpr_init;
+	mk_lang_types_usize_t iblock mk_lang_constexpr_init;
 
 	mk_lang_assert(md4);
 	mk_lang_assert(pblocks || nblocks == 0);
@@ -295,11 +295,11 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_md4_append_blocks(
 
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_md4_finish(mk_lib_crypto_hash_block_md4_pt const md4, mk_lib_crypto_hash_block_md4_block_pt const block, int const idx, mk_lib_crypto_hash_block_md4_digest_pt const digest) mk_lang_noexcept
 {
-	unsigned ui;
-	mk_sl_cui_uint64_t ta;
-	mk_sl_cui_uint64_t tb;
-	int rest;
-	int i;
+	unsigned ui mk_lang_constexpr_init;
+	mk_sl_cui_uint64_t ta mk_lang_constexpr_init;
+	mk_sl_cui_uint64_t tb mk_lang_constexpr_init;
+	int rest mk_lang_constexpr_init;
+	int i mk_lang_constexpr_init;
 
 	mk_lang_assert(md4);
 	mk_lang_assert(block);

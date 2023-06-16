@@ -31,11 +31,11 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_flt_defd_bytes_to_st
 	};
 	typedef union flt_bigab_u flt_bigab_t;
 
-	mk_lang_constexpr_static char const s_minus = '-';
-	mk_lang_constexpr_static char const s_dot = '.';
-	mk_lang_constexpr_static char const s_symbols[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
-	mk_lang_constexpr_static char const s_nan[] = {'n', 'a', 'n'};
-	mk_lang_constexpr_static char const s_inf[] = {'i', 'n', 'f'};
+	mk_lang_constexpr_static_inline char const s_minus = '-';
+	mk_lang_constexpr_static_inline char const s_dot = '.';
+	mk_lang_constexpr_static_inline char const s_symbols[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+	mk_lang_constexpr_static_inline char const s_nan[] = {'n', 'a', 'n'};
+	mk_lang_constexpr_static_inline char const s_inf[] = {'i', 'n', 'f'};
 
 	mk_sl_flt_defd_cui_t cui mk_lang_constexpr_init;
 	mk_sl_flt_defd_cui_t ta mk_lang_constexpr_init;

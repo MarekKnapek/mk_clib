@@ -52,8 +52,8 @@ mk_lang_extern_c void mk_sl_flt_test(void) mk_lang_noexcept
 {
 	#if mk_lang_version_at_least_cpp_20 || mk_lang_version_at_least_msvc_cpp_20
 
-	mk_lang_constexpr_static auto const d = -123.456;
-	mk_lang_constexpr_static auto const flt_str = mk_sl_flt_test_compute_constexpr(d);
+	mk_lang_constexpr_static_inline auto const d = -123.456;
+	mk_lang_constexpr_static_inline auto const flt_str = mk_sl_flt_test_compute_constexpr(d);
 
 	using namespace std::literals;
 

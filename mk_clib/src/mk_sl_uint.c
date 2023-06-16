@@ -11,8 +11,8 @@
 
 mk_lang_constexpr mk_lang_jumbo void mk_sl_uint_32_to_8_le(mk_sl_cui_uint32_pct const u32, mk_sl_cui_uint8_pt const u8) mk_lang_noexcept
 {
-	mk_lang_types_uchar_t bytes[32 / 8];
-	int i;
+	mk_lang_types_uchar_t bytes[32 / 8] mk_lang_constexpr_init;
+	int i mk_lang_constexpr_init;
 
 	mk_lang_assert(u32);
 	mk_lang_assert(u8);
@@ -26,8 +26,8 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_uint_32_to_8_le(mk_sl_cui_uint32_pct 
 
 mk_lang_constexpr mk_lang_jumbo void mk_sl_uint_64_to_8_le(mk_sl_cui_uint64_pct const u64, mk_sl_cui_uint8_pt const u8) mk_lang_noexcept
 {
-	mk_lang_types_uchar_t bytes[64 / 8];
-	int i;
+	mk_lang_types_uchar_t bytes[64 / 8] mk_lang_constexpr_init;
+	int i mk_lang_constexpr_init;
 
 	mk_lang_assert(u64);
 	mk_lang_assert(u8);
@@ -42,8 +42,8 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_uint_64_to_8_le(mk_sl_cui_uint64_pct 
 
 mk_lang_constexpr mk_lang_jumbo void mk_sl_uint_32_from_8_le(mk_sl_cui_uint32_pt const u32, mk_sl_cui_uint8_pct const u8) mk_lang_noexcept
 {
-	mk_lang_types_uchar_t bytes[32 / 8];
-	int i;
+	mk_lang_types_uchar_t bytes[32 / 8] mk_lang_constexpr_init;
+	int i mk_lang_constexpr_init;
 
 	mk_lang_assert(u32);
 	mk_lang_assert(u8);
@@ -57,8 +57,8 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_uint_32_from_8_le(mk_sl_cui_uint32_pt
 
 mk_lang_constexpr mk_lang_jumbo void mk_sl_uint_64_from_8_le(mk_sl_cui_uint64_pt const u64, mk_sl_cui_uint8_pct const u8) mk_lang_noexcept
 {
-	mk_lang_types_uchar_t bytes[64 / 8];
-	int i;
+	mk_lang_types_uchar_t bytes[64 / 8] mk_lang_constexpr_init;
+	int i mk_lang_constexpr_init;
 
 	mk_lang_assert(u64);
 	mk_lang_assert(u8);

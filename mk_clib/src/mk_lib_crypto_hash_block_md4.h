@@ -19,8 +19,8 @@
 #define mk_lib_crypto_hash_block_md4_block_len 64
 #define mk_lib_crypto_hash_block_md4_digest_len 16
 #define mk_lib_crypto_hash_block_md4_name_def MD4
-mk_lang_constexpr_static char const mk_lib_crypto_hash_block_md4_name_str[] = mk_lang_stringify(mk_lib_crypto_hash_block_md4_name_def);
-mk_lang_constexpr_static int const mk_lib_crypto_hash_block_md4_name_str_len = ((int)(sizeof(mk_lib_crypto_hash_block_md4_name_str) - 1));
+mk_lang_constexpr_static_inline char const mk_lib_crypto_hash_block_md4_name_str[] = mk_lang_stringify(mk_lib_crypto_hash_block_md4_name_def);
+mk_lang_constexpr_static_inline int const mk_lib_crypto_hash_block_md4_name_str_len = ((int)(sizeof(mk_lib_crypto_hash_block_md4_name_str) - 1));
 
 
 union mk_lib_crypto_hash_block_md4_aligned64_u

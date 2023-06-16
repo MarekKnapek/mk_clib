@@ -18,8 +18,8 @@
 #define mk_lib_crypto_hash_block_md5_block_len 64
 #define mk_lib_crypto_hash_block_md5_digest_len 16
 #define mk_lib_crypto_hash_block_md5_name_def MD5
-mk_lang_constexpr_static char const mk_lib_crypto_hash_block_md5_name_str[] = mk_lang_stringify(mk_lib_crypto_hash_block_md5_name_def);
-mk_lang_constexpr_static int const mk_lib_crypto_hash_block_md5_name_str_len = ((int)(sizeof(mk_lib_crypto_hash_block_md5_name_str) - 1));
+mk_lang_constexpr_static_inline char const mk_lib_crypto_hash_block_md5_name_str[] = mk_lang_stringify(mk_lib_crypto_hash_block_md5_name_def);
+mk_lang_constexpr_static_inline int const mk_lib_crypto_hash_block_md5_name_str_len = ((int)(sizeof(mk_lib_crypto_hash_block_md5_name_str) - 1));
 
 
 union mk_lib_crypto_hash_block_md5_aligned64_u
