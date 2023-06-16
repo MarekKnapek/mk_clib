@@ -1046,8 +1046,8 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_d
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_defd_would_overflow_mul(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b) mk_lang_noexcept
 {
-	mk_sl_cui_inl_defd_t c;
-	mk_sl_cui_inl_defd_t d;
+	mk_sl_cui_inl_defd_t c mk_lang_constexpr_init;
+	mk_sl_cui_inl_defd_t d mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
 	mk_lang_assert(b);
