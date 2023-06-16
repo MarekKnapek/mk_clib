@@ -1,5 +1,6 @@
 #include "mk_sl_flt_fuzz.h"
 
+#include "mk_lang_assert.h"
 #include "mk_lang_crash.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_likely.h"
