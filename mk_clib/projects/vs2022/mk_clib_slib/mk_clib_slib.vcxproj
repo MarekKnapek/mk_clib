@@ -25,7 +25,6 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_factorial.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_factorial_cpp.hpp"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_flt.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_flt_cpp.hpp"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_fuzz.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_info.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_test.h"/>
@@ -204,6 +203,7 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_flt_inl_defhu.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_flt_inl_filec.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_flt_inl_fileh.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_flt_test.hpp"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_mallocator_lang.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_sort_merge_fuzz.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_sort_merge_inl_defd.h"/>
@@ -229,7 +229,6 @@
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_factorial.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_factorial_cpp.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_flt.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_flt_cpp.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_fuzz.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_info.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_test.c"/>
@@ -268,6 +267,7 @@
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_flt.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_flt_fuzz.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_flt_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_mallocator_lang.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_sort_merge_fuzz.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_sort_merge_test.cpp"/>

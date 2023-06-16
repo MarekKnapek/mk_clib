@@ -1,11 +1,14 @@
+#include "mk_sl_flt_test.hpp"
 #undef mk_lang_jumbo_want
 #define mk_lang_jumbo_want 1
 
 #include "mk_lang_assert.h"
 #include "mk_lang_constexpr.h"
+#include "mk_lang_cpp.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_version.h"
 
 #define mk_sl_flt_name dbl
 #define mk_sl_flt_bits 64
@@ -13,26 +16,26 @@
 #include "mk_sl_flt_inl_fileh.h"
 #include "mk_sl_flt_inl_filec.h"
 
+#if mk_lang_version_at_least_cpp_20 || mk_lang_version_at_least_msvc_cpp_20
+
 #include <array> /* std::array */
 #include <bit> /* std::bit_cast */
 #include <string_view> /* std::string_view */
 
-#include <stdio.h> /* printf */
 
-
-struct mk_clib_app_flt_cpp_result_s
+struct mk_sl_flt_test_result_s
 {
-	char m_chars[mk_sl_flt_dbl_to_string_dec_basic_len_v + 1];
 	int m_len;
+	char m_chars[mk_sl_flt_dbl_to_string_dec_basic_len_v + 1];
 };
-typedef struct mk_clib_app_flt_cpp_result_s mk_clib_app_flt_cpp_result_t;
+typedef struct mk_sl_flt_test_result_s mk_sl_flt_test_result_t;
 
 
-mk_lang_nodiscard static mk_lang_constexpr mk_clib_app_flt_cpp_result_t mk_clib_app_flt_cpp_compute_constexpr(double const d) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_constexpr mk_sl_flt_test_result_t mk_sl_flt_test_compute_constexpr(double const d) mk_lang_noexcept
 {
 	std::array<unsigned char, sizeof(d)> arr mk_lang_constexpr_init;
 	int mx mk_lang_constexpr_init;
-	mk_clib_app_flt_cpp_result_t ret mk_lang_constexpr_init;
+	mk_sl_flt_test_result_t ret mk_lang_constexpr_init;
 
 	arr = std::bit_cast<decltype(arr)>(d);
 	mx = mk_sl_flt_dbl_to_string_dec_basic_len_v;
@@ -42,21 +45,20 @@ mk_lang_nodiscard static mk_lang_constexpr mk_clib_app_flt_cpp_result_t mk_clib_
 	return ret;
 }
 
+#endif
 
-mk_lang_jumbo int mk_clib_app_flt_cpp(void) mk_lang_noexcept
+
+mk_lang_extern_c void mk_sl_flt_test(void) mk_lang_noexcept
 {
-	static mk_lang_constexpr auto const d = -123.456;
-	static mk_lang_constexpr auto const flt_str = mk_clib_app_flt_cpp_compute_constexpr(d);
+	#if mk_lang_version_at_least_cpp_20 || mk_lang_version_at_least_msvc_cpp_20
 
-	int tn;
-	
+	mk_lang_constexpr_static auto const d = -123.456;
+	mk_lang_constexpr_static auto const flt_str = mk_sl_flt_test_compute_constexpr(d);
+
 	using namespace std::literals;
 
 	static_assert(flt_str.m_len == 51);
 	static_assert(flt_str.m_chars == "-123.4560000000000030695446184836328029632568359375"sv);
 
-	tn = printf("%s\n", flt_str.m_chars);
-	mk_lang_assert(tn >= 0);
-
-	return 0;
+	#endif
 }
