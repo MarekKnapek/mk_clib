@@ -9,6 +9,7 @@ Hi, welcome to my library, this is place where I put all my C stuff. There is ar
  - [md2](#md2)
  - [md4](#md4)
  - [md5](#md5)
+ - [sha1](#sha1)
 
 ## bui
 
@@ -243,4 +244,43 @@ int main(void)
 $ gcc -DNDEBUG example.c
 $ ./a
 c3fcd3d76192e4007dfb496cca67e13b
+```
+
+## sha1
+
+Example how to compute the SHA-1 hash.
+
+```c
+#include "mk_lib_crypto_hash_stream_sha1.h"
+
+#include <assert.h> /* assert */
+#include <stdio.h> /* printf sprintf */
+
+
+int main(void)
+{
+	mk_lib_crypto_hash_stream_sha1_t hash;
+	mk_lib_crypto_hash_block_sha1_digest_t digest;
+	int i;
+	int t;
+	char str[mk_lib_crypto_hash_block_sha1_digest_len * 2 + 1];
+
+	mk_lib_crypto_hash_stream_sha1_init(&hash);
+	mk_lib_crypto_hash_stream_sha1_append(&hash, ((unsigned char const*)("abcdef")), 6);
+	mk_lib_crypto_hash_stream_sha1_append(&hash, ((unsigned char const*)("ghijklmnopqrstuvw")), 17);
+	mk_lib_crypto_hash_stream_sha1_append(&hash, ((unsigned char const*)("xyz")), 3);
+	mk_lib_crypto_hash_stream_sha1_finish(&hash, &digest);
+	for(i = 0; i != mk_lib_crypto_hash_block_sha1_digest_len; ++i)
+	{
+		t = sprintf(str + 2 * i, "%02x", ((unsigned char const*)(&digest))[i]);
+		assert(t == 2);
+	}
+	t = printf("%s\n", str); /* 32d10c7b8cf96570ca04ce37f2a19d84240d3a89 */
+	assert(t == mk_lib_crypto_hash_block_sha1_digest_len * 2 + 1);
+}
+```
+```bash
+$ gcc -DNDEBUG example.c
+$ ./a
+32d10c7b8cf96570ca04ce37f2a19d84240d3a89
 ```
