@@ -4,8 +4,6 @@
 #include "mk_lang_constexpr.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
-#include "mk_sl_uint128.h"
-#include "mk_sl_uint16.h"
 #include "mk_sl_uint32.h"
 #include "mk_sl_uint64.h"
 #include "mk_sl_uint8.h"
