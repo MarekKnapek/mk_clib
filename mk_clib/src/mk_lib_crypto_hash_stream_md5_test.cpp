@@ -58,7 +58,7 @@ mk_lang_extern_c void mk_lib_crypto_hash_stream_md5_test(void) mk_lang_noexcept
 	#define message_5 "abcdefghijklmnopqrstuvwxyz"
 	#define message_6 "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 	#define message_7 "12345678901234567890123456789012345678901234567890123456789012345678901234567890"
-	#define message_8 "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+	#define message_8 "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 
 	#define digest_1 "d41d8cd98f00b204e9800998ecf8427e"
 	#define digest_2 "0cc175b9c0f1b6a831c399e269772661"
@@ -67,7 +67,7 @@ mk_lang_extern_c void mk_lib_crypto_hash_stream_md5_test(void) mk_lang_noexcept
 	#define digest_5 "c3fcd3d76192e4007dfb496cca67e13b"
 	#define digest_6 "d174ab98d277d9f5a5611c2c9f419d9f"
 	#define digest_7 "57edf4a22be3c955ac49da2e2107b67a"
-	#define digest_8 "887f30b43b2867f4a9accceee7d16e6c"
+	#define digest_8 "4e5475d125a33c6190718e75adc1b704"
 
 	#if mk_lang_version_at_least_cpp_14 || mk_lang_version_at_least_msvc_cpp_14
 
