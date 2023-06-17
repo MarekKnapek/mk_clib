@@ -58,6 +58,7 @@ mk_lang_extern_c void mk_lib_crypto_hash_stream_md5_test(void) mk_lang_noexcept
 	#define message_5 "abcdefghijklmnopqrstuvwxyz"
 	#define message_6 "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 	#define message_7 "12345678901234567890123456789012345678901234567890123456789012345678901234567890"
+	#define message_8 "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 
 	#define digest_1 "d41d8cd98f00b204e9800998ecf8427e"
 	#define digest_2 "0cc175b9c0f1b6a831c399e269772661"
@@ -66,6 +67,7 @@ mk_lang_extern_c void mk_lib_crypto_hash_stream_md5_test(void) mk_lang_noexcept
 	#define digest_5 "c3fcd3d76192e4007dfb496cca67e13b"
 	#define digest_6 "d174ab98d277d9f5a5611c2c9f419d9f"
 	#define digest_7 "57edf4a22be3c955ac49da2e2107b67a"
+	#define digest_8 "887f30b43b2867f4a9accceee7d16e6c"
 
 	#if mk_lang_version_at_least_cpp_14 || mk_lang_version_at_least_msvc_cpp_14
 
@@ -76,6 +78,7 @@ mk_lang_extern_c void mk_lib_crypto_hash_stream_md5_test(void) mk_lang_noexcept
 	mk_lang_constexpr_static auto const s_digest_computed_5 = mk_lib_crypto_hash_stream_md5_test_compute_from_str_lit(message_5);
 	mk_lang_constexpr_static auto const s_digest_computed_6 = mk_lib_crypto_hash_stream_md5_test_compute_from_str_lit(message_6);
 	mk_lang_constexpr_static auto const s_digest_computed_7 = mk_lib_crypto_hash_stream_md5_test_compute_from_str_lit(message_7);
+	mk_lang_constexpr_static auto const s_digest_computed_8 = mk_lib_crypto_hash_stream_md5_test_compute_from_str_lit(message_8);
 
 	mk_lang_constexpr_static auto const s_digest_precomputed_1 = mk_lib_cpp_constexpr_hex_str_lit_to_bytes(digest_1);
 	mk_lang_constexpr_static auto const s_digest_precomputed_2 = mk_lib_cpp_constexpr_hex_str_lit_to_bytes(digest_2);
@@ -84,6 +87,7 @@ mk_lang_extern_c void mk_lib_crypto_hash_stream_md5_test(void) mk_lang_noexcept
 	mk_lang_constexpr_static auto const s_digest_precomputed_5 = mk_lib_cpp_constexpr_hex_str_lit_to_bytes(digest_5);
 	mk_lang_constexpr_static auto const s_digest_precomputed_6 = mk_lib_cpp_constexpr_hex_str_lit_to_bytes(digest_6);
 	mk_lang_constexpr_static auto const s_digest_precomputed_7 = mk_lib_cpp_constexpr_hex_str_lit_to_bytes(digest_7);
+	mk_lang_constexpr_static auto const s_digest_precomputed_8 = mk_lib_cpp_constexpr_hex_str_lit_to_bytes(digest_8);
 
 	static_assert(s_digest_computed_1 == s_digest_precomputed_1);
 	static_assert(s_digest_computed_2 == s_digest_precomputed_2);
@@ -92,6 +96,7 @@ mk_lang_extern_c void mk_lib_crypto_hash_stream_md5_test(void) mk_lang_noexcept
 	static_assert(s_digest_computed_5 == s_digest_precomputed_5);
 	static_assert(s_digest_computed_6 == s_digest_precomputed_6);
 	static_assert(s_digest_computed_7 == s_digest_precomputed_7);
+	static_assert(s_digest_computed_8 == s_digest_precomputed_8);
 
 	#endif
 
@@ -106,6 +111,7 @@ mk_lang_extern_c void mk_lib_crypto_hash_stream_md5_test(void) mk_lang_noexcept
 		message_5,
 		message_6,
 		message_7,
+		message_8,
 	};
 
 	static int const s_message_lens[] =
@@ -117,6 +123,7 @@ mk_lang_extern_c void mk_lib_crypto_hash_stream_md5_test(void) mk_lang_noexcept
 		((int)(sizeof(message_5) / sizeof(message_5[0]) - 1)),
 		((int)(sizeof(message_6) / sizeof(message_6[0]) - 1)),
 		((int)(sizeof(message_7) / sizeof(message_7[0]) - 1)),
+		((int)(sizeof(message_8) / sizeof(message_8[0]) - 1)),
 	};
 
 	static char const* const s_digests[] =
@@ -128,6 +135,7 @@ mk_lang_extern_c void mk_lib_crypto_hash_stream_md5_test(void) mk_lang_noexcept
 		digest_5,
 		digest_6,
 		digest_7,
+		digest_8,
 	};
 
 	int n;
@@ -169,6 +177,7 @@ mk_lang_extern_c void mk_lib_crypto_hash_stream_md5_test(void) mk_lang_noexcept
 	#undef message_5
 	#undef message_6
 	#undef message_7
+	#undef message_8
 
 	#undef digest_1
 	#undef digest_2
@@ -177,4 +186,5 @@ mk_lang_extern_c void mk_lib_crypto_hash_stream_md5_test(void) mk_lang_noexcept
 	#undef digest_5
 	#undef digest_6
 	#undef digest_7
+	#undef digest_8
 }

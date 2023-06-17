@@ -58,6 +58,7 @@ mk_lang_extern_c void mk_lib_crypto_hash_stream_sha2_512_256_test(void) mk_lang_
 	#define message_5 "abcdefghijklmnopqrstuvwxyz"
 	#define message_6 "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 	#define message_7 "12345678901234567890123456789012345678901234567890123456789012345678901234567890"
+	#define message_8 "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 
 	#define digest_1 "c672b8d1ef56ed28ab87c3622c5114069bdd3ad7b8f9737498d0c01ecef0967a"
 	#define digest_2 "455e518824bc0601f9fb858ff5c37d417d67c2f8e0df2babe4808858aea830f8"
@@ -66,6 +67,7 @@ mk_lang_extern_c void mk_lib_crypto_hash_stream_sha2_512_256_test(void) mk_lang_
 	#define digest_5 "fc3189443f9c268f626aea08a756abe7b726b05f701cb08222312ccfd6710a26"
 	#define digest_6 "cdf1cc0effe26ecc0c13758f7b4a48e000615df241284185c39eb05d355bb9c8"
 	#define digest_7 "2c9fdbc0c90bdd87612ee8455474f9044850241dc105b1e8b94b8ddf5fac9148"
+	#define digest_8 "19b1e37317d7fd3d7651f397005e31f154ef4912d1345743d2d5889aaca28996"
 
 	#if mk_lang_version_at_least_cpp_14 || mk_lang_version_at_least_msvc_cpp_14
 
@@ -76,6 +78,7 @@ mk_lang_extern_c void mk_lib_crypto_hash_stream_sha2_512_256_test(void) mk_lang_
 	mk_lang_constexpr_static auto const s_digest_computed_5 = mk_lib_crypto_hash_stream_sha2_512_256_test_compute_from_str_lit(message_5);
 	mk_lang_constexpr_static auto const s_digest_computed_6 = mk_lib_crypto_hash_stream_sha2_512_256_test_compute_from_str_lit(message_6);
 	mk_lang_constexpr_static auto const s_digest_computed_7 = mk_lib_crypto_hash_stream_sha2_512_256_test_compute_from_str_lit(message_7);
+	mk_lang_constexpr_static auto const s_digest_computed_8 = mk_lib_crypto_hash_stream_sha2_512_256_test_compute_from_str_lit(message_8);
 
 	mk_lang_constexpr_static auto const s_digest_precomputed_1 = mk_lib_cpp_constexpr_hex_str_lit_to_bytes(digest_1);
 	mk_lang_constexpr_static auto const s_digest_precomputed_2 = mk_lib_cpp_constexpr_hex_str_lit_to_bytes(digest_2);
@@ -84,6 +87,7 @@ mk_lang_extern_c void mk_lib_crypto_hash_stream_sha2_512_256_test(void) mk_lang_
 	mk_lang_constexpr_static auto const s_digest_precomputed_5 = mk_lib_cpp_constexpr_hex_str_lit_to_bytes(digest_5);
 	mk_lang_constexpr_static auto const s_digest_precomputed_6 = mk_lib_cpp_constexpr_hex_str_lit_to_bytes(digest_6);
 	mk_lang_constexpr_static auto const s_digest_precomputed_7 = mk_lib_cpp_constexpr_hex_str_lit_to_bytes(digest_7);
+	mk_lang_constexpr_static auto const s_digest_precomputed_8 = mk_lib_cpp_constexpr_hex_str_lit_to_bytes(digest_8);
 
 	static_assert(s_digest_computed_1 == s_digest_precomputed_1);
 	static_assert(s_digest_computed_2 == s_digest_precomputed_2);
@@ -92,6 +96,7 @@ mk_lang_extern_c void mk_lib_crypto_hash_stream_sha2_512_256_test(void) mk_lang_
 	static_assert(s_digest_computed_5 == s_digest_precomputed_5);
 	static_assert(s_digest_computed_6 == s_digest_precomputed_6);
 	static_assert(s_digest_computed_7 == s_digest_precomputed_7);
+	static_assert(s_digest_computed_8 == s_digest_precomputed_8);
 
 	#endif
 
@@ -106,6 +111,7 @@ mk_lang_extern_c void mk_lib_crypto_hash_stream_sha2_512_256_test(void) mk_lang_
 		message_5,
 		message_6,
 		message_7,
+		message_8,
 	};
 
 	static int const s_message_lens[] =
@@ -117,6 +123,7 @@ mk_lang_extern_c void mk_lib_crypto_hash_stream_sha2_512_256_test(void) mk_lang_
 		((int)(sizeof(message_5) / sizeof(message_5[0]) - 1)),
 		((int)(sizeof(message_6) / sizeof(message_6[0]) - 1)),
 		((int)(sizeof(message_7) / sizeof(message_7[0]) - 1)),
+		((int)(sizeof(message_8) / sizeof(message_8[0]) - 1)),
 	};
 
 	static char const* const s_digests[] =
@@ -128,6 +135,7 @@ mk_lang_extern_c void mk_lib_crypto_hash_stream_sha2_512_256_test(void) mk_lang_
 		digest_5,
 		digest_6,
 		digest_7,
+		digest_8,
 	};
 
 	int n;
@@ -169,6 +177,7 @@ mk_lang_extern_c void mk_lib_crypto_hash_stream_sha2_512_256_test(void) mk_lang_
 	#undef message_5
 	#undef message_6
 	#undef message_7
+	#undef message_8
 
 	#undef digest_1
 	#undef digest_2
@@ -177,4 +186,5 @@ mk_lang_extern_c void mk_lib_crypto_hash_stream_sha2_512_256_test(void) mk_lang_
 	#undef digest_5
 	#undef digest_6
 	#undef digest_7
+	#undef digest_8
 }
