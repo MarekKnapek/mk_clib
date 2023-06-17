@@ -133,12 +133,13 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_sha1_f(int
 
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha1_init(mk_lib_crypto_hash_block_sha1_pt const sha1) mk_lang_noexcept
 {
-	mk_lang_assert(sha1);
 	mk_lang_static_assert(sizeof(mk_sl_cui_uint8_t) == 1);
 	mk_lang_static_assert(sizeof(mk_sl_cui_uint32_t) == 4);
 	mk_lang_static_assert(sizeof(mk_sl_cui_uint64_t) == 8);
 	mk_lang_static_assert(sizeof(mk_lib_crypto_hash_block_sha1_block_t) == 64);
 	mk_lang_static_assert(sizeof(mk_lib_crypto_hash_block_sha1_digest_t) >= 20);
+
+	mk_lang_assert(sha1);
 
 	sha1->m_state[0] = s_mk_lib_crypto_hash_block_sha1_init[0];
 	sha1->m_state[1] = s_mk_lib_crypto_hash_block_sha1_init[1];

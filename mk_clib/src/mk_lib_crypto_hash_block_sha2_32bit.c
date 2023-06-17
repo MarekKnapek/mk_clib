@@ -160,12 +160,13 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_sha2_32bit
 
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha2_32bit_init(mk_lib_crypto_hash_block_sha2_32bit_pt const sha2_32bit, mk_sl_cui_uint32_pct const iv) mk_lang_noexcept
 {
-	mk_lang_assert(sha2_32bit);
 	mk_lang_static_assert(sizeof(mk_sl_cui_uint8_t) == 1);
 	mk_lang_static_assert(sizeof(mk_sl_cui_uint32_t) == 4);
 	mk_lang_static_assert(sizeof(mk_sl_cui_uint64_t) == 8);
 	mk_lang_static_assert(sizeof(mk_lib_crypto_hash_block_sha2_32bit_block_t) == 64);
 	mk_lang_static_assert(sizeof(mk_lib_crypto_hash_block_sha2_32bit_digest_t) == 32);
+
+	mk_lang_assert(sha2_32bit);
 
 	sha2_32bit->m_state[0] = iv[0];
 	sha2_32bit->m_state[1] = iv[1];

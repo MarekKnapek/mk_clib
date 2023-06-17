@@ -59,12 +59,13 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_md2_init(mk_lib_cr
 {
 	int i mk_lang_constexpr_init;
 
-	mk_lang_assert(md2);
 	mk_lang_static_assert(sizeof(mk_sl_cui_uint8_t) == 1);
 	mk_lang_static_assert(sizeof(mk_lib_crypto_hash_block_md2_block_t) == 16);
 	mk_lang_static_assert(sizeof(mk_lib_crypto_hash_block_md2_digest_t) == 16);
 	mk_lang_static_assert(sizeof(mk_lib_crypto_hash_block_md2_aligned48_t) == 48);
 	mk_lang_static_assert(sizeof(mk_lib_crypto_hash_block_md2_aligned256_t) == 256);
+
+	mk_lang_assert(md2);
 
 	for(i = 0; i != 16; ++i)
 	{

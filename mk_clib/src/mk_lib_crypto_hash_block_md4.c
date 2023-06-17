@@ -187,12 +187,13 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_md4_round_
 
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_md4_init(mk_lib_crypto_hash_block_md4_pt const md4) mk_lang_noexcept
 {
-	mk_lang_assert(md4);
 	mk_lang_static_assert(sizeof(mk_sl_cui_uint8_t) == 1);
 	mk_lang_static_assert(sizeof(mk_sl_cui_uint32_t) == 4);
 	mk_lang_static_assert(sizeof(mk_sl_cui_uint64_t) == 8);
 	mk_lang_static_assert(sizeof(mk_lib_crypto_hash_block_md4_block_t) == 64);
 	mk_lang_static_assert(sizeof(mk_lib_crypto_hash_block_md4_digest_t) == 16);
+
+	mk_lang_assert(md4);
 
 	md4->m_state[0] = s_mk_lib_crypto_hash_block_md4_init[0];
 	md4->m_state[1] = s_mk_lib_crypto_hash_block_md4_init[1];
