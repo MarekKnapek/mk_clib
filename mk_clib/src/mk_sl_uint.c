@@ -4,6 +4,7 @@
 #include "mk_lang_constexpr.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
+#include "mk_sl_uint128.h"
 #include "mk_sl_uint32.h"
 #include "mk_sl_uint64.h"
 #include "mk_sl_uint8.h"
@@ -69,6 +70,36 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_uint_64_to_8_be(mk_sl_cui_uint64_pct 
 	}
 }
 
+mk_lang_constexpr mk_lang_jumbo void mk_sl_uint_128_to_8_le(mk_sl_cui_uint128_pct const u128, mk_sl_cui_uint8_pt const u8) mk_lang_noexcept
+{
+	mk_lang_types_uchar_t bytes[128 / 8] mk_lang_constexpr_init;
+	int i mk_lang_constexpr_init;
+
+	mk_lang_assert(u128);
+	mk_lang_assert(u8);
+
+	mk_sl_cui_uint128_to_buis_uchar_le(u128, bytes);
+	for(i = 0; i != 128 / 8; ++i)
+	{
+		mk_sl_cui_uint8_from_buis_uchar_le(&u8[i], &bytes[i * 8 / 8]);
+	}
+}
+
+mk_lang_constexpr mk_lang_jumbo void mk_sl_uint_128_to_8_be(mk_sl_cui_uint128_pct const u128, mk_sl_cui_uint8_pt const u8) mk_lang_noexcept
+{
+	mk_lang_types_uchar_t bytes[128 / 8] mk_lang_constexpr_init;
+	int i mk_lang_constexpr_init;
+
+	mk_lang_assert(u128);
+	mk_lang_assert(u8);
+
+	mk_sl_cui_uint128_to_buis_uchar_be(u128, bytes);
+	for(i = 0; i != 128 / 8; ++i)
+	{
+		mk_sl_cui_uint8_from_buis_uchar_le(&u8[i], &bytes[i * 8 / 8]);
+	}
+}
+
 
 mk_lang_constexpr mk_lang_jumbo void mk_sl_uint_32_from_8_le(mk_sl_cui_uint32_pt const u32, mk_sl_cui_uint8_pct const u8) mk_lang_noexcept
 {
@@ -128,4 +159,34 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_uint_64_from_8_be(mk_sl_cui_uint64_pt
 		mk_sl_cui_uint8_to_buis_uchar_le(&u8[i], &bytes[i * 8 / 8]);
 	}
 	mk_sl_cui_uint64_from_buis_uchar_be(u64, bytes);
+}
+
+mk_lang_constexpr mk_lang_jumbo void mk_sl_uint_128_from_8_le(mk_sl_cui_uint128_pt const u128, mk_sl_cui_uint8_pct const u8) mk_lang_noexcept
+{
+	mk_lang_types_uchar_t bytes[128 / 8] mk_lang_constexpr_init;
+	int i mk_lang_constexpr_init;
+
+	mk_lang_assert(u128);
+	mk_lang_assert(u8);
+
+	for(i = 0; i != 128 / 8; ++i)
+	{
+		mk_sl_cui_uint8_to_buis_uchar_le(&u8[i], &bytes[i * 8 / 8]);
+	}
+	mk_sl_cui_uint128_from_buis_uchar_le(u128, bytes);
+}
+
+mk_lang_constexpr mk_lang_jumbo void mk_sl_uint_128_from_8_be(mk_sl_cui_uint128_pt const u128, mk_sl_cui_uint8_pct const u8) mk_lang_noexcept
+{
+	mk_lang_types_uchar_t bytes[128 / 8] mk_lang_constexpr_init;
+	int i mk_lang_constexpr_init;
+
+	mk_lang_assert(u128);
+	mk_lang_assert(u8);
+
+	for(i = 0; i != 128 / 8; ++i)
+	{
+		mk_sl_cui_uint8_to_buis_uchar_le(&u8[i], &bytes[i * 8 / 8]);
+	}
+	mk_sl_cui_uint128_from_buis_uchar_be(u128, bytes);
 }

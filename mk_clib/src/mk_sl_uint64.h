@@ -35,6 +35,7 @@
 #undef mk_sl_cui_endian
 #undef mk_sl_cui_base_is_bui
 #undef mk_sl_cui_base_bui_tn
+#define mk_sl_cui_uint64_c(a, b) {{ ((mk_lang_types_ulong_t)(((mk_lang_types_ulong_t)(((mk_lang_types_ulong_t)(a)) << 32)) | ((mk_lang_types_ulong_t)(b)))) }}
 
 #elif mk_lang_charbit == 8 && mk_lang_sizeof_bi_ullong_t == 8
 
@@ -63,6 +64,7 @@
 #undef mk_sl_cui_endian
 #undef mk_sl_cui_base_is_bui
 #undef mk_sl_cui_base_bui_tn
+#define mk_sl_cui_uint64_c(a, b) {{ ((mk_lang_types_ullong_t)(((mk_lang_types_ullong_t)(((mk_lang_types_ullong_t)(a)) << 32)) | ((mk_lang_types_ullong_t)(b)))) }}
 
 #elif mk_lang_charbit == 8 && mk_lang_sizeof_bi_uint_t == 4
 
@@ -91,6 +93,7 @@
 #undef mk_sl_cui_endian
 #undef mk_sl_cui_base_is_bui
 #undef mk_sl_cui_base_bui_tn
+#define mk_sl_cui_uint64_c(a, b) {{ ((mk_lang_types_uint_t)(b)), ((mk_lang_types_uint_t)(a)) }}
 
 #elif mk_lang_charbit == 8 && mk_lang_sizeof_bi_ulong_t == 4
 
@@ -119,6 +122,7 @@
 #undef mk_sl_cui_endian
 #undef mk_sl_cui_base_is_bui
 #undef mk_sl_cui_base_bui_tn
+#define mk_sl_cui_uint64_c(a, b) {{ ((mk_lang_types_ulong_t)(b)), ((mk_lang_types_ulong_t)(a)) }}
 
 #endif
 
