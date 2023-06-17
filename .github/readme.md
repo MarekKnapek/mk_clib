@@ -6,17 +6,17 @@ Hi, welcome to my library, this is place where I put all my C stuff. There is ar
  - [cui](#cui)
  - [factorial](#factorial)
  - [flt](#flt)
- - [MD2](#md2)
- - [MD4](#md4)
- - [MD5](#md5)
- - [SHA-0](#sha0)
- - [SHA-1](#sha1)
- - [SHA-256](#sha256)
- - [SHA-512](#sha512)
- - [SHA-384](#sha384)
- - [SHA-224](#sha224)
- - [SHA-512/224](#sha512224)
- - [SHA-512/256](#sha512256)
+ - [MD2](#MD2)
+ - [MD4](#MD4)
+ - [MD5](#MD5)
+ - [SHA-0](#SHA-0)
+ - [SHA-1](#SHA-1)
+ - [SHA-256](#SHA-256)
+ - [SHA-512](#SHA-512)
+ - [SHA-384](#SHA-384)
+ - [SHA-224](#SHA-224)
+ - [SHA-512/224](#SHA-512224)
+ - [SHA-512/256](#SHA-512256)
 
 ## bui
 
@@ -136,7 +136,7 @@ $ ./a -123.456
 -123.4560000000000030695446184836328029632568359375
 ```
 
-## md2
+## MD2
 
 Example how to compute the MD2 hash.
 
@@ -175,7 +175,7 @@ $ ./a
 4e8ddff3650292ab5a4108c3aa47940b
 ```
 
-## md4
+## MD4
 
 Example how to compute the MD4 hash.
 
@@ -214,7 +214,7 @@ $ ./a
 d79e1c308aa5bbcdeea8ed63df412da9
 ```
 
-## md5
+## MD5
 
 Example how to compute the MD5 hash.
 
@@ -253,7 +253,7 @@ $ ./a
 c3fcd3d76192e4007dfb496cca67e13b
 ```
 
-## sha0
+## SHA-0
 
 Example how to compute the SHA-0 hash.
 
@@ -292,7 +292,7 @@ $ ./a
 d2516ee1acfa5baf33dfc1c471e438449ef134c8
 ```
 
-## sha1
+## SHA-1
 
 Example how to compute the SHA-1 hash.
 
@@ -331,7 +331,7 @@ $ ./a
 32d10c7b8cf96570ca04ce37f2a19d84240d3a89
 ```
 
-## sha256
+## SHA-256
 
 Example how to compute the SHA-256 hash.
 
@@ -370,7 +370,7 @@ $ ./a
 71c480df93d6ae2f1efad1447c66c9525e316218cf51fc8d9ed832f2daf18b73
 ```
 
-## sha512
+## SHA-512
 
 Example how to compute the SHA-512 hash.
 
@@ -409,7 +409,7 @@ $ ./a
 4dbff86cc2ca1bae1e16468a05cb9881c97f1753bce3619034898faa1aabe429955a1bf8ec483d7421fe3c1646613a59ed5441fb0f321389f77f48a879c7b1f1
 ```
 
-## sha384
+## SHA-384
 
 Example how to compute the SHA-384 hash.
 
@@ -448,7 +448,7 @@ $ ./a
 feb67349df3db6f5924815d6c3dc133f091809213731fe5c7b5f4999e463479ff2877f5f2936fa63bb43784b12f3ebb4
 ```
 
-## sha224
+## SHA-224
 
 Example how to compute the SHA-224 hash.
 
@@ -487,7 +487,7 @@ $ ./a
 45a5f72c39c5cff2522eb3429799e49e5f44b356ef926bcf390dccc2
 ```
 
-## sha512224
+## SHA-512/224
 
 Example how to compute the SHA-512/224 hash.
 
@@ -526,7 +526,7 @@ $ ./a
 ff83148aa07ec30655c1b40aff86141c0215fe2a54f767d3f38743d8
 ```
 
-## sha512256
+## SHA-512/256
 
 Example how to compute the SHA-512/256 hash.
 
