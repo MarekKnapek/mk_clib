@@ -48,6 +48,9 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha2_256_init(mk_l
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha2_256_append_blocks(mk_lib_crypto_hash_block_sha2_256_pt const sha2_256, mk_lib_crypto_hash_block_sha2_256_block_pct const pblocks, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
 	mk_lang_assert(sha2_256);
+	mk_lang_assert(pblocks || nblocks == 0);
+	mk_lang_assert(nblocks >= 0);
+	mk_lang_assert(nblocks <= mk_lang_limits_usize_max / mk_lib_crypto_hash_block_sha2_256_block_len);
 
 	mk_lib_crypto_hash_block_sha2_32bit_append_blocks(&sha2_256->m_32bit, pblocks, nblocks);
 }

@@ -12,6 +12,10 @@
 #include "mk_sl_uint8.h"
 
 
+#define mk_lib_crypto_hash_block_sha2_32bit_block_len 64
+#define mk_lib_crypto_hash_block_sha2_32bit_digest_len 32
+
+
 union mk_lib_crypto_hash_block_sha2_32bit_aligned64_u
 {
 	mk_sl_cui_uint8_t m_uint8s[64];

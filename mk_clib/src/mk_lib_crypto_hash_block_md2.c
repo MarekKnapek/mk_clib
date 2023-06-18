@@ -90,7 +90,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_md2_append_blocks(
 	mk_lang_assert(md2);
 	mk_lang_assert(pblocks || nblocks == 0);
 	mk_lang_assert(nblocks >= 0);
-	mk_lang_assert(nblocks <= mk_lang_limits_usize_max / 16);
+	mk_lang_assert(nblocks <= mk_lang_limits_usize_max / mk_lib_crypto_hash_block_md2_block_len);
 
 	for(i = 0; i != 16; ++i)
 	{
