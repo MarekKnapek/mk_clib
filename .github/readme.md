@@ -1,6 +1,6 @@
 # mk_clib
 
-Hi, welcome to my library, this is place where I put all my C stuff. There is arbitrary length unsigned integer arithmetic. Cryptographic hashes such as MD2, MD4, MD5, SHA-0, SHA-1, SHA-256, SHA-512, SHA-384, SHA-224, SHA-512/224 and SHA-512/256.
+Hi, welcome to my library, this is place where I put all my C stuff. There is arbitrary length unsigned integer arithmetic. Cryptographic hashes such as MD2, MD4, MD5, SHA-0, SHA-1, SHA-256, SHA-512, SHA-384, SHA-224, SHA-512/224, SHA-512/256, SHA3-224, SHA3-256, SHA3-384 and SHA3-512.
 
  - [bui](#bui)
  - [cui](#cui)
@@ -17,6 +17,10 @@ Hi, welcome to my library, this is place where I put all my C stuff. There is ar
  - [SHA-224](#SHA-224)
  - [SHA-512/224](#SHA-512224)
  - [SHA-512/256](#SHA-512256)
+ - [SHA3-224](#SHA3-224)
+ - [SHA3-256](#SHA3-256)
+ - [SHA3-384](#SHA3-384)
+ - [SHA3-512](#SHA3-512)
 
 ## bui
 
@@ -563,4 +567,160 @@ int main(void)
 $ gcc -DNDEBUG example.c
 $ ./a
 fc3189443f9c268f626aea08a756abe7b726b05f701cb08222312ccfd6710a26
+```
+
+## SHA3-224
+
+Example how to compute the SHA3-224 hash.
+
+```c
+#include "mk_lib_crypto_hash_stream_sha3_224.h"
+
+#include <assert.h> /* assert */
+#include <stdio.h> /* printf sprintf */
+
+
+int main(void)
+{
+	mk_lib_crypto_hash_stream_sha3_224_t hash;
+	mk_lib_crypto_hash_block_sha3_224_digest_t digest;
+	int i;
+	int t;
+	char str[mk_lib_crypto_hash_block_sha3_224_digest_len * 2 + 1];
+
+	mk_lib_crypto_hash_stream_sha3_224_init(&hash);
+	mk_lib_crypto_hash_stream_sha3_224_append(&hash, ((unsigned char const*)("abcdef")), 6);
+	mk_lib_crypto_hash_stream_sha3_224_append(&hash, ((unsigned char const*)("ghijklmnopqrstuvw")), 17);
+	mk_lib_crypto_hash_stream_sha3_224_append(&hash, ((unsigned char const*)("xyz")), 3);
+	mk_lib_crypto_hash_stream_sha3_224_finish(&hash, &digest);
+	for(i = 0; i != mk_lib_crypto_hash_block_sha3_224_digest_len; ++i)
+	{
+		t = sprintf(str + 2 * i, "%02x", ((unsigned char const*)(&digest))[i]);
+		assert(t == 2);
+	}
+	t = printf("%s\n", str); /* 5cdeca81e123f87cad96b9cba999f16f6d41549608d4e0f4681b8239 */
+	assert(t == mk_lib_crypto_hash_block_sha3_224_digest_len * 2 + 1);
+}
+```
+```bash
+$ gcc -DNDEBUG example.c
+$ ./a
+5cdeca81e123f87cad96b9cba999f16f6d41549608d4e0f4681b8239
+```
+
+## SHA3-256
+
+Example how to compute the SHA3-256 hash.
+
+```c
+#include "mk_lib_crypto_hash_stream_sha3_256.h"
+
+#include <assert.h> /* assert */
+#include <stdio.h> /* printf sprintf */
+
+
+int main(void)
+{
+	mk_lib_crypto_hash_stream_sha3_256_t hash;
+	mk_lib_crypto_hash_block_sha3_256_digest_t digest;
+	int i;
+	int t;
+	char str[mk_lib_crypto_hash_block_sha3_256_digest_len * 2 + 1];
+
+	mk_lib_crypto_hash_stream_sha3_256_init(&hash);
+	mk_lib_crypto_hash_stream_sha3_256_append(&hash, ((unsigned char const*)("abcdef")), 6);
+	mk_lib_crypto_hash_stream_sha3_256_append(&hash, ((unsigned char const*)("ghijklmnopqrstuvw")), 17);
+	mk_lib_crypto_hash_stream_sha3_256_append(&hash, ((unsigned char const*)("xyz")), 3);
+	mk_lib_crypto_hash_stream_sha3_256_finish(&hash, &digest);
+	for(i = 0; i != mk_lib_crypto_hash_block_sha3_256_digest_len; ++i)
+	{
+		t = sprintf(str + 2 * i, "%02x", ((unsigned char const*)(&digest))[i]);
+		assert(t == 2);
+	}
+	t = printf("%s\n", str); /* 7cab2dc765e21b241dbc1c255ce620b29f527c6d5e7f5f843e56288f0d707521 */
+	assert(t == mk_lib_crypto_hash_block_sha3_256_digest_len * 2 + 1);
+}
+```
+```bash
+$ gcc -DNDEBUG example.c
+$ ./a
+7cab2dc765e21b241dbc1c255ce620b29f527c6d5e7f5f843e56288f0d707521
+```
+
+## SHA3-384
+
+Example how to compute the SHA3-384 hash.
+
+```c
+#include "mk_lib_crypto_hash_stream_sha3_384.h"
+
+#include <assert.h> /* assert */
+#include <stdio.h> /* printf sprintf */
+
+
+int main(void)
+{
+	mk_lib_crypto_hash_stream_sha3_384_t hash;
+	mk_lib_crypto_hash_block_sha3_384_digest_t digest;
+	int i;
+	int t;
+	char str[mk_lib_crypto_hash_block_sha3_384_digest_len * 2 + 1];
+
+	mk_lib_crypto_hash_stream_sha3_384_init(&hash);
+	mk_lib_crypto_hash_stream_sha3_384_append(&hash, ((unsigned char const*)("abcdef")), 6);
+	mk_lib_crypto_hash_stream_sha3_384_append(&hash, ((unsigned char const*)("ghijklmnopqrstuvw")), 17);
+	mk_lib_crypto_hash_stream_sha3_384_append(&hash, ((unsigned char const*)("xyz")), 3);
+	mk_lib_crypto_hash_stream_sha3_384_finish(&hash, &digest);
+	for(i = 0; i != mk_lib_crypto_hash_block_sha3_384_digest_len; ++i)
+	{
+		t = sprintf(str + 2 * i, "%02x", ((unsigned char const*)(&digest))[i]);
+		assert(t == 2);
+	}
+	t = printf("%s\n", str); /* fed399d2217aaf4c717ad0c5102c15589e1c990cc2b9a5029056a7f7485888d6ab65db2370077a5cadb53fc9280d278f */
+	assert(t == mk_lib_crypto_hash_block_sha3_384_digest_len * 2 + 1);
+}
+```
+```bash
+$ gcc -DNDEBUG example.c
+$ ./a
+fed399d2217aaf4c717ad0c5102c15589e1c990cc2b9a5029056a7f7485888d6ab65db2370077a5cadb53fc9280d278f
+```
+
+## SHA3-512
+
+Example how to compute the SHA3-512 hash.
+
+```c
+#include "mk_lib_crypto_hash_stream_sha3_512.h"
+
+#include <assert.h> /* assert */
+#include <stdio.h> /* printf sprintf */
+
+
+int main(void)
+{
+	mk_lib_crypto_hash_stream_sha3_512_t hash;
+	mk_lib_crypto_hash_block_sha3_512_digest_t digest;
+	int i;
+	int t;
+	char str[mk_lib_crypto_hash_block_sha3_512_digest_len * 2 + 1];
+
+	mk_lib_crypto_hash_stream_sha3_512_init(&hash);
+	mk_lib_crypto_hash_stream_sha3_512_append(&hash, ((unsigned char const*)("abcdef")), 6);
+	mk_lib_crypto_hash_stream_sha3_512_append(&hash, ((unsigned char const*)("ghijklmnopqrstuvw")), 17);
+	mk_lib_crypto_hash_stream_sha3_512_append(&hash, ((unsigned char const*)("xyz")), 3);
+	mk_lib_crypto_hash_stream_sha3_512_finish(&hash, &digest);
+	for(i = 0; i != mk_lib_crypto_hash_block_sha3_512_digest_len; ++i)
+	{
+		t = sprintf(str + 2 * i, "%02x", ((unsigned char const*)(&digest))[i]);
+		assert(t == 2);
+	}
+	t = printf("%s\n", str); /* af328d17fa28753a3c9f5cb72e376b90440b96f0289e5703b729324a975ab384eda565fc92aaded143669900d761861687acdc0a5ffa358bd0571aaad80aca68 */
+	assert(t == mk_lib_crypto_hash_block_sha3_512_digest_len * 2 + 1);
+}
+```
+```bash
+$ gcc -DNDEBUG example.c
+$ ./a
+af328d17fa28753a3c9f5cb72e376b90440b96f0289e5703b729324a975ab384eda565fc92aaded143669900d761861687acdc0a5ffa358bd0571aaad80aca68
 ```
