@@ -13,7 +13,7 @@
 #include "mk_lang_static_assert.h"
 #include "mk_lang_stringify.h"
 #include "mk_lang_types.h"
-#include "mk_lib_crypto_hash_block_sha2_64bit.h"
+#include "mk_lib_crypto_hash_block_sha2_base_64bit.h"
 #include "mk_sl_uint.h"
 #include "mk_sl_uint128.h"
 #include "mk_sl_uint64.h"
@@ -43,7 +43,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha2_512_init(mk_l
 
 	mk_lang_assert(sha2_512);
 
-	mk_lib_crypto_hash_block_sha2_64bit_init(&sha2_512->m_64bit, s_mk_lib_crypto_hash_block_sha2_512_init);
+	mk_lib_crypto_hash_block_sha2_base_64bit_init(&sha2_512->m_64bit, s_mk_lib_crypto_hash_block_sha2_512_init);
 }
 
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha2_512_append_blocks(mk_lib_crypto_hash_block_sha2_512_pt const sha2_512, mk_lib_crypto_hash_block_sha2_512_block_pct const pblocks, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
@@ -53,7 +53,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha2_512_append_bl
 	mk_lang_assert(nblocks >= 0);
 	mk_lang_assert(nblocks <= mk_lang_limits_usize_max / mk_lib_crypto_hash_block_sha2_512_block_len);
 
-	mk_lib_crypto_hash_block_sha2_64bit_append_blocks(&sha2_512->m_64bit, pblocks, nblocks);
+	mk_lib_crypto_hash_block_sha2_base_64bit_append_blocks(&sha2_512->m_64bit, pblocks, nblocks);
 }
 
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha2_512_finish(mk_lib_crypto_hash_block_sha2_512_pt const sha2_512, mk_lib_crypto_hash_block_sha2_512_block_pt const block, int const idx, mk_lib_crypto_hash_block_sha2_512_digest_pt const digest) mk_lang_noexcept
@@ -63,5 +63,5 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha2_512_finish(mk
 	mk_lang_assert(idx >= 0 && idx < mk_lib_crypto_hash_block_sha2_512_block_len);
 	mk_lang_assert(digest);
 
-	mk_lib_crypto_hash_block_sha2_64bit_finish(&sha2_512->m_64bit, block, idx, digest);
+	mk_lib_crypto_hash_block_sha2_base_64bit_finish(&sha2_512->m_64bit, block, idx, digest);
 }

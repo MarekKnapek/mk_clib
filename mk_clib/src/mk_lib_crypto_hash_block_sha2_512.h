@@ -12,7 +12,7 @@
 #include "mk_lang_noexcept.h"
 #include "mk_lang_stringify.h"
 #include "mk_lang_types.h"
-#include "mk_lib_crypto_hash_block_sha2_64bit.h"
+#include "mk_lib_crypto_hash_block_sha2_base_64bit.h"
 #include "mk_sl_uint128.h"
 #include "mk_sl_uint64.h"
 #include "mk_sl_uint8.h"
@@ -27,19 +27,19 @@ mk_lang_constexpr_static_inline int const mk_lib_crypto_hash_block_sha2_512_name
 
 struct mk_lib_crypto_hash_block_sha2_512_s
 {
-	mk_lib_crypto_hash_block_sha2_64bit_t m_64bit;
+	mk_lib_crypto_hash_block_sha2_base_64bit_t m_64bit;
 };
 typedef struct mk_lib_crypto_hash_block_sha2_512_s mk_lib_crypto_hash_block_sha2_512_t;
 typedef mk_lib_crypto_hash_block_sha2_512_t const mk_lib_crypto_hash_block_sha2_512_ct;
 typedef mk_lib_crypto_hash_block_sha2_512_t* mk_lib_crypto_hash_block_sha2_512_pt;
 typedef mk_lib_crypto_hash_block_sha2_512_t const* mk_lib_crypto_hash_block_sha2_512_pct;
 
-typedef mk_lib_crypto_hash_block_sha2_64bit_block_t mk_lib_crypto_hash_block_sha2_512_block_t;
+typedef mk_lib_crypto_hash_block_sha2_base_64bit_block_t mk_lib_crypto_hash_block_sha2_512_block_t;
 typedef mk_lib_crypto_hash_block_sha2_512_block_t const mk_lib_crypto_hash_block_sha2_512_block_ct;
 typedef mk_lib_crypto_hash_block_sha2_512_block_t* mk_lib_crypto_hash_block_sha2_512_block_pt;
 typedef mk_lib_crypto_hash_block_sha2_512_block_t const* mk_lib_crypto_hash_block_sha2_512_block_pct;
 
-typedef mk_lib_crypto_hash_block_sha2_64bit_digest_t mk_lib_crypto_hash_block_sha2_512_digest_t;
+typedef mk_lib_crypto_hash_block_sha2_base_64bit_digest_t mk_lib_crypto_hash_block_sha2_512_digest_t;
 typedef mk_lib_crypto_hash_block_sha2_512_digest_t const mk_lib_crypto_hash_block_sha2_512_digest_ct;
 typedef mk_lib_crypto_hash_block_sha2_512_digest_t* mk_lib_crypto_hash_block_sha2_512_digest_pt;
 typedef mk_lib_crypto_hash_block_sha2_512_digest_t const* mk_lib_crypto_hash_block_sha2_512_digest_pct;
