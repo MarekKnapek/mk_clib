@@ -301,7 +301,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha2_32bit_finish(
 	mk_lang_assert(idx >= 0 && idx < mk_lib_crypto_hash_block_sha2_32bit_block_len);
 	mk_lang_assert(digest);
 
-	ui = 64;
+	ui = mk_lib_crypto_hash_block_sha2_32bit_block_len;
 	mk_sl_cui_uint64_from_bi_uint(&ta, &ui);
 	mk_lang_assert(!mk_sl_cui_uint64_would_overflow_mul(&sha2_32bit->m_len, &ta));
 	mk_sl_cui_uint64_shl3(&sha2_32bit->m_len, 6, &ta);
@@ -314,7 +314,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha2_32bit_finish(
 	mk_sl_cui_uint64_shl2(&ta, 3);
 	ui = 0x80;
 	mk_sl_cui_uint8_from_bi_uint(&block->m_uint8s[idx], &ui);
-	rest = 64 - idx - 1;
+	rest = mk_lib_crypto_hash_block_sha2_32bit_block_len - idx - 1;
 	if(rest >= 8)
 	{
 		for(i = 0; i != rest - 8; ++i)
@@ -329,12 +329,12 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha2_32bit_finish(
 			mk_sl_cui_uint8_set_zero(&block->m_uint8s[idx + 1 + i]);
 		}
 		mk_lib_crypto_hash_block_sha2_32bit_append_blocks(sha2_32bit, block, 1);
-		for(i = 0; i != 64 - 8; ++i)
+		for(i = 0; i != mk_lib_crypto_hash_block_sha2_32bit_block_len - 8; ++i)
 		{
 			mk_sl_cui_uint8_set_zero(&block->m_uint8s[i]);
 		}
 	}
-	mk_sl_uint_64_to_8_be(&ta, &block->m_uint8s[64 - 8]);
+	mk_sl_uint_64_to_8_be(&ta, &block->m_uint8s[mk_lib_crypto_hash_block_sha2_32bit_block_len - 8]);
 	mk_lib_crypto_hash_block_sha2_32bit_append_blocks(sha2_32bit, block, 1);
 	for(i = 0; i != 8; ++i)
 	{

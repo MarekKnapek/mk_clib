@@ -65,7 +65,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha2_224_finish(mk
 	mk_lang_assert(digest);
 
 	mk_lib_crypto_hash_block_sha2_32bit_finish(&sha2_224->m_32bit, block, idx, &dgst);
-	for(i = 0; i != 28; ++i)
+	for(i = 0; i != mk_lib_crypto_hash_block_sha2_224_digest_len; ++i)
 	{
 		digest->m_uint8s[i] = dgst.m_uint8s[i];
 	}

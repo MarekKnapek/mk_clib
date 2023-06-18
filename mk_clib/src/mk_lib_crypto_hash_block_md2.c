@@ -143,7 +143,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_md2_finish(mk_lib_
 	mk_lang_assert(idx >= 0 && idx < mk_lib_crypto_hash_block_md2_block_len);
 	mk_lang_assert(digest);
 
-	rest = 16 - idx;
+	rest = mk_lib_crypto_hash_block_md2_block_len - idx;
 	mk_sl_cui_uint8_from_bi_sint(&ta, &rest);
 	for(i = 0; i != rest; ++i)
 	{
@@ -151,7 +151,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_md2_finish(mk_lib_
 	}
 	mk_lib_crypto_hash_block_md2_append_blocks(md2, block, 1);
 	mk_lib_crypto_hash_block_md2_append_blocks(md2, &md2->m_checksum, 1);
-	for(i = 0; i != 16; ++i)
+	for(i = 0; i != mk_lib_crypto_hash_block_md2_digest_len; ++i)
 	{
 		digest->m_uint8s[i] = md2->m_state.m_uint8s[i];
 	}
