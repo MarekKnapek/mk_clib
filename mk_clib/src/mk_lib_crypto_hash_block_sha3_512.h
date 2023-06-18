@@ -10,7 +10,7 @@
 #include "mk_lang_noexcept.h"
 #include "mk_lang_stringify.h"
 #include "mk_lang_types.h"
-#include "mk_lib_crypto_hash_block_sha3.h"
+#include "mk_lib_crypto_hash_block_sha3_base.h"
 #include "mk_sl_uint8.h"
 
 
@@ -44,7 +44,7 @@ typedef mk_lib_crypto_hash_block_sha3_512_aligned64_t const* mk_lib_crypto_hash_
 
 struct mk_lib_crypto_hash_block_sha3_512_s
 {
-	mk_lib_crypto_hash_block_sha3_state_t m_sha3;
+	mk_lib_crypto_hash_block_sha3_base_state_t m_sha3;
 };
 typedef struct mk_lib_crypto_hash_block_sha3_512_s mk_lib_crypto_hash_block_sha3_512_t;
 typedef mk_lib_crypto_hash_block_sha3_512_t const mk_lib_crypto_hash_block_sha3_512_ct;

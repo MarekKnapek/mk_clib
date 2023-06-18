@@ -12,7 +12,7 @@
 #include "mk_lang_noexcept.h"
 #include "mk_lang_static_assert.h"
 #include "mk_lang_types.h"
-#include "mk_lib_crypto_hash_block_sha3.h"
+#include "mk_lib_crypto_hash_block_sha3_base.h"
 #include "mk_sl_uint.h"
 #include "mk_sl_uint8.h"
 
@@ -46,7 +46,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha3_384_init(mk_l
 
 	mk_lang_assert(sha3_384);
 
-	mk_lib_crypto_hash_block_sha3_init(&sha3_384->m_sha3);
+	mk_lib_crypto_hash_block_sha3_base_init(&sha3_384->m_sha3);
 }
 
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha3_384_append_blocks(mk_lib_crypto_hash_block_sha3_384_pt const sha3_384, mk_lib_crypto_hash_block_sha3_384_block_pct const pblocks, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
@@ -61,7 +61,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha3_384_append_bl
 	for(iblock = 0; iblock != nblocks; ++iblock)
 	{
 		mk_lib_crypto_hash_block_sha3_384_mix_block(sha3_384, &pblocks[iblock]);
-		mk_lib_crypto_hash_block_sha3_f(&sha3_384->m_sha3);
+		mk_lib_crypto_hash_block_sha3_base_f(&sha3_384->m_sha3);
 	}
 }
 
@@ -113,7 +113,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha3_384_finish(mk
 	rem -= m * 8;
 	while(rem > 0)
 	{
-		mk_lib_crypto_hash_block_sha3_f(&sha3_384->m_sha3);
+		mk_lib_crypto_hash_block_sha3_base_f(&sha3_384->m_sha3);
 		n = mk_lang_min(mk_lib_crypto_hash_block_sha3_384_block_len, rem);
 		m = mk_lang_div_roundup(n, 8);
 		for(i = 0; i != m; ++i)

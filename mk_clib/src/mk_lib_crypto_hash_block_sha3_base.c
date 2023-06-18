@@ -1,4 +1,4 @@
-#include "mk_lib_crypto_hash_block_sha3.h"
+#include "mk_lib_crypto_hash_block_sha3_base.h"
 
 #include "mk_lang_assert.h"
 #include "mk_lang_constexpr.h"
@@ -10,7 +10,7 @@
 #include "mk_sl_uint64.h"
 
 
-mk_lang_constexpr_static_inline mk_sl_cui_uint64_t const s_mk_lib_crypto_hash_block_sha3_rc_nums[24] =
+mk_lang_constexpr_static_inline mk_sl_cui_uint64_t const s_mk_lib_crypto_hash_block_sha3_base_rc_nums[24] =
 {
 	mk_sl_cui_uint64_c(0x00000000ul, 0x00000001ul),
 	mk_sl_cui_uint64_c(0x00000000ul, 0x00008082ul),
@@ -44,7 +44,7 @@ mk_lang_constexpr_static_inline mk_sl_cui_uint64_t const s_mk_lib_crypto_hash_bl
 #define get25(state, x, y) ((state)[(round5(y) * 5) + round5(x)])
 
 
-mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_sha3_chi(mk_lib_crypto_hash_block_sha3_state_prct const input, mk_lib_crypto_hash_block_sha3_state_prt const output) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_sha3_base_chi(mk_lib_crypto_hash_block_sha3_base_state_prct const input, mk_lib_crypto_hash_block_sha3_base_state_prt const output) mk_lang_noexcept
 {
 	int y mk_lang_constexpr_init;
 	int x mk_lang_constexpr_init;
@@ -65,7 +65,7 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_sha3_chi(m
 	}
 }
 
-mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_sha3_theta(mk_lib_crypto_hash_block_sha3_state_prct const input, mk_lib_crypto_hash_block_sha3_state_prt const output) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_sha3_base_theta(mk_lib_crypto_hash_block_sha3_base_state_prct const input, mk_lib_crypto_hash_block_sha3_base_state_prt const output) mk_lang_noexcept
 {
 	int x mk_lang_constexpr_init;
 	mk_sl_cui_uint64_t c[5] mk_lang_constexpr_init;
@@ -96,7 +96,7 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_sha3_theta
 	}
 }
 
-mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_sha3_pi(mk_lib_crypto_hash_block_sha3_state_prct const input, mk_lib_crypto_hash_block_sha3_state_prt const output) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_sha3_base_pi(mk_lib_crypto_hash_block_sha3_base_state_prct const input, mk_lib_crypto_hash_block_sha3_base_state_prt const output) mk_lang_noexcept
 {
 	int x mk_lang_constexpr_init;
 	int y mk_lang_constexpr_init;
@@ -118,7 +118,7 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_sha3_pi(mk
 	}
 }
 
-mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_sha3_rho(mk_lib_crypto_hash_block_sha3_state_prct const input, mk_lib_crypto_hash_block_sha3_state_prt const output) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_sha3_base_rho(mk_lib_crypto_hash_block_sha3_base_state_prct const input, mk_lib_crypto_hash_block_sha3_base_state_prt const output) mk_lang_noexcept
 {
 	int x mk_lang_constexpr_init;
 	int y mk_lang_constexpr_init;
@@ -145,29 +145,29 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_sha3_rho(m
 	}
 }
 
-mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_sha3_iota(mk_lib_crypto_hash_block_sha3_state_prt const state, int const rcidx) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_sha3_base_iota(mk_lib_crypto_hash_block_sha3_base_state_prt const state, int const rcidx) mk_lang_noexcept
 {
 	mk_lang_assert(state);
 	mk_lang_assert(rcidx >= 0 && rcidx <= 23);
 
-	mk_sl_cui_uint64_xor2(&get25(state->m_uint64s, 0, 0), &s_mk_lib_crypto_hash_block_sha3_rc_nums[rcidx]);
+	mk_sl_cui_uint64_xor2(&get25(state->m_uint64s, 0, 0), &s_mk_lib_crypto_hash_block_sha3_base_rc_nums[rcidx]);
 }
 
-mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_sha3_rnd(mk_lib_crypto_hash_block_sha3_state_prt const state, int const rcidx) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_sha3_base_rnd(mk_lib_crypto_hash_block_sha3_base_state_prt const state, int const rcidx) mk_lang_noexcept
 {
-	mk_lib_crypto_hash_block_sha3_state_t tmp mk_lang_constexpr_init;
+	mk_lib_crypto_hash_block_sha3_base_state_t tmp mk_lang_constexpr_init;
 
 	mk_lang_assert(state);
 	mk_lang_assert(rcidx >= 0 && rcidx <= 23);
 
-	mk_lib_crypto_hash_block_sha3_theta(state, &tmp);
-	mk_lib_crypto_hash_block_sha3_rho(&tmp, state);
-	mk_lib_crypto_hash_block_sha3_pi(state, &tmp);
-	mk_lib_crypto_hash_block_sha3_chi(&tmp, state);
-	mk_lib_crypto_hash_block_sha3_iota(state, rcidx);
+	mk_lib_crypto_hash_block_sha3_base_theta(state, &tmp);
+	mk_lib_crypto_hash_block_sha3_base_rho(&tmp, state);
+	mk_lib_crypto_hash_block_sha3_base_pi(state, &tmp);
+	mk_lib_crypto_hash_block_sha3_base_chi(&tmp, state);
+	mk_lib_crypto_hash_block_sha3_base_iota(state, rcidx);
 }
 
-mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_sha3_p(mk_lib_crypto_hash_block_sha3_state_prt const state) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_sha3_base_p(mk_lib_crypto_hash_block_sha3_base_state_prt const state) mk_lang_noexcept
 {
 	int ir mk_lang_constexpr_init;
 
@@ -175,12 +175,12 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_sha3_p(mk_
 
 	for(ir = 0; ir != 24; ++ir)
 	{
-		mk_lib_crypto_hash_block_sha3_rnd(state, ir);
+		mk_lib_crypto_hash_block_sha3_base_rnd(state, ir);
 	}
 }
 
 
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha3_init(mk_lib_crypto_hash_block_sha3_state_prt const state) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha3_base_init(mk_lib_crypto_hash_block_sha3_base_state_prt const state) mk_lang_noexcept
 {
 	int y mk_lang_constexpr_init;
 	int x mk_lang_constexpr_init;
@@ -196,11 +196,11 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha3_init(mk_lib_c
 	}
 }
 
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha3_f(mk_lib_crypto_hash_block_sha3_state_prt const state) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha3_base_f(mk_lib_crypto_hash_block_sha3_base_state_prt const state) mk_lang_noexcept
 {
 	mk_lang_assert(state);
 
-	mk_lib_crypto_hash_block_sha3_p(state);
+	mk_lib_crypto_hash_block_sha3_base_p(state);
 }
 
 
