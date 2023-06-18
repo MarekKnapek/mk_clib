@@ -59,6 +59,9 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha2_384_finish(mk
 	int i mk_lang_constexpr_init;
 
 	mk_lang_assert(sha2_384);
+	mk_lang_assert(block);
+	mk_lang_assert(idx >= 0 && idx < 128);
+	mk_lang_assert(digest);
 
 	mk_lib_crypto_hash_block_sha2_64bit_finish(&sha2_384->m_64bit, block, idx, &dgst);
 	for(i = 0; i != 48; ++i)

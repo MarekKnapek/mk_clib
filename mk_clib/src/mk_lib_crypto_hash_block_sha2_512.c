@@ -56,6 +56,9 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha2_512_append_bl
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha2_512_finish(mk_lib_crypto_hash_block_sha2_512_pt const sha2_512, mk_lib_crypto_hash_block_sha2_512_block_pt const block, int const idx, mk_lib_crypto_hash_block_sha2_512_digest_pt const digest) mk_lang_noexcept
 {
 	mk_lang_assert(sha2_512);
+	mk_lang_assert(block);
+	mk_lang_assert(idx >= 0 && idx < 128);
+	mk_lang_assert(digest);
 
 	mk_lib_crypto_hash_block_sha2_64bit_finish(&sha2_512->m_64bit, block, idx, digest);
 }
