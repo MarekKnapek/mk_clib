@@ -241,7 +241,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha1_finish(mk_lib
 
 	mk_lang_assert(sha1);
 	mk_lang_assert(block);
-	mk_lang_assert(idx >= 0 && idx < 64);
+	mk_lang_assert(idx >= 0 && idx < mk_lib_crypto_hash_block_sha1_block_len);
 	mk_lang_assert(digest);
 
 	ui = 64;

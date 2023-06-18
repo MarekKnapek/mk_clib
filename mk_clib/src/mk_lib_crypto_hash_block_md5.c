@@ -395,7 +395,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_md5_finish(mk_lib_
 
 	mk_lang_assert(md5);
 	mk_lang_assert(block);
-	mk_lang_assert(idx >= 0 && idx < 64);
+	mk_lang_assert(idx >= 0 && idx < mk_lib_crypto_hash_block_md5_block_len);
 	mk_lang_assert(digest);
 
 	ui = 64;
