@@ -22,6 +22,8 @@
 #include "../../src/mk_lib_crypto_xof_stream_shake_256.h"
 #include "../../src/mk_sl_uint8.h"
 
+#include <emscripten.h>
+
 
 enum hash_id_e
 {
@@ -185,7 +187,7 @@ static mk_lang_inline void copy(hash_id_t const id, int const xof_len, digest_al
 #define check(x) if(!(x)){ mk_lang_unlikely return 0; }
 
 
-mk_lang_extern_c int mkch(int const hash_id, int const xof_len, mk_lang_types_uchar_pct data, int const data_len, mk_lang_types_uchar_pt const digest, int const digest_len, mk_lang_types_sint_pt const ret_len) mk_lang_noexcept
+mk_lang_extern_c EMSCRIPTEN_KEEPALIVE int mkch(int const hash_id, int const xof_len, mk_lang_types_uchar_pct data, int const data_len, mk_lang_types_uchar_pt const digest, int const digest_len, mk_lang_types_sint_pt const ret_len) mk_lang_noexcept
 {
 	hash_id_t id;
 	hash_t hash;
