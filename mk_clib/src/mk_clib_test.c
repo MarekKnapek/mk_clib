@@ -22,6 +22,8 @@
 #include "mk_lib_crypto_hash_stream_sha3_256_test.hpp"
 #include "mk_lib_crypto_hash_stream_sha3_384_test.hpp"
 #include "mk_lib_crypto_hash_stream_sha3_512_test.hpp"
+#include "mk_lib_crypto_xof_stream_shake_128_test.hpp"
+#include "mk_lib_crypto_xof_stream_shake_256_test.hpp"
 #include "mk_sl_flt_test.hpp"
 #include "mk_sl_sort_merge_test.hpp"
 
@@ -48,6 +50,8 @@ mk_lang_jumbo void mk_clib_test(void) mk_lang_noexcept
 	mk_lib_crypto_hash_stream_sha3_256_test();
 	mk_lib_crypto_hash_stream_sha3_384_test();
 	mk_lib_crypto_hash_stream_sha3_512_test();
+	mk_lib_crypto_xof_stream_shake_128_test();
+	mk_lib_crypto_xof_stream_shake_256_test();
 	mk_sl_flt_test();
 	mk_sl_sort_merge_test();
 }

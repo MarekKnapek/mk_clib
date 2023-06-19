@@ -1,6 +1,6 @@
 # mk_clib
 
-Hi, welcome to my library, this is place where I put all my C stuff. There is arbitrary length unsigned integer arithmetic. Cryptographic hashes such as MD2, MD4, MD5, SHA-0, SHA-1, SHA-256, SHA-512, SHA-384, SHA-224, SHA-512/224, SHA-512/256, SHA3-224, SHA3-256, SHA3-384 and SHA3-512.
+Hi, welcome to my library, this is place where I put all my C stuff. There is arbitrary length unsigned integer arithmetic. Cryptographic hashes such as MD2, MD4, MD5, SHA-0, SHA-1, SHA-256, SHA-512, SHA-384, SHA-224, SHA-512/224, SHA-512/256, SHA3-224, SHA3-256, SHA3-384, SHA3-512, SHAKE128 and SHAKE256.
 
  - [bui](#bui)
  - [cui](#cui)
@@ -21,6 +21,8 @@ Hi, welcome to my library, this is place where I put all my C stuff. There is ar
  - [SHA3-256](#SHA3-256)
  - [SHA3-384](#SHA3-384)
  - [SHA3-512](#SHA3-512)
+ - [SHAKE128](#SHAKE128)
+ - [SHAKE256](#SHAKE256)
 
 ## bui
 
@@ -723,4 +725,82 @@ int main(void)
 $ gcc -DNDEBUG example.c
 $ ./a
 af328d17fa28753a3c9f5cb72e376b90440b96f0289e5703b729324a975ab384eda565fc92aaded143669900d761861687acdc0a5ffa358bd0571aaad80aca68
+```
+
+## SHAKE128
+
+Example how to compute the SHAKE128 XOF.
+
+```c
+#include "mk_lib_crypto_xof_stream_shake_128.h"
+
+#include <assert.h> /* assert */
+#include <stdio.h> /* printf sprintf */
+
+
+int main(void)
+{
+	mk_lib_crypto_xof_stream_shake_128_t xof;
+	unsigned char digest[3000 / 8];
+	int i;
+	int t;
+	char str[3000 / 8 * 2 + 1];
+
+	mk_lib_crypto_xof_stream_shake_128_init(&xof);
+	mk_lib_crypto_xof_stream_shake_128_append(&xof, ((unsigned char const*)("abcdef")), 6);
+	mk_lib_crypto_xof_stream_shake_128_append(&xof, ((unsigned char const*)("ghijklmnopqrstuvw")), 17);
+	mk_lib_crypto_xof_stream_shake_128_append(&xof, ((unsigned char const*)("xyz")), 3);
+	mk_lib_crypto_xof_stream_shake_128_finish(&xof, 3000 / 8, ((mk_lib_crypto_xof_block_shake_128_digest_pt)(digest)));
+	for(i = 0; i != 3000 / 8; ++i)
+	{
+		t = sprintf(str + 2 * i, "%02x", ((unsigned char const*)(&digest))[i]);
+		assert(t == 2);
+	}
+	t = printf("%s\n", str); /* 961c919c0854576e561320e81514bf3724197d0715e16a364520384ee997f6ef3be7ad1ab687d31ebd7e6604ef2c7652932e4206113d263514e72f31f5e1df87c5f54fc43e8f857fc4a52bbb565bd6d45869df9259c09774728394e3e0c3b326410085c356e5b173d570087945b0f068e4c63a5b191fef22d93b9fd4211328d70e514fec92b1b48643495918b641eab05460d0798cbe42fda47a2375f1065d037ebc76bdceff29efa43c82793c9ff41e19834717532faa42bcc91287bbddd88efe22fb471db95463dd3d6d3dfc5079042181bc405be83321c0a51431588b98019506a1e2def66bfe45a49c2d662b547becdcecb7e87a51e1aca962f08e3a4808f6c119f471eebca33d8894219a13637464c9ef601b5ac6e21629d15a82d22a632d9b2ae535a94c9fd8ee278cab57c9599171021a2d72f07a866e8814f46daeb52d30cbf50a7bd3a71e6aff0f315637b8c0eba30b06b733e0577a72e4cd73da2ec1807978c3ea872e9ef65a127af8c7eeb7ff16c259d010 */
+	assert(t == 3000 / 8 * 2 + 1);
+}
+```
+```bash
+$ gcc -DNDEBUG example.c
+$ ./a
+961c919c0854576e561320e81514bf3724197d0715e16a364520384ee997f6ef3be7ad1ab687d31ebd7e6604ef2c7652932e4206113d263514e72f31f5e1df87c5f54fc43e8f857fc4a52bbb565bd6d45869df9259c09774728394e3e0c3b326410085c356e5b173d570087945b0f068e4c63a5b191fef22d93b9fd4211328d70e514fec92b1b48643495918b641eab05460d0798cbe42fda47a2375f1065d037ebc76bdceff29efa43c82793c9ff41e19834717532faa42bcc91287bbddd88efe22fb471db95463dd3d6d3dfc5079042181bc405be83321c0a51431588b98019506a1e2def66bfe45a49c2d662b547becdcecb7e87a51e1aca962f08e3a4808f6c119f471eebca33d8894219a13637464c9ef601b5ac6e21629d15a82d22a632d9b2ae535a94c9fd8ee278cab57c9599171021a2d72f07a866e8814f46daeb52d30cbf50a7bd3a71e6aff0f315637b8c0eba30b06b733e0577a72e4cd73da2ec1807978c3ea872e9ef65a127af8c7eeb7ff16c259d010
+```
+
+## SHAKE256
+
+Example how to compute the SHAKE256 XOF.
+
+```c
+#include "mk_lib_crypto_xof_stream_shake_256.h"
+
+#include <assert.h> /* assert */
+#include <stdio.h> /* printf sprintf */
+
+
+int main(void)
+{
+	mk_lib_crypto_xof_stream_shake_256_t xof;
+	unsigned char digest[3000 / 8];
+	int i;
+	int t;
+	char str[3000 / 8 * 2 + 1];
+
+	mk_lib_crypto_xof_stream_shake_256_init(&xof);
+	mk_lib_crypto_xof_stream_shake_256_append(&xof, ((unsigned char const*)("abcdef")), 6);
+	mk_lib_crypto_xof_stream_shake_256_append(&xof, ((unsigned char const*)("ghijklmnopqrstuvw")), 17);
+	mk_lib_crypto_xof_stream_shake_256_append(&xof, ((unsigned char const*)("xyz")), 3);
+	mk_lib_crypto_xof_stream_shake_256_finish(&xof, 3000 / 8, ((mk_lib_crypto_xof_block_shake_256_digest_pt)(digest)));
+	for(i = 0; i != 3000 / 8; ++i)
+	{
+		t = sprintf(str + 2 * i, "%02x", ((unsigned char const*)(&digest))[i]);
+		assert(t == 2);
+	}
+	t = printf("%s\n", str); /* b7b78b04a3dd30a265c8886c33fda94799853de5d3d10541fd4e9f4613701c61075249bed16b0781108fcfe086dbf38a7fb8300807cea85cc649328d07d4ff2b5e8908563ff0fdcc06a8092fbfe772f80e49f87a103b2aee12990ccb4798e9ec03aa4818a4bf5abda084e1a5fe687c2cfef4406846fe47a0d07bf45055a2699c37d6b6d9cd6c4ff0a675191553f1e30bf471eba3c78fa7a52bd33c48912c0d0c6f1145d3117a472fdcd9afbb866ba1bef4f5944c09b036b3adadc317cf96c1493b8f61cd4d1dea113d9ebf8a709f0f3bc847aabe02b068e4756752696ca0e1ca89360673c323e9b3994843b8b6f73391afe5f96d8f3914e95c74a6cb0a3052a5d0c882bff936c90b6a6200d46b0a505ac494995a8de1f255c2cf371af0ed3052ead05d9d67e434234e10f8d1175136e62811b94901129a2ea4007724ff3671f7a2ed8937fefff0cdd47dce91f0b1ad251f739a99ac295b4c7af14bb68fcf8934d5d5401fe6da79ee2762ec874b166bf7bff08b5818613b */
+	assert(t == 3000 / 8 * 2 + 1);
+}
+```
+```bash
+$ gcc -DNDEBUG example.c
+$ ./a
+b7b78b04a3dd30a265c8886c33fda94799853de5d3d10541fd4e9f4613701c61075249bed16b0781108fcfe086dbf38a7fb8300807cea85cc649328d07d4ff2b5e8908563ff0fdcc06a8092fbfe772f80e49f87a103b2aee12990ccb4798e9ec03aa4818a4bf5abda084e1a5fe687c2cfef4406846fe47a0d07bf45055a2699c37d6b6d9cd6c4ff0a675191553f1e30bf471eba3c78fa7a52bd33c48912c0d0c6f1145d3117a472fdcd9afbb866ba1bef4f5944c09b036b3adadc317cf96c1493b8f61cd4d1dea113d9ebf8a709f0f3bc847aabe02b068e4756752696ca0e1ca89360673c323e9b3994843b8b6f73391afe5f96d8f3914e95c74a6cb0a3052a5d0c882bff936c90b6a6200d46b0a505ac494995a8de1f255c2cf371af0ed3052ead05d9d67e434234e10f8d1175136e62811b94901129a2ea4007724ff3671f7a2ed8937fefff0cdd47dce91f0b1ad251f739a99ac295b4c7af14bb68fcf8934d5d5401fe6da79ee2762ec874b166bf7bff08b5818613b
 ```
