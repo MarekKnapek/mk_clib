@@ -2,17 +2,20 @@
 #define mk_include_guard_mk_lang_arch
 
 
-#define mk_lang_arch_x8616 1001
-#define mk_lang_arch_x8632 1002
-#define mk_lang_arch_x8664 1003
-#define mk_lang_arch_ia64  1004
-#define mk_lang_arch_alpha 1005
-#define mk_lang_arch_ppc   1006
-#define mk_lang_arch_mips  1007
-#define mk_lang_arch_arm32 1008
-#define mk_lang_arch_arm64 1009
+#define mk_lang_arch_x8616      1001
+#define mk_lang_arch_x8632      1002
+#define mk_lang_arch_x8664      1003
+#define mk_lang_arch_ia64       1004
+#define mk_lang_arch_alpha      1005
+#define mk_lang_arch_ppc        1006
+#define mk_lang_arch_mips       1007
+#define mk_lang_arch_arm32      1008
+#define mk_lang_arch_arm64      1009
+#define mk_lang_arch_emscripten 1010
 
-#if defined _MSC_VER && defined _M_ARM64
+#if defined __EMSCRIPTEN__
+#define mk_lang_arch mk_lang_arch_emscripten
+#elif defined _MSC_VER && defined _M_ARM64
 #define mk_lang_arch mk_lang_arch_arm64
 #elif defined _MSC_VER && defined _M_ARM
 #define mk_lang_arch mk_lang_arch_arm32
@@ -49,7 +52,7 @@
 
 #if mk_lang_arch == mk_lang_arch_x8616
 #define mk_lang_bitness mk_lang_bitness_16
-#elif mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_alpha || mk_lang_arch == mk_lang_arch_ppc || mk_lang_arch == mk_lang_arch_mips || mk_lang_arch == mk_lang_arch_arm32
+#elif mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_alpha || mk_lang_arch == mk_lang_arch_ppc || mk_lang_arch == mk_lang_arch_mips || mk_lang_arch == mk_lang_arch_arm32 || mk_lang_arch == mk_lang_arch_emscripten
 #define mk_lang_bitness mk_lang_bitness_32
 #elif mk_lang_arch == mk_lang_arch_x8664 || mk_lang_arch == mk_lang_arch_ia64 || mk_lang_arch == mk_lang_arch_arm64
 #define mk_lang_bitness mk_lang_bitness_64

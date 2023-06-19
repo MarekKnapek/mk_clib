@@ -39,7 +39,7 @@ mk_lang_jumbo void mk_lang_limits_test(void) mk_lang_noexcept
 	mk_lang_static_assert(mk_lang_limits_uint_max    == mk_lang_ullong_c(0xffffffff));
 	mk_lang_static_assert(mk_lang_limits_ulong_max   == mk_lang_ullong_c(0xffffffff));
 	mk_lang_static_assert(mk_lang_limits_ullong_max  == mk_lang_ullong_c(0xffffffffffffffff));
-	mk_lang_static_assert(mk_lang_limits_ulllong_max == mk_lang_ullong_c(0xffffffffffffffff));
+	mk_lang_static_assert(mk_lang_limits_ulllong_max == ulllong_max);
 	mk_lang_static_assert(mk_lang_limits_uintptr_max == mk_lang_ullong_c(0xffffffff));
 	mk_lang_static_assert(mk_lang_limits_uintmax_max == mk_lang_ullong_c(0xffffffffffffffff));
 	mk_lang_static_assert(mk_lang_limits_usize_max   == mk_lang_ullong_c(0xffffffff));
@@ -49,7 +49,7 @@ mk_lang_jumbo void mk_lang_limits_test(void) mk_lang_noexcept
 	mk_lang_static_assert(mk_lang_limits_sint_min    == (mk_lang_sllong_c(-2147483647)          - mk_lang_sllong_c(1)));
 	mk_lang_static_assert(mk_lang_limits_slong_min   == (mk_lang_sllong_c(-2147483647)          - mk_lang_sllong_c(1)));
 	mk_lang_static_assert(mk_lang_limits_sllong_min  == (mk_lang_sllong_c(-9223372036854775807) - mk_lang_sllong_c(1)));
-	mk_lang_static_assert(mk_lang_limits_slllong_min == (mk_lang_sllong_c(-9223372036854775807) - mk_lang_sllong_c(1)));
+	mk_lang_static_assert(mk_lang_limits_slllong_min == slllong_min);
 	mk_lang_static_assert(mk_lang_limits_sintptr_min == (mk_lang_sllong_c(-2147483647)          - mk_lang_sllong_c(1)));
 	mk_lang_static_assert(mk_lang_limits_sintmax_min == (mk_lang_sllong_c(-9223372036854775807) - mk_lang_sllong_c(1)));
 	mk_lang_static_assert(mk_lang_limits_ssize_min   == (mk_lang_sllong_c(-2147483647)          - mk_lang_sllong_c(1)));
@@ -59,7 +59,7 @@ mk_lang_jumbo void mk_lang_limits_test(void) mk_lang_noexcept
 	mk_lang_static_assert(mk_lang_limits_sint_max    == mk_lang_sllong_c(2147483647));
 	mk_lang_static_assert(mk_lang_limits_slong_max   == mk_lang_sllong_c(2147483647));
 	mk_lang_static_assert(mk_lang_limits_sllong_max  == mk_lang_sllong_c(9223372036854775807));
-	mk_lang_static_assert(mk_lang_limits_slllong_max == mk_lang_sllong_c(9223372036854775807));
+	mk_lang_static_assert(mk_lang_limits_slllong_max == slllong_max);
 	mk_lang_static_assert(mk_lang_limits_sintptr_max == mk_lang_sllong_c(2147483647));
 	mk_lang_static_assert(mk_lang_limits_sintmax_max == mk_lang_sllong_c(9223372036854775807));
 	mk_lang_static_assert(mk_lang_limits_ssize_max   == mk_lang_sllong_c(2147483647));
