@@ -1,6 +1,6 @@
 # mk_clib
 
-Hi, welcome to my library, this is place where I put all my C stuff. There is arbitrary length unsigned integer arithmetic. Cryptographic hashes such as MD2, MD4, MD5, SHA-0, SHA-1, SHA-256, SHA-512, SHA-384, SHA-224, SHA-512/224, SHA-512/256, SHA3-224, SHA3-256, SHA3-384, SHA3-512, SHAKE128 and SHAKE256.
+Hi, welcome to my library, this is place where I put all my C stuff. There is arbitrary length unsigned integer arithmetic. Cryptographic hashes such as MD2, MD4, MD5, SHA-0, SHA-1, SHA-256, SHA-512, SHA-384, SHA-224, SHA-512/224, SHA-512/256, SHA3-224, SHA3-256, SHA3-384, SHA3-512, SHAKE128, SHAKE256, Tiger/128, Tiger/160 and Tiger/192.
 
  - [bui](#bui)
  - [cui](#cui)
@@ -23,6 +23,9 @@ Hi, welcome to my library, this is place where I put all my C stuff. There is ar
  - [SHA3-512](#SHA3-512)
  - [SHAKE128](#SHAKE128)
  - [SHAKE256](#SHAKE256)
+ - [Tiger/128](#Tiger/128)
+ - [Tiger/160](#Tiger/160)
+ - [Tiger/192](#Tiger/192)
 
 ## bui
 
@@ -803,4 +806,121 @@ int main(void)
 $ gcc -DNDEBUG example.c
 $ ./a
 b7b78b04a3dd30a265c8886c33fda94799853de5d3d10541fd4e9f4613701c61075249bed16b0781108fcfe086dbf38a7fb8300807cea85cc649328d07d4ff2b5e8908563ff0fdcc06a8092fbfe772f80e49f87a103b2aee12990ccb4798e9ec03aa4818a4bf5abda084e1a5fe687c2cfef4406846fe47a0d07bf45055a2699c37d6b6d9cd6c4ff0a675191553f1e30bf471eba3c78fa7a52bd33c48912c0d0c6f1145d3117a472fdcd9afbb866ba1bef4f5944c09b036b3adadc317cf96c1493b8f61cd4d1dea113d9ebf8a709f0f3bc847aabe02b068e4756752696ca0e1ca89360673c323e9b3994843b8b6f73391afe5f96d8f3914e95c74a6cb0a3052a5d0c882bff936c90b6a6200d46b0a505ac494995a8de1f255c2cf371af0ed3052ead05d9d67e434234e10f8d1175136e62811b94901129a2ea4007724ff3671f7a2ed8937fefff0cdd47dce91f0b1ad251f739a99ac295b4c7af14bb68fcf8934d5d5401fe6da79ee2762ec874b166bf7bff08b5818613b
+```
+
+## Tiger/128
+
+Example how to compute the Tiger/128 hash.
+
+```c
+#include "mk_lib_crypto_hash_stream_tiger_128.h"
+
+#include <assert.h> /* assert */
+#include <stdio.h> /* printf sprintf */
+
+
+int main(void)
+{
+	mk_lib_crypto_hash_stream_tiger_128_t hash;
+	mk_lib_crypto_hash_block_tiger_128_digest_t digest;
+	int i;
+	int t;
+	char str[mk_lib_crypto_hash_block_tiger_128_digest_len * 2 + 1];
+
+	mk_lib_crypto_hash_stream_tiger_128_init(&hash);
+	mk_lib_crypto_hash_stream_tiger_128_append(&hash, ((unsigned char const*)("abcdef")), 6);
+	mk_lib_crypto_hash_stream_tiger_128_append(&hash, ((unsigned char const*)("ghijklmnopqrstuvw")), 17);
+	mk_lib_crypto_hash_stream_tiger_128_append(&hash, ((unsigned char const*)("xyz")), 3);
+	mk_lib_crypto_hash_stream_tiger_128_finish(&hash, &digest);
+	for(i = 0; i != mk_lib_crypto_hash_block_tiger_128_digest_len; ++i)
+	{
+		t = sprintf(str + 2 * i, "%02x", ((unsigned char const*)(&digest))[i]);
+		assert(t == 2);
+	}
+	t = printf("%s\n", str); /* 1714a472eee57d30040412bfcc55032a */
+	assert(t == mk_lib_crypto_hash_block_tiger_128_digest_len * 2 + 1);
+}
+```
+```bash
+$ gcc -DNDEBUG example.c
+$ ./a
+1714a472eee57d30040412bfcc55032a
+```
+
+## Tiger/160
+
+Example how to compute the Tiger/160 hash.
+
+```c
+#include "mk_lib_crypto_hash_stream_tiger_160.h"
+
+#include <assert.h> /* assert */
+#include <stdio.h> /* printf sprintf */
+
+
+int main(void)
+{
+	mk_lib_crypto_hash_stream_tiger_160_t hash;
+	mk_lib_crypto_hash_block_tiger_160_digest_t digest;
+	int i;
+	int t;
+	char str[mk_lib_crypto_hash_block_tiger_160_digest_len * 2 + 1];
+
+	mk_lib_crypto_hash_stream_tiger_160_init(&hash);
+	mk_lib_crypto_hash_stream_tiger_160_append(&hash, ((unsigned char const*)("abcdef")), 6);
+	mk_lib_crypto_hash_stream_tiger_160_append(&hash, ((unsigned char const*)("ghijklmnopqrstuvw")), 17);
+	mk_lib_crypto_hash_stream_tiger_160_append(&hash, ((unsigned char const*)("xyz")), 3);
+	mk_lib_crypto_hash_stream_tiger_160_finish(&hash, &digest);
+	for(i = 0; i != mk_lib_crypto_hash_block_tiger_160_digest_len; ++i)
+	{
+		t = sprintf(str + 2 * i, "%02x", ((unsigned char const*)(&digest))[i]);
+		assert(t == 2);
+	}
+	t = printf("%s\n", str); /* 1714a472eee57d30040412bfcc55032a0b11602f */
+	assert(t == mk_lib_crypto_hash_block_tiger_160_digest_len * 2 + 1);
+}
+```
+```bash
+$ gcc -DNDEBUG example.c
+$ ./a
+1714a472eee57d30040412bfcc55032a0b11602f
+```
+
+## Tiger/192
+
+Example how to compute the Tiger/192 hash.
+
+```c
+#include "mk_lib_crypto_hash_stream_tiger_192.h"
+
+#include <assert.h> /* assert */
+#include <stdio.h> /* printf sprintf */
+
+
+int main(void)
+{
+	mk_lib_crypto_hash_stream_tiger_192_t hash;
+	mk_lib_crypto_hash_block_tiger_192_digest_t digest;
+	int i;
+	int t;
+	char str[mk_lib_crypto_hash_block_tiger_192_digest_len * 2 + 1];
+
+	mk_lib_crypto_hash_stream_tiger_192_init(&hash);
+	mk_lib_crypto_hash_stream_tiger_192_append(&hash, ((unsigned char const*)("abcdef")), 6);
+	mk_lib_crypto_hash_stream_tiger_192_append(&hash, ((unsigned char const*)("ghijklmnopqrstuvw")), 17);
+	mk_lib_crypto_hash_stream_tiger_192_append(&hash, ((unsigned char const*)("xyz")), 3);
+	mk_lib_crypto_hash_stream_tiger_192_finish(&hash, &digest);
+	for(i = 0; i != mk_lib_crypto_hash_block_tiger_192_digest_len; ++i)
+	{
+		t = sprintf(str + 2 * i, "%02x", ((unsigned char const*)(&digest))[i]);
+		assert(t == 2);
+	}
+	t = printf("%s\n", str); /* 1714a472eee57d30040412bfcc55032a0b11602ff37beee9 */
+	assert(t == mk_lib_crypto_hash_block_tiger_192_digest_len * 2 + 1);
+}
+```
+```bash
+$ gcc -DNDEBUG example.c
+$ ./a
+1714a472eee57d30040412bfcc55032a0b11602ff37beee9
 ```
