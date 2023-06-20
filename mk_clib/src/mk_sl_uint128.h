@@ -18,8 +18,9 @@
 #undef mk_lang_bui_type
 #undef mk_lang_bui_sizeof
 
+#define mk_sl_cui_uint128_base_t mk_lang_types_ulllong_t
 #define mk_sl_cui_name uint128
-#define mk_sl_cui_base_type mk_lang_types_ulllong_t
+#define mk_sl_cui_base_type mk_sl_cui_uint128_base_t
 #define mk_sl_cui_base_name mk_lang_bui_mk_sl_uint128_ulllong
 #define mk_sl_cui_base_bits 128
 #define mk_sl_cui_count (128 / 128)
@@ -46,8 +47,9 @@
 #undef mk_lang_bui_type
 #undef mk_lang_bui_sizeof
 
+#define mk_sl_cui_uint128_base_t mk_lang_types_ulong_t
 #define mk_sl_cui_name uint128
-#define mk_sl_cui_base_type mk_lang_types_ulong_t
+#define mk_sl_cui_base_type mk_sl_cui_uint128_base_t
 #define mk_sl_cui_base_name mk_lang_bui_mk_sl_uint128_ulong
 #define mk_sl_cui_base_bits 64
 #define mk_sl_cui_count (128 / 64)
@@ -74,8 +76,9 @@
 #undef mk_lang_bui_type
 #undef mk_lang_bui_sizeof
 
+#define mk_sl_cui_uint128_base_t mk_lang_types_ullong_t
 #define mk_sl_cui_name uint128
-#define mk_sl_cui_base_type mk_lang_types_ullong_t
+#define mk_sl_cui_base_type mk_sl_cui_uint128_base_t
 #define mk_sl_cui_base_name mk_lang_bui_mk_sl_uint128_ullong
 #define mk_sl_cui_base_bits 64
 #define mk_sl_cui_count (128 / 64)
@@ -102,8 +105,9 @@
 #undef mk_lang_bui_type
 #undef mk_lang_bui_sizeof
 
+#define mk_sl_cui_uint128_base_t mk_lang_types_uint_t
 #define mk_sl_cui_name uint128
-#define mk_sl_cui_base_type mk_lang_types_uint_t
+#define mk_sl_cui_base_type mk_sl_cui_uint128_base_t
 #define mk_sl_cui_base_name mk_lang_bui_mk_sl_uint128_uint
 #define mk_sl_cui_base_bits 32
 #define mk_sl_cui_count (128 / 32)
@@ -130,8 +134,9 @@
 #undef mk_lang_bui_type
 #undef mk_lang_bui_sizeof
 
+#define mk_sl_cui_uint128_base_t mk_lang_types_ulong_t
 #define mk_sl_cui_name uint128
-#define mk_sl_cui_base_type mk_lang_types_ulong_t
+#define mk_sl_cui_base_type mk_sl_cui_uint128_base_t
 #define mk_sl_cui_base_name mk_lang_bui_mk_sl_uint128_ulong
 #define mk_sl_cui_base_bits 32
 #define mk_sl_cui_count (128 / 32)

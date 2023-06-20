@@ -18,8 +18,9 @@
 #undef mk_lang_bui_type
 #undef mk_lang_bui_sizeof
 
+#define mk_sl_cui_uint8_base_t mk_lang_types_uchar_t
 #define mk_sl_cui_name uint8
-#define mk_sl_cui_base_type mk_lang_types_uchar_t
+#define mk_sl_cui_base_type mk_sl_cui_uint8_base_t
 #define mk_sl_cui_base_name mk_lang_bui_mk_sl_uint8_uchar
 #define mk_sl_cui_base_bits 8
 #define mk_sl_cui_count (8 / 8)
