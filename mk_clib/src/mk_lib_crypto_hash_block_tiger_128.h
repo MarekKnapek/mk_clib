@@ -2,7 +2,7 @@
 #define mk_include_guard_mk_lib_crypto_hash_block_tiger_128
 
 
-/* https://www.cs.technion.ac.il/~biham/Reports/Tiger */
+/* http://www.cs.technion.ac.il/~biham/Reports/Tiger/ */
 
 
 #include "mk_lang_constexpr.h"

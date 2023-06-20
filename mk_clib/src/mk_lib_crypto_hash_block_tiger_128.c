@@ -1,6 +1,6 @@
 #include "mk_lib_crypto_hash_block_tiger_128.h"
 
-/* https://www.cs.technion.ac.il/~biham/Reports/Tiger */
+/* http://www.cs.technion.ac.il/~biham/Reports/Tiger/ */
 
 #include "mk_lang_assert.h"
 #include "mk_lang_constexpr.h"
