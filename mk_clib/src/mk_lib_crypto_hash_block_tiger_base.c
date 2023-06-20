@@ -431,7 +431,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_tiger_base_append_
 	tiger_base->m_c = c;
 }
 
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_tiger_base_finish(mk_lib_crypto_hash_block_tiger_base_pt const tiger_base, mk_lib_crypto_hash_block_tiger_base_block_pt const block, int const idx, mk_lib_crypto_hash_block_tiger_base_digest_pt const digest) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_tiger_base_finish(mk_lib_crypto_hash_block_tiger_base_pt const tiger_base, mk_lang_types_bool_t const variant, mk_lib_crypto_hash_block_tiger_base_block_pt const block, int const idx, mk_lib_crypto_hash_block_tiger_base_digest_pt const digest) mk_lang_noexcept
 {
 	mk_lib_crypto_hash_block_tiger_base_block_t blok mk_lang_constexpr_init;
 	unsigned ui mk_lang_constexpr_init;
@@ -457,7 +457,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_tiger_base_finish(
 	mk_sl_cui_uint64_from_bi_uint(&tb, &ui);
 	mk_lang_assert(!mk_sl_cui_uint64_would_overflow_mul(&ta, &tb));
 	mk_sl_cui_uint64_shl2(&ta, 3);
-	ui = 0x01;
+	ui = variant ? 0x80 : 0x01;
 	mk_sl_cui_uint8_from_bi_uint(&blok.m_uint8s[idx], &ui);
 	rest = mk_lib_crypto_hash_block_tiger_base_block_len - idx - 1;
 	if(rest >= 8)

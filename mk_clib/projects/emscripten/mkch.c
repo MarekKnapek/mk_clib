@@ -18,6 +18,9 @@
 #include "../../src/mk_lib_crypto_hash_stream_sha3_256.h"
 #include "../../src/mk_lib_crypto_hash_stream_sha3_384.h"
 #include "../../src/mk_lib_crypto_hash_stream_sha3_512.h"
+#include "../../src/mk_lib_crypto_hash_stream_tiger2_128.h"
+#include "../../src/mk_lib_crypto_hash_stream_tiger2_160.h"
+#include "../../src/mk_lib_crypto_hash_stream_tiger2_192.h"
 #include "../../src/mk_lib_crypto_hash_stream_tiger_128.h"
 #include "../../src/mk_lib_crypto_hash_stream_tiger_160.h"
 #include "../../src/mk_lib_crypto_hash_stream_tiger_192.h"
@@ -45,6 +48,9 @@ enum hash_id_e
 	hash_id_e_hash_sha3_256    ,
 	hash_id_e_hash_sha3_384    ,
 	hash_id_e_hash_sha3_512    ,
+	hash_id_e_hash_tiger2_128  ,
+	hash_id_e_hash_tiger2_160  ,
+	hash_id_e_hash_tiger2_192  ,
 	hash_id_e_hash_tiger_128   ,
 	hash_id_e_hash_tiger_160   ,
 	hash_id_e_hash_tiger_192   ,
@@ -72,6 +78,9 @@ union hash_u
 	mk_lib_crypto_hash_stream_sha3_256_t     m_sha3_256    ;
 	mk_lib_crypto_hash_stream_sha3_384_t     m_sha3_384    ;
 	mk_lib_crypto_hash_stream_sha3_512_t     m_sha3_512    ;
+	mk_lib_crypto_hash_stream_tiger2_128_t   m_tiger2_128  ;
+	mk_lib_crypto_hash_stream_tiger2_160_t   m_tiger2_160  ;
+	mk_lib_crypto_hash_stream_tiger2_192_t   m_tiger2_192  ;
 	mk_lib_crypto_hash_stream_tiger_128_t    m_tiger_128   ;
 	mk_lib_crypto_hash_stream_tiger_160_t    m_tiger_160   ;
 	mk_lib_crypto_hash_stream_tiger_192_t    m_tiger_192   ;
@@ -112,6 +121,9 @@ static mk_lang_inline void init(hash_pt const hash, hash_id_t const id) mk_lang_
 		case hash_id_e_hash_sha3_256    : mk_lib_crypto_hash_stream_sha3_256_init    (&hash->m_sha3_256    ); break;
 		case hash_id_e_hash_sha3_384    : mk_lib_crypto_hash_stream_sha3_384_init    (&hash->m_sha3_384    ); break;
 		case hash_id_e_hash_sha3_512    : mk_lib_crypto_hash_stream_sha3_512_init    (&hash->m_sha3_512    ); break;
+		case hash_id_e_hash_tiger2_128  : mk_lib_crypto_hash_stream_tiger2_128_init  (&hash->m_tiger2_128  ); break;
+		case hash_id_e_hash_tiger2_160  : mk_lib_crypto_hash_stream_tiger2_160_init  (&hash->m_tiger2_160  ); break;
+		case hash_id_e_hash_tiger2_192  : mk_lib_crypto_hash_stream_tiger2_192_init  (&hash->m_tiger2_192  ); break;
 		case hash_id_e_hash_tiger_128   : mk_lib_crypto_hash_stream_tiger_128_init   (&hash->m_tiger_128   ); break;
 		case hash_id_e_hash_tiger_160   : mk_lib_crypto_hash_stream_tiger_160_init   (&hash->m_tiger_160   ); break;
 		case hash_id_e_hash_tiger_192   : mk_lib_crypto_hash_stream_tiger_192_init   (&hash->m_tiger_192   ); break;
@@ -139,6 +151,9 @@ static mk_lang_inline void append(hash_pt const hash, hash_id_t const id, mk_lan
 		case hash_id_e_hash_sha3_256    : mk_lib_crypto_hash_stream_sha3_256_append    (&hash->m_sha3_256    , data, data_len); break;
 		case hash_id_e_hash_sha3_384    : mk_lib_crypto_hash_stream_sha3_384_append    (&hash->m_sha3_384    , data, data_len); break;
 		case hash_id_e_hash_sha3_512    : mk_lib_crypto_hash_stream_sha3_512_append    (&hash->m_sha3_512    , data, data_len); break;
+		case hash_id_e_hash_tiger2_128  : mk_lib_crypto_hash_stream_tiger2_128_append  (&hash->m_tiger2_128  , data, data_len); break;
+		case hash_id_e_hash_tiger2_160  : mk_lib_crypto_hash_stream_tiger2_160_append  (&hash->m_tiger2_160  , data, data_len); break;
+		case hash_id_e_hash_tiger2_192  : mk_lib_crypto_hash_stream_tiger2_192_append  (&hash->m_tiger2_192  , data, data_len); break;
 		case hash_id_e_hash_tiger_128   : mk_lib_crypto_hash_stream_tiger_128_append   (&hash->m_tiger_128   , data, data_len); break;
 		case hash_id_e_hash_tiger_160   : mk_lib_crypto_hash_stream_tiger_160_append   (&hash->m_tiger_160   , data, data_len); break;
 		case hash_id_e_hash_tiger_192   : mk_lib_crypto_hash_stream_tiger_192_append   (&hash->m_tiger_192   , data, data_len); break;
@@ -166,6 +181,9 @@ static mk_lang_inline void finish(hash_pt const hash, hash_id_t const id, int co
 		case hash_id_e_hash_sha3_256    : mk_lib_crypto_hash_stream_sha3_256_finish    (&hash->m_sha3_256    ,          ((mk_lib_crypto_hash_block_sha3_256_digest_pt    )(digest))); break;
 		case hash_id_e_hash_sha3_384    : mk_lib_crypto_hash_stream_sha3_384_finish    (&hash->m_sha3_384    ,          ((mk_lib_crypto_hash_block_sha3_384_digest_pt    )(digest))); break;
 		case hash_id_e_hash_sha3_512    : mk_lib_crypto_hash_stream_sha3_512_finish    (&hash->m_sha3_512    ,          ((mk_lib_crypto_hash_block_sha3_512_digest_pt    )(digest))); break;
+		case hash_id_e_hash_tiger2_128  : mk_lib_crypto_hash_stream_tiger2_128_finish  (&hash->m_tiger2_128  ,          ((mk_lib_crypto_hash_block_tiger2_128_digest_pt  )(digest))); break;
+		case hash_id_e_hash_tiger2_160  : mk_lib_crypto_hash_stream_tiger2_160_finish  (&hash->m_tiger2_160  ,          ((mk_lib_crypto_hash_block_tiger2_160_digest_pt  )(digest))); break;
+		case hash_id_e_hash_tiger2_192  : mk_lib_crypto_hash_stream_tiger2_192_finish  (&hash->m_tiger2_192  ,          ((mk_lib_crypto_hash_block_tiger2_192_digest_pt  )(digest))); break;
 		case hash_id_e_hash_tiger_128   : mk_lib_crypto_hash_stream_tiger_128_finish   (&hash->m_tiger_128   ,          ((mk_lib_crypto_hash_block_tiger_128_digest_pt   )(digest))); break;
 		case hash_id_e_hash_tiger_160   : mk_lib_crypto_hash_stream_tiger_160_finish   (&hash->m_tiger_160   ,          ((mk_lib_crypto_hash_block_tiger_160_digest_pt   )(digest))); break;
 		case hash_id_e_hash_tiger_192   : mk_lib_crypto_hash_stream_tiger_192_finish   (&hash->m_tiger_192   ,          ((mk_lib_crypto_hash_block_tiger_192_digest_pt   )(digest))); break;
@@ -196,6 +214,9 @@ static mk_lang_inline void copy(hash_id_t const id, int const xof_len, digest_al
 		case hash_id_e_hash_sha3_256    : n = mk_lib_crypto_hash_block_sha3_256_digest_len    ; for(i = 0; i != n; ++i){ mk_sl_cui_uint8_to_bi_uchar(&aligned_digest->m_uint8s[i], &digest[i]); } *ret_len = n; break;
 		case hash_id_e_hash_sha3_384    : n = mk_lib_crypto_hash_block_sha3_384_digest_len    ; for(i = 0; i != n; ++i){ mk_sl_cui_uint8_to_bi_uchar(&aligned_digest->m_uint8s[i], &digest[i]); } *ret_len = n; break;
 		case hash_id_e_hash_sha3_512    : n = mk_lib_crypto_hash_block_sha3_512_digest_len    ; for(i = 0; i != n; ++i){ mk_sl_cui_uint8_to_bi_uchar(&aligned_digest->m_uint8s[i], &digest[i]); } *ret_len = n; break;
+		case hash_id_e_hash_tiger2_128  : n = mk_lib_crypto_hash_block_tiger2_128_digest_len  ; for(i = 0; i != n; ++i){ mk_sl_cui_uint8_to_bi_uchar(&aligned_digest->m_uint8s[i], &digest[i]); } *ret_len = n; break;
+		case hash_id_e_hash_tiger2_160  : n = mk_lib_crypto_hash_block_tiger2_160_digest_len  ; for(i = 0; i != n; ++i){ mk_sl_cui_uint8_to_bi_uchar(&aligned_digest->m_uint8s[i], &digest[i]); } *ret_len = n; break;
+		case hash_id_e_hash_tiger2_192  : n = mk_lib_crypto_hash_block_tiger2_192_digest_len  ; for(i = 0; i != n; ++i){ mk_sl_cui_uint8_to_bi_uchar(&aligned_digest->m_uint8s[i], &digest[i]); } *ret_len = n; break;
 		case hash_id_e_hash_tiger_128   : n = mk_lib_crypto_hash_block_tiger_128_digest_len   ; for(i = 0; i != n; ++i){ mk_sl_cui_uint8_to_bi_uchar(&aligned_digest->m_uint8s[i], &digest[i]); } *ret_len = n; break;
 		case hash_id_e_hash_tiger_160   : n = mk_lib_crypto_hash_block_tiger_160_digest_len   ; for(i = 0; i != n; ++i){ mk_sl_cui_uint8_to_bi_uchar(&aligned_digest->m_uint8s[i], &digest[i]); } *ret_len = n; break;
 		case hash_id_e_hash_tiger_192   : n = mk_lib_crypto_hash_block_tiger_192_digest_len   ; for(i = 0; i != n; ++i){ mk_sl_cui_uint8_to_bi_uchar(&aligned_digest->m_uint8s[i], &digest[i]); } *ret_len = n; break;

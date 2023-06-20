@@ -40,7 +40,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_tiger_192_finish(m
 
 	mk_lang_assert(tiger_192);
 
-	mk_lib_crypto_hash_block_tiger_base_finish(&tiger_192->m_tiger, block, idx, &base_digest);
+	mk_lib_crypto_hash_block_tiger_base_finish(&tiger_192->m_tiger, mk_lang_false, block, idx, &base_digest);
 	for(i = 0; i != mk_lib_crypto_hash_block_tiger_192_digest_len; ++i)
 	{
 		digest->m_uint8s[i] = base_digest.m_uint8s[i];
