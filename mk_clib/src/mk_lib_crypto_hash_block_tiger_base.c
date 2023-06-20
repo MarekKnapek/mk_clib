@@ -368,7 +368,7 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_tiger_base
 }
 
 
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_tiger_base_init(mk_lib_crypto_hash_block_tiger_base_pt const tiger) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_tiger_base_init(mk_lib_crypto_hash_block_tiger_base_pt const tiger_base) mk_lang_noexcept
 {
 	mk_lang_constexpr_static mk_sl_cui_uint64_t const s_init_a = mk_sl_cui_uint64_c(0x01234567ul, 0x89abcdeful);
 	mk_lang_constexpr_static mk_sl_cui_uint64_t const s_init_b = mk_sl_cui_uint64_c(0xfedcba98ul, 0x76543210ul);
@@ -379,15 +379,15 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_tiger_base_init(mk
 	mk_lang_static_assert(sizeof(mk_lib_crypto_hash_block_tiger_base_block_t) == 64);
 	mk_lang_static_assert(sizeof(mk_lib_crypto_hash_block_tiger_base_digest_t) >= 24);
 
-	mk_lang_assert(tiger);
+	mk_lang_assert(tiger_base);
 
-	tiger->m_a = s_init_a;
-	tiger->m_b = s_init_b;
-	tiger->m_c = s_init_c;
-	mk_sl_cui_uint64_set_zero(&tiger->m_len);
+	tiger_base->m_a = s_init_a;
+	tiger_base->m_b = s_init_b;
+	tiger_base->m_c = s_init_c;
+	mk_sl_cui_uint64_set_zero(&tiger_base->m_len);
 }
 
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_tiger_base_append_blocks(mk_lib_crypto_hash_block_tiger_base_pt const tiger, mk_lib_crypto_hash_block_tiger_base_block_pct const pblocks, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_tiger_base_append_blocks(mk_lib_crypto_hash_block_tiger_base_pt const tiger_base, mk_lib_crypto_hash_block_tiger_base_block_pct const pblocks, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
 	mk_sl_cui_uint64_t ta mk_lang_constexpr_init;
 	mk_sl_cui_uint64_t a mk_lang_constexpr_init;
@@ -400,17 +400,17 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_tiger_base_append_
 	mk_sl_cui_uint64_t bb mk_lang_constexpr_init;
 	mk_sl_cui_uint64_t cc mk_lang_constexpr_init;
 
-	mk_lang_assert(tiger);
+	mk_lang_assert(tiger_base);
 	mk_lang_assert(pblocks || nblocks == 0);
 	mk_lang_assert(nblocks >= 0);
 	mk_lang_assert(nblocks <= mk_lang_limits_usize_max / mk_lib_crypto_hash_block_tiger_base_block_len);
 
 	mk_sl_cui_uint64_from_bi_size(&ta, &nblocks);
-	mk_lang_assert(!mk_sl_cui_uint64_would_overflow_add_cc(&tiger->m_len, &ta));
-	mk_sl_cui_uint64_add2_wrap_cid_cod(&tiger->m_len, &ta);
-	a = tiger->m_a;
-	b = tiger->m_b;
-	c = tiger->m_c;
+	mk_lang_assert(!mk_sl_cui_uint64_would_overflow_add_cc(&tiger_base->m_len, &ta));
+	mk_sl_cui_uint64_add2_wrap_cid_cod(&tiger_base->m_len, &ta);
+	a = tiger_base->m_a;
+	b = tiger_base->m_b;
+	c = tiger_base->m_c;
 	for(iblock = 0; iblock != nblocks; ++iblock)
 	{
 		for(i = 0; i != 8; ++i){ mk_sl_uint_64_from_8_le(&block.m_uint64s[i], &pblocks[iblock].m_uint8s[i * 8]); }
@@ -426,12 +426,12 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_tiger_base_append_
 		mk_sl_cui_uint64_sub2_wrap_cid_cod(&b, &bb);
 		mk_sl_cui_uint64_add2_wrap_cid_cod(&c, &cc);
 	}
-	tiger->m_a = a;
-	tiger->m_b = b;
-	tiger->m_c = c;
+	tiger_base->m_a = a;
+	tiger_base->m_b = b;
+	tiger_base->m_c = c;
 }
 
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_tiger_base_finish(mk_lib_crypto_hash_block_tiger_base_pt const tiger, mk_lib_crypto_hash_block_tiger_base_block_pt const block, int const idx, mk_lib_crypto_hash_block_tiger_base_digest_pt const digest) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_tiger_base_finish(mk_lib_crypto_hash_block_tiger_base_pt const tiger_base, mk_lib_crypto_hash_block_tiger_base_block_pt const block, int const idx, mk_lib_crypto_hash_block_tiger_base_digest_pt const digest) mk_lang_noexcept
 {
 	mk_lib_crypto_hash_block_tiger_base_block_t blok mk_lang_constexpr_init;
 	unsigned ui mk_lang_constexpr_init;
@@ -440,7 +440,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_tiger_base_finish(
 	int rest mk_lang_constexpr_init;
 	int i mk_lang_constexpr_init;
 
-	mk_lang_assert(tiger);
+	mk_lang_assert(tiger_base);
 	mk_lang_assert(block);
 	mk_lang_assert(idx >= 0 && idx < mk_lib_crypto_hash_block_tiger_base_block_len);
 	mk_lang_assert(digest);
@@ -448,8 +448,8 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_tiger_base_finish(
 	blok = *block;
 	ui = mk_lib_crypto_hash_block_tiger_base_block_len;
 	mk_sl_cui_uint64_from_bi_uint(&ta, &ui);
-	mk_lang_assert(!mk_sl_cui_uint64_would_overflow_mul(&tiger->m_len, &ta));
-	mk_sl_cui_uint64_shl3(&tiger->m_len, 6, &ta);
+	mk_lang_assert(!mk_sl_cui_uint64_would_overflow_mul(&tiger_base->m_len, &ta));
+	mk_sl_cui_uint64_shl3(&tiger_base->m_len, 6, &ta);
 	mk_sl_cui_uint64_from_bi_sint(&tb, &idx);
 	mk_lang_assert(!mk_sl_cui_uint64_would_overflow_add_cc(&ta, &tb));
 	mk_sl_cui_uint64_add2_wrap_cid_cod(&ta, &tb);
@@ -473,15 +473,15 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_tiger_base_finish(
 		{
 			mk_sl_cui_uint8_set_zero(&blok.m_uint8s[idx + 1 + i]);
 		}
-		mk_lib_crypto_hash_block_tiger_base_append_blocks(tiger, &blok, 1);
+		mk_lib_crypto_hash_block_tiger_base_append_blocks(tiger_base, &blok, 1);
 		for(i = 0; i != mk_lib_crypto_hash_block_tiger_base_block_len - 8; ++i)
 		{
 			mk_sl_cui_uint8_set_zero(&blok.m_uint8s[i]);
 		}
 	}
 	mk_sl_uint_64_to_8_le(&ta, &blok.m_uint8s[mk_lib_crypto_hash_block_tiger_base_block_len - 8]);
-	mk_lib_crypto_hash_block_tiger_base_append_blocks(tiger, &blok, 1);
-	mk_sl_uint_64_to_8_le(&tiger->m_a, &digest->m_uint8s[0 * 8]);
-	mk_sl_uint_64_to_8_le(&tiger->m_b, &digest->m_uint8s[1 * 8]);
-	mk_sl_uint_64_to_8_le(&tiger->m_c, &digest->m_uint8s[2 * 8]);
+	mk_lib_crypto_hash_block_tiger_base_append_blocks(tiger_base, &blok, 1);
+	mk_sl_uint_64_to_8_le(&tiger_base->m_a, &digest->m_uint8s[0 * 8]);
+	mk_sl_uint_64_to_8_le(&tiger_base->m_b, &digest->m_uint8s[1 * 8]);
+	mk_sl_uint_64_to_8_le(&tiger_base->m_c, &digest->m_uint8s[2 * 8]);
 }
