@@ -114,11 +114,13 @@
 #define mk_sl_cui_inl_defd_base_mod2_wrap mk_lang_concat(mk_sl_cui_inl_defd_base_name, _mod2_wrap)
 #define mk_sl_cui_inl_defd_base_divmod2_wrap mk_lang_concat(mk_sl_cui_inl_defd_base_name, _divmod2_wrap)
 
-#define mk_sl_cui_inl_defd_s mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _s)
-#define mk_sl_cui_inl_defd_t mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _t)
-#define mk_sl_cui_inl_defd_ct mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _ct)
-#define mk_sl_cui_inl_defd_pt mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _pt)
-#define mk_sl_cui_inl_defd_pct mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _pct)
+#define mk_sl_cui_inl_defd_s    mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _s   )
+#define mk_sl_cui_inl_defd_t    mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _t   )
+#define mk_sl_cui_inl_defd_ct   mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _ct  )
+#define mk_sl_cui_inl_defd_pt   mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _pt  )
+#define mk_sl_cui_inl_defd_prt  mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _prt )
+#define mk_sl_cui_inl_defd_pct  mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _pct )
+#define mk_sl_cui_inl_defd_prct mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _prct)
 
 #define mk_sl_cui_inl_defd_bits (mk_sl_cui_inl_defd_count * mk_sl_cui_inl_defd_base_bits)
 #define mk_sl_cui_inl_defd_overlap mk_lang_concat(mk_lang_overlap_, mk_sl_cui_inl_defd_base_bui_tn)

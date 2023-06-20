@@ -4,6 +4,7 @@
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_restrict.h"
 
 
 #include "mk_sl_cui_inl_defd.h"
@@ -16,7 +17,9 @@ struct mk_sl_cui_inl_defd_s
 typedef struct mk_sl_cui_inl_defd_s mk_sl_cui_inl_defd_t;
 typedef mk_sl_cui_inl_defd_t const mk_sl_cui_inl_defd_ct;
 typedef mk_sl_cui_inl_defd_t* mk_sl_cui_inl_defd_pt;
+typedef mk_sl_cui_inl_defd_t* mk_lang_restrict mk_sl_cui_inl_defd_prt;
 typedef mk_sl_cui_inl_defd_t const* mk_sl_cui_inl_defd_pct;
+typedef mk_sl_cui_inl_defd_t const* mk_lang_restrict mk_sl_cui_inl_defd_prct;
 
 
 mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_set_zero(mk_sl_cui_inl_defd_t* const x) mk_lang_noexcept;

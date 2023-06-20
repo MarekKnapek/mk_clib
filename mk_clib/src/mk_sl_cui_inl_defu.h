@@ -87,7 +87,9 @@
 #undef mk_sl_cui_inl_defd_t
 #undef mk_sl_cui_inl_defd_ct
 #undef mk_sl_cui_inl_defd_pt
+#undef mk_sl_cui_inl_defd_prt
 #undef mk_sl_cui_inl_defd_pct
+#undef mk_sl_cui_inl_defd_prct
 
 #undef mk_sl_cui_inl_defd_bits
 #undef mk_sl_cui_inl_defd_overlap
