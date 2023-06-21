@@ -1,34 +1,19 @@
 # mk_clib
 
-Hi, welcome to my library, this is place where I put all my C stuff. There is arbitrary length unsigned integer arithmetic. Cryptographic hashes such as MD2, MD4, MD5, SHA-0, SHA-1, SHA-256, SHA-512, SHA-384, SHA-224, SHA-512/224, SHA-512/256, SHA3-224, SHA3-256, SHA3-384, SHA3-512, SHAKE128, SHAKE256, Tiger/128, Tiger/160, Tiger/192, Tiger2/128, Tiger2/160, Tiger2/192, [on-line demo](https://marekknapek.github.io/hash/).
+Hi, welcome to my library, this is place where I put all my C stuff. There is arbitrary length unsigned integer arithmetic. Cryptographic hashes such as MD2, MD4, MD5, SHA-0, SHA-1, SHA-224, SHA-256, SHA-512, SHA-384, SHA-512/224, SHA-512/256, SHA3-224, SHA3-256, SHA3-384, SHA3-512, SHAKE128, SHAKE256, Tiger/128, Tiger/160, Tiger/192, Tiger2/128, Tiger2/160, Tiger2/192, [on-line demo](https://marekknapek.github.io/hash/).
 
  - [bui](#bui)
  - [cui](#cui)
  - [factorial](#factorial)
  - [flt](#flt)
- - [MD2](#md2)
- - [MD4](#md4)
- - [MD5](#md5)
- - [SHA-0](#sha-0)
- - [SHA-1](#sha-1)
- - [SHA-256](#sha-256)
- - [SHA-512](#sha-512)
- - [SHA-384](#sha-384)
- - [SHA-224](#sha-224)
- - [SHA-512/224](#sha-512224)
- - [SHA-512/256](#sha-512256)
- - [SHA3-224](#sha3-224)
- - [SHA3-256](#sha3-256)
- - [SHA3-384](#sha3-384)
- - [SHA3-512](#sha3-512)
- - [SHAKE128](#shake128)
- - [SHAKE256](#shake256)
- - [Tiger/128](#tiger128)
- - [Tiger/160](#tiger160)
- - [Tiger/192](#tiger192)
- - [Tiger2/128](#tiger2128)
- - [Tiger2/160](#tiger2160)
- - [Tiger2/192](#tiger2192)
+ - [MD2](#md2), [MD4](#md4), [MD5](#md5)
+ - [SHA-0](#sha-0), [SHA-1](#sha-1)
+ - [SHA-224](#sha-224), [SHA-256](#sha-256)
+ - [SHA-512](#sha-512), [SHA-384](#sha-384), [SHA-512/224](#sha-512224), [SHA-512/256](#sha-512256)
+ - [SHA3-224](#sha3-224), [SHA3-256](#sha3-256), [SHA3-384](#sha3-384), [SHA3-512](#sha3-512)
+ - [SHAKE128](#shake128), [SHAKE256](#shake256)
+ - [Tiger/128](#tiger128), [Tiger/160](#tiger160), [Tiger/192](#tiger192)
+ - [Tiger2/128](#tiger2128), [Tiger2/160](#tiger2160), [Tiger2/192](#tiger2192)
 
 ## bui
 
@@ -343,6 +328,45 @@ $ ./a
 32d10c7b8cf96570ca04ce37f2a19d84240d3a89
 ```
 
+## SHA-224
+
+Example how to compute the SHA-224 hash.
+
+```c
+#include "mk_lib_crypto_hash_stream_sha2_224.h"
+
+#include <assert.h> /* assert */
+#include <stdio.h> /* printf sprintf */
+
+
+int main(void)
+{
+	mk_lib_crypto_hash_stream_sha2_224_t hash;
+	mk_lib_crypto_hash_block_sha2_224_digest_t digest;
+	int i;
+	int t;
+	char str[mk_lib_crypto_hash_block_sha2_224_digest_len * 2 + 1];
+
+	mk_lib_crypto_hash_stream_sha2_224_init(&hash);
+	mk_lib_crypto_hash_stream_sha2_224_append(&hash, ((unsigned char const*)("abcdef")), 6);
+	mk_lib_crypto_hash_stream_sha2_224_append(&hash, ((unsigned char const*)("ghijklmnopqrstuvw")), 17);
+	mk_lib_crypto_hash_stream_sha2_224_append(&hash, ((unsigned char const*)("xyz")), 3);
+	mk_lib_crypto_hash_stream_sha2_224_finish(&hash, &digest);
+	for(i = 0; i != mk_lib_crypto_hash_block_sha2_224_digest_len; ++i)
+	{
+		t = sprintf(str + 2 * i, "%02x", ((unsigned char const*)(&digest))[i]);
+		assert(t == 2);
+	}
+	t = printf("%s\n", str); /* 45a5f72c39c5cff2522eb3429799e49e5f44b356ef926bcf390dccc2 */
+	assert(t == mk_lib_crypto_hash_block_sha2_224_digest_len * 2 + 1);
+}
+```
+```bash
+$ gcc -DNDEBUG example.c
+$ ./a
+45a5f72c39c5cff2522eb3429799e49e5f44b356ef926bcf390dccc2
+```
+
 ## SHA-256
 
 Example how to compute the SHA-256 hash.
@@ -458,45 +482,6 @@ int main(void)
 $ gcc -DNDEBUG example.c
 $ ./a
 feb67349df3db6f5924815d6c3dc133f091809213731fe5c7b5f4999e463479ff2877f5f2936fa63bb43784b12f3ebb4
-```
-
-## SHA-224
-
-Example how to compute the SHA-224 hash.
-
-```c
-#include "mk_lib_crypto_hash_stream_sha2_224.h"
-
-#include <assert.h> /* assert */
-#include <stdio.h> /* printf sprintf */
-
-
-int main(void)
-{
-	mk_lib_crypto_hash_stream_sha2_224_t hash;
-	mk_lib_crypto_hash_block_sha2_224_digest_t digest;
-	int i;
-	int t;
-	char str[mk_lib_crypto_hash_block_sha2_224_digest_len * 2 + 1];
-
-	mk_lib_crypto_hash_stream_sha2_224_init(&hash);
-	mk_lib_crypto_hash_stream_sha2_224_append(&hash, ((unsigned char const*)("abcdef")), 6);
-	mk_lib_crypto_hash_stream_sha2_224_append(&hash, ((unsigned char const*)("ghijklmnopqrstuvw")), 17);
-	mk_lib_crypto_hash_stream_sha2_224_append(&hash, ((unsigned char const*)("xyz")), 3);
-	mk_lib_crypto_hash_stream_sha2_224_finish(&hash, &digest);
-	for(i = 0; i != mk_lib_crypto_hash_block_sha2_224_digest_len; ++i)
-	{
-		t = sprintf(str + 2 * i, "%02x", ((unsigned char const*)(&digest))[i]);
-		assert(t == 2);
-	}
-	t = printf("%s\n", str); /* 45a5f72c39c5cff2522eb3429799e49e5f44b356ef926bcf390dccc2 */
-	assert(t == mk_lib_crypto_hash_block_sha2_224_digest_len * 2 + 1);
-}
-```
-```bash
-$ gcc -DNDEBUG example.c
-$ ./a
-45a5f72c39c5cff2522eb3429799e49e5f44b356ef926bcf390dccc2
 ```
 
 ## SHA-512/224
