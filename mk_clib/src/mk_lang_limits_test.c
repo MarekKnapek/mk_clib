@@ -20,6 +20,15 @@ mk_lang_jumbo void mk_lang_limits_test(void) mk_lang_noexcept
 #define slllong_min ((mk_lang_sllong_c(-9223372036854775807) - mk_lang_sllong_c(1)))
 #define slllong_max (mk_lang_ullong_c(9223372036854775807))
 #endif
+#if mk_lang_intmaxt_has
+#define uintmax_max (mk_lang_ullong_c(0xffffffffffffffff))
+#define sintmax_min ((mk_lang_sllong_c(-9223372036854775807) - mk_lang_sllong_c(1)))
+#define sintmax_max (mk_lang_ullong_c(9223372036854775807))
+#else
+#define uintmax_max ulllong_max
+#define sintmax_min slllong_min
+#define sintmax_max slllong_max
+#endif
 
 #if mk_lang_bitness == mk_lang_bitness_16
 	todo
@@ -81,7 +90,7 @@ mk_lang_jumbo void mk_lang_limits_test(void) mk_lang_noexcept
 	mk_lang_static_assert(mk_lang_limits_ullong_max  == mk_lang_ullong_c(0xffffffffffffffff));
 	mk_lang_static_assert(mk_lang_limits_ulllong_max == ulllong_max);
 	mk_lang_static_assert(mk_lang_limits_uintptr_max == mk_lang_ullong_c(0xffffffffffffffff));
-	mk_lang_static_assert(mk_lang_limits_uintmax_max == mk_lang_ullong_c(0xffffffffffffffff));
+	mk_lang_static_assert(mk_lang_limits_uintmax_max == uintmax_max);
 	mk_lang_static_assert(mk_lang_limits_usize_max   == mk_lang_ullong_c(0xffffffffffffffff));
 
 	mk_lang_static_assert(mk_lang_limits_schar_min   == (mk_lang_sllong_c(-127)                 - mk_lang_sllong_c(1)));
@@ -91,7 +100,7 @@ mk_lang_jumbo void mk_lang_limits_test(void) mk_lang_noexcept
 	mk_lang_static_assert(mk_lang_limits_sllong_min  == (mk_lang_sllong_c(-9223372036854775807) - mk_lang_sllong_c(1)));
 	mk_lang_static_assert(mk_lang_limits_slllong_min == slllong_min);
 	mk_lang_static_assert(mk_lang_limits_sintptr_min == (mk_lang_sllong_c(-9223372036854775807) - mk_lang_sllong_c(1)));
-	mk_lang_static_assert(mk_lang_limits_sintmax_min == (mk_lang_sllong_c(-9223372036854775807) - mk_lang_sllong_c(1)));
+	mk_lang_static_assert(mk_lang_limits_sintmax_min == sintmax_min);
 	mk_lang_static_assert(mk_lang_limits_ssize_min   == (mk_lang_sllong_c(-9223372036854775807) - mk_lang_sllong_c(1)));
 
 	mk_lang_static_assert(mk_lang_limits_schar_max   == mk_lang_sllong_c(127));
@@ -101,7 +110,7 @@ mk_lang_jumbo void mk_lang_limits_test(void) mk_lang_noexcept
 	mk_lang_static_assert(mk_lang_limits_sllong_max  == mk_lang_sllong_c(9223372036854775807));
 	mk_lang_static_assert(mk_lang_limits_slllong_max == slllong_max);
 	mk_lang_static_assert(mk_lang_limits_sintptr_max == mk_lang_sllong_c(9223372036854775807));
-	mk_lang_static_assert(mk_lang_limits_sintmax_max == mk_lang_sllong_c(9223372036854775807));
+	mk_lang_static_assert(mk_lang_limits_sintmax_max == sintmax_max);
 	mk_lang_static_assert(mk_lang_limits_ssize_max   == mk_lang_sllong_c(9223372036854775807));
 #endif
 }
