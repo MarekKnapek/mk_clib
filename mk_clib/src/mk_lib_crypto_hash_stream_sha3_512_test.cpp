@@ -30,7 +30,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto mk_lib_crypto_hash_stream
 	mk_lib_crypto_hash_block_sha3_512_digest_t digest mk_lang_constexpr_init;
 	mk_lib_cpp_constexpr_array_t<mk_lang_types_uchar_t, mk_lib_crypto_hash_block_sha3_512_digest_len> ret mk_lang_constexpr_init;
 
-	static_assert(str_lit_len >= 1);
+	mk_lang_static_assert(str_lit_len >= 1);
 
 	mk_lib_crypto_hash_stream_sha3_512_init(&sha3_512);
 	for(i = 0; i  != s_len; ++i)
@@ -89,14 +89,14 @@ mk_lang_extern_c void mk_lib_crypto_hash_stream_sha3_512_test(void) mk_lang_noex
 	mk_lang_constexpr_static auto const s_digest_precomputed_7 = mk_lib_cpp_constexpr_hex_str_lit_to_bytes(digest_7);
 	mk_lang_constexpr_static auto const s_digest_precomputed_8 = mk_lib_cpp_constexpr_hex_str_lit_to_bytes(digest_8);
 
-	static_assert(s_digest_computed_1 == s_digest_precomputed_1);
-	static_assert(s_digest_computed_2 == s_digest_precomputed_2);
-	static_assert(s_digest_computed_3 == s_digest_precomputed_3);
-	static_assert(s_digest_computed_4 == s_digest_precomputed_4);
-	static_assert(s_digest_computed_5 == s_digest_precomputed_5);
-	static_assert(s_digest_computed_6 == s_digest_precomputed_6);
-	static_assert(s_digest_computed_7 == s_digest_precomputed_7);
-	static_assert(s_digest_computed_8 == s_digest_precomputed_8);
+	mk_lang_static_assert(s_digest_computed_1 == s_digest_precomputed_1);
+	mk_lang_static_assert(s_digest_computed_2 == s_digest_precomputed_2);
+	mk_lang_static_assert(s_digest_computed_3 == s_digest_precomputed_3);
+	mk_lang_static_assert(s_digest_computed_4 == s_digest_precomputed_4);
+	mk_lang_static_assert(s_digest_computed_5 == s_digest_precomputed_5);
+	mk_lang_static_assert(s_digest_computed_6 == s_digest_precomputed_6);
+	mk_lang_static_assert(s_digest_computed_7 == s_digest_precomputed_7);
+	mk_lang_static_assert(s_digest_computed_8 == s_digest_precomputed_8);
 
 	#endif
 

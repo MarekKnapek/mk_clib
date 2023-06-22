@@ -30,7 +30,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto mk_lib_crypto_hash_stream
 	mk_lib_crypto_hash_block_sha0_digest_t digest mk_lang_constexpr_init;
 	mk_lib_cpp_constexpr_array_t<mk_lang_types_uchar_t, mk_lib_crypto_hash_block_sha0_digest_len> ret mk_lang_constexpr_init;
 
-	static_assert(str_lit_len >= 1);
+	mk_lang_static_assert(str_lit_len >= 1);
 
 	mk_lib_crypto_hash_stream_sha0_init(&sha0);
 	for(i = 0; i  != s_len; ++i)
@@ -65,8 +65,8 @@ mk_lang_extern_c void mk_lib_crypto_hash_stream_sha0_test(void) mk_lang_noexcept
 	mk_lang_constexpr_static auto const s_digest_precomputed_1 = mk_lib_cpp_constexpr_hex_str_lit_to_bytes(digest_1);
 	mk_lang_constexpr_static auto const s_digest_precomputed_2 = mk_lib_cpp_constexpr_hex_str_lit_to_bytes(digest_2);
 
-	static_assert(s_digest_computed_1 == s_digest_precomputed_1);
-	static_assert(s_digest_computed_2 == s_digest_precomputed_2);
+	mk_lang_static_assert(s_digest_computed_1 == s_digest_precomputed_1);
+	mk_lang_static_assert(s_digest_computed_2 == s_digest_precomputed_2);
 
 	#endif
 
