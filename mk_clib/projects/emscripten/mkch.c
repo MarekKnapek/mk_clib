@@ -111,7 +111,7 @@ typedef enum hash_id_e hash_id_t;
 #define hash_name_dl_xof_shake_128     ((int)(sizeof(hash_name_dn_xof_shake_128    ) / sizeof(hash_name_dn_xof_shake_128    [0]) - 1))
 #define hash_name_dl_xof_shake_256     ((int)(sizeof(hash_name_dn_xof_shake_256    ) / sizeof(hash_name_dn_xof_shake_256    [0]) - 1))
 
-mk_lang_constexpr_static_inline char const s_hash_names[] =
+mk_lang_constexpr_static_inline char const s_alg_names[] =
 	hash_name_dn_hash_md2
 	hash_name_dn_hash_md4
 	hash_name_dn_hash_md5
@@ -137,7 +137,7 @@ mk_lang_constexpr_static_inline char const s_hash_names[] =
 	hash_name_dn_xof_shake_256
 ;
 
-mk_lang_constexpr_static_inline mk_lang_types_uchar_t const s_hash_lens[] =
+mk_lang_constexpr_static_inline mk_lang_types_uchar_t const s_alg_name_lens[] =
 {
 	((mk_lang_types_uchar_t)(hash_name_dl_hash_md2         )),
 	((mk_lang_types_uchar_t)(hash_name_dl_hash_md4         )),
@@ -194,15 +194,25 @@ typedef union hash_u hash_t;
 typedef hash_t* hash_pt;
 
 
-union digest_aligned16k_u
+union aligned16k_u
 {
 	mk_sl_cui_uint8_t m_uint8s[16 * 1024];
 	mk_lang_types_ulllong_t m_ulllong;
 };
-typedef union digest_aligned16k_u digest_aligned16k_t;
-typedef digest_aligned16k_t const digest_aligned16k_ct;
-typedef digest_aligned16k_t* digest_aligned16k_pt;
-typedef digest_aligned16k_t const* digest_aligned16k_pct;
+typedef union aligned16k_u aligned16k_t;
+typedef aligned16k_t const aligned16k_ct;
+typedef aligned16k_t* aligned16k_pt;
+typedef aligned16k_t const* aligned16k_pct;
+
+union aligned1m_u
+{
+	mk_sl_cui_uint8_t m_uint8s[1 * 1024 * 1024];
+	mk_lang_types_ulllong_t m_ulllong;
+};
+typedef union aligned1m_u aligned1m_t;
+typedef aligned1m_t const aligned1m_ct;
+typedef aligned1m_t* aligned1m_pt;
+typedef aligned1m_t const* aligned1m_pct;
 
 
 static mk_lang_inline void init(hash_pt const hash, hash_id_t const id) mk_lang_noexcept
@@ -265,67 +275,35 @@ static mk_lang_inline void append(hash_pt const hash, hash_id_t const id, mk_lan
 	}
 }
 
-static mk_lang_inline void finish(hash_pt const hash, hash_id_t const id, int const xof_len, digest_aligned16k_pt const digest) mk_lang_noexcept
+static mk_lang_inline int finish(hash_pt const hash, hash_id_t const id, int const xof_len, aligned16k_pt const digest) mk_lang_noexcept
 {
 	switch(id)
 	{
-		case hash_id_e_hash_md2         : mk_lib_crypto_hash_stream_md2_finish         (&hash->m_md2         ,          ((mk_lib_crypto_hash_block_md2_digest_pt         )(digest))); break;
-		case hash_id_e_hash_md4         : mk_lib_crypto_hash_stream_md4_finish         (&hash->m_md4         ,          ((mk_lib_crypto_hash_block_md4_digest_pt         )(digest))); break;
-		case hash_id_e_hash_md5         : mk_lib_crypto_hash_stream_md5_finish         (&hash->m_md5         ,          ((mk_lib_crypto_hash_block_md5_digest_pt         )(digest))); break;
-		case hash_id_e_hash_sha0        : mk_lib_crypto_hash_stream_sha0_finish        (&hash->m_sha0        ,          ((mk_lib_crypto_hash_block_sha0_digest_pt        )(digest))); break;
-		case hash_id_e_hash_sha1        : mk_lib_crypto_hash_stream_sha1_finish        (&hash->m_sha1        ,          ((mk_lib_crypto_hash_block_sha1_digest_pt        )(digest))); break;
-		case hash_id_e_hash_sha2_224    : mk_lib_crypto_hash_stream_sha2_224_finish    (&hash->m_sha2_224    ,          ((mk_lib_crypto_hash_block_sha2_224_digest_pt    )(digest))); break;
-		case hash_id_e_hash_sha2_256    : mk_lib_crypto_hash_stream_sha2_256_finish    (&hash->m_sha2_256    ,          ((mk_lib_crypto_hash_block_sha2_256_digest_pt    )(digest))); break;
-		case hash_id_e_hash_sha2_384    : mk_lib_crypto_hash_stream_sha2_384_finish    (&hash->m_sha2_384    ,          ((mk_lib_crypto_hash_block_sha2_384_digest_pt    )(digest))); break;
-		case hash_id_e_hash_sha2_512    : mk_lib_crypto_hash_stream_sha2_512_finish    (&hash->m_sha2_512    ,          ((mk_lib_crypto_hash_block_sha2_512_digest_pt    )(digest))); break;
-		case hash_id_e_hash_sha2_512_224: mk_lib_crypto_hash_stream_sha2_512_224_finish(&hash->m_sha2_512_224,          ((mk_lib_crypto_hash_block_sha2_512_224_digest_pt)(digest))); break;
-		case hash_id_e_hash_sha2_512_256: mk_lib_crypto_hash_stream_sha2_512_256_finish(&hash->m_sha2_512_256,          ((mk_lib_crypto_hash_block_sha2_512_256_digest_pt)(digest))); break;
-		case hash_id_e_hash_sha3_224    : mk_lib_crypto_hash_stream_sha3_224_finish    (&hash->m_sha3_224    ,          ((mk_lib_crypto_hash_block_sha3_224_digest_pt    )(digest))); break;
-		case hash_id_e_hash_sha3_256    : mk_lib_crypto_hash_stream_sha3_256_finish    (&hash->m_sha3_256    ,          ((mk_lib_crypto_hash_block_sha3_256_digest_pt    )(digest))); break;
-		case hash_id_e_hash_sha3_384    : mk_lib_crypto_hash_stream_sha3_384_finish    (&hash->m_sha3_384    ,          ((mk_lib_crypto_hash_block_sha3_384_digest_pt    )(digest))); break;
-		case hash_id_e_hash_sha3_512    : mk_lib_crypto_hash_stream_sha3_512_finish    (&hash->m_sha3_512    ,          ((mk_lib_crypto_hash_block_sha3_512_digest_pt    )(digest))); break;
-		case hash_id_e_hash_tiger2_128  : mk_lib_crypto_hash_stream_tiger2_128_finish  (&hash->m_tiger2_128  ,          ((mk_lib_crypto_hash_block_tiger2_128_digest_pt  )(digest))); break;
-		case hash_id_e_hash_tiger2_160  : mk_lib_crypto_hash_stream_tiger2_160_finish  (&hash->m_tiger2_160  ,          ((mk_lib_crypto_hash_block_tiger2_160_digest_pt  )(digest))); break;
-		case hash_id_e_hash_tiger2_192  : mk_lib_crypto_hash_stream_tiger2_192_finish  (&hash->m_tiger2_192  ,          ((mk_lib_crypto_hash_block_tiger2_192_digest_pt  )(digest))); break;
-		case hash_id_e_hash_tiger_128   : mk_lib_crypto_hash_stream_tiger_128_finish   (&hash->m_tiger_128   ,          ((mk_lib_crypto_hash_block_tiger_128_digest_pt   )(digest))); break;
-		case hash_id_e_hash_tiger_160   : mk_lib_crypto_hash_stream_tiger_160_finish   (&hash->m_tiger_160   ,          ((mk_lib_crypto_hash_block_tiger_160_digest_pt   )(digest))); break;
-		case hash_id_e_hash_tiger_192   : mk_lib_crypto_hash_stream_tiger_192_finish   (&hash->m_tiger_192   ,          ((mk_lib_crypto_hash_block_tiger_192_digest_pt   )(digest))); break;
-		case hash_id_e_xof_shake_128    : mk_lib_crypto_xof_stream_shake_128_finish    (&hash->m_shake_128   , xof_len, ((mk_lib_crypto_xof_block_shake_128_digest_pt    )(digest))); break;
-		case hash_id_e_xof_shake_256    : mk_lib_crypto_xof_stream_shake_256_finish    (&hash->m_shake_256   , xof_len, ((mk_lib_crypto_xof_block_shake_256_digest_pt    )(digest))); break;
+		case hash_id_e_hash_md2         : mk_lib_crypto_hash_stream_md2_finish         (&hash->m_md2         ,          ((mk_lib_crypto_hash_block_md2_digest_pt         )(digest))); return mk_lib_crypto_hash_block_md2_digest_len         ; break;
+		case hash_id_e_hash_md4         : mk_lib_crypto_hash_stream_md4_finish         (&hash->m_md4         ,          ((mk_lib_crypto_hash_block_md4_digest_pt         )(digest))); return mk_lib_crypto_hash_block_md4_digest_len         ; break;
+		case hash_id_e_hash_md5         : mk_lib_crypto_hash_stream_md5_finish         (&hash->m_md5         ,          ((mk_lib_crypto_hash_block_md5_digest_pt         )(digest))); return mk_lib_crypto_hash_block_md5_digest_len         ; break;
+		case hash_id_e_hash_sha0        : mk_lib_crypto_hash_stream_sha0_finish        (&hash->m_sha0        ,          ((mk_lib_crypto_hash_block_sha0_digest_pt        )(digest))); return mk_lib_crypto_hash_block_sha0_digest_len        ; break;
+		case hash_id_e_hash_sha1        : mk_lib_crypto_hash_stream_sha1_finish        (&hash->m_sha1        ,          ((mk_lib_crypto_hash_block_sha1_digest_pt        )(digest))); return mk_lib_crypto_hash_block_sha1_digest_len        ; break;
+		case hash_id_e_hash_sha2_224    : mk_lib_crypto_hash_stream_sha2_224_finish    (&hash->m_sha2_224    ,          ((mk_lib_crypto_hash_block_sha2_224_digest_pt    )(digest))); return mk_lib_crypto_hash_block_sha2_224_digest_len    ; break;
+		case hash_id_e_hash_sha2_256    : mk_lib_crypto_hash_stream_sha2_256_finish    (&hash->m_sha2_256    ,          ((mk_lib_crypto_hash_block_sha2_256_digest_pt    )(digest))); return mk_lib_crypto_hash_block_sha2_256_digest_len    ; break;
+		case hash_id_e_hash_sha2_384    : mk_lib_crypto_hash_stream_sha2_384_finish    (&hash->m_sha2_384    ,          ((mk_lib_crypto_hash_block_sha2_384_digest_pt    )(digest))); return mk_lib_crypto_hash_block_sha2_384_digest_len    ; break;
+		case hash_id_e_hash_sha2_512    : mk_lib_crypto_hash_stream_sha2_512_finish    (&hash->m_sha2_512    ,          ((mk_lib_crypto_hash_block_sha2_512_digest_pt    )(digest))); return mk_lib_crypto_hash_block_sha2_512_digest_len    ; break;
+		case hash_id_e_hash_sha2_512_224: mk_lib_crypto_hash_stream_sha2_512_224_finish(&hash->m_sha2_512_224,          ((mk_lib_crypto_hash_block_sha2_512_224_digest_pt)(digest))); return mk_lib_crypto_hash_block_sha2_512_224_digest_len; break;
+		case hash_id_e_hash_sha2_512_256: mk_lib_crypto_hash_stream_sha2_512_256_finish(&hash->m_sha2_512_256,          ((mk_lib_crypto_hash_block_sha2_512_256_digest_pt)(digest))); return mk_lib_crypto_hash_block_sha2_512_256_digest_len; break;
+		case hash_id_e_hash_sha3_224    : mk_lib_crypto_hash_stream_sha3_224_finish    (&hash->m_sha3_224    ,          ((mk_lib_crypto_hash_block_sha3_224_digest_pt    )(digest))); return mk_lib_crypto_hash_block_sha3_224_digest_len    ; break;
+		case hash_id_e_hash_sha3_256    : mk_lib_crypto_hash_stream_sha3_256_finish    (&hash->m_sha3_256    ,          ((mk_lib_crypto_hash_block_sha3_256_digest_pt    )(digest))); return mk_lib_crypto_hash_block_sha3_256_digest_len    ; break;
+		case hash_id_e_hash_sha3_384    : mk_lib_crypto_hash_stream_sha3_384_finish    (&hash->m_sha3_384    ,          ((mk_lib_crypto_hash_block_sha3_384_digest_pt    )(digest))); return mk_lib_crypto_hash_block_sha3_384_digest_len    ; break;
+		case hash_id_e_hash_sha3_512    : mk_lib_crypto_hash_stream_sha3_512_finish    (&hash->m_sha3_512    ,          ((mk_lib_crypto_hash_block_sha3_512_digest_pt    )(digest))); return mk_lib_crypto_hash_block_sha3_512_digest_len    ; break;
+		case hash_id_e_hash_tiger2_128  : mk_lib_crypto_hash_stream_tiger2_128_finish  (&hash->m_tiger2_128  ,          ((mk_lib_crypto_hash_block_tiger2_128_digest_pt  )(digest))); return mk_lib_crypto_hash_block_tiger2_128_digest_len  ; break;
+		case hash_id_e_hash_tiger2_160  : mk_lib_crypto_hash_stream_tiger2_160_finish  (&hash->m_tiger2_160  ,          ((mk_lib_crypto_hash_block_tiger2_160_digest_pt  )(digest))); return mk_lib_crypto_hash_block_tiger2_160_digest_len  ; break;
+		case hash_id_e_hash_tiger2_192  : mk_lib_crypto_hash_stream_tiger2_192_finish  (&hash->m_tiger2_192  ,          ((mk_lib_crypto_hash_block_tiger2_192_digest_pt  )(digest))); return mk_lib_crypto_hash_block_tiger2_192_digest_len  ; break;
+		case hash_id_e_hash_tiger_128   : mk_lib_crypto_hash_stream_tiger_128_finish   (&hash->m_tiger_128   ,          ((mk_lib_crypto_hash_block_tiger_128_digest_pt   )(digest))); return mk_lib_crypto_hash_block_tiger_128_digest_len   ; break;
+		case hash_id_e_hash_tiger_160   : mk_lib_crypto_hash_stream_tiger_160_finish   (&hash->m_tiger_160   ,          ((mk_lib_crypto_hash_block_tiger_160_digest_pt   )(digest))); return mk_lib_crypto_hash_block_tiger_160_digest_len   ; break;
+		case hash_id_e_hash_tiger_192   : mk_lib_crypto_hash_stream_tiger_192_finish   (&hash->m_tiger_192   ,          ((mk_lib_crypto_hash_block_tiger_192_digest_pt   )(digest))); return mk_lib_crypto_hash_block_tiger_192_digest_len   ; break;
+		case hash_id_e_xof_shake_128    : mk_lib_crypto_xof_stream_shake_128_finish    (&hash->m_shake_128   , xof_len, ((mk_lib_crypto_xof_block_shake_128_digest_pt    )(digest))); return xof_len                                         ; break;
+		case hash_id_e_xof_shake_256    : mk_lib_crypto_xof_stream_shake_256_finish    (&hash->m_shake_256   , xof_len, ((mk_lib_crypto_xof_block_shake_256_digest_pt    )(digest))); return xof_len                                         ; break;
 	}
-}
-
-static mk_lang_inline void copy(hash_id_t const id, int const xof_len, digest_aligned16k_pct const aligned_digest, mk_lang_types_uchar_pt const digest, mk_lang_types_sint_pt const ret_len) mk_lang_noexcept
-{
-	int n;
-	int i;
-
-	switch(id)
-	{
-		case hash_id_e_hash_md2         : n = mk_lib_crypto_hash_block_md2_digest_len         ; for(i = 0; i != n; ++i){ mk_sl_cui_uint8_to_bi_uchar(&aligned_digest->m_uint8s[i], &digest[i]); } *ret_len = n; break;
-		case hash_id_e_hash_md4         : n = mk_lib_crypto_hash_block_md4_digest_len         ; for(i = 0; i != n; ++i){ mk_sl_cui_uint8_to_bi_uchar(&aligned_digest->m_uint8s[i], &digest[i]); } *ret_len = n; break;
-		case hash_id_e_hash_md5         : n = mk_lib_crypto_hash_block_md5_digest_len         ; for(i = 0; i != n; ++i){ mk_sl_cui_uint8_to_bi_uchar(&aligned_digest->m_uint8s[i], &digest[i]); } *ret_len = n; break;
-		case hash_id_e_hash_sha0        : n = mk_lib_crypto_hash_block_sha0_digest_len        ; for(i = 0; i != n; ++i){ mk_sl_cui_uint8_to_bi_uchar(&aligned_digest->m_uint8s[i], &digest[i]); } *ret_len = n; break;
-		case hash_id_e_hash_sha1        : n = mk_lib_crypto_hash_block_sha1_digest_len        ; for(i = 0; i != n; ++i){ mk_sl_cui_uint8_to_bi_uchar(&aligned_digest->m_uint8s[i], &digest[i]); } *ret_len = n; break;
-		case hash_id_e_hash_sha2_224    : n = mk_lib_crypto_hash_block_sha2_224_digest_len    ; for(i = 0; i != n; ++i){ mk_sl_cui_uint8_to_bi_uchar(&aligned_digest->m_uint8s[i], &digest[i]); } *ret_len = n; break;
-		case hash_id_e_hash_sha2_256    : n = mk_lib_crypto_hash_block_sha2_256_digest_len    ; for(i = 0; i != n; ++i){ mk_sl_cui_uint8_to_bi_uchar(&aligned_digest->m_uint8s[i], &digest[i]); } *ret_len = n; break;
-		case hash_id_e_hash_sha2_384    : n = mk_lib_crypto_hash_block_sha2_384_digest_len    ; for(i = 0; i != n; ++i){ mk_sl_cui_uint8_to_bi_uchar(&aligned_digest->m_uint8s[i], &digest[i]); } *ret_len = n; break;
-		case hash_id_e_hash_sha2_512    : n = mk_lib_crypto_hash_block_sha2_512_digest_len    ; for(i = 0; i != n; ++i){ mk_sl_cui_uint8_to_bi_uchar(&aligned_digest->m_uint8s[i], &digest[i]); } *ret_len = n; break;
-		case hash_id_e_hash_sha2_512_224: n = mk_lib_crypto_hash_block_sha2_512_224_digest_len; for(i = 0; i != n; ++i){ mk_sl_cui_uint8_to_bi_uchar(&aligned_digest->m_uint8s[i], &digest[i]); } *ret_len = n; break;
-		case hash_id_e_hash_sha2_512_256: n = mk_lib_crypto_hash_block_sha2_512_256_digest_len; for(i = 0; i != n; ++i){ mk_sl_cui_uint8_to_bi_uchar(&aligned_digest->m_uint8s[i], &digest[i]); } *ret_len = n; break;
-		case hash_id_e_hash_sha3_224    : n = mk_lib_crypto_hash_block_sha3_224_digest_len    ; for(i = 0; i != n; ++i){ mk_sl_cui_uint8_to_bi_uchar(&aligned_digest->m_uint8s[i], &digest[i]); } *ret_len = n; break;
-		case hash_id_e_hash_sha3_256    : n = mk_lib_crypto_hash_block_sha3_256_digest_len    ; for(i = 0; i != n; ++i){ mk_sl_cui_uint8_to_bi_uchar(&aligned_digest->m_uint8s[i], &digest[i]); } *ret_len = n; break;
-		case hash_id_e_hash_sha3_384    : n = mk_lib_crypto_hash_block_sha3_384_digest_len    ; for(i = 0; i != n; ++i){ mk_sl_cui_uint8_to_bi_uchar(&aligned_digest->m_uint8s[i], &digest[i]); } *ret_len = n; break;
-		case hash_id_e_hash_sha3_512    : n = mk_lib_crypto_hash_block_sha3_512_digest_len    ; for(i = 0; i != n; ++i){ mk_sl_cui_uint8_to_bi_uchar(&aligned_digest->m_uint8s[i], &digest[i]); } *ret_len = n; break;
-		case hash_id_e_hash_tiger2_128  : n = mk_lib_crypto_hash_block_tiger2_128_digest_len  ; for(i = 0; i != n; ++i){ mk_sl_cui_uint8_to_bi_uchar(&aligned_digest->m_uint8s[i], &digest[i]); } *ret_len = n; break;
-		case hash_id_e_hash_tiger2_160  : n = mk_lib_crypto_hash_block_tiger2_160_digest_len  ; for(i = 0; i != n; ++i){ mk_sl_cui_uint8_to_bi_uchar(&aligned_digest->m_uint8s[i], &digest[i]); } *ret_len = n; break;
-		case hash_id_e_hash_tiger2_192  : n = mk_lib_crypto_hash_block_tiger2_192_digest_len  ; for(i = 0; i != n; ++i){ mk_sl_cui_uint8_to_bi_uchar(&aligned_digest->m_uint8s[i], &digest[i]); } *ret_len = n; break;
-		case hash_id_e_hash_tiger_128   : n = mk_lib_crypto_hash_block_tiger_128_digest_len   ; for(i = 0; i != n; ++i){ mk_sl_cui_uint8_to_bi_uchar(&aligned_digest->m_uint8s[i], &digest[i]); } *ret_len = n; break;
-		case hash_id_e_hash_tiger_160   : n = mk_lib_crypto_hash_block_tiger_160_digest_len   ; for(i = 0; i != n; ++i){ mk_sl_cui_uint8_to_bi_uchar(&aligned_digest->m_uint8s[i], &digest[i]); } *ret_len = n; break;
-		case hash_id_e_hash_tiger_192   : n = mk_lib_crypto_hash_block_tiger_192_digest_len   ; for(i = 0; i != n; ++i){ mk_sl_cui_uint8_to_bi_uchar(&aligned_digest->m_uint8s[i], &digest[i]); } *ret_len = n; break;
-		case hash_id_e_xof_shake_128    : n = xof_len                                         ; for(i = 0; i != n; ++i){ mk_sl_cui_uint8_to_bi_uchar(&aligned_digest->m_uint8s[i], &digest[i]); } *ret_len = n; break;
-		case hash_id_e_xof_shake_256    : n = xof_len                                         ; for(i = 0; i != n; ++i){ mk_sl_cui_uint8_to_bi_uchar(&aligned_digest->m_uint8s[i], &digest[i]); } *ret_len = n; break;
-	}
+	return 0;
 }
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_bool_t compare(mk_lang_types_pchar_prct const a, mk_lang_types_pchar_prct const b, int const len) mk_lang_noexcept
@@ -351,58 +329,112 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_bool_t compare(mk_lang_typ
 }
 
 
+hash_t g_hash;
+hash_id_t g_id;
+mk_lang_types_pchar_t g_alg_name[0xff];
+aligned1m_t g_buffer;
+aligned16k_t g_digest;
+
+
 #define check(x) if(!(x)){ mk_lang_unlikely return 0; }
 
 
-mk_lang_extern_c EMSCRIPTEN_KEEPALIVE int mkch(mk_lang_types_pchar_pct const hash_name, int const hash_name_len, int const xof_len, mk_lang_types_uchar_pct data, int const data_len, mk_lang_types_uchar_pt const digest, int const digest_len) mk_lang_noexcept
+mk_lang_extern_c EMSCRIPTEN_KEEPALIVE mk_lang_types_usize_t mkch_get_alg_name_addr(void) mk_lang_noexcept
+{
+	return ((mk_lang_types_usize_t)(((mk_lang_types_uintptr_t)(&g_alg_name))));
+}
+
+mk_lang_extern_c EMSCRIPTEN_KEEPALIVE mk_lang_types_usize_t mkch_get_alg_name_size(void) mk_lang_noexcept
+{
+	return ((mk_lang_types_usize_t)(sizeof(g_alg_name) / sizeof(g_alg_name[0])));
+}
+
+mk_lang_extern_c EMSCRIPTEN_KEEPALIVE mk_lang_types_usize_t mkch_get_buffer_addr(void) mk_lang_noexcept
+{
+	return ((mk_lang_types_usize_t)(((mk_lang_types_uintptr_t)(&g_buffer))));
+}
+
+mk_lang_extern_c EMSCRIPTEN_KEEPALIVE mk_lang_types_usize_t mkch_get_buffer_size(void) mk_lang_noexcept
+{
+	return ((mk_lang_types_usize_t)(sizeof(g_buffer.m_uint8s) / sizeof(g_buffer.m_uint8s[0])));
+}
+
+mk_lang_extern_c EMSCRIPTEN_KEEPALIVE mk_lang_types_usize_t mkch_get_digest_addr(void) mk_lang_noexcept
+{
+	return ((mk_lang_types_usize_t)(((mk_lang_types_uintptr_t)(&g_digest))));
+}
+
+mk_lang_extern_c EMSCRIPTEN_KEEPALIVE mk_lang_types_usize_t mkch_get_digest_size(void) mk_lang_noexcept
+{
+	return ((mk_lang_types_usize_t)(sizeof(g_digest.m_uint8s) / sizeof(g_digest.m_uint8s[0])));
+}
+
+mk_lang_extern_c EMSCRIPTEN_KEEPALIVE int mkch_init(int const alg_name_len) mk_lang_noexcept
 {
 	mk_lang_types_pchar_pct ptr;
 	int n;
 	int i;
 	hash_id_t id;
-	hash_t hash;
-	digest_aligned16k_t aligned_digest;
-	int ret;
 
-	check(hash_name);
-	check(hash_name_len >= 1);
-	check(hash_name_len <= 0xff);
-	check(xof_len >= 1);
-	check(xof_len <= 16 * 1024);
-	check(data || data_len == 0);
-	check(data_len >= 0);
-	check(data_len <= 1 * 1024 * 1024);
-	check(digest);
-	check(digest_len >= 16 * 1024);
+	check(alg_name_len >= 1);
+	check(alg_name_len <= 0xff);
 
-	ptr = s_hash_names;
-	n = ((int)(sizeof(s_hash_lens) / sizeof(s_hash_lens[0])));
+	ptr = s_alg_names;
+	n = ((int)(sizeof(s_alg_name_lens) / sizeof(s_alg_name_lens[0])));
 	for(i = 0; i != n; ++i)
 	{
-		if(hash_name_len == s_hash_lens[i])
+		if(alg_name_len == s_alg_name_lens[i])
 		{
-			if(compare(hash_name, ptr, hash_name_len))
+			if(compare(g_alg_name, ptr, alg_name_len))
 			{
 				break;
 			}
 			else
 			{
-				ptr += s_hash_lens[i];
+				ptr += s_alg_name_lens[i];
 			}
 		}
 		else
 		{
-			ptr += s_hash_lens[i];
+			ptr += s_alg_name_lens[i];
 		}
 	}
 	check(i != n);
 	check(i >= hash_id_e_hash_md2);
 	check(i <= hash_id_e_xof_shake_256);
 	id = ((hash_id_t)(i));
-	init(&hash, id);
-	append(&hash, id, data, data_len);
-	finish(&hash, id, xof_len, &aligned_digest);
-	copy(id, xof_len, &aligned_digest, digest, &ret);
+	g_id = id;
+	init(&g_hash, g_id);
+	return 1;
+}
+
+mk_lang_extern_c EMSCRIPTEN_KEEPALIVE int mkch_append(int const buffer_len) mk_lang_noexcept
+{
+	check(buffer_len >= 0);
+	check(buffer_len <= ((int)(sizeof(g_buffer.m_uint8s) / sizeof(g_buffer.m_uint8s[0]))));
+
+	append(&g_hash, g_id, ((mk_lang_types_uchar_pt)(&g_buffer.m_uint8s[0])), buffer_len);
+	return 1;
+}
+
+mk_lang_extern_c EMSCRIPTEN_KEEPALIVE int mkch_finish(int const xof_len) mk_lang_noexcept
+{
+	int ret;
+
+	check(xof_len >= 1);
+	check(xof_len <= ((int)(sizeof(g_digest.m_uint8s) / sizeof(g_digest.m_uint8s[0]))));
+
+	ret = finish(&g_hash, g_id, xof_len, &g_digest);
+	return ret;
+}
+
+mk_lang_extern_c EMSCRIPTEN_KEEPALIVE int mkch(int const alg_name_len, int const buffer_len, int const xof_len) mk_lang_noexcept
+{
+	int ret;
+
+	ret = mkch_init(alg_name_len); check(ret != 0);
+	ret = mkch_append(buffer_len); check(ret != 0);
+	ret = mkch_finish(xof_len); check(ret != 0);
 	return ret;
 }
 
