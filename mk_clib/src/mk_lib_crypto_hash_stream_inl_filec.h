@@ -66,9 +66,9 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_stream_inl_defd_append(m
 		}
 		blocks = rem / mk_lib_crypto_hash_stream_inl_defd_base_block_len;
 		#if !mk_is_constant_evaluated
-		if((((mk_lang_types_uintptr_t)(ptr)) % mk_lib_crypto_hash_stream_inl_defd_base_block_len) == 0)
+		if((((mk_lang_types_uintptr_t)(ptr)) % sizeof(hash->m_block.m_align)) == 0)
 		#else
-		if(!mk_is_constant_evaluated_test && ((((mk_lang_types_uintptr_t)(ptr)) % mk_lib_crypto_hash_stream_inl_defd_base_block_len) == 0))
+		if(!mk_is_constant_evaluated_test && ((((mk_lang_types_uintptr_t)(ptr)) % sizeof(hash->m_block.m_align)) == 0))
 		#endif
 		{
 			mk_lib_crypto_hash_stream_inl_defd_base_append_blocks(&hash->m_base, ((mk_lib_crypto_hash_stream_inl_defd_base_block_pct)(ptr)), blocks);

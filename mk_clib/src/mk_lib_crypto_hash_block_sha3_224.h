@@ -24,7 +24,7 @@ mk_lang_constexpr_static_inline int const mk_lib_crypto_hash_block_sha3_224_name
 union mk_lib_crypto_hash_block_sha3_224_aligned144_u
 {
 	mk_sl_cui_uint8_t m_uint8s[144];
-	mk_lang_types_ulllong_t m_ulllong;
+	mk_sl_cui_uint64_t m_align;
 };
 typedef union mk_lib_crypto_hash_block_sha3_224_aligned144_u mk_lib_crypto_hash_block_sha3_224_aligned144_t;
 typedef mk_lib_crypto_hash_block_sha3_224_aligned144_t const mk_lib_crypto_hash_block_sha3_224_aligned144_ct;

@@ -23,7 +23,7 @@ mk_lang_constexpr_static_inline int const mk_lib_crypto_xof_block_shake_256_name
 union mk_lib_crypto_xof_block_shake_256_aligned136_u
 {
 	mk_sl_cui_uint8_t m_uint8s[136];
-	mk_lang_types_ulllong_t m_ulllong;
+	mk_sl_cui_uint64_t m_align;
 };
 typedef union mk_lib_crypto_xof_block_shake_256_aligned136_u mk_lib_crypto_xof_block_shake_256_aligned136_t;
 typedef mk_lib_crypto_xof_block_shake_256_aligned136_t const mk_lib_crypto_xof_block_shake_256_aligned136_ct;

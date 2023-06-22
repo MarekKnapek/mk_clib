@@ -19,7 +19,7 @@
 union mk_lib_crypto_hash_block_sha2_base_32bit_aligned64_u
 {
 	mk_sl_cui_uint8_t m_uint8s[64];
-	mk_lang_types_ulllong_t m_ulllong;
+	mk_sl_cui_uint32_t m_align;
 };
 typedef union mk_lib_crypto_hash_block_sha2_base_32bit_aligned64_u mk_lib_crypto_hash_block_sha2_base_32bit_aligned64_t;
 typedef mk_lib_crypto_hash_block_sha2_base_32bit_aligned64_t const mk_lib_crypto_hash_block_sha2_base_32bit_aligned64_ct;
