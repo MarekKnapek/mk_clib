@@ -186,6 +186,7 @@ mk_lang_extern_c void mk_lib_crypto_hash_stream_tiger_128_test(void) mk_lang_noe
 	#undef message_6
 	#undef message_7
 	#undef message_8
+	#undef message_9
 
 	#undef digest_1
 	#undef digest_2
@@ -195,4 +196,5 @@ mk_lang_extern_c void mk_lib_crypto_hash_stream_tiger_128_test(void) mk_lang_noe
 	#undef digest_6
 	#undef digest_7
 	#undef digest_8
+	#undef digest_9
 }
