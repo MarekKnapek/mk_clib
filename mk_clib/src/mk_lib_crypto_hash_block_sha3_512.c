@@ -14,6 +14,7 @@
 #include "mk_lang_types.h"
 #include "mk_lib_crypto_hash_block_sha3_base.h"
 #include "mk_sl_uint.h"
+#include "mk_sl_uint64.h"
 #include "mk_sl_uint8.h"
 
 
@@ -41,7 +42,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha3_512_init(mk_l
 {
 	mk_lang_static_assert(sizeof(mk_sl_cui_uint8_t) == 1);
 	mk_lang_static_assert(sizeof(mk_sl_cui_uint64_t) == 8);
-	mk_lang_static_assert(sizeof(mk_lib_crypto_hash_block_sha3_512_block_t) >= 72);
+	mk_lang_static_assert(sizeof(mk_lib_crypto_hash_block_sha3_512_block_t) == 72);
 	mk_lang_static_assert(sizeof(mk_lib_crypto_hash_block_sha3_512_digest_t) == 64);
 
 	mk_lang_assert(sha3_512);

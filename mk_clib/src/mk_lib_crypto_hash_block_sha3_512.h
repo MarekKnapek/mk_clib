@@ -11,6 +11,7 @@
 #include "mk_lang_stringify.h"
 #include "mk_lang_types.h"
 #include "mk_lib_crypto_hash_block_sha3_base.h"
+#include "mk_sl_uint64.h"
 #include "mk_sl_uint8.h"
 
 
@@ -24,7 +25,7 @@ mk_lang_constexpr_static_inline int const mk_lib_crypto_hash_block_sha3_512_name
 union mk_lib_crypto_hash_block_sha3_512_aligned72_u
 {
 	mk_sl_cui_uint8_t m_uint8s[72];
-	mk_lang_types_ulllong_t m_ulllong;
+	mk_sl_cui_uint64_t m_uint64;
 };
 typedef union mk_lib_crypto_hash_block_sha3_512_aligned72_u mk_lib_crypto_hash_block_sha3_512_aligned72_t;
 typedef mk_lib_crypto_hash_block_sha3_512_aligned72_t const mk_lib_crypto_hash_block_sha3_512_aligned72_ct;
