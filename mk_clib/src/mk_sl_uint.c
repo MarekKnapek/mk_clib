@@ -190,3 +190,18 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_uint_128_from_8_be(mk_sl_cui_uint128_
 	}
 	mk_sl_cui_uint128_from_buis_uchar_be(u128, bytes);
 }
+
+mk_lang_constexpr mk_lang_jumbo void mk_sl_uint_128_to_64_le(mk_sl_cui_uint128_pct const u128, mk_sl_cui_uint64_pt const u64) mk_lang_noexcept
+{
+	mk_lang_types_uchar_t bytes[128 / 8] mk_lang_constexpr_init;
+	int i mk_lang_constexpr_init;
+
+	mk_lang_assert(u128);
+	mk_lang_assert(u64);
+
+	mk_sl_cui_uint128_to_buis_uchar_le(u128, bytes);
+	for(i = 0; i != 128 / 64; ++i)
+	{
+		mk_sl_cui_uint64_from_buis_uchar_le(&u64[i], &bytes[i * 64 / 8]);
+	}
+}
