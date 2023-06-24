@@ -1,11 +1,17 @@
+#define mk_lang_jumbo_want 1
+
 #include "../../src/mk_lang_assert.h"
 #include "../../src/mk_lang_constexpr.h"
 #include "../../src/mk_lang_cpp.h"
+#include "../../src/mk_lang_emscripten.h"
 #include "../../src/mk_lang_inline.h"
 #include "../../src/mk_lang_likely.h"
 #include "../../src/mk_lang_nodiscard.h"
 #include "../../src/mk_lang_noexcept.h"
 #include "../../src/mk_lang_types.h"
+#include "../../src/mk_lib_crypto_hash_stream_blake2b_256.h"
+#include "../../src/mk_lib_crypto_hash_stream_blake2b_384.h"
+#include "../../src/mk_lib_crypto_hash_stream_blake2b_512.h"
 #include "../../src/mk_lib_crypto_hash_stream_md2.h"
 #include "../../src/mk_lib_crypto_hash_stream_md4.h"
 #include "../../src/mk_lib_crypto_hash_stream_md5.h"
@@ -31,11 +37,12 @@
 #include "../../src/mk_lib_crypto_xof_stream_shake_256.h"
 #include "../../src/mk_sl_uint8.h"
 
-#include <emscripten.h>
-
 
 enum hash_id_e
 {
+	hash_id_e_hash_blake2b_256 ,
+	hash_id_e_hash_blake2b_384 ,
+	hash_id_e_hash_blake2b_512 ,
 	hash_id_e_hash_md2         ,
 	hash_id_e_hash_md4         ,
 	hash_id_e_hash_md5         ,
@@ -63,6 +70,9 @@ enum hash_id_e
 };
 typedef enum hash_id_e hash_id_t;
 
+#define hash_name_dn_hash_blake2b_256  "blake2b_256"
+#define hash_name_dn_hash_blake2b_384  "blake2b_384"
+#define hash_name_dn_hash_blake2b_512  "blake2b_512"
 #define hash_name_dn_hash_md2          "md2"
 #define hash_name_dn_hash_md4          "md4"
 #define hash_name_dn_hash_md5          "md5"
@@ -87,6 +97,9 @@ typedef enum hash_id_e hash_id_t;
 #define hash_name_dn_xof_shake_128     "shake_128"
 #define hash_name_dn_xof_shake_256     "shake_256"
 
+#define hash_name_dl_hash_blake2b_256  ((int)(sizeof(hash_name_dn_hash_blake2b_256 ) / sizeof(hash_name_dn_hash_blake2b_256 [0]) - 1))
+#define hash_name_dl_hash_blake2b_384  ((int)(sizeof(hash_name_dn_hash_blake2b_384 ) / sizeof(hash_name_dn_hash_blake2b_384 [0]) - 1))
+#define hash_name_dl_hash_blake2b_512  ((int)(sizeof(hash_name_dn_hash_blake2b_512 ) / sizeof(hash_name_dn_hash_blake2b_512 [0]) - 1))
 #define hash_name_dl_hash_md2          ((int)(sizeof(hash_name_dn_hash_md2         ) / sizeof(hash_name_dn_hash_md2         [0]) - 1))
 #define hash_name_dl_hash_md4          ((int)(sizeof(hash_name_dn_hash_md4         ) / sizeof(hash_name_dn_hash_md4         [0]) - 1))
 #define hash_name_dl_hash_md5          ((int)(sizeof(hash_name_dn_hash_md5         ) / sizeof(hash_name_dn_hash_md5         [0]) - 1))
@@ -112,6 +125,9 @@ typedef enum hash_id_e hash_id_t;
 #define hash_name_dl_xof_shake_256     ((int)(sizeof(hash_name_dn_xof_shake_256    ) / sizeof(hash_name_dn_xof_shake_256    [0]) - 1))
 
 mk_lang_constexpr_static_inline char const s_alg_names[] =
+	hash_name_dn_hash_blake2b_256
+	hash_name_dn_hash_blake2b_384
+	hash_name_dn_hash_blake2b_512
 	hash_name_dn_hash_md2
 	hash_name_dn_hash_md4
 	hash_name_dn_hash_md5
@@ -139,6 +155,9 @@ mk_lang_constexpr_static_inline char const s_alg_names[] =
 
 mk_lang_constexpr_static_inline mk_lang_types_uchar_t const s_alg_name_lens[] =
 {
+	((mk_lang_types_uchar_t)(hash_name_dl_hash_blake2b_256 )),
+	((mk_lang_types_uchar_t)(hash_name_dl_hash_blake2b_384 )),
+	((mk_lang_types_uchar_t)(hash_name_dl_hash_blake2b_512 )),
 	((mk_lang_types_uchar_t)(hash_name_dl_hash_md2         )),
 	((mk_lang_types_uchar_t)(hash_name_dl_hash_md4         )),
 	((mk_lang_types_uchar_t)(hash_name_dl_hash_md5         )),
@@ -166,6 +185,9 @@ mk_lang_constexpr_static_inline mk_lang_types_uchar_t const s_alg_name_lens[] =
 
 union hash_u
 {
+	mk_lib_crypto_hash_stream_blake2b_256_t m_blake2b_256  ;
+	mk_lib_crypto_hash_stream_blake2b_384_t m_blake2b_384  ;
+	mk_lib_crypto_hash_stream_blake2b_512_t m_blake2b_512  ;
 	mk_lib_crypto_hash_stream_md2_t          m_md2         ;
 	mk_lib_crypto_hash_stream_md4_t          m_md4         ;
 	mk_lib_crypto_hash_stream_md5_t          m_md5         ;
@@ -219,6 +241,9 @@ static mk_lang_inline void init(hash_pt const hash, hash_id_t const id) mk_lang_
 {
 	switch(id)
 	{
+		case hash_id_e_hash_blake2b_256 : mk_lib_crypto_hash_stream_blake2b_256_init (&hash->m_blake2b_256 ); break;
+		case hash_id_e_hash_blake2b_384 : mk_lib_crypto_hash_stream_blake2b_384_init (&hash->m_blake2b_384 ); break;
+		case hash_id_e_hash_blake2b_512 : mk_lib_crypto_hash_stream_blake2b_512_init (&hash->m_blake2b_512 ); break;
 		case hash_id_e_hash_md2         : mk_lib_crypto_hash_stream_md2_init         (&hash->m_md2         ); break;
 		case hash_id_e_hash_md4         : mk_lib_crypto_hash_stream_md4_init         (&hash->m_md4         ); break;
 		case hash_id_e_hash_md5         : mk_lib_crypto_hash_stream_md5_init         (&hash->m_md5         ); break;
@@ -249,6 +274,9 @@ static mk_lang_inline void append(hash_pt const hash, hash_id_t const id, mk_lan
 {
 	switch(id)
 	{
+		case hash_id_e_hash_blake2b_256 : mk_lib_crypto_hash_stream_blake2b_256_append (&hash->m_blake2b_256 , data, data_len); break;
+		case hash_id_e_hash_blake2b_384 : mk_lib_crypto_hash_stream_blake2b_384_append (&hash->m_blake2b_384 , data, data_len); break;
+		case hash_id_e_hash_blake2b_512 : mk_lib_crypto_hash_stream_blake2b_512_append (&hash->m_blake2b_512 , data, data_len); break;
 		case hash_id_e_hash_md2         : mk_lib_crypto_hash_stream_md2_append         (&hash->m_md2         , data, data_len); break;
 		case hash_id_e_hash_md4         : mk_lib_crypto_hash_stream_md4_append         (&hash->m_md4         , data, data_len); break;
 		case hash_id_e_hash_md5         : mk_lib_crypto_hash_stream_md5_append         (&hash->m_md5         , data, data_len); break;
@@ -279,6 +307,9 @@ static mk_lang_inline int finish(hash_pt const hash, hash_id_t const id, int con
 {
 	switch(id)
 	{
+		case hash_id_e_hash_blake2b_256 : mk_lib_crypto_hash_stream_blake2b_256_finish (&hash->m_blake2b_256 ,          ((mk_lib_crypto_hash_block_blake2b_256_digest_pt )(digest))); return mk_lib_crypto_hash_block_blake2b_256_digest_len ; break;
+		case hash_id_e_hash_blake2b_384 : mk_lib_crypto_hash_stream_blake2b_384_finish (&hash->m_blake2b_384 ,          ((mk_lib_crypto_hash_block_blake2b_384_digest_pt )(digest))); return mk_lib_crypto_hash_block_blake2b_384_digest_len ; break;
+		case hash_id_e_hash_blake2b_512 : mk_lib_crypto_hash_stream_blake2b_512_finish (&hash->m_blake2b_512 ,          ((mk_lib_crypto_hash_block_blake2b_512_digest_pt )(digest))); return mk_lib_crypto_hash_block_blake2b_512_digest_len ; break;
 		case hash_id_e_hash_md2         : mk_lib_crypto_hash_stream_md2_finish         (&hash->m_md2         ,          ((mk_lib_crypto_hash_block_md2_digest_pt         )(digest))); return mk_lib_crypto_hash_block_md2_digest_len         ; break;
 		case hash_id_e_hash_md4         : mk_lib_crypto_hash_stream_md4_finish         (&hash->m_md4         ,          ((mk_lib_crypto_hash_block_md4_digest_pt         )(digest))); return mk_lib_crypto_hash_block_md4_digest_len         ; break;
 		case hash_id_e_hash_md5         : mk_lib_crypto_hash_stream_md5_finish         (&hash->m_md5         ,          ((mk_lib_crypto_hash_block_md5_digest_pt         )(digest))); return mk_lib_crypto_hash_block_md5_digest_len         ; break;
@@ -339,37 +370,37 @@ aligned16k_t g_digest;
 #define check(x) if(!(x)){ mk_lang_unlikely return 0; }
 
 
-mk_lang_extern_c EMSCRIPTEN_KEEPALIVE mk_lang_types_usize_t mkch_get_alg_name_addr(void) mk_lang_noexcept
+mk_lang_extern_c mk_lang_emscripten_keepalive mk_lang_types_usize_t mkch_get_alg_name_addr(void) mk_lang_noexcept
 {
 	return ((mk_lang_types_usize_t)(((mk_lang_types_uintptr_t)(&g_alg_name))));
 }
 
-mk_lang_extern_c EMSCRIPTEN_KEEPALIVE mk_lang_types_usize_t mkch_get_alg_name_size(void) mk_lang_noexcept
+mk_lang_extern_c mk_lang_emscripten_keepalive mk_lang_types_usize_t mkch_get_alg_name_size(void) mk_lang_noexcept
 {
 	return ((mk_lang_types_usize_t)(sizeof(g_alg_name) / sizeof(g_alg_name[0])));
 }
 
-mk_lang_extern_c EMSCRIPTEN_KEEPALIVE mk_lang_types_usize_t mkch_get_buffer_addr(void) mk_lang_noexcept
+mk_lang_extern_c mk_lang_emscripten_keepalive mk_lang_types_usize_t mkch_get_buffer_addr(void) mk_lang_noexcept
 {
 	return ((mk_lang_types_usize_t)(((mk_lang_types_uintptr_t)(&g_buffer))));
 }
 
-mk_lang_extern_c EMSCRIPTEN_KEEPALIVE mk_lang_types_usize_t mkch_get_buffer_size(void) mk_lang_noexcept
+mk_lang_extern_c mk_lang_emscripten_keepalive mk_lang_types_usize_t mkch_get_buffer_size(void) mk_lang_noexcept
 {
 	return ((mk_lang_types_usize_t)(sizeof(g_buffer.m_uint8s) / sizeof(g_buffer.m_uint8s[0])));
 }
 
-mk_lang_extern_c EMSCRIPTEN_KEEPALIVE mk_lang_types_usize_t mkch_get_digest_addr(void) mk_lang_noexcept
+mk_lang_extern_c mk_lang_emscripten_keepalive mk_lang_types_usize_t mkch_get_digest_addr(void) mk_lang_noexcept
 {
 	return ((mk_lang_types_usize_t)(((mk_lang_types_uintptr_t)(&g_digest))));
 }
 
-mk_lang_extern_c EMSCRIPTEN_KEEPALIVE mk_lang_types_usize_t mkch_get_digest_size(void) mk_lang_noexcept
+mk_lang_extern_c mk_lang_emscripten_keepalive mk_lang_types_usize_t mkch_get_digest_size(void) mk_lang_noexcept
 {
 	return ((mk_lang_types_usize_t)(sizeof(g_digest.m_uint8s) / sizeof(g_digest.m_uint8s[0])));
 }
 
-mk_lang_extern_c EMSCRIPTEN_KEEPALIVE int mkch_init(int const alg_name_len) mk_lang_noexcept
+mk_lang_extern_c mk_lang_emscripten_keepalive int mkch_init(int const alg_name_len) mk_lang_noexcept
 {
 	mk_lang_types_pchar_pct ptr;
 	int n;
@@ -400,15 +431,15 @@ mk_lang_extern_c EMSCRIPTEN_KEEPALIVE int mkch_init(int const alg_name_len) mk_l
 		}
 	}
 	check(i != n);
-	check(i >= hash_id_e_hash_md2);
-	check(i <= hash_id_e_xof_shake_256);
+	check(i >= 0);
+	check(i < hash_id_e_hash_dummy_end);
 	id = ((hash_id_t)(i));
 	g_id = id;
 	init(&g_hash, g_id);
 	return 1;
 }
 
-mk_lang_extern_c EMSCRIPTEN_KEEPALIVE int mkch_append(int const buffer_len) mk_lang_noexcept
+mk_lang_extern_c mk_lang_emscripten_keepalive int mkch_append(int const buffer_len) mk_lang_noexcept
 {
 	check(buffer_len >= 0);
 	check(buffer_len <= ((int)(sizeof(g_buffer.m_uint8s) / sizeof(g_buffer.m_uint8s[0]))));
@@ -417,7 +448,7 @@ mk_lang_extern_c EMSCRIPTEN_KEEPALIVE int mkch_append(int const buffer_len) mk_l
 	return 1;
 }
 
-mk_lang_extern_c EMSCRIPTEN_KEEPALIVE int mkch_finish(int const xof_len) mk_lang_noexcept
+mk_lang_extern_c mk_lang_emscripten_keepalive int mkch_finish(int const xof_len) mk_lang_noexcept
 {
 	int ret;
 
@@ -428,7 +459,7 @@ mk_lang_extern_c EMSCRIPTEN_KEEPALIVE int mkch_finish(int const xof_len) mk_lang
 	return ret;
 }
 
-mk_lang_extern_c EMSCRIPTEN_KEEPALIVE int mkch(int const alg_name_len, int const buffer_len, int const xof_len) mk_lang_noexcept
+mk_lang_extern_c mk_lang_emscripten_keepalive int mkch(int const alg_name_len, int const buffer_len, int const xof_len) mk_lang_noexcept
 {
 	int ret;
 
