@@ -8,6 +8,7 @@
 #include "../../src/mk_lang_likely.h"
 #include "../../src/mk_lang_nodiscard.h"
 #include "../../src/mk_lang_noexcept.h"
+#include "../../src/mk_lang_stringify.h"
 #include "../../src/mk_lang_types.h"
 #include "../../src/mk_lib_crypto_hash_stream_blake2b_256.h"
 #include "../../src/mk_lib_crypto_hash_stream_blake2b_384.h"
@@ -205,6 +206,73 @@ mk_lang_constexpr_static_inline mk_lang_types_uchar_t const s_alg_name_lens[] =
 	((mk_lang_types_uchar_t)(alg_name_dl_hash_tiger_192   )),
 	((mk_lang_types_uchar_t)(alg_name_dl_xof_shake_128    )),
 	((mk_lang_types_uchar_t)(alg_name_dl_xof_shake_256    )),
+};
+
+mk_lang_constexpr_static_inline char const s_alg_pretty_names[] =
+	mk_lang_stringify(mk_lib_crypto_hash_block_blake2b_256_name_def)
+	mk_lang_stringify(mk_lib_crypto_hash_block_blake2b_384_name_def)
+	mk_lang_stringify(mk_lib_crypto_hash_block_blake2b_512_name_def)
+	mk_lang_stringify(mk_lib_crypto_hash_block_blake2s_128_name_def)
+	mk_lang_stringify(mk_lib_crypto_hash_block_blake2s_160_name_def)
+	mk_lang_stringify(mk_lib_crypto_hash_block_blake2s_224_name_def)
+	mk_lang_stringify(mk_lib_crypto_hash_block_blake2s_256_name_def)
+	mk_lang_stringify(mk_lib_crypto_hash_block_md2_name_def)
+	mk_lang_stringify(mk_lib_crypto_hash_block_md4_name_def)
+	mk_lang_stringify(mk_lib_crypto_hash_block_md5_name_def)
+	mk_lang_stringify(mk_lib_crypto_hash_block_sha0_name_def)
+	mk_lang_stringify(mk_lib_crypto_hash_block_sha1_name_def)
+	mk_lang_stringify(mk_lib_crypto_hash_block_sha2_224_name_def)
+	mk_lang_stringify(mk_lib_crypto_hash_block_sha2_256_name_def)
+	mk_lang_stringify(mk_lib_crypto_hash_block_sha2_384_name_def)
+	mk_lang_stringify(mk_lib_crypto_hash_block_sha2_512_name_def)
+	mk_lang_stringify(mk_lib_crypto_hash_block_sha2_512_224_name_def)
+	mk_lang_stringify(mk_lib_crypto_hash_block_sha2_512_256_name_def)
+	mk_lang_stringify(mk_lib_crypto_hash_block_sha3_224_name_def)
+	mk_lang_stringify(mk_lib_crypto_hash_block_sha3_256_name_def)
+	mk_lang_stringify(mk_lib_crypto_hash_block_sha3_384_name_def)
+	mk_lang_stringify(mk_lib_crypto_hash_block_sha3_512_name_def)
+	mk_lang_stringify(mk_lib_crypto_hash_block_tiger2_128_name_def)
+	mk_lang_stringify(mk_lib_crypto_hash_block_tiger2_160_name_def)
+	mk_lang_stringify(mk_lib_crypto_hash_block_tiger2_192_name_def)
+	mk_lang_stringify(mk_lib_crypto_hash_block_tiger_128_name_def)
+	mk_lang_stringify(mk_lib_crypto_hash_block_tiger_160_name_def)
+	mk_lang_stringify(mk_lib_crypto_hash_block_tiger_192_name_def)
+	mk_lang_stringify(mk_lib_crypto_xof_block_shake_128_name_def)
+	mk_lang_stringify(mk_lib_crypto_xof_block_shake_256_name_def)
+;
+
+mk_lang_constexpr_static_inline mk_lang_types_uchar_t const s_alg_pretty_name_lens[] =
+{
+	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_blake2b_256_name_def )) - 1)))),
+	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_blake2b_384_name_def )) - 1)))),
+	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_blake2b_512_name_def )) - 1)))),
+	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_blake2s_128_name_def )) - 1)))),
+	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_blake2s_160_name_def )) - 1)))),
+	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_blake2s_224_name_def )) - 1)))),
+	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_blake2s_256_name_def )) - 1)))),
+	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_md2_name_def         )) - 1)))),
+	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_md4_name_def         )) - 1)))),
+	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_md5_name_def         )) - 1)))),
+	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_sha0_name_def        )) - 1)))),
+	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_sha1_name_def        )) - 1)))),
+	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_sha2_224_name_def    )) - 1)))),
+	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_sha2_256_name_def    )) - 1)))),
+	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_sha2_384_name_def    )) - 1)))),
+	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_sha2_512_name_def    )) - 1)))),
+	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_sha2_512_224_name_def)) - 1)))),
+	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_sha2_512_256_name_def)) - 1)))),
+	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_sha3_224_name_def    )) - 1)))),
+	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_sha3_256_name_def    )) - 1)))),
+	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_sha3_384_name_def    )) - 1)))),
+	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_sha3_512_name_def    )) - 1)))),
+	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_tiger2_128_name_def  )) - 1)))),
+	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_tiger2_160_name_def  )) - 1)))),
+	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_tiger2_192_name_def  )) - 1)))),
+	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_tiger_128_name_def   )) - 1)))),
+	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_tiger_160_name_def   )) - 1)))),
+	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_tiger_192_name_def   )) - 1)))),
+	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_xof_block_shake_128_name_def    )) - 1)))),
+	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_xof_block_shake_256_name_def    )) - 1)))),
 };
 
 union alg_u
@@ -438,6 +506,59 @@ mk_lang_extern_c mk_lang_emscripten_keepalive mk_lang_types_usize_t mkch_get_dig
 mk_lang_extern_c mk_lang_emscripten_keepalive mk_lang_types_usize_t mkch_get_digest_size(void) mk_lang_noexcept
 {
 	return ((mk_lang_types_usize_t)(sizeof(g_digest.m_uint8s) / sizeof(g_digest.m_uint8s[0])));
+}
+
+mk_lang_extern_c mk_lang_emscripten_keepalive int mkch_get_alg_count(void) mk_lang_noexcept
+{
+	return ((int)(sizeof(s_alg_name_lens) / sizeof(s_alg_name_lens[0])));
+}
+
+mk_lang_extern_c mk_lang_emscripten_keepalive int mkch_get_alg_name(int const alg_idx) mk_lang_noexcept
+{
+	mk_lang_types_pchar_pct ptr;
+	int n;
+	int i;
+
+	ptr = s_alg_names;
+	n = ((int)(sizeof(s_alg_name_lens) / sizeof(s_alg_name_lens[0])));
+	for(i = 0; i != n; ++i)
+	{
+		if(alg_idx == i)
+		{
+			n = s_alg_name_lens[i];
+			for(i = 0; i != n; ++i){ g_alg_name[i] = ptr[i]; }
+			return n;
+		}
+		else
+		{
+			ptr += s_alg_name_lens[i];
+		}
+	}
+	return 0;
+}
+
+mk_lang_extern_c mk_lang_emscripten_keepalive int mkch_get_alg_pretty_name(int const alg_idx) mk_lang_noexcept
+{
+	mk_lang_types_pchar_pct ptr;
+	int n;
+	int i;
+
+	ptr = s_alg_pretty_names;
+	n = ((int)(sizeof(s_alg_pretty_name_lens) / sizeof(s_alg_pretty_name_lens[0])));
+	for(i = 0; i != n; ++i)
+	{
+		if(alg_idx == i)
+		{
+			n = s_alg_pretty_name_lens[i];
+			for(i = 0; i != n; ++i){ g_alg_name[i] = ptr[i]; }
+			return n;
+		}
+		else
+		{
+			ptr += s_alg_pretty_name_lens[i];
+		}
+	}
+	return 0;
 }
 
 mk_lang_extern_c mk_lang_emscripten_keepalive int mkch_init(int const alg_name_len) mk_lang_noexcept
