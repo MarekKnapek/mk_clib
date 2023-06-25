@@ -40,8 +40,8 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_stream_blake2_inl_defd_i
 	if(key_len != 0)
 	{
 		for(i = 0; i != key_len; ++i){ mk_sl_cui_uint8_from_bi_uchar(&hash->m_block.m_uint8s[i],&key[i]); }
-		for(i = key_len; i != mk_lib_crypto_hash_block_blake2b_base_block_len; ++i){ mk_sl_cui_uint8_set_zero(&hash->m_block.m_uint8s[i]); }
-		hash->m_idx = mk_lib_crypto_hash_block_blake2b_base_block_len;
+		for(i = key_len; i != mk_lib_crypto_hash_stream_blake2_inl_defd_base_block_len; ++i){ mk_sl_cui_uint8_set_zero(&hash->m_block.m_uint8s[i]); }
+		hash->m_idx = mk_lib_crypto_hash_stream_blake2_inl_defd_base_block_len;
 	}
 }
 
