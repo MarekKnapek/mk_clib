@@ -12,6 +12,10 @@
 #include "../../src/mk_lib_crypto_hash_stream_blake2b_256.h"
 #include "../../src/mk_lib_crypto_hash_stream_blake2b_384.h"
 #include "../../src/mk_lib_crypto_hash_stream_blake2b_512.h"
+#include "../../src/mk_lib_crypto_hash_stream_blake2s_128.h"
+#include "../../src/mk_lib_crypto_hash_stream_blake2s_160.h"
+#include "../../src/mk_lib_crypto_hash_stream_blake2s_224.h"
+#include "../../src/mk_lib_crypto_hash_stream_blake2s_256.h"
 #include "../../src/mk_lib_crypto_hash_stream_md2.h"
 #include "../../src/mk_lib_crypto_hash_stream_md4.h"
 #include "../../src/mk_lib_crypto_hash_stream_md5.h"
@@ -43,6 +47,10 @@ enum hash_id_e
 	hash_id_e_hash_blake2b_256 ,
 	hash_id_e_hash_blake2b_384 ,
 	hash_id_e_hash_blake2b_512 ,
+	hash_id_e_hash_blake2s_128 ,
+	hash_id_e_hash_blake2s_160 ,
+	hash_id_e_hash_blake2s_224 ,
+	hash_id_e_hash_blake2s_256 ,
 	hash_id_e_hash_md2         ,
 	hash_id_e_hash_md4         ,
 	hash_id_e_hash_md5         ,
@@ -73,6 +81,10 @@ typedef enum hash_id_e hash_id_t;
 #define hash_name_dn_hash_blake2b_256  "blake2b_256"
 #define hash_name_dn_hash_blake2b_384  "blake2b_384"
 #define hash_name_dn_hash_blake2b_512  "blake2b_512"
+#define hash_name_dn_hash_blake2s_128  "blake2s_128"
+#define hash_name_dn_hash_blake2s_160  "blake2s_160"
+#define hash_name_dn_hash_blake2s_224  "blake2s_224"
+#define hash_name_dn_hash_blake2s_256  "blake2s_256"
 #define hash_name_dn_hash_md2          "md2"
 #define hash_name_dn_hash_md4          "md4"
 #define hash_name_dn_hash_md5          "md5"
@@ -100,6 +112,10 @@ typedef enum hash_id_e hash_id_t;
 #define hash_name_dl_hash_blake2b_256  ((int)(sizeof(hash_name_dn_hash_blake2b_256 ) / sizeof(hash_name_dn_hash_blake2b_256 [0]) - 1))
 #define hash_name_dl_hash_blake2b_384  ((int)(sizeof(hash_name_dn_hash_blake2b_384 ) / sizeof(hash_name_dn_hash_blake2b_384 [0]) - 1))
 #define hash_name_dl_hash_blake2b_512  ((int)(sizeof(hash_name_dn_hash_blake2b_512 ) / sizeof(hash_name_dn_hash_blake2b_512 [0]) - 1))
+#define hash_name_dl_hash_blake2s_128  ((int)(sizeof(hash_name_dn_hash_blake2s_128 ) / sizeof(hash_name_dn_hash_blake2s_128 [0]) - 1))
+#define hash_name_dl_hash_blake2s_160  ((int)(sizeof(hash_name_dn_hash_blake2s_160 ) / sizeof(hash_name_dn_hash_blake2s_160 [0]) - 1))
+#define hash_name_dl_hash_blake2s_224  ((int)(sizeof(hash_name_dn_hash_blake2s_224 ) / sizeof(hash_name_dn_hash_blake2s_224 [0]) - 1))
+#define hash_name_dl_hash_blake2s_256  ((int)(sizeof(hash_name_dn_hash_blake2s_256 ) / sizeof(hash_name_dn_hash_blake2s_256 [0]) - 1))
 #define hash_name_dl_hash_md2          ((int)(sizeof(hash_name_dn_hash_md2         ) / sizeof(hash_name_dn_hash_md2         [0]) - 1))
 #define hash_name_dl_hash_md4          ((int)(sizeof(hash_name_dn_hash_md4         ) / sizeof(hash_name_dn_hash_md4         [0]) - 1))
 #define hash_name_dl_hash_md5          ((int)(sizeof(hash_name_dn_hash_md5         ) / sizeof(hash_name_dn_hash_md5         [0]) - 1))
@@ -128,6 +144,10 @@ mk_lang_constexpr_static_inline char const s_alg_names[] =
 	hash_name_dn_hash_blake2b_256
 	hash_name_dn_hash_blake2b_384
 	hash_name_dn_hash_blake2b_512
+	hash_name_dn_hash_blake2s_128
+	hash_name_dn_hash_blake2s_160
+	hash_name_dn_hash_blake2s_224
+	hash_name_dn_hash_blake2s_256
 	hash_name_dn_hash_md2
 	hash_name_dn_hash_md4
 	hash_name_dn_hash_md5
@@ -158,6 +178,10 @@ mk_lang_constexpr_static_inline mk_lang_types_uchar_t const s_alg_name_lens[] =
 	((mk_lang_types_uchar_t)(hash_name_dl_hash_blake2b_256 )),
 	((mk_lang_types_uchar_t)(hash_name_dl_hash_blake2b_384 )),
 	((mk_lang_types_uchar_t)(hash_name_dl_hash_blake2b_512 )),
+	((mk_lang_types_uchar_t)(hash_name_dl_hash_blake2s_128 )),
+	((mk_lang_types_uchar_t)(hash_name_dl_hash_blake2s_160 )),
+	((mk_lang_types_uchar_t)(hash_name_dl_hash_blake2s_224 )),
+	((mk_lang_types_uchar_t)(hash_name_dl_hash_blake2s_256 )),
 	((mk_lang_types_uchar_t)(hash_name_dl_hash_md2         )),
 	((mk_lang_types_uchar_t)(hash_name_dl_hash_md4         )),
 	((mk_lang_types_uchar_t)(hash_name_dl_hash_md5         )),
@@ -188,6 +212,10 @@ union hash_u
 	mk_lib_crypto_hash_stream_blake2b_256_t  m_blake2b_256 ;
 	mk_lib_crypto_hash_stream_blake2b_384_t  m_blake2b_384 ;
 	mk_lib_crypto_hash_stream_blake2b_512_t  m_blake2b_512 ;
+	mk_lib_crypto_hash_stream_blake2s_128_t  m_blake2s_128 ;
+	mk_lib_crypto_hash_stream_blake2s_160_t  m_blake2s_160 ;
+	mk_lib_crypto_hash_stream_blake2s_224_t  m_blake2s_224 ;
+	mk_lib_crypto_hash_stream_blake2s_256_t  m_blake2s_256 ;
 	mk_lib_crypto_hash_stream_md2_t          m_md2         ;
 	mk_lib_crypto_hash_stream_md4_t          m_md4         ;
 	mk_lib_crypto_hash_stream_md5_t          m_md5         ;
@@ -244,6 +272,10 @@ static mk_lang_inline void init(hash_pt const hash, hash_id_t const id) mk_lang_
 		case hash_id_e_hash_blake2b_256 : mk_lib_crypto_hash_stream_blake2b_256_init (&hash->m_blake2b_256 ); break;
 		case hash_id_e_hash_blake2b_384 : mk_lib_crypto_hash_stream_blake2b_384_init (&hash->m_blake2b_384 ); break;
 		case hash_id_e_hash_blake2b_512 : mk_lib_crypto_hash_stream_blake2b_512_init (&hash->m_blake2b_512 ); break;
+		case hash_id_e_hash_blake2s_128 : mk_lib_crypto_hash_stream_blake2s_128_init (&hash->m_blake2s_128 ); break;
+		case hash_id_e_hash_blake2s_160 : mk_lib_crypto_hash_stream_blake2s_160_init (&hash->m_blake2s_160 ); break;
+		case hash_id_e_hash_blake2s_224 : mk_lib_crypto_hash_stream_blake2s_224_init (&hash->m_blake2s_224 ); break;
+		case hash_id_e_hash_blake2s_256 : mk_lib_crypto_hash_stream_blake2s_256_init (&hash->m_blake2s_256 ); break;
 		case hash_id_e_hash_md2         : mk_lib_crypto_hash_stream_md2_init         (&hash->m_md2         ); break;
 		case hash_id_e_hash_md4         : mk_lib_crypto_hash_stream_md4_init         (&hash->m_md4         ); break;
 		case hash_id_e_hash_md5         : mk_lib_crypto_hash_stream_md5_init         (&hash->m_md5         ); break;
@@ -277,6 +309,10 @@ static mk_lang_inline void append(hash_pt const hash, hash_id_t const id, mk_lan
 		case hash_id_e_hash_blake2b_256 : mk_lib_crypto_hash_stream_blake2b_256_append (&hash->m_blake2b_256 , data, data_len); break;
 		case hash_id_e_hash_blake2b_384 : mk_lib_crypto_hash_stream_blake2b_384_append (&hash->m_blake2b_384 , data, data_len); break;
 		case hash_id_e_hash_blake2b_512 : mk_lib_crypto_hash_stream_blake2b_512_append (&hash->m_blake2b_512 , data, data_len); break;
+		case hash_id_e_hash_blake2s_128 : mk_lib_crypto_hash_stream_blake2s_128_append (&hash->m_blake2s_128 , data, data_len); break;
+		case hash_id_e_hash_blake2s_160 : mk_lib_crypto_hash_stream_blake2s_160_append (&hash->m_blake2s_160 , data, data_len); break;
+		case hash_id_e_hash_blake2s_224 : mk_lib_crypto_hash_stream_blake2s_224_append (&hash->m_blake2s_224 , data, data_len); break;
+		case hash_id_e_hash_blake2s_256 : mk_lib_crypto_hash_stream_blake2s_256_append (&hash->m_blake2s_256 , data, data_len); break;
 		case hash_id_e_hash_md2         : mk_lib_crypto_hash_stream_md2_append         (&hash->m_md2         , data, data_len); break;
 		case hash_id_e_hash_md4         : mk_lib_crypto_hash_stream_md4_append         (&hash->m_md4         , data, data_len); break;
 		case hash_id_e_hash_md5         : mk_lib_crypto_hash_stream_md5_append         (&hash->m_md5         , data, data_len); break;
@@ -310,6 +346,10 @@ static mk_lang_inline int finish(hash_pt const hash, hash_id_t const id, int con
 		case hash_id_e_hash_blake2b_256 : mk_lib_crypto_hash_stream_blake2b_256_finish (&hash->m_blake2b_256 ,          ((mk_lib_crypto_hash_block_blake2b_256_digest_pt )(digest))); return mk_lib_crypto_hash_block_blake2b_256_digest_len ; break;
 		case hash_id_e_hash_blake2b_384 : mk_lib_crypto_hash_stream_blake2b_384_finish (&hash->m_blake2b_384 ,          ((mk_lib_crypto_hash_block_blake2b_384_digest_pt )(digest))); return mk_lib_crypto_hash_block_blake2b_384_digest_len ; break;
 		case hash_id_e_hash_blake2b_512 : mk_lib_crypto_hash_stream_blake2b_512_finish (&hash->m_blake2b_512 ,          ((mk_lib_crypto_hash_block_blake2b_512_digest_pt )(digest))); return mk_lib_crypto_hash_block_blake2b_512_digest_len ; break;
+		case hash_id_e_hash_blake2s_128 : mk_lib_crypto_hash_stream_blake2s_128_finish (&hash->m_blake2s_128 ,          ((mk_lib_crypto_hash_block_blake2s_128_digest_pt )(digest))); return mk_lib_crypto_hash_block_blake2s_128_digest_len ; break;
+		case hash_id_e_hash_blake2s_160 : mk_lib_crypto_hash_stream_blake2s_160_finish (&hash->m_blake2s_160 ,          ((mk_lib_crypto_hash_block_blake2s_160_digest_pt )(digest))); return mk_lib_crypto_hash_block_blake2s_160_digest_len ; break;
+		case hash_id_e_hash_blake2s_224 : mk_lib_crypto_hash_stream_blake2s_224_finish (&hash->m_blake2s_224 ,          ((mk_lib_crypto_hash_block_blake2s_224_digest_pt )(digest))); return mk_lib_crypto_hash_block_blake2s_224_digest_len ; break;
+		case hash_id_e_hash_blake2s_256 : mk_lib_crypto_hash_stream_blake2s_256_finish (&hash->m_blake2s_256 ,          ((mk_lib_crypto_hash_block_blake2s_256_digest_pt )(digest))); return mk_lib_crypto_hash_block_blake2s_256_digest_len ; break;
 		case hash_id_e_hash_md2         : mk_lib_crypto_hash_stream_md2_finish         (&hash->m_md2         ,          ((mk_lib_crypto_hash_block_md2_digest_pt         )(digest))); return mk_lib_crypto_hash_block_md2_digest_len         ; break;
 		case hash_id_e_hash_md4         : mk_lib_crypto_hash_stream_md4_finish         (&hash->m_md4         ,          ((mk_lib_crypto_hash_block_md4_digest_pt         )(digest))); return mk_lib_crypto_hash_block_md4_digest_len         ; break;
 		case hash_id_e_hash_md5         : mk_lib_crypto_hash_stream_md5_finish         (&hash->m_md5         ,          ((mk_lib_crypto_hash_block_md5_digest_pt         )(digest))); return mk_lib_crypto_hash_block_md5_digest_len         ; break;
