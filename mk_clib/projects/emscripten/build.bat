@@ -21,7 +21,7 @@ emcc ^
 -sMEMORY64=0 ^
 -sUSE_CLOSURE_COMPILER=1 ^
 -sFILESYSTEM=0 ^
--sEXPORTED_FUNCTIONS=_mkch ^
+-sEXPORTED_FUNCTIONS=_mkch_get_alg_name_addr,_mkch_get_alg_name_size,_mkch_get_msg_addr,_mkch_get_msg_size,_mkch_get_digest_addr,_mkch_get_digest_size,_mkch_get_alg_count,_mkch_get_alg_name,_mkch_get_alg_pretty_name,_mkch_init,_mkch_append,_mkch_finish,_mkch ^
 -sSTRICT=1 ^
 -sDYNAMIC_EXECUTION=0 ^
 -sWASM=1 ^
