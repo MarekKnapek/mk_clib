@@ -36,6 +36,7 @@
 #undef mk_sl_cui_endian
 #undef mk_sl_cui_base_is_bui
 #undef mk_sl_cui_base_bui_tn
+#define mk_sl_cui_uint32_c(x) {{ ((mk_sl_cui_uint32_base_t)(x)) }}
 
 #elif mk_lang_charbit == 8 && mk_lang_sizeof_bi_ulong_t == 4
 
@@ -65,6 +66,7 @@
 #undef mk_sl_cui_endian
 #undef mk_sl_cui_base_is_bui
 #undef mk_sl_cui_base_bui_tn
+#define mk_sl_cui_uint32_c(x) {{ ((mk_sl_cui_uint32_base_t)(x)) }}
 
 #endif
 
