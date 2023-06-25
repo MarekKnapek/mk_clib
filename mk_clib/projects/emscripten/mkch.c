@@ -185,9 +185,9 @@ mk_lang_constexpr_static_inline mk_lang_types_uchar_t const s_alg_name_lens[] =
 
 union hash_u
 {
-	mk_lib_crypto_hash_stream_blake2b_256_t m_blake2b_256  ;
-	mk_lib_crypto_hash_stream_blake2b_384_t m_blake2b_384  ;
-	mk_lib_crypto_hash_stream_blake2b_512_t m_blake2b_512  ;
+	mk_lib_crypto_hash_stream_blake2b_256_t  m_blake2b_256 ;
+	mk_lib_crypto_hash_stream_blake2b_384_t  m_blake2b_384 ;
+	mk_lib_crypto_hash_stream_blake2b_512_t  m_blake2b_512 ;
 	mk_lib_crypto_hash_stream_md2_t          m_md2         ;
 	mk_lib_crypto_hash_stream_md4_t          m_md4         ;
 	mk_lib_crypto_hash_stream_md5_t          m_md5         ;
