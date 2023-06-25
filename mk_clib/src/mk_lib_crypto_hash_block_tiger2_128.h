@@ -17,7 +17,7 @@
 
 #define mk_lib_crypto_hash_block_tiger2_128_block_len 64
 #define mk_lib_crypto_hash_block_tiger2_128_digest_len 16
-#define mk_lib_crypto_hash_block_tiger2_128_name_def Tiger/128
+#define mk_lib_crypto_hash_block_tiger2_128_name_def Tiger2/128
 mk_lang_constexpr_static_inline char const mk_lib_crypto_hash_block_tiger2_128_name_str[] = mk_lang_stringify(mk_lib_crypto_hash_block_tiger2_128_name_def);
 mk_lang_constexpr_static_inline int const mk_lib_crypto_hash_block_tiger2_128_name_str_len = ((int)(sizeof(mk_lib_crypto_hash_block_tiger2_128_name_str) - 1));
 

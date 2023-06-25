@@ -17,7 +17,7 @@
 
 #define mk_lib_crypto_hash_block_sha0_block_len 64
 #define mk_lib_crypto_hash_block_sha0_digest_len 20
-#define mk_lib_crypto_hash_block_sha0_name_def SHA-1
+#define mk_lib_crypto_hash_block_sha0_name_def SHA-0
 mk_lang_constexpr_static_inline char const mk_lib_crypto_hash_block_sha0_name_str[] = mk_lang_stringify(mk_lib_crypto_hash_block_sha0_name_def);
 mk_lang_constexpr_static_inline int const mk_lib_crypto_hash_block_sha0_name_str_len = ((int)(sizeof(mk_lib_crypto_hash_block_sha0_name_str) - 1));
 
