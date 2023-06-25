@@ -8,6 +8,7 @@
 #include "../../src/mk_lang_likely.h"
 #include "../../src/mk_lang_nodiscard.h"
 #include "../../src/mk_lang_noexcept.h"
+#include "../../src/mk_lang_static_assert.h"
 #include "../../src/mk_lang_stringify.h"
 #include "../../src/mk_lang_types.h"
 #include "../../src/mk_lib_crypto_hash_stream_blake2b_256.h"
@@ -275,6 +276,40 @@ mk_lang_constexpr_static_inline mk_lang_types_uchar_t const s_alg_pretty_name_le
 	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_xof_block_shake_256_name_def    )) - 1)))),
 };
 
+mk_lang_constexpr_static_inline mk_lang_types_uchar_t const s_alg_order[] =
+{
+	((mk_lang_types_uchar_t)(alg_id_e_hash_md2         )),
+	((mk_lang_types_uchar_t)(alg_id_e_hash_md4         )),
+	((mk_lang_types_uchar_t)(alg_id_e_hash_md5         )),
+	((mk_lang_types_uchar_t)(alg_id_e_hash_sha0        )),
+	((mk_lang_types_uchar_t)(alg_id_e_hash_sha1        )),
+	((mk_lang_types_uchar_t)(alg_id_e_hash_sha2_224    )),
+	((mk_lang_types_uchar_t)(alg_id_e_hash_sha2_256    )),
+	((mk_lang_types_uchar_t)(alg_id_e_hash_sha2_384    )),
+	((mk_lang_types_uchar_t)(alg_id_e_hash_sha2_512    )),
+	((mk_lang_types_uchar_t)(alg_id_e_hash_sha2_512_224)),
+	((mk_lang_types_uchar_t)(alg_id_e_hash_sha2_512_256)),
+	((mk_lang_types_uchar_t)(alg_id_e_hash_sha3_224    )),
+	((mk_lang_types_uchar_t)(alg_id_e_hash_sha3_256    )),
+	((mk_lang_types_uchar_t)(alg_id_e_hash_sha3_384    )),
+	((mk_lang_types_uchar_t)(alg_id_e_hash_sha3_512    )),
+	((mk_lang_types_uchar_t)(alg_id_e_xof_shake_128    )),
+	((mk_lang_types_uchar_t)(alg_id_e_xof_shake_256    )),
+	((mk_lang_types_uchar_t)(alg_id_e_hash_tiger_128   )),
+	((mk_lang_types_uchar_t)(alg_id_e_hash_tiger_160   )),
+	((mk_lang_types_uchar_t)(alg_id_e_hash_tiger_192   )),
+	((mk_lang_types_uchar_t)(alg_id_e_hash_tiger2_128  )),
+	((mk_lang_types_uchar_t)(alg_id_e_hash_tiger2_160  )),
+	((mk_lang_types_uchar_t)(alg_id_e_hash_tiger2_192  )),
+	((mk_lang_types_uchar_t)(alg_id_e_hash_blake2b_256 )),
+	((mk_lang_types_uchar_t)(alg_id_e_hash_blake2b_384 )),
+	((mk_lang_types_uchar_t)(alg_id_e_hash_blake2b_512 )),
+	((mk_lang_types_uchar_t)(alg_id_e_hash_blake2s_128 )),
+	((mk_lang_types_uchar_t)(alg_id_e_hash_blake2s_160 )),
+	((mk_lang_types_uchar_t)(alg_id_e_hash_blake2s_224 )),
+	((mk_lang_types_uchar_t)(alg_id_e_hash_blake2s_256 )),
+};
+
 union alg_u
 {
 	mk_lib_crypto_hash_stream_blake2b_256_t  m_blake2b_256 ;
@@ -523,7 +558,7 @@ mk_lang_extern_c mk_lang_emscripten_keepalive int mkch_get_alg_name(int const al
 	n = ((int)(sizeof(s_alg_name_lens) / sizeof(s_alg_name_lens[0])));
 	for(i = 0; i != n; ++i)
 	{
-		if(alg_idx == i)
+		if(s_alg_order[alg_idx] == i)
 		{
 			n = s_alg_name_lens[i];
 			for(i = 0; i != n; ++i){ g_alg_name[i] = ptr[i]; }
@@ -544,10 +579,10 @@ mk_lang_extern_c mk_lang_emscripten_keepalive int mkch_get_alg_pretty_name(int c
 	int i;
 
 	ptr = s_alg_pretty_names;
-	n = ((int)(sizeof(s_alg_pretty_name_lens) / sizeof(s_alg_pretty_name_lens[0])));
+	n = ((int)(alg_id_e_dummy_end));
 	for(i = 0; i != n; ++i)
 	{
-		if(alg_idx == i)
+		if(s_alg_order[alg_idx] == i)
 		{
 			n = s_alg_pretty_name_lens[i];
 			for(i = 0; i != n; ++i){ g_alg_name[i] = ptr[i]; }
@@ -572,7 +607,7 @@ mk_lang_extern_c mk_lang_emscripten_keepalive int mkch_init(int const alg_name_l
 	check(alg_name_len <= 0xff);
 
 	ptr = s_alg_names;
-	n = ((int)(sizeof(s_alg_name_lens) / sizeof(s_alg_name_lens[0])));
+	n = ((int)(alg_id_e_dummy_end));
 	for(i = 0; i != n; ++i)
 	{
 		if(alg_name_len == s_alg_name_lens[i])
@@ -623,6 +658,10 @@ mk_lang_extern_c mk_lang_emscripten_keepalive int mkch_finish(int const xof_len)
 mk_lang_extern_c mk_lang_emscripten_keepalive int mkch(int const alg_name_len, int const buffer_len, int const xof_len) mk_lang_noexcept
 {
 	int ret;
+
+	mk_lang_static_assert(((int)(sizeof(s_alg_name_lens) / sizeof(s_alg_name_lens[0]))) == ((int)(alg_id_e_dummy_end)));
+	mk_lang_static_assert(((int)(sizeof(s_alg_pretty_name_lens) / sizeof(s_alg_pretty_name_lens[0]))) == ((int)(alg_id_e_dummy_end)));
+	mk_lang_static_assert(((int)(sizeof(s_alg_order) / sizeof(s_alg_order[0]))) == ((int)(alg_id_e_dummy_end)));
 
 	ret = mkch_init(alg_name_len); check(ret != 0);
 	ret = mkch_append(buffer_len); check(ret != 0);
