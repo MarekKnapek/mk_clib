@@ -1,6 +1,6 @@
 # mk_clib
 
-Hi, welcome to my library, this is place where I put all my C stuff. There is arbitrary length unsigned integer arithmetic. Cryptographic hashes such as MD2, MD4, MD5, SHA-0, SHA-1, SHA-224, SHA-256, SHA-384, SHA-512, SHA-512/224, SHA-512/256, SHA3-224, SHA3-256, SHA3-384, SHA3-512, SHAKE128, SHAKE256, Tiger/128, Tiger/160, Tiger/192, Tiger2/128, Tiger2/160, Tiger2/192, BLAKE2b-256, BLAKE2b-384, BLAKE2b-512, BLAKE2s-128, BLAKE2s-160, BLAKE2s-224, BLAKE2s-256, BLAKE3, [on-line demo](https://marekknapek.github.io/hash/).
+Hi, welcome to my library, this is place where I put all my C stuff. There is arbitrary length unsigned integer arithmetic. Cryptographic hashes such as MD2, MD4, MD5, SHA-0, SHA-1, SHA-224, SHA-256, SHA-384, SHA-512, SHA-512/224, SHA-512/256, SHA3-224, SHA3-256, SHA3-384, SHA3-512, SHAKE128, SHAKE256, Tiger/128, Tiger/160, Tiger/192, Tiger2/128, Tiger2/160, Tiger2/192, BLAKE2b-256, BLAKE2b-384, BLAKE2b-512, BLAKE2s-128, BLAKE2s-160, BLAKE2s-224, BLAKE2s-256, BLAKE3, [on-line demo](https://marekknapek.github.io/hash/). Everything could be computed at constexpr time if compiled with C++ 14 or newer compiler.
 
  - [bui](#bui)
  - [cui](#cui)
@@ -17,6 +17,7 @@ Hi, welcome to my library, this is place where I put all my C stuff. There is ar
  - [BLAKE2b-256](#blake2b-256), [BLAKE2b-384](#blake2b-384), [BLAKE2b-512](#blake2b-512)
  - [BLAKE2s-128](#blake2s-128), [BLAKE2s-160](#blake2s-160), [BLAKE2s-224](#blake2s-224), [BLAKE2s-256](#blake2s-256)
  - [BLAKE3](#blake3)
+ - [constexpr SHA-512](#constexpr-sha-512)
 
 ## bui
 
@@ -1343,4 +1344,152 @@ int main(void)
 $ gcc -DNDEBUG example.c
 $ ./a
 2468eec8894acfb4e4df3a51ea916ba115d48268287754290aae8e9e6228e85f
+```
+
+## constexpr SHA-512
+
+Example how to compute the SHA-512 hash at constexpr time (C++ 14 or newer compiler needed). Everything could be computed at constexpr time, not just SHA-512.
+
+```c++
+#include "mk_lib_crypto_hash_stream_sha2_512.h"
+
+
+struct employee_t
+{
+	int m_id;
+	char m_name[64];
+};
+
+
+constexpr unsigned char* int_to_bytes_le(int const x, unsigned char* const bytes)
+{
+	unsigned char* ptr{};
+	unsigned u{};
+	int i{};
+
+	ptr = bytes;
+	u = ((unsigned)(x));
+	for(i = 0; i != sizeof(int); ++i)
+	{
+		ptr[i] = ((unsigned char)(u & 0xff));
+		u >>= 8;
+	}
+	ptr += sizeof(int);
+	return ptr;
+}
+
+constexpr unsigned char* str_to_bytes(char const* const str, unsigned char* const bytes)
+{
+	unsigned char* ptr{};
+	int str_len{};
+	int i{};
+
+	ptr = bytes;
+	str_len = 0;
+	while(str[str_len] != '\0')
+	{
+		++str_len;
+	}
+	ptr = int_to_bytes_le(str_len, ptr);
+	for(i = 0; i != str_len; ++i)
+	{
+		ptr[i] = ((unsigned char)(str[i]));
+	}
+	ptr += str_len;
+	return ptr;
+}
+
+constexpr mk_lib_crypto_hash_block_sha2_512_digest_t compute_employee_hash(employee_t const& employee)
+{
+	mk_lib_crypto_hash_stream_sha2_512_t hash{};
+	unsigned char buff[128]{};
+	unsigned char* ptr{};
+	mk_lib_crypto_hash_block_sha2_512_digest_t digest{};
+
+	mk_lib_crypto_hash_stream_sha2_512_init(&hash);
+	ptr = int_to_bytes_le(employee.m_id, buff);
+	mk_lib_crypto_hash_stream_sha2_512_append(&hash, buff, ptr - buff);
+	ptr = str_to_bytes(employee.m_name, buff);
+	mk_lib_crypto_hash_stream_sha2_512_append(&hash, buff, ptr - buff);
+	mk_lib_crypto_hash_stream_sha2_512_finish(&hash, &digest);
+	return digest;
+}
+
+
+int main()
+{
+	constexpr auto const marek = employee_t{ 42, "Marek" };
+	constexpr auto const hash = compute_employee_hash(marek);
+
+	static_assert(hash.m_uint8s[ 0].m_data[0] == 0xb4, "");
+	static_assert(hash.m_uint8s[ 1].m_data[0] == 0xbc, "");
+	static_assert(hash.m_uint8s[ 2].m_data[0] == 0xaa, "");
+	static_assert(hash.m_uint8s[ 3].m_data[0] == 0x86, "");
+	static_assert(hash.m_uint8s[ 4].m_data[0] == 0x1e, "");
+	static_assert(hash.m_uint8s[ 5].m_data[0] == 0x09, "");
+	static_assert(hash.m_uint8s[ 6].m_data[0] == 0x72, "");
+	static_assert(hash.m_uint8s[ 7].m_data[0] == 0x5a, "");
+	static_assert(hash.m_uint8s[ 8].m_data[0] == 0xec, "");
+	static_assert(hash.m_uint8s[ 9].m_data[0] == 0xca, "");
+	static_assert(hash.m_uint8s[10].m_data[0] == 0x5e, "");
+	static_assert(hash.m_uint8s[11].m_data[0] == 0xec, "");
+	static_assert(hash.m_uint8s[12].m_data[0] == 0x19, "");
+	static_assert(hash.m_uint8s[13].m_data[0] == 0x72, "");
+	static_assert(hash.m_uint8s[14].m_data[0] == 0x23, "");
+	static_assert(hash.m_uint8s[15].m_data[0] == 0x27, "");
+	static_assert(hash.m_uint8s[16].m_data[0] == 0x24, "");
+	static_assert(hash.m_uint8s[17].m_data[0] == 0xe8, "");
+	static_assert(hash.m_uint8s[18].m_data[0] == 0xd1, "");
+	static_assert(hash.m_uint8s[19].m_data[0] == 0xdc, "");
+	static_assert(hash.m_uint8s[20].m_data[0] == 0xd7, "");
+	static_assert(hash.m_uint8s[21].m_data[0] == 0x46, "");
+	static_assert(hash.m_uint8s[22].m_data[0] == 0x81, "");
+	static_assert(hash.m_uint8s[23].m_data[0] == 0xeb, "");
+	static_assert(hash.m_uint8s[24].m_data[0] == 0x85, "");
+	static_assert(hash.m_uint8s[25].m_data[0] == 0x8f, "");
+	static_assert(hash.m_uint8s[26].m_data[0] == 0x65, "");
+	static_assert(hash.m_uint8s[27].m_data[0] == 0x84, "");
+	static_assert(hash.m_uint8s[28].m_data[0] == 0xb9, "");
+	static_assert(hash.m_uint8s[29].m_data[0] == 0x21, "");
+	static_assert(hash.m_uint8s[30].m_data[0] == 0xd9, "");
+	static_assert(hash.m_uint8s[31].m_data[0] == 0x18, "");
+	static_assert(hash.m_uint8s[32].m_data[0] == 0x33, "");
+	static_assert(hash.m_uint8s[33].m_data[0] == 0x2b, "");
+	static_assert(hash.m_uint8s[34].m_data[0] == 0x7a, "");
+	static_assert(hash.m_uint8s[35].m_data[0] == 0x11, "");
+	static_assert(hash.m_uint8s[36].m_data[0] == 0xc7, "");
+	static_assert(hash.m_uint8s[37].m_data[0] == 0xd8, "");
+	static_assert(hash.m_uint8s[38].m_data[0] == 0x6a, "");
+	static_assert(hash.m_uint8s[39].m_data[0] == 0xd6, "");
+	static_assert(hash.m_uint8s[40].m_data[0] == 0xa0, "");
+	static_assert(hash.m_uint8s[41].m_data[0] == 0xf7, "");
+	static_assert(hash.m_uint8s[42].m_data[0] == 0x10, "");
+	static_assert(hash.m_uint8s[43].m_data[0] == 0xab, "");
+	static_assert(hash.m_uint8s[44].m_data[0] == 0x16, "");
+	static_assert(hash.m_uint8s[45].m_data[0] == 0x2e, "");
+	static_assert(hash.m_uint8s[46].m_data[0] == 0xdf, "");
+	static_assert(hash.m_uint8s[47].m_data[0] == 0x56, "");
+	static_assert(hash.m_uint8s[48].m_data[0] == 0xab, "");
+	static_assert(hash.m_uint8s[49].m_data[0] == 0x59, "");
+	static_assert(hash.m_uint8s[50].m_data[0] == 0xce, "");
+	static_assert(hash.m_uint8s[51].m_data[0] == 0x91, "");
+	static_assert(hash.m_uint8s[52].m_data[0] == 0x33, "");
+	static_assert(hash.m_uint8s[53].m_data[0] == 0xdc, "");
+	static_assert(hash.m_uint8s[54].m_data[0] == 0xbb, "");
+	static_assert(hash.m_uint8s[55].m_data[0] == 0x1a, "");
+	static_assert(hash.m_uint8s[56].m_data[0] == 0x95, "");
+	static_assert(hash.m_uint8s[57].m_data[0] == 0x40, "");
+	static_assert(hash.m_uint8s[58].m_data[0] == 0xf0, "");
+	static_assert(hash.m_uint8s[59].m_data[0] == 0xbc, "");
+	static_assert(hash.m_uint8s[60].m_data[0] == 0xb0, "");
+	static_assert(hash.m_uint8s[61].m_data[0] == 0x30, "");
+	static_assert(hash.m_uint8s[62].m_data[0] == 0x68, "");
+	static_assert(hash.m_uint8s[63].m_data[0] == 0x0f, "");
+}
+```
+```bash
+$ g++ -DNDEBUG example.cpp
+$ ./a
+$ echo $?
+0
 ```
