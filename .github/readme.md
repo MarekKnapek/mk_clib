@@ -1,6 +1,6 @@
 # mk_clib
 
-Hi, welcome to my library, this is place where I put all my C stuff. There is arbitrary length unsigned integer arithmetic. Cryptographic hashes such as MD2, MD4, MD5, SHA-0, SHA-1, SHA-224, SHA-256, SHA-384, SHA-512, SHA-512/224, SHA-512/256, SHA3-224, SHA3-256, SHA3-384, SHA3-512, SHAKE128, SHAKE256, Tiger/128, Tiger/160, Tiger/192, Tiger2/128, Tiger2/160, Tiger2/192, BLAKE2b-256, BLAKE2b-384, BLAKE2b-512, BLAKE2s-128, BLAKE2s-160, BLAKE2s-224, BLAKE2s-256, [on-line demo](https://marekknapek.github.io/hash/).
+Hi, welcome to my library, this is place where I put all my C stuff. There is arbitrary length unsigned integer arithmetic. Cryptographic hashes such as MD2, MD4, MD5, SHA-0, SHA-1, SHA-224, SHA-256, SHA-384, SHA-512, SHA-512/224, SHA-512/256, SHA3-224, SHA3-256, SHA3-384, SHA3-512, SHAKE128, SHAKE256, Tiger/128, Tiger/160, Tiger/192, Tiger2/128, Tiger2/160, Tiger2/192, BLAKE2b-256, BLAKE2b-384, BLAKE2b-512, BLAKE2s-128, BLAKE2s-160, BLAKE2s-224, BLAKE2s-256, BLAKE3, [on-line demo](https://marekknapek.github.io/hash/).
 
  - [bui](#bui)
  - [cui](#cui)
@@ -16,6 +16,7 @@ Hi, welcome to my library, this is place where I put all my C stuff. There is ar
  - [Tiger2/128](#tiger2128), [Tiger2/160](#tiger2160), [Tiger2/192](#tiger2192)
  - [BLAKE2b-256](#blake2b-256), [BLAKE2b-384](#blake2b-384), [BLAKE2b-512](#blake2b-512)
  - [BLAKE2s-128](#blake2s-128), [BLAKE2s-160](#blake2s-160), [BLAKE2s-224](#blake2s-224), [BLAKE2s-256](#blake2s-256)
+ - [BLAKE3](#blake3)
 
 ## bui
 
@@ -1303,4 +1304,43 @@ int main(void)
 $ gcc -DNDEBUG example.c
 $ ./a
 bdf88eb1f86a0cdf0e840ba88fa118508369df186c7355b4b16cf79fa2710a12
+```
+
+## BLAKE3
+
+Example how to compute the BLAKE3 hash.
+
+```c
+#include "mk_lib_crypto_hash_stream_blake3.h"
+
+#include <assert.h> /* assert */
+#include <stdio.h> /* printf sprintf */
+
+
+int main(void)
+{
+	mk_lib_crypto_hash_stream_blake3_t hash;
+	mk_lib_crypto_hash_block_blake3_digest_t digest;
+	int i;
+	int t;
+	char str[mk_lib_crypto_hash_block_blake3_digest_len * 2 + 1];
+
+	mk_lib_crypto_hash_stream_blake3_init(&hash);
+	mk_lib_crypto_hash_stream_blake3_append(&hash, ((unsigned char const*)("abcdef")), 6);
+	mk_lib_crypto_hash_stream_blake3_append(&hash, ((unsigned char const*)("ghijklmnopqrstuvw")), 17);
+	mk_lib_crypto_hash_stream_blake3_append(&hash, ((unsigned char const*)("xyz")), 3);
+	mk_lib_crypto_hash_stream_blake3_finish(&hash, &digest);
+	for(i = 0; i != mk_lib_crypto_hash_block_blake3_digest_len; ++i)
+	{
+		t = sprintf(str + 2 * i, "%02x", ((unsigned char const*)(&digest))[i]);
+		assert(t == 2);
+	}
+	t = printf("%s\n", str); /* 2468eec8894acfb4e4df3a51ea916ba115d48268287754290aae8e9e6228e85f */
+	assert(t == mk_lib_crypto_hash_block_blake3_digest_len * 2 + 1);
+}
+```
+```bash
+$ gcc -DNDEBUG example.c
+$ ./a
+2468eec8894acfb4e4df3a51ea916ba115d48268287754290aae8e9e6228e85f
 ```
