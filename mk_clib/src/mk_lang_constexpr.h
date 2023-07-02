@@ -38,4 +38,16 @@
 #endif
 
 
+#if mk_lang_version_at_least_cpp_20 || (defined __cpp_lib_is_constant_evaluated && __cpp_lib_is_constant_evaluated >= 201811l)
+#include <type_traits> /* std::is_constant_evaluated */
+#define mk_lang_constexpr_is_constant_evaluated 1
+#define mk_lang_constexpr_is_constant_evaluated_test std::is_constant_evaluated()
+#elif mk_lang_constexpr_has
+#define mk_lang_constexpr_is_constant_evaluated 1
+#define mk_lang_constexpr_is_constant_evaluated_test 1
+#else
+#define mk_lang_constexpr_is_constant_evaluated 0
+#endif
+
+
 #endif

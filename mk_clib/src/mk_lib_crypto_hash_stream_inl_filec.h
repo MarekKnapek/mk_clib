@@ -7,23 +7,6 @@
 #include "mk_lang_version.h"
 
 
-#if !defined __cplusplus
-#define mk_is_constant_evaluated 0 /* definetly run-time */
-#else
-#if mk_lang_version_at_least_cpp_20 || __cpp_lib_is_constant_evaluated >= 201811l
-#define mk_is_constant_evaluated 1 /* maybe run-time maybe compile-time */
-#include <type_traits> /* std::is_constant_evaluated */
-#define mk_is_constant_evaluated 1
-#define mk_is_constant_evaluated_test std::is_constant_evaluated()
-#elif mk_lang_constexpr_has
-#define mk_is_constant_evaluated 1 /* maybe run-time maybe compile-time, but cannot be tested */ /* just to be sure, don't perform any compile-time un-friendly stuff */
-#define mk_is_constant_evaluated_test 1
-#else
-#define mk_is_constant_evaluated 0 /* definetly run-time */
-#endif
-#endif
-
-
 #include "mk_lib_crypto_hash_stream_inl_defd.h"
 
 
@@ -65,10 +48,10 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_stream_inl_defd_append(m
 			hash->m_idx = 0;
 		}
 		blocks = rem / mk_lib_crypto_hash_stream_inl_defd_base_block_len;
-		#if !mk_is_constant_evaluated
+		#if !mk_lang_constexpr_is_constant_evaluated
 		if((((mk_lang_types_uintptr_t)(ptr)) % sizeof(hash->m_block.m_align)) == 0)
 		#else
-		if(!mk_is_constant_evaluated_test && ((((mk_lang_types_uintptr_t)(ptr)) % sizeof(hash->m_block.m_align)) == 0))
+		if(!mk_lang_constexpr_is_constant_evaluated_test && ((((mk_lang_types_uintptr_t)(ptr)) % sizeof(hash->m_block.m_align)) == 0))
 		#endif
 		{
 			mk_lib_crypto_hash_stream_inl_defd_base_append_blocks(&hash->m_base, ((mk_lib_crypto_hash_stream_inl_defd_base_block_pct)(ptr)), blocks);
