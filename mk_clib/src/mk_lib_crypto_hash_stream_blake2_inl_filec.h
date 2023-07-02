@@ -48,10 +48,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_stream_blake2_inl_defd_a
 	{
 		if(hash->m_idx != 0)
 		{
-			for(i = 0; i != free; ++i)
-			{
-				mk_sl_cui_uint8_from_bi_uchar(&hash->m_block.m_uint8s[hash->m_idx + i], &ptr[i]);
-			}
+			for(i = 0; i != free; ++i){ mk_sl_cui_uint8_from_bi_uchar(&hash->m_block.m_uint8s[hash->m_idx + i], &ptr[i]); }
 			ptr += free;
 			rem -= free;
 			hash->m_idx = 0;
@@ -70,10 +67,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_stream_blake2_inl_defd_a
 		{
 			for(j = 0; j != blocks; ++j)
 			{
-				for(i = 0; i != mk_lib_crypto_hash_stream_blake2_inl_defd_base_block_len; ++i)
-				{
-					mk_sl_cui_uint8_from_bi_uchar(&hash->m_block.m_uint8s[i], &ptr[j * mk_lib_crypto_hash_stream_blake2_inl_defd_base_block_len + i]);
-				}
+				for(i = 0; i != mk_lib_crypto_hash_stream_blake2_inl_defd_base_block_len; ++i){ mk_sl_cui_uint8_from_bi_uchar(&hash->m_block.m_uint8s[i], &ptr[j * mk_lib_crypto_hash_stream_blake2_inl_defd_base_block_len + i]); }
 				mk_lib_crypto_hash_stream_blake2_inl_defd_base_append_blocks(&hash->m_base, &hash->m_block, 1);
 			}
 		}
