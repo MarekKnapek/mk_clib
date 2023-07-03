@@ -40,6 +40,10 @@ template<typename t, mk_lang_types_usize_t n>
 class mk_lib_cpp_constexpr_array_t
 {
 public:
+	typedef t type_t;
+	static mk_lang_types_usize_t const s_size = n;
+
+public:
 	mk_lang_constexpr mk_lib_cpp_constexpr_array_t() mk_lang_noexcept :
 		m_data()
 	{
