@@ -5,6 +5,7 @@
 #undef mk_lib_crypto_hash_stream_lazy_inl_defd_pct
 
 #undef mk_lib_crypto_hash_stream_lazy_inl_defd_init
+#undef mk_lib_crypto_hash_stream_lazy_inl_defd_append_u8
 #undef mk_lib_crypto_hash_stream_lazy_inl_defd_append
 #undef mk_lib_crypto_hash_stream_lazy_inl_defd_finish
 

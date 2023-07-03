@@ -2,6 +2,7 @@
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
+#include "mk_sl_uint8.h"
 
 
 #include "mk_lib_crypto_hash_stream_lazy_inl_defd.h"
@@ -20,6 +21,7 @@ typedef mk_lib_crypto_hash_stream_lazy_inl_defd_t const* mk_lib_crypto_hash_stre
 
 
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_stream_lazy_inl_defd_init(mk_lib_crypto_hash_stream_lazy_inl_defd_pt const hash) mk_lang_noexcept;
+mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_stream_lazy_inl_defd_append_u8(mk_lib_crypto_hash_stream_lazy_inl_defd_pt const hash, mk_sl_cui_uint8_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept;
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_stream_lazy_inl_defd_append(mk_lib_crypto_hash_stream_lazy_inl_defd_pt const hash, mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept;
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_stream_lazy_inl_defd_finish(mk_lib_crypto_hash_stream_lazy_inl_defd_pt const hash, mk_lib_crypto_hash_stream_lazy_inl_defd_base_digest_pt const digest) mk_lang_noexcept;
 
