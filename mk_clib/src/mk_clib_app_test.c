@@ -3,6 +3,7 @@
 #include "mk_clib_app_fuzz.h"
 #include "mk_lang_arch.h"
 #include "mk_lang_assert.h"
+#include "mk_lang_cpuid.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_null.h"
@@ -34,6 +35,7 @@ mk_lang_jumbo int mk_clib_app_test_void(void) mk_lang_noexcept
 
 	t = printf("Started.\n");
 	mk_lang_assert(t >= 0);
+	mk_lang_cpuid_init();
 	tm = time(mk_lang_null);
 	srand(((unsigned int)(tm)));
 	progress_last = 0;
