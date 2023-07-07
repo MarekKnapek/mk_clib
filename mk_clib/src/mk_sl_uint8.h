@@ -36,6 +36,7 @@
 #undef mk_sl_cui_endian
 #undef mk_sl_cui_base_is_bui
 #undef mk_sl_cui_base_bui_tn
+#define mk_sl_cui_uint8_c(x) {{ ((mk_sl_cui_uint8_base_t)(x)) }}
 
 #endif
 
