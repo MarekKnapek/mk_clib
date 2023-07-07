@@ -52,7 +52,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_kdf_pbkdf1_inl_defd_fn(mk_lan
 	}
 	else
 	{
-		mk_lang_assert(password_len <= sizeof(pwd) / sizeof(pwd[0]));
+		mk_lang_assert(password_len <= ((int)(sizeof(pwd) / sizeof(pwd[0]))));
 		for(i = 0; i != password_len; ++i){ mk_sl_cui_uint8_from_bi_uchar(&pwd[i], &password[i]); }
 		for(i = 0; i != 8; ++i){ mk_sl_cui_uint8_from_bi_uchar(&slt[i], &salt[i]); }
 		mk_lib_crypto_kdf_pbkdf1_inl_defd_fn_u8(pwd, password_len, slt, cost, key_len, k);
