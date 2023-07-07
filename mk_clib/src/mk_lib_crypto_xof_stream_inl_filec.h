@@ -5,6 +5,7 @@
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
 #include "mk_lang_version.h"
+#include "mk_sl_uint8.h"
 
 
 #include "mk_lib_crypto_xof_stream_inl_defd.h"
