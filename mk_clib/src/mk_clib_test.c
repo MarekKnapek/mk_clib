@@ -41,6 +41,21 @@
 #include "mk_lib_crypto_hash_stream_tiger_160_test.hpp"
 #include "mk_lib_crypto_hash_stream_tiger_192_test.hpp"
 #include "mk_lib_crypto_kdf_pbkdf1_sha1_test.hpp"
+#include "mk_lib_crypto_mode_cbc_aes_128_test.hpp"
+#include "mk_lib_crypto_mode_cbc_aes_192_test.hpp"
+#include "mk_lib_crypto_mode_cbc_aes_256_test.hpp"
+#include "mk_lib_crypto_mode_cfb_128_aes_128_test.hpp"
+#include "mk_lib_crypto_mode_cfb_128_aes_192_test.hpp"
+#include "mk_lib_crypto_mode_cfb_128_aes_256_test.hpp"
+#include "mk_lib_crypto_mode_cfb_8_aes_128_test.hpp"
+#include "mk_lib_crypto_mode_cfb_8_aes_192_test.hpp"
+#include "mk_lib_crypto_mode_cfb_8_aes_256_test.hpp"
+#include "mk_lib_crypto_mode_ctr_be_aes_128_test.hpp"
+#include "mk_lib_crypto_mode_ctr_be_aes_192_test.hpp"
+#include "mk_lib_crypto_mode_ctr_be_aes_256_test.hpp"
+#include "mk_lib_crypto_mode_ofb_aes_128_test.hpp"
+#include "mk_lib_crypto_mode_ofb_aes_192_test.hpp"
+#include "mk_lib_crypto_mode_ofb_aes_256_test.hpp"
 #include "mk_lib_crypto_xof_stream_shake_128_test.hpp"
 #include "mk_lib_crypto_xof_stream_shake_256_test.hpp"
 #include "mk_sl_flt_test.hpp"
@@ -88,6 +103,21 @@ mk_lang_jumbo void mk_clib_test(void) mk_lang_noexcept
 	mk_lib_crypto_hash_stream_tiger_160_test();
 	mk_lib_crypto_hash_stream_tiger_192_test();
 	mk_lib_crypto_kdf_pbkdf1_sha1_test();
+	mk_lib_crypto_mode_cbc_aes_128_test();
+	mk_lib_crypto_mode_cbc_aes_192_test();
+	mk_lib_crypto_mode_cbc_aes_256_test();
+	mk_lib_crypto_mode_cfb_128_aes_128_test();
+	mk_lib_crypto_mode_cfb_128_aes_192_test();
+	mk_lib_crypto_mode_cfb_128_aes_256_test();
+	mk_lib_crypto_mode_cfb_8_aes_128_test();
+	mk_lib_crypto_mode_cfb_8_aes_192_test();
+	mk_lib_crypto_mode_cfb_8_aes_256_test();
+	mk_lib_crypto_mode_ctr_be_aes_128_test();
+	mk_lib_crypto_mode_ctr_be_aes_192_test();
+	mk_lib_crypto_mode_ctr_be_aes_256_test();
+	mk_lib_crypto_mode_ofb_aes_128_test();
+	mk_lib_crypto_mode_ofb_aes_192_test();
+	mk_lib_crypto_mode_ofb_aes_256_test();
 	mk_lib_crypto_xof_stream_shake_128_test();
 	mk_lib_crypto_xof_stream_shake_256_test();
 	mk_sl_flt_test();
