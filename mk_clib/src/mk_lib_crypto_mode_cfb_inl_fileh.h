@@ -3,6 +3,7 @@
 
 enum mk_lib_crypto_mode_cfb_inl_defd_key_len_e { mk_lib_crypto_mode_cfb_inl_defd_key_len_v = mk_lib_crypto_mode_cfb_inl_defd_key_len_m };
 enum mk_lib_crypto_mode_cfb_inl_defd_msg_len_e { mk_lib_crypto_mode_cfb_inl_defd_msg_len_v = mk_lib_crypto_mode_cfb_inl_defd_msg_len_m };
+enum mk_lib_crypto_mode_cfb_inl_defd_iv_len_e { mk_lib_crypto_mode_cfb_inl_defd_iv_len_v = mk_lib_crypto_mode_cfb_inl_defd_iv_len_m };
 
 
 union mk_lib_crypto_mode_cfb_inl_defd_aligned_msg_u

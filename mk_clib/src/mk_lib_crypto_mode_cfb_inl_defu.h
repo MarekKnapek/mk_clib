@@ -48,6 +48,9 @@
 #undef mk_lib_crypto_mode_cfb_inl_defd_msg_len_m
 #undef mk_lib_crypto_mode_cfb_inl_defd_msg_len_e
 #undef mk_lib_crypto_mode_cfb_inl_defd_msg_len_v
+#undef mk_lib_crypto_mode_cfb_inl_defd_iv_len_m
+#undef mk_lib_crypto_mode_cfb_inl_defd_iv_len_e
+#undef mk_lib_crypto_mode_cfb_inl_defd_iv_len_v
 #undef mk_lib_crypto_mode_cfb_inl_defd_aligned_msg_u
 #undef mk_lib_crypto_mode_cfb_inl_defd_aligned_msg_t
 #undef mk_lib_crypto_mode_cfb_inl_defd_aligned_msg_ct

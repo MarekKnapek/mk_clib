@@ -1,8 +1,9 @@
 #include "mk_lib_crypto_mode_cbc_inl_defd.h"
 
 
-enum mk_lib_crypto_mode_cbc_inl_defd_key_len_e { mk_lib_crypto_mode_cbc_inl_defd_key_len_v = mk_lib_crypto_mode_cbc_inl_defd_alg_key_len_v };
-enum mk_lib_crypto_mode_cbc_inl_defd_msg_len_e { mk_lib_crypto_mode_cbc_inl_defd_msg_len_v = mk_lib_crypto_mode_cbc_inl_defd_alg_msg_len_v };
+enum mk_lib_crypto_mode_cbc_inl_defd_key_len_e { mk_lib_crypto_mode_cbc_inl_defd_key_len_v = mk_lib_crypto_mode_cbc_inl_defd_key_len_m };
+enum mk_lib_crypto_mode_cbc_inl_defd_msg_len_e { mk_lib_crypto_mode_cbc_inl_defd_msg_len_v = mk_lib_crypto_mode_cbc_inl_defd_msg_len_m };
+enum mk_lib_crypto_mode_cbc_inl_defd_iv_len_e { mk_lib_crypto_mode_cbc_inl_defd_iv_len_v = mk_lib_crypto_mode_cbc_inl_defd_iv_len_m };
 
 
 typedef mk_lib_crypto_mode_cbc_inl_defd_alg_key_t mk_lib_crypto_mode_cbc_inl_defd_key_t;

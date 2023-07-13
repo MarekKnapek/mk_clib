@@ -1,8 +1,9 @@
 #include "mk_lib_crypto_mode_ctr_be_inl_defd.h"
 
 
-enum mk_lib_crypto_mode_ctr_be_inl_defd_key_len_e { mk_lib_crypto_mode_ctr_be_inl_defd_key_len_v = mk_lib_crypto_mode_ctr_be_inl_defd_alg_key_len_v };
-enum mk_lib_crypto_mode_ctr_be_inl_defd_msg_len_e { mk_lib_crypto_mode_ctr_be_inl_defd_msg_len_v = mk_lib_crypto_mode_ctr_be_inl_defd_alg_msg_len_v };
+enum mk_lib_crypto_mode_ctr_be_inl_defd_key_len_e { mk_lib_crypto_mode_ctr_be_inl_defd_key_len_v = mk_lib_crypto_mode_ctr_be_inl_defd_key_len_m };
+enum mk_lib_crypto_mode_ctr_be_inl_defd_msg_len_e { mk_lib_crypto_mode_ctr_be_inl_defd_msg_len_v = mk_lib_crypto_mode_ctr_be_inl_defd_msg_len_m };
+enum mk_lib_crypto_mode_ctr_be_inl_defd_iv_len_e { mk_lib_crypto_mode_ctr_be_inl_defd_iv_len_v = mk_lib_crypto_mode_ctr_be_inl_defd_iv_len_m };
 
 
 typedef mk_lib_crypto_mode_ctr_be_inl_defd_alg_key_t mk_lib_crypto_mode_ctr_be_inl_defd_key_t;
@@ -17,7 +18,7 @@ typedef mk_lib_crypto_mode_ctr_be_inl_defd_msg_t const* mk_lib_crypto_mode_ctr_b
 
 struct mk_lib_crypto_mode_ctr_be_inl_defd_s
 {
-	mk_lib_crypto_mode_ctr_be_inl_defd_msg_t m_ctr;
+	mk_lib_crypto_mode_ctr_be_inl_defd_msg_t m_iv;
 };
 typedef struct mk_lib_crypto_mode_ctr_be_inl_defd_s mk_lib_crypto_mode_ctr_be_inl_defd_t;
 typedef mk_lib_crypto_mode_ctr_be_inl_defd_t const mk_lib_crypto_mode_ctr_be_inl_defd_ct;
