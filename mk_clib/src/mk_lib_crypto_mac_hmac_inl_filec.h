@@ -19,10 +19,10 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mac_hmac_inl_defd_init(mk_lib
 	mk_lang_constexpr_static mk_sl_cui_uint8_t const s_ipad = mk_sl_cui_uint8_c(0x36);
 	mk_lang_constexpr_static mk_sl_cui_uint8_t const s_opad = mk_sl_cui_uint8_c(0x5c);
 
-	mk_lib_crypto_mac_hmac_inl_defd_base_digest_t digest;
-	mk_sl_cui_uint8_pct k;
-	int k_len;
-	int i;
+	mk_lib_crypto_mac_hmac_inl_defd_base_digest_t digest mk_lang_constexpr_init;
+	mk_sl_cui_uint8_pct k mk_lang_constexpr_init;
+	int k_len mk_lang_constexpr_init;
+	int i mk_lang_constexpr_init;
 
 	mk_lang_assert(hmac);
 	mk_lang_assert(key || key_len == 0);
@@ -45,7 +45,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mac_hmac_inl_defd_init(mk_lib
 		k = key;
 		k_len = key_len;
 	}
-	for(i = 0; i != k_len; ++i){ mk_sl_cui_uint8_xor3(&key[i], &s_ipad, &hmac->m_opad.m_uint8s[i]); }
+	for(i = 0; i != k_len; ++i){ mk_sl_cui_uint8_xor3(&k[i], &s_ipad, &hmac->m_opad.m_uint8s[i]); }
 	for(i = k_len; i != mk_lib_crypto_mac_hmac_inl_defd_base_block_len; ++i){ hmac->m_opad.m_uint8s[i] = s_ipad; }
 	mk_lib_crypto_mac_hmac_inl_defd_base_init(&hmac->m_base);
 	mk_lib_crypto_mac_hmac_inl_defd_base_append(&hmac->m_base, &hmac->m_opad.m_uint8s[0], mk_lib_crypto_mac_hmac_inl_defd_base_block_len);
