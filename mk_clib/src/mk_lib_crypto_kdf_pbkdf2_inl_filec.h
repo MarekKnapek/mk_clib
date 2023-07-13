@@ -43,7 +43,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_kdf_pbkdf2_inl_defd_fn_u8(mk_
 	mk_lang_assert(salt_len >= 0);
 	mk_lang_assert(cost >= 1);
 	mk_lang_assert(key_len >= 1);
-	mk_lang_assert(mk_lang_div_roundup(key_len, mk_lib_crypto_kdf_pbkdf2_inl_defd_digest_len) <= 0xfffffffful);
+	mk_lang_assert(mk_lang_div_roundup(((mk_lang_types_ulong_t)(key_len)), mk_lib_crypto_kdf_pbkdf2_inl_defd_digest_len) <= 0xfffffffful);
 	mk_lang_assert(key);
 
 	k = key;
@@ -81,9 +81,9 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_kdf_pbkdf2_inl_defd_fn(mk_lan
 	mk_sl_cui_uint8_t slt[mk_lib_crypto_kdf_pbkdf2_inl_defd_block_len] mk_lang_constexpr_init;
 	mk_sl_cui_uint8_t k[mk_lib_crypto_kdf_pbkdf2_inl_defd_block_len] mk_lang_constexpr_init;
 
-	mk_lang_assert(password_len <= sizeof(pwd) / sizeof(pwd[0]));
-	mk_lang_assert(salt_len <= sizeof(slt) / sizeof(slt[0]));
-	mk_lang_assert(key_len <= sizeof(k) / sizeof(k[0]));
+	mk_lang_assert(password_len <= ((int)(sizeof(pwd) / sizeof(pwd[0]))));
+	mk_lang_assert(salt_len <= ((int)(sizeof(slt) / sizeof(slt[0]))));
+	mk_lang_assert(key_len <= ((int)(sizeof(k) / sizeof(k[0]))));
 
 	#if !mk_lang_constexpr_is_constant_evaluated
 	if(1)
