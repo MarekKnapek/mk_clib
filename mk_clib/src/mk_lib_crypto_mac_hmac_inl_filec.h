@@ -49,7 +49,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mac_hmac_inl_defd_init(mk_lib
 	for(i = k_len; i != mk_lib_crypto_mac_hmac_inl_defd_base_block_len; ++i){ hmac->m_opad.m_uint8s[i] = s_ipad; }
 	mk_lib_crypto_mac_hmac_inl_defd_base_init(&hmac->m_base);
 	mk_lib_crypto_mac_hmac_inl_defd_base_append(&hmac->m_base, &hmac->m_opad.m_uint8s[0], mk_lib_crypto_mac_hmac_inl_defd_base_block_len);
-	for(i = 0; i != k_len; ++i){ mk_sl_cui_uint8_xor3(&key[i], &s_opad, &hmac->m_opad.m_uint8s[i]); }
+	for(i = 0; i != k_len; ++i){ mk_sl_cui_uint8_xor3(&k[i], &s_opad, &hmac->m_opad.m_uint8s[i]); }
 	for(i = k_len; i != mk_lib_crypto_mac_hmac_inl_defd_base_block_len; ++i){ hmac->m_opad.m_uint8s[i] = s_opad; }
 }
 
