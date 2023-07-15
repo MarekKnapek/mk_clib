@@ -29,6 +29,11 @@ Project("{8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942}") = "mkct", "mkct\mkct.vcxproj",
 		{daee6d32-db72-46dc-9a17-b38426c518f3} = {daee6d32-db72-46dc-9a17-b38426c518f3}
 	EndProjectSection
 EndProject
+Project("{8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942}") = "mkcc", "mkcc\mkcc.vcxproj", "{fbcf45f1-cf7a-42a0-8e4f-952a78381e66}"
+	ProjectSection(ProjectDependencies) = postProject
+		{daee6d32-db72-46dc-9a17-b38426c518f3} = {daee6d32-db72-46dc-9a17-b38426c518f3}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -85,6 +90,14 @@ Global
 		{8bfe218e-41a7-4973-9140-4fa391c26eeb}.Debug|x64.Build.0 = Debug|x64
 		{8bfe218e-41a7-4973-9140-4fa391c26eeb}.Release|x64.ActiveCfg = Release|x64
 		{8bfe218e-41a7-4973-9140-4fa391c26eeb}.Release|x64.Build.0 = Release|x64
+		{fbcf45f1-cf7a-42a0-8e4f-952a78381e66}.Debug|x86.ActiveCfg = Debug|Win32
+		{fbcf45f1-cf7a-42a0-8e4f-952a78381e66}.Debug|x86.Build.0 = Debug|Win32
+		{fbcf45f1-cf7a-42a0-8e4f-952a78381e66}.Release|x86.ActiveCfg = Release|Win32
+		{fbcf45f1-cf7a-42a0-8e4f-952a78381e66}.Release|x86.Build.0 = Release|Win32
+		{fbcf45f1-cf7a-42a0-8e4f-952a78381e66}.Debug|x64.ActiveCfg = Debug|x64
+		{fbcf45f1-cf7a-42a0-8e4f-952a78381e66}.Debug|x64.Build.0 = Debug|x64
+		{fbcf45f1-cf7a-42a0-8e4f-952a78381e66}.Release|x64.ActiveCfg = Release|x64
+		{fbcf45f1-cf7a-42a0-8e4f-952a78381e66}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
