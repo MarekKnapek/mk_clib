@@ -14,6 +14,9 @@
 #include "mk_lang_types.h"
 
 
+/* NIST FIPS PUB 197 */
+
+
 #define mk_lib_crypto_alg_aes_128_nr 10
 #define mk_lib_crypto_alg_aes_128_sbox_len 0x0100
 #define mk_lib_crypto_alg_aes_128_key_bits 128

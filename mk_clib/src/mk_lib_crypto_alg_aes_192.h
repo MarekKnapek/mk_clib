@@ -8,6 +8,9 @@
 #include "mk_lang_types.h"
 
 
+/* NIST FIPS PUB 197 */
+
+
 #define mk_lib_crypto_alg_aes_192_key_len_m (192 / 8)
 #define mk_lib_crypto_alg_aes_192_msg_len_m (128 / 8)
 enum mk_lib_crypto_alg_aes_192_key_len_e { mk_lib_crypto_alg_aes_192_key_len_v = mk_lib_crypto_alg_aes_192_key_len_m };
