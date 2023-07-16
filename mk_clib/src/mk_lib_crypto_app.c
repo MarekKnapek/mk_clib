@@ -7,11 +7,11 @@
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_likely.h"
-#include "mk_lang_null.h"
 #include "mk_lang_max.h"
 #include "mk_lang_min.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_null.h"
 #include "mk_lang_static_assert.h"
 #include "mk_lang_stringify.h"
 #include "mk_lang_types.h"
@@ -66,6 +66,7 @@
 #include "mk_lib_crypto_mode_ofb_aes_128.h"
 #include "mk_lib_crypto_mode_ofb_aes_192.h"
 #include "mk_lib_crypto_mode_ofb_aes_256.h"
+#include "mk_lib_crypto_padding_pkcs7.h"
 #include "mk_sl_uint.h"
 #include "mk_sl_uint32.h"
 #include "mk_sl_uint8.h"
@@ -1456,19 +1457,15 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_ssize_t 
 	mk_lang_types_usize_t msg_len mk_lang_constexpr_init;
 	mk_lang_types_usize_t n mk_lang_constexpr_init;
 	mk_lang_types_usize_t q mk_lang_constexpr_init;
-	mk_lang_types_usize_t m mk_lang_constexpr_init;
 	mk_lang_types_ssize_t r mk_lang_constexpr_init;
-	mk_lang_types_usize_t i mk_lang_constexpr_init;
 
 	if(!(len >= 0 && len <= mk_lib_crypto_app_get_data_size_impl())) return -1;
 	msg_len = mk_lib_crypto_app_get_msg_len(g_mk_lib_crypto_app.m_id_alg, g_mk_lib_crypto_app.m_id_mode);
 	n = len / msg_len;
 	q = len % msg_len;
-	m = msg_len - q;
-	r = mk_lib_crypto_app_encrypt_append_impl(n * msg_len); if(r != 0) return -1;
-	for(i = 0; i != m; ++i){ mk_sl_cui_uint8_from_bi_size(&g_mk_lib_crypto_app.m_buffer.m_data.m_uint8s[n * msg_len + q + i], &m); }
-	mk_lib_crypto_app_encrypt_mode(g_mk_lib_crypto_app.m_id_alg, g_mk_lib_crypto_app.m_id_mode, n * msg_len);
-	return m;
+	mk_lib_crypto_padding_pkcs7_pad(&g_mk_lib_crypto_app.m_buffer.m_data.m_uint8s[len - q], q, msg_len);
+	r = mk_lib_crypto_app_encrypt_append_impl((n + ((q == 0) ? 1 : 0)) * msg_len); if(r != 0) return -1;
+	return msg_len - q;
 }
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_ssize_t mk_lib_crypto_app_decrypt_append_impl(mk_lang_types_usize_t const len) mk_lang_noexcept
@@ -1492,21 +1489,13 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_ssize_t 
 {
 	mk_lang_types_ssize_t r mk_lang_constexpr_init;
 	int msg_len mk_lang_constexpr_init;
-	mk_sl_cui_uint8_pct ptr mk_lang_constexpr_init;
 	int n mk_lang_constexpr_init;
-	int i mk_lang_constexpr_init;
 
 	if(!(len >= 1)) return -1;
 	r = mk_lib_crypto_app_decrypt_append_impl(len); if(r != 0) return -1;
 	msg_len = mk_lib_crypto_app_get_msg_len(g_mk_lib_crypto_app.m_id_alg, g_mk_lib_crypto_app.m_id_mode);
-	ptr = &g_mk_lib_crypto_app.m_buffer.m_data.m_uint8s[len - 1];
-	mk_sl_cui_uint8_to_bi_sint(ptr, &n);
-	if(!(n >= 1 && n <= msg_len)) return -1;
-	for(i = 1; i != n; ++i)
-	{
-		if(!(mk_sl_cui_uint8_eq(&ptr[0 - i], &ptr[0]))) return -1;
-	}
-	return n;
+	mk_lib_crypto_padding_pkcs7_unpad(&g_mk_lib_crypto_app.m_buffer.m_data.m_uint8s[len - msg_len], msg_len, &n); if(!(n != -1)) return -1;
+	return msg_len - n;
 }
 
 
