@@ -1,4 +1,6 @@
 #include "mk_lang_assert.h"
+#include "mk_lang_types.h"
+#include "mk_sl_uint8.h"
 
 
 /* NIST SP 800-38A */
@@ -19,7 +21,7 @@ mk_lib_crypto_mode_ofb_inl_defd_constexpr mk_lang_jumbo void mk_lib_crypto_mode_
 	mk_lib_crypto_mode_ofb_inl_defd_alg_encrypt(key, &ofb->m_iv, &ofb->m_iv);
 	for(i = 0; i != mk_lib_crypto_mode_ofb_inl_defd_msg_len_v; ++i)
 	{
-		output->m_data.m_uchars[i] = ((mk_lang_types_uchar_t)(ofb->m_iv.m_data.m_uchars[i] ^ input->m_data.m_uchars[i]));
+		mk_sl_cui_uint8_xor3(&ofb->m_iv.m_data.m_uint8s[i], &input->m_data.m_uint8s[i], &output->m_data.m_uint8s[i]);
 	}
 }
 

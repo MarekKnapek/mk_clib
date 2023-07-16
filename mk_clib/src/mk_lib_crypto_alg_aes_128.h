@@ -2,13 +2,14 @@
 #define mk_include_guard_mk_lib_crypto_alg_aes_128
 
 
-/* NIST FIPS PUB 197 */
-
-
 #include "mk_lang_constexpr.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
+#include "mk_sl_uint8.h"
+
+
+/* NIST FIPS PUB 197 */
 
 
 #define mk_lib_crypto_alg_aes_128_key_len_m (128 / 8)
@@ -19,23 +20,17 @@ enum mk_lib_crypto_alg_aes_128_msg_len_e { mk_lib_crypto_alg_aes_128_msg_len_v =
 
 union mk_lib_crypto_alg_aes_128_aligned_key_u
 {
-	mk_lang_types_uchar_t m_uchars[mk_lib_crypto_alg_aes_128_key_len_v];
+	mk_sl_cui_uint8_t m_uint8s[mk_lib_crypto_alg_aes_128_key_len_v];
 	mk_lang_types_ulllong_t m_ulllong;
 };
 typedef union mk_lib_crypto_alg_aes_128_aligned_key_u mk_lib_crypto_alg_aes_128_aligned_key_t;
-typedef mk_lib_crypto_alg_aes_128_aligned_key_t const mk_lib_crypto_alg_aes_128_aligned_key_ct;
-typedef mk_lib_crypto_alg_aes_128_aligned_key_t* mk_lib_crypto_alg_aes_128_aligned_key_pt;
-typedef mk_lib_crypto_alg_aes_128_aligned_key_t const* mk_lib_crypto_alg_aes_128_aligned_key_pct;
 
 union mk_lib_crypto_alg_aes_128_aligned_msg_u
 {
-	mk_lang_types_uchar_t m_uchars[mk_lib_crypto_alg_aes_128_msg_len_v];
+	mk_sl_cui_uint8_t m_uint8s[mk_lib_crypto_alg_aes_128_msg_len_v];
 	mk_lang_types_ulllong_t m_ulllong;
 };
 typedef union mk_lib_crypto_alg_aes_128_aligned_msg_u mk_lib_crypto_alg_aes_128_aligned_msg_t;
-typedef mk_lib_crypto_alg_aes_128_aligned_msg_t const mk_lib_crypto_alg_aes_128_aligned_msg_ct;
-typedef mk_lib_crypto_alg_aes_128_aligned_msg_t* mk_lib_crypto_alg_aes_128_aligned_msg_pt;
-typedef mk_lib_crypto_alg_aes_128_aligned_msg_t const* mk_lib_crypto_alg_aes_128_aligned_msg_pct;
 
 struct mk_lib_crypto_alg_aes_128_key_s
 {

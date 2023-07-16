@@ -1,4 +1,6 @@
 #include "mk_lang_assert.h"
+#include "mk_lang_types.h"
+#include "mk_sl_uint8.h"
 
 
 /* NIST SP 800-38A */
@@ -26,7 +28,7 @@ mk_lib_crypto_mode_cbc_inl_defd_constexpr mk_lang_jumbo void mk_lib_crypto_mode_
 
 	for(i = 0; i != mk_lib_crypto_mode_cbc_inl_defd_msg_len_v; ++i)
 	{
-		cbc->m_iv.m_data.m_uchars[i] ^= input->m_data.m_uchars[i];
+		mk_sl_cui_uint8_xor2(&cbc->m_iv.m_data.m_uint8s[i], &input->m_data.m_uint8s[i]);
 	}
 	mk_lib_crypto_mode_cbc_inl_defd_alg_encrypt(key, &cbc->m_iv, &cbc->m_iv);
 	*output = cbc->m_iv;
@@ -45,7 +47,7 @@ mk_lib_crypto_mode_cbc_inl_defd_constexpr mk_lang_jumbo void mk_lib_crypto_mode_
 	mk_lib_crypto_mode_cbc_inl_defd_alg_decrypt(key, input, &msg);
 	for(i = 0; i != mk_lib_crypto_mode_cbc_inl_defd_msg_len_v; ++i)
 	{
-		msg.m_data.m_uchars[i] ^= cbc->m_iv.m_data.m_uchars[i];
+		mk_sl_cui_uint8_xor2(&msg.m_data.m_uint8s[i], &cbc->m_iv.m_data.m_uint8s[i]);
 	}
 	cbc->m_iv = *input;
 	*output = msg;

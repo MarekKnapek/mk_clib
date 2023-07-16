@@ -23,25 +23,23 @@
 template<int mac_len = mk_lib_crypto_hash_block_sha1_digest_len, int msg_len, int key_len>
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto mk_lib_crypto_mac_hmac_sha1_test_compute_from_str_lit(mk_lang_types_pchar_t const(&msg)[msg_len], mk_lang_types_pchar_t const(&key)[key_len]) mk_lang_noexcept
 {
-	int i mk_lang_constexpr_init;
 	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, msg_len - 1> m mk_lang_constexpr_init;
-	mk_lib_cpp_constexpr_array_t<mk_lang_types_uchar_t, (key_len - 1) / 2> kk mk_lang_constexpr_init;
 	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, (key_len - 1) / 2> k mk_lang_constexpr_init;
 	mk_lib_crypto_mac_hmac_sha1_t hmac mk_lang_constexpr_init;
 	mk_lib_crypto_hash_block_sha1_digest_t digest mk_lang_constexpr_init;
-	mk_lib_cpp_constexpr_array_t<mk_lang_types_uchar_t, mac_len> ret mk_lang_constexpr_init;
+	int i mk_lang_constexpr_init;
+	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, mac_len> ret mk_lang_constexpr_init;
 
 	mk_lang_static_assert(msg_len >= 1);
 	mk_lang_static_assert(key_len >= 1);
 	mk_lang_static_assert((key_len - 1) % 2 == 0);
 
-	for(i = 0; i != msg_len - 1; ++i){ mk_sl_cui_uint8_from_bi_pchar(&m[i], &msg[i]); }
-	kk = mk_lib_cpp_constexpr_hex_str_lit_to_bytes(key);
-	for(i = 0; i != (key_len - 1) / 2; ++i){ mk_sl_cui_uint8_from_bi_uchar(&k[i], &kk[i]); }
+	m = mk_lib_cpp_constexpr_str_lit_to_u8s(msg);
+	k = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(key);
 	mk_lib_crypto_mac_hmac_sha1_init(&hmac, k.data(), k.size());
 	mk_lib_crypto_mac_hmac_sha1_append(&hmac, m.data(), m.size());
 	mk_lib_crypto_mac_hmac_sha1_finish(&hmac, &digest);
-	for(i = 0; i != mac_len; ++i){ mk_sl_cui_uint8_to_bi_uchar(&digest.m_uint8s[i], &ret[i]); }
+	for(i = 0; i != mac_len; ++i){ ret[i] = digest.m_uint8s[i]; }
 	return ret;
 }
 
@@ -72,10 +70,10 @@ mk_lang_extern_c void mk_lib_crypto_mac_hmac_sha1_test(void) mk_lang_noexcept
 	mk_lang_constexpr_static auto const s_key_computed_3 = mk_lib_crypto_mac_hmac_sha1_test_compute_from_str_lit(msg_3, key_3);
 	mk_lang_constexpr_static auto const s_key_computed_4 = mk_lib_crypto_mac_hmac_sha1_test_compute_from_str_lit<12>(msg_4, key_4);
 
-	mk_lang_constexpr_static auto const s_key_precomputed_1 = mk_lib_cpp_constexpr_hex_str_lit_to_bytes(mac_1);
-	mk_lang_constexpr_static auto const s_key_precomputed_2 = mk_lib_cpp_constexpr_hex_str_lit_to_bytes(mac_2);
-	mk_lang_constexpr_static auto const s_key_precomputed_3 = mk_lib_cpp_constexpr_hex_str_lit_to_bytes(mac_3);
-	mk_lang_constexpr_static auto const s_key_precomputed_4 = mk_lib_cpp_constexpr_hex_str_lit_to_bytes(mac_4);
+	mk_lang_constexpr_static auto const s_key_precomputed_1 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(mac_1);
+	mk_lang_constexpr_static auto const s_key_precomputed_2 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(mac_2);
+	mk_lang_constexpr_static auto const s_key_precomputed_3 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(mac_3);
+	mk_lang_constexpr_static auto const s_key_precomputed_4 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(mac_4);
 
 	mk_lang_static_assert(s_key_computed_1 == s_key_precomputed_1);
 	mk_lang_static_assert(s_key_computed_2 == s_key_precomputed_2);
@@ -84,7 +82,7 @@ mk_lang_extern_c void mk_lib_crypto_mac_hmac_sha1_test(void) mk_lang_noexcept
 
 	#endif
 
-	#define test(x) if(!(x)) { mk_lang_unlikely mk_lang_assert(0); mk_lang_crash(); } ((void)(0))
+	#define test(x) if(!(x)) { mk_lang_unlikely mk_lang_crash(); } ((void)(0))
 
 	static char const* const s_msgs[] =
 	{
@@ -156,7 +154,7 @@ mk_lang_extern_c void mk_lib_crypto_mac_hmac_sha1_test(void) mk_lang_noexcept
 	for(i = 0; i != n; ++i)
 	{
 		m = s_key_lens[i];
-		mk_lang_assert(sizeof(key) / sizeof(key[0]) >= m);
+		mk_lang_assert(((int)(sizeof(key) / sizeof(key[0]))) >= m);
 		for(j = 0; j != m; ++j)
 		{
 			hi = mk_lib_cpp_constexpr_char_to_nibble(s_keys[i][j * 2 + 0]); mk_lang_assert(hi >= 0x0 && hi <= 0xf);
@@ -165,7 +163,7 @@ mk_lang_extern_c void mk_lib_crypto_mac_hmac_sha1_test(void) mk_lang_noexcept
 			mk_sl_cui_uint8_from_bi_uchar(&key[j], &byte);
 		}
 		m = s_msg_lens[i];
-		mk_lang_assert(sizeof(msg) / sizeof(msg[0]) >= m);
+		mk_lang_assert(((int)(sizeof(msg) / sizeof(msg[0]))) >= m);
 		for(j = 0; j != m; ++j)
 		{
 			mk_sl_cui_uint8_from_bi_pchar(&msg[j], &s_msgs[i][j]);
@@ -187,8 +185,17 @@ mk_lang_extern_c void mk_lib_crypto_mac_hmac_sha1_test(void) mk_lang_noexcept
 	#undef test
 
 	#undef msg_1
+	#undef msg_2
+	#undef msg_3
+	#undef msg_4
 
 	#undef key_1
+	#undef key_2
+	#undef key_3
+	#undef key_4
 
 	#undef mac_1
+	#undef mac_2
+	#undef mac_3
+	#undef mac_4
 }

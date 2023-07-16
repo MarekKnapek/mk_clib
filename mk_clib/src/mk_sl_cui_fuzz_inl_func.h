@@ -16,7 +16,7 @@
 #include "mk_sl_cui_fuzz_inl_defd.h"
 
 
-#define test(x) if(!(x)) { mk_lang_unlikely mk_lang_assert(0); mk_lang_crash(); } ((void)(0))
+#define test(x) if(!(x)) { mk_lang_unlikely mk_lang_crash(); } ((void)(0))
 #define check(x) if(!(x)) return; ((void)(0))
 #define check_data(x) check(d && s >= (x)); ((void)(0))
 #define advance(x) { mk_lang_size_t a; a = (x); mk_lang_assert(a <= s); d += a; s -= a; } ((void)(0))

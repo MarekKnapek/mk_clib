@@ -15,6 +15,7 @@
 #include "mk_lang_version.h"
 #include "mk_lib_cpp_constexpr.hpp"
 #include "mk_lib_crypto_kdf_pbkdf1_sha1.h"
+#include "mk_sl_uint8.h"
 
 
 #if mk_lang_version_at_least_cpp_14 || mk_lang_version_at_least_msvc_cpp_14
@@ -22,16 +23,15 @@
 template<int key_len, int password_len>
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto mk_lib_crypto_kdf_pbkdf1_sha1_test_compute_from_str_lit(mk_lang_types_pchar_t const(&password)[password_len], mk_lang_types_pchar_t const(&salt_hex)[2 * 8 + 1], mk_lang_types_ulong_t const cost) mk_lang_noexcept
 {
-	int i mk_lang_constexpr_init;
-	mk_lang_types_uchar_t pwd[password_len - 1] mk_lang_constexpr_init;
-	mk_lib_cpp_constexpr_array_t<mk_lang_types_uchar_t, 8> slt mk_lang_constexpr_init;
-	mk_lib_cpp_constexpr_array_t<mk_lang_types_uchar_t, key_len> ret mk_lang_constexpr_init;
+	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, password_len - 1> pwd mk_lang_constexpr_init;
+	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, 8> slt mk_lang_constexpr_init;
+	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, key_len> ret mk_lang_constexpr_init;
 
 	mk_lang_static_assert(password_len >= 1);
 
-	for(i = 0; i != password_len - 1; ++i){ pwd[i] = ((mk_lang_types_uchar_t)(password[i])); }
-	slt = mk_lib_cpp_constexpr_hex_str_lit_to_bytes(salt_hex);
-	mk_lib_crypto_kdf_pbkdf1_sha1(pwd, password_len - 1, slt.data(), cost, key_len, ret.data());
+	pwd = mk_lib_cpp_constexpr_str_lit_to_u8s(password);
+	slt = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(salt_hex);
+	mk_lib_crypto_kdf_pbkdf1_sha1_u8(pwd.data(), pwd.size(), slt.data(), cost, key_len, ret.data());
 	return ret;
 }
 
@@ -52,13 +52,13 @@ mk_lang_extern_c void mk_lib_crypto_kdf_pbkdf1_sha1_test(void) mk_lang_noexcept
 
 	mk_lang_constexpr_static auto const s_key_computed_1 = mk_lib_crypto_kdf_pbkdf1_sha1_test_compute_from_str_lit<((int)(sizeof(key_1) / sizeof(key_1[0]) - 1)) / 2>(password_1, salt_1, cost_1);
 
-	mk_lang_constexpr_static auto const s_key_precomputed_1 = mk_lib_cpp_constexpr_hex_str_lit_to_bytes(key_1);
+	mk_lang_constexpr_static auto const s_key_precomputed_1 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(key_1);
 
 	mk_lang_static_assert(s_key_computed_1 == s_key_precomputed_1);
 
 	#endif
 
-	#define test(x) if(!(x)) { mk_lang_unlikely mk_lang_assert(0); mk_lang_crash(); } ((void)(0))
+	#define test(x) if(!(x)) { mk_lang_unlikely mk_lang_crash(); } ((void)(0))
 
 	static char const* const s_passwords[] =
 	{

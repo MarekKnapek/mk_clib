@@ -12,6 +12,7 @@
 #include "mk_lang_noexcept.h"
 #include "mk_lang_static_assert.h"
 #include "mk_lang_types.h"
+#include "mk_sl_uint8.h"
 
 
 /* NIST FIPS PUB 197 */
@@ -30,7 +31,7 @@
 
 union mk_lib_crypto_alg_aes_256_aligned_sbox_u
 {
-	mk_lang_types_uchar_t m_uchars[mk_lib_crypto_alg_aes_256_sbox_len];
+	mk_sl_cui_uint8_t m_uint8s[mk_lib_crypto_alg_aes_256_sbox_len];
 	mk_lang_types_ulllong_t m_align;
 };
 typedef union mk_lib_crypto_alg_aes_256_aligned_sbox_u mk_lib_crypto_alg_aes_256_aligned_sbox_t;
@@ -40,7 +41,7 @@ typedef mk_lib_crypto_alg_aes_256_aligned_sbox_t const* mk_lib_crypto_alg_aes_25
 
 union mk_lib_crypto_alg_aes_256_aligned_word_u
 {
-	mk_lang_types_uchar_t m_uchars[mk_lib_crypto_alg_aes_256_word_bytes];
+	mk_sl_cui_uint8_t m_uint8s[mk_lib_crypto_alg_aes_256_word_bytes];
 	mk_lang_types_ulong_t m_align;
 };
 typedef union mk_lib_crypto_alg_aes_256_aligned_word_u mk_lib_crypto_alg_aes_256_aligned_word_t;
@@ -69,275 +70,445 @@ typedef mk_lib_crypto_alg_aes_256_word_t const* mk_lib_crypto_alg_aes_256_word_p
 
 mk_lang_constexpr_static_inline mk_lib_crypto_alg_aes_256_sbox_t const s_mk_lib_crypto_alg_aes_256_sbox =
 {{{
-	0x63, 0x7c, 0x77, 0x7b, 0xf2, 0x6b, 0x6f, 0xc5, 0x30, 0x01, 0x67, 0x2b, 0xfe, 0xd7, 0xab, 0x76,
-	0xca, 0x82, 0xc9, 0x7d, 0xfa, 0x59, 0x47, 0xf0, 0xad, 0xd4, 0xa2, 0xaf, 0x9c, 0xa4, 0x72, 0xc0,
-	0xb7, 0xfd, 0x93, 0x26, 0x36, 0x3f, 0xf7, 0xcc, 0x34, 0xa5, 0xe5, 0xf1, 0x71, 0xd8, 0x31, 0x15,
-	0x04, 0xc7, 0x23, 0xc3, 0x18, 0x96, 0x05, 0x9a, 0x07, 0x12, 0x80, 0xe2, 0xeb, 0x27, 0xb2, 0x75,
-	0x09, 0x83, 0x2c, 0x1a, 0x1b, 0x6e, 0x5a, 0xa0, 0x52, 0x3b, 0xd6, 0xb3, 0x29, 0xe3, 0x2f, 0x84,
-	0x53, 0xd1, 0x00, 0xed, 0x20, 0xfc, 0xb1, 0x5b, 0x6a, 0xcb, 0xbe, 0x39, 0x4a, 0x4c, 0x58, 0xcf,
-	0xd0, 0xef, 0xaa, 0xfb, 0x43, 0x4d, 0x33, 0x85, 0x45, 0xf9, 0x02, 0x7f, 0x50, 0x3c, 0x9f, 0xa8,
-	0x51, 0xa3, 0x40, 0x8f, 0x92, 0x9d, 0x38, 0xf5, 0xbc, 0xb6, 0xda, 0x21, 0x10, 0xff, 0xf3, 0xd2,
-	0xcd, 0x0c, 0x13, 0xec, 0x5f, 0x97, 0x44, 0x17, 0xc4, 0xa7, 0x7e, 0x3d, 0x64, 0x5d, 0x19, 0x73,
-	0x60, 0x81, 0x4f, 0xdc, 0x22, 0x2a, 0x90, 0x88, 0x46, 0xee, 0xb8, 0x14, 0xde, 0x5e, 0x0b, 0xdb,
-	0xe0, 0x32, 0x3a, 0x0a, 0x49, 0x06, 0x24, 0x5c, 0xc2, 0xd3, 0xac, 0x62, 0x91, 0x95, 0xe4, 0x79,
-	0xe7, 0xc8, 0x37, 0x6d, 0x8d, 0xd5, 0x4e, 0xa9, 0x6c, 0x56, 0xf4, 0xea, 0x65, 0x7a, 0xae, 0x08,
-	0xba, 0x78, 0x25, 0x2e, 0x1c, 0xa6, 0xb4, 0xc6, 0xe8, 0xdd, 0x74, 0x1f, 0x4b, 0xbd, 0x8b, 0x8a,
-	0x70, 0x3e, 0xb5, 0x66, 0x48, 0x03, 0xf6, 0x0e, 0x61, 0x35, 0x57, 0xb9, 0x86, 0xc1, 0x1d, 0x9e,
-	0xe1, 0xf8, 0x98, 0x11, 0x69, 0xd9, 0x8e, 0x94, 0x9b, 0x1e, 0x87, 0xe9, 0xce, 0x55, 0x28, 0xdf,
-	0x8c, 0xa1, 0x89, 0x0d, 0xbf, 0xe6, 0x42, 0x68, 0x41, 0x99, 0x2d, 0x0f, 0xb0, 0x54, 0xbb, 0x16,
+	mk_sl_cui_uint8_c(0x63), mk_sl_cui_uint8_c(0x7c), mk_sl_cui_uint8_c(0x77), mk_sl_cui_uint8_c(0x7b), mk_sl_cui_uint8_c(0xf2), mk_sl_cui_uint8_c(0x6b), mk_sl_cui_uint8_c(0x6f), mk_sl_cui_uint8_c(0xc5), mk_sl_cui_uint8_c(0x30), mk_sl_cui_uint8_c(0x01), mk_sl_cui_uint8_c(0x67), mk_sl_cui_uint8_c(0x2b), mk_sl_cui_uint8_c(0xfe), mk_sl_cui_uint8_c(0xd7), mk_sl_cui_uint8_c(0xab), mk_sl_cui_uint8_c(0x76),
+	mk_sl_cui_uint8_c(0xca), mk_sl_cui_uint8_c(0x82), mk_sl_cui_uint8_c(0xc9), mk_sl_cui_uint8_c(0x7d), mk_sl_cui_uint8_c(0xfa), mk_sl_cui_uint8_c(0x59), mk_sl_cui_uint8_c(0x47), mk_sl_cui_uint8_c(0xf0), mk_sl_cui_uint8_c(0xad), mk_sl_cui_uint8_c(0xd4), mk_sl_cui_uint8_c(0xa2), mk_sl_cui_uint8_c(0xaf), mk_sl_cui_uint8_c(0x9c), mk_sl_cui_uint8_c(0xa4), mk_sl_cui_uint8_c(0x72), mk_sl_cui_uint8_c(0xc0),
+	mk_sl_cui_uint8_c(0xb7), mk_sl_cui_uint8_c(0xfd), mk_sl_cui_uint8_c(0x93), mk_sl_cui_uint8_c(0x26), mk_sl_cui_uint8_c(0x36), mk_sl_cui_uint8_c(0x3f), mk_sl_cui_uint8_c(0xf7), mk_sl_cui_uint8_c(0xcc), mk_sl_cui_uint8_c(0x34), mk_sl_cui_uint8_c(0xa5), mk_sl_cui_uint8_c(0xe5), mk_sl_cui_uint8_c(0xf1), mk_sl_cui_uint8_c(0x71), mk_sl_cui_uint8_c(0xd8), mk_sl_cui_uint8_c(0x31), mk_sl_cui_uint8_c(0x15),
+	mk_sl_cui_uint8_c(0x04), mk_sl_cui_uint8_c(0xc7), mk_sl_cui_uint8_c(0x23), mk_sl_cui_uint8_c(0xc3), mk_sl_cui_uint8_c(0x18), mk_sl_cui_uint8_c(0x96), mk_sl_cui_uint8_c(0x05), mk_sl_cui_uint8_c(0x9a), mk_sl_cui_uint8_c(0x07), mk_sl_cui_uint8_c(0x12), mk_sl_cui_uint8_c(0x80), mk_sl_cui_uint8_c(0xe2), mk_sl_cui_uint8_c(0xeb), mk_sl_cui_uint8_c(0x27), mk_sl_cui_uint8_c(0xb2), mk_sl_cui_uint8_c(0x75),
+	mk_sl_cui_uint8_c(0x09), mk_sl_cui_uint8_c(0x83), mk_sl_cui_uint8_c(0x2c), mk_sl_cui_uint8_c(0x1a), mk_sl_cui_uint8_c(0x1b), mk_sl_cui_uint8_c(0x6e), mk_sl_cui_uint8_c(0x5a), mk_sl_cui_uint8_c(0xa0), mk_sl_cui_uint8_c(0x52), mk_sl_cui_uint8_c(0x3b), mk_sl_cui_uint8_c(0xd6), mk_sl_cui_uint8_c(0xb3), mk_sl_cui_uint8_c(0x29), mk_sl_cui_uint8_c(0xe3), mk_sl_cui_uint8_c(0x2f), mk_sl_cui_uint8_c(0x84),
+	mk_sl_cui_uint8_c(0x53), mk_sl_cui_uint8_c(0xd1), mk_sl_cui_uint8_c(0x00), mk_sl_cui_uint8_c(0xed), mk_sl_cui_uint8_c(0x20), mk_sl_cui_uint8_c(0xfc), mk_sl_cui_uint8_c(0xb1), mk_sl_cui_uint8_c(0x5b), mk_sl_cui_uint8_c(0x6a), mk_sl_cui_uint8_c(0xcb), mk_sl_cui_uint8_c(0xbe), mk_sl_cui_uint8_c(0x39), mk_sl_cui_uint8_c(0x4a), mk_sl_cui_uint8_c(0x4c), mk_sl_cui_uint8_c(0x58), mk_sl_cui_uint8_c(0xcf),
+	mk_sl_cui_uint8_c(0xd0), mk_sl_cui_uint8_c(0xef), mk_sl_cui_uint8_c(0xaa), mk_sl_cui_uint8_c(0xfb), mk_sl_cui_uint8_c(0x43), mk_sl_cui_uint8_c(0x4d), mk_sl_cui_uint8_c(0x33), mk_sl_cui_uint8_c(0x85), mk_sl_cui_uint8_c(0x45), mk_sl_cui_uint8_c(0xf9), mk_sl_cui_uint8_c(0x02), mk_sl_cui_uint8_c(0x7f), mk_sl_cui_uint8_c(0x50), mk_sl_cui_uint8_c(0x3c), mk_sl_cui_uint8_c(0x9f), mk_sl_cui_uint8_c(0xa8),
+	mk_sl_cui_uint8_c(0x51), mk_sl_cui_uint8_c(0xa3), mk_sl_cui_uint8_c(0x40), mk_sl_cui_uint8_c(0x8f), mk_sl_cui_uint8_c(0x92), mk_sl_cui_uint8_c(0x9d), mk_sl_cui_uint8_c(0x38), mk_sl_cui_uint8_c(0xf5), mk_sl_cui_uint8_c(0xbc), mk_sl_cui_uint8_c(0xb6), mk_sl_cui_uint8_c(0xda), mk_sl_cui_uint8_c(0x21), mk_sl_cui_uint8_c(0x10), mk_sl_cui_uint8_c(0xff), mk_sl_cui_uint8_c(0xf3), mk_sl_cui_uint8_c(0xd2),
+	mk_sl_cui_uint8_c(0xcd), mk_sl_cui_uint8_c(0x0c), mk_sl_cui_uint8_c(0x13), mk_sl_cui_uint8_c(0xec), mk_sl_cui_uint8_c(0x5f), mk_sl_cui_uint8_c(0x97), mk_sl_cui_uint8_c(0x44), mk_sl_cui_uint8_c(0x17), mk_sl_cui_uint8_c(0xc4), mk_sl_cui_uint8_c(0xa7), mk_sl_cui_uint8_c(0x7e), mk_sl_cui_uint8_c(0x3d), mk_sl_cui_uint8_c(0x64), mk_sl_cui_uint8_c(0x5d), mk_sl_cui_uint8_c(0x19), mk_sl_cui_uint8_c(0x73),
+	mk_sl_cui_uint8_c(0x60), mk_sl_cui_uint8_c(0x81), mk_sl_cui_uint8_c(0x4f), mk_sl_cui_uint8_c(0xdc), mk_sl_cui_uint8_c(0x22), mk_sl_cui_uint8_c(0x2a), mk_sl_cui_uint8_c(0x90), mk_sl_cui_uint8_c(0x88), mk_sl_cui_uint8_c(0x46), mk_sl_cui_uint8_c(0xee), mk_sl_cui_uint8_c(0xb8), mk_sl_cui_uint8_c(0x14), mk_sl_cui_uint8_c(0xde), mk_sl_cui_uint8_c(0x5e), mk_sl_cui_uint8_c(0x0b), mk_sl_cui_uint8_c(0xdb),
+	mk_sl_cui_uint8_c(0xe0), mk_sl_cui_uint8_c(0x32), mk_sl_cui_uint8_c(0x3a), mk_sl_cui_uint8_c(0x0a), mk_sl_cui_uint8_c(0x49), mk_sl_cui_uint8_c(0x06), mk_sl_cui_uint8_c(0x24), mk_sl_cui_uint8_c(0x5c), mk_sl_cui_uint8_c(0xc2), mk_sl_cui_uint8_c(0xd3), mk_sl_cui_uint8_c(0xac), mk_sl_cui_uint8_c(0x62), mk_sl_cui_uint8_c(0x91), mk_sl_cui_uint8_c(0x95), mk_sl_cui_uint8_c(0xe4), mk_sl_cui_uint8_c(0x79),
+	mk_sl_cui_uint8_c(0xe7), mk_sl_cui_uint8_c(0xc8), mk_sl_cui_uint8_c(0x37), mk_sl_cui_uint8_c(0x6d), mk_sl_cui_uint8_c(0x8d), mk_sl_cui_uint8_c(0xd5), mk_sl_cui_uint8_c(0x4e), mk_sl_cui_uint8_c(0xa9), mk_sl_cui_uint8_c(0x6c), mk_sl_cui_uint8_c(0x56), mk_sl_cui_uint8_c(0xf4), mk_sl_cui_uint8_c(0xea), mk_sl_cui_uint8_c(0x65), mk_sl_cui_uint8_c(0x7a), mk_sl_cui_uint8_c(0xae), mk_sl_cui_uint8_c(0x08),
+	mk_sl_cui_uint8_c(0xba), mk_sl_cui_uint8_c(0x78), mk_sl_cui_uint8_c(0x25), mk_sl_cui_uint8_c(0x2e), mk_sl_cui_uint8_c(0x1c), mk_sl_cui_uint8_c(0xa6), mk_sl_cui_uint8_c(0xb4), mk_sl_cui_uint8_c(0xc6), mk_sl_cui_uint8_c(0xe8), mk_sl_cui_uint8_c(0xdd), mk_sl_cui_uint8_c(0x74), mk_sl_cui_uint8_c(0x1f), mk_sl_cui_uint8_c(0x4b), mk_sl_cui_uint8_c(0xbd), mk_sl_cui_uint8_c(0x8b), mk_sl_cui_uint8_c(0x8a),
+	mk_sl_cui_uint8_c(0x70), mk_sl_cui_uint8_c(0x3e), mk_sl_cui_uint8_c(0xb5), mk_sl_cui_uint8_c(0x66), mk_sl_cui_uint8_c(0x48), mk_sl_cui_uint8_c(0x03), mk_sl_cui_uint8_c(0xf6), mk_sl_cui_uint8_c(0x0e), mk_sl_cui_uint8_c(0x61), mk_sl_cui_uint8_c(0x35), mk_sl_cui_uint8_c(0x57), mk_sl_cui_uint8_c(0xb9), mk_sl_cui_uint8_c(0x86), mk_sl_cui_uint8_c(0xc1), mk_sl_cui_uint8_c(0x1d), mk_sl_cui_uint8_c(0x9e),
+	mk_sl_cui_uint8_c(0xe1), mk_sl_cui_uint8_c(0xf8), mk_sl_cui_uint8_c(0x98), mk_sl_cui_uint8_c(0x11), mk_sl_cui_uint8_c(0x69), mk_sl_cui_uint8_c(0xd9), mk_sl_cui_uint8_c(0x8e), mk_sl_cui_uint8_c(0x94), mk_sl_cui_uint8_c(0x9b), mk_sl_cui_uint8_c(0x1e), mk_sl_cui_uint8_c(0x87), mk_sl_cui_uint8_c(0xe9), mk_sl_cui_uint8_c(0xce), mk_sl_cui_uint8_c(0x55), mk_sl_cui_uint8_c(0x28), mk_sl_cui_uint8_c(0xdf),
+	mk_sl_cui_uint8_c(0x8c), mk_sl_cui_uint8_c(0xa1), mk_sl_cui_uint8_c(0x89), mk_sl_cui_uint8_c(0x0d), mk_sl_cui_uint8_c(0xbf), mk_sl_cui_uint8_c(0xe6), mk_sl_cui_uint8_c(0x42), mk_sl_cui_uint8_c(0x68), mk_sl_cui_uint8_c(0x41), mk_sl_cui_uint8_c(0x99), mk_sl_cui_uint8_c(0x2d), mk_sl_cui_uint8_c(0x0f), mk_sl_cui_uint8_c(0xb0), mk_sl_cui_uint8_c(0x54), mk_sl_cui_uint8_c(0xbb), mk_sl_cui_uint8_c(0x16),
 }}};
 
 mk_lang_constexpr_static_inline mk_lib_crypto_alg_aes_256_sbox_t const s_mk_lib_crypto_alg_aes_256_inv_sbox =
 {{{
-	0x52, 0x09, 0x6a, 0xd5, 0x30, 0x36, 0xa5, 0x38, 0xbf, 0x40, 0xa3, 0x9e, 0x81, 0xf3, 0xd7, 0xfb,
-	0x7c, 0xe3, 0x39, 0x82, 0x9b, 0x2f, 0xff, 0x87, 0x34, 0x8e, 0x43, 0x44, 0xc4, 0xde, 0xe9, 0xcb,
-	0x54, 0x7b, 0x94, 0x32, 0xa6, 0xc2, 0x23, 0x3d, 0xee, 0x4c, 0x95, 0x0b, 0x42, 0xfa, 0xc3, 0x4e,
-	0x08, 0x2e, 0xa1, 0x66, 0x28, 0xd9, 0x24, 0xb2, 0x76, 0x5b, 0xa2, 0x49, 0x6d, 0x8b, 0xd1, 0x25,
-	0x72, 0xf8, 0xf6, 0x64, 0x86, 0x68, 0x98, 0x16, 0xd4, 0xa4, 0x5c, 0xcc, 0x5d, 0x65, 0xb6, 0x92,
-	0x6c, 0x70, 0x48, 0x50, 0xfd, 0xed, 0xb9, 0xda, 0x5e, 0x15, 0x46, 0x57, 0xa7, 0x8d, 0x9d, 0x84,
-	0x90, 0xd8, 0xab, 0x00, 0x8c, 0xbc, 0xd3, 0x0a, 0xf7, 0xe4, 0x58, 0x05, 0xb8, 0xb3, 0x45, 0x06,
-	0xd0, 0x2c, 0x1e, 0x8f, 0xca, 0x3f, 0x0f, 0x02, 0xc1, 0xaf, 0xbd, 0x03, 0x01, 0x13, 0x8a, 0x6b,
-	0x3a, 0x91, 0x11, 0x41, 0x4f, 0x67, 0xdc, 0xea, 0x97, 0xf2, 0xcf, 0xce, 0xf0, 0xb4, 0xe6, 0x73,
-	0x96, 0xac, 0x74, 0x22, 0xe7, 0xad, 0x35, 0x85, 0xe2, 0xf9, 0x37, 0xe8, 0x1c, 0x75, 0xdf, 0x6e,
-	0x47, 0xf1, 0x1a, 0x71, 0x1d, 0x29, 0xc5, 0x89, 0x6f, 0xb7, 0x62, 0x0e, 0xaa, 0x18, 0xbe, 0x1b,
-	0xfc, 0x56, 0x3e, 0x4b, 0xc6, 0xd2, 0x79, 0x20, 0x9a, 0xdb, 0xc0, 0xfe, 0x78, 0xcd, 0x5a, 0xf4,
-	0x1f, 0xdd, 0xa8, 0x33, 0x88, 0x07, 0xc7, 0x31, 0xb1, 0x12, 0x10, 0x59, 0x27, 0x80, 0xec, 0x5f,
-	0x60, 0x51, 0x7f, 0xa9, 0x19, 0xb5, 0x4a, 0x0d, 0x2d, 0xe5, 0x7a, 0x9f, 0x93, 0xc9, 0x9c, 0xef,
-	0xa0, 0xe0, 0x3b, 0x4d, 0xae, 0x2a, 0xf5, 0xb0, 0xc8, 0xeb, 0xbb, 0x3c, 0x83, 0x53, 0x99, 0x61,
-	0x17, 0x2b, 0x04, 0x7e, 0xba, 0x77, 0xd6, 0x26, 0xe1, 0x69, 0x14, 0x63, 0x55, 0x21, 0x0c, 0x7d,
+	mk_sl_cui_uint8_c(0x52), mk_sl_cui_uint8_c(0x09), mk_sl_cui_uint8_c(0x6a), mk_sl_cui_uint8_c(0xd5), mk_sl_cui_uint8_c(0x30), mk_sl_cui_uint8_c(0x36), mk_sl_cui_uint8_c(0xa5), mk_sl_cui_uint8_c(0x38), mk_sl_cui_uint8_c(0xbf), mk_sl_cui_uint8_c(0x40), mk_sl_cui_uint8_c(0xa3), mk_sl_cui_uint8_c(0x9e), mk_sl_cui_uint8_c(0x81), mk_sl_cui_uint8_c(0xf3), mk_sl_cui_uint8_c(0xd7), mk_sl_cui_uint8_c(0xfb),
+	mk_sl_cui_uint8_c(0x7c), mk_sl_cui_uint8_c(0xe3), mk_sl_cui_uint8_c(0x39), mk_sl_cui_uint8_c(0x82), mk_sl_cui_uint8_c(0x9b), mk_sl_cui_uint8_c(0x2f), mk_sl_cui_uint8_c(0xff), mk_sl_cui_uint8_c(0x87), mk_sl_cui_uint8_c(0x34), mk_sl_cui_uint8_c(0x8e), mk_sl_cui_uint8_c(0x43), mk_sl_cui_uint8_c(0x44), mk_sl_cui_uint8_c(0xc4), mk_sl_cui_uint8_c(0xde), mk_sl_cui_uint8_c(0xe9), mk_sl_cui_uint8_c(0xcb),
+	mk_sl_cui_uint8_c(0x54), mk_sl_cui_uint8_c(0x7b), mk_sl_cui_uint8_c(0x94), mk_sl_cui_uint8_c(0x32), mk_sl_cui_uint8_c(0xa6), mk_sl_cui_uint8_c(0xc2), mk_sl_cui_uint8_c(0x23), mk_sl_cui_uint8_c(0x3d), mk_sl_cui_uint8_c(0xee), mk_sl_cui_uint8_c(0x4c), mk_sl_cui_uint8_c(0x95), mk_sl_cui_uint8_c(0x0b), mk_sl_cui_uint8_c(0x42), mk_sl_cui_uint8_c(0xfa), mk_sl_cui_uint8_c(0xc3), mk_sl_cui_uint8_c(0x4e),
+	mk_sl_cui_uint8_c(0x08), mk_sl_cui_uint8_c(0x2e), mk_sl_cui_uint8_c(0xa1), mk_sl_cui_uint8_c(0x66), mk_sl_cui_uint8_c(0x28), mk_sl_cui_uint8_c(0xd9), mk_sl_cui_uint8_c(0x24), mk_sl_cui_uint8_c(0xb2), mk_sl_cui_uint8_c(0x76), mk_sl_cui_uint8_c(0x5b), mk_sl_cui_uint8_c(0xa2), mk_sl_cui_uint8_c(0x49), mk_sl_cui_uint8_c(0x6d), mk_sl_cui_uint8_c(0x8b), mk_sl_cui_uint8_c(0xd1), mk_sl_cui_uint8_c(0x25),
+	mk_sl_cui_uint8_c(0x72), mk_sl_cui_uint8_c(0xf8), mk_sl_cui_uint8_c(0xf6), mk_sl_cui_uint8_c(0x64), mk_sl_cui_uint8_c(0x86), mk_sl_cui_uint8_c(0x68), mk_sl_cui_uint8_c(0x98), mk_sl_cui_uint8_c(0x16), mk_sl_cui_uint8_c(0xd4), mk_sl_cui_uint8_c(0xa4), mk_sl_cui_uint8_c(0x5c), mk_sl_cui_uint8_c(0xcc), mk_sl_cui_uint8_c(0x5d), mk_sl_cui_uint8_c(0x65), mk_sl_cui_uint8_c(0xb6), mk_sl_cui_uint8_c(0x92),
+	mk_sl_cui_uint8_c(0x6c), mk_sl_cui_uint8_c(0x70), mk_sl_cui_uint8_c(0x48), mk_sl_cui_uint8_c(0x50), mk_sl_cui_uint8_c(0xfd), mk_sl_cui_uint8_c(0xed), mk_sl_cui_uint8_c(0xb9), mk_sl_cui_uint8_c(0xda), mk_sl_cui_uint8_c(0x5e), mk_sl_cui_uint8_c(0x15), mk_sl_cui_uint8_c(0x46), mk_sl_cui_uint8_c(0x57), mk_sl_cui_uint8_c(0xa7), mk_sl_cui_uint8_c(0x8d), mk_sl_cui_uint8_c(0x9d), mk_sl_cui_uint8_c(0x84),
+	mk_sl_cui_uint8_c(0x90), mk_sl_cui_uint8_c(0xd8), mk_sl_cui_uint8_c(0xab), mk_sl_cui_uint8_c(0x00), mk_sl_cui_uint8_c(0x8c), mk_sl_cui_uint8_c(0xbc), mk_sl_cui_uint8_c(0xd3), mk_sl_cui_uint8_c(0x0a), mk_sl_cui_uint8_c(0xf7), mk_sl_cui_uint8_c(0xe4), mk_sl_cui_uint8_c(0x58), mk_sl_cui_uint8_c(0x05), mk_sl_cui_uint8_c(0xb8), mk_sl_cui_uint8_c(0xb3), mk_sl_cui_uint8_c(0x45), mk_sl_cui_uint8_c(0x06),
+	mk_sl_cui_uint8_c(0xd0), mk_sl_cui_uint8_c(0x2c), mk_sl_cui_uint8_c(0x1e), mk_sl_cui_uint8_c(0x8f), mk_sl_cui_uint8_c(0xca), mk_sl_cui_uint8_c(0x3f), mk_sl_cui_uint8_c(0x0f), mk_sl_cui_uint8_c(0x02), mk_sl_cui_uint8_c(0xc1), mk_sl_cui_uint8_c(0xaf), mk_sl_cui_uint8_c(0xbd), mk_sl_cui_uint8_c(0x03), mk_sl_cui_uint8_c(0x01), mk_sl_cui_uint8_c(0x13), mk_sl_cui_uint8_c(0x8a), mk_sl_cui_uint8_c(0x6b),
+	mk_sl_cui_uint8_c(0x3a), mk_sl_cui_uint8_c(0x91), mk_sl_cui_uint8_c(0x11), mk_sl_cui_uint8_c(0x41), mk_sl_cui_uint8_c(0x4f), mk_sl_cui_uint8_c(0x67), mk_sl_cui_uint8_c(0xdc), mk_sl_cui_uint8_c(0xea), mk_sl_cui_uint8_c(0x97), mk_sl_cui_uint8_c(0xf2), mk_sl_cui_uint8_c(0xcf), mk_sl_cui_uint8_c(0xce), mk_sl_cui_uint8_c(0xf0), mk_sl_cui_uint8_c(0xb4), mk_sl_cui_uint8_c(0xe6), mk_sl_cui_uint8_c(0x73),
+	mk_sl_cui_uint8_c(0x96), mk_sl_cui_uint8_c(0xac), mk_sl_cui_uint8_c(0x74), mk_sl_cui_uint8_c(0x22), mk_sl_cui_uint8_c(0xe7), mk_sl_cui_uint8_c(0xad), mk_sl_cui_uint8_c(0x35), mk_sl_cui_uint8_c(0x85), mk_sl_cui_uint8_c(0xe2), mk_sl_cui_uint8_c(0xf9), mk_sl_cui_uint8_c(0x37), mk_sl_cui_uint8_c(0xe8), mk_sl_cui_uint8_c(0x1c), mk_sl_cui_uint8_c(0x75), mk_sl_cui_uint8_c(0xdf), mk_sl_cui_uint8_c(0x6e),
+	mk_sl_cui_uint8_c(0x47), mk_sl_cui_uint8_c(0xf1), mk_sl_cui_uint8_c(0x1a), mk_sl_cui_uint8_c(0x71), mk_sl_cui_uint8_c(0x1d), mk_sl_cui_uint8_c(0x29), mk_sl_cui_uint8_c(0xc5), mk_sl_cui_uint8_c(0x89), mk_sl_cui_uint8_c(0x6f), mk_sl_cui_uint8_c(0xb7), mk_sl_cui_uint8_c(0x62), mk_sl_cui_uint8_c(0x0e), mk_sl_cui_uint8_c(0xaa), mk_sl_cui_uint8_c(0x18), mk_sl_cui_uint8_c(0xbe), mk_sl_cui_uint8_c(0x1b),
+	mk_sl_cui_uint8_c(0xfc), mk_sl_cui_uint8_c(0x56), mk_sl_cui_uint8_c(0x3e), mk_sl_cui_uint8_c(0x4b), mk_sl_cui_uint8_c(0xc6), mk_sl_cui_uint8_c(0xd2), mk_sl_cui_uint8_c(0x79), mk_sl_cui_uint8_c(0x20), mk_sl_cui_uint8_c(0x9a), mk_sl_cui_uint8_c(0xdb), mk_sl_cui_uint8_c(0xc0), mk_sl_cui_uint8_c(0xfe), mk_sl_cui_uint8_c(0x78), mk_sl_cui_uint8_c(0xcd), mk_sl_cui_uint8_c(0x5a), mk_sl_cui_uint8_c(0xf4),
+	mk_sl_cui_uint8_c(0x1f), mk_sl_cui_uint8_c(0xdd), mk_sl_cui_uint8_c(0xa8), mk_sl_cui_uint8_c(0x33), mk_sl_cui_uint8_c(0x88), mk_sl_cui_uint8_c(0x07), mk_sl_cui_uint8_c(0xc7), mk_sl_cui_uint8_c(0x31), mk_sl_cui_uint8_c(0xb1), mk_sl_cui_uint8_c(0x12), mk_sl_cui_uint8_c(0x10), mk_sl_cui_uint8_c(0x59), mk_sl_cui_uint8_c(0x27), mk_sl_cui_uint8_c(0x80), mk_sl_cui_uint8_c(0xec), mk_sl_cui_uint8_c(0x5f),
+	mk_sl_cui_uint8_c(0x60), mk_sl_cui_uint8_c(0x51), mk_sl_cui_uint8_c(0x7f), mk_sl_cui_uint8_c(0xa9), mk_sl_cui_uint8_c(0x19), mk_sl_cui_uint8_c(0xb5), mk_sl_cui_uint8_c(0x4a), mk_sl_cui_uint8_c(0x0d), mk_sl_cui_uint8_c(0x2d), mk_sl_cui_uint8_c(0xe5), mk_sl_cui_uint8_c(0x7a), mk_sl_cui_uint8_c(0x9f), mk_sl_cui_uint8_c(0x93), mk_sl_cui_uint8_c(0xc9), mk_sl_cui_uint8_c(0x9c), mk_sl_cui_uint8_c(0xef),
+	mk_sl_cui_uint8_c(0xa0), mk_sl_cui_uint8_c(0xe0), mk_sl_cui_uint8_c(0x3b), mk_sl_cui_uint8_c(0x4d), mk_sl_cui_uint8_c(0xae), mk_sl_cui_uint8_c(0x2a), mk_sl_cui_uint8_c(0xf5), mk_sl_cui_uint8_c(0xb0), mk_sl_cui_uint8_c(0xc8), mk_sl_cui_uint8_c(0xeb), mk_sl_cui_uint8_c(0xbb), mk_sl_cui_uint8_c(0x3c), mk_sl_cui_uint8_c(0x83), mk_sl_cui_uint8_c(0x53), mk_sl_cui_uint8_c(0x99), mk_sl_cui_uint8_c(0x61),
+	mk_sl_cui_uint8_c(0x17), mk_sl_cui_uint8_c(0x2b), mk_sl_cui_uint8_c(0x04), mk_sl_cui_uint8_c(0x7e), mk_sl_cui_uint8_c(0xba), mk_sl_cui_uint8_c(0x77), mk_sl_cui_uint8_c(0xd6), mk_sl_cui_uint8_c(0x26), mk_sl_cui_uint8_c(0xe1), mk_sl_cui_uint8_c(0x69), mk_sl_cui_uint8_c(0x14), mk_sl_cui_uint8_c(0x63), mk_sl_cui_uint8_c(0x55), mk_sl_cui_uint8_c(0x21), mk_sl_cui_uint8_c(0x0c), mk_sl_cui_uint8_c(0x7d),
 }}};
 
 
-mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_256_sub_byte(mk_lang_types_uchar_pt const byte) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_256_sub_byte(mk_sl_cui_uint8_pct const a, mk_sl_cui_uint8_pt const b) mk_lang_noexcept
 {
-	mk_lang_assert(byte);
+	mk_lang_types_uchar_t uc mk_lang_constexpr_init;
 
-	*byte = s_mk_lib_crypto_alg_aes_256_sbox.m_data.m_uchars[*byte];
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	mk_sl_cui_uint8_to_bi_uchar(a, &uc);
+	*b = s_mk_lib_crypto_alg_aes_256_sbox.m_data.m_uint8s[uc];
 }
 
-mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_256_sub_bytes(mk_lib_crypto_alg_aes_256_msg_pt const state) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_256_inv_sub_byte(mk_sl_cui_uint8_pct const a, mk_sl_cui_uint8_pt const b) mk_lang_noexcept
 {
-	int i mk_lang_constexpr_init;
+	mk_lang_types_uchar_t uc mk_lang_constexpr_init;
 
-	mk_lang_assert(state);
+	mk_lang_assert(a);
+	mk_lang_assert(b);
 
-	for(i = 0; i != mk_lib_crypto_alg_aes_256_msg_len_v; ++i)
-	{
-		mk_lib_crypto_alg_aes_256_sub_byte(&state->m_data.m_uchars[i]);
-	}
+	mk_sl_cui_uint8_to_bi_uchar(a, &uc);
+	*b = s_mk_lib_crypto_alg_aes_256_inv_sbox.m_data.m_uint8s[uc];
 }
 
-mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_256_inv_sub_byte(mk_lang_types_uchar_pt const byte) mk_lang_noexcept
-{
-	mk_lang_assert(byte);
-
-	*byte = s_mk_lib_crypto_alg_aes_256_inv_sbox.m_data.m_uchars[*byte];
-}
-
-mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_256_inv_sub_bytes(mk_lib_crypto_alg_aes_256_msg_pt const state) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_256_sub_bytes(mk_lib_crypto_alg_aes_256_msg_pct const a, mk_lib_crypto_alg_aes_256_msg_pt const b) mk_lang_noexcept
 {
 	int i mk_lang_constexpr_init;
 
-	mk_lang_assert(state);
+	mk_lang_assert(a);
+	mk_lang_assert(b);
 
 	for(i = 0; i != mk_lib_crypto_alg_aes_256_msg_len_v; ++i)
 	{
-		mk_lib_crypto_alg_aes_256_inv_sub_byte(&state->m_data.m_uchars[i]);
+		mk_lib_crypto_alg_aes_256_sub_byte(&a->m_data.m_uint8s[i], &b->m_data.m_uint8s[i]);
 	}
 }
 
-mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_256_shift_rows(mk_lib_crypto_alg_aes_256_msg_pt const state) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_256_inv_sub_bytes(mk_lib_crypto_alg_aes_256_msg_pct const a, mk_lib_crypto_alg_aes_256_msg_pt const b) mk_lang_noexcept
 {
-	mk_lang_types_uchar_t ta mk_lang_constexpr_init;
-	mk_lang_types_uchar_t tb mk_lang_constexpr_init;
+	int i mk_lang_constexpr_init;
 
-	mk_lang_assert(state);
+	mk_lang_assert(a);
+	mk_lang_assert(b);
 
-	ta = state->m_data.m_uchars[0 * 4 + 1];
-	state->m_data.m_uchars[0 * 4 + 1] = state->m_data.m_uchars[1 * 4 + 1];
-	state->m_data.m_uchars[1 * 4 + 1] = state->m_data.m_uchars[2 * 4 + 1];
-	state->m_data.m_uchars[2 * 4 + 1] = state->m_data.m_uchars[3 * 4 + 1];
-	state->m_data.m_uchars[3 * 4 + 1] = ta;
-
-	ta = state->m_data.m_uchars[0 * 4 + 2];
-	tb = state->m_data.m_uchars[1 * 4 + 2];
-	state->m_data.m_uchars[0 * 4 + 2] = state->m_data.m_uchars[2 * 4 + 2];
-	state->m_data.m_uchars[1 * 4 + 2] = state->m_data.m_uchars[3 * 4 + 2];
-	state->m_data.m_uchars[2 * 4 + 2] = ta;
-	state->m_data.m_uchars[3 * 4 + 2] = tb;
-
-	ta = state->m_data.m_uchars[1 * 4 + 3];
-	state->m_data.m_uchars[1 * 4 + 3] = state->m_data.m_uchars[0 * 4 + 3];
-	state->m_data.m_uchars[0 * 4 + 3] = state->m_data.m_uchars[3 * 4 + 3];
-	state->m_data.m_uchars[3 * 4 + 3] = state->m_data.m_uchars[2 * 4 + 3];
-	state->m_data.m_uchars[2 * 4 + 3] = ta;
+	for(i = 0; i != mk_lib_crypto_alg_aes_256_msg_len_v; ++i)
+	{
+		mk_lib_crypto_alg_aes_256_inv_sub_byte(&a->m_data.m_uint8s[i], &b->m_data.m_uint8s[i]);
+	}
 }
 
-mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_256_inv_shift_rows(mk_lib_crypto_alg_aes_256_msg_pt const state) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_256_shift_rows(mk_lib_crypto_alg_aes_256_msg_pct const a, mk_lib_crypto_alg_aes_256_msg_pt const b) mk_lang_noexcept
 {
-	mk_lang_types_uchar_t ta mk_lang_constexpr_init;
-	mk_lang_types_uchar_t tb mk_lang_constexpr_init;
+	mk_sl_cui_uint8_t ta mk_lang_constexpr_init;
+	mk_sl_cui_uint8_t tb mk_lang_constexpr_init;
 
-	mk_lang_assert(state);
+	mk_lang_assert(a);
+	mk_lang_assert(b);
 
-	ta = state->m_data.m_uchars[1 * 4 + 1];
-	state->m_data.m_uchars[1 * 4 + 1] = state->m_data.m_uchars[0 * 4 + 1];
-	state->m_data.m_uchars[0 * 4 + 1] = state->m_data.m_uchars[3 * 4 + 1];
-	state->m_data.m_uchars[3 * 4 + 1] = state->m_data.m_uchars[2 * 4 + 1];
-	state->m_data.m_uchars[2 * 4 + 1] = ta;
+	ta = a->m_data.m_uint8s[0 * 4 + 1];
+	b->m_data.m_uint8s[0 * 4 + 1] = a->m_data.m_uint8s[1 * 4 + 1];
+	b->m_data.m_uint8s[1 * 4 + 1] = a->m_data.m_uint8s[2 * 4 + 1];
+	b->m_data.m_uint8s[2 * 4 + 1] = a->m_data.m_uint8s[3 * 4 + 1];
+	b->m_data.m_uint8s[3 * 4 + 1] = ta;
 
-	ta = state->m_data.m_uchars[0 * 4 + 2];
-	tb = state->m_data.m_uchars[1 * 4 + 2];
-	state->m_data.m_uchars[0 * 4 + 2] = state->m_data.m_uchars[2 * 4 + 2];
-	state->m_data.m_uchars[1 * 4 + 2] = state->m_data.m_uchars[3 * 4 + 2];
-	state->m_data.m_uchars[2 * 4 + 2] = ta;
-	state->m_data.m_uchars[3 * 4 + 2] = tb;
+	ta = a->m_data.m_uint8s[0 * 4 + 2];
+	tb = a->m_data.m_uint8s[1 * 4 + 2];
+	b->m_data.m_uint8s[0 * 4 + 2] = a->m_data.m_uint8s[2 * 4 + 2];
+	b->m_data.m_uint8s[1 * 4 + 2] = a->m_data.m_uint8s[3 * 4 + 2];
+	b->m_data.m_uint8s[2 * 4 + 2] = ta;
+	b->m_data.m_uint8s[3 * 4 + 2] = tb;
 
-	ta = state->m_data.m_uchars[0 * 4 + 3];
-	state->m_data.m_uchars[0 * 4 + 3] = state->m_data.m_uchars[1 * 4 + 3];
-	state->m_data.m_uchars[1 * 4 + 3] = state->m_data.m_uchars[2 * 4 + 3];
-	state->m_data.m_uchars[2 * 4 + 3] = state->m_data.m_uchars[3 * 4 + 3];
-	state->m_data.m_uchars[3 * 4 + 3] = ta;
+	ta = a->m_data.m_uint8s[1 * 4 + 3];
+	b->m_data.m_uint8s[1 * 4 + 3] = a->m_data.m_uint8s[0 * 4 + 3];
+	b->m_data.m_uint8s[0 * 4 + 3] = a->m_data.m_uint8s[3 * 4 + 3];
+	b->m_data.m_uint8s[3 * 4 + 3] = a->m_data.m_uint8s[2 * 4 + 3];
+	b->m_data.m_uint8s[2 * 4 + 3] = ta;
 }
 
-mk_lang_constexpr static mk_lang_inline mk_lang_types_uchar_t mk_lib_crypto_alg_aes_256_mul_1(mk_lang_types_uchar_t const x) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_256_inv_shift_rows(mk_lib_crypto_alg_aes_256_msg_pct const a, mk_lib_crypto_alg_aes_256_msg_pt const b) mk_lang_noexcept
 {
-	return x;
+	mk_sl_cui_uint8_t ta mk_lang_constexpr_init;
+	mk_sl_cui_uint8_t tb mk_lang_constexpr_init;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	ta = a->m_data.m_uint8s[1 * 4 + 1];
+	b->m_data.m_uint8s[1 * 4 + 1] = a->m_data.m_uint8s[0 * 4 + 1];
+	b->m_data.m_uint8s[0 * 4 + 1] = a->m_data.m_uint8s[3 * 4 + 1];
+	b->m_data.m_uint8s[3 * 4 + 1] = a->m_data.m_uint8s[2 * 4 + 1];
+	b->m_data.m_uint8s[2 * 4 + 1] = ta;
+
+	ta = a->m_data.m_uint8s[0 * 4 + 2];
+	tb = a->m_data.m_uint8s[1 * 4 + 2];
+	b->m_data.m_uint8s[0 * 4 + 2] = a->m_data.m_uint8s[2 * 4 + 2];
+	b->m_data.m_uint8s[1 * 4 + 2] = a->m_data.m_uint8s[3 * 4 + 2];
+	b->m_data.m_uint8s[2 * 4 + 2] = ta;
+	b->m_data.m_uint8s[3 * 4 + 2] = tb;
+
+	ta = a->m_data.m_uint8s[0 * 4 + 3];
+	b->m_data.m_uint8s[0 * 4 + 3] = a->m_data.m_uint8s[1 * 4 + 3];
+	b->m_data.m_uint8s[1 * 4 + 3] = a->m_data.m_uint8s[2 * 4 + 3];
+	b->m_data.m_uint8s[2 * 4 + 3] = a->m_data.m_uint8s[3 * 4 + 3];
+	b->m_data.m_uint8s[3 * 4 + 3] = ta;
 }
 
-mk_lang_constexpr static mk_lang_inline mk_lang_types_uchar_t mk_lib_crypto_alg_aes_256_mul_2(mk_lang_types_uchar_t const x) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_256_mul_1(mk_sl_cui_uint8_pct const a, mk_sl_cui_uint8_pt const b) mk_lang_noexcept
 {
-	return
-	((mk_lang_types_uchar_t)(
-		((mk_lang_types_uchar_t)(x << 1))
-		^
-		((mk_lang_types_uchar_t)(
-			((mk_lang_types_uchar_t)(
-				((mk_lang_types_uchar_t)(x >> 7))
-				&
-				((mk_lang_types_uchar_t)(0x01))
-			))
-			*
-			((mk_lang_types_uchar_t)(0x1b))
-		))
-	));
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	*b = *a;
 }
 
-mk_lang_constexpr static mk_lang_inline mk_lang_types_uchar_t mk_lib_crypto_alg_aes_256_mul_3(mk_lang_types_uchar_t const x) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_256_mul_2(mk_sl_cui_uint8_pct const a, mk_sl_cui_uint8_pt const b) mk_lang_noexcept
 {
-	return ((mk_lang_types_uchar_t)(mk_lib_crypto_alg_aes_256_mul_2(x) ^ mk_lib_crypto_alg_aes_256_mul_1(x)));
+	mk_lang_constexpr_static mk_lang_types_uchar_t const s_cnt = 0x1b;
+
+	mk_sl_cui_uint8_t n mk_lang_constexpr_init;
+	mk_sl_cui_uint8_t ta mk_lang_constexpr_init;
+	mk_sl_cui_uint8_t tb mk_lang_constexpr_init;
+	mk_sl_cui_uint8_t tc mk_lang_constexpr_init;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	n = *a;
+	mk_sl_cui_uint8_shl3(&n, 1, &ta);
+	mk_sl_cui_uint8_shr3(&n, 7, &tb);
+	mk_sl_cui_uint8_set_one(&tc);
+	mk_sl_cui_uint8_and2(&tb, &tc);
+	mk_sl_cui_uint8_from_bi_uchar(&tc, &s_cnt);
+	mk_sl_cui_uint8_mul2_wrap_lo(&tb, &tc);
+	mk_sl_cui_uint8_xor3(&ta, &tb, &n);
+	*b = n;
 }
 
-mk_lang_constexpr static mk_lang_inline mk_lang_types_uchar_t mk_lib_crypto_alg_aes_256_mul_4(mk_lang_types_uchar_t const x) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_256_mul_3(mk_sl_cui_uint8_pct const a, mk_sl_cui_uint8_pt const b) mk_lang_noexcept
 {
-	return mk_lib_crypto_alg_aes_256_mul_2(mk_lib_crypto_alg_aes_256_mul_2(x));
+	mk_sl_cui_uint8_t ta mk_lang_constexpr_init;
+	mk_sl_cui_uint8_t tb mk_lang_constexpr_init;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	ta = *a;
+	tb = *a;
+	mk_lib_crypto_alg_aes_256_mul_2(&ta, &ta);
+	mk_lib_crypto_alg_aes_256_mul_1(&tb, &tb);
+	mk_sl_cui_uint8_xor2(&ta, &tb);
+	*b = ta;
 }
 
-mk_lang_constexpr static mk_lang_inline mk_lang_types_uchar_t mk_lib_crypto_alg_aes_256_mul_8(mk_lang_types_uchar_t const x) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_256_mul_4(mk_sl_cui_uint8_pct const a, mk_sl_cui_uint8_pt const b) mk_lang_noexcept
 {
-	return mk_lib_crypto_alg_aes_256_mul_2(mk_lib_crypto_alg_aes_256_mul_2(mk_lib_crypto_alg_aes_256_mul_2(x)));
+	mk_sl_cui_uint8_t ta mk_lang_constexpr_init;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	ta = *a;
+	mk_lib_crypto_alg_aes_256_mul_2(&ta, &ta);
+	mk_lib_crypto_alg_aes_256_mul_2(&ta, &ta);
+	*b = ta;
 }
 
-mk_lang_constexpr static mk_lang_inline mk_lang_types_uchar_t mk_lib_crypto_alg_aes_256_mul_9(mk_lang_types_uchar_t const x) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_256_mul_8(mk_sl_cui_uint8_pct const a, mk_sl_cui_uint8_pt const b) mk_lang_noexcept
 {
-	return ((mk_lang_types_uchar_t)(mk_lib_crypto_alg_aes_256_mul_8(x) ^ mk_lib_crypto_alg_aes_256_mul_1(x)));
+	mk_sl_cui_uint8_t ta mk_lang_constexpr_init;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	ta = *a;
+	mk_lib_crypto_alg_aes_256_mul_2(&ta, &ta);
+	mk_lib_crypto_alg_aes_256_mul_2(&ta, &ta);
+	mk_lib_crypto_alg_aes_256_mul_2(&ta, &ta);
+	*b = ta;
 }
 
-mk_lang_constexpr static mk_lang_inline mk_lang_types_uchar_t mk_lib_crypto_alg_aes_256_mul_b(mk_lang_types_uchar_t const x) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_256_mul_9(mk_sl_cui_uint8_pct const a, mk_sl_cui_uint8_pt const b) mk_lang_noexcept
 {
-	return ((mk_lang_types_uchar_t)(mk_lib_crypto_alg_aes_256_mul_8(x) ^ mk_lib_crypto_alg_aes_256_mul_2(x) ^ mk_lib_crypto_alg_aes_256_mul_1(x)));
+	mk_sl_cui_uint8_t ta mk_lang_constexpr_init;
+	mk_sl_cui_uint8_t tb mk_lang_constexpr_init;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	ta = *a;
+	tb = *a;
+	mk_lib_crypto_alg_aes_256_mul_8(&ta, &ta);
+	mk_lib_crypto_alg_aes_256_mul_1(&tb, &tb);
+	mk_sl_cui_uint8_xor2(&ta, &tb);
+	*b = ta;
 }
 
-mk_lang_constexpr static mk_lang_inline mk_lang_types_uchar_t mk_lib_crypto_alg_aes_256_mul_d(mk_lang_types_uchar_t const x) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_256_mul_b(mk_sl_cui_uint8_pct const a, mk_sl_cui_uint8_pt const b) mk_lang_noexcept
 {
-	return ((mk_lang_types_uchar_t)(mk_lib_crypto_alg_aes_256_mul_8(x) ^ mk_lib_crypto_alg_aes_256_mul_4(x) ^ mk_lib_crypto_alg_aes_256_mul_1(x)));
+	mk_sl_cui_uint8_t ta mk_lang_constexpr_init;
+	mk_sl_cui_uint8_t tb mk_lang_constexpr_init;
+	mk_sl_cui_uint8_t tc mk_lang_constexpr_init;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	ta = *a;
+	tb = *a;
+	tc = *a;
+	mk_lib_crypto_alg_aes_256_mul_8(&ta, &ta);
+	mk_lib_crypto_alg_aes_256_mul_2(&tb, &tb);
+	mk_lib_crypto_alg_aes_256_mul_1(&tc, &tc);
+	mk_sl_cui_uint8_xor2(&ta, &tb);
+	mk_sl_cui_uint8_xor2(&ta, &tc);
+	*b = ta;
 }
 
-mk_lang_constexpr static mk_lang_inline mk_lang_types_uchar_t mk_lib_crypto_alg_aes_256_mul_e(mk_lang_types_uchar_t const x) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_256_mul_d(mk_sl_cui_uint8_pct const a, mk_sl_cui_uint8_pt const b) mk_lang_noexcept
 {
-	return ((mk_lang_types_uchar_t)(mk_lib_crypto_alg_aes_256_mul_8(x) ^ mk_lib_crypto_alg_aes_256_mul_4(x) ^ mk_lib_crypto_alg_aes_256_mul_2(x)));
+	mk_sl_cui_uint8_t ta mk_lang_constexpr_init;
+	mk_sl_cui_uint8_t tb mk_lang_constexpr_init;
+	mk_sl_cui_uint8_t tc mk_lang_constexpr_init;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	ta = *a;
+	tb = *a;
+	tc = *a;
+	mk_lib_crypto_alg_aes_256_mul_8(&ta, &ta);
+	mk_lib_crypto_alg_aes_256_mul_4(&tb, &tb);
+	mk_lib_crypto_alg_aes_256_mul_1(&tc, &tc);
+	mk_sl_cui_uint8_xor2(&ta, &tb);
+	mk_sl_cui_uint8_xor2(&ta, &tc);
+	*b = ta;
 }
 
-mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_256_mix_columns(mk_lib_crypto_alg_aes_256_msg_pt const state) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_256_mul_e(mk_sl_cui_uint8_pct const a, mk_sl_cui_uint8_pt const b) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_t ta mk_lang_constexpr_init;
+	mk_sl_cui_uint8_t tb mk_lang_constexpr_init;
+	mk_sl_cui_uint8_t tc mk_lang_constexpr_init;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	ta = *a;
+	tb = *a;
+	tc = *a;
+	mk_lib_crypto_alg_aes_256_mul_8(&ta, &ta);
+	mk_lib_crypto_alg_aes_256_mul_4(&tb, &tb);
+	mk_lib_crypto_alg_aes_256_mul_2(&tc, &tc);
+	mk_sl_cui_uint8_xor2(&ta, &tb);
+	mk_sl_cui_uint8_xor2(&ta, &tc);
+	*b = ta;
+}
+
+mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_256_mix_columns(mk_lib_crypto_alg_aes_256_msg_pct const a, mk_lib_crypto_alg_aes_256_msg_pt const b) mk_lang_noexcept
 {
 	mk_lib_crypto_alg_aes_256_msg_t orig mk_lang_constexpr_init;
 	int i mk_lang_constexpr_init;
+	mk_sl_cui_uint8_t ta mk_lang_constexpr_init;
+	mk_sl_cui_uint8_t tb mk_lang_constexpr_init;
+	mk_sl_cui_uint8_t tc mk_lang_constexpr_init;
+	mk_sl_cui_uint8_t td mk_lang_constexpr_init;
 
-	mk_lang_assert(state);
+	mk_lang_assert(a);
+	mk_lang_assert(b);
 
-	orig = *state;
+	orig = *a;
 	for(i = 0; i != 4; ++i)
 	{
-		state->m_data.m_uchars[i * 4 + 0] = ((mk_lang_types_uchar_t)(mk_lib_crypto_alg_aes_256_mul_2(orig.m_data.m_uchars[i * 4 + 0]) ^ mk_lib_crypto_alg_aes_256_mul_3(orig.m_data.m_uchars[i * 4 + 1]) ^ mk_lib_crypto_alg_aes_256_mul_1(orig.m_data.m_uchars[i * 4 + 2]) ^ mk_lib_crypto_alg_aes_256_mul_1(orig.m_data.m_uchars[i * 4 + 3])));
-		state->m_data.m_uchars[i * 4 + 1] = ((mk_lang_types_uchar_t)(mk_lib_crypto_alg_aes_256_mul_1(orig.m_data.m_uchars[i * 4 + 0]) ^ mk_lib_crypto_alg_aes_256_mul_2(orig.m_data.m_uchars[i * 4 + 1]) ^ mk_lib_crypto_alg_aes_256_mul_3(orig.m_data.m_uchars[i * 4 + 2]) ^ mk_lib_crypto_alg_aes_256_mul_1(orig.m_data.m_uchars[i * 4 + 3])));
-		state->m_data.m_uchars[i * 4 + 2] = ((mk_lang_types_uchar_t)(mk_lib_crypto_alg_aes_256_mul_1(orig.m_data.m_uchars[i * 4 + 0]) ^ mk_lib_crypto_alg_aes_256_mul_1(orig.m_data.m_uchars[i * 4 + 1]) ^ mk_lib_crypto_alg_aes_256_mul_2(orig.m_data.m_uchars[i * 4 + 2]) ^ mk_lib_crypto_alg_aes_256_mul_3(orig.m_data.m_uchars[i * 4 + 3])));
-		state->m_data.m_uchars[i * 4 + 3] = ((mk_lang_types_uchar_t)(mk_lib_crypto_alg_aes_256_mul_3(orig.m_data.m_uchars[i * 4 + 0]) ^ mk_lib_crypto_alg_aes_256_mul_1(orig.m_data.m_uchars[i * 4 + 1]) ^ mk_lib_crypto_alg_aes_256_mul_1(orig.m_data.m_uchars[i * 4 + 2]) ^ mk_lib_crypto_alg_aes_256_mul_2(orig.m_data.m_uchars[i * 4 + 3])));
+		mk_lib_crypto_alg_aes_256_mul_2(&orig.m_data.m_uint8s[i * 4 + 0], &ta);
+		mk_lib_crypto_alg_aes_256_mul_3(&orig.m_data.m_uint8s[i * 4 + 1], &tb);
+		mk_sl_cui_uint8_xor3(&ta, &tb, &tc);
+		mk_lib_crypto_alg_aes_256_mul_1(&orig.m_data.m_uint8s[i * 4 + 2], &ta);
+		mk_lib_crypto_alg_aes_256_mul_1(&orig.m_data.m_uint8s[i * 4 + 3], &tb);
+		mk_sl_cui_uint8_xor3(&ta, &tb, &td);
+		mk_sl_cui_uint8_xor3(&tc, &td, &b->m_data.m_uint8s[i * 4 + 0]);
+		mk_lib_crypto_alg_aes_256_mul_1(&orig.m_data.m_uint8s[i * 4 + 0], &ta);
+		mk_lib_crypto_alg_aes_256_mul_2(&orig.m_data.m_uint8s[i * 4 + 1], &tb);
+		mk_sl_cui_uint8_xor3(&ta, &tb, &tc);
+		mk_lib_crypto_alg_aes_256_mul_3(&orig.m_data.m_uint8s[i * 4 + 2], &ta);
+		mk_lib_crypto_alg_aes_256_mul_1(&orig.m_data.m_uint8s[i * 4 + 3], &tb);
+		mk_sl_cui_uint8_xor3(&ta, &tb, &td);
+		mk_sl_cui_uint8_xor3(&tc, &td, &b->m_data.m_uint8s[i * 4 + 1]);
+		mk_lib_crypto_alg_aes_256_mul_1(&orig.m_data.m_uint8s[i * 4 + 0], &ta);
+		mk_lib_crypto_alg_aes_256_mul_1(&orig.m_data.m_uint8s[i * 4 + 1], &tb);
+		mk_sl_cui_uint8_xor3(&ta, &tb, &tc);
+		mk_lib_crypto_alg_aes_256_mul_2(&orig.m_data.m_uint8s[i * 4 + 2], &ta);
+		mk_lib_crypto_alg_aes_256_mul_3(&orig.m_data.m_uint8s[i * 4 + 3], &tb);
+		mk_sl_cui_uint8_xor3(&ta, &tb, &td);
+		mk_sl_cui_uint8_xor3(&tc, &td, &b->m_data.m_uint8s[i * 4 + 2]);
+		mk_lib_crypto_alg_aes_256_mul_3(&orig.m_data.m_uint8s[i * 4 + 0], &ta);
+		mk_lib_crypto_alg_aes_256_mul_1(&orig.m_data.m_uint8s[i * 4 + 1], &tb);
+		mk_sl_cui_uint8_xor3(&ta, &tb, &tc);
+		mk_lib_crypto_alg_aes_256_mul_1(&orig.m_data.m_uint8s[i * 4 + 2], &ta);
+		mk_lib_crypto_alg_aes_256_mul_2(&orig.m_data.m_uint8s[i * 4 + 3], &tb);
+		mk_sl_cui_uint8_xor3(&ta, &tb, &td);
+		mk_sl_cui_uint8_xor3(&tc, &td, &b->m_data.m_uint8s[i * 4 + 3]);
 	}
 }
 
-mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_256_inv_mix_columns(mk_lib_crypto_alg_aes_256_msg_pt const state) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_256_inv_mix_columns(mk_lib_crypto_alg_aes_256_msg_pct const a, mk_lib_crypto_alg_aes_256_msg_pt const b) mk_lang_noexcept
 {
 	mk_lib_crypto_alg_aes_256_msg_t orig mk_lang_constexpr_init;
+	mk_sl_cui_uint8_t ta mk_lang_constexpr_init;
+	mk_sl_cui_uint8_t tb mk_lang_constexpr_init;
+	mk_sl_cui_uint8_t tc mk_lang_constexpr_init;
+	mk_sl_cui_uint8_t td mk_lang_constexpr_init;
 	int i mk_lang_constexpr_init;
 
-	mk_lang_assert(state);
+	mk_lang_assert(a);
+	mk_lang_assert(b);
 
-	orig = *state;
+	orig = *a;
 	for(i = 0; i != 4; ++i)
 	{
-		state->m_data.m_uchars[i * 4 + 0] = ((mk_lang_types_uchar_t)(mk_lib_crypto_alg_aes_256_mul_e(orig.m_data.m_uchars[i * 4 + 0]) ^ mk_lib_crypto_alg_aes_256_mul_b(orig.m_data.m_uchars[i * 4 + 1]) ^ mk_lib_crypto_alg_aes_256_mul_d(orig.m_data.m_uchars[i * 4 + 2]) ^ mk_lib_crypto_alg_aes_256_mul_9(orig.m_data.m_uchars[i * 4 + 3])));
-		state->m_data.m_uchars[i * 4 + 1] = ((mk_lang_types_uchar_t)(mk_lib_crypto_alg_aes_256_mul_9(orig.m_data.m_uchars[i * 4 + 0]) ^ mk_lib_crypto_alg_aes_256_mul_e(orig.m_data.m_uchars[i * 4 + 1]) ^ mk_lib_crypto_alg_aes_256_mul_b(orig.m_data.m_uchars[i * 4 + 2]) ^ mk_lib_crypto_alg_aes_256_mul_d(orig.m_data.m_uchars[i * 4 + 3])));
-		state->m_data.m_uchars[i * 4 + 2] = ((mk_lang_types_uchar_t)(mk_lib_crypto_alg_aes_256_mul_d(orig.m_data.m_uchars[i * 4 + 0]) ^ mk_lib_crypto_alg_aes_256_mul_9(orig.m_data.m_uchars[i * 4 + 1]) ^ mk_lib_crypto_alg_aes_256_mul_e(orig.m_data.m_uchars[i * 4 + 2]) ^ mk_lib_crypto_alg_aes_256_mul_b(orig.m_data.m_uchars[i * 4 + 3])));
-		state->m_data.m_uchars[i * 4 + 3] = ((mk_lang_types_uchar_t)(mk_lib_crypto_alg_aes_256_mul_b(orig.m_data.m_uchars[i * 4 + 0]) ^ mk_lib_crypto_alg_aes_256_mul_d(orig.m_data.m_uchars[i * 4 + 1]) ^ mk_lib_crypto_alg_aes_256_mul_9(orig.m_data.m_uchars[i * 4 + 2]) ^ mk_lib_crypto_alg_aes_256_mul_e(orig.m_data.m_uchars[i * 4 + 3])));
+		mk_lib_crypto_alg_aes_256_mul_e(&orig.m_data.m_uint8s[i * 4 + 0], &ta);
+		mk_lib_crypto_alg_aes_256_mul_b(&orig.m_data.m_uint8s[i * 4 + 1], &tb);
+		mk_sl_cui_uint8_xor3(&ta, &tb, &tc);
+		mk_lib_crypto_alg_aes_256_mul_d(&orig.m_data.m_uint8s[i * 4 + 2], &ta);
+		mk_lib_crypto_alg_aes_256_mul_9(&orig.m_data.m_uint8s[i * 4 + 3], &tb);
+		mk_sl_cui_uint8_xor3(&ta, &tb, &td);
+		mk_sl_cui_uint8_xor3(&tc, &td, &b->m_data.m_uint8s[i * 4 + 0]);
+		mk_lib_crypto_alg_aes_256_mul_9(&orig.m_data.m_uint8s[i * 4 + 0], &ta);
+		mk_lib_crypto_alg_aes_256_mul_e(&orig.m_data.m_uint8s[i * 4 + 1], &tb);
+		mk_sl_cui_uint8_xor3(&ta, &tb, &tc);
+		mk_lib_crypto_alg_aes_256_mul_b(&orig.m_data.m_uint8s[i * 4 + 2], &ta);
+		mk_lib_crypto_alg_aes_256_mul_d(&orig.m_data.m_uint8s[i * 4 + 3], &tb);
+		mk_sl_cui_uint8_xor3(&ta, &tb, &td);
+		mk_sl_cui_uint8_xor3(&tc, &td, &b->m_data.m_uint8s[i * 4 + 1]);
+		mk_lib_crypto_alg_aes_256_mul_d(&orig.m_data.m_uint8s[i * 4 + 0], &ta);
+		mk_lib_crypto_alg_aes_256_mul_9(&orig.m_data.m_uint8s[i * 4 + 1], &tb);
+		mk_sl_cui_uint8_xor3(&ta, &tb, &tc);
+		mk_lib_crypto_alg_aes_256_mul_e(&orig.m_data.m_uint8s[i * 4 + 2], &ta);
+		mk_lib_crypto_alg_aes_256_mul_b(&orig.m_data.m_uint8s[i * 4 + 3], &tb);
+		mk_sl_cui_uint8_xor3(&ta, &tb, &td);
+		mk_sl_cui_uint8_xor3(&tc, &td, &b->m_data.m_uint8s[i * 4 + 2]);
+		mk_lib_crypto_alg_aes_256_mul_b(&orig.m_data.m_uint8s[i * 4 + 0], &ta);
+		mk_lib_crypto_alg_aes_256_mul_d(&orig.m_data.m_uint8s[i * 4 + 1], &tb);
+		mk_sl_cui_uint8_xor3(&ta, &tb, &tc);
+		mk_lib_crypto_alg_aes_256_mul_9(&orig.m_data.m_uint8s[i * 4 + 2], &ta);
+		mk_lib_crypto_alg_aes_256_mul_e(&orig.m_data.m_uint8s[i * 4 + 3], &tb);
+		mk_sl_cui_uint8_xor3(&ta, &tb, &td);
+		mk_sl_cui_uint8_xor3(&tc, &td, &b->m_data.m_uint8s[i * 4 + 3]);
 	}
 }
 
-mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_256_add_key(mk_lib_crypto_alg_aes_256_msg_pt const state, mk_lib_crypto_alg_aes_256_msg_pct const key) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_256_add_key(mk_lib_crypto_alg_aes_256_msg_pct const a, mk_lib_crypto_alg_aes_256_msg_pct const b, mk_lib_crypto_alg_aes_256_msg_pt const c) mk_lang_noexcept
 {
 	int i mk_lang_constexpr_init;
 
-	mk_lang_assert(state);
-	mk_lang_assert(key);
-	mk_lang_assert(state != key);
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(c);
+	mk_lang_assert(a != b);
 
 	for(i = 0; i != mk_lib_crypto_alg_aes_256_msg_len_v; ++i)
 	{
-		state->m_data.m_uchars[i] ^= key->m_data.m_uchars[i];
+		mk_sl_cui_uint8_xor3(&a->m_data.m_uint8s[i], &b->m_data.m_uint8s[i], &c->m_data.m_uint8s[i]);
 	}
 }
 
-mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_256_rot_word(mk_lib_crypto_alg_aes_256_word_pt const w) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_256_rot_word(mk_lib_crypto_alg_aes_256_word_pct const a, mk_lib_crypto_alg_aes_256_word_pt const b) mk_lang_noexcept
 {
-	mk_lang_types_uchar_t ta mk_lang_constexpr_init;
+	mk_sl_cui_uint8_t ta mk_lang_constexpr_init;
 
-	mk_lang_assert(w);
+	mk_lang_assert(a);
+	mk_lang_assert(b);
 
-	ta = w->m_data.m_uchars[0];
-	w->m_data.m_uchars[0] = w->m_data.m_uchars[1];
-	w->m_data.m_uchars[1] = w->m_data.m_uchars[2];
-	w->m_data.m_uchars[2] = w->m_data.m_uchars[3];
-	w->m_data.m_uchars[3] = ta;
+	ta = a->m_data.m_uint8s[0];
+	b->m_data.m_uint8s[0] = a->m_data.m_uint8s[1];
+	b->m_data.m_uint8s[1] = a->m_data.m_uint8s[2];
+	b->m_data.m_uint8s[2] = a->m_data.m_uint8s[3];
+	b->m_data.m_uint8s[3] = ta;
 }
 
-mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_256_sub_word(mk_lib_crypto_alg_aes_256_word_pt const w) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_256_sub_word(mk_lib_crypto_alg_aes_256_word_pct const a, mk_lib_crypto_alg_aes_256_word_pt const b) mk_lang_noexcept
 {
 	int i mk_lang_constexpr_init;
 
-	mk_lang_assert(w);
+	mk_lang_assert(a);
+	mk_lang_assert(b);
 
 	for(i = 0; i != mk_lib_crypto_alg_aes_256_word_bytes; ++i)
 	{
-		mk_lib_crypto_alg_aes_256_sub_byte(&w->m_data.m_uchars[i]);
+		mk_lib_crypto_alg_aes_256_sub_byte(&a->m_data.m_uint8s[i], &b->m_data.m_uint8s[i]);
 	}
 }
 
-mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_256_xor_word(mk_lib_crypto_alg_aes_256_word_pt const w, mk_lang_types_uchar_pt const rcon) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_256_xor_word(mk_lib_crypto_alg_aes_256_word_pct const a, mk_sl_cui_uint8_pct const b, mk_lib_crypto_alg_aes_256_word_pt const c, mk_sl_cui_uint8_pt const d) mk_lang_noexcept
 {
-	mk_lang_assert(w);
-	mk_lang_assert(rcon);
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(c);
+	mk_lang_assert(d);
 
-	w->m_data.m_uchars[0] ^= *rcon;
-	*rcon = mk_lib_crypto_alg_aes_256_mul_2(*rcon);
+	mk_sl_cui_uint8_xor3(&a->m_data.m_uint8s[0], b, &c->m_data.m_uint8s[0]);
+	c->m_data.m_uint8s[1] = a->m_data.m_uint8s[1];
+	c->m_data.m_uint8s[2] = a->m_data.m_uint8s[2];
+	c->m_data.m_uint8s[3] = a->m_data.m_uint8s[3];
+	mk_lib_crypto_alg_aes_256_mul_2(b, d);
 }
 
 mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_256_generate_keys(mk_lib_crypto_alg_aes_256_key_pct const key, mk_lib_crypto_alg_aes_256_msg_pt const keys) mk_lang_noexcept
@@ -345,7 +516,7 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_256_generate_
 	#define get_outer(x) ((x) / mk_lib_crypto_alg_aes_256_msg_len_m)
 	#define get_inner(x) ((x) % mk_lib_crypto_alg_aes_256_msg_len_m)
 
-	mk_lang_types_uchar_t rcon mk_lang_constexpr_init;
+	mk_sl_cui_uint8_t rcon mk_lang_constexpr_init;
 	int i mk_lang_constexpr_init;
 	int j mk_lang_constexpr_init;
 	int idx_prev mk_lang_constexpr_init;
@@ -356,25 +527,28 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_256_generate_
 	mk_lang_assert(key);
 	mk_lang_assert(keys);
 
-	rcon = 1;
-	for(i = 0; i != mk_lib_crypto_alg_aes_256_key_len_m; ++i){ keys[get_outer(i)].m_data.m_uchars[get_inner(i)] = key->m_data.m_uchars[i]; }
+	mk_sl_cui_uint8_set_one(&rcon);
+	for(i = 0; i != mk_lib_crypto_alg_aes_256_key_len_m; ++i){ keys[get_outer(i)].m_data.m_uint8s[get_inner(i)] = key->m_data.m_uint8s[i]; }
 	for(i = mk_lib_crypto_alg_aes_256_key_words; i != (mk_lib_crypto_alg_aes_256_nr + 1) * mk_lib_crypto_alg_aes_256_msg_words; ++i)
 	{
 		idx_prev = (i - 1) * mk_lib_crypto_alg_aes_256_word_bytes;
-		for(j = 0; j != mk_lib_crypto_alg_aes_256_word_bytes; ++j){ tmp.m_data.m_uchars[j] = keys[get_outer(idx_prev + j)].m_data.m_uchars[get_inner(idx_prev + j)]; }
+		for(j = 0; j != mk_lib_crypto_alg_aes_256_word_bytes; ++j){ tmp.m_data.m_uint8s[j] = keys[get_outer(idx_prev + j)].m_data.m_uint8s[get_inner(idx_prev + j)]; }
 		if(i % mk_lib_crypto_alg_aes_256_key_words == 0)
 		{
-			mk_lib_crypto_alg_aes_256_rot_word(&tmp);
-			mk_lib_crypto_alg_aes_256_sub_word(&tmp);
-			mk_lib_crypto_alg_aes_256_xor_word(&tmp, &rcon);
+			mk_lib_crypto_alg_aes_256_rot_word(&tmp, &tmp);
+			mk_lib_crypto_alg_aes_256_sub_word(&tmp, &tmp);
+			mk_lib_crypto_alg_aes_256_xor_word(&tmp, &rcon, &tmp, &rcon);
 		}
 		else if(mk_lib_crypto_alg_aes_256_key_words > 6 && i % mk_lib_crypto_alg_aes_256_key_words == 4)
 		{
-			mk_lib_crypto_alg_aes_256_sub_word(&tmp);
+			mk_lib_crypto_alg_aes_256_sub_word(&tmp, &tmp);
 		}
 		idx_curr = i * mk_lib_crypto_alg_aes_256_word_bytes;
 		idx_oldd = (i - mk_lib_crypto_alg_aes_256_key_words) * mk_lib_crypto_alg_aes_256_word_bytes;
-		for(j = 0; j != mk_lib_crypto_alg_aes_256_word_bytes; ++j){ keys[get_outer(idx_curr + j)].m_data.m_uchars[get_inner(idx_curr + j)] = ((mk_lang_types_uchar_t)(tmp.m_data.m_uchars[j] ^ keys[get_outer(idx_oldd + j)].m_data.m_uchars[get_inner(idx_oldd + j)])); }
+		for(j = 0; j != mk_lib_crypto_alg_aes_256_word_bytes; ++j)
+		{
+			mk_sl_cui_uint8_xor3(&tmp.m_data.m_uint8s[j], &keys[get_outer(idx_oldd + j)].m_data.m_uint8s[get_inner(idx_oldd + j)], &keys[get_outer(idx_curr + j)].m_data.m_uint8s[get_inner(idx_curr + j)]);
+		}
 	}
 
 	#undef get_outer
@@ -395,18 +569,18 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_256_c_encrypt
 	mk_lang_assert(output);
 
 	state = *input;
-	mk_lib_crypto_alg_aes_256_generate_keys(key, keys);
-	mk_lib_crypto_alg_aes_256_add_key(&state, &keys[0]);
+	mk_lib_crypto_alg_aes_256_generate_keys(key, &keys[0]);
+	mk_lib_crypto_alg_aes_256_add_key(&state, &keys[0], &state);
 	for(ir = 0; ir != mk_lib_crypto_alg_aes_256_nr - 1; ++ir)
 	{
-		mk_lib_crypto_alg_aes_256_sub_bytes(&state);
-		mk_lib_crypto_alg_aes_256_shift_rows(&state);
-		mk_lib_crypto_alg_aes_256_mix_columns(&state);
-		mk_lib_crypto_alg_aes_256_add_key(&state, &keys[ir + 1]);
+		mk_lib_crypto_alg_aes_256_sub_bytes(&state, &state);
+		mk_lib_crypto_alg_aes_256_shift_rows(&state, &state);
+		mk_lib_crypto_alg_aes_256_mix_columns(&state, &state);
+		mk_lib_crypto_alg_aes_256_add_key(&state, &keys[ir + 1], &state);
 	}
-	mk_lib_crypto_alg_aes_256_sub_bytes(&state);
-	mk_lib_crypto_alg_aes_256_shift_rows(&state);
-	mk_lib_crypto_alg_aes_256_add_key(&state, &keys[mk_lib_crypto_alg_aes_256_nr]);
+	mk_lib_crypto_alg_aes_256_sub_bytes(&state, &state);
+	mk_lib_crypto_alg_aes_256_shift_rows(&state, &state);
+	mk_lib_crypto_alg_aes_256_add_key(&state, &keys[mk_lib_crypto_alg_aes_256_nr], &state);
 	*output = state;
 }
 
@@ -425,17 +599,17 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_256_c_decrypt
 
 	state = *input;
 	mk_lib_crypto_alg_aes_256_generate_keys(key, keys);
-	mk_lib_crypto_alg_aes_256_add_key(&state, &keys[mk_lib_crypto_alg_aes_256_nr]);
+	mk_lib_crypto_alg_aes_256_add_key(&state, &keys[mk_lib_crypto_alg_aes_256_nr], &state);
 	for(ir = 0; ir != mk_lib_crypto_alg_aes_256_nr - 1; ++ir)
 	{
-		mk_lib_crypto_alg_aes_256_inv_shift_rows(&state);
-		mk_lib_crypto_alg_aes_256_inv_sub_bytes(&state);
-		mk_lib_crypto_alg_aes_256_add_key(&state, &keys[mk_lib_crypto_alg_aes_256_nr - (ir + 1)]);
-		mk_lib_crypto_alg_aes_256_inv_mix_columns(&state);
+		mk_lib_crypto_alg_aes_256_inv_shift_rows(&state, &state);
+		mk_lib_crypto_alg_aes_256_inv_sub_bytes(&state, &state);
+		mk_lib_crypto_alg_aes_256_add_key(&state, &keys[mk_lib_crypto_alg_aes_256_nr - (ir + 1)], &state);
+		mk_lib_crypto_alg_aes_256_inv_mix_columns(&state, &state);
 	}
-	mk_lib_crypto_alg_aes_256_inv_shift_rows(&state);
-	mk_lib_crypto_alg_aes_256_inv_sub_bytes(&state);
-	mk_lib_crypto_alg_aes_256_add_key(&state, &keys[0]);
+	mk_lib_crypto_alg_aes_256_inv_shift_rows(&state, &state);
+	mk_lib_crypto_alg_aes_256_inv_sub_bytes(&state, &state);
+	mk_lib_crypto_alg_aes_256_add_key(&state, &keys[0], &state);
 	*output = state;
 }
 
@@ -476,59 +650,45 @@ typedef mk_lib_crypto_alg_aes_256_msvc_aes_ni_schedule_t* mk_lib_crypto_alg_aes_
 typedef mk_lib_crypto_alg_aes_256_msvc_aes_ni_schedule_t const* mk_lib_crypto_alg_aes_256_msvc_aes_ni_schedule_pct;
 
 
-static mk_lang_inline void mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist_a(__m128i* const ta, __m128i* const tb) mk_lang_noexcept
+static mk_lang_inline __m128i mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist(__m128i const a, __m128i const b) mk_lang_noexcept
 {
+	__m128i ta;
+	__m128i tb;
 	__m128i tc;
 
-	mk_lang_assert(ta);
-	mk_lang_assert(tb);
-
-	*tb = _mm_shuffle_epi32(*tb, 0xff);
-	tc = _mm_slli_si128(*ta, 0x04);
-	*ta = _mm_xor_si128(*ta, tc);
+	ta = a;
+	tb = b;
+	tb = _mm_shuffle_epi32(tb, 0xff);
+	tc = _mm_slli_si128(ta, 0x04);
+	ta = _mm_xor_si128(ta, tc);
 	tc = _mm_slli_si128(tc, 0x04);
-	*ta = _mm_xor_si128(*ta, tc);
+	ta = _mm_xor_si128(ta, tc);
 	tc = _mm_slli_si128(tc, 0x04);
-	*ta = _mm_xor_si128(*ta, tc);
-	*ta = _mm_xor_si128(*ta, *tb);
-}
-
-static mk_lang_inline void mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist_b(__m128i* const ta, __m128i* const tb) mk_lang_noexcept
-{
-	__m128i tc;
-	__m128i td;
-
-	mk_lang_assert(ta);
-	mk_lang_assert(tb);
-
-	tc = _mm_aeskeygenassist_si128(*ta, 0x00);
-	td = _mm_shuffle_epi32(tc, 0xaa);
-	tc = _mm_slli_si128(*tb, 0x04);
-	*tb = _mm_xor_si128(*tb, tc);
-	tc = _mm_slli_si128(tc, 0x04);
-	*tb = _mm_xor_si128(*tb, tc);
-	tc = _mm_slli_si128(tc, 0x04);
-	*tb = _mm_xor_si128(*tb, tc);
-	*tb = _mm_xor_si128(*tb, td);
+	ta = _mm_xor_si128(ta, tc);
+	ta = _mm_xor_si128(ta, tb);
+	return ta;
 }
 
 static mk_lang_inline void mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_expand_enc(mk_lib_crypto_alg_aes_256_key_pct const key, mk_lib_crypto_alg_aes_256_msvc_aes_ni_schedule_pt const schedule)
 {
 	__m128i ta;
 	__m128i tb;
-	__m128i tc;
 
-	ta = mk_lib_crypto_alg_aes_256_msvc_aes_ni_load_m128i(&key->m_data.m_uchars[ 0]);
-	tb = mk_lib_crypto_alg_aes_256_msvc_aes_ni_load_m128i(&key->m_data.m_uchars[16]);
+	mk_lang_assert(key);
+	mk_lang_assert(schedule);
+
+	ta = mk_lib_crypto_alg_aes_256_msvc_aes_ni_load_m128i(&key->m_data.m_uint8s[0]);
 	schedule->m_data.m_keys[0] = ta;
-	schedule->m_data.m_keys[1] = tb;
-	tc = _mm_aeskeygenassist_si128(tb, 0x01); mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist_a(&ta, &tc); schedule->m_data.m_keys[ 2] = ta; mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist_b(&ta, &tb); schedule->m_data.m_keys[ 3] = tb;
-	tc = _mm_aeskeygenassist_si128(tb, 0x02); mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist_a(&ta, &tc); schedule->m_data.m_keys[ 4] = ta; mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist_b(&ta, &tb); schedule->m_data.m_keys[ 5] = tb;
-	tc = _mm_aeskeygenassist_si128(tb, 0x04); mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist_a(&ta, &tc); schedule->m_data.m_keys[ 6] = ta; mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist_b(&ta, &tb); schedule->m_data.m_keys[ 7] = tb;
-	tc = _mm_aeskeygenassist_si128(tb, 0x08); mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist_a(&ta, &tc); schedule->m_data.m_keys[ 8] = ta; mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist_b(&ta, &tb); schedule->m_data.m_keys[ 9] = tb;
-	tc = _mm_aeskeygenassist_si128(tb, 0x10); mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist_a(&ta, &tc); schedule->m_data.m_keys[10] = ta; mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist_b(&ta, &tb); schedule->m_data.m_keys[11] = tb;
-	tc = _mm_aeskeygenassist_si128(tb, 0x20); mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist_a(&ta, &tc); schedule->m_data.m_keys[12] = ta; mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist_b(&ta, &tb); schedule->m_data.m_keys[13] = tb;
-	tc = _mm_aeskeygenassist_si128(tb, 0x40); mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist_a(&ta, &tc); schedule->m_data.m_keys[14] = ta;
+	tb = _mm_aeskeygenassist_si128(ta, 0x01); ta = mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist(ta, tb); schedule->m_data.m_keys[ 1] = ta;
+	tb = _mm_aeskeygenassist_si128(ta, 0x02); ta = mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist(ta, tb); schedule->m_data.m_keys[ 2] = ta;
+	tb = _mm_aeskeygenassist_si128(ta, 0x04); ta = mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist(ta, tb); schedule->m_data.m_keys[ 3] = ta;
+	tb = _mm_aeskeygenassist_si128(ta, 0x08); ta = mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist(ta, tb); schedule->m_data.m_keys[ 4] = ta;
+	tb = _mm_aeskeygenassist_si128(ta, 0x10); ta = mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist(ta, tb); schedule->m_data.m_keys[ 5] = ta;
+	tb = _mm_aeskeygenassist_si128(ta, 0x20); ta = mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist(ta, tb); schedule->m_data.m_keys[ 6] = ta;
+	tb = _mm_aeskeygenassist_si128(ta, 0x40); ta = mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist(ta, tb); schedule->m_data.m_keys[ 7] = ta;
+	tb = _mm_aeskeygenassist_si128(ta, 0x80); ta = mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist(ta, tb); schedule->m_data.m_keys[ 8] = ta;
+	tb = _mm_aeskeygenassist_si128(ta, 0x1b); ta = mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist(ta, tb); schedule->m_data.m_keys[ 9] = ta;
+	tb = _mm_aeskeygenassist_si128(ta, 0x36); ta = mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist(ta, tb); schedule->m_data.m_keys[10] = ta;
 }
 
 static mk_lang_inline void mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_expand_dec(mk_lib_crypto_alg_aes_256_key_pct const key, mk_lib_crypto_alg_aes_256_msvc_aes_ni_schedule_pt const schedule)
@@ -537,19 +697,15 @@ static mk_lang_inline void mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_expand_dec(
 	mk_lang_assert(schedule);
 
 	mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_expand_enc(key, schedule);
-	schedule->m_data.m_keys[ 1] = _mm_aesimc_si128(schedule->m_data.m_keys[ 1]);
-	schedule->m_data.m_keys[ 2] = _mm_aesimc_si128(schedule->m_data.m_keys[ 2]);
-	schedule->m_data.m_keys[ 3] = _mm_aesimc_si128(schedule->m_data.m_keys[ 3]);
-	schedule->m_data.m_keys[ 4] = _mm_aesimc_si128(schedule->m_data.m_keys[ 4]);
-	schedule->m_data.m_keys[ 5] = _mm_aesimc_si128(schedule->m_data.m_keys[ 5]);
-	schedule->m_data.m_keys[ 6] = _mm_aesimc_si128(schedule->m_data.m_keys[ 6]);
-	schedule->m_data.m_keys[ 7] = _mm_aesimc_si128(schedule->m_data.m_keys[ 7]);
-	schedule->m_data.m_keys[ 8] = _mm_aesimc_si128(schedule->m_data.m_keys[ 8]);
-	schedule->m_data.m_keys[ 9] = _mm_aesimc_si128(schedule->m_data.m_keys[ 9]);
-	schedule->m_data.m_keys[10] = _mm_aesimc_si128(schedule->m_data.m_keys[10]);
-	schedule->m_data.m_keys[11] = _mm_aesimc_si128(schedule->m_data.m_keys[11]);
-	schedule->m_data.m_keys[12] = _mm_aesimc_si128(schedule->m_data.m_keys[12]);
-	schedule->m_data.m_keys[13] = _mm_aesimc_si128(schedule->m_data.m_keys[13]);
+	schedule->m_data.m_keys[1] = _mm_aesimc_si128(schedule->m_data.m_keys[1]);
+	schedule->m_data.m_keys[2] = _mm_aesimc_si128(schedule->m_data.m_keys[2]);
+	schedule->m_data.m_keys[3] = _mm_aesimc_si128(schedule->m_data.m_keys[3]);
+	schedule->m_data.m_keys[4] = _mm_aesimc_si128(schedule->m_data.m_keys[4]);
+	schedule->m_data.m_keys[5] = _mm_aesimc_si128(schedule->m_data.m_keys[5]);
+	schedule->m_data.m_keys[6] = _mm_aesimc_si128(schedule->m_data.m_keys[6]);
+	schedule->m_data.m_keys[7] = _mm_aesimc_si128(schedule->m_data.m_keys[7]);
+	schedule->m_data.m_keys[8] = _mm_aesimc_si128(schedule->m_data.m_keys[8]);
+	schedule->m_data.m_keys[9] = _mm_aesimc_si128(schedule->m_data.m_keys[9]);
 }
 
 static mk_lang_inline void mk_lib_crypto_alg_aes_256_msvc_aes_ni_encrypt_with_schedule(mk_lib_crypto_alg_aes_256_msvc_aes_ni_schedule_pct const schedule, mk_lib_crypto_alg_aes_256_msg_pct const input, mk_lib_crypto_alg_aes_256_msg_pt const output) mk_lang_noexcept
@@ -562,20 +718,16 @@ static mk_lang_inline void mk_lib_crypto_alg_aes_256_msvc_aes_ni_encrypt_with_sc
 
 	v = mk_lib_crypto_alg_aes_256_msvc_aes_ni_load_m128i(input);
 	v = _mm_xor_si128(v, schedule->m_data.m_keys[0]);
-	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[ 1]);
-	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[ 2]);
-	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[ 3]);
-	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[ 4]);
-	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[ 5]);
-	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[ 6]);
-	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[ 7]);
-	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[ 8]);
-	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[ 9]);
-	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[10]);
-	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[11]);
-	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[12]);
-	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[13]);
-	v = _mm_aesenclast_si128(v, schedule->m_data.m_keys[14]);
+	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[1]);
+	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[2]);
+	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[3]);
+	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[4]);
+	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[5]);
+	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[6]);
+	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[7]);
+	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[8]);
+	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[9]);
+	v = _mm_aesenclast_si128(v, schedule->m_data.m_keys[10]);
 	mk_lib_crypto_alg_aes_256_msvc_aes_ni_store_m128i(output, v);
 }
 
@@ -588,20 +740,16 @@ static mk_lang_inline void mk_lib_crypto_alg_aes_256_msvc_aes_ni_decrypt_with_sc
 	mk_lang_assert(output);
 
 	v = mk_lib_crypto_alg_aes_256_msvc_aes_ni_load_m128i(input);
-	v = _mm_xor_si128(v, schedule->m_data.m_keys[14]);
-	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[13]);
-	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[12]);
-	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[11]);
-	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[10]);
-	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[ 9]);
-	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[ 8]);
-	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[ 7]);
-	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[ 6]);
-	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[ 5]);
-	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[ 4]);
-	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[ 3]);
-	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[ 2]);
-	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[ 1]);
+	v = _mm_xor_si128(v, schedule->m_data.m_keys[10]);
+	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[9]);
+	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[8]);
+	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[7]);
+	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[6]);
+	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[5]);
+	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[4]);
+	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[3]);
+	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[2]);
+	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[1]);
 	v = _mm_aesdeclast_si128(v, schedule->m_data.m_keys[0]);
 	mk_lib_crypto_alg_aes_256_msvc_aes_ni_store_m128i(output, v);
 }

@@ -1,3 +1,7 @@
+#include "mk_lang_types.h"
+#include "mk_sl_uint8.h"
+
+
 #include "mk_lib_crypto_mode_cbc_inl_defd.h"
 
 

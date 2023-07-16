@@ -5,6 +5,8 @@
 #include "mk_lang_div_roundup.h"
 #include "mk_lang_endian.h"
 #include "mk_lang_sizeof.h"
+#include "mk_lang_types.h"
+#include "mk_sl_uint8.h"
 
 
 /* NIST SP 800-38A */
@@ -52,16 +54,16 @@ mk_lib_crypto_mode_ctr_be_inl_defd_constexpr mk_lang_jumbo void mk_lib_crypto_mo
 
 	mk_lang_assert(ctr);
 
-	for(i = 0; i != mk_lib_crypto_mode_ctr_be_inl_defd_msg_len_v; ++i){ ctrr.m_uchars[i] = ctr->m_iv.m_data.m_uchars[i]; }
+	for(i = 0; i != mk_lib_crypto_mode_ctr_be_inl_defd_msg_len_v; ++i){ mk_sl_cui_uint8_to_bi_uchar(&ctr->m_iv.m_data.m_uint8s[i], &ctrr.m_uchars[i]); }
 	ctr_from_uchars(&num, &ctrr.m_uchars[0]);
 	ctr_inc(&num);
 	ctr_to_uchars(&num, &ctrr.m_uchars[0]);
-	for(i = 0; i != mk_lib_crypto_mode_ctr_be_inl_defd_msg_len_v; ++i){ ctr->m_iv.m_data.m_uchars[i] = ctrr.m_uchars[i]; }
+	for(i = 0; i != mk_lib_crypto_mode_ctr_be_inl_defd_msg_len_v; ++i){ mk_sl_cui_uint8_from_bi_uchar(&ctr->m_iv.m_data.m_uint8s[i], &ctrr.m_uchars[i]); }
 }
 
 mk_lib_crypto_mode_ctr_be_inl_defd_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ctr_be_inl_defd_crypt(mk_lib_crypto_mode_ctr_be_inl_defd_pt const ctr, mk_lib_crypto_mode_ctr_be_inl_defd_key_pct const key, mk_lib_crypto_mode_ctr_be_inl_defd_msg_pct const input, mk_lib_crypto_mode_ctr_be_inl_defd_msg_pt const output) mk_lang_noexcept
 {
-	mk_lib_crypto_mode_ctr_be_inl_defd_msg_t ccc mk_lang_constexpr_init;
+	mk_lib_crypto_mode_ctr_be_inl_defd_msg_t ctrr mk_lang_constexpr_init;
 	int i mk_lang_constexpr_init;
 
 	mk_lang_assert(ctr);
@@ -69,12 +71,12 @@ mk_lib_crypto_mode_ctr_be_inl_defd_constexpr mk_lang_jumbo void mk_lib_crypto_mo
 	mk_lang_assert(input);
 	mk_lang_assert(output);
 
-	ccc = ctr->m_iv;
+	ctrr = ctr->m_iv;
 	mk_lib_crypto_mode_ctr_be_inl_defd_increment(ctr);
-	mk_lib_crypto_mode_ctr_be_inl_defd_alg_encrypt(key, &ccc, &ccc);
+	mk_lib_crypto_mode_ctr_be_inl_defd_alg_encrypt(key, &ctrr, &ctrr);
 	for(i = 0; i != mk_lib_crypto_mode_ctr_be_inl_defd_msg_len_v; ++i)
 	{
-		output->m_data.m_uchars[i] = ((mk_lang_types_uchar_t)(ccc.m_data.m_uchars[i] ^ input->m_data.m_uchars[i]));
+		mk_sl_cui_uint8_xor3(&ctrr.m_data.m_uint8s[i], &input->m_data.m_uint8s[i], &output->m_data.m_uint8s[i]);
 	}
 }
 

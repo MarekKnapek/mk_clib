@@ -1,3 +1,7 @@
+#include "mk_lang_types.h"
+#include "mk_sl_uint8.h"
+
+
 #include "mk_lib_crypto_mode_cfb_inl_defd.h"
 
 
@@ -8,7 +12,7 @@ enum mk_lib_crypto_mode_cfb_inl_defd_iv_len_e { mk_lib_crypto_mode_cfb_inl_defd_
 
 union mk_lib_crypto_mode_cfb_inl_defd_aligned_msg_u
 {
-	mk_lang_types_uchar_t m_uchars[mk_lib_crypto_mode_cfb_inl_defd_msg_len_v];
+	mk_sl_cui_uint8_t m_uint8s[mk_lib_crypto_mode_cfb_inl_defd_msg_len_v];
 	mk_lang_types_ulllong_t m_ulllong;
 };
 typedef union mk_lib_crypto_mode_cfb_inl_defd_aligned_msg_u mk_lib_crypto_mode_cfb_inl_defd_aligned_msg_t;

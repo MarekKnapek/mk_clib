@@ -378,7 +378,7 @@ mk_lang_nodiscard static mk_lang_inline int mk_clib_app_crypt_work(int const arg
 	inputf = fopen(params[mk_clib_app_crypt_param_id_e_input], "rb"); check(inputf);
 	if(!direction)
 	{
-		read = fread(&buff_a.m_data.m_uchars[0], 1, iv_len_max, inputf); check(read <= iv_len_max);
+		read = fread(&buff_a.m_data.m_uchars[0], 1, iv_len_max, inputf); check(read <= ((mk_lang_types_usize_t)(iv_len_max)));
 	}
 	ptr = data;
 	ptr = mk_clib_app_crypt_append_cod(ptr, params[mk_clib_app_crypt_param_id_e_alg]); check(ptr);
@@ -442,7 +442,7 @@ mk_lang_nodiscard static mk_lang_inline int mk_clib_app_crypt_work(int const arg
 			else
 			{
 				r = mk_lib_crypto_app_decrypt_finish(n); check(r >= 0x01 && r <= iv_len_max);
-				written = fwrite(data, 1, n - r, outputf); check(written == n - r);
+				written = fwrite(data, 1, n - r, outputf); check(written == ((mk_lang_types_usize_t)(n - ((int)(r)))));
 			}
 			break;
 		}
