@@ -26,7 +26,7 @@ call em++.bat ^
 -sMEMORY64=0 ^
 -sUSE_CLOSURE_COMPILER=1 ^
 -sFILESYSTEM=0 ^
--sEXPORTED_FUNCTIONS=_mkcc_get_data_addr,_mkcc_get_data_size,_mkcc_get_names,_mkcc_get_iv_size_max,_mkcc_init,_mkcc_encrypt_append,_mkcc_encrypt_finish,_mkcc_decrypt_append,_mkcc_decrypt_finish ^
+-sEXPORTED_FUNCTIONS=_mkcc_get_key_size_max,_mkcc_get_iv_size_max,_mkcc_get_msg_size_max,_mkcc_get_data_addr,_mkcc_get_data_size,_mkcc_get_names,_mkcc_init,_mkcc_encrypt_append,_mkcc_encrypt_finish,_mkcc_decrypt_append,_mkcc_decrypt_finish ^
 -sSTRICT=1 ^
 -sDYNAMIC_EXECUTION=0 ^
 -sWASM=1 ^

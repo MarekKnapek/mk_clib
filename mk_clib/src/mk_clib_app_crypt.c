@@ -10,7 +10,7 @@
 #include "mk_lang_null.h"
 #include "mk_lang_static_assert.h"
 #include "mk_lang_types.h"
-#include "mk_lib_crypto_app.h"
+#include "mk_lib_crypto_gapp.h"
 #include "mk_sl_uint.h"
 #include "mk_sl_uint32.h"
 #include "mk_sl_uint8.h"
@@ -155,8 +155,8 @@ mk_lang_nodiscard static mk_lang_inline int mk_clib_app_crypt_usage(int const ar
 	printf("Example usage:\n\n");
 	printf("%s /direction encrypt /alg aes_128 /padding pkcs7 /mode cbc /kdf pbkdf2_sha2_512_256 /password Hunter2 /salt cryptor /cost 1000 /input secret.txt /output secret.dat\n\n", mk_clib_app_crypt_args_get_exe_name(argv[0]));
 	printf("%s /direction decrypt /alg aes_128 /padding pkcs7 /mode cbc /kdf pbkdf2_sha2_512_256 /password Hunter2 /salt cryptor /cost 1000 /input secret.dat /output secret.txt\n\n", mk_clib_app_crypt_args_get_exe_name(argv[0]));
-	data = mk_lib_crypto_app_get_data_addr_u8(); check(data);
-	r = mk_lib_crypto_app_get_names(); check(r >= 1 && r <= 4 * 1024);
+	data = mk_lib_crypto_gapp_get_data_addr(); check(data);
+	r = mk_lib_crypto_gapp_get_names(); check(r >= 1 && r <= 4 * 1024);
 	ptr = data;
 	printf("Possible values:\n\n");
 	ptr = mk_clib_app_crypt_usage_strs(ptr); check(ptr); printf("\n"); printf("\n");
@@ -372,9 +372,9 @@ mk_lang_nodiscard static mk_lang_inline int mk_clib_app_crypt_work(int const arg
 	cost_str_len = mk_clib_app_crypt_strlen(cost_str);
 	check(cost_str_len <= mk_sl_cui_uint32_to_str_dec_len);
 	n = mk_sl_cui_uint32_from_str_dec_n(&cost_32, cost_str, ((int)(cost_str_len))); check(n == ((int)(cost_str_len)));
-	data = mk_lib_crypto_app_get_data_addr_u8();
+	data = mk_lib_crypto_gapp_get_data_addr();
 	mk_lang_assert(data);
-	iv_len_max = mk_lib_crypto_app_get_iv_size_max(); check(iv_len_max >= 0x00 && iv_len_max <= 0xff);
+	iv_len_max = mk_lib_crypto_gapp_get_iv_size_max(); check(iv_len_max >= 0x00 && iv_len_max <= 0xff);
 	inputf = fopen(params[mk_clib_app_crypt_param_id_e_input], "rb"); check(inputf);
 	if(!direction)
 	{
@@ -389,7 +389,7 @@ mk_lang_nodiscard static mk_lang_inline int mk_clib_app_crypt_work(int const arg
 	ptr = mk_clib_app_crypt_append_u32(ptr, &cost_32); check(ptr);
 	ptr = mk_clib_app_crypt_append_str(ptr, params[mk_clib_app_crypt_param_id_e_password]); check(ptr);
 	ptr = mk_clib_app_crypt_append_str(ptr, params[mk_clib_app_crypt_param_id_e_salt]); check(ptr);
-	r = mk_lib_crypto_app_init(); check(r >= 0x00 && r <= iv_len_max);
+	r = mk_lib_crypto_gapp_init(); check(r >= 0x00 && r <= iv_len_max);
 	iv_len = ((int)(r));
 	if(!direction)
 	{
@@ -420,11 +420,11 @@ mk_lang_nodiscard static mk_lang_inline int mk_clib_app_crypt_work(int const arg
 			for(i = 0; i != n; ++i){ mk_sl_cui_uint8_from_bi_uchar(&data[i], &buff_pa->m_data.m_uchars[i]); }
 			if(direction)
 			{
-				r = mk_lib_crypto_app_encrypt_append(n); check(r == 0);
+				r = mk_lib_crypto_gapp_encrypt_append(n); check(r == 0);
 			}
 			else
 			{
-				r = mk_lib_crypto_app_decrypt_append(n); check(r == 0);
+				r = mk_lib_crypto_gapp_decrypt_append(n); check(r == 0);
 			}
 			written = fwrite(data, 1, *read_pa, outputf); check(written == ((mk_lang_types_usize_t)(n)));
 			read_pc = read_pa; read_pa = read_pb; read_pb = read_pc;
@@ -436,12 +436,12 @@ mk_lang_nodiscard static mk_lang_inline int mk_clib_app_crypt_work(int const arg
 			for(i = 0; i != n; ++i){ mk_sl_cui_uint8_from_bi_uchar(&data[i], &buff_pa->m_data.m_uchars[i]); }
 			if(direction)
 			{
-				r = mk_lib_crypto_app_encrypt_finish(n); check(r >= 0x01 && r <= iv_len_max);
+				r = mk_lib_crypto_gapp_encrypt_finish(n); check(r >= 0x01 && r <= iv_len_max);
 				written = fwrite(data, 1, n + r, outputf); check(written == ((mk_lang_types_usize_t)(n + r)));
 			}
 			else
 			{
-				r = mk_lib_crypto_app_decrypt_finish(n); check(r >= 0x01 && r <= iv_len_max);
+				r = mk_lib_crypto_gapp_decrypt_finish(n); check(r >= 0x01 && r <= iv_len_max);
 				written = fwrite(data, 1, n - r, outputf); check(written == ((mk_lang_types_usize_t)(n - ((int)(r)))));
 			}
 			break;
