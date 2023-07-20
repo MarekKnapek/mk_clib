@@ -61,20 +61,23 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto mk_lib_crypto_alg_aes_256
 
 mk_lang_extern_c void mk_lib_crypto_alg_aes_256_test(void) mk_lang_noexcept
 {
-	#define key_1 "603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4"
+	#define key_1 "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f"
 	#define key_2 "603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4"
 	#define key_3 "603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4"
 	#define key_4 "603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4"
+	#define key_5 "603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4"
 
-	#define msg_1 "6bc1bee22e409f96e93d7e117393172a"
-	#define msg_2 "ae2d8a571e03ac9c9eb76fac45af8e51"
-	#define msg_3 "30c81c46a35ce411e5fbc1191a0a52ef"
-	#define msg_4 "f69f2445df4f9b17ad2b417be66c3710"
+	#define msg_1 "00112233445566778899aabbccddeeff"
+	#define msg_2 "6bc1bee22e409f96e93d7e117393172a"
+	#define msg_3 "ae2d8a571e03ac9c9eb76fac45af8e51"
+	#define msg_4 "30c81c46a35ce411e5fbc1191a0a52ef"
+	#define msg_5 "f69f2445df4f9b17ad2b417be66c3710"
 
-	#define out_1 "f3eed1bdb5d2a03c064b5a7e3db181f8"
-	#define out_2 "591ccb10d410ed26dc5ba74a31362870"
-	#define out_3 "b6ed21b99ca6f4f9f153e7b1beafed1d"
-	#define out_4 "23304b7a39f9f3ff067d8d8f9e24ecc7"
+	#define out_1 "8ea2b7ca516745bfeafc49904b496089"
+	#define out_2 "f3eed1bdb5d2a03c064b5a7e3db181f8"
+	#define out_3 "591ccb10d410ed26dc5ba74a31362870"
+	#define out_4 "b6ed21b99ca6f4f9f153e7b1beafed1d"
+	#define out_5 "23304b7a39f9f3ff067d8d8f9e24ecc7"
 
 	#if mk_lang_version_at_least_cpp_14 || mk_lang_version_at_least_msvc_cpp_14
 
@@ -82,31 +85,37 @@ mk_lang_extern_c void mk_lib_crypto_alg_aes_256_test(void) mk_lang_noexcept
 	mk_lang_constexpr_static auto const s_out_computed_2 = mk_lib_crypto_alg_aes_256_test_encrypt_from_str_lit(key_2, msg_2);
 	mk_lang_constexpr_static auto const s_out_computed_3 = mk_lib_crypto_alg_aes_256_test_encrypt_from_str_lit(key_3, msg_3);
 	mk_lang_constexpr_static auto const s_out_computed_4 = mk_lib_crypto_alg_aes_256_test_encrypt_from_str_lit(key_4, msg_4);
+	mk_lang_constexpr_static auto const s_out_computed_5 = mk_lib_crypto_alg_aes_256_test_encrypt_from_str_lit(key_5, msg_5);
 
 	mk_lang_constexpr_static auto const s_msg_computed_1 = mk_lib_crypto_alg_aes_256_test_decrypt_from_str_lit(key_1, s_out_computed_1);
 	mk_lang_constexpr_static auto const s_msg_computed_2 = mk_lib_crypto_alg_aes_256_test_decrypt_from_str_lit(key_2, s_out_computed_2);
 	mk_lang_constexpr_static auto const s_msg_computed_3 = mk_lib_crypto_alg_aes_256_test_decrypt_from_str_lit(key_3, s_out_computed_3);
 	mk_lang_constexpr_static auto const s_msg_computed_4 = mk_lib_crypto_alg_aes_256_test_decrypt_from_str_lit(key_4, s_out_computed_4);
+	mk_lang_constexpr_static auto const s_msg_computed_5 = mk_lib_crypto_alg_aes_256_test_decrypt_from_str_lit(key_5, s_out_computed_5);
 
 	mk_lang_constexpr_static auto const s_out_precomputed_1 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(out_1);
 	mk_lang_constexpr_static auto const s_out_precomputed_2 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(out_2);
 	mk_lang_constexpr_static auto const s_out_precomputed_3 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(out_3);
 	mk_lang_constexpr_static auto const s_out_precomputed_4 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(out_4);
+	mk_lang_constexpr_static auto const s_out_precomputed_5 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(out_5);
 
 	mk_lang_constexpr_static auto const s_msg_precomputed_1 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(msg_1);
 	mk_lang_constexpr_static auto const s_msg_precomputed_2 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(msg_2);
 	mk_lang_constexpr_static auto const s_msg_precomputed_3 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(msg_3);
 	mk_lang_constexpr_static auto const s_msg_precomputed_4 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(msg_4);
+	mk_lang_constexpr_static auto const s_msg_precomputed_5 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(msg_5);
 
 	mk_lang_static_assert(s_out_computed_1 == s_out_precomputed_1);
 	mk_lang_static_assert(s_out_computed_2 == s_out_precomputed_2);
 	mk_lang_static_assert(s_out_computed_3 == s_out_precomputed_3);
 	mk_lang_static_assert(s_out_computed_4 == s_out_precomputed_4);
+	mk_lang_static_assert(s_out_computed_5 == s_out_precomputed_5);
 
 	mk_lang_static_assert(s_msg_computed_1 == s_msg_precomputed_1);
 	mk_lang_static_assert(s_msg_computed_2 == s_msg_precomputed_2);
 	mk_lang_static_assert(s_msg_computed_3 == s_msg_precomputed_3);
 	mk_lang_static_assert(s_msg_computed_4 == s_msg_precomputed_4);
+	mk_lang_static_assert(s_msg_computed_5 == s_msg_precomputed_5);
 
 	#endif
 
@@ -118,6 +127,7 @@ mk_lang_extern_c void mk_lib_crypto_alg_aes_256_test(void) mk_lang_noexcept
 		key_2,
 		key_3,
 		key_4,
+		key_5,
 	};
 
 	static char const* const s_msgs[] =
@@ -126,6 +136,7 @@ mk_lang_extern_c void mk_lib_crypto_alg_aes_256_test(void) mk_lang_noexcept
 		msg_2,
 		msg_3,
 		msg_4,
+		msg_5,
 	};
 
 	static char const* const s_outs[] =
@@ -134,6 +145,7 @@ mk_lang_extern_c void mk_lib_crypto_alg_aes_256_test(void) mk_lang_noexcept
 		out_2,
 		out_3,
 		out_4,
+		out_5,
 	};
 
 	int n;
@@ -193,14 +205,17 @@ mk_lang_extern_c void mk_lib_crypto_alg_aes_256_test(void) mk_lang_noexcept
 	#undef key_2
 	#undef key_3
 	#undef key_4
+	#undef key_5
 
 	#undef msg_1
 	#undef msg_2
 	#undef msg_3
 	#undef msg_4
+	#undef msg_5
 
 	#undef out_1
 	#undef out_2
 	#undef out_3
 	#undef out_4
+	#undef out_5
 }
