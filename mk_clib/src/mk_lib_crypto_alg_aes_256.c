@@ -650,45 +650,59 @@ typedef mk_lib_crypto_alg_aes_256_msvc_aes_ni_schedule_t* mk_lib_crypto_alg_aes_
 typedef mk_lib_crypto_alg_aes_256_msvc_aes_ni_schedule_t const* mk_lib_crypto_alg_aes_256_msvc_aes_ni_schedule_pct;
 
 
-static mk_lang_inline __m128i mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist(__m128i const a, __m128i const b) mk_lang_noexcept
+static mk_lang_inline void mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist_a(__m128i* const ta, __m128i* const tb) mk_lang_noexcept
 {
-	__m128i ta;
-	__m128i tb;
 	__m128i tc;
 
-	ta = a;
-	tb = b;
-	tb = _mm_shuffle_epi32(tb, 0xff);
-	tc = _mm_slli_si128(ta, 0x04);
-	ta = _mm_xor_si128(ta, tc);
+	mk_lang_assert(ta);
+	mk_lang_assert(tb);
+
+	*tb = _mm_shuffle_epi32(*tb, 0xff);
+	tc = _mm_slli_si128(*ta, 0x04);
+	*ta = _mm_xor_si128(*ta, tc);
 	tc = _mm_slli_si128(tc, 0x04);
-	ta = _mm_xor_si128(ta, tc);
+	*ta = _mm_xor_si128(*ta, tc);
 	tc = _mm_slli_si128(tc, 0x04);
-	ta = _mm_xor_si128(ta, tc);
-	ta = _mm_xor_si128(ta, tb);
-	return ta;
+	*ta = _mm_xor_si128(*ta, tc);
+	*ta = _mm_xor_si128(*ta, *tb);
+}
+
+static mk_lang_inline void mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist_b(__m128i* const ta, __m128i* const tb) mk_lang_noexcept
+{
+	__m128i tc;
+	__m128i td;
+
+	mk_lang_assert(ta);
+	mk_lang_assert(tb);
+
+	tc = _mm_aeskeygenassist_si128(*ta, 0x00);
+	td = _mm_shuffle_epi32(tc, 0xaa);
+	tc = _mm_slli_si128(*tb, 0x04);
+	*tb = _mm_xor_si128(*tb, tc);
+	tc = _mm_slli_si128(tc, 0x04);
+	*tb = _mm_xor_si128(*tb, tc);
+	tc = _mm_slli_si128(tc, 0x04);
+	*tb = _mm_xor_si128(*tb, tc);
+	*tb = _mm_xor_si128(*tb, td);
 }
 
 static mk_lang_inline void mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_expand_enc(mk_lib_crypto_alg_aes_256_key_pct const key, mk_lib_crypto_alg_aes_256_msvc_aes_ni_schedule_pt const schedule)
 {
 	__m128i ta;
 	__m128i tb;
+	__m128i tc;
 
-	mk_lang_assert(key);
-	mk_lang_assert(schedule);
-
-	ta = mk_lib_crypto_alg_aes_256_msvc_aes_ni_load_m128i(&key->m_data.m_uint8s[0]);
+	ta = mk_lib_crypto_alg_aes_256_msvc_aes_ni_load_m128i(&key->m_data.m_uint8s[ 0]);
+	tb = mk_lib_crypto_alg_aes_256_msvc_aes_ni_load_m128i(&key->m_data.m_uint8s[16]);
 	schedule->m_data.m_keys[0] = ta;
-	tb = _mm_aeskeygenassist_si128(ta, 0x01); ta = mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist(ta, tb); schedule->m_data.m_keys[ 1] = ta;
-	tb = _mm_aeskeygenassist_si128(ta, 0x02); ta = mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist(ta, tb); schedule->m_data.m_keys[ 2] = ta;
-	tb = _mm_aeskeygenassist_si128(ta, 0x04); ta = mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist(ta, tb); schedule->m_data.m_keys[ 3] = ta;
-	tb = _mm_aeskeygenassist_si128(ta, 0x08); ta = mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist(ta, tb); schedule->m_data.m_keys[ 4] = ta;
-	tb = _mm_aeskeygenassist_si128(ta, 0x10); ta = mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist(ta, tb); schedule->m_data.m_keys[ 5] = ta;
-	tb = _mm_aeskeygenassist_si128(ta, 0x20); ta = mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist(ta, tb); schedule->m_data.m_keys[ 6] = ta;
-	tb = _mm_aeskeygenassist_si128(ta, 0x40); ta = mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist(ta, tb); schedule->m_data.m_keys[ 7] = ta;
-	tb = _mm_aeskeygenassist_si128(ta, 0x80); ta = mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist(ta, tb); schedule->m_data.m_keys[ 8] = ta;
-	tb = _mm_aeskeygenassist_si128(ta, 0x1b); ta = mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist(ta, tb); schedule->m_data.m_keys[ 9] = ta;
-	tb = _mm_aeskeygenassist_si128(ta, 0x36); ta = mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist(ta, tb); schedule->m_data.m_keys[10] = ta;
+	schedule->m_data.m_keys[1] = tb;
+	tc = _mm_aeskeygenassist_si128(tb, 0x01); mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist_a(&ta, &tc); schedule->m_data.m_keys[ 2] = ta; mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist_b(&ta, &tb); schedule->m_data.m_keys[ 3] = tb;
+	tc = _mm_aeskeygenassist_si128(tb, 0x02); mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist_a(&ta, &tc); schedule->m_data.m_keys[ 4] = ta; mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist_b(&ta, &tb); schedule->m_data.m_keys[ 5] = tb;
+	tc = _mm_aeskeygenassist_si128(tb, 0x04); mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist_a(&ta, &tc); schedule->m_data.m_keys[ 6] = ta; mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist_b(&ta, &tb); schedule->m_data.m_keys[ 7] = tb;
+	tc = _mm_aeskeygenassist_si128(tb, 0x08); mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist_a(&ta, &tc); schedule->m_data.m_keys[ 8] = ta; mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist_b(&ta, &tb); schedule->m_data.m_keys[ 9] = tb;
+	tc = _mm_aeskeygenassist_si128(tb, 0x10); mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist_a(&ta, &tc); schedule->m_data.m_keys[10] = ta; mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist_b(&ta, &tb); schedule->m_data.m_keys[11] = tb;
+	tc = _mm_aeskeygenassist_si128(tb, 0x20); mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist_a(&ta, &tc); schedule->m_data.m_keys[12] = ta; mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist_b(&ta, &tb); schedule->m_data.m_keys[13] = tb;
+	tc = _mm_aeskeygenassist_si128(tb, 0x40); mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_assist_a(&ta, &tc); schedule->m_data.m_keys[14] = ta;
 }
 
 static mk_lang_inline void mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_expand_dec(mk_lib_crypto_alg_aes_256_key_pct const key, mk_lib_crypto_alg_aes_256_msvc_aes_ni_schedule_pt const schedule)
@@ -697,15 +711,19 @@ static mk_lang_inline void mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_expand_dec(
 	mk_lang_assert(schedule);
 
 	mk_lib_crypto_alg_aes_256_msvc_aes_ni_key_expand_enc(key, schedule);
-	schedule->m_data.m_keys[1] = _mm_aesimc_si128(schedule->m_data.m_keys[1]);
-	schedule->m_data.m_keys[2] = _mm_aesimc_si128(schedule->m_data.m_keys[2]);
-	schedule->m_data.m_keys[3] = _mm_aesimc_si128(schedule->m_data.m_keys[3]);
-	schedule->m_data.m_keys[4] = _mm_aesimc_si128(schedule->m_data.m_keys[4]);
-	schedule->m_data.m_keys[5] = _mm_aesimc_si128(schedule->m_data.m_keys[5]);
-	schedule->m_data.m_keys[6] = _mm_aesimc_si128(schedule->m_data.m_keys[6]);
-	schedule->m_data.m_keys[7] = _mm_aesimc_si128(schedule->m_data.m_keys[7]);
-	schedule->m_data.m_keys[8] = _mm_aesimc_si128(schedule->m_data.m_keys[8]);
-	schedule->m_data.m_keys[9] = _mm_aesimc_si128(schedule->m_data.m_keys[9]);
+	schedule->m_data.m_keys[ 1] = _mm_aesimc_si128(schedule->m_data.m_keys[ 1]);
+	schedule->m_data.m_keys[ 2] = _mm_aesimc_si128(schedule->m_data.m_keys[ 2]);
+	schedule->m_data.m_keys[ 3] = _mm_aesimc_si128(schedule->m_data.m_keys[ 3]);
+	schedule->m_data.m_keys[ 4] = _mm_aesimc_si128(schedule->m_data.m_keys[ 4]);
+	schedule->m_data.m_keys[ 5] = _mm_aesimc_si128(schedule->m_data.m_keys[ 5]);
+	schedule->m_data.m_keys[ 6] = _mm_aesimc_si128(schedule->m_data.m_keys[ 6]);
+	schedule->m_data.m_keys[ 7] = _mm_aesimc_si128(schedule->m_data.m_keys[ 7]);
+	schedule->m_data.m_keys[ 8] = _mm_aesimc_si128(schedule->m_data.m_keys[ 8]);
+	schedule->m_data.m_keys[ 9] = _mm_aesimc_si128(schedule->m_data.m_keys[ 9]);
+	schedule->m_data.m_keys[10] = _mm_aesimc_si128(schedule->m_data.m_keys[10]);
+	schedule->m_data.m_keys[11] = _mm_aesimc_si128(schedule->m_data.m_keys[11]);
+	schedule->m_data.m_keys[12] = _mm_aesimc_si128(schedule->m_data.m_keys[12]);
+	schedule->m_data.m_keys[13] = _mm_aesimc_si128(schedule->m_data.m_keys[13]);
 }
 
 static mk_lang_inline void mk_lib_crypto_alg_aes_256_msvc_aes_ni_encrypt_with_schedule(mk_lib_crypto_alg_aes_256_msvc_aes_ni_schedule_pct const schedule, mk_lib_crypto_alg_aes_256_msg_pct const input, mk_lib_crypto_alg_aes_256_msg_pt const output) mk_lang_noexcept
@@ -718,16 +736,20 @@ static mk_lang_inline void mk_lib_crypto_alg_aes_256_msvc_aes_ni_encrypt_with_sc
 
 	v = mk_lib_crypto_alg_aes_256_msvc_aes_ni_load_m128i(input);
 	v = _mm_xor_si128(v, schedule->m_data.m_keys[0]);
-	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[1]);
-	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[2]);
-	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[3]);
-	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[4]);
-	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[5]);
-	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[6]);
-	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[7]);
-	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[8]);
-	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[9]);
-	v = _mm_aesenclast_si128(v, schedule->m_data.m_keys[10]);
+	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[ 1]);
+	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[ 2]);
+	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[ 3]);
+	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[ 4]);
+	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[ 5]);
+	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[ 6]);
+	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[ 7]);
+	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[ 8]);
+	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[ 9]);
+	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[10]);
+	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[11]);
+	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[12]);
+	v = _mm_aesenc_si128(v, schedule->m_data.m_keys[13]);
+	v = _mm_aesenclast_si128(v, schedule->m_data.m_keys[14]);
 	mk_lib_crypto_alg_aes_256_msvc_aes_ni_store_m128i(output, v);
 }
 
@@ -740,16 +762,20 @@ static mk_lang_inline void mk_lib_crypto_alg_aes_256_msvc_aes_ni_decrypt_with_sc
 	mk_lang_assert(output);
 
 	v = mk_lib_crypto_alg_aes_256_msvc_aes_ni_load_m128i(input);
-	v = _mm_xor_si128(v, schedule->m_data.m_keys[10]);
-	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[9]);
-	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[8]);
-	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[7]);
-	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[6]);
-	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[5]);
-	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[4]);
-	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[3]);
-	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[2]);
-	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[1]);
+	v = _mm_xor_si128(v, schedule->m_data.m_keys[14]);
+	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[13]);
+	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[12]);
+	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[11]);
+	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[10]);
+	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[ 9]);
+	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[ 8]);
+	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[ 7]);
+	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[ 6]);
+	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[ 5]);
+	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[ 4]);
+	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[ 3]);
+	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[ 2]);
+	v = _mm_aesdec_si128(v, schedule->m_data.m_keys[ 1]);
 	v = _mm_aesdeclast_si128(v, schedule->m_data.m_keys[0]);
 	mk_lib_crypto_alg_aes_256_msvc_aes_ni_store_m128i(output, v);
 }
