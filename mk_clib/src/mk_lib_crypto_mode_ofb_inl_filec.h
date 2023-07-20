@@ -26,12 +26,12 @@ mk_lib_crypto_mode_ofb_inl_defd_constexpr mk_lang_jumbo void mk_lib_crypto_mode_
 }
 
 
-mk_lib_crypto_mode_ofb_inl_defd_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ofb_inl_defd_init(mk_lib_crypto_mode_ofb_inl_defd_pt const ofb, mk_lib_crypto_mode_ofb_inl_defd_alg_msg_pct const data) mk_lang_noexcept
+mk_lib_crypto_mode_ofb_inl_defd_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ofb_inl_defd_init(mk_lib_crypto_mode_ofb_inl_defd_pt const ofb, mk_lib_crypto_mode_ofb_inl_defd_iv_pct const iv) mk_lang_noexcept
 {
 	mk_lang_assert(ofb);
-	mk_lang_assert(data);
+	mk_lang_assert(iv);
 
-	ofb->m_iv = *data;
+	ofb->m_iv = *iv;
 }
 
 mk_lib_crypto_mode_ofb_inl_defd_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ofb_inl_defd_encrypt(mk_lib_crypto_mode_ofb_inl_defd_pt const ofb, mk_lib_crypto_mode_ofb_inl_defd_key_pct const key, mk_lib_crypto_mode_ofb_inl_defd_msg_pct const input, mk_lib_crypto_mode_ofb_inl_defd_msg_pt const output) mk_lang_noexcept

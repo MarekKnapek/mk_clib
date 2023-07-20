@@ -55,6 +55,10 @@
 #undef mk_lib_crypto_mode_ofb_inl_defd_msg_ct
 #undef mk_lib_crypto_mode_ofb_inl_defd_msg_pt
 #undef mk_lib_crypto_mode_ofb_inl_defd_msg_pct
+#undef mk_lib_crypto_mode_ofb_inl_defd_iv_t
+#undef mk_lib_crypto_mode_ofb_inl_defd_iv_ct
+#undef mk_lib_crypto_mode_ofb_inl_defd_iv_pt
+#undef mk_lib_crypto_mode_ofb_inl_defd_iv_pct
 #undef mk_lib_crypto_mode_ofb_inl_defd_s
 #undef mk_lib_crypto_mode_ofb_inl_defd_t
 #undef mk_lib_crypto_mode_ofb_inl_defd_ct

@@ -11,19 +11,34 @@
 #include "mk_lib_crypto_mode_cfb_inl_defd.h"
 
 
-mk_lib_crypto_mode_cfb_inl_defd_constexpr mk_lang_jumbo void mk_lib_crypto_mode_cfb_inl_defd_init(mk_lib_crypto_mode_cfb_inl_defd_pt const cfb, mk_lib_crypto_mode_cfb_inl_defd_alg_msg_pct const msg) mk_lang_noexcept
+mk_lib_crypto_mode_cfb_inl_defd_constexpr mk_lang_jumbo void mk_lib_crypto_mode_cfb_inl_defd_init(mk_lib_crypto_mode_cfb_inl_defd_pt const cfb, mk_lib_crypto_mode_cfb_inl_defd_iv_pct const iv) mk_lang_noexcept
 {
 	mk_lang_static_assert(mk_lib_crypto_mode_cfb_inl_defd_s_bits >= 1 && mk_lib_crypto_mode_cfb_inl_defd_s_bits <= mk_lib_crypto_mode_cfb_inl_defd_alg_msg_len_m * mk_lang_charbit);
 	mk_lang_static_assert(mk_lib_crypto_mode_cfb_inl_defd_s_bits % mk_lang_charbit == 0);
 
 	mk_lang_assert(cfb);
-	mk_lang_assert(msg);
+	mk_lang_assert(iv);
 
-	cfb->m_iv = *msg;
+	cfb->m_iv = *iv;
 }
 
 mk_lib_crypto_mode_cfb_inl_defd_constexpr mk_lang_jumbo void mk_lib_crypto_mode_cfb_inl_defd_encrypt(mk_lib_crypto_mode_cfb_inl_defd_pt const cfb, mk_lib_crypto_mode_cfb_inl_defd_key_pct const key, mk_lib_crypto_mode_cfb_inl_defd_msg_pct const input, mk_lib_crypto_mode_cfb_inl_defd_msg_pt const output) mk_lang_noexcept
 {
+#if mk_lib_crypto_mode_cfb_inl_defd_alg_msg_len_m == mk_lib_crypto_mode_cfb_inl_defd_msg_len_m
+	int i mk_lang_constexpr_init;
+
+	mk_lang_assert(cfb);
+	mk_lang_assert(key);
+	mk_lang_assert(input);
+	mk_lang_assert(output);
+
+	mk_lib_crypto_mode_cfb_inl_defd_alg_encrypt(key, &cfb->m_iv, &cfb->m_iv);
+	for(i = 0; i != mk_lib_crypto_mode_cfb_inl_defd_msg_len_v; ++i)
+	{
+		mk_sl_cui_uint8_xor2(&cfb->m_iv.m_data.m_uint8s[i], &input->m_data.m_uint8s[i]);
+	}
+	for(i = 0; i != mk_lib_crypto_mode_cfb_inl_defd_msg_len_v; ++i){ output->m_data.m_uint8s[i] = cfb->m_iv.m_data.m_uint8s[i]; }
+#else
 	mk_lib_crypto_mode_cfb_inl_defd_alg_msg_t iv mk_lang_constexpr_init;
 	int i mk_lang_constexpr_init;
 
@@ -40,10 +55,28 @@ mk_lib_crypto_mode_cfb_inl_defd_constexpr mk_lang_jumbo void mk_lib_crypto_mode_
 	}
 	for(i = 0; i != mk_lib_crypto_mode_cfb_inl_defd_alg_msg_len_m - mk_lib_crypto_mode_cfb_inl_defd_msg_len_m; ++i){ cfb->m_iv.m_data.m_uint8s[i] = cfb->m_iv.m_data.m_uint8s[i + mk_lib_crypto_mode_cfb_inl_defd_msg_len_v]; }
 	for(i = 0; i != mk_lib_crypto_mode_cfb_inl_defd_msg_len_v; ++i){ cfb->m_iv.m_data.m_uint8s[(mk_lib_crypto_mode_cfb_inl_defd_alg_msg_len_m - mk_lib_crypto_mode_cfb_inl_defd_msg_len_m) + i] = output->m_data.m_uint8s[i]; }
+#endif
 }
 
 mk_lib_crypto_mode_cfb_inl_defd_constexpr mk_lang_jumbo void mk_lib_crypto_mode_cfb_inl_defd_decrypt(mk_lib_crypto_mode_cfb_inl_defd_pt const cfb, mk_lib_crypto_mode_cfb_inl_defd_key_pct const key, mk_lib_crypto_mode_cfb_inl_defd_msg_pct const input, mk_lib_crypto_mode_cfb_inl_defd_msg_pt const output) mk_lang_noexcept
 {
+#if mk_lib_crypto_mode_cfb_inl_defd_alg_msg_len_m == mk_lib_crypto_mode_cfb_inl_defd_msg_len_m
+	mk_lib_crypto_mode_cfb_inl_defd_alg_msg_t iv mk_lang_constexpr_init;
+	int i mk_lang_constexpr_init;
+
+	mk_lang_assert(cfb);
+	mk_lang_assert(key);
+	mk_lang_assert(input);
+	mk_lang_assert(output);
+
+	iv = cfb->m_iv;
+	for(i = 0; i != mk_lib_crypto_mode_cfb_inl_defd_msg_len_v; ++i){ cfb->m_iv.m_data.m_uint8s[i] = input->m_data.m_uint8s[i]; }
+	mk_lib_crypto_mode_cfb_inl_defd_alg_encrypt(key, &iv, &iv);
+	for(i = 0; i != mk_lib_crypto_mode_cfb_inl_defd_msg_len_v; ++i)
+	{
+		mk_sl_cui_uint8_xor3(&iv.m_data.m_uint8s[i], &input->m_data.m_uint8s[i], &output->m_data.m_uint8s[i]);
+	}
+#else
 	mk_lib_crypto_mode_cfb_inl_defd_alg_msg_t iv mk_lang_constexpr_init;
 	int i mk_lang_constexpr_init;
 
@@ -60,6 +93,7 @@ mk_lib_crypto_mode_cfb_inl_defd_constexpr mk_lang_jumbo void mk_lib_crypto_mode_
 	{
 		mk_sl_cui_uint8_xor3(&iv.m_data.m_uint8s[i], &input->m_data.m_uint8s[i], &output->m_data.m_uint8s[i]);
 	}
+#endif
 }
 
 
