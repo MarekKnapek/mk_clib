@@ -140,9 +140,9 @@ mk_lang_jumbo void mk_lib_crypto_aes_fuzz_win(mk_lang_types_bool_t const cpuida,
 	win_feedback_bits = 8;
 	b = CryptAcquireContextA(&csp, mk_lang_null, mk_win_advapi_ms_enh_rsa_aes_prov_a, mk_win_advapi_prov_rsa_aes, mk_win_advapi_crypt_verifycontext | mk_win_advapi_crypt_silent); test(b != 0); test(csp);
 	b = CryptImportKey(csp, ((mk_lang_types_uchar_pct)(&win_key_data)), win_key_data_len, mk_lang_null, 0, &win_key); test(b != 0); test(win_key);
-	b = CryptSetKeyParam(win_key, mk_win_advapi_kp_mode, &win_mode, 0); test(b != 0);
-	b = CryptSetKeyParam(win_key, mk_win_advapi_kp_padding, &win_padding, 0); test(b != 0);
-	b = CryptSetKeyParam(win_key, mk_win_advapi_kp_mode_bits, &win_feedback_bits, 0); test(b != 0);
+	b = CryptSetKeyParam(win_key, mk_win_advapi_kp_mode, ((mk_lang_types_uchar_pct)(&win_mode)), 0); test(b != 0);
+	b = CryptSetKeyParam(win_key, mk_win_advapi_kp_padding, ((mk_lang_types_uchar_pct)(&win_padding)), 0); test(b != 0);
+	b = CryptSetKeyParam(win_key, mk_win_advapi_kp_mode_bits, ((mk_lang_types_uchar_pct)(&win_feedback_bits)), 0); test(b != 0);
 	if(mode_id != mk_lib_crypto_app_id_mode_e_ecb)
 	{
 		b = CryptSetKeyParam(win_key, mk_win_advapi_kp_iv, &iv[0], 0); test(b != 0);
