@@ -6,6 +6,7 @@
 #include "mk_lang_constexpr.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_null.h"
+#include "mk_lang_static_assert.h"
 #include "mk_lang_types.h"
 #include "mk_lang_version.h"
 #include "mk_sl_uint8.h"
