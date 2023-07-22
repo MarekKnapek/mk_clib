@@ -5,6 +5,7 @@
 /* nist fips pub 202 */
 
 
+#include "mk_lang_alignas.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
@@ -34,7 +35,7 @@ typedef mk_lib_crypto_hash_block_sha3_256_aligned136_t const* mk_lib_crypto_hash
 
 union mk_lib_crypto_hash_block_sha3_256_aligned32_u
 {
-	mk_sl_cui_uint8_t m_uint8s[32];
+	mk_lang_alignas(32) mk_sl_cui_uint8_t m_uint8s[32];
 	mk_lang_types_ulllong_t m_ulllong;
 };
 typedef union mk_lib_crypto_hash_block_sha3_256_aligned32_u mk_lib_crypto_hash_block_sha3_256_aligned32_t;

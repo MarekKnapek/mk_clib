@@ -5,6 +5,7 @@
 /* http://www.cs.technion.ac.il/~biham/Reports/Tiger/ */
 
 
+#include "mk_lang_alignas.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
@@ -24,7 +25,7 @@ mk_lang_constexpr_static_inline int const mk_lib_crypto_hash_block_tiger_128_nam
 
 union mk_lib_crypto_hash_block_tiger_128_aligned16_u
 {
-	mk_sl_cui_uint8_t m_uint8s[16];
+	mk_lang_alignas(16) mk_sl_cui_uint8_t m_uint8s[16];
 	mk_lang_types_ulllong_t m_ulllong;
 };
 typedef union mk_lib_crypto_hash_block_tiger_128_aligned16_u mk_lib_crypto_hash_block_tiger_128_aligned16_t;

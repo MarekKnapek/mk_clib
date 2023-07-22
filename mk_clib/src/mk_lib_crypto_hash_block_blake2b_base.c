@@ -1,5 +1,6 @@
 #include "mk_lib_crypto_hash_block_blake2b_base.h"
 
+#include "mk_lang_alignas.h"
 #include "mk_lang_assert.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_inline.h"
@@ -140,7 +141,7 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_blake2b_ba
 
 	union state_u
 	{
-		mk_sl_cui_uint8_t m_uint8s[64];
+		mk_lang_alignas(64) mk_sl_cui_uint8_t m_uint8s[64];
 		mk_sl_cui_uint64_t m_align;
 	};
 	typedef union state_u state_t;

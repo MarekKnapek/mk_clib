@@ -5,9 +5,11 @@
 /* nist fips pub 202 */
 
 
+#include "mk_lang_alignas.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_pow2.h"
 #include "mk_lang_stringify.h"
 #include "mk_lang_types.h"
 #include "mk_lib_crypto_hash_block_sha3_base.h"
@@ -22,7 +24,7 @@ mk_lang_constexpr_static_inline int const mk_lib_crypto_xof_block_shake_128_name
 
 union mk_lib_crypto_xof_block_shake_128_aligned168_u
 {
-	mk_sl_cui_uint8_t m_uint8s[168];
+	mk_lang_alignas(mk_sl_cui_uint64_t) mk_sl_cui_uint8_t m_uint8s[168];
 	mk_sl_cui_uint64_t m_align;
 };
 typedef union mk_lib_crypto_xof_block_shake_128_aligned168_u mk_lib_crypto_xof_block_shake_128_aligned168_t;

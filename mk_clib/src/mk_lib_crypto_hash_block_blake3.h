@@ -2,6 +2,7 @@
 #define mk_include_guard_mk_lib_crypto_hash_block_blake3
 
 
+#include "mk_lang_alignas.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
@@ -22,21 +23,21 @@ mk_lang_constexpr_static_inline int const mk_lib_crypto_hash_block_blake3_name_s
 
 union mk_lib_crypto_hash_block_blake3_aligned64_u
 {
-	mk_sl_cui_uint8_t m_uint8s[64];
+	mk_lang_alignas(64) mk_sl_cui_uint8_t m_uint8s[64];
 	mk_sl_cui_uint32_t m_align;
 };
 typedef union mk_lib_crypto_hash_block_blake3_aligned64_u mk_lib_crypto_hash_block_blake3_aligned64_t;
 
 union mk_lib_crypto_hash_block_blake3_aligned32_u
 {
-	mk_sl_cui_uint8_t m_uint8s[32];
+	mk_lang_alignas(32) mk_sl_cui_uint8_t m_uint8s[32];
 	mk_lang_types_ulllong_t m_ulllong;
 };
 typedef union mk_lib_crypto_hash_block_blake3_aligned32_u mk_lib_crypto_hash_block_blake3_aligned32_t;
 
 union mk_lib_crypto_hash_block_blake3_state_u
 {
-	mk_sl_cui_uint32_t m_uint32s[8];
+	mk_lang_alignas(8 * 4) mk_sl_cui_uint32_t m_uint32s[8];
 	mk_lang_types_ulllong_t m_ulllong;
 };
 typedef union mk_lib_crypto_hash_block_blake3_state_u mk_lib_crypto_hash_block_blake3_state_t;

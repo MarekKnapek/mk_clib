@@ -5,9 +5,11 @@
 /* nist fips pub 202 */
 
 
+#include "mk_lang_alignas.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_pow2.h"
 #include "mk_lang_stringify.h"
 #include "mk_lang_types.h"
 #include "mk_lib_crypto_hash_block_sha3_base.h"
@@ -23,7 +25,7 @@ mk_lang_constexpr_static_inline int const mk_lib_crypto_hash_block_sha3_224_name
 
 union mk_lib_crypto_hash_block_sha3_224_aligned144_u
 {
-	mk_sl_cui_uint8_t m_uint8s[144];
+	mk_lang_alignas(16) mk_sl_cui_uint8_t m_uint8s[144];
 	mk_sl_cui_uint64_t m_align;
 };
 typedef union mk_lib_crypto_hash_block_sha3_224_aligned144_u mk_lib_crypto_hash_block_sha3_224_aligned144_t;
@@ -33,7 +35,7 @@ typedef mk_lib_crypto_hash_block_sha3_224_aligned144_t const* mk_lib_crypto_hash
 
 union mk_lib_crypto_hash_block_sha3_224_aligned28_u
 {
-	mk_sl_cui_uint8_t m_uint8s[28];
+	mk_lang_alignas(mk_lang_pow2_roundup(28)) mk_sl_cui_uint8_t m_uint8s[28];
 	mk_lang_types_ulllong_t m_ulllong;
 };
 typedef union mk_lib_crypto_hash_block_sha3_224_aligned28_u mk_lib_crypto_hash_block_sha3_224_aligned28_t;

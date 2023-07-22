@@ -5,6 +5,7 @@
 /* rfc 1321 */
 
 
+#include "mk_lang_alignas.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
@@ -24,7 +25,7 @@ mk_lang_constexpr_static_inline int const mk_lib_crypto_hash_block_md5_name_str_
 
 union mk_lib_crypto_hash_block_md5_aligned64_u
 {
-	mk_sl_cui_uint8_t m_uint8s[64];
+	mk_lang_alignas(64) mk_sl_cui_uint8_t m_uint8s[64];
 	mk_sl_cui_uint32_t m_align;
 };
 typedef union mk_lib_crypto_hash_block_md5_aligned64_u mk_lib_crypto_hash_block_md5_aligned64_t;
@@ -34,7 +35,7 @@ typedef mk_lib_crypto_hash_block_md5_aligned64_t const* mk_lib_crypto_hash_block
 
 union mk_lib_crypto_hash_block_md5_aligned16_u
 {
-	mk_sl_cui_uint8_t m_uint8s[16];
+	mk_lang_alignas(16) mk_sl_cui_uint8_t m_uint8s[16];
 	mk_lang_types_ulllong_t m_ulllong;
 };
 typedef union mk_lib_crypto_hash_block_md5_aligned16_u mk_lib_crypto_hash_block_md5_aligned16_t;

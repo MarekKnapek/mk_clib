@@ -40,7 +40,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_xof_block_shake_128_init(mk_l
 {
 	mk_lang_static_assert(sizeof(mk_sl_cui_uint8_t) == 1);
 	mk_lang_static_assert(sizeof(mk_sl_cui_uint64_t) == 8);
-	mk_lang_static_assert(sizeof(mk_lib_crypto_xof_block_shake_128_block_t) >= 168);
+	mk_lang_static_assert(sizeof(mk_lib_crypto_xof_block_shake_128_block_t) == 168);
 	mk_lang_static_assert(sizeof(mk_lib_crypto_xof_block_shake_128_digest_t) == sizeof(mk_lang_types_ulllong_t));
 
 	mk_lang_assert(shake_128);

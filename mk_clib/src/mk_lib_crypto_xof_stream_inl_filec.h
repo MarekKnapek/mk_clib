@@ -1,3 +1,4 @@
+#include "mk_lang_alignof.h"
 #include "mk_lang_assert.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_jumbo.h"
@@ -47,9 +48,9 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_xof_stream_inl_defd_append_u8
 		}
 		blocks = rem / mk_lib_crypto_xof_stream_inl_defd_base_block_len;
 		#if !mk_lang_constexpr_is_constant_evaluated
-		if((((mk_lang_types_uintptr_t)(ptr)) % sizeof(xof->m_block.m_align)) == 0)
+		if((((mk_lang_types_uintptr_t)(ptr)) % mk_lang_alignof(mk_lib_crypto_xof_stream_inl_defd_base_block_t)) == 0)
 		#else
-		if(!mk_lang_constexpr_is_constant_evaluated_test && ((((mk_lang_types_uintptr_t)(ptr)) % sizeof(xof->m_block.m_align)) == 0))
+		if(!mk_lang_constexpr_is_constant_evaluated_test && ((((mk_lang_types_uintptr_t)(ptr)) % mk_lang_alignof(mk_lib_crypto_xof_stream_inl_defd_base_block_t)) == 0))
 		#endif
 		{
 			mk_lib_crypto_xof_stream_inl_defd_base_append_blocks(&xof->m_base, ((mk_lib_crypto_xof_stream_inl_defd_base_block_pct)(ptr)), blocks);

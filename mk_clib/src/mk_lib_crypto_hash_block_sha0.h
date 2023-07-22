@@ -5,9 +5,11 @@
 /* nist fips pub 180 */
 
 
+#include "mk_lang_alignas.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_pow2.h"
 #include "mk_lang_stringify.h"
 #include "mk_lang_types.h"
 #include "mk_sl_uint32.h"
@@ -24,7 +26,7 @@ mk_lang_constexpr_static_inline int const mk_lib_crypto_hash_block_sha0_name_str
 
 union mk_lib_crypto_hash_block_sha0_aligned64_u
 {
-	mk_sl_cui_uint8_t m_uint8s[64];
+	mk_lang_alignas(64) mk_sl_cui_uint8_t m_uint8s[64];
 	mk_sl_cui_uint32_t m_align;
 };
 typedef union mk_lib_crypto_hash_block_sha0_aligned64_u mk_lib_crypto_hash_block_sha0_aligned64_t;
@@ -34,7 +36,7 @@ typedef mk_lib_crypto_hash_block_sha0_aligned64_t const* mk_lib_crypto_hash_bloc
 
 union mk_lib_crypto_hash_block_sha0_aligned20_u
 {
-	mk_sl_cui_uint8_t m_uint8s[20];
+	mk_lang_alignas(mk_lang_pow2_roundup(20)) mk_sl_cui_uint8_t m_uint8s[20];
 	mk_lang_types_ulllong_t m_ulllong;
 };
 typedef union mk_lib_crypto_hash_block_sha0_aligned20_u mk_lib_crypto_hash_block_sha0_aligned20_t;

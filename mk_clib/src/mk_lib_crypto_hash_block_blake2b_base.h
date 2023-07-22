@@ -2,6 +2,7 @@
 #define mk_include_guard_mk_lib_crypto_hash_block_blake2b_base
 
 
+#include "mk_lang_alignas.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
@@ -18,7 +19,7 @@
 
 union mk_lib_crypto_hash_block_blake2b_base_aligned128_u
 {
-	mk_sl_cui_uint8_t m_uint8s[128];
+	mk_lang_alignas(128) mk_sl_cui_uint8_t m_uint8s[128];
 	mk_sl_cui_uint64_t m_align;
 };
 typedef union mk_lib_crypto_hash_block_blake2b_base_aligned128_u mk_lib_crypto_hash_block_blake2b_base_aligned128_t;
@@ -28,7 +29,7 @@ typedef mk_lib_crypto_hash_block_blake2b_base_aligned128_t const* mk_lib_crypto_
 
 union mk_lib_crypto_hash_block_blake2b_base_aligned64_u
 {
-	mk_sl_cui_uint8_t m_uint8s[64];
+	mk_lang_alignas(64) mk_sl_cui_uint8_t m_uint8s[64];
 	mk_lang_types_ulllong_t m_ulllong;
 };
 typedef union mk_lib_crypto_hash_block_blake2b_base_aligned64_u mk_lib_crypto_hash_block_blake2b_base_aligned64_t;

@@ -39,7 +39,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha2_384_init(mk_l
 	mk_lang_static_assert(sizeof(mk_sl_cui_uint64_t) == 8);
 	mk_lang_static_assert(sizeof(mk_sl_cui_uint128_t) == 16);
 	mk_lang_static_assert(sizeof(mk_lib_crypto_hash_block_sha2_384_block_t) == 128);
-	mk_lang_static_assert(sizeof(mk_lib_crypto_hash_block_sha2_384_digest_t) == 48);
+	mk_lang_static_assert(sizeof(mk_lib_crypto_hash_block_sha2_384_digest_t) >= 48);
 
 	mk_lang_assert(sha2_384);
 

@@ -2,9 +2,11 @@
 #define mk_include_guard_mk_lib_crypto_hash_block_sha3
 
 
+#include "mk_lang_alignas.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_pow2.h"
 #include "mk_lang_restrict.h"
 #include "mk_lang_types.h"
 #include "mk_sl_uint64.h"
@@ -12,7 +14,7 @@
 
 union mk_lib_crypto_hash_block_sha3_base_aligned200_u
 {
-	mk_sl_cui_uint64_t m_uint64s[25];
+	mk_lang_alignas(mk_lang_pow2_roundup(25 * 8)) mk_sl_cui_uint64_t m_uint64s[25];
 	mk_lang_types_ulllong_t m_ulllong;
 };
 typedef union mk_lib_crypto_hash_block_sha3_base_aligned200_u mk_lib_crypto_hash_block_sha3_base_aligned200_t;

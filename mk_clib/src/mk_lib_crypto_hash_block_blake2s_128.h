@@ -5,6 +5,7 @@
 /* rfc 7693 */
 
 
+#include "mk_lang_alignas.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
@@ -25,7 +26,7 @@ mk_lang_constexpr_static_inline int const mk_lib_crypto_hash_block_blake2s_128_n
 
 union mk_lib_crypto_hash_block_blake2s_128_aligned_digest_u
 {
-	mk_sl_cui_uint8_t m_uint8s[128 / 8];
+	mk_lang_alignas(mk_lib_crypto_hash_block_blake2s_128_digest_len) mk_sl_cui_uint8_t m_uint8s[mk_lib_crypto_hash_block_blake2s_128_digest_len];
 	mk_lang_types_ulllong_t m_ulllong;
 };
 typedef union mk_lib_crypto_hash_block_blake2s_128_aligned_digest_u mk_lib_crypto_hash_block_blake2s_128_aligned_digest_t;

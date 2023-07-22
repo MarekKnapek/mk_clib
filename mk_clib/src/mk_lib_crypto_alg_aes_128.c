@@ -1,5 +1,6 @@
 #include "mk_lib_crypto_alg_aes_128.h"
 
+#include "mk_lang_alignas.h"
 #include "mk_lang_alignof.h"
 #include "mk_lang_arch.h"
 #include "mk_lang_assert.h"
@@ -31,7 +32,7 @@
 
 union mk_lib_crypto_alg_aes_128_aligned_sbox_u
 {
-	mk_sl_cui_uint8_t m_uint8s[mk_lib_crypto_alg_aes_128_sbox_len];
+	mk_lang_alignas(mk_lib_crypto_alg_aes_128_sbox_len) mk_sl_cui_uint8_t m_uint8s[mk_lib_crypto_alg_aes_128_sbox_len];
 	mk_lang_types_ulllong_t m_align;
 };
 typedef union mk_lib_crypto_alg_aes_128_aligned_sbox_u mk_lib_crypto_alg_aes_128_aligned_sbox_t;

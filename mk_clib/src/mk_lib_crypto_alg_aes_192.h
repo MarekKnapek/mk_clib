@@ -2,9 +2,11 @@
 #define mk_include_guard_mk_lib_crypto_alg_aes_192
 
 
+#include "mk_lang_alignas.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_pow2.h"
 #include "mk_lang_types.h"
 #include "mk_sl_uint8.h"
 
@@ -20,14 +22,14 @@ enum mk_lib_crypto_alg_aes_192_msg_len_e { mk_lib_crypto_alg_aes_192_msg_len_v =
 
 union mk_lib_crypto_alg_aes_192_aligned_key_u
 {
-	mk_sl_cui_uint8_t m_uint8s[mk_lib_crypto_alg_aes_192_key_len_v];
+	mk_lang_alignas(mk_lang_pow2_roundup(mk_lib_crypto_alg_aes_192_key_len_m)) mk_sl_cui_uint8_t m_uint8s[mk_lib_crypto_alg_aes_192_key_len_v];
 	mk_lang_types_ulllong_t m_ulllong;
 };
 typedef union mk_lib_crypto_alg_aes_192_aligned_key_u mk_lib_crypto_alg_aes_192_aligned_key_t;
 
 union mk_lib_crypto_alg_aes_192_aligned_msg_u
 {
-	mk_sl_cui_uint8_t m_uint8s[mk_lib_crypto_alg_aes_192_msg_len_v];
+	mk_lang_alignas(mk_lib_crypto_alg_aes_192_msg_len_m) mk_sl_cui_uint8_t m_uint8s[mk_lib_crypto_alg_aes_192_msg_len_v];
 	mk_lang_types_ulllong_t m_ulllong;
 };
 typedef union mk_lib_crypto_alg_aes_192_aligned_msg_u mk_lib_crypto_alg_aes_192_aligned_msg_t;

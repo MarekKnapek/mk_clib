@@ -1,5 +1,6 @@
 #include "mk_lib_crypto_hash_block_blake3.h"
 
+#include "mk_lang_alignas.h"
 #include "mk_lang_assert.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_inline.h"
@@ -7,6 +8,7 @@
 #include "mk_lang_limits.h"
 #include "mk_lang_min.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_pow2.h"
 #include "mk_lang_static_assert.h"
 #include "mk_lang_types.h"
 #include "mk_sl_uint.h"
@@ -39,7 +41,7 @@ typedef enum mk_lib_crypto_hash_block_blake3_flags_e mk_lib_crypto_hash_block_bl
 
 union mk_lib_crypto_hash_block_blake3_v_u
 {
-	mk_sl_cui_uint32_t m_uint32s[16];
+	mk_lang_alignas(16 * 4) mk_sl_cui_uint32_t m_uint32s[16];
 	mk_lang_types_ulllong_t m_ulllong;
 };
 typedef union mk_lib_crypto_hash_block_blake3_v_u mk_lib_crypto_hash_block_blake3_v_t;
@@ -49,7 +51,7 @@ typedef mk_lib_crypto_hash_block_blake3_v_t const* mk_lib_crypto_hash_block_blak
 
 union mk_lib_crypto_hash_block_blake3_output_block_u
 {
-	mk_sl_cui_uint8_t m_uint8s[mk_lib_crypto_hash_block_blake3_output_block_len];
+	mk_lang_alignas(mk_lib_crypto_hash_block_blake3_output_block_len) mk_sl_cui_uint8_t m_uint8s[mk_lib_crypto_hash_block_blake3_output_block_len];
 	mk_lang_types_ulllong_t m_ulllong;
 };
 typedef union mk_lib_crypto_hash_block_blake3_output_block_u mk_lib_crypto_hash_block_blake3_output_block_t;
@@ -59,7 +61,7 @@ typedef mk_lib_crypto_hash_block_blake3_output_block_t const* mk_lib_crypto_hash
 
 union mk_lib_crypto_hash_block_blake3_schedule_u
 {
-	mk_lang_types_uchar_t m_uchars[7][16];
+	mk_lang_alignas(mk_lang_pow2_roundup(7 * 16)) mk_lang_types_uchar_t m_uchars[7][16];
 	mk_lang_types_ulllong_t m_ulllong;
 };
 typedef union mk_lib_crypto_hash_block_blake3_schedule_u mk_lib_crypto_hash_block_blake3_schedule_t;

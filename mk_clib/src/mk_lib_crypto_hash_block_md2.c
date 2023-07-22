@@ -3,11 +3,13 @@
 /* rfc 1115 */
 /* rfc 1319 */
 
+#include "mk_lang_alignas.h"
 #include "mk_lang_assert.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_limits.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_pow2.h"
 #include "mk_lang_static_assert.h"
 #include "mk_lang_types.h"
 #include "mk_sl_uint8.h"
@@ -15,7 +17,7 @@
 
 union mk_lib_crypto_hash_block_md2_aligned48_u
 {
-	mk_sl_cui_uint8_t m_uint8s[48];
+	mk_lang_alignas(mk_lang_pow2_roundup(48)) mk_sl_cui_uint8_t m_uint8s[48];
 	mk_lang_types_ulllong_t m_ulllong;
 };
 typedef union mk_lib_crypto_hash_block_md2_aligned48_u mk_lib_crypto_hash_block_md2_aligned48_t;
@@ -25,7 +27,7 @@ typedef mk_lib_crypto_hash_block_md2_aligned48_t const* mk_lib_crypto_hash_block
 
 union mk_lib_crypto_hash_block_md2_aligned256_u
 {
-	mk_sl_cui_uint8_t m_uint8s[0xff + 1];
+	mk_lang_alignas(0xff + 1) mk_sl_cui_uint8_t m_uint8s[0xff + 1];
 	mk_lang_types_ulllong_t m_ulllong;
 };
 typedef union mk_lib_crypto_hash_block_md2_aligned256_u mk_lib_crypto_hash_block_md2_aligned256_t;
@@ -62,7 +64,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_md2_init(mk_lib_cr
 	mk_lang_static_assert(sizeof(mk_sl_cui_uint8_t) == 1);
 	mk_lang_static_assert(sizeof(mk_lib_crypto_hash_block_md2_block_t) == 16);
 	mk_lang_static_assert(sizeof(mk_lib_crypto_hash_block_md2_digest_t) == 16);
-	mk_lang_static_assert(sizeof(mk_lib_crypto_hash_block_md2_aligned48_t) == 48);
+	mk_lang_static_assert(sizeof(mk_lib_crypto_hash_block_md2_aligned48_t) >= 48);
 	mk_lang_static_assert(sizeof(mk_lib_crypto_hash_block_md2_aligned256_t) == 256);
 
 	mk_lang_assert(md2);
