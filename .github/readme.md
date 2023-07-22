@@ -19,6 +19,7 @@ Hi, welcome to my library, this is place where I put all my C stuff. There is ar
  - [BLAKE3](#blake3)
  - [constexpr SHA-512](#constexpr-sha-512)
  - [constexpr AES-256 encryption and run-time decryption](#constexpr-aes-256-encryption-and-run-time-decryption)
+ - [license](../mk_clib/src/license.txt)
 
 ## bui
 
