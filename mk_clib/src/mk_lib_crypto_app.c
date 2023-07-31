@@ -855,20 +855,20 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline auto mk_lib_crypto_app
 	return buff;
 }
 
+mk_lang_constexpr_static_inline auto const s_mk_lib_crypto_app_get_names_str = mk_lib_crypto_app_get_names_impl_2();
+
 #endif
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_ssize_t mk_lib_crypto_app_impl_get_names(mk_lib_crypto_app_pt const app) mk_lang_noexcept
 {
 	#if mk_lang_version_at_least_cpp_14 || mk_lang_version_at_least_msvc_cpp_14
 
-	mk_lang_constexpr_static auto const s_init = mk_lib_crypto_app_get_names_impl_2();
-
 	int i mk_lang_constexpr_init;
 
 	mk_lang_assert(app);
 
-	for(i = 0; i != s_init.s_size; ++i){ app->m_buffer.m_data.m_uint8s[i] = s_init.m_data[i]; }
-	return s_init.s_size;
+	for(i = 0; i != s_mk_lib_crypto_app_get_names_str.s_size; ++i){ app->m_buffer.m_data.m_uint8s[i] = s_mk_lib_crypto_app_get_names_str.m_data[i]; }
+	return s_mk_lib_crypto_app_get_names_str.s_size;
 
 	#else
 
