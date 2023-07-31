@@ -1371,7 +1371,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_ssize_t 
 
 	mk_lib_crypto_app_impl_expand_enc(app);
 	msg_len = mk_lib_crypto_app_get_msg_len(app->m_alg_id, app->m_mode_id);
-	mk_lib_crypto_app_check(len >= 0 && len <= mk_lib_crypto_app_impl_get_data_size(app));
+	mk_lib_crypto_app_check(len >= 0 && len <= mk_lib_crypto_app_impl_get_data_size(app) + mk_lib_crypto_app_get_msg_size_max_m);
 	mk_lib_crypto_app_check(len % msg_len == 0);
 	n = len / msg_len;
 	for(i = 0; i != n; ++i)
