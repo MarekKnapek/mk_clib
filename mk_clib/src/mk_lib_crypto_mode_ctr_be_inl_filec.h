@@ -165,4 +165,3 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ctr_be_inl_defd_decrypt(
 
 #undef mk_lib_crypto_mode_ctr_be_t_name
 #undef mk_lib_crypto_mode_ctr_be_t_alg
-#undef mk_lib_crypto_mode_ctr_be_t_constexpr

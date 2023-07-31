@@ -86,4 +86,3 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ofb_inl_defd_decrypt(mk_
 
 #undef mk_lib_crypto_mode_ofb_t_name
 #undef mk_lib_crypto_mode_ofb_t_alg
-#undef mk_lib_crypto_mode_ofb_t_constexpr
