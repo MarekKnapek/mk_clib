@@ -23,10 +23,10 @@
 template<mk_lang_types_usize_t iv_lit_len, mk_lang_types_usize_t key_lit_len, mk_lang_types_usize_t msg_lit_len>
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto mk_lib_crypto_mode_cfb_8_aes_192_test_encrypt_from_str_lit(char const(&iv_lit)[iv_lit_len], char const(&key_lit)[key_lit_len], char const(&msg_lit)[msg_lit_len]) mk_lang_noexcept
 {
-	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, mk_lib_crypto_alg_aes_192_msg_len_v> iv_bytes mk_lang_constexpr_init;
+	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, mk_lib_crypto_mode_cfb_8_aes_192_iv_len_v> iv_bytes mk_lang_constexpr_init;
 	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, mk_lib_crypto_mode_cfb_8_aes_192_key_len_v> key_bytes mk_lang_constexpr_init;
 	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, (msg_lit_len - 1) / 2> msg_bytes mk_lang_constexpr_init;
-	mk_lib_crypto_alg_aes_192_msg_t iv mk_lang_constexpr_init;
+	mk_lib_crypto_mode_cfb_8_aes_192_iv_t iv mk_lang_constexpr_init;
 	mk_lib_crypto_mode_cfb_8_aes_192_key_t key mk_lang_constexpr_init;
 	mk_lib_crypto_mode_cfb_8_aes_192_msg_t msg mk_lang_constexpr_init;
 	mk_lang_types_usize_t i mk_lang_constexpr_init;
@@ -34,14 +34,14 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto mk_lib_crypto_mode_cfb_8_
 	mk_lang_types_usize_t j mk_lang_constexpr_init;
 	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, (msg_lit_len - 1) / 2> out_bytes mk_lang_constexpr_init;
 
-	mk_lang_static_assert(iv_lit_len == mk_lib_crypto_alg_aes_192_msg_len_v * 2 + 1);
+	mk_lang_static_assert(iv_lit_len == mk_lib_crypto_mode_cfb_8_aes_192_iv_len_v * 2 + 1);
 	mk_lang_static_assert(key_lit_len == mk_lib_crypto_mode_cfb_8_aes_192_key_len_v * 2 + 1);
 	mk_lang_static_assert(msg_lit_len >= mk_lib_crypto_mode_cfb_8_aes_192_msg_len_v * 2 + 1 && ((msg_lit_len - 1) / 2) % mk_lib_crypto_mode_cfb_8_aes_192_msg_len_v == 0);
 
 	iv_bytes = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(iv_lit);
 	key_bytes = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(key_lit);
 	msg_bytes = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(msg_lit);
-	for(i = 0; i != mk_lib_crypto_alg_aes_192_msg_len_v; ++i){ iv.m_data.m_uint8s[i] = iv_bytes[i]; }
+	for(i = 0; i != mk_lib_crypto_mode_cfb_8_aes_192_iv_len_v; ++i){ iv.m_data.m_uint8s[i] = iv_bytes[i]; }
 	mk_lib_crypto_mode_cfb_8_aes_192_init(&mode, &iv);
 	for(i = 0; i != mk_lib_crypto_mode_cfb_8_aes_192_key_len_v; ++i){ key.m_data.m_uint8s[i] = key_bytes[i]; }
 	for(j = 0; j != ((msg_lit_len - 1) / 2) / mk_lib_crypto_mode_cfb_8_aes_192_msg_len_v; ++j)
@@ -56,9 +56,9 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto mk_lib_crypto_mode_cfb_8_
 template<mk_lang_types_usize_t iv_lit_len, mk_lang_types_usize_t key_lit_len, mk_lang_types_usize_t msg_bytes_len>
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto mk_lib_crypto_mode_cfb_8_aes_192_test_decrypt_from_str_lit(char const(&iv_lit)[iv_lit_len], char const(&key_lit)[key_lit_len], mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, msg_bytes_len> const& msg_bytes) mk_lang_noexcept
 {
-	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, mk_lib_crypto_alg_aes_192_msg_len_v> iv_bytes mk_lang_constexpr_init;
+	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, mk_lib_crypto_mode_cfb_8_aes_192_iv_len_v> iv_bytes mk_lang_constexpr_init;
 	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, mk_lib_crypto_mode_cfb_8_aes_192_key_len_v> key_bytes mk_lang_constexpr_init;
-	mk_lib_crypto_alg_aes_192_msg_t iv mk_lang_constexpr_init;
+	mk_lib_crypto_mode_cfb_8_aes_192_iv_t iv mk_lang_constexpr_init;
 	mk_lib_crypto_mode_cfb_8_aes_192_key_t key mk_lang_constexpr_init;
 	mk_lib_crypto_mode_cfb_8_aes_192_msg_t msg mk_lang_constexpr_init;
 	mk_lang_types_usize_t i mk_lang_constexpr_init;
@@ -66,13 +66,13 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto mk_lib_crypto_mode_cfb_8_
 	mk_lang_types_usize_t j mk_lang_constexpr_init;
 	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, msg_bytes_len> out_bytes mk_lang_constexpr_init;
 
-	mk_lang_static_assert(iv_lit_len == mk_lib_crypto_alg_aes_192_msg_len_v * 2 + 1);
+	mk_lang_static_assert(iv_lit_len == mk_lib_crypto_mode_cfb_8_aes_192_iv_len_v * 2 + 1);
 	mk_lang_static_assert(key_lit_len == mk_lib_crypto_mode_cfb_8_aes_192_key_len_v * 2 + 1);
 	mk_lang_static_assert(msg_bytes_len >= mk_lib_crypto_mode_cfb_8_aes_192_msg_len_v && msg_bytes_len % mk_lib_crypto_mode_cfb_8_aes_192_msg_len_v == 0);
 
 	iv_bytes = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(iv_lit);
 	key_bytes = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(key_lit);
-	for(i = 0; i != mk_lib_crypto_alg_aes_192_msg_len_v; ++i){ iv.m_data.m_uint8s[i] = iv_bytes[i]; }
+	for(i = 0; i != mk_lib_crypto_mode_cfb_8_aes_192_iv_len_v; ++i){ iv.m_data.m_uint8s[i] = iv_bytes[i]; }
 	mk_lib_crypto_mode_cfb_8_aes_192_init(&mode, &iv);
 	for(i = 0; i != mk_lib_crypto_mode_cfb_8_aes_192_key_len_v; ++i){ key.m_data.m_uint8s[i] = key_bytes[i]; }
 	for(j = 0; j != msg_bytes_len / mk_lib_crypto_mode_cfb_8_aes_192_msg_len_v; ++j)
@@ -148,7 +148,7 @@ mk_lang_extern_c void mk_lib_crypto_mode_cfb_8_aes_192_test(void) mk_lang_noexce
 	mk_lang_types_uchar_t hi;
 	mk_lang_types_uchar_t lo;
 	mk_lang_types_uchar_t byte;
-	mk_lib_crypto_alg_aes_192_msg_t iv;
+	mk_lib_crypto_mode_cfb_8_aes_192_iv_t iv;
 	mk_lib_crypto_mode_cfb_8_aes_192_key_t key;
 	mk_lib_crypto_mode_cfb_8_aes_192_msg_t msg;
 	mk_lib_crypto_mode_cfb_8_aes_192_t mode;
@@ -166,7 +166,7 @@ mk_lang_extern_c void mk_lib_crypto_mode_cfb_8_aes_192_test(void) mk_lang_noexce
 		msg_len = s_msg_lens[i];
 		mk_lang_assert(msg_len >= mk_lib_crypto_mode_cfb_8_aes_192_msg_len_v * 2 + 1 && ((msg_len - 1) / 2) % mk_lib_crypto_mode_cfb_8_aes_192_msg_len_v == 0);
 		msg_len = (msg_len - 1) / 2;
-		for(j = 0; j != mk_lib_crypto_alg_aes_192_msg_len_v; ++j)
+		for(j = 0; j != mk_lib_crypto_mode_cfb_8_aes_192_iv_len_v; ++j)
 		{
 			hi = mk_lib_cpp_constexpr_char_to_nibble(s_ivs[i][j * 2 + 0]); mk_lang_assert(hi >= 0x0 && hi <= 0xf);
 			lo = mk_lib_cpp_constexpr_char_to_nibble(s_ivs[i][j * 2 + 1]); mk_lang_assert(lo >= 0x0 && lo <= 0xf);

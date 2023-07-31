@@ -23,7 +23,7 @@
 template<mk_lang_types_usize_t iv_lit_len, mk_lang_types_usize_t key_lit_len, mk_lang_types_usize_t msg_lit_len>
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto mk_lib_crypto_mode_ofb_aes_128_test_encrypt_from_str_lit(char const(&iv_lit)[iv_lit_len], char const(&key_lit)[key_lit_len], char const(&msg_lit)[msg_lit_len]) mk_lang_noexcept
 {
-	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, mk_lib_crypto_mode_ofb_aes_128_msg_len_v> iv_bytes mk_lang_constexpr_init;
+	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, mk_lib_crypto_mode_ofb_aes_128_iv_len_v> iv_bytes mk_lang_constexpr_init;
 	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, mk_lib_crypto_mode_ofb_aes_128_key_len_v> key_bytes mk_lang_constexpr_init;
 	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, (msg_lit_len - 1) / 2> msg_bytes mk_lang_constexpr_init;
 	mk_lib_crypto_mode_ofb_aes_128_msg_t iv mk_lang_constexpr_init;
@@ -34,7 +34,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto mk_lib_crypto_mode_ofb_ae
 	mk_lang_types_usize_t j mk_lang_constexpr_init;
 	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, (msg_lit_len - 1) / 2> out_bytes mk_lang_constexpr_init;
 
-	mk_lang_static_assert(iv_lit_len == mk_lib_crypto_mode_ofb_aes_128_msg_len_v * 2 + 1);
+	mk_lang_static_assert(iv_lit_len == mk_lib_crypto_mode_ofb_aes_128_iv_len_v * 2 + 1);
 	mk_lang_static_assert(key_lit_len == mk_lib_crypto_mode_ofb_aes_128_key_len_v * 2 + 1);
 	mk_lang_static_assert(msg_lit_len >= mk_lib_crypto_mode_ofb_aes_128_msg_len_v * 2 + 1 && ((msg_lit_len - 1) / 2) % mk_lib_crypto_mode_ofb_aes_128_msg_len_v == 0);
 
@@ -56,7 +56,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto mk_lib_crypto_mode_ofb_ae
 template<mk_lang_types_usize_t iv_lit_len, mk_lang_types_usize_t key_lit_len, mk_lang_types_usize_t msg_bytes_len>
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto mk_lib_crypto_mode_ofb_aes_128_test_decrypt_from_str_lit(char const(&iv_lit)[iv_lit_len], char const(&key_lit)[key_lit_len], mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, msg_bytes_len> const& msg_bytes) mk_lang_noexcept
 {
-	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, mk_lib_crypto_mode_ofb_aes_128_msg_len_v> iv_bytes mk_lang_constexpr_init;
+	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, mk_lib_crypto_mode_ofb_aes_128_iv_len_v> iv_bytes mk_lang_constexpr_init;
 	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, mk_lib_crypto_mode_ofb_aes_128_key_len_v> key_bytes mk_lang_constexpr_init;
 	mk_lib_crypto_mode_ofb_aes_128_msg_t iv mk_lang_constexpr_init;
 	mk_lib_crypto_mode_ofb_aes_128_key_t key mk_lang_constexpr_init;
@@ -66,7 +66,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto mk_lib_crypto_mode_ofb_ae
 	mk_lang_types_usize_t j mk_lang_constexpr_init;
 	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, msg_bytes_len> out_bytes mk_lang_constexpr_init;
 
-	mk_lang_static_assert(iv_lit_len == mk_lib_crypto_mode_ofb_aes_128_msg_len_v * 2 + 1);
+	mk_lang_static_assert(iv_lit_len == mk_lib_crypto_mode_ofb_aes_128_iv_len_v * 2 + 1);
 	mk_lang_static_assert(key_lit_len == mk_lib_crypto_mode_ofb_aes_128_key_len_v * 2 + 1);
 	mk_lang_static_assert(msg_bytes_len >= mk_lib_crypto_mode_ofb_aes_128_msg_len_v && msg_bytes_len % mk_lib_crypto_mode_ofb_aes_128_msg_len_v == 0);
 

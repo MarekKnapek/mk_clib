@@ -20,6 +20,48 @@
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\.editorconfig"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\.gitignore"/>
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_tool_m4.bat"/>
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_concat.m"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes.h.m"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_inl_fileh.m"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc.h.m"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_inl_fileh.m"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb.h.m"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_inl_fileh.m"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be.h.m"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_inl_fileh.m"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb.h.m"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_inl_fileh.m"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb.h.m"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_inl_fileh.m"/>
+	</ItemGroup>
+	<ItemGroup>
+		<CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_128.h.m4"><FileType>Document</FileType><Command>$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_tool_m4.bat "%(Identity)"</Command><Outputs>$(MSBuildThisFileDirectory)..\..\..\src\%(Filename)</Outputs><OutputItemType>ClInclude</OutputItemType><BuildInParallel>true</BuildInParallel></CustomBuild>
+		<CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_192.h.m4"><FileType>Document</FileType><Command>$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_tool_m4.bat "%(Identity)"</Command><Outputs>$(MSBuildThisFileDirectory)..\..\..\src\%(Filename)</Outputs><OutputItemType>ClInclude</OutputItemType><BuildInParallel>true</BuildInParallel></CustomBuild>
+		<CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_256.h.m4"><FileType>Document</FileType><Command>$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_tool_m4.bat "%(Identity)"</Command><Outputs>$(MSBuildThisFileDirectory)..\..\..\src\%(Filename)</Outputs><OutputItemType>ClInclude</OutputItemType><BuildInParallel>true</BuildInParallel></CustomBuild>
+		<CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_aes_128.h.m4"><FileType>Document</FileType><Command>$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_tool_m4.bat "%(Identity)"</Command><Outputs>$(MSBuildThisFileDirectory)..\..\..\src\%(Filename)</Outputs><OutputItemType>ClInclude</OutputItemType><BuildInParallel>true</BuildInParallel></CustomBuild>
+		<CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_aes_192.h.m4"><FileType>Document</FileType><Command>$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_tool_m4.bat "%(Identity)"</Command><Outputs>$(MSBuildThisFileDirectory)..\..\..\src\%(Filename)</Outputs><OutputItemType>ClInclude</OutputItemType><BuildInParallel>true</BuildInParallel></CustomBuild>
+		<CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_aes_256.h.m4"><FileType>Document</FileType><Command>$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_tool_m4.bat "%(Identity)"</Command><Outputs>$(MSBuildThisFileDirectory)..\..\..\src\%(Filename)</Outputs><OutputItemType>ClInclude</OutputItemType><BuildInParallel>true</BuildInParallel></CustomBuild>
+		<CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_128_aes_128.h.m4"><FileType>Document</FileType><Command>$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_tool_m4.bat "%(Identity)"</Command><Outputs>$(MSBuildThisFileDirectory)..\..\..\src\%(Filename)</Outputs><OutputItemType>ClInclude</OutputItemType><BuildInParallel>true</BuildInParallel></CustomBuild>
+		<CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_128_aes_192.h.m4"><FileType>Document</FileType><Command>$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_tool_m4.bat "%(Identity)"</Command><Outputs>$(MSBuildThisFileDirectory)..\..\..\src\%(Filename)</Outputs><OutputItemType>ClInclude</OutputItemType><BuildInParallel>true</BuildInParallel></CustomBuild>
+		<CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_128_aes_256.h.m4"><FileType>Document</FileType><Command>$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_tool_m4.bat "%(Identity)"</Command><Outputs>$(MSBuildThisFileDirectory)..\..\..\src\%(Filename)</Outputs><OutputItemType>ClInclude</OutputItemType><BuildInParallel>true</BuildInParallel></CustomBuild>
+		<CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_aes_128.h.m4"><FileType>Document</FileType><Command>$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_tool_m4.bat "%(Identity)"</Command><Outputs>$(MSBuildThisFileDirectory)..\..\..\src\%(Filename)</Outputs><OutputItemType>ClInclude</OutputItemType><BuildInParallel>true</BuildInParallel></CustomBuild>
+		<CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_aes_192.h.m4"><FileType>Document</FileType><Command>$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_tool_m4.bat "%(Identity)"</Command><Outputs>$(MSBuildThisFileDirectory)..\..\..\src\%(Filename)</Outputs><OutputItemType>ClInclude</OutputItemType><BuildInParallel>true</BuildInParallel></CustomBuild>
+		<CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_aes_256.h.m4"><FileType>Document</FileType><Command>$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_tool_m4.bat "%(Identity)"</Command><Outputs>$(MSBuildThisFileDirectory)..\..\..\src\%(Filename)</Outputs><OutputItemType>ClInclude</OutputItemType><BuildInParallel>true</BuildInParallel></CustomBuild>
+		<CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_aes_128.h.m4"><FileType>Document</FileType><Command>$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_tool_m4.bat "%(Identity)"</Command><Outputs>$(MSBuildThisFileDirectory)..\..\..\src\%(Filename)</Outputs><OutputItemType>ClInclude</OutputItemType><BuildInParallel>true</BuildInParallel></CustomBuild>
+		<CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_aes_192.h.m4"><FileType>Document</FileType><Command>$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_tool_m4.bat "%(Identity)"</Command><Outputs>$(MSBuildThisFileDirectory)..\..\..\src\%(Filename)</Outputs><OutputItemType>ClInclude</OutputItemType><BuildInParallel>true</BuildInParallel></CustomBuild>
+		<CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_aes_256.h.m4"><FileType>Document</FileType><Command>$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_tool_m4.bat "%(Identity)"</Command><Outputs>$(MSBuildThisFileDirectory)..\..\..\src\%(Filename)</Outputs><OutputItemType>ClInclude</OutputItemType><BuildInParallel>true</BuildInParallel></CustomBuild>
+		<CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_aes_128.h.m4"><FileType>Document</FileType><Command>$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_tool_m4.bat "%(Identity)"</Command><Outputs>$(MSBuildThisFileDirectory)..\..\..\src\%(Filename)</Outputs><OutputItemType>ClInclude</OutputItemType><BuildInParallel>true</BuildInParallel></CustomBuild>
+		<CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_aes_192.h.m4"><FileType>Document</FileType><Command>$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_tool_m4.bat "%(Identity)"</Command><Outputs>$(MSBuildThisFileDirectory)..\..\..\src\%(Filename)</Outputs><OutputItemType>ClInclude</OutputItemType><BuildInParallel>true</BuildInParallel></CustomBuild>
+		<CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_aes_256.h.m4"><FileType>Document</FileType><Command>$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_tool_m4.bat "%(Identity)"</Command><Outputs>$(MSBuildThisFileDirectory)..\..\..\src\%(Filename)</Outputs><OutputItemType>ClInclude</OutputItemType><BuildInParallel>true</BuildInParallel></CustomBuild>
+		<CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_aes_128.h.m4"><FileType>Document</FileType><Command>$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_tool_m4.bat "%(Identity)"</Command><Outputs>$(MSBuildThisFileDirectory)..\..\..\src\%(Filename)</Outputs><OutputItemType>ClInclude</OutputItemType><BuildInParallel>true</BuildInParallel></CustomBuild>
+		<CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_aes_192.h.m4"><FileType>Document</FileType><Command>$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_tool_m4.bat "%(Identity)"</Command><Outputs>$(MSBuildThisFileDirectory)..\..\..\src\%(Filename)</Outputs><OutputItemType>ClInclude</OutputItemType><BuildInParallel>true</BuildInParallel></CustomBuild>
+		<CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_aes_256.h.m4"><FileType>Document</FileType><Command>$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_tool_m4.bat "%(Identity)"</Command><Outputs>$(MSBuildThisFileDirectory)..\..\..\src\%(Filename)</Outputs><OutputItemType>ClInclude</OutputItemType><BuildInParallel>true</BuildInParallel></CustomBuild>
 	</ItemGroup>
 	<ItemGroup>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_crypt.h"/>
@@ -158,6 +200,10 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_192_test.hpp"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_256.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_256_test.hpp"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_base.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_inl_defd.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_inl_defu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_inl_filec.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_app.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_gapp.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_blake2b_256.h"/>
@@ -359,8 +405,6 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_aes_256_test.hpp"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_inl_defd.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_inl_fileh.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_128_aes_128.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_128_aes_128_test.hpp"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_128_aes_192.h"/>
@@ -376,7 +420,6 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_inl_defd.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_inl_defu.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_inl_fileh.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_aes_128.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_aes_128_test.hpp"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_aes_192.h"/>
@@ -386,14 +429,15 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_inl_defd.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_inl_defu.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_inl_fileh.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_aes_128.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_aes_128_test.hpp"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_aes_192.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_aes_192_test.hpp"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_aes_256.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_aes_256_test.hpp"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_inl_defd.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_inl_defu.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_inl_fileh.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_aes_128.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_aes_128_test.hpp"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_aes_192.h"/>
@@ -403,7 +447,6 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_inl_defd.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_inl_defu.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_inl_fileh.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_padding_iso9797pm2.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_padding_pkcs7.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_block_shake_128.h"/>
@@ -523,6 +566,7 @@
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_192_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_256.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_256_test.cpp"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_base.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_app.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_gapp.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_blake2b_256.c"/>
@@ -697,7 +741,6 @@
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_aes_192.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_aes_192_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_aes_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_aes_256_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_128_aes_128.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_128_aes_128_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_128_aes_192.c"/>
@@ -717,8 +760,11 @@
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_aes_256.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_aes_256_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_aes_128.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_aes_128_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_aes_192.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_aes_192_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_aes_256.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_aes_256_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_aes_128.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_aes_128_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_aes_192.c"/>
@@ -822,8 +868,9 @@
 			<PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<ConformanceMode>true</ConformanceMode>
 			<MultiProcessorCompilation>true</MultiProcessorCompilation>
-			<LanguageStandard>stdcpp20</LanguageStandard>
+			<LanguageStandard>stdcpp14</LanguageStandard>
 			<AdditionalOptions>/constexpr:steps1000000000 %(AdditionalOptions)</AdditionalOptions>
+			<LanguageStandard_C>stdc11</LanguageStandard_C>
 		</ClCompile>
 		<Link>
 			<SubSystem>
@@ -843,8 +890,9 @@
 			<PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;mk_lang_jumbo_want=0;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<ConformanceMode>true</ConformanceMode>
 			<MultiProcessorCompilation>true</MultiProcessorCompilation>
-			<LanguageStandard>stdcpp20</LanguageStandard>
+			<LanguageStandard>stdcpp14</LanguageStandard>
 			<AdditionalOptions>/constexpr:steps1000000000 %(AdditionalOptions)</AdditionalOptions>
+			<LanguageStandard_C>stdc11</LanguageStandard_C>
 		</ClCompile>
 		<Link>
 			<SubSystem>
@@ -864,8 +912,9 @@
 			<PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<ConformanceMode>true</ConformanceMode>
 			<MultiProcessorCompilation>true</MultiProcessorCompilation>
-			<LanguageStandard>stdcpp20</LanguageStandard>
+			<LanguageStandard>stdcpp14</LanguageStandard>
 			<AdditionalOptions>/constexpr:steps1000000000 %(AdditionalOptions)</AdditionalOptions>
+			<LanguageStandard_C>stdc11</LanguageStandard_C>
 		</ClCompile>
 		<Link>
 			<SubSystem>
@@ -885,8 +934,9 @@
 			<PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;mk_lang_jumbo_want=0;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<ConformanceMode>true</ConformanceMode>
 			<MultiProcessorCompilation>true</MultiProcessorCompilation>
-			<LanguageStandard>stdcpp20</LanguageStandard>
+			<LanguageStandard>stdcpp14</LanguageStandard>
 			<AdditionalOptions>/constexpr:steps1000000000 %(AdditionalOptions)</AdditionalOptions>
+			<LanguageStandard_C>stdc11</LanguageStandard_C>
 		</ClCompile>
 		<Link>
 			<SubSystem>

@@ -17,8 +17,8 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_usize_t mk_lib_crypto_gapp_get_dat
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_ssize_t mk_lib_crypto_gapp_get_names        (void)                            mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_ssize_t mk_lib_crypto_gapp_init             (void)                            mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_ssize_t mk_lib_crypto_gapp_encrypt_append   (mk_lang_types_usize_t const len) mk_lang_noexcept;
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_ssize_t mk_lib_crypto_gapp_encrypt_finish   (mk_lang_types_usize_t const len) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_ssize_t mk_lib_crypto_gapp_decrypt_append   (mk_lang_types_usize_t const len) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_ssize_t mk_lib_crypto_gapp_encrypt_finish   (mk_lang_types_usize_t const len) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_ssize_t mk_lib_crypto_gapp_decrypt_finish   (mk_lang_types_usize_t const len) mk_lang_noexcept;
 
 
