@@ -1,11 +1,4 @@
 #include "mk_lang_assert.h"
-#include "mk_lang_bi.h"
-#include "mk_lang_charbit.h"
-#include "mk_lang_concat.h"
-#include "mk_lang_constexpr.h"
-#include "mk_lang_div_roundup.h"
-#include "mk_lang_endian.h"
-#include "mk_lang_sizeof.h"
 #include "mk_lang_types.h"
 #include "mk_sl_uint8.h"
 
@@ -54,12 +47,6 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ecb_inl_defd_decrypt(mk_
 	((void)(ecb));
 	mk_lib_crypto_mode_ecb_inl_defd_alg_decrypt(key, input, output);
 }
-
-
-#undef ecb_t
-#undef ecb_from_uchars
-#undef ecb_inc
-#undef ecb_to_uchars
 
 
 #include "mk_lib_crypto_mode_ecb_inl_defu.h"

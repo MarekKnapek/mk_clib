@@ -1,4 +1,6 @@
 #include "mk_lang_assert.h"
+#include "mk_lang_charbit.h"
+#include "mk_lang_static_assert.h"
 #include "mk_lang_types.h"
 #include "mk_sl_uint8.h"
 
@@ -11,6 +13,9 @@
 
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_cfb_inl_defd_init(mk_lib_crypto_mode_cfb_inl_defd_pt const cfb, mk_lib_crypto_mode_cfb_inl_defd_iv_pct const iv) mk_lang_noexcept
 {
+	mk_lang_static_assert(mk_lib_crypto_mode_cfb_inl_defd_sbits >= 1 && mk_lib_crypto_mode_cfb_inl_defd_sbits <= mk_lib_crypto_mode_cfb_inl_defd_alg_msg_len_m * mk_lang_charbit);
+	mk_lang_static_assert(mk_lib_crypto_mode_cfb_inl_defd_sbits % mk_lang_charbit == 0);
+
 	mk_lang_assert(cfb);
 	mk_lang_assert(iv);
 
