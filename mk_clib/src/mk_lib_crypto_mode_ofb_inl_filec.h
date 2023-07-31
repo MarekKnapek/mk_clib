@@ -9,36 +9,34 @@
 #include "mk_lib_crypto_mode_ofb_inl_defd.h"
 
 
+#define mk_lib_crypto_mode_base_t_name mk_lib_crypto_mode_ofb_inl_defd_prefix
+#define mk_lib_crypto_mode_base_t_len mk_lib_crypto_mode_ofb_inl_defd_msg_len_m
+#include "mk_lib_crypto_mode_base_inl_fileh.h"
+#include "mk_lib_crypto_mode_base_inl_filec.h"
+#define mk_lib_crypto_mode_base_xor3 mk_lang_concat(mk_lang_concat(mk_lib_crypto_mode_base_, mk_lib_crypto_mode_ofb_inl_defd_prefix), _xor3)
+#define mk_lib_crypto_mode_base_xor2 mk_lang_concat(mk_lang_concat(mk_lib_crypto_mode_base_, mk_lib_crypto_mode_ofb_inl_defd_prefix), _xor2)
+
+
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ofb_inl_defd_schedule_crypt(mk_lib_crypto_mode_ofb_inl_defd_pt const ofb, mk_lib_crypto_mode_ofb_inl_defd_schedule_pct const schedule, mk_lib_crypto_mode_ofb_inl_defd_msg_pct const input, mk_lib_crypto_mode_ofb_inl_defd_msg_pt const output) mk_lang_noexcept
 {
-	int i mk_lang_constexpr_init;
-
 	mk_lang_assert(ofb);
 	mk_lang_assert(schedule);
 	mk_lang_assert(input);
 	mk_lang_assert(output);
 
 	mk_lib_crypto_mode_ofb_inl_defd_alg_schedule_encrypt(schedule, &ofb->m_iv, &ofb->m_iv);
-	for(i = 0; i != mk_lib_crypto_mode_ofb_inl_defd_msg_len_v; ++i)
-	{
-		mk_sl_cui_uint8_xor3(&ofb->m_iv.m_data.m_uint8s[i], &input->m_data.m_uint8s[i], &output->m_data.m_uint8s[i]);
-	}
+	mk_lib_crypto_mode_base_xor3(&ofb->m_iv.m_data.m_uint8s[0], &input->m_data.m_uint8s[0], &output->m_data.m_uint8s[0]);
 }
 
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ofb_inl_defd_crypt(mk_lib_crypto_mode_ofb_inl_defd_pt const ofb, mk_lib_crypto_mode_ofb_inl_defd_key_pct const key, mk_lib_crypto_mode_ofb_inl_defd_msg_pct const input, mk_lib_crypto_mode_ofb_inl_defd_msg_pt const output) mk_lang_noexcept
 {
-	int i mk_lang_constexpr_init;
-
 	mk_lang_assert(ofb);
 	mk_lang_assert(key);
 	mk_lang_assert(input);
 	mk_lang_assert(output);
 
 	mk_lib_crypto_mode_ofb_inl_defd_alg_encrypt(key, &ofb->m_iv, &ofb->m_iv);
-	for(i = 0; i != mk_lib_crypto_mode_ofb_inl_defd_msg_len_v; ++i)
-	{
-		mk_sl_cui_uint8_xor3(&ofb->m_iv.m_data.m_uint8s[i], &input->m_data.m_uint8s[i], &output->m_data.m_uint8s[i]);
-	}
+	mk_lib_crypto_mode_base_xor3(&ofb->m_iv.m_data.m_uint8s[0], &input->m_data.m_uint8s[0], &output->m_data.m_uint8s[0]);
 }
 
 
@@ -79,6 +77,10 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ofb_inl_defd_decrypt(mk_
 {
 	mk_lib_crypto_mode_ofb_inl_defd_crypt(ofb, key, input, output);
 }
+
+
+#undef mk_lib_crypto_mode_base_xor3
+#undef mk_lib_crypto_mode_base_xor2
 
 
 #include "mk_lib_crypto_mode_ofb_inl_defu.h"

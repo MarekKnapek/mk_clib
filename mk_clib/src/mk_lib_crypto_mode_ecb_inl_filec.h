@@ -16,13 +16,15 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ecb_inl_defd_init(mk_lib
 
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ecb_inl_defd_schedule_encrypt(mk_lib_crypto_mode_ecb_inl_defd_pt const ecb, mk_lib_crypto_mode_ecb_inl_defd_schedule_pct const schedule, mk_lib_crypto_mode_ecb_inl_defd_msg_pct const input, mk_lib_crypto_mode_ecb_inl_defd_msg_pt const output) mk_lang_noexcept
 {
-	((void)(ecb));
+	mk_lang_assert(ecb);
+
 	mk_lib_crypto_mode_ecb_inl_defd_alg_schedule_encrypt(schedule, input, output);
 }
 
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ecb_inl_defd_schedule_decrypt(mk_lib_crypto_mode_ecb_inl_defd_pt const ecb, mk_lib_crypto_mode_ecb_inl_defd_schedule_pct const schedule, mk_lib_crypto_mode_ecb_inl_defd_msg_pct const input, mk_lib_crypto_mode_ecb_inl_defd_msg_pt const output) mk_lang_noexcept
 {
-	((void)(ecb));
+	mk_lang_assert(ecb);
+
 	mk_lib_crypto_mode_ecb_inl_defd_alg_schedule_decrypt(schedule, input, output);
 }
 
@@ -38,13 +40,15 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ecb_inl_defd_expand_dec(
 
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ecb_inl_defd_encrypt(mk_lib_crypto_mode_ecb_inl_defd_pt const ecb, mk_lib_crypto_mode_ecb_inl_defd_key_pct const key, mk_lib_crypto_mode_ecb_inl_defd_msg_pct const input, mk_lib_crypto_mode_ecb_inl_defd_msg_pt const output) mk_lang_noexcept
 {
-	((void)(ecb));
+	mk_lang_assert(ecb);
+
 	mk_lib_crypto_mode_ecb_inl_defd_alg_encrypt(key, input, output);
 }
 
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ecb_inl_defd_decrypt(mk_lib_crypto_mode_ecb_inl_defd_pt const ecb, mk_lib_crypto_mode_ecb_inl_defd_key_pct const key, mk_lib_crypto_mode_ecb_inl_defd_msg_pct const input, mk_lib_crypto_mode_ecb_inl_defd_msg_pt const output) mk_lang_noexcept
 {
-	((void)(ecb));
+	mk_lang_assert(ecb);
+
 	mk_lib_crypto_mode_ecb_inl_defd_alg_decrypt(key, input, output);
 }
 
