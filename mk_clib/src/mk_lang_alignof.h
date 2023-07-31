@@ -9,10 +9,13 @@
 
 
 #if mk_lang_version_at_least_cpp_11
+#define mk_lang_alignof_has 1
 #define mk_lang_alignof(x) alignof(x)
 #elif mk_lang_version_at_least_c_11
+#define mk_lang_alignof_has 1
 #define mk_lang_alignof(x) _Alignof(x)
 #else
+#define mk_lang_alignof_has 0
 #define mk_lang_alignof(x) sizeof(x)
 #endif
 
