@@ -11,6 +11,7 @@
 #include "mk_lib_crypto_alg_aes_128_test.hpp"
 #include "mk_lib_crypto_alg_aes_192_test.hpp"
 #include "mk_lib_crypto_alg_aes_256_test.hpp"
+#include "mk_lib_crypto_alg_serpent_test.hpp"
 #include "mk_lib_crypto_hash_stream_blake2b_256_test.hpp"
 #include "mk_lib_crypto_hash_stream_blake2b_384_test.hpp"
 #include "mk_lib_crypto_hash_stream_blake2b_512_test.hpp"
@@ -82,6 +83,7 @@ mk_lang_jumbo void mk_clib_test(void) mk_lang_noexcept
 	mk_lib_crypto_alg_aes_128_test();
 	mk_lib_crypto_alg_aes_192_test();
 	mk_lib_crypto_alg_aes_256_test();
+	mk_lib_crypto_alg_serpent_test();
 	mk_lib_crypto_hash_stream_blake2b_256_test();
 	mk_lib_crypto_hash_stream_blake2b_384_test();
 	mk_lib_crypto_hash_stream_blake2b_512_test();
