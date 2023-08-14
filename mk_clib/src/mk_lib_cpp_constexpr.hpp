@@ -51,23 +51,23 @@ public:
 	{
 		return !(*this == other);
 	}
-	mk_lang_constexpr t& operator[](mk_lang_types_usize_t const& idx) mk_lang_noexcept
-	{
-		mk_lang_assert(idx < n);
-
-		return m_data[idx];
-	}
 	mk_lang_constexpr t const& operator[](mk_lang_types_usize_t const& idx) const mk_lang_noexcept
 	{
 		mk_lang_assert(idx < n);
 
 		return m_data[idx];
 	}
-	mk_lang_constexpr t* data() mk_lang_noexcept
+	mk_lang_constexpr t& operator[](mk_lang_types_usize_t const& idx) mk_lang_noexcept
+	{
+		mk_lang_assert(idx < n);
+
+		return m_data[idx];
+	}
+	mk_lang_constexpr t const* data() const mk_lang_noexcept
 	{
 		return m_data;
 	}
-	mk_lang_constexpr t const* data() const mk_lang_noexcept
+	mk_lang_constexpr t* data() mk_lang_noexcept
 	{
 		return m_data;
 	}
@@ -75,11 +75,11 @@ public:
 	{
 		return n;
 	}
-	mk_lang_constexpr arr_t arr() mk_lang_noexcept
+	mk_lang_constexpr carr_t arr() const mk_lang_noexcept
 	{
 		return m_data;
 	}
-	mk_lang_constexpr carr_t arr() const mk_lang_noexcept
+	mk_lang_constexpr arr_t arr() mk_lang_noexcept
 	{
 		return m_data;
 	}
@@ -105,11 +105,11 @@ public:
 	{
 		return !(*this == other);
 	}
-	mk_lang_constexpr t* data() mk_lang_noexcept
+	mk_lang_constexpr t const* data() const mk_lang_noexcept
 	{
 		return mk_lang_null;
 	}
-	mk_lang_constexpr t const* data() const mk_lang_noexcept
+	mk_lang_constexpr t* data() mk_lang_noexcept
 	{
 		return mk_lang_null;
 	}
