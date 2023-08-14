@@ -33,8 +33,8 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_base_inl_defd_xor3(mk_sl
 	if(!mk_lang_constexpr_is_constant_evaluated_test && mk_lang_cpuid_has_sse())
 	#endif
 	{
-		__m128 ta;
-		__m128 tb;
+		__m128 ta mk_lang_constexpr_init;
+		__m128 tb mk_lang_constexpr_init;
 
 		mk_lang_assert((((mk_lang_types_uintptr_t)(a)) & 0xf) == 0);
 		mk_lang_assert((((mk_lang_types_uintptr_t)(b)) & 0xf) == 0);
@@ -69,8 +69,8 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_base_inl_defd_xor2(mk_sl
 	if(!mk_lang_constexpr_is_constant_evaluated_test && mk_lang_cpuid_has_sse())
 	#endif
 	{
-		__m128 ta;
-		__m128 tb;
+		__m128 ta mk_lang_constexpr_init;
+		__m128 tb mk_lang_constexpr_init;
 
 		mk_lang_assert((((mk_lang_types_uintptr_t)(a)) & 0xf) == 0);
 		mk_lang_assert((((mk_lang_types_uintptr_t)(b)) & 0xf) == 0);
