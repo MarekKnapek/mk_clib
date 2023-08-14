@@ -50,6 +50,7 @@
 #define mk_sl_cui_inl_defd_base_count_trailing_ones mk_lang_concat(mk_sl_cui_inl_defd_base_name, _count_trailing_ones)
 #define mk_sl_cui_inl_defd_base_count_zeros mk_lang_concat(mk_sl_cui_inl_defd_base_name, _count_zeros)
 #define mk_sl_cui_inl_defd_base_count_ones mk_lang_concat(mk_sl_cui_inl_defd_base_name, _count_ones)
+#define mk_sl_cui_inl_defd_base_has_lsb mk_lang_concat(mk_sl_cui_inl_defd_base_name, _has_lsb)
 #define mk_sl_cui_inl_defd_base_is_zero mk_lang_concat(mk_sl_cui_inl_defd_base_name, _is_zero)
 #define mk_sl_cui_inl_defd_base_is_max mk_lang_concat(mk_sl_cui_inl_defd_base_name, _is_max)
 #define mk_sl_cui_inl_defd_base_eq mk_lang_concat(mk_sl_cui_inl_defd_base_name, _eq)
@@ -138,6 +139,8 @@
 #define mk_sl_cui_inl_defd_count_trailing_ones mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _count_trailing_ones)
 #define mk_sl_cui_inl_defd_count_zeros mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _count_zeros)
 #define mk_sl_cui_inl_defd_count_ones mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _count_ones)
+
+#define mk_sl_cui_inl_defd_has_lsb mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _has_lsb)
 
 #define mk_sl_cui_inl_defd_is_zero mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _is_zero)
 #define mk_sl_cui_inl_defd_is_max mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_sl_cui_inl_defd_name), _is_max)

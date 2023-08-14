@@ -28,6 +28,8 @@
 #define mk_lang_bui_inl_defd_count_zeros mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_inl_defd_name), _count_zeros)
 #define mk_lang_bui_inl_defd_count_ones mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_inl_defd_name), _count_ones)
 
+#define mk_lang_bui_inl_defd_has_lsb mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_inl_defd_name), _has_lsb)
+
 #define mk_lang_bui_inl_defd_is_zero mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_inl_defd_name), _is_zero)
 #define mk_lang_bui_inl_defd_is_max mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_inl_defd_name), _is_max)
 #define mk_lang_bui_inl_defd_eq mk_lang_concat(mk_lang_concat(mk_lang_bui_, mk_lang_bui_inl_defd_name), _eq)

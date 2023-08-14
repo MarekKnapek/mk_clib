@@ -212,6 +212,14 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_lang_bui_inl_defd_count
 }
 
 
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_has_lsb(mk_lang_bui_inl_defd_type const* const x) mk_lang_noexcept
+{
+	mk_lang_assert(x);
+
+	return *x & ((mk_lang_bui_inl_defd_type)(1));
+}
+
+
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_is_zero(mk_lang_bui_inl_defd_type const* const x) mk_lang_noexcept
 {
 	mk_lang_assert(x);

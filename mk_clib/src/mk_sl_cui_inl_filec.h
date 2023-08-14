@@ -282,6 +282,18 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_cui_inl_defd_count_o
 }
 
 
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_defd_has_lsb(mk_sl_cui_inl_defd_t const* const x) mk_lang_noexcept
+{
+#if mk_sl_cui_inl_defd_count == 1
+	mk_lang_assert(x);
+	return mk_sl_cui_inl_defd_base_has_lsb(&x->m_data[0]);
+#else
+	mk_lang_assert(x);
+	return mk_sl_cui_inl_defd_base_has_lsb(&x->m_data[mk_sl_cui_inl_defd_idx(0)]);
+#endif
+}
+
+
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_defd_is_zero(mk_sl_cui_inl_defd_t const* const x) mk_lang_noexcept
 {
 #if mk_sl_cui_inl_defd_count == 1

@@ -41,6 +41,8 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_lang_bui_inl_defd_count
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_lang_bui_inl_defd_count_zeros(mk_lang_bui_inl_defd_type const* const x) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_lang_bui_inl_defd_count_ones(mk_lang_bui_inl_defd_type const* const x) mk_lang_noexcept;
 
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_has_lsb(mk_lang_bui_inl_defd_type const* const x) mk_lang_noexcept;
+
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_is_zero(mk_lang_bui_inl_defd_type const* const x) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_is_max(mk_lang_bui_inl_defd_type const* const x) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_eq(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b) mk_lang_noexcept;

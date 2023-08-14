@@ -19,6 +19,7 @@
 #undef mk_sl_cui_inl_defd_base_count_trailing_ones
 #undef mk_sl_cui_inl_defd_base_count_zeros
 #undef mk_sl_cui_inl_defd_base_count_ones
+#undef mk_sl_cui_inl_defd_base_has_lsb
 #undef mk_sl_cui_inl_defd_base_is_zero
 #undef mk_sl_cui_inl_defd_base_is_max
 #undef mk_sl_cui_inl_defd_base_eq
@@ -107,6 +108,8 @@
 #undef mk_sl_cui_inl_defd_count_trailing_ones
 #undef mk_sl_cui_inl_defd_count_zeros
 #undef mk_sl_cui_inl_defd_count_ones
+
+#undef mk_sl_cui_inl_defd_has_lsb
 
 #undef mk_sl_cui_inl_defd_is_zero
 #undef mk_sl_cui_inl_defd_is_max

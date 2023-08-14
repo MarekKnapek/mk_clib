@@ -15,6 +15,8 @@
 #undef mk_lang_bui_inl_defd_count_zeros
 #undef mk_lang_bui_inl_defd_count_ones
 
+#undef mk_lang_bui_inl_defd_has_lsb
+
 #undef mk_lang_bui_inl_defd_is_zero
 #undef mk_lang_bui_inl_defd_is_max
 #undef mk_lang_bui_inl_defd_eq
