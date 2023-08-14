@@ -83,6 +83,17 @@ public:
 	{
 		return m_data;
 	}
+	mk_lang_nodiscard mk_lang_constexpr mk_lib_cpp_constexpr_array_t<t, n> reverse() const mk_lang_noexcept
+	{
+		mk_lang_types_usize_t i mk_lang_constexpr_init;
+		mk_lib_cpp_constexpr_array_t<t, n> ret mk_lang_constexpr_init;
+
+		for(i = 0; i != n; ++i)
+		{
+			ret[(n - 1) - i] = (*this)[i];
+		}
+		return ret;
+	}
 private:
 	t m_data[n];
 };
@@ -116,6 +127,12 @@ public:
 	mk_lang_constexpr mk_lang_types_usize_t size() const mk_lang_noexcept
 	{
 		return 0;
+	}
+	mk_lang_nodiscard mk_lang_constexpr mk_lib_cpp_constexpr_array_t<t, 0> reverse() const mk_lang_noexcept
+	{
+		mk_lib_cpp_constexpr_array_t<t, 0> ret mk_lang_constexpr_init;
+
+		return ret;
 	}
 };
 
