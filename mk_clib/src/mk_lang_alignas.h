@@ -5,7 +5,7 @@
 #include "mk_lang_version.h"
 
 
-#if mk_lang_version_at_least_cpp_11
+#if mk_lang_version_at_least_cpp_11 || mk_lang_version_at_least_msvc_cpp_14
 #define mk_lang_alignas_has 1
 #define mk_lang_alignas(x) alignas(x)
 #elif mk_lang_version_at_least_c_23
