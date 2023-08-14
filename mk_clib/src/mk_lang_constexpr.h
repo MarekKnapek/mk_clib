@@ -8,7 +8,7 @@
 #if mk_lang_version_at_least_cpp_23
 #define mk_lang_constexpr_has 1
 #define mk_lang_constexpr constexpr
-#define mk_lang_constexpr_init {}
+#define mk_lang_constexpr_init
 #define mk_lang_constexpr_static static constexpr
 #define mk_lang_constexpr_static_inline static constexpr inline
 #elif mk_lang_version_at_least_cpp_17
