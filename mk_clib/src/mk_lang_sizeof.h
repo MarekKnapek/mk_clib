@@ -21,7 +21,11 @@
 #endif
 #define mk_lang_sizeof_bi_sint_t mk_lang_sizeof_bi_uint_t
 
+#if defined __SIZEOF_LONG__
+#define mk_lang_sizeof_bi_ulong_t __SIZEOF_LONG__
+#else
 #define mk_lang_sizeof_bi_ulong_t 4
+#endif
 #define mk_lang_sizeof_bi_slong_t mk_lang_sizeof_bi_ulong_t
 
 #if mk_lang_llong_has == 1
