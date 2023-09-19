@@ -737,9 +737,9 @@ mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_mul4_wrap_wi(mk_lang_b
 	*c = ((mk_lang_bui_inl_defd_type)(cc));
 	*d = ((mk_lang_bui_inl_defd_type)(cc >> ((int)(mk_lang_bui_inl_defd_sizeof * mk_lang_charbit))));
 #elif mk_lang_sizeof_bi_ulong_t >= 2 * mk_lang_bui_inl_defd_sizeof
-	mk_lang_bi_ulong_t aa;
-	mk_lang_bi_ulong_t bb;
-	mk_lang_bi_ulong_t cc;
+	mk_lang_bi_ulong_t aa mk_lang_constexpr_init;
+	mk_lang_bi_ulong_t bb mk_lang_constexpr_init;
+	mk_lang_bi_ulong_t cc mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
 	mk_lang_assert(b);
