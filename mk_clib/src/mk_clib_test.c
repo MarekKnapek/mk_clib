@@ -68,7 +68,10 @@
 #include "mk_lib_crypto_mode_ofb_aes_256_test.hpp"
 #include "mk_lib_crypto_xof_stream_shake_128_test.hpp"
 #include "mk_lib_crypto_xof_stream_shake_256_test.hpp"
+#if defined mk_clib_test_smol_want && mk_clib_test_smol_want == 1
+#else
 #include "mk_sl_flt_test.hpp"
+#endif
 #include "mk_sl_sort_merge_test.hpp"
 
 
@@ -140,6 +143,9 @@ mk_lang_jumbo void mk_clib_test(void) mk_lang_noexcept
 	mk_lib_crypto_mode_ofb_aes_256_test();
 	mk_lib_crypto_xof_stream_shake_128_test();
 	mk_lib_crypto_xof_stream_shake_256_test();
+	#if defined mk_clib_test_smol_want && mk_clib_test_smol_want == 1
+	#else
 	mk_sl_flt_test();
+	#endif
 	mk_sl_sort_merge_test();
 }
