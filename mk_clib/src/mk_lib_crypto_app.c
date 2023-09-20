@@ -1369,7 +1369,7 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_app_decrypt_mode(mk_l
 	}
 }
 
-mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_ssize_t mk_lib_crypto_app_impl_expand_enc(mk_lib_crypto_app_pt const app) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_app_impl_expand_enc(mk_lib_crypto_app_pt const app) mk_lang_noexcept
 {
 	int id mk_lang_constexpr_init;
 
@@ -1408,7 +1408,6 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_ssize_t 
 			default: mk_lang_assert(0); break;
 		}
 	}
-	return 0;
 }
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_ssize_t mk_lib_crypto_app_impl_expand_dec(mk_lib_crypto_app_pt const app) mk_lang_noexcept

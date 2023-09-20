@@ -168,7 +168,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_uchar_t mk_lib_c
 
 
 template<mk_lang_types_usize_t str_lit_len>
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo void mk_lib_cpp_constexpr_hex_str_lit_to_u8s_ptr(mk_sl_cui_uint8_pt const dst, char const(&str_lit)[str_lit_len]) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_lib_cpp_constexpr_hex_str_lit_to_u8s_ptr(mk_sl_cui_uint8_pt const dst, char const(&str_lit)[str_lit_len]) mk_lang_noexcept
 {
 	mk_lang_types_usize_t i mk_lang_constexpr_init;
 	mk_lang_types_uchar_t hi mk_lang_constexpr_init;
@@ -190,7 +190,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo void mk_lib_cpp_constexpr_hex_
 }
 
 template<mk_lang_types_usize_t dst_len, mk_lang_types_usize_t str_lit_len>
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo void mk_lib_cpp_constexpr_hex_str_lit_to_u8s_arr(mk_sl_cui_uint8_t(&dst)[dst_len], char const(&str_lit)[str_lit_len]) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_lib_cpp_constexpr_hex_str_lit_to_u8s_arr(mk_sl_cui_uint8_t(&dst)[dst_len], char const(&str_lit)[str_lit_len]) mk_lang_noexcept
 {
 	mk_lang_static_assert(dst_len >= 0);
 	mk_lang_static_assert(str_lit_len >= 1);
@@ -213,7 +213,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto mk_lib_cpp_constexpr_hex_
 }
 
 template<mk_lang_types_usize_t str_lit_len>
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo void mk_lib_cpp_constexpr_str_lit_to_u8s_ptr(mk_sl_cui_uint8_pt const dst, char const(&str_lit)[str_lit_len]) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_lib_cpp_constexpr_str_lit_to_u8s_ptr(mk_sl_cui_uint8_pt const dst, char const(&str_lit)[str_lit_len]) mk_lang_noexcept
 {
 	mk_lang_types_usize_t i mk_lang_constexpr_init;
 
@@ -228,7 +228,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo void mk_lib_cpp_constexpr_str_
 }
 
 template<mk_lang_types_usize_t dst_len, mk_lang_types_usize_t str_lit_len>
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo void mk_lib_cpp_constexpr_str_lit_to_u8s_arr(mk_sl_cui_uint8_t(&dst)[dst_len], char const(&str_lit)[str_lit_len]) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_lib_cpp_constexpr_str_lit_to_u8s_arr(mk_sl_cui_uint8_t(&dst)[dst_len], char const(&str_lit)[str_lit_len]) mk_lang_noexcept
 {
 	mk_lang_static_assert(dst_len >= 0);
 	mk_lang_static_assert(str_lit_len >= 1);

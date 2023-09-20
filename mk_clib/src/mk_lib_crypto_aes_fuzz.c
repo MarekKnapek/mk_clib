@@ -26,7 +26,7 @@
 static mk_lib_crypto_app_t g_app;
 
 
-mk_lang_jumbo void mk_lib_crypto_aes_fuzz_my(mk_lang_types_bool_t const cpuida, mk_lang_types_bool_t const cpuidb, mk_lib_crypto_app_alg_id_t const alg_id, mk_lib_crypto_app_padding_id_t const padding_id, mk_lib_crypto_app_mode_id_t const mode_id, mk_lang_types_uchar_pct const key, mk_lang_types_uchar_pct const iv, mk_lang_types_uchar_pct const msg, mk_lang_types_uint_t const msg_len, mk_lang_types_uchar_pt const out, mk_lang_types_uint_pt const padding_len) mk_lang_noexcept
+mk_lang_jumbo void mk_lib_crypto_aes_fuzz_my(mk_lang_types_bool_t const cpuida, mk_lang_types_bool_t const cpuidb, mk_lib_crypto_app_alg_id_t const alg_id, mk_lib_crypto_app_padding_id_t const padding_id, mk_lib_crypto_app_mode_id_t const mode_id, mk_lang_types_uchar_pct const key, mk_lang_types_uchar_pct const iv, mk_lang_types_uchar_pct const msg, mk_lang_types_sint_t const msg_len, mk_lang_types_uchar_pt const out, mk_lang_types_uint_pt const padding_len) mk_lang_noexcept
 {
 	int i;
 	mk_lang_types_ssize_t ra;
@@ -261,7 +261,7 @@ mk_lang_jumbo void mk_lib_crypto_aes_fuzz(mk_lang_types_uchar_pct const data, mk
 	mk_lang_types_sint_t i;
 	mk_lang_types_uchar_t key[32];
 	mk_lang_types_uchar_t iv[16];
-	mk_lang_types_uint_t msg_len;
+	mk_lang_types_sint_t msg_len;
 	mk_lang_types_uchar_t msg[0xff];
 	mk_lib_crypto_app_alg_id_t alg_e;
 	mk_lib_crypto_app_padding_id_t padding_e;
