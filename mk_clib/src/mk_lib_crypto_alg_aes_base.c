@@ -126,7 +126,6 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_base_inv_sub_bytes(mk
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_base_shift_rows(mk_lib_crypto_alg_aes_base_msg_pct const a, mk_lib_crypto_alg_aes_base_msg_pt const b) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_t ta mk_lang_constexpr_init;
-	mk_sl_cui_uint8_t tb mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -138,11 +137,11 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_base_shift_rows(mk_li
 	b->m_data.m_uint8s[3 * 4 + 1] = ta;
 
 	ta = a->m_data.m_uint8s[0 * 4 + 2];
-	tb = a->m_data.m_uint8s[1 * 4 + 2];
 	b->m_data.m_uint8s[0 * 4 + 2] = a->m_data.m_uint8s[2 * 4 + 2];
-	b->m_data.m_uint8s[1 * 4 + 2] = a->m_data.m_uint8s[3 * 4 + 2];
 	b->m_data.m_uint8s[2 * 4 + 2] = ta;
-	b->m_data.m_uint8s[3 * 4 + 2] = tb;
+	ta = a->m_data.m_uint8s[1 * 4 + 2];
+	b->m_data.m_uint8s[1 * 4 + 2] = a->m_data.m_uint8s[3 * 4 + 2];
+	b->m_data.m_uint8s[3 * 4 + 2] = ta;
 
 	ta = a->m_data.m_uint8s[1 * 4 + 3];
 	b->m_data.m_uint8s[1 * 4 + 3] = a->m_data.m_uint8s[0 * 4 + 3];
@@ -154,7 +153,6 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_base_shift_rows(mk_li
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_base_inv_shift_rows(mk_lib_crypto_alg_aes_base_msg_pct const a, mk_lib_crypto_alg_aes_base_msg_pt const b) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_t ta mk_lang_constexpr_init;
-	mk_sl_cui_uint8_t tb mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -166,11 +164,11 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_base_inv_shift_rows(m
 	b->m_data.m_uint8s[2 * 4 + 1] = ta;
 
 	ta = a->m_data.m_uint8s[0 * 4 + 2];
-	tb = a->m_data.m_uint8s[1 * 4 + 2];
 	b->m_data.m_uint8s[0 * 4 + 2] = a->m_data.m_uint8s[2 * 4 + 2];
-	b->m_data.m_uint8s[1 * 4 + 2] = a->m_data.m_uint8s[3 * 4 + 2];
 	b->m_data.m_uint8s[2 * 4 + 2] = ta;
-	b->m_data.m_uint8s[3 * 4 + 2] = tb;
+	ta = a->m_data.m_uint8s[1 * 4 + 2];
+	b->m_data.m_uint8s[1 * 4 + 2] = a->m_data.m_uint8s[3 * 4 + 2];
+	b->m_data.m_uint8s[3 * 4 + 2] = ta;
 
 	ta = a->m_data.m_uint8s[0 * 4 + 3];
 	b->m_data.m_uint8s[0 * 4 + 3] = a->m_data.m_uint8s[1 * 4 + 3];
@@ -331,8 +329,8 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_base_mul_e(mk_sl_cui_
 
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_base_mix_columns(mk_lib_crypto_alg_aes_base_msg_pct const a, mk_lib_crypto_alg_aes_base_msg_pt const b) mk_lang_noexcept
 {
-	mk_lib_crypto_alg_aes_base_msg_t orig mk_lang_constexpr_init;
 	int i mk_lang_constexpr_init;
+	mk_sl_cui_uint8_t tarr[4] mk_lang_constexpr_init;
 	mk_sl_cui_uint8_t ta mk_lang_constexpr_init;
 	mk_sl_cui_uint8_t tb mk_lang_constexpr_init;
 	mk_sl_cui_uint8_t tc mk_lang_constexpr_init;
@@ -341,35 +339,42 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_base_mix_columns(mk_l
 	mk_lang_assert(a);
 	mk_lang_assert(b);
 
-	orig = *a;
 	for(i = 0; i != 4; ++i)
 	{
-		mk_lib_crypto_alg_aes_base_mul_2(&orig.m_data.m_uint8s[i * 4 + 0], &ta);
-		mk_lib_crypto_alg_aes_base_mul_3(&orig.m_data.m_uint8s[i * 4 + 1], &tb);
+		tarr[0] = a->m_data.m_uint8s[i * 4 + 0];
+		tarr[1] = a->m_data.m_uint8s[i * 4 + 1];
+		tarr[2] = a->m_data.m_uint8s[i * 4 + 2];
+		tarr[3] = a->m_data.m_uint8s[i * 4 + 3];
+
+		mk_lib_crypto_alg_aes_base_mul_2(&tarr[0], &ta);
+		mk_lib_crypto_alg_aes_base_mul_3(&tarr[1], &tb);
 		mk_sl_cui_uint8_xor3(&ta, &tb, &tc);
-		mk_lib_crypto_alg_aes_base_mul_1(&orig.m_data.m_uint8s[i * 4 + 2], &ta);
-		mk_lib_crypto_alg_aes_base_mul_1(&orig.m_data.m_uint8s[i * 4 + 3], &tb);
+		mk_lib_crypto_alg_aes_base_mul_1(&tarr[2], &ta);
+		mk_lib_crypto_alg_aes_base_mul_1(&tarr[3], &tb);
 		mk_sl_cui_uint8_xor3(&ta, &tb, &td);
 		mk_sl_cui_uint8_xor3(&tc, &td, &b->m_data.m_uint8s[i * 4 + 0]);
-		mk_lib_crypto_alg_aes_base_mul_1(&orig.m_data.m_uint8s[i * 4 + 0], &ta);
-		mk_lib_crypto_alg_aes_base_mul_2(&orig.m_data.m_uint8s[i * 4 + 1], &tb);
+
+		mk_lib_crypto_alg_aes_base_mul_1(&tarr[0], &ta);
+		mk_lib_crypto_alg_aes_base_mul_2(&tarr[1], &tb);
 		mk_sl_cui_uint8_xor3(&ta, &tb, &tc);
-		mk_lib_crypto_alg_aes_base_mul_3(&orig.m_data.m_uint8s[i * 4 + 2], &ta);
-		mk_lib_crypto_alg_aes_base_mul_1(&orig.m_data.m_uint8s[i * 4 + 3], &tb);
+		mk_lib_crypto_alg_aes_base_mul_3(&tarr[2], &ta);
+		mk_lib_crypto_alg_aes_base_mul_1(&tarr[3], &tb);
 		mk_sl_cui_uint8_xor3(&ta, &tb, &td);
 		mk_sl_cui_uint8_xor3(&tc, &td, &b->m_data.m_uint8s[i * 4 + 1]);
-		mk_lib_crypto_alg_aes_base_mul_1(&orig.m_data.m_uint8s[i * 4 + 0], &ta);
-		mk_lib_crypto_alg_aes_base_mul_1(&orig.m_data.m_uint8s[i * 4 + 1], &tb);
+
+		mk_lib_crypto_alg_aes_base_mul_1(&tarr[0], &ta);
+		mk_lib_crypto_alg_aes_base_mul_1(&tarr[1], &tb);
 		mk_sl_cui_uint8_xor3(&ta, &tb, &tc);
-		mk_lib_crypto_alg_aes_base_mul_2(&orig.m_data.m_uint8s[i * 4 + 2], &ta);
-		mk_lib_crypto_alg_aes_base_mul_3(&orig.m_data.m_uint8s[i * 4 + 3], &tb);
+		mk_lib_crypto_alg_aes_base_mul_2(&tarr[2], &ta);
+		mk_lib_crypto_alg_aes_base_mul_3(&tarr[3], &tb);
 		mk_sl_cui_uint8_xor3(&ta, &tb, &td);
 		mk_sl_cui_uint8_xor3(&tc, &td, &b->m_data.m_uint8s[i * 4 + 2]);
-		mk_lib_crypto_alg_aes_base_mul_3(&orig.m_data.m_uint8s[i * 4 + 0], &ta);
-		mk_lib_crypto_alg_aes_base_mul_1(&orig.m_data.m_uint8s[i * 4 + 1], &tb);
+
+		mk_lib_crypto_alg_aes_base_mul_3(&tarr[0], &ta);
+		mk_lib_crypto_alg_aes_base_mul_1(&tarr[1], &tb);
 		mk_sl_cui_uint8_xor3(&ta, &tb, &tc);
-		mk_lib_crypto_alg_aes_base_mul_1(&orig.m_data.m_uint8s[i * 4 + 2], &ta);
-		mk_lib_crypto_alg_aes_base_mul_2(&orig.m_data.m_uint8s[i * 4 + 3], &tb);
+		mk_lib_crypto_alg_aes_base_mul_1(&tarr[2], &ta);
+		mk_lib_crypto_alg_aes_base_mul_2(&tarr[3], &tb);
 		mk_sl_cui_uint8_xor3(&ta, &tb, &td);
 		mk_sl_cui_uint8_xor3(&tc, &td, &b->m_data.m_uint8s[i * 4 + 3]);
 	}
@@ -377,45 +382,52 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_base_mix_columns(mk_l
 
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_base_inv_mix_columns(mk_lib_crypto_alg_aes_base_msg_pct const a, mk_lib_crypto_alg_aes_base_msg_pt const b) mk_lang_noexcept
 {
-	mk_lib_crypto_alg_aes_base_msg_t orig mk_lang_constexpr_init;
+	int i mk_lang_constexpr_init;
+	mk_sl_cui_uint8_t tarr[4] mk_lang_constexpr_init;
 	mk_sl_cui_uint8_t ta mk_lang_constexpr_init;
 	mk_sl_cui_uint8_t tb mk_lang_constexpr_init;
 	mk_sl_cui_uint8_t tc mk_lang_constexpr_init;
 	mk_sl_cui_uint8_t td mk_lang_constexpr_init;
-	int i mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
 	mk_lang_assert(b);
 
-	orig = *a;
 	for(i = 0; i != 4; ++i)
 	{
-		mk_lib_crypto_alg_aes_base_mul_e(&orig.m_data.m_uint8s[i * 4 + 0], &ta);
-		mk_lib_crypto_alg_aes_base_mul_b(&orig.m_data.m_uint8s[i * 4 + 1], &tb);
+		tarr[0] = a->m_data.m_uint8s[i * 4 + 0];
+		tarr[1] = a->m_data.m_uint8s[i * 4 + 1];
+		tarr[2] = a->m_data.m_uint8s[i * 4 + 2];
+		tarr[3] = a->m_data.m_uint8s[i * 4 + 3];
+
+		mk_lib_crypto_alg_aes_base_mul_e(&tarr[0], &ta);
+		mk_lib_crypto_alg_aes_base_mul_b(&tarr[1], &tb);
 		mk_sl_cui_uint8_xor3(&ta, &tb, &tc);
-		mk_lib_crypto_alg_aes_base_mul_d(&orig.m_data.m_uint8s[i * 4 + 2], &ta);
-		mk_lib_crypto_alg_aes_base_mul_9(&orig.m_data.m_uint8s[i * 4 + 3], &tb);
+		mk_lib_crypto_alg_aes_base_mul_d(&tarr[2], &ta);
+		mk_lib_crypto_alg_aes_base_mul_9(&tarr[3], &tb);
 		mk_sl_cui_uint8_xor3(&ta, &tb, &td);
 		mk_sl_cui_uint8_xor3(&tc, &td, &b->m_data.m_uint8s[i * 4 + 0]);
-		mk_lib_crypto_alg_aes_base_mul_9(&orig.m_data.m_uint8s[i * 4 + 0], &ta);
-		mk_lib_crypto_alg_aes_base_mul_e(&orig.m_data.m_uint8s[i * 4 + 1], &tb);
+
+		mk_lib_crypto_alg_aes_base_mul_9(&tarr[0], &ta);
+		mk_lib_crypto_alg_aes_base_mul_e(&tarr[1], &tb);
 		mk_sl_cui_uint8_xor3(&ta, &tb, &tc);
-		mk_lib_crypto_alg_aes_base_mul_b(&orig.m_data.m_uint8s[i * 4 + 2], &ta);
-		mk_lib_crypto_alg_aes_base_mul_d(&orig.m_data.m_uint8s[i * 4 + 3], &tb);
+		mk_lib_crypto_alg_aes_base_mul_b(&tarr[2], &ta);
+		mk_lib_crypto_alg_aes_base_mul_d(&tarr[3], &tb);
 		mk_sl_cui_uint8_xor3(&ta, &tb, &td);
 		mk_sl_cui_uint8_xor3(&tc, &td, &b->m_data.m_uint8s[i * 4 + 1]);
-		mk_lib_crypto_alg_aes_base_mul_d(&orig.m_data.m_uint8s[i * 4 + 0], &ta);
-		mk_lib_crypto_alg_aes_base_mul_9(&orig.m_data.m_uint8s[i * 4 + 1], &tb);
+
+		mk_lib_crypto_alg_aes_base_mul_d(&tarr[0], &ta);
+		mk_lib_crypto_alg_aes_base_mul_9(&tarr[1], &tb);
 		mk_sl_cui_uint8_xor3(&ta, &tb, &tc);
-		mk_lib_crypto_alg_aes_base_mul_e(&orig.m_data.m_uint8s[i * 4 + 2], &ta);
-		mk_lib_crypto_alg_aes_base_mul_b(&orig.m_data.m_uint8s[i * 4 + 3], &tb);
+		mk_lib_crypto_alg_aes_base_mul_e(&tarr[2], &ta);
+		mk_lib_crypto_alg_aes_base_mul_b(&tarr[3], &tb);
 		mk_sl_cui_uint8_xor3(&ta, &tb, &td);
 		mk_sl_cui_uint8_xor3(&tc, &td, &b->m_data.m_uint8s[i * 4 + 2]);
-		mk_lib_crypto_alg_aes_base_mul_b(&orig.m_data.m_uint8s[i * 4 + 0], &ta);
-		mk_lib_crypto_alg_aes_base_mul_d(&orig.m_data.m_uint8s[i * 4 + 1], &tb);
+
+		mk_lib_crypto_alg_aes_base_mul_b(&tarr[0], &ta);
+		mk_lib_crypto_alg_aes_base_mul_d(&tarr[1], &tb);
 		mk_sl_cui_uint8_xor3(&ta, &tb, &tc);
-		mk_lib_crypto_alg_aes_base_mul_9(&orig.m_data.m_uint8s[i * 4 + 2], &ta);
-		mk_lib_crypto_alg_aes_base_mul_e(&orig.m_data.m_uint8s[i * 4 + 3], &tb);
+		mk_lib_crypto_alg_aes_base_mul_9(&tarr[2], &ta);
+		mk_lib_crypto_alg_aes_base_mul_e(&tarr[3], &tb);
 		mk_sl_cui_uint8_xor3(&ta, &tb, &td);
 		mk_sl_cui_uint8_xor3(&tc, &td, &b->m_data.m_uint8s[i * 4 + 3]);
 	}
