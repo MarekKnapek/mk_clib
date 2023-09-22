@@ -2,7 +2,12 @@
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942}") = "m4", "m4\m4.vcxproj", "{8286250d-5be4-4739-befc-05c1fef305be}"
+EndProject
 Project("{8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942}") = "mk_clib_slib", "mk_clib_slib\mk_clib_slib.vcxproj", "{daee6d32-db72-46dc-9a17-b38426c518f3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8286250d-5be4-4739-befc-05c1fef305be} = {8286250d-5be4-4739-befc-05c1fef305be}
+	EndProjectSection
 EndProject
 Project("{8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942}") = "mkcf", "mkcf\mkcf.vcxproj", "{506f012d-14b4-4024-a3d2-70fc0fe8bee7}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -42,6 +47,14 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8286250d-5be4-4739-befc-05c1fef305be}.Debug|x86.ActiveCfg = Debug|Win32
+		{8286250d-5be4-4739-befc-05c1fef305be}.Debug|x86.Build.0 = Debug|Win32
+		{8286250d-5be4-4739-befc-05c1fef305be}.Release|x86.ActiveCfg = Debug|Win32
+		{8286250d-5be4-4739-befc-05c1fef305be}.Release|x86.Build.0 = Debug|Win32
+		{8286250d-5be4-4739-befc-05c1fef305be}.Debug|x64.ActiveCfg = Debug|Win32
+		{8286250d-5be4-4739-befc-05c1fef305be}.Debug|x64.Build.0 = Debug|Win32
+		{8286250d-5be4-4739-befc-05c1fef305be}.Release|x64.ActiveCfg = Debug|Win32
+		{8286250d-5be4-4739-befc-05c1fef305be}.Release|x64.Build.0 = Debug|Win32
 		{daee6d32-db72-46dc-9a17-b38426c518f3}.Debug|x86.ActiveCfg = Debug|Win32
 		{daee6d32-db72-46dc-9a17-b38426c518f3}.Debug|x86.Build.0 = Debug|Win32
 		{daee6d32-db72-46dc-9a17-b38426c518f3}.Release|x86.ActiveCfg = Release|Win32
