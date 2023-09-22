@@ -187,7 +187,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_base_mul_1(mk_sl_cui_
 
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_base_mul_2(mk_sl_cui_uint8_pct const a, mk_sl_cui_uint8_pt const b) mk_lang_noexcept
 {
-	mk_lang_constexpr_static mk_lang_types_uchar_t const s_cnt = 0x1b;
+	mk_lang_constexpr_static mk_sl_cui_uint8_t const s_cnt = mk_sl_cui_uint8_c(0x1b);
 
 	mk_sl_cui_uint8_t n mk_lang_constexpr_init;
 	mk_sl_cui_uint8_t ta mk_lang_constexpr_init;
@@ -202,8 +202,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_base_mul_2(mk_sl_cui_
 	mk_sl_cui_uint8_shr3(&n, 7, &tb);
 	mk_sl_cui_uint8_set_one(&tc);
 	mk_sl_cui_uint8_and2(&tb, &tc);
-	mk_sl_cui_uint8_from_bi_uchar(&tc, &s_cnt);
-	mk_sl_cui_uint8_mul2_wrap_lo(&tb, &tc);
+	mk_sl_cui_uint8_mul2_wrap_lo(&tb, &s_cnt);
 	mk_sl_cui_uint8_xor3(&ta, &tb, &n);
 	*b = n;
 }
