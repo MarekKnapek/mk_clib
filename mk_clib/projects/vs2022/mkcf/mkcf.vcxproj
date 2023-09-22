@@ -98,7 +98,6 @@
 		<Link>
 			<SubSystem>Console</SubSystem>
 			<GenerateDebugInformation>true</GenerateDebugInformation>
-			<AdditionalLibraryDirectories>$(OutputPath);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 			<AdditionalDependencies>bcrypt.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
 		</Link>
 	</ItemDefinitionGroup>
@@ -134,7 +133,6 @@
 		<Link>
 			<SubSystem>Console</SubSystem>
 			<GenerateDebugInformation>true</GenerateDebugInformation>
-			<AdditionalLibraryDirectories>$(OutputPath);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 			<AdditionalDependencies>bcrypt.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
 		</Link>
 	</ItemDefinitionGroup>
