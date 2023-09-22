@@ -8,6 +8,11 @@
 #include "mk_lang_types.h"
 #include "mk_sl_uint8.h"
 
+#define mk_lib_crypto_mode_base_t_name mk_lib_crypto_alg_aes_base
+#define mk_lib_crypto_mode_base_t_len mk_lib_crypto_alg_aes_base_msg_len_d
+#include "mk_lib_crypto_mode_base_inl_fileh.h"
+#include "mk_lib_crypto_mode_base_inl_filec.h"
+
 
 #define mk_lib_crypto_alg_aes_base_sbox_len (0xff + 1)
 
@@ -416,19 +421,23 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_base_inv_mix_columns(
 	}
 }
 
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_base_add_key(mk_lib_crypto_alg_aes_base_msg_pct const a, mk_lib_crypto_alg_aes_base_msg_pct const b, mk_lib_crypto_alg_aes_base_msg_pt const c) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_base_add_key2(mk_lib_crypto_alg_aes_base_msg_pt const a, mk_lib_crypto_alg_aes_base_msg_pct const b) mk_lang_noexcept
 {
-	int i mk_lang_constexpr_init;
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(a != b);
 
+	mk_lib_crypto_mode_base_mk_lib_crypto_alg_aes_base_xor2(&a->m_data.m_uint8s[0], &b->m_data.m_uint8s[0]);
+}
+
+mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_base_add_key3(mk_lib_crypto_alg_aes_base_msg_pct const a, mk_lib_crypto_alg_aes_base_msg_pct const b, mk_lib_crypto_alg_aes_base_msg_pt const c) mk_lang_noexcept
+{
 	mk_lang_assert(a);
 	mk_lang_assert(b);
 	mk_lang_assert(c);
 	mk_lang_assert(a != b);
 
-	for(i = 0; i != mk_lib_crypto_alg_aes_base_msg_len_v; ++i)
-	{
-		mk_sl_cui_uint8_xor3(&a->m_data.m_uint8s[i], &b->m_data.m_uint8s[i], &c->m_data.m_uint8s[i]);
-	}
+	mk_lib_crypto_mode_base_mk_lib_crypto_alg_aes_base_xor3(&a->m_data.m_uint8s[0], &b->m_data.m_uint8s[0], &c->m_data.m_uint8s[0]);
 }
 
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_base_rot_word(mk_lib_crypto_alg_aes_base_word_pct const a, mk_lib_crypto_alg_aes_base_word_pt const b) mk_lang_noexcept

@@ -41,17 +41,17 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_inl_defd_c_sc
 	mk_lang_assert(output);
 
 	state = *input;
-	mk_lib_crypto_alg_aes_base_add_key(&state, &schedule->m_data.m_msgs[0], &state);
+	mk_lib_crypto_alg_aes_base_add_key2(&state, &schedule->m_data.m_msgs[0]);
 	for(ir = 0; ir != mk_lib_crypto_alg_aes_inl_defd_nr - 1; ++ir)
 	{
 		mk_lib_crypto_alg_aes_base_sub_bytes(&state, &state);
 		mk_lib_crypto_alg_aes_base_shift_rows(&state, &state);
 		mk_lib_crypto_alg_aes_base_mix_columns(&state, &state);
-		mk_lib_crypto_alg_aes_base_add_key(&state, &schedule->m_data.m_msgs[ir + 1], &state);
+		mk_lib_crypto_alg_aes_base_add_key2(&state, &schedule->m_data.m_msgs[ir + 1]);
 	}
 	mk_lib_crypto_alg_aes_base_sub_bytes(&state, &state);
 	mk_lib_crypto_alg_aes_base_shift_rows(&state, &state);
-	mk_lib_crypto_alg_aes_base_add_key(&state, &schedule->m_data.m_msgs[mk_lib_crypto_alg_aes_inl_defd_nr], &state);
+	mk_lib_crypto_alg_aes_base_add_key2(&state, &schedule->m_data.m_msgs[mk_lib_crypto_alg_aes_inl_defd_nr]);
 	*output = state;
 }
 
@@ -68,17 +68,17 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_inl_defd_c_sc
 	mk_lang_assert(output);
 
 	state = *input;
-	mk_lib_crypto_alg_aes_base_add_key(&state, &schedule->m_data.m_msgs[mk_lib_crypto_alg_aes_inl_defd_nr], &state);
+	mk_lib_crypto_alg_aes_base_add_key2(&state, &schedule->m_data.m_msgs[mk_lib_crypto_alg_aes_inl_defd_nr]);
 	for(ir = 0; ir != mk_lib_crypto_alg_aes_inl_defd_nr - 1; ++ir)
 	{
 		mk_lib_crypto_alg_aes_base_inv_shift_rows(&state, &state);
 		mk_lib_crypto_alg_aes_base_inv_sub_bytes(&state, &state);
-		mk_lib_crypto_alg_aes_base_add_key(&state, &schedule->m_data.m_msgs[mk_lib_crypto_alg_aes_inl_defd_nr - (ir + 1)], &state);
+		mk_lib_crypto_alg_aes_base_add_key2(&state, &schedule->m_data.m_msgs[mk_lib_crypto_alg_aes_inl_defd_nr - (ir + 1)]);
 		mk_lib_crypto_alg_aes_base_inv_mix_columns(&state, &state);
 	}
 	mk_lib_crypto_alg_aes_base_inv_shift_rows(&state, &state);
 	mk_lib_crypto_alg_aes_base_inv_sub_bytes(&state, &state);
-	mk_lib_crypto_alg_aes_base_add_key(&state, &schedule->m_data.m_msgs[0], &state);
+	mk_lib_crypto_alg_aes_base_add_key2(&state, &schedule->m_data.m_msgs[0]);
 	*output = state;
 }
 
