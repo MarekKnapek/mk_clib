@@ -14,7 +14,7 @@
 #define mk_lib_crypto_alg_serpent_nr 32
 #define mk_lib_crypto_alg_serpent_key_len_m (256 / mk_lang_charbit)
 #define mk_lib_crypto_alg_serpent_msg_len_m (128 / mk_lang_charbit)
-#define mk_lib_crypto_alg_serpent_schedule_len_m (mk_lib_crypto_alg_serpent_nr * mk_lib_crypto_alg_serpent_msg_len_m)
+#define mk_lib_crypto_alg_serpent_schedule_len_m ((1 + mk_lib_crypto_alg_serpent_nr) * mk_lib_crypto_alg_serpent_msg_len_m)
 enum mk_lib_crypto_alg_serpent_key_len_e { mk_lib_crypto_alg_serpent_key_len_v = mk_lib_crypto_alg_serpent_key_len_m };
 enum mk_lib_crypto_alg_serpent_msg_len_e { mk_lib_crypto_alg_serpent_msg_len_v = mk_lib_crypto_alg_serpent_msg_len_m };
 enum mk_lib_crypto_alg_serpent_schedule_len_e { mk_lib_crypto_alg_serpent_schedule_len_v = mk_lib_crypto_alg_serpent_schedule_len_m };
