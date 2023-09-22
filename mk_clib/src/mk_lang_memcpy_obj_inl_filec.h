@@ -5,6 +5,12 @@
 #include "mk_lang_noexcept.h"
 #include "mk_lang_sizet.h"
 
+#ifdef mk_lang_memcpy_obj_t_
+#define mk_lang_memcpy_obj_t mk_lang_memcpy_obj_t_
+#endif
+#ifdef mk_lang_memcpy_obj_tn_
+#define mk_lang_memcpy_obj_tn mk_lang_memcpy_obj_tn_
+#endif
 #define mk_lang_overlap_t mk_lang_memcpy_obj_t
 #define mk_lang_overlap_name mk_lang_memcpy_obj_tn
 #include "mk_lang_overlap_inl_fileh.h"
@@ -39,3 +45,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lang_memcpy_obj_fn(mk_lang_memcpy_obj_t*
 
 
 #undef overlap
+
+
+#undef mk_lang_memcpy_obj_tn
+#undef mk_lang_memcpy_obj_t
