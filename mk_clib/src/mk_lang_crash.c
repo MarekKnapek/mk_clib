@@ -18,7 +18,9 @@ mk_lang_noreturn mk_lang_jumbo void mk_lang_crash_impl(char const* const msg) mk
 mk_lang_noreturn mk_lang_jumbo void mk_lang_crash(void) mk_lang_noexcept
 #endif
 {
+	#if mk_lang_crash_detail_have
 	int ta;
+	#endif
 	int volatile* volatile ptr;
 
 	#if mk_lang_crash_detail_have
