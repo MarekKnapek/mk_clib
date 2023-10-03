@@ -2,6 +2,9 @@
 #define mk_include_guard_mk_lang_assert
 
 
+#include "mk_lang_crash.h"
+
+
 #define mk_lang_assert_mode_test_crash 1
 #define mk_lang_assert_mode_assume 2
 #define mk_lang_assert_mode_assert 3
@@ -24,7 +27,6 @@
 
 #if mk_lang_assert_mode == mk_lang_assert_mode_test_crash
 
-#include "mk_lang_crash.h"
 #define mk_lang_assert(x) ((void)((x) ? ((void)(0)) : ((void)(mk_lang_crash()))))
 
 #elif mk_lang_assert_mode == mk_lang_assert_mode_assume
@@ -63,6 +65,8 @@
 #endif
 
 #endif
+
+#define mk_lang_test(x) ((void)((x) ? ((void)(0)) : ((void)(mk_lang_crash()))))
 
 
 #undef mk_lang_assert_mode_test_crash
