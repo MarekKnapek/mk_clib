@@ -1054,7 +1054,11 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lib_vc_result_t mk_
 
 enum mk_lib_vc_state_id_e
 {
-	mk_lib_vc_state_id_e_init,
+	mk_lib_vc_state_id_e_reqargc,
+	mk_lib_vc_state_id_e_waitargc,
+	mk_lib_vc_state_id_e_destroy,
+	mk_lib_vc_state_id_e_waitfreemain,
+	mk_lib_vc_state_id_e_done,
 	mk_lib_vc_state_id_e_dummy_end
 };
 typedef enum mk_lib_vc_state_id_e mk_lib_vc_state_id_t;
@@ -1073,7 +1077,8 @@ typedef union mk_lib_vc_state_u mk_lib_vc_state_t;
 
 struct mk_lib_vc_data_s
 {
-	mk_lib_vc_state_t m_state;
+	mk_lib_vc_state_id_t m_stateid;
+	mk_lib_vc_state_t m_stateobj;
 };
 typedef struct mk_lib_vc_data_s mk_lib_vc_data_t;
 typedef mk_lib_vc_data_t const mk_lib_vc_data_ct;
@@ -1185,91 +1190,115 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_vc_read_mem(
 	#endif
 }
 
-mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_vc_say_ok(mk_sl_cui_uint8_pt const output_buff, mk_lang_types_usize_pt const output_len) mk_lang_noexcept
+/*mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_vc_say_ok(mk_sl_cui_uint8_pt const output_buff, mk_lang_types_usize_pt const output_len) mk_lang_noexcept
 {
 	mk_lib_vc_say_response_void(mk_lib_vc_response_e_ok, output_buff, output_len);
-}
+}*/
 
-mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_vc_say_wantmem(mk_sl_cui_uint8_pt const output_buff, mk_lang_types_usize_pt const output_len, mk_lang_types_usize_t const mem_len, mk_lang_types_usize_t const mem_align) mk_lang_noexcept
+/*mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_vc_say_wantmem(mk_sl_cui_uint8_pt const output_buff, mk_lang_types_usize_pt const output_len, mk_lang_types_usize_t const mem_len, mk_lang_types_usize_t const mem_align) mk_lang_noexcept
 {
 	mk_lib_vc_say_response_usize_usize(output_buff, output_len, mk_lib_vc_response_e_wantmem, mem_len, mem_align);
-}
+}*/
 
-mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_vc_req_init(mk_lib_vc_pt const vc, mk_sl_cui_uint8_pct const input_buff, mk_lang_types_usize_t const input_len, mk_sl_cui_uint8_pt const output_buff, mk_lang_types_usize_pt const output_len) mk_lang_noexcept
+/*mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_vc_req_init(mk_lib_vc_pt const vc, mk_sl_cui_uint8_pct const input_buff, mk_lang_types_usize_t const input_len, mk_sl_cui_uint8_pt const output_buff, mk_lang_types_usize_pt const output_len) mk_lang_noexcept
 {
 	mk_lang_assert(vc);
 	mk_lang_assert(input_len == 0);
 
 	vc->m_data = mk_lang_null;
 	mk_lib_vc_say_ok(output_buff, output_len);
-}
-
-mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lib_vc_data_pt mk_lib_vc_get_data(mk_lib_vc_pt const vc) mk_lang_noexcept
-{
-	mk_lib_vc_data_pt data mk_lang_constexpr_init;
-
-	mk_lang_assert(vc);
-	mk_lang_assert(vc->m_data);
-
-	data = ((mk_lib_vc_data_pt)(vc->m_data));
-	return data;
-}
-
-mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_vc_req_dowork(mk_lib_vc_pt const vc, mk_sl_cui_uint8_pct const input_buff, mk_lang_types_usize_t const input_len, mk_sl_cui_uint8_pt const output_buff, mk_lang_types_usize_pt const output_len) mk_lang_noexcept
-{
-	mk_lang_assert(vc);
-	mk_lang_assert(input_len == 0);
-
-	if(vc->m_data == mk_lang_null)
-	{
-		mk_lib_vc_say_wantmem(output_buff, output_len, sizeof(mk_lib_vc_data_t), mk_lang_alignof(mk_lib_vc_data_t));
-	}
-	else
-	{
-		/* todo */
-		mk_lib_vc_say_ok(output_buff, output_len);
-	}
-}
-
-mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_vc_req_givemem(mk_lib_vc_pt const vc, mk_sl_cui_uint8_pct const input_buff, mk_lang_types_usize_t const input_len, mk_sl_cui_uint8_pt const output_buff, mk_lang_types_usize_pt const output_len) mk_lang_noexcept
-{
-	mk_lang_types_usize_t ptr mk_lang_constexpr_init;
-	mk_sl_cui_uint8_pt mem mk_lang_constexpr_init;
-	mk_lang_types_usize_t mem_len mk_lang_constexpr_init;
-
-	mk_lang_assert(vc);
-
-	if(vc->m_data == mk_lang_null)
-	{
-		ptr = 0;
-		mk_lib_vc_read_mem(input_buff, input_len, &ptr, &mem);
-		mk_lib_vc_read_usize(input_buff, input_len, &ptr, &mem_len);
-		mk_lang_assert(((mk_lang_types_uintptr_t)(mem)) % mk_lang_alignof(mk_lib_vc_data_t) == 0);
-		mk_lang_assert(mem_len == sizeof(mk_lib_vc_data_t));
-		vc->m_data = mem;
-	}
-	else
-	{
-		/* todo */
-		mk_lang_assert(0);
-	}
-}
+}*/
 
 mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_vc_req_dispatch(mk_lib_vc_pt const vc, mk_lang_types_uint_t const request, mk_sl_cui_uint8_pct const input_buff, mk_lang_types_usize_t const input_len, mk_lang_types_uint_pt const response, mk_sl_cui_uint8_pt const output_buff, mk_lang_types_usize_pt const output_len) mk_lang_noexcept
 {
-	mk_lib_vc_request_t req mk_lang_constexpr_init;
+	mk_lib_vc_request_t reqid mk_lang_constexpr_init;
+	mk_lib_vc_request_type_pct reqp mk_lang_constexpr_init;
+	mk_lib_vc_response_type_pt resp mk_lang_constexpr_init;
 
 	mk_lang_assert(vc);
 	mk_lang_assert(request >= 0 && request < ((mk_lang_types_uint_t)(mk_lib_vc_request_e_dummy_end)));
+	mk_lang_assert(response);
+	mk_lang_assert(output_buff);
+	mk_lang_assert(output_len);
+	mk_lang_assert(*output_len >= sizeof(mk_lib_vc_response_type_t));
 
-	req = ((mk_lib_vc_request_t)(request));
-	switch(req)
+	reqid = ((mk_lib_vc_request_t)(request));
+	reqp = ((mk_lib_vc_request_type_pct)(input_buff));
+	resp = ((mk_lib_vc_response_type_pt)(output_buff));
+	if(reqid == mk_lib_vc_request_e_init)
 	{
-		case mk_lib_vc_request_e_init: mk_lib_vc_req_init(vc, input_buff, input_len, response, output_buff, output_len); break;
-		case mk_lib_vc_request_e_dowork: mk_lib_vc_req_dowork(vc, input_buff, input_len, response, output_buff, output_len); break;
-		case mk_lib_vc_request_e_fullfill_allocmem: mk_lib_vc_req_givemem(vc, input_buff, input_len, response, output_buff, output_len); break;
-		case mk_lib_vc_request_e_dummy_end: mk_lang_assert(0); break;
-		default: mk_lang_assert(0); break;
+		mk_lang_assert(!reqp);
+		mk_lang_assert(input_len == 0);
+		vc->m_data = mk_lang_null;
+		*response = mk_lib_vc_response_e_ok;
+		*output_len = 0;
+	}
+	else if(!vc->m_data && reqid == mk_lib_vc_request_e_dowork)
+	{
+		mk_lang_assert(!reqp);
+		mk_lang_assert(input_len == 0);
+		resp->m_allocmem.m_memlen = sizeof(mk_lib_vc_data_t);
+		resp->m_allocmem.m_memalign = mk_lang_alignof(mk_lib_vc_data_t);
+		*response = mk_lib_vc_response_e_allocmem;
+		*output_len = sizeof(resp->m_allocmem);
+	}
+	else if(!vc->m_data && reqid == mk_lib_vc_request_e_fullfill_allocmem)
+	{
+		mk_lang_assert(reqp);
+		mk_lang_assert(input_len == sizeof(reqp->m_fullfill_allocmem));
+		mk_lang_assert(reqp->m_fullfill_allocmem.m_mem);
+		mk_lang_assert(((mk_lang_types_uintptr_t)(reqp->m_fullfill_allocmem.m_mem)) % mk_lang_alignof(mk_lib_vc_data_t) == 0);
+		vc->m_data = ((mk_lib_vc_data_pt)(reqp->m_fullfill_allocmem.m_mem));
+		vc->m_data->m_stateid = mk_lib_vc_state_id_e_reqargc;
+		*response = mk_lib_vc_response_e_ok;
+		*output_len = 0;
+	}
+	else if(!vc->m_data && reqid == mk_lib_vc_request_e_fullfill_freemem)
+	{
+		mk_lang_assert(!reqp);
+		mk_lang_assert(input_len == 0);
+		resp->m_done.m_exit_code = 0;
+		*response = mk_lib_vc_response_e_done;
+		*output_len = sizeof(resp->m_done);
+	}
+	else
+	{
+		mk_lang_assert(vc->m_data);
+		switch(vc->m_data->m_stateid)
+		{
+			case mk_lib_vc_state_id_e_reqargc:
+				mk_lang_assert(reqid == mk_lib_vc_request_e_dowork);
+				mk_lang_assert(!reqp);
+				mk_lang_assert(input_len == 0);
+				vc->m_data->m_stateid = mk_lib_vc_state_id_e_waitargc;
+				*response = mk_lib_vc_response_e_readargc;
+				*output_len = 0;
+			break;
+			case mk_lib_vc_state_id_e_waitargc:
+				mk_lang_assert(reqid == mk_lib_vc_request_e_fullfill_readargc);
+				mk_lang_assert(reqp);
+				mk_lang_assert(input_len == sizeof(reqp->m_fullfill_readargc));
+				mk_lang_assert(reqp->m_fullfill_readargc.m_argc == 4);
+				vc->m_data->m_stateid = mk_lib_vc_state_id_e_destroy;
+				*response = mk_lib_vc_response_e_ok;
+				*output_len = 0;
+			break;
+			case mk_lib_vc_state_id_e_destroy:
+				mk_lang_assert(reqid == mk_lib_vc_request_e_dowork);
+				mk_lang_assert(!reqp);
+				mk_lang_assert(input_len == 0);
+				/*destroy*/
+				resp->m_freemem.m_mem = ((mk_lang_types_void_pt)(vc->m_data));
+				vc->m_data = mk_lang_null;
+				resp->m_freemem.m_memlen = sizeof(mk_lib_vc_data_t);
+				resp->m_freemem.m_memalign = mk_lang_alignof(mk_lib_vc_data_t);
+				*response = mk_lib_vc_response_e_freemem;
+				*output_len = sizeof(resp->m_freemem);
+			break;
+			default:
+				mk_lang_assert(0);
+			break;
+		}
 	}
 }
 
@@ -1278,11 +1307,3 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_vc_req(mk_lib_vc_pt 
 {
 	mk_lib_vc_req_dispatch(vc, request, input_buff, input_len, response, output_buff, output_len);
 }
-
-
-/*mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_vc_init(mk_lib_vc_pt const vc) mk_lang_noexcept { mk_lib_vc_init_impl(vc); }
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_vc_get_write_buff(mk_lib_vc_pt const vc, mk_sl_cui_uint8_pt* const buff, mk_lang_types_usize_t* const buff_len) mk_lang_noexcept { mk_lib_vc_get_write_buff_(vc, buff, buff_len); }
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_vc_get_read_buff(mk_lib_vc_pt const vc, mk_sl_cui_uint8_pt* const buff, mk_lang_types_usize_t* const buff_len) mk_lang_noexcept { mk_lib_vc_get_read_buff_(vc, buff, buff_len); }
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_vc_push(mk_lib_vc_pt const vc, mk_lang_types_usize_t const buff_len) mk_lang_noexcept { mk_lib_vc_push_(vc, buff_len); }
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_vc_pop(mk_lib_vc_pt const vc, mk_lang_types_usize_t const buff_len) mk_lang_noexcept { mk_lib_vc_pop_(vc, buff_len); }
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lib_vc_result_t mk_lib_vc_step(mk_lib_vc_pt const vc) mk_lang_noexcept { return mk_lib_vc_step_(vc); }*/

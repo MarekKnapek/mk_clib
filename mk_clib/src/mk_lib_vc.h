@@ -209,10 +209,11 @@ enum mk_lib_vc_request_e
 {
 	mk_lib_vc_request_e_init,
 	mk_lib_vc_request_e_dowork,
-	mk_lib_vc_request_e_fullfill_readargc,
-	mk_lib_vc_request_e_fullfill_readargv,
 	mk_lib_vc_request_e_fullfill_allocmem,
+	mk_lib_vc_request_e_fullfill_readargc,
 	mk_lib_vc_request_e_fullfill_freemem,
+
+	mk_lib_vc_request_e_fullfill_readargv,
 	mk_lib_vc_request_e_fullfill_openfilerb,
 	mk_lib_vc_request_e_fullfill_openfilewb,
 	mk_lib_vc_request_e_fullfill_closefile,
@@ -229,9 +230,10 @@ typedef mk_lib_vc_request_t const* mk_lib_vc_request_pct;
 enum mk_lib_vc_response_e
 {
 	mk_lib_vc_response_e_ok,
-	mk_lib_vc_response_e_readargc,
-	mk_lib_vc_response_e_readargv,
 	mk_lib_vc_response_e_allocmem,
+	mk_lib_vc_response_e_readargc,
+	mk_lib_vc_response_e_done,
+	mk_lib_vc_response_e_readargv,
 	mk_lib_vc_response_e_freemem,
 	mk_lib_vc_response_e_openfilerb,
 	mk_lib_vc_response_e_openfilewb,
@@ -245,6 +247,76 @@ typedef enum mk_lib_vc_response_e mk_lib_vc_response_t;
 typedef mk_lib_vc_response_t const mk_lib_vc_response_ct;
 typedef mk_lib_vc_response_t* mk_lib_vc_response_pt;
 typedef mk_lib_vc_response_t const* mk_lib_vc_response_pct;
+
+
+struct mk_lib_vc_request_type_fullfill_allocmem_s
+{
+	mk_sl_cui_uint8_pt m_mem;
+};
+typedef struct mk_lib_vc_request_type_fullfill_allocmem_s mk_lib_vc_request_type_fullfill_allocmem_t;
+typedef mk_lib_vc_request_type_fullfill_allocmem_t const mk_lib_vc_request_type_fullfill_allocmem_ct;
+typedef mk_lib_vc_request_type_fullfill_allocmem_t* mk_lib_vc_request_type_fullfill_allocmem_pt;
+typedef mk_lib_vc_request_type_fullfill_allocmem_t const* mk_lib_vc_request_type_fullfill_allocmem_pct;
+
+struct mk_lib_vc_request_type_fullfill_readargc_s
+{
+	mk_lang_types_sint_t m_argc;
+};
+typedef struct mk_lib_vc_request_type_fullfill_readargc_s mk_lib_vc_request_type_fullfill_readargc_t;
+typedef mk_lib_vc_request_type_fullfill_readargc_t const mk_lib_vc_request_type_fullfill_readargc_ct;
+typedef mk_lib_vc_request_type_fullfill_readargc_t* mk_lib_vc_request_type_fullfill_readargc_pt;
+typedef mk_lib_vc_request_type_fullfill_readargc_t const* mk_lib_vc_request_type_fullfill_readargc_pct;
+
+union mk_lib_vc_request_type_u
+{
+	mk_lib_vc_request_type_fullfill_allocmem_t m_fullfill_allocmem;
+	mk_lib_vc_request_type_fullfill_readargc_t m_fullfill_readargc;
+};
+typedef union mk_lib_vc_request_type_u mk_lib_vc_request_type_t;
+typedef mk_lib_vc_request_type_t const mk_lib_vc_request_type_ct;
+typedef mk_lib_vc_request_type_t* mk_lib_vc_request_type_pt;
+typedef mk_lib_vc_request_type_t const* mk_lib_vc_request_type_pct;
+
+struct mk_lib_vc_response_type_allocmem_s
+{
+	mk_lang_types_usize_t m_memlen;
+	mk_lang_types_usize_t m_memalign;
+};
+typedef struct mk_lib_vc_response_type_allocmem_s mk_lib_vc_response_type_allocmem_t;
+typedef mk_lib_vc_response_type_allocmem_t const mk_lib_vc_response_type_allocmem_ct;
+typedef mk_lib_vc_response_type_allocmem_t* mk_lib_vc_response_type_allocmem_pt;
+typedef mk_lib_vc_response_type_allocmem_t const* mk_lib_vc_response_type_allocmem_pct;
+
+struct mk_lib_vc_response_type_freemem_s
+{
+	mk_lang_types_void_pt m_mem;
+	mk_lang_types_usize_t m_memlen;
+	mk_lang_types_usize_t m_memalign;
+};
+typedef struct mk_lib_vc_response_type_freemem_s mk_lib_vc_response_type_freemem_t;
+typedef mk_lib_vc_response_type_freemem_t const mk_lib_vc_response_type_freemem_ct;
+typedef mk_lib_vc_response_type_freemem_t* mk_lib_vc_response_type_freemem_pt;
+typedef mk_lib_vc_response_type_freemem_t const* mk_lib_vc_response_type_freemem_pct;
+
+struct mk_lib_vc_response_type_done_s
+{
+	mk_lang_types_sint_t m_exit_code;
+};
+typedef struct mk_lib_vc_response_type_done_s mk_lib_vc_response_type_done_t;
+typedef mk_lib_vc_response_type_done_t const mk_lib_vc_response_type_done_ct;
+typedef mk_lib_vc_response_type_done_t* mk_lib_vc_response_type_done_pt;
+typedef mk_lib_vc_response_type_done_t const* mk_lib_vc_response_type_done_pct;
+
+union mk_lib_vc_response_type_u
+{
+	mk_lib_vc_response_type_allocmem_t m_allocmem;
+	mk_lib_vc_response_type_freemem_t m_freemem;
+	mk_lib_vc_response_type_done_t m_done;
+};
+typedef union mk_lib_vc_response_type_u mk_lib_vc_response_type_t;
+typedef mk_lib_vc_response_type_t const mk_lib_vc_response_type_ct;
+typedef mk_lib_vc_response_type_t* mk_lib_vc_response_type_pt;
+typedef mk_lib_vc_response_type_t const* mk_lib_vc_response_type_pct;
 
 
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_vc_req(mk_lib_vc_pt const vc, mk_lang_types_uint_t const request, mk_sl_cui_uint8_pct const input_buff, mk_lang_types_usize_t const input_len, mk_lang_types_uint_pt const response, mk_sl_cui_uint8_pt const output_buff, mk_lang_types_usize_pt const output_len) mk_lang_noexcept;

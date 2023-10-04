@@ -120,8 +120,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_pars
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_work(mk_lang_types_sint_t const argc, mk_lang_types_pchar_pct const* const argv) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_work_1(mk_lang_types_sint_t const argc, mk_lang_types_pchar_pct const* const argv) mk_lang_noexcept
 {
+#if 0
 	mk_lang_types_sint_t ret;
 	mk_lang_types_void_pt mem;
 	mk_lang_types_usize_t mem_len;
@@ -229,6 +230,104 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_work
 	if(mem){ mk_sl_mallocator_lang_deallocate(mem, mem_len); }
 	mk_sl_mallocator_lang_deinit();
 	return ret;
+#endif
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_work(mk_lang_types_sint_t const argc, mk_lang_types_pchar_pct const* const argv) mk_lang_noexcept
+{
+	mk_lib_vc_pt vc;
+	mk_lib_vc_t vcobj;
+	mk_lang_types_uint_t resid;
+	mk_lib_vc_response_t response;
+	mk_lib_vc_request_t request;
+	mk_sl_cui_uint8_pct input_buff;
+	mk_lang_types_usize_t input_len;
+	mk_sl_cui_uint8_pt output_buff;
+	mk_lang_types_usize_t output_len;
+	mk_lib_vc_response_type_t response_data;
+	mk_lib_vc_response_type_pt resp;
+	mk_lib_vc_request_type_t request_data;
+	mk_lib_vc_request_type_pt reqp;
+	mk_lang_types_void_pt mem;
+	mk_lang_exception_t ex;
+	mk_lang_types_sint_t exit_code;
+
+	mk_lang_assert(argv);
+
+	mk_sl_mallocator_lang_init();
+	vc = &vcobj;
+	resp = &response_data;
+	reqp = &request_data;
+	mk_lang_exception_make_none(&ex);
+	request = mk_lib_vc_request_e_init;
+	input_buff = mk_lang_null;
+	input_len = 0;
+	output_buff = ((mk_sl_cui_uint8_pt)(&response_data));
+	output_len = ((mk_lang_types_usize_pt)(sizeof(response_data)));
+	mk_lib_vc_req(vc, request, input_buff, input_len, &resid, output_buff, &output_len); mk_lang_assert(resid >= 0 && resid < mk_lib_vc_response_e_dummy_end); response = ((mk_lib_vc_response_t)(resid));
+	mk_lang_assert(resid == mk_lib_vc_response_e_ok);
+	mk_lang_assert(output_len == 0);
+	request = mk_lib_vc_request_e_dowork;
+	output_len = ((mk_lang_types_usize_pt)(sizeof(response_data)));
+	for(;;)
+	{
+		mk_lib_vc_req(vc, request, input_buff, input_len, &resid, output_buff, &output_len); mk_lang_assert(resid >= 0 && resid < mk_lib_vc_response_e_dummy_end); response = ((mk_lib_vc_response_t)(resid));
+		switch(response)
+		{
+			case mk_lib_vc_response_e_ok:
+				mk_lang_assert(output_len == 0);
+				request = mk_lib_vc_request_e_dowork;
+				input_buff = mk_lang_null;
+				input_len = 0;
+				output_buff = ((mk_sl_cui_uint8_pt)(&response_data));
+				output_len = ((mk_lang_types_usize_t)(sizeof(response_data)));
+			break;
+			case mk_lib_vc_response_e_allocmem:
+				mk_lang_assert(output_len == sizeof(resp->m_allocmem));
+				mk_sl_mallocator_lang_allocate(&ex, resp->m_allocmem.m_memlen, &mem);
+				mk_lang_assert(!mk_lang_exception_is(&ex));
+				mk_lang_assert(mem);
+				reqp->m_fullfill_allocmem.m_mem = ((mk_sl_cui_uint8_pt)(mem));
+				request = mk_lib_vc_request_e_fullfill_allocmem;
+				input_buff = ((mk_sl_cui_uint8_pct)(&reqp->m_fullfill_allocmem));
+				input_len = ((mk_lang_types_usize_t)(sizeof(reqp->m_fullfill_allocmem)));
+				output_buff = ((mk_sl_cui_uint8_pt)(&response_data));
+				output_len = ((mk_lang_types_usize_t)(sizeof(response_data)));
+			break;
+			case mk_lib_vc_response_e_readargc:
+				mk_lang_assert(output_len == 0);
+				reqp->m_fullfill_readargc.m_argc = argc - 1;
+				input_buff = ((mk_sl_cui_uint8_pct)(&reqp->m_fullfill_readargc));
+				input_len = ((mk_lang_types_usize_t)(sizeof(reqp->m_fullfill_readargc)));
+				request = mk_lib_vc_request_e_fullfill_readargc;
+				output_buff = ((mk_sl_cui_uint8_pt)(&response_data));
+				output_len = ((mk_lang_types_usize_t)(sizeof(response_data)));
+			break;
+			case mk_lib_vc_response_e_freemem:
+				mk_lang_assert(output_len == sizeof(resp->m_freemem));
+				mk_sl_mallocator_lang_deallocate(resp->m_freemem.m_mem, resp->m_freemem.m_memlen);
+				input_buff = mk_lang_null;
+				input_len = 0;
+				request = mk_lib_vc_request_e_fullfill_freemem;
+				output_buff = ((mk_sl_cui_uint8_pt)(&response_data));
+				output_len = ((mk_lang_types_usize_t)(sizeof(response_data)));
+			break;
+			case mk_lib_vc_response_e_done:
+				mk_lang_assert(output_len == sizeof(resp->m_done));
+				exit_code = resp->m_done.m_exit_code;
+				goto endloop;
+			break;
+			case mk_lib_vc_response_e_dummy_end:
+				mk_lang_assert(0);
+			break;
+			default:
+				mk_lang_assert(0);
+			break;
+		}
+	}
+	endloop:;
+	mk_sl_mallocator_lang_deinit();
+	return exit_code;
 }
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_pchar_pct mk_clib_app_vc_get_exe_name(mk_lang_types_pchar_pct const arg) mk_lang_noexcept
