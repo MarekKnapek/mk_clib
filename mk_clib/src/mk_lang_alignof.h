@@ -5,6 +5,7 @@
 #include "mk_lang_intmaxt.h"
 #include "mk_lang_lllong.h"
 #include "mk_lang_llong.h"
+#include "mk_lang_min.h"
 #include "mk_lang_version.h"
 
 
@@ -16,7 +17,7 @@
 #define mk_lang_alignof(x) _Alignof(x)
 #else
 #define mk_lang_alignof_has 0
-#define mk_lang_alignof(x) sizeof(x)
+#define mk_lang_alignof(x) mk_lang_min(16, sizeof(x))
 #endif
 
 

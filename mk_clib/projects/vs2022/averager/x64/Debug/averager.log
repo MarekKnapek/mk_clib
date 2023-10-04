@@ -1,0 +1,15 @@
+﻿  averager.cpp
+C:\dev\mnt\mkdisk\dev\repos\mk_clib\mk_clib\src\mk_lang_crash.c(21,6): warning C4101: 'ta': unreferenced local variable
+C:\dev\mnt\mkdisk\dev\repos\mk_clib\mk_clib\src\mk_sl_averager_inl_defd.h(204,1): warning C4005: 'mk_sl_averager_inl_defd_to_str_dec_lene': macro redefinition
+C:\dev\mnt\mkdisk\dev\repos\mk_clib\mk_clib\src\mk_sl_averager_inl_defd.h(114,1): message : see previous definition of 'mk_sl_averager_inl_defd_to_str_dec_lene'
+C:\dev\mnt\mkdisk\dev\repos\mk_clib\mk_clib\src\mk_sl_averager_inl_defd.h(205,1): warning C4005: 'mk_sl_averager_inl_defd_to_str_dec_lenv': macro redefinition
+C:\dev\mnt\mkdisk\dev\repos\mk_clib\mk_clib\src\mk_sl_averager_inl_defd.h(115,1): message : see previous definition of 'mk_sl_averager_inl_defd_to_str_dec_lenv'
+C:\dev\mnt\mkdisk\dev\repos\mk_clib\mk_clib\src\mk_sl_averager_inl_defd.h(114,1): warning C4005: 'mk_sl_averager_inl_defd_to_str_dec_lene': macro redefinition
+C:\dev\mnt\mkdisk\dev\repos\mk_clib\mk_clib\src\mk_sl_averager_inl_defd.h(204,1): message : see previous definition of 'mk_sl_averager_inl_defd_to_str_dec_lene'
+C:\dev\mnt\mkdisk\dev\repos\mk_clib\mk_clib\src\mk_sl_averager_inl_defd.h(115,1): warning C4005: 'mk_sl_averager_inl_defd_to_str_dec_lenv': macro redefinition
+C:\dev\mnt\mkdisk\dev\repos\mk_clib\mk_clib\src\mk_sl_averager_inl_defd.h(205,1): message : see previous definition of 'mk_sl_averager_inl_defd_to_str_dec_lenv'
+C:\dev\mnt\mkdisk\dev\repos\mk_clib\mk_clib\src\mk_sl_averager_inl_defd.h(204,1): warning C4005: 'mk_sl_averager_inl_defd_to_str_dec_lene': macro redefinition
+C:\dev\mnt\mkdisk\dev\repos\mk_clib\mk_clib\src\mk_sl_averager_inl_defd.h(114,1): message : see previous definition of 'mk_sl_averager_inl_defd_to_str_dec_lene'
+C:\dev\mnt\mkdisk\dev\repos\mk_clib\mk_clib\src\mk_sl_averager_inl_defd.h(205,1): warning C4005: 'mk_sl_averager_inl_defd_to_str_dec_lenv': macro redefinition
+C:\dev\mnt\mkdisk\dev\repos\mk_clib\mk_clib\src\mk_sl_averager_inl_defd.h(115,1): message : see previous definition of 'mk_sl_averager_inl_defd_to_str_dec_lenv'
+  averager.vcxproj -> C:\dev\mnt\mkdisk\dev\repos\mk_clib\mk_clib\projects\vs2022\x64\Debug\averager.exe

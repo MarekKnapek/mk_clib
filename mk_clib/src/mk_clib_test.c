@@ -72,6 +72,7 @@
 #else
 #include "mk_sl_flt_test.hpp"
 #endif
+#include "mk_lib_vc_test.hpp"
 #include "mk_sl_sort_merge_test.hpp"
 
 
@@ -147,5 +148,6 @@ mk_lang_jumbo void mk_clib_test(void) mk_lang_noexcept
 	#else
 	mk_sl_flt_test();
 	#endif
+	mk_lib_vc_test();
 	mk_sl_sort_merge_test();
 }
