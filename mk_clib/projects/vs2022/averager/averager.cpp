@@ -5,11 +5,19 @@
 #include "mk_sl_uint32.h"
 #include "mk_sl_uint64.h"
 
+/*#define mk_sl_fxp_t_name avgc
+#define mk_sl_fxp_t_base_name mk_sl_cui_uint64
+#define mk_sl_fxp_t_bits_all 64
+#define mk_sl_fxp_t_bits_pre 56
+#define mk_sl_fxp_t_bits_post 8
+#include "mk_sl_fxp_inl_fileh.h"
+#include "mk_sl_fxp_inl_filec.h"*/
+
 #define mk_sl_averager_t_name tst
 #define mk_sl_averager_t_count 4
 #define mk_sl_averager_t_history 8
 #define mk_sl_averager_t_timer_tnb mk_sl_cui_uint64
-#define mk_sl_averager_t_counter_tnb mk_sl_cui_uint64
+#define mk_sl_averager_t_counter_tnb /*mk_sl_fxp_avgc*/ mk_sl_cui_uint64
 #define mk_sl_averager_t_period_chunk mk_sl_cui_uint64_c(0, 10ul * 1000ul * 1000ul / 4ul)
 #include "mk_sl_averager_inl_fileh.h"
 #include "mk_sl_averager_inl_filec.h"
