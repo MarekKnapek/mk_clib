@@ -14,68 +14,11 @@
 #include "mk_sl_averager_inl_fileh.h"
 #include "mk_sl_averager_inl_filec.h"
 
-int uchar_cmp(unsigned char const* const a, unsigned char const* const b){ return *a < *b; }
-#define mk_sl_sort_merge_name tst
-#define mk_sl_sort_merge_data_t unsigned char
-#define mk_sl_sort_merge_count_t unsigned
-#define mk_sl_sort_merge_count_math_prefix mk_lang_bui_uint
-#define mk_sl_sort_merge_is_sorted uchar_cmp
-#include "mk_sl_sort_merge_inl_fileh.h"
-#include "mk_sl_sort_merge_inl_filec.h"
-
 #include <stdio.h>
 
 #include <windows.h>
 #pragma comment(lib, "winmm.lib")
 
-
-unsigned char avg2(unsigned char const a, unsigned char const b)
-{
-	unsigned char ca;
-	unsigned char cb;
-	unsigned char ta;
-	unsigned char tb;
-	unsigned char c;
-	unsigned char fixup;
-
-	ca = ((unsigned char)(a & ((unsigned char)(0x1))));
-	cb = ((unsigned char)(b & ((unsigned char)(0x1))));
-	ta = ((unsigned char)(a >> 1));
-	tb = ((unsigned char)(b >> 1));
-	fixup = ((unsigned char)(ca & cb));
-	c = ((unsigned char)(ta + tb));
-	c = ((unsigned char)(c + fixup));
-
-	return c;
-}
-
-unsigned char avg4(unsigned char const a, unsigned char const b, unsigned char const c, unsigned char const d)
-{
-	unsigned char ca;
-	unsigned char cb;
-	unsigned char cc;
-	unsigned char cd;
-	unsigned char ta;
-	unsigned char tb;
-	unsigned char tc;
-	unsigned char td;
-	unsigned char r;
-	unsigned char f;
-
-	ca = ((unsigned char)(a & ((unsigned char)(0x3))));
-	cb = ((unsigned char)(b & ((unsigned char)(0x3))));
-	cc = ((unsigned char)(c & ((unsigned char)(0x3))));
-	cd = ((unsigned char)(d & ((unsigned char)(0x3))));
-	ta = ((unsigned char)(a >> 2));
-	tb = ((unsigned char)(b >> 2));
-	tc = ((unsigned char)(c >> 2));
-	td = ((unsigned char)(d >> 2));
-	r = ((unsigned char)(((unsigned char)(((unsigned char)(ta + tb)) + tc)) + td));
-	f = ((unsigned char)(((unsigned char)(((unsigned char)(ca + cb)) + cc)) + cd));
-	f = ((unsigned char)(f >> 2));
-	r = ((unsigned char)(r + f));
-	return r;
-}
 
 #define test(x) do{ if(!(x)){ __debugbreak(); } }while(0)
 
@@ -213,39 +156,4 @@ int main()
 	timer_start();
 	run();
 	timer_deinit();
-}
-
-void tests(void)
-{
-	for(int ai = 0; ai != 0xff + 1; ++ai)
-	{
-		for(int bi = 0; bi != 0xff + 1; ++bi)
-		{
-			unsigned char a = ((unsigned char)(ai));
-			unsigned char b = ((unsigned char)(bi));
-			unsigned char my_result = avg2(a, b);
-			unsigned char correct_result = (ai + bi) / 2;
-			test(my_result == correct_result);
-		}
-	}
-
-	for(int ai = 0; ai != 0xff + 1; ++ai)
-	{
-		for(int bi = 0; bi != 0xff + 1; ++bi)
-		{
-			for(int ci = 0; ci != 0xff + 1; ++ci)
-			{
-				for(int di = 0; di != 0xff + 1; ++di)
-				{
-					unsigned char a = ((unsigned char)(ai));
-					unsigned char b = ((unsigned char)(bi));
-					unsigned char c = ((unsigned char)(ci));
-					unsigned char d = ((unsigned char)(di));
-					unsigned char my_result = avg4(a, b, c, d);
-					unsigned char correct_result = (ai + bi + ci + di) / 4;
-					test(my_result == correct_result);
-				}
-			}
-		}
-	}
 }
