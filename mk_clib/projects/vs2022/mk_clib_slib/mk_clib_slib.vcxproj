@@ -26,6 +26,7 @@
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_tool_m4.bat"/>
 	</ItemGroup>
 	<ItemGroup>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui2_inl.m"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_concat.m"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes.h.m"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_inl_fileh.m"/>
@@ -41,6 +42,10 @@
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_inl_fileh.m"/>
 	</ItemGroup>
 	<ItemGroup>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui2_inl_defd.h.m4"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui2_inl_defu.h.m4"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui2_inl_filec.h.m4"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui2_inl_fileh.h.m4"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_128.h.m4"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_192.h.m4"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_256.h.m4"/>
@@ -90,6 +95,10 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bi_test.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bool.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui2_inl_defd.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui2_inl_defu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui2_inl_filec.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui2_inl_fileh.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_fuzz.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_fuzz_inl_call.h"/>

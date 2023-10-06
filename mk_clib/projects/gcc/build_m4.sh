@@ -1,5 +1,9 @@
 this_dir="$(dirname -- $0)"
 src_dir="$this_dir/../../src"
+m4 -I $src_dir -- $src_dir/mk_lang_bui2_inl_defd.h.m4              > $src_dir/mk_lang_bui2_inl_defd.h
+m4 -I $src_dir -- $src_dir/mk_lang_bui2_inl_defu.h.m4              > $src_dir/mk_lang_bui2_inl_defu.h
+m4 -I $src_dir -- $src_dir/mk_lang_bui2_inl_filec.h.m4             > $src_dir/mk_lang_bui2_inl_filec.h
+m4 -I $src_dir -- $src_dir/mk_lang_bui2_inl_fileh.h.m4             > $src_dir/mk_lang_bui2_inl_fileh.h
 m4 -I $src_dir -- $src_dir/mk_lib_crypto_alg_aes_128.h.m4          > $src_dir/mk_lib_crypto_alg_aes_128.h
 m4 -I $src_dir -- $src_dir/mk_lib_crypto_alg_aes_192.h.m4          > $src_dir/mk_lib_crypto_alg_aes_192.h
 m4 -I $src_dir -- $src_dir/mk_lib_crypto_alg_aes_256.h.m4          > $src_dir/mk_lib_crypto_alg_aes_256.h

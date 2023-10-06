@@ -13,6 +13,7 @@
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_tool_m4.bat"><Filter>src</Filter></None>
 	</ItemGroup>
 	<ItemGroup>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui2_inl.m"><Filter>src</Filter></None>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_concat.m"><Filter>src</Filter></None>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes.h.m"><Filter>src</Filter></None>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_inl_fileh.m"><Filter>src</Filter></None>
@@ -28,6 +29,10 @@
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_inl_fileh.m"><Filter>src</Filter></None>
 	</ItemGroup>
 	<ItemGroup>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui2_inl_defd.h.m4"><Filter>src</Filter></None>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui2_inl_defu.h.m4"><Filter>src</Filter></None>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui2_inl_filec.h.m4"><Filter>src</Filter></None>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui2_inl_fileh.h.m4"><Filter>src</Filter></None>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_128.h.m4"><Filter>src</Filter></None>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_192.h.m4"><Filter>src</Filter></None>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_256.h.m4"><Filter>src</Filter></None>
@@ -77,6 +82,10 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bi_test.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bool.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui2_inl_defd.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui2_inl_defu.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui2_inl_filec.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui2_inl_fileh.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_fuzz.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_divmod_fuzz_inl_call.h"><Filter>src</Filter></ClInclude>
