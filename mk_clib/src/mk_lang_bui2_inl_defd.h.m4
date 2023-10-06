@@ -37,10 +37,10 @@ xxxxxxxxxx
 #define mk_lang_bui2_inl_defd_sizeof_v mk_lang_concat(mk_lang_bui2_inl_defd_name, _sizeof_v)
 
 #define mk_lang_bui2_inl_defd_from_base mk_lang_concat(mk_lang_bui2_inl_defd_name, _from_base)
-mm_per_bi(`#define mk_lang_bui2_inl_defd_from_bi_$1 mk_lang_concat(mk_lang_bui2_inl_defd_name, _from_bi_$1)')dnl
+mm_per_bi(`#define mk_lang_bui2_inl_defd_from_bi_$1 mk_lang_concat(mk_lang_bui2_inl_defd_name, _from_bi_$1)')
 #define mk_lang_bui2_inl_defd_to_base mk_lang_concat(mk_lang_bui2_inl_defd_name, _to_base)
-mm_per_bi(`#define mk_lang_bui2_inl_defd_to_bi_$1 mk_lang_concat(mk_lang_bui2_inl_defd_name, _to_bi_$1)')dnl
-mm_per_bui(`#define mk_lang_bui2_inl_defd_from_buis_$1_le mk_lang_concat(mk_lang_bui2_inl_defd_name, _from_buis_$1_le)')dnl
-mm_per_bui(`#define mk_lang_bui2_inl_defd_to_buis_$1_le mk_lang_concat(mk_lang_bui2_inl_defd_name, _to_buis_$1_le)')dnl
-mm_per_bui(`#define mk_lang_bui2_inl_defd_from_buis_$1_be mk_lang_concat(mk_lang_bui2_inl_defd_name, _from_buis_$1_be)')dnl
-mm_per_bui(`#define mk_lang_bui2_inl_defd_to_buis_$1_be mk_lang_concat(mk_lang_bui2_inl_defd_name, _to_buis_$1_be)')dnl
+mm_per_bi(`#define mk_lang_bui2_inl_defd_to_bi_$1 mk_lang_concat(mk_lang_bui2_inl_defd_name, _to_bi_$1)')
+mm_per_bui(`#define mk_lang_bui2_inl_defd_from_buis_$1_le mk_lang_concat(mk_lang_bui2_inl_defd_name, _from_buis_$1_le)')
+mm_per_bui(`#define mk_lang_bui2_inl_defd_to_buis_$1_le mk_lang_concat(mk_lang_bui2_inl_defd_name, _to_buis_$1_le)')
+mm_per_bui(`#define mk_lang_bui2_inl_defd_from_buis_$1_be mk_lang_concat(mk_lang_bui2_inl_defd_name, _from_buis_$1_be)')
+mm_per_bui(`#define mk_lang_bui2_inl_defd_to_buis_$1_be mk_lang_concat(mk_lang_bui2_inl_defd_name, _to_buis_$1_be)')

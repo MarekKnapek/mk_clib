@@ -37,10 +37,10 @@ include(`mk_lang_bui2_inl.m')dnl
 `#'undef mk_lang_bui2_inl_defd_sizeof_v
 
 `#'undef mk_lang_bui2_inl_defd_from_base
-mm_per_bi(`#undef mk_lang_bui2_inl_defd_from_bi_$1')dnl
+mm_per_bi(`#undef mk_lang_bui2_inl_defd_from_bi_$1')
 `#'undef mk_lang_bui2_inl_defd_to_base
-mm_per_bi(`#undef mk_lang_bui2_inl_defd_to_bi_$1')dnl
-mm_per_bui(`#undef mk_lang_bui2_inl_defd_from_buis_$1_le')dnl
-mm_per_bui(`#undef mk_lang_bui2_inl_defd_to_buis_$1_le')dnl
-mm_per_bui(`#undef mk_lang_bui2_inl_defd_from_buis_$1_be')dnl
-mm_per_bui(`#undef mk_lang_bui2_inl_defd_to_buis_$1_be')dnl
+mm_per_bi(`#undef mk_lang_bui2_inl_defd_to_bi_$1')
+mm_per_bui(`#undef mk_lang_bui2_inl_defd_from_buis_$1_le')
+mm_per_bui(`#undef mk_lang_bui2_inl_defd_to_buis_$1_le')
+mm_per_bui(`#undef mk_lang_bui2_inl_defd_from_buis_$1_be')
+mm_per_bui(`#undef mk_lang_bui2_inl_defd_to_buis_$1_be')
