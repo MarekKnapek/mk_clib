@@ -46,6 +46,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mkvca", "mkvca\mkvca.vcxpro
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "averager", "averager\averager.vcxproj", "{0A465F26-9597-4AFB-B656-BE88E053889B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DAEE6D32-DB72-46DC-9A17-B38426C518F3} = {DAEE6D32-DB72-46DC-9A17-B38426C518F3}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
