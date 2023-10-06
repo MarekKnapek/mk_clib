@@ -156,12 +156,47 @@ void run(void)
 	}
 }
 
+void abc(void);
+
 int main()
 {
+	abc();
 	g_main_thread_id = GetCurrentThreadId();
 	mk_sl_averager_tst_rw_construct(&g_averager);
 	timer_init();
 	timer_start();
 	run();
 	timer_deinit();
+}
+
+#define mk_lang_bui2_t_name averager_cnt
+#define mk_lang_bui2_t_base ulong
+#include "mk_lang_bui2_inl_fileh.h"
+#include "mk_lang_bui2_inl_filec.h"
+
+#define mk_lang_bui2_t_name averager_tm
+#define mk_lang_bui2_t_base ushort
+#include "mk_lang_bui2_inl_fileh.h"
+#include "mk_lang_bui2_inl_filec.h"
+
+void abc(void)
+{
+	mk_lang_types_sint_t tsi;
+	averager_cnt_t ca;
+	averager_cnt_t cb;
+	averager_cnt_t cc;
+	averager_tm_t ta;
+	averager_tm_t tb;
+	averager_tm_t tc;
+
+	tsi = 2; averager_cnt_from_bi_sint(&ca, &tsi);
+	tsi = 3; averager_cnt_from_bi_sint(&cb, &tsi);
+#if 0
+	averager_cnt_add3_wrap_cid_cod(&ca, &cb, &cc);
+	averager_cnt_to_bi_sint(&cc, &tsi);
+	tsi = 4; averager_tm_from_bi_sint(&ta, &tsi);
+	tsi = 5; averager_tm_from_bi_sint(&tb, &tsi);
+	averager_tm_add3_wrap_cid_cod(&ta, &tb, &tc);
+#endif
+	averager_tm_to_bi_sint(&tc, &tsi);
 }
