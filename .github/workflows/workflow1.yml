@@ -13,7 +13,7 @@
       - "uses": "actions/checkout@main"
       - "run": "bash ./../projects/gcc/build_m4.sh"
       - "run": "gcc -v"
-      - "run": "gcc -std=c${{matrix.cver}} -DNDEBUG -Dmk_lang_assert_want=1 -Dmk_lang_crash_detail_want=1 -Dmk_clib_test_smol_want=1 -O3 -Wall -Wextra -Wpedantic -o ${{matrix.proj}}-c${{matrix.cver}}.elf ${{matrix.proj}}.c 2> ${{matrix.proj}}-c${{matrix.cver}}.txt"
+      - "run": "gcc -std=c${{matrix.cver}} -DNDEBUG -Dmk_lang_assert_want=1 -Dmk_lang_crash_detail_want=1 -Dmk_clib_test_smol_want=1 -O3 -Wall -Wextra -Wpedantic -o ${{matrix.proj}}-c${{matrix.cver}}.elf ${{matrix.proj}}.c 2>&1 | tee ${{matrix.proj}}-c${{matrix.cver}}.txt"
       - "run": "./${{matrix.proj}}-c${{matrix.cver}}.elf"
       - "uses": "actions/upload-artifact@main"
         "with":
@@ -37,7 +37,7 @@
       - "run": "bash ./../projects/gcc/build_m4.sh"
       - "run": "cp ${{matrix.proj}}.c ${{matrix.proj}}.cpp"
       - "run": "g++-12 -v"
-      - "run": "g++-12 -std=c++${{matrix.cver}} -DNDEBUG -Dmk_lang_assert_want=1 -Dmk_lang_crash_detail_want=1 -Dmk_clib_test_smol_want=1 -O3 -fconstexpr-ops-limit=1000000000 -Wall -Wextra -Wpedantic -o ${{matrix.proj}}-cpp${{matrix.cver}}.elf ${{matrix.proj}}.cpp 2> ${{matrix.proj}}-cpp${{matrix.cver}}.txt"
+      - "run": "g++-12 -std=c++${{matrix.cver}} -DNDEBUG -Dmk_lang_assert_want=1 -Dmk_lang_crash_detail_want=1 -Dmk_clib_test_smol_want=1 -O3 -fconstexpr-ops-limit=1000000000 -Wall -Wextra -Wpedantic -o ${{matrix.proj}}-cpp${{matrix.cver}}.elf ${{matrix.proj}}.cpp 2>&1 | tee ${{matrix.proj}}-cpp${{matrix.cver}}.txt"
       - "run": "./${{matrix.proj}}-cpp${{matrix.cver}}.elf"
       - "uses": "actions/upload-artifact@main"
         "with":
