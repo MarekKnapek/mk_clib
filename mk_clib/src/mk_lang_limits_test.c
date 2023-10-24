@@ -1,6 +1,6 @@
 #include "mk_lang_limits_test.h"
 
-#include "mk_lang_arch.h"
+#include "mk_lang_bitness.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_limits.h"
 #include "mk_lang_noexcept.h"

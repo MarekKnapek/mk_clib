@@ -2,6 +2,7 @@
 #define mk_include_guard_mk_lang_sizeof
 
 #include "mk_lang_arch.h"
+#include "mk_lang_bitness.h"
 #include "mk_lang_intmaxt.h"
 #include "mk_lang_lllong.h"
 #include "mk_lang_llong.h"
