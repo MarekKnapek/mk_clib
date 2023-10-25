@@ -405,7 +405,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_tiger_base_append_
 	mk_lang_assert(nblocks >= 0);
 	mk_lang_assert(nblocks <= mk_lang_limits_usize_max / mk_lib_crypto_hash_block_tiger_base_block_len);
 
-	mk_sl_cui_uint64_from_bi_size(&ta, &nblocks);
+	mk_sl_cui_uint64_from_bi_usize(&ta, &nblocks);
 	mk_lang_assert(!mk_sl_cui_uint64_would_overflow_add_cc(&tiger_base->m_len, &ta));
 	mk_sl_cui_uint64_add2_wrap_cid_cod(&tiger_base->m_len, &ta);
 	a = tiger_base->m_a;

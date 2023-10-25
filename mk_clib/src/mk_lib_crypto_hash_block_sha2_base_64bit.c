@@ -209,7 +209,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha2_base_64bit_ap
 	mk_lang_assert(nblocks >= 0);
 	mk_lang_assert(nblocks <= mk_lang_limits_usize_max / mk_lib_crypto_hash_block_sha2_base_64bit_block_len);
 
-	mk_sl_cui_uint128_from_bi_size(&tt, &nblocks);
+	mk_sl_cui_uint128_from_bi_usize(&tt, &nblocks);
 	mk_lang_assert(!mk_sl_cui_uint128_would_overflow_add_cc(&sha2_64bit->m_len, &tt));
 	mk_sl_cui_uint128_add2_wrap_cid_cod(&sha2_64bit->m_len, &tt);
 	oldh[0] = sha2_64bit->m_state[0];

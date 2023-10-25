@@ -30,7 +30,7 @@
 #include mk_lang_fora_bui2_file
 #undef mk_lang_fora_bui2_tn
 
-#define mk_lang_fora_bui2_tn size
+#define mk_lang_fora_bui2_tn usize
 #include mk_lang_fora_bui2_file
 #undef mk_lang_fora_bui2_tn
 

@@ -60,11 +60,11 @@
 #define mk_lang_sizeof_bi_sintmax_t mk_lang_sizeof_bi_uintmax_t
 
 #if mk_lang_bitness == mk_lang_bitness_16
-#define mk_lang_sizeof_bi_size_t 2
+#define mk_lang_sizeof_bi_usize_t 2
 #elif mk_lang_bitness == mk_lang_bitness_32
-#define mk_lang_sizeof_bi_size_t 4
+#define mk_lang_sizeof_bi_usize_t 4
 #elif mk_lang_bitness == mk_lang_bitness_64
-#define mk_lang_sizeof_bi_size_t 8
+#define mk_lang_sizeof_bi_usize_t 8
 #endif
 
 

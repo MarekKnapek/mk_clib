@@ -66,7 +66,7 @@
 #include mk_lang_forb_bi_file
 #undef mk_lang_forb_bi_tn
 
-#define mk_lang_forb_bi_tn size
+#define mk_lang_forb_bi_tn usize
 #include mk_lang_forb_bi_file
 #undef mk_lang_forb_bi_tn
 

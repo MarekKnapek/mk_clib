@@ -30,7 +30,7 @@
 #include mk_lang_forb_bui_file
 #undef mk_lang_forb_bui_tn
 
-#define mk_lang_forb_bui_tn size
+#define mk_lang_forb_bui_tn usize
 #include mk_lang_forb_bui_file
 #undef mk_lang_forb_bui_tn
 

@@ -30,7 +30,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_sor
 
 #define mk_lang_bui_name sort_merge_test
 #define mk_lang_bui_type mk_lang_types_usize_t
-#define mk_lang_bui_sizeof mk_lang_sizeof_bi_size_t
+#define mk_lang_bui_sizeof mk_lang_sizeof_bi_usize_t
 #include "mk_lang_bui_inl_fileh.h"
 #include "mk_lang_bui_inl_filec.h"
 

@@ -171,7 +171,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha1_append_blocks
 	mk_lang_assert(nblocks >= 0);
 	mk_lang_assert(nblocks <= mk_lang_limits_usize_max / mk_lib_crypto_hash_block_sha1_block_len);
 
-	mk_sl_cui_uint64_from_bi_size(&tt, &nblocks);
+	mk_sl_cui_uint64_from_bi_usize(&tt, &nblocks);
 	mk_lang_assert(!mk_sl_cui_uint64_would_overflow_add_cc(&sha1->m_len, &tt));
 	mk_sl_cui_uint64_add2_wrap_cid_cod(&sha1->m_len, &tt);
 	oldh[0] = sha1->m_state[0];

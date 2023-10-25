@@ -26,5 +26,5 @@ mk_lang_jumbo void mk_lang_alignof_test(void) mk_lang_noexcept
 	mk_lang_static_assert(mk_lang_alignof_bi_sintptr_t == mk_lang_alignof(mk_lang_bi_sintptr_t));
 	mk_lang_static_assert(mk_lang_alignof_bi_uintmax_t == mk_lang_alignof(mk_lang_bi_uintmax_t));
 	mk_lang_static_assert(mk_lang_alignof_bi_sintmax_t == mk_lang_alignof(mk_lang_bi_sintmax_t));
-	mk_lang_static_assert(mk_lang_alignof_bi_size_t == mk_lang_alignof(mk_lang_bi_size_t));
+	mk_lang_static_assert(mk_lang_alignof_bi_usize_t == mk_lang_alignof(mk_lang_bi_usize_t));
 }

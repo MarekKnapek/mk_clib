@@ -194,7 +194,7 @@ mk_lang_nodiscard static mk_lang_inline mk_sl_cui_uint8_pt mk_clib_app_crypt_app
 
 	p = ptr;
 	len = mk_clib_app_crypt_strlen(str); if(!(len >= 0x01 && len <= 0xff)) return mk_lang_null;
-	mk_sl_cui_uint8_from_bi_size(&p[0], &len); p += 1;
+	mk_sl_cui_uint8_from_bi_usize(&p[0], &len); p += 1;
 	n = ((int)(len));
 	for(i = 0; i != n; ++i)
 	{
@@ -229,7 +229,7 @@ mk_lang_nodiscard static mk_lang_inline mk_sl_cui_uint8_pt mk_clib_app_crypt_app
 
 	p = ptr;
 	len = mk_clib_app_crypt_strlen(str); if(!(len >= 0 && len <= 4 * 1024)) return mk_lang_null;
-	mk_sl_cui_uint32_from_bi_size(&u32, &len);
+	mk_sl_cui_uint32_from_bi_usize(&u32, &len);
 	p = mk_clib_app_crypt_append_u32(p, &u32); if(!p) return mk_lang_null;
 	n = ((int)(len));
 	for(i = 0; i != n; ++i)

@@ -28,7 +28,7 @@ mk_lang_jumbo void mk_lang_bi_test(void) mk_lang_noexcept
 	mk_lang_static_assert(sizeof(mk_lang_bi_to_unsigned_sintptr_t) == sizeof(mk_lang_bi_sintptr_t));
 	mk_lang_static_assert(sizeof(mk_lang_bi_to_unsigned_uintmax_t) == sizeof(mk_lang_bi_uintmax_t));
 	mk_lang_static_assert(sizeof(mk_lang_bi_to_unsigned_sintmax_t) == sizeof(mk_lang_bi_sintmax_t));
-	mk_lang_static_assert(sizeof(mk_lang_bi_to_unsigned_size_t) == sizeof(mk_lang_bi_size_t));
+	mk_lang_static_assert(sizeof(mk_lang_bi_to_unsigned_usize_t) == sizeof(mk_lang_bi_usize_t));
 
 	mk_lang_static_assert(sizeof(mk_lang_bi_pchar_t*) == sizeof(void*));
 	mk_lang_static_assert(sizeof(mk_lang_bi_uchar_t*) == sizeof(void*));
@@ -47,5 +47,5 @@ mk_lang_jumbo void mk_lang_bi_test(void) mk_lang_noexcept
 	mk_lang_static_assert(sizeof(mk_lang_bi_sintptr_t*) == sizeof(void*));
 	mk_lang_static_assert(sizeof(mk_lang_bi_uintmax_t*) == sizeof(void*));
 	mk_lang_static_assert(sizeof(mk_lang_bi_sintmax_t*) == sizeof(void*));
-	mk_lang_static_assert(sizeof(mk_lang_bi_size_t*) == sizeof(void*));
+	mk_lang_static_assert(sizeof(mk_lang_bi_usize_t*) == sizeof(void*));
 }
