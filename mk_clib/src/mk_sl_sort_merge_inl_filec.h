@@ -1,11 +1,11 @@
 #include "mk_lang_assert.h"
-#include "mk_lang_bool.h"
 #include "mk_lang_concat.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_types.h"
 
 
 #include "mk_sl_sort_merge_inl_defd.h"
@@ -157,11 +157,11 @@ mk_lang_constexpr static mk_lang_inline void mk_sl_sort_merge_inl_defd_fn_first_
 	}
 }
 
-mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_bool_t mk_sl_sort_merge_inl_defd_fn_first_round_plain(mk_sl_sort_merge_inl_defd_data_prt const data, mk_sl_sort_merge_inl_defd_count_t const count, mk_sl_sort_merge_inl_defd_data_prt const tmp) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t mk_sl_sort_merge_inl_defd_fn_first_round_plain(mk_sl_sort_merge_inl_defd_data_prt const data, mk_sl_sort_merge_inl_defd_count_t const count, mk_sl_sort_merge_inl_defd_data_prt const tmp) mk_lang_noexcept
 {
 	mk_sl_sort_merge_inl_defd_count_t cnt mk_lang_constexpr_init;
 	int clz mk_lang_constexpr_init;
-	mk_lang_bool_t r mk_lang_constexpr_init;
+	mk_lang_types_bool_t r mk_lang_constexpr_init;
 
 	mk_lang_assert(data);
 	mk_lang_assert(count >= 2);
@@ -233,11 +233,11 @@ mk_lang_constexpr static mk_lang_inline void mk_sl_sort_merge_inl_defd_fn_first_
 	}
 }
 
-mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_bool_t mk_sl_sort_merge_inl_defd_fn_first_round_proxy(mk_sl_sort_merge_inl_defd_data_prct const data, mk_sl_sort_merge_inl_defd_proxy_prt const proxy, mk_sl_sort_merge_inl_defd_count_t const count, mk_sl_sort_merge_inl_defd_proxy_prt const tmp) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t mk_sl_sort_merge_inl_defd_fn_first_round_proxy(mk_sl_sort_merge_inl_defd_data_prct const data, mk_sl_sort_merge_inl_defd_proxy_prt const proxy, mk_sl_sort_merge_inl_defd_count_t const count, mk_sl_sort_merge_inl_defd_proxy_prt const tmp) mk_lang_noexcept
 {
 	mk_sl_sort_merge_inl_defd_count_t cnt mk_lang_constexpr_init;
 	int clz mk_lang_constexpr_init;
-	mk_lang_bool_t r mk_lang_constexpr_init;
+	mk_lang_types_bool_t r mk_lang_constexpr_init;
 
 	mk_lang_assert(data);
 	mk_lang_assert(count >= 2);

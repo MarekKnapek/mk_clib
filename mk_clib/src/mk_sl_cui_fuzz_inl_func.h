@@ -1,5 +1,4 @@
 #include "mk_lang_assert.h"
-#include "mk_lang_bool.h"
 #include "mk_lang_charbit.h"
 #include "mk_lang_crash.h"
 #include "mk_lang_jumbo.h"
@@ -2327,7 +2326,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_add_restrict(unsigned 
 	mk_lang_bi_ulllong_t bui1;
 	mk_lang_bi_ulllong_t bui2;
 	unsigned char b_;
-	mk_lang_bool_t b;
+	mk_lang_types_bool_t b;
 
 	d = data;
 	s = size;
@@ -2364,7 +2363,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_add_alias(unsigned cha
 	mk_sl_cui_inl_defd_t cui;
 	mk_lang_bi_ulllong_t bui;
 	unsigned char b_;
-	mk_lang_bool_t b;
+	mk_lang_types_bool_t b;
 
 	d = data;
 	s = size;
@@ -2523,7 +2522,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_sub_restrict(unsigned 
 	mk_lang_bi_ulllong_t bui1;
 	mk_lang_bi_ulllong_t bui2;
 	unsigned char b_;
-	mk_lang_bool_t b;
+	mk_lang_types_bool_t b;
 
 	d = data;
 	s = size;
@@ -2560,7 +2559,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_sub_alias(unsigned cha
 	mk_sl_cui_inl_defd_t cui;
 	mk_lang_bi_ulllong_t bui;
 	unsigned char b_;
-	mk_lang_bool_t b;
+	mk_lang_types_bool_t b;
 
 	d = data;
 	s = size;
@@ -2848,9 +2847,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cid_coe_restrict(unsigned c
 	mk_lang_bi_ulllong_t bui1;
 	mk_lang_bi_ulllong_t bui2;
 	mk_sl_cui_inl_defd_t cui3;
-	mk_lang_bool_t cuicf;
+	mk_lang_types_bool_t cuicf;
 	mk_lang_bi_ulllong_t bui3;
-	mk_lang_bool_t buicf;
+	mk_lang_types_bool_t buicf;
 	mk_lang_bi_ulllong_t buir;
 
 	d = data;
@@ -2903,8 +2902,8 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cid_coe_alias_ab(unsigned c
 	mk_sl_cui_inl_defd_t cui2;
 	mk_lang_bi_ulllong_t bui1;
 	mk_lang_bi_ulllong_t bui2;
-	mk_lang_bool_t cuicf;
-	mk_lang_bool_t buicf;
+	mk_lang_types_bool_t cuicf;
+	mk_lang_types_bool_t buicf;
 	mk_lang_bi_ulllong_t buir;
 
 	d = data;
@@ -2951,8 +2950,8 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cid_coe_alias_ac(unsigned c
 	mk_sl_cui_inl_defd_t cui2;
 	mk_lang_bi_ulllong_t bui1;
 	mk_lang_bi_ulllong_t bui2;
-	mk_lang_bool_t cuicf;
-	mk_lang_bool_t buicf;
+	mk_lang_types_bool_t cuicf;
+	mk_lang_types_bool_t buicf;
 	mk_lang_bi_ulllong_t buir;
 
 	d = data;
@@ -2999,8 +2998,8 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cid_coe_alias_bc(unsigned c
 	mk_sl_cui_inl_defd_t cui2;
 	mk_lang_bi_ulllong_t bui1;
 	mk_lang_bi_ulllong_t bui2;
-	mk_lang_bool_t cuicf;
-	mk_lang_bool_t buicf;
+	mk_lang_types_bool_t cuicf;
+	mk_lang_types_bool_t buicf;
 	mk_lang_bi_ulllong_t buir;
 
 	d = data;
@@ -3045,8 +3044,8 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cid_coe_alias_abc(unsigned 
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
 	mk_lang_bi_ulllong_t bui;
-	mk_lang_bool_t cuicf;
-	mk_lang_bool_t buicf;
+	mk_lang_types_bool_t cuicf;
+	mk_lang_types_bool_t buicf;
 	mk_lang_bi_ulllong_t buir;
 
 	d = data;
@@ -3096,7 +3095,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cie_cod_restrict(unsigned c
 	mk_lang_bi_ulllong_t bui1;
 	mk_lang_bi_ulllong_t bui2;
 	unsigned char cf_;
-	mk_lang_bool_t cf;
+	mk_lang_types_bool_t cf;
 	mk_sl_cui_inl_defd_t cui3;
 	mk_lang_bi_ulllong_t bui3;
 	mk_lang_bi_ulllong_t buir;
@@ -3118,7 +3117,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cie_cod_restrict(unsigned c
 	check_data(sizeof(cf_));
 	memcpy(&cf_, d, sizeof(cf_));
 	advance(sizeof(cf_));
-	cf = ((mk_lang_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
+	cf = ((mk_lang_types_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui1, &bui1);
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui2, &bui2);
 	check_data(sizeof(cui3));
@@ -3150,7 +3149,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cie_cod_alias_ab(unsigned c
 	mk_lang_bi_ulllong_t bui1;
 	mk_lang_bi_ulllong_t bui2;
 	unsigned char cf_;
-	mk_lang_bool_t cf;
+	mk_lang_types_bool_t cf;
 	mk_lang_bi_ulllong_t buir;
 
 	d = data;
@@ -3170,7 +3169,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cie_cod_alias_ab(unsigned c
 	check_data(sizeof(cf_));
 	memcpy(&cf_, d, sizeof(cf_));
 	advance(sizeof(cf_));
-	cf = ((mk_lang_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
+	cf = ((mk_lang_types_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui1, &bui1);
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui2, &bui2);
 	mk_sl_cui_inl_defd_add3_wrap_cie_cod(&cui1, &cui1, cf, &cui2);
@@ -3196,7 +3195,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cie_cod_alias_ac(unsigned c
 	mk_lang_bi_ulllong_t bui1;
 	mk_lang_bi_ulllong_t bui2;
 	unsigned char cf_;
-	mk_lang_bool_t cf;
+	mk_lang_types_bool_t cf;
 	mk_lang_bi_ulllong_t buir;
 
 	d = data;
@@ -3216,7 +3215,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cie_cod_alias_ac(unsigned c
 	check_data(sizeof(cf_));
 	memcpy(&cf_, d, sizeof(cf_));
 	advance(sizeof(cf_));
-	cf = ((mk_lang_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
+	cf = ((mk_lang_types_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui1, &bui1);
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui2, &bui2);
 	mk_sl_cui_inl_defd_add3_wrap_cie_cod(&cui1, &cui2, cf, &cui1);
@@ -3242,7 +3241,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cie_cod_alias_bc(unsigned c
 	mk_lang_bi_ulllong_t bui1;
 	mk_lang_bi_ulllong_t bui2;
 	unsigned char cf_;
-	mk_lang_bool_t cf;
+	mk_lang_types_bool_t cf;
 	mk_lang_bi_ulllong_t buir;
 
 	d = data;
@@ -3262,7 +3261,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cie_cod_alias_bc(unsigned c
 	check_data(sizeof(cf_));
 	memcpy(&cf_, d, sizeof(cf_));
 	advance(sizeof(cf_));
-	cf = ((mk_lang_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
+	cf = ((mk_lang_types_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui1, &bui1);
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui2, &bui2);
 	mk_sl_cui_inl_defd_add3_wrap_cie_cod(&cui1, &cui2, cf, &cui2);
@@ -3286,7 +3285,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cie_cod_alias_abc(unsigned 
 	mk_sl_cui_inl_defd_t cui;
 	mk_lang_bi_ulllong_t bui;
 	unsigned char cf_;
-	mk_lang_bool_t cf;
+	mk_lang_types_bool_t cf;
 	mk_lang_bi_ulllong_t buir;
 
 	d = data;
@@ -3300,7 +3299,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cie_cod_alias_abc(unsigned 
 	check_data(sizeof(cf_));
 	memcpy(&cf_, d, sizeof(cf_));
 	advance(sizeof(cf_));
-	cf = ((mk_lang_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
+	cf = ((mk_lang_types_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui, &bui);
 	mk_sl_cui_inl_defd_add3_wrap_cie_cod(&cui, &cui, cf, &cui);
 	mk_lang_bui_ulllong_add3_wrap_cie_cod(&bui, &bui, cf, &bui);
@@ -3334,11 +3333,11 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cie_coe_restrict(unsigned c
 	mk_lang_bi_ulllong_t bui1;
 	mk_lang_bi_ulllong_t bui2;
 	unsigned char cf_;
-	mk_lang_bool_t cf;
+	mk_lang_types_bool_t cf;
 	mk_sl_cui_inl_defd_t cui3;
-	mk_lang_bool_t cuicf;
+	mk_lang_types_bool_t cuicf;
 	mk_lang_bi_ulllong_t bui3;
-	mk_lang_bool_t buicf;
+	mk_lang_types_bool_t buicf;
 	mk_lang_bi_ulllong_t buir;
 
 	d = data;
@@ -3358,7 +3357,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cie_coe_restrict(unsigned c
 	check_data(sizeof(cf_));
 	memcpy(&cf_, d, sizeof(cf_));
 	advance(sizeof(cf_));
-	cf = ((mk_lang_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
+	cf = ((mk_lang_types_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui1, &bui1);
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui2, &bui2);
 	check_data(sizeof(cui3));
@@ -3396,9 +3395,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cie_coe_alias_ab(unsigned c
 	mk_lang_bi_ulllong_t bui1;
 	mk_lang_bi_ulllong_t bui2;
 	unsigned char cf_;
-	mk_lang_bool_t cf;
-	mk_lang_bool_t cuicf;
-	mk_lang_bool_t buicf;
+	mk_lang_types_bool_t cf;
+	mk_lang_types_bool_t cuicf;
+	mk_lang_types_bool_t buicf;
 	mk_lang_bi_ulllong_t buir;
 
 	d = data;
@@ -3418,7 +3417,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cie_coe_alias_ab(unsigned c
 	check_data(sizeof(cf_));
 	memcpy(&cf_, d, sizeof(cf_));
 	advance(sizeof(cf_));
-	cf = ((mk_lang_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
+	cf = ((mk_lang_types_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui1, &bui1);
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui2, &bui2);
 	check_data(sizeof(cuicf));
@@ -3450,9 +3449,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cie_coe_alias_ac(unsigned c
 	mk_lang_bi_ulllong_t bui1;
 	mk_lang_bi_ulllong_t bui2;
 	unsigned char cf_;
-	mk_lang_bool_t cf;
-	mk_lang_bool_t cuicf;
-	mk_lang_bool_t buicf;
+	mk_lang_types_bool_t cf;
+	mk_lang_types_bool_t cuicf;
+	mk_lang_types_bool_t buicf;
 	mk_lang_bi_ulllong_t buir;
 
 	d = data;
@@ -3472,7 +3471,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cie_coe_alias_ac(unsigned c
 	check_data(sizeof(cf_));
 	memcpy(&cf_, d, sizeof(cf_));
 	advance(sizeof(cf_));
-	cf = ((mk_lang_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
+	cf = ((mk_lang_types_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui1, &bui1);
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui2, &bui2);
 	check_data(sizeof(cuicf));
@@ -3504,9 +3503,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cie_coe_alias_bc(unsigned c
 	mk_lang_bi_ulllong_t bui1;
 	mk_lang_bi_ulllong_t bui2;
 	unsigned char cf_;
-	mk_lang_bool_t cf;
-	mk_lang_bool_t cuicf;
-	mk_lang_bool_t buicf;
+	mk_lang_types_bool_t cf;
+	mk_lang_types_bool_t cuicf;
+	mk_lang_types_bool_t buicf;
 	mk_lang_bi_ulllong_t buir;
 
 	d = data;
@@ -3526,7 +3525,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cie_coe_alias_bc(unsigned c
 	check_data(sizeof(cf_));
 	memcpy(&cf_, d, sizeof(cf_));
 	advance(sizeof(cf_));
-	cf = ((mk_lang_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
+	cf = ((mk_lang_types_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui1, &bui1);
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui2, &bui2);
 	check_data(sizeof(cuicf));
@@ -3556,9 +3555,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cie_coe_alias_abc(unsigned 
 	mk_sl_cui_inl_defd_t cui;
 	mk_lang_bi_ulllong_t bui;
 	unsigned char cf_;
-	mk_lang_bool_t cf;
-	mk_lang_bool_t cuicf;
-	mk_lang_bool_t buicf;
+	mk_lang_types_bool_t cf;
+	mk_lang_types_bool_t cuicf;
+	mk_lang_types_bool_t buicf;
 	mk_lang_bi_ulllong_t buir;
 
 	d = data;
@@ -3572,7 +3571,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cie_coe_alias_abc(unsigned 
 	check_data(sizeof(cf_));
 	memcpy(&cf_, d, sizeof(cf_));
 	advance(sizeof(cf_));
-	cf = ((mk_lang_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
+	cf = ((mk_lang_types_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui, &bui);
 	check_data(sizeof(cuicf));
 	memcpy(&cuicf, d, sizeof(cuicf));
@@ -3809,9 +3808,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cid_coe_restrict(unsigned c
 	mk_lang_bi_ulllong_t bui1;
 	mk_lang_bi_ulllong_t bui2;
 	mk_sl_cui_inl_defd_t cui3;
-	mk_lang_bool_t cuicf;
+	mk_lang_types_bool_t cuicf;
 	mk_lang_bi_ulllong_t bui3;
-	mk_lang_bool_t buicf;
+	mk_lang_types_bool_t buicf;
 	mk_lang_bi_ulllong_t buir;
 
 	d = data;
@@ -3864,8 +3863,8 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cid_coe_alias_ab(unsigned c
 	mk_sl_cui_inl_defd_t cui2;
 	mk_lang_bi_ulllong_t bui1;
 	mk_lang_bi_ulllong_t bui2;
-	mk_lang_bool_t cuicf;
-	mk_lang_bool_t buicf;
+	mk_lang_types_bool_t cuicf;
+	mk_lang_types_bool_t buicf;
 	mk_lang_bi_ulllong_t buir;
 
 	d = data;
@@ -3912,8 +3911,8 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cid_coe_alias_ac(unsigned c
 	mk_sl_cui_inl_defd_t cui2;
 	mk_lang_bi_ulllong_t bui1;
 	mk_lang_bi_ulllong_t bui2;
-	mk_lang_bool_t cuicf;
-	mk_lang_bool_t buicf;
+	mk_lang_types_bool_t cuicf;
+	mk_lang_types_bool_t buicf;
 	mk_lang_bi_ulllong_t buir;
 
 	d = data;
@@ -3960,8 +3959,8 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cid_coe_alias_bc(unsigned c
 	mk_sl_cui_inl_defd_t cui2;
 	mk_lang_bi_ulllong_t bui1;
 	mk_lang_bi_ulllong_t bui2;
-	mk_lang_bool_t cuicf;
-	mk_lang_bool_t buicf;
+	mk_lang_types_bool_t cuicf;
+	mk_lang_types_bool_t buicf;
 	mk_lang_bi_ulllong_t buir;
 
 	d = data;
@@ -4006,8 +4005,8 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cid_coe_alias_abc(unsigned 
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
 	mk_lang_bi_ulllong_t bui;
-	mk_lang_bool_t cuicf;
-	mk_lang_bool_t buicf;
+	mk_lang_types_bool_t cuicf;
+	mk_lang_types_bool_t buicf;
 	mk_lang_bi_ulllong_t buir;
 
 	d = data;
@@ -4057,7 +4056,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cie_cod_restrict(unsigned c
 	mk_lang_bi_ulllong_t bui1;
 	mk_lang_bi_ulllong_t bui2;
 	unsigned char cf_;
-	mk_lang_bool_t cf;
+	mk_lang_types_bool_t cf;
 	mk_sl_cui_inl_defd_t cui3;
 	mk_lang_bi_ulllong_t bui3;
 	mk_lang_bi_ulllong_t buir;
@@ -4079,7 +4078,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cie_cod_restrict(unsigned c
 	check_data(sizeof(cf_));
 	memcpy(&cf_, d, sizeof(cf_));
 	advance(sizeof(cf_));
-	cf = ((mk_lang_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
+	cf = ((mk_lang_types_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui1, &bui1);
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui2, &bui2);
 	check_data(sizeof(cui3));
@@ -4111,7 +4110,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cie_cod_alias_ab(unsigned c
 	mk_lang_bi_ulllong_t bui1;
 	mk_lang_bi_ulllong_t bui2;
 	unsigned char cf_;
-	mk_lang_bool_t cf;
+	mk_lang_types_bool_t cf;
 	mk_lang_bi_ulllong_t buir;
 
 	d = data;
@@ -4131,7 +4130,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cie_cod_alias_ab(unsigned c
 	check_data(sizeof(cf_));
 	memcpy(&cf_, d, sizeof(cf_));
 	advance(sizeof(cf_));
-	cf = ((mk_lang_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
+	cf = ((mk_lang_types_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui1, &bui1);
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui2, &bui2);
 	mk_sl_cui_inl_defd_sub3_wrap_cie_cod(&cui1, &cui1, cf, &cui2);
@@ -4157,7 +4156,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cie_cod_alias_ac(unsigned c
 	mk_lang_bi_ulllong_t bui1;
 	mk_lang_bi_ulllong_t bui2;
 	unsigned char cf_;
-	mk_lang_bool_t cf;
+	mk_lang_types_bool_t cf;
 	mk_lang_bi_ulllong_t buir;
 
 	d = data;
@@ -4177,7 +4176,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cie_cod_alias_ac(unsigned c
 	check_data(sizeof(cf_));
 	memcpy(&cf_, d, sizeof(cf_));
 	advance(sizeof(cf_));
-	cf = ((mk_lang_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
+	cf = ((mk_lang_types_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui1, &bui1);
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui2, &bui2);
 	mk_sl_cui_inl_defd_sub3_wrap_cie_cod(&cui1, &cui2, cf, &cui1);
@@ -4203,7 +4202,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cie_cod_alias_bc(unsigned c
 	mk_lang_bi_ulllong_t bui1;
 	mk_lang_bi_ulllong_t bui2;
 	unsigned char cf_;
-	mk_lang_bool_t cf;
+	mk_lang_types_bool_t cf;
 	mk_lang_bi_ulllong_t buir;
 
 	d = data;
@@ -4223,7 +4222,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cie_cod_alias_bc(unsigned c
 	check_data(sizeof(cf_));
 	memcpy(&cf_, d, sizeof(cf_));
 	advance(sizeof(cf_));
-	cf = ((mk_lang_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
+	cf = ((mk_lang_types_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui1, &bui1);
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui2, &bui2);
 	mk_sl_cui_inl_defd_sub3_wrap_cie_cod(&cui1, &cui2, cf, &cui2);
@@ -4247,7 +4246,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cie_cod_alias_abc(unsigned 
 	mk_sl_cui_inl_defd_t cui;
 	mk_lang_bi_ulllong_t bui;
 	unsigned char cf_;
-	mk_lang_bool_t cf;
+	mk_lang_types_bool_t cf;
 	mk_lang_bi_ulllong_t buir;
 
 	d = data;
@@ -4261,7 +4260,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cie_cod_alias_abc(unsigned 
 	check_data(sizeof(cf_));
 	memcpy(&cf_, d, sizeof(cf_));
 	advance(sizeof(cf_));
-	cf = ((mk_lang_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
+	cf = ((mk_lang_types_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui, &bui);
 	mk_sl_cui_inl_defd_sub3_wrap_cie_cod(&cui, &cui, cf, &cui);
 	mk_lang_bui_ulllong_sub3_wrap_cie_cod(&bui, &bui, cf, &bui);
@@ -4295,11 +4294,11 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cie_coe_restrict(unsigned c
 	mk_lang_bi_ulllong_t bui1;
 	mk_lang_bi_ulllong_t bui2;
 	unsigned char cf_;
-	mk_lang_bool_t cf;
+	mk_lang_types_bool_t cf;
 	mk_sl_cui_inl_defd_t cui3;
-	mk_lang_bool_t cuicf;
+	mk_lang_types_bool_t cuicf;
 	mk_lang_bi_ulllong_t bui3;
-	mk_lang_bool_t buicf;
+	mk_lang_types_bool_t buicf;
 	mk_lang_bi_ulllong_t buir;
 
 	d = data;
@@ -4319,7 +4318,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cie_coe_restrict(unsigned c
 	check_data(sizeof(cf_));
 	memcpy(&cf_, d, sizeof(cf_));
 	advance(sizeof(cf_));
-	cf = ((mk_lang_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
+	cf = ((mk_lang_types_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui1, &bui1);
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui2, &bui2);
 	check_data(sizeof(cui3));
@@ -4357,9 +4356,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cie_coe_alias_ab(unsigned c
 	mk_lang_bi_ulllong_t bui1;
 	mk_lang_bi_ulllong_t bui2;
 	unsigned char cf_;
-	mk_lang_bool_t cf;
-	mk_lang_bool_t cuicf;
-	mk_lang_bool_t buicf;
+	mk_lang_types_bool_t cf;
+	mk_lang_types_bool_t cuicf;
+	mk_lang_types_bool_t buicf;
 	mk_lang_bi_ulllong_t buir;
 
 	d = data;
@@ -4379,7 +4378,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cie_coe_alias_ab(unsigned c
 	check_data(sizeof(cf_));
 	memcpy(&cf_, d, sizeof(cf_));
 	advance(sizeof(cf_));
-	cf = ((mk_lang_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
+	cf = ((mk_lang_types_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui1, &bui1);
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui2, &bui2);
 	check_data(sizeof(cuicf));
@@ -4411,9 +4410,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cie_coe_alias_ac(unsigned c
 	mk_lang_bi_ulllong_t bui1;
 	mk_lang_bi_ulllong_t bui2;
 	unsigned char cf_;
-	mk_lang_bool_t cf;
-	mk_lang_bool_t cuicf;
-	mk_lang_bool_t buicf;
+	mk_lang_types_bool_t cf;
+	mk_lang_types_bool_t cuicf;
+	mk_lang_types_bool_t buicf;
 	mk_lang_bi_ulllong_t buir;
 
 	d = data;
@@ -4433,7 +4432,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cie_coe_alias_ac(unsigned c
 	check_data(sizeof(cf_));
 	memcpy(&cf_, d, sizeof(cf_));
 	advance(sizeof(cf_));
-	cf = ((mk_lang_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
+	cf = ((mk_lang_types_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui1, &bui1);
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui2, &bui2);
 	check_data(sizeof(cuicf));
@@ -4465,9 +4464,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cie_coe_alias_bc(unsigned c
 	mk_lang_bi_ulllong_t bui1;
 	mk_lang_bi_ulllong_t bui2;
 	unsigned char cf_;
-	mk_lang_bool_t cf;
-	mk_lang_bool_t cuicf;
-	mk_lang_bool_t buicf;
+	mk_lang_types_bool_t cf;
+	mk_lang_types_bool_t cuicf;
+	mk_lang_types_bool_t buicf;
 	mk_lang_bi_ulllong_t buir;
 
 	d = data;
@@ -4487,7 +4486,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cie_coe_alias_bc(unsigned c
 	check_data(sizeof(cf_));
 	memcpy(&cf_, d, sizeof(cf_));
 	advance(sizeof(cf_));
-	cf = ((mk_lang_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
+	cf = ((mk_lang_types_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui1, &bui1);
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui2, &bui2);
 	check_data(sizeof(cuicf));
@@ -4517,9 +4516,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cie_coe_alias_abc(unsigned 
 	mk_sl_cui_inl_defd_t cui;
 	mk_lang_bi_ulllong_t bui;
 	unsigned char cf_;
-	mk_lang_bool_t cf;
-	mk_lang_bool_t cuicf;
-	mk_lang_bool_t buicf;
+	mk_lang_types_bool_t cf;
+	mk_lang_types_bool_t cuicf;
+	mk_lang_types_bool_t buicf;
 	mk_lang_bi_ulllong_t buir;
 
 	d = data;
@@ -4533,7 +4532,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cie_coe_alias_abc(unsigned 
 	check_data(sizeof(cf_));
 	memcpy(&cf_, d, sizeof(cf_));
 	advance(sizeof(cf_));
-	cf = ((mk_lang_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
+	cf = ((mk_lang_types_bool_t)(((unsigned)(cf_)) & ((unsigned)(1u))));
 	mk_sl_cui_fuzz_inl_defd_from_bi_ulllong(&cui, &bui);
 	check_data(sizeof(cuicf));
 	memcpy(&cuicf, d, sizeof(cuicf));

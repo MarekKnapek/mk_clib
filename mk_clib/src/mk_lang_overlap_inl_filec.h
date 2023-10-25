@@ -1,5 +1,4 @@
 #include "mk_lang_assert.h"
-#include "mk_lang_bool.h"
 #include "mk_lang_concat.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_jumbo.h"
@@ -17,7 +16,7 @@
 #define mk_lang_overlap_fn mk_lang_concat(mk_lang_overlap_, mk_lang_overlap_name)
 
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_overlap_fn(mk_lang_overlap_t const* const arr1, mk_lang_types_usize_t const len1, mk_lang_overlap_t const* const arr2, mk_lang_types_usize_t const len2) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lang_overlap_fn(mk_lang_overlap_t const* const arr1, mk_lang_types_usize_t const len1, mk_lang_overlap_t const* const arr2, mk_lang_types_usize_t const len2) mk_lang_noexcept
 {
 #if mk_lang_constexpr_has
 	mk_lang_types_usize_t i mk_lang_constexpr_init;
@@ -42,7 +41,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_overlap
 	unsigned char const* p2;
 	mk_lang_types_usize_t l1;
 	mk_lang_types_usize_t l2;
-	mk_lang_bool_t ret;
+	mk_lang_types_bool_t ret;
 
 	mk_lang_assert(arr1);
 	mk_lang_assert(arr2);

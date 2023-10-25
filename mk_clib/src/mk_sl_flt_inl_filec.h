@@ -1,11 +1,11 @@
 #include "mk_lang_assert.h"
-#include "mk_lang_bool.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_div_roundup.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_likely.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_types.h"
 
 
 #include "mk_sl_flt_inl_defhd.h"
@@ -40,7 +40,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_flt_defd_bytes_to_st
 	mk_sl_flt_defd_cui_t cui mk_lang_constexpr_init;
 	mk_sl_flt_defd_cui_t ta mk_lang_constexpr_init;
 	mk_sl_flt_defd_cui_t tb mk_lang_constexpr_init;
-	mk_lang_bool_t is_negative mk_lang_constexpr_init;
+	mk_lang_types_bool_t is_negative mk_lang_constexpr_init;
 	int exponent_encoded mk_lang_constexpr_init;
 	int exponent_decoded mk_lang_constexpr_init;
 	mk_sl_flt_defd_cui_t fraction mk_lang_constexpr_init;

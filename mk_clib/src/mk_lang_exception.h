@@ -33,7 +33,7 @@ typedef mk_lang_exception_t const* mk_lang_exception_pct;
 
 
 mk_lang_jumbo void mk_lang_exception_make_none(mk_lang_exception_pt const ex) mk_lang_noexcept;
-mk_lang_nodiscard mk_lang_jumbo mk_lang_bool_t mk_lang_exception_is(mk_lang_exception_pct const ex) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_exception_is(mk_lang_exception_pct const ex) mk_lang_noexcept;
 
 
 #define mk_lang_exception_if_is_return(x) if(mk_lang_exception_is(x)) mk_lang_unlikely return; ((void)(0))

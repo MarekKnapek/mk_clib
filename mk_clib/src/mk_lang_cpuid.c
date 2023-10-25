@@ -55,7 +55,7 @@ mk_lang_jumbo void mk_lang_cpuid_reset(void) mk_lang_noexcept
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_sse_impl(void) mk_lang_noexcept
 {
-	mk_lang_bool_t has;
+	mk_lang_types_bool_t has;
 
 	has = (g_mk_lang_cpuid_regs.m_data.m_sints[3] & (1u << 25)) != 0;
 	return has;
@@ -63,7 +63,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_sse_impl(
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_sse2_impl(void) mk_lang_noexcept
 {
-	mk_lang_bool_t has;
+	mk_lang_types_bool_t has;
 
 	has = (g_mk_lang_cpuid_regs.m_data.m_sints[3] & (1u << 26)) != 0;
 	return has;
@@ -71,7 +71,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_sse2_impl
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_aes_ni(void) mk_lang_noexcept
 {
-	mk_lang_bool_t has;
+	mk_lang_types_bool_t has;
 
 	has = (g_mk_lang_cpuid_regs.m_data.m_sints[2] & (1u << 25)) != 0;
 	return has;
@@ -91,7 +91,7 @@ mk_lang_jumbo void mk_lang_cpuid_reset(void) mk_lang_noexcept
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_sse_impl(void) mk_lang_noexcept
 {
-	mk_lang_bool_t has;
+	mk_lang_types_bool_t has;
 
 	has = mk_lang_false;
 	return has;
@@ -99,7 +99,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_sse_impl(
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_sse2_impl(void) mk_lang_noexcept
 {
-	mk_lang_bool_t has;
+	mk_lang_types_bool_t has;
 
 	has = mk_lang_false;
 	return has;
@@ -107,7 +107,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_sse2_impl
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_aes_ni(void) mk_lang_noexcept
 {
-	mk_lang_bool_t has;
+	mk_lang_types_bool_t has;
 
 	has = mk_lang_false;
 	return has;

@@ -8,11 +8,11 @@
 #if mk_lang_constexpr_has
 #include "mk_lang_assert.h"
 #include "mk_lang_bi.h"
-#include "mk_lang_bool.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_sizeof.h"
 #include "mk_lang_static_assert.h"
+#include "mk_lang_types.h"
 #define mk_lang_bui_name cnstxpr
 #define mk_lang_bui_type mk_lang_bi_uint_t
 #define mk_lang_bui_sizeof mk_lang_sizeof_bi_uint_t
@@ -40,7 +40,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_lang_constexpr_test_(vo
 		mk_lang_bi_uchar_t c[mk_lang_sizeof_bi_uint_t] mk_lang_constexpr_init;
 		mk_lang_bi_ulllong_t d mk_lang_constexpr_init;
 		mk_lang_bi_uint_t e mk_lang_constexpr_init;
-		mk_lang_bool_t cf mk_lang_constexpr_init;
+		mk_lang_types_bool_t cf mk_lang_constexpr_init;
 		mk_lang_bi_uint_t f mk_lang_constexpr_init;
 		mk_lang_bi_uint_t g mk_lang_constexpr_init;
 
@@ -130,7 +130,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_lang_constexpr_test_(vo
 		mk_lang_bi_uchar_t c[mk_lang_sizeof_bi_uint_t*99] mk_lang_constexpr_init;
 		mk_lang_bi_ulllong_t d[99] mk_lang_constexpr_init;
 		mk_sl_cui_cnstxpr_t e mk_lang_constexpr_init;
-		mk_lang_bool_t cf mk_lang_constexpr_init;
+		mk_lang_types_bool_t cf mk_lang_constexpr_init;
 		mk_sl_cui_cnstxpr_t f mk_lang_constexpr_init;
 		mk_sl_cui_cnstxpr_t g mk_lang_constexpr_init;
 

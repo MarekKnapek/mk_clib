@@ -1,5 +1,4 @@
 #include "mk_lang_assert.h"
-#include "mk_lang_bool.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_for_constants.h"
 #include "mk_lang_jumbo.h"
@@ -10,6 +9,7 @@
 #include "mk_lang_noexcept.h"
 #include "mk_lang_overlap.h"
 #include "mk_lang_static_assert.h"
+#include "mk_lang_types.h"
 
 
 #include "mk_sl_cui_inl_defd.h"
@@ -282,7 +282,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_cui_inl_defd_count_o
 }
 
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_defd_has_lsb(mk_sl_cui_inl_defd_t const* const x) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_inl_defd_has_lsb(mk_sl_cui_inl_defd_t const* const x) mk_lang_noexcept
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -294,7 +294,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_d
 }
 
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_defd_is_zero(mk_sl_cui_inl_defd_t const* const x) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_inl_defd_is_zero(mk_sl_cui_inl_defd_t const* const x) mk_lang_noexcept
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -315,7 +315,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_d
 #endif
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_defd_is_max(mk_sl_cui_inl_defd_t const* const x) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_inl_defd_is_max(mk_sl_cui_inl_defd_t const* const x) mk_lang_noexcept
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -336,7 +336,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_d
 #endif
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_defd_eq(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_inl_defd_eq(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b) mk_lang_noexcept
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(a);
@@ -366,7 +366,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_d
 #endif
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_defd_ne(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_inl_defd_ne(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b) mk_lang_noexcept
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(a);
@@ -396,7 +396,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_d
 #endif
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_defd_lt(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_inl_defd_lt(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b) mk_lang_noexcept
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(a);
@@ -430,7 +430,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_d
 #endif
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_defd_le(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_inl_defd_le(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b) mk_lang_noexcept
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(a);
@@ -464,7 +464,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_d
 #endif
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_defd_gt(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_inl_defd_gt(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b) mk_lang_noexcept
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(a);
@@ -498,7 +498,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_d
 #endif
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_defd_ge(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_inl_defd_ge(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b) mk_lang_noexcept
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(a);
@@ -547,7 +547,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_inc2(mk_sl_cui_inl_defd_
 	else
 	{
 		int i mk_lang_constexpr_init;
-		mk_lang_bool_t c mk_lang_constexpr_init;
+		mk_lang_types_bool_t c mk_lang_constexpr_init;
 
 		mk_lang_assert(a);
 		mk_lang_assert(b);
@@ -585,7 +585,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_dec2(mk_sl_cui_inl_defd_
 	else
 	{
 		int i mk_lang_constexpr_init;
-		mk_lang_bool_t c mk_lang_constexpr_init;
+		mk_lang_types_bool_t c mk_lang_constexpr_init;
 
 		mk_lang_assert(a);
 		mk_lang_assert(b);
@@ -616,7 +616,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_inc1(mk_sl_cui_inl_defd_
 	mk_sl_cui_inl_defd_base_inc1(&x->m_data[0]);
 #else
 	int i mk_lang_constexpr_init;
-	mk_lang_bool_t c mk_lang_constexpr_init;
+	mk_lang_types_bool_t c mk_lang_constexpr_init;
 
 	mk_lang_assert(x);
 
@@ -640,7 +640,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_dec1(mk_sl_cui_inl_defd_
 	mk_sl_cui_inl_defd_base_dec1(&x->m_data[0]);
 #else
 	int i mk_lang_constexpr_init;
-	mk_lang_bool_t c mk_lang_constexpr_init;
+	mk_lang_types_bool_t c mk_lang_constexpr_init;
 
 	mk_lang_assert(x);
 
@@ -972,7 +972,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_rotr2(mk_sl_cui_inl_defd
 }
 
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_defd_would_overflow_add_cc(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_inl_defd_would_overflow_add_cc(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b) mk_lang_noexcept
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(a);
@@ -1004,7 +1004,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_d
 #endif
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_defd_would_overflow_add_cs(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_inl_defd_would_overflow_add_cs(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b) mk_lang_noexcept
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(a);
@@ -1036,27 +1036,27 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_d
 #endif
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_defd_would_overflow_add(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b, mk_lang_bool_t const cf) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_inl_defd_would_overflow_add(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b, mk_lang_types_bool_t const cf) mk_lang_noexcept
 {
 	return cf ? mk_sl_cui_inl_defd_would_overflow_add_cs(a, b) : mk_sl_cui_inl_defd_would_overflow_add_cc(a, b);
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_defd_would_overflow_sub_cc(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_inl_defd_would_overflow_sub_cc(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b) mk_lang_noexcept
 {
 	return mk_sl_cui_inl_defd_lt(a, b);
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_defd_would_overflow_sub_cs(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_inl_defd_would_overflow_sub_cs(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b) mk_lang_noexcept
 {
 	return mk_sl_cui_inl_defd_le(a, b);
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_defd_would_overflow_sub(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b, mk_lang_bool_t const cf) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_inl_defd_would_overflow_sub(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b, mk_lang_types_bool_t const cf) mk_lang_noexcept
 {
 	return cf ? mk_sl_cui_inl_defd_would_overflow_sub_cs(a, b) : mk_sl_cui_inl_defd_would_overflow_sub_cc(a, b);
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_sl_cui_inl_defd_would_overflow_mul(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_inl_defd_would_overflow_mul(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b) mk_lang_noexcept
 {
 	mk_sl_cui_inl_defd_t c mk_lang_constexpr_init;
 	mk_sl_cui_inl_defd_t d mk_lang_constexpr_init;
@@ -1078,7 +1078,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_add3_wrap_cid_cod(mk_sl_
 
 	mk_sl_cui_inl_defd_base_add3_wrap_cid_cod(&a->m_data[0], &b->m_data[0], &c->m_data[0]);
 #else
-	mk_lang_bool_t cf mk_lang_constexpr_init;
+	mk_lang_types_bool_t cf mk_lang_constexpr_init;
 	int i mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
@@ -1094,7 +1094,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_add3_wrap_cid_cod(mk_sl_
 #endif
 }
 
-mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_add3_wrap_cid_coe(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b, mk_sl_cui_inl_defd_t* const c, mk_lang_bool_t* const co) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_add3_wrap_cid_coe(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b, mk_sl_cui_inl_defd_t* const c, mk_lang_types_bool_t* const co) mk_lang_noexcept
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(a);
@@ -1104,7 +1104,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_add3_wrap_cid_coe(mk_sl_
 
 	mk_sl_cui_inl_defd_base_add3_wrap_cid_coe(&a->m_data[0], &b->m_data[0], &c->m_data[0], co);
 #else
-	mk_lang_bool_t cf mk_lang_constexpr_init;
+	mk_lang_types_bool_t cf mk_lang_constexpr_init;
 	int i mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
@@ -1121,7 +1121,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_add3_wrap_cid_coe(mk_sl_
 #endif
 }
 
-mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_add3_wrap_cie_cod(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b, mk_lang_bool_t const ci, mk_sl_cui_inl_defd_t* const c) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_add3_wrap_cie_cod(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b, mk_lang_types_bool_t const ci, mk_sl_cui_inl_defd_t* const c) mk_lang_noexcept
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(a);
@@ -1130,7 +1130,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_add3_wrap_cie_cod(mk_sl_
 
 	mk_sl_cui_inl_defd_base_add3_wrap_cie_cod(&a->m_data[0], &b->m_data[0], ci, &c->m_data[0]);
 #else
-	mk_lang_bool_t cf mk_lang_constexpr_init;
+	mk_lang_types_bool_t cf mk_lang_constexpr_init;
 	int i mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
@@ -1146,7 +1146,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_add3_wrap_cie_cod(mk_sl_
 #endif
 }
 
-mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_add3_wrap_cie_coe(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b, mk_lang_bool_t const ci, mk_sl_cui_inl_defd_t* const c, mk_lang_bool_t* const co) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_add3_wrap_cie_coe(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b, mk_lang_types_bool_t const ci, mk_sl_cui_inl_defd_t* const c, mk_lang_types_bool_t* const co) mk_lang_noexcept
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(a);
@@ -1156,7 +1156,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_add3_wrap_cie_coe(mk_sl_
 
 	mk_sl_cui_inl_defd_base_add3_wrap_cie_coe(&a->m_data[0], &b->m_data[0], ci, &c->m_data[0], co);
 #else
-	mk_lang_bool_t cf mk_lang_constexpr_init;
+	mk_lang_types_bool_t cf mk_lang_constexpr_init;
 	int i mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
@@ -1178,17 +1178,17 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_add2_wrap_cid_cod(mk_sl_
 	mk_sl_cui_inl_defd_add3_wrap_cid_cod(a, b, a);
 }
 
-mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_add2_wrap_cid_coe(mk_sl_cui_inl_defd_t* const a, mk_sl_cui_inl_defd_t const* const b, mk_lang_bool_t* const co) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_add2_wrap_cid_coe(mk_sl_cui_inl_defd_t* const a, mk_sl_cui_inl_defd_t const* const b, mk_lang_types_bool_t* const co) mk_lang_noexcept
 {
 	mk_sl_cui_inl_defd_add3_wrap_cid_coe(a, b, a, co);
 }
 
-mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_add2_wrap_cie_cod(mk_sl_cui_inl_defd_t* const a, mk_sl_cui_inl_defd_t const* const b, mk_lang_bool_t const ci) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_add2_wrap_cie_cod(mk_sl_cui_inl_defd_t* const a, mk_sl_cui_inl_defd_t const* const b, mk_lang_types_bool_t const ci) mk_lang_noexcept
 {
 	mk_sl_cui_inl_defd_add3_wrap_cie_cod(a, b, ci, a);
 }
 
-mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_add2_wrap_cie_coe(mk_sl_cui_inl_defd_t* const a, mk_sl_cui_inl_defd_t const* const b, mk_lang_bool_t const ci, mk_lang_bool_t* const co) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_add2_wrap_cie_coe(mk_sl_cui_inl_defd_t* const a, mk_sl_cui_inl_defd_t const* const b, mk_lang_types_bool_t const ci, mk_lang_types_bool_t* const co) mk_lang_noexcept
 {
 	mk_sl_cui_inl_defd_add3_wrap_cie_coe(a, b, ci, a, co);
 }
@@ -1203,7 +1203,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_sub3_wrap_cid_cod(mk_sl_
 
 	mk_sl_cui_inl_defd_base_sub3_wrap_cid_cod(&a->m_data[0], &b->m_data[0], &c->m_data[0]);
 #else
-	mk_lang_bool_t cf mk_lang_constexpr_init;
+	mk_lang_types_bool_t cf mk_lang_constexpr_init;
 	int i mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
@@ -1219,7 +1219,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_sub3_wrap_cid_cod(mk_sl_
 #endif
 }
 
-mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_sub3_wrap_cid_coe(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b, mk_sl_cui_inl_defd_t* const c, mk_lang_bool_t* const co) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_sub3_wrap_cid_coe(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b, mk_sl_cui_inl_defd_t* const c, mk_lang_types_bool_t* const co) mk_lang_noexcept
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(a);
@@ -1229,7 +1229,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_sub3_wrap_cid_coe(mk_sl_
 
 	mk_sl_cui_inl_defd_base_sub3_wrap_cid_coe(&a->m_data[0], &b->m_data[0], &c->m_data[0], co);
 #else
-	mk_lang_bool_t cf mk_lang_constexpr_init;
+	mk_lang_types_bool_t cf mk_lang_constexpr_init;
 	int i mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
@@ -1246,7 +1246,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_sub3_wrap_cid_coe(mk_sl_
 #endif
 }
 
-mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_sub3_wrap_cie_cod(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b, mk_lang_bool_t const ci, mk_sl_cui_inl_defd_t* const c) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_sub3_wrap_cie_cod(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b, mk_lang_types_bool_t const ci, mk_sl_cui_inl_defd_t* const c) mk_lang_noexcept
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(a);
@@ -1255,7 +1255,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_sub3_wrap_cie_cod(mk_sl_
 
 	mk_sl_cui_inl_defd_base_sub3_wrap_cie_cod(&a->m_data[0], &b->m_data[0], ci, &c->m_data[0]);
 #else
-	mk_lang_bool_t cf mk_lang_constexpr_init;
+	mk_lang_types_bool_t cf mk_lang_constexpr_init;
 	int i mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
@@ -1271,7 +1271,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_sub3_wrap_cie_cod(mk_sl_
 #endif
 }
 
-mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_sub3_wrap_cie_coe(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b, mk_lang_bool_t const ci, mk_sl_cui_inl_defd_t* const c, mk_lang_bool_t* const co) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_sub3_wrap_cie_coe(mk_sl_cui_inl_defd_t const* const a, mk_sl_cui_inl_defd_t const* const b, mk_lang_types_bool_t const ci, mk_sl_cui_inl_defd_t* const c, mk_lang_types_bool_t* const co) mk_lang_noexcept
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(a);
@@ -1281,7 +1281,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_sub3_wrap_cie_coe(mk_sl_
 
 	mk_sl_cui_inl_defd_base_sub3_wrap_cie_coe(&a->m_data[0], &b->m_data[0], ci, &c->m_data[0], co);
 #else
-	mk_lang_bool_t cf mk_lang_constexpr_init;
+	mk_lang_types_bool_t cf mk_lang_constexpr_init;
 	int i mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
@@ -1303,17 +1303,17 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_sub2_wrap_cid_cod(mk_sl_
 	mk_sl_cui_inl_defd_sub3_wrap_cid_cod(a, b, a);
 }
 
-mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_sub2_wrap_cid_coe(mk_sl_cui_inl_defd_t* const a, mk_sl_cui_inl_defd_t const* const b, mk_lang_bool_t* const co) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_sub2_wrap_cid_coe(mk_sl_cui_inl_defd_t* const a, mk_sl_cui_inl_defd_t const* const b, mk_lang_types_bool_t* const co) mk_lang_noexcept
 {
 	mk_sl_cui_inl_defd_sub3_wrap_cid_coe(a, b, a, co);
 }
 
-mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_sub2_wrap_cie_cod(mk_sl_cui_inl_defd_t* const a, mk_sl_cui_inl_defd_t const* const b, mk_lang_bool_t const ci) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_sub2_wrap_cie_cod(mk_sl_cui_inl_defd_t* const a, mk_sl_cui_inl_defd_t const* const b, mk_lang_types_bool_t const ci) mk_lang_noexcept
 {
 	mk_sl_cui_inl_defd_sub3_wrap_cie_cod(a, b, ci, a);
 }
 
-mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_sub2_wrap_cie_coe(mk_sl_cui_inl_defd_t* const a, mk_sl_cui_inl_defd_t const* const b, mk_lang_bool_t const ci, mk_lang_bool_t* const co) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_sub2_wrap_cie_coe(mk_sl_cui_inl_defd_t* const a, mk_sl_cui_inl_defd_t const* const b, mk_lang_types_bool_t const ci, mk_lang_types_bool_t* const co) mk_lang_noexcept
 {
 	mk_sl_cui_inl_defd_sub3_wrap_cie_coe(a, b, ci, a, co);
 }
@@ -1337,7 +1337,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_mul3_wrap_lo_restrict(mk
 	mk_sl_cui_inl_defd_base_add2_wrap_cid_cod(&c->m_data[mk_sl_cui_inl_defd_idx(1)], &ta);
 #elif mk_sl_cui_inl_defd_count == 3
 	mk_sl_cui_inl_defd_base_type ta mk_lang_constexpr_init;
-	mk_lang_bool_t cf mk_lang_constexpr_init;
+	mk_lang_types_bool_t cf mk_lang_constexpr_init;
 	mk_sl_cui_inl_defd_base_type tb mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
@@ -1360,7 +1360,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_mul3_wrap_lo_restrict(mk
 	mk_sl_cui_inl_defd_base_add2_wrap_cid_cod(&c->m_data[mk_sl_cui_inl_defd_idx(2)], &ta);
 #elif mk_sl_cui_inl_defd_count == 4
 	mk_sl_cui_inl_defd_base_type ta mk_lang_constexpr_init;
-	mk_lang_bool_t cf mk_lang_constexpr_init;
+	mk_lang_types_bool_t cf mk_lang_constexpr_init;
 	mk_sl_cui_inl_defd_base_type tb mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
@@ -1395,7 +1395,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_mul3_wrap_lo_restrict(mk
 	mk_sl_cui_inl_defd_base_add2_wrap_cid_cod(&c->m_data[mk_sl_cui_inl_defd_idx(3)], &ta);
 #else
 	mk_sl_cui_inl_defd_base_type ta mk_lang_constexpr_init;
-	mk_lang_bool_t cf mk_lang_constexpr_init;
+	mk_lang_types_bool_t cf mk_lang_constexpr_init;
 	mk_sl_cui_inl_defd_base_type tb mk_lang_constexpr_init;
 	int j mk_lang_constexpr_init;
 	int i mk_lang_constexpr_init;
@@ -1488,7 +1488,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_mul3_wrap_hi_restrict(mk
 #if mk_sl_cui_inl_defd_count == 2
 	mk_sl_cui_inl_defd_base_type ta mk_lang_constexpr_init;
 	mk_sl_cui_inl_defd_base_type tb mk_lang_constexpr_init;
-	mk_lang_bool_t cf mk_lang_constexpr_init;
+	mk_lang_types_bool_t cf mk_lang_constexpr_init;
 	mk_sl_cui_inl_defd_base_type tc mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
@@ -1516,7 +1516,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_mul3_wrap_hi_restrict(mk
 	mk_sl_cui_inl_defd_base_type ta mk_lang_constexpr_init;
 	mk_sl_cui_inl_defd_base_type tb mk_lang_constexpr_init;
 	mk_sl_cui_inl_defd_base_type tc mk_lang_constexpr_init;
-	mk_lang_bool_t cf mk_lang_constexpr_init;
+	mk_lang_types_bool_t cf mk_lang_constexpr_init;
 	mk_sl_cui_inl_defd_base_type td mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
@@ -1587,7 +1587,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_mul3_wrap_hi_restrict(mk
 	mk_sl_cui_inl_defd_base_type ta mk_lang_constexpr_init;
 	mk_sl_cui_inl_defd_base_type tb mk_lang_constexpr_init;
 	mk_sl_cui_inl_defd_base_type tc mk_lang_constexpr_init;
-	mk_lang_bool_t cf mk_lang_constexpr_init;
+	mk_lang_types_bool_t cf mk_lang_constexpr_init;
 	mk_sl_cui_inl_defd_base_type td mk_lang_constexpr_init;
 	mk_sl_cui_inl_defd_base_type* t0 mk_lang_constexpr_init;
 	mk_sl_cui_inl_defd_base_type* t1 mk_lang_constexpr_init;
@@ -1746,7 +1746,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_mul4_wrap_wi_restrict(mk
 
 	mk_sl_cui_inl_defd_t* out[2] mk_lang_constexpr_init;
 	mk_sl_cui_inl_defd_base_type ta mk_lang_constexpr_init;
-	mk_lang_bool_t cf mk_lang_constexpr_init;
+	mk_lang_types_bool_t cf mk_lang_constexpr_init;
 	mk_sl_cui_inl_defd_base_type tb mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
@@ -1782,7 +1782,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_mul4_wrap_wi_restrict(mk
 
 	mk_sl_cui_inl_defd_t* out[2] mk_lang_constexpr_init;
 	mk_sl_cui_inl_defd_base_type ta mk_lang_constexpr_init;
-	mk_lang_bool_t cf mk_lang_constexpr_init;
+	mk_lang_types_bool_t cf mk_lang_constexpr_init;
 	mk_sl_cui_inl_defd_base_type tb mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
@@ -1859,7 +1859,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_mul4_wrap_wi_restrict(mk
 
 	mk_sl_cui_inl_defd_t* out[2] mk_lang_constexpr_init;
 	mk_sl_cui_inl_defd_base_type ta mk_lang_constexpr_init;
-	mk_lang_bool_t cf mk_lang_constexpr_init;
+	mk_lang_types_bool_t cf mk_lang_constexpr_init;
 	mk_sl_cui_inl_defd_base_type tb mk_lang_constexpr_init;
 	int j mk_lang_constexpr_init;
 	int i mk_lang_constexpr_init;
@@ -2182,7 +2182,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_mul3_wrap_lo_smol(mk_sl_
 	mk_sl_cui_inl_defd_base_add2_wrap_cid_cod(&c->m_data[mk_sl_cui_inl_defd_idx(1)], &t);
 #elif mk_sl_cui_inl_defd_count == 3
 	mk_sl_cui_inl_defd_base_type t mk_lang_constexpr_init;
-	mk_lang_bool_t cf mk_lang_constexpr_init;
+	mk_lang_types_bool_t cf mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -2199,7 +2199,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_mul3_wrap_lo_smol(mk_sl_
 	mk_sl_cui_inl_defd_base_add2_wrap_cid_cod(&c->m_data[mk_sl_cui_inl_defd_idx(2)], &t);
 #elif mk_sl_cui_inl_defd_count == 4
 	mk_sl_cui_inl_defd_base_type t mk_lang_constexpr_init;
-	mk_lang_bool_t cf mk_lang_constexpr_init;
+	mk_lang_types_bool_t cf mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -2219,7 +2219,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_mul3_wrap_lo_smol(mk_sl_
 	mk_sl_cui_inl_defd_base_add2_wrap_cid_cod(&c->m_data[mk_sl_cui_inl_defd_idx(3)], &t);
 #else
 	mk_sl_cui_inl_defd_base_type t mk_lang_constexpr_init;
-	mk_lang_bool_t cf mk_lang_constexpr_init;
+	mk_lang_types_bool_t cf mk_lang_constexpr_init;
 	int i mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
@@ -2252,7 +2252,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_add2_wrap_cid_cod_smol(m
 	
 	mk_sl_cui_inl_defd_base_add2_wrap_cid_cod(&a->m_data[0], b);
 #else
-	mk_lang_bool_t cf mk_lang_constexpr_init;
+	mk_lang_types_bool_t cf mk_lang_constexpr_init;
 	int i mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
@@ -2286,7 +2286,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_mul4_wrap_wi_smol(mk_sl_
 	mk_sl_cui_inl_defd_base_mul4_wrap_wi(&a->m_data[0], b, &c->m_data[0], d);
 #elif mk_sl_cui_inl_defd_count == 2
 	mk_sl_cui_inl_defd_base_type t mk_lang_constexpr_init;
-	mk_lang_bool_t cf mk_lang_constexpr_init;
+	mk_lang_types_bool_t cf mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -2302,7 +2302,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_mul4_wrap_wi_smol(mk_sl_
 	if(cf) mk_sl_cui_inl_defd_base_dec1(d);
 #elif mk_sl_cui_inl_defd_count == 3
 	mk_sl_cui_inl_defd_base_type t mk_lang_constexpr_init;
-	mk_lang_bool_t cf mk_lang_constexpr_init;
+	mk_lang_types_bool_t cf mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -2321,7 +2321,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_mul4_wrap_wi_smol(mk_sl_
 	if(cf) mk_sl_cui_inl_defd_base_inc1(d);
 #elif mk_sl_cui_inl_defd_count == 4
 	mk_sl_cui_inl_defd_base_type t mk_lang_constexpr_init;
-	mk_lang_bool_t cf mk_lang_constexpr_init;
+	mk_lang_types_bool_t cf mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -2343,7 +2343,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_mul4_wrap_wi_smol(mk_sl_
 	if(cf) mk_sl_cui_inl_defd_base_inc1(d);
 #else
 	mk_sl_cui_inl_defd_base_type t mk_lang_constexpr_init;
-	mk_lang_bool_t cf mk_lang_constexpr_init;
+	mk_lang_types_bool_t cf mk_lang_constexpr_init;
 	int i mk_lang_constexpr_init;
 
 	mk_lang_assert(a);

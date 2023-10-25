@@ -1,8 +1,8 @@
-#include "mk_lang_bool.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_types.h"
 
 
 #include "mk_lang_bui_inl_defd.h"
@@ -41,16 +41,16 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_lang_bui_inl_defd_count
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_lang_bui_inl_defd_count_zeros(mk_lang_bui_inl_defd_type const* const x) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_lang_bui_inl_defd_count_ones(mk_lang_bui_inl_defd_type const* const x) mk_lang_noexcept;
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_has_lsb(mk_lang_bui_inl_defd_type const* const x) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lang_bui_inl_defd_has_lsb(mk_lang_bui_inl_defd_type const* const x) mk_lang_noexcept;
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_is_zero(mk_lang_bui_inl_defd_type const* const x) mk_lang_noexcept;
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_is_max(mk_lang_bui_inl_defd_type const* const x) mk_lang_noexcept;
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_eq(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b) mk_lang_noexcept;
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_ne(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b) mk_lang_noexcept;
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_lt(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b) mk_lang_noexcept;
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_le(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b) mk_lang_noexcept;
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_gt(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b) mk_lang_noexcept;
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_ge(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lang_bui_inl_defd_is_zero(mk_lang_bui_inl_defd_type const* const x) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lang_bui_inl_defd_is_max(mk_lang_bui_inl_defd_type const* const x) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lang_bui_inl_defd_eq(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lang_bui_inl_defd_ne(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lang_bui_inl_defd_lt(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lang_bui_inl_defd_le(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lang_bui_inl_defd_gt(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lang_bui_inl_defd_ge(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b) mk_lang_noexcept;
 
 mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_inc2(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type* const b) mk_lang_noexcept;
 mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_dec2(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type* const b) mk_lang_noexcept;
@@ -75,31 +75,31 @@ mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_shr2(mk_lang_bui_inl_d
 mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_rotl2(mk_lang_bui_inl_defd_type* const a, int const b) mk_lang_noexcept;
 mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_rotr2(mk_lang_bui_inl_defd_type* const a, int const b) mk_lang_noexcept;
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_would_overflow_add_cc(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b) mk_lang_noexcept;
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_would_overflow_add_cs(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b) mk_lang_noexcept;
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_would_overflow_add(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_bool_t const cf) mk_lang_noexcept;
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_would_overflow_sub_cc(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b) mk_lang_noexcept;
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_would_overflow_sub_cs(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b) mk_lang_noexcept;
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_would_overflow_sub(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_bool_t const cf) mk_lang_noexcept;
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_would_overflow_mul(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lang_bui_inl_defd_would_overflow_add_cc(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lang_bui_inl_defd_would_overflow_add_cs(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lang_bui_inl_defd_would_overflow_add(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_types_bool_t const cf) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lang_bui_inl_defd_would_overflow_sub_cc(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lang_bui_inl_defd_would_overflow_sub_cs(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lang_bui_inl_defd_would_overflow_sub(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_types_bool_t const cf) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lang_bui_inl_defd_would_overflow_mul(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b) mk_lang_noexcept;
 
 mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_add3_wrap_cid_cod(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_bui_inl_defd_type* const c) mk_lang_noexcept;
-mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_add3_wrap_cid_coe(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_bui_inl_defd_type* const c, mk_lang_bool_t* const co) mk_lang_noexcept;
-mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_add3_wrap_cie_cod(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_bool_t const ci, mk_lang_bui_inl_defd_type* const c) mk_lang_noexcept;
-mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_add3_wrap_cie_coe(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_bool_t const ci, mk_lang_bui_inl_defd_type* const c, mk_lang_bool_t* const co) mk_lang_noexcept;
+mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_add3_wrap_cid_coe(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_bui_inl_defd_type* const c, mk_lang_types_bool_t* const co) mk_lang_noexcept;
+mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_add3_wrap_cie_cod(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_types_bool_t const ci, mk_lang_bui_inl_defd_type* const c) mk_lang_noexcept;
+mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_add3_wrap_cie_coe(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_types_bool_t const ci, mk_lang_bui_inl_defd_type* const c, mk_lang_types_bool_t* const co) mk_lang_noexcept;
 mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_add2_wrap_cid_cod(mk_lang_bui_inl_defd_type* const a, mk_lang_bui_inl_defd_type const* const b) mk_lang_noexcept;
-mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_add2_wrap_cid_coe(mk_lang_bui_inl_defd_type* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_bool_t* const co) mk_lang_noexcept;
-mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_add2_wrap_cie_cod(mk_lang_bui_inl_defd_type* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_bool_t const ci) mk_lang_noexcept;
-mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_add2_wrap_cie_coe(mk_lang_bui_inl_defd_type* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_bool_t const ci, mk_lang_bool_t* const co) mk_lang_noexcept;
+mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_add2_wrap_cid_coe(mk_lang_bui_inl_defd_type* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_types_bool_t* const co) mk_lang_noexcept;
+mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_add2_wrap_cie_cod(mk_lang_bui_inl_defd_type* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_types_bool_t const ci) mk_lang_noexcept;
+mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_add2_wrap_cie_coe(mk_lang_bui_inl_defd_type* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_types_bool_t const ci, mk_lang_types_bool_t* const co) mk_lang_noexcept;
 
 mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_sub3_wrap_cid_cod(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_bui_inl_defd_type* const c) mk_lang_noexcept;
-mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_sub3_wrap_cid_coe(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_bui_inl_defd_type* const c, mk_lang_bool_t* const co) mk_lang_noexcept;
-mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_sub3_wrap_cie_cod(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_bool_t const ci, mk_lang_bui_inl_defd_type* const c) mk_lang_noexcept;
-mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_sub3_wrap_cie_coe(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_bool_t const ci, mk_lang_bui_inl_defd_type* const c, mk_lang_bool_t* const co) mk_lang_noexcept;
+mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_sub3_wrap_cid_coe(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_bui_inl_defd_type* const c, mk_lang_types_bool_t* const co) mk_lang_noexcept;
+mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_sub3_wrap_cie_cod(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_types_bool_t const ci, mk_lang_bui_inl_defd_type* const c) mk_lang_noexcept;
+mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_sub3_wrap_cie_coe(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_types_bool_t const ci, mk_lang_bui_inl_defd_type* const c, mk_lang_types_bool_t* const co) mk_lang_noexcept;
 mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_sub2_wrap_cid_cod(mk_lang_bui_inl_defd_type* const a, mk_lang_bui_inl_defd_type const* const b) mk_lang_noexcept;
-mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_sub2_wrap_cid_coe(mk_lang_bui_inl_defd_type* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_bool_t* const co) mk_lang_noexcept;
-mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_sub2_wrap_cie_cod(mk_lang_bui_inl_defd_type* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_bool_t const ci) mk_lang_noexcept;
-mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_sub2_wrap_cie_coe(mk_lang_bui_inl_defd_type* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_bool_t const ci, mk_lang_bool_t* const co) mk_lang_noexcept;
+mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_sub2_wrap_cid_coe(mk_lang_bui_inl_defd_type* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_types_bool_t* const co) mk_lang_noexcept;
+mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_sub2_wrap_cie_cod(mk_lang_bui_inl_defd_type* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_types_bool_t const ci) mk_lang_noexcept;
+mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_sub2_wrap_cie_coe(mk_lang_bui_inl_defd_type* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_types_bool_t const ci, mk_lang_types_bool_t* const co) mk_lang_noexcept;
 
 mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_mul3_wrap_lo(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_bui_inl_defd_type* const c) mk_lang_noexcept;
 mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_mul3_wrap_hi(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_bui_inl_defd_type* const c) mk_lang_noexcept;

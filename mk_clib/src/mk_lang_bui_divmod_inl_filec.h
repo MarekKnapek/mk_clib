@@ -1,6 +1,5 @@
 #include "mk_lang_assert.h"
 #include "mk_lang_bi.h"
-#include "mk_lang_bool.h"
 #include "mk_lang_bui_to2.h"
 #include "mk_lang_bui_to3.h"
 #include "mk_lang_charbit.h"
@@ -13,6 +12,7 @@
 #include "mk_lang_overlap.h"
 #include "mk_lang_sizeof.h"
 #include "mk_lang_static_assert.h"
+#include "mk_lang_types.h"
 
 
 #include "mk_lang_bui_divmod_inl_defd.h"
@@ -215,9 +215,9 @@ mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_divmod_inl_defd_fn_complex_n_n(
 	#endif
 	mk_lang_bui_divmod_inl_defd_bt dq[mk_lang_bui_divmod_inl_defd_lenb + 1] mk_lang_constexpr_init;
 	mk_lang_bui_divmod_inl_defd_bt tc mk_lang_constexpr_init;
-	mk_lang_bool_t overshoot mk_lang_constexpr_init;
-	mk_lang_bool_t borrow1 mk_lang_constexpr_init;
-	mk_lang_bool_t borrow2 mk_lang_constexpr_init;
+	mk_lang_types_bool_t overshoot mk_lang_constexpr_init;
+	mk_lang_types_bool_t borrow1 mk_lang_constexpr_init;
+	mk_lang_types_bool_t borrow2 mk_lang_constexpr_init;
 
 	mk_lang_static_assert(sizeof(mk_lang_bui_divmod_inl_defd_bt2) >= 2 * sizeof(mk_lang_bui_divmod_inl_defd_bt));
 	#if mk_lang_bui_divmod_inl_defd_alg == 2

@@ -2,13 +2,12 @@
 
 #include "mk_clib_fuzz.h"
 #include "mk_clib_test.h"
-#include "mk_lang_bool.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
 
 
-static mk_lang_bool_t g_clib_app_fuzz_once = mk_lang_false;
+static mk_lang_types_bool_t g_clib_app_fuzz_once = mk_lang_false;
 
 
 mk_lang_jumbo int mk_clib_app_fuzz(unsigned char const* const data, mk_lang_types_usize_t const size) mk_lang_noexcept
