@@ -79,7 +79,7 @@ typedef enum mk_clib_app_crypt_param_id_e mk_clib_app_crypt_param_id_t;
 
 union mk_clib_app_crypt_aligned_buff_u
 {
-	mk_lang_bi_uchar_t m_uchars[4 * 1024];
+	mk_lang_types_uchar_t m_uchars[4 * 1024];
 	mk_lang_types_ulllong_t m_ulllong;
 };
 typedef union mk_clib_app_crypt_aligned_buff_u mk_clib_app_crypt_aligned_buff_t;

@@ -619,31 +619,31 @@ mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_mul3_wrap_hi(mk_lang_b
 	mk_lang_assert(b);
 	mk_lang_assert(c);
 
-	*c = ((mk_lang_bui_inl_defd_type)(((mk_lang_bi_ushort_t)(((mk_lang_bi_ushort_t)(*a)) * ((mk_lang_bi_ushort_t)(*b)))) >> ((int)(mk_lang_bui_inl_defd_sizeof * mk_lang_charbit))));
+	*c = ((mk_lang_bui_inl_defd_type)(((mk_lang_types_ushort_t)(((mk_lang_types_ushort_t)(*a)) * ((mk_lang_types_ushort_t)(*b)))) >> ((int)(mk_lang_bui_inl_defd_sizeof * mk_lang_charbit))));
 #elif mk_lang_sizeof_bi_uint_t >= 2 * mk_lang_bui_inl_defd_sizeof
 	mk_lang_assert(a);
 	mk_lang_assert(b);
 	mk_lang_assert(c);
 
-	*c = ((mk_lang_bui_inl_defd_type)(((mk_lang_bi_uint_t)(((mk_lang_bi_uint_t)(*a)) * ((mk_lang_bi_uint_t)(*b)))) >> ((int)(mk_lang_bui_inl_defd_sizeof * mk_lang_charbit))));
+	*c = ((mk_lang_bui_inl_defd_type)(((mk_lang_types_uint_t)(((mk_lang_types_uint_t)(*a)) * ((mk_lang_types_uint_t)(*b)))) >> ((int)(mk_lang_bui_inl_defd_sizeof * mk_lang_charbit))));
 #elif mk_lang_sizeof_bi_ulong_t >= 2 * mk_lang_bui_inl_defd_sizeof
 	mk_lang_assert(a);
 	mk_lang_assert(b);
 	mk_lang_assert(c);
 
-	*c = ((mk_lang_bui_inl_defd_type)(((mk_lang_bi_ulong_t)(((mk_lang_bi_ulong_t)(*a)) * ((mk_lang_bi_ulong_t)(*b)))) >> ((int)(mk_lang_bui_inl_defd_sizeof * mk_lang_charbit))));
+	*c = ((mk_lang_bui_inl_defd_type)(((mk_lang_types_ulong_t)(((mk_lang_types_ulong_t)(*a)) * ((mk_lang_types_ulong_t)(*b)))) >> ((int)(mk_lang_bui_inl_defd_sizeof * mk_lang_charbit))));
 #elif mk_lang_sizeof_bi_ullong_t >= 2 * mk_lang_bui_inl_defd_sizeof
 	mk_lang_assert(a);
 	mk_lang_assert(b);
 	mk_lang_assert(c);
 
-	*c = ((mk_lang_bui_inl_defd_type)(((mk_lang_bi_ullong_t)(((mk_lang_bi_ullong_t)(*a)) * ((mk_lang_bi_ullong_t)(*b)))) >> ((int)(mk_lang_bui_inl_defd_sizeof * mk_lang_charbit))));
+	*c = ((mk_lang_bui_inl_defd_type)(((mk_lang_types_ullong_t)(((mk_lang_types_ullong_t)(*a)) * ((mk_lang_types_ullong_t)(*b)))) >> ((int)(mk_lang_bui_inl_defd_sizeof * mk_lang_charbit))));
 #elif mk_lang_sizeof_bi_ulllong_t >= 2 * mk_lang_bui_inl_defd_sizeof
 	mk_lang_assert(a);
 	mk_lang_assert(b);
 	mk_lang_assert(c);
 
-	*c = ((mk_lang_bui_inl_defd_type)(((mk_lang_bi_ulllong_t)(((mk_lang_bi_ulllong_t)(*a)) * ((mk_lang_bi_ulllong_t)(*b)))) >> ((int)(mk_lang_bui_inl_defd_sizeof * mk_lang_charbit))));
+	*c = ((mk_lang_bui_inl_defd_type)(((mk_lang_types_ulllong_t)(((mk_lang_types_ulllong_t)(*a)) * ((mk_lang_types_ulllong_t)(*b)))) >> ((int)(mk_lang_bui_inl_defd_sizeof * mk_lang_charbit))));
 #elif mk_lang_intrinsic_want && defined _MSC_VER && _MSC_VER >= 1500 /* vs 2008 */ && (defined _M_IX86 || defined _M_AMD64) && mk_lang_bui_inl_defd_sizeof * mk_lang_charbit == 32
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -705,9 +705,9 @@ mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_mul3_wrap_hi(mk_lang_b
 mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_mul4_wrap_wi(mk_lang_bui_inl_defd_type const* const a, mk_lang_bui_inl_defd_type const* const b, mk_lang_bui_inl_defd_type* const c, mk_lang_bui_inl_defd_type* const d) mk_lang_noexcept
 {
 #if mk_lang_sizeof_bi_ushort_t >= 2 * mk_lang_bui_inl_defd_sizeof
-	mk_lang_bi_ushort_t aa mk_lang_constexpr_init;
-	mk_lang_bi_ushort_t bb mk_lang_constexpr_init;
-	mk_lang_bi_ushort_t cc mk_lang_constexpr_init;
+	mk_lang_types_ushort_t aa mk_lang_constexpr_init;
+	mk_lang_types_ushort_t bb mk_lang_constexpr_init;
+	mk_lang_types_ushort_t cc mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -715,15 +715,15 @@ mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_mul4_wrap_wi(mk_lang_b
 	mk_lang_assert(d);
 	mk_lang_assert(c != d);
 
-	aa = ((mk_lang_bi_ushort_t)(*a));
-	bb = ((mk_lang_bi_ushort_t)(*b));
-	cc = ((mk_lang_bi_ushort_t)(aa * bb));
+	aa = ((mk_lang_types_ushort_t)(*a));
+	bb = ((mk_lang_types_ushort_t)(*b));
+	cc = ((mk_lang_types_ushort_t)(aa * bb));
 	*c = ((mk_lang_bui_inl_defd_type)(cc));
 	*d = ((mk_lang_bui_inl_defd_type)(cc >> ((int)(mk_lang_bui_inl_defd_sizeof * mk_lang_charbit))));
 #elif mk_lang_sizeof_bi_uint_t >= 2 * mk_lang_bui_inl_defd_sizeof
-	mk_lang_bi_uint_t aa mk_lang_constexpr_init;
-	mk_lang_bi_uint_t bb mk_lang_constexpr_init;
-	mk_lang_bi_uint_t cc mk_lang_constexpr_init;
+	mk_lang_types_uint_t aa mk_lang_constexpr_init;
+	mk_lang_types_uint_t bb mk_lang_constexpr_init;
+	mk_lang_types_uint_t cc mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -731,15 +731,15 @@ mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_mul4_wrap_wi(mk_lang_b
 	mk_lang_assert(d);
 	mk_lang_assert(c != d);
 
-	aa = ((mk_lang_bi_uint_t)(*a));
-	bb = ((mk_lang_bi_uint_t)(*b));
-	cc = ((mk_lang_bi_uint_t)(aa * bb));
+	aa = ((mk_lang_types_uint_t)(*a));
+	bb = ((mk_lang_types_uint_t)(*b));
+	cc = ((mk_lang_types_uint_t)(aa * bb));
 	*c = ((mk_lang_bui_inl_defd_type)(cc));
 	*d = ((mk_lang_bui_inl_defd_type)(cc >> ((int)(mk_lang_bui_inl_defd_sizeof * mk_lang_charbit))));
 #elif mk_lang_sizeof_bi_ulong_t >= 2 * mk_lang_bui_inl_defd_sizeof
-	mk_lang_bi_ulong_t aa mk_lang_constexpr_init;
-	mk_lang_bi_ulong_t bb mk_lang_constexpr_init;
-	mk_lang_bi_ulong_t cc mk_lang_constexpr_init;
+	mk_lang_types_ulong_t aa mk_lang_constexpr_init;
+	mk_lang_types_ulong_t bb mk_lang_constexpr_init;
+	mk_lang_types_ulong_t cc mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -747,15 +747,15 @@ mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_mul4_wrap_wi(mk_lang_b
 	mk_lang_assert(d);
 	mk_lang_assert(c != d);
 
-	aa = ((mk_lang_bi_ulong_t)(*a));
-	bb = ((mk_lang_bi_ulong_t)(*b));
-	cc = ((mk_lang_bi_ulong_t)(aa * bb));
+	aa = ((mk_lang_types_ulong_t)(*a));
+	bb = ((mk_lang_types_ulong_t)(*b));
+	cc = ((mk_lang_types_ulong_t)(aa * bb));
 	*c = ((mk_lang_bui_inl_defd_type)(cc));
 	*d = ((mk_lang_bui_inl_defd_type)(cc >> ((int)(mk_lang_bui_inl_defd_sizeof * mk_lang_charbit))));
 #elif mk_lang_sizeof_bi_ullong_t >= 2 * mk_lang_bui_inl_defd_sizeof
-	mk_lang_bi_ullong_t aa mk_lang_constexpr_init;
-	mk_lang_bi_ullong_t bb mk_lang_constexpr_init;
-	mk_lang_bi_ullong_t cc mk_lang_constexpr_init;
+	mk_lang_types_ullong_t aa mk_lang_constexpr_init;
+	mk_lang_types_ullong_t bb mk_lang_constexpr_init;
+	mk_lang_types_ullong_t cc mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -763,15 +763,15 @@ mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_mul4_wrap_wi(mk_lang_b
 	mk_lang_assert(d);
 	mk_lang_assert(c != d);
 
-	aa = ((mk_lang_bi_ullong_t)(*a));
-	bb = ((mk_lang_bi_ullong_t)(*b));
-	cc = ((mk_lang_bi_ullong_t)(aa * bb));
+	aa = ((mk_lang_types_ullong_t)(*a));
+	bb = ((mk_lang_types_ullong_t)(*b));
+	cc = ((mk_lang_types_ullong_t)(aa * bb));
 	*c = ((mk_lang_bui_inl_defd_type)(cc));
 	*d = ((mk_lang_bui_inl_defd_type)(cc >> ((int)(mk_lang_bui_inl_defd_sizeof * mk_lang_charbit))));
 #elif mk_lang_sizeof_bi_ulllong_t >= 2 * mk_lang_bui_inl_defd_sizeof
-	mk_lang_bi_ulllong_t aa mk_lang_constexpr_init;
-	mk_lang_bi_ulllong_t bb mk_lang_constexpr_init;
-	mk_lang_bi_ulllong_t cc mk_lang_constexpr_init;
+	mk_lang_types_ulllong_t aa mk_lang_constexpr_init;
+	mk_lang_types_ulllong_t bb mk_lang_constexpr_init;
+	mk_lang_types_ulllong_t cc mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -779,9 +779,9 @@ mk_lang_constexpr mk_lang_jumbo void mk_lang_bui_inl_defd_mul4_wrap_wi(mk_lang_b
 	mk_lang_assert(d);
 	mk_lang_assert(c != d);
 
-	aa = ((mk_lang_bi_ulllong_t)(*a));
-	bb = ((mk_lang_bi_ulllong_t)(*b));
-	cc = ((mk_lang_bi_ulllong_t)(aa * bb));
+	aa = ((mk_lang_types_ulllong_t)(*a));
+	bb = ((mk_lang_types_ulllong_t)(*b));
+	cc = ((mk_lang_types_ulllong_t)(aa * bb));
 	*c = ((mk_lang_bui_inl_defd_type)(cc));
 	*d = ((mk_lang_bui_inl_defd_type)(cc >> ((int)(mk_lang_bui_inl_defd_sizeof * mk_lang_charbit))));
 #elif mk_lang_intrinsic_want && defined _MSC_VER && _MSC_VER >= 1500 /* vs 2008 */ && (defined _M_IX86 || defined _M_AMD64) && mk_lang_bui_inl_defd_sizeof * mk_lang_charbit == 32

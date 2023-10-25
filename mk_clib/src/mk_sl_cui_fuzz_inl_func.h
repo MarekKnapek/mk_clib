@@ -22,10 +22,10 @@
 
 
 #if mk_sl_cui_inl_defd_bits <= (mk_lang_sizeof_bi_ulllong_t * mk_lang_charbit)
-mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_mask(mk_lang_bi_ulllong_t* const bui) mk_lang_noexcept
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_mask(mk_lang_types_ulllong_t* const bui) mk_lang_noexcept
 {
 #if mk_sl_cui_inl_defd_bits != (mk_lang_sizeof_bi_ulllong_t * mk_lang_charbit)
-	mk_lang_bi_ulllong_t mask;
+	mk_lang_types_ulllong_t mask;
 
 	mk_lang_assert(bui);
 
@@ -41,8 +41,8 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_set_zero(unsigned char const* const d
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 
 	d = data;
 	s = size;
@@ -67,8 +67,8 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_set_max(unsigned char const* const da
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 
 	d = data;
 	s = size;
@@ -96,8 +96,8 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_set_one(unsigned char const* const da
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 
 	d = data;
 	s = size;
@@ -122,8 +122,8 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_set_bit(unsigned char const* const da
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 	int val;
 
 	d = data;
@@ -157,8 +157,8 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_set_mask(unsigned char const* const d
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 	int val;
 
 	d = data;
@@ -212,7 +212,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_is_zero(unsigned char const* const da
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
+	mk_lang_types_ulllong_t bui;
 
 	d = data;
 	s = size;
@@ -236,7 +236,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_is_max(unsigned char const* const dat
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
+	mk_lang_types_ulllong_t bui;
 
 	d = data;
 	s = size;
@@ -260,8 +260,8 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_eq_restrict(unsigned char const* cons
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 
 	d = data;
 	s = size;
@@ -289,7 +289,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_eq_alias(unsigned char const* const d
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
+	mk_lang_types_ulllong_t bui;
 
 	d = data;
 	s = size;
@@ -315,8 +315,8 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_ne_restrict(unsigned char const* cons
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 
 	d = data;
 	s = size;
@@ -344,7 +344,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_ne_alias(unsigned char const* const d
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
+	mk_lang_types_ulllong_t bui;
 
 	d = data;
 	s = size;
@@ -370,8 +370,8 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_lt_restrict(unsigned char const* cons
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 
 	d = data;
 	s = size;
@@ -399,7 +399,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_lt_alias(unsigned char const* const d
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
+	mk_lang_types_ulllong_t bui;
 
 	d = data;
 	s = size;
@@ -425,8 +425,8 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_le_restrict(unsigned char const* cons
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 
 	d = data;
 	s = size;
@@ -454,7 +454,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_le_alias(unsigned char const* const d
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
+	mk_lang_types_ulllong_t bui;
 
 	d = data;
 	s = size;
@@ -480,8 +480,8 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_gt_restrict(unsigned char const* cons
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 
 	d = data;
 	s = size;
@@ -509,7 +509,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_gt_alias(unsigned char const* const d
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
+	mk_lang_types_ulllong_t bui;
 
 	d = data;
 	s = size;
@@ -535,8 +535,8 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_ge_restrict(unsigned char const* cons
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 
 	d = data;
 	s = size;
@@ -564,7 +564,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_ge_alias(unsigned char const* const d
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
+	mk_lang_types_ulllong_t bui;
 
 	d = data;
 	s = size;
@@ -588,11 +588,11 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_inc2_restrict(unsigned char const* co
 {
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
-	mk_lang_bi_ulllong_t bui;
+	mk_lang_types_ulllong_t bui;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t buir1;
+	mk_lang_types_ulllong_t buir1;
 	mk_sl_cui_inl_defd_t cuir1;
-	mk_lang_bi_ulllong_t buir2;
+	mk_lang_types_ulllong_t buir2;
 
 	d = data;
 	s = size;
@@ -624,9 +624,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_inc2_alias(unsigned char const* const
 {
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
-	mk_lang_bi_ulllong_t bui;
+	mk_lang_types_ulllong_t bui;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -658,11 +658,11 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_dec2_restrict(unsigned char const* co
 {
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
-	mk_lang_bi_ulllong_t bui;
+	mk_lang_types_ulllong_t bui;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t buir1;
+	mk_lang_types_ulllong_t buir1;
 	mk_sl_cui_inl_defd_t cuir1;
-	mk_lang_bi_ulllong_t buir2;
+	mk_lang_types_ulllong_t buir2;
 
 	d = data;
 	s = size;
@@ -694,9 +694,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_dec2_alias(unsigned char const* const
 {
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
-	mk_lang_bi_ulllong_t bui;
+	mk_lang_types_ulllong_t bui;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -728,9 +728,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_inc1(unsigned char const* const data,
 {
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
-	mk_lang_bi_ulllong_t bui;
+	mk_lang_types_ulllong_t bui;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -756,9 +756,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_dec1(unsigned char const* const data,
 {
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
-	mk_lang_bi_ulllong_t bui;
+	mk_lang_types_ulllong_t bui;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -785,10 +785,10 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_not2_restrict(unsigned char const* co
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
-	mk_lang_bi_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui2;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui2;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -821,8 +821,8 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_not2_alias(unsigned char const* const
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -856,11 +856,11 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_or3_restrict(unsigned char const* con
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 	mk_sl_cui_inl_defd_t cui3;
-	mk_lang_bi_ulllong_t bui3;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui3;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -902,9 +902,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_or3_alias_ab(unsigned char const* con
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -939,9 +939,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_or3_alias_ac(unsigned char const* con
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -977,9 +977,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_or3_alias_bc(unsigned char const* con
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -1014,8 +1014,8 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_or3_alias_abc(unsigned char const* co
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -1052,11 +1052,11 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_and3_restrict(unsigned char const* co
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 	mk_sl_cui_inl_defd_t cui3;
-	mk_lang_bi_ulllong_t bui3;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui3;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -1098,9 +1098,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_and3_alias_ab(unsigned char const* co
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -1136,9 +1136,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_and3_alias_ac(unsigned char const* co
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -1174,9 +1174,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_and3_alias_bc(unsigned char const* co
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -1211,8 +1211,8 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_and3_alias_abc(unsigned char const* c
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -1249,11 +1249,11 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_xor3_restrict(unsigned char const* co
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 	mk_sl_cui_inl_defd_t cui3;
-	mk_lang_bi_ulllong_t bui3;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui3;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -1295,9 +1295,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_xor3_alias_ab(unsigned char const* co
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -1333,9 +1333,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_xor3_alias_ac(unsigned char const* co
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -1371,9 +1371,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_xor3_alias_bc(unsigned char const* co
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -1408,8 +1408,8 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_xor3_alias_abc(unsigned char const* c
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -1445,8 +1445,8 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_not1(unsigned char const* const data,
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -1474,9 +1474,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_or2_restrict(unsigned char const* con
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -1511,8 +1511,8 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_or2_alias(unsigned char const* const 
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -1546,9 +1546,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_and2_restrict(unsigned char const* co
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -1583,8 +1583,8 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_and2_alias(unsigned char const* const
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -1618,9 +1618,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_xor2_restrict(unsigned char const* co
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -1655,8 +1655,8 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_xor2_alias(unsigned char const* const
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -1691,11 +1691,11 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_shl3_restrict(unsigned char const* co
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 	unsigned char val_;
 	int val;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -1736,10 +1736,10 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_shl3_alias(unsigned char const* const
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
+	mk_lang_types_ulllong_t bui;
 	unsigned char val_;
 	int val;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -1782,11 +1782,11 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_shr3_restrict(unsigned char const* co
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 	unsigned char val_;
 	int val;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -1827,10 +1827,10 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_shr3_alias(unsigned char const* const
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
+	mk_lang_types_ulllong_t bui;
 	unsigned char val_;
 	int val;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -1873,11 +1873,11 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_rotl3_restrict(unsigned char const* c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 	unsigned char val_;
 	int val;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -1918,10 +1918,10 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_rotl3_alias(unsigned char const* cons
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
+	mk_lang_types_ulllong_t bui;
 	unsigned char val_;
 	int val;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -1962,11 +1962,11 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_rotr3_restrict(unsigned char const* c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 	unsigned char val_;
 	int val;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -2007,10 +2007,10 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_rotr3_alias(unsigned char const* cons
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
+	mk_lang_types_ulllong_t bui;
 	unsigned char val_;
 	int val;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -2051,10 +2051,10 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_shl2(unsigned char const* const data,
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
+	mk_lang_types_ulllong_t bui;
 	unsigned char val_;
 	int val;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -2085,10 +2085,10 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_shr2(unsigned char const* const data,
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
+	mk_lang_types_ulllong_t bui;
 	unsigned char val_;
 	int val;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -2120,10 +2120,10 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_rotl2(unsigned char const* const data
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
+	mk_lang_types_ulllong_t bui;
 	unsigned char val_;
 	int val;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -2159,10 +2159,10 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_rotr2(unsigned char const* const data
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
+	mk_lang_types_ulllong_t bui;
 	unsigned char val_;
 	int val;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -2197,8 +2197,8 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_add_cc_restrict(unsign
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 
 	d = data;
 	s = size;
@@ -2229,7 +2229,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_add_cc_alias(unsigned 
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
+	mk_lang_types_ulllong_t bui;
 
 	d = data;
 	s = size;
@@ -2260,8 +2260,8 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_add_cs_restrict(unsign
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 
 	d = data;
 	s = size;
@@ -2292,7 +2292,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_add_cs_alias(unsigned 
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
+	mk_lang_types_ulllong_t bui;
 
 	d = data;
 	s = size;
@@ -2323,8 +2323,8 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_add_restrict(unsigned 
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 	unsigned char b_;
 	mk_lang_types_bool_t b;
 
@@ -2361,7 +2361,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_add_alias(unsigned cha
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
+	mk_lang_types_ulllong_t bui;
 	unsigned char b_;
 	mk_lang_types_bool_t b;
 
@@ -2398,8 +2398,8 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_sub_cc_restrict(unsign
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 
 	d = data;
 	s = size;
@@ -2429,7 +2429,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_sub_cc_alias(unsigned 
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
+	mk_lang_types_ulllong_t bui;
 
 	d = data;
 	s = size;
@@ -2456,8 +2456,8 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_sub_cs_restrict(unsign
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 
 	d = data;
 	s = size;
@@ -2488,7 +2488,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_sub_cs_alias(unsigned 
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
+	mk_lang_types_ulllong_t bui;
 
 	d = data;
 	s = size;
@@ -2519,8 +2519,8 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_sub_restrict(unsigned 
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 	unsigned char b_;
 	mk_lang_types_bool_t b;
 
@@ -2557,7 +2557,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_sub_alias(unsigned cha
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
+	mk_lang_types_ulllong_t bui;
 	unsigned char b_;
 	mk_lang_types_bool_t b;
 
@@ -2593,8 +2593,8 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_mul_restrict(unsigned 
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 
 	d = data;
 	s = size;
@@ -2620,7 +2620,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_would_overflow_mul_alias(unsigned cha
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
+	mk_lang_types_ulllong_t bui;
 
 	d = data;
 	s = size;
@@ -2646,11 +2646,11 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cid_cod_restrict(unsigned c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 	mk_sl_cui_inl_defd_t cui3;
-	mk_lang_bi_ulllong_t bui3;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui3;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -2692,9 +2692,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cid_cod_alias_ab(unsigned c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -2730,9 +2730,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cid_cod_alias_ac(unsigned c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -2768,9 +2768,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cid_cod_alias_bc(unsigned c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -2805,8 +2805,8 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cid_cod_alias_abc(unsigned 
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -2844,13 +2844,13 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cid_coe_restrict(unsigned c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 	mk_sl_cui_inl_defd_t cui3;
 	mk_lang_types_bool_t cuicf;
-	mk_lang_bi_ulllong_t bui3;
+	mk_lang_types_ulllong_t bui3;
 	mk_lang_types_bool_t buicf;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -2900,11 +2900,11 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cid_coe_alias_ab(unsigned c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 	mk_lang_types_bool_t cuicf;
 	mk_lang_types_bool_t buicf;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -2948,11 +2948,11 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cid_coe_alias_ac(unsigned c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 	mk_lang_types_bool_t cuicf;
 	mk_lang_types_bool_t buicf;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -2996,11 +2996,11 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cid_coe_alias_bc(unsigned c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 	mk_lang_types_bool_t cuicf;
 	mk_lang_types_bool_t buicf;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -3043,10 +3043,10 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cid_coe_alias_abc(unsigned 
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
+	mk_lang_types_ulllong_t bui;
 	mk_lang_types_bool_t cuicf;
 	mk_lang_types_bool_t buicf;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -3092,13 +3092,13 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cie_cod_restrict(unsigned c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 	unsigned char cf_;
 	mk_lang_types_bool_t cf;
 	mk_sl_cui_inl_defd_t cui3;
-	mk_lang_bi_ulllong_t bui3;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui3;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -3146,11 +3146,11 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cie_cod_alias_ab(unsigned c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 	unsigned char cf_;
 	mk_lang_types_bool_t cf;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -3192,11 +3192,11 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cie_cod_alias_ac(unsigned c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 	unsigned char cf_;
 	mk_lang_types_bool_t cf;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -3238,11 +3238,11 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cie_cod_alias_bc(unsigned c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 	unsigned char cf_;
 	mk_lang_types_bool_t cf;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -3283,10 +3283,10 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cie_cod_alias_abc(unsigned 
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
+	mk_lang_types_ulllong_t bui;
 	unsigned char cf_;
 	mk_lang_types_bool_t cf;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -3330,15 +3330,15 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cie_coe_restrict(unsigned c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 	unsigned char cf_;
 	mk_lang_types_bool_t cf;
 	mk_sl_cui_inl_defd_t cui3;
 	mk_lang_types_bool_t cuicf;
-	mk_lang_bi_ulllong_t bui3;
+	mk_lang_types_ulllong_t bui3;
 	mk_lang_types_bool_t buicf;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -3392,13 +3392,13 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cie_coe_alias_ab(unsigned c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 	unsigned char cf_;
 	mk_lang_types_bool_t cf;
 	mk_lang_types_bool_t cuicf;
 	mk_lang_types_bool_t buicf;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -3446,13 +3446,13 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cie_coe_alias_ac(unsigned c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 	unsigned char cf_;
 	mk_lang_types_bool_t cf;
 	mk_lang_types_bool_t cuicf;
 	mk_lang_types_bool_t buicf;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -3500,13 +3500,13 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cie_coe_alias_bc(unsigned c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 	unsigned char cf_;
 	mk_lang_types_bool_t cf;
 	mk_lang_types_bool_t cuicf;
 	mk_lang_types_bool_t buicf;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -3553,12 +3553,12 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_add3_wrap_cie_coe_alias_abc(unsigned 
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
+	mk_lang_types_ulllong_t bui;
 	unsigned char cf_;
 	mk_lang_types_bool_t cf;
 	mk_lang_types_bool_t cuicf;
 	mk_lang_types_bool_t buicf;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -3607,11 +3607,11 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cid_cod_restrict(unsigned c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 	mk_sl_cui_inl_defd_t cui3;
-	mk_lang_bi_ulllong_t bui3;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui3;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -3653,9 +3653,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cid_cod_alias_ab(unsigned c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -3691,9 +3691,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cid_cod_alias_ac(unsigned c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -3729,9 +3729,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cid_cod_alias_bc(unsigned c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -3766,8 +3766,8 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cid_cod_alias_abc(unsigned 
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -3805,13 +3805,13 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cid_coe_restrict(unsigned c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 	mk_sl_cui_inl_defd_t cui3;
 	mk_lang_types_bool_t cuicf;
-	mk_lang_bi_ulllong_t bui3;
+	mk_lang_types_ulllong_t bui3;
 	mk_lang_types_bool_t buicf;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -3861,11 +3861,11 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cid_coe_alias_ab(unsigned c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 	mk_lang_types_bool_t cuicf;
 	mk_lang_types_bool_t buicf;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -3909,11 +3909,11 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cid_coe_alias_ac(unsigned c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 	mk_lang_types_bool_t cuicf;
 	mk_lang_types_bool_t buicf;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -3957,11 +3957,11 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cid_coe_alias_bc(unsigned c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 	mk_lang_types_bool_t cuicf;
 	mk_lang_types_bool_t buicf;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -4004,10 +4004,10 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cid_coe_alias_abc(unsigned 
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
+	mk_lang_types_ulllong_t bui;
 	mk_lang_types_bool_t cuicf;
 	mk_lang_types_bool_t buicf;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -4053,13 +4053,13 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cie_cod_restrict(unsigned c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 	unsigned char cf_;
 	mk_lang_types_bool_t cf;
 	mk_sl_cui_inl_defd_t cui3;
-	mk_lang_bi_ulllong_t bui3;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui3;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -4107,11 +4107,11 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cie_cod_alias_ab(unsigned c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 	unsigned char cf_;
 	mk_lang_types_bool_t cf;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -4153,11 +4153,11 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cie_cod_alias_ac(unsigned c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 	unsigned char cf_;
 	mk_lang_types_bool_t cf;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -4199,11 +4199,11 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cie_cod_alias_bc(unsigned c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 	unsigned char cf_;
 	mk_lang_types_bool_t cf;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -4244,10 +4244,10 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cie_cod_alias_abc(unsigned 
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
+	mk_lang_types_ulllong_t bui;
 	unsigned char cf_;
 	mk_lang_types_bool_t cf;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -4291,15 +4291,15 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cie_coe_restrict(unsigned c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 	unsigned char cf_;
 	mk_lang_types_bool_t cf;
 	mk_sl_cui_inl_defd_t cui3;
 	mk_lang_types_bool_t cuicf;
-	mk_lang_bi_ulllong_t bui3;
+	mk_lang_types_ulllong_t bui3;
 	mk_lang_types_bool_t buicf;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -4353,13 +4353,13 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cie_coe_alias_ab(unsigned c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 	unsigned char cf_;
 	mk_lang_types_bool_t cf;
 	mk_lang_types_bool_t cuicf;
 	mk_lang_types_bool_t buicf;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -4407,13 +4407,13 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cie_coe_alias_ac(unsigned c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 	unsigned char cf_;
 	mk_lang_types_bool_t cf;
 	mk_lang_types_bool_t cuicf;
 	mk_lang_types_bool_t buicf;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -4461,13 +4461,13 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cie_coe_alias_bc(unsigned c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
 	unsigned char cf_;
 	mk_lang_types_bool_t cf;
 	mk_lang_types_bool_t cuicf;
 	mk_lang_types_bool_t buicf;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -4514,12 +4514,12 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_sub3_wrap_cie_coe_alias_abc(unsigned 
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
+	mk_lang_types_ulllong_t bui;
 	unsigned char cf_;
 	mk_lang_types_bool_t cf;
 	mk_lang_types_bool_t cuicf;
 	mk_lang_types_bool_t buicf;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -4569,10 +4569,10 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_mul3_wrap_lo_restrict(unsigned char c
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
 	mk_sl_cui_inl_defd_t cui3;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
-	mk_lang_bi_ulllong_t bui3;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui3;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -4614,9 +4614,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_mul3_wrap_lo_alias_ab(unsigned char c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -4652,9 +4652,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_mul3_wrap_lo_alias_ac(unsigned char c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -4690,9 +4690,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_mul3_wrap_lo_alias_bc(unsigned char c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -4727,8 +4727,8 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_mul3_wrap_lo_alias_abc(unsigned char 
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -4767,10 +4767,10 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_mul3_wrap_hi_restrict(unsigned char c
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
 	mk_sl_cui_inl_defd_t cui3;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
-	mk_lang_bi_ulllong_t bui3;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
+	mk_lang_types_ulllong_t bui3;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -4814,9 +4814,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_mul3_wrap_hi_alias_ab(unsigned char c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -4854,9 +4854,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_mul3_wrap_hi_alias_ac(unsigned char c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -4894,9 +4894,9 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_mul3_wrap_hi_alias_bc(unsigned char c
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui1;
 	mk_sl_cui_inl_defd_t cui2;
-	mk_lang_bi_ulllong_t bui1;
-	mk_lang_bi_ulllong_t bui2;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui1;
+	mk_lang_types_ulllong_t bui2;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -4933,8 +4933,8 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_mul3_wrap_hi_alias_abc(unsigned char 
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t bui;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -4974,14 +4974,14 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_mul4_wrap_wi(unsigned char const* con
 	mk_lang_types_usize_t s;
 	int i;
 	unsigned char val;
-	mk_lang_bi_ulllong_t* b[3];
+	mk_lang_types_ulllong_t* b[3];
 	mk_sl_cui_inl_defd_t* c[3];
-	mk_lang_bi_ulllong_t bui[3];
+	mk_lang_types_ulllong_t bui[3];
 	mk_sl_cui_inl_defd_t cui[3];
-	mk_lang_bi_ulllong_t bui3;
+	mk_lang_types_ulllong_t bui3;
 	mk_sl_cui_inl_defd_t cui3;
-	mk_lang_bi_ulllong_t buir1;
-	mk_lang_bi_ulllong_t buir2;
+	mk_lang_types_ulllong_t buir1;
+	mk_lang_types_ulllong_t buir2;
 
 	d = data;
 	s = size;
@@ -5018,11 +5018,11 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_mul2_wrap_lo(unsigned char const* con
 	mk_lang_types_usize_t s;
 	int i;
 	unsigned char val;
-	mk_lang_bi_ulllong_t* b[2];
+	mk_lang_types_ulllong_t* b[2];
 	mk_sl_cui_inl_defd_t* c[2];
-	mk_lang_bi_ulllong_t bui[2];
+	mk_lang_types_ulllong_t bui[2];
 	mk_sl_cui_inl_defd_t cui[2];
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -5053,11 +5053,11 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_mul2_wrap_hi(unsigned char const* con
 	mk_lang_types_usize_t s;
 	int i;
 	unsigned char val;
-	mk_lang_bi_ulllong_t* b[2];
+	mk_lang_types_ulllong_t* b[2];
 	mk_sl_cui_inl_defd_t* c[2];
-	mk_lang_bi_ulllong_t bui[2];
+	mk_lang_types_ulllong_t bui[2];
 	mk_sl_cui_inl_defd_t cui[2];
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -5087,10 +5087,10 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_mul2_wrap_wi(unsigned char const* con
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	int i;
-	mk_lang_bi_ulllong_t bui[2];
+	mk_lang_types_ulllong_t bui[2];
 	mk_sl_cui_inl_defd_t cui[2];
-	mk_lang_bi_ulllong_t buir1;
-	mk_lang_bi_ulllong_t buir2;
+	mk_lang_types_ulllong_t buir1;
+	mk_lang_types_ulllong_t buir2;
 
 	d = data;
 	s = size;
@@ -5121,11 +5121,11 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_div3_wrap(unsigned char const* const 
 	mk_lang_types_usize_t s;
 	int i;
 	unsigned char val;
-	mk_lang_bi_ulllong_t* b[3];
+	mk_lang_types_ulllong_t* b[3];
 	mk_sl_cui_inl_defd_t* c[3];
-	mk_lang_bi_ulllong_t bui[3];
+	mk_lang_types_ulllong_t bui[3];
 	mk_sl_cui_inl_defd_t cui[3];
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -5157,11 +5157,11 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_mod3_wrap(unsigned char const* const 
 	mk_lang_types_usize_t s;
 	int i;
 	unsigned char val;
-	mk_lang_bi_ulllong_t* b[3];
+	mk_lang_types_ulllong_t* b[3];
 	mk_sl_cui_inl_defd_t* c[3];
-	mk_lang_bi_ulllong_t bui[3];
+	mk_lang_types_ulllong_t bui[3];
 	mk_sl_cui_inl_defd_t cui[3];
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -5193,14 +5193,14 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_divmod4_wrap(unsigned char const* con
 	mk_lang_types_usize_t s;
 	int i;
 	unsigned char val;
-	mk_lang_bi_ulllong_t* b[3];
+	mk_lang_types_ulllong_t* b[3];
 	mk_sl_cui_inl_defd_t* c[3];
-	mk_lang_bi_ulllong_t bui[3];
+	mk_lang_types_ulllong_t bui[3];
 	mk_sl_cui_inl_defd_t cui[3];
-	mk_lang_bi_ulllong_t bui3;
+	mk_lang_types_ulllong_t bui3;
 	mk_sl_cui_inl_defd_t cui3;
-	mk_lang_bi_ulllong_t buir1;
-	mk_lang_bi_ulllong_t buir2;
+	mk_lang_types_ulllong_t buir1;
+	mk_lang_types_ulllong_t buir2;
 
 	d = data;
 	s = size;
@@ -5238,11 +5238,11 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_div2_wrap(unsigned char const* const 
 	mk_lang_types_usize_t s;
 	int i;
 	unsigned char val;
-	mk_lang_bi_ulllong_t* b[2];
+	mk_lang_types_ulllong_t* b[2];
 	mk_sl_cui_inl_defd_t* c[2];
-	mk_lang_bi_ulllong_t bui[2];
+	mk_lang_types_ulllong_t bui[2];
 	mk_sl_cui_inl_defd_t cui[2];
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -5274,11 +5274,11 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_mod2_wrap(unsigned char const* const 
 	mk_lang_types_usize_t s;
 	int i;
 	unsigned char val;
-	mk_lang_bi_ulllong_t* b[2];
+	mk_lang_types_ulllong_t* b[2];
 	mk_sl_cui_inl_defd_t* c[2];
-	mk_lang_bi_ulllong_t bui[2];
+	mk_lang_types_ulllong_t bui[2];
 	mk_sl_cui_inl_defd_t cui[2];
-	mk_lang_bi_ulllong_t buir;
+	mk_lang_types_ulllong_t buir;
 
 	d = data;
 	s = size;
@@ -5309,10 +5309,10 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_defd_divmod2_wrap(unsigned char const* con
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	int i;
-	mk_lang_bi_ulllong_t bui[2];
+	mk_lang_types_ulllong_t bui[2];
 	mk_sl_cui_inl_defd_t cui[2];
-	mk_lang_bi_ulllong_t buir1;
-	mk_lang_bi_ulllong_t buir2;
+	mk_lang_types_ulllong_t buir1;
+	mk_lang_types_ulllong_t buir2;
 
 	d = data;
 	s = size;

@@ -48,7 +48,7 @@
 #define mk_sl_cui_inl_filec_div_t mk_lang_concat(mk_lang_concat(mk_lang_bi_, mk_sl_cui_inl_filec_div_tn), _t)
 #define mk_sl_cui_inl_filec_div_count mk_sl_cui_inl_defd_count
 #define mk_lang_bui_divmod_btn uchar
-#define mk_lang_bui_divmod_bt mk_lang_bi_uchar_t
+#define mk_lang_bui_divmod_bt mk_lang_types_uchar_t
 #define mk_lang_bui_divmod_bt2 mk_lang_bui_to2_uchar_t
 #define mk_lang_bui_divmod_bt3 mk_lang_bui_to3_uchar_t
 #define mk_lang_bui_divmod_lena mk_sl_cui_inl_filec_div_count
@@ -64,7 +64,7 @@
 #define mk_sl_cui_inl_filec_div_t mk_lang_concat(mk_lang_concat(mk_lang_bi_, mk_sl_cui_inl_filec_div_tn), _t)
 #define mk_sl_cui_inl_filec_div_count mk_sl_cui_inl_defd_count
 #define mk_lang_bui_divmod_btn ushort
-#define mk_lang_bui_divmod_bt mk_lang_bi_ushort_t
+#define mk_lang_bui_divmod_bt mk_lang_types_ushort_t
 #define mk_lang_bui_divmod_bt2 mk_lang_bui_to2_ushort_t
 #define mk_lang_bui_divmod_bt3 mk_lang_bui_to3_ushort_t
 #define mk_lang_bui_divmod_lena mk_sl_cui_inl_filec_div_count
@@ -80,7 +80,7 @@
 #define mk_sl_cui_inl_filec_div_t mk_lang_concat(mk_lang_concat(mk_lang_bi_, mk_sl_cui_inl_filec_div_tn), _t)
 #define mk_sl_cui_inl_filec_div_count mk_sl_cui_inl_defd_count
 #define mk_lang_bui_divmod_btn uint
-#define mk_lang_bui_divmod_bt mk_lang_bi_uint_t
+#define mk_lang_bui_divmod_bt mk_lang_types_uint_t
 #define mk_lang_bui_divmod_bt2 mk_lang_bui_to2_uint_t
 #define mk_lang_bui_divmod_bt3 mk_lang_bui_to3_uint_t
 #define mk_lang_bui_divmod_lena mk_sl_cui_inl_filec_div_count
@@ -96,7 +96,7 @@
 #define mk_sl_cui_inl_filec_div_t mk_lang_concat(mk_lang_concat(mk_lang_bi_, mk_sl_cui_inl_filec_div_tn), _t)
 #define mk_sl_cui_inl_filec_div_count mk_sl_cui_inl_defd_count
 #define mk_lang_bui_divmod_btn ulong
-#define mk_lang_bui_divmod_bt mk_lang_bi_ulong_t
+#define mk_lang_bui_divmod_bt mk_lang_types_ulong_t
 #define mk_lang_bui_divmod_bt2 mk_lang_bui_to2_ulong_t
 #define mk_lang_bui_divmod_bt3 mk_lang_bui_to3_ulong_t
 #define mk_lang_bui_divmod_lena mk_sl_cui_inl_filec_div_count
@@ -112,7 +112,7 @@
 #define mk_sl_cui_inl_filec_div_t mk_lang_concat(mk_lang_concat(mk_lang_bi_, mk_sl_cui_inl_filec_div_tn), _t)
 #define mk_sl_cui_inl_filec_div_count mk_sl_cui_inl_defd_count
 #define mk_lang_bui_divmod_btn ullong
-#define mk_lang_bui_divmod_bt mk_lang_bi_ullong_t
+#define mk_lang_bui_divmod_bt mk_lang_types_ullong_t
 #define mk_lang_bui_divmod_bt2 mk_lang_bui_to2_ullong_t
 #define mk_lang_bui_divmod_bt3 mk_lang_bui_to3_ullong_t
 #define mk_lang_bui_divmod_lena mk_sl_cui_inl_filec_div_count
@@ -128,7 +128,7 @@
 #define mk_sl_cui_inl_filec_div_t mk_lang_concat(mk_lang_concat(mk_lang_bi_, mk_sl_cui_inl_filec_div_tn), _t)
 #define mk_sl_cui_inl_filec_div_count mk_sl_cui_inl_defd_count
 #define mk_lang_bui_divmod_btn ulllong
-#define mk_lang_bui_divmod_bt mk_lang_bi_ulllong_t
+#define mk_lang_bui_divmod_bt mk_lang_types_ulllong_t
 #define mk_lang_bui_divmod_bt2 mk_lang_bui_to2_ulllong_t
 #define mk_lang_bui_divmod_bt3 mk_lang_bui_to3_ulllong_t
 #define mk_lang_bui_divmod_lena mk_sl_cui_inl_filec_div_count
@@ -144,7 +144,7 @@
 #define mk_sl_cui_inl_filec_div_t mk_lang_concat(mk_lang_concat(mk_lang_bi_, mk_sl_cui_inl_filec_div_tn), _t)
 #define mk_sl_cui_inl_filec_div_count mk_sl_cui_inl_defd_count
 #define mk_lang_bui_divmod_btn uchar
-#define mk_lang_bui_divmod_bt mk_lang_bi_uchar_t
+#define mk_lang_bui_divmod_bt mk_lang_types_uchar_t
 #define mk_lang_bui_divmod_bt2 mk_lang_bui_to2_uchar_t
 #define mk_lang_bui_divmod_bt3 mk_lang_bui_to3_uchar_t
 #define mk_lang_bui_divmod_lena mk_sl_cui_inl_filec_div_count
@@ -160,7 +160,7 @@
 #define mk_sl_cui_inl_filec_div_t mk_lang_concat(mk_lang_concat(mk_lang_bi_, mk_sl_cui_inl_filec_div_tn), _t)
 #define mk_sl_cui_inl_filec_div_count mk_sl_cui_inl_defd_count
 #define mk_lang_bui_divmod_btn ushort
-#define mk_lang_bui_divmod_bt mk_lang_bi_ushort_t
+#define mk_lang_bui_divmod_bt mk_lang_types_ushort_t
 #define mk_lang_bui_divmod_bt2 mk_lang_bui_to2_ushort_t
 #define mk_lang_bui_divmod_bt3 mk_lang_bui_to3_ushort_t
 #define mk_lang_bui_divmod_lena mk_sl_cui_inl_filec_div_count
@@ -176,7 +176,7 @@
 #define mk_sl_cui_inl_filec_div_t mk_lang_concat(mk_lang_concat(mk_lang_bi_, mk_sl_cui_inl_filec_div_tn), _t)
 #define mk_sl_cui_inl_filec_div_count mk_sl_cui_inl_defd_count
 #define mk_lang_bui_divmod_btn uint
-#define mk_lang_bui_divmod_bt mk_lang_bi_uint_t
+#define mk_lang_bui_divmod_bt mk_lang_types_uint_t
 #define mk_lang_bui_divmod_bt2 mk_lang_bui_to2_uint_t
 #define mk_lang_bui_divmod_bt3 mk_lang_bui_to3_uint_t
 #define mk_lang_bui_divmod_lena mk_sl_cui_inl_filec_div_count
@@ -192,7 +192,7 @@
 #define mk_sl_cui_inl_filec_div_t mk_lang_concat(mk_lang_concat(mk_lang_bi_, mk_sl_cui_inl_filec_div_tn), _t)
 #define mk_sl_cui_inl_filec_div_count mk_sl_cui_inl_defd_count
 #define mk_lang_bui_divmod_btn ulong
-#define mk_lang_bui_divmod_bt mk_lang_bi_ulong_t
+#define mk_lang_bui_divmod_bt mk_lang_types_ulong_t
 #define mk_lang_bui_divmod_bt2 mk_lang_bui_to2_ulong_t
 #define mk_lang_bui_divmod_bt3 mk_lang_bui_to3_ulong_t
 #define mk_lang_bui_divmod_lena mk_sl_cui_inl_filec_div_count
@@ -208,7 +208,7 @@
 #define mk_sl_cui_inl_filec_div_t mk_lang_concat(mk_lang_concat(mk_lang_bi_, mk_sl_cui_inl_filec_div_tn), _t)
 #define mk_sl_cui_inl_filec_div_count mk_sl_cui_inl_defd_count
 #define mk_lang_bui_divmod_btn ullong
-#define mk_lang_bui_divmod_bt mk_lang_bi_ullong_t
+#define mk_lang_bui_divmod_bt mk_lang_types_ullong_t
 #define mk_lang_bui_divmod_bt2 mk_lang_bui_to2_ullong_t
 #define mk_lang_bui_divmod_bt3 mk_lang_bui_to3_ullong_t
 #define mk_lang_bui_divmod_lena mk_sl_cui_inl_filec_div_count
@@ -224,7 +224,7 @@
 #define mk_sl_cui_inl_filec_div_t mk_lang_concat(mk_lang_concat(mk_lang_bi_, mk_sl_cui_inl_filec_div_tn), _t)
 #define mk_sl_cui_inl_filec_div_count mk_sl_cui_inl_defd_count
 #define mk_lang_bui_divmod_btn ulllong
-#define mk_lang_bui_divmod_bt mk_lang_bi_ulllong_t
+#define mk_lang_bui_divmod_bt mk_lang_types_ulllong_t
 #define mk_lang_bui_divmod_bt2 mk_lang_bui_to2_ulllong_t
 #define mk_lang_bui_divmod_bt3 mk_lang_bui_to3_ulllong_t
 #define mk_lang_bui_divmod_lena mk_sl_cui_inl_filec_div_count
@@ -240,7 +240,7 @@
 #define mk_sl_cui_inl_filec_div_t mk_lang_concat(mk_lang_concat(mk_lang_bi_, mk_sl_cui_inl_filec_div_tn), _t)
 #define mk_sl_cui_inl_filec_div_count mk_lang_max(1, mk_lang_div_roundup(mk_sl_cui_inl_defd_bits, mk_lang_sizeof_bi_ulllong_t * mk_lang_charbit))
 #define mk_lang_bui_divmod_btn ulllong
-#define mk_lang_bui_divmod_bt mk_lang_bi_ulllong_t
+#define mk_lang_bui_divmod_bt mk_lang_types_ulllong_t
 #define mk_lang_bui_divmod_bt2 mk_lang_bui_to2_ulllong_t
 #define mk_lang_bui_divmod_bt3 mk_lang_bui_to3_ulllong_t
 #define mk_lang_bui_divmod_lena mk_sl_cui_inl_filec_div_count
@@ -256,7 +256,7 @@
 #define mk_sl_cui_inl_filec_div_t mk_lang_concat(mk_lang_concat(mk_lang_bi_, mk_sl_cui_inl_filec_div_tn), _t)
 #define mk_sl_cui_inl_filec_div_count mk_lang_max(1, mk_lang_div_roundup(mk_sl_cui_inl_defd_bits, mk_lang_sizeof_bi_ullong_t * mk_lang_charbit))
 #define mk_lang_bui_divmod_btn ullong
-#define mk_lang_bui_divmod_bt mk_lang_bi_ullong_t
+#define mk_lang_bui_divmod_bt mk_lang_types_ullong_t
 #define mk_lang_bui_divmod_bt2 mk_lang_bui_to2_ullong_t
 #define mk_lang_bui_divmod_bt3 mk_lang_bui_to3_ullong_t
 #define mk_lang_bui_divmod_lena mk_sl_cui_inl_filec_div_count
@@ -272,7 +272,7 @@
 #define mk_sl_cui_inl_filec_div_t mk_lang_concat(mk_lang_concat(mk_lang_bi_, mk_sl_cui_inl_filec_div_tn), _t)
 #define mk_sl_cui_inl_filec_div_count mk_lang_max(1, mk_lang_div_roundup(mk_sl_cui_inl_defd_bits, mk_lang_sizeof_bi_ulong_t * mk_lang_charbit))
 #define mk_lang_bui_divmod_btn ulong
-#define mk_lang_bui_divmod_bt mk_lang_bi_ulong_t
+#define mk_lang_bui_divmod_bt mk_lang_types_ulong_t
 #define mk_lang_bui_divmod_bt2 mk_lang_bui_to2_ulong_t
 #define mk_lang_bui_divmod_bt3 mk_lang_bui_to3_ulong_t
 #define mk_lang_bui_divmod_lena mk_sl_cui_inl_filec_div_count
@@ -288,7 +288,7 @@
 #define mk_sl_cui_inl_filec_div_t mk_lang_concat(mk_lang_concat(mk_lang_bi_, mk_sl_cui_inl_filec_div_tn), _t)
 #define mk_sl_cui_inl_filec_div_count mk_lang_max(1, mk_lang_div_roundup(mk_sl_cui_inl_defd_bits, mk_lang_sizeof_bi_uint_t * mk_lang_charbit))
 #define mk_lang_bui_divmod_btn uint
-#define mk_lang_bui_divmod_bt mk_lang_bi_uint_t
+#define mk_lang_bui_divmod_bt mk_lang_types_uint_t
 #define mk_lang_bui_divmod_bt2 mk_lang_bui_to2_uint_t
 #define mk_lang_bui_divmod_bt3 mk_lang_bui_to3_uint_t
 #define mk_lang_bui_divmod_lena mk_sl_cui_inl_filec_div_count
@@ -304,7 +304,7 @@
 #define mk_sl_cui_inl_filec_div_t mk_lang_concat(mk_lang_concat(mk_lang_bi_, mk_sl_cui_inl_filec_div_tn), _t)
 #define mk_sl_cui_inl_filec_div_count mk_lang_max(1, mk_lang_div_roundup(mk_sl_cui_inl_defd_bits, mk_lang_sizeof_bi_ushort_t * mk_lang_charbit))
 #define mk_lang_bui_divmod_btn ushort
-#define mk_lang_bui_divmod_bt mk_lang_bi_ushort_t
+#define mk_lang_bui_divmod_bt mk_lang_types_ushort_t
 #define mk_lang_bui_divmod_bt2 mk_lang_bui_to2_ushort_t
 #define mk_lang_bui_divmod_bt3 mk_lang_bui_to3_ushort_t
 #define mk_lang_bui_divmod_lena mk_sl_cui_inl_filec_div_count
@@ -320,7 +320,7 @@
 #define mk_sl_cui_inl_filec_div_t mk_lang_concat(mk_lang_concat(mk_lang_bi_, mk_sl_cui_inl_filec_div_tn), _t)
 #define mk_sl_cui_inl_filec_div_count mk_lang_max(1, mk_lang_div_roundup(mk_sl_cui_inl_defd_bits, mk_lang_sizeof_bi_uchar_t * mk_lang_charbit))
 #define mk_lang_bui_divmod_btn uchar
-#define mk_lang_bui_divmod_bt mk_lang_bi_uchar_t
+#define mk_lang_bui_divmod_bt mk_lang_types_uchar_t
 #define mk_lang_bui_divmod_bt2 mk_lang_bui_to2_uchar_t
 #define mk_lang_bui_divmod_bt3 mk_lang_bui_to3_uchar_t
 #define mk_lang_bui_divmod_lena mk_sl_cui_inl_filec_div_count

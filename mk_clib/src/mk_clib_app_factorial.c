@@ -9,15 +9,16 @@
 #include "mk_lang_noexcept.h"
 #include "mk_lang_null.h"
 #include "mk_lang_sizeof.h"
+#include "mk_lang_types.h"
 
 #define mk_lang_bui_name fct
-#define mk_lang_bui_type mk_lang_bi_uint_t
+#define mk_lang_bui_type mk_lang_types_uint_t
 #define mk_lang_bui_sizeof mk_lang_sizeof_bi_uint_t
 #include "mk_lang_bui_inl_fileh.h"
 #include "mk_lang_bui_inl_filec.h"
 
 #define mk_sl_cui_name fct
-#define mk_sl_cui_base_type mk_lang_bi_uint_t
+#define mk_sl_cui_base_type mk_lang_types_uint_t
 #define mk_sl_cui_base_name mk_lang_bui_fct
 #define mk_sl_cui_base_bits (mk_lang_sizeof_bi_uint_t * mk_lang_charbit)
 #define mk_sl_cui_count mk_lang_div_roundup(19072, mk_sl_cui_base_bits)
@@ -28,7 +29,7 @@
 #include "mk_sl_cui_inl_filec.h"
 
 #define mk_sl_cui_name hlp
-#define mk_sl_cui_base_type mk_lang_bi_uint_t
+#define mk_sl_cui_base_type mk_lang_types_uint_t
 #define mk_sl_cui_base_name mk_lang_bui_fct
 #define mk_sl_cui_base_bits (mk_lang_sizeof_bi_uint_t * mk_lang_charbit)
 #define mk_sl_cui_count 1

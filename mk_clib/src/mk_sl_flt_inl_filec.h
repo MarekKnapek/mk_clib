@@ -50,8 +50,8 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_flt_defd_bytes_to_st
 	flt_bigab_t bigab mk_lang_constexpr_init;
 	int i mk_lang_constexpr_init;
 	char* pstr mk_lang_constexpr_init;
-	mk_lang_bi_uint_t base mk_lang_constexpr_init;
-	mk_lang_bi_uint_t rem mk_lang_constexpr_init;
+	mk_lang_types_uint_t base mk_lang_constexpr_init;
+	mk_lang_types_uint_t rem mk_lang_constexpr_init;
 	mk_sl_flt_defd_cuibb_t bigb2 mk_lang_constexpr_init;
 	mk_sl_flt_defd_cuibb_t* pbb1 mk_lang_constexpr_init;
 	mk_sl_flt_defd_cuibb_t* pbb2 mk_lang_constexpr_init;

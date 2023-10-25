@@ -6,7 +6,7 @@ mk_lang_jumbo void mk_sl_cui_fuzz_inl_tofrom_buis_inl_defd_fn(unsigned char cons
 	unsigned char const* d;
 	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
-	mk_lang_bi_ulllong_t bui;
+	mk_lang_types_ulllong_t bui;
 	mk_sl_cui_fuzz_inl_tofrom_buis_inl_defd_bui_t buis[mk_sl_cui_fuzz_inl_tofrom_buis_inl_defd_count];
 	mk_sl_cui_fuzz_inl_tofrom_buis_inl_defd_bui_t buis1r[mk_sl_cui_fuzz_inl_tofrom_buis_inl_defd_count];
 	mk_sl_cui_fuzz_inl_tofrom_buis_inl_defd_bui_t buis2r[mk_sl_cui_fuzz_inl_tofrom_buis_inl_defd_count];

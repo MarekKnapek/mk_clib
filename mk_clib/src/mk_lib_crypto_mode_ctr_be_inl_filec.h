@@ -25,13 +25,13 @@
 
 
 #define mk_lang_bui_name mk_lib_crypto_mode_ctr_be_inl_defd_prefix
-#define mk_lang_bui_type mk_lang_bi_ulllong_t
+#define mk_lang_bui_type mk_lang_types_ulllong_t
 #define mk_lang_bui_sizeof mk_lang_sizeof_bi_ulllong_t
 #include "mk_lang_bui_inl_fileh.h"
 #include "mk_lang_bui_inl_filec.h"
 
 #define mk_sl_cui_name mk_lib_crypto_mode_ctr_be_inl_defd_prefix
-#define mk_sl_cui_base_type mk_lang_bi_ulllong_t
+#define mk_sl_cui_base_type mk_lang_types_ulllong_t
 #define mk_sl_cui_base_name mk_lang_concat(mk_lang_bui_, mk_lib_crypto_mode_ctr_be_inl_defd_prefix)
 #define mk_sl_cui_base_bits (mk_lang_sizeof_bi_ulllong_t * mk_lang_charbit)
 #define mk_sl_cui_count mk_lang_div_roundup(mk_lib_crypto_mode_ctr_be_inl_defd_msg_len_m * mk_lang_charbit, mk_sl_cui_base_bits)
