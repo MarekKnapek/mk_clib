@@ -148,9 +148,9 @@ mk_lang_extern_c void mk_lib_crypto_hash_stream_blake2b_256_test(void) mk_lang_n
 	for(i = 0; i != n; ++i)
 	{
 		mk_lang_assert(s_message_lens[i] >= 0);
-		mk_lib_crypto_hash_stream_blake2b_256_init(& blake2b_256);
-		mk_lib_crypto_hash_stream_blake2b_256_append(& blake2b_256, ((mk_lang_types_uchar_pct)(s_messages[i])), s_message_lens[i]);
-		mk_lib_crypto_hash_stream_blake2b_256_finish(& blake2b_256, &digest);
+		mk_lib_crypto_hash_stream_blake2b_256_init(&blake2b_256);
+		mk_lib_crypto_hash_stream_blake2b_256_append(&blake2b_256, ((mk_lang_types_uchar_pct)(s_messages[i])), s_message_lens[i]);
+		mk_lib_crypto_hash_stream_blake2b_256_finish(&blake2b_256, &digest);
 		for(j = 0; j != mk_lib_crypto_hash_block_blake2b_256_digest_len; ++j)
 		{
 			hi = mk_lib_cpp_constexpr_char_to_nibble(s_digests[i][j * 2 + 0]); mk_lang_assert(hi >= 0x0 && hi <= 0xf);
