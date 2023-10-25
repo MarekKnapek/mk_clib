@@ -320,7 +320,7 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_tiger_base
 	mk_lang_types_uchar_t cc[8] mk_lang_constexpr_init;
 	mk_sl_cui_uint64_t ta mk_lang_constexpr_init;
 	mk_sl_cui_uint64_t tb mk_lang_constexpr_init;
-	mk_sl_cui_uint64_base_t mull mk_lang_constexpr_init;
+	mk_sl_cui_uint64_t mull mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -343,8 +343,8 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_tiger_base
 	mk_sl_cui_uint64_xor3(&s_mk_lib_crypto_hash_block_tiger_base_table[1 * 256 + cc[5]], &s_mk_lib_crypto_hash_block_tiger_base_table[0 * 256 + cc[7]], &tb);
 	mk_sl_cui_uint64_xor2(&ta, &tb);
 	mk_sl_cui_uint64_add2_wrap_cid_cod(b, &ta);
-	mull = mul;
-	mk_sl_cui_uint64_mul3_wrap_lo_smol(b, &mull, b);
+	mk_sl_cui_uint64_from_bi_sint(&mull, &mul);
+	mk_sl_cui_uint64_mul3_wrap_lo(b, &mull, b);
 }
 
 mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_tiger_base_pass(mk_sl_cui_uint64_prt const a, mk_sl_cui_uint64_prt const b, mk_sl_cui_uint64_prt const c, mk_lib_crypto_hash_block_tiger_base_block_pct const block, int const mul) mk_lang_noexcept

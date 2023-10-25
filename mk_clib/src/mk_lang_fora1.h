@@ -4,12 +4,6 @@
 #if mk_lang_fora1_id == mk_lang_for_constants_bi
 #define mk_lang_fora_bi_file mk_lang_fora_file
 #include "mk_lang_fora_bi.h"
-#elif mk_lang_fora1_id == mk_lang_for_constants_bui
-#define mk_lang_fora_bui_file mk_lang_fora_file
-#include "mk_lang_fora_bui.h"
-#elif mk_lang_fora1_id == mk_lang_for_constants_bui2
-#define mk_lang_fora_bui2_file mk_lang_fora_file
-#include "mk_lang_fora_bui2.h"
 #elif mk_lang_fora1_id == mk_lang_for_constants_count
 #define mk_lang_fora_count_file mk_lang_fora_file
 #include "mk_lang_fora_count.h"

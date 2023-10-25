@@ -1,15 +1,53 @@
 #include "mk_lang_assert.h"
+#include "mk_lang_bool.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_div_roundup.h"
 #include "mk_lang_jumbo.h"
+#include "mk_lang_inline.h"
 #include "mk_lang_likely.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
-#include "mk_lang_types.h"
 
 
 #include "mk_sl_flt_inl_defhd.h"
 #include "mk_sl_flt_inl_defcd.h"
+
+
+mk_lang_constexpr static mk_lang_inline void mk_sl_flt_defd_convert_to_biga(mk_sl_flt_defd_cui_t const* const a, mk_sl_flt_defd_cuiba_t* const b) mk_lang_noexcept
+{
+	mk_lang_types_sint_t n mk_lang_constexpr_init;
+	mk_lang_types_sint_t i mk_lang_constexpr_init;
+	mk_sl_flt_defd_bui_t buff[mk_lang_div_roundup(mk_sl_flt_defd_need_bits_a, mk_sl_flt_defd_bui_bits)] mk_lang_constexpr_init;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	n = sizeof(buff) / sizeof(buff[0]);
+	for(i = 0; i != n; ++i)
+	{
+		buff[i] = 0;
+	}
+	mk_sl_flt_defd_cui_to_buis_uint_le(a, &buff[0]);
+	mk_sl_flt_defd_cuiba_from_buis_uint_le(b, &buff[0]);
+}
+
+mk_lang_constexpr static mk_lang_inline void mk_sl_flt_defd_convert_to_bigb(mk_sl_flt_defd_cui_t const* const a, mk_sl_flt_defd_cuibb_t* const b) mk_lang_noexcept
+{
+	mk_lang_types_sint_t n mk_lang_constexpr_init;
+	mk_lang_types_sint_t i mk_lang_constexpr_init;
+	mk_sl_flt_defd_bui_t buff[mk_lang_div_roundup(mk_sl_flt_defd_need_bits_b, mk_sl_flt_defd_bui_bits)] mk_lang_constexpr_init;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	n = sizeof(buff) / sizeof(buff[0]);
+	for(i = 0; i != n; ++i)
+	{
+		buff[i] = 0;
+	}
+	mk_sl_flt_defd_cui_to_buis_uint_le(a, &buff[0]);
+	mk_sl_flt_defd_cuibb_from_buis_uint_le(b, &buff[0]);
+}
 
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_flt_defd_bytes_to_string_dec_basic_n(unsigned char const* const x, char* const str, int const str_len) mk_lang_noexcept
@@ -40,7 +78,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_flt_defd_bytes_to_st
 	mk_sl_flt_defd_cui_t cui mk_lang_constexpr_init;
 	mk_sl_flt_defd_cui_t ta mk_lang_constexpr_init;
 	mk_sl_flt_defd_cui_t tb mk_lang_constexpr_init;
-	mk_lang_types_bool_t is_negative mk_lang_constexpr_init;
+	mk_lang_bool_t is_negative mk_lang_constexpr_init;
 	int exponent_encoded mk_lang_constexpr_init;
 	int exponent_decoded mk_lang_constexpr_init;
 	mk_sl_flt_defd_cui_t fraction mk_lang_constexpr_init;
@@ -50,8 +88,8 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_flt_defd_bytes_to_st
 	flt_bigab_t bigab mk_lang_constexpr_init;
 	int i mk_lang_constexpr_init;
 	char* pstr mk_lang_constexpr_init;
-	mk_lang_types_uint_t base mk_lang_constexpr_init;
-	mk_lang_types_uint_t rem mk_lang_constexpr_init;
+	mk_lang_bi_uint_t base mk_lang_constexpr_init;
+	mk_lang_bi_uint_t rem mk_lang_constexpr_init;
 	mk_sl_flt_defd_cuibb_t bigb2 mk_lang_constexpr_init;
 	mk_sl_flt_defd_cuibb_t* pbb1 mk_lang_constexpr_init;
 	mk_sl_flt_defd_cuibb_t* pbb2 mk_lang_constexpr_init;
@@ -165,7 +203,12 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_flt_defd_bytes_to_st
 			pbb2 = &bigb2;
 			do
 			{
-				mk_sl_flt_defd_cuibb_mul4_wrap_wi_smol(pbb1, &base, pbb2, &rem);
+				mk_sl_flt_defd_cuibb_t base_ mk_lang_constexpr_init; /* todo smol */
+				mk_sl_flt_defd_cuibb_t rem_ mk_lang_constexpr_init; /* todo smol */
+				mk_sl_flt_defd_cuibb_from_bi_uint(&base_, &base); /* todo smol */
+				mk_sl_flt_defd_cuibb_mul4_wrap_wi(pbb1, &base_, pbb2, &rem_); /* todo smol */
+				mk_sl_flt_defd_cuibb_to_bi_uint(&rem_, &rem); /* todo smol */
+				mk_lang_assert(rem >= 0 && rem <= 9);
 				if(((int)(pstr - str)) == str_len) mk_lang_unlikely return 0; *pstr = s_symbols[rem]; ++pstr;
 				pbb3 = pbb1;
 				pbb1 = pbb2;

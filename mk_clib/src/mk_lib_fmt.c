@@ -10,11 +10,11 @@
 #include <stdarg.h> /* va_list va_start va_arg va_end */
 
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_usize_t mk_lib_fmt_v(mk_lang_types_pchar_pct const fmt, va_list const vp, mk_lang_types_pchar_pt const dst) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_usize_t mk_lib_fmt_v(mk_lang_types_pchar_pct const fmt, va_list* const vp, mk_lang_types_pchar_pt const dst) mk_lang_noexcept
 {
 	mk_lang_types_pchar_pct f;
 	mk_lang_types_pchar_pt d;
-	va_list va;
+	va_list* va;
 	mk_lang_types_sint_t len;
 	mk_lang_types_pchar_t ch;
 	mk_lang_types_pchar_pct vas;
@@ -23,6 +23,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_usize_t mk_lib_fmt_v(mk_lang_types
 	mk_lang_types_usize_t ret;
 
 	mk_lang_assert(fmt);
+	mk_lang_assert(vp);
 	mk_lang_assert(dst);
 
 	f = fmt;
@@ -48,7 +49,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_usize_t mk_lib_fmt_v(mk_lang_types
 			}
 			else if(ch == 's')
 			{
-				vas = va_arg(va, mk_lang_types_pchar_pct);
+				vas = va_arg(*va, mk_lang_types_pchar_pct);
 				mk_lang_assert(vas);
 				while(*vas)
 				{
@@ -63,13 +64,13 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_usize_t mk_lib_fmt_v(mk_lang_types
 				ch = *f;
 				if(ch == '*')
 				{
-					vai = va_arg(va, mk_lang_types_sint_t);
+					vai = va_arg(*va, mk_lang_types_sint_t);
 					len = vai;
 					++f;
 					ch = *f;
 					if(ch == 's')
 					{
-						vas = va_arg(va, mk_lang_types_pchar_pct);
+						vas = va_arg(*va, mk_lang_types_pchar_pct);
 						mk_lang_assert(vas);
 						for(i = 0; i != len; ++i)
 						{
@@ -113,7 +114,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_usize_t mk_lib_fmt(mk_lang_types_p
 	mk_lang_assert(dst);
 
 	va_start(va, dst);
-	ret = mk_lib_fmt_v(fmt, va, dst);
+	ret = mk_lib_fmt_v(fmt, &va, dst);
 	va_end(va);
 	return ret;
 }
@@ -127,7 +128,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_fmt_sprintf(mk_lang_
 	mk_lang_assert(dst);
 
 	va_start(va, fmt);
-	ret = mk_lib_fmt_v(fmt, va, dst);
+	ret = mk_lib_fmt_v(fmt, &va, dst);
 	va_end(va);
 	mk_lang_assert(ret <= mk_lang_limits_sint_max);
 	return ((mk_lang_types_sint_t)(ret));

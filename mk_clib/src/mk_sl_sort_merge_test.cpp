@@ -1,6 +1,5 @@
 #include "mk_sl_sort_merge_test.hpp"
 
-
 #include "mk_lang_assert.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_cpp.h"
@@ -9,7 +8,6 @@
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_sizeof.h"
-#include "mk_lang_types.h"
 #include "mk_lang_static_assert.h"
 #include "mk_lang_types.h"
 #include "mk_lang_version.h"
@@ -19,56 +17,58 @@
 #if mk_lang_version_at_least_cpp_14 || mk_lang_version_at_least_msvc_cpp_14
 
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_sort_merge_test_cmp(mk_lang_types_sint_prct const a, mk_lang_types_sint_prct const b)
+#define mk_lang_bui_t_name mk_sl_sort_merge_test_sint
+#define mk_lang_bui_t_base sint
+#include "mk_lang_bui_inl_fileh.h"
+#include "mk_lang_bui_inl_filec.h"
+
+#define mk_lang_bui_t_name mk_sl_sort_merge_test_usize
+#define mk_lang_bui_t_base usize
+#include "mk_lang_bui_inl_fileh.h"
+#include "mk_lang_bui_inl_filec.h"
+
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_sort_merge_test_cmp(mk_sl_sort_merge_test_sint_prct const a, mk_sl_sort_merge_test_sint_prct const b)
 {
 	mk_lang_assert(a);
 	mk_lang_assert(b);
+	mk_lang_assert(a != b);
 
 	return *a <= *b;
 }
 
 
-#define mk_lang_bui_name sort_merge_test
-#define mk_lang_bui_type mk_lang_types_usize_t
-#define mk_lang_bui_sizeof mk_lang_sizeof_bi_usize_t
-#include "mk_lang_bui_inl_fileh.h"
-#include "mk_lang_bui_inl_filec.h"
-
-#define mk_sl_sort_merge_name test1
-#define mk_sl_sort_merge_data_t mk_lang_types_sint_t
-#define mk_sl_sort_merge_count_t mk_lang_types_usize_t
-#define mk_sl_sort_merge_count_math_prefix mk_lang_bui_sort_merge_test
-#define mk_sl_sort_merge_is_sorted mk_sl_sort_merge_test_cmp
-#define mk_sl_sort_merge_first_round 0
+#define mk_sl_sort_merge_t_name mk_sl_sort_merge_test1
+#define mk_sl_sort_merge_t_data mk_sl_sort_merge_test_sint
+#define mk_sl_sort_merge_t_counter mk_sl_sort_merge_test_usize
+#define mk_sl_sort_merge_t_is_sorted mk_sl_sort_merge_test_cmp
+#define mk_sl_sort_merge_t_first_round 0
 #include "mk_sl_sort_merge_inl_fileh.h"
 #include "mk_sl_sort_merge_inl_filec.h"
 
-#define mk_sl_sort_merge_name test2
-#define mk_sl_sort_merge_data_t mk_lang_types_sint_t
-#define mk_sl_sort_merge_count_t mk_lang_types_usize_t
-#define mk_sl_sort_merge_count_math_prefix mk_lang_bui_sort_merge_test
-#define mk_sl_sort_merge_is_sorted mk_sl_sort_merge_test_cmp
-#define mk_sl_sort_merge_first_round 1
+#define mk_sl_sort_merge_t_name mk_sl_sort_merge_test2
+#define mk_sl_sort_merge_t_data mk_sl_sort_merge_test_sint
+#define mk_sl_sort_merge_t_counter mk_sl_sort_merge_test_usize
+#define mk_sl_sort_merge_t_is_sorted mk_sl_sort_merge_test_cmp
+#define mk_sl_sort_merge_t_first_round 1
 #include "mk_sl_sort_merge_inl_fileh.h"
 #include "mk_sl_sort_merge_inl_filec.h"
 
-#define mk_sl_sort_merge_name test3
-#define mk_sl_sort_merge_data_t mk_lang_types_sint_t
-#define mk_sl_sort_merge_count_t mk_lang_types_usize_t
-#define mk_sl_sort_merge_count_math_prefix mk_lang_bui_sort_merge_test
-#define mk_sl_sort_merge_is_sorted mk_sl_sort_merge_test_cmp
-#define mk_sl_sort_merge_proxy_t mk_lang_types_usize_t
-#define mk_sl_sort_merge_first_round 0
+#define mk_sl_sort_merge_t_name mk_sl_sort_merge_test3
+#define mk_sl_sort_merge_t_data mk_sl_sort_merge_test_sint
+#define mk_sl_sort_merge_t_counter mk_sl_sort_merge_test_usize
+#define mk_sl_sort_merge_t_is_sorted mk_sl_sort_merge_test_cmp
+#define mk_sl_sort_merge_t_first_round 0
+#define mk_sl_sort_merge_t_proxy mk_sl_sort_merge_test_usize
 #include "mk_sl_sort_merge_inl_fileh.h"
 #include "mk_sl_sort_merge_inl_filec.h"
 
-#define mk_sl_sort_merge_name test4
-#define mk_sl_sort_merge_data_t mk_lang_types_sint_t
-#define mk_sl_sort_merge_count_t mk_lang_types_usize_t
-#define mk_sl_sort_merge_count_math_prefix mk_lang_bui_sort_merge_test
-#define mk_sl_sort_merge_is_sorted mk_sl_sort_merge_test_cmp
-#define mk_sl_sort_merge_proxy_t mk_lang_types_usize_t
-#define mk_sl_sort_merge_first_round 1
+#define mk_sl_sort_merge_t_name mk_sl_sort_merge_test4
+#define mk_sl_sort_merge_t_data mk_sl_sort_merge_test_sint
+#define mk_sl_sort_merge_t_counter mk_sl_sort_merge_test_usize
+#define mk_sl_sort_merge_t_is_sorted mk_sl_sort_merge_test_cmp
+#define mk_sl_sort_merge_t_first_round 1
+#define mk_sl_sort_merge_t_proxy mk_sl_sort_merge_test_usize
 #include "mk_sl_sort_merge_inl_fileh.h"
 #include "mk_sl_sort_merge_inl_filec.h"
 

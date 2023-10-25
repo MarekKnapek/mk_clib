@@ -370,7 +370,7 @@ mk_lang_nodiscard static mk_lang_inline int mk_clib_app_crypt_work(int const arg
 	check(direction_found);
 	cost_str = params[mk_clib_app_crypt_param_id_e_cost];
 	cost_str_len = mk_clib_app_crypt_strlen(cost_str);
-	check(cost_str_len <= mk_sl_cui_uint32_to_str_dec_len);
+	check(cost_str_len <= mk_sl_cui_uint32_strlendec_v);
 	n = mk_sl_cui_uint32_from_str_dec_n(&cost_32, cost_str, ((int)(cost_str_len))); check(n == ((int)(cost_str_len)));
 	data = mk_lib_crypto_gapp_get_data_addr();
 	mk_lang_assert(data);

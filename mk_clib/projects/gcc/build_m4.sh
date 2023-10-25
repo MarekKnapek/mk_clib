@@ -1,5 +1,9 @@
 this_dir="$(dirname -- $0)"
 src_dir="$this_dir/../../src"
+m4 -I $src_dir -- $src_dir/mk_lang_bui_inl_defd.h.m4               > $src_dir/mk_lang_bui_inl_defd.h
+m4 -I $src_dir -- $src_dir/mk_lang_bui_inl_defu.h.m4               > $src_dir/mk_lang_bui_inl_defu.h
+m4 -I $src_dir -- $src_dir/mk_lang_bui_inl_filec.h.m4              > $src_dir/mk_lang_bui_inl_filec.h
+m4 -I $src_dir -- $src_dir/mk_lang_bui_inl_fileh.h.m4              > $src_dir/mk_lang_bui_inl_fileh.h
 m4 -I $src_dir -- $src_dir/mk_lib_crypto_alg_aes_128.h.m4          > $src_dir/mk_lib_crypto_alg_aes_128.h
 m4 -I $src_dir -- $src_dir/mk_lib_crypto_alg_aes_192.h.m4          > $src_dir/mk_lib_crypto_alg_aes_192.h
 m4 -I $src_dir -- $src_dir/mk_lib_crypto_alg_aes_256.h.m4          > $src_dir/mk_lib_crypto_alg_aes_256.h
@@ -27,3 +31,7 @@ m4 -I $src_dir -- $src_dir/mk_lib_crypto_mode_ofb_aes_128.h.m4     > $src_dir/mk
 m4 -I $src_dir -- $src_dir/mk_lib_crypto_mode_ofb_aes_192.h.m4     > $src_dir/mk_lib_crypto_mode_ofb_aes_192.h
 m4 -I $src_dir -- $src_dir/mk_lib_crypto_mode_ofb_aes_256.h.m4     > $src_dir/mk_lib_crypto_mode_ofb_aes_256.h
 m4 -I $src_dir -- $src_dir/mk_lib_crypto_mode_ofb_serpent.h.m4     > $src_dir/mk_lib_crypto_mode_ofb_serpent.h
+m4 -I $src_dir -- $src_dir/mk_sl_cui_inl_defd.h.m4                 > $src_dir/mk_sl_cui_inl_defd.h
+m4 -I $src_dir -- $src_dir/mk_sl_cui_inl_defu.h.m4                 > $src_dir/mk_sl_cui_inl_defu.h
+m4 -I $src_dir -- $src_dir/mk_sl_cui_inl_filec.h.m4                > $src_dir/mk_sl_cui_inl_filec.h
+m4 -I $src_dir -- $src_dir/mk_sl_cui_inl_fileh.h.m4                > $src_dir/mk_sl_cui_inl_fileh.h

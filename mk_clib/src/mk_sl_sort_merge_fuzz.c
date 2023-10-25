@@ -9,63 +9,66 @@
 #include "mk_lang_types.h"
 
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_sl_sort_merge_fuzz_cmp2_plain(mk_lang_types_ushort_prct const a, mk_lang_types_ushort_prct const b)
-{
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-
-	return *a <= *b;
-}
-
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_sl_sort_merge_fuzz_cmp2_proxy(mk_lang_types_ushort_prct const a, mk_lang_types_ushort_prct const b)
-{
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-
-	return *a <= *b;
-}
-
-#define mk_lang_bui_name sort_merge_fuzz
-#define mk_lang_bui_type mk_lang_types_ushort_t
-#define mk_lang_bui_sizeof 1
+#define mk_lang_bui_t_name mk_sl_sort_merge_fuzz_ushort
+#define mk_lang_bui_t_base ushort
 #include "mk_lang_bui_inl_fileh.h"
 #include "mk_lang_bui_inl_filec.h"
 
-#define mk_sl_sort_merge_name fuzz1
-#define mk_sl_sort_merge_data_t mk_lang_types_ushort_t
-#define mk_sl_sort_merge_count_t mk_lang_types_ushort_t
-#define mk_sl_sort_merge_count_math_prefix mk_lang_bui_sort_merge_fuzz
-#define mk_sl_sort_merge_is_sorted mk_sl_sort_merge_fuzz_cmp2_plain
-#define mk_sl_sort_merge_first_round 0
+#define mk_lang_bui_t_name mk_sl_sort_merge_fuzz_uchar
+#define mk_lang_bui_t_base uchar
+#include "mk_lang_bui_inl_fileh.h"
+#include "mk_lang_bui_inl_filec.h"
+
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_sl_sort_merge_fuzz_cmp2_plain(mk_sl_sort_merge_fuzz_ushort_prct const a, mk_sl_sort_merge_fuzz_ushort_prct const b)
+{
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(a != b);
+
+	return *a <= *b;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_sl_sort_merge_fuzz_cmp2_proxy(mk_sl_sort_merge_fuzz_ushort_prct const a, mk_sl_sort_merge_fuzz_ushort_prct const b)
+{
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(a != b);
+
+	return *a <= *b;
+}
+
+#define mk_sl_sort_merge_t_name mk_sl_sort_merge_fuzz1
+#define mk_sl_sort_merge_t_data mk_sl_sort_merge_fuzz_ushort
+#define mk_sl_sort_merge_t_counter mk_sl_sort_merge_fuzz_ushort
+#define mk_sl_sort_merge_t_is_sorted mk_sl_sort_merge_fuzz_cmp2_plain
+#define mk_sl_sort_merge_t_first_round 0
 #include "mk_sl_sort_merge_inl_fileh.h"
 #include "mk_sl_sort_merge_inl_filec.h"
 
-#define mk_sl_sort_merge_name fuzz2
-#define mk_sl_sort_merge_data_t mk_lang_types_ushort_t
-#define mk_sl_sort_merge_count_t mk_lang_types_ushort_t
-#define mk_sl_sort_merge_count_math_prefix mk_lang_bui_sort_merge_fuzz
-#define mk_sl_sort_merge_is_sorted mk_sl_sort_merge_fuzz_cmp2_plain
-#define mk_sl_sort_merge_first_round 1
+#define mk_sl_sort_merge_t_name mk_sl_sort_merge_fuzz2
+#define mk_sl_sort_merge_t_data mk_sl_sort_merge_fuzz_ushort
+#define mk_sl_sort_merge_t_counter mk_sl_sort_merge_fuzz_ushort
+#define mk_sl_sort_merge_t_is_sorted mk_sl_sort_merge_fuzz_cmp2_plain
+#define mk_sl_sort_merge_t_first_round 1
 #include "mk_sl_sort_merge_inl_fileh.h"
 #include "mk_sl_sort_merge_inl_filec.h"
 
-#define mk_sl_sort_merge_name fuzz3
-#define mk_sl_sort_merge_data_t mk_lang_types_ushort_t
-#define mk_sl_sort_merge_count_t mk_lang_types_ushort_t
-#define mk_sl_sort_merge_count_math_prefix mk_lang_bui_sort_merge_fuzz
-#define mk_sl_sort_merge_is_sorted mk_sl_sort_merge_fuzz_cmp2_proxy
-#define mk_sl_sort_merge_proxy_t mk_lang_types_uchar_t
-#define mk_sl_sort_merge_first_round 0
+#define mk_sl_sort_merge_t_name mk_sl_sort_merge_fuzz3
+#define mk_sl_sort_merge_t_data mk_sl_sort_merge_fuzz_ushort
+#define mk_sl_sort_merge_t_counter mk_sl_sort_merge_fuzz_ushort
+#define mk_sl_sort_merge_t_is_sorted mk_sl_sort_merge_fuzz_cmp2_proxy
+#define mk_sl_sort_merge_t_first_round 0
+#define mk_sl_sort_merge_t_proxy mk_sl_sort_merge_fuzz_uchar
 #include "mk_sl_sort_merge_inl_fileh.h"
 #include "mk_sl_sort_merge_inl_filec.h"
 
-#define mk_sl_sort_merge_name fuzz4
-#define mk_sl_sort_merge_data_t mk_lang_types_ushort_t
-#define mk_sl_sort_merge_count_t mk_lang_types_ushort_t
-#define mk_sl_sort_merge_count_math_prefix mk_lang_bui_sort_merge_fuzz
-#define mk_sl_sort_merge_is_sorted mk_sl_sort_merge_fuzz_cmp2_proxy
-#define mk_sl_sort_merge_proxy_t mk_lang_types_uchar_t
-#define mk_sl_sort_merge_first_round 1
+#define mk_sl_sort_merge_t_name mk_sl_sort_merge_fuzz4
+#define mk_sl_sort_merge_t_data mk_sl_sort_merge_fuzz_ushort
+#define mk_sl_sort_merge_t_counter mk_sl_sort_merge_fuzz_ushort
+#define mk_sl_sort_merge_t_is_sorted mk_sl_sort_merge_fuzz_cmp2_proxy
+#define mk_sl_sort_merge_t_first_round 1
+#define mk_sl_sort_merge_t_proxy mk_sl_sort_merge_fuzz_uchar
 #include "mk_sl_sort_merge_inl_fileh.h"
 #include "mk_sl_sort_merge_inl_filec.h"
 

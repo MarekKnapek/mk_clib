@@ -5,7 +5,7 @@
 #include "mk_lang_constexpr.h"
 
 
-#define mk_lang_intrinsic_want (!(mk_lang_constexpr_has))
+#define mk_lang_intrinsic_has (!(mk_lang_constexpr_has))
 
 
 #endif

@@ -19,15 +19,15 @@
 #include "mk_lib_crypto_mode_base_inl_fileh.h"
 #include "mk_lib_crypto_mode_base_inl_filec.h"
 
-#define mk_lang_memmove_obj_tn mk_lib_crypto_alg_serpent_u8
-#define mk_lang_memmove_obj_t mk_sl_cui_uint8_t
-#include "mk_lang_memmove_obj_inl_fileh.h"
-#include "mk_lang_memmove_obj_inl_filec.h"
+#define mk_lang_memmove_t_name mk_lib_crypto_alg_serpent_memmove_u8
+#define mk_lang_memmove_t_base mk_sl_cui_uint8
+#include "mk_lang_memmove_inl_fileh.h"
+#include "mk_lang_memmove_inl_filec.h"
 
-#define mk_lang_memcpy_obj_tn mk_lib_crypto_alg_serpent_u8
-#define mk_lang_memcpy_obj_t mk_sl_cui_uint8_t
-#include "mk_lang_memcpy_obj_inl_fileh.h"
-#include "mk_lang_memcpy_obj_inl_filec.h"
+#define mk_lang_memcpy_t_name mk_lib_crypto_alg_serpent_memcpy_u8
+#define mk_lang_memcpy_t_base mk_sl_cui_uint8
+#include "mk_lang_memcpy_inl_fileh.h"
+#include "mk_lang_memcpy_inl_filec.h"
 
 
 #define mk_lib_crypto_alg_serpent_word_bits 32
@@ -652,10 +652,10 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_serpent_expand(mk
 		for(j = 0; j != mk_lib_crypto_alg_serpent_msg_words; ++j)
 		{
 			mk_lib_crypto_alg_serpent_expand_w(&k, i * mk_lib_crypto_alg_serpent_msg_words + j, &w);
-			mk_lang_memmove_obj_mk_lib_crypto_alg_serpent_u8(&k.m_data.m_uint8s[0], &k.m_data.m_uint8s[mk_lib_crypto_alg_serpent_word_bytes], mk_lib_crypto_alg_serpent_key_len_m - mk_lib_crypto_alg_serpent_word_bytes);
+			mk_lib_crypto_alg_serpent_memmove_u8_fn(&k.m_data.m_uint8s[0], &k.m_data.m_uint8s[mk_lib_crypto_alg_serpent_word_bytes], mk_lib_crypto_alg_serpent_key_len_m - mk_lib_crypto_alg_serpent_word_bytes);
 			mk_sl_uint_32_to_8_le(&w, &k.m_data.m_uint8s[mk_lib_crypto_alg_serpent_key_len_m - mk_lib_crypto_alg_serpent_word_bytes]);
 		}
-		mk_lang_memcpy_obj_mk_lib_crypto_alg_serpent_u8(&schedule->m_data.m_msgs[i].m_data.m_uint8s[0], &k.m_data.m_uint8s[mk_lib_crypto_alg_serpent_key_len_m - mk_lib_crypto_alg_serpent_msg_len_m], mk_lib_crypto_alg_serpent_msg_len_m);
+		mk_lib_crypto_alg_serpent_memcpy_u8_fn(&schedule->m_data.m_msgs[i].m_data.m_uint8s[0], &k.m_data.m_uint8s[mk_lib_crypto_alg_serpent_key_len_m - mk_lib_crypto_alg_serpent_msg_len_m], mk_lib_crypto_alg_serpent_msg_len_m);
 		sbox_idx = (((mk_lib_crypto_alg_serpent_nr * mk_lib_crypto_alg_serpent_sbox_count) + 3) - i) % mk_lib_crypto_alg_serpent_sbox_count;
 		mk_lib_crypto_alg_serpent_substitute_enc(sbox_idx, &schedule->m_data.m_msgs[i]);
 	}

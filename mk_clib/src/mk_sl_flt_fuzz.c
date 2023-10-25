@@ -4,12 +4,23 @@
 #include "mk_lang_crash.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_likely.h"
-#include "mk_lang_memcpy.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
 #include "mk_sl_flt.h"
+#include "mk_sl_uint8.h"
 
 #include <stdlib.h> /* malloc atof free */
+
+
+#define mk_lang_memcpy_t_name mk_sl_flt_fuzz_memcpyu8
+#define mk_lang_memcpy_t_base  mk_sl_cui_uint8
+#include "mk_lang_memcpy_inl_fileh.h"
+#include "mk_lang_memcpy_inl_filec.h"
+
+static mk_lang_inline mk_lang_types_void_t mk_lang_memcpy(mk_lang_types_void_pt const dst, mk_lang_types_void_pct const src, mk_lang_types_usize_t const len) mk_lang_noexcept
+{
+	mk_sl_flt_fuzz_memcpyu8_fn(((mk_sl_cui_uint8_pt)(dst)), ((mk_sl_cui_uint8_pct)(src)), len);
+}
 
 
 mk_lang_jumbo void mk_sl_flt_fuzz(unsigned char const* const data, mk_lang_types_usize_t const size) mk_lang_noexcept

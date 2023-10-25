@@ -1,36 +1,36 @@
 #include "mk_lang_assert.h"
+#include "mk_lang_bool.h"
 #include "mk_lang_concat.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
-#include "mk_lang_types.h"
 
 
 #include "mk_sl_sort_merge_inl_defd.h"
 
 
-#define mk_sl_sort_merge_overlap_data_name mk_lang_concat(mk_sl_sort_merge_data_, mk_sl_sort_merge_name)
-#define mk_sl_sort_merge_overlap_data_fn mk_lang_concat(mk_lang_overlap_, mk_sl_sort_merge_overlap_data_name)
-#define mk_lang_overlap_name mk_sl_sort_merge_overlap_data_name
-#define mk_lang_overlap_t mk_sl_sort_merge_inl_defd_data_t
+#define mk_sl_sort_merge_overlap_data_name mk_lang_concat(mk_sl_sort_merge_inl_defd_name, _overlap_data)
+#define mk_sl_sort_merge_overlap_data_fn mk_lang_concat(mk_sl_sort_merge_overlap_data_name, _fn)
+#define mk_lang_overlap_t_name mk_sl_sort_merge_overlap_data_name
+#define mk_lang_overlap_t_base mk_sl_sort_merge_inl_defd_data
 #include "mk_lang_overlap_inl_fileh.h"
 #include "mk_lang_overlap_inl_filec.h"
 
-#define mk_sl_sort_merge_overlap_proxy_name mk_lang_concat(mk_sl_sort_merge_proxy_, mk_sl_sort_merge_name)
-#define mk_sl_sort_merge_overlap_proxy_fn mk_lang_concat(mk_lang_overlap_, mk_sl_sort_merge_overlap_proxy_name)
-#define mk_lang_overlap_name mk_sl_sort_merge_overlap_proxy_name
-#define mk_lang_overlap_t mk_sl_sort_merge_inl_defd_proxy_t
+#define mk_sl_sort_merge_overlap_proxy_name mk_lang_concat(mk_sl_sort_merge_inl_defd_name, _overlap_proxy)
+#define mk_sl_sort_merge_overlap_proxy_fn mk_lang_concat(mk_sl_sort_merge_overlap_proxy_name, _fn)
+#define mk_lang_overlap_t_name mk_sl_sort_merge_overlap_proxy_name
+#define mk_lang_overlap_t_base mk_sl_sort_merge_inl_defd_proxy
 #include "mk_lang_overlap_inl_fileh.h"
 #include "mk_lang_overlap_inl_filec.h"
 
 
-mk_lang_constexpr static mk_lang_inline void mk_sl_sort_merge_inl_defd_fn_merge_plain(mk_sl_sort_merge_inl_defd_data_prct const input_a, mk_sl_sort_merge_inl_defd_count_t const count_a, mk_sl_sort_merge_inl_defd_data_prct const input_b, mk_sl_sort_merge_inl_defd_count_t const count_b, mk_sl_sort_merge_inl_defd_data_prt const output) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_sort_merge_inl_defd_fn_merge_plain(mk_sl_sort_merge_inl_defd_data_prct const input_a, mk_sl_sort_merge_inl_defd_counter_t const count_a, mk_sl_sort_merge_inl_defd_data_prct const input_b, mk_sl_sort_merge_inl_defd_counter_t const count_b, mk_sl_sort_merge_inl_defd_data_prt const output) mk_lang_noexcept
 {
-	mk_sl_sort_merge_inl_defd_count_t idx_a mk_lang_constexpr_init;
-	mk_sl_sort_merge_inl_defd_count_t idx_b mk_lang_constexpr_init;
-	mk_sl_sort_merge_inl_defd_count_t idx_o mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_counter_t idx_a mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_counter_t idx_b mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_counter_t idx_o mk_lang_constexpr_init;
 
 	mk_lang_assert(input_a);
 	mk_lang_assert(count_a >= 1);
@@ -65,11 +65,11 @@ mk_lang_constexpr static mk_lang_inline void mk_sl_sort_merge_inl_defd_fn_merge_
 	}
 }
 
-mk_lang_constexpr static mk_lang_inline void mk_sl_sort_merge_inl_defd_fn_merge_proxy(mk_sl_sort_merge_inl_defd_data_prct const data, mk_sl_sort_merge_inl_defd_proxy_prct const input_a, mk_sl_sort_merge_inl_defd_count_t const count_a, mk_sl_sort_merge_inl_defd_proxy_prct const input_b, mk_sl_sort_merge_inl_defd_count_t const count_b, mk_sl_sort_merge_inl_defd_proxy_prt const output) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_sort_merge_inl_defd_fn_merge_proxy(mk_sl_sort_merge_inl_defd_data_prct const data, mk_sl_sort_merge_inl_defd_proxy_prct const input_a, mk_sl_sort_merge_inl_defd_counter_t const count_a, mk_sl_sort_merge_inl_defd_proxy_prct const input_b, mk_sl_sort_merge_inl_defd_counter_t const count_b, mk_sl_sort_merge_inl_defd_proxy_prt const output) mk_lang_noexcept
 {
-	mk_sl_sort_merge_inl_defd_count_t idx_a mk_lang_constexpr_init;
-	mk_sl_sort_merge_inl_defd_count_t idx_b mk_lang_constexpr_init;
-	mk_sl_sort_merge_inl_defd_count_t idx_o mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_counter_t idx_a mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_counter_t idx_b mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_counter_t idx_o mk_lang_constexpr_init;
 
 	mk_lang_assert(data);
 	mk_lang_assert(input_a);
@@ -89,7 +89,7 @@ mk_lang_constexpr static mk_lang_inline void mk_sl_sort_merge_inl_defd_fn_merge_
 	idx_o = 0;
 	while(idx_a != count_a && idx_b != count_b)
 	{
- 		if(mk_sl_sort_merge_inl_defd_fn_is_sorted_proxy(&data[input_a[idx_a]], &data[input_b[idx_b]]))
+		if(mk_sl_sort_merge_inl_defd_fn_is_sorted_proxy(&data[input_a[idx_a]], &data[input_b[idx_b]]))
 		{
 			output[idx_o++] = input_a[idx_a++];
 		}
@@ -108,10 +108,10 @@ mk_lang_constexpr static mk_lang_inline void mk_sl_sort_merge_inl_defd_fn_merge_
 	}
 }
 
-mk_lang_constexpr static mk_lang_inline void mk_sl_sort_merge_inl_defd_fn_first_round_plain_inplace(mk_sl_sort_merge_inl_defd_data_prt const data, mk_sl_sort_merge_inl_defd_count_t const count, mk_sl_sort_merge_inl_defd_data_prt const tmp) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_sort_merge_inl_defd_fn_first_round_plain_inplace(mk_sl_sort_merge_inl_defd_data_prt const data, mk_sl_sort_merge_inl_defd_counter_t const count, mk_sl_sort_merge_inl_defd_data_prt const tmp) mk_lang_noexcept
 {
-	mk_sl_sort_merge_inl_defd_count_t i mk_lang_constexpr_init;
-	mk_sl_sort_merge_data_t t mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_counter_t i mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_data_t t mk_lang_constexpr_init;
 
 	mk_lang_assert(data);
 	mk_lang_assert(count >= 2);
@@ -129,9 +129,9 @@ mk_lang_constexpr static mk_lang_inline void mk_sl_sort_merge_inl_defd_fn_first_
 	}
 }
 
-mk_lang_constexpr static mk_lang_inline void mk_sl_sort_merge_inl_defd_fn_first_round_plain_copy(mk_sl_sort_merge_inl_defd_data_prt const data, mk_sl_sort_merge_inl_defd_count_t const count, mk_sl_sort_merge_inl_defd_data_prt const tmp) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_sort_merge_inl_defd_fn_first_round_plain_copy(mk_sl_sort_merge_inl_defd_data_prt const data, mk_sl_sort_merge_inl_defd_counter_t const count, mk_sl_sort_merge_inl_defd_data_prt const tmp) mk_lang_noexcept
 {
-	mk_sl_sort_merge_inl_defd_count_t i mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_counter_t i mk_lang_constexpr_init;
 
 	mk_lang_assert(data);
 	mk_lang_assert(count >= 2);
@@ -157,11 +157,11 @@ mk_lang_constexpr static mk_lang_inline void mk_sl_sort_merge_inl_defd_fn_first_
 	}
 }
 
-mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t mk_sl_sort_merge_inl_defd_fn_first_round_plain(mk_sl_sort_merge_inl_defd_data_prt const data, mk_sl_sort_merge_inl_defd_count_t const count, mk_sl_sort_merge_inl_defd_data_prt const tmp) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_bool_t mk_sl_sort_merge_inl_defd_fn_first_round_plain(mk_sl_sort_merge_inl_defd_data_prt const data, mk_sl_sort_merge_inl_defd_counter_t const count, mk_sl_sort_merge_inl_defd_data_prt const tmp) mk_lang_noexcept
 {
-	mk_sl_sort_merge_inl_defd_count_t cnt mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_counter_t cnt mk_lang_constexpr_init;
 	int clz mk_lang_constexpr_init;
-	mk_lang_types_bool_t r mk_lang_constexpr_init;
+	mk_lang_bool_t r mk_lang_constexpr_init;
 
 	mk_lang_assert(data);
 	mk_lang_assert(count >= 2);
@@ -169,7 +169,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t m
 	mk_lang_assert(!mk_sl_sort_merge_overlap_data_fn(data, count, tmp, count));
 
 	cnt = count - 1;
-	clz = mk_sl_sort_merge_inl_defd_count_count_leading_zeros(&cnt);
+	clz = mk_sl_sort_merge_inl_defd_counter_count_leading_zeros(&cnt);
 	r = clz % 2 == 0;
 	if(r)
 	{
@@ -182,9 +182,9 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t m
 	return r;
 }
 
-mk_lang_constexpr static mk_lang_inline void mk_sl_sort_merge_inl_defd_fn_first_round_proxy_inplace(mk_sl_sort_merge_inl_defd_data_prct const data, mk_sl_sort_merge_inl_defd_proxy_prt const proxy, mk_sl_sort_merge_inl_defd_count_t const count, mk_sl_sort_merge_inl_defd_proxy_prt const tmp) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_sort_merge_inl_defd_fn_first_round_proxy_inplace(mk_sl_sort_merge_inl_defd_data_prct const data, mk_sl_sort_merge_inl_defd_proxy_prt const proxy, mk_sl_sort_merge_inl_defd_counter_t const count, mk_sl_sort_merge_inl_defd_proxy_prt const tmp) mk_lang_noexcept
 {
-	mk_sl_sort_merge_inl_defd_count_t i mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_counter_t i mk_lang_constexpr_init;
 	mk_sl_sort_merge_inl_defd_proxy_t t mk_lang_constexpr_init;
 
 	mk_lang_assert(data);
@@ -204,9 +204,9 @@ mk_lang_constexpr static mk_lang_inline void mk_sl_sort_merge_inl_defd_fn_first_
 	}
 }
 
-mk_lang_constexpr static mk_lang_inline void mk_sl_sort_merge_inl_defd_fn_first_round_proxy_copy(mk_sl_sort_merge_inl_defd_data_prct const data, mk_sl_sort_merge_inl_defd_proxy_prt const proxy, mk_sl_sort_merge_inl_defd_count_t const count, mk_sl_sort_merge_inl_defd_proxy_prt const tmp) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_sort_merge_inl_defd_fn_first_round_proxy_copy(mk_sl_sort_merge_inl_defd_data_prct const data, mk_sl_sort_merge_inl_defd_proxy_prt const proxy, mk_sl_sort_merge_inl_defd_counter_t const count, mk_sl_sort_merge_inl_defd_proxy_prt const tmp) mk_lang_noexcept
 {
-	mk_sl_sort_merge_inl_defd_count_t i mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_counter_t i mk_lang_constexpr_init;
 
 	mk_lang_assert(data);
 	mk_lang_assert(count >= 2);
@@ -233,11 +233,11 @@ mk_lang_constexpr static mk_lang_inline void mk_sl_sort_merge_inl_defd_fn_first_
 	}
 }
 
-mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t mk_sl_sort_merge_inl_defd_fn_first_round_proxy(mk_sl_sort_merge_inl_defd_data_prct const data, mk_sl_sort_merge_inl_defd_proxy_prt const proxy, mk_sl_sort_merge_inl_defd_count_t const count, mk_sl_sort_merge_inl_defd_proxy_prt const tmp) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_bool_t mk_sl_sort_merge_inl_defd_fn_first_round_proxy(mk_sl_sort_merge_inl_defd_data_prct const data, mk_sl_sort_merge_inl_defd_proxy_prt const proxy, mk_sl_sort_merge_inl_defd_counter_t const count, mk_sl_sort_merge_inl_defd_proxy_prt const tmp) mk_lang_noexcept
 {
-	mk_sl_sort_merge_inl_defd_count_t cnt mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_counter_t cnt mk_lang_constexpr_init;
 	int clz mk_lang_constexpr_init;
-	mk_lang_types_bool_t r mk_lang_constexpr_init;
+	mk_lang_bool_t r mk_lang_constexpr_init;
 
 	mk_lang_assert(data);
 	mk_lang_assert(count >= 2);
@@ -246,7 +246,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t m
 	mk_lang_assert(!mk_sl_sort_merge_overlap_proxy_fn(proxy, count, tmp, count));
 
 	cnt = count - 1;
-	clz = mk_sl_sort_merge_inl_defd_count_count_leading_zeros(&cnt);
+	clz = mk_sl_sort_merge_inl_defd_counter_count_leading_zeros(&cnt);
 	r = clz % 2 == 0;
 	if(r)
 	{
@@ -260,32 +260,23 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t m
 }
 
 
-mk_lang_constexpr mk_lang_jumbo void mk_sl_sort_merge_inl_defd_fn_plain(mk_sl_sort_merge_inl_defd_data_prt const data, mk_sl_sort_merge_inl_defd_count_t const count, mk_sl_sort_merge_inl_defd_data_prt const tmp) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_sort_merge_inl_defd_fn_plain(mk_sl_sort_merge_inl_defd_data_prt const data, mk_sl_sort_merge_inl_defd_counter_t const count, mk_sl_sort_merge_inl_defd_data_prt const tmp) mk_lang_noexcept
 {
 	mk_sl_sort_merge_inl_defd_data_pt in mk_lang_constexpr_init;
 	mk_sl_sort_merge_inl_defd_data_pt out mk_lang_constexpr_init;
-	mk_sl_sort_merge_inl_defd_count_t chunk_size mk_lang_constexpr_init;
-	mk_sl_sort_merge_inl_defd_count_t block_size mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_counter_t chunk_size mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_counter_t block_size mk_lang_constexpr_init;
 	mk_sl_sort_merge_inl_defd_data_pt t mk_lang_constexpr_init;
-	mk_sl_sort_merge_inl_defd_count_t block_count mk_lang_constexpr_init;
-	mk_sl_sort_merge_inl_defd_count_t rest mk_lang_constexpr_init;
-	mk_sl_sort_merge_inl_defd_count_t i mk_lang_constexpr_init;
-	mk_sl_sort_merge_inl_defd_count_t j mk_lang_constexpr_init;
-
-	#if defined _MSC_VER && _MSC_VER == 1936
-	#pragma warning(push)
-	#pragma warning(disable:4296) /* warning C4296: '>=': expression is always true */
-	#endif
+	mk_sl_sort_merge_inl_defd_counter_t block_count mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_counter_t rest mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_counter_t i mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_counter_t j mk_lang_constexpr_init;
 
 	mk_lang_assert(data);
 	mk_lang_assert(count >= 0);
-	mk_lang_assert(count <= ((mk_sl_sort_merge_inl_defd_count_t)(((mk_sl_sort_merge_inl_defd_count_t)(~((mk_sl_sort_merge_inl_defd_count_t)(0)))) / ((mk_sl_sort_merge_inl_defd_count_t)(2)))));
+	mk_lang_assert(count <= ((mk_sl_sort_merge_inl_defd_counter_t)(((mk_sl_sort_merge_inl_defd_counter_t)(~((mk_sl_sort_merge_inl_defd_counter_t)(0)))) / ((mk_sl_sort_merge_inl_defd_counter_t)(2)))));
 	mk_lang_assert(tmp);
 	mk_lang_assert(!mk_sl_sort_merge_overlap_data_fn(data, count, tmp, count));
-
-	#if defined _MSC_VER && _MSC_VER == 1936
-	#pragma warning(pop)
-	#endif
 
 	if(count <= 1)
 	{
@@ -332,17 +323,17 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_sort_merge_inl_defd_fn_plain(mk_sl_so
 	#endif
 }
 
-mk_lang_constexpr mk_lang_jumbo void mk_sl_sort_merge_inl_defd_fn_proxy(mk_sl_sort_merge_inl_defd_data_prct const data, mk_sl_sort_merge_inl_defd_proxy_prt const proxy, mk_sl_sort_merge_inl_defd_count_t const count, mk_sl_sort_merge_inl_defd_proxy_prt const tmp) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_sort_merge_inl_defd_fn_proxy(mk_sl_sort_merge_inl_defd_data_prct const data, mk_sl_sort_merge_inl_defd_proxy_prt const proxy, mk_sl_sort_merge_inl_defd_counter_t const count, mk_sl_sort_merge_inl_defd_proxy_prt const tmp) mk_lang_noexcept
 {
 	mk_sl_sort_merge_inl_defd_proxy_pt in mk_lang_constexpr_init;
 	mk_sl_sort_merge_inl_defd_proxy_pt out mk_lang_constexpr_init;
-	mk_sl_sort_merge_inl_defd_count_t chunk_size mk_lang_constexpr_init;
-	mk_sl_sort_merge_inl_defd_count_t block_size mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_counter_t chunk_size mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_counter_t block_size mk_lang_constexpr_init;
 	mk_sl_sort_merge_inl_defd_proxy_pt t mk_lang_constexpr_init;
-	mk_sl_sort_merge_inl_defd_count_t block_count mk_lang_constexpr_init;
-	mk_sl_sort_merge_inl_defd_count_t rest mk_lang_constexpr_init;
-	mk_sl_sort_merge_inl_defd_count_t i mk_lang_constexpr_init;
-	mk_sl_sort_merge_inl_defd_count_t j mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_counter_t block_count mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_counter_t rest mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_counter_t i mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_counter_t j mk_lang_constexpr_init;
 
 	#if defined _MSC_VER && _MSC_VER == 1936
 	#pragma warning(push)
@@ -352,7 +343,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_sort_merge_inl_defd_fn_proxy(mk_sl_so
 	mk_lang_assert(data);
 	mk_lang_assert(proxy);
 	mk_lang_assert(count >= 0);
-	mk_lang_assert(count <= ((mk_sl_sort_merge_inl_defd_count_t)(((mk_sl_sort_merge_inl_defd_count_t)(~((mk_sl_sort_merge_inl_defd_count_t)(0)))) / ((mk_sl_sort_merge_inl_defd_count_t)(2)))));
+	mk_lang_assert(count <= ((mk_sl_sort_merge_inl_defd_counter_t)(((mk_sl_sort_merge_inl_defd_counter_t)(~((mk_sl_sort_merge_inl_defd_counter_t)(0)))) / ((mk_sl_sort_merge_inl_defd_counter_t)(2)))));
 	mk_lang_assert(tmp);
 	/* todo if data type is the same as proxy type (but it usually is not), then also check for overlap with data-proxy and data-tmp */
 	mk_lang_assert(!mk_sl_sort_merge_overlap_proxy_fn(proxy, count, tmp, count));
@@ -416,10 +407,9 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_sort_merge_inl_defd_fn_proxy(mk_sl_so
 #include "mk_sl_sort_merge_inl_defu.h"
 
 
-#undef mk_sl_sort_merge_name
-#undef mk_sl_sort_merge_data_t
-#undef mk_sl_sort_merge_count_t
-#undef mk_sl_sort_merge_count_math_prefix
-#undef mk_sl_sort_merge_is_sorted
-#undef mk_sl_sort_merge_proxy_t
-#undef mk_sl_sort_merge_first_round
+#undef mk_sl_sort_merge_t_name
+#undef mk_sl_sort_merge_t_data
+#undef mk_sl_sort_merge_t_counter
+#undef mk_sl_sort_merge_t_is_sorted
+#undef mk_sl_sort_merge_t_first_round
+#undef mk_sl_sort_merge_t_proxy

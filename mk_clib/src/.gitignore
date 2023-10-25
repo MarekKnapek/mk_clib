@@ -1,3 +1,7 @@
+/mk_lang_bui_inl_defd.h
+/mk_lang_bui_inl_defu.h
+/mk_lang_bui_inl_filec.h
+/mk_lang_bui_inl_fileh.h
 /mk_lib_crypto_alg_aes_128.h
 /mk_lib_crypto_alg_aes_192.h
 /mk_lib_crypto_alg_aes_256.h
@@ -25,3 +29,7 @@
 /mk_lib_crypto_mode_ofb_aes_192.h
 /mk_lib_crypto_mode_ofb_aes_256.h
 /mk_lib_crypto_mode_ofb_serpent.h
+/mk_sl_cui_inl_defd.h
+/mk_sl_cui_inl_defu.h
+/mk_sl_cui_inl_filec.h
+/mk_sl_cui_inl_fileh.h

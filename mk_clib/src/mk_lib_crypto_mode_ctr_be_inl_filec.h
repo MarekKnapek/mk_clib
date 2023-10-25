@@ -1,5 +1,4 @@
 #include "mk_lang_assert.h"
-#include "mk_lang_bi.h"
 #include "mk_lang_charbit.h"
 #include "mk_lang_concat.h"
 #include "mk_lang_constexpr.h"
@@ -24,28 +23,23 @@
 #define mk_lib_crypto_mode_base_xor2 mk_lang_concat(mk_lang_concat(mk_lib_crypto_mode_base_, mk_lib_crypto_mode_ctr_be_inl_defd_prefix), _xor2)
 
 
-#define mk_lang_bui_name mk_lib_crypto_mode_ctr_be_inl_defd_prefix
-#define mk_lang_bui_type mk_lang_types_ulllong_t
-#define mk_lang_bui_sizeof mk_lang_sizeof_bi_ulllong_t
+#define mk_lang_bui_t_name mk_lang_concat(mk_lib_crypto_mode_ctr_be_inl_defd_prefix, _uint_primitive)
+#define mk_lang_bui_t_base ulllong
 #include "mk_lang_bui_inl_fileh.h"
 #include "mk_lang_bui_inl_filec.h"
 
-#define mk_sl_cui_name mk_lib_crypto_mode_ctr_be_inl_defd_prefix
-#define mk_sl_cui_base_type mk_lang_types_ulllong_t
-#define mk_sl_cui_base_name mk_lang_concat(mk_lang_bui_, mk_lib_crypto_mode_ctr_be_inl_defd_prefix)
-#define mk_sl_cui_base_bits (mk_lang_sizeof_bi_ulllong_t * mk_lang_charbit)
-#define mk_sl_cui_count mk_lang_div_roundup(mk_lib_crypto_mode_ctr_be_inl_defd_msg_len_m * mk_lang_charbit, mk_sl_cui_base_bits)
-#define mk_sl_cui_endian mk_lang_endian_little
-#define mk_sl_cui_base_is_bui 1
-#define mk_sl_cui_base_bui_tn ulllong
+#define mk_sl_cui_t_base_sizebits_d (mk_lang_sizeof_bi_ulllong_t * mk_lang_charbit)
+#define mk_sl_cui_t_name mk_lang_concat(mk_lib_crypto_mode_ctr_be_inl_defd_prefix, _uint_proper)
+#define mk_sl_cui_t_base mk_lang_concat(mk_lib_crypto_mode_ctr_be_inl_defd_prefix, _uint_primitive)
+#define mk_sl_cui_t_count mk_lang_div_roundup(mk_lib_crypto_mode_ctr_be_inl_defd_msg_len_m * mk_lang_charbit, mk_sl_cui_t_base_sizebits_d) /* todo different msg len */
 #include "mk_sl_cui_inl_fileh.h"
 #include "mk_sl_cui_inl_filec.h"
 
-#define ctr_t mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_lib_crypto_mode_ctr_be_inl_defd_prefix), _t)
-#define ctr_pt mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_lib_crypto_mode_ctr_be_inl_defd_prefix), _pt)
-#define ctr_from_uchars mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_lib_crypto_mode_ctr_be_inl_defd_prefix), _from_buis_uchar_be)
-#define ctr_inc mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_lib_crypto_mode_ctr_be_inl_defd_prefix), _inc1)
-#define ctr_to_uchars mk_lang_concat(mk_lang_concat(mk_sl_cui_, mk_lib_crypto_mode_ctr_be_inl_defd_prefix), _to_buis_uchar_be)
+#define ctr_t mk_lang_concat(mk_lang_concat(mk_lib_crypto_mode_ctr_be_inl_defd_prefix, _uint_proper), _t)
+#define ctr_pt mk_lang_concat(mk_lang_concat(mk_lib_crypto_mode_ctr_be_inl_defd_prefix, _uint_proper), _pt)
+#define ctr_from_uchars mk_lang_concat(mk_lang_concat(mk_lib_crypto_mode_ctr_be_inl_defd_prefix, _uint_proper), _from_buis_uchar_be)
+#define ctr_inc mk_lang_concat(mk_lang_concat(mk_lib_crypto_mode_ctr_be_inl_defd_prefix, _uint_proper), _inc1)
+#define ctr_to_uchars mk_lang_concat(mk_lang_concat(mk_lib_crypto_mode_ctr_be_inl_defd_prefix, _uint_proper), _to_buis_uchar_be)
 
 
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ctr_be_inl_defd_increment(mk_lib_crypto_mode_ctr_be_inl_defd_msg_pt const iv) mk_lang_noexcept
