@@ -70,4 +70,8 @@
 #include mk_lang_forb_bi_file
 #undef mk_lang_forb_bi_tn
 
+#define mk_lang_forb_bi_tn ssize
+#include mk_lang_forb_bi_file
+#undef mk_lang_forb_bi_tn
+
 #undef mk_lang_forb_bi_file

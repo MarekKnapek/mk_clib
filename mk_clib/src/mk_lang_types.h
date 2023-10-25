@@ -31,7 +31,7 @@ typedef mk_lang_sintptr_t mk_lang_types_sintptr_t;
 typedef mk_lang_uintmax_t mk_lang_types_uintmax_t;
 typedef mk_lang_sintmax_t mk_lang_types_sintmax_t;
 typedef mk_lang_usize_t mk_lang_types_usize_t;
-typedef mk_lang_sintptr_t mk_lang_types_ssize_t;
+typedef mk_lang_ssize_t mk_lang_types_ssize_t;
 
 typedef mk_lang_types_void_t const mk_lang_types_void_ct;
 typedef mk_lang_types_bool_t const mk_lang_types_bool_ct;

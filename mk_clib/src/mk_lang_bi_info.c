@@ -31,6 +31,7 @@ mk_lang_jumbo void mk_lang_bi_info_print_sizes(void) mk_lang_noexcept
 	printf("sizeof(mk_lang_bi_uintmax_t) == %d\n", ((int)(sizeof(mk_lang_bi_uintmax_t))));
 	printf("sizeof(mk_lang_bi_sintmax_t) == %d\n", ((int)(sizeof(mk_lang_bi_sintmax_t))));
 	printf("sizeof(mk_lang_bi_usize_t) == %d\n", ((int)(sizeof(mk_lang_bi_usize_t))));
+	printf("sizeof(mk_lang_bi_ssize_t) == %d\n", ((int)(sizeof(mk_lang_bi_ssize_t))));
 	printf("\n");
 	printf("alignof(mk_lang_bi_pchar_t) == %d\n", ((int)(mk_lang_alignof(mk_lang_bi_pchar_t))));
 	printf("alignof(mk_lang_bi_uchar_t) == %d\n", ((int)(mk_lang_alignof(mk_lang_bi_uchar_t))));
@@ -50,4 +51,5 @@ mk_lang_jumbo void mk_lang_bi_info_print_sizes(void) mk_lang_noexcept
 	printf("alignof(mk_lang_bi_uintmax_t) == %d\n", ((int)(mk_lang_alignof(mk_lang_bi_uintmax_t))));
 	printf("alignof(mk_lang_bi_sintmax_t) == %d\n", ((int)(mk_lang_alignof(mk_lang_bi_sintmax_t))));
 	printf("alignof(mk_lang_bi_usize_t) == %d\n", ((int)(mk_lang_alignof(mk_lang_bi_usize_t))));
+	printf("alignof(mk_lang_bi_ssize_t) == %d\n", ((int)(mk_lang_alignof(mk_lang_bi_ssize_t))));
 }

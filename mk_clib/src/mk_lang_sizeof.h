@@ -66,6 +66,7 @@
 #elif mk_lang_bitness == mk_lang_bitness_64
 #define mk_lang_sizeof_bi_usize_t 8
 #endif
+#define mk_lang_sizeof_bi_ssize_t mk_lang_sizeof_bi_usize_t
 
 
 #endif
