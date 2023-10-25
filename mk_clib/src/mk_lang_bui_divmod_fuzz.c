@@ -4,7 +4,7 @@
 #include "mk_lang_for_constants.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
-#include "mk_lang_sizet.h"
+#include "mk_lang_types.h"
 
 
 #define mk_lang_fora6_id mk_lang_for_constants_bui
@@ -24,7 +24,7 @@
 #undef mk_lang_fora_file
 
 
-mk_lang_jumbo void mk_lang_bui_divmod_fuzz(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+mk_lang_jumbo void mk_lang_bui_divmod_fuzz(unsigned char const* const data, mk_lang_types_usize_t const size) mk_lang_noexcept
 {
 #define mk_lang_fora6_id mk_lang_for_constants_bui
 #define mk_lang_fora5_id mk_lang_for_constants_bui2

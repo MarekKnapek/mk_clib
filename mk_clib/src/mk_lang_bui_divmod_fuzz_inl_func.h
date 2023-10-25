@@ -4,7 +4,7 @@
 #include "mk_lang_jumbo.h"
 #include "mk_lang_likely.h"
 #include "mk_lang_noexcept.h"
-#include "mk_lang_sizet.h"
+#include "mk_lang_types.h"
 
 #include <string.h> /* memcpy */
 
@@ -13,16 +13,16 @@
 #if mk_lang_bui_divmod_fuzz_inl_func_defd_valid == 1
 
 
-mk_lang_jumbo void mk_lang_bui_divmod_fuzz_inl_func_defd_fn(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+mk_lang_jumbo void mk_lang_bui_divmod_fuzz_inl_func_defd_fn(unsigned char const* const data, mk_lang_types_usize_t const size) mk_lang_noexcept
 {
 	#define test(x) if(!(x)) { mk_lang_unlikely mk_lang_crash(); } ((void)(0))
 
 	#define check(x) if(!(x)) return; ((void)(0))
 	#define check_data(x) check(d && s >= (x)); ((void)(0))
-	#define advance(x) { mk_lang_size_t a; a = (x); mk_lang_assert(a <= s); d += a; s -= a; } ((void)(0))
+	#define advance(x) { mk_lang_types_usize_t a; a = (x); mk_lang_assert(a <= s); d += a; s -= a; } ((void)(0))
 
 	unsigned char const* d;
-	mk_lang_size_t s;
+	mk_lang_types_usize_t s;
 	mk_lang_bui_divmod_fuzz_inl_func_defd_lt maska;
 	mk_lang_bui_divmod_fuzz_inl_func_defd_lt maskb;
 	mk_lang_bui_divmod_fuzz_inl_func_defd_lt la;

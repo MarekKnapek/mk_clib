@@ -5,7 +5,7 @@
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
-#include "mk_lang_sizet.h"
+#include "mk_lang_types.h"
 
 
 #if !defined(mk_lang_overlap_name) && defined(mk_lang_overlap_tn)
@@ -17,11 +17,11 @@
 #define mk_lang_overlap_fn mk_lang_concat(mk_lang_overlap_, mk_lang_overlap_name)
 
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_overlap_fn(mk_lang_overlap_t const* const arr1, mk_lang_size_t const len1, mk_lang_overlap_t const* const arr2, mk_lang_size_t const len2) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_overlap_fn(mk_lang_overlap_t const* const arr1, mk_lang_types_usize_t const len1, mk_lang_overlap_t const* const arr2, mk_lang_types_usize_t const len2) mk_lang_noexcept
 {
 #if mk_lang_constexpr_has
-	mk_lang_size_t i mk_lang_constexpr_init;
-	mk_lang_size_t j mk_lang_constexpr_init;
+	mk_lang_types_usize_t i mk_lang_constexpr_init;
+	mk_lang_types_usize_t j mk_lang_constexpr_init;
 
 	mk_lang_assert(arr1);
 	mk_lang_assert(arr2);
@@ -40,8 +40,8 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_overlap
 #else
 	unsigned char const* p1;
 	unsigned char const* p2;
-	mk_lang_size_t l1;
-	mk_lang_size_t l2;
+	mk_lang_types_usize_t l1;
+	mk_lang_types_usize_t l2;
 	mk_lang_bool_t ret;
 
 	mk_lang_assert(arr1);

@@ -27,7 +27,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_sl_vector_inl_defd_vecto
 	return vector->m_count == 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_size_t mk_sl_vector_inl_defd_vector_ro_get_count(mk_sl_vector_inl_defd_vector_pct const vector) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_usize_t mk_sl_vector_inl_defd_vector_ro_get_count(mk_sl_vector_inl_defd_vector_pct const vector) mk_lang_noexcept
 {
 	mk_lang_assert(vector);
 	mk_lang_assert(mk_sl_vector_inl_defd_vector_pr_check_invariants(vector));
@@ -35,7 +35,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_size_t mk_sl_vector_inl_defd_vector_ro_g
 	return vector->m_count;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_size_t mk_sl_vector_inl_defd_vector_ro_get_capacity(mk_sl_vector_inl_defd_vector_pct const vector) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_usize_t mk_sl_vector_inl_defd_vector_ro_get_capacity(mk_sl_vector_inl_defd_vector_pct const vector) mk_lang_noexcept
 {
 	mk_lang_assert(vector);
 	mk_lang_assert(mk_sl_vector_inl_defd_vector_pr_check_invariants(vector));
@@ -51,7 +51,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_sl_vector_inl_defd_elem_pct mk_sl_vector_inl_
 	return ((mk_sl_vector_inl_defd_elem_pct)(mk_sl_vector_inl_defd_buffer_ro_get_data(&vector->m_buffer)));
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_sl_vector_inl_defd_elem_pct mk_sl_vector_inl_defd_vector_ro_get_data_at(mk_sl_vector_inl_defd_vector_pct const vector, mk_lang_size_t const idx) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_sl_vector_inl_defd_elem_pct mk_sl_vector_inl_defd_vector_ro_get_data_at(mk_sl_vector_inl_defd_vector_pct const vector, mk_lang_types_usize_t const idx) mk_lang_noexcept
 {
 	mk_lang_assert(vector);
 	mk_lang_assert(mk_sl_vector_inl_defd_vector_pr_check_invariants(vector));
@@ -80,12 +80,12 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_sl_vector_inl_defd_vecto
 	return mk_sl_vector_inl_defd_vector_ro_is_empty(vector);
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_size_t mk_sl_vector_inl_defd_vector_rw_get_count(mk_sl_vector_inl_defd_vector_pt const vector) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_usize_t mk_sl_vector_inl_defd_vector_rw_get_count(mk_sl_vector_inl_defd_vector_pt const vector) mk_lang_noexcept
 {
 	return mk_sl_vector_inl_defd_vector_ro_get_count(vector);
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_size_t mk_sl_vector_inl_defd_vector_rw_get_capacity(mk_sl_vector_inl_defd_vector_pt const vector) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_usize_t mk_sl_vector_inl_defd_vector_rw_get_capacity(mk_sl_vector_inl_defd_vector_pt const vector) mk_lang_noexcept
 {
 	return mk_sl_vector_inl_defd_vector_ro_get_capacity(vector);
 }
@@ -95,7 +95,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_sl_vector_inl_defd_elem_pt mk_sl_vector_inl_d
 	return ((mk_sl_vector_inl_defd_elem_pt)(mk_sl_vector_inl_defd_vector_ro_get_data(vector)));
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_sl_vector_inl_defd_elem_pt mk_sl_vector_inl_defd_vector_rw_get_data_at(mk_sl_vector_inl_defd_vector_pt const vector, mk_lang_size_t const idx) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_sl_vector_inl_defd_elem_pt mk_sl_vector_inl_defd_vector_rw_get_data_at(mk_sl_vector_inl_defd_vector_pt const vector, mk_lang_types_usize_t const idx) mk_lang_noexcept
 {
 	return ((mk_sl_vector_inl_defd_elem_pt)(mk_sl_vector_inl_defd_vector_ro_get_data_at(vector, idx)));
 }
@@ -115,11 +115,11 @@ mk_lang_jumbo void mk_sl_vector_inl_defd_vector_rw_construct(mk_sl_vector_inl_de
 	mk_lang_assert(mk_sl_vector_inl_defd_vector_pr_check_invariants(vector));
 }
 
-mk_lang_jumbo void mk_sl_vector_inl_defd_vector_rw_reserve(mk_sl_vector_inl_defd_vector_pt const vector, mk_lang_exception_pt const ex, mk_lang_size_t const count) mk_lang_noexcept
+mk_lang_jumbo void mk_sl_vector_inl_defd_vector_rw_reserve(mk_sl_vector_inl_defd_vector_pt const vector, mk_lang_exception_pt const ex, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
-	mk_lang_size_t size_requested;
-	mk_lang_size_t size_curr;
-	mk_lang_size_t size_new;
+	mk_lang_types_usize_t size_requested;
+	mk_lang_types_usize_t size_curr;
+	mk_lang_types_usize_t size_new;
 
 	mk_lang_assert(vector);
 	mk_lang_assert(mk_sl_vector_inl_defd_vector_pr_check_invariants(vector));
@@ -140,7 +140,7 @@ mk_lang_jumbo void mk_sl_vector_inl_defd_vector_rw_reserve(mk_sl_vector_inl_defd
 	mk_lang_assert(mk_sl_vector_inl_defd_vector_pr_check_invariants(vector));
 }
 
-mk_lang_jumbo void mk_sl_vector_inl_defd_vector_rw_resize(mk_sl_vector_inl_defd_vector_pt const vector, mk_lang_exception_pt const ex, mk_lang_size_t const count) mk_lang_noexcept
+mk_lang_jumbo void mk_sl_vector_inl_defd_vector_rw_resize(mk_sl_vector_inl_defd_vector_pt const vector, mk_lang_exception_pt const ex, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
 	mk_lang_assert(vector);
 	mk_lang_assert(mk_sl_vector_inl_defd_vector_pr_check_invariants(vector));
@@ -185,7 +185,7 @@ mk_lang_jumbo void mk_sl_vector_inl_defd_vector_rw_push_back_from_capacity_one(m
 	mk_lang_assert(mk_sl_vector_inl_defd_vector_pr_check_invariants(vector));
 }
 
-mk_lang_jumbo void mk_sl_vector_inl_defd_vector_rw_push_back_from_capacity_n(mk_sl_vector_inl_defd_vector_pt const vector, mk_lang_size_t const count) mk_lang_noexcept
+mk_lang_jumbo void mk_sl_vector_inl_defd_vector_rw_push_back_from_capacity_n(mk_sl_vector_inl_defd_vector_pt const vector, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
 	mk_lang_assert(vector);
 	mk_lang_assert(mk_sl_vector_inl_defd_vector_pr_check_invariants(vector));
@@ -205,7 +205,7 @@ mk_lang_jumbo void mk_sl_vector_inl_defd_vector_rw_pop_back_one(mk_sl_vector_inl
 	mk_lang_assert(mk_sl_vector_inl_defd_vector_pr_check_invariants(vector));
 }
 
-mk_lang_jumbo void mk_sl_vector_inl_defd_vector_rw_pop_back_n(mk_sl_vector_inl_defd_vector_pt const vector, mk_lang_size_t const count) mk_lang_noexcept
+mk_lang_jumbo void mk_sl_vector_inl_defd_vector_rw_pop_back_n(mk_sl_vector_inl_defd_vector_pt const vector, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
 	mk_lang_assert(vector);
 	mk_lang_assert(mk_sl_vector_inl_defd_vector_pr_check_invariants(vector));

@@ -1,10 +1,10 @@
 #include "mk_sl_cui_fuzz_inl_tofrom_buis_inl_defd.h"
 
 
-mk_lang_jumbo void mk_sl_cui_fuzz_inl_tofrom_buis_inl_defd_fn(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+mk_lang_jumbo void mk_sl_cui_fuzz_inl_tofrom_buis_inl_defd_fn(unsigned char const* const data, mk_lang_types_usize_t const size) mk_lang_noexcept
 {
 	unsigned char const* d;
-	mk_lang_size_t s;
+	mk_lang_types_usize_t s;
 	mk_sl_cui_inl_defd_t cui;
 	mk_lang_bi_ulllong_t bui;
 	mk_sl_cui_fuzz_inl_tofrom_buis_inl_defd_bui_t buis[mk_sl_cui_fuzz_inl_tofrom_buis_inl_defd_count];

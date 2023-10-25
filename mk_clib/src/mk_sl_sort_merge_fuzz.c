@@ -7,7 +7,6 @@
 #include "mk_lang_likely.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
-#include "mk_lang_sizet.h"
 #include "mk_lang_types.h"
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_sl_sort_merge_fuzz_cmp2_plain(mk_lang_types_ushort_prct const a, mk_lang_types_ushort_prct const b)
@@ -114,14 +113,14 @@ mk_lang_jumbo void mk_sl_sort_merge_testn_proxy(int const variant, mk_lang_types
 	}
 }
 
-mk_lang_jumbo void mk_sl_sort_merge_fuzz_plain(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+mk_lang_jumbo void mk_sl_sort_merge_fuzz_plain(unsigned char const* const data, mk_lang_types_usize_t const size) mk_lang_noexcept
 {
 	#define check(x) if(!(x)) return;
 	#define advance(x) d += (x); s -= (x); ((void)(0))
 	#define test(x) if(!(x)) { mk_lang_unlikely mk_lang_crash(); } ((void)(0))
 
 	mk_lang_types_uchar_pct d;
-	mk_lang_size_t s;
+	mk_lang_types_usize_t s;
 	int variant;
 	mk_lang_types_uchar_t count;
 	mk_lang_types_uchar_t i;
@@ -156,14 +155,14 @@ mk_lang_jumbo void mk_sl_sort_merge_fuzz_plain(unsigned char const* const data, 
 	#undef test
 }
 
-mk_lang_jumbo void mk_sl_sort_merge_fuzz_proxy(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+mk_lang_jumbo void mk_sl_sort_merge_fuzz_proxy(unsigned char const* const data, mk_lang_types_usize_t const size) mk_lang_noexcept
 {
 	#define check(x) if(!(x)) return;
 	#define advance(x) d += (x); s -= (x); ((void)(0))
 	#define test(x) if(!(x)) { mk_lang_unlikely mk_lang_crash(); } ((void)(0))
 
 	mk_lang_types_uchar_pct d;
-	mk_lang_size_t s;
+	mk_lang_types_usize_t s;
 	int variant;
 	mk_lang_types_uchar_t count;
 	mk_lang_types_uchar_t i;
@@ -205,14 +204,14 @@ mk_lang_jumbo void mk_sl_sort_merge_fuzz_proxy(unsigned char const* const data, 
 }
 
 
-mk_lang_jumbo void mk_sl_sort_merge_fuzz(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+mk_lang_jumbo void mk_sl_sort_merge_fuzz(unsigned char const* const data, mk_lang_types_usize_t const size) mk_lang_noexcept
 {
 	#define check(x) if(!(x)) return;
 	#define advance(x) d += (x); s -= (x); ((void)(0))
 	#define test(x) if(!(x)) { mk_lang_unlikely mk_lang_crash(); } ((void)(0))
 
 	mk_lang_types_uchar_pct d;
-	mk_lang_size_t s;
+	mk_lang_types_usize_t s;
 	int variant;
 
 	d = data;

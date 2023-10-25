@@ -6,19 +6,19 @@
 #include "mk_lang_likely.h"
 #include "mk_lang_memcpy.h"
 #include "mk_lang_noexcept.h"
-#include "mk_lang_sizet.h"
+#include "mk_lang_types.h"
 #include "mk_sl_flt.h"
 
 #include <stdlib.h> /* malloc atof free */
 
 
-mk_lang_jumbo void mk_sl_flt_fuzz(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+mk_lang_jumbo void mk_sl_flt_fuzz(unsigned char const* const data, mk_lang_types_usize_t const size) mk_lang_noexcept
 {
 	#define test(x) if(!(x)) { mk_lang_unlikely mk_lang_crash(); } ((void)(0))
 
 	{
 		unsigned char const* d;
-		mk_lang_size_t s;
+		mk_lang_types_usize_t s;
 		unsigned short shrt;
 		float flta;
 		int tn;
@@ -42,7 +42,7 @@ mk_lang_jumbo void mk_sl_flt_fuzz(unsigned char const* const data, mk_lang_size_
 	}
 	{
 		unsigned char const* d;
-		mk_lang_size_t s;
+		mk_lang_types_usize_t s;
 		unsigned short shrt;
 		double flta;
 		int tn;

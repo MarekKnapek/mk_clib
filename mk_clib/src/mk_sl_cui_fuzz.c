@@ -3,7 +3,7 @@
 #include "mk_lang_for_constants.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
-#include "mk_lang_sizet.h"
+#include "mk_lang_types.h"
 #include "mk_sl_cui.h"
 
 
@@ -30,7 +30,7 @@
 #undef mk_sl_cui_fuzz_for_endian
 
 
-mk_lang_jumbo void mk_sl_cui_fuzz(unsigned char const* const data, mk_lang_size_t const size) mk_lang_noexcept
+mk_lang_jumbo void mk_sl_cui_fuzz(unsigned char const* const data, mk_lang_types_usize_t const size) mk_lang_noexcept
 {
 #define mk_lang_fora3_id mk_lang_for_constants_bui
 #define mk_lang_fora2_id mk_lang_for_constants_count
