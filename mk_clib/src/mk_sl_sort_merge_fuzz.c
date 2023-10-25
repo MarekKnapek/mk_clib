@@ -1,6 +1,5 @@
 #include "mk_sl_sort_merge_fuzz.h"
 
-
 #include "mk_lang_assert.h"
 #include "mk_lang_crash.h"
 #include "mk_lang_jumbo.h"
@@ -8,6 +7,7 @@
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
+
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_sl_sort_merge_fuzz_cmp2_plain(mk_lang_types_ushort_prct const a, mk_lang_types_ushort_prct const b)
 {

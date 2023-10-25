@@ -5,6 +5,7 @@
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
 
+
 #ifdef mk_lang_memcpy_obj_t_
 #define mk_lang_memcpy_obj_t mk_lang_memcpy_obj_t_
 #endif
