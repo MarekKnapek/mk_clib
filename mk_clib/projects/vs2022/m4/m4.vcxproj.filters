@@ -1,32 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<ItemGroup>
-		<CustomBuild Include="..\..\..\src\mk_lib_crypto_alg_aes_128.h.m4"          />
-		<CustomBuild Include="..\..\..\src\mk_lib_crypto_alg_aes_192.h.m4"          />
-		<CustomBuild Include="..\..\..\src\mk_lib_crypto_alg_aes_256.h.m4"          />
-		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cbc_aes_128.h.m4"     />
-		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cbc_aes_192.h.m4"     />
-		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cbc_aes_256.h.m4"     />
-		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cbc_serpent.h.m4"     />
-		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cfb_128_aes_128.h.m4" />
-		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cfb_128_aes_192.h.m4" />
-		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cfb_128_aes_256.h.m4" />
-		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cfb_128_serpent.h.m4" />
-		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cfb_8_aes_128.h.m4"   />
-		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cfb_8_aes_192.h.m4"   />
-		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cfb_8_aes_256.h.m4"   />
-		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cfb_8_serpent.h.m4"   />
-		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ctr_be_aes_128.h.m4"  />
-		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ctr_be_aes_192.h.m4"  />
-		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ctr_be_aes_256.h.m4"  />
-		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ctr_be_serpent.h.m4"  />
-		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ecb_aes_128.h.m4"     />
-		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ecb_aes_192.h.m4"     />
-		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ecb_aes_256.h.m4"     />
-		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ecb_serpent.h.m4"     />
-		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ofb_aes_128.h.m4"     />
-		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ofb_aes_192.h.m4"     />
-		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ofb_aes_256.h.m4"     />
-		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ofb_serpent.h.m4"     />
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_alg_aes_128.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_alg_aes_192.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_alg_aes_256.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cbc_aes_128.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cbc_aes_192.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cbc_aes_256.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cbc_serpent.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cfb_128_aes_128.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cfb_128_aes_192.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cfb_128_aes_256.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cfb_128_serpent.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cfb_8_aes_128.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cfb_8_aes_192.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cfb_8_aes_256.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cfb_8_serpent.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ctr_be_aes_128.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ctr_be_aes_192.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ctr_be_aes_256.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ctr_be_serpent.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ecb_aes_128.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ecb_aes_192.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ecb_aes_256.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ecb_serpent.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ofb_aes_128.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ofb_aes_192.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ofb_aes_256.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ofb_serpent.h.m4"/>
 	</ItemGroup>
 </Project>
