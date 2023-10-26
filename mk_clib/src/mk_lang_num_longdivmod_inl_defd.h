@@ -14,8 +14,8 @@
 	((defined mk_lang_num_longdivmod_t_alg && (mk_lang_num_longdivmod_t_alg == 2 || (mk_lang_num_longdivmod_t_alg == 3 && defined mk_lang_num_longdivmod_t_tn3))) || !defined mk_lang_num_longdivmod_t_alg) && \
 	(defined mk_lang_num_longdivmod_t_tn1s_to_tn2) && \
 	(defined mk_lang_num_longdivmod_t_tn1d_to_tn2) && \
-	(defined mk_lang_num_longdivmod_t_tn1d_to_tn3 || ((defined mk_lang_num_longdivmod_t_alg && mk_lang_num_longdivmod_t_alg == 2) && !defined mk_lang_num_longdivmod_t_alg)) && \
-	(defined mk_lang_num_longdivmod_t_tn1t_to_tn3 || ((defined mk_lang_num_longdivmod_t_alg && mk_lang_num_longdivmod_t_alg == 2) && !defined mk_lang_num_longdivmod_t_alg)) && \
+	(defined mk_lang_num_longdivmod_t_tn1d_to_tn3 || ((defined mk_lang_num_longdivmod_t_alg && mk_lang_num_longdivmod_t_alg == 2) || !defined mk_lang_num_longdivmod_t_alg)) && \
+	(defined mk_lang_num_longdivmod_t_tn1t_to_tn3 || ((defined mk_lang_num_longdivmod_t_alg && mk_lang_num_longdivmod_t_alg == 2) || !defined mk_lang_num_longdivmod_t_alg)) && \
 	(defined mk_lang_num_longdivmod_t_tn2_get_lo) && \
 	(defined mk_lang_num_longdivmod_t_tn2_get_hi) && \
 	(defined mk_lang_num_longdivmod_t_tn3_get_tn2 || ((defined mk_lang_num_longdivmod_t_alg && mk_lang_num_longdivmod_t_alg == 2) || !defined mk_lang_num_longdivmod_t_alg)) && \
