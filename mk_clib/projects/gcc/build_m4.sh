@@ -1,5 +1,6 @@
 this_dir="$(dirname -- $0)"
 src_dir="$this_dir/../../src"
+m4 -I $src_dir -- $src_dir/mk_clib_readme.md.m4                    > $src_dir/mk_clib_readme.md
 m4 -I $src_dir -- $src_dir/mk_lang_bui_inl_defd.h.m4               > $src_dir/mk_lang_bui_inl_defd.h
 m4 -I $src_dir -- $src_dir/mk_lang_bui_inl_defu.h.m4               > $src_dir/mk_lang_bui_inl_defu.h
 m4 -I $src_dir -- $src_dir/mk_lang_bui_inl_filec.h.m4              > $src_dir/mk_lang_bui_inl_filec.h
