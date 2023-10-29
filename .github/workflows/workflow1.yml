@@ -47,3 +47,12 @@
         "with":
           "name": "${{matrix.proj}}-cpp${{matrix.cver}}.txt"
           "path": "./mk_clib/app/${{matrix.proj}}-cpp${{matrix.cver}}.txt"
+  "build_run_examples":
+    "runs-on": "ubuntu-latest"
+    "defaults":
+      "run":
+        "working-directory": "./mk_clib/projects/gcc"
+    "steps":
+      - "uses": "actions/checkout@main"
+      - "run": "bash ./build_m4.sh"
+      - "run": "bash ./build_run_examples.sh"
