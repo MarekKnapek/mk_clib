@@ -392,8 +392,7 @@ mm_per_bui(`mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_inl_d
 	#undef xx_outer
 	#undef xx_rest
 #else
-	/*todo*/
-	xxxxxxxxxx
+#error todo xxxxxxxxxx
 	mk_lang_assert(0);
 #endif
 }
@@ -492,8 +491,7 @@ mm_per_bui(`mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_inl_d
 	#undef xx_outer
 	#undef xx_rest
 #else
-	/*todo*/
-	xxxxxxxxxx
+#error todo xxxxxxxxxx
 	mk_lang_assert(0);
 #endif
 }
@@ -593,8 +591,7 @@ mm_per_bui(`mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_inl_d
 	#undef xx_rest
 	#undef xx_cnt
 #else
-	/*todo*/
-	xxxxxxxxxx
+#error todo xxxxxxxxxx
 	mk_lang_assert(0);
 #endif
 }
@@ -697,8 +694,7 @@ mm_per_bui(`mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_inl_d
 	#undef xx_rest
 	#undef xx_cnt
 #else
-	/*todo*/
-	xxxxxxxxxx
+#error todo xxxxxxxxxx
 	mk_lang_assert(0);
 #endif
 }
@@ -2323,11 +2319,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_mul3_wrap_hi_restrict(mk
 	mk_sl_cui_inl_defd_base_add2_wrap_cid_coe(&c->m_data[mk_sl_cui_inl_defd_idx(0)], &ta, &cf);
 	mk_sl_cui_inl_defd_base_add2_wrap_cie_cod(&c->m_data[mk_sl_cui_inl_defd_idx(1)], &tb, cf);
 #elif mk_sl_cui_inl_defd_count == 3
-	/* todo */
-	((void)(a));
-	((void)(b));
-	((void)(c));
-	mk_lang_assert(0);
+#error todo xxxxxxxxxx
 #elif mk_sl_cui_inl_defd_count == 4
 	mk_sl_cui_inl_defd_base_t ta mk_lang_constexpr_init;
 	mk_sl_cui_inl_defd_base_t tb mk_lang_constexpr_init;
@@ -3023,7 +3015,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_cui_inl_defd_divmod4_wrap(mk_sl_cui_i
 	mk_sl_cui_inl_defd_from_buis_ulong_le(d, &dd[0]);
 
 		#else
-xxxxxxxxxx todo
+#error todo xxxxxxxxxx
 		#endif
 	#endif
 #endif
