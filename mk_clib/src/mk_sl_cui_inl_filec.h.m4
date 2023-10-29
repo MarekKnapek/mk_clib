@@ -28,7 +28,88 @@ include(`mk_sl_cui_inl.m')dnl
 #include "mk_lang_memmove_inl_fileh.h"
 #include "mk_lang_memmove_inl_filec.h"
 
-#if((!(mk_sl_cui_inl_defd_sizebits_d <= mk_lang_sizeof_bi_ulllong_t * mk_lang_charbit)) && (mk_lang_sizeof_bi_ullong_t >= 2 * mk_lang_sizeof_bi_ulong_t))
+#if((!(mk_sl_cui_inl_defd_sizebits_d <= mk_lang_sizeof_bi_ulllong_t * mk_lang_charbit)) && (mk_lang_sizeof_bi_ulllong_t >= 2 * mk_lang_sizeof_bi_ullong_t))
+
+#define mk_sl_cui_inl_defd_t1 mk_lang_concat(mk_sl_cui_inl_defd_name, _xxx_t1)
+#define mk_sl_cui_inl_defd_t1_t mk_lang_concat(mk_sl_cui_inl_defd_t1, _t)
+#define mk_sl_cui_inl_defd_t1_pt mk_lang_concat(mk_sl_cui_inl_defd_t1, _pt)
+#define mk_sl_cui_inl_defd_t1_pct mk_lang_concat(mk_sl_cui_inl_defd_t1, _pct)
+#define mk_lang_bui_t_name mk_sl_cui_inl_defd_t1
+#define mk_lang_bui_t_base ullong
+#include "mk_lang_bui_inl_fileh.h"
+#include "mk_lang_bui_inl_filec.h"
+#define mk_sl_cui_inl_defd_t1_sizebits_d (mk_lang_sizeof_bi_ullong_t * mk_lang_charbit)
+
+#define mk_sl_cui_inl_defd_t2 mk_lang_concat(mk_sl_cui_inl_defd_name, _xxx_t2)
+#define mk_sl_cui_inl_defd_t2_t mk_lang_concat(mk_sl_cui_inl_defd_t2, _t)
+#define mk_sl_cui_inl_defd_t2_pt mk_lang_concat(mk_sl_cui_inl_defd_t2, _pt)
+#define mk_sl_cui_inl_defd_t2_pct mk_lang_concat(mk_sl_cui_inl_defd_t2, _pct)
+#define mk_lang_bui_t_name mk_sl_cui_inl_defd_t2
+#define mk_lang_bui_t_base ulllong
+#include "mk_lang_bui_inl_fileh.h"
+#include "mk_lang_bui_inl_filec.h"
+#define mk_sl_cui_inl_defd_t2_sizebits_d (mk_lang_sizeof_bi_ulllong_t * mk_lang_charbit)
+
+#define mk_sl_cui_inl_defd_t1s_to_t2 mk_lang_concat(mk_sl_cui_inl_defd_name, _zzz_t1s_to_t2)
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_cui_inl_defd_t1s_to_t2(mk_sl_cui_inl_defd_t1_pct const a, mk_sl_cui_inl_defd_t2_pt const b) mk_lang_noexcept
+{
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	*b = ((mk_sl_cui_inl_defd_t2_t)(*a));
+}
+
+#define mk_sl_cui_inl_defd_t1d_to_t2 mk_lang_concat(mk_sl_cui_inl_defd_name, _zzz_t1d_to_t2)
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_cui_inl_defd_t1d_to_t2(mk_sl_cui_inl_defd_t1_pct const a, mk_sl_cui_inl_defd_t1_pct const b, mk_sl_cui_inl_defd_t2_pt const c) mk_lang_noexcept
+{
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(c);
+
+	*c = ((mk_sl_cui_inl_defd_t2_t)(((mk_sl_cui_inl_defd_t2_t)(((mk_sl_cui_inl_defd_t2_t)(*a)) << ((mk_lang_types_sint_t)(mk_sl_cui_inl_defd_t1_sizebits_d)))) | ((mk_sl_cui_inl_defd_t2_t)(*b))));
+}
+
+#define mk_sl_cui_inl_defd_t2_get_lo mk_lang_concat(mk_sl_cui_inl_defd_name, _zzz_t2_get_lo)
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_cui_inl_defd_t2_get_lo(mk_sl_cui_inl_defd_t2_pct const a, mk_sl_cui_inl_defd_t1_pt const b) mk_lang_noexcept
+{
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	*b = ((mk_sl_cui_inl_defd_t1_t)(*a));
+}
+
+#define mk_sl_cui_inl_defd_t2_get_hi mk_lang_concat(mk_sl_cui_inl_defd_name, _zzz_t2_get_hi)
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_cui_inl_defd_t2_get_hi(mk_sl_cui_inl_defd_t2_pct const a, mk_sl_cui_inl_defd_t1_pt const b) mk_lang_noexcept
+{
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	*b = ((mk_sl_cui_inl_defd_t1_t)(((mk_sl_cui_inl_defd_t2_t)(((mk_sl_cui_inl_defd_t2_t)(*a)) >> ((mk_lang_types_sint_t)(mk_sl_cui_inl_defd_t1_sizebits_d))))));
+}
+
+#define mk_lang_num_longdivmod_t_name mk_lang_concat(mk_lang_num_longdivmod_, mk_sl_cui_inl_defd_name)
+#define mk_lang_num_longdivmod_t_tn1 mk_sl_cui_inl_defd_t1
+#define mk_lang_num_longdivmod_t_tn2 mk_sl_cui_inl_defd_t2
+#define mk_lang_num_longdivmod_t_tn3 x
+#define mk_lang_num_longdivmod_t_lena mk_lang_div_roundup(mk_sl_cui_inl_defd_sizebits_d, mk_lang_sizeof_bi_ullong_t * mk_lang_charbit)
+#define mk_lang_num_longdivmod_t_lenb mk_lang_div_roundup(mk_sl_cui_inl_defd_sizebits_d, mk_lang_sizeof_bi_ullong_t * mk_lang_charbit)
+#define mk_lang_num_longdivmod_t_endian mk_lang_endian_little
+#define mk_lang_num_longdivmod_t_alg 2
+#define mk_lang_num_longdivmod_t_tn1s_to_tn2 mk_sl_cui_inl_defd_t1s_to_t2
+#define mk_lang_num_longdivmod_t_tn1d_to_tn2 mk_sl_cui_inl_defd_t1d_to_t2
+#define mk_lang_num_longdivmod_t_tn1d_to_tn3 x
+#define mk_lang_num_longdivmod_t_tn1t_to_tn3 x
+#define mk_lang_num_longdivmod_t_tn2_get_lo mk_sl_cui_inl_defd_t2_get_lo
+#define mk_lang_num_longdivmod_t_tn2_get_hi mk_sl_cui_inl_defd_t2_get_hi
+#define mk_lang_num_longdivmod_t_tn3_get_tn2 x
+#define mk_lang_num_longdivmod_t_tn1_sizebits_d mk_sl_cui_inl_defd_t1_sizebits_d
+#define mk_lang_num_longdivmod_t_tn2_sizebits_d mk_sl_cui_inl_defd_t2_sizebits_d
+#define mk_lang_num_longdivmod_t_tn3_sizebits_d x
+#include "mk_lang_num_longdivmod_inl_fileh.h"
+#include "mk_lang_num_longdivmod_inl_filec.h"
+#define mk_sl_cui_inl_defd_ldm_divmod4 mk_lang_concat(mk_lang_concat(mk_lang_num_longdivmod_, mk_sl_cui_inl_defd_name), _divmod4)
+
+#elif((!(mk_sl_cui_inl_defd_sizebits_d <= mk_lang_sizeof_bi_ulllong_t * mk_lang_charbit)) && (mk_lang_sizeof_bi_ullong_t >= 2 * mk_lang_sizeof_bi_ulong_t))
 
 #define mk_sl_cui_inl_defd_t1 mk_lang_concat(mk_sl_cui_inl_defd_name, _xxx_t1)
 #define mk_sl_cui_inl_defd_t1_t mk_lang_concat(mk_sl_cui_inl_defd_t1, _t)
