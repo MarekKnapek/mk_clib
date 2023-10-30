@@ -19,6 +19,7 @@
 #include "mk_lib_crypto_alg_aes_128.h"
 #include "mk_lib_crypto_alg_aes_192.h"
 #include "mk_lib_crypto_alg_aes_256.h"
+#include "mk_lib_crypto_alg_serpent.h"
 #include "mk_lib_crypto_kdf_pbkdf1_md2.h"
 #include "mk_lib_crypto_kdf_pbkdf1_md5.h"
 #include "mk_lib_crypto_kdf_pbkdf1_sha1.h"
@@ -1451,6 +1452,80 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_app_impl_expand_dec(m
 	}
 }
 
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_ssize_t serpent_fast_path_enc(mk_lib_crypto_app_pt const app, mk_lang_types_usize_t const len) mk_lang_noexcept
+{
+	mk_lang_types_usize_t nrounds mk_lang_constexpr_init;
+	mk_lang_types_usize_t nmsgs mk_lang_constexpr_init;
+	mk_lang_types_usize_t nbytes mk_lang_constexpr_init;
+	mk_lang_types_usize_t iround mk_lang_constexpr_init;
+	mk_lang_types_usize_t imsg mk_lang_constexpr_init;
+	mk_lang_types_usize_t ibyte mk_lang_constexpr_init;
+	mk_lib_crypto_alg_serpent_msg_t msgs[4] mk_lang_constexpr_init;
+
+	mk_lang_assert(app);
+	mk_lang_assert(len % (mk_lib_crypto_alg_serpent_msg_len_v * ((mk_lang_types_usize_t)(sizeof(msgs) / sizeof(msgs[0])))) == 0);
+
+	nrounds = len / (mk_lib_crypto_alg_serpent_msg_len_v * ((mk_lang_types_usize_t)(sizeof(msgs) / sizeof(msgs[0]))));
+	nmsgs = ((mk_lang_types_usize_t)(sizeof(msgs) / sizeof(msgs[0])));
+	nbytes = mk_lib_crypto_alg_serpent_msg_len_v;
+	for(iround = 0; iround != nrounds; ++iround)
+	{
+		for(imsg = 0; imsg != nmsgs; ++ imsg)
+		{
+			for(ibyte = 0; ibyte != nbytes; ++ibyte)
+			{
+				msgs[imsg].m_data.m_uint8s[ibyte] = app->m_buffer.m_data.m_uint8s[iround * nmsgs * nbytes + imsg * nbytes + ibyte];
+			}
+		}
+		mk_lib_crypto_alg_serpent_schedule_encrypt_n(&app->m_schedule.m_data.m_ecb_serpent, &msgs[0], &msgs[0], nmsgs);
+		for(imsg = 0; imsg != nmsgs; ++ imsg)
+		{
+			for(ibyte = 0; ibyte != nbytes; ++ibyte)
+			{
+				app->m_buffer.m_data.m_uint8s[iround * nmsgs * nbytes + imsg * nbytes + ibyte] = msgs[imsg].m_data.m_uint8s[ibyte];
+			}
+		}
+	}
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_ssize_t serpent_fast_path_dec(mk_lib_crypto_app_pt const app, mk_lang_types_usize_t const len) mk_lang_noexcept
+{
+	mk_lang_types_usize_t nrounds mk_lang_constexpr_init;
+	mk_lang_types_usize_t nmsgs mk_lang_constexpr_init;
+	mk_lang_types_usize_t nbytes mk_lang_constexpr_init;
+	mk_lang_types_usize_t iround mk_lang_constexpr_init;
+	mk_lang_types_usize_t imsg mk_lang_constexpr_init;
+	mk_lang_types_usize_t ibyte mk_lang_constexpr_init;
+	mk_lib_crypto_alg_serpent_msg_t msgs[4] mk_lang_constexpr_init;
+
+	mk_lang_assert(app);
+	mk_lang_assert(len % (mk_lib_crypto_alg_serpent_msg_len_v * ((mk_lang_types_usize_t)(sizeof(msgs) / sizeof(msgs[0])))) == 0);
+
+	nrounds = len / (mk_lib_crypto_alg_serpent_msg_len_v * ((mk_lang_types_usize_t)(sizeof(msgs) / sizeof(msgs[0]))));
+	nmsgs = ((mk_lang_types_usize_t)(sizeof(msgs) / sizeof(msgs[0])));
+	nbytes = mk_lib_crypto_alg_serpent_msg_len_v;
+	for(iround = 0; iround != nrounds; ++iround)
+	{
+		for(imsg = 0; imsg != nmsgs; ++ imsg)
+		{
+			for(ibyte = 0; ibyte != nbytes; ++ibyte)
+			{
+				msgs[imsg].m_data.m_uint8s[ibyte] = app->m_buffer.m_data.m_uint8s[iround * nmsgs * nbytes + imsg * nbytes + ibyte];
+			}
+		}
+		mk_lib_crypto_alg_serpent_schedule_decrypt_n(&app->m_schedule.m_data.m_ecb_serpent, &msgs[0], &msgs[0], nmsgs);
+		for(imsg = 0; imsg != nmsgs; ++ imsg)
+		{
+			for(ibyte = 0; ibyte != nbytes; ++ibyte)
+			{
+				app->m_buffer.m_data.m_uint8s[iround * nmsgs * nbytes + imsg * nbytes + ibyte] = msgs[imsg].m_data.m_uint8s[ibyte];
+			}
+		}
+	}
+	return 0;
+}
+
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_ssize_t mk_lib_crypto_app_impl_encrypt_append(mk_lib_crypto_app_pt const app, mk_lang_types_usize_t const len) mk_lang_noexcept
 {
 	mk_lang_types_usize_t msg_len mk_lang_constexpr_init;
@@ -1464,6 +1539,10 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_ssize_t 
 	mk_lib_crypto_app_check(len >= 0 && len <= mk_lib_crypto_app_impl_get_data_size(app) + mk_lib_crypto_app_get_msg_size_max_m);
 	mk_lib_crypto_app_check(len % msg_len == 0);
 	n = len / msg_len;
+	if(n % 4 == 0 && app->m_alg_id == mk_lib_crypto_app_alg_id_e_serpent && app->m_mode_id == mk_lib_crypto_app_mode_id_e_ecb)
+	{
+		return serpent_fast_path_enc(app, len);
+	}
 	for(i = 0; i != n; ++i)
 	{
 		mk_lib_crypto_app_encrypt_mode(app, i * msg_len);
@@ -1484,6 +1563,10 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_ssize_t 
 	mk_lib_crypto_app_check(len >= 0 && len <= mk_lib_crypto_app_impl_get_data_size(app));
 	mk_lib_crypto_app_check(len % msg_len == 0);
 	n = len / msg_len;
+	if(n % 4 == 0 && app->m_alg_id == mk_lib_crypto_app_alg_id_e_serpent && app->m_mode_id == mk_lib_crypto_app_mode_id_e_ecb)
+	{
+		return serpent_fast_path_dec(app, len);
+	}
 	for(i = 0; i != n; ++i)
 	{
 		mk_lib_crypto_app_decrypt_mode(app, i * msg_len);
