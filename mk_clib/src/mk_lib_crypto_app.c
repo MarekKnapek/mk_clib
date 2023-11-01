@@ -1,5 +1,6 @@
 #include "mk_lib_crypto_app.h"
 
+#include "mk_lang_alignas.h"
 #include "mk_lang_assert.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_cpp.h"
@@ -1460,7 +1461,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_ssize_t 
 	mk_lang_types_usize_t iround mk_lang_constexpr_init;
 	mk_lang_types_usize_t imsg mk_lang_constexpr_init;
 	mk_lang_types_usize_t ibyte mk_lang_constexpr_init;
-	mk_lib_crypto_alg_serpent_msg_t msgs[4] mk_lang_constexpr_init;
+	mk_lang_alignas(32) mk_lib_crypto_alg_serpent_msg_t msgs[8] mk_lang_constexpr_init;
 
 	mk_lang_assert(app);
 	mk_lang_assert(len % (mk_lib_crypto_alg_serpent_msg_len_v * ((mk_lang_types_usize_t)(sizeof(msgs) / sizeof(msgs[0])))) == 0);
@@ -1497,7 +1498,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_ssize_t 
 	mk_lang_types_usize_t iround mk_lang_constexpr_init;
 	mk_lang_types_usize_t imsg mk_lang_constexpr_init;
 	mk_lang_types_usize_t ibyte mk_lang_constexpr_init;
-	mk_lib_crypto_alg_serpent_msg_t msgs[4] mk_lang_constexpr_init;
+	mk_lang_alignas(32) mk_lib_crypto_alg_serpent_msg_t msgs[8] mk_lang_constexpr_init;
 
 	mk_lang_assert(app);
 	mk_lang_assert(len % (mk_lib_crypto_alg_serpent_msg_len_v * ((mk_lang_types_usize_t)(sizeof(msgs) / sizeof(msgs[0])))) == 0);
@@ -1539,7 +1540,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_ssize_t 
 	mk_lib_crypto_app_check(len >= 0 && len <= mk_lib_crypto_app_impl_get_data_size(app) + mk_lib_crypto_app_get_msg_size_max_m);
 	mk_lib_crypto_app_check(len % msg_len == 0);
 	n = len / msg_len;
-	if(n % 4 == 0 && app->m_alg_id == mk_lib_crypto_app_alg_id_e_serpent && app->m_mode_id == mk_lib_crypto_app_mode_id_e_ecb)
+	if(n % 8 == 0 && app->m_alg_id == mk_lib_crypto_app_alg_id_e_serpent && app->m_mode_id == mk_lib_crypto_app_mode_id_e_ecb)
 	{
 		return serpent_fast_path_enc(app, len);
 	}
@@ -1563,7 +1564,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_ssize_t 
 	mk_lib_crypto_app_check(len >= 0 && len <= mk_lib_crypto_app_impl_get_data_size(app));
 	mk_lib_crypto_app_check(len % msg_len == 0);
 	n = len / msg_len;
-	if(n % 4 == 0 && app->m_alg_id == mk_lib_crypto_app_alg_id_e_serpent && app->m_mode_id == mk_lib_crypto_app_mode_id_e_ecb)
+	if(n % 8 == 0 && app->m_alg_id == mk_lib_crypto_app_alg_id_e_serpent && app->m_mode_id == mk_lib_crypto_app_mode_id_e_ecb)
 	{
 		return serpent_fast_path_dec(app, len);
 	}
