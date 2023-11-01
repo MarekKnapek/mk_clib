@@ -472,6 +472,7 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_serpent.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_padding_iso9797pm2.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_padding_pkcs7.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_serpent_fuzz.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_block_shake_128.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_block_shake_256.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_inl_defd.h"/>
@@ -772,6 +773,7 @@
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_serpent.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_padding_iso9797pm2.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_padding_pkcs7.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_serpent_fuzz.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_block_shake_128.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_block_shake_256.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_shake_128.c"/>
