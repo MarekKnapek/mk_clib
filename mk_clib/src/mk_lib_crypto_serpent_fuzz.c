@@ -43,10 +43,10 @@ mk_lang_jumbo void mk_lib_crypto_serpent_fuzz(mk_lang_types_uchar_pct const data
 	memcpy(&msgs, data, nmsgs * mk_lib_crypto_alg_serpent_msg_len_v);
 	mk_lib_crypto_alg_serpent_expand_enc(&key, &schedule);
 	if(cpuida) mk_lang_cpuid_init(); else mk_lang_cpuid_reset();
-	mk_lib_crypto_alg_serpent_schedule_encrypt_n(&schedule, &msgs[0], &cts[0], nmsgs);
+	mk_lib_crypto_alg_serpent_schedule_encrypt(&schedule, &msgs[0], &cts[0], nmsgs);
 	mk_lib_crypto_alg_serpent_expand_dec(&key, &schedule);
 	if(cpuidb) mk_lang_cpuid_init(); else mk_lang_cpuid_reset();
-	mk_lib_crypto_alg_serpent_schedule_decrypt_n(&schedule, &cts[0], &pts[0], nmsgs);
+	mk_lib_crypto_alg_serpent_schedule_decrypt(&schedule, &cts[0], &pts[0], nmsgs);
 	test(memcmp(&pts, &msgs, nmsgs * mk_lib_crypto_alg_serpent_msg_len_v) == 0);
 }
 

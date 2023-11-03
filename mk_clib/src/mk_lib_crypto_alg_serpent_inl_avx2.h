@@ -224,7 +224,6 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_avx2_xor3(mk_lib_crypto_alg
 	mk_lang_assert(b);
 	mk_lang_assert(c);
 	mk_lang_assert(a != b);
-	mk_lang_assert(a != c);
 	mk_lang_assert(b != c);
 	mk_lang_assert(mk_lang_cpuid_has_avx());
 	mk_lang_assert(mk_lang_cpuid_has_avx2());
@@ -838,7 +837,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_avx2_round_last_dec(mk_lib_
 	mk_lib_crypto_alg_serpent_avx2_xor2(msgs, &schedule->m_data.m_msgs[0]);
 }
 
-static mk_lang_inline void mk_lib_crypto_alg_serpent_schedule_encrypt_n_avx2(mk_lib_crypto_alg_serpent_schedule_pct const schedule, mk_lib_crypto_alg_serpent_msg_pct const input, mk_lib_crypto_alg_serpent_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
+static mk_lang_inline void mk_lib_crypto_alg_serpent_schedule_encrypt_avx2(mk_lib_crypto_alg_serpent_schedule_pct const schedule, mk_lib_crypto_alg_serpent_msg_pct const input, mk_lib_crypto_alg_serpent_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
 	mk_lang_types_usize_t iblock;
 	mk_lang_types_sint_t i;
@@ -859,7 +858,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_schedule_encrypt_n_avx2(mk_
 	}
 }
 
-static mk_lang_inline void mk_lib_crypto_alg_serpent_schedule_decrypt_n_avx2(mk_lib_crypto_alg_serpent_schedule_pct const schedule, mk_lib_crypto_alg_serpent_msg_pct const input, mk_lib_crypto_alg_serpent_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
+static mk_lang_inline void mk_lib_crypto_alg_serpent_schedule_decrypt_avx2(mk_lib_crypto_alg_serpent_schedule_pct const schedule, mk_lib_crypto_alg_serpent_msg_pct const input, mk_lib_crypto_alg_serpent_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
 	mk_lang_types_usize_t iblock;
 	mk_lang_types_sint_t i;

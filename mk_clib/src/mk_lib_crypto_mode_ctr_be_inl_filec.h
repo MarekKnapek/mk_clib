@@ -1,3 +1,4 @@
+#include "mk_lang_alignas.h"
 #include "mk_lang_assert.h"
 #include "mk_lang_charbit.h"
 #include "mk_lang_concat.h"
@@ -78,19 +79,44 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ctr_be_inl_defd_incremen
 	}
 }
 
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ctr_be_inl_defd_schedule_crypt(mk_lib_crypto_mode_ctr_be_inl_defd_pt const ctr_be, mk_lib_crypto_mode_ctr_be_inl_defd_schedule_pct const schedule, mk_lib_crypto_mode_ctr_be_inl_defd_msg_pct const input, mk_lib_crypto_mode_ctr_be_inl_defd_msg_pt const output) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ctr_be_inl_defd_schedule_crypt(mk_lib_crypto_mode_ctr_be_inl_defd_pt const ctr_be, mk_lib_crypto_mode_ctr_be_inl_defd_schedule_pct const schedule, mk_lib_crypto_mode_ctr_be_inl_defd_msg_pct const input, mk_lib_crypto_mode_ctr_be_inl_defd_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
-	mk_lib_crypto_mode_ctr_be_inl_defd_msg_t iv mk_lang_constexpr_init;
+	mk_lang_types_usize_t iblock mk_lang_constexpr_init;
+	mk_lang_alignas(32) mk_lib_crypto_mode_ctr_be_inl_defd_msg_t iv[8] mk_lang_constexpr_init;
 
 	mk_lang_assert(ctr_be);
 	mk_lang_assert(schedule);
 	mk_lang_assert(input);
 	mk_lang_assert(output);
 
-	iv = ctr_be->m_iv;
-	mk_lib_crypto_mode_ctr_be_inl_defd_increment(&ctr_be->m_iv);
-	mk_lib_crypto_mode_ctr_be_inl_defd_alg_schedule_encrypt(schedule, &iv, &iv);
-	mk_lib_crypto_mode_base_xor3(&iv.m_data.m_uint8s[0], &input->m_data.m_uint8s[0], &output->m_data.m_uint8s[0]);
+	for(iblock = 0; iblock != (nblocks / 8) * 8; iblock += 8)
+	{
+		iv[0] = ctr_be->m_iv;
+		mk_lib_crypto_mode_ctr_be_inl_defd_increment(&ctr_be->m_iv); iv[1] = ctr_be->m_iv;
+		mk_lib_crypto_mode_ctr_be_inl_defd_increment(&ctr_be->m_iv); iv[2] = ctr_be->m_iv;
+		mk_lib_crypto_mode_ctr_be_inl_defd_increment(&ctr_be->m_iv); iv[3] = ctr_be->m_iv;
+		mk_lib_crypto_mode_ctr_be_inl_defd_increment(&ctr_be->m_iv); iv[4] = ctr_be->m_iv;
+		mk_lib_crypto_mode_ctr_be_inl_defd_increment(&ctr_be->m_iv); iv[5] = ctr_be->m_iv;
+		mk_lib_crypto_mode_ctr_be_inl_defd_increment(&ctr_be->m_iv); iv[6] = ctr_be->m_iv;
+		mk_lib_crypto_mode_ctr_be_inl_defd_increment(&ctr_be->m_iv); iv[7] = ctr_be->m_iv;
+		mk_lib_crypto_mode_ctr_be_inl_defd_increment(&ctr_be->m_iv);
+		mk_lib_crypto_mode_ctr_be_inl_defd_alg_schedule_encrypt(schedule, &iv[0], &iv[0], 8);
+		mk_lib_crypto_mode_base_xor3(&iv[0].m_data.m_uint8s[0], &input[iblock + 0].m_data.m_uint8s[0], &output[iblock + 0].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&iv[1].m_data.m_uint8s[0], &input[iblock + 1].m_data.m_uint8s[0], &output[iblock + 1].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&iv[2].m_data.m_uint8s[0], &input[iblock + 2].m_data.m_uint8s[0], &output[iblock + 2].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&iv[3].m_data.m_uint8s[0], &input[iblock + 3].m_data.m_uint8s[0], &output[iblock + 3].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&iv[4].m_data.m_uint8s[0], &input[iblock + 4].m_data.m_uint8s[0], &output[iblock + 4].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&iv[5].m_data.m_uint8s[0], &input[iblock + 5].m_data.m_uint8s[0], &output[iblock + 5].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&iv[6].m_data.m_uint8s[0], &input[iblock + 6].m_data.m_uint8s[0], &output[iblock + 6].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&iv[7].m_data.m_uint8s[0], &input[iblock + 7].m_data.m_uint8s[0], &output[iblock + 7].m_data.m_uint8s[0]);
+	}
+	for(; iblock != nblocks; ++iblock)
+	{
+		iv[0] = ctr_be->m_iv;
+		mk_lib_crypto_mode_ctr_be_inl_defd_increment(&ctr_be->m_iv);
+		mk_lib_crypto_mode_ctr_be_inl_defd_alg_schedule_encrypt(schedule, &iv[0], &iv[0], 1);
+		mk_lib_crypto_mode_base_xor3(&iv[0].m_data.m_uint8s[0], &input[iblock].m_data.m_uint8s[0], &output[iblock].m_data.m_uint8s[0]);
+	}
 }
 
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ctr_be_inl_defd_crypt(mk_lib_crypto_mode_ctr_be_inl_defd_pt const ctr_be, mk_lib_crypto_mode_ctr_be_inl_defd_key_pct const key, mk_lib_crypto_mode_ctr_be_inl_defd_msg_pct const input, mk_lib_crypto_mode_ctr_be_inl_defd_msg_pt const output) mk_lang_noexcept
@@ -117,14 +143,14 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ctr_be_inl_defd_init(mk_
 	ctr_be->m_iv = *iv;
 }
 
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ctr_be_inl_defd_schedule_encrypt(mk_lib_crypto_mode_ctr_be_inl_defd_pt const ctr_be, mk_lib_crypto_mode_ctr_be_inl_defd_schedule_pct const schedule, mk_lib_crypto_mode_ctr_be_inl_defd_msg_pct const input, mk_lib_crypto_mode_ctr_be_inl_defd_msg_pt const output) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ctr_be_inl_defd_schedule_encrypt(mk_lib_crypto_mode_ctr_be_inl_defd_pt const ctr_be, mk_lib_crypto_mode_ctr_be_inl_defd_schedule_pct const schedule, mk_lib_crypto_mode_ctr_be_inl_defd_msg_pct const input, mk_lib_crypto_mode_ctr_be_inl_defd_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
-	mk_lib_crypto_mode_ctr_be_inl_defd_schedule_crypt(ctr_be, schedule, input, output);
+	mk_lib_crypto_mode_ctr_be_inl_defd_schedule_crypt(ctr_be, schedule, input, output, nblocks);
 }
 
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ctr_be_inl_defd_schedule_decrypt(mk_lib_crypto_mode_ctr_be_inl_defd_pt const ctr_be, mk_lib_crypto_mode_ctr_be_inl_defd_schedule_pct const schedule, mk_lib_crypto_mode_ctr_be_inl_defd_msg_pct const input, mk_lib_crypto_mode_ctr_be_inl_defd_msg_pt const output) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ctr_be_inl_defd_schedule_decrypt(mk_lib_crypto_mode_ctr_be_inl_defd_pt const ctr_be, mk_lib_crypto_mode_ctr_be_inl_defd_schedule_pct const schedule, mk_lib_crypto_mode_ctr_be_inl_defd_msg_pct const input, mk_lib_crypto_mode_ctr_be_inl_defd_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
-	mk_lib_crypto_mode_ctr_be_inl_defd_schedule_crypt(ctr_be, schedule, input, output);
+	mk_lib_crypto_mode_ctr_be_inl_defd_schedule_crypt(ctr_be, schedule, input, output, nblocks);
 }
 
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ctr_be_inl_defd_expand_enc(mk_lib_crypto_mode_ctr_be_inl_defd_key_pct const key, mk_lib_crypto_mode_ctr_be_inl_defd_schedule_pt const schedule) mk_lang_noexcept

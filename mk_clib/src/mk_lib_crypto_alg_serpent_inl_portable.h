@@ -570,7 +570,7 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_serpent_portable_
 	mk_lib_crypto_mode_base_mk_lib_crypto_alg_serpent_xor2(&msg->m_data.m_uint8s[0], &schedule->m_data.m_msgs[0].m_data.m_uint8s[0]);
 }
 
-mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_serpent_schedule_encrypt_n_portable(mk_lib_crypto_alg_serpent_schedule_pct const schedule, mk_lib_crypto_alg_serpent_msg_pct const input, mk_lib_crypto_alg_serpent_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_serpent_schedule_encrypt_portable(mk_lib_crypto_alg_serpent_schedule_pct const schedule, mk_lib_crypto_alg_serpent_msg_pct const input, mk_lib_crypto_alg_serpent_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
 	mk_lang_types_usize_t iblock mk_lang_constexpr_init;
 	mk_lang_types_sint_t i mk_lang_constexpr_init;
@@ -590,7 +590,7 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_serpent_schedule_
 	}
 }
 
-mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_serpent_schedule_decrypt_n_portable(mk_lib_crypto_alg_serpent_schedule_pct const schedule, mk_lib_crypto_alg_serpent_msg_pct const input, mk_lib_crypto_alg_serpent_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_serpent_schedule_decrypt_portable(mk_lib_crypto_alg_serpent_schedule_pct const schedule, mk_lib_crypto_alg_serpent_msg_pct const input, mk_lib_crypto_alg_serpent_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
 	mk_lang_types_usize_t iblock mk_lang_constexpr_init;
 	mk_lang_types_sint_t i mk_lang_constexpr_init;

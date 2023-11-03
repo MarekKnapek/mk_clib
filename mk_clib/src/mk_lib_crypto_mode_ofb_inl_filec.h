@@ -1,3 +1,4 @@
+#include "mk_lang_alignas.h"
 #include "mk_lang_assert.h"
 #include "mk_lang_types.h"
 #include "mk_sl_uint8.h"
@@ -17,15 +18,20 @@
 #define mk_lib_crypto_mode_base_xor2 mk_lang_concat(mk_lang_concat(mk_lib_crypto_mode_base_, mk_lib_crypto_mode_ofb_inl_defd_prefix), _xor2)
 
 
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ofb_inl_defd_schedule_crypt(mk_lib_crypto_mode_ofb_inl_defd_pt const ofb, mk_lib_crypto_mode_ofb_inl_defd_schedule_pct const schedule, mk_lib_crypto_mode_ofb_inl_defd_msg_pct const input, mk_lib_crypto_mode_ofb_inl_defd_msg_pt const output) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ofb_inl_defd_schedule_crypt(mk_lib_crypto_mode_ofb_inl_defd_pt const ofb, mk_lib_crypto_mode_ofb_inl_defd_schedule_pct const schedule, mk_lib_crypto_mode_ofb_inl_defd_msg_pct const input, mk_lib_crypto_mode_ofb_inl_defd_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
+	mk_lang_types_usize_t iblock mk_lang_constexpr_init;
+
 	mk_lang_assert(ofb);
 	mk_lang_assert(schedule);
 	mk_lang_assert(input);
 	mk_lang_assert(output);
 
-	mk_lib_crypto_mode_ofb_inl_defd_alg_schedule_encrypt(schedule, &ofb->m_iv, &ofb->m_iv);
-	mk_lib_crypto_mode_base_xor3(&ofb->m_iv.m_data.m_uint8s[0], &input->m_data.m_uint8s[0], &output->m_data.m_uint8s[0]);
+	for(iblock = 0; iblock != nblocks; ++iblock)
+	{
+		mk_lib_crypto_mode_ofb_inl_defd_alg_schedule_encrypt(schedule, &ofb->m_iv, &ofb->m_iv, 1);
+		mk_lib_crypto_mode_base_xor3(&ofb->m_iv.m_data.m_uint8s[0], &input[iblock].m_data.m_uint8s[0], &output[iblock].m_data.m_uint8s[0]);
+	}
 }
 
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ofb_inl_defd_crypt(mk_lib_crypto_mode_ofb_inl_defd_pt const ofb, mk_lib_crypto_mode_ofb_inl_defd_key_pct const key, mk_lib_crypto_mode_ofb_inl_defd_msg_pct const input, mk_lib_crypto_mode_ofb_inl_defd_msg_pt const output) mk_lang_noexcept
@@ -48,14 +54,14 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ofb_inl_defd_init(mk_lib
 	ofb->m_iv = *iv;
 }
 
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ofb_inl_defd_schedule_encrypt(mk_lib_crypto_mode_ofb_inl_defd_pt const ofb, mk_lib_crypto_mode_ofb_inl_defd_schedule_pct const schedule, mk_lib_crypto_mode_ofb_inl_defd_msg_pct const input, mk_lib_crypto_mode_ofb_inl_defd_msg_pt const output) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ofb_inl_defd_schedule_encrypt(mk_lib_crypto_mode_ofb_inl_defd_pt const ofb, mk_lib_crypto_mode_ofb_inl_defd_schedule_pct const schedule, mk_lib_crypto_mode_ofb_inl_defd_msg_pct const input, mk_lib_crypto_mode_ofb_inl_defd_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
-	mk_lib_crypto_mode_ofb_inl_defd_schedule_crypt(ofb, schedule, input, output);
+	mk_lib_crypto_mode_ofb_inl_defd_schedule_crypt(ofb, schedule, input, output, nblocks);
 }
 
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ofb_inl_defd_schedule_decrypt(mk_lib_crypto_mode_ofb_inl_defd_pt const ofb, mk_lib_crypto_mode_ofb_inl_defd_schedule_pct const schedule, mk_lib_crypto_mode_ofb_inl_defd_msg_pct const input, mk_lib_crypto_mode_ofb_inl_defd_msg_pt const output) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ofb_inl_defd_schedule_decrypt(mk_lib_crypto_mode_ofb_inl_defd_pt const ofb, mk_lib_crypto_mode_ofb_inl_defd_schedule_pct const schedule, mk_lib_crypto_mode_ofb_inl_defd_msg_pct const input, mk_lib_crypto_mode_ofb_inl_defd_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
-	mk_lib_crypto_mode_ofb_inl_defd_schedule_crypt(ofb, schedule, input, output);
+	mk_lib_crypto_mode_ofb_inl_defd_schedule_crypt(ofb, schedule, input, output, nblocks);
 }
 
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ofb_inl_defd_expand_enc(mk_lib_crypto_mode_ofb_inl_defd_key_pct const key, mk_lib_crypto_mode_ofb_inl_defd_schedule_pt const schedule) mk_lang_noexcept

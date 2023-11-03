@@ -14,18 +14,18 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ecb_inl_defd_init(mk_lib
 	mk_lang_assert(ecb);
 }
 
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ecb_inl_defd_schedule_encrypt(mk_lib_crypto_mode_ecb_inl_defd_pt const ecb, mk_lib_crypto_mode_ecb_inl_defd_schedule_pct const schedule, mk_lib_crypto_mode_ecb_inl_defd_msg_pct const input, mk_lib_crypto_mode_ecb_inl_defd_msg_pt const output) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ecb_inl_defd_schedule_encrypt(mk_lib_crypto_mode_ecb_inl_defd_pt const ecb, mk_lib_crypto_mode_ecb_inl_defd_schedule_pct const schedule, mk_lib_crypto_mode_ecb_inl_defd_msg_pct const input, mk_lib_crypto_mode_ecb_inl_defd_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
 	mk_lang_assert(ecb);
 
-	mk_lib_crypto_mode_ecb_inl_defd_alg_schedule_encrypt(schedule, input, output);
+	mk_lib_crypto_mode_ecb_inl_defd_alg_schedule_encrypt(schedule, input, output, nblocks);
 }
 
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ecb_inl_defd_schedule_decrypt(mk_lib_crypto_mode_ecb_inl_defd_pt const ecb, mk_lib_crypto_mode_ecb_inl_defd_schedule_pct const schedule, mk_lib_crypto_mode_ecb_inl_defd_msg_pct const input, mk_lib_crypto_mode_ecb_inl_defd_msg_pt const output) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ecb_inl_defd_schedule_decrypt(mk_lib_crypto_mode_ecb_inl_defd_pt const ecb, mk_lib_crypto_mode_ecb_inl_defd_schedule_pct const schedule, mk_lib_crypto_mode_ecb_inl_defd_msg_pct const input, mk_lib_crypto_mode_ecb_inl_defd_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
 	mk_lang_assert(ecb);
 
-	mk_lib_crypto_mode_ecb_inl_defd_alg_schedule_decrypt(schedule, input, output);
+	mk_lib_crypto_mode_ecb_inl_defd_alg_schedule_decrypt(schedule, input, output, nblocks);
 }
 
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ecb_inl_defd_expand_enc(mk_lib_crypto_mode_ecb_inl_defd_key_pct const key, mk_lib_crypto_mode_ecb_inl_defd_schedule_pt const schedule) mk_lang_noexcept

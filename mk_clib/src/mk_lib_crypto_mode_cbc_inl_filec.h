@@ -1,3 +1,4 @@
+#include "mk_lang_alignas.h"
 #include "mk_lang_assert.h"
 #include "mk_lang_types.h"
 #include "mk_sl_uint8.h"
@@ -25,31 +26,54 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_cbc_inl_defd_init(mk_lib
 	cbc->m_iv = *iv;
 }
 
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_cbc_inl_defd_schedule_encrypt(mk_lib_crypto_mode_cbc_inl_defd_pt const cbc, mk_lib_crypto_mode_cbc_inl_defd_schedule_pct const schedule, mk_lib_crypto_mode_cbc_inl_defd_msg_pct const input, mk_lib_crypto_mode_cbc_inl_defd_msg_pt const output) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_cbc_inl_defd_schedule_encrypt(mk_lib_crypto_mode_cbc_inl_defd_pt const cbc, mk_lib_crypto_mode_cbc_inl_defd_schedule_pct const schedule, mk_lib_crypto_mode_cbc_inl_defd_msg_pct const input, mk_lib_crypto_mode_cbc_inl_defd_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
+	mk_lang_types_usize_t iblock mk_lang_constexpr_init;
+
 	mk_lang_assert(cbc);
 	mk_lang_assert(schedule);
 	mk_lang_assert(input);
 	mk_lang_assert(output);
 
-	mk_lib_crypto_mode_base_xor2(&cbc->m_iv.m_data.m_uint8s[0], &input->m_data.m_uint8s[0]);
-	mk_lib_crypto_mode_cbc_inl_defd_alg_schedule_encrypt(schedule, &cbc->m_iv, &cbc->m_iv);
-	*output = cbc->m_iv;
+	for(iblock = 0; iblock != nblocks; ++iblock)
+	{
+		mk_lib_crypto_mode_base_xor2(&cbc->m_iv.m_data.m_uint8s[0], &input[iblock].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_cbc_inl_defd_alg_schedule_encrypt(schedule, &cbc->m_iv, &cbc->m_iv, 1);
+		output[iblock] = cbc->m_iv;
+	}
 }
 
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_cbc_inl_defd_schedule_decrypt(mk_lib_crypto_mode_cbc_inl_defd_pt const cbc, mk_lib_crypto_mode_cbc_inl_defd_schedule_pct const schedule, mk_lib_crypto_mode_cbc_inl_defd_msg_pct const input, mk_lib_crypto_mode_cbc_inl_defd_msg_pt const output) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_cbc_inl_defd_schedule_decrypt(mk_lib_crypto_mode_cbc_inl_defd_pt const cbc, mk_lib_crypto_mode_cbc_inl_defd_schedule_pct const schedule, mk_lib_crypto_mode_cbc_inl_defd_msg_pct const input, mk_lib_crypto_mode_cbc_inl_defd_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
-	mk_lib_crypto_mode_cbc_inl_defd_alg_msg_t msg mk_lang_constexpr_init;
+	mk_lang_types_usize_t iblock mk_lang_constexpr_init;
+	mk_lang_alignas(32) mk_lib_crypto_mode_cbc_inl_defd_alg_msg_t msg[9] mk_lang_constexpr_init;
 
 	mk_lang_assert(cbc);
 	mk_lang_assert(schedule);
 	mk_lang_assert(input);
 	mk_lang_assert(output);
 
-	mk_lib_crypto_mode_cbc_inl_defd_alg_schedule_decrypt(schedule, input, &msg);
-	mk_lib_crypto_mode_base_xor2(&msg.m_data.m_uint8s[0], &cbc->m_iv.m_data.m_uint8s[0]);
-	cbc->m_iv = *input;
-	*output = msg;
+	for(iblock = 0; iblock != (nblocks / 8) * 8; iblock += 8)
+	{
+		mk_lib_crypto_mode_cbc_inl_defd_alg_schedule_decrypt(schedule, &input[iblock], &msg[0], 8);
+		msg[8] = input[iblock + 7];
+		mk_lib_crypto_mode_base_xor3(&msg[7].m_data.m_uint8s[0], &input[iblock + 6].m_data.m_uint8s[0], &output[iblock + 7].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&msg[6].m_data.m_uint8s[0], &input[iblock + 5].m_data.m_uint8s[0], &output[iblock + 6].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&msg[5].m_data.m_uint8s[0], &input[iblock + 4].m_data.m_uint8s[0], &output[iblock + 5].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&msg[4].m_data.m_uint8s[0], &input[iblock + 3].m_data.m_uint8s[0], &output[iblock + 4].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&msg[3].m_data.m_uint8s[0], &input[iblock + 2].m_data.m_uint8s[0], &output[iblock + 3].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&msg[2].m_data.m_uint8s[0], &input[iblock + 1].m_data.m_uint8s[0], &output[iblock + 2].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&msg[1].m_data.m_uint8s[0], &input[iblock + 0].m_data.m_uint8s[0], &output[iblock + 1].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&msg[0].m_data.m_uint8s[0], &cbc->m_iv.m_data.m_uint8s[0], &output[iblock + 0].m_data.m_uint8s[0]);
+		cbc->m_iv = msg[8];
+	}
+	for(; iblock != nblocks; ++iblock)
+	{
+		mk_lib_crypto_mode_cbc_inl_defd_alg_schedule_decrypt(schedule, &input[iblock], &msg[0], 1);
+		mk_lib_crypto_mode_base_xor2(&msg[0].m_data.m_uint8s[0], &cbc->m_iv.m_data.m_uint8s[0]);
+		cbc->m_iv = input[iblock];
+		output[iblock] = msg[0];
+	}
 }
 
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_cbc_inl_defd_expand_enc(mk_lib_crypto_mode_cbc_inl_defd_key_pct const key, mk_lib_crypto_mode_cbc_inl_defd_schedule_pt const schedule) mk_lang_noexcept

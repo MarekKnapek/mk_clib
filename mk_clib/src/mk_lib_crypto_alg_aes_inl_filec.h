@@ -28,8 +28,9 @@
 #define mk_lib_crypto_alg_aes_inl_filec_msg_words (mk_lib_crypto_alg_aes_base_msg_bits / mk_lib_crypto_alg_aes_inl_filec_word_bits)
 
 
-mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_inl_defd_c_schedule_encrypt(mk_lib_crypto_alg_aes_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_base_msg_pct const input, mk_lib_crypto_alg_aes_base_msg_pt const output) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_inl_defd_c_schedule_encrypt(mk_lib_crypto_alg_aes_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_base_msg_pct const input, mk_lib_crypto_alg_aes_base_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
+	int iblock mk_lang_constexpr_init;
 	mk_lib_crypto_alg_aes_base_msg_t state mk_lang_constexpr_init;
 	int ir mk_lang_constexpr_init;
 
@@ -40,23 +41,27 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_inl_defd_c_sc
 	mk_lang_assert(input);
 	mk_lang_assert(output);
 
-	state = *input;
-	mk_lib_crypto_alg_aes_base_add_key2(&state, &schedule->m_data.m_msgs[0]);
-	for(ir = 0; ir != mk_lib_crypto_alg_aes_inl_defd_nr - 1; ++ir)
+	for(iblock = 0; iblock != nblocks; ++iblock)
 	{
+		state = input[iblock];
+		mk_lib_crypto_alg_aes_base_add_key2(&state, &schedule->m_data.m_msgs[0]);
+		for(ir = 0; ir != mk_lib_crypto_alg_aes_inl_defd_nr - 1; ++ir)
+		{
+			mk_lib_crypto_alg_aes_base_sub_bytes(&state, &state);
+			mk_lib_crypto_alg_aes_base_shift_rows(&state, &state);
+			mk_lib_crypto_alg_aes_base_mix_columns(&state, &state);
+			mk_lib_crypto_alg_aes_base_add_key2(&state, &schedule->m_data.m_msgs[ir + 1]);
+		}
 		mk_lib_crypto_alg_aes_base_sub_bytes(&state, &state);
 		mk_lib_crypto_alg_aes_base_shift_rows(&state, &state);
-		mk_lib_crypto_alg_aes_base_mix_columns(&state, &state);
-		mk_lib_crypto_alg_aes_base_add_key2(&state, &schedule->m_data.m_msgs[ir + 1]);
+		mk_lib_crypto_alg_aes_base_add_key2(&state, &schedule->m_data.m_msgs[mk_lib_crypto_alg_aes_inl_defd_nr]);
+		output[iblock] = state;
 	}
-	mk_lib_crypto_alg_aes_base_sub_bytes(&state, &state);
-	mk_lib_crypto_alg_aes_base_shift_rows(&state, &state);
-	mk_lib_crypto_alg_aes_base_add_key2(&state, &schedule->m_data.m_msgs[mk_lib_crypto_alg_aes_inl_defd_nr]);
-	*output = state;
 }
 
-mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_inl_defd_c_schedule_decrypt(mk_lib_crypto_alg_aes_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_base_msg_pct const input, mk_lib_crypto_alg_aes_base_msg_pt const output) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_inl_defd_c_schedule_decrypt(mk_lib_crypto_alg_aes_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_base_msg_pct const input, mk_lib_crypto_alg_aes_base_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
+	int iblock mk_lang_constexpr_init;
 	mk_lib_crypto_alg_aes_base_msg_t state mk_lang_constexpr_init;
 	int ir mk_lang_constexpr_init;
 
@@ -67,19 +72,22 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_inl_defd_c_sc
 	mk_lang_assert(input);
 	mk_lang_assert(output);
 
-	state = *input;
-	mk_lib_crypto_alg_aes_base_add_key2(&state, &schedule->m_data.m_msgs[mk_lib_crypto_alg_aes_inl_defd_nr]);
-	for(ir = 0; ir != mk_lib_crypto_alg_aes_inl_defd_nr - 1; ++ir)
+	for(iblock = 0; iblock != nblocks; ++iblock)
 	{
+		state = input[iblock];
+		mk_lib_crypto_alg_aes_base_add_key2(&state, &schedule->m_data.m_msgs[mk_lib_crypto_alg_aes_inl_defd_nr]);
+		for(ir = 0; ir != mk_lib_crypto_alg_aes_inl_defd_nr - 1; ++ir)
+		{
+			mk_lib_crypto_alg_aes_base_inv_shift_rows(&state, &state);
+			mk_lib_crypto_alg_aes_base_inv_sub_bytes(&state, &state);
+			mk_lib_crypto_alg_aes_base_add_key2(&state, &schedule->m_data.m_msgs[mk_lib_crypto_alg_aes_inl_defd_nr - (ir + 1)]);
+			mk_lib_crypto_alg_aes_base_inv_mix_columns(&state, &state);
+		}
 		mk_lib_crypto_alg_aes_base_inv_shift_rows(&state, &state);
 		mk_lib_crypto_alg_aes_base_inv_sub_bytes(&state, &state);
-		mk_lib_crypto_alg_aes_base_add_key2(&state, &schedule->m_data.m_msgs[mk_lib_crypto_alg_aes_inl_defd_nr - (ir + 1)]);
-		mk_lib_crypto_alg_aes_base_inv_mix_columns(&state, &state);
+		mk_lib_crypto_alg_aes_base_add_key2(&state, &schedule->m_data.m_msgs[0]);
+		output[iblock] = state;
 	}
-	mk_lib_crypto_alg_aes_base_inv_shift_rows(&state, &state);
-	mk_lib_crypto_alg_aes_base_inv_sub_bytes(&state, &state);
-	mk_lib_crypto_alg_aes_base_add_key2(&state, &schedule->m_data.m_msgs[0]);
-	*output = state;
 }
 
 mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_inl_defd_c_expand(mk_lib_crypto_alg_aes_inl_defd_key_pct const key, mk_lib_crypto_alg_aes_inl_defd_schedule_pt const schedule) mk_lang_noexcept
@@ -143,7 +151,7 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_inl_defd_c_en
 	mk_lib_crypto_alg_aes_inl_defd_schedule_t schedule mk_lang_constexpr_init;
 
 	mk_lib_crypto_alg_aes_inl_defd_c_expand_enc(key, &schedule);
-	mk_lib_crypto_alg_aes_inl_defd_c_schedule_encrypt(&schedule, input, output);
+	mk_lib_crypto_alg_aes_inl_defd_c_schedule_encrypt(&schedule, input, output, 1);
 }
 
 mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_inl_defd_c_decrypt(mk_lib_crypto_alg_aes_inl_defd_key_pct const key, mk_lib_crypto_alg_aes_base_msg_pct const input, mk_lib_crypto_alg_aes_base_msg_pt const output) mk_lang_noexcept
@@ -151,7 +159,7 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_inl_defd_c_de
 	mk_lib_crypto_alg_aes_inl_defd_schedule_t schedule mk_lang_constexpr_init;
 
 	mk_lib_crypto_alg_aes_inl_defd_c_expand_dec(key, &schedule);
-	mk_lib_crypto_alg_aes_inl_defd_c_schedule_decrypt(&schedule, input, output);
+	mk_lib_crypto_alg_aes_inl_defd_c_schedule_decrypt(&schedule, input, output, 1);
 }
 
 
@@ -162,8 +170,9 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_inl_defd_c_de
 #include <wmmintrin.h> /* _mm_aesdec_si128 _mm_aesdeclast_si128 _mm_aesenc_si128 _mm_aesenclast_si128 _mm_aesimc_si128 _mm_aeskeygenassist_si128 */
 
 
-static mk_lang_inline void mk_lib_crypto_alg_aes_inl_defd_msvc_aes_ni_schedule_encrypt(mk_lib_crypto_alg_aes_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_base_msg_pct const input, mk_lib_crypto_alg_aes_base_msg_pt const output) mk_lang_noexcept
+static mk_lang_inline void mk_lib_crypto_alg_aes_inl_defd_msvc_aes_ni_schedule_encrypt(mk_lib_crypto_alg_aes_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_base_msg_pct const input, mk_lib_crypto_alg_aes_base_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
+	int iblock;
 	int i;
 	__m128i v;
 	__m128i ta;
@@ -175,32 +184,36 @@ static mk_lang_inline void mk_lib_crypto_alg_aes_inl_defd_msvc_aes_ni_schedule_e
 	mk_lang_assert(input);
 	mk_lang_assert(output);
 
-	i = 0;
-	v = _mm_load_si128(((__m128i const*)(input)));
-	ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i++]))); v = _mm_xor_si128(v, ta);
-	ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i++]))); v = _mm_aesenc_si128(v, ta);
-	ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i++]))); v = _mm_aesenc_si128(v, ta);
-	ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i++]))); v = _mm_aesenc_si128(v, ta);
-	ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i++]))); v = _mm_aesenc_si128(v, ta);
-	ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i++]))); v = _mm_aesenc_si128(v, ta);
-	ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i++]))); v = _mm_aesenc_si128(v, ta);
-	ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i++]))); v = _mm_aesenc_si128(v, ta);
-	ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i++]))); v = _mm_aesenc_si128(v, ta);
-	ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i++]))); v = _mm_aesenc_si128(v, ta);
-	#if mk_lib_crypto_alg_aes_t_key_bits >= 192
-	ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i++]))); v = _mm_aesenc_si128(v, ta);
-	ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i++]))); v = _mm_aesenc_si128(v, ta);
-	#if mk_lib_crypto_alg_aes_t_key_bits == 256
-	ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i++]))); v = _mm_aesenc_si128(v, ta);
-	ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i++]))); v = _mm_aesenc_si128(v, ta);
-	#endif
-	#endif
-	ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i++]))); v = _mm_aesenclast_si128(v, ta);
-	_mm_store_si128(((__m128i*)(output)), v);
+	for(iblock = 0; iblock != nblocks; ++iblock)
+	{
+		i = 0;
+		v = _mm_load_si128(((__m128i const*)(&input[iblock])));
+		ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i++]))); v = _mm_xor_si128(v, ta);
+		ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i++]))); v = _mm_aesenc_si128(v, ta);
+		ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i++]))); v = _mm_aesenc_si128(v, ta);
+		ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i++]))); v = _mm_aesenc_si128(v, ta);
+		ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i++]))); v = _mm_aesenc_si128(v, ta);
+		ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i++]))); v = _mm_aesenc_si128(v, ta);
+		ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i++]))); v = _mm_aesenc_si128(v, ta);
+		ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i++]))); v = _mm_aesenc_si128(v, ta);
+		ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i++]))); v = _mm_aesenc_si128(v, ta);
+		ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i++]))); v = _mm_aesenc_si128(v, ta);
+		#if mk_lib_crypto_alg_aes_t_key_bits >= 192
+		ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i++]))); v = _mm_aesenc_si128(v, ta);
+		ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i++]))); v = _mm_aesenc_si128(v, ta);
+		#if mk_lib_crypto_alg_aes_t_key_bits == 256
+		ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i++]))); v = _mm_aesenc_si128(v, ta);
+		ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i++]))); v = _mm_aesenc_si128(v, ta);
+		#endif
+		#endif
+		ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i++]))); v = _mm_aesenclast_si128(v, ta);
+		_mm_store_si128(((__m128i*)(&output[iblock])), v);
+	}
 }
 
-static mk_lang_inline void mk_lib_crypto_alg_aes_inl_defd_msvc_aes_ni_schedule_decrypt(mk_lib_crypto_alg_aes_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_base_msg_pct const input, mk_lib_crypto_alg_aes_base_msg_pt const output) mk_lang_noexcept
+static mk_lang_inline void mk_lib_crypto_alg_aes_inl_defd_msvc_aes_ni_schedule_decrypt(mk_lib_crypto_alg_aes_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_base_msg_pct const input, mk_lib_crypto_alg_aes_base_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
+	int iblock;
 	int i;
 	__m128i v;
 	__m128i ta;
@@ -212,28 +225,31 @@ static mk_lang_inline void mk_lib_crypto_alg_aes_inl_defd_msvc_aes_ni_schedule_d
 	mk_lang_assert(input);
 	mk_lang_assert(output);
 
-	i = mk_lib_crypto_alg_aes_t_nr;
-	v = _mm_load_si128(((__m128i const*)(input)));
-	ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i--]))); v = _mm_xor_si128(v, ta);
-	ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i--]))); v = _mm_aesdec_si128(v, ta);
-	ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i--]))); v = _mm_aesdec_si128(v, ta);
-	ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i--]))); v = _mm_aesdec_si128(v, ta);
-	ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i--]))); v = _mm_aesdec_si128(v, ta);
-	ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i--]))); v = _mm_aesdec_si128(v, ta);
-	ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i--]))); v = _mm_aesdec_si128(v, ta);
-	ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i--]))); v = _mm_aesdec_si128(v, ta);
-	ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i--]))); v = _mm_aesdec_si128(v, ta);
-	ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i--]))); v = _mm_aesdec_si128(v, ta);
-	#if mk_lib_crypto_alg_aes_t_key_bits >= 192
-	ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i--]))); v = _mm_aesdec_si128(v, ta);
-	ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i--]))); v = _mm_aesdec_si128(v, ta);
-	#if mk_lib_crypto_alg_aes_t_key_bits == 256
-	ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i--]))); v = _mm_aesdec_si128(v, ta);
-	ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i--]))); v = _mm_aesdec_si128(v, ta);
-	#endif
-	#endif
-	ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i--]))); v = _mm_aesdeclast_si128(v, ta);
-	_mm_store_si128(((__m128i*)(output)), v);
+	for(iblock = 0; iblock != nblocks; ++iblock)
+	{
+		i = mk_lib_crypto_alg_aes_t_nr;
+		v = _mm_load_si128(((__m128i const*)(&input[iblock])));
+		ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i--]))); v = _mm_xor_si128(v, ta);
+		ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i--]))); v = _mm_aesdec_si128(v, ta);
+		ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i--]))); v = _mm_aesdec_si128(v, ta);
+		ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i--]))); v = _mm_aesdec_si128(v, ta);
+		ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i--]))); v = _mm_aesdec_si128(v, ta);
+		ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i--]))); v = _mm_aesdec_si128(v, ta);
+		ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i--]))); v = _mm_aesdec_si128(v, ta);
+		ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i--]))); v = _mm_aesdec_si128(v, ta);
+		ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i--]))); v = _mm_aesdec_si128(v, ta);
+		ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i--]))); v = _mm_aesdec_si128(v, ta);
+		#if mk_lib_crypto_alg_aes_t_key_bits >= 192
+		ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i--]))); v = _mm_aesdec_si128(v, ta);
+		ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i--]))); v = _mm_aesdec_si128(v, ta);
+		#if mk_lib_crypto_alg_aes_t_key_bits == 256
+		ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i--]))); v = _mm_aesdec_si128(v, ta);
+		ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i--]))); v = _mm_aesdec_si128(v, ta);
+		#endif
+		#endif
+		ta = _mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[i--]))); v = _mm_aesdeclast_si128(v, ta);
+		_mm_store_si128(((__m128i*)(&output[iblock])), v);
+	}
 }
 
 static mk_lang_inline __m128i mk_lib_crypto_alg_aes_inl_defd_msvc_aes_ni_assist_a(__m128i const a, __m128i const b) mk_lang_noexcept
@@ -470,7 +486,7 @@ static mk_lang_inline void mk_lib_crypto_alg_aes_inl_defd_msvc_aes_ni_encrypt(mk
 	mk_lib_crypto_alg_aes_inl_defd_schedule_t schedule;
 
 	mk_lib_crypto_alg_aes_inl_defd_msvc_aes_ni_expand_enc(key, &schedule);
-	mk_lib_crypto_alg_aes_inl_defd_msvc_aes_ni_schedule_encrypt(&schedule, input, output);
+	mk_lib_crypto_alg_aes_inl_defd_msvc_aes_ni_schedule_encrypt(&schedule, input, output, 1);
 }
 
 static mk_lang_inline void mk_lib_crypto_alg_aes_inl_defd_msvc_aes_ni_decrypt(mk_lib_crypto_alg_aes_inl_defd_key_pct const key, mk_lib_crypto_alg_aes_base_msg_pct const input, mk_lib_crypto_alg_aes_base_msg_pt const output) mk_lang_noexcept
@@ -478,21 +494,21 @@ static mk_lang_inline void mk_lib_crypto_alg_aes_inl_defd_msvc_aes_ni_decrypt(mk
 	mk_lib_crypto_alg_aes_inl_defd_schedule_t schedule;
 
 	mk_lib_crypto_alg_aes_inl_defd_msvc_aes_ni_expand_dec(key, &schedule);
-	mk_lib_crypto_alg_aes_inl_defd_msvc_aes_ni_schedule_decrypt(&schedule, input, output);
+	mk_lib_crypto_alg_aes_inl_defd_msvc_aes_ni_schedule_decrypt(&schedule, input, output, 1);
 }
 
 
 #endif
 
 
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_portable_schedule_encrypt(mk_lib_crypto_alg_aes_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_base_msg_pct const input, mk_lib_crypto_alg_aes_base_msg_pt const output) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_portable_schedule_encrypt(mk_lib_crypto_alg_aes_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_base_msg_pct const input, mk_lib_crypto_alg_aes_base_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
-	mk_lib_crypto_alg_aes_inl_defd_c_schedule_encrypt(schedule, input, output);
+	mk_lib_crypto_alg_aes_inl_defd_c_schedule_encrypt(schedule, input, output, nblocks);
 }
 
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_portable_schedule_decrypt(mk_lib_crypto_alg_aes_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_base_msg_pct const input, mk_lib_crypto_alg_aes_base_msg_pt const output) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_portable_schedule_decrypt(mk_lib_crypto_alg_aes_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_base_msg_pct const input, mk_lib_crypto_alg_aes_base_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
-	mk_lib_crypto_alg_aes_inl_defd_c_schedule_decrypt(schedule, input, output);
+	mk_lib_crypto_alg_aes_inl_defd_c_schedule_decrypt(schedule, input, output, nblocks);
 }
 
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_portable_expand_enc(mk_lib_crypto_alg_aes_inl_defd_key_pct const key, mk_lib_crypto_alg_aes_inl_defd_schedule_pt const schedule) mk_lang_noexcept
@@ -516,11 +532,11 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_portable_dec
 }
 
 
-mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_accelerated_schedule_encrypt(mk_lib_crypto_alg_aes_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_base_msg_pct const input, mk_lib_crypto_alg_aes_base_msg_pt const output) mk_lang_noexcept
+mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_accelerated_schedule_encrypt(mk_lib_crypto_alg_aes_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_base_msg_pct const input, mk_lib_crypto_alg_aes_base_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
 	#if((mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (defined _MSC_FULL_VER && _MSC_FULL_VER >= mk_lang_msvc_full_ver_2008_sp_1) && (mk_lang_alignas_has && mk_lang_alignof_has))
 	mk_lang_assert(mk_lang_cpuid_has_sse2() && mk_lang_cpuid_has_aes_ni());
-	mk_lib_crypto_alg_aes_inl_defd_msvc_aes_ni_schedule_encrypt(schedule, input, output);
+	mk_lib_crypto_alg_aes_inl_defd_msvc_aes_ni_schedule_encrypt(schedule, input, output, nblocks);
 	#else
 	((void)(schedule));
 	((void)(input));
@@ -529,11 +545,11 @@ mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_accelerated_schedule_encrypt(m
 	#endif
 }
 
-mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_accelerated_schedule_decrypt(mk_lib_crypto_alg_aes_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_base_msg_pct const input, mk_lib_crypto_alg_aes_base_msg_pt const output) mk_lang_noexcept
+mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_accelerated_schedule_decrypt(mk_lib_crypto_alg_aes_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_base_msg_pct const input, mk_lib_crypto_alg_aes_base_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
 	#if((mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (defined _MSC_FULL_VER && _MSC_FULL_VER >= mk_lang_msvc_full_ver_2008_sp_1) && (mk_lang_alignas_has && mk_lang_alignof_has))
 	mk_lang_assert(mk_lang_cpuid_has_sse2() && mk_lang_cpuid_has_aes_ni());
-	mk_lib_crypto_alg_aes_inl_defd_msvc_aes_ni_schedule_decrypt(schedule, input, output);
+	mk_lib_crypto_alg_aes_inl_defd_msvc_aes_ni_schedule_decrypt(schedule, input, output, nblocks);
 	#else
 	((void)(schedule));
 	((void)(input));
@@ -593,7 +609,7 @@ mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_accelerated_decrypt(mk_lib_cry
 }
 
 
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_schedule_encrypt(mk_lib_crypto_alg_aes_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_base_msg_pct const input, mk_lib_crypto_alg_aes_base_msg_pt const output) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_schedule_encrypt(mk_lib_crypto_alg_aes_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_base_msg_pct const input, mk_lib_crypto_alg_aes_base_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
 	#if((mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (defined _MSC_FULL_VER && _MSC_FULL_VER >= mk_lang_msvc_full_ver_2008_sp_1) && (mk_lang_alignas_has && mk_lang_alignof_has))
 	#if(!mk_lang_constexpr_is_constant_evaluated)
@@ -602,16 +618,16 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_schedule_enc
 	if(!mk_lang_constexpr_is_constant_evaluated_test && mk_lang_cpuid_has_sse2() && mk_lang_cpuid_has_aes_ni())
 	#endif
 	{
-		mk_lib_crypto_alg_aes_inl_defd_accelerated_schedule_encrypt(schedule, input, output);
+		mk_lib_crypto_alg_aes_inl_defd_accelerated_schedule_encrypt(schedule, input, output, nblocks);
 	}
 	else
 	#endif
 	{
-		mk_lib_crypto_alg_aes_inl_defd_portable_schedule_encrypt(schedule, input, output);
+		mk_lib_crypto_alg_aes_inl_defd_portable_schedule_encrypt(schedule, input, output, nblocks);
 	}
 }
 
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_schedule_decrypt(mk_lib_crypto_alg_aes_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_base_msg_pct const input, mk_lib_crypto_alg_aes_base_msg_pt const output) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_schedule_decrypt(mk_lib_crypto_alg_aes_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_base_msg_pct const input, mk_lib_crypto_alg_aes_base_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
 	#if((mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (defined _MSC_FULL_VER && _MSC_FULL_VER >= mk_lang_msvc_full_ver_2008_sp_1) && (mk_lang_alignas_has && mk_lang_alignof_has))
 	#if(!mk_lang_constexpr_is_constant_evaluated)
@@ -620,12 +636,12 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_schedule_dec
 	if(!mk_lang_constexpr_is_constant_evaluated_test && mk_lang_cpuid_has_sse2() && mk_lang_cpuid_has_aes_ni())
 	#endif
 	{
-		mk_lib_crypto_alg_aes_inl_defd_accelerated_schedule_decrypt(schedule, input, output);
+		mk_lib_crypto_alg_aes_inl_defd_accelerated_schedule_decrypt(schedule, input, output, nblocks);
 	}
 	else
 	#endif
 	{
-		mk_lib_crypto_alg_aes_inl_defd_portable_schedule_decrypt(schedule, input, output);
+		mk_lib_crypto_alg_aes_inl_defd_portable_schedule_decrypt(schedule, input, output, nblocks);
 	}
 }
 
