@@ -52,6 +52,7 @@
 #include "mk_lib_crypto_kdf_pbkdf2_tiger_128.h"
 #include "mk_lib_crypto_kdf_pbkdf2_tiger_160.h"
 #include "mk_lib_crypto_kdf_pbkdf2_tiger_192.h"
+#include "mk_lib_crypto_kdf_pbkdf2_whirlpool.h"
 #include "mk_lib_crypto_mode_cbc_aes_128.h"
 #include "mk_lib_crypto_mode_cbc_aes_192.h"
 #include "mk_lib_crypto_mode_cbc_aes_256.h"
@@ -130,6 +131,7 @@
 #define mk_lib_crypto_app_name_code_kdf_pbkdf2_tiger_128    "pbkdf2_tiger_128"
 #define mk_lib_crypto_app_name_code_kdf_pbkdf2_tiger_160    "pbkdf2_tiger_160"
 #define mk_lib_crypto_app_name_code_kdf_pbkdf2_tiger_192    "pbkdf2_tiger_192"
+#define mk_lib_crypto_app_name_code_kdf_pbkdf2_whirlpool    "pbkdf2_whirlpool"
 
 
 #define mk_lib_crypto_app_name_pretty_alg_aes_128 "AES-128"
@@ -179,6 +181,7 @@
 #define mk_lib_crypto_app_name_pretty_kdf_pbkdf2_tiger_128    "PBKDF2-Tiger/128"
 #define mk_lib_crypto_app_name_pretty_kdf_pbkdf2_tiger_160    "PBKDF2-Tiger/160"
 #define mk_lib_crypto_app_name_pretty_kdf_pbkdf2_tiger_192    "PBKDF2-Tiger/192"
+#define mk_lib_crypto_app_name_pretty_kdf_pbkdf2_whirlpool    "PBKDF2-Whirlpool"
 
 
 #define mk_lib_crypto_app_namelen_code_alg_aes_128 ((mk_lang_types_uchar_t)(sizeof(mk_lib_crypto_app_name_code_alg_aes_128 ) / sizeof(mk_lib_crypto_app_name_code_alg_aes_128 [0]) - 1))
@@ -228,6 +231,7 @@
 #define mk_lib_crypto_app_namelen_code_kdf_pbkdf2_tiger_128    ((mk_lang_types_uchar_t)(sizeof(mk_lib_crypto_app_name_code_kdf_pbkdf2_tiger_128    ) / sizeof(mk_lib_crypto_app_name_code_kdf_pbkdf2_tiger_128    [0]) - 1))
 #define mk_lib_crypto_app_namelen_code_kdf_pbkdf2_tiger_160    ((mk_lang_types_uchar_t)(sizeof(mk_lib_crypto_app_name_code_kdf_pbkdf2_tiger_160    ) / sizeof(mk_lib_crypto_app_name_code_kdf_pbkdf2_tiger_160    [0]) - 1))
 #define mk_lib_crypto_app_namelen_code_kdf_pbkdf2_tiger_192    ((mk_lang_types_uchar_t)(sizeof(mk_lib_crypto_app_name_code_kdf_pbkdf2_tiger_192    ) / sizeof(mk_lib_crypto_app_name_code_kdf_pbkdf2_tiger_192    [0]) - 1))
+#define mk_lib_crypto_app_namelen_code_kdf_pbkdf2_whirlpool    ((mk_lang_types_uchar_t)(sizeof(mk_lib_crypto_app_name_code_kdf_pbkdf2_whirlpool    ) / sizeof(mk_lib_crypto_app_name_code_kdf_pbkdf2_whirlpool    [0]) - 1))
 
 
 #define mk_lib_crypto_app_namelen_pretty_alg_aes_128 ((mk_lang_types_uchar_t)(sizeof(mk_lib_crypto_app_name_pretty_alg_aes_128 ) / sizeof(mk_lib_crypto_app_name_pretty_alg_aes_128 [0]) - 1))
@@ -277,6 +281,7 @@
 #define mk_lib_crypto_app_namelen_pretty_kdf_pbkdf2_tiger_128    ((mk_lang_types_uchar_t)(sizeof(mk_lib_crypto_app_name_pretty_kdf_pbkdf2_tiger_128    ) / sizeof(mk_lib_crypto_app_name_pretty_kdf_pbkdf2_tiger_128    [0]) - 1))
 #define mk_lib_crypto_app_namelen_pretty_kdf_pbkdf2_tiger_160    ((mk_lang_types_uchar_t)(sizeof(mk_lib_crypto_app_name_pretty_kdf_pbkdf2_tiger_160    ) / sizeof(mk_lib_crypto_app_name_pretty_kdf_pbkdf2_tiger_160    [0]) - 1))
 #define mk_lib_crypto_app_namelen_pretty_kdf_pbkdf2_tiger_192    ((mk_lang_types_uchar_t)(sizeof(mk_lib_crypto_app_name_pretty_kdf_pbkdf2_tiger_192    ) / sizeof(mk_lib_crypto_app_name_pretty_kdf_pbkdf2_tiger_192    [0]) - 1))
+#define mk_lib_crypto_app_namelen_pretty_kdf_pbkdf2_whirlpool    ((mk_lang_types_uchar_t)(sizeof(mk_lib_crypto_app_name_pretty_kdf_pbkdf2_whirlpool    ) / sizeof(mk_lib_crypto_app_name_pretty_kdf_pbkdf2_whirlpool    [0]) - 1))
 
 
 #define mk_lib_crypto_app_name_code_algs \
@@ -333,6 +338,7 @@
 	mk_lib_crypto_app_name_code_kdf_pbkdf2_tiger_128    \
 	mk_lib_crypto_app_name_code_kdf_pbkdf2_tiger_160    \
 	mk_lib_crypto_app_name_code_kdf_pbkdf2_tiger_192    \
+	mk_lib_crypto_app_name_code_kdf_pbkdf2_whirlpool    \
 	""
 
 #define mk_lib_crypto_app_name_pretty_algs \
@@ -389,6 +395,7 @@
 	mk_lib_crypto_app_name_pretty_kdf_pbkdf2_tiger_128    \
 	mk_lib_crypto_app_name_pretty_kdf_pbkdf2_tiger_160    \
 	mk_lib_crypto_app_name_pretty_kdf_pbkdf2_tiger_192    \
+	mk_lib_crypto_app_name_pretty_kdf_pbkdf2_whirlpool    \
 	""
 
 #define mk_lib_crypto_app_namelen_code_algs \
@@ -623,14 +630,15 @@ mk_lang_constexpr_static_inline mk_lang_types_uchar_t const s_mk_lib_crypto_app_
 	((mk_lang_types_uchar_t)(mk_lib_crypto_app_kdf_id_e_pbkdf2_tiger2_128)),
 	((mk_lang_types_uchar_t)(mk_lib_crypto_app_kdf_id_e_pbkdf2_tiger2_160)),
 	((mk_lang_types_uchar_t)(mk_lib_crypto_app_kdf_id_e_pbkdf2_tiger2_192)),
-	((mk_lang_types_uchar_t)(mk_lib_crypto_app_kdf_id_e_pbkdf2_blake2b_256)),
-	((mk_lang_types_uchar_t)(mk_lib_crypto_app_kdf_id_e_pbkdf2_blake2b_384)),
-	((mk_lang_types_uchar_t)(mk_lib_crypto_app_kdf_id_e_pbkdf2_blake2b_512)),
 	((mk_lang_types_uchar_t)(mk_lib_crypto_app_kdf_id_e_pbkdf2_blake2s_128)),
 	((mk_lang_types_uchar_t)(mk_lib_crypto_app_kdf_id_e_pbkdf2_blake2s_160)),
 	((mk_lang_types_uchar_t)(mk_lib_crypto_app_kdf_id_e_pbkdf2_blake2s_224)),
 	((mk_lang_types_uchar_t)(mk_lib_crypto_app_kdf_id_e_pbkdf2_blake2s_256)),
+	((mk_lang_types_uchar_t)(mk_lib_crypto_app_kdf_id_e_pbkdf2_blake2b_256)),
+	((mk_lang_types_uchar_t)(mk_lib_crypto_app_kdf_id_e_pbkdf2_blake2b_384)),
+	((mk_lang_types_uchar_t)(mk_lib_crypto_app_kdf_id_e_pbkdf2_blake2b_512)),
 	((mk_lang_types_uchar_t)(mk_lib_crypto_app_kdf_id_e_pbkdf2_blake3)),
+	((mk_lang_types_uchar_t)(mk_lib_crypto_app_kdf_id_e_pbkdf2_whirlpool)),
 };
 
 enum mk_lib_crypto_app_mode_alg_id_e
@@ -1224,6 +1232,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_ssize_t 
 		case mk_lib_crypto_app_kdf_id_e_pbkdf2_tiger_128   : mk_lib_crypto_kdf_pbkdf2_tiger_128_u8    (pwd_buf, pwd_len, slt_buf, slt_len, cost_ul, key_len, &key_data[0]); break;
 		case mk_lib_crypto_app_kdf_id_e_pbkdf2_tiger_160   : mk_lib_crypto_kdf_pbkdf2_tiger_160_u8    (pwd_buf, pwd_len, slt_buf, slt_len, cost_ul, key_len, &key_data[0]); break;
 		case mk_lib_crypto_app_kdf_id_e_pbkdf2_tiger_192   : mk_lib_crypto_kdf_pbkdf2_tiger_192_u8    (pwd_buf, pwd_len, slt_buf, slt_len, cost_ul, key_len, &key_data[0]); break;
+		case mk_lib_crypto_app_kdf_id_e_pbkdf2_whirlpool   : mk_lib_crypto_kdf_pbkdf2_whirlpool_u8    (pwd_buf, pwd_len, slt_buf, slt_len, cost_ul, key_len, &key_data[0]); break;
 		default: mk_lang_assert(0); break;
 	}
 	if(0){}

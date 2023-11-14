@@ -48,6 +48,7 @@ Hi, welcome to my library, this is place where I put all my C stuff. There is ar
  - [BLAKE2s-128](#blake2s-128), [BLAKE2s-160](#blake2s-160), [BLAKE2s-224](#blake2s-224), [BLAKE2s-256](#blake2s-256)
  - [BLAKE2b-256](#blake2b-256), [BLAKE2b-384](#blake2b-384), [BLAKE2b-512](#blake2b-512)
  - [BLAKE3](#blake3)
+ - [Whirlpool](#whirlpool)
  - [constexpr SHA-512](#constexpr-sha-512)
  - [constexpr AES-256 encryption and run-time decryption](#constexpr-aes-256-encryption-and-run-time-decryption)
  - [license](../mk_clib/src/license.txt)
@@ -133,6 +134,7 @@ mm_hash(^BLAKE2b-256~, ^blake2b_256~, ^117ad6b940f5e8292c007d9c7e7350cd33cf85b58
 mm_hash(^BLAKE2b-384~, ^blake2b_384~, ^5cad60ce23b9dc62eabdd149a16307ef916e0637506fa10cf8c688430da6c978a0cb7857fd138977bd281e8cfd5bfd1f~)dnl
 mm_hash(^BLAKE2b-512~, ^blake2b_512~, ^c68ede143e416eb7b4aaae0d8e48e55dd529eafed10b1df1a61416953a2b0a5666c761e7d412e6709e31ffe221b7a7a73908cb95a4d120b8b090a87d1fbedb4c~)dnl
 mm_hash(^BLAKE3~, ^blake3~, ^2468eec8894acfb4e4df3a51ea916ba115d48268287754290aae8e9e6228e85f~)dnl
+mm_hash(^Whirlpool~, ^whirlpool~, ^f1d754662636ffe92c82ebb9212a484a8d38631ead4238f5442ee13b8054e41b08bf2a9251c30b6a0b8aae86177ab4a6f68f673e7207865d5d9819a3dba4eb3b~)dnl
 
 ## constexpr SHA-512
 

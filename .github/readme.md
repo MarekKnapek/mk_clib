@@ -17,6 +17,7 @@ Hi, welcome to my library, this is place where I put all my C stuff. There is ar
  - [BLAKE2s-128](#blake2s-128), [BLAKE2s-160](#blake2s-160), [BLAKE2s-224](#blake2s-224), [BLAKE2s-256](#blake2s-256)
  - [BLAKE2b-256](#blake2b-256), [BLAKE2b-384](#blake2b-384), [BLAKE2b-512](#blake2b-512)
  - [BLAKE3](#blake3)
+ - [Whirlpool](#whirlpool)
  - [constexpr SHA-512](#constexpr-sha-512)
  - [constexpr AES-256 encryption and run-time decryption](#constexpr-aes-256-encryption-and-run-time-decryption)
  - [license](../mk_clib/src/license.txt)
@@ -1338,6 +1339,45 @@ int main(void)
 $ gcc -DNDEBUG example.c
 $ ./a
 2468eec8894acfb4e4df3a51ea916ba115d48268287754290aae8e9e6228e85f
+```
+
+## Whirlpool
+
+Example how to compute the Whirlpool hash.
+
+```c
+#include "mk_lib_crypto_hash_stream_whirlpool.h"
+
+#include <assert.h> /* assert */
+#include <stdio.h> /* printf sprintf */
+
+
+int main(void)
+{
+	mk_lib_crypto_hash_stream_whirlpool_t hasher;
+	mk_lib_crypto_hash_block_whirlpool_digest_t digest;
+	int i;
+	int t;
+	char str[mk_lib_crypto_hash_block_whirlpool_digest_len * 2 + 1];
+
+	mk_lib_crypto_hash_stream_whirlpool_init(&hasher);
+	mk_lib_crypto_hash_stream_whirlpool_append(&hasher, ((unsigned char const*)("abcdef")), 6);
+	mk_lib_crypto_hash_stream_whirlpool_append(&hasher, ((unsigned char const*)("ghijklmnopqrstuvw")), 17);
+	mk_lib_crypto_hash_stream_whirlpool_append(&hasher, ((unsigned char const*)("xyz")), 3);
+	mk_lib_crypto_hash_stream_whirlpool_finish(&hasher, &digest);
+	for(i = 0; i != mk_lib_crypto_hash_block_whirlpool_digest_len; ++i)
+	{
+		t = sprintf(str + 2 * i, "%02x", ((unsigned char const*)(&digest))[i]);
+		assert(t == 2);
+	}
+	t = printf("%s\n", str); /* f1d754662636ffe92c82ebb9212a484a8d38631ead4238f5442ee13b8054e41b08bf2a9251c30b6a0b8aae86177ab4a6f68f673e7207865d5d9819a3dba4eb3b */
+	assert(t == mk_lib_crypto_hash_block_whirlpool_digest_len * 2 + 1);
+}
+```
+```bash
+$ gcc -DNDEBUG example.c
+$ ./a
+f1d754662636ffe92c82ebb9212a484a8d38631ead4238f5442ee13b8054e41b08bf2a9251c30b6a0b8aae86177ab4a6f68f673e7207865d5d9819a3dba4eb3b
 ```
 
 ## constexpr SHA-512

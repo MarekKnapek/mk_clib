@@ -26,6 +26,7 @@ popd > /dev/null
 pushd ../../src > /dev/null
 function example_hash()
 {
+	echo $1
 	echo "changequote(\`^', \`~')include(mk_lib_crypto_hash_stream_example.c.m)mm_hash_program(^~, ^$1~, ^~)" > ./example.m4
 	m4 ./example.m4 > ./example.c
 	gcc -DNDEBUG ./example.c
@@ -36,6 +37,7 @@ function example_hash()
 }
 function example_xof()
 {
+	echo $1
 	echo "changequote(\`^', \`~')include(mk_lib_crypto_xof_stream_example.c.m)mm_xof_program(^~, ^$1~, ^~)" > ./example.m4
 	m4 ./example.m4 > ./example.c
 	gcc -DNDEBUG ./example.c
@@ -73,6 +75,7 @@ example_hash blake2b_256
 example_hash blake2b_384
 example_hash blake2b_512
 example_hash blake3
+example_hash whirlpool
 example_xof shake_128
 example_xof shake_256
 popd > /dev/null

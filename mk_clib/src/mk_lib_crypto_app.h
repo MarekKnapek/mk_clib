@@ -113,6 +113,7 @@ enum mk_lib_crypto_app_kdf_id_e
 	mk_lib_crypto_app_kdf_id_e_pbkdf2_tiger_128,
 	mk_lib_crypto_app_kdf_id_e_pbkdf2_tiger_160,
 	mk_lib_crypto_app_kdf_id_e_pbkdf2_tiger_192,
+	mk_lib_crypto_app_kdf_id_e_pbkdf2_whirlpool,
 	mk_lib_crypto_app_kdf_id_e_dummy_end
 };
 typedef enum mk_lib_crypto_app_kdf_id_e mk_lib_crypto_app_kdf_id_t;
