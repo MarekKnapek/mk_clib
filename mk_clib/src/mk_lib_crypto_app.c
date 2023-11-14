@@ -449,6 +449,7 @@
 	mk_lib_crypto_app_namelen_code_kdf_pbkdf2_tiger_128,    \
 	mk_lib_crypto_app_namelen_code_kdf_pbkdf2_tiger_160,    \
 	mk_lib_crypto_app_namelen_code_kdf_pbkdf2_tiger_192,    \
+	mk_lib_crypto_app_namelen_code_kdf_pbkdf2_whirlpool,    \
 
 #define mk_lib_crypto_app_namelen_pretty_algs \
 	mk_lib_crypto_app_namelen_pretty_alg_aes_128, \
@@ -501,6 +502,7 @@
 	mk_lib_crypto_app_namelen_pretty_kdf_pbkdf2_tiger_128,    \
 	mk_lib_crypto_app_namelen_pretty_kdf_pbkdf2_tiger_160,    \
 	mk_lib_crypto_app_namelen_pretty_kdf_pbkdf2_tiger_192,    \
+	mk_lib_crypto_app_namelen_pretty_kdf_pbkdf2_whirlpool,    \
 
 
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const s_mk_lib_crypto_app_name_code_algs     [] = mk_lib_crypto_app_name_code_algs     ;
