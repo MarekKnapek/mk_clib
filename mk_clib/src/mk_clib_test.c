@@ -41,6 +41,7 @@
 #include "mk_lib_crypto_hash_stream_tiger_128_test.hpp"
 #include "mk_lib_crypto_hash_stream_tiger_160_test.hpp"
 #include "mk_lib_crypto_hash_stream_tiger_192_test.hpp"
+#include "mk_lib_crypto_hash_stream_whirlpool_test.hpp"
 #include "mk_lib_crypto_kdf_pbkdf1_sha1_test.hpp"
 #include "mk_lib_crypto_mac_hmac_sha1_test.hpp"
 #include "mk_lib_crypto_mac_hmac_sha2_224_test.hpp"
@@ -116,6 +117,7 @@ mk_lang_jumbo void mk_clib_test(void) mk_lang_noexcept
 	mk_lib_crypto_hash_stream_tiger_128_test();
 	mk_lib_crypto_hash_stream_tiger_160_test();
 	mk_lib_crypto_hash_stream_tiger_192_test();
+	mk_lib_crypto_hash_stream_whirlpool_test();
 	mk_lib_crypto_kdf_pbkdf1_sha1_test();
 	mk_lib_crypto_mac_hmac_sha1_test();
 	mk_lib_crypto_mac_hmac_sha2_224_test();
