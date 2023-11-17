@@ -76,6 +76,8 @@ example_hash blake2b_384
 example_hash blake2b_512
 example_hash blake3
 example_hash whirlpool
+example_hash streebog_256
+example_hash streebog_512
 example_xof shake_128
 example_xof shake_256
 popd > /dev/null

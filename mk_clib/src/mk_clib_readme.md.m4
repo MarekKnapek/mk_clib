@@ -49,6 +49,7 @@ Hi, welcome to my library, this is place where I put all my C stuff. There is ar
  - [BLAKE2b-256](#blake2b-256), [BLAKE2b-384](#blake2b-384), [BLAKE2b-512](#blake2b-512)
  - [BLAKE3](#blake3)
  - [Whirlpool](#whirlpool)
+ - [Streebog-256](#streebog-256), [Streebog-512](#streebog-512)
  - [constexpr SHA-512](#constexpr-sha-512)
  - [constexpr AES-256 encryption and run-time decryption](#constexpr-aes-256-encryption-and-run-time-decryption)
  - [license](../mk_clib/src/license.txt)
@@ -135,6 +136,8 @@ mm_hash(^BLAKE2b-384~, ^blake2b_384~, ^5cad60ce23b9dc62eabdd149a16307ef916e06375
 mm_hash(^BLAKE2b-512~, ^blake2b_512~, ^c68ede143e416eb7b4aaae0d8e48e55dd529eafed10b1df1a61416953a2b0a5666c761e7d412e6709e31ffe221b7a7a73908cb95a4d120b8b090a87d1fbedb4c~)dnl
 mm_hash(^BLAKE3~, ^blake3~, ^2468eec8894acfb4e4df3a51ea916ba115d48268287754290aae8e9e6228e85f~)dnl
 mm_hash(^Whirlpool~, ^whirlpool~, ^f1d754662636ffe92c82ebb9212a484a8d38631ead4238f5442ee13b8054e41b08bf2a9251c30b6a0b8aae86177ab4a6f68f673e7207865d5d9819a3dba4eb3b~)dnl
+mm_hash(^Streebog-256~, ^streebog_256~, ^c9086ed61fb0a090aaf4438efd39f0d060cb3ec7e25343b5c4c350054bfd3e27~)dnl
+mm_hash(^Streebog-512~, ^streebog_512~, ^ec7b127dcca6b0d741b10ed42062cc4487b4a93f96cfc7faf2e7f79778b1f44159089c91fb0910bec0eee7cdca524fcf291cf933fff406f4f3a03872f2341ff8~)dnl
 
 ## constexpr SHA-512
 

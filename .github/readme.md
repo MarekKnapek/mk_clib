@@ -18,6 +18,7 @@ Hi, welcome to my library, this is place where I put all my C stuff. There is ar
  - [BLAKE2b-256](#blake2b-256), [BLAKE2b-384](#blake2b-384), [BLAKE2b-512](#blake2b-512)
  - [BLAKE3](#blake3)
  - [Whirlpool](#whirlpool)
+ - [Streebog-256](#streebog-256), [Streebog-512](#streebog-512)
  - [constexpr SHA-512](#constexpr-sha-512)
  - [constexpr AES-256 encryption and run-time decryption](#constexpr-aes-256-encryption-and-run-time-decryption)
  - [license](../mk_clib/src/license.txt)
@@ -1378,6 +1379,84 @@ int main(void)
 $ gcc -DNDEBUG example.c
 $ ./a
 f1d754662636ffe92c82ebb9212a484a8d38631ead4238f5442ee13b8054e41b08bf2a9251c30b6a0b8aae86177ab4a6f68f673e7207865d5d9819a3dba4eb3b
+```
+
+## Streebog-256
+
+Example how to compute the Streebog-256 hash.
+
+```c
+#include "mk_lib_crypto_hash_stream_streebog_256.h"
+
+#include <assert.h> /* assert */
+#include <stdio.h> /* printf sprintf */
+
+
+int main(void)
+{
+	mk_lib_crypto_hash_stream_streebog_256_t hasher;
+	mk_lib_crypto_hash_block_streebog_256_digest_t digest;
+	int i;
+	int t;
+	char str[mk_lib_crypto_hash_block_streebog_256_digest_len * 2 + 1];
+
+	mk_lib_crypto_hash_stream_streebog_256_init(&hasher);
+	mk_lib_crypto_hash_stream_streebog_256_append(&hasher, ((unsigned char const*)("abcdef")), 6);
+	mk_lib_crypto_hash_stream_streebog_256_append(&hasher, ((unsigned char const*)("ghijklmnopqrstuvw")), 17);
+	mk_lib_crypto_hash_stream_streebog_256_append(&hasher, ((unsigned char const*)("xyz")), 3);
+	mk_lib_crypto_hash_stream_streebog_256_finish(&hasher, &digest);
+	for(i = 0; i != mk_lib_crypto_hash_block_streebog_256_digest_len; ++i)
+	{
+		t = sprintf(str + 2 * i, "%02x", ((unsigned char const*)(&digest))[i]);
+		assert(t == 2);
+	}
+	t = printf("%s\n", str); /* c9086ed61fb0a090aaf4438efd39f0d060cb3ec7e25343b5c4c350054bfd3e27 */
+	assert(t == mk_lib_crypto_hash_block_streebog_256_digest_len * 2 + 1);
+}
+```
+```bash
+$ gcc -DNDEBUG example.c
+$ ./a
+c9086ed61fb0a090aaf4438efd39f0d060cb3ec7e25343b5c4c350054bfd3e27
+```
+
+## Streebog-512
+
+Example how to compute the Streebog-512 hash.
+
+```c
+#include "mk_lib_crypto_hash_stream_streebog_512.h"
+
+#include <assert.h> /* assert */
+#include <stdio.h> /* printf sprintf */
+
+
+int main(void)
+{
+	mk_lib_crypto_hash_stream_streebog_512_t hasher;
+	mk_lib_crypto_hash_block_streebog_512_digest_t digest;
+	int i;
+	int t;
+	char str[mk_lib_crypto_hash_block_streebog_512_digest_len * 2 + 1];
+
+	mk_lib_crypto_hash_stream_streebog_512_init(&hasher);
+	mk_lib_crypto_hash_stream_streebog_512_append(&hasher, ((unsigned char const*)("abcdef")), 6);
+	mk_lib_crypto_hash_stream_streebog_512_append(&hasher, ((unsigned char const*)("ghijklmnopqrstuvw")), 17);
+	mk_lib_crypto_hash_stream_streebog_512_append(&hasher, ((unsigned char const*)("xyz")), 3);
+	mk_lib_crypto_hash_stream_streebog_512_finish(&hasher, &digest);
+	for(i = 0; i != mk_lib_crypto_hash_block_streebog_512_digest_len; ++i)
+	{
+		t = sprintf(str + 2 * i, "%02x", ((unsigned char const*)(&digest))[i]);
+		assert(t == 2);
+	}
+	t = printf("%s\n", str); /* ec7b127dcca6b0d741b10ed42062cc4487b4a93f96cfc7faf2e7f79778b1f44159089c91fb0910bec0eee7cdca524fcf291cf933fff406f4f3a03872f2341ff8 */
+	assert(t == mk_lib_crypto_hash_block_streebog_512_digest_len * 2 + 1);
+}
+```
+```bash
+$ gcc -DNDEBUG example.c
+$ ./a
+ec7b127dcca6b0d741b10ed42062cc4487b4a93f96cfc7faf2e7f79778b1f44159089c91fb0910bec0eee7cdca524fcf291cf933fff406f4f3a03872f2341ff8
 ```
 
 ## constexpr SHA-512

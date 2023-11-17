@@ -34,6 +34,8 @@
 #include "../../src/mk_lib_crypto_hash_stream_sha3_256.h"
 #include "../../src/mk_lib_crypto_hash_stream_sha3_384.h"
 #include "../../src/mk_lib_crypto_hash_stream_sha3_512.h"
+#include "../../src/mk_lib_crypto_hash_stream_streebog_256.h"
+#include "../../src/mk_lib_crypto_hash_stream_streebog_512.h"
 #include "../../src/mk_lib_crypto_hash_stream_tiger2_128.h"
 #include "../../src/mk_lib_crypto_hash_stream_tiger2_160.h"
 #include "../../src/mk_lib_crypto_hash_stream_tiger2_192.h"
@@ -71,6 +73,8 @@ enum alg_id_e
 	alg_id_e_hash_sha3_256    ,
 	alg_id_e_hash_sha3_384    ,
 	alg_id_e_hash_sha3_512    ,
+	alg_id_e_hash_streebog_256,
+	alg_id_e_hash_streebog_512,
 	alg_id_e_hash_tiger2_128  ,
 	alg_id_e_hash_tiger2_160  ,
 	alg_id_e_hash_tiger2_192  ,
@@ -107,6 +111,8 @@ typedef enum alg_id_e alg_id_t;
 #define alg_name_dn_hash_sha3_256     "sha3_256"
 #define alg_name_dn_hash_sha3_384     "sha3_384"
 #define alg_name_dn_hash_sha3_512     "sha3_512"
+#define alg_name_dn_hash_streebog_256 "streebog_256"
+#define alg_name_dn_hash_streebog_512 "streebog_512"
 #define alg_name_dn_hash_tiger2_128   "tiger2_128"
 #define alg_name_dn_hash_tiger2_160   "tiger2_160"
 #define alg_name_dn_hash_tiger2_192   "tiger2_192"
@@ -140,6 +146,8 @@ typedef enum alg_id_e alg_id_t;
 #define alg_name_dl_hash_sha3_256     ((int)(sizeof(alg_name_dn_hash_sha3_256    ) / sizeof(alg_name_dn_hash_sha3_256    [0]) - 1))
 #define alg_name_dl_hash_sha3_384     ((int)(sizeof(alg_name_dn_hash_sha3_384    ) / sizeof(alg_name_dn_hash_sha3_384    [0]) - 1))
 #define alg_name_dl_hash_sha3_512     ((int)(sizeof(alg_name_dn_hash_sha3_512    ) / sizeof(alg_name_dn_hash_sha3_512    [0]) - 1))
+#define alg_name_dl_hash_streebog_256 ((int)(sizeof(alg_name_dn_hash_streebog_256) / sizeof(alg_name_dn_hash_streebog_256[0]) - 1))
+#define alg_name_dl_hash_streebog_512 ((int)(sizeof(alg_name_dn_hash_streebog_512) / sizeof(alg_name_dn_hash_streebog_512[0]) - 1))
 #define alg_name_dl_hash_tiger2_128   ((int)(sizeof(alg_name_dn_hash_tiger2_128  ) / sizeof(alg_name_dn_hash_tiger2_128  [0]) - 1))
 #define alg_name_dl_hash_tiger2_160   ((int)(sizeof(alg_name_dn_hash_tiger2_160  ) / sizeof(alg_name_dn_hash_tiger2_160  [0]) - 1))
 #define alg_name_dl_hash_tiger2_192   ((int)(sizeof(alg_name_dn_hash_tiger2_192  ) / sizeof(alg_name_dn_hash_tiger2_192  [0]) - 1))
@@ -174,6 +182,8 @@ mk_lang_constexpr_static_inline char const s_alg_names[] =
 	alg_name_dn_hash_sha3_256
 	alg_name_dn_hash_sha3_384
 	alg_name_dn_hash_sha3_512
+	alg_name_dn_hash_streebog_256
+	alg_name_dn_hash_streebog_512
 	alg_name_dn_hash_tiger2_128
 	alg_name_dn_hash_tiger2_160
 	alg_name_dn_hash_tiger2_192
@@ -210,6 +220,8 @@ mk_lang_constexpr_static_inline mk_lang_types_uchar_t const s_alg_name_lens[] =
 	((mk_lang_types_uchar_t)(alg_name_dl_hash_sha3_256    )),
 	((mk_lang_types_uchar_t)(alg_name_dl_hash_sha3_384    )),
 	((mk_lang_types_uchar_t)(alg_name_dl_hash_sha3_512    )),
+	((mk_lang_types_uchar_t)(alg_name_dl_hash_streebog_256)),
+	((mk_lang_types_uchar_t)(alg_name_dl_hash_streebog_512)),
 	((mk_lang_types_uchar_t)(alg_name_dl_hash_tiger2_128  )),
 	((mk_lang_types_uchar_t)(alg_name_dl_hash_tiger2_160  )),
 	((mk_lang_types_uchar_t)(alg_name_dl_hash_tiger2_192  )),
@@ -245,6 +257,8 @@ mk_lang_constexpr_static_inline char const s_alg_pretty_names[] =
 	mk_lang_stringify(mk_lib_crypto_hash_block_sha3_256_name_def)
 	mk_lang_stringify(mk_lib_crypto_hash_block_sha3_384_name_def)
 	mk_lang_stringify(mk_lib_crypto_hash_block_sha3_512_name_def)
+	mk_lang_stringify(mk_lib_crypto_hash_block_streebog_256_name_def)
+	mk_lang_stringify(mk_lib_crypto_hash_block_streebog_512_name_def)
 	mk_lang_stringify(mk_lib_crypto_hash_block_tiger2_128_name_def)
 	mk_lang_stringify(mk_lib_crypto_hash_block_tiger2_160_name_def)
 	mk_lang_stringify(mk_lib_crypto_hash_block_tiger2_192_name_def)
@@ -281,6 +295,8 @@ mk_lang_constexpr_static_inline mk_lang_types_uchar_t const s_alg_pretty_name_le
 	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_sha3_256_name_def    )) - 1)))),
 	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_sha3_384_name_def    )) - 1)))),
 	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_sha3_512_name_def    )) - 1)))),
+	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_streebog_256_name_def)) - 1)))),
+	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_streebog_512_name_def)) - 1)))),
 	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_tiger2_128_name_def  )) - 1)))),
 	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_tiger2_160_name_def  )) - 1)))),
 	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_tiger2_192_name_def  )) - 1)))),
@@ -326,6 +342,8 @@ mk_lang_constexpr_static_inline mk_lang_types_uchar_t const s_alg_order[] =
 	((mk_lang_types_uchar_t)(alg_id_e_hash_blake2b_512 )),
 	((mk_lang_types_uchar_t)(alg_id_e_hash_blake3      )),
 	((mk_lang_types_uchar_t)(alg_id_e_hash_whirlpool   )),
+	((mk_lang_types_uchar_t)(alg_id_e_hash_streebog_256)),
+	((mk_lang_types_uchar_t)(alg_id_e_hash_streebog_512)),
 };
 
 union alg_u
@@ -353,6 +371,8 @@ union alg_u
 	mk_lib_crypto_hash_stream_sha3_256_t     m_sha3_256    ;
 	mk_lib_crypto_hash_stream_sha3_384_t     m_sha3_384    ;
 	mk_lib_crypto_hash_stream_sha3_512_t     m_sha3_512    ;
+	mk_lib_crypto_hash_stream_streebog_256_t m_streebog_256;
+	mk_lib_crypto_hash_stream_streebog_512_t m_streebog_512;
 	mk_lib_crypto_hash_stream_tiger2_128_t   m_tiger2_128  ;
 	mk_lib_crypto_hash_stream_tiger2_160_t   m_tiger2_160  ;
 	mk_lib_crypto_hash_stream_tiger2_192_t   m_tiger2_192  ;
@@ -415,6 +435,8 @@ static mk_lang_inline void init(alg_pt const alg, alg_id_t const id) mk_lang_noe
 		case alg_id_e_hash_sha3_256    : mk_lib_crypto_hash_stream_sha3_256_init    (&alg->m_sha3_256    ); break;
 		case alg_id_e_hash_sha3_384    : mk_lib_crypto_hash_stream_sha3_384_init    (&alg->m_sha3_384    ); break;
 		case alg_id_e_hash_sha3_512    : mk_lib_crypto_hash_stream_sha3_512_init    (&alg->m_sha3_512    ); break;
+		case alg_id_e_hash_streebog_256: mk_lib_crypto_hash_stream_streebog_256_init(&alg->m_streebog_256); break;
+		case alg_id_e_hash_streebog_512: mk_lib_crypto_hash_stream_streebog_512_init(&alg->m_streebog_512); break;
 		case alg_id_e_hash_tiger2_128  : mk_lib_crypto_hash_stream_tiger2_128_init  (&alg->m_tiger2_128  ); break;
 		case alg_id_e_hash_tiger2_160  : mk_lib_crypto_hash_stream_tiger2_160_init  (&alg->m_tiger2_160  ); break;
 		case alg_id_e_hash_tiger2_192  : mk_lib_crypto_hash_stream_tiger2_192_init  (&alg->m_tiger2_192  ); break;
@@ -454,6 +476,8 @@ static mk_lang_inline void append(alg_pt const alg, alg_id_t const id, mk_lang_t
 		case alg_id_e_hash_sha3_256    : mk_lib_crypto_hash_stream_sha3_256_append    (&alg->m_sha3_256    , msg, msg_len); break;
 		case alg_id_e_hash_sha3_384    : mk_lib_crypto_hash_stream_sha3_384_append    (&alg->m_sha3_384    , msg, msg_len); break;
 		case alg_id_e_hash_sha3_512    : mk_lib_crypto_hash_stream_sha3_512_append    (&alg->m_sha3_512    , msg, msg_len); break;
+		case alg_id_e_hash_streebog_256: mk_lib_crypto_hash_stream_streebog_256_append(&alg->m_streebog_256, msg, msg_len); break;
+		case alg_id_e_hash_streebog_512: mk_lib_crypto_hash_stream_streebog_512_append(&alg->m_streebog_512, msg, msg_len); break;
 		case alg_id_e_hash_tiger2_128  : mk_lib_crypto_hash_stream_tiger2_128_append  (&alg->m_tiger2_128  , msg, msg_len); break;
 		case alg_id_e_hash_tiger2_160  : mk_lib_crypto_hash_stream_tiger2_160_append  (&alg->m_tiger2_160  , msg, msg_len); break;
 		case alg_id_e_hash_tiger2_192  : mk_lib_crypto_hash_stream_tiger2_192_append  (&alg->m_tiger2_192  , msg, msg_len); break;
@@ -493,6 +517,8 @@ static mk_lang_inline int finish(alg_pt const alg, alg_id_t const id, int const 
 		case alg_id_e_hash_sha3_256    : mk_lib_crypto_hash_stream_sha3_256_finish    (&alg->m_sha3_256    ,          ((mk_lib_crypto_hash_block_sha3_256_digest_pt    )(digest))); return mk_lib_crypto_hash_block_sha3_256_digest_len    ; break;
 		case alg_id_e_hash_sha3_384    : mk_lib_crypto_hash_stream_sha3_384_finish    (&alg->m_sha3_384    ,          ((mk_lib_crypto_hash_block_sha3_384_digest_pt    )(digest))); return mk_lib_crypto_hash_block_sha3_384_digest_len    ; break;
 		case alg_id_e_hash_sha3_512    : mk_lib_crypto_hash_stream_sha3_512_finish    (&alg->m_sha3_512    ,          ((mk_lib_crypto_hash_block_sha3_512_digest_pt    )(digest))); return mk_lib_crypto_hash_block_sha3_512_digest_len    ; break;
+		case alg_id_e_hash_streebog_256: mk_lib_crypto_hash_stream_streebog_256_finish(&alg->m_streebog_256,          ((mk_lib_crypto_hash_block_streebog_256_digest_pt)(digest))); return mk_lib_crypto_hash_block_streebog_256_digest_len; break;
+		case alg_id_e_hash_streebog_512: mk_lib_crypto_hash_stream_streebog_512_finish(&alg->m_streebog_512,          ((mk_lib_crypto_hash_block_streebog_512_digest_pt)(digest))); return mk_lib_crypto_hash_block_streebog_512_digest_len; break;
 		case alg_id_e_hash_tiger2_128  : mk_lib_crypto_hash_stream_tiger2_128_finish  (&alg->m_tiger2_128  ,          ((mk_lib_crypto_hash_block_tiger2_128_digest_pt  )(digest))); return mk_lib_crypto_hash_block_tiger2_128_digest_len  ; break;
 		case alg_id_e_hash_tiger2_160  : mk_lib_crypto_hash_stream_tiger2_160_finish  (&alg->m_tiger2_160  ,          ((mk_lib_crypto_hash_block_tiger2_160_digest_pt  )(digest))); return mk_lib_crypto_hash_block_tiger2_160_digest_len  ; break;
 		case alg_id_e_hash_tiger2_192  : mk_lib_crypto_hash_stream_tiger2_192_finish  (&alg->m_tiger2_192  ,          ((mk_lib_crypto_hash_block_tiger2_192_digest_pt  )(digest))); return mk_lib_crypto_hash_block_tiger2_192_digest_len  ; break;

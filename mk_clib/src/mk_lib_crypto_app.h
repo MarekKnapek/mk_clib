@@ -107,6 +107,8 @@ enum mk_lib_crypto_app_kdf_id_e
 	mk_lib_crypto_app_kdf_id_e_pbkdf2_sha3_256,
 	mk_lib_crypto_app_kdf_id_e_pbkdf2_sha3_384,
 	mk_lib_crypto_app_kdf_id_e_pbkdf2_sha3_512,
+	mk_lib_crypto_app_kdf_id_e_pbkdf2_streebog_256,
+	mk_lib_crypto_app_kdf_id_e_pbkdf2_streebog_512,
 	mk_lib_crypto_app_kdf_id_e_pbkdf2_tiger2_128,
 	mk_lib_crypto_app_kdf_id_e_pbkdf2_tiger2_160,
 	mk_lib_crypto_app_kdf_id_e_pbkdf2_tiger2_192,
