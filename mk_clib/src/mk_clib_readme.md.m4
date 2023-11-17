@@ -31,7 +31,7 @@ $3
 ~)dnl
 # mk_clib
 
-Hi, welcome to my library, this is place where I put all my C stuff. There is arbitrary length unsigned integer arithmetic. Cryptographic hashes such as MD2, MD4, MD5, SHA-0, SHA-1, SHA-224, SHA-256, SHA-384, SHA-512, SHA-512/224, SHA-512/256, SHA3-224, SHA3-256, SHA3-384, SHA3-512, SHAKE128, SHAKE256, Tiger/128, Tiger/160, Tiger/192, Tiger2/128, Tiger2/160, Tiger2/192, BLAKE2b-256, BLAKE2b-384, BLAKE2b-512, BLAKE2s-128, BLAKE2s-160, BLAKE2s-224, BLAKE2s-256, BLAKE3, [on-line demo](https://marekknapek.github.io/hash/). Everything could be computed at constexpr time if compiled with C++ 14 or newer compiler.
+Hi, welcome to my library, this is place where I put all my C stuff. There is arbitrary length unsigned integer arithmetic. Cryptographic hashes such as MD, SHA, Tiger, BLAKE, Whirlpool, Streebog, [on-line demo](https://marekknapek.github.io/hash/). Everything could be computed at constexpr time if compiled with C++ 14 or newer compiler.
 
  - [bui](#bui)
  - [cui](#cui)
