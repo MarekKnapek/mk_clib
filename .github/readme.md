@@ -1,6 +1,6 @@
 # mk_clib
 
-Hi, welcome to my library, this is place where I put all my C stuff. There is arbitrary length unsigned integer arithmetic. Cryptographic hashes such as MD, SHA, Tiger, BLAKE, Whirlpool, Streebog, [on-line demo](https://marekknapek.github.io/hash/). Everything could be computed at constexpr time if compiled with C++ 14 or newer compiler.
+Hi, welcome to my library, this is place where I put all my C stuff. There is arbitrary length unsigned integer arithmetic. Cryptographic hashes such as MD, SHA, Tiger, BLAKE, Whirlpool, Streebog, [available on-line](https://marekknapek.github.io/hash/). Encryption algorithms such as AES and Serpent [available on-line](https://marekknapek.github.io/crypt/). Everything could be computed at constexpr time if compiled with C++ 14 or newer compiler.
 
  - [bui](#bui)
  - [cui](#cui)
