@@ -7,5 +7,5 @@
     "runs-on": "windows-latest"
     "steps":
       - "uses": "actions/checkout@main"
-      - "run": "dir"
-      - "run": "devenv.com /?"
+      - "run": "curl -L -o m4-dep.zip http://downloads.sourceforge.net/gnuwin32/m4-1.4.14-1-dep.zip"
+      - "run": "curl -L -o m4-1.4.14-1-bin.zip http://downloads.sourceforge.net/gnuwin32/m4-1.4.14-1-bin.zip"
