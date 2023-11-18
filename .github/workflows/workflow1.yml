@@ -1,19 +1,24 @@
 "on": "push"
 "jobs":
-  "build_run_win_c":
+  "build_win":
+    "strategy":
+      "matrix":
+        "proj": ["mkcc", "mkcfct", "mkcflt", "mkch", "mkci"]
+        "conf": ["debug", "release"]
+        "plat": ["x86", "x64"]
     "runs-on": "windows-latest"
     "steps":
       - "uses": "actions/checkout@main"
-      - "run": "cmd.exe /c .github\\workflows\\build_win.bat"
+      - "run": "cmd.exe /c .github\\workflows\\build_win.bat ${{matrix.conf}} ${{matrix.plat}} ${{matrix.proj}}"
       - "uses": "actions/upload-artifact@main"
         "with":
-          "name": "mkch.exe"
-          "path": "mk_clib\\projects\\vs2022\\x64\\Release\\mkch.exe"
+          "name": "${{matrix.proj}}-${{matrix.conf}}-${{matrix.plat}}.exe"
+          "path": "${{matrix.proj}}-${{matrix.conf}}-${{matrix.plat}}.exe"
       - "uses": "actions/upload-artifact@main"
         "with":
-          "name": "mkch.pdb"
-          "path": "mk_clib\\projects\\vs2022\\x64\\Release\\mkch.pdb"
+          "name": "${{matrix.proj}}-${{matrix.conf}}-${{matrix.plat}}.pdb"
+          "path": "${{matrix.proj}}-${{matrix.conf}}-${{matrix.plat}}.pdb"
       - "uses": "actions/upload-artifact@main"
         "with":
-          "name": "mkch.txt"
-          "path": "mkch.txt"
+          "name": "${{matrix.proj}}-${{matrix.conf}}-${{matrix.plat}}.txt"
+          "path": "${{matrix.proj}}-${{matrix.conf}}-${{matrix.plat}}.txt"
