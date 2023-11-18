@@ -5,3 +5,15 @@
     "steps":
       - "uses": "actions/checkout@main"
       - "run": "cmd.exe /c .github\\workflows\\build_win.bat"
+      - "uses": "actions/upload-artifact@main"
+        "with":
+          "name": "mkch.exe"
+          "path": "mk_clib\\projects\\vs2022\\x64\\Release\\mkch.exe"
+      - "uses": "actions/upload-artifact@main"
+        "with":
+          "name": "mkch.pdb"
+          "path": "mk_clib\\projects\\vs2022\\x64\\Release\\mkch.pdb"
+      - "uses": "actions/upload-artifact@main"
+        "with":
+          "name": "mkch.txt"
+          "path": "mkch.txt"
