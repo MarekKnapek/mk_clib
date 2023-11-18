@@ -7,5 +7,5 @@
     "runs-on": "windows-latest"
     "steps":
       - "uses": "actions/checkout@main"
-      - "run": "cl.exe"
       - "run": "dir"
+      - "run": "devenv.com /?"
