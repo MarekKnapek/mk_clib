@@ -1,6 +1,62 @@
 "on": "push"
 "jobs":
-  "build_win":
+  "build_run_c":
+    "strategy":
+      "matrix":
+        "proj": ["mkci", "mkct"]
+        "cver": ["89", "99", "11", "18", "2x"]
+    "runs-on": "ubuntu-latest"
+    "defaults":
+      "run":
+        "working-directory": "./mk_clib/app"
+    "steps":
+      - "uses": "actions/checkout@main"
+      - "run": "bash ./../projects/gcc/build_m4.sh"
+      - "run": "gcc -v"
+      - "run": "gcc -std=c${{matrix.cver}} -DNDEBUG -Dmk_lang_assert_want=1 -Dmk_lang_crash_detail_want=1 -Dmk_clib_test_smol_want=1 -O3 -Wall -Wextra -Wpedantic -o ${{matrix.proj}}-c${{matrix.cver}}.elf ${{matrix.proj}}.c 2>&1 | tee ${{matrix.proj}}-c${{matrix.cver}}.txt"
+      - "run": "./${{matrix.proj}}-c${{matrix.cver}}.elf"
+      - "uses": "actions/upload-artifact@main"
+        "with":
+          "name": "${{matrix.proj}}-c${{matrix.cver}}.elf"
+          "path": "./mk_clib/app/${{matrix.proj}}-c${{matrix.cver}}.elf"
+      - "uses": "actions/upload-artifact@main"
+        "with":
+          "name": "${{matrix.proj}}-c${{matrix.cver}}.txt"
+          "path": "./mk_clib/app/${{matrix.proj}}-c${{matrix.cver}}.txt"
+  "build_run_cpp":
+    "strategy":
+      "matrix":
+        "proj": ["mkci", "mkct"]
+        "cver": ["98", "11", "14", "17", "20"]
+    "runs-on": "ubuntu-latest"
+    "defaults":
+      "run":
+        "working-directory": "./mk_clib/app"
+    "steps":
+      - "uses": "actions/checkout@main"
+      - "run": "bash ./../projects/gcc/build_m4.sh"
+      - "run": "cp ${{matrix.proj}}.c ${{matrix.proj}}.cpp"
+      - "run": "g++-12 -v"
+      - "run": "g++-12 -std=c++${{matrix.cver}} -DNDEBUG -Dmk_lang_assert_want=1 -Dmk_lang_crash_detail_want=1 -Dmk_clib_test_smol_want=1 -O3 -fconstexpr-ops-limit=1000000000 -Wall -Wextra -Wpedantic -o ${{matrix.proj}}-cpp${{matrix.cver}}.elf ${{matrix.proj}}.cpp 2>&1 | tee ${{matrix.proj}}-cpp${{matrix.cver}}.txt"
+      - "run": "./${{matrix.proj}}-cpp${{matrix.cver}}.elf"
+      - "uses": "actions/upload-artifact@main"
+        "with":
+          "name": "${{matrix.proj}}-cpp${{matrix.cver}}.elf"
+          "path": "./mk_clib/app/${{matrix.proj}}-cpp${{matrix.cver}}.elf"
+      - "uses": "actions/upload-artifact@main"
+        "with":
+          "name": "${{matrix.proj}}-cpp${{matrix.cver}}.txt"
+          "path": "./mk_clib/app/${{matrix.proj}}-cpp${{matrix.cver}}.txt"
+  "build_run_examples":
+    "runs-on": "ubuntu-latest"
+    "defaults":
+      "run":
+        "working-directory": "./mk_clib/projects/gcc"
+    "steps":
+      - "uses": "actions/checkout@main"
+      - "run": "bash ./build_m4.sh"
+      - "run": "bash ./build_run_examples.sh"
+  "build_run_win":
     "strategy":
       "matrix":
         "proj": ["mkcc", "mkcfct", "mkcflt", "mkch", "mkci"]
@@ -9,7 +65,7 @@
     "runs-on": "windows-latest"
     "steps":
       - "uses": "actions/checkout@main"
-      - "run": "cmd.exe /c .github\\workflows\\build_win.bat ${{matrix.conf}} ${{matrix.plat}} ${{matrix.proj}}"
+      - "run": "cmd.exe /c .github\\workflows\\build_run_win.bat ${{matrix.conf}} ${{matrix.plat}} ${{matrix.proj}}"
       - "uses": "actions/upload-artifact@main"
         "with":
           "name": "${{matrix.proj}}-${{matrix.conf}}-${{matrix.plat}}.exe"
