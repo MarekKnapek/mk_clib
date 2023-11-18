@@ -4,4 +4,4 @@
     "runs-on": "windows-latest"
     "steps":
       - "uses": "actions/checkout@main"
-      - "run": "cmd.exe /c .\.github\workflowsbuild_win.bat"
+      - "run": "cmd.exe /c .\\.github\\workflowsbuild_win.bat"
