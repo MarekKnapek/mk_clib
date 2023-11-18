@@ -56,3 +56,25 @@
       - "uses": "actions/checkout@main"
       - "run": "bash ./build_m4.sh"
       - "run": "bash ./build_run_examples.sh"
+  "build_run_win":
+    "strategy":
+      "matrix":
+        "proj": ["mkcc", "mkcfct", "mkcflt", "mkch", "mkci"]
+        "conf": ["debug", "release"]
+        "plat": ["x86", "x64"]
+    "runs-on": "windows-latest"
+    "steps":
+      - "uses": "actions/checkout@main"
+      - "run": "cmd.exe /c .github\\workflows\\build_run_win.bat ${{matrix.conf}} ${{matrix.plat}} ${{matrix.proj}}"
+      - "uses": "actions/upload-artifact@main"
+        "with":
+          "name": "${{matrix.proj}}-${{matrix.conf}}-${{matrix.plat}}.exe"
+          "path": "${{matrix.proj}}-${{matrix.conf}}-${{matrix.plat}}.exe"
+      - "uses": "actions/upload-artifact@main"
+        "with":
+          "name": "${{matrix.proj}}-${{matrix.conf}}-${{matrix.plat}}.pdb"
+          "path": "${{matrix.proj}}-${{matrix.conf}}-${{matrix.plat}}.pdb"
+      - "uses": "actions/upload-artifact@main"
+        "with":
+          "name": "${{matrix.proj}}-${{matrix.conf}}-${{matrix.plat}}.txt"
+          "path": "${{matrix.proj}}-${{matrix.conf}}-${{matrix.plat}}.txt"
