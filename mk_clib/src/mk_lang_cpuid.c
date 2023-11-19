@@ -97,6 +97,22 @@ mk_lang_jumbo void mk_lang_cpuid_reset(void) mk_lang_noexcept
 	}
 }
 
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_ssse3(void) mk_lang_noexcept
+{
+	mk_lang_bool_t has;
+
+	has = (((mk_lang_types_uint_t)(g_mk_lang_cpuid_regset.m_data.m_regset[0x1].m_data.m_sints[2])) & (1u << 9)) != 0;
+	return has;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_sse41(void) mk_lang_noexcept
+{
+	mk_lang_bool_t has;
+
+	has = (((mk_lang_types_uint_t)(g_mk_lang_cpuid_regset.m_data.m_regset[0x1].m_data.m_sints[2])) & (1u << 19)) != 0;
+	return has;
+}
+
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_popcnt(void) mk_lang_noexcept
 {
 	mk_lang_bool_t has;
@@ -145,6 +161,14 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_avx2(void
 	return has;
 }
 
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_sha(void) mk_lang_noexcept
+{
+	mk_lang_bool_t has;
+
+	has = (g_mk_lang_cpuid_regset.m_leafs >= 0x7) && ((((mk_lang_types_uint_t)(g_mk_lang_cpuid_regset.m_data.m_regset[0x7].m_data.m_sints[1])) & (1u << 29)) != 0);
+	return has;
+}
+
 
 #else
 
@@ -155,6 +179,22 @@ mk_lang_jumbo void mk_lang_cpuid_init(void) mk_lang_noexcept
 
 mk_lang_jumbo void mk_lang_cpuid_reset(void) mk_lang_noexcept
 {
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_ssse3(void) mk_lang_noexcept
+{
+	mk_lang_bool_t has;
+
+	has = mk_lang_false;
+	return has;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_sse41(void) mk_lang_noexcept
+{
+	mk_lang_bool_t has;
+
+	has = mk_lang_false;
+	return has;
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_popcnt(void) mk_lang_noexcept
@@ -198,6 +238,14 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_sse2_impl
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_avx2(void) mk_lang_noexcept
+{
+	mk_lang_bool_t has;
+
+	has = mk_lang_false;
+	return has;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_sha(void) mk_lang_noexcept
 {
 	mk_lang_bool_t has;
 
