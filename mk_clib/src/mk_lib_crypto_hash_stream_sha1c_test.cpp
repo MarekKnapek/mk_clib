@@ -1,4 +1,4 @@
-#include "mk_lib_crypto_hash_stream_sha1d_test.hpp"
+#include "mk_lib_crypto_hash_stream_sha1c_test.hpp"
 #undef mk_lang_jumbo_want
 #define mk_lang_jumbo_want 1
 
@@ -14,35 +14,35 @@
 #include "mk_lang_types.h"
 #include "mk_lang_version.h"
 #include "mk_lib_cpp_constexpr.hpp"
-#include "mk_lib_crypto_hash_stream_sha1d.h"
+#include "mk_lib_crypto_hash_stream_sha1c.h"
 #include "mk_sl_uint8.h"
 
 
 #if mk_lang_version_at_least_cpp_14 || mk_lang_version_at_least_msvc_cpp_14
 
 template<mk_lang_types_usize_t str_lit_len>
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto mk_lib_crypto_hash_stream_sha1d_test_compute_from_str_lit(char const(&str_lit)[str_lit_len]) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto mk_lib_crypto_hash_stream_sha1c_test_compute_from_str_lit(char const(&str_lit)[str_lit_len]) mk_lang_noexcept
 {
 	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, str_lit_len - 1> msg mk_lang_constexpr_init;
-	mk_lib_crypto_hash_stream_sha1d_t sha1 mk_lang_constexpr_init;
-	mk_lib_crypto_hash_block_sha1d_digest_t digest mk_lang_constexpr_init;
+	mk_lib_crypto_hash_stream_sha1c_t sha1c mk_lang_constexpr_init;
+	mk_lib_crypto_hash_block_sha1c_digest_t digest mk_lang_constexpr_init;
 	mk_lang_types_usize_t i mk_lang_constexpr_init;
-	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, mk_lib_crypto_hash_block_sha1d_digest_len> ret mk_lang_constexpr_init;
+	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, mk_lib_crypto_hash_block_sha1c_digest_len> ret mk_lang_constexpr_init;
 
 	mk_lang_static_assert(str_lit_len >= 1);
 
 	msg = mk_lib_cpp_constexpr_str_lit_to_u8s(str_lit);
-	mk_lib_crypto_hash_stream_sha1d_init(&sha1);
-	mk_lib_crypto_hash_stream_sha1d_append_u8(&sha1, msg.data(), msg.size());
-	mk_lib_crypto_hash_stream_sha1d_finish(&sha1, &digest);
-	for(i = 0; i != mk_lib_crypto_hash_block_sha1d_digest_len; ++i){ ret[i] = digest.m_uint8s[i]; }
+	mk_lib_crypto_hash_stream_sha1c_init(&sha1c);
+	mk_lib_crypto_hash_stream_sha1c_append_u8(&sha1c, msg.data(), msg.size());
+	mk_lib_crypto_hash_stream_sha1c_finish(&sha1c, &digest);
+	for(i = 0; i != mk_lib_crypto_hash_block_sha1c_digest_len; ++i){ ret[i] = digest.m_uint8s[i]; }
 	return ret;
 }
 
 #endif
 
 
-mk_lang_extern_c void mk_lib_crypto_hash_stream_sha1d_test(void) mk_lang_noexcept
+mk_lang_extern_c void mk_lib_crypto_hash_stream_sha1c_test(void) mk_lang_noexcept
 {
 	#define message_1 ""
 	#define message_2 "a"
@@ -64,14 +64,14 @@ mk_lang_extern_c void mk_lib_crypto_hash_stream_sha1d_test(void) mk_lang_noexcep
 
 	#if mk_lang_version_at_least_cpp_14 || mk_lang_version_at_least_msvc_cpp_14
 
-	mk_lang_constexpr_static auto const s_digest_computed_1 = mk_lib_crypto_hash_stream_sha1d_test_compute_from_str_lit(message_1);
-	mk_lang_constexpr_static auto const s_digest_computed_2 = mk_lib_crypto_hash_stream_sha1d_test_compute_from_str_lit(message_2);
-	mk_lang_constexpr_static auto const s_digest_computed_3 = mk_lib_crypto_hash_stream_sha1d_test_compute_from_str_lit(message_3);
-	mk_lang_constexpr_static auto const s_digest_computed_4 = mk_lib_crypto_hash_stream_sha1d_test_compute_from_str_lit(message_4);
-	mk_lang_constexpr_static auto const s_digest_computed_5 = mk_lib_crypto_hash_stream_sha1d_test_compute_from_str_lit(message_5);
-	mk_lang_constexpr_static auto const s_digest_computed_6 = mk_lib_crypto_hash_stream_sha1d_test_compute_from_str_lit(message_6);
-	mk_lang_constexpr_static auto const s_digest_computed_7 = mk_lib_crypto_hash_stream_sha1d_test_compute_from_str_lit(message_7);
-	mk_lang_constexpr_static auto const s_digest_computed_8 = mk_lib_crypto_hash_stream_sha1d_test_compute_from_str_lit(message_8);
+	mk_lang_constexpr_static auto const s_digest_computed_1 = mk_lib_crypto_hash_stream_sha1c_test_compute_from_str_lit(message_1);
+	mk_lang_constexpr_static auto const s_digest_computed_2 = mk_lib_crypto_hash_stream_sha1c_test_compute_from_str_lit(message_2);
+	mk_lang_constexpr_static auto const s_digest_computed_3 = mk_lib_crypto_hash_stream_sha1c_test_compute_from_str_lit(message_3);
+	mk_lang_constexpr_static auto const s_digest_computed_4 = mk_lib_crypto_hash_stream_sha1c_test_compute_from_str_lit(message_4);
+	mk_lang_constexpr_static auto const s_digest_computed_5 = mk_lib_crypto_hash_stream_sha1c_test_compute_from_str_lit(message_5);
+	mk_lang_constexpr_static auto const s_digest_computed_6 = mk_lib_crypto_hash_stream_sha1c_test_compute_from_str_lit(message_6);
+	mk_lang_constexpr_static auto const s_digest_computed_7 = mk_lib_crypto_hash_stream_sha1c_test_compute_from_str_lit(message_7);
+	mk_lang_constexpr_static auto const s_digest_computed_8 = mk_lib_crypto_hash_stream_sha1c_test_compute_from_str_lit(message_8);
 
 	mk_lang_constexpr_static auto const s_digest_precomputed_1 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(digest_1);
 	mk_lang_constexpr_static auto const s_digest_precomputed_2 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(digest_2);
@@ -133,8 +133,8 @@ mk_lang_extern_c void mk_lib_crypto_hash_stream_sha1d_test(void) mk_lang_noexcep
 
 	int n;
 	int i;
-	mk_lib_crypto_hash_stream_sha1d_t sha1;
-	mk_lib_crypto_hash_block_sha1d_digest_t digest;
+	mk_lib_crypto_hash_stream_sha1c_t sha1c;
+	mk_lib_crypto_hash_block_sha1c_digest_t digest;
 	int j;
 	mk_lang_types_uchar_t hi;
 	mk_lang_types_uchar_t lo;
@@ -148,10 +148,10 @@ mk_lang_extern_c void mk_lib_crypto_hash_stream_sha1d_test(void) mk_lang_noexcep
 	for(i = 0; i != n; ++i)
 	{
 		mk_lang_assert(s_message_lens[i] >= 0);
-		mk_lib_crypto_hash_stream_sha1d_init(&sha1);
-		mk_lib_crypto_hash_stream_sha1d_append(&sha1, ((mk_lang_types_uchar_pct)(s_messages[i])), s_message_lens[i]);
-		mk_lib_crypto_hash_stream_sha1d_finish(&sha1, &digest);
-		for(j = 0; j != mk_lib_crypto_hash_block_sha1d_digest_len; ++j)
+		mk_lib_crypto_hash_stream_sha1c_init(&sha1c);
+		mk_lib_crypto_hash_stream_sha1c_append(&sha1c, ((mk_lang_types_uchar_pct)(s_messages[i])), s_message_lens[i]);
+		mk_lib_crypto_hash_stream_sha1c_finish(&sha1c, &digest);
+		for(j = 0; j != mk_lib_crypto_hash_block_sha1c_digest_len; ++j)
 		{
 			hi = mk_lib_cpp_constexpr_char_to_nibble(s_digests[i][j * 2 + 0]); mk_lang_assert(hi >= 0x0 && hi <= 0xf);
 			lo = mk_lib_cpp_constexpr_char_to_nibble(s_digests[i][j * 2 + 1]); mk_lang_assert(lo >= 0x0 && lo <= 0xf);

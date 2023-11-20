@@ -22,7 +22,7 @@
 #include "mk_lib_crypto_hash_stream_md4.h"
 #include "mk_lib_crypto_hash_stream_md5.h"
 #include "mk_lib_crypto_hash_stream_sha0.h"
-#include "mk_lib_crypto_hash_stream_sha1d.h"
+#include "mk_lib_crypto_hash_stream_sha1.h"
 #include "mk_lib_crypto_hash_stream_sha2_224.h"
 #include "mk_lib_crypto_hash_stream_sha2_256.h"
 #include "mk_lib_crypto_hash_stream_sha2_384.h"
@@ -63,7 +63,7 @@ mk_lang_constexpr_static_inline mk_lang_types_pchar_t const s_mk_clib_app_hash_a
 	mk_lang_stringify(mk_lib_crypto_hash_block_md4_name_def)
 	mk_lang_stringify(mk_lib_crypto_hash_block_md5_name_def)
 	mk_lang_stringify(mk_lib_crypto_hash_block_sha0_name_def)
-	mk_lang_stringify(mk_lib_crypto_hash_block_sha1d_name_def)
+	mk_lang_stringify(mk_lib_crypto_hash_block_sha1_name_def)
 	mk_lang_stringify(mk_lib_crypto_hash_block_sha2_224_name_def)
 	mk_lang_stringify(mk_lib_crypto_hash_block_sha2_256_name_def)
 	mk_lang_stringify(mk_lib_crypto_hash_block_sha2_384_name_def)
@@ -99,7 +99,7 @@ mk_lang_constexpr_static_inline mk_lang_types_uchar_t const s_mk_clib_app_hash_a
 	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_md4_name_def         )) - 1)))),
 	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_md5_name_def         )) - 1)))),
 	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_sha0_name_def        )) - 1)))),
-	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_sha1d_name_def       )) - 1)))),
+	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_sha1_name_def        )) - 1)))),
 	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_sha2_224_name_def    )) - 1)))),
 	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_sha2_256_name_def    )) - 1)))),
 	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_sha2_384_name_def    )) - 1)))),
@@ -135,7 +135,7 @@ enum mk_clib_app_hash_alg_id_e
 	mk_clib_app_hash_alg_id_e_md4         ,
 	mk_clib_app_hash_alg_id_e_md5         ,
 	mk_clib_app_hash_alg_id_e_sha0        ,
-	mk_clib_app_hash_alg_id_e_sha1d       ,
+	mk_clib_app_hash_alg_id_e_sha1        ,
 	mk_clib_app_hash_alg_id_e_sha2_224    ,
 	mk_clib_app_hash_alg_id_e_sha2_256    ,
 	mk_clib_app_hash_alg_id_e_sha2_384    ,
@@ -173,7 +173,7 @@ union mk_clib_app_hash_hasher_u
 	mk_lib_crypto_hash_stream_md4_t          m_md4;
 	mk_lib_crypto_hash_stream_md5_t          m_md5;
 	mk_lib_crypto_hash_stream_sha0_t         m_sha0;
-	mk_lib_crypto_hash_stream_sha1d_t        m_sha1d;
+	mk_lib_crypto_hash_stream_sha1_t         m_sha1;
 	mk_lib_crypto_hash_stream_sha2_224_t     m_sha2_224;
 	mk_lib_crypto_hash_stream_sha2_256_t     m_sha2_256;
 	mk_lib_crypto_hash_stream_sha2_384_t     m_sha2_384;
@@ -211,7 +211,7 @@ union mk_clib_app_hash_digest_u
 	mk_lib_crypto_hash_block_md4_digest_t          m_md4;
 	mk_lib_crypto_hash_block_md5_digest_t          m_md5;
 	mk_lib_crypto_hash_block_sha0_digest_t         m_sha0;
-	mk_lib_crypto_hash_block_sha1d_digest_t        m_sha1d;
+	mk_lib_crypto_hash_block_sha1_digest_t         m_sha1;
 	mk_lib_crypto_hash_block_sha2_224_digest_t     m_sha2_224;
 	mk_lib_crypto_hash_block_sha2_256_digest_t     m_sha2_256;
 	mk_lib_crypto_hash_block_sha2_384_digest_t     m_sha2_384;
@@ -333,7 +333,7 @@ static mk_lang_inline mk_lang_types_void_t mk_clib_app_hash_init(mk_clib_app_has
 		case mk_clib_app_hash_alg_id_e_md4:          mk_lib_crypto_hash_stream_md4_init         (&hasher->m_md4         ); break;
 		case mk_clib_app_hash_alg_id_e_md5:          mk_lib_crypto_hash_stream_md5_init         (&hasher->m_md5         ); break;
 		case mk_clib_app_hash_alg_id_e_sha0:         mk_lib_crypto_hash_stream_sha0_init        (&hasher->m_sha0        ); break;
-		case mk_clib_app_hash_alg_id_e_sha1d:        mk_lib_crypto_hash_stream_sha1d_init       (&hasher->m_sha1d       ); break;
+		case mk_clib_app_hash_alg_id_e_sha1:         mk_lib_crypto_hash_stream_sha1_init        (&hasher->m_sha1        ); break;
 		case mk_clib_app_hash_alg_id_e_sha2_224:     mk_lib_crypto_hash_stream_sha2_224_init    (&hasher->m_sha2_224    ); break;
 		case mk_clib_app_hash_alg_id_e_sha2_256:     mk_lib_crypto_hash_stream_sha2_256_init    (&hasher->m_sha2_256    ); break;
 		case mk_clib_app_hash_alg_id_e_sha2_384:     mk_lib_crypto_hash_stream_sha2_384_init    (&hasher->m_sha2_384    ); break;
@@ -378,7 +378,7 @@ static mk_lang_inline mk_lang_types_void_t mk_clib_app_hash_append(mk_clib_app_h
 		case mk_clib_app_hash_alg_id_e_md4:          mk_lib_crypto_hash_stream_md4_append_u8         (&hasher->m_md4,          msg, len); break;
 		case mk_clib_app_hash_alg_id_e_md5:          mk_lib_crypto_hash_stream_md5_append_u8         (&hasher->m_md5,          msg, len); break;
 		case mk_clib_app_hash_alg_id_e_sha0:         mk_lib_crypto_hash_stream_sha0_append_u8        (&hasher->m_sha0,         msg, len); break;
-		case mk_clib_app_hash_alg_id_e_sha1d:        mk_lib_crypto_hash_stream_sha1d_append_u8       (&hasher->m_sha1d,        msg, len); break;
+		case mk_clib_app_hash_alg_id_e_sha1:         mk_lib_crypto_hash_stream_sha1_append_u8        (&hasher->m_sha1,         msg, len); break;
 		case mk_clib_app_hash_alg_id_e_sha2_224:     mk_lib_crypto_hash_stream_sha2_224_append_u8    (&hasher->m_sha2_224,     msg, len); break;
 		case mk_clib_app_hash_alg_id_e_sha2_256:     mk_lib_crypto_hash_stream_sha2_256_append_u8    (&hasher->m_sha2_256,     msg, len); break;
 		case mk_clib_app_hash_alg_id_e_sha2_384:     mk_lib_crypto_hash_stream_sha2_384_append_u8    (&hasher->m_sha2_384,     msg, len); break;
@@ -422,7 +422,7 @@ static mk_lang_inline mk_lang_types_void_t mk_clib_app_hash_finish(mk_clib_app_h
 		case mk_clib_app_hash_alg_id_e_md4:          mk_lib_crypto_hash_stream_md4_finish         (&hasher->m_md4,          &digest->m_md4         ); break;
 		case mk_clib_app_hash_alg_id_e_md5:          mk_lib_crypto_hash_stream_md5_finish         (&hasher->m_md5,          &digest->m_md5         ); break;
 		case mk_clib_app_hash_alg_id_e_sha0:         mk_lib_crypto_hash_stream_sha0_finish        (&hasher->m_sha0,         &digest->m_sha0        ); break;
-		case mk_clib_app_hash_alg_id_e_sha1d:        mk_lib_crypto_hash_stream_sha1d_finish       (&hasher->m_sha1d,        &digest->m_sha1d       ); break;
+		case mk_clib_app_hash_alg_id_e_sha1:         mk_lib_crypto_hash_stream_sha1_finish        (&hasher->m_sha1,         &digest->m_sha1        ); break;
 		case mk_clib_app_hash_alg_id_e_sha2_224:     mk_lib_crypto_hash_stream_sha2_224_finish    (&hasher->m_sha2_224,     &digest->m_sha2_224    ); break;
 		case mk_clib_app_hash_alg_id_e_sha2_256:     mk_lib_crypto_hash_stream_sha2_256_finish    (&hasher->m_sha2_256,     &digest->m_sha2_256    ); break;
 		case mk_clib_app_hash_alg_id_e_sha2_384:     mk_lib_crypto_hash_stream_sha2_384_finish    (&hasher->m_sha2_384,     &digest->m_sha2_384    ); break;
@@ -473,7 +473,7 @@ static mk_lang_inline mk_lang_types_void_t mk_clib_app_hash_print(mk_clib_app_ha
 		case mk_clib_app_hash_alg_id_e_md4:          n = mk_lib_crypto_hash_block_md4_digest_len;          u8s = digest->m_md4.m_uint8s;          break;
 		case mk_clib_app_hash_alg_id_e_md5:          n = mk_lib_crypto_hash_block_md5_digest_len;          u8s = digest->m_md5.m_uint8s;          break;
 		case mk_clib_app_hash_alg_id_e_sha0:         n = mk_lib_crypto_hash_block_sha0_digest_len;         u8s = digest->m_sha0.m_uint8s;         break;
-		case mk_clib_app_hash_alg_id_e_sha1d:        n = mk_lib_crypto_hash_block_sha1d_digest_len;        u8s = digest->m_sha1d.m_uint8s;        break;
+		case mk_clib_app_hash_alg_id_e_sha1:         n = mk_lib_crypto_hash_block_sha1_digest_len;         u8s = digest->m_sha1.m_uint8s;         break;
 		case mk_clib_app_hash_alg_id_e_sha2_224:     n = mk_lib_crypto_hash_block_sha2_224_digest_len;     u8s = digest->m_sha2_224.m_uint8s;     break;
 		case mk_clib_app_hash_alg_id_e_sha2_256:     n = mk_lib_crypto_hash_block_sha2_256_digest_len;     u8s = digest->m_sha2_256.m_uint8s;     break;
 		case mk_clib_app_hash_alg_id_e_sha2_384:     n = mk_lib_crypto_hash_block_sha2_384_digest_len;     u8s = digest->m_sha2_384.m_uint8s;     break;

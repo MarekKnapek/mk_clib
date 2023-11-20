@@ -1,4 +1,4 @@
-#include "mk_lib_crypto_mac_hmac_sha1d_test.hpp"
+#include "mk_lib_crypto_mac_hmac_sha1c_test.hpp"
 #undef mk_lang_jumbo_want
 #define mk_lang_jumbo_want 1
 
@@ -14,19 +14,19 @@
 #include "mk_lang_types.h"
 #include "mk_lang_version.h"
 #include "mk_lib_cpp_constexpr.hpp"
-#include "mk_lib_crypto_mac_hmac_sha1d.h"
+#include "mk_lib_crypto_mac_hmac_sha1c.h"
 #include "mk_sl_uint8.h"
 
 
 #if mk_lang_version_at_least_cpp_14 || mk_lang_version_at_least_msvc_cpp_14
 
-template<int mac_len = mk_lib_crypto_hash_block_sha1d_digest_len, int msg_len, int key_len>
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto mk_lib_crypto_mac_hmac_sha1d_test_compute_from_str_lit(mk_lang_types_pchar_t const(&msg)[msg_len], mk_lang_types_pchar_t const(&key)[key_len]) mk_lang_noexcept
+template<int mac_len = mk_lib_crypto_hash_block_sha1c_digest_len, int msg_len, int key_len>
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto mk_lib_crypto_mac_hmac_sha1c_test_compute_from_str_lit(mk_lang_types_pchar_t const(&msg)[msg_len], mk_lang_types_pchar_t const(&key)[key_len]) mk_lang_noexcept
 {
 	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, msg_len - 1> m mk_lang_constexpr_init;
 	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, (key_len - 1) / 2> k mk_lang_constexpr_init;
-	mk_lib_crypto_mac_hmac_sha1d_t hmac mk_lang_constexpr_init;
-	mk_lib_crypto_hash_block_sha1d_digest_t digest mk_lang_constexpr_init;
+	mk_lib_crypto_mac_hmac_sha1c_t hmac mk_lang_constexpr_init;
+	mk_lib_crypto_hash_block_sha1c_digest_t digest mk_lang_constexpr_init;
 	int i mk_lang_constexpr_init;
 	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, mac_len> ret mk_lang_constexpr_init;
 
@@ -36,9 +36,9 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto mk_lib_crypto_mac_hmac_sh
 
 	m = mk_lib_cpp_constexpr_str_lit_to_u8s(msg);
 	k = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(key);
-	mk_lib_crypto_mac_hmac_sha1d_init(&hmac, k.data(), k.size());
-	mk_lib_crypto_mac_hmac_sha1d_append(&hmac, m.data(), m.size());
-	mk_lib_crypto_mac_hmac_sha1d_finish(&hmac, &digest);
+	mk_lib_crypto_mac_hmac_sha1c_init(&hmac, k.data(), k.size());
+	mk_lib_crypto_mac_hmac_sha1c_append(&hmac, m.data(), m.size());
+	mk_lib_crypto_mac_hmac_sha1c_finish(&hmac, &digest);
 	for(i = 0; i != mac_len; ++i){ ret[i] = digest.m_uint8s[i]; }
 	return ret;
 }
@@ -46,7 +46,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto mk_lib_crypto_mac_hmac_sh
 #endif
 
 
-mk_lang_extern_c void mk_lib_crypto_mac_hmac_sha1d_test(void) mk_lang_noexcept
+mk_lang_extern_c void mk_lib_crypto_mac_hmac_sha1c_test(void) mk_lang_noexcept
 {
 	#define msg_1 "Sample message for keylen=blocklen"
 	#define msg_2 "Sample message for keylen<blocklen"
@@ -65,10 +65,10 @@ mk_lang_extern_c void mk_lib_crypto_mac_hmac_sha1d_test(void) mk_lang_noexcept
 
 	#if mk_lang_version_at_least_cpp_14 || mk_lang_version_at_least_msvc_cpp_14
 
-	mk_lang_constexpr_static auto const s_key_computed_1 = mk_lib_crypto_mac_hmac_sha1d_test_compute_from_str_lit(msg_1, key_1);
-	mk_lang_constexpr_static auto const s_key_computed_2 = mk_lib_crypto_mac_hmac_sha1d_test_compute_from_str_lit(msg_2, key_2);
-	mk_lang_constexpr_static auto const s_key_computed_3 = mk_lib_crypto_mac_hmac_sha1d_test_compute_from_str_lit(msg_3, key_3);
-	mk_lang_constexpr_static auto const s_key_computed_4 = mk_lib_crypto_mac_hmac_sha1d_test_compute_from_str_lit<12>(msg_4, key_4);
+	mk_lang_constexpr_static auto const s_key_computed_1 = mk_lib_crypto_mac_hmac_sha1c_test_compute_from_str_lit(msg_1, key_1);
+	mk_lang_constexpr_static auto const s_key_computed_2 = mk_lib_crypto_mac_hmac_sha1c_test_compute_from_str_lit(msg_2, key_2);
+	mk_lang_constexpr_static auto const s_key_computed_3 = mk_lib_crypto_mac_hmac_sha1c_test_compute_from_str_lit(msg_3, key_3);
+	mk_lang_constexpr_static auto const s_key_computed_4 = mk_lib_crypto_mac_hmac_sha1c_test_compute_from_str_lit<12>(msg_4, key_4);
 
 	mk_lang_constexpr_static auto const s_key_precomputed_1 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(mac_1);
 	mk_lang_constexpr_static auto const s_key_precomputed_2 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(mac_2);
@@ -141,8 +141,8 @@ mk_lang_extern_c void mk_lib_crypto_mac_hmac_sha1d_test(void) mk_lang_noexcept
 	mk_lang_types_uchar_t lo;
 	mk_lang_types_uchar_t byte;
 	mk_sl_cui_uint8_t msg[64];
-	mk_lib_crypto_mac_hmac_sha1d_t hmac;
-	mk_lib_crypto_hash_block_sha1d_digest_t digest;
+	mk_lib_crypto_mac_hmac_sha1c_t hmac;
+	mk_lib_crypto_hash_block_sha1c_digest_t digest;
 	mk_sl_cui_uint8_t u8;
 
 	mk_lang_static_assert(sizeof(s_msgs) / sizeof(s_msgs[0]) == sizeof(s_msg_lens) / sizeof(s_msg_lens[0]));
@@ -168,9 +168,9 @@ mk_lang_extern_c void mk_lib_crypto_mac_hmac_sha1d_test(void) mk_lang_noexcept
 		{
 			mk_sl_cui_uint8_from_bi_pchar(&msg[j], &s_msgs[i][j]);
 		}
-		mk_lib_crypto_mac_hmac_sha1d_init(&hmac, &key[0], s_key_lens[i]);
-		mk_lib_crypto_mac_hmac_sha1d_append(&hmac, &msg[0], s_msg_lens[i]);
-		mk_lib_crypto_mac_hmac_sha1d_finish(&hmac, &digest);
+		mk_lib_crypto_mac_hmac_sha1c_init(&hmac, &key[0], s_key_lens[i]);
+		mk_lib_crypto_mac_hmac_sha1c_append(&hmac, &msg[0], s_msg_lens[i]);
+		mk_lib_crypto_mac_hmac_sha1c_finish(&hmac, &digest);
 		m = s_mac_lens[i];
 		for(j = 0; j != m; ++j)
 		{

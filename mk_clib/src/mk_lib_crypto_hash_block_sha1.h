@@ -8,69 +8,52 @@
 /* nist fips pub 180-4 */
 
 
-#include "mk_lang_alignas.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
-#include "mk_lang_pow2.h"
 #include "mk_lang_stringify.h"
 #include "mk_lang_types.h"
-#include "mk_sl_uint32.h"
-#include "mk_sl_uint64.h"
-#include "mk_sl_uint8.h"
+#include "mk_lib_crypto_hash_block_sha1c.h"
+#include "mk_lib_crypto_hash_block_sha1x86.h"
 
 
 #define mk_lib_crypto_hash_block_sha1_block_len 64
 #define mk_lib_crypto_hash_block_sha1_digest_len 20
 #define mk_lib_crypto_hash_block_sha1_name_def SHA-1
-mk_lang_constexpr_static_inline char const mk_lib_crypto_hash_block_sha1_name_str[] = mk_lang_stringify(mk_lib_crypto_hash_block_sha1_name_def);
-mk_lang_constexpr_static_inline int const mk_lib_crypto_hash_block_sha1_name_str_len = ((int)(sizeof(mk_lib_crypto_hash_block_sha1_name_str) - 1));
+mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lib_crypto_hash_block_sha1_name_str[] = mk_lang_stringify(mk_lib_crypto_hash_block_sha1_name_def);
+mk_lang_constexpr_static_inline mk_lang_types_sint_t const mk_lib_crypto_hash_block_sha1_name_str_len = ((mk_lang_types_sint_t)(sizeof(mk_lib_crypto_hash_block_sha1_name_str) - 1));
 
 
-union mk_lib_crypto_hash_block_sha1_aligned64_u
+union mk_lib_crypto_hash_block_sha1_data_u
 {
-	mk_lang_alignas(64) mk_sl_cui_uint8_t m_uint8s[64];
-	mk_sl_cui_uint32_t m_align;
+	mk_lib_crypto_hash_block_sha1c_t m_sha1c;
+	mk_lib_crypto_hash_block_sha1x86_t m_sha1x86;
 };
-typedef union mk_lib_crypto_hash_block_sha1_aligned64_u mk_lib_crypto_hash_block_sha1_aligned64_t;
-typedef mk_lib_crypto_hash_block_sha1_aligned64_t const mk_lib_crypto_hash_block_sha1_aligned64_ct;
-typedef mk_lib_crypto_hash_block_sha1_aligned64_t* mk_lib_crypto_hash_block_sha1_aligned64_pt;
-typedef mk_lib_crypto_hash_block_sha1_aligned64_t const* mk_lib_crypto_hash_block_sha1_aligned64_pct;
-
-union mk_lib_crypto_hash_block_sha1_aligned20_u
-{
-	mk_lang_alignas(mk_lang_pow2_roundup(20)) mk_sl_cui_uint8_t m_uint8s[20];
-	mk_lang_types_ulllong_t m_ulllong;
-};
-typedef union mk_lib_crypto_hash_block_sha1_aligned20_u mk_lib_crypto_hash_block_sha1_aligned20_t;
-typedef mk_lib_crypto_hash_block_sha1_aligned20_t const mk_lib_crypto_hash_block_sha1_aligned20_ct;
-typedef mk_lib_crypto_hash_block_sha1_aligned20_t* mk_lib_crypto_hash_block_sha1_aligned20_pt;
-typedef mk_lib_crypto_hash_block_sha1_aligned20_t const* mk_lib_crypto_hash_block_sha1_aligned20_pct;
+typedef union mk_lib_crypto_hash_block_sha1_data_u mk_lib_crypto_hash_block_sha1_data_t;
 
 
 struct mk_lib_crypto_hash_block_sha1_s
 {
-	mk_sl_cui_uint32_t m_state[5];
-	mk_sl_cui_uint64_t m_len;
+	mk_lib_crypto_hash_block_sha1_data_t m_data;
 };
 typedef struct mk_lib_crypto_hash_block_sha1_s mk_lib_crypto_hash_block_sha1_t;
 typedef mk_lib_crypto_hash_block_sha1_t const mk_lib_crypto_hash_block_sha1_ct;
 typedef mk_lib_crypto_hash_block_sha1_t* mk_lib_crypto_hash_block_sha1_pt;
 typedef mk_lib_crypto_hash_block_sha1_t const* mk_lib_crypto_hash_block_sha1_pct;
 
-typedef mk_lib_crypto_hash_block_sha1_aligned64_t mk_lib_crypto_hash_block_sha1_block_t;
+typedef mk_lib_crypto_hash_block_sha1c_block_t mk_lib_crypto_hash_block_sha1_block_t;
 typedef mk_lib_crypto_hash_block_sha1_block_t const mk_lib_crypto_hash_block_sha1_block_ct;
 typedef mk_lib_crypto_hash_block_sha1_block_t* mk_lib_crypto_hash_block_sha1_block_pt;
 typedef mk_lib_crypto_hash_block_sha1_block_t const* mk_lib_crypto_hash_block_sha1_block_pct;
 
-typedef mk_lib_crypto_hash_block_sha1_aligned20_t mk_lib_crypto_hash_block_sha1_digest_t;
+typedef mk_lib_crypto_hash_block_sha1c_digest_t mk_lib_crypto_hash_block_sha1_digest_t;
 typedef mk_lib_crypto_hash_block_sha1_digest_t const mk_lib_crypto_hash_block_sha1_digest_ct;
 typedef mk_lib_crypto_hash_block_sha1_digest_t* mk_lib_crypto_hash_block_sha1_digest_pt;
 typedef mk_lib_crypto_hash_block_sha1_digest_t const* mk_lib_crypto_hash_block_sha1_digest_pct;
 
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha1_init(mk_lib_crypto_hash_block_sha1_pt const sha1) mk_lang_noexcept;
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha1_append_blocks(mk_lib_crypto_hash_block_sha1_pt const sha1, mk_lib_crypto_hash_block_sha1_block_pct const pblocks, mk_lang_types_usize_t const nblocks) mk_lang_noexcept;
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha1_finish(mk_lib_crypto_hash_block_sha1_pt const sha1, mk_lib_crypto_hash_block_sha1_block_pt const block, int const idx, mk_lib_crypto_hash_block_sha1_digest_pt const digest) mk_lang_noexcept;
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sha1_init(mk_lib_crypto_hash_block_sha1_pt const sha1) mk_lang_noexcept;
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sha1_append_blocks(mk_lib_crypto_hash_block_sha1_pt const sha1, mk_lib_crypto_hash_block_sha1_block_pct const pblocks, mk_lang_types_usize_t const nblocks) mk_lang_noexcept;
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sha1_finish(mk_lib_crypto_hash_block_sha1_pt const sha1, mk_lib_crypto_hash_block_sha1_block_pt const block, int const idx, mk_lib_crypto_hash_block_sha1_digest_pt const digest) mk_lang_noexcept;
 
 
 #if mk_lang_jumbo_want == 1

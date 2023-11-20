@@ -1,4 +1,4 @@
-#include "mk_lib_crypto_kdf_pbkdf1_sha1d_test.hpp"
+#include "mk_lib_crypto_kdf_pbkdf1_sha1c_test.hpp"
 #undef mk_lang_jumbo_want
 #define mk_lang_jumbo_want 1
 
@@ -14,14 +14,14 @@
 #include "mk_lang_types.h"
 #include "mk_lang_version.h"
 #include "mk_lib_cpp_constexpr.hpp"
-#include "mk_lib_crypto_kdf_pbkdf1_sha1d.h"
+#include "mk_lib_crypto_kdf_pbkdf1_sha1c.h"
 #include "mk_sl_uint8.h"
 
 
 #if mk_lang_version_at_least_cpp_14 || mk_lang_version_at_least_msvc_cpp_14
 
 template<int key_len, int password_len>
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto mk_lib_crypto_kdf_pbkdf1_sha1d_test_compute_from_str_lit(mk_lang_types_pchar_t const(&password)[password_len], mk_lang_types_pchar_t const(&salt_hex)[2 * 8 + 1], mk_lang_types_ulong_t const cost) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto mk_lib_crypto_kdf_pbkdf1_sha1c_test_compute_from_str_lit(mk_lang_types_pchar_t const(&password)[password_len], mk_lang_types_pchar_t const(&salt_hex)[2 * 8 + 1], mk_lang_types_ulong_t const cost) mk_lang_noexcept
 {
 	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, password_len - 1> pwd mk_lang_constexpr_init;
 	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, 8> slt mk_lang_constexpr_init;
@@ -31,14 +31,14 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto mk_lib_crypto_kdf_pbkdf1_
 
 	pwd = mk_lib_cpp_constexpr_str_lit_to_u8s(password);
 	slt = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(salt_hex);
-	mk_lib_crypto_kdf_pbkdf1_sha1d_u8(pwd.data(), pwd.size(), slt.data(), cost, key_len, ret.data());
+	mk_lib_crypto_kdf_pbkdf1_sha1c_u8(pwd.data(), pwd.size(), slt.data(), cost, key_len, ret.data());
 	return ret;
 }
 
 #endif
 
 
-mk_lang_extern_c void mk_lib_crypto_kdf_pbkdf1_sha1d_test(void) mk_lang_noexcept
+mk_lang_extern_c void mk_lib_crypto_kdf_pbkdf1_sha1c_test(void) mk_lang_noexcept
 {
 	#define password_1 "password"
 
@@ -50,7 +50,7 @@ mk_lang_extern_c void mk_lib_crypto_kdf_pbkdf1_sha1d_test(void) mk_lang_noexcept
 
 	#if mk_lang_version_at_least_cpp_14 || mk_lang_version_at_least_msvc_cpp_14
 
-	mk_lang_constexpr_static auto const s_key_computed_1 = mk_lib_crypto_kdf_pbkdf1_sha1d_test_compute_from_str_lit<((int)(sizeof(key_1) / sizeof(key_1[0]) - 1)) / 2>(password_1, salt_1, cost_1);
+	mk_lang_constexpr_static auto const s_key_computed_1 = mk_lib_crypto_kdf_pbkdf1_sha1c_test_compute_from_str_lit<((int)(sizeof(key_1) / sizeof(key_1[0]) - 1)) / 2>(password_1, salt_1, cost_1);
 
 	mk_lang_constexpr_static auto const s_key_precomputed_1 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(key_1);
 
@@ -116,7 +116,7 @@ mk_lang_extern_c void mk_lib_crypto_kdf_pbkdf1_sha1d_test(void) mk_lang_noexcept
 			salt[j] = byte;
 		}
 		mk_lang_assert(s_key_lens[i] <= ((int)(sizeof(key) / sizeof(key[0]))));
-		mk_lib_crypto_kdf_pbkdf1_sha1d(((mk_lang_types_uchar_pct)(s_passwords[i])), s_password_lens[i], salt, s_costs[i], s_key_lens[i], key);
+		mk_lib_crypto_kdf_pbkdf1_sha1c(((mk_lang_types_uchar_pct)(s_passwords[i])), s_password_lens[i], salt, s_costs[i], s_key_lens[i], key);
 		for(j = 0; j != s_key_lens[i]; ++j)
 		{
 			hi = mk_lib_cpp_constexpr_char_to_nibble(s_keys[i][j * 2 + 0]); mk_lang_assert(hi >= 0x0 && hi <= 0xf);
