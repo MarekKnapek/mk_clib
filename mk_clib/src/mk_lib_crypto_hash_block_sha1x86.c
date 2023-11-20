@@ -23,7 +23,7 @@
 
 #if defined _MSC_VER && _MSC_VER >= mk_lang_msvc_ver_2015
 
-#include <emmintrin.h> /* _mm_add_epi32 _mm_load_si128 _mm_set_epi32 _mm_set_epi64x _mm_shuffle_epi32 _mm_store_si128 _mm_xor_si128 */
+#include <emmintrin.h> /* _mm_add_epi32 _mm_load_si128 _mm_set_epi32 _mm_set_epi64x _mm_setzero_si128 _mm_shuffle_epi32 _mm_store_si128 _mm_xor_si128 */
 #include <immintrin.h> /* _mm_sha1msg1_epu32 _mm_sha1msg2_epu32 _mm_sha1nexte_epu32 _mm_sha1rnds4_epu32 */
 #include <smmintrin.h> /* _mm_extract_epi32 */
 #include <tmmintrin.h> /* _mm_shuffle_epi8 */
@@ -34,6 +34,7 @@
 #pragma intrinsic(_mm_load_si128)
 #pragma intrinsic(_mm_set_epi32)
 #pragma intrinsic(_mm_set_epi64x)
+#pragma intrinsic(_mm_setzero_si128)
 #pragma intrinsic(_mm_sha1msg1_epu32)
 #pragma intrinsic(_mm_sha1msg2_epu32)
 #pragma intrinsic(_mm_sha1nexte_epu32)
@@ -74,16 +75,18 @@ mk_lang_jumbo void mk_lib_crypto_hash_block_sha1x86_init(mk_lib_crypto_hash_bloc
 
 mk_lang_jumbo void mk_lib_crypto_hash_block_sha1x86_append_blocks(mk_lib_crypto_hash_block_sha1x86_pt const sha1, mk_lib_crypto_hash_block_sha1x86_block_pct const pblocks, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
+	#define mk_lib_crypto_hash_block_sha1x86_reverse_32 ((0x0 << (3 * 2)) | (0x1 << (2 * 2)) | (0x2 << (1 * 2)) | (0x3 << (0 * 2)))
+
+	__m128i reverse_8;
 	mk_sl_cui_uint64_t ta;
-	mk_sl_cui_uint8_pct ptr;
-	__m128i mask;
-	__m128i h0;
-	__m128i h1;
+	__m128i abcdx;
+	__m128i e;
 	mk_lang_types_usize_t iblock;
-	__m128i old_h0;
-	__m128i old_h1;
+	mk_sl_cui_uint8_pct ptr;
+	__m128i old_abcd;
+	__m128i old_e;
 	__m128i msg_0;
-	__m128i h2;
+	__m128i abcdy;
 	__m128i msg_1;
 	__m128i msg_2;
 	__m128i msg_3;
@@ -102,140 +105,124 @@ mk_lang_jumbo void mk_lib_crypto_hash_block_sha1x86_append_blocks(mk_lib_crypto_
 	mk_lang_assert(mk_lang_cpuid_has_sse41());
 	mk_lang_assert(mk_lang_cpuid_has_sha());
 
-	mk_sl_cui_uint64_from_bi_usize(&ta, &nblocks);
-	mk_lang_assert(!mk_sl_cui_uint64_would_overflow_add_cc(&sha1->m_len, &ta));
-	mk_sl_cui_uint64_add2_wrap_cid_cod(&sha1->m_len, &ta);
-	ptr = &pblocks[0].m_uint8s[0];
-	mask = _mm_set_epi64x(0x0001020304050607ull, 0x08090a0b0c0d0e0full);
-	h0 = _mm_load_si128(((__m128i const*)(&sha1->m_state[0])));
-	h0 = _mm_shuffle_epi32(h0, 0x1b);
-	h1 = _mm_set_epi32(*((int const*)(&sha1->m_state[4])), 0, 0, 0);
-	for(iblock = 0; iblock != nblocks; ++iblock, ptr += mk_lib_crypto_hash_block_sha1x86_block_len)
+	if(nblocks != 0)
 	{
-		old_h0 = h0;
-		old_h1 = h1;
-		msg_0 = _mm_load_si128(((__m128i const*)(&ptr[0 * 16])));
-		msg_0 = _mm_shuffle_epi8(msg_0, mask);
-		h1 = _mm_add_epi32(h1, msg_0);
-		h2 = h0;
-		h0 = _mm_sha1rnds4_epu32(h0, h1, 0);
-		msg_1 = _mm_load_si128(((__m128i const*)(&ptr[1 * 16])));
-		msg_1 = _mm_shuffle_epi8(msg_1, mask);
-		h2 = _mm_sha1nexte_epu32(h2, msg_1);
-		h1 = h0;
-		h0 = _mm_sha1rnds4_epu32(h0, h2, 0);
-		msg_0 = _mm_sha1msg1_epu32(msg_0, msg_1);
-		msg_2 = _mm_load_si128(((__m128i const*)(&ptr[2 * 16])));
-		msg_2 = _mm_shuffle_epi8(msg_2, mask);
-		h1 = _mm_sha1nexte_epu32(h1, msg_2);
-		h2 = h0;
-		h0 = _mm_sha1rnds4_epu32(h0, h1, 0);
-		msg_1 = _mm_sha1msg1_epu32(msg_1, msg_2);
-		msg_0 = _mm_xor_si128(msg_0, msg_2);
-		msg_3 = _mm_load_si128(((__m128i const*)(&ptr[3 * 16])));
-		msg_3 = _mm_shuffle_epi8(msg_3, mask);
-		h2 = _mm_sha1nexte_epu32(h2, msg_3);
-		h1 = h0;
-		msg_0 = _mm_sha1msg2_epu32(msg_0, msg_3);
-		h0 = _mm_sha1rnds4_epu32(h0, h2, 0);
-		msg_2 = _mm_sha1msg1_epu32(msg_2, msg_3);
-		msg_1 = _mm_xor_si128(msg_1, msg_3);
-		h1 = _mm_sha1nexte_epu32(h1, msg_0);
-		h2 = h0;
-		msg_1 = _mm_sha1msg2_epu32(msg_1, msg_0);
-		h0 = _mm_sha1rnds4_epu32(h0, h1, 0);
-		msg_3 = _mm_sha1msg1_epu32(msg_3, msg_0);
-		msg_2 = _mm_xor_si128(msg_2, msg_0);
-		h2 = _mm_sha1nexte_epu32(h2, msg_1);
-		h1 = h0;
-		msg_2 = _mm_sha1msg2_epu32(msg_2, msg_1);
-		h0 = _mm_sha1rnds4_epu32(h0, h2, 1);
-		msg_0 = _mm_sha1msg1_epu32(msg_0, msg_1);
-		msg_3 = _mm_xor_si128(msg_3, msg_1);
-		h1 = _mm_sha1nexte_epu32(h1, msg_2);
-		h2 = h0;
-		msg_3 = _mm_sha1msg2_epu32(msg_3, msg_2);
-		h0 = _mm_sha1rnds4_epu32(h0, h1, 1);
-		msg_1 = _mm_sha1msg1_epu32(msg_1, msg_2);
-		msg_0 = _mm_xor_si128(msg_0, msg_2);
-		h2 = _mm_sha1nexte_epu32(h2, msg_3);
-		h1 = h0;
-		msg_0 = _mm_sha1msg2_epu32(msg_0, msg_3);
-		h0 = _mm_sha1rnds4_epu32(h0, h2, 1);
-		msg_2 = _mm_sha1msg1_epu32(msg_2, msg_3);
-		msg_1 = _mm_xor_si128(msg_1, msg_3);
-		h1 = _mm_sha1nexte_epu32(h1, msg_0);
-		h2 = h0;
-		msg_1 = _mm_sha1msg2_epu32(msg_1, msg_0);
-		h0 = _mm_sha1rnds4_epu32(h0, h1, 1);
-		msg_3 = _mm_sha1msg1_epu32(msg_3, msg_0);
-		msg_2 = _mm_xor_si128(msg_2, msg_0);
-		h2 = _mm_sha1nexte_epu32(h2, msg_1);
-		h1 = h0;
-		msg_2 = _mm_sha1msg2_epu32(msg_2, msg_1);
-		h0 = _mm_sha1rnds4_epu32(h0, h2, 1);
-		msg_0 = _mm_sha1msg1_epu32(msg_0, msg_1);
-		msg_3 = _mm_xor_si128(msg_3, msg_1);
-		h1 = _mm_sha1nexte_epu32(h1, msg_2);
-		h2 = h0;
-		msg_3 = _mm_sha1msg2_epu32(msg_3, msg_2);
-		h0 = _mm_sha1rnds4_epu32(h0, h1, 2);
-		msg_1 = _mm_sha1msg1_epu32(msg_1, msg_2);
-		msg_0 = _mm_xor_si128(msg_0, msg_2);
-		h2 = _mm_sha1nexte_epu32(h2, msg_3);
-		h1 = h0;
-		msg_0 = _mm_sha1msg2_epu32(msg_0, msg_3);
-		h0 = _mm_sha1rnds4_epu32(h0, h2, 2);
-		msg_2 = _mm_sha1msg1_epu32(msg_2, msg_3);
-		msg_1 = _mm_xor_si128(msg_1, msg_3);
-		h1 = _mm_sha1nexte_epu32(h1, msg_0);
-		h2 = h0;
-		msg_1 = _mm_sha1msg2_epu32(msg_1, msg_0);
-		h0 = _mm_sha1rnds4_epu32(h0, h1, 2);
-		msg_3 = _mm_sha1msg1_epu32(msg_3, msg_0);
-		msg_2 = _mm_xor_si128(msg_2, msg_0);
-		h2 = _mm_sha1nexte_epu32(h2, msg_1);
-		h1 = h0;
-		msg_2 = _mm_sha1msg2_epu32(msg_2, msg_1);
-		h0 = _mm_sha1rnds4_epu32(h0, h2, 2);
-		msg_0 = _mm_sha1msg1_epu32(msg_0, msg_1);
-		msg_3 = _mm_xor_si128(msg_3, msg_1);
-		h1 = _mm_sha1nexte_epu32(h1, msg_2);
-		h2 = h0;
-		msg_3 = _mm_sha1msg2_epu32(msg_3, msg_2);
-		h0 = _mm_sha1rnds4_epu32(h0, h1, 2);
-		msg_1 = _mm_sha1msg1_epu32(msg_1, msg_2);
-		msg_0 = _mm_xor_si128(msg_0, msg_2);
-		h2 = _mm_sha1nexte_epu32(h2, msg_3);
-		h1 = h0;
-		msg_0 = _mm_sha1msg2_epu32(msg_0, msg_3);
-		h0 = _mm_sha1rnds4_epu32(h0, h2, 3);
-		msg_2 = _mm_sha1msg1_epu32(msg_2, msg_3);
-		msg_1 = _mm_xor_si128(msg_1, msg_3);
-		h1 = _mm_sha1nexte_epu32(h1, msg_0);
-		h2 = h0;
-		msg_1 = _mm_sha1msg2_epu32(msg_1, msg_0);
-		h0 = _mm_sha1rnds4_epu32(h0, h1, 3);
-		msg_3 = _mm_sha1msg1_epu32(msg_3, msg_0);
-		msg_2 = _mm_xor_si128(msg_2, msg_0);
-		h2 = _mm_sha1nexte_epu32(h2, msg_1);
-		h1 = h0;
-		msg_2 = _mm_sha1msg2_epu32(msg_2, msg_1);
-		h0 = _mm_sha1rnds4_epu32(h0, h2, 3);
-		msg_3 = _mm_xor_si128(msg_3, msg_1);
-		h1 = _mm_sha1nexte_epu32(h1, msg_2);
-		h2 = h0;
-		msg_3 = _mm_sha1msg2_epu32(msg_3, msg_2);
-		h0 = _mm_sha1rnds4_epu32(h0, h1, 3);
-		h2 = _mm_sha1nexte_epu32(h2, msg_3);
-		h1 = h0;
-		h0 = _mm_sha1rnds4_epu32(h0, h2, 3);
-		h1 = _mm_sha1nexte_epu32(h1, old_h1);
-		h0 = _mm_add_epi32(h0, old_h0);
+		reverse_8 = _mm_set_epi64x(0x0001020304050607ull, 0x08090a0b0c0d0e0full);
+		mk_sl_cui_uint64_from_bi_usize(&ta, &nblocks);
+		mk_lang_assert(!mk_sl_cui_uint64_would_overflow_add_cc(&sha1->m_len, &ta));
+		mk_sl_cui_uint64_add2_wrap_cid_cod(&sha1->m_len, &ta);
+		abcdx = _mm_load_si128(((__m128i const*)(&sha1->m_state[0])));
+		abcdx = _mm_shuffle_epi32(abcdx, mk_lib_crypto_hash_block_sha1x86_reverse_32);
+		e = _mm_set_epi32(*((int const*)(&sha1->m_state[4])), 0, 0, 0);
+		for(iblock = 0, ptr = &pblocks[0].m_uint8s[0]; iblock != nblocks; ++iblock, ptr += mk_lib_crypto_hash_block_sha1x86_block_len)
+		{
+			old_abcd = abcdx;
+			old_e = e;
+			msg_0 = _mm_load_si128(((__m128i const*)(&ptr[0 * 16])));
+			msg_0 = _mm_shuffle_epi8(msg_0, reverse_8);
+			e = _mm_add_epi32(e, msg_0);
+			abcdy = _mm_sha1rnds4_epu32(abcdx, e, 0);
+			msg_1 = _mm_load_si128(((__m128i const*)(&ptr[1 * 16])));
+			msg_1 = _mm_shuffle_epi8(msg_1, reverse_8);
+			e = _mm_sha1nexte_epu32(abcdx, msg_1);
+			abcdx = _mm_sha1rnds4_epu32(abcdy, e, 0);
+			msg_2 = _mm_load_si128(((__m128i const*)(&ptr[2 * 16])));
+			msg_2 = _mm_shuffle_epi8(msg_2, reverse_8);
+			e = _mm_sha1nexte_epu32(abcdy, msg_2);
+			abcdy = _mm_sha1rnds4_epu32(abcdx, e, 0);
+			msg_3 = _mm_load_si128(((__m128i const*)(&ptr[3 * 16])));
+			msg_3 = _mm_shuffle_epi8(msg_3, reverse_8);
+			e = _mm_sha1nexte_epu32(abcdx, msg_3);
+			abcdx = _mm_sha1rnds4_epu32(abcdy, e, 0);
+			msg_0 = _mm_sha1msg1_epu32(msg_0, msg_1);
+			msg_0 = _mm_xor_si128(msg_0, msg_2);
+			msg_0 = _mm_sha1msg2_epu32(msg_0, msg_3);
+			e = _mm_sha1nexte_epu32(abcdy, msg_0);
+			abcdy = _mm_sha1rnds4_epu32(abcdx, e, 0);
+			msg_1 = _mm_sha1msg1_epu32(msg_1, msg_2);
+			msg_1 = _mm_xor_si128(msg_1, msg_3);
+			msg_1 = _mm_sha1msg2_epu32(msg_1, msg_0);
+			e = _mm_sha1nexte_epu32(abcdx, msg_1);
+			abcdx = _mm_sha1rnds4_epu32(abcdy, e, 1);
+			msg_2 = _mm_sha1msg1_epu32(msg_2, msg_3);
+			msg_2 = _mm_xor_si128(msg_2, msg_0);
+			msg_2 = _mm_sha1msg2_epu32(msg_2, msg_1);
+			e = _mm_sha1nexte_epu32(abcdy, msg_2);
+			abcdy = _mm_sha1rnds4_epu32(abcdx, e, 1);
+			msg_3 = _mm_sha1msg1_epu32(msg_3, msg_0);
+			msg_3 = _mm_xor_si128(msg_3, msg_1);
+			msg_3 = _mm_sha1msg2_epu32(msg_3, msg_2);
+			e = _mm_sha1nexte_epu32(abcdx, msg_3);
+			abcdx = _mm_sha1rnds4_epu32(abcdy, e, 1);
+			msg_0 = _mm_sha1msg1_epu32(msg_0, msg_1);
+			msg_0 = _mm_xor_si128(msg_0, msg_2);
+			msg_0 = _mm_sha1msg2_epu32(msg_0, msg_3);
+			e = _mm_sha1nexte_epu32(abcdy, msg_0);
+			abcdy = _mm_sha1rnds4_epu32(abcdx, e, 1);
+			msg_1 = _mm_sha1msg1_epu32(msg_1, msg_2);
+			msg_1 = _mm_xor_si128(msg_1, msg_3);
+			msg_1 = _mm_sha1msg2_epu32(msg_1, msg_0);
+			e = _mm_sha1nexte_epu32(abcdx, msg_1);
+			abcdx = _mm_sha1rnds4_epu32(abcdy, e, 1);
+			msg_2 = _mm_sha1msg1_epu32(msg_2, msg_3);
+			msg_2 = _mm_xor_si128(msg_2, msg_0);
+			msg_2 = _mm_sha1msg2_epu32(msg_2, msg_1);
+			e = _mm_sha1nexte_epu32(abcdy, msg_2);
+			abcdy = _mm_sha1rnds4_epu32(abcdx, e, 2);
+			msg_3 = _mm_sha1msg1_epu32(msg_3, msg_0);
+			msg_3 = _mm_xor_si128(msg_3, msg_1);
+			msg_3 = _mm_sha1msg2_epu32(msg_3, msg_2);
+			e = _mm_sha1nexte_epu32(abcdx, msg_3);
+			abcdx = _mm_sha1rnds4_epu32(abcdy, e, 2);
+			msg_0 = _mm_sha1msg1_epu32(msg_0, msg_1);
+			msg_0 = _mm_xor_si128(msg_0, msg_2);
+			msg_0 = _mm_sha1msg2_epu32(msg_0, msg_3);
+			e = _mm_sha1nexte_epu32(abcdy, msg_0);
+			abcdy = _mm_sha1rnds4_epu32(abcdx, e, 2);
+			msg_1 = _mm_sha1msg1_epu32(msg_1, msg_2);
+			msg_1 = _mm_xor_si128(msg_1, msg_3);
+			msg_1 = _mm_sha1msg2_epu32(msg_1, msg_0);
+			e = _mm_sha1nexte_epu32(abcdx, msg_1);
+			abcdx = _mm_sha1rnds4_epu32(abcdy, e, 2);
+			msg_2 = _mm_sha1msg1_epu32(msg_2, msg_3);
+			msg_2 = _mm_xor_si128(msg_2, msg_0);
+			msg_2 = _mm_sha1msg2_epu32(msg_2, msg_1);
+			e = _mm_sha1nexte_epu32(abcdy, msg_2);
+			abcdy = _mm_sha1rnds4_epu32(abcdx, e, 2);
+			msg_3 = _mm_sha1msg1_epu32(msg_3, msg_0);
+			msg_3 = _mm_xor_si128(msg_3, msg_1);
+			msg_3 = _mm_sha1msg2_epu32(msg_3, msg_2);
+			e = _mm_sha1nexte_epu32(abcdx, msg_3);
+			abcdx = _mm_sha1rnds4_epu32(abcdy, e, 3);
+			msg_0 = _mm_sha1msg1_epu32(msg_0, msg_1);
+			msg_0 = _mm_xor_si128(msg_0, msg_2);
+			msg_0 = _mm_sha1msg2_epu32(msg_0, msg_3);
+			e = _mm_sha1nexte_epu32(abcdy, msg_0);
+			abcdy = _mm_sha1rnds4_epu32(abcdx, e, 3);
+			msg_1 = _mm_sha1msg1_epu32(msg_1, msg_2);
+			msg_1 = _mm_xor_si128(msg_1, msg_3);
+			msg_1 = _mm_sha1msg2_epu32(msg_1, msg_0);
+			e = _mm_sha1nexte_epu32(abcdx, msg_1);
+			abcdx = _mm_sha1rnds4_epu32(abcdy, e, 3);
+			msg_2 = _mm_sha1msg1_epu32(msg_2, msg_3);
+			msg_2 = _mm_xor_si128(msg_2, msg_0);
+			msg_2 = _mm_sha1msg2_epu32(msg_2, msg_1);
+			e = _mm_sha1nexte_epu32(abcdy, msg_2);
+			abcdy = _mm_sha1rnds4_epu32(abcdx, e, 3);
+			msg_3 = _mm_sha1msg1_epu32(msg_3, msg_0);
+			msg_3 = _mm_xor_si128(msg_3, msg_1);
+			msg_3 = _mm_sha1msg2_epu32(msg_3, msg_2);
+			e = _mm_sha1nexte_epu32(abcdx, msg_3);
+			abcdx = _mm_sha1rnds4_epu32(abcdy, e, 3);
+			msg_0 = _mm_setzero_si128();
+			e = _mm_sha1nexte_epu32(abcdy, msg_0);
+			abcdx = _mm_add_epi32(abcdx, old_abcd);
+			e = _mm_add_epi32(e, old_e);
+		}
+		abcdx = _mm_shuffle_epi32(abcdx, mk_lib_crypto_hash_block_sha1x86_reverse_32);
+		_mm_store_si128(((__m128i*)(&sha1->m_state[0])), abcdx);
+		*((int*)(&sha1->m_state[4])) = _mm_extract_epi32(e, 3);
 	}
-	h0 = _mm_shuffle_epi32(h0, 0x1b);
-	_mm_store_si128(((__m128i*)(&sha1->m_state[0])), h0);
-	*((int*)(&sha1->m_state[4])) = _mm_extract_epi32(h1, 3);
 }
 
 mk_lang_jumbo void mk_lib_crypto_hash_block_sha1x86_finish(mk_lib_crypto_hash_block_sha1x86_pt const sha1, mk_lib_crypto_hash_block_sha1x86_block_pt const block, int const idx, mk_lib_crypto_hash_block_sha1x86_digest_pt const digest) mk_lang_noexcept
