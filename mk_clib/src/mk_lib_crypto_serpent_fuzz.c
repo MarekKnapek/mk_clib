@@ -24,7 +24,6 @@ mk_lang_jumbo void mk_lib_crypto_serpent_fuzz(mk_lang_types_uchar_pct const data
 	mk_lang_types_usize_t s;
 	mk_lang_types_uint_t cpuida;
 	mk_lang_types_uint_t cpuidb;
-	mk_lang_types_sint_t i;
 	mk_lib_crypto_alg_serpent_key_t key;
 	mk_lang_types_uint_t nmsgs;
 	mk_lang_alignas(64) mk_lib_crypto_alg_serpent_msg_t msgs[64];
