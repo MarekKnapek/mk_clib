@@ -1,5 +1,6 @@
 #include "mk_clib_app_hash.h"
 
+#include "mk_lang_alignas.h"
 #include "mk_lang_assert.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_cpuid.h"
@@ -244,7 +245,7 @@ typedef union mk_clib_app_hash_aligned_buff_u mk_clib_app_hash_aligned_buff_t;
 
 struct mk_clib_app_hash_buff_s
 {
-	mk_clib_app_hash_aligned_buff_t m_data;
+	mk_lang_alignas(64) mk_clib_app_hash_aligned_buff_t m_data;
 };
 typedef struct mk_clib_app_hash_buff_s mk_clib_app_hash_buff_t;
 typedef mk_clib_app_hash_buff_t* mk_clib_app_hash_buff_pt;
