@@ -1,5 +1,6 @@
 #include "mk_lib_crypto_hash_block_sha2x86_base_32bit.h"
 
+#include "mk_lang_alignas.h"
 #include "mk_lang_alignof.h"
 #include "mk_lang_assert.h"
 #include "mk_lang_constexpr.h"
@@ -38,8 +39,21 @@
 #pragma intrinsic(_mm_store_si128)
 
 
-mk_lang_constexpr_static_inline mk_sl_cui_uint32_t const s_mk_lib_crypto_hash_block_sha2x86_base_32bit_table[64] =
+struct mk_lib_crypto_hash_block_sha2x86_base_table_data_s
 {
+	mk_sl_cui_uint32_t m_uint32s[16 * 4];
+};
+typedef struct mk_lib_crypto_hash_block_sha2x86_base_table_data_s mk_lib_crypto_hash_block_sha2x86_base_table_data_t;
+
+struct mk_lib_crypto_hash_block_sha2x86_base_table_s
+{
+	mk_lang_alignas(64) mk_lib_crypto_hash_block_sha2x86_base_table_data_t m_data;
+};
+typedef struct mk_lib_crypto_hash_block_sha2x86_base_table_s mk_lib_crypto_hash_block_sha2x86_base_table_t;
+
+
+mk_lang_constexpr_static_inline mk_lib_crypto_hash_block_sha2x86_base_table_t const s_mk_lib_crypto_hash_block_sha2x86_base_32bit_table =
+{{{
 	mk_sl_cui_uint32_c(0x428a2f98ul), mk_sl_cui_uint32_c(0x71374491ul), mk_sl_cui_uint32_c(0xb5c0fbcful), mk_sl_cui_uint32_c(0xe9b5dba5ul),
 	mk_sl_cui_uint32_c(0x3956c25bul), mk_sl_cui_uint32_c(0x59f111f1ul), mk_sl_cui_uint32_c(0x923f82a4ul), mk_sl_cui_uint32_c(0xab1c5ed5ul),
 	mk_sl_cui_uint32_c(0xd807aa98ul), mk_sl_cui_uint32_c(0x12835b01ul), mk_sl_cui_uint32_c(0x243185beul), mk_sl_cui_uint32_c(0x550c7dc3ul),
@@ -56,7 +70,7 @@ mk_lang_constexpr_static_inline mk_sl_cui_uint32_t const s_mk_lib_crypto_hash_bl
 	mk_sl_cui_uint32_c(0x391c0cb3ul), mk_sl_cui_uint32_c(0x4ed8aa4aul), mk_sl_cui_uint32_c(0x5b9cca4ful), mk_sl_cui_uint32_c(0x682e6ff3ul),
 	mk_sl_cui_uint32_c(0x748f82eeul), mk_sl_cui_uint32_c(0x78a5636ful), mk_sl_cui_uint32_c(0x84c87814ul), mk_sl_cui_uint32_c(0x8cc70208ul),
 	mk_sl_cui_uint32_c(0x90befffaul), mk_sl_cui_uint32_c(0xa4506cebul), mk_sl_cui_uint32_c(0xbef9a3f7ul), mk_sl_cui_uint32_c(0xc67178f2ul),
-};
+}}};
 
 
 mk_lang_jumbo void mk_lib_crypto_hash_block_sha2x86_base_32bit_init(mk_lib_crypto_hash_block_sha2x86_base_32bit_pt const sha2_32bit, mk_sl_cui_uint32_pct const iv) mk_lang_noexcept
@@ -110,6 +124,7 @@ mk_lang_jumbo void mk_lib_crypto_hash_block_sha2x86_base_32bit_append_blocks(mk_
 	mk_lang_assert(nblocks <= mk_lang_limits_usize_max / mk_lib_crypto_hash_block_sha2x86_base_32bit_block_len);
 	mk_lang_assert((((mk_lang_types_uintptr_t)(&sha2_32bit->m_state[0])) & 0xf) == 0);
 	mk_lang_assert((((mk_lang_types_uintptr_t)(pblocks)) & 0xf) == 0);
+	mk_lang_assert((((mk_lang_types_uintptr_t)(&s_mk_lib_crypto_hash_block_sha2x86_base_32bit_table.m_data.m_uint32s[0])) & 0xf) == 0);
 	mk_lang_assert(sizeof(mk_sl_cui_uint32_t) == sizeof(int));
 	mk_lang_assert(sizeof(mk_sl_cui_uint32_t) == 4);
 	mk_lang_assert(mk_lang_alignof(mk_sl_cui_uint32_t) == 4);
@@ -134,28 +149,28 @@ mk_lang_jumbo void mk_lib_crypto_hash_block_sha2x86_base_32bit_append_blocks(mk_
 		old_1 = state_1;
 		msg_0 = _mm_load_si128(((__m128i const*)(&ptr[0 * 16])));
 		msg_0 = _mm_shuffle_epi8(msg_0, reverse_data);
-		tmp = _mm_load_si128(((__m128i const*)(&s_mk_lib_crypto_hash_block_sha2x86_base_32bit_table[0 * 4])));
+		tmp = _mm_load_si128(((__m128i const*)(&s_mk_lib_crypto_hash_block_sha2x86_base_32bit_table.m_data.m_uint32s[0 * 4])));
 		msg = _mm_add_epi32(msg_0, tmp);
 		state_1 = _mm_sha256rnds2_epu32(state_1, state_0, msg);
 		msg = _mm_shuffle_epi32(msg, mk_lib_crypto_hash_block_sha2x86_base_32bit_shuffle_epi32(0x1, 0x0, 0x3, 0x2));
 		state_0 = _mm_sha256rnds2_epu32(state_0, state_1, msg);
 		msg_1 = _mm_load_si128(((__m128i const*)(&ptr[1 * 16])));
 		msg_1 = _mm_shuffle_epi8(msg_1, reverse_data);
-		tmp = _mm_load_si128(((__m128i const*)(&s_mk_lib_crypto_hash_block_sha2x86_base_32bit_table[1 * 4])));
+		tmp = _mm_load_si128(((__m128i const*)(&s_mk_lib_crypto_hash_block_sha2x86_base_32bit_table.m_data.m_uint32s[1 * 4])));
 		msg = _mm_add_epi32(msg_1, tmp);
 		state_1 = _mm_sha256rnds2_epu32(state_1, state_0, msg);
 		msg = _mm_shuffle_epi32(msg, mk_lib_crypto_hash_block_sha2x86_base_32bit_shuffle_epi32(0x1, 0x0, 0x3, 0x2));
 		state_0 = _mm_sha256rnds2_epu32(state_0, state_1, msg);
 		msg_2 = _mm_load_si128(((__m128i const*)(&ptr[2 * 16])));
 		msg_2 = _mm_shuffle_epi8(msg_2, reverse_data);
-		tmp = _mm_load_si128(((__m128i const*)(&s_mk_lib_crypto_hash_block_sha2x86_base_32bit_table[2 * 4])));
+		tmp = _mm_load_si128(((__m128i const*)(&s_mk_lib_crypto_hash_block_sha2x86_base_32bit_table.m_data.m_uint32s[2 * 4])));
 		msg = _mm_add_epi32(msg_2, tmp);
 		state_1 = _mm_sha256rnds2_epu32(state_1, state_0, msg);
 		msg = _mm_shuffle_epi32(msg, mk_lib_crypto_hash_block_sha2x86_base_32bit_shuffle_epi32(0x1, 0x0, 0x3, 0x2));
 		state_0 = _mm_sha256rnds2_epu32(state_0, state_1, msg);
 		msg_3 = _mm_load_si128(((__m128i const*)(&ptr[3 * 16])));
 		msg_3 = _mm_shuffle_epi8(msg_3, reverse_data);
-		tmp = _mm_load_si128(((__m128i const*)(&s_mk_lib_crypto_hash_block_sha2x86_base_32bit_table[3 * 4])));
+		tmp = _mm_load_si128(((__m128i const*)(&s_mk_lib_crypto_hash_block_sha2x86_base_32bit_table.m_data.m_uint32s[3 * 4])));
 		msg = _mm_add_epi32(msg_3, tmp);
 		state_1 = _mm_sha256rnds2_epu32(state_1, state_0, msg);
 		msg = _mm_shuffle_epi32(msg, mk_lib_crypto_hash_block_sha2x86_base_32bit_shuffle_epi32(0x1, 0x0, 0x3, 0x2));
@@ -164,7 +179,7 @@ mk_lang_jumbo void mk_lib_crypto_hash_block_sha2x86_base_32bit_append_blocks(mk_
 		tmp = _mm_alignr_epi8(msg_3, msg_2, mk_lib_crypto_hash_block_sha2x86_base_32bit_alignr_epi8(1));
 		msg_0 = _mm_add_epi32(msg_0, tmp);
 		msg_0 = _mm_sha256msg2_epu32(msg_0, msg_3);
-		tmp = _mm_load_si128(((__m128i const*)(&s_mk_lib_crypto_hash_block_sha2x86_base_32bit_table[4 * 4])));
+		tmp = _mm_load_si128(((__m128i const*)(&s_mk_lib_crypto_hash_block_sha2x86_base_32bit_table.m_data.m_uint32s[4 * 4])));
 		msg = _mm_add_epi32(msg_0, tmp);
 		state_1 = _mm_sha256rnds2_epu32(state_1, state_0, msg);
 		msg = _mm_shuffle_epi32(msg, mk_lib_crypto_hash_block_sha2x86_base_32bit_shuffle_epi32(0x1, 0x0, 0x3, 0x2));
@@ -173,7 +188,7 @@ mk_lang_jumbo void mk_lib_crypto_hash_block_sha2x86_base_32bit_append_blocks(mk_
 		tmp = _mm_alignr_epi8(msg_0, msg_3, mk_lib_crypto_hash_block_sha2x86_base_32bit_alignr_epi8(1));
 		msg_1 = _mm_add_epi32(msg_1, tmp);
 		msg_1 = _mm_sha256msg2_epu32(msg_1, msg_0);
-		tmp = _mm_load_si128(((__m128i const*)(&s_mk_lib_crypto_hash_block_sha2x86_base_32bit_table[5 * 4])));
+		tmp = _mm_load_si128(((__m128i const*)(&s_mk_lib_crypto_hash_block_sha2x86_base_32bit_table.m_data.m_uint32s[5 * 4])));
 		msg = _mm_add_epi32(msg_1, tmp);
 		state_1 = _mm_sha256rnds2_epu32(state_1, state_0, msg);
 		msg = _mm_shuffle_epi32(msg, mk_lib_crypto_hash_block_sha2x86_base_32bit_shuffle_epi32(0x1, 0x0, 0x3, 0x2));
@@ -182,7 +197,7 @@ mk_lang_jumbo void mk_lib_crypto_hash_block_sha2x86_base_32bit_append_blocks(mk_
 		tmp = _mm_alignr_epi8(msg_1, msg_0, mk_lib_crypto_hash_block_sha2x86_base_32bit_alignr_epi8(1));
 		msg_2 = _mm_add_epi32(msg_2, tmp);
 		msg_2 = _mm_sha256msg2_epu32(msg_2, msg_1);
-		tmp = _mm_load_si128(((__m128i const*)(&s_mk_lib_crypto_hash_block_sha2x86_base_32bit_table[6 * 4])));
+		tmp = _mm_load_si128(((__m128i const*)(&s_mk_lib_crypto_hash_block_sha2x86_base_32bit_table.m_data.m_uint32s[6 * 4])));
 		msg = _mm_add_epi32(msg_2, tmp);
 		state_1 = _mm_sha256rnds2_epu32(state_1, state_0, msg);
 		msg = _mm_shuffle_epi32(msg, mk_lib_crypto_hash_block_sha2x86_base_32bit_shuffle_epi32(0x1, 0x0, 0x3, 0x2));
@@ -191,7 +206,7 @@ mk_lang_jumbo void mk_lib_crypto_hash_block_sha2x86_base_32bit_append_blocks(mk_
 		tmp = _mm_alignr_epi8(msg_2, msg_1, mk_lib_crypto_hash_block_sha2x86_base_32bit_alignr_epi8(1));
 		msg_3 = _mm_add_epi32(msg_3, tmp);
 		msg_3 = _mm_sha256msg2_epu32(msg_3, msg_2);
-		tmp = _mm_load_si128(((__m128i const*)(&s_mk_lib_crypto_hash_block_sha2x86_base_32bit_table[7 * 4])));
+		tmp = _mm_load_si128(((__m128i const*)(&s_mk_lib_crypto_hash_block_sha2x86_base_32bit_table.m_data.m_uint32s[7 * 4])));
 		msg = _mm_add_epi32(msg_3, tmp);
 		state_1 = _mm_sha256rnds2_epu32(state_1, state_0, msg);
 		msg = _mm_shuffle_epi32(msg, mk_lib_crypto_hash_block_sha2x86_base_32bit_shuffle_epi32(0x1, 0x0, 0x3, 0x2));
@@ -200,7 +215,7 @@ mk_lang_jumbo void mk_lib_crypto_hash_block_sha2x86_base_32bit_append_blocks(mk_
 		tmp = _mm_alignr_epi8(msg_3, msg_2, mk_lib_crypto_hash_block_sha2x86_base_32bit_alignr_epi8(1));
 		msg_0 = _mm_add_epi32(msg_0, tmp);
 		msg_0 = _mm_sha256msg2_epu32(msg_0, msg_3);
-		tmp = _mm_load_si128(((__m128i const*)(&s_mk_lib_crypto_hash_block_sha2x86_base_32bit_table[8 * 4])));
+		tmp = _mm_load_si128(((__m128i const*)(&s_mk_lib_crypto_hash_block_sha2x86_base_32bit_table.m_data.m_uint32s[8 * 4])));
 		msg = _mm_add_epi32(msg_0, tmp);
 		state_1 = _mm_sha256rnds2_epu32(state_1, state_0, msg);
 		msg = _mm_shuffle_epi32(msg, mk_lib_crypto_hash_block_sha2x86_base_32bit_shuffle_epi32(0x1, 0x0, 0x3, 0x2));
@@ -209,7 +224,7 @@ mk_lang_jumbo void mk_lib_crypto_hash_block_sha2x86_base_32bit_append_blocks(mk_
 		tmp = _mm_alignr_epi8(msg_0, msg_3, mk_lib_crypto_hash_block_sha2x86_base_32bit_alignr_epi8(1));
 		msg_1 = _mm_add_epi32(msg_1, tmp);
 		msg_1 = _mm_sha256msg2_epu32(msg_1, msg_0);
-		tmp = _mm_load_si128(((__m128i const*)(&s_mk_lib_crypto_hash_block_sha2x86_base_32bit_table[9 * 4])));
+		tmp = _mm_load_si128(((__m128i const*)(&s_mk_lib_crypto_hash_block_sha2x86_base_32bit_table.m_data.m_uint32s[9 * 4])));
 		msg = _mm_add_epi32(msg_1, tmp);
 		state_1 = _mm_sha256rnds2_epu32(state_1, state_0, msg);
 		msg = _mm_shuffle_epi32(msg, mk_lib_crypto_hash_block_sha2x86_base_32bit_shuffle_epi32(0x1, 0x0, 0x3, 0x2));
@@ -218,7 +233,7 @@ mk_lang_jumbo void mk_lib_crypto_hash_block_sha2x86_base_32bit_append_blocks(mk_
 		tmp = _mm_alignr_epi8(msg_1, msg_0, mk_lib_crypto_hash_block_sha2x86_base_32bit_alignr_epi8(1));
 		msg_2 = _mm_add_epi32(msg_2, tmp);
 		msg_2 = _mm_sha256msg2_epu32(msg_2, msg_1);
-		tmp = _mm_load_si128(((__m128i const*)(&s_mk_lib_crypto_hash_block_sha2x86_base_32bit_table[10 * 4])));
+		tmp = _mm_load_si128(((__m128i const*)(&s_mk_lib_crypto_hash_block_sha2x86_base_32bit_table.m_data.m_uint32s[10 * 4])));
 		msg = _mm_add_epi32(msg_2, tmp);
 		state_1 = _mm_sha256rnds2_epu32(state_1, state_0, msg);
 		msg = _mm_shuffle_epi32(msg, mk_lib_crypto_hash_block_sha2x86_base_32bit_shuffle_epi32(0x1, 0x0, 0x3, 0x2));
@@ -227,7 +242,7 @@ mk_lang_jumbo void mk_lib_crypto_hash_block_sha2x86_base_32bit_append_blocks(mk_
 		tmp = _mm_alignr_epi8(msg_2, msg_1, mk_lib_crypto_hash_block_sha2x86_base_32bit_alignr_epi8(1));
 		msg_3 = _mm_add_epi32(msg_3, tmp);
 		msg_3 = _mm_sha256msg2_epu32(msg_3, msg_2);
-		tmp = _mm_load_si128(((__m128i const*)(&s_mk_lib_crypto_hash_block_sha2x86_base_32bit_table[11 * 4])));
+		tmp = _mm_load_si128(((__m128i const*)(&s_mk_lib_crypto_hash_block_sha2x86_base_32bit_table.m_data.m_uint32s[11 * 4])));
 		msg = _mm_add_epi32(msg_3, tmp);
 		state_1 = _mm_sha256rnds2_epu32(state_1, state_0, msg);
 		msg = _mm_shuffle_epi32(msg, mk_lib_crypto_hash_block_sha2x86_base_32bit_shuffle_epi32(0x1, 0x0, 0x3, 0x2));
@@ -236,7 +251,7 @@ mk_lang_jumbo void mk_lib_crypto_hash_block_sha2x86_base_32bit_append_blocks(mk_
 		tmp = _mm_alignr_epi8(msg_3, msg_2, mk_lib_crypto_hash_block_sha2x86_base_32bit_alignr_epi8(1));
 		msg_0 = _mm_add_epi32(msg_0, tmp);
 		msg_0 = _mm_sha256msg2_epu32(msg_0, msg_3);
-		tmp = _mm_load_si128(((__m128i const*)(&s_mk_lib_crypto_hash_block_sha2x86_base_32bit_table[12 * 4])));
+		tmp = _mm_load_si128(((__m128i const*)(&s_mk_lib_crypto_hash_block_sha2x86_base_32bit_table.m_data.m_uint32s[12 * 4])));
 		msg = _mm_add_epi32(msg_0, tmp);
 		state_1 = _mm_sha256rnds2_epu32(state_1, state_0, msg);
 		msg = _mm_shuffle_epi32(msg, mk_lib_crypto_hash_block_sha2x86_base_32bit_shuffle_epi32(0x1, 0x0, 0x3, 0x2));
@@ -245,7 +260,7 @@ mk_lang_jumbo void mk_lib_crypto_hash_block_sha2x86_base_32bit_append_blocks(mk_
 		tmp = _mm_alignr_epi8(msg_0, msg_3, mk_lib_crypto_hash_block_sha2x86_base_32bit_alignr_epi8(1));
 		msg_1 = _mm_add_epi32(msg_1, tmp);
 		msg_1 = _mm_sha256msg2_epu32(msg_1, msg_0);
-		tmp = _mm_load_si128(((__m128i const*)(&s_mk_lib_crypto_hash_block_sha2x86_base_32bit_table[13 * 4])));
+		tmp = _mm_load_si128(((__m128i const*)(&s_mk_lib_crypto_hash_block_sha2x86_base_32bit_table.m_data.m_uint32s[13 * 4])));
 		msg = _mm_add_epi32(msg_1, tmp);
 		state_1 = _mm_sha256rnds2_epu32(state_1, state_0, msg);
 		msg = _mm_shuffle_epi32(msg, mk_lib_crypto_hash_block_sha2x86_base_32bit_shuffle_epi32(0x1, 0x0, 0x3, 0x2));
@@ -254,7 +269,7 @@ mk_lang_jumbo void mk_lib_crypto_hash_block_sha2x86_base_32bit_append_blocks(mk_
 		tmp = _mm_alignr_epi8(msg_1, msg_0, mk_lib_crypto_hash_block_sha2x86_base_32bit_alignr_epi8(1));
 		msg_2 = _mm_add_epi32(msg_2, tmp);
 		msg_2 = _mm_sha256msg2_epu32(msg_2, msg_1);
-		tmp = _mm_load_si128(((__m128i const*)(&s_mk_lib_crypto_hash_block_sha2x86_base_32bit_table[14 * 4])));
+		tmp = _mm_load_si128(((__m128i const*)(&s_mk_lib_crypto_hash_block_sha2x86_base_32bit_table.m_data.m_uint32s[14 * 4])));
 		msg = _mm_add_epi32(msg_2, tmp);
 		state_1 = _mm_sha256rnds2_epu32(state_1, state_0, msg);
 		msg = _mm_shuffle_epi32(msg, mk_lib_crypto_hash_block_sha2x86_base_32bit_shuffle_epi32(0x1, 0x0, 0x3, 0x2));
@@ -263,7 +278,7 @@ mk_lang_jumbo void mk_lib_crypto_hash_block_sha2x86_base_32bit_append_blocks(mk_
 		tmp = _mm_alignr_epi8(msg_2, msg_1, mk_lib_crypto_hash_block_sha2x86_base_32bit_alignr_epi8(1));
 		msg_3 = _mm_add_epi32(msg_3, tmp);
 		msg_3 = _mm_sha256msg2_epu32(msg_3, msg_2);
-		tmp = _mm_load_si128(((__m128i const*)(&s_mk_lib_crypto_hash_block_sha2x86_base_32bit_table[15 * 4])));
+		tmp = _mm_load_si128(((__m128i const*)(&s_mk_lib_crypto_hash_block_sha2x86_base_32bit_table.m_data.m_uint32s[15 * 4])));
 		msg = _mm_add_epi32(msg_3, tmp);
 		state_1 = _mm_sha256rnds2_epu32(state_1, state_0, msg);
 		msg = _mm_shuffle_epi32(msg, mk_lib_crypto_hash_block_sha2x86_base_32bit_shuffle_epi32(0x1, 0x0, 0x3, 0x2));
