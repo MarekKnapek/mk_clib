@@ -46,26 +46,34 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_cbc_inl_defd_schedule_en
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_cbc_inl_defd_schedule_decrypt(mk_lib_crypto_mode_cbc_inl_defd_pt const cbc, mk_lib_crypto_mode_cbc_inl_defd_schedule_pct const schedule, mk_lib_crypto_mode_cbc_inl_defd_msg_pct const input, mk_lib_crypto_mode_cbc_inl_defd_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
 	mk_lang_types_usize_t iblock mk_lang_constexpr_init;
-	mk_lang_alignas(32) mk_lib_crypto_mode_cbc_inl_defd_alg_msg_t msg[9] mk_lang_constexpr_init;
+	mk_lang_alignas(64) mk_lib_crypto_mode_cbc_inl_defd_alg_msg_t msg[16 + 1] mk_lang_constexpr_init;
 
 	mk_lang_assert(cbc);
 	mk_lang_assert(schedule);
 	mk_lang_assert(input);
 	mk_lang_assert(output);
 
-	for(iblock = 0; iblock != (nblocks / 8) * 8; iblock += 8)
+	for(iblock = 0; iblock != (nblocks / 16) * 16; iblock += 16)
 	{
-		mk_lib_crypto_mode_cbc_inl_defd_alg_schedule_decrypt(schedule, &input[iblock], &msg[0], 8);
-		msg[8] = input[iblock + 7];
-		mk_lib_crypto_mode_base_xor3(&msg[7].m_data.m_uint8s[0], &input[iblock + 6].m_data.m_uint8s[0], &output[iblock + 7].m_data.m_uint8s[0]);
-		mk_lib_crypto_mode_base_xor3(&msg[6].m_data.m_uint8s[0], &input[iblock + 5].m_data.m_uint8s[0], &output[iblock + 6].m_data.m_uint8s[0]);
-		mk_lib_crypto_mode_base_xor3(&msg[5].m_data.m_uint8s[0], &input[iblock + 4].m_data.m_uint8s[0], &output[iblock + 5].m_data.m_uint8s[0]);
-		mk_lib_crypto_mode_base_xor3(&msg[4].m_data.m_uint8s[0], &input[iblock + 3].m_data.m_uint8s[0], &output[iblock + 4].m_data.m_uint8s[0]);
-		mk_lib_crypto_mode_base_xor3(&msg[3].m_data.m_uint8s[0], &input[iblock + 2].m_data.m_uint8s[0], &output[iblock + 3].m_data.m_uint8s[0]);
-		mk_lib_crypto_mode_base_xor3(&msg[2].m_data.m_uint8s[0], &input[iblock + 1].m_data.m_uint8s[0], &output[iblock + 2].m_data.m_uint8s[0]);
-		mk_lib_crypto_mode_base_xor3(&msg[1].m_data.m_uint8s[0], &input[iblock + 0].m_data.m_uint8s[0], &output[iblock + 1].m_data.m_uint8s[0]);
-		mk_lib_crypto_mode_base_xor3(&msg[0].m_data.m_uint8s[0], &cbc->m_iv.m_data.m_uint8s[0], &output[iblock + 0].m_data.m_uint8s[0]);
-		cbc->m_iv = msg[8];
+		mk_lib_crypto_mode_cbc_inl_defd_alg_schedule_decrypt(schedule, &input[iblock], &msg[0], 16);
+		msg[16] = input[iblock + (16 - 1)];
+		mk_lib_crypto_mode_base_xor3(&msg[15].m_data.m_uint8s[0], &input[iblock + 14].m_data.m_uint8s[0], &output[iblock + 15].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&msg[14].m_data.m_uint8s[0], &input[iblock + 13].m_data.m_uint8s[0], &output[iblock + 14].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&msg[13].m_data.m_uint8s[0], &input[iblock + 12].m_data.m_uint8s[0], &output[iblock + 13].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&msg[12].m_data.m_uint8s[0], &input[iblock + 11].m_data.m_uint8s[0], &output[iblock + 12].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&msg[11].m_data.m_uint8s[0], &input[iblock + 10].m_data.m_uint8s[0], &output[iblock + 11].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&msg[10].m_data.m_uint8s[0], &input[iblock +  9].m_data.m_uint8s[0], &output[iblock + 10].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&msg[ 9].m_data.m_uint8s[0], &input[iblock +  8].m_data.m_uint8s[0], &output[iblock +  9].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&msg[ 8].m_data.m_uint8s[0], &input[iblock +  7].m_data.m_uint8s[0], &output[iblock +  8].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&msg[ 7].m_data.m_uint8s[0], &input[iblock +  6].m_data.m_uint8s[0], &output[iblock +  7].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&msg[ 6].m_data.m_uint8s[0], &input[iblock +  5].m_data.m_uint8s[0], &output[iblock +  6].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&msg[ 5].m_data.m_uint8s[0], &input[iblock +  4].m_data.m_uint8s[0], &output[iblock +  5].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&msg[ 4].m_data.m_uint8s[0], &input[iblock +  3].m_data.m_uint8s[0], &output[iblock +  4].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&msg[ 3].m_data.m_uint8s[0], &input[iblock +  2].m_data.m_uint8s[0], &output[iblock +  3].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&msg[ 2].m_data.m_uint8s[0], &input[iblock +  1].m_data.m_uint8s[0], &output[iblock +  2].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&msg[ 1].m_data.m_uint8s[0], &input[iblock +  0].m_data.m_uint8s[0], &output[iblock +  1].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&msg[ 0].m_data.m_uint8s[0], &cbc->m_iv.m_data.m_uint8s[0], &output[iblock + 0].m_data.m_uint8s[0]);
+		cbc->m_iv = msg[16];
 	}
 	for(; iblock != nblocks; ++iblock)
 	{

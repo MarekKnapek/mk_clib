@@ -76,7 +76,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_cfb_inl_defd_schedule_de
 {
 #if(mk_lib_crypto_mode_cfb_inl_defd_msg_len_m == mk_lib_crypto_mode_cfb_inl_defd_alg_msg_len_m)
 	mk_lang_types_usize_t iblock mk_lang_constexpr_init;
-	mk_lang_alignas(32) mk_lib_crypto_mode_cfb_inl_defd_iv_t msg[9] mk_lang_constexpr_init;
+	mk_lang_alignas(64) mk_lib_crypto_mode_cfb_inl_defd_iv_t msg[16 + 1] mk_lang_constexpr_init;
 	int i mk_lang_constexpr_init;
 
 	mk_lang_assert(cfb);
@@ -84,27 +84,43 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_cfb_inl_defd_schedule_de
 	mk_lang_assert(input);
 	mk_lang_assert(output);
 
-	for(iblock = 0; iblock != (nblocks / 8) * 8; iblock += 8)
+	for(iblock = 0; iblock != (nblocks / 16) * 16; iblock += 16)
 	{
-		for(i = 0; i != mk_lib_crypto_mode_cfb_inl_defd_msg_len_v; ++i){ msg[0].m_data.m_uint8s[i] = cfb->m_iv.m_data.m_uint8s[i]; }
-		for(i = 0; i != mk_lib_crypto_mode_cfb_inl_defd_msg_len_v; ++i){ msg[1].m_data.m_uint8s[i] = input[iblock + 0].m_data.m_uint8s[i]; }
-		for(i = 0; i != mk_lib_crypto_mode_cfb_inl_defd_msg_len_v; ++i){ msg[2].m_data.m_uint8s[i] = input[iblock + 1].m_data.m_uint8s[i]; }
-		for(i = 0; i != mk_lib_crypto_mode_cfb_inl_defd_msg_len_v; ++i){ msg[3].m_data.m_uint8s[i] = input[iblock + 2].m_data.m_uint8s[i]; }
-		for(i = 0; i != mk_lib_crypto_mode_cfb_inl_defd_msg_len_v; ++i){ msg[4].m_data.m_uint8s[i] = input[iblock + 3].m_data.m_uint8s[i]; }
-		for(i = 0; i != mk_lib_crypto_mode_cfb_inl_defd_msg_len_v; ++i){ msg[5].m_data.m_uint8s[i] = input[iblock + 4].m_data.m_uint8s[i]; }
-		for(i = 0; i != mk_lib_crypto_mode_cfb_inl_defd_msg_len_v; ++i){ msg[6].m_data.m_uint8s[i] = input[iblock + 5].m_data.m_uint8s[i]; }
-		for(i = 0; i != mk_lib_crypto_mode_cfb_inl_defd_msg_len_v; ++i){ msg[7].m_data.m_uint8s[i] = input[iblock + 6].m_data.m_uint8s[i]; }
-		for(i = 0; i != mk_lib_crypto_mode_cfb_inl_defd_msg_len_v; ++i){ msg[8].m_data.m_uint8s[i] = input[iblock + 7].m_data.m_uint8s[i]; }
-		mk_lib_crypto_mode_cfb_inl_defd_alg_schedule_encrypt(schedule, &msg[0], &msg[0], 8);
-		mk_lib_crypto_mode_base_xor3(&msg[0].m_data.m_uint8s[0], &input[iblock + 0].m_data.m_uint8s[0], &output[iblock + 0].m_data.m_uint8s[0]);
-		mk_lib_crypto_mode_base_xor3(&msg[1].m_data.m_uint8s[0], &input[iblock + 1].m_data.m_uint8s[0], &output[iblock + 1].m_data.m_uint8s[0]);
-		mk_lib_crypto_mode_base_xor3(&msg[2].m_data.m_uint8s[0], &input[iblock + 2].m_data.m_uint8s[0], &output[iblock + 2].m_data.m_uint8s[0]);
-		mk_lib_crypto_mode_base_xor3(&msg[3].m_data.m_uint8s[0], &input[iblock + 3].m_data.m_uint8s[0], &output[iblock + 3].m_data.m_uint8s[0]);
-		mk_lib_crypto_mode_base_xor3(&msg[4].m_data.m_uint8s[0], &input[iblock + 4].m_data.m_uint8s[0], &output[iblock + 4].m_data.m_uint8s[0]);
-		mk_lib_crypto_mode_base_xor3(&msg[5].m_data.m_uint8s[0], &input[iblock + 5].m_data.m_uint8s[0], &output[iblock + 5].m_data.m_uint8s[0]);
-		mk_lib_crypto_mode_base_xor3(&msg[6].m_data.m_uint8s[0], &input[iblock + 6].m_data.m_uint8s[0], &output[iblock + 6].m_data.m_uint8s[0]);
-		mk_lib_crypto_mode_base_xor3(&msg[7].m_data.m_uint8s[0], &input[iblock + 7].m_data.m_uint8s[0], &output[iblock + 7].m_data.m_uint8s[0]);
-		for(i = 0; i != mk_lib_crypto_mode_cfb_inl_defd_msg_len_v; ++i){ cfb->m_iv.m_data.m_uint8s[i] = msg[8].m_data.m_uint8s[i]; }
+		for(i = 0; i != mk_lib_crypto_mode_cfb_inl_defd_msg_len_v; ++i){ msg[ 0].m_data.m_uint8s[i] = cfb->m_iv.m_data.m_uint8s[i]; }
+		for(i = 0; i != mk_lib_crypto_mode_cfb_inl_defd_msg_len_v; ++i){ msg[ 1].m_data.m_uint8s[i] = input[iblock +  0].m_data.m_uint8s[i]; }
+		for(i = 0; i != mk_lib_crypto_mode_cfb_inl_defd_msg_len_v; ++i){ msg[ 2].m_data.m_uint8s[i] = input[iblock +  1].m_data.m_uint8s[i]; }
+		for(i = 0; i != mk_lib_crypto_mode_cfb_inl_defd_msg_len_v; ++i){ msg[ 3].m_data.m_uint8s[i] = input[iblock +  2].m_data.m_uint8s[i]; }
+		for(i = 0; i != mk_lib_crypto_mode_cfb_inl_defd_msg_len_v; ++i){ msg[ 4].m_data.m_uint8s[i] = input[iblock +  3].m_data.m_uint8s[i]; }
+		for(i = 0; i != mk_lib_crypto_mode_cfb_inl_defd_msg_len_v; ++i){ msg[ 5].m_data.m_uint8s[i] = input[iblock +  4].m_data.m_uint8s[i]; }
+		for(i = 0; i != mk_lib_crypto_mode_cfb_inl_defd_msg_len_v; ++i){ msg[ 6].m_data.m_uint8s[i] = input[iblock +  5].m_data.m_uint8s[i]; }
+		for(i = 0; i != mk_lib_crypto_mode_cfb_inl_defd_msg_len_v; ++i){ msg[ 7].m_data.m_uint8s[i] = input[iblock +  6].m_data.m_uint8s[i]; }
+		for(i = 0; i != mk_lib_crypto_mode_cfb_inl_defd_msg_len_v; ++i){ msg[ 8].m_data.m_uint8s[i] = input[iblock +  7].m_data.m_uint8s[i]; }
+		for(i = 0; i != mk_lib_crypto_mode_cfb_inl_defd_msg_len_v; ++i){ msg[ 9].m_data.m_uint8s[i] = input[iblock +  8].m_data.m_uint8s[i]; }
+		for(i = 0; i != mk_lib_crypto_mode_cfb_inl_defd_msg_len_v; ++i){ msg[10].m_data.m_uint8s[i] = input[iblock +  9].m_data.m_uint8s[i]; }
+		for(i = 0; i != mk_lib_crypto_mode_cfb_inl_defd_msg_len_v; ++i){ msg[11].m_data.m_uint8s[i] = input[iblock + 10].m_data.m_uint8s[i]; }
+		for(i = 0; i != mk_lib_crypto_mode_cfb_inl_defd_msg_len_v; ++i){ msg[12].m_data.m_uint8s[i] = input[iblock + 11].m_data.m_uint8s[i]; }
+		for(i = 0; i != mk_lib_crypto_mode_cfb_inl_defd_msg_len_v; ++i){ msg[13].m_data.m_uint8s[i] = input[iblock + 12].m_data.m_uint8s[i]; }
+		for(i = 0; i != mk_lib_crypto_mode_cfb_inl_defd_msg_len_v; ++i){ msg[14].m_data.m_uint8s[i] = input[iblock + 13].m_data.m_uint8s[i]; }
+		for(i = 0; i != mk_lib_crypto_mode_cfb_inl_defd_msg_len_v; ++i){ msg[15].m_data.m_uint8s[i] = input[iblock + 14].m_data.m_uint8s[i]; }
+		for(i = 0; i != mk_lib_crypto_mode_cfb_inl_defd_msg_len_v; ++i){ msg[16].m_data.m_uint8s[i] = input[iblock + 15].m_data.m_uint8s[i]; }
+		mk_lib_crypto_mode_cfb_inl_defd_alg_schedule_encrypt(schedule, &msg[0], &msg[0], 16);
+		mk_lib_crypto_mode_base_xor3(&msg[ 0].m_data.m_uint8s[0], &input[iblock +  0].m_data.m_uint8s[0], &output[iblock +  0].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&msg[ 1].m_data.m_uint8s[0], &input[iblock +  1].m_data.m_uint8s[0], &output[iblock +  1].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&msg[ 2].m_data.m_uint8s[0], &input[iblock +  2].m_data.m_uint8s[0], &output[iblock +  2].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&msg[ 3].m_data.m_uint8s[0], &input[iblock +  3].m_data.m_uint8s[0], &output[iblock +  3].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&msg[ 4].m_data.m_uint8s[0], &input[iblock +  4].m_data.m_uint8s[0], &output[iblock +  4].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&msg[ 5].m_data.m_uint8s[0], &input[iblock +  5].m_data.m_uint8s[0], &output[iblock +  5].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&msg[ 6].m_data.m_uint8s[0], &input[iblock +  6].m_data.m_uint8s[0], &output[iblock +  6].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&msg[ 7].m_data.m_uint8s[0], &input[iblock +  7].m_data.m_uint8s[0], &output[iblock +  7].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&msg[ 8].m_data.m_uint8s[0], &input[iblock +  8].m_data.m_uint8s[0], &output[iblock +  8].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&msg[ 9].m_data.m_uint8s[0], &input[iblock +  9].m_data.m_uint8s[0], &output[iblock +  9].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&msg[10].m_data.m_uint8s[0], &input[iblock + 10].m_data.m_uint8s[0], &output[iblock + 10].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&msg[11].m_data.m_uint8s[0], &input[iblock + 11].m_data.m_uint8s[0], &output[iblock + 11].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&msg[12].m_data.m_uint8s[0], &input[iblock + 12].m_data.m_uint8s[0], &output[iblock + 12].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&msg[13].m_data.m_uint8s[0], &input[iblock + 13].m_data.m_uint8s[0], &output[iblock + 13].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&msg[14].m_data.m_uint8s[0], &input[iblock + 14].m_data.m_uint8s[0], &output[iblock + 14].m_data.m_uint8s[0]);
+		mk_lib_crypto_mode_base_xor3(&msg[15].m_data.m_uint8s[0], &input[iblock + 15].m_data.m_uint8s[0], &output[iblock + 15].m_data.m_uint8s[0]);
+		for(i = 0; i != mk_lib_crypto_mode_cfb_inl_defd_msg_len_v; ++i){ cfb->m_iv.m_data.m_uint8s[i] = msg[16].m_data.m_uint8s[i]; }
 	}
 	for(; iblock != nblocks; ++iblock)
 	{
