@@ -32,6 +32,9 @@ typedef mk_lang_uintmax_t mk_lang_types_uintmax_t;
 typedef mk_lang_sintmax_t mk_lang_types_sintmax_t;
 typedef mk_lang_usize_t mk_lang_types_usize_t;
 typedef mk_lang_ssize_t mk_lang_types_ssize_t;
+typedef float mk_lang_types_float_t;
+typedef double mk_lang_types_double_t;
+typedef long double mk_lang_types_ldouble_t;
 
 typedef mk_lang_types_void_t const mk_lang_types_void_ct;
 typedef mk_lang_types_bool_t const mk_lang_types_bool_ct;
@@ -54,6 +57,9 @@ typedef mk_lang_types_uintmax_t const mk_lang_types_uintmax_ct;
 typedef mk_lang_types_sintmax_t const mk_lang_types_sintmax_ct;
 typedef mk_lang_types_usize_t const mk_lang_types_usize_ct;
 typedef mk_lang_types_ssize_t const mk_lang_types_ssize_ct;
+typedef mk_lang_types_float_t const mk_lang_types_float_ct;
+typedef mk_lang_types_double_t const mk_lang_types_double_ct;
+typedef mk_lang_types_ldouble_t const mk_lang_types_ldouble_ct;
 
 typedef mk_lang_types_void_t* mk_lang_types_void_pt;
 typedef mk_lang_types_bool_t* mk_lang_types_bool_pt;
@@ -76,6 +82,9 @@ typedef mk_lang_types_uintmax_t* mk_lang_types_uintmax_pt;
 typedef mk_lang_types_sintmax_t* mk_lang_types_sintmax_pt;
 typedef mk_lang_types_usize_t* mk_lang_types_usize_pt;
 typedef mk_lang_types_ssize_t* mk_lang_types_ssize_pt;
+typedef mk_lang_types_float_t* mk_lang_types_float_pt;
+typedef mk_lang_types_double_t* mk_lang_types_double_pt;
+typedef mk_lang_types_ldouble_t* mk_lang_types_ldouble_pt;
 
 typedef mk_lang_types_void_t const* mk_lang_types_void_pct;
 typedef mk_lang_types_bool_t const* mk_lang_types_bool_pct;
@@ -98,6 +107,9 @@ typedef mk_lang_types_uintmax_t const* mk_lang_types_uintmax_pct;
 typedef mk_lang_types_sintmax_t const* mk_lang_types_sintmax_pct;
 typedef mk_lang_types_usize_t const* mk_lang_types_usize_pct;
 typedef mk_lang_types_ssize_t const* mk_lang_types_ssize_pct;
+typedef mk_lang_types_float_t const* mk_lang_types_float_pct;
+typedef mk_lang_types_double_t const* mk_lang_types_double_pct;
+typedef mk_lang_types_ldouble_t const* mk_lang_types_ldouble_pct;
 
 typedef mk_lang_types_void_t* mk_lang_restrict mk_lang_types_void_prt;
 typedef mk_lang_types_bool_t* mk_lang_restrict mk_lang_types_bool_prt;
@@ -120,6 +132,9 @@ typedef mk_lang_types_uintmax_t* mk_lang_restrict mk_lang_types_uintmax_prt;
 typedef mk_lang_types_sintmax_t* mk_lang_restrict mk_lang_types_sintmax_prt;
 typedef mk_lang_types_usize_t* mk_lang_restrict mk_lang_types_usize_prt;
 typedef mk_lang_types_ssize_t* mk_lang_restrict mk_lang_types_ssize_prt;
+typedef mk_lang_types_float_t* mk_lang_restrict mk_lang_types_float_prt;
+typedef mk_lang_types_double_t* mk_lang_restrict mk_lang_types_double_prt;
+typedef mk_lang_types_ldouble_t* mk_lang_restrict mk_lang_types_ldouble_prt;
 
 typedef mk_lang_types_void_t const* mk_lang_restrict mk_lang_types_void_prct;
 typedef mk_lang_types_bool_t const* mk_lang_restrict mk_lang_types_bool_prct;
@@ -142,6 +157,9 @@ typedef mk_lang_types_uintmax_t const* mk_lang_restrict mk_lang_types_uintmax_pr
 typedef mk_lang_types_sintmax_t const* mk_lang_restrict mk_lang_types_sintmax_prct;
 typedef mk_lang_types_usize_t const* mk_lang_restrict mk_lang_types_usize_prct;
 typedef mk_lang_types_ssize_t const* mk_lang_restrict mk_lang_types_ssize_prct;
+typedef mk_lang_types_float_t const* mk_lang_restrict mk_lang_types_float_prct;
+typedef mk_lang_types_double_t const* mk_lang_restrict mk_lang_types_double_prct;
+typedef mk_lang_types_ldouble_t const* mk_lang_restrict mk_lang_types_ldouble_prct;
 
 
 #endif
