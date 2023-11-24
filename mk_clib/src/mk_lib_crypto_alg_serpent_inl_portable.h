@@ -526,7 +526,7 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_serpent_portable_
 	mk_lang_assert(rnd_idx >= 0 && rnd_idx < mk_lib_crypto_alg_serpent_nr - 1);
 	mk_lang_assert(msg);
 
-	mk_lib_crypto_mode_base_mk_lib_crypto_alg_serpent_xor2(&msg->m_data.m_uint8s[0], &schedule->m_data.m_msgs[rnd_idx].m_data.m_uint8s[0]);
+	mk_lib_crypto_alg_serpent_xor2(&msg->m_data.m_uint8s[0], &schedule->m_data.m_msgs[rnd_idx].m_data.m_uint8s[0]);
 	mk_lib_crypto_alg_serpent_portable_substitute_enc(rnd_idx % mk_lib_crypto_alg_serpent_sbox_count, msg);
 	mk_lib_crypto_alg_serpent_portable_lt_enc(msg);
 }
@@ -536,9 +536,9 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_serpent_portable_
 	mk_lang_assert(schedule);
 	mk_lang_assert(msg);
 
-	mk_lib_crypto_mode_base_mk_lib_crypto_alg_serpent_xor2(&msg->m_data.m_uint8s[0], &schedule->m_data.m_msgs[mk_lib_crypto_alg_serpent_nr - 1].m_data.m_uint8s[0]);
+	mk_lib_crypto_alg_serpent_xor2(&msg->m_data.m_uint8s[0], &schedule->m_data.m_msgs[mk_lib_crypto_alg_serpent_nr - 1].m_data.m_uint8s[0]);
 	mk_lib_crypto_alg_serpent_portable_substitute_enc((mk_lib_crypto_alg_serpent_nr - 1) % mk_lib_crypto_alg_serpent_sbox_count, msg);
-	mk_lib_crypto_mode_base_mk_lib_crypto_alg_serpent_xor2(&msg->m_data.m_uint8s[0], &schedule->m_data.m_msgs[mk_lib_crypto_alg_serpent_nr - 0].m_data.m_uint8s[0]);
+	mk_lib_crypto_alg_serpent_xor2(&msg->m_data.m_uint8s[0], &schedule->m_data.m_msgs[mk_lib_crypto_alg_serpent_nr - 0].m_data.m_uint8s[0]);
 }
 
 mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_serpent_portable_round_first_dec(mk_lib_crypto_alg_serpent_schedule_pct const schedule, mk_lib_crypto_alg_serpent_msg_pct const input, mk_lib_crypto_alg_serpent_msg_pt const output) mk_lang_noexcept
@@ -547,7 +547,7 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_serpent_portable_
 	mk_lang_assert(input);
 	mk_lang_assert(output);
 
-	mk_lib_crypto_mode_base_mk_lib_crypto_alg_serpent_xor3(&input->m_data.m_uint8s[0], &schedule->m_data.m_msgs[mk_lib_crypto_alg_serpent_nr - 0].m_data.m_uint8s[0], &output->m_data.m_uint8s[0]);
+	mk_lib_crypto_alg_serpent_xor3(&input->m_data.m_uint8s[0], &schedule->m_data.m_msgs[mk_lib_crypto_alg_serpent_nr - 0].m_data.m_uint8s[0], &output->m_data.m_uint8s[0]);
 }
 
 mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_serpent_portable_round_middle_dec(mk_lib_crypto_alg_serpent_schedule_pct const schedule, int const rnd_idx, mk_lib_crypto_alg_serpent_msg_pt const msg) mk_lang_noexcept
@@ -557,7 +557,7 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_serpent_portable_
 	mk_lang_assert(msg);
 
 	mk_lib_crypto_alg_serpent_portable_substitute_dec(((mk_lib_crypto_alg_serpent_nr - 1) - rnd_idx) % mk_lib_crypto_alg_serpent_sbox_count, msg);
-	mk_lib_crypto_mode_base_mk_lib_crypto_alg_serpent_xor2(&msg->m_data.m_uint8s[0], &schedule->m_data.m_msgs[((mk_lib_crypto_alg_serpent_nr - 1)) - rnd_idx].m_data.m_uint8s[0]);
+	mk_lib_crypto_alg_serpent_xor2(&msg->m_data.m_uint8s[0], &schedule->m_data.m_msgs[((mk_lib_crypto_alg_serpent_nr - 1)) - rnd_idx].m_data.m_uint8s[0]);
 	mk_lib_crypto_alg_serpent_portable_lt_dec(msg);
 }
 
@@ -567,7 +567,7 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_serpent_portable_
 	mk_lang_assert(msg);
 
 	mk_lib_crypto_alg_serpent_portable_substitute_dec(0 % mk_lib_crypto_alg_serpent_sbox_count, msg);
-	mk_lib_crypto_mode_base_mk_lib_crypto_alg_serpent_xor2(&msg->m_data.m_uint8s[0], &schedule->m_data.m_msgs[0].m_data.m_uint8s[0]);
+	mk_lib_crypto_alg_serpent_xor2(&msg->m_data.m_uint8s[0], &schedule->m_data.m_msgs[0].m_data.m_uint8s[0]);
 }
 
 mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_serpent_schedule_encrypt_portable(mk_lib_crypto_alg_serpent_schedule_pct const schedule, mk_lib_crypto_alg_serpent_msg_pct const input, mk_lib_crypto_alg_serpent_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept

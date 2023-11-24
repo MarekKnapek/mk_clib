@@ -10,12 +10,12 @@
 #include "mk_lib_crypto_mode_cbc_inl_defd.h"
 
 
-#define mk_lib_crypto_mode_base_t_name mk_lib_crypto_mode_cbc_inl_defd_prefix
+#define mk_lib_crypto_mode_base_t_name mk_lang_concat(mk_lib_crypto_mode_cbc_inl_defd_prefix, _mode_base)
 #define mk_lib_crypto_mode_base_t_len mk_lib_crypto_mode_cbc_inl_defd_msg_len_m
 #include "mk_lib_crypto_mode_base_inl_fileh.h"
 #include "mk_lib_crypto_mode_base_inl_filec.h"
-#define mk_lib_crypto_mode_base_xor3 mk_lang_concat(mk_lang_concat(mk_lib_crypto_mode_base_, mk_lib_crypto_mode_cbc_inl_defd_prefix), _xor3)
-#define mk_lib_crypto_mode_base_xor2 mk_lang_concat(mk_lang_concat(mk_lib_crypto_mode_base_, mk_lib_crypto_mode_cbc_inl_defd_prefix), _xor2)
+#define mk_lib_crypto_mode_base_xor3 mk_lang_concat(mk_lang_concat(mk_lib_crypto_mode_cbc_inl_defd_prefix, _mode_base), _xor3)
+#define mk_lib_crypto_mode_base_xor2 mk_lang_concat(mk_lang_concat(mk_lib_crypto_mode_cbc_inl_defd_prefix, _mode_base), _xor2)
 
 
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_cbc_inl_defd_init(mk_lib_crypto_mode_cbc_inl_defd_pt const cbc, mk_lib_crypto_mode_cbc_inl_defd_iv_pct const iv) mk_lang_noexcept

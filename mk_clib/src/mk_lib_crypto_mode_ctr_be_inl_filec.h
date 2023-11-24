@@ -16,12 +16,12 @@
 #include "mk_lib_crypto_mode_ctr_be_inl_defd.h"
 
 
-#define mk_lib_crypto_mode_base_t_name mk_lib_crypto_mode_ctr_be_inl_defd_prefix
+#define mk_lib_crypto_mode_base_t_name mk_lang_concat(mk_lib_crypto_mode_ctr_be_inl_defd_prefix, _mode_base)
 #define mk_lib_crypto_mode_base_t_len mk_lib_crypto_mode_ctr_be_inl_defd_msg_len_m
 #include "mk_lib_crypto_mode_base_inl_fileh.h"
 #include "mk_lib_crypto_mode_base_inl_filec.h"
-#define mk_lib_crypto_mode_base_xor3 mk_lang_concat(mk_lang_concat(mk_lib_crypto_mode_base_, mk_lib_crypto_mode_ctr_be_inl_defd_prefix), _xor3)
-#define mk_lib_crypto_mode_base_xor2 mk_lang_concat(mk_lang_concat(mk_lib_crypto_mode_base_, mk_lib_crypto_mode_ctr_be_inl_defd_prefix), _xor2)
+#define mk_lib_crypto_mode_base_xor3 mk_lang_concat(mk_lang_concat(mk_lib_crypto_mode_ctr_be_inl_defd_prefix, _mode_base), _xor3)
+#define mk_lib_crypto_mode_base_xor2 mk_lang_concat(mk_lang_concat(mk_lib_crypto_mode_ctr_be_inl_defd_prefix, _mode_base), _xor2)
 
 
 #define mk_lang_bui_t_name mk_lang_concat(mk_lib_crypto_mode_ctr_be_inl_defd_prefix, _uint_primitive)

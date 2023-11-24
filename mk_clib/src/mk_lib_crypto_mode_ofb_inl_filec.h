@@ -10,12 +10,12 @@
 #include "mk_lib_crypto_mode_ofb_inl_defd.h"
 
 
-#define mk_lib_crypto_mode_base_t_name mk_lib_crypto_mode_ofb_inl_defd_prefix
+#define mk_lib_crypto_mode_base_t_name mk_lang_concat(mk_lib_crypto_mode_ofb_inl_defd_prefix, _mode_base)
 #define mk_lib_crypto_mode_base_t_len mk_lib_crypto_mode_ofb_inl_defd_msg_len_m
 #include "mk_lib_crypto_mode_base_inl_fileh.h"
 #include "mk_lib_crypto_mode_base_inl_filec.h"
-#define mk_lib_crypto_mode_base_xor3 mk_lang_concat(mk_lang_concat(mk_lib_crypto_mode_base_, mk_lib_crypto_mode_ofb_inl_defd_prefix), _xor3)
-#define mk_lib_crypto_mode_base_xor2 mk_lang_concat(mk_lang_concat(mk_lib_crypto_mode_base_, mk_lib_crypto_mode_ofb_inl_defd_prefix), _xor2)
+#define mk_lib_crypto_mode_base_xor3 mk_lang_concat(mk_lang_concat(mk_lib_crypto_mode_ofb_inl_defd_prefix, _mode_base), _xor3)
+#define mk_lib_crypto_mode_base_xor2 mk_lang_concat(mk_lang_concat(mk_lib_crypto_mode_ofb_inl_defd_prefix, _mode_base), _xor2)
 
 
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ofb_inl_defd_schedule_crypt(mk_lib_crypto_mode_ofb_inl_defd_pt const ofb, mk_lib_crypto_mode_ofb_inl_defd_schedule_pct const schedule, mk_lib_crypto_mode_ofb_inl_defd_msg_pct const input, mk_lib_crypto_mode_ofb_inl_defd_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
