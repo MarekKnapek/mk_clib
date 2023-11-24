@@ -573,7 +573,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_avx2_substitute_dec_2(mk_li
 	mk_lib_crypto_alg_serpent_avx2_ui_xor2(&tc, &td); mk_lib_crypto_alg_serpent_avx2_ui_xor2(&ta, &td);
 	mk_lib_crypto_alg_serpent_avx2_ui_and2(&ta, &tb); mk_lib_crypto_alg_serpent_avx2_ui_xor2(&td, &te);
 	mk_lib_crypto_alg_serpent_avx2_ui_xor2(&td, &ta);
-mk_lib_crypto_alg_serpent_avx2_store(msgs, &tb, &te, &tc, &td);
+	mk_lib_crypto_alg_serpent_avx2_store(msgs, &tb, &te, &tc, &td);
 }
 
 static mk_lang_inline void mk_lib_crypto_alg_serpent_avx2_substitute_dec_3(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept

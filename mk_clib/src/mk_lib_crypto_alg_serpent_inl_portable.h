@@ -318,7 +318,7 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_serpent_portable_
 	mk_sl_cui_uint32_xor2(&tc, &td); mk_sl_cui_uint32_xor2(&ta, &td);
 	mk_sl_cui_uint32_and2(&ta, &tb); mk_sl_cui_uint32_xor2(&td, &te);
 	mk_sl_cui_uint32_xor2(&td, &ta);
-mk_lib_crypto_alg_serpent_portable_store(msg, &tb, &te, &tc, &td);
+	mk_lib_crypto_alg_serpent_portable_store(msg, &tb, &te, &tc, &td);
 }
 
 mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_serpent_portable_substitute_dec_3(mk_lib_crypto_alg_serpent_msg_pt const msg) mk_lang_noexcept
