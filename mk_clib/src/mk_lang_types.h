@@ -9,11 +9,13 @@
 #include "mk_lang_llong.h"
 #include "mk_lang_restrict.h"
 #include "mk_lang_sizet.h"
+#include "mk_lang_wchar.h"
 
 
 typedef void mk_lang_types_void_t;
 typedef mk_lang_bool_t mk_lang_types_bool_t;
 typedef char mk_lang_types_pchar_t;
+typedef mk_lang_wchar_t mk_lang_types_wchar_t;
 typedef unsigned char mk_lang_types_uchar_t;
 typedef signed char mk_lang_types_schar_t;
 typedef unsigned short int mk_lang_types_ushort_t;
@@ -39,6 +41,7 @@ typedef long double mk_lang_types_ldouble_t;
 typedef mk_lang_types_void_t const mk_lang_types_void_ct;
 typedef mk_lang_types_bool_t const mk_lang_types_bool_ct;
 typedef mk_lang_types_pchar_t const mk_lang_types_pchar_ct;
+typedef mk_lang_types_wchar_t const mk_lang_types_wchar_ct;
 typedef mk_lang_types_uchar_t const mk_lang_types_uchar_ct;
 typedef mk_lang_types_schar_t const mk_lang_types_schar_ct;
 typedef mk_lang_types_ushort_t const mk_lang_types_ushort_ct;
@@ -64,6 +67,7 @@ typedef mk_lang_types_ldouble_t const mk_lang_types_ldouble_ct;
 typedef mk_lang_types_void_t* mk_lang_types_void_pt;
 typedef mk_lang_types_bool_t* mk_lang_types_bool_pt;
 typedef mk_lang_types_pchar_t* mk_lang_types_pchar_pt;
+typedef mk_lang_types_wchar_t* mk_lang_types_wchar_pt;
 typedef mk_lang_types_uchar_t* mk_lang_types_uchar_pt;
 typedef mk_lang_types_schar_t* mk_lang_types_schar_pt;
 typedef mk_lang_types_ushort_t* mk_lang_types_ushort_pt;
@@ -89,6 +93,7 @@ typedef mk_lang_types_ldouble_t* mk_lang_types_ldouble_pt;
 typedef mk_lang_types_void_t const* mk_lang_types_void_pct;
 typedef mk_lang_types_bool_t const* mk_lang_types_bool_pct;
 typedef mk_lang_types_pchar_t const* mk_lang_types_pchar_pct;
+typedef mk_lang_types_wchar_t const* mk_lang_types_wchar_pct;
 typedef mk_lang_types_uchar_t const* mk_lang_types_uchar_pct;
 typedef mk_lang_types_schar_t const* mk_lang_types_schar_pct;
 typedef mk_lang_types_ushort_t const* mk_lang_types_ushort_pct;
@@ -114,6 +119,7 @@ typedef mk_lang_types_ldouble_t const* mk_lang_types_ldouble_pct;
 typedef mk_lang_types_void_t* mk_lang_restrict mk_lang_types_void_prt;
 typedef mk_lang_types_bool_t* mk_lang_restrict mk_lang_types_bool_prt;
 typedef mk_lang_types_pchar_t* mk_lang_restrict mk_lang_types_pchar_prt;
+typedef mk_lang_types_wchar_t* mk_lang_restrict mk_lang_types_wchar_prt;
 typedef mk_lang_types_uchar_t* mk_lang_restrict mk_lang_types_uchar_prt;
 typedef mk_lang_types_schar_t* mk_lang_restrict mk_lang_types_schar_prt;
 typedef mk_lang_types_ushort_t* mk_lang_restrict mk_lang_types_ushort_prt;
@@ -139,6 +145,7 @@ typedef mk_lang_types_ldouble_t* mk_lang_restrict mk_lang_types_ldouble_prt;
 typedef mk_lang_types_void_t const* mk_lang_restrict mk_lang_types_void_prct;
 typedef mk_lang_types_bool_t const* mk_lang_restrict mk_lang_types_bool_prct;
 typedef mk_lang_types_pchar_t const* mk_lang_restrict mk_lang_types_pchar_prct;
+typedef mk_lang_types_wchar_t const* mk_lang_restrict mk_lang_types_wchar_prct;
 typedef mk_lang_types_uchar_t const* mk_lang_restrict mk_lang_types_uchar_prct;
 typedef mk_lang_types_schar_t const* mk_lang_restrict mk_lang_types_schar_prct;
 typedef mk_lang_types_ushort_t const* mk_lang_restrict mk_lang_types_ushort_prct;
@@ -164,6 +171,7 @@ typedef mk_lang_types_ldouble_t const* mk_lang_restrict mk_lang_types_ldouble_pr
 typedef mk_lang_types_void_pt* mk_lang_types_void_ppt;
 typedef mk_lang_types_bool_pt* mk_lang_types_bool_ppt;
 typedef mk_lang_types_pchar_pt* mk_lang_types_pchar_ppt;
+typedef mk_lang_types_wchar_pt* mk_lang_types_wchar_ppt;
 typedef mk_lang_types_uchar_pt* mk_lang_types_uchar_ppt;
 typedef mk_lang_types_schar_pt* mk_lang_types_schar_ppt;
 typedef mk_lang_types_ushort_pt* mk_lang_types_ushort_ppt;
@@ -189,6 +197,7 @@ typedef mk_lang_types_ldouble_pt* mk_lang_types_ldouble_ppt;
 typedef mk_lang_types_void_pct* mk_lang_types_void_ppct;
 typedef mk_lang_types_bool_pct* mk_lang_types_bool_ppct;
 typedef mk_lang_types_pchar_pct* mk_lang_types_pchar_ppct;
+typedef mk_lang_types_wchar_pct* mk_lang_types_wchar_ppct;
 typedef mk_lang_types_uchar_pct* mk_lang_types_uchar_ppct;
 typedef mk_lang_types_schar_pct* mk_lang_types_schar_ppct;
 typedef mk_lang_types_ushort_pct* mk_lang_types_ushort_ppct;
@@ -214,6 +223,7 @@ typedef mk_lang_types_ldouble_pct* mk_lang_types_ldouble_ppct;
 typedef mk_lang_types_void_pt const* mk_lang_types_void_pcpt;
 typedef mk_lang_types_bool_pt const* mk_lang_types_bool_pcpt;
 typedef mk_lang_types_pchar_pt const* mk_lang_types_pchar_pcpt;
+typedef mk_lang_types_wchar_pt const* mk_lang_types_wchar_pcpt;
 typedef mk_lang_types_uchar_pt const* mk_lang_types_uchar_pcpt;
 typedef mk_lang_types_schar_pt const* mk_lang_types_schar_pcpt;
 typedef mk_lang_types_ushort_pt const* mk_lang_types_ushort_pcpt;
@@ -239,6 +249,7 @@ typedef mk_lang_types_ldouble_pt const* mk_lang_types_ldouble_pcpt;
 typedef mk_lang_types_void_pct const* mk_lang_types_void_pcpct;
 typedef mk_lang_types_bool_pct const* mk_lang_types_bool_pcpct;
 typedef mk_lang_types_pchar_pct const* mk_lang_types_pchar_pcpct;
+typedef mk_lang_types_wchar_pct const* mk_lang_types_wchar_pcpct;
 typedef mk_lang_types_uchar_pct const* mk_lang_types_uchar_pcpct;
 typedef mk_lang_types_schar_pct const* mk_lang_types_schar_pcpct;
 typedef mk_lang_types_ushort_pct const* mk_lang_types_ushort_pcpct;
