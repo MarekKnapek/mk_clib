@@ -6,7 +6,7 @@
 #include "mk_lang_types.h"
 
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_check_if_failed_impl(mk_lang_types_bool_t const b) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_check_to_bool_impl(mk_lang_types_bool_t const b) mk_lang_noexcept
 {
 	return b;
 }
