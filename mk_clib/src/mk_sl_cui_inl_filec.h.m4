@@ -3367,6 +3367,47 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui
 	return ((mk_lang_types_sint_t)(((mk_lang_types_sint_t)(it - str)) * overflow));
 }
 
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_to_str_hex_n(mk_sl_cui_inl_defd_pct const x, mk_lang_types_pchar_pt const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_lang_constexpr_static mk_lang_types_pchar_t const s_symbols[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+
+	mk_sl_cui_inl_defd_t xx mk_lang_constexpr_init;
+	mk_lang_types_pchar_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_uchar_t tuc mk_lang_constexpr_init;
+	mk_lang_types_bool_t zero mk_lang_constexpr_init;
+	mk_lang_types_uchar_t tuc_lo mk_lang_constexpr_init;
+	mk_lang_types_uchar_t tuc_hi mk_lang_constexpr_init;
+	mk_lang_types_sint_t ret mk_lang_constexpr_init;
+
+	mk_lang_assert(x);
+	mk_lang_assert(str || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	xx = *x;
+	ptr = &str[str_len - 1];
+	rem = str_len;
+	for(;;)
+	{
+		mk_sl_cui_inl_defd_to_bi_uchar(&xx, &tuc);
+		mk_sl_cui_inl_defd_shr2(&xx, mk_lang_charbit);
+		zero = mk_sl_cui_inl_defd_is_zero(&xx);
+		tuc_lo = (tuc >> 0) & 0xf;
+		if(rem == 0){ return 0; } --rem; /* todo return negative? */
+		ptr[0] = s_symbols[tuc_lo]; --ptr;
+		tuc_hi = (tuc >> 4) & 0xf;
+		if(tuc_hi == 0 && zero){ break; }
+		if(rem == 0){ return 0; } --rem; /* todo return negative? */
+		ptr[0] = s_symbols[tuc_hi]; --ptr;
+		if(zero){ break; }
+	}
+	ret = str_len - rem;
+	if(ret != str_len)
+	{
+		mk_sl_cui_inl_filec_memmove_fn(&str[0], &str[str_len - ret], ret);
+	}
+	return ret;
+}
 
 #undef mk_sl_cui_inl_defd_t1_sizebits_d
 #undef mk_sl_cui_inl_defd_t2_sizebits_d
