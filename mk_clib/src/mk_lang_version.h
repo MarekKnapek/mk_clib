@@ -85,6 +85,12 @@
 #endif
 
 
+#if defined _MSVC_LANG && _MSVC_LANG >= mk_lang_version_value_cpp_11
+#define mk_lang_version_at_least_msvc_cpp_11 1
+#else
+#define mk_lang_version_at_least_msvc_cpp_11 0
+#endif
+
 #if defined _MSVC_LANG && _MSVC_LANG >= mk_lang_version_value_cpp_14
 #define mk_lang_version_at_least_msvc_cpp_14 1
 #else
