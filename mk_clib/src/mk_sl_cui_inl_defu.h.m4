@@ -16,6 +16,10 @@ include(`mk_sl_cui_inl.m')dnl
 
 
 
+`#'undef mk_sl_cui_t_endian
+
+
+
 `#'undef mk_sl_cui_inl_defd_name
 `#'undef mk_sl_cui_inl_defd_base
 `#'undef mk_sl_cui_inl_defd_count
@@ -28,6 +32,12 @@ include(`mk_sl_cui_inl.m')dnl
 `#'undef mk_sl_cui_inl_defd_base_prt
 `#'undef mk_sl_cui_inl_defd_base_pct
 `#'undef mk_sl_cui_inl_defd_base_prct
+
+
+`#'undef mk_sl_cui_inl_defd_disable_big_div
+
+`#'undef mk_sl_cui_inl_defd_disable_big_div
+
 
 
 `#'undef mk_sl_cui_inl_defd_base_sizebits_d

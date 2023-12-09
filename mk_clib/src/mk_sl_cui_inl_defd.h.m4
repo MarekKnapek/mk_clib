@@ -8,6 +8,7 @@ include(`mk_sl_cui_inl.m')dnl
 	(defined mk_sl_cui_t_base) && \
 	(defined mk_sl_cui_t_count && mk_sl_cui_t_count >= 1) && \
 	((defined mk_sl_cui_t_endian && (mk_sl_cui_t_endian == mk_lang_endian_little || mk_sl_cui_t_endian == mk_lang_endian_big)) || !defined mk_sl_cui_t_endian) && \
+	((defined mk_sl_cui_t_disable_big_div && (mk_sl_cui_t_disable_big_div == 0 || mk_sl_cui_t_disable_big_div == 1)) || !defined mk_sl_cui_t_disable_big_div) && \
 	((defined mk_sl_cui_t_base_sizebits_d && mk_sl_cui_t_base_sizebits_d >= 1) || !defined mk_sl_cui_t_base_sizebits_d) && \
 	1 \
 	))
@@ -30,6 +31,12 @@ include(`mk_sl_cui_inl.m')dnl
 #define mk_sl_cui_inl_defd_base_prt mk_lang_concat(mk_sl_cui_inl_defd_base, _prt)
 #define mk_sl_cui_inl_defd_base_pct mk_lang_concat(mk_sl_cui_inl_defd_base, _pct)
 #define mk_sl_cui_inl_defd_base_prct mk_lang_concat(mk_sl_cui_inl_defd_base, _prct)
+
+#if defined mk_sl_cui_t_disable_big_div
+#define mk_sl_cui_inl_defd_disable_big_div mk_sl_cui_t_disable_big_div
+#else
+#define mk_sl_cui_inl_defd_disable_big_div 0
+#endif
 
 #if defined mk_sl_cui_t_base_sizebits_d
 #define mk_sl_cui_inl_defd_base_sizebits_d mk_sl_cui_t_base_sizebits_d
