@@ -2,6 +2,7 @@
 #include "mk_lang_exception.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
+#include "mk_lang_limits.h"
 #include "mk_lang_max.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
@@ -115,7 +116,7 @@ mk_lang_jumbo void mk_sl_vector_inl_defd_vector_rw_construct(mk_sl_vector_inl_de
 	mk_lang_assert(mk_sl_vector_inl_defd_vector_pr_check_invariants(vector));
 }
 
-mk_lang_jumbo void mk_sl_vector_inl_defd_vector_rw_reserve(mk_sl_vector_inl_defd_vector_pt const vector, mk_lang_exception_pt const ex, mk_lang_types_usize_t const count) mk_lang_noexcept
+mk_lang_jumbo void mk_sl_vector_inl_defd_vector_rw_reserve_n(mk_sl_vector_inl_defd_vector_pt const vector, mk_lang_exception_pt const ex, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
 	mk_lang_types_usize_t size_requested;
 	mk_lang_types_usize_t size_curr;
@@ -140,6 +141,19 @@ mk_lang_jumbo void mk_sl_vector_inl_defd_vector_rw_reserve(mk_sl_vector_inl_defd
 	mk_lang_assert(mk_sl_vector_inl_defd_vector_pr_check_invariants(vector));
 }
 
+mk_lang_jumbo void mk_sl_vector_inl_defd_vector_rw_reserve_one(mk_sl_vector_inl_defd_vector_pt const vector, mk_lang_exception_pt const ex) mk_lang_noexcept
+{
+	mk_lang_assert(vector);
+	mk_lang_assert(mk_sl_vector_inl_defd_vector_pr_check_invariants(vector));
+	mk_lang_assert(ex);
+	mk_lang_assert(!mk_lang_exception_is(ex));
+	mk_lang_assert(mk_sl_vector_inl_defd_vector_ro_get_count(vector) != mk_lang_limits_usize_max);
+
+	mk_sl_vector_inl_defd_vector_rw_reserve_n(vector, ex, mk_sl_vector_inl_defd_vector_ro_get_count(vector) + 1);
+
+	mk_lang_assert(mk_sl_vector_inl_defd_vector_pr_check_invariants(vector));
+}
+
 mk_lang_jumbo void mk_sl_vector_inl_defd_vector_rw_resize(mk_sl_vector_inl_defd_vector_pt const vector, mk_lang_exception_pt const ex, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
 	mk_lang_assert(vector);
@@ -147,7 +161,7 @@ mk_lang_jumbo void mk_sl_vector_inl_defd_vector_rw_resize(mk_sl_vector_inl_defd_
 	mk_lang_assert(ex);
 	mk_lang_assert(!mk_lang_exception_is(ex));
 
-	mk_sl_vector_inl_defd_vector_rw_reserve(vector, ex, count); mk_lang_exception_if_is_return(ex);
+	mk_sl_vector_inl_defd_vector_rw_reserve_n(vector, ex, count); mk_lang_exception_if_is_return(ex);
 	vector->m_count = count;
 	mk_lang_assert(mk_sl_vector_inl_defd_vector_pr_check_invariants(vector));
 }
@@ -160,7 +174,7 @@ mk_lang_jumbo void mk_sl_vector_inl_defd_vector_rw_push_back(mk_sl_vector_inl_de
 	mk_lang_assert(!mk_lang_exception_is(ex));
 	mk_lang_assert(elem);
 
-	mk_sl_vector_inl_defd_vector_rw_reserve(vector, ex, mk_sl_vector_inl_defd_vector_rw_get_count(vector) + 1); mk_lang_exception_if_is_return(ex);
+	mk_sl_vector_inl_defd_vector_rw_reserve_one(vector, ex); mk_lang_exception_if_is_return(ex);
 	mk_sl_vector_inl_defd_vector_rw_get_data(vector)[mk_sl_vector_inl_defd_vector_rw_get_count(vector)] = *elem;
 	mk_sl_vector_inl_defd_vector_rw_push_back_from_capacity_one(vector);
 	mk_lang_assert(mk_sl_vector_inl_defd_vector_pr_check_invariants(vector));

@@ -23,7 +23,8 @@
 #undef mk_sl_vector_inl_defd_vector_rw_get_data_back
 
 #undef mk_sl_vector_inl_defd_vector_rw_construct
-#undef mk_sl_vector_inl_defd_vector_rw_reserve
+#undef mk_sl_vector_inl_defd_vector_rw_reserve_n
+#undef mk_sl_vector_inl_defd_vector_rw_reserve_one
 #undef mk_sl_vector_inl_defd_vector_rw_resize
 #undef mk_sl_vector_inl_defd_vector_rw_push_back
 #undef mk_sl_vector_inl_defd_vector_rw_clear
