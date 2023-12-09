@@ -82,7 +82,6 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_void_pt mk_sl_buffer_inl_defd_buff
 mk_lang_jumbo void mk_sl_buffer_inl_defd_buffer_rw_construct(mk_sl_buffer_inl_defd_buffer_pt const buffer) mk_lang_noexcept
 {
 	mk_lang_assert(buffer);
-	mk_lang_assert(mk_sl_buffer_inl_defd_buffer_pr_check_invariants(buffer));
 
 	buffer->m_data = mk_lang_null;
 	buffer->m_size = 0;
