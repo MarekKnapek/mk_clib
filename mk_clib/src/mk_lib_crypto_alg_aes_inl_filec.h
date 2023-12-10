@@ -541,6 +541,7 @@ mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_accelerated_schedule_encrypt(m
 	((void)(schedule));
 	((void)(input));
 	((void)(output));
+	((void)(nblocks));
 	mk_lang_crash();
 	#endif
 }
@@ -554,6 +555,7 @@ mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_accelerated_schedule_decrypt(m
 	((void)(schedule));
 	((void)(input));
 	((void)(output));
+	((void)(nblocks));
 	mk_lang_crash();
 	#endif
 }

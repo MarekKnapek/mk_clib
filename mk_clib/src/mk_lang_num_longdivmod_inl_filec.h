@@ -595,3 +595,4 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lang_num_longdivmod_inl_
 #undef mk_lang_num_longdivmod_t_tn3_get_tn2
 #undef mk_lang_num_longdivmod_t_tn1_sizebits_d
 #undef mk_lang_num_longdivmod_t_tn2_sizebits_d
+#undef mk_lang_num_longdivmod_t_tn3_sizebits_d

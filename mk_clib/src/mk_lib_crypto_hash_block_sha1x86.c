@@ -279,4 +279,29 @@ mk_lang_jumbo void mk_lib_crypto_hash_block_sha1x86_finish(mk_lib_crypto_hash_bl
 	}
 }
 
+#else
+
+mk_lang_jumbo void mk_lib_crypto_hash_block_sha1x86_init(mk_lib_crypto_hash_block_sha1x86_pt const sha1) mk_lang_noexcept
+{
+	((void)(sha1));
+	mk_lang_assert(0);
+}
+
+mk_lang_jumbo void mk_lib_crypto_hash_block_sha1x86_append_blocks(mk_lib_crypto_hash_block_sha1x86_pt const sha1, mk_lib_crypto_hash_block_sha1x86_block_pct const pblocks, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
+{
+	((void)(sha1));
+	((void)(pblocks));
+	((void)(nblocks));
+	mk_lang_assert(0);
+}
+
+mk_lang_jumbo void mk_lib_crypto_hash_block_sha1x86_finish(mk_lib_crypto_hash_block_sha1x86_pt const sha1, mk_lib_crypto_hash_block_sha1x86_block_pt const block, int const idx, mk_lib_crypto_hash_block_sha1x86_digest_pt const digest) mk_lang_noexcept
+{
+	((void)(sha1));
+	((void)(block));
+	((void)(idx));
+	((void)(digest));
+	mk_lang_assert(0);
+}
+
 #endif

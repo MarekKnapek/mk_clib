@@ -151,8 +151,8 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_flt_defd_bytes_to_st
 		mk_lang_assert(exponent_decoded >= mk_sl_flt_defd_exponent_decoded_min && exponent_decoded <= mk_sl_flt_defd_exponent_decoded_max);
 		if(exponent_decoded <= -1)
 		{
-			if(((int)(pstr - str)) == str_len) mk_lang_unlikely return 0; *pstr = s_symbols[0]; ++pstr;
-			if(((int)(pstr - str)) == str_len) mk_lang_unlikely return 0; *pstr = s_dot; ++pstr;
+			if(((int)(pstr - str)) == str_len){ mk_lang_unlikely return 0; } *pstr = s_symbols[0]; ++pstr;
+			if(((int)(pstr - str)) == str_len){ mk_lang_unlikely return 0; } *pstr = s_dot; ++pstr;
 		}
 		else
 		{
@@ -169,19 +169,19 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_flt_defd_bytes_to_st
 			{
 				mk_sl_flt_defd_cuiba_shl2(&bigab.m_a, ti);
 			}
-			if(((int)(pstr - str)) == str_len) mk_lang_unlikely return 0;
+			if(((int)(pstr - str)) == str_len){ mk_lang_unlikely return 0; }
 			tn = str_len - ((int)(pstr - str));
 			ti = mk_sl_flt_defd_cuiba_to_str_dec_n(&bigab.m_a, pstr, tn);
-			if(ti == 0) mk_lang_unlikely return 0;
+			if(ti == 0){ mk_lang_unlikely return 0; }
 			mk_lang_assert(ti > 0 && ti <= tn);
 			pstr += ti;
-			if(((int)(pstr - str)) == str_len) mk_lang_unlikely return 0; *pstr = s_dot; ++pstr;
+			if(((int)(pstr - str)) == str_len){ mk_lang_unlikely return 0; } *pstr = s_dot; ++pstr;
 		}
 	}
 	else if(kind == flt_kind_e_subnormal)
 	{
-		if(((int)(pstr - str)) == str_len) mk_lang_unlikely return 0; *pstr = s_symbols[0]; ++pstr;
-		if(((int)(pstr - str)) == str_len) mk_lang_unlikely return 0; *pstr = s_dot; ++pstr;
+		if(((int)(pstr - str)) == str_len){ mk_lang_unlikely return 0; } *pstr = s_symbols[0]; ++pstr;
+		if(((int)(pstr - str)) == str_len){ mk_lang_unlikely return 0; } *pstr = s_dot; ++pstr;
 	}
 	if(kind == flt_kind_e_normal || kind == flt_kind_e_subnormal)
 	{
@@ -191,7 +191,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_flt_defd_bytes_to_st
 		}
 		if(exponent_decoded >= mk_sl_flt_defd_fraction_bits)
 		{
-			if(((int)(pstr - str)) == str_len) mk_lang_unlikely return 0; *pstr = s_symbols[0]; ++pstr;
+			if(((int)(pstr - str)) == str_len){ mk_lang_unlikely return 0; } *pstr = s_symbols[0]; ++pstr;
 		}
 		else
 		{
@@ -209,7 +209,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_flt_defd_bytes_to_st
 				mk_sl_flt_defd_cuibb_mul4_wrap_wi(pbb1, &base_, pbb2, &rem_); /* todo smol */
 				mk_sl_flt_defd_cuibb_to_bi_uint(&rem_, &rem); /* todo smol */
 				mk_lang_assert(rem >= 0 && rem <= 9);
-				if(((int)(pstr - str)) == str_len) mk_lang_unlikely return 0; *pstr = s_symbols[rem]; ++pstr;
+				if(((int)(pstr - str)) == str_len){ mk_lang_unlikely return 0; } *pstr = s_symbols[rem]; ++pstr;
 				pbb3 = pbb1;
 				pbb1 = pbb2;
 				pbb2 = pbb3;
@@ -218,16 +218,16 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_flt_defd_bytes_to_st
 	}
 	else if(kind == flt_kind_e_zero)
 	{
-		if(((int)(pstr - str)) == str_len) mk_lang_unlikely return 0; *pstr = s_symbols[0]; ++pstr;
-		if(((int)(pstr - str)) == str_len) mk_lang_unlikely return 0; *pstr = s_dot; ++pstr;
-		if(((int)(pstr - str)) == str_len) mk_lang_unlikely return 0; *pstr = s_symbols[0]; ++pstr;
+		if(((int)(pstr - str)) == str_len){ mk_lang_unlikely return 0; } *pstr = s_symbols[0]; ++pstr;
+		if(((int)(pstr - str)) == str_len){ mk_lang_unlikely return 0; } *pstr = s_dot; ++pstr;
+		if(((int)(pstr - str)) == str_len){ mk_lang_unlikely return 0; } *pstr = s_symbols[0]; ++pstr;
 	}
 	else if(kind == flt_kind_e_infinity)
 	{
 		tn = ((int)(sizeof(s_inf) / sizeof(s_inf[0])));
 		for(i = 0; i != tn; ++i)
 		{
-			if(((int)(pstr - str)) == str_len) mk_lang_unlikely return 0; *pstr = s_inf[i]; ++pstr;
+			if(((int)(pstr - str)) == str_len){ mk_lang_unlikely return 0; } *pstr = s_inf[i]; ++pstr;
 		}
 	}
 	else
@@ -236,7 +236,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_sl_flt_defd_bytes_to_st
 		tn = ((int)(sizeof(s_nan) / sizeof(s_nan[0])));
 		for(i = 0; i != tn; ++i)
 		{
-			if(((int)(pstr - str)) == str_len) mk_lang_unlikely return 0; *pstr = s_nan[i]; ++pstr;
+			if(((int)(pstr - str)) == str_len){ mk_lang_unlikely return 0; } *pstr = s_nan[i]; ++pstr;
 		}
 	}
 	return ((int)(pstr - str));

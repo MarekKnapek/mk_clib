@@ -39,8 +39,8 @@ mk_lang_jumbo void mk_sl_flt_fuzz(unsigned char const* const data, mk_lang_types
 
 		d = data;
 		s = size;
-		if(s < sizeof(shrt)) return; mk_lang_memcpy(&shrt, d, sizeof(shrt)); d += sizeof(shrt); s -= sizeof(shrt);
-		if(s < sizeof(flta)) return; mk_lang_memcpy(&flta, d, sizeof(flta)); d += sizeof(flta); s -= sizeof(flta);
+		if(s < sizeof(shrt)){ return; } mk_lang_memcpy(&shrt, d, sizeof(shrt)); d += sizeof(shrt); s -= sizeof(shrt);
+		if(s < sizeof(flta)){ return; } mk_lang_memcpy(&flta, d, sizeof(flta)); d += sizeof(flta); s -= sizeof(flta);
 		shrt &= 0xffffu; tn = ((int)(shrt)); if(tn <= 0) return;
 		buff = ((char*)(malloc(tn))); if(!buff) return;
 		ti = mk_sl_flt_float_to_string_dec_basic_n(&flta, &buff[0], tn);
@@ -63,8 +63,8 @@ mk_lang_jumbo void mk_sl_flt_fuzz(unsigned char const* const data, mk_lang_types
 
 		d = data;
 		s = size;
-		if(s < sizeof(shrt)) return; mk_lang_memcpy(&shrt, d, sizeof(shrt)); d += sizeof(shrt); s -= sizeof(shrt);
-		if(s < sizeof(flta)) return; mk_lang_memcpy(&flta, d, sizeof(flta)); d += sizeof(flta); s -= sizeof(flta);
+		if(s < sizeof(shrt)){ return; } mk_lang_memcpy(&shrt, d, sizeof(shrt)); d += sizeof(shrt); s -= sizeof(shrt);
+		if(s < sizeof(flta)){ return; } mk_lang_memcpy(&flta, d, sizeof(flta)); d += sizeof(flta); s -= sizeof(flta);
 		shrt &= 0xffffu; tn = ((int)(shrt)); if(tn <= 0) return;
 		buff = ((char*)(malloc(tn))); if(!buff) return;
 		ti = mk_sl_flt_double_to_string_dec_basic_n(&flta, &buff[0], tn);

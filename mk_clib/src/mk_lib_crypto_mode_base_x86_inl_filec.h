@@ -10,13 +10,13 @@
 #include "mk_sl_uint8.h"
 
 
+#include "mk_lib_crypto_mode_base_x86_inl_defd.h"
+
+
 #if((mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (defined _MSC_FULL_VER && _MSC_FULL_VER >= mk_lang_msvc_full_ver_2008_sp_1) && (mk_lang_alignas_has && mk_lang_alignof_has))
 
 
 #include <immintrin.h> /* _mm_load_ps _mm_store_ps _mm_xor_ps */
-
-
-#include "mk_lib_crypto_mode_base_x86_inl_defd.h"
 
 
 mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_mode_base_x86_inl_defd_xor3(mk_sl_cui_uint8_pct const a, mk_sl_cui_uint8_pct const b, mk_sl_cui_uint8_pt const c) mk_lang_noexcept
@@ -55,6 +55,22 @@ mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_mode_base_x86_inl_defd_xor2(mk_
 	_mm_store_ps(((mk_lang_types_float_pt)(a)), ta);
 }
 
+#else
+
+mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_mode_base_x86_inl_defd_xor3(mk_sl_cui_uint8_pct const a, mk_sl_cui_uint8_pct const b, mk_sl_cui_uint8_pt const c) mk_lang_noexcept
+{
+	((mk_lang_types_void_t)(a));
+	((mk_lang_types_void_t)(b));
+	((mk_lang_types_void_t)(c));
+	mk_lang_assert(0);
+}
+
+mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_mode_base_x86_inl_defd_xor2(mk_sl_cui_uint8_pt const a, mk_sl_cui_uint8_pct const b) mk_lang_noexcept
+{
+	((mk_lang_types_void_t)(a));
+	((mk_lang_types_void_t)(b));
+	mk_lang_assert(0);
+}
 
 #endif
 

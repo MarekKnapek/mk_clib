@@ -17,7 +17,9 @@
 #include "mk_sl_uint64.h"
 #include "mk_sl_uint8.h"
 
+
 #if defined _MSC_VER && _MSC_VER >= mk_lang_msvc_ver_2015
+
 
 #include <emmintrin.h> /* _mm_add_epi32 _mm_load_si128 _mm_set_epi64x _mm_shuffle_epi32 _mm_store_si128 */
 #include <immintrin.h> /* _mm_sha256msg1_epu32 _mm_sha256msg2_epu32 _mm_sha256rnds2_epu32 */
@@ -347,5 +349,37 @@ mk_lang_jumbo void mk_lib_crypto_hash_block_sha2x86_base_32bit_finish(mk_lib_cry
 		mk_sl_uint_32_to_8_be(&sha2_32bit->m_state[i], &digest->m_uint8s[i * 4]);
 	}
 }
+
+
+#else
+
+
+mk_lang_jumbo void mk_lib_crypto_hash_block_sha2x86_base_32bit_init(mk_lib_crypto_hash_block_sha2x86_base_32bit_pt const sha2_32bit, mk_sl_cui_uint32_pct const iv) mk_lang_noexcept
+{
+	((void)(sha2_32bit));
+	((void)(iv));
+
+	mk_lang_assert(0);
+}
+
+mk_lang_jumbo void mk_lib_crypto_hash_block_sha2x86_base_32bit_append_blocks(mk_lib_crypto_hash_block_sha2x86_base_32bit_pt const sha2_32bit, mk_lib_crypto_hash_block_sha2x86_base_32bit_block_pct const pblocks, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
+{
+	((void)(sha2_32bit));
+	((void)(pblocks));
+	((void)(nblocks));
+
+	mk_lang_assert(0);
+}
+
+mk_lang_jumbo void mk_lib_crypto_hash_block_sha2x86_base_32bit_finish(mk_lib_crypto_hash_block_sha2x86_base_32bit_pt const sha2_32bit, mk_lib_crypto_hash_block_sha2x86_base_32bit_block_pt const block, int const idx, mk_lib_crypto_hash_block_sha2x86_base_32bit_digest_pt const digest) mk_lang_noexcept
+{
+	((void)(sha2_32bit));
+	((void)(block));
+	((void)(idx));
+	((void)(digest));
+
+	mk_lang_assert(0);
+}
+
 
 #endif
