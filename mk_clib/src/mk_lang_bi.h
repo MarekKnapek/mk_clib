@@ -7,9 +7,11 @@
 #include "mk_lang_lllong.h"
 #include "mk_lang_llong.h"
 #include "mk_lang_sizet.h"
+#include "mk_lang_wchar.h"
 
 
 #define mk_lang_bi_pchar_t char
+#define mk_lang_bi_wchar_t mk_lang_wchar_t
 #define mk_lang_bi_uchar_t unsigned char
 #define mk_lang_bi_schar_t signed char
 #define mk_lang_bi_ushort_t unsigned short int
@@ -30,6 +32,7 @@
 #define mk_lang_bi_ssize_t mk_lang_ssize_t
 
 #define mk_lang_bi_is_unsigned_pchar_t 0
+#define mk_lang_bi_is_unsigned_wchar_t 0
 #define mk_lang_bi_is_unsigned_uchar_t 1
 #define mk_lang_bi_is_unsigned_schar_t 0
 #define mk_lang_bi_is_unsigned_ushort_t 1
@@ -50,6 +53,11 @@
 #define mk_lang_bi_is_unsigned_ssize_t 0
 
 #define mk_lang_bi_to_unsigned_pchar_t mk_lang_bi_uchar_t
+#if defined __SIZEOF_WCHAR_T__ && __SIZEOF_WCHAR_T__ == 4
+#define mk_lang_bi_to_unsigned_wchar_t mk_lang_bi_uint_t
+#else
+#define mk_lang_bi_to_unsigned_wchar_t mk_lang_bi_ushort_t
+#endif
 #define mk_lang_bi_to_unsigned_uchar_t mk_lang_bi_uchar_t
 #define mk_lang_bi_to_unsigned_schar_t mk_lang_bi_uchar_t
 #define mk_lang_bi_to_unsigned_ushort_t mk_lang_bi_ushort_t
@@ -70,6 +78,11 @@
 #define mk_lang_bi_to_unsigned_ssize_t mk_lang_bi_usize_t
 
 #define mk_lang_bi_to_unsigned_prefix_pchar_t uchar
+#if defined __SIZEOF_WCHAR_T__ && __SIZEOF_WCHAR_T__ == 4
+#define mk_lang_bi_to_unsigned_prefix_wchar_t uint
+#else
+#define mk_lang_bi_to_unsigned_prefix_wchar_t ushort
+#endif
 #define mk_lang_bi_to_unsigned_prefix_uchar_t uchar
 #define mk_lang_bi_to_unsigned_prefix_schar_t uchar
 #define mk_lang_bi_to_unsigned_prefix_ushort_t ushort

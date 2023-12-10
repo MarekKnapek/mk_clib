@@ -10,6 +10,7 @@
 mk_lang_jumbo void mk_lang_alignof_test(void) mk_lang_noexcept
 {
 	mk_lang_static_assert(mk_lang_alignof_bi_pchar_t == mk_lang_alignof(mk_lang_bi_pchar_t));
+	mk_lang_static_assert(mk_lang_alignof_bi_wchar_t == mk_lang_alignof(mk_lang_bi_wchar_t));
 	mk_lang_static_assert(mk_lang_alignof_bi_uchar_t == mk_lang_alignof(mk_lang_bi_uchar_t));
 	mk_lang_static_assert(mk_lang_alignof_bi_schar_t == mk_lang_alignof(mk_lang_bi_schar_t));
 	mk_lang_static_assert(mk_lang_alignof_bi_ushort_t == mk_lang_alignof(mk_lang_bi_ushort_t));

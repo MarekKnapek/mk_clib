@@ -14,6 +14,7 @@ mk_lang_jumbo void mk_lang_bi_info_print_sizes(void) mk_lang_noexcept
 	printf("mk_lang_charbit == %d\n", ((int)(mk_lang_charbit)));
 	printf("\n");
 	printf("sizeof(mk_lang_bi_pchar_t) == %d\n", ((int)(sizeof(mk_lang_bi_pchar_t))));
+	printf("sizeof(mk_lang_bi_wchar_t) == %d\n", ((int)(sizeof(mk_lang_bi_wchar_t))));
 	printf("sizeof(mk_lang_bi_uchar_t) == %d\n", ((int)(sizeof(mk_lang_bi_uchar_t))));
 	printf("sizeof(mk_lang_bi_schar_t) == %d\n", ((int)(sizeof(mk_lang_bi_schar_t))));
 	printf("sizeof(mk_lang_bi_ushort_t) == %d\n", ((int)(sizeof(mk_lang_bi_ushort_t))));
@@ -34,6 +35,7 @@ mk_lang_jumbo void mk_lang_bi_info_print_sizes(void) mk_lang_noexcept
 	printf("sizeof(mk_lang_bi_ssize_t) == %d\n", ((int)(sizeof(mk_lang_bi_ssize_t))));
 	printf("\n");
 	printf("alignof(mk_lang_bi_pchar_t) == %d\n", ((int)(mk_lang_alignof(mk_lang_bi_pchar_t))));
+	printf("alignof(mk_lang_bi_wchar_t) == %d\n", ((int)(mk_lang_alignof(mk_lang_bi_wchar_t))));
 	printf("alignof(mk_lang_bi_uchar_t) == %d\n", ((int)(mk_lang_alignof(mk_lang_bi_uchar_t))));
 	printf("alignof(mk_lang_bi_schar_t) == %d\n", ((int)(mk_lang_alignof(mk_lang_bi_schar_t))));
 	printf("alignof(mk_lang_bi_ushort_t) == %d\n", ((int)(mk_lang_alignof(mk_lang_bi_ushort_t))));

@@ -25,6 +25,12 @@
 #define mk_lang_alignof_bi_uchar_t mk_lang_alignof_bi_pchar_t
 #define mk_lang_alignof_bi_schar_t mk_lang_alignof_bi_pchar_t
 
+#if defined __SIZEOF_WCHAR_T__
+#define mk_lang_alignof_bi_wchar_t __SIZEOF_WCHAR_T__
+#else
+#define mk_lang_alignof_bi_wchar_t 2
+#endif
+
 #define mk_lang_alignof_bi_ushort_t 2
 #define mk_lang_alignof_bi_sshort_t mk_lang_alignof_bi_ushort_t
 

@@ -10,6 +10,7 @@
 mk_lang_jumbo void mk_lang_sizeof_test(void) mk_lang_noexcept
 {
 	mk_lang_static_assert(mk_lang_sizeof_bi_pchar_t == sizeof(mk_lang_bi_pchar_t));
+	mk_lang_static_assert(mk_lang_sizeof_bi_wchar_t == sizeof(mk_lang_bi_wchar_t));
 	mk_lang_static_assert(mk_lang_sizeof_bi_uchar_t == sizeof(mk_lang_bi_uchar_t));
 	mk_lang_static_assert(mk_lang_sizeof_bi_schar_t == sizeof(mk_lang_bi_schar_t));
 	mk_lang_static_assert(mk_lang_sizeof_bi_ushort_t == sizeof(mk_lang_bi_ushort_t));
