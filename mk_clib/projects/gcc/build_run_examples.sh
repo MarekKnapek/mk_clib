@@ -53,10 +53,10 @@ example_hash sha0
 example_hash sha1
 example_hash sha2_224
 example_hash sha2_256
-example_hash sha2_384
-example_hash sha2_512
 example_hash sha2_512_224
 example_hash sha2_512_256
+example_hash sha2_384
+example_hash sha2_512
 example_hash sha3_224
 example_hash sha3_256
 example_hash sha3_384

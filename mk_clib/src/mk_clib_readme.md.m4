@@ -40,7 +40,7 @@ Hi, welcome to my library, this is place where I put all my C stuff. There is ar
  - [MD2](#md2), [MD4](#md4), [MD5](#md5)
  - [SHA-0](#sha-0), [SHA-1](#sha-1)
  - [SHA-224](#sha-224), [SHA-256](#sha-256)
- - [SHA-384](#sha-384), [SHA-512](#sha-512), [SHA-512/224](#sha-512224), [SHA-512/256](#sha-512256)
+ - [SHA-512/224](#sha-512224), [SHA-512/256](#sha-512256), [SHA-384](#sha-384), [SHA-512](#sha-512)
  - [SHA3-224](#sha3-224), [SHA3-256](#sha3-256), [SHA3-384](#sha3-384), [SHA3-512](#sha3-512)
  - [SHAKE128](#shake128), [SHAKE256](#shake256)
  - [Tiger/128](#tiger128), [Tiger/160](#tiger160), [Tiger/192](#tiger192)
@@ -111,10 +111,10 @@ mm_hash(^SHA-0~, ^sha0~, ^b40ce07a430cfd3c033039b9fe9afec95dc1bdcd~)dnl
 mm_hash(^SHA-1~, ^sha1~, ^32d10c7b8cf96570ca04ce37f2a19d84240d3a89~)dnl
 mm_hash(^SHA-224~, ^sha2_224~, ^45a5f72c39c5cff2522eb3429799e49e5f44b356ef926bcf390dccc2~)dnl
 mm_hash(^SHA-256~, ^sha2_256~, ^71c480df93d6ae2f1efad1447c66c9525e316218cf51fc8d9ed832f2daf18b73~)dnl
-mm_hash(^SHA-384~, ^sha2_384~, ^feb67349df3db6f5924815d6c3dc133f091809213731fe5c7b5f4999e463479ff2877f5f2936fa63bb43784b12f3ebb4~)dnl
-mm_hash(^SHA-512~, ^sha2_512~, ^4dbff86cc2ca1bae1e16468a05cb9881c97f1753bce3619034898faa1aabe429955a1bf8ec483d7421fe3c1646613a59ed5441fb0f321389f77f48a879c7b1f1~)dnl
 mm_hash(^SHA-512/224~, ^sha2_512_224~, ^ff83148aa07ec30655c1b40aff86141c0215fe2a54f767d3f38743d8~)dnl
 mm_hash(^SHA-512/256~, ^sha2_512_256~, ^fc3189443f9c268f626aea08a756abe7b726b05f701cb08222312ccfd6710a26~)dnl
+mm_hash(^SHA-384~, ^sha2_384~, ^feb67349df3db6f5924815d6c3dc133f091809213731fe5c7b5f4999e463479ff2877f5f2936fa63bb43784b12f3ebb4~)dnl
+mm_hash(^SHA-512~, ^sha2_512~, ^4dbff86cc2ca1bae1e16468a05cb9881c97f1753bce3619034898faa1aabe429955a1bf8ec483d7421fe3c1646613a59ed5441fb0f321389f77f48a879c7b1f1~)dnl
 mm_hash(^SHA3-224~, ^sha3_224~, ^5cdeca81e123f87cad96b9cba999f16f6d41549608d4e0f4681b8239~)dnl
 mm_hash(^SHA3-256~, ^sha3_256~, ^7cab2dc765e21b241dbc1c255ce620b29f527c6d5e7f5f843e56288f0d707521~)dnl
 mm_hash(^SHA3-384~, ^sha3_384~, ^fed399d2217aaf4c717ad0c5102c15589e1c990cc2b9a5029056a7f7485888d6ab65db2370077a5cadb53fc9280d278f~)dnl

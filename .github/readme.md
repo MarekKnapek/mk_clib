@@ -9,7 +9,7 @@ Hi, welcome to my library, this is place where I put all my C stuff. There is ar
  - [MD2](#md2), [MD4](#md4), [MD5](#md5)
  - [SHA-0](#sha-0), [SHA-1](#sha-1)
  - [SHA-224](#sha-224), [SHA-256](#sha-256)
- - [SHA-384](#sha-384), [SHA-512](#sha-512), [SHA-512/224](#sha-512224), [SHA-512/256](#sha-512256)
+ - [SHA-512/224](#sha-512224), [SHA-512/256](#sha-512256), [SHA-384](#sha-384), [SHA-512](#sha-512)
  - [SHA3-224](#sha3-224), [SHA3-256](#sha3-256), [SHA3-384](#sha3-384), [SHA3-512](#sha3-512)
  - [SHAKE128](#shake128), [SHAKE256](#shake256)
  - [Tiger/128](#tiger128), [Tiger/160](#tiger160), [Tiger/192](#tiger192)
@@ -406,84 +406,6 @@ $ ./a
 71c480df93d6ae2f1efad1447c66c9525e316218cf51fc8d9ed832f2daf18b73
 ```
 
-## SHA-384
-
-Example how to compute the SHA-384 hash.
-
-```c
-#include "mk_lib_crypto_hash_stream_sha2_384.h"
-
-#include <assert.h> /* assert */
-#include <stdio.h> /* printf sprintf */
-
-
-int main(void)
-{
-	mk_lib_crypto_hash_stream_sha2_384_t hasher;
-	mk_lib_crypto_hash_block_sha2_384_digest_t digest;
-	int i;
-	int t;
-	char str[mk_lib_crypto_hash_block_sha2_384_digest_len * 2 + 1];
-
-	mk_lib_crypto_hash_stream_sha2_384_init(&hasher);
-	mk_lib_crypto_hash_stream_sha2_384_append(&hasher, ((unsigned char const*)("abcdef")), 6);
-	mk_lib_crypto_hash_stream_sha2_384_append(&hasher, ((unsigned char const*)("ghijklmnopqrstuvw")), 17);
-	mk_lib_crypto_hash_stream_sha2_384_append(&hasher, ((unsigned char const*)("xyz")), 3);
-	mk_lib_crypto_hash_stream_sha2_384_finish(&hasher, &digest);
-	for(i = 0; i != mk_lib_crypto_hash_block_sha2_384_digest_len; ++i)
-	{
-		t = sprintf(str + 2 * i, "%02x", ((unsigned char const*)(&digest))[i]);
-		assert(t == 2);
-	}
-	t = printf("%s\n", str); /* feb67349df3db6f5924815d6c3dc133f091809213731fe5c7b5f4999e463479ff2877f5f2936fa63bb43784b12f3ebb4 */
-	assert(t == mk_lib_crypto_hash_block_sha2_384_digest_len * 2 + 1);
-}
-```
-```bash
-$ gcc -DNDEBUG example.c
-$ ./a
-feb67349df3db6f5924815d6c3dc133f091809213731fe5c7b5f4999e463479ff2877f5f2936fa63bb43784b12f3ebb4
-```
-
-## SHA-512
-
-Example how to compute the SHA-512 hash.
-
-```c
-#include "mk_lib_crypto_hash_stream_sha2_512.h"
-
-#include <assert.h> /* assert */
-#include <stdio.h> /* printf sprintf */
-
-
-int main(void)
-{
-	mk_lib_crypto_hash_stream_sha2_512_t hasher;
-	mk_lib_crypto_hash_block_sha2_512_digest_t digest;
-	int i;
-	int t;
-	char str[mk_lib_crypto_hash_block_sha2_512_digest_len * 2 + 1];
-
-	mk_lib_crypto_hash_stream_sha2_512_init(&hasher);
-	mk_lib_crypto_hash_stream_sha2_512_append(&hasher, ((unsigned char const*)("abcdef")), 6);
-	mk_lib_crypto_hash_stream_sha2_512_append(&hasher, ((unsigned char const*)("ghijklmnopqrstuvw")), 17);
-	mk_lib_crypto_hash_stream_sha2_512_append(&hasher, ((unsigned char const*)("xyz")), 3);
-	mk_lib_crypto_hash_stream_sha2_512_finish(&hasher, &digest);
-	for(i = 0; i != mk_lib_crypto_hash_block_sha2_512_digest_len; ++i)
-	{
-		t = sprintf(str + 2 * i, "%02x", ((unsigned char const*)(&digest))[i]);
-		assert(t == 2);
-	}
-	t = printf("%s\n", str); /* 4dbff86cc2ca1bae1e16468a05cb9881c97f1753bce3619034898faa1aabe429955a1bf8ec483d7421fe3c1646613a59ed5441fb0f321389f77f48a879c7b1f1 */
-	assert(t == mk_lib_crypto_hash_block_sha2_512_digest_len * 2 + 1);
-}
-```
-```bash
-$ gcc -DNDEBUG example.c
-$ ./a
-4dbff86cc2ca1bae1e16468a05cb9881c97f1753bce3619034898faa1aabe429955a1bf8ec483d7421fe3c1646613a59ed5441fb0f321389f77f48a879c7b1f1
-```
-
 ## SHA-512/224
 
 Example how to compute the SHA-512/224 hash.
@@ -560,6 +482,84 @@ int main(void)
 $ gcc -DNDEBUG example.c
 $ ./a
 fc3189443f9c268f626aea08a756abe7b726b05f701cb08222312ccfd6710a26
+```
+
+## SHA-384
+
+Example how to compute the SHA-384 hash.
+
+```c
+#include "mk_lib_crypto_hash_stream_sha2_384.h"
+
+#include <assert.h> /* assert */
+#include <stdio.h> /* printf sprintf */
+
+
+int main(void)
+{
+	mk_lib_crypto_hash_stream_sha2_384_t hasher;
+	mk_lib_crypto_hash_block_sha2_384_digest_t digest;
+	int i;
+	int t;
+	char str[mk_lib_crypto_hash_block_sha2_384_digest_len * 2 + 1];
+
+	mk_lib_crypto_hash_stream_sha2_384_init(&hasher);
+	mk_lib_crypto_hash_stream_sha2_384_append(&hasher, ((unsigned char const*)("abcdef")), 6);
+	mk_lib_crypto_hash_stream_sha2_384_append(&hasher, ((unsigned char const*)("ghijklmnopqrstuvw")), 17);
+	mk_lib_crypto_hash_stream_sha2_384_append(&hasher, ((unsigned char const*)("xyz")), 3);
+	mk_lib_crypto_hash_stream_sha2_384_finish(&hasher, &digest);
+	for(i = 0; i != mk_lib_crypto_hash_block_sha2_384_digest_len; ++i)
+	{
+		t = sprintf(str + 2 * i, "%02x", ((unsigned char const*)(&digest))[i]);
+		assert(t == 2);
+	}
+	t = printf("%s\n", str); /* feb67349df3db6f5924815d6c3dc133f091809213731fe5c7b5f4999e463479ff2877f5f2936fa63bb43784b12f3ebb4 */
+	assert(t == mk_lib_crypto_hash_block_sha2_384_digest_len * 2 + 1);
+}
+```
+```bash
+$ gcc -DNDEBUG example.c
+$ ./a
+feb67349df3db6f5924815d6c3dc133f091809213731fe5c7b5f4999e463479ff2877f5f2936fa63bb43784b12f3ebb4
+```
+
+## SHA-512
+
+Example how to compute the SHA-512 hash.
+
+```c
+#include "mk_lib_crypto_hash_stream_sha2_512.h"
+
+#include <assert.h> /* assert */
+#include <stdio.h> /* printf sprintf */
+
+
+int main(void)
+{
+	mk_lib_crypto_hash_stream_sha2_512_t hasher;
+	mk_lib_crypto_hash_block_sha2_512_digest_t digest;
+	int i;
+	int t;
+	char str[mk_lib_crypto_hash_block_sha2_512_digest_len * 2 + 1];
+
+	mk_lib_crypto_hash_stream_sha2_512_init(&hasher);
+	mk_lib_crypto_hash_stream_sha2_512_append(&hasher, ((unsigned char const*)("abcdef")), 6);
+	mk_lib_crypto_hash_stream_sha2_512_append(&hasher, ((unsigned char const*)("ghijklmnopqrstuvw")), 17);
+	mk_lib_crypto_hash_stream_sha2_512_append(&hasher, ((unsigned char const*)("xyz")), 3);
+	mk_lib_crypto_hash_stream_sha2_512_finish(&hasher, &digest);
+	for(i = 0; i != mk_lib_crypto_hash_block_sha2_512_digest_len; ++i)
+	{
+		t = sprintf(str + 2 * i, "%02x", ((unsigned char const*)(&digest))[i]);
+		assert(t == 2);
+	}
+	t = printf("%s\n", str); /* 4dbff86cc2ca1bae1e16468a05cb9881c97f1753bce3619034898faa1aabe429955a1bf8ec483d7421fe3c1646613a59ed5441fb0f321389f77f48a879c7b1f1 */
+	assert(t == mk_lib_crypto_hash_block_sha2_512_digest_len * 2 + 1);
+}
+```
+```bash
+$ gcc -DNDEBUG example.c
+$ ./a
+4dbff86cc2ca1bae1e16468a05cb9881c97f1753bce3619034898faa1aabe429955a1bf8ec483d7421fe3c1646613a59ed5441fb0f321389f77f48a879c7b1f1
 ```
 
 ## SHA3-224
