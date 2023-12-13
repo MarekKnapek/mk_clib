@@ -1,3 +1,9 @@
+
+
+
+
+
+
 #undef mk_sl_flt_defd_name
 #undef mk_sl_flt_defd_bits
 #undef mk_sl_flt_defd_fraction_bits
@@ -17,5 +23,7 @@
 #undef mk_sl_flt_defd_to_string_dec_basic_len_t
 #undef mk_sl_flt_defd_to_string_dec_basic_len_v
 #undef mk_sl_flt_defd_to_string_dec_basic_len_n
-#undef mk_sl_flt_defd_bytes_to_string_dec_basic_n
+
+#undef mk_sl_flt_defd_uchars_to_string_dec_basic_n
+#undef mk_sl_flt_defd_uint8s_to_string_dec_basic_n
 #undef mk_sl_flt_defd_to_string_dec_basic_n

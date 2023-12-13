@@ -247,6 +247,7 @@ mm_per_bui(`#undef mk_sl_cui_inl_defd_to_buis_$1_be')
 `#'undef mk_sl_cui_inl_defd_would_overflow_sub_cs
 `#'undef mk_sl_cui_inl_defd_would_overflow_sub
 `#'undef mk_sl_cui_inl_defd_would_overflow_mul
+`#'undef mk_sl_cui_inl_defd_add2_wrap_cid_cod_smol
 `#'undef mk_sl_cui_inl_defd_add3_wrap_cid_cod
 `#'undef mk_sl_cui_inl_defd_add3_wrap_cid_coe
 `#'undef mk_sl_cui_inl_defd_add3_wrap_cie_cod
@@ -263,15 +264,18 @@ mm_per_bui(`#undef mk_sl_cui_inl_defd_to_buis_$1_be')
 `#'undef mk_sl_cui_inl_defd_sub2_wrap_cid_coe
 `#'undef mk_sl_cui_inl_defd_sub2_wrap_cie_cod
 `#'undef mk_sl_cui_inl_defd_sub2_wrap_cie_coe
+`#'undef mk_sl_cui_inl_defd_mul3_wrap_lo_smol
 `#'undef mk_sl_cui_inl_defd_mul3_wrap_lo
 `#'undef mk_sl_cui_inl_defd_mul3_wrap_hi
 `#'undef mk_sl_cui_inl_defd_mul4_wrap_wi
+`#'undef mk_sl_cui_inl_defd_mul4_wrap_wi_smol
 `#'undef mk_sl_cui_inl_defd_mul2_wrap_lo
 `#'undef mk_sl_cui_inl_defd_mul2_wrap_hi
 `#'undef mk_sl_cui_inl_defd_mul2_wrap_wi
 `#'undef mk_sl_cui_inl_defd_div3_wrap
 `#'undef mk_sl_cui_inl_defd_mod3_wrap
 `#'undef mk_sl_cui_inl_defd_divmod4_wrap
+`#'undef mk_sl_cui_inl_defd_divmod4_wrap_smol
 `#'undef mk_sl_cui_inl_defd_div2_wrap
 `#'undef mk_sl_cui_inl_defd_mod2_wrap
 `#'undef mk_sl_cui_inl_defd_divmod2_wrap

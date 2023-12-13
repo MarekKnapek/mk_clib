@@ -28,6 +28,7 @@
 
 
 #undef mk_sl_flt_defd_cui_t
+#undef mk_sl_flt_defd_cui_pct
 #undef mk_sl_flt_defd_cui_to_bi_sint
 #undef mk_sl_flt_defd_cui_to_buis_uint_le
 #undef mk_sl_flt_defd_cui_from_buis_uchar_le
@@ -39,7 +40,8 @@
 #undef mk_sl_flt_defd_cui_and2
 #undef mk_sl_flt_defd_cui_shr3
 
-#undef mk_sl_flt_defd_cuiba
+#undef mk_sl_flt_defd_cuiba_name
+#undef mk_sl_flt_defd_cuiba_count
 #undef mk_sl_cui_t_name
 #undef mk_sl_cui_t_base
 #undef mk_sl_cui_t_count
@@ -48,12 +50,14 @@
 
 
 #undef mk_sl_flt_defd_cuiba_t
+#undef mk_sl_flt_defd_cuiba_pt
 #undef mk_sl_flt_defd_cuiba_from_buis_uint_le
 #undef mk_sl_flt_defd_cuiba_shl2
 #undef mk_sl_flt_defd_cuiba_shr2
 #undef mk_sl_flt_defd_cuiba_to_str_dec_n
 
-#undef mk_sl_flt_defd_cuibb
+#undef mk_sl_flt_defd_cuibb_name
+#undef mk_sl_flt_defd_cuiba_count
 #undef mk_sl_cui_t_name
 #undef mk_sl_cui_t_base
 #undef mk_sl_cui_t_count
@@ -62,6 +66,9 @@
 
 
 #undef mk_sl_flt_defd_cuibb_t
+#undef mk_sl_flt_defd_cuibb_pt
+#undef mk_sl_flt_defd_cuibb_from_bi_uint
+#undef mk_sl_flt_defd_cuibb_to_bi_uint
 #undef mk_sl_flt_defd_cuibb_from_buis_uint_le
 #undef mk_sl_flt_defd_cuibb_is_zero
 #undef mk_sl_flt_defd_cuibb_shl2
