@@ -7,6 +7,7 @@
 #include "mk_lang_noexcept.h"
 #include "mk_lang_sizeof.h"
 #include "mk_lang_static_assert.h"
+#include "mk_lang_static_param.h"
 #include "mk_lang_types.h"
 
 
@@ -20,7 +21,7 @@
 #define mk_lang_num_longdivmod_inl_defd_overlap mk_lang_concat(mk_lang_concat(mk_lang_num_longdivmod_inl_defd_name, _overlap), _fn)
 
 
-mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lang_num_longdivmod_inl_defd_get_lena(mk_lang_num_longdivmod_inl_defd_tn1_pct const a) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lang_num_longdivmod_inl_defd_get_lena(mk_lang_static_param(mk_lang_num_longdivmod_inl_defd_tn1_ct, a, mk_lang_num_longdivmod_inl_defd_lena)) mk_lang_noexcept
 {
 	mk_lang_types_sint_t lena mk_lang_constexpr_init;
 	mk_lang_types_sint_t n mk_lang_constexpr_init;
@@ -42,19 +43,19 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	return lena;
 }
 
-mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lang_num_longdivmod_inl_defd_get_lenb(mk_lang_num_longdivmod_inl_defd_tn1_pct const a) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lang_num_longdivmod_inl_defd_get_lenb(mk_lang_static_param(mk_lang_num_longdivmod_inl_defd_tn1_ct, b, mk_lang_num_longdivmod_inl_defd_lenb)) mk_lang_noexcept
 {
 	mk_lang_types_sint_t lenb mk_lang_constexpr_init;
 	mk_lang_types_sint_t n mk_lang_constexpr_init;
 	mk_lang_types_sint_t i mk_lang_constexpr_init;
 
-	mk_lang_assert(a);
+	mk_lang_assert(b);
 
 	lenb = 0;
 	n = mk_lang_num_longdivmod_inl_defd_lenb;
 	for(i = 0; i != n; ++i)
 	{
-		if(!mk_lang_num_longdivmod_inl_defd_tn1_is_zero(&a[mk_lang_num_longdivmod_inl_defd_idxa((n - 1) - i)]))
+		if(!mk_lang_num_longdivmod_inl_defd_tn1_is_zero(&b[mk_lang_num_longdivmod_inl_defd_idxa((n - 1) - i)]))
 		{
 			lenb = n - i;
 			break;
@@ -65,7 +66,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 }
 
 #if mk_lang_num_longdivmod_inl_defd_lena == 1 && mk_lang_num_longdivmod_inl_defd_lenb == 1
-mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lang_num_longdivmod_inl_defd_divmod4_1_1(mk_lang_num_longdivmod_inl_defd_tn1_pct const a, mk_lang_num_longdivmod_inl_defd_tn1_pct const b, mk_lang_num_longdivmod_inl_defd_tn1_pt const c, mk_lang_num_longdivmod_inl_defd_tn1_pt const d) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lang_num_longdivmod_inl_defd_divmod4_1_1(mk_lang_static_param(mk_lang_num_longdivmod_inl_defd_tn1_ct, a, mk_lang_num_longdivmod_inl_defd_lena), mk_lang_static_param(mk_lang_num_longdivmod_inl_defd_tn1_ct, b, mk_lang_num_longdivmod_inl_defd_lenb), mk_lang_static_param(mk_lang_num_longdivmod_inl_defd_tn1_t, c, mk_lang_num_longdivmod_inl_defd_lenc), mk_lang_static_param(mk_lang_num_longdivmod_inl_defd_tn1_t, d, mk_lang_num_longdivmod_inl_defd_lend)) mk_lang_noexcept
 {
 	mk_lang_static_assert(mk_lang_num_longdivmod_inl_defd_lena == 1);
 	mk_lang_static_assert(mk_lang_num_longdivmod_inl_defd_lenb == 1);
@@ -82,7 +83,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lang_num_longdiv
 }
 #endif
 
-mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lang_num_longdivmod_inl_defd_divmod4_0_n(mk_lang_num_longdivmod_inl_defd_tn1_pct const a, mk_lang_num_longdivmod_inl_defd_tn1_pct const b, mk_lang_num_longdivmod_inl_defd_tn1_pt const c, mk_lang_num_longdivmod_inl_defd_tn1_pt const d) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lang_num_longdivmod_inl_defd_divmod4_0_n(mk_lang_static_param(mk_lang_num_longdivmod_inl_defd_tn1_ct, a, mk_lang_num_longdivmod_inl_defd_lena), mk_lang_static_param(mk_lang_num_longdivmod_inl_defd_tn1_ct, b, mk_lang_num_longdivmod_inl_defd_lenb), mk_lang_static_param(mk_lang_num_longdivmod_inl_defd_tn1_t, c, mk_lang_num_longdivmod_inl_defd_lenc), mk_lang_static_param(mk_lang_num_longdivmod_inl_defd_tn1_t, d, mk_lang_num_longdivmod_inl_defd_lend)) mk_lang_noexcept
 {
 	mk_lang_types_sint_t n mk_lang_constexpr_init;
 	mk_lang_types_sint_t i mk_lang_constexpr_init;
@@ -112,7 +113,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lang_num_longdiv
 }
 
 #if mk_lang_num_longdivmod_inl_defd_lena >= 2 && mk_lang_num_longdivmod_inl_defd_lenb >= 2
-mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lang_num_longdivmod_inl_defd_divmod4_b_g(mk_lang_num_longdivmod_inl_defd_tn1_pct const a, mk_lang_num_longdivmod_inl_defd_tn1_pct const b, mk_lang_num_longdivmod_inl_defd_tn1_pt const c, mk_lang_num_longdivmod_inl_defd_tn1_pt const d) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lang_num_longdivmod_inl_defd_divmod4_b_g(mk_lang_static_param(mk_lang_num_longdivmod_inl_defd_tn1_ct, a, mk_lang_num_longdivmod_inl_defd_lena), mk_lang_static_param(mk_lang_num_longdivmod_inl_defd_tn1_ct, b, mk_lang_num_longdivmod_inl_defd_lenb), mk_lang_static_param(mk_lang_num_longdivmod_inl_defd_tn1_t, c, mk_lang_num_longdivmod_inl_defd_lenc), mk_lang_static_param(mk_lang_num_longdivmod_inl_defd_tn1_t, d, mk_lang_num_longdivmod_inl_defd_lend)) mk_lang_noexcept
 {
 	mk_lang_types_sint_t n mk_lang_constexpr_init;
 	mk_lang_types_sint_t i mk_lang_constexpr_init;
@@ -144,7 +145,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lang_num_longdiv
 #endif
 
 #if mk_lang_num_longdivmod_inl_defd_lena >= 2
-mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lang_num_longdivmod_inl_defd_divmod4_x_1(mk_lang_num_longdivmod_inl_defd_tn1_pct const a, mk_lang_num_longdivmod_inl_defd_tn1_pct const b, mk_lang_num_longdivmod_inl_defd_tn1_pt const c, mk_lang_num_longdivmod_inl_defd_tn1_pt const d, mk_lang_types_sint_t const lena) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lang_num_longdivmod_inl_defd_divmod4_x_1(mk_lang_static_param(mk_lang_num_longdivmod_inl_defd_tn1_ct, a, mk_lang_num_longdivmod_inl_defd_lena), mk_lang_static_param(mk_lang_num_longdivmod_inl_defd_tn1_ct, b, mk_lang_num_longdivmod_inl_defd_lenb), mk_lang_static_param(mk_lang_num_longdivmod_inl_defd_tn1_t, c, mk_lang_num_longdivmod_inl_defd_lenc), mk_lang_static_param(mk_lang_num_longdivmod_inl_defd_tn1_t, d, mk_lang_num_longdivmod_inl_defd_lend), mk_lang_types_sint_t const lena) mk_lang_noexcept
 {
 	mk_lang_types_sint_t n mk_lang_constexpr_init;
 	mk_lang_types_sint_t i mk_lang_constexpr_init;
@@ -213,7 +214,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lang_num_longdiv
 #endif
 
 #if mk_lang_num_longdivmod_inl_defd_lena >= 1 && mk_lang_num_longdivmod_inl_defd_lenb == 1
-mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lang_num_longdivmod_inl_defd_divmod4_n_1(mk_lang_num_longdivmod_inl_defd_tn1_pct const a, mk_lang_num_longdivmod_inl_defd_tn1_pct const b, mk_lang_num_longdivmod_inl_defd_tn1_pt const c, mk_lang_num_longdivmod_inl_defd_tn1_pt const d) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lang_num_longdivmod_inl_defd_divmod4_n_1(mk_lang_static_param(mk_lang_num_longdivmod_inl_defd_tn1_ct, a, mk_lang_num_longdivmod_inl_defd_lena), mk_lang_static_param(mk_lang_num_longdivmod_inl_defd_tn1_ct, b, mk_lang_num_longdivmod_inl_defd_lenb), mk_lang_static_param(mk_lang_num_longdivmod_inl_defd_tn1_t, c, mk_lang_num_longdivmod_inl_defd_lenc), mk_lang_static_param(mk_lang_num_longdivmod_inl_defd_tn1_t, d, mk_lang_num_longdivmod_inl_defd_lend)) mk_lang_noexcept
 {
 	mk_lang_types_sint_t lena mk_lang_constexpr_init;
 
@@ -241,7 +242,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lang_num_longdiv
 #endif
 
 #if mk_lang_num_longdivmod_inl_defd_lena >= 2 && mk_lang_num_longdivmod_inl_defd_lenb >= 2
-mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lang_num_longdivmod_inl_defd_divmod4_x_x(mk_lang_num_longdivmod_inl_defd_tn1_pct const a, mk_lang_num_longdivmod_inl_defd_tn1_pct const b, mk_lang_num_longdivmod_inl_defd_tn1_pt const c, mk_lang_num_longdivmod_inl_defd_tn1_pt const d, mk_lang_types_sint_t const lena, mk_lang_types_sint_t const lenb) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lang_num_longdivmod_inl_defd_divmod4_x_x(mk_lang_static_param(mk_lang_num_longdivmod_inl_defd_tn1_ct, a, mk_lang_num_longdivmod_inl_defd_lena), mk_lang_static_param(mk_lang_num_longdivmod_inl_defd_tn1_ct, b, mk_lang_num_longdivmod_inl_defd_lenb), mk_lang_static_param(mk_lang_num_longdivmod_inl_defd_tn1_t, c, mk_lang_num_longdivmod_inl_defd_lenc), mk_lang_static_param(mk_lang_num_longdivmod_inl_defd_tn1_t, d, mk_lang_num_longdivmod_inl_defd_lend), mk_lang_types_sint_t const lena, mk_lang_types_sint_t const lenb) mk_lang_noexcept
 {
 	mk_lang_types_sint_t n mk_lang_constexpr_init;
 	mk_lang_types_sint_t i mk_lang_constexpr_init;
@@ -508,7 +509,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lang_num_longdiv
 #endif
 
 #if mk_lang_num_longdivmod_inl_defd_lena >= 2 && mk_lang_num_longdivmod_inl_defd_lenb >= 2
-mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lang_num_longdivmod_inl_defd_divmod4_n_n(mk_lang_num_longdivmod_inl_defd_tn1_pct const a, mk_lang_num_longdivmod_inl_defd_tn1_pct const b, mk_lang_num_longdivmod_inl_defd_tn1_pt const c, mk_lang_num_longdivmod_inl_defd_tn1_pt const d) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lang_num_longdivmod_inl_defd_divmod4_n_n(mk_lang_static_param(mk_lang_num_longdivmod_inl_defd_tn1_ct, a, mk_lang_num_longdivmod_inl_defd_lena), mk_lang_static_param(mk_lang_num_longdivmod_inl_defd_tn1_ct, b, mk_lang_num_longdivmod_inl_defd_lenb), mk_lang_static_param(mk_lang_num_longdivmod_inl_defd_tn1_t, c, mk_lang_num_longdivmod_inl_defd_lenc), mk_lang_static_param(mk_lang_num_longdivmod_inl_defd_tn1_t, d, mk_lang_num_longdivmod_inl_defd_lend)) mk_lang_noexcept
 {
 	mk_lang_types_sint_t lena mk_lang_constexpr_init;
 	mk_lang_types_sint_t lenb mk_lang_constexpr_init;
@@ -549,7 +550,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lang_num_longdiv
 #endif
 
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lang_num_longdivmod_inl_defd_divmod4(mk_lang_num_longdivmod_inl_defd_tn1_pct const a, mk_lang_num_longdivmod_inl_defd_tn1_pct const b, mk_lang_num_longdivmod_inl_defd_tn1_pt const c, mk_lang_num_longdivmod_inl_defd_tn1_pt const d) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lang_num_longdivmod_inl_defd_divmod4(mk_lang_static_param(mk_lang_num_longdivmod_inl_defd_tn1_ct, a, mk_lang_num_longdivmod_inl_defd_lena), mk_lang_static_param(mk_lang_num_longdivmod_inl_defd_tn1_ct, b, mk_lang_num_longdivmod_inl_defd_lenb), mk_lang_static_param(mk_lang_num_longdivmod_inl_defd_tn1_t, c, mk_lang_num_longdivmod_inl_defd_lenc), mk_lang_static_param(mk_lang_num_longdivmod_inl_defd_tn1_t, d, mk_lang_num_longdivmod_inl_defd_lend)) mk_lang_noexcept
 {
 	mk_lang_static_assert(mk_lang_num_longdivmod_inl_defd_lena >= 1);
 	mk_lang_static_assert(mk_lang_num_longdivmod_inl_defd_lenb >= 1);
