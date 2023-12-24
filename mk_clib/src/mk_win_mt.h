@@ -3,6 +3,8 @@
 
 
 #include "mk_lang_noreturn.h"
+#include "mk_sl_uint64.h"
+#include "mk_win_kernel_files.h"
 
 
 enum mk_win_kernel_logical_processor_relationship_e
@@ -154,6 +156,33 @@ typedef mk_win_kernel_by_handle_file_information_t mk_win_base_far const* mk_lan
 typedef mk_win_kernel_by_handle_file_information_t mk_win_base_near* mk_lang_restrict mk_win_kernel_by_handle_file_information_nprt;
 typedef mk_win_kernel_by_handle_file_information_t mk_win_base_near const* mk_lang_restrict mk_win_kernel_by_handle_file_information_nprct;
 
+enum mk_win_mt_stream_info_levels_e
+{
+	mk_win_mt_stream_info_levels_e_findstreaminfostandard = 0,
+	mk_win_mt_stream_info_levels_e_dummy_end
+};
+typedef enum mk_win_mt_stream_info_levels_e mk_win_mt_stream_info_levels_t;
+
+struct mk_win_mt_find_stream_data_s
+{
+	mk_sl_cui_uint64_t m_stream_size;
+	mk_win_base_wchar_t m_stream_name[s_mk_win_kernel_files_max_path + 36];
+};
+typedef struct mk_win_mt_find_stream_data_s mk_win_mt_find_stream_data_t;
+typedef mk_win_mt_find_stream_data_t const mk_win_mt_find_stream_data_ct;
+typedef mk_win_mt_find_stream_data_t* mk_win_mt_find_stream_data_pt;
+typedef mk_win_mt_find_stream_data_t const* mk_win_mt_find_stream_data_pct;
+typedef mk_win_mt_find_stream_data_t mk_win_base_far* mk_win_mt_find_stream_data_lpt;
+typedef mk_win_mt_find_stream_data_t mk_win_base_far const* mk_win_mt_find_stream_data_lpct;
+typedef mk_win_mt_find_stream_data_t mk_win_base_near* mk_win_mt_find_stream_data_npt;
+typedef mk_win_mt_find_stream_data_t mk_win_base_near const* mk_win_mt_find_stream_data_npct;
+typedef mk_win_mt_find_stream_data_t* mk_lang_restrict mk_win_mt_find_stream_data_prt;
+typedef mk_win_mt_find_stream_data_t const* mk_lang_restrict mk_win_mt_find_stream_data_prct;
+typedef mk_win_mt_find_stream_data_t mk_win_base_far* mk_lang_restrict mk_win_mt_find_stream_data_lprt;
+typedef mk_win_mt_find_stream_data_t mk_win_base_far const* mk_lang_restrict mk_win_mt_find_stream_data_lprct;
+typedef mk_win_mt_find_stream_data_t mk_win_base_near* mk_lang_restrict mk_win_mt_find_stream_data_nprt;
+typedef mk_win_mt_find_stream_data_t mk_win_base_near const* mk_lang_restrict mk_win_mt_find_stream_data_nprct;
+
 
 mk_lang_nodiscard mk_lang_extern_c mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall GetLogicalProcessorInformationEx(mk_win_base_dword_t const relationship_type, mk_win_kernel_system_logical_processor_information_ex_pt const buffer, mk_win_base_dword_pt const len) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_extern_c mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall SetThreadIdealProcessorEx(mk_win_base_handle_t const thread, mk_win_kernel_processor_number_pct const ideal_processor, mk_win_kernel_processor_number_pct const previous_ideal_processor) mk_lang_noexcept;
@@ -163,6 +192,8 @@ mk_lang_nodiscard mk_lang_extern_c mk_win_base_dll_import mk_win_base_bool_t mk_
 mk_lang_extern_c mk_win_base_dll_import mk_lang_noreturn mk_win_base_void_t mk_win_base_stdcall ExitProcess(mk_win_base_uint_t const exit_code) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_extern_c mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall GetFileInformationByHandle(mk_win_base_handle_t const file, mk_win_kernel_by_handle_file_information_lpt const information) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_extern_c mk_win_base_dll_import mk_win_base_dword_t mk_win_base_stdcall GetFinalPathNameByHandleW(mk_win_base_handle_t const file, mk_win_base_wchar_lpt const path, mk_win_base_dword_t const len, mk_win_base_dword_t const flags) mk_lang_noexcept; /* since vista and 2k8 */
+mk_lang_nodiscard mk_lang_extern_c mk_win_base_dll_import mk_win_base_handle_t mk_win_base_stdcall FindFirstStreamW(mk_win_base_wchar_lpct const path, mk_win_mt_stream_info_levels_t const levels, mk_win_base_void_lpt const data, mk_win_base_dword_t const flags) mk_lang_noexcept; /* since 2k3 maybe? */
+mk_lang_nodiscard mk_lang_extern_c mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall FindNextStreamW(mk_win_base_handle_t const find, mk_win_base_void_lpt const data) mk_lang_noexcept; /* since 2k3 maybe? */
 
 
 #endif

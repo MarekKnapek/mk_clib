@@ -88,12 +88,18 @@
 #include "mk_lang_memcpy_inl_fileh.h"
 #include "mk_lang_memcpy_inl_filec.h"
 
+#define mk_lang_memcmp_t_name memcmpw
+#define mk_lang_memcmp_t_base mk_win_base_wchar
+#include "mk_lang_memcmp_inl_fileh.h"
+#include "mk_lang_memcmp_inl_filec.h"
+
 struct fff_s
 {
 	mk_lang_types_ushort_t m_path_len;
 	mk_win_base_handle_t m_file;
-	mk_lang_types_bool_t m_is_dir;
 	mk_win_base_handle_t m_fff;
+	mk_lang_types_bool_t m_is_dir;
+	mk_lang_types_bool_t m_is_stream;
 	mk_lang_types_ushort_t m_sub_len;
 	mk_win_base_wchar_t m_sub_buf[s_mk_win_kernel_files_max_path];
 };
@@ -695,14 +701,115 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkdefrag_rw_file_ge
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkdefrag_rw_add_stream(mkdefrag_pt const mkdefrag, fff_pct const curr, mk_win_mt_find_stream_data_pct const data) mk_lang_noexcept
+{
+	mk_lang_constexpr_static mk_lang_types_wchar_t const s_main_stream_name[] = L"::$DATA";
+
+	mk_lang_types_sint_t len;
+	mk_lang_exception_t ex;
+	fff_pt next;
+
+	mk_lang_assert(mkdefrag);
+	mk_lang_assert(curr);
+	mk_lang_assert(data);
+
+	if(!memcmpw_fn(&data->m_stream_name[0], &s_main_stream_name[0], mk_lang_countof(s_main_stream_name)))
+	{
+		len = wstrlensi(&data->m_stream_name[0]);
+		if(curr->m_sub_len + len <= mk_lang_countof(curr->m_sub_buf))
+		{
+			mk_lang_exception_make_none(&ex);
+			mk_sl_vector_fff_rw_reserve_one(&mkdefrag->m_fffs, &ex); mk_lang_check_return(!mk_lang_exception_is(&ex));
+			mk_sl_vector_fff_rw_push_back_from_capacity_one(&mkdefrag->m_fffs);
+			next = mk_sl_vector_fff_rw_get_data_back(&mkdefrag->m_fffs); mk_lang_assert(next);
+			next->m_path_len = curr->m_path_len;
+			next->m_file.m_data = mk_win_base_handle_invalid;
+			next->m_fff.m_data = mk_win_base_handle_invalid;
+			next->m_is_stream = mk_lang_true;
+			next->m_sub_len = curr->m_sub_len + len;
+			memcpyw_fn(&next->m_sub_buf[0], &curr->m_sub_buf[0], curr->m_sub_len);
+			memcpyw_fn(&next->m_sub_buf[curr->m_sub_len], &data->m_stream_name[0], len);
+		}
+	}
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkdefrag_rw_enumerate_streams_and_pop_back(mkdefrag_pt const mkdefrag) mk_lang_noexcept
+{
+	fff_t curr;
+	mk_win_base_handle_t find;
+	mk_win_mt_find_stream_data_t data;
+	mk_lang_types_sint_t err;
+	mk_win_base_bool_t b;
+	mk_win_base_dword_t gle;
+	mk_lang_types_sint_t tsi;
+	mk_lang_types_pchar_t msg[80];
+
+	mk_lang_assert(mkdefrag);
+
+	curr = *mk_sl_vector_fff_ro_get_data_back(&mkdefrag->m_fffs);
+	mk_sl_vector_fff_rw_pop_back_one(&mkdefrag->m_fffs);
+	if(!curr.m_is_stream)
+	{
+		find = FindFirstStreamW(&mkdefrag->m_str[0], mk_win_mt_stream_info_levels_e_findstreaminfostandard, &data, 0);
+		if(find.m_data != mk_win_base_handle_invalid)
+		{
+			err = mkdefrag_rw_add_stream(mkdefrag, &curr, &data); mk_lang_check_rereturn(err);
+			for(;;)
+			{
+				b = FindNextStreamW(find, &data);
+				if(b != 0)
+				{
+					err = mkdefrag_rw_add_stream(mkdefrag, &curr, &data); mk_lang_check_rereturn(err);
+				}
+				else
+				{
+					gle = mk_win_kernel_errors_get_last();
+					if(gle == mk_win_kernel_errors_id_e_handle_eof)
+					{
+						break;
+					}
+					else
+					{
+						tsi = mk_lib_fmt_snprintf(&msg[0], mk_lang_countof(msg), "Could not get next stream info. Error: %u 0x%x\x0d\x0a", &gle, &gle); mk_lang_assert(tsi >= 1 && tsi <= mk_lang_countstr(msg));
+						err = write_ascii(&msg[0], tsi); mk_lang_check_rereturn(err);
+						break;
+					}
+				}
+			}
+			b = mk_win_kernel_files_find_close(find); mk_lang_check_return(b != 0);
+		}
+		else
+		{
+			gle = mk_win_kernel_errors_get_last();
+			if(gle == mk_win_kernel_errors_id_e_handle_eof)
+			{
+				/* no streams can be found */
+			}
+			else if(gle == mk_win_kernel_errors_id_e_invalid_parameter)
+			{
+				/* filesystem does not support streams */
+			}
+			else
+			{
+				tsi = mk_lib_fmt_snprintf(&msg[0], mk_lang_countof(msg), "Could not get stream info. Error: %u 0x%x\x0d\x0a", &gle, &gle); mk_lang_assert(tsi >= 1 && tsi <= mk_lang_countstr(msg));
+				err = write_ascii(&msg[0], tsi); mk_lang_check_rereturn(err);
+			}
+		}
+	}
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkdefrag_rw_process_file(mkdefrag_pt const mkdefrag) mk_lang_noexcept
 {
-	mk_lang_types_sint_t fragments;
 	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t fragments;
 	mk_win_base_ullong_t vclusters;
 	mk_lang_types_sint_t align;
 	mk_win_base_ullong_t position;
 	mk_win_base_bool_t b;
+
+	mk_lang_assert(mkdefrag);
 
 	fragments = 0;
 	err = mkdefrag_rw_file_get_details(mkdefrag, &vclusters, &fragments, &align); mk_lang_check_rereturn(err);
@@ -727,7 +834,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkdefrag_rw_process
 		}
 	}
 	b = mk_win_kernel_handle_close_handle(mk_sl_vector_fff_ro_get_data_back(&mkdefrag->m_fffs)->m_file); mk_lang_check_return(b != 0);
-	mk_sl_vector_fff_rw_pop_back_one(&mkdefrag->m_fffs);
+	err = mkdefrag_rw_enumerate_streams_and_pop_back(mkdefrag); mk_lang_check_rereturn(err);
 	err = write_ascii(&s_crlf_ascii[0], mk_lang_countof(s_crlf_ascii)); mk_lang_check_rereturn(err);
 	return 0;
 }
@@ -772,6 +879,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkdefrag_rw_append_
 			next->m_path_len = tsi;
 			next->m_file.m_data = mk_win_base_handle_invalid;
 			next->m_fff.m_data = mk_win_base_handle_invalid;
+			next->m_is_stream = mk_lang_false;
 			next->m_sub_len = len;
 			memcpyw_fn(&next->m_sub_buf[0], &fd->m_name[0], len);
 		}
@@ -890,6 +998,27 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkdefrag_rw_drive_l
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkdefrag_ro_print_stream(mkdefrag_pt const mkdefrag) mk_lang_noexcept
+{
+	fff_pt curr;
+	mk_lang_types_sint_t slash_adjust;
+	mk_lang_types_sint_t len;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(mkdefrag);
+
+	curr = mk_sl_vector_fff_rw_get_data_back(&mkdefrag->m_fffs); mk_lang_assert(curr);
+	if(curr->m_is_stream)
+	{
+		if(mkdefrag->m_str[curr->m_path_len - 1] != L'\\' && mkdefrag->m_str[curr->m_path_len - 1] != L'/'){ slash_adjust = 0; }else{ slash_adjust = -1; }
+		len = curr->m_path_len + slash_adjust + (curr->m_sub_len != 0 ? 1 : 0) + curr->m_sub_len;
+		mkdefrag->m_str[len + 0] = s_crlf_utf16[0];
+		mkdefrag->m_str[len + 1] = s_crlf_utf16[1];
+		err = write_path_utf16(mkdefrag->m_str, len + mk_lang_countof(s_crlf_utf16)); mk_lang_check_rereturn(err);
+	}
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkdefrag_rw_open_file(mkdefrag_pt const mkdefrag) mk_lang_noexcept
 {
 	fff_pt curr;
@@ -911,6 +1040,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkdefrag_rw_open_fi
 	mkdefrag->m_str[curr->m_path_len + slash_adjust + 0] = L'\\';
 	memcpyw_fn(&mkdefrag->m_str[curr->m_path_len + slash_adjust + 1], &curr->m_sub_buf[0], curr->m_sub_len);
 	len = curr->m_path_len + slash_adjust + (curr->m_sub_len != 0 ? 1 : 0) + curr->m_sub_len;
+	err = mkdefrag_ro_print_stream(mkdefrag); mk_lang_check_rereturn(err);
 	mkdefrag->m_str[len + 0] = L'\0';
 	err = mkdefrag_rw_drive_letter_adjust(mkdefrag); mk_lang_check_rereturn(err);
 	curr->m_file = mk_win_kernel_files_w_create_file(mkdefrag->m_str, mk_win_advapi_base_right_specific_file_e_read_attributes, mk_win_kernel_files_share_e_read | mk_win_kernel_files_share_e_write | mk_win_kernel_files_share_e_delete, mk_win_base_null, mk_win_kernel_files_create_e_open_existing, mk_win_kernel_files_flag_e_backup_semantics, mk_win_base_handle_null_g);
@@ -1062,6 +1192,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkdefrag_rw_append_
 	fff->m_path_len = mkdefrag->m_len;
 	fff->m_file.m_data = mk_win_base_handle_invalid;
 	fff->m_fff.m_data = mk_win_base_handle_invalid;
+	fff->m_is_stream = mk_lang_false;
 	fff->m_sub_len = 0;
 	return 0;
 }
