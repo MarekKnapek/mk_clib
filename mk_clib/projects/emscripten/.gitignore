@@ -1,3 +1,5 @@
+/float_analyzer.cpp
+/float_analyzer.wasm
 /mkcc.cpp
 /mkcc.wasm
 /mkch.wasm
