@@ -1,6 +1,6 @@
 # mk_clib
 
-Hi, welcome to my library, this is place where I put all my C stuff. There is arbitrary length unsigned integer arithmetic. Cryptographic hashes such as MD, SHA, Tiger, BLAKE, Whirlpool, Streebog, [available on-line](https://marekknapek.github.io/hash/). Encryption algorithms such as AES, Serpent, [available on-line](https://marekknapek.github.io/crypt/). Everything could be computed at constexpr time if compiled with C++ 14 or newer compiler.
+Hi, welcome to my library, this is place where I put all my C stuff. There is arbitrary length unsigned integer arithmetic. Cryptographic hashes such as MD, SHA, Tiger, BLAKE, Whirlpool, Streebog, [available on-line](https://marekknapek.github.io/hash/). Encryption algorithms such as AES, Serpent, [available on-line](https://marekknapek.github.io/crypt/). [Float Analyzer](https://marekknapek.github.io/float/). Everything could be computed at constexpr time if compiled with C++ 14 or newer compiler.
 
  - [bui](#bui)
  - [cui](#cui)
@@ -123,7 +123,7 @@ $ ./a 42
 
 ## flt
 
-This program prints contents of a floating point variable (assumed to be in ieee754 binary32 or binary64 format) using "basic" format. Basic format means non-scientific format. It prints all the decimal digits that could be extracted from the floating point representation, even if they are not necessary to round-trip the number back. It uses integer math from the `cui` library, no floating point math is performed.
+This program prints contents of a floating point variable (assumed to be in ieee754 binary32 or binary64 format) using "basic" format. Basic format means non-scientific format. It prints all the decimal digits that could be extracted from the floating point representation, even if they are not necessary to round-trip the number back. It uses integer math from the `cui` library, no floating point math is performed. There is also [Float Analyzer](https://marekknapek.github.io/float/) on-line.
 
 ```bash
 $ git clone https://github.com/MarekKnapek/mk_clib.git
