@@ -25,6 +25,7 @@ typedef mk_sl_cui_inl_defd_t const* mk_lang_restrict mk_sl_cui_inl_defd_prct;
 enum mk_sl_cui_inl_defd_sizebits_e{ mk_sl_cui_inl_defd_sizebits_v = mk_sl_cui_inl_defd_sizebits_d };
 typedef enum mk_sl_cui_inl_defd_sizebits_e mk_sl_cui_inl_defd_sizebits_t;
 
+enum mk_sl_cui_inl_defd_strlenbin_e{ mk_sl_cui_inl_defd_strlenbin_v = mk_sl_cui_inl_defd_strlenbin_d }; typedef enum mk_sl_cui_inl_defd_strlenbin_e mk_sl_cui_inl_defd_strlenbin_t;
 enum mk_sl_cui_inl_defd_strlendec_e{ mk_sl_cui_inl_defd_strlendec_v = mk_sl_cui_inl_defd_strlendec_d }; typedef enum mk_sl_cui_inl_defd_strlendec_e mk_sl_cui_inl_defd_strlendec_t;
 enum mk_sl_cui_inl_defd_strlenhex_e{ mk_sl_cui_inl_defd_strlenhex_v = mk_sl_cui_inl_defd_strlenhex_d }; typedef enum mk_sl_cui_inl_defd_strlenhex_e mk_sl_cui_inl_defd_strlenhex_t;
 
@@ -125,6 +126,9 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_inl_defd_divmod2_
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_to_str_dec_n(mk_sl_cui_inl_defd_pct const x, mk_lang_types_pchar_pt const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_from_str_dec_n(mk_sl_cui_inl_defd_pt const x, mk_lang_types_pchar_pct const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_to_str_hex_n(mk_sl_cui_inl_defd_pct const x, mk_lang_types_pchar_pt const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_to_str_hexf_n(mk_sl_cui_inl_defd_pct const x, mk_lang_types_pchar_pt const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_to_str_bin_n(mk_sl_cui_inl_defd_pct const x, mk_lang_types_pchar_pt const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_to_str_binf_n(mk_sl_cui_inl_defd_pct const x, mk_lang_types_pchar_pt const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept;
 
 
 #include "mk_sl_cui_inl_defu.h"

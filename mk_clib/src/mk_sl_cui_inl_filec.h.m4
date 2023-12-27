@@ -3840,6 +3840,8 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui
 	mk_lang_types_uchar_t tuc_hi mk_lang_constexpr_init;
 	mk_lang_types_sint_t ret mk_lang_constexpr_init;
 
+	mk_lang_static_assert(mk_lang_charbit % 2 == 0);
+
 	mk_lang_assert(x);
 	mk_lang_assert(str || str_len == 0);
 	mk_lang_assert(str_len >= 0);
@@ -3850,7 +3852,8 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui
 	for(;;)
 	{
 		mk_sl_cui_inl_defd_to_bi_uchar(&xx, &tuc);
-		mk_sl_cui_inl_defd_shr2(&xx, mk_lang_charbit);
+		mk_sl_cui_inl_defd_shr2(&xx, mk_lang_charbit / 2);
+		mk_sl_cui_inl_defd_shr2(&xx, mk_lang_charbit / 2);
 		zero = mk_sl_cui_inl_defd_is_zero(&xx);
 		tuc_lo = (tuc >> 0) & 0xf;
 		if(rem == 0){ return 0; } --rem; /* todo return negative? */
@@ -3867,6 +3870,105 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui
 		mk_sl_cui_inl_filec_memmove_fn(&str[0], &str[str_len - ret], ret);
 	}
 	return ret;
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_to_str_hexf_n(mk_sl_cui_inl_defd_pct const x, mk_lang_types_pchar_pt const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_lang_constexpr_static mk_lang_types_pchar_t const s_symbols[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+
+	mk_sl_cui_inl_defd_t xx mk_lang_constexpr_init;
+	mk_lang_types_pchar_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t n mk_lang_constexpr_init;
+	mk_lang_types_sint_t i mk_lang_constexpr_init;
+	mk_lang_types_uchar_t tuc mk_lang_constexpr_init;
+	mk_lang_types_uchar_t tuc_lo mk_lang_constexpr_init;
+	mk_lang_types_uchar_t tuc_hi mk_lang_constexpr_init;
+
+	mk_lang_static_assert(mk_sl_cui_inl_defd_strlenhex_v % 2 == 0);
+	mk_lang_static_assert(mk_lang_charbit % 2 == 0);
+
+	mk_lang_assert(x);
+	mk_lang_assert(str || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	if(!(str_len >= mk_sl_cui_inl_defd_strlenhex_v)){ return 0; } /* todo return negative? */
+	xx = *x;
+	ptr = &str[mk_sl_cui_inl_defd_strlenhex_v - 1];
+	n = mk_sl_cui_inl_defd_strlenhex_v / 2;
+	for(i = 0; i != n; ++i)
+	{
+		mk_sl_cui_inl_defd_to_bi_uchar(&xx, &tuc);
+		mk_sl_cui_inl_defd_shr2(&xx, mk_lang_charbit / 2);
+		mk_sl_cui_inl_defd_shr2(&xx, mk_lang_charbit / 2);
+		tuc_lo = (tuc >> 0) & 0xf;
+		tuc_hi = (tuc >> 4) & 0xf;
+		ptr[0] = s_symbols[tuc_lo]; --ptr;
+		ptr[0] = s_symbols[tuc_hi]; --ptr;
+	}
+	return mk_sl_cui_inl_defd_strlenhex_v;
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_to_str_bin_n(mk_sl_cui_inl_defd_pct const x, mk_lang_types_pchar_pt const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_lang_constexpr_static mk_lang_types_pchar_t const s_symbols[] = {'0', '1'};
+
+	mk_sl_cui_inl_defd_t xx mk_lang_constexpr_init;
+	mk_lang_types_pchar_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_bool_t lsb mk_lang_constexpr_init;
+	mk_lang_types_sint_t ret mk_lang_constexpr_init;
+
+	mk_lang_assert(x);
+	mk_lang_assert(str || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	xx = *x;
+	ptr = &str[str_len - 1];
+	rem = str_len;
+	for(;;)
+	{
+		if(rem == 0){ return 0; } --rem; /* todo return negative? */
+		lsb = mk_sl_cui_inl_defd_has_lsb(&xx);
+		ptr[0] = s_symbols[lsb ? 1 : 0]; --ptr;
+		mk_sl_cui_inl_defd_shr2(&xx, 1);
+		if(mk_sl_cui_inl_defd_is_zero(&xx))
+		{
+			break;
+		}
+	}
+	ret = str_len - rem;
+	if(ret != str_len)
+	{
+		mk_sl_cui_inl_filec_memmove_fn(&str[0], &str[str_len - ret], ret);
+	}
+	return ret;
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_to_str_binf_n(mk_sl_cui_inl_defd_pct const x, mk_lang_types_pchar_pt const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_lang_constexpr_static mk_lang_types_pchar_t const s_symbols[] = {'0', '1'};
+
+	mk_sl_cui_inl_defd_t xx mk_lang_constexpr_init;
+	mk_lang_types_pchar_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t n mk_lang_constexpr_init;
+	mk_lang_types_sint_t i mk_lang_constexpr_init;
+	mk_lang_types_bool_t lsb mk_lang_constexpr_init;
+
+	mk_lang_assert(x);
+	mk_lang_assert(str || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	if(!(str_len >= mk_sl_cui_inl_defd_strlenbin_v)){ return 0; } /* todo return negative? */
+	xx = *x;
+	ptr = &str[mk_sl_cui_inl_defd_strlenbin_v - 1];
+	n = mk_sl_cui_inl_defd_strlenbin_v;
+	for(i = 0; i != n; ++i)
+	{
+		lsb = mk_sl_cui_inl_defd_has_lsb(&xx);
+		ptr[0] = s_symbols[lsb ? 1 : 0]; --ptr;
+		mk_sl_cui_inl_defd_shr2(&xx, 1);
+	}
+	return mk_sl_cui_inl_defd_strlenbin_v;
 }
 
 #undef mk_sl_cui_inl_defd_t1_sizebits_d
