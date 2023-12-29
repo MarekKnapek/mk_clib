@@ -1,3 +1,5 @@
+/double_analyzer.cpp
+/double_analyzer.wasm
 /float_analyzer.cpp
 /float_analyzer.wasm
 /mkcc.cpp
