@@ -30,6 +30,8 @@
 
 #if defined __SIZEOF_LONG__
 #define mk_lang_sizeof_bi_ulong_t __SIZEOF_LONG__
+#elif defined __TINYC__ && defined LONG_SIZE
+#define mk_lang_sizeof_bi_ulong_t LONG_SIZE
 #else
 #define mk_lang_sizeof_bi_ulong_t 4
 #endif

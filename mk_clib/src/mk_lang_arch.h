@@ -29,11 +29,15 @@
 #define mk_lang_arch mk_lang_arch_ia64
 #elif (defined _MSC_VER && (defined _M_X64 || defined _M_AMD64))
 #define mk_lang_arch mk_lang_arch_x8664
+#elif defined __TINYC__  && defined __SIZEOF_POINTER__ && __SIZEOF_POINTER__ == 8
+#define mk_lang_arch mk_lang_arch_x8664
 #elif defined __amd64__
 #define mk_lang_arch mk_lang_arch_x8664
 #elif defined _MSC_VER && defined _M_IX86 && (!defined _M_I86 && !defined M_I86)
 #define mk_lang_arch mk_lang_arch_x8632
 #elif (defined __WATCOMC__ || defined __WATCOM_CPLUSPLUS__) && (defined __386__ || defined _M_I386 || defined M_I386)
+#define mk_lang_arch mk_lang_arch_x8632
+#elif defined __TINYC__  && defined __SIZEOF_POINTER__ && __SIZEOF_POINTER__ == 4
 #define mk_lang_arch mk_lang_arch_x8632
 #elif defined __i386__
 #define mk_lang_arch mk_lang_arch_x8632
