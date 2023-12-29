@@ -1,6 +1,7 @@
 #include "mk_clib_app_float_analyzer.h"
 
 #include "mk_lang_assert.h"
+#include "mk_lang_check.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
@@ -21,6 +22,7 @@ mk_lang_jumbo mk_lang_types_sint_t mk_clib_app_float_analyzer(mk_lang_types_sint
 	{
 		mk_lang_assert(argv[i]);
 	}
+	mk_lang_check_return(n == 1);
 	mk_lib_float_analyzer_analyze(&analyzer);
 	return 0;
 }
