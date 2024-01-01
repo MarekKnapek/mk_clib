@@ -1,26 +1,26 @@
 pushd ../../src > /dev/null
 gcc -DNDEBUG ./mk_lang_bui_example.c
-./a
+./a.out
 echo $?
-rm ./a
+rm ./a.out
 popd > /dev/null
 
 pushd ../../src > /dev/null
 gcc -DNDEBUG ./mk_sl_cui_example.c
-./a
-rm ./a
+./a.out
+rm ./a.out
 popd > /dev/null
 
 pushd ../../app > /dev/null
 gcc -DNDEBUG -O2 ./mkcfct.c
-./a 42
-rm ./a
+./a.out 42
+rm ./a.out
 popd > /dev/null
 
 pushd ../../app > /dev/null
 gcc -DNDEBUG ./mkcflt.c
-./a -123.456
-rm ./a
+./a.out -123.456
+rm ./a.out
 popd > /dev/null
 
 pushd ../../src > /dev/null
@@ -30,10 +30,10 @@ function example_hash()
 	echo "changequote(\`^', \`~')include(mk_lib_crypto_hash_stream_example.c.m)mm_hash_program(^~, ^$1~, ^~)" > ./example.m4
 	m4 ./example.m4 > ./example.c
 	gcc -DNDEBUG ./example.c
-	./a
+	./a.out
 	rm ./example.m4
 	rm ./example.c
-	rm ./a
+	rm ./a.out
 }
 function example_xof()
 {
@@ -41,10 +41,10 @@ function example_xof()
 	echo "changequote(\`^', \`~')include(mk_lib_crypto_xof_stream_example.c.m)mm_xof_program(^~, ^$1~, ^~)" > ./example.m4
 	m4 ./example.m4 > ./example.c
 	gcc -DNDEBUG ./example.c
-	./a
+	./a.out
 	rm ./example.m4
 	rm ./example.c
-	rm ./a
+	rm ./a.out
 }
 example_hash md2
 example_hash md4
