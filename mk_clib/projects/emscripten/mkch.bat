@@ -1,11 +1,16 @@
-emcc ^
+copy /y mkch.c mkch.cpp
+call em++.bat ^
+-std=c++20 ^
 -DNDEBUG ^
 -O3 ^
 -g0 ^
+-flto ^
 -fno-rtti ^
 -fno-exceptions ^
 --no-entry ^
--flto ^
+-Wall ^
+-Wextra ^
+-Wpedantic ^
 -sASSERTIONS=0 ^
 -sSTACK_OVERFLOW_CHECK=0 ^
 -sCHECK_NULL_WRITES=0 ^
@@ -31,11 +36,6 @@ emcc ^
 -sSUPPORT_ERRNO=0 ^
 -sSUPPORT_LONGJMP=0 ^
 -sDEFAULT_TO_CXX=0 ^
-mkch.c ^
+mkch.cpp ^
 -o ^
 mkch.wasm
-
-REM -sEXIT_RUNTIME=0 ^
-REM -sMEMORY_GROWTH_GEOMETRIC_CAP=2MB ^
-REM -sMEMORY_GROWTH_LINEAR_STEP=16MB ^
-REM -sGLOBAL_BASE=1024 ^

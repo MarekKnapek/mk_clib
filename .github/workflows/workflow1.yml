@@ -47,6 +47,23 @@
         "with":
           "name": "${{matrix.proj}}-cpp${{matrix.cver}}.txt"
           "path": "./mk_clib/app/${{matrix.proj}}-cpp${{matrix.cver}}.txt"
+  "build_wasm":
+    "strategy":
+      "matrix":
+        "proj": ["mkch", "mkcc", "float_analyzer", "double_analyzer"]
+    "runs-on": "ubuntu-latest"
+    "defaults":
+      "run":
+        "working-directory": "./mk_clib/projects/emscripten"
+    "steps":
+      - "uses": mymindstorm/setup-emsdk@v13
+      - "uses": "actions/checkout@main"
+      - "run": "bash ./../gcc/build_m4.sh"
+      - "run": "bash ./${{matrix.proj}}.sh"
+      - "uses": "actions/upload-artifact@main"
+        "with":
+          "name": "${{matrix.proj}}.wasm"
+          "path": "./mk_clib/projects/emscripten/${{matrix.proj}}.wasm"
   "build_run_examples":
     "runs-on": "ubuntu-latest"
     "defaults":
