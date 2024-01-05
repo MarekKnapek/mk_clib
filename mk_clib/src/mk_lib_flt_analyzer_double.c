@@ -1,4 +1,4 @@
-#include "mk_lib_double_analyzer.h"
+#include "mk_lib_flt_analyzer_double.h"
 
 #include "mk_lang_jumbo.h"
 #include "mk_lang_types.h"
@@ -13,7 +13,7 @@
 #undef mk_lib_flt_analyzer_t_expuint
 #undef mk_lib_flt_analyzer_t_mtsuint
 #undef mk_lib_flt_analyzer_t_mtslent
-#define mk_lib_flt_analyzer_t_name mk_lib_double_analyzer
+#define mk_lib_flt_analyzer_t_name mk_lib_flt_analyzer_double
 #define mk_lib_flt_analyzer_t_flt_bits 64
 #define mk_lib_flt_analyzer_t_flt_frac 52
 #define mk_lib_flt_analyzer_t_uint mk_sl_cui_uint64
