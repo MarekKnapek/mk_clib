@@ -104,7 +104,7 @@ mk_lang_jumbo void mk_lib_crypto_aes_fuzz_win(mk_lang_types_bool_t const cpuida,
 	mk_win_base_dword_t win_padding;
 	mk_win_base_dword_t win_feedback_bits;
 	mk_win_base_dword_t win_msg_len;
-	mk_lang_types_uint_t check_len;
+	mk_lang_types_uint_t to_check_len;
 
 	good = mk_lang_true;
 	switch(mode_id)
@@ -155,9 +155,9 @@ mk_lang_jumbo void mk_lib_crypto_aes_fuzz_win(mk_lang_types_bool_t const cpuida,
 	win_msg_len = msg_len;
 	for(i = 0; i != msg_len; ++i){ ((mk_lang_types_uchar_pt)(&g_app.m_buffer))[i] = msg[i]; }
 	b = CryptEncrypt(win_key, mk_lang_null, mk_win_base_true, 0, ((mk_lang_types_uchar_pt)(&g_app.m_buffer)), &win_msg_len, msg_len + 0x10); test(b != 0); test(win_msg_len == msg_len + *padding_len || mode_id == mk_lib_crypto_app_mode_id_e_cfb_8);
-	check_len = msg_len + *padding_len;
-	if(mode_id == mk_lib_crypto_app_mode_id_e_cfb_8){ check_len = msg_len; }
-	for(i = 0; i != check_len; ++i){ test(((mk_lang_types_uchar_pt)(&g_app.m_buffer))[i] == out[i]); }
+	to_check_len = msg_len + *padding_len;
+	if(mode_id == mk_lib_crypto_app_mode_id_e_cfb_8){ to_check_len = msg_len; }
+	for(i = 0; i != to_check_len; ++i){ test(((mk_lang_types_uchar_pt)(&g_app.m_buffer))[i] == out[i]); }
 	b = CryptDestroyKey(win_key); test(b != 0);
 	b = CryptReleaseContext(csp, 0); test(b != 0);
 }
@@ -197,7 +197,7 @@ mk_lang_jumbo void mk_lib_crypto_aes_fuzz_winng(mk_lang_types_bool_t const cpuid
 	key_t win_key;
 	mk_lang_types_uchar_t win_out[0xff + 0x10];
 	mk_lang_types_ulong_t win_out_len_real;
-	mk_lang_types_sint_t check_len;
+	mk_lang_types_sint_t to_check_len;
 
 	win_mode = mk_lang_null;
 	win_mode_len = 0;
@@ -239,9 +239,9 @@ mk_lang_jumbo void mk_lib_crypto_aes_fuzz_winng(mk_lang_types_bool_t const cpuid
 		st = BCryptSetProperty(((mk_win_handle_bcrypt_handle_t)(hkey)), mk_win_bcrypt_bcrypt_message_block_length, ((mk_lang_types_uchar_pct)(&win_feedback_bytes)), ((mk_lang_types_ulong_t)(sizeof(win_feedback_bytes))), 0); test(st == 0);
 	}
 	st = BCryptEncrypt(hkey, msg, msg_len, mk_lang_null, win_piv, win_iv_len, &win_out[0], win_out_len, &win_out_len_real, mk_win_bcrypt_bcrypt_block_padding); test(st == 0); test(win_out_len_real == msg_len + *padding_len || mode_id == mk_lib_crypto_app_mode_id_e_cfb_8);
-	check_len = msg_len + *padding_len;
-	if(mode_id == mk_lib_crypto_app_mode_id_e_cfb_8){ check_len = msg_len; }
-	for(i = 0; i != check_len; ++i){ test(win_out[i] == out[i]); }
+	to_check_len = msg_len + *padding_len;
+	if(mode_id == mk_lib_crypto_app_mode_id_e_cfb_8){ to_check_len = msg_len; }
+	for(i = 0; i != to_check_len; ++i){ test(win_out[i] == out[i]); }
 	st = BCryptDestroyKey(hkey); test(st == 0);
 	st = BCryptCloseAlgorithmProvider(alg, 0); test(st == 0);
 }
