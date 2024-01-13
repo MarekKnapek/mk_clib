@@ -268,6 +268,21 @@ mk_lang_constexpr mk_lang_jumbo void mk_sl_uint_64_to_32_le(mk_sl_cui_uint64_pct
 	}
 }
 
+mk_lang_constexpr mk_lang_jumbo void mk_sl_uint_64_from_32_le(mk_sl_cui_uint64_pt const u64, mk_sl_cui_uint32_pct const u32) mk_lang_noexcept
+{
+	mk_lang_types_uchar_t bytes[64 / 8] mk_lang_constexpr_init;
+	int i mk_lang_constexpr_init;
+
+	mk_lang_assert(u64);
+	mk_lang_assert(u32);
+
+	for(i = 0; i != 64 / 32; ++i)
+	{
+		mk_sl_cui_uint32_to_buis_uchar_le(&u32[i], &bytes[i * 32 / 8]);
+	}
+	mk_sl_cui_uint64_from_buis_uchar_le(u64, bytes);
+}
+
 
 mk_lang_constexpr mk_lang_jumbo void mk_sl_uint_128_to_64_le(mk_sl_cui_uint128_pct const u128, mk_sl_cui_uint64_pt const u64) mk_lang_noexcept
 {
