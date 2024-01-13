@@ -308,7 +308,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_avx2_substitute_enc_1(mk_li
 
 	mk_lib_crypto_alg_serpent_avx2_load(msgs, &ta, &tb, &tc, &td);
 	mk_lib_crypto_alg_serpent_avx2_ui_not1(&ta);      mk_lib_crypto_alg_serpent_avx2_ui_not1(&tc);
-	te = ta;                                         mk_lib_crypto_alg_serpent_avx2_ui_and2(&ta, &tb);
+	te = ta;                                          mk_lib_crypto_alg_serpent_avx2_ui_and2(&ta, &tb);
 	mk_lib_crypto_alg_serpent_avx2_ui_xor2(&tc, &ta); mk_lib_crypto_alg_serpent_avx2_ui_or2(&ta, &td);
 	mk_lib_crypto_alg_serpent_avx2_ui_xor2(&td, &tc); mk_lib_crypto_alg_serpent_avx2_ui_xor2(&tb, &ta);
 	mk_lib_crypto_alg_serpent_avx2_ui_xor2(&ta, &te); mk_lib_crypto_alg_serpent_avx2_ui_or2(&te, &tb);
@@ -333,11 +333,11 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_avx2_substitute_enc_2(mk_li
 	mk_lang_assert((((mk_lang_types_uintptr_t)(msgs)) & 0x1f) == 0);
 
 	mk_lib_crypto_alg_serpent_avx2_load(msgs, &ta, &tb, &tc, &td);
-	te = ta;                                         mk_lib_crypto_alg_serpent_avx2_ui_and2(&ta, &tc);
+	te = ta;                                          mk_lib_crypto_alg_serpent_avx2_ui_and2(&ta, &tc);
 	mk_lib_crypto_alg_serpent_avx2_ui_xor2(&ta, &td); mk_lib_crypto_alg_serpent_avx2_ui_xor2(&tc, &tb);
 	mk_lib_crypto_alg_serpent_avx2_ui_xor2(&tc, &ta); mk_lib_crypto_alg_serpent_avx2_ui_or2(&td, &te);
 	mk_lib_crypto_alg_serpent_avx2_ui_xor2(&td, &tb); mk_lib_crypto_alg_serpent_avx2_ui_xor2(&te, &tc);
-	tb = td;                                         mk_lib_crypto_alg_serpent_avx2_ui_or2(&td, &te);
+	tb = td;                                          mk_lib_crypto_alg_serpent_avx2_ui_or2(&td, &te);
 	mk_lib_crypto_alg_serpent_avx2_ui_xor2(&td, &ta); mk_lib_crypto_alg_serpent_avx2_ui_and2(&ta, &tb);
 	mk_lib_crypto_alg_serpent_avx2_ui_xor2(&te, &ta); mk_lib_crypto_alg_serpent_avx2_ui_xor2(&tb, &td);
 	mk_lib_crypto_alg_serpent_avx2_ui_xor2(&tb, &te); mk_lib_crypto_alg_serpent_avx2_ui_not1(&te);
@@ -357,7 +357,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_avx2_substitute_enc_3(mk_li
 	mk_lang_assert((((mk_lang_types_uintptr_t)(msgs)) & 0x1f) == 0);
 
 	mk_lib_crypto_alg_serpent_avx2_load(msgs, &ta, &tb, &tc, &td);
-	te = ta;                                         mk_lib_crypto_alg_serpent_avx2_ui_or2(&ta, &td);
+	te = ta;                                          mk_lib_crypto_alg_serpent_avx2_ui_or2(&ta, &td);
 	mk_lib_crypto_alg_serpent_avx2_ui_xor2(&td, &tb); mk_lib_crypto_alg_serpent_avx2_ui_and2(&tb, &te);
 	mk_lib_crypto_alg_serpent_avx2_ui_xor2(&te, &tc); mk_lib_crypto_alg_serpent_avx2_ui_xor2(&tc, &td);
 	mk_lib_crypto_alg_serpent_avx2_ui_and2(&td, &ta); mk_lib_crypto_alg_serpent_avx2_ui_or2(&te, &tb);
@@ -365,7 +365,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_avx2_substitute_enc_3(mk_li
 	mk_lib_crypto_alg_serpent_avx2_ui_and2(&te, &ta); mk_lib_crypto_alg_serpent_avx2_ui_xor2(&tb, &td);
 	mk_lib_crypto_alg_serpent_avx2_ui_xor2(&te, &tc); mk_lib_crypto_alg_serpent_avx2_ui_or2(&tb, &ta);
 	mk_lib_crypto_alg_serpent_avx2_ui_xor2(&tb, &tc); mk_lib_crypto_alg_serpent_avx2_ui_xor2(&ta, &td);
-	tc = tb;                                         mk_lib_crypto_alg_serpent_avx2_ui_or2(&tb, &td);
+	tc = tb;                                          mk_lib_crypto_alg_serpent_avx2_ui_or2(&tb, &td);
 	mk_lib_crypto_alg_serpent_avx2_ui_xor2(&tb, &ta);
 	mk_lib_crypto_alg_serpent_avx2_store(msgs, &tb, &tc, &td, &te);
 }
@@ -385,7 +385,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_avx2_substitute_enc_4(mk_li
 	mk_lib_crypto_alg_serpent_avx2_load(msgs, &ta, &tb, &tc, &td);
 	mk_lib_crypto_alg_serpent_avx2_ui_xor2(&tb, &td); mk_lib_crypto_alg_serpent_avx2_ui_not1(&td);
 	mk_lib_crypto_alg_serpent_avx2_ui_xor2(&tc, &td); mk_lib_crypto_alg_serpent_avx2_ui_xor2(&td, &ta);
-	te = tb;                                         mk_lib_crypto_alg_serpent_avx2_ui_and2(&tb, &td);
+	te = tb;                                          mk_lib_crypto_alg_serpent_avx2_ui_and2(&tb, &td);
 	mk_lib_crypto_alg_serpent_avx2_ui_xor2(&tb, &tc); mk_lib_crypto_alg_serpent_avx2_ui_xor2(&te, &td);
 	mk_lib_crypto_alg_serpent_avx2_ui_xor2(&ta, &te); mk_lib_crypto_alg_serpent_avx2_ui_and2(&tc, &te);
 	mk_lib_crypto_alg_serpent_avx2_ui_xor2(&tc, &ta); mk_lib_crypto_alg_serpent_avx2_ui_and2(&ta, &tb);
@@ -461,7 +461,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_avx2_substitute_enc_7(mk_li
 	mk_lang_assert((((mk_lang_types_uintptr_t)(msgs)) & 0x1f) == 0);
 
 	mk_lib_crypto_alg_serpent_avx2_load(msgs, &ta, &tb, &tc, &td);
-	te = tb;                                         mk_lib_crypto_alg_serpent_avx2_ui_or2(&tb, &tc);
+	te = tb;                                          mk_lib_crypto_alg_serpent_avx2_ui_or2(&tb, &tc);
 	mk_lib_crypto_alg_serpent_avx2_ui_xor2(&tb, &td); mk_lib_crypto_alg_serpent_avx2_ui_xor2(&te, &tc);
 	mk_lib_crypto_alg_serpent_avx2_ui_xor2(&tc, &tb); mk_lib_crypto_alg_serpent_avx2_ui_or2(&td, &te);
 	mk_lib_crypto_alg_serpent_avx2_ui_and2(&td, &ta); mk_lib_crypto_alg_serpent_avx2_ui_xor2(&te, &tc);
@@ -536,7 +536,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_avx2_substitute_dec_1(mk_li
 	mk_lang_assert((((mk_lang_types_uintptr_t)(msgs)) & 0x1f) == 0);
 
 	mk_lib_crypto_alg_serpent_avx2_load(msgs, &ta, &tb, &tc, &td);
-	te = tb;                                         mk_lib_crypto_alg_serpent_avx2_ui_xor2(&tb, &td);
+	te = tb;                                          mk_lib_crypto_alg_serpent_avx2_ui_xor2(&tb, &td);
 	mk_lib_crypto_alg_serpent_avx2_ui_and2(&td, &tb); mk_lib_crypto_alg_serpent_avx2_ui_xor2(&te, &tc);
 	mk_lib_crypto_alg_serpent_avx2_ui_xor2(&td, &ta); mk_lib_crypto_alg_serpent_avx2_ui_or2(&ta, &tb);
 	mk_lib_crypto_alg_serpent_avx2_ui_xor2(&tc, &td); mk_lib_crypto_alg_serpent_avx2_ui_xor2(&ta, &te);
@@ -564,7 +564,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_avx2_substitute_dec_2(mk_li
 
 	mk_lib_crypto_alg_serpent_avx2_load(msgs, &ta, &tb, &tc, &td);
 	mk_lib_crypto_alg_serpent_avx2_ui_xor2(&tc, &td); mk_lib_crypto_alg_serpent_avx2_ui_xor2(&td, &ta);
-	te = td;                                         mk_lib_crypto_alg_serpent_avx2_ui_and2(&td, &tc);
+	te = td;                                          mk_lib_crypto_alg_serpent_avx2_ui_and2(&td, &tc);
 	mk_lib_crypto_alg_serpent_avx2_ui_xor2(&td, &tb); mk_lib_crypto_alg_serpent_avx2_ui_or2(&tb, &tc);
 	mk_lib_crypto_alg_serpent_avx2_ui_xor2(&tb, &te); mk_lib_crypto_alg_serpent_avx2_ui_and2(&te, &td);
 	mk_lib_crypto_alg_serpent_avx2_ui_xor2(&tc, &td); mk_lib_crypto_alg_serpent_avx2_ui_and2(&te, &ta);
@@ -589,7 +589,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_avx2_substitute_dec_3(mk_li
 	mk_lang_assert((((mk_lang_types_uintptr_t)(msgs)) & 0x1f) == 0);
 
 	mk_lib_crypto_alg_serpent_avx2_load(msgs, &ta, &tb, &tc, &td);
-	te = tc;                                         mk_lib_crypto_alg_serpent_avx2_ui_xor2(&tc, &tb);
+	te = tc;                                          mk_lib_crypto_alg_serpent_avx2_ui_xor2(&tc, &tb);
 	mk_lib_crypto_alg_serpent_avx2_ui_xor2(&ta, &tc); mk_lib_crypto_alg_serpent_avx2_ui_and2(&te, &tc);
 	mk_lib_crypto_alg_serpent_avx2_ui_xor2(&te, &ta); mk_lib_crypto_alg_serpent_avx2_ui_and2(&ta, &tb);
 	mk_lib_crypto_alg_serpent_avx2_ui_xor2(&tb, &td); mk_lib_crypto_alg_serpent_avx2_ui_or2(&td, &te);
@@ -615,7 +615,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_avx2_substitute_dec_4(mk_li
 	mk_lang_assert((((mk_lang_types_uintptr_t)(msgs)) & 0x1f) == 0);
 
 	mk_lib_crypto_alg_serpent_avx2_load(msgs, &ta, &tb, &tc, &td);
-	te = tc;                                         mk_lib_crypto_alg_serpent_avx2_ui_and2(&tc, &td);
+	te = tc;                                          mk_lib_crypto_alg_serpent_avx2_ui_and2(&tc, &td);
 	mk_lib_crypto_alg_serpent_avx2_ui_xor2(&tc, &tb); mk_lib_crypto_alg_serpent_avx2_ui_or2(&tb, &td);
 	mk_lib_crypto_alg_serpent_avx2_ui_and2(&tb, &ta); mk_lib_crypto_alg_serpent_avx2_ui_xor2(&te, &tc);
 	mk_lib_crypto_alg_serpent_avx2_ui_xor2(&te, &tb); mk_lib_crypto_alg_serpent_avx2_ui_and2(&tb, &tc);
@@ -693,7 +693,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_avx2_substitute_dec_7(mk_li
 	mk_lang_assert((((mk_lang_types_uintptr_t)(msgs)) & 0x1f) == 0);
 
 	mk_lib_crypto_alg_serpent_avx2_load(msgs, &ta, &tb, &tc, &td);
-	te = tc;                                         mk_lib_crypto_alg_serpent_avx2_ui_xor2(&tc, &ta);
+	te = tc;                                          mk_lib_crypto_alg_serpent_avx2_ui_xor2(&tc, &ta);
 	mk_lib_crypto_alg_serpent_avx2_ui_and2(&ta, &td); mk_lib_crypto_alg_serpent_avx2_ui_or2(&te, &td);
 	mk_lib_crypto_alg_serpent_avx2_ui_not1(&tc);      mk_lib_crypto_alg_serpent_avx2_ui_xor2(&td, &tb);
 	mk_lib_crypto_alg_serpent_avx2_ui_or2(&tb, &ta);  mk_lib_crypto_alg_serpent_avx2_ui_xor2(&ta, &tc);
