@@ -980,8 +980,8 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_inl_defd_to_buis_
 	#define xx_rest (mk_sl_cui_inl_defd_count - (xx_outer * xx_inner))
 	#define xx_cnt mk_lang_div_roundup(mk_sl_cui_inl_defd_count * mk_sl_cui_inl_defd_base_sizebits_d, mk_lang_sizeof_bi_$1_t * mk_lang_charbit)
 
-	mk_lang_types_sint_t m mk_lang_constexpr_init;
 	mk_lang_types_sint_t i mk_lang_constexpr_init;
+	mk_lang_types_sint_t m mk_lang_constexpr_init;
 	#if xx_outer != 0
 	mk_lang_types_sint_t n mk_lang_constexpr_init;
 	mk_lang_types_sint_t j mk_lang_constexpr_init;
@@ -1009,10 +1009,11 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_inl_defd_to_buis_
 	mk_lang_assert(a);
 	mk_lang_assert(b);
 
+	i = 0;
 	m = mk_lang_min(mk_sl_cui_inl_defd_count, xx_inner);
 	#if xx_outer != 0
 	n = xx_outer;
-	for(i = 0; i != n; ++i)
+	for(; i != n; ++i)
 	{
 		mk_sl_cui_inl_defd_base_to_bi_$1(&a->m_data[mk_sl_cui_inl_defd_idx(i * m + (m - 1) - 0)], &bb);
 		for(j = 1; j != m; ++j)
