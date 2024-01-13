@@ -38,6 +38,12 @@
 #define mk_lib_crypto_alg_serpent_sbox_count 8
 
 
+#if(mk_lang_llong_has)
+
+#include "mk_lib_crypto_alg_serpent_inl_64.h"
+
+#endif
+
 #if((mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (defined _MSC_FULL_VER && _MSC_FULL_VER >= mk_lang_msvc_full_ver_2008_sp_1) && (mk_lang_alignas_has && mk_lang_alignof_has))
 
 #include "mk_lib_crypto_alg_serpent_inl_sse2.h"
@@ -155,6 +161,18 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_serpent_schedule_encrypt(
 		mk_lib_crypto_alg_serpent_schedule_encrypt_portable(schedule, input + n, output + n, nblocks - n);
 	}
 	else
+	#if(!mk_lang_constexpr_is_constant_evaluated)
+	if(nblocks >= 2 && (((mk_lang_types_uintptr_t)(input)) & 0x7) == 0 && (((mk_lang_types_uintptr_t)(output)) & 0x7) == 0)
+	#else
+	if(!mk_lang_constexpr_is_constant_evaluated_test && nblocks >= 2 && (((mk_lang_types_uintptr_t)(input)) & 0x7) == 0 && (((mk_lang_types_uintptr_t)(output)) & 0x7) == 0)
+	#endif
+	{
+		mk_lang_types_usize_t n mk_lang_constexpr_init;
+		n = (nblocks / 2) * 2;
+		mk_lib_crypto_alg_serpent_schedule_encrypt_64(schedule, input, output, n);
+		mk_lib_crypto_alg_serpent_schedule_encrypt_portable(schedule, input + n, output + n, nblocks - n);
+	}
+	else
 	#endif
 	{
 		mk_lib_crypto_alg_serpent_schedule_encrypt_portable(schedule, input, output, nblocks);
@@ -201,6 +219,18 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_serpent_schedule_decrypt(
 		mk_lang_types_usize_t n mk_lang_constexpr_init;
 		n = (nblocks / 4) * 4;
 		mk_lib_crypto_alg_serpent_schedule_decrypt_sse2(schedule, input, output, n);
+		mk_lib_crypto_alg_serpent_schedule_decrypt_portable(schedule, input + n, output + n, nblocks - n);
+	}
+	else
+	#if(!mk_lang_constexpr_is_constant_evaluated)
+	if(nblocks >= 2 && (((mk_lang_types_uintptr_t)(input)) & 0x7) == 0 && (((mk_lang_types_uintptr_t)(output)) & 0x7) == 0)
+	#else
+	if(!mk_lang_constexpr_is_constant_evaluated_test && nblocks >= 2 && (((mk_lang_types_uintptr_t)(input)) & 0x7) == 0 && (((mk_lang_types_uintptr_t)(output)) & 0x7) == 0)
+	#endif
+	{
+		mk_lang_types_usize_t n mk_lang_constexpr_init;
+		n = (nblocks / 2) * 2;
+		mk_lib_crypto_alg_serpent_schedule_decrypt_64(schedule, input, output, n);
 		mk_lib_crypto_alg_serpent_schedule_decrypt_portable(schedule, input + n, output + n, nblocks - n);
 	}
 	else
