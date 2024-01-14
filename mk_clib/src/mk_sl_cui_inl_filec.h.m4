@@ -3498,14 +3498,15 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_inl_defd_divmod4_
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_inl_defd_divmod4_wrap_smol(mk_sl_cui_inl_defd_pct const a, mk_sl_cui_inl_defd_base_pct const b, mk_sl_cui_inl_defd_pt const c, mk_sl_cui_inl_defd_base_pt const d) mk_lang_noexcept
 {
 #if mk_sl_cui_inl_defd_count == 1
+
 	mk_lang_assert(a);
 	mk_lang_assert(b);
 	mk_lang_assert(c);
 	mk_lang_assert(d);
 
 	mk_sl_cui_inl_defd_base_divmod4_wrap(&a->m_data[mk_sl_cui_inl_defd_idx(0)], b, &c->m_data[mk_sl_cui_inl_defd_idx(0)], d);
-#else
-	#if mk_sl_cui_inl_defd_sizebits_d <= mk_lang_sizeof_bi_ushort_t * mk_lang_charbit
+
+#elif mk_sl_cui_inl_defd_sizebits_d <= mk_lang_sizeof_bi_ushort_t * mk_lang_charbit
 
 	mk_lang_types_ushort_t aa mk_lang_constexpr_init;
 	mk_lang_types_ushort_t bb mk_lang_constexpr_init;
@@ -3524,7 +3525,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_inl_defd_divmod4_
 	mk_sl_cui_inl_defd_from_bi_ushort(c, &cc);
 	mk_sl_cui_inl_defd_base_from_bi_ushort(d, &dd);
 
-	#elif mk_sl_cui_inl_defd_sizebits_d <= mk_lang_sizeof_bi_uint_t * mk_lang_charbit
+#elif mk_sl_cui_inl_defd_sizebits_d <= mk_lang_sizeof_bi_uint_t * mk_lang_charbit
 
 	mk_lang_types_uint_t aa mk_lang_constexpr_init;
 	mk_lang_types_uint_t bb mk_lang_constexpr_init;
@@ -3543,7 +3544,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_inl_defd_divmod4_
 	mk_sl_cui_inl_defd_from_bi_uint(c, &cc);
 	mk_sl_cui_inl_defd_base_from_bi_uint(d, &dd);
 
-	#elif mk_sl_cui_inl_defd_sizebits_d <= mk_lang_sizeof_bi_ulong_t * mk_lang_charbit
+#elif mk_sl_cui_inl_defd_sizebits_d <= mk_lang_sizeof_bi_ulong_t * mk_lang_charbit
 
 	mk_lang_types_ulong_t aa mk_lang_constexpr_init;
 	mk_lang_types_ulong_t bb mk_lang_constexpr_init;
@@ -3562,7 +3563,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_inl_defd_divmod4_
 	mk_sl_cui_inl_defd_from_bi_ulong(c, &cc);
 	mk_sl_cui_inl_defd_base_from_bi_ulong(d, &dd);
 
-	#elif !mk_sl_cui_inl_defd_disable_big_div && mk_sl_cui_inl_defd_sizebits_d <= mk_lang_sizeof_bi_ullong_t * mk_lang_charbit
+#elif !mk_sl_cui_inl_defd_disable_big_div && mk_sl_cui_inl_defd_sizebits_d <= mk_lang_sizeof_bi_ullong_t * mk_lang_charbit
 
 	mk_lang_types_ullong_t aa mk_lang_constexpr_init;
 	mk_lang_types_ullong_t bb mk_lang_constexpr_init;
@@ -3581,7 +3582,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_inl_defd_divmod4_
 	mk_sl_cui_inl_defd_from_bi_ullong(c, &cc);
 	mk_sl_cui_inl_defd_base_from_bi_ullong(d, &dd);
 
-	#elif !mk_sl_cui_inl_defd_disable_big_div && mk_sl_cui_inl_defd_sizebits_d <= mk_lang_sizeof_bi_ulllong_t * mk_lang_charbit
+#elif !mk_sl_cui_inl_defd_disable_big_div && mk_sl_cui_inl_defd_sizebits_d <= mk_lang_sizeof_bi_ulllong_t * mk_lang_charbit
 
 	mk_lang_types_ulllong_t aa mk_lang_constexpr_init;
 	mk_lang_types_ulllong_t bb mk_lang_constexpr_init;
@@ -3600,8 +3601,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_inl_defd_divmod4_
 	mk_sl_cui_inl_defd_from_bi_ulllong(c, &cc);
 	mk_sl_cui_inl_defd_base_from_bi_ulllong(d, &dd);
 
-	#else
-		#if !mk_sl_cui_inl_defd_disable_big_div && mk_lang_sizeof_bi_ulllong_t >= 2 * mk_lang_sizeof_bi_ullong_t
+#elif !mk_sl_cui_inl_defd_disable_big_div && mk_lang_sizeof_bi_ulllong_t >= 2 * mk_lang_sizeof_bi_ullong_t
 
 	mk_lang_types_ullong_t aa[mk_lang_div_roundup(mk_sl_cui_inl_defd_sizebits_d, mk_lang_sizeof_bi_ullong_t * mk_lang_charbit)] mk_lang_constexpr_init;
 	mk_lang_types_ullong_t bb[mk_lang_div_roundup(mk_sl_cui_inl_defd_base_sizebits_d, mk_lang_sizeof_bi_ullong_t * mk_lang_charbit)] mk_lang_constexpr_init;
@@ -3619,7 +3619,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_inl_defd_divmod4_
 	mk_sl_cui_inl_defd_from_buis_ullong_le(c, &cc[0]);
 	mk_sl_cui_inl_defd_base_from_buis_ullong_le(d, &dd[0]);
 
-		#elif !mk_sl_cui_inl_defd_disable_big_div && mk_lang_sizeof_bi_ullong_t >= 2 * mk_lang_sizeof_bi_ulong_t
+#elif !mk_sl_cui_inl_defd_disable_big_div && mk_lang_sizeof_bi_ullong_t >= 2 * mk_lang_sizeof_bi_ulong_t
 
 	mk_lang_types_ulong_t aa[mk_lang_div_roundup(mk_sl_cui_inl_defd_sizebits_d, mk_lang_sizeof_bi_ulong_t * mk_lang_charbit)] mk_lang_constexpr_init;
 	mk_lang_types_ulong_t bb[mk_lang_div_roundup(mk_sl_cui_inl_defd_base_sizebits_d, mk_lang_sizeof_bi_ulong_t * mk_lang_charbit)] mk_lang_constexpr_init;
@@ -3637,7 +3637,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_inl_defd_divmod4_
 	mk_sl_cui_inl_defd_from_buis_ulong_le(c, &cc[0]);
 	mk_sl_cui_inl_defd_base_from_buis_ulong_le(d, &dd[0]);
 
-		#elif mk_lang_sizeof_bi_uint_t >= 2 * mk_lang_sizeof_bi_ushort_t
+#elif mk_lang_sizeof_bi_uint_t >= 2 * mk_lang_sizeof_bi_ushort_t
 
 	mk_lang_types_ushort_t aa[mk_lang_div_roundup(mk_sl_cui_inl_defd_sizebits_d, mk_lang_sizeof_bi_ushort_t * mk_lang_charbit)] mk_lang_constexpr_init;
 	mk_lang_types_ushort_t bb[mk_lang_div_roundup(mk_sl_cui_inl_defd_base_sizebits_d, mk_lang_sizeof_bi_ushort_t * mk_lang_charbit)] mk_lang_constexpr_init;
@@ -3655,10 +3655,10 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_inl_defd_divmod4_
 	mk_sl_cui_inl_defd_from_buis_ushort_le(c, &cc[0]);
 	mk_sl_cui_inl_defd_base_from_buis_ushort_le(d, &dd[0]);
 
-		#else
-	#error todo xxxxxxxxxx
-		#endif
-	#endif
+#else
+
+#error todo xxxxxxxxxx
+
 #endif
 }
 
