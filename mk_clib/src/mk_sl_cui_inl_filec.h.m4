@@ -3555,8 +3555,8 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_inl_defd_divmod4_
 	mk_lang_assert(c);
 	mk_lang_assert(d);
 
-	mk_sl_cui_inl_defd_base_to_bi_ulong(a, &aa);
-	mk_sl_cui_inl_defd_to_bi_ulong(b, &bb);
+	mk_sl_cui_inl_defd_to_bi_ulong(a, &aa);
+	mk_sl_cui_inl_defd_base_to_bi_ulong(b, &bb);
 	cc = aa / bb;
 	dd = aa % bb;
 	mk_sl_cui_inl_defd_from_bi_ulong(c, &cc);
