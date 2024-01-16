@@ -222,6 +222,8 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_serpent_schedule_decrypt(
 		mk_lib_crypto_alg_serpent_schedule_decrypt_portable(schedule, input + n, output + n, nblocks - n);
 	}
 	else
+	#endif
+	#if(mk_lang_llong_has)
 	#if(!mk_lang_constexpr_is_constant_evaluated)
 	if(nblocks >= 2 && (((mk_lang_types_uintptr_t)(input)) & 0x7) == 0 && (((mk_lang_types_uintptr_t)(output)) & 0x7) == 0)
 	#else

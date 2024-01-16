@@ -1,0 +1,258 @@
+cc1.exe: warning: command-line option '-fconstexpr-ops-limit=1000000000' is valid for C++/ObjC++ but not for C
+In file included from ../../app/../src/mk_lang_types.h:8,
+                 from ../../app/../src/mk_clib_app_fuzz.h:7,
+                 from ../../app/../src/mk_clib_app_test.c:3,
+                 from ../../app/../src/mk_clib_app_test.h:13,
+                 from ../../app/mkct.c:1:
+../../app/../src/mk_lang_lllong.h:7:36: warning: ISO C does not support '__int128' types [-Wpedantic]
+    7 | #define mk_lang_ulllong_t unsigned __int128
+      |                                    ^~~~~~~~
+../../app/../src/mk_lang_types.h:29:9: note: in expansion of macro 'mk_lang_ulllong_t'
+   29 | typedef mk_lang_ulllong_t mk_lang_types_ulllong_t;
+      |         ^~~~~~~~~~~~~~~~~
+../../app/../src/mk_lang_lllong.h:8:34: warning: ISO C does not support '__int128' types [-Wpedantic]
+    8 | #define mk_lang_slllong_t signed __int128
+      |                                  ^~~~~~~~
+../../app/../src/mk_lang_types.h:30:9: note: in expansion of macro 'mk_lang_slllong_t'
+   30 | typedef mk_lang_slllong_t mk_lang_types_slllong_t;
+      |         ^~~~~~~~~~~~~~~~~
+In file included from ../../app/../src/mk_lang_cpuid.c:4,
+                 from ../../app/../src/mk_lang_cpuid.h:44,
+                 from ../../app/../src/mk_lib_crypto_serpent_fuzz.c:4,
+                 from ../../app/../src/mk_lib_crypto_serpent_fuzz.h:14,
+                 from ../../app/../src/mk_clib_fuzz.c:6,
+                 from ../../app/../src/mk_clib_fuzz.h:14,
+                 from ../../app/../src/mk_clib_app_fuzz.c:3,
+                 from ../../app/../src/mk_clib_app_fuzz.h:14:
+../../app/../src/mk_lang_memmove_inl_filec.h: In function 'mk_sl_cui_uint8_memmove_pchar_fn':
+../../app/../src/mk_lang_memmove_inl_filec.h:17:28: warning: comparison of unsigned expression in '>= 0' is always true [-Wtype-limits]
+   17 |         mk_lang_assert(len >= 0);
+      |                            ^~
+../../app/../src/mk_lang_assert.h:50:36: note: in definition of macro 'mk_lang_assert'
+   50 | #define mk_lang_assert(x) ((void)((x) ? ((void)(0)) : ((void)(__builtin_unreachable()))))
+      |                                    ^
+../../app/../src/mk_lang_memmove_inl_filec.h: In function 'mk_sl_cui_uint128_memmove_pchar_fn':
+../../app/../src/mk_lang_memmove_inl_filec.h:17:28: warning: comparison of unsigned expression in '>= 0' is always true [-Wtype-limits]
+   17 |         mk_lang_assert(len >= 0);
+      |                            ^~
+../../app/../src/mk_lang_assert.h:50:36: note: in definition of macro 'mk_lang_assert'
+   50 | #define mk_lang_assert(x) ((void)((x) ? ((void)(0)) : ((void)(__builtin_unreachable()))))
+      |                                    ^
+../../app/../src/mk_lang_overlap_inl_filec.h: In function 'mk_lang_num_longdivmod_mk_sl_cui_uint128_overlap_fn':
+../../app/../src/mk_lang_overlap_inl_filec.h:18:29: warning: comparison of unsigned expression in '>= 0' is always true [-Wtype-limits]
+   18 |         mk_lang_assert(len1 >= 0);
+      |                             ^~
+../../app/../src/mk_lang_assert.h:50:36: note: in definition of macro 'mk_lang_assert'
+   50 | #define mk_lang_assert(x) ((void)((x) ? ((void)(0)) : ((void)(__builtin_unreachable()))))
+      |                                    ^
+../../app/../src/mk_lang_overlap_inl_filec.h:20:29: warning: comparison of unsigned expression in '>= 0' is always true [-Wtype-limits]
+   20 |         mk_lang_assert(len2 >= 0);
+      |                             ^~
+../../app/../src/mk_lang_assert.h:50:36: note: in definition of macro 'mk_lang_assert'
+   50 | #define mk_lang_assert(x) ((void)((x) ? ((void)(0)) : ((void)(__builtin_unreachable()))))
+      |                                    ^
+../../app/../src/mk_lang_overlap_inl_filec.h: In function 'mk_lang_num_longdivmods_mk_sl_cui_uint128_overlap_fn':
+../../app/../src/mk_lang_overlap_inl_filec.h:18:29: warning: comparison of unsigned expression in '>= 0' is always true [-Wtype-limits]
+   18 |         mk_lang_assert(len1 >= 0);
+      |                             ^~
+../../app/../src/mk_lang_assert.h:50:36: note: in definition of macro 'mk_lang_assert'
+   50 | #define mk_lang_assert(x) ((void)((x) ? ((void)(0)) : ((void)(__builtin_unreachable()))))
+      |                                    ^
+../../app/../src/mk_lang_overlap_inl_filec.h:20:29: warning: comparison of unsigned expression in '>= 0' is always true [-Wtype-limits]
+   20 |         mk_lang_assert(len2 >= 0);
+      |                             ^~
+../../app/../src/mk_lang_assert.h:50:36: note: in definition of macro 'mk_lang_assert'
+   50 | #define mk_lang_assert(x) ((void)((x) ? ((void)(0)) : ((void)(__builtin_unreachable()))))
+      |                                    ^
+../../app/../src/mk_lang_memmove_inl_filec.h: In function 'mk_sl_cui_uint16_memmove_pchar_fn':
+../../app/../src/mk_lang_memmove_inl_filec.h:17:28: warning: comparison of unsigned expression in '>= 0' is always true [-Wtype-limits]
+   17 |         mk_lang_assert(len >= 0);
+      |                            ^~
+../../app/../src/mk_lang_assert.h:50:36: note: in definition of macro 'mk_lang_assert'
+   50 | #define mk_lang_assert(x) ((void)((x) ? ((void)(0)) : ((void)(__builtin_unreachable()))))
+      |                                    ^
+../../app/../src/mk_lang_memmove_inl_filec.h: In function 'mk_sl_cui_uint32_memmove_pchar_fn':
+../../app/../src/mk_lang_memmove_inl_filec.h:17:28: warning: comparison of unsigned expression in '>= 0' is always true [-Wtype-limits]
+   17 |         mk_lang_assert(len >= 0);
+      |                            ^~
+../../app/../src/mk_lang_assert.h:50:36: note: in definition of macro 'mk_lang_assert'
+   50 | #define mk_lang_assert(x) ((void)((x) ? ((void)(0)) : ((void)(__builtin_unreachable()))))
+      |                                    ^
+../../app/../src/mk_lang_memmove_inl_filec.h: In function 'mk_sl_cui_uint64_memmove_pchar_fn':
+../../app/../src/mk_lang_memmove_inl_filec.h:17:28: warning: comparison of unsigned expression in '>= 0' is always true [-Wtype-limits]
+   17 |         mk_lang_assert(len >= 0);
+      |                            ^~
+../../app/../src/mk_lang_assert.h:50:36: note: in definition of macro 'mk_lang_assert'
+   50 | #define mk_lang_assert(x) ((void)((x) ? ((void)(0)) : ((void)(__builtin_unreachable()))))
+      |                                    ^
+../../app/../src/mk_lang_overlap_inl_filec.h: In function 'mk_lang_num_longdivmod_mk_sl_cui_uint64_overlap_fn':
+../../app/../src/mk_lang_overlap_inl_filec.h:18:29: warning: comparison of unsigned expression in '>= 0' is always true [-Wtype-limits]
+   18 |         mk_lang_assert(len1 >= 0);
+      |                             ^~
+../../app/../src/mk_lang_assert.h:50:36: note: in definition of macro 'mk_lang_assert'
+   50 | #define mk_lang_assert(x) ((void)((x) ? ((void)(0)) : ((void)(__builtin_unreachable()))))
+      |                                    ^
+../../app/../src/mk_lang_overlap_inl_filec.h:20:29: warning: comparison of unsigned expression in '>= 0' is always true [-Wtype-limits]
+   20 |         mk_lang_assert(len2 >= 0);
+      |                             ^~
+../../app/../src/mk_lang_assert.h:50:36: note: in definition of macro 'mk_lang_assert'
+   50 | #define mk_lang_assert(x) ((void)((x) ? ((void)(0)) : ((void)(__builtin_unreachable()))))
+      |                                    ^
+../../app/../src/mk_lang_overlap_inl_filec.h: In function 'mk_lang_num_longdivmods_mk_sl_cui_uint64_overlap_fn':
+../../app/../src/mk_lang_overlap_inl_filec.h:18:29: warning: comparison of unsigned expression in '>= 0' is always true [-Wtype-limits]
+   18 |         mk_lang_assert(len1 >= 0);
+      |                             ^~
+../../app/../src/mk_lang_assert.h:50:36: note: in definition of macro 'mk_lang_assert'
+   50 | #define mk_lang_assert(x) ((void)((x) ? ((void)(0)) : ((void)(__builtin_unreachable()))))
+      |                                    ^
+../../app/../src/mk_lang_overlap_inl_filec.h:20:29: warning: comparison of unsigned expression in '>= 0' is always true [-Wtype-limits]
+   20 |         mk_lang_assert(len2 >= 0);
+      |                             ^~
+../../app/../src/mk_lang_assert.h:50:36: note: in definition of macro 'mk_lang_assert'
+   50 | #define mk_lang_assert(x) ((void)((x) ? ((void)(0)) : ((void)(__builtin_unreachable()))))
+      |                                    ^
+../../app/../src/mk_lang_memmove_inl_filec.h: In function 'mk_lib_crypto_alg_serpent_memmove_u8_fn':
+../../app/../src/mk_lang_memmove_inl_filec.h:17:28: warning: comparison of unsigned expression in '>= 0' is always true [-Wtype-limits]
+   17 |         mk_lang_assert(len >= 0);
+      |                            ^~
+../../app/../src/mk_lang_assert.h:50:36: note: in definition of macro 'mk_lang_assert'
+   50 | #define mk_lang_assert(x) ((void)((x) ? ((void)(0)) : ((void)(__builtin_unreachable()))))
+      |                                    ^
+../../app/../src/mk_lang_overlap_inl_filec.h: In function 'mk_lib_crypto_alg_serpent_memcpy_u8_filec_overlap_fn':
+../../app/../src/mk_lang_overlap_inl_filec.h:18:29: warning: comparison of unsigned expression in '>= 0' is always true [-Wtype-limits]
+   18 |         mk_lang_assert(len1 >= 0);
+      |                             ^~
+../../app/../src/mk_lang_assert.h:50:36: note: in definition of macro 'mk_lang_assert'
+   50 | #define mk_lang_assert(x) ((void)((x) ? ((void)(0)) : ((void)(__builtin_unreachable()))))
+      |                                    ^
+../../app/../src/mk_lang_overlap_inl_filec.h:20:29: warning: comparison of unsigned expression in '>= 0' is always true [-Wtype-limits]
+   20 |         mk_lang_assert(len2 >= 0);
+      |                             ^~
+../../app/../src/mk_lang_assert.h:50:36: note: in definition of macro 'mk_lang_assert'
+   50 | #define mk_lang_assert(x) ((void)((x) ? ((void)(0)) : ((void)(__builtin_unreachable()))))
+      |                                    ^
+../../app/../src/mk_lang_memcpy_inl_filec.h: In function 'mk_lib_crypto_alg_serpent_memcpy_u8_fn':
+../../app/../src/mk_lang_memcpy_inl_filec.h:25:28: warning: comparison of unsigned expression in '>= 0' is always true [-Wtype-limits]
+   25 |         mk_lang_assert(len >= 0);
+      |                            ^~
+../../app/../src/mk_lang_assert.h:50:36: note: in definition of macro 'mk_lang_assert'
+   50 | #define mk_lang_assert(x) ((void)((x) ? ((void)(0)) : ((void)(__builtin_unreachable()))))
+      |                                    ^
+In file included from ../../app/../src/mk_lib_crypto_alg_serpent.c:43,
+                 from ../../app/../src/mk_lib_crypto_alg_serpent.h:81,
+                 from ../../app/../src/mk_lib_crypto_serpent_fuzz.c:11:
+../../app/../src/mk_lib_crypto_alg_serpent_inl_64.h: In function 'mk_lib_crypto_alg_serpent_64_substitute_dec':
+../../app/../src/mk_lib_crypto_alg_serpent_inl_64.h:804:9: warning: 'mk_lib_crypto_alg_serpent_64_substitute_dec_2' accessing 1968 bytes in a region of size 320 [-Wstringop-overflow=]
+  804 |         mk_lib_crypto_alg_serpent_64_substitute_dec_2(&m[0]);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../app/../src/mk_lib_crypto_alg_serpent_inl_64.h:804:9: note: referencing argument 1 of type 'mk_lib_crypto_alg_serpent_msg_t[123]' {aka 'struct mk_lib_crypto_alg_serpent_msg_s[123]'}
+../../app/../src/mk_lib_crypto_alg_serpent_inl_64.h:633:28: note: in a call to function 'mk_lib_crypto_alg_serpent_64_substitute_dec_2'
+  633 | static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_dec_2(mk_lang_static_param(mk_lib_crypto_alg_serpent_msg_t, msgs, 123)) mk_lang_noexcept
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../app/../src/mk_lib_crypto_alg_serpent_inl_64.h:809:25: warning: 'mk_lib_crypto_alg_serpent_64_substitute_dec_2' accessing 1968 bytes in a region of size 32 [-Wstringop-overflow=]
+  809 |                 case 2: mk_lib_crypto_alg_serpent_64_substitute_dec_2(msgs); break;
+      |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../app/../src/mk_lib_crypto_alg_serpent_inl_64.h:809:25: note: referencing argument 1 of type 'mk_lib_crypto_alg_serpent_msg_t[123]' {aka 'struct mk_lib_crypto_alg_serpent_msg_s[123]'}
+../../app/../src/mk_lib_crypto_alg_serpent_inl_64.h:633:28: note: in a call to function 'mk_lib_crypto_alg_serpent_64_substitute_dec_2'
+  633 | static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_dec_2(mk_lang_static_param(mk_lib_crypto_alg_serpent_msg_t, msgs, 123)) mk_lang_noexcept
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In function 'mk_lib_crypto_alg_serpent_64_load',
+    inlined from 'mk_lib_crypto_alg_serpent_64_substitute_dec_6' at ../../app/../src/mk_lib_crypto_alg_serpent_inl_64.h:755:2,
+    inlined from 'mk_lib_crypto_alg_serpent_64_substitute_dec' at ../../app/../src/mk_lib_crypto_alg_serpent_inl_64.h:813:11:
+../../app/../src/mk_lib_crypto_alg_serpent_inl_64.h:219:76: warning: array subscript 24 is above array bounds of 'const mk_sl_cui_uint8_t[16]' {aka 'const struct mk_sl_cui_uint8_s[16]'} [-Warray-bounds=]
+  219 |         mk_sl_cui_uint64_from_buis_uchar_le(td, ((mk_lang_types_uchar_pct)(&msgs->m_data.m_uint8s[3 * 8])));
+      |                                                                           ~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../app/../src/mk_lib_crypto_alg_serpent.h: In function 'mk_lib_crypto_alg_serpent_64_substitute_dec':
+../../app/../src/mk_lib_crypto_alg_serpent.h:41:80: note: while referencing 'm_uint8s'
+   41 |         mk_lang_alignas(mk_lib_crypto_alg_serpent_msg_len_v) mk_sl_cui_uint8_t m_uint8s[mk_lib_crypto_alg_serpent_msg_len_v];
+      |                                                                                ^~~~~~~~
+In function 'mk_lib_crypto_alg_serpent_64_load',
+    inlined from 'mk_lib_crypto_alg_serpent_64_substitute_dec_5' at ../../app/../src/mk_lib_crypto_alg_serpent_inl_64.h:728:2,
+    inlined from 'mk_lib_crypto_alg_serpent_64_substitute_dec' at ../../app/../src/mk_lib_crypto_alg_serpent_inl_64.h:812:11:
+../../app/../src/mk_lib_crypto_alg_serpent_inl_64.h:219:76: warning: array subscript 24 is above array bounds of 'const mk_sl_cui_uint8_t[16]' {aka 'const struct mk_sl_cui_uint8_s[16]'} [-Warray-bounds=]
+  219 |         mk_sl_cui_uint64_from_buis_uchar_le(td, ((mk_lang_types_uchar_pct)(&msgs->m_data.m_uint8s[3 * 8])));
+      |                                                                           ~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../app/../src/mk_lib_crypto_alg_serpent.h: In function 'mk_lib_crypto_alg_serpent_64_substitute_dec':
+../../app/../src/mk_lib_crypto_alg_serpent.h:41:80: note: while referencing 'm_uint8s'
+   41 |         mk_lang_alignas(mk_lib_crypto_alg_serpent_msg_len_v) mk_sl_cui_uint8_t m_uint8s[mk_lib_crypto_alg_serpent_msg_len_v];
+      |                                                                                ^~~~~~~~
+In function 'mk_lib_crypto_alg_serpent_64_load',
+    inlined from 'mk_lib_crypto_alg_serpent_64_substitute_dec_4' at ../../app/../src/mk_lib_crypto_alg_serpent_inl_64.h:700:2,
+    inlined from 'mk_lib_crypto_alg_serpent_64_substitute_dec' at ../../app/../src/mk_lib_crypto_alg_serpent_inl_64.h:811:11:
+../../app/../src/mk_lib_crypto_alg_serpent_inl_64.h:219:76: warning: array subscript 24 is above array bounds of 'const mk_sl_cui_uint8_t[16]' {aka 'const struct mk_sl_cui_uint8_s[16]'} [-Warray-bounds=]
+  219 |         mk_sl_cui_uint64_from_buis_uchar_le(td, ((mk_lang_types_uchar_pct)(&msgs->m_data.m_uint8s[3 * 8])));
+      |                                                                           ~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../app/../src/mk_lib_crypto_alg_serpent.h: In function 'mk_lib_crypto_alg_serpent_64_substitute_dec':
+../../app/../src/mk_lib_crypto_alg_serpent.h:41:80: note: while referencing 'm_uint8s'
+   41 |         mk_lang_alignas(mk_lib_crypto_alg_serpent_msg_len_v) mk_sl_cui_uint8_t m_uint8s[mk_lib_crypto_alg_serpent_msg_len_v];
+      |                                                                                ^~~~~~~~
+In function 'mk_lib_crypto_alg_serpent_64_load',
+    inlined from 'mk_lib_crypto_alg_serpent_64_substitute_dec_3' at ../../app/../src/mk_lib_crypto_alg_serpent_inl_64.h:673:2,
+    inlined from 'mk_lib_crypto_alg_serpent_64_substitute_dec' at ../../app/../src/mk_lib_crypto_alg_serpent_inl_64.h:810:11:
+../../app/../src/mk_lib_crypto_alg_serpent_inl_64.h:219:76: warning: array subscript 24 is above array bounds of 'const mk_sl_cui_uint8_t[16]' {aka 'const struct mk_sl_cui_uint8_s[16]'} [-Warray-bounds=]
+  219 |         mk_sl_cui_uint64_from_buis_uchar_le(td, ((mk_lang_types_uchar_pct)(&msgs->m_data.m_uint8s[3 * 8])));
+      |                                                                           ~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../app/../src/mk_lib_crypto_alg_serpent.h: In function 'mk_lib_crypto_alg_serpent_64_substitute_dec':
+../../app/../src/mk_lib_crypto_alg_serpent.h:41:80: note: while referencing 'm_uint8s'
+   41 |         mk_lang_alignas(mk_lib_crypto_alg_serpent_msg_len_v) mk_sl_cui_uint8_t m_uint8s[mk_lib_crypto_alg_serpent_msg_len_v];
+      |                                                                                ^~~~~~~~
+In function 'mk_lib_crypto_alg_serpent_64_load',
+    inlined from 'mk_lib_crypto_alg_serpent_64_substitute_dec_2' at ../../app/../src/mk_lib_crypto_alg_serpent_inl_64.h:646:2,
+    inlined from 'mk_lib_crypto_alg_serpent_64_substitute_dec' at ../../app/../src/mk_lib_crypto_alg_serpent_inl_64.h:809:11:
+../../app/../src/mk_lib_crypto_alg_serpent_inl_64.h:219:76: warning: array subscript 24 is above array bounds of 'const mk_sl_cui_uint8_t[16]' {aka 'const struct mk_sl_cui_uint8_s[16]'} [-Warray-bounds=]
+  219 |         mk_sl_cui_uint64_from_buis_uchar_le(td, ((mk_lang_types_uchar_pct)(&msgs->m_data.m_uint8s[3 * 8])));
+      |                                                                           ~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../app/../src/mk_lib_crypto_alg_serpent.h: In function 'mk_lib_crypto_alg_serpent_64_substitute_dec':
+../../app/../src/mk_lib_crypto_alg_serpent.h:41:80: note: while referencing 'm_uint8s'
+   41 |         mk_lang_alignas(mk_lib_crypto_alg_serpent_msg_len_v) mk_sl_cui_uint8_t m_uint8s[mk_lib_crypto_alg_serpent_msg_len_v];
+      |                                                                                ^~~~~~~~
+In function 'mk_lib_crypto_alg_serpent_64_load',
+    inlined from 'mk_lib_crypto_alg_serpent_64_substitute_dec_1' at ../../app/../src/mk_lib_crypto_alg_serpent_inl_64.h:618:2,
+    inlined from 'mk_lib_crypto_alg_serpent_64_substitute_dec' at ../../app/../src/mk_lib_crypto_alg_serpent_inl_64.h:808:11:
+../../app/../src/mk_lib_crypto_alg_serpent_inl_64.h:219:76: warning: array subscript 24 is above array bounds of 'const mk_sl_cui_uint8_t[16]' {aka 'const struct mk_sl_cui_uint8_s[16]'} [-Warray-bounds=]
+  219 |         mk_sl_cui_uint64_from_buis_uchar_le(td, ((mk_lang_types_uchar_pct)(&msgs->m_data.m_uint8s[3 * 8])));
+      |                                                                           ~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../app/../src/mk_lib_crypto_alg_serpent.h: In function 'mk_lib_crypto_alg_serpent_64_substitute_dec':
+../../app/../src/mk_lib_crypto_alg_serpent.h:41:80: note: while referencing 'm_uint8s'
+   41 |         mk_lang_alignas(mk_lib_crypto_alg_serpent_msg_len_v) mk_sl_cui_uint8_t m_uint8s[mk_lib_crypto_alg_serpent_msg_len_v];
+      |                                                                                ^~~~~~~~
+In function 'mk_lib_crypto_alg_serpent_64_load',
+    inlined from 'mk_lib_crypto_alg_serpent_64_substitute_dec_0' at ../../app/../src/mk_lib_crypto_alg_serpent_inl_64.h:590:2,
+    inlined from 'mk_lib_crypto_alg_serpent_64_substitute_dec' at ../../app/../src/mk_lib_crypto_alg_serpent_inl_64.h:807:11:
+../../app/../src/mk_lib_crypto_alg_serpent_inl_64.h:219:76: warning: array subscript 24 is above array bounds of 'const mk_sl_cui_uint8_t[16]' {aka 'const struct mk_sl_cui_uint8_s[16]'} [-Warray-bounds=]
+  219 |         mk_sl_cui_uint64_from_buis_uchar_le(td, ((mk_lang_types_uchar_pct)(&msgs->m_data.m_uint8s[3 * 8])));
+      |                                                                           ~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../app/../src/mk_lib_crypto_alg_serpent.h: In function 'mk_lib_crypto_alg_serpent_64_substitute_dec':
+../../app/../src/mk_lib_crypto_alg_serpent.h:41:80: note: while referencing 'm_uint8s'
+   41 |         mk_lang_alignas(mk_lib_crypto_alg_serpent_msg_len_v) mk_sl_cui_uint8_t m_uint8s[mk_lib_crypto_alg_serpent_msg_len_v];
+      |                                                                                ^~~~~~~~
+In function 'mk_lib_crypto_alg_serpent_64_load',
+    inlined from 'mk_lib_crypto_alg_serpent_64_substitute_dec_7' at ../../app/../src/mk_lib_crypto_alg_serpent_inl_64.h:781:2,
+    inlined from 'mk_lib_crypto_alg_serpent_64_substitute_dec' at ../../app/../src/mk_lib_crypto_alg_serpent_inl_64.h:814:11:
+../../app/../src/mk_lib_crypto_alg_serpent_inl_64.h:219:76: warning: array subscript 24 is above array bounds of 'const mk_sl_cui_uint8_t[16]' {aka 'const struct mk_sl_cui_uint8_s[16]'} [-Warray-bounds=]
+  219 |         mk_sl_cui_uint64_from_buis_uchar_le(td, ((mk_lang_types_uchar_pct)(&msgs->m_data.m_uint8s[3 * 8])));
+      |                                                                           ~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../app/../src/mk_lib_crypto_alg_serpent.h: In function 'mk_lib_crypto_alg_serpent_64_substitute_dec':
+../../app/../src/mk_lib_crypto_alg_serpent.h:41:80: note: while referencing 'm_uint8s'
+   41 |         mk_lang_alignas(mk_lib_crypto_alg_serpent_msg_len_v) mk_sl_cui_uint8_t m_uint8s[mk_lib_crypto_alg_serpent_msg_len_v];
+      |                                                                                ^~~~~~~~
+In function 'mk_lib_crypto_alg_serpent_64_store',
+    inlined from 'mk_lib_crypto_alg_serpent_64_substitute_dec_2' at ../../app/../src/mk_lib_crypto_alg_serpent_inl_64.h:657:2,
+    inlined from 'mk_lib_crypto_alg_serpent_64_substitute_dec' at ../../app/../src/mk_lib_crypto_alg_serpent_inl_64.h:804:2:
+../../app/../src/mk_lib_crypto_alg_serpent_inl_64.h:244:73: warning: array subscript 24 is above array bounds of 'mk_sl_cui_uint8_t[16]' {aka 'struct mk_sl_cui_uint8_s[16]'} [-Warray-bounds=]
+  244 |         mk_sl_cui_uint64_to_buis_uchar_le(td, ((mk_lang_types_uchar_pt)(&msgs->m_data.m_uint8s[3 * 8])));
+      |                                                                        ~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../app/../src/mk_lib_crypto_alg_serpent.h: In function 'mk_lib_crypto_alg_serpent_64_substitute_dec':
+../../app/../src/mk_lib_crypto_alg_serpent.h:41:80: note: while referencing 'm_uint8s'
+   41 |         mk_lang_alignas(mk_lib_crypto_alg_serpent_msg_len_v) mk_sl_cui_uint8_t m_uint8s[mk_lib_crypto_alg_serpent_msg_len_v];
+      |                                                                                ^~~~~~~~
+In function 'mk_lib_crypto_alg_serpent_64_load',
+    inlined from 'mk_lib_crypto_alg_serpent_64_substitute_dec_2' at ../../app/../src/mk_lib_crypto_alg_serpent_inl_64.h:646:2,
+    inlined from 'mk_lib_crypto_alg_serpent_64_substitute_dec' at ../../app/../src/mk_lib_crypto_alg_serpent_inl_64.h:804:2:
+../../app/../src/mk_lib_crypto_alg_serpent_inl_64.h:219:76: warning: array subscript 24 is above array bounds of 'const mk_sl_cui_uint8_t[16]' {aka 'const struct mk_sl_cui_uint8_s[16]'} [-Warray-bounds=]
+  219 |         mk_sl_cui_uint64_from_buis_uchar_le(td, ((mk_lang_types_uchar_pct)(&msgs->m_data.m_uint8s[3 * 8])));
+      |                                                                           ~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../app/../src/mk_lib_crypto_alg_serpent.h: In function 'mk_lib_crypto_alg_serpent_64_substitute_dec':
+../../app/../src/mk_lib_crypto_alg_serpent.h:41:80: note: while referencing 'm_uint8s'
+   41 |         mk_lang_alignas(mk_lib_crypto_alg_serpent_msg_len_v) mk_sl_cui_uint8_t m_uint8s[mk_lib_crypto_alg_serpent_msg_len_v];
+      |                                                                                ^~~~~~~~
