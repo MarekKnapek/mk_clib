@@ -1,5 +1,6 @@
 #include "mk_lang_llong.h"
 #include "mk_lang_static_assert.h"
+#include "mk_lang_static_param.h"
 #include "mk_sl_uint.h"
 #include "mk_sl_uint64.h"
 
@@ -195,7 +196,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_64_transpose_store(mk_sl_cu
 	*td = ttd;
 }
 
-static mk_lang_inline void mk_lib_crypto_alg_serpent_64_load(mk_lib_crypto_alg_serpent_msg_pct const msgs, mk_sl_cui_uint64_pt const ta, mk_sl_cui_uint64_pt const tb, mk_sl_cui_uint64_pt const tc, mk_sl_cui_uint64_pt const td) mk_lang_noexcept
+static mk_lang_inline void mk_lib_crypto_alg_serpent_64_load(mk_lang_static_param(mk_lib_crypto_alg_serpent_msg_ct, msgs, 2), mk_sl_cui_uint64_pt const ta, mk_sl_cui_uint64_pt const tb, mk_sl_cui_uint64_pt const tc, mk_sl_cui_uint64_pt const td) mk_lang_noexcept
 {
 	mk_lang_static_assert(mk_lang_llong_has);
 
@@ -219,7 +220,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_64_load(mk_lib_crypto_alg_s
 	mk_lib_crypto_alg_serpent_64_transpose_load(ta, tb, tc, td);
 }
 
-static mk_lang_inline void mk_lib_crypto_alg_serpent_64_store(mk_lib_crypto_alg_serpent_msg_pt const msgs, mk_sl_cui_uint64_pt const ta, mk_sl_cui_uint64_pt const tb, mk_sl_cui_uint64_pt const tc, mk_sl_cui_uint64_pt const td) mk_lang_noexcept
+static mk_lang_inline void mk_lib_crypto_alg_serpent_64_store(mk_lang_static_param(mk_lib_crypto_alg_serpent_msg_t, msgs, 2), mk_sl_cui_uint64_pt const ta, mk_sl_cui_uint64_pt const tb, mk_sl_cui_uint64_pt const tc, mk_sl_cui_uint64_pt const td) mk_lang_noexcept
 {
 	mk_lang_static_assert(mk_lang_llong_has);
 
@@ -243,7 +244,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_64_store(mk_lib_crypto_alg_
 	mk_sl_cui_uint64_to_buis_uchar_le(td, ((mk_lang_types_uchar_pt)(&msgs->m_data.m_uint8s[3 * 8])));
 }
 
-static mk_lang_inline void mk_lib_crypto_alg_serpent_64_xor2(mk_lib_crypto_alg_serpent_msg_pt const a, mk_lib_crypto_alg_serpent_msg_pct const b) mk_lang_noexcept
+static mk_lang_inline void mk_lib_crypto_alg_serpent_64_xor2(mk_lang_static_param(mk_lib_crypto_alg_serpent_msg_t, a, 2), mk_lang_static_param(mk_lib_crypto_alg_serpent_msg_ct, b, 2)) mk_lang_noexcept
 {
 	mk_sl_cui_uint64_t ba;
 	mk_sl_cui_uint64_t bb;
@@ -276,7 +277,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_64_xor2(mk_lib_crypto_alg_s
 	mk_sl_cui_uint64_to_buis_uchar_le(&td, ((mk_lang_types_uchar_pt)(a)) + 3 * 8);
 }
 
-static mk_lang_inline void mk_lib_crypto_alg_serpent_64_xor3(mk_lib_crypto_alg_serpent_msg_pct const a, mk_lib_crypto_alg_serpent_msg_pct const b, mk_lib_crypto_alg_serpent_msg_pt const c) mk_lang_noexcept
+static mk_lang_inline void mk_lib_crypto_alg_serpent_64_xor3(mk_lang_static_param(mk_lib_crypto_alg_serpent_msg_ct, a, 2), mk_lang_static_param(mk_lib_crypto_alg_serpent_msg_ct, b, 2), mk_lang_static_param(mk_lib_crypto_alg_serpent_msg_t, c, 2)) mk_lang_noexcept
 {
 	mk_sl_cui_uint64_t ba;
 	mk_sl_cui_uint64_t bb;
@@ -312,7 +313,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_64_xor3(mk_lib_crypto_alg_s
 	mk_sl_cui_uint64_to_buis_uchar_le(&td, ((mk_lang_types_uchar_pt)(c)) + 3 * 8);
 }
 
-static mk_lang_inline void mk_lib_crypto_alg_serpent_64_copy(mk_lib_crypto_alg_serpent_msg_pct const a, mk_lib_crypto_alg_serpent_msg_pct const b) mk_lang_noexcept
+static mk_lang_inline void mk_lib_crypto_alg_serpent_64_copy(mk_lang_static_param(mk_lib_crypto_alg_serpent_msg_ct, a, 2), mk_lang_static_param(mk_lib_crypto_alg_serpent_msg_t, b, 2)) mk_lang_noexcept
 {
 	mk_sl_cui_uint64_t ta;
 	mk_sl_cui_uint64_t tb;
@@ -337,7 +338,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_64_copy(mk_lib_crypto_alg_s
 	mk_sl_cui_uint64_to_buis_uchar_le(&td, ((mk_lang_types_uchar_pt)(b)) + 3 * 8);
 }
 
-static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_enc_0(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_enc_0(mk_lang_static_param(mk_lib_crypto_alg_serpent_msg_t, msgs, 2)) mk_lang_noexcept
 {
 	mk_sl_cui_uint64_t ta;
 	mk_sl_cui_uint64_t tb;
@@ -363,7 +364,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_enc_0(mk_lib_
 	mk_lib_crypto_alg_serpent_64_store(msgs, &tb, &te, &tc, &ta);
 }
 
-static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_enc_1(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_enc_1(mk_lang_static_param(mk_lib_crypto_alg_serpent_msg_t, msgs, 2)) mk_lang_noexcept
 {
 	mk_sl_cui_uint64_t ta;
 	mk_sl_cui_uint64_t tb;
@@ -390,7 +391,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_enc_1(mk_lib_
 	mk_lib_crypto_alg_serpent_64_store(msgs, &tc, &ta, &td, &tb);
 }
 
-static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_enc_2(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_enc_2(mk_lang_static_param(mk_lib_crypto_alg_serpent_msg_t, msgs, 2)) mk_lang_noexcept
 {
 	mk_sl_cui_uint64_t ta;
 	mk_sl_cui_uint64_t tb;
@@ -415,7 +416,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_enc_2(mk_lib_
 	mk_lib_crypto_alg_serpent_64_store(msgs, &tc, &td, &tb, &te);
 }
 
-static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_enc_3(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_enc_3(mk_lang_static_param(mk_lib_crypto_alg_serpent_msg_t, msgs, 2)) mk_lang_noexcept
 {
 	mk_sl_cui_uint64_t ta;
 	mk_sl_cui_uint64_t tb;
@@ -442,7 +443,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_enc_3(mk_lib_
 	mk_lib_crypto_alg_serpent_64_store(msgs, &tb, &tc, &td, &te);
 }
 
-static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_enc_4(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_enc_4(mk_lang_static_param(mk_lib_crypto_alg_serpent_msg_t, msgs, 2)) mk_lang_noexcept
 {
 	mk_sl_cui_uint64_t ta;
 	mk_sl_cui_uint64_t tb;
@@ -469,7 +470,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_enc_4(mk_lib_
 	mk_lib_crypto_alg_serpent_64_store(msgs, &tb, &te, &ta, &td);
 }
 
-static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_enc_5(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_enc_5(mk_lang_static_param(mk_lib_crypto_alg_serpent_msg_t, msgs, 2)) mk_lang_noexcept
 {
 	mk_sl_cui_uint64_t ta;
 	mk_sl_cui_uint64_t tb;
@@ -496,7 +497,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_enc_5(mk_lib_
 	mk_lib_crypto_alg_serpent_64_store(msgs, &tb, &td, &ta, &tc);
 }
 
-static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_enc_6(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_enc_6(mk_lang_static_param(mk_lib_crypto_alg_serpent_msg_t, msgs, 2)) mk_lang_noexcept
 {
 	mk_sl_cui_uint64_t ta;
 	mk_sl_cui_uint64_t tb;
@@ -523,7 +524,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_enc_6(mk_lib_
 	mk_lib_crypto_alg_serpent_64_store(msgs, &ta, &tb, &te, &tc);
 }
 
-static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_enc_7(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_enc_7(mk_lang_static_param(mk_lib_crypto_alg_serpent_msg_t, msgs, 2)) mk_lang_noexcept
 {
 	mk_sl_cui_uint64_t ta;
 	mk_sl_cui_uint64_t tb;
@@ -551,7 +552,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_enc_7(mk_lib_
 	mk_lib_crypto_alg_serpent_64_store(msgs, &te, &td, &tb, &ta);
 }
 
-static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_enc(int const sbox_idx, mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_enc(int const sbox_idx, mk_lang_static_param(mk_lib_crypto_alg_serpent_msg_t, msgs, 2)) mk_lang_noexcept
 {
 	mk_lang_static_assert(mk_lang_llong_has);
 
@@ -573,7 +574,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_enc(int const
 	}
 }
 
-static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_dec_0(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_dec_0(mk_lang_static_param(mk_lib_crypto_alg_serpent_msg_t, msgs, 2)) mk_lang_noexcept
 {
 	mk_sl_cui_uint64_t ta;
 	mk_sl_cui_uint64_t tb;
@@ -601,7 +602,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_dec_0(mk_lib_
 	mk_lib_crypto_alg_serpent_64_store(msgs, &ta, &te, &tb, &td);
 }
 
-static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_dec_1(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_dec_1(mk_lang_static_param(mk_lib_crypto_alg_serpent_msg_t, msgs, 2)) mk_lang_noexcept
 {
 	mk_sl_cui_uint64_t ta;
 	mk_sl_cui_uint64_t tb;
@@ -629,7 +630,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_dec_1(mk_lib_
 	mk_lib_crypto_alg_serpent_64_store(msgs, &te, &ta, &td, &tc);
 }
 
-static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_dec_2(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_dec_2(mk_lang_static_param(mk_lib_crypto_alg_serpent_msg_t, msgs, 2)) mk_lang_noexcept
 {
 	mk_sl_cui_uint64_t ta;
 	mk_sl_cui_uint64_t tb;
@@ -656,7 +657,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_dec_2(mk_lib_
 	mk_lib_crypto_alg_serpent_64_store(msgs, &tb, &te, &tc, &td);
 }
 
-static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_dec_3(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_dec_3(mk_lang_static_param(mk_lib_crypto_alg_serpent_msg_t, msgs, 2)) mk_lang_noexcept
 {
 	mk_sl_cui_uint64_t ta;
 	mk_sl_cui_uint64_t tb;
@@ -683,7 +684,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_dec_3(mk_lib_
 	mk_lib_crypto_alg_serpent_64_store(msgs, &tc, &tb, &td, &ta);
 }
 
-static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_dec_4(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_dec_4(mk_lang_static_param(mk_lib_crypto_alg_serpent_msg_t, msgs, 2)) mk_lang_noexcept
 {
 	mk_sl_cui_uint64_t ta;
 	mk_sl_cui_uint64_t tb;
@@ -711,7 +712,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_dec_4(mk_lib_
 	mk_lib_crypto_alg_serpent_64_store(msgs, &ta, &td, &tc, &te);
 }
 
-static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_dec_5(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_dec_5(mk_lang_static_param(mk_lib_crypto_alg_serpent_msg_t, msgs, 2)) mk_lang_noexcept
 {
 	mk_sl_cui_uint64_t ta;
 	mk_sl_cui_uint64_t tb;
@@ -738,7 +739,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_dec_5(mk_lib_
 	mk_lib_crypto_alg_serpent_64_store(msgs, &tb, &te, &td, &tc);
 }
 
-static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_dec_6(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_dec_6(mk_lang_static_param(mk_lib_crypto_alg_serpent_msg_t, msgs, 2)) mk_lang_noexcept
 {
 	mk_sl_cui_uint64_t ta;
 	mk_sl_cui_uint64_t tb;
@@ -764,7 +765,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_dec_6(mk_lib_
 	mk_lib_crypto_alg_serpent_64_store(msgs, &tb, &tc, &te, &td);
 }
 
-static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_dec_7(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_dec_7(mk_lang_static_param(mk_lib_crypto_alg_serpent_msg_t, msgs, 2)) mk_lang_noexcept
 {
 	mk_sl_cui_uint64_t ta;
 	mk_sl_cui_uint64_t tb;
@@ -791,7 +792,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_dec_7(mk_lib_
 	mk_lib_crypto_alg_serpent_64_store(msgs, &td, &ta, &tb, &te);
 }
 
-static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_dec(int const sbox_idx, mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_dec(int const sbox_idx, mk_lang_static_param(mk_lib_crypto_alg_serpent_msg_t, msgs, 2)) mk_lang_noexcept
 {
 	mk_lang_static_assert(mk_lang_llong_has);
 
@@ -813,7 +814,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_64_substitute_dec(int const
 	}
 }
 
-static mk_lang_inline void mk_lib_crypto_alg_serpent_64_lt_enc(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline void mk_lib_crypto_alg_serpent_64_lt_enc(mk_lang_static_param(mk_lib_crypto_alg_serpent_msg_t, msgs, 2)) mk_lang_noexcept
 {
 	mk_sl_cui_uint64_t ta;
 	mk_sl_cui_uint64_t tb;
@@ -843,10 +844,10 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_64_lt_enc(mk_lib_crypto_alg
 	mk_lib_crypto_alg_serpent_64_store(msgs, &ta, &tb, &tc, &td);
 }
 
-static mk_lang_inline void mk_lib_crypto_alg_serpent_64_round_middle_enc(mk_lib_crypto_alg_serpent_schedule_pct const schedule, int const rnd_idx, mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline void mk_lib_crypto_alg_serpent_64_round_middle_enc(mk_lib_crypto_alg_serpent_schedule_pct const schedule, int const rnd_idx, mk_lang_static_param(mk_lib_crypto_alg_serpent_msg_t, msgs, 2)) mk_lang_noexcept
 {
 	mk_lang_assert(schedule);
-	mk_lang_assert(rnd_idx >= 0 && rnd_idx < mk_lib_crypto_alg_serpent_nr - 1);
+	mk_lang_assert(rnd_idx >= 0 && rnd_idx <= mk_lib_crypto_alg_serpent_nr);
 	mk_lang_assert(msgs);
 
 	mk_lib_crypto_alg_serpent_64_xor2(msgs, &schedule->m_data.m_msgs[rnd_idx]);
@@ -854,7 +855,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_64_round_middle_enc(mk_lib_
 	mk_lib_crypto_alg_serpent_64_lt_enc(msgs);
 }
 
-static mk_lang_inline void mk_lib_crypto_alg_serpent_64_round_last_enc(mk_lib_crypto_alg_serpent_schedule_pct const schedule, mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline void mk_lib_crypto_alg_serpent_64_round_last_enc(mk_lib_crypto_alg_serpent_schedule_pct const schedule, mk_lang_static_param(mk_lib_crypto_alg_serpent_msg_t, msgs, 2)) mk_lang_noexcept
 {
 	mk_lang_assert(schedule);
 	mk_lang_assert(msgs);
@@ -864,7 +865,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_64_round_last_enc(mk_lib_cr
 	mk_lib_crypto_alg_serpent_64_xor2(msgs, &schedule->m_data.m_msgs[mk_lib_crypto_alg_serpent_nr - 0]);
 }
 
-static mk_lang_inline void mk_lib_crypto_alg_serpent_64_lt_dec(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline void mk_lib_crypto_alg_serpent_64_lt_dec(mk_lang_static_param(mk_lib_crypto_alg_serpent_msg_t, msgs, 2)) mk_lang_noexcept
 {
 	mk_sl_cui_uint64_t ta;
 	mk_sl_cui_uint64_t tb;
@@ -903,7 +904,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_64_round_first_dec(mk_lib_c
 	mk_lib_crypto_alg_serpent_64_xor3(input, &schedule->m_data.m_msgs[(mk_lib_crypto_alg_serpent_nr - 0)], output);
 }
 
-static mk_lang_inline void mk_lib_crypto_alg_serpent_64_round_middle_dec(mk_lib_crypto_alg_serpent_schedule_pct const schedule, int const rnd_idx, mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline void mk_lib_crypto_alg_serpent_64_round_middle_dec(mk_lib_crypto_alg_serpent_schedule_pct const schedule, int const rnd_idx, mk_lang_static_param(mk_lib_crypto_alg_serpent_msg_t, msgs, 2)) mk_lang_noexcept
 {
 	mk_lang_assert(schedule);
 	mk_lang_assert(rnd_idx >= 0 && rnd_idx < mk_lib_crypto_alg_serpent_nr - 1);
@@ -914,7 +915,7 @@ static mk_lang_inline void mk_lib_crypto_alg_serpent_64_round_middle_dec(mk_lib_
 	mk_lib_crypto_alg_serpent_64_lt_dec(msgs);
 }
 
-static mk_lang_inline void mk_lib_crypto_alg_serpent_64_round_last_dec(mk_lib_crypto_alg_serpent_schedule_pct const schedule, mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline void mk_lib_crypto_alg_serpent_64_round_last_dec(mk_lib_crypto_alg_serpent_schedule_pct const schedule, mk_lang_static_param(mk_lib_crypto_alg_serpent_msg_t, msgs, 2)) mk_lang_noexcept
 {
 	mk_lang_assert(schedule);
 	mk_lang_assert(msgs);
