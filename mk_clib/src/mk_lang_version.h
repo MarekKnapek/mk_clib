@@ -5,14 +5,14 @@
 #define mk_lang_version_value_c_99 199901l
 #define mk_lang_version_value_c_11 201112l
 #define mk_lang_version_value_c_18 201710l
-#define mk_lang_version_value_c_23 202299l /* todo c23 */
+#define mk_lang_version_value_c_23 202311l
 
 #define mk_lang_version_value_cpp_98 199711l
 #define mk_lang_version_value_cpp_11 201103l
 #define mk_lang_version_value_cpp_14 201402l
 #define mk_lang_version_value_cpp_17 201703l
 #define mk_lang_version_value_cpp_20 202002l
-#define mk_lang_version_value_cpp_23 202299l /* todo c++ 23 */
+#define mk_lang_version_value_cpp_23 202302l
 
 
 #if defined __STDC__
