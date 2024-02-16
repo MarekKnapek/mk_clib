@@ -4,6 +4,10 @@
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
 
+#if defined __SANITIZE_ADDRESS__ && __SANITIZE_ADDRESS__ == 1
+#include <string.h> /* memmove */
+#endif
+
 
 #include "mk_lang_memmove_inl_defd.h"
 
@@ -17,18 +21,31 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lang_memmove_inl_defd_fn
 	mk_lang_assert(len >= 0);
 	mk_lang_assert(dst != src);
 
-	if(!(dst >= src && dst < src + len))
+	#if defined __SANITIZE_ADDRESS__ && __SANITIZE_ADDRESS__ == 1
+	#if !mk_lang_constexpr_is_constant_evaluated
+	if(1)
+	#else
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	#endif
 	{
-		for(i = 0; i != len; ++i)
-		{
-			dst[i] = src[i];
-		}
+		memmove(dst, src, len);
 	}
 	else
+	#endif
 	{
-		for(i = 0; i != len; ++i)
+		if(!(dst >= src && dst < src + len))
 		{
-			dst[(len - 1) - i] = src[(len - 1) - i];
+			for(i = 0; i != len; ++i)
+			{
+				dst[i] = src[i];
+			}
+		}
+		else
+		{
+			for(i = 0; i != len; ++i)
+			{
+				dst[(len - 1) - i] = src[(len - 1) - i];
+			}
 		}
 	}
 }
