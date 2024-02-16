@@ -2,31 +2,31 @@
 #define mk_include_guard_mk_lang_assert
 
 
-#include "mk_lang_crash.h"
-
-
-#define mk_lang_assert_mode_test_crash 1
+#define mk_lang_assert_mode_crash 1
 #define mk_lang_assert_mode_assume 2
 #define mk_lang_assert_mode_assert 3
 
 
-#if defined NDEBUG && defined mk_lang_assert_want && mk_lang_assert_want == 1
-#define mk_lang_assert_mode mk_lang_assert_mode_test_crash
+#if defined NDEBUG && !defined mk_lang_assert_want
+#define mk_lang_assert_mode mk_lang_assert_mode_assume
 #elif defined NDEBUG && defined mk_lang_assert_want && mk_lang_assert_want == 0
 #define mk_lang_assert_mode mk_lang_assert_mode_assume
-#elif defined NDEBUG && !defined mk_lang_assert_want
-#define mk_lang_assert_mode mk_lang_assert_mode_assume
+#elif defined NDEBUG && defined mk_lang_assert_want && mk_lang_assert_want == 1
+#define mk_lang_assert_mode mk_lang_assert_mode_crash
+#elif !defined NDEBUG && !defined mk_lang_assert_want
+#define mk_lang_assert_mode mk_lang_assert_mode_assert
 #elif !defined NDEBUG && defined mk_lang_assert_want && mk_lang_assert_want == 1
 #define mk_lang_assert_mode mk_lang_assert_mode_assert
 #elif !defined NDEBUG && defined mk_lang_assert_want && mk_lang_assert_want == 0
 #define mk_lang_assert_mode mk_lang_assert_mode_assume
-#elif !defined NDEBUG && !defined mk_lang_assert_want
-#define mk_lang_assert_mode mk_lang_assert_mode_assert
+#else
+#error xxxxxxxxxx
 #endif
 
 
-#if mk_lang_assert_mode == mk_lang_assert_mode_test_crash
+#if mk_lang_assert_mode == mk_lang_assert_mode_crash
 
+#include "mk_lang_crash.h"
 #define mk_lang_assert(x) ((void)((x) ? ((void)(0)) : ((void)(mk_lang_crash()))))
 
 #elif mk_lang_assert_mode == mk_lang_assert_mode_assume
@@ -65,13 +65,6 @@
 #endif
 
 #endif
-
-#define mk_lang_test(x) ((void)((x) ? ((void)(0)) : ((void)(mk_lang_crash()))))
-
-
-#undef mk_lang_assert_mode_test_crash
-#undef mk_lang_assert_mode_assume
-#undef mk_lang_assert_mode_assert
 
 
 #endif

@@ -7,6 +7,7 @@
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_sizeof.h"
 #include "mk_lang_static_assert.h"
+#include "mk_lang_test.h"
 #include "mk_lang_types.h"
 
 
