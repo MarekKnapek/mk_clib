@@ -1,5 +1,6 @@
 #include "mk_lang_crash.h"
 
+#include "mk_lang_builtin.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_noreturn.h"
@@ -32,16 +33,12 @@ mk_lang_noreturn mk_lang_jumbo void mk_lang_crash(void) mk_lang_noexcept
 	__debugbreak();
 	#endif
 
-	#if defined __has_builtin
-	#if __has_builtin(__builtin_debugtrap)
+	#if mk_lang_builtin_has_debugtrap
 	__builtin_debugtrap();
 	#endif
-	#endif
 
-	#if defined __has_builtin
-	#if __has_builtin(__builtin_trap)
+	#if mk_lang_builtin_has_trap
 	__builtin_trap();
-	#endif
 	#endif
 
 	ptr = mk_lang_null;
