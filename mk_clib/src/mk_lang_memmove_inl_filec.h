@@ -28,7 +28,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lang_memmove_inl_defd_fn
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	#endif
 	{
-		memmove(dst, src, len);
+		memmove(dst, src, len * sizeof(*src));
 	}
 	else
 	#endif
