@@ -6,6 +6,7 @@ curl -L -o m4-1.4.14-1-bin.zip http://downloads.sourceforge.net/gnuwin32/m4-1.4.
 set path=%path%;%cd%
 if "%~1"=="debug" goto debug
 if "%~1"=="release" goto release
+if "%~1"=="releasedebug" goto releasedebug
 goto :eof
 :debug
 if "%~2"=="x86" goto debugx86
@@ -14,6 +15,9 @@ goto :eof
 :release
 if "%~2"=="x86" goto releasex86
 if "%~2"=="x64" goto releasex64
+:releasedebug
+if "%~2"=="x86" goto releasedebugx86
+if "%~2"=="x64" goto releasedebugx64
 goto :eof
 :debugx86
 "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\devenv.com" "%~dp0..\..\mk_clib\projects\vs2022\mk_clib.sln" /Build "Debug|x86" /Project "%~3" /ProjectConfig "Debug|Win32" /Out "%~dp0..\..\%~3-debug-x86.txt"
@@ -38,4 +42,16 @@ goto :eof
 copy "%~dp0..\..\mk_clib\projects\vs2022\x64\Release\%~3.exe" "%~dp0..\..\%~3-release-x64.exe"
 copy "%~dp0..\..\mk_clib\projects\vs2022\x64\Release\%~3.pdb" "%~dp0..\..\%~3-release-x64.pdb"
 "%~dp0..\..\%~3-release-x64.exe"
+goto :eof
+:releasedebugx86
+"C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\devenv.com" "%~dp0..\..\mk_clib\projects\vs2022\mk_clib.sln" /Build "ReleaseDebug|x86" /Project "%~3" /ProjectConfig "ReleaseDebug|Win32" /Out "%~dp0..\..\%~3-releasedebug-x86.txt"
+copy "%~dp0..\..\mk_clib\projects\vs2022\ReleaseDebug\%~3.exe" "%~dp0..\..\%~3-releasedebug-x86.exe"
+copy "%~dp0..\..\mk_clib\projects\vs2022\ReleaseDebug\%~3.pdb" "%~dp0..\..\%~3-releasedebug-x86.pdb"
+"%~dp0..\..\%~3-releasedebug-x86.exe"
+goto :eof
+:releasedebugx64
+"C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\devenv.com" "%~dp0..\..\mk_clib\projects\vs2022\mk_clib.sln" /Build "ReleaseDebug|x64" /Project "%~3" /ProjectConfig "ReleaseDebug|x64" /Out "%~dp0..\..\%~3-releasedebug-x64.txt"
+copy "%~dp0..\..\mk_clib\projects\vs2022\x64\ReleaseDebug\%~3.exe" "%~dp0..\..\%~3-releasedebug-x64.exe"
+copy "%~dp0..\..\mk_clib\projects\vs2022\x64\ReleaseDebug\%~3.pdb" "%~dp0..\..\%~3-releasedebug-x64.pdb"
+"%~dp0..\..\%~3-releasedebug-x64.exe"
 goto :eof

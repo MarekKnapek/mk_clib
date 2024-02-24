@@ -1,5 +1,6 @@
-/.vs/
 /Debug/
 /Release/
 /ReleaseDebug/
 /x64/
+
+/mkdefrag.vcxproj.user
