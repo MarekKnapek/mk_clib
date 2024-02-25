@@ -56,8 +56,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "double_analyzer", "double_a
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mkdefrag", "mkdefrag\mkdefrag.vcxproj", "{240F9BE2-3B3F-48AB-B7BD-F7546C1A83E2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8286250D-5BE4-4739-BEFC-05C1FEF305BE} = {8286250D-5BE4-4739-BEFC-05C1FEF305BE}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "protect_clusters", "protect_clusters\protect_clusters.vcxproj", "{0F38483E-6CF0-4BD1-9DC1-86533EC94EBE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8286250D-5BE4-4739-BEFC-05C1FEF305BE} = {8286250D-5BE4-4739-BEFC-05C1FEF305BE}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
