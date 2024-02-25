@@ -532,7 +532,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lang_num_longdiv
 	}
 	else
 	{
-		lenb = mk_lang_num_longdivmod_inl_defd_get_lena(b); mk_lang_assert(lenb != 0);
+		lenb = mk_lang_num_longdivmod_inl_defd_get_lenb(b); mk_lang_assert(lenb != 0);
 		if(lenb == 1)
 		{
 			mk_lang_num_longdivmod_inl_defd_divmod4_x_1(a, &b[mk_lang_num_longdivmod_inl_defd_idxb(0)], c, d, lena);
