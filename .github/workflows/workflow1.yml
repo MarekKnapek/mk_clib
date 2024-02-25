@@ -4,7 +4,7 @@
     "strategy":
       "matrix":
         "proj": ["mkdefrag", "protect_clusters"]
-        "conf": ["debug", "release"]
+        "conf": ["debug", "release", "releasedebug"]
         "plat": ["x86", "x64"]
     "runs-on": "windows-latest"
     "steps":
