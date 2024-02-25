@@ -1311,62 +1311,67 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t process_path_arg(mk
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t process_cmd_line(mk_lang_types_void_t) mk_lang_noexcept
 {
+	mk_lang_types_bool_t first;
+	mk_lang_types_bool_t at_least_one;
 	mk_win_base_wchar_lpt cmd_line;
 	mk_win_base_wchar_lpct ptr;
-	mk_lang_types_sint_t err;
+	mk_win_base_wchar_lpct arg;
 	mk_lang_types_sint_t len;
-	mk_win_base_wchar_t space;
+	mk_lang_types_sint_t err;
 
+	first = mk_lang_true;
+	at_least_one = mk_lang_false;
 	cmd_line = GetCommandLineW(); mk_lang_check_return(cmd_line && cmd_line[0] != L'\0');
 	ptr = cmd_line;
-	if(ptr[0] == L'"')
+	for(;;)
 	{
-		do
+		while(ptr[0] == L' ')
 		{
 			++ptr;
-		}while(ptr[0] != L'"');
-		++ptr;
-	}
-	else
-	{
-		do
+		}
+		if(ptr[0] == L'\0')
 		{
-			++ptr;
-		}while(ptr[0] != L' ' && ptr[0] != L'\0');
-	}
-	while(ptr[0] == L' ')
-	{
-		++ptr;
-	}
-	if(ptr[0] == L'\0')
-	{
-		err = process_path_current(); mk_lang_check_rereturn(err);
-	}
-	else
-	{
+			break;
+		}
 		if(ptr[0] == L'"')
 		{
-			++ptr;
-		}
-		len = wstrlensi(ptr); mk_lang_check_return(len <= mk_win_base_page_64k);
-		if(ptr[-1] == L'"')
-		{
-			mk_lang_check_return(len >= 1 && ptr[len - 1] == L'"');
-			--len;
-		}
-		while(ptr[len - 1] == L' ')
-		{
-			--len;
-		}
-		space = L' ';
-		if(all_of(ptr, &space, len))
-		{
-			err = process_path_current(); mk_lang_check_rereturn(err);
+			arg = ptr + 1;
+			do
+			{
+				++ptr;
+			}while(ptr[0] != L'"' && ptr[0] != L'\0');
+			len = ((mk_lang_types_sint_t)(((mk_lang_types_sintptr_t)(ptr - arg))));
+			if(ptr[0] == L'"')
+			{
+				++ptr;
+			}
 		}
 		else
 		{
-			err = process_path_arg(ptr, len); mk_lang_check_rereturn(err);
+			arg = ptr;
+			do
+			{
+				++ptr;
+			}while(ptr[0] != L' ' && ptr[0] != L'\0');
+			len = ((mk_lang_types_sint_t)(((mk_lang_types_sintptr_t)(ptr - arg))));
 		}
+		if(len == 0)
+		{
+			continue;
+		}
+		if(first)
+		{
+			first = mk_lang_false;
+		}
+		else
+		{
+			at_least_one = mk_lang_true;
+			err = process_path_arg(arg, len); mk_lang_check_rereturn(err);
+		}
+	}
+	if(!at_least_one)
+	{
+		err = process_path_current(); mk_lang_check_rereturn(err);
 	}
 	return 0;
 }
