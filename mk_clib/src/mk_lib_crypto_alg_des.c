@@ -591,7 +591,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_d
 	mk_lang_assert(mk_lib_crypto_alg_des_is_56_bit(key));
 }
 
-mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_des_rot_28_impl(mk_sl_cui_uint32_pct const a, mk_lang_types_bool_t const b, mk_sl_cui_uint32_pt const c) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_des_rot_28_one(mk_sl_cui_uint32_pct const a, mk_lang_types_bool_t const b, mk_sl_cui_uint32_pt const c) mk_lang_noexcept
 {
 	mk_sl_cui_uint32_t ta mk_lang_constexpr_init;
 	mk_sl_cui_uint32_t mask mk_lang_constexpr_init;
@@ -619,7 +619,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_d
 	*c = ta;
 }
 
-mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_des_rot_28(mk_sl_cui_uint32_pct const cin, mk_sl_cui_uint32_pct const din, mk_lang_types_bool_t const shift, mk_sl_cui_uint32_pt const cout, mk_sl_cui_uint32_pt const dout) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_des_rot_28_two(mk_sl_cui_uint32_pct const cin, mk_sl_cui_uint32_pct const din, mk_lang_types_bool_t const shift, mk_sl_cui_uint32_pt const cout, mk_sl_cui_uint32_pt const dout) mk_lang_noexcept
 {
 	mk_lang_assert(cin);
 	mk_lang_assert(din);
@@ -629,8 +629,8 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_d
 	mk_lang_assert(cin != din);
 	mk_lang_assert(cout != dout);
 
-	mk_lib_crypto_alg_des_rot_28_impl(cin, shift, cout);
-	mk_lib_crypto_alg_des_rot_28_impl(din, shift, dout);
+	mk_lib_crypto_alg_des_rot_28_one(cin, shift, cout);
+	mk_lib_crypto_alg_des_rot_28_one(din, shift, dout);
 }
 
 mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_des_expand(mk_lib_crypto_alg_des_key_pct const key, mk_lib_crypto_alg_des_schedule_pt const schedule) mk_lang_noexcept
@@ -646,7 +646,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_d
 	mk_lang_assert(key);
 	mk_lang_assert(schedule);
 
-	rot_cnts = 0x7efcu; /* 1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1 */
+	rot_cnts = 0x7efcu; /* 1 1 2 2 2 2 2 2 1 2 2 2 2 2 2 1 */
 	mk_sl_uint_64_from_8_be(&k, &key->m_data.m_uint8s[0]);
 	mk_lib_crypto_alg_des_pc1(&k, &k);
 	mk_lib_crypto_alg_des_get_cd(&k, &c, &d);
@@ -654,7 +654,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_d
 	for(i = 0; i != n; ++i)
 	{
 		rot_cnt = ((rot_cnts & 0x1) == 0x0) ? mk_lang_false : mk_lang_true;
-		mk_lib_crypto_alg_des_rot_28(&c, &d, rot_cnt, &c, &d);
+		mk_lib_crypto_alg_des_rot_28_two(&c, &d, rot_cnt, &c, &d);
 		mk_lib_crypto_alg_des_set_cd(&k, &c, &d);
 		mk_lib_crypto_alg_des_pc2(&k, &schedule->m_data.m_uint64s[i]);
 		rot_cnts >>= 1;
@@ -677,7 +677,8 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_d
 	mk_lang_assert(tui >> 6 == 0u);
 	row = ((tui >> 5) << 1) | (tui & 1u);
 	col = (tui >> 1) & 0xfu;
-	idx = row * 16 + col;
+	idx = (row << 4) | col;
+	mk_lang_assert(idx >> 6 == 0u);
 	val = s_mk_lib_crypto_alg_des_ss[s_idx].m_data.m_uint8s[idx];
 	mk_sl_cui_uint8_to_bi_uint(&val, &tui);
 	mk_lang_assert(tui >> 4 == 0u);
@@ -717,24 +718,28 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_d
 mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_des_f(mk_sl_cui_uint32_pct const r, mk_sl_cui_uint64_pct const k, mk_sl_cui_uint32_pt const f) mk_lang_noexcept
 {
 	mk_sl_cui_uint64_t ta mk_lang_constexpr_init;
+	mk_sl_cui_uint32_t tb mk_lang_constexpr_init;
 
 	mk_lang_assert(r);
 	mk_lang_assert(k);
 	mk_lang_assert(f);
+	mk_lang_assert(mk_lib_crypto_alg_des_is_48_bit(k));
 
 	mk_lib_crypto_alg_des_e(r, &ta);
 	mk_sl_cui_uint64_xor2(&ta, k);
-	mk_lib_crypto_alg_des_s_all(&ta, f);
+	mk_lib_crypto_alg_des_s_all(&ta, &tb);
+	mk_lib_crypto_alg_des_p(&tb, &tb);
+	*f = tb;
 }
 
-mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_des_schedule_encrypt_one(mk_lib_crypto_alg_des_schedule_pct const schedule, mk_lib_crypto_alg_des_msg_pct const input, mk_lib_crypto_alg_des_msg_pt const output) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_des_schedule_crypt_one(mk_lib_crypto_alg_des_schedule_pct const schedule, mk_lib_crypto_alg_des_msg_pct const input, mk_lib_crypto_alg_des_msg_pt const output) mk_lang_noexcept
 {
 	mk_sl_cui_uint64_t ta mk_lang_constexpr_init;
+	mk_lang_types_sint_t n mk_lang_constexpr_init;
 	mk_lang_types_sint_t i mk_lang_constexpr_init;
 	mk_sl_cui_uint32_t l mk_lang_constexpr_init;
 	mk_sl_cui_uint32_t r mk_lang_constexpr_init;
 	mk_sl_cui_uint32_t tb mk_lang_constexpr_init;
-	mk_sl_cui_uint32_t tc mk_lang_constexpr_init;
 
 	mk_lang_assert(schedule);
 	mk_lang_assert(input);
@@ -743,81 +748,55 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_d
 	mk_sl_uint_64_from_8_be(&ta, &input->m_data.m_uint8s[0]);
 	mk_lib_crypto_alg_des_ip(&ta, &ta);
 	mk_lib_crypto_alg_des_get_lr(&ta, &l, &r);
-	for(i = 0; i != mk_lib_crypto_alg_des_nr; ++i)
+	n = mk_lib_crypto_alg_des_nr;
+	for(i = 0; i != n; ++i)
 	{
 		mk_lib_crypto_alg_des_f(&r, &schedule->m_data.m_uint64s[i], &tb);
-		mk_lib_crypto_alg_des_p(&tb, &tb);
-		mk_sl_cui_uint32_xor3(&l, &tb, &tc);
+		mk_sl_cui_uint32_xor2(&tb, &l);
 		l = r;
-		r = tc;
+		r = tb;
 	}
 	mk_lib_crypto_alg_des_set_lr(&ta, &r, &l);
 	mk_lib_crypto_alg_des_pi(&ta, &ta);
 	mk_sl_uint_64_to_8_be(&ta, &output->m_data.m_uint8s[0]);
 }
 
-mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_des_schedule_decrypt_one(mk_lib_crypto_alg_des_schedule_pct const schedule, mk_lib_crypto_alg_des_msg_pct const input, mk_lib_crypto_alg_des_msg_pt const output) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_des_schedule_crypt_all(mk_lib_crypto_alg_des_schedule_pct const schedule, mk_lib_crypto_alg_des_msg_pct const input, mk_lib_crypto_alg_des_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
-	mk_sl_cui_uint64_t ta mk_lang_constexpr_init;
-	mk_lang_types_sint_t i mk_lang_constexpr_init;
-	mk_sl_cui_uint32_t l mk_lang_constexpr_init;
-	mk_sl_cui_uint32_t r mk_lang_constexpr_init;
-	mk_sl_cui_uint32_t tb mk_lang_constexpr_init;
-	mk_sl_cui_uint32_t tc mk_lang_constexpr_init;
+	mk_lang_types_usize_t n mk_lang_constexpr_init;
+	mk_lang_types_usize_t i mk_lang_constexpr_init;
 
 	mk_lang_assert(schedule);
 	mk_lang_assert(input);
 	mk_lang_assert(output);
+	mk_lang_assert(nblocks <= mk_lang_limits_usize_max / mk_lib_crypto_alg_des_msg_len_m);
 
-	mk_sl_uint_64_from_8_be(&ta, &input->m_data.m_uint8s[0]);
-	mk_lib_crypto_alg_des_ip(&ta, &ta);
-	mk_lib_crypto_alg_des_get_lr(&ta, &l, &r);
-	for(i = 0; i != mk_lib_crypto_alg_des_nr; ++i)
+	n = nblocks;
+	for(i = 0; i != n; ++i)
 	{
-		mk_lib_crypto_alg_des_f(&r, &schedule->m_data.m_uint64s[(mk_lib_crypto_alg_des_nr - 1) - i], &tb);
-		mk_lib_crypto_alg_des_p(&tb, &tb);
-		mk_sl_cui_uint32_xor3(&tb, &l, &tc);
-		l = r;
-		r = tc;
+		mk_lib_crypto_alg_des_schedule_crypt_one(schedule, &input[i], &output[i]);
 	}
-	mk_lib_crypto_alg_des_set_lr(&ta, &r, &l);
-	mk_lib_crypto_alg_des_pi(&ta, &ta);
-	mk_sl_uint_64_to_8_be(&ta, &output->m_data.m_uint8s[0]);
 }
 
 
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_alg_des_schedule_encrypt(mk_lib_crypto_alg_des_schedule_pct const schedule, mk_lib_crypto_alg_des_msg_pct const input, mk_lib_crypto_alg_des_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
-	mk_lang_types_usize_t n mk_lang_constexpr_init;
-	mk_lang_types_usize_t i mk_lang_constexpr_init;
-
 	mk_lang_assert(schedule);
 	mk_lang_assert(input);
 	mk_lang_assert(output);
 	mk_lang_assert(nblocks <= mk_lang_limits_usize_max / mk_lib_crypto_alg_des_msg_len_m);
 
-	n = nblocks;
-	for(i = 0; i != n; ++i)
-	{
-		mk_lib_crypto_alg_des_schedule_encrypt_one(schedule, &input[i], &output[i]);
-	}
+	mk_lib_crypto_alg_des_schedule_crypt_all(schedule, input, output, nblocks);
 }
 
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_alg_des_schedule_decrypt(mk_lib_crypto_alg_des_schedule_pct const schedule, mk_lib_crypto_alg_des_msg_pct const input, mk_lib_crypto_alg_des_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
-	mk_lang_types_usize_t n mk_lang_constexpr_init;
-	mk_lang_types_usize_t i mk_lang_constexpr_init;
-
 	mk_lang_assert(schedule);
 	mk_lang_assert(input);
 	mk_lang_assert(output);
 	mk_lang_assert(nblocks <= mk_lang_limits_usize_max / mk_lib_crypto_alg_des_msg_len_m);
 
-	n = nblocks;
-	for(i = 0; i != n; ++i)
-	{
-		mk_lib_crypto_alg_des_schedule_decrypt_one(schedule, &input[i], &output[i]);
-	}
+	mk_lib_crypto_alg_des_schedule_crypt_all(schedule, input, output, nblocks);
 }
 
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_alg_des_expand_enc(mk_lib_crypto_alg_des_key_pct const key, mk_lib_crypto_alg_des_schedule_pt const schedule) mk_lang_noexcept
@@ -830,10 +809,19 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_alg_des_expan
 
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_alg_des_expand_dec(mk_lib_crypto_alg_des_key_pct const key, mk_lib_crypto_alg_des_schedule_pt const schedule) mk_lang_noexcept
 {
+	mk_lang_types_sint_t i mk_lang_constexpr_init;
+	mk_sl_cui_uint64_t ta mk_lang_constexpr_init;
+
 	mk_lang_assert(key);
 	mk_lang_assert(schedule);
 
 	mk_lib_crypto_alg_des_expand(key, schedule);
+	for(i = 0; i != mk_lib_crypto_alg_des_nr / 2; ++i)
+	{
+		ta = schedule->m_data.m_uint64s[i];
+		schedule->m_data.m_uint64s[i] = schedule->m_data.m_uint64s[(mk_lib_crypto_alg_des_nr - 1) - i];
+		schedule->m_data.m_uint64s[(mk_lib_crypto_alg_des_nr - 1) - i] = ta;
+	}
 }
 
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_alg_des_encrypt(mk_lib_crypto_alg_des_key_pct const key, mk_lib_crypto_alg_des_msg_pct const input, mk_lib_crypto_alg_des_msg_pt const output) mk_lang_noexcept
