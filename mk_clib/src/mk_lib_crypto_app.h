@@ -12,31 +12,43 @@
 #include "mk_lib_crypto_mode_cbc_aes_256.h"
 #include "mk_lib_crypto_mode_cbc_des.h"
 #include "mk_lib_crypto_mode_cbc_serpent.h"
+#include "mk_lib_crypto_mode_cbc_tdes2.h"
+#include "mk_lib_crypto_mode_cbc_tdes3.h"
 #include "mk_lib_crypto_mode_cfb_128_aes_128.h"
 #include "mk_lib_crypto_mode_cfb_128_aes_192.h"
 #include "mk_lib_crypto_mode_cfb_128_aes_256.h"
 #include "mk_lib_crypto_mode_cfb_128_serpent.h"
 #include "mk_lib_crypto_mode_cfb_64_des.h"
+#include "mk_lib_crypto_mode_cfb_64_tdes2.h"
+#include "mk_lib_crypto_mode_cfb_64_tdes3.h"
 #include "mk_lib_crypto_mode_cfb_8_aes_128.h"
 #include "mk_lib_crypto_mode_cfb_8_aes_192.h"
 #include "mk_lib_crypto_mode_cfb_8_aes_256.h"
 #include "mk_lib_crypto_mode_cfb_8_des.h"
 #include "mk_lib_crypto_mode_cfb_8_serpent.h"
+#include "mk_lib_crypto_mode_cfb_8_tdes2.h"
+#include "mk_lib_crypto_mode_cfb_8_tdes3.h"
 #include "mk_lib_crypto_mode_ctr_be_aes_128.h"
 #include "mk_lib_crypto_mode_ctr_be_aes_192.h"
 #include "mk_lib_crypto_mode_ctr_be_aes_256.h"
 #include "mk_lib_crypto_mode_ctr_be_des.h"
 #include "mk_lib_crypto_mode_ctr_be_serpent.h"
+#include "mk_lib_crypto_mode_ctr_be_tdes2.h"
+#include "mk_lib_crypto_mode_ctr_be_tdes3.h"
 #include "mk_lib_crypto_mode_ecb_aes_128.h"
 #include "mk_lib_crypto_mode_ecb_aes_192.h"
 #include "mk_lib_crypto_mode_ecb_aes_256.h"
 #include "mk_lib_crypto_mode_ecb_des.h"
 #include "mk_lib_crypto_mode_ecb_serpent.h"
+#include "mk_lib_crypto_mode_ecb_tdes2.h"
+#include "mk_lib_crypto_mode_ecb_tdes3.h"
 #include "mk_lib_crypto_mode_ofb_aes_128.h"
 #include "mk_lib_crypto_mode_ofb_aes_192.h"
 #include "mk_lib_crypto_mode_ofb_aes_256.h"
 #include "mk_lib_crypto_mode_ofb_des.h"
 #include "mk_lib_crypto_mode_ofb_serpent.h"
+#include "mk_lib_crypto_mode_ofb_tdes2.h"
+#include "mk_lib_crypto_mode_ofb_tdes3.h"
 #include "mk_sl_uint8.h"
 
 
@@ -53,6 +65,8 @@ enum mk_lib_crypto_app_alg_id_e
 	mk_lib_crypto_app_alg_id_e_aes_256,
 	mk_lib_crypto_app_alg_id_e_des,
 	mk_lib_crypto_app_alg_id_e_serpent,
+	mk_lib_crypto_app_alg_id_e_tdes2,
+	mk_lib_crypto_app_alg_id_e_tdes3,
 	mk_lib_crypto_app_alg_id_e_dummy_end
 };
 typedef enum mk_lib_crypto_app_alg_id_e mk_lib_crypto_app_alg_id_t;
@@ -138,31 +152,43 @@ union mk_lib_crypto_app_aligned_key_u
 	mk_lib_crypto_mode_cbc_aes_256_key_t     m_cbc_aes_256     ;
 	mk_lib_crypto_mode_cbc_des_key_t         m_cbc_des         ;
 	mk_lib_crypto_mode_cbc_serpent_key_t     m_cbc_serpent     ;
+	mk_lib_crypto_mode_cbc_tdes2_key_t       m_cbc_tdes2       ;
+	mk_lib_crypto_mode_cbc_tdes3_key_t       m_cbc_tdes3       ;
 	mk_lib_crypto_mode_cfb_128_aes_128_key_t m_cfb_128_aes_128 ;
 	mk_lib_crypto_mode_cfb_128_aes_192_key_t m_cfb_128_aes_192 ;
 	mk_lib_crypto_mode_cfb_128_aes_256_key_t m_cfb_128_aes_256 ;
 	mk_lib_crypto_mode_cfb_128_serpent_key_t m_cfb_128_serpent ;
 	mk_lib_crypto_mode_cfb_64_des_key_t      m_cfb_64_des      ;
+	mk_lib_crypto_mode_cfb_64_tdes2_key_t    m_cfb_64_tdes2    ;
+	mk_lib_crypto_mode_cfb_64_tdes3_key_t    m_cfb_64_tdes3    ;
 	mk_lib_crypto_mode_cfb_8_aes_128_key_t   m_cfb_8_aes_128   ;
 	mk_lib_crypto_mode_cfb_8_aes_192_key_t   m_cfb_8_aes_192   ;
 	mk_lib_crypto_mode_cfb_8_aes_256_key_t   m_cfb_8_aes_256   ;
 	mk_lib_crypto_mode_cfb_8_des_key_t       m_cfb_8_des       ;
 	mk_lib_crypto_mode_cfb_8_serpent_key_t   m_cfb_8_serpent   ;
+	mk_lib_crypto_mode_cfb_8_tdes2_key_t     m_cfb_8_tdes2     ;
+	mk_lib_crypto_mode_cfb_8_tdes3_key_t     m_cfb_8_tdes3     ;
 	mk_lib_crypto_mode_ctr_be_aes_128_key_t  m_ctr_be_aes_128  ;
 	mk_lib_crypto_mode_ctr_be_aes_192_key_t  m_ctr_be_aes_192  ;
 	mk_lib_crypto_mode_ctr_be_aes_256_key_t  m_ctr_be_aes_256  ;
 	mk_lib_crypto_mode_ctr_be_des_key_t      m_ctr_be_des      ;
 	mk_lib_crypto_mode_ctr_be_serpent_key_t  m_ctr_be_serpent  ;
+	mk_lib_crypto_mode_ctr_be_tdes2_key_t    m_ctr_be_tdes2    ;
+	mk_lib_crypto_mode_ctr_be_tdes3_key_t    m_ctr_be_tdes3    ;
 	mk_lib_crypto_mode_ecb_aes_128_key_t     m_ecb_aes_128     ;
 	mk_lib_crypto_mode_ecb_aes_192_key_t     m_ecb_aes_192     ;
 	mk_lib_crypto_mode_ecb_aes_256_key_t     m_ecb_aes_256     ;
 	mk_lib_crypto_mode_ecb_des_key_t         m_ecb_des         ;
 	mk_lib_crypto_mode_ecb_serpent_key_t     m_ecb_serpent     ;
+	mk_lib_crypto_mode_ecb_tdes2_key_t       m_ecb_tdes2       ;
+	mk_lib_crypto_mode_ecb_tdes3_key_t       m_ecb_tdes3       ;
 	mk_lib_crypto_mode_ofb_aes_128_key_t     m_ofb_aes_128     ;
 	mk_lib_crypto_mode_ofb_aes_192_key_t     m_ofb_aes_192     ;
 	mk_lib_crypto_mode_ofb_aes_256_key_t     m_ofb_aes_256     ;
 	mk_lib_crypto_mode_ofb_des_key_t         m_ofb_des         ;
 	mk_lib_crypto_mode_ofb_serpent_key_t     m_ofb_serpent     ;
+	mk_lib_crypto_mode_ofb_tdes2_key_t       m_ofb_tdes2       ;
+	mk_lib_crypto_mode_ofb_tdes3_key_t       m_ofb_tdes3       ;
 	mk_lang_types_ulllong_t m_ulllong;
 };
 typedef union mk_lib_crypto_app_aligned_key_u mk_lib_crypto_app_aligned_key_t;
@@ -180,31 +206,43 @@ union mk_lib_crypto_app_aligned_schedule_u
 	mk_lib_crypto_mode_cbc_aes_256_schedule_t     m_cbc_aes_256     ;
 	mk_lib_crypto_mode_cbc_des_schedule_t         m_cbc_des         ;
 	mk_lib_crypto_mode_cbc_serpent_schedule_t     m_cbc_serpent     ;
+	mk_lib_crypto_mode_cbc_tdes2_schedule_t       m_cbc_tdes2       ;
+	mk_lib_crypto_mode_cbc_tdes3_schedule_t       m_cbc_tdes3       ;
 	mk_lib_crypto_mode_cfb_128_aes_128_schedule_t m_cfb_128_aes_128 ;
 	mk_lib_crypto_mode_cfb_128_aes_192_schedule_t m_cfb_128_aes_192 ;
 	mk_lib_crypto_mode_cfb_128_aes_256_schedule_t m_cfb_128_aes_256 ;
 	mk_lib_crypto_mode_cfb_128_serpent_schedule_t m_cfb_128_serpent ;
 	mk_lib_crypto_mode_cfb_64_des_schedule_t      m_cfb_64_des      ;
+	mk_lib_crypto_mode_cfb_64_tdes2_schedule_t    m_cfb_64_tdes2    ;
+	mk_lib_crypto_mode_cfb_64_tdes3_schedule_t    m_cfb_64_tdes3    ;
 	mk_lib_crypto_mode_cfb_8_aes_128_schedule_t   m_cfb_8_aes_128   ;
 	mk_lib_crypto_mode_cfb_8_aes_192_schedule_t   m_cfb_8_aes_192   ;
 	mk_lib_crypto_mode_cfb_8_aes_256_schedule_t   m_cfb_8_aes_256   ;
 	mk_lib_crypto_mode_cfb_8_des_schedule_t       m_cfb_8_des       ;
 	mk_lib_crypto_mode_cfb_8_serpent_schedule_t   m_cfb_8_serpent   ;
+	mk_lib_crypto_mode_cfb_8_tdes2_schedule_t     m_cfb_8_tdes2     ;
+	mk_lib_crypto_mode_cfb_8_tdes3_schedule_t     m_cfb_8_tdes3     ;
 	mk_lib_crypto_mode_ctr_be_aes_128_schedule_t  m_ctr_be_aes_128  ;
 	mk_lib_crypto_mode_ctr_be_aes_192_schedule_t  m_ctr_be_aes_192  ;
 	mk_lib_crypto_mode_ctr_be_aes_256_schedule_t  m_ctr_be_aes_256  ;
 	mk_lib_crypto_mode_ctr_be_des_schedule_t      m_ctr_be_des      ;
 	mk_lib_crypto_mode_ctr_be_serpent_schedule_t  m_ctr_be_serpent  ;
+	mk_lib_crypto_mode_ctr_be_tdes2_schedule_t    m_ctr_be_tdes2    ;
+	mk_lib_crypto_mode_ctr_be_tdes3_schedule_t    m_ctr_be_tdes3    ;
 	mk_lib_crypto_mode_ecb_aes_128_schedule_t     m_ecb_aes_128     ;
 	mk_lib_crypto_mode_ecb_aes_192_schedule_t     m_ecb_aes_192     ;
 	mk_lib_crypto_mode_ecb_aes_256_schedule_t     m_ecb_aes_256     ;
 	mk_lib_crypto_mode_ecb_des_schedule_t         m_ecb_des         ;
 	mk_lib_crypto_mode_ecb_serpent_schedule_t     m_ecb_serpent     ;
+	mk_lib_crypto_mode_ecb_tdes2_schedule_t       m_ecb_tdes2       ;
+	mk_lib_crypto_mode_ecb_tdes3_schedule_t       m_ecb_tdes3       ;
 	mk_lib_crypto_mode_ofb_aes_128_schedule_t     m_ofb_aes_128     ;
 	mk_lib_crypto_mode_ofb_aes_192_schedule_t     m_ofb_aes_192     ;
 	mk_lib_crypto_mode_ofb_aes_256_schedule_t     m_ofb_aes_256     ;
 	mk_lib_crypto_mode_ofb_des_schedule_t         m_ofb_des         ;
 	mk_lib_crypto_mode_ofb_serpent_schedule_t     m_ofb_serpent     ;
+	mk_lib_crypto_mode_ofb_tdes2_schedule_t       m_ofb_tdes2       ;
+	mk_lib_crypto_mode_ofb_tdes3_schedule_t       m_ofb_tdes3       ;
 	mk_lang_types_ulllong_t m_ulllong;
 };
 typedef union mk_lib_crypto_app_aligned_schedule_u mk_lib_crypto_app_aligned_schedule_t;
@@ -222,31 +260,43 @@ union mk_lib_crypto_app_aligned_mode_u
 	mk_lib_crypto_mode_cbc_aes_256_t     m_cbc_aes_256     ;
 	mk_lib_crypto_mode_cbc_des_t         m_cbc_des         ;
 	mk_lib_crypto_mode_cbc_serpent_t     m_cbc_serpent     ;
+	mk_lib_crypto_mode_cbc_tdes2_t       m_cbc_tdes2       ;
+	mk_lib_crypto_mode_cbc_tdes3_t       m_cbc_tdes3       ;
 	mk_lib_crypto_mode_cfb_128_aes_128_t m_cfb_128_aes_128 ;
 	mk_lib_crypto_mode_cfb_128_aes_192_t m_cfb_128_aes_192 ;
 	mk_lib_crypto_mode_cfb_128_aes_256_t m_cfb_128_aes_256 ;
 	mk_lib_crypto_mode_cfb_128_serpent_t m_cfb_128_serpent ;
 	mk_lib_crypto_mode_cfb_64_des_t      m_cfb_64_des      ;
+	mk_lib_crypto_mode_cfb_64_tdes2_t    m_cfb_64_tdes2    ;
+	mk_lib_crypto_mode_cfb_64_tdes3_t    m_cfb_64_tdes3    ;
 	mk_lib_crypto_mode_cfb_8_aes_128_t   m_cfb_8_aes_128   ;
 	mk_lib_crypto_mode_cfb_8_aes_192_t   m_cfb_8_aes_192   ;
 	mk_lib_crypto_mode_cfb_8_aes_256_t   m_cfb_8_aes_256   ;
 	mk_lib_crypto_mode_cfb_8_des_t       m_cfb_8_des       ;
 	mk_lib_crypto_mode_cfb_8_serpent_t   m_cfb_8_serpent   ;
+	mk_lib_crypto_mode_cfb_8_tdes2_t     m_cfb_8_tdes2     ;
+	mk_lib_crypto_mode_cfb_8_tdes3_t     m_cfb_8_tdes3     ;
 	mk_lib_crypto_mode_ctr_be_aes_128_t  m_ctr_be_aes_128  ;
 	mk_lib_crypto_mode_ctr_be_aes_192_t  m_ctr_be_aes_192  ;
 	mk_lib_crypto_mode_ctr_be_aes_256_t  m_ctr_be_aes_256  ;
 	mk_lib_crypto_mode_ctr_be_des_t      m_ctr_be_des      ;
 	mk_lib_crypto_mode_ctr_be_serpent_t  m_ctr_be_serpent  ;
+	mk_lib_crypto_mode_ctr_be_tdes2_t    m_ctr_be_tdes2    ;
+	mk_lib_crypto_mode_ctr_be_tdes3_t    m_ctr_be_tdes3    ;
 	mk_lib_crypto_mode_ecb_aes_128_t     m_ecb_aes_128     ;
 	mk_lib_crypto_mode_ecb_aes_192_t     m_ecb_aes_192     ;
 	mk_lib_crypto_mode_ecb_aes_256_t     m_ecb_aes_256     ;
 	mk_lib_crypto_mode_ecb_des_t         m_ecb_des         ;
 	mk_lib_crypto_mode_ecb_serpent_t     m_ecb_serpent     ;
+	mk_lib_crypto_mode_ecb_tdes2_t       m_ecb_tdes2       ;
+	mk_lib_crypto_mode_ecb_tdes3_t       m_ecb_tdes3       ;
 	mk_lib_crypto_mode_ofb_aes_128_t     m_ofb_aes_128     ;
 	mk_lib_crypto_mode_ofb_aes_192_t     m_ofb_aes_192     ;
 	mk_lib_crypto_mode_ofb_aes_256_t     m_ofb_aes_256     ;
 	mk_lib_crypto_mode_ofb_des_t         m_ofb_des         ;
 	mk_lib_crypto_mode_ofb_serpent_t     m_ofb_serpent     ;
+	mk_lib_crypto_mode_ofb_tdes2_t       m_ofb_tdes2       ;
+	mk_lib_crypto_mode_ofb_tdes3_t       m_ofb_tdes3       ;
 	mk_lang_types_ulllong_t m_ulllong;
 };
 typedef union mk_lib_crypto_app_aligned_mode_u mk_lib_crypto_app_aligned_mode_t;
@@ -264,31 +314,43 @@ union mk_lib_crypto_app_aligned_msg_u
 	mk_lib_crypto_mode_cbc_aes_256_msg_t     m_cbc_aes_256     ;
 	mk_lib_crypto_mode_cbc_des_msg_t         m_cbc_des         ;
 	mk_lib_crypto_mode_cbc_serpent_msg_t     m_cbc_serpent     ;
+	mk_lib_crypto_mode_cbc_tdes2_msg_t       m_cbc_tdes2       ;
+	mk_lib_crypto_mode_cbc_tdes3_msg_t       m_cbc_tdes3       ;
 	mk_lib_crypto_mode_cfb_128_aes_128_msg_t m_cfb_128_aes_128 ;
 	mk_lib_crypto_mode_cfb_128_aes_192_msg_t m_cfb_128_aes_192 ;
 	mk_lib_crypto_mode_cfb_128_aes_256_msg_t m_cfb_128_aes_256 ;
 	mk_lib_crypto_mode_cfb_128_serpent_msg_t m_cfb_128_serpent ;
 	mk_lib_crypto_mode_cfb_64_des_msg_t      m_cfb_64_des      ;
+	mk_lib_crypto_mode_cfb_64_tdes2_msg_t    m_cfb_64_tdes2    ;
+	mk_lib_crypto_mode_cfb_64_tdes3_msg_t    m_cfb_64_tdes3    ;
 	mk_lib_crypto_mode_cfb_8_aes_128_msg_t   m_cfb_8_aes_128   ;
 	mk_lib_crypto_mode_cfb_8_aes_192_msg_t   m_cfb_8_aes_192   ;
 	mk_lib_crypto_mode_cfb_8_aes_256_msg_t   m_cfb_8_aes_256   ;
 	mk_lib_crypto_mode_cfb_8_des_msg_t       m_cfb_8_des       ;
 	mk_lib_crypto_mode_cfb_8_serpent_msg_t   m_cfb_8_serpent   ;
+	mk_lib_crypto_mode_cfb_8_tdes2_msg_t     m_cfb_8_tdes2     ;
+	mk_lib_crypto_mode_cfb_8_tdes3_msg_t     m_cfb_8_tdes3     ;
 	mk_lib_crypto_mode_ctr_be_aes_128_msg_t  m_ctr_be_aes_128  ;
 	mk_lib_crypto_mode_ctr_be_aes_192_msg_t  m_ctr_be_aes_192  ;
 	mk_lib_crypto_mode_ctr_be_aes_256_msg_t  m_ctr_be_aes_256  ;
 	mk_lib_crypto_mode_ctr_be_des_msg_t      m_ctr_be_des      ;
 	mk_lib_crypto_mode_ctr_be_serpent_msg_t  m_ctr_be_serpent  ;
+	mk_lib_crypto_mode_ctr_be_tdes2_msg_t    m_ctr_be_tdes2    ;
+	mk_lib_crypto_mode_ctr_be_tdes3_msg_t    m_ctr_be_tdes3    ;
 	mk_lib_crypto_mode_ecb_aes_128_msg_t     m_ecb_aes_128     ;
 	mk_lib_crypto_mode_ecb_aes_192_msg_t     m_ecb_aes_192     ;
 	mk_lib_crypto_mode_ecb_aes_256_msg_t     m_ecb_aes_256     ;
 	mk_lib_crypto_mode_ecb_des_msg_t         m_ecb_des         ;
 	mk_lib_crypto_mode_ecb_serpent_msg_t     m_ecb_serpent     ;
+	mk_lib_crypto_mode_ecb_tdes2_msg_t       m_ecb_tdes2       ;
+	mk_lib_crypto_mode_ecb_tdes3_msg_t       m_ecb_tdes3       ;
 	mk_lib_crypto_mode_ofb_aes_128_msg_t     m_ofb_aes_128     ;
 	mk_lib_crypto_mode_ofb_aes_192_msg_t     m_ofb_aes_192     ;
 	mk_lib_crypto_mode_ofb_aes_256_msg_t     m_ofb_aes_256     ;
 	mk_lib_crypto_mode_ofb_des_msg_t         m_ofb_des         ;
 	mk_lib_crypto_mode_ofb_serpent_msg_t     m_ofb_serpent     ;
+	mk_lib_crypto_mode_ofb_tdes2_msg_t       m_ofb_tdes2       ;
+	mk_lib_crypto_mode_ofb_tdes3_msg_t       m_ofb_tdes3       ;
 	mk_lang_types_ulllong_t m_ulllong;
 };
 typedef union mk_lib_crypto_app_aligned_msg_u mk_lib_crypto_app_aligned_msg_t;
