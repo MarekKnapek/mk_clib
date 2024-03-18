@@ -1,3 +1,5 @@
+set -x
+set -e
 this_dir="$(dirname -- $0)"
 src_dir="$this_dir/../../src"
 m4 -I $src_dir -- $src_dir/mk_clib_readme.md.m4                    > $src_dir/mk_clib_readme.md

@@ -1,0 +1,9 @@
+set -x
+set -e
+this_dir="$(dirname -- ${0})"
+cp "${this_dir}/../../mk_clib/app/${1}.c" "${this_dir}/../../mk_clib/app/${1}.cpp"
+bash "${this_dir}/../../mk_clib/projects/gcc/build_m4.sh"
+g++-13 -v
+g++-13 -std=c++${2} -DNDEBUG -Dmk_lang_assert_want=1 -Dmk_lang_crash_detail_want=1 -Dmk_clib_test_smol_want=1 -O3 -fconstexpr-ops-limit=1000000000 -Wall -Wextra -Wpedantic -o ${this_dir}/../../mk_clib/app/${1}-cpp${2}.elf ${this_dir}/../../mk_clib/app/${1}.cpp 2>&1 | tee ${this_dir}/../../mk_clib/app/${1}-cpp${2}.txt
+${this_dir}/../../mk_clib/app/${1}-cpp${2}.elf
+echo "Gud."
