@@ -83,7 +83,7 @@
 		<ClCompile>
 			<WarningLevel>EnableAllWarnings</WarningLevel>
 			<SDLCheck>true</SDLCheck>
-			<PreprocessorDefinitions>mk_lang_jumbo_want=1;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>mk_lang_jumbo_want=1;mk_clib_test_smol_want=1;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<ConformanceMode>true</ConformanceMode>
 			<LanguageStandard_C>stdc11</LanguageStandard_C>
 			<LanguageStandard>stdcpp14</LanguageStandard>
@@ -120,7 +120,7 @@
 		<ClCompile>
 			<WarningLevel>EnableAllWarnings</WarningLevel>
 			<SDLCheck>true</SDLCheck>
-			<PreprocessorDefinitions>mk_lang_jumbo_want=1;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>mk_lang_jumbo_want=1;mk_clib_test_smol_want=1;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<ConformanceMode>true</ConformanceMode>
 			<LanguageStandard_C>stdc11</LanguageStandard_C>
 			<LanguageStandard>stdcpp14</LanguageStandard>
