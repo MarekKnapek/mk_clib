@@ -82,3 +82,14 @@
         "with":
           "name": "${{matrix.proj}}-${{matrix.conf}}-${{matrix.plat}}.txt"
           "path": "${{matrix.proj}}-${{matrix.conf}}-${{matrix.plat}}.txt"
+  "mk_clib":
+    "runs-on": "ubuntu-latest"
+    "needs": ["build_run_c", "build_run_cpp", "build_wasm", "build_run_win"]
+    "steps":
+      - "uses": "actions/download-artifact@main"
+        "with":
+          "merge-multiple": "true"
+      - "uses": "actions/upload-artifact@main"
+        "with":
+          "name": "mk_clib"
+          "path": "/home/runner/work/mk_clib/mk_clib/*"
