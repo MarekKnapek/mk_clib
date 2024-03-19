@@ -5,3 +5,5 @@
 /mkcc.cpp
 /mkcc.wasm
 /mkch.wasm
+/quad_analyzer.cpp
+/quad_analyzer.wasm
