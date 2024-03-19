@@ -23,29 +23,29 @@
 
 struct mk_lib_flt_analyzer_inl_defd_s
 {
-	mk_lib_flt_analyzer_inl_defd_uint_t m_bytes;
+	mk_lang_types_uchar_t m_bytes[sizeof(mk_lib_flt_analyzer_inl_defd_uint_t)];
 	mk_lang_types_pchar_t m_bin[mk_lib_flt_analyzer_inl_defd_uint_strlenbin_v];
 	mk_lang_types_pchar_t m_hex[mk_lib_flt_analyzer_inl_defd_uint_strlenhex_v];
-	mk_lib_flt_analyzer_inl_defd_lent_t m_uns_len;
+	mk_lang_types_uchar_t m_uns_len[sizeof(mk_lib_flt_analyzer_inl_defd_lent_t)];
 	mk_lang_types_pchar_t m_uns_str[mk_lib_flt_analyzer_inl_defd_uint_strlendec_v];
-	mk_lib_flt_analyzer_inl_defd_lent_t m_sig_len;
+	mk_lang_types_uchar_t m_sig_len[sizeof(mk_lib_flt_analyzer_inl_defd_lent_t)];
 	mk_lang_types_pchar_t m_sig_str[mk_lib_flt_analyzer_inl_defd_uint_strlendec_v + 1];
 	mk_lang_types_uchar_t m_val_sgn;
 	mk_lang_types_pchar_t m_exp_bin[mk_lib_flt_analyzer_inl_defd_expuint_strlenbin_v];
 	mk_lang_types_pchar_t m_exp_hex[mk_lib_flt_analyzer_inl_defd_expuint_strlenhex_v];
-	mk_lib_flt_analyzer_inl_defd_lent_t m_exp_len;
+	mk_lang_types_uchar_t m_exp_len[sizeof(mk_lib_flt_analyzer_inl_defd_lent_t)];
 	mk_lang_types_pchar_t m_exp_dec[mk_lib_flt_analyzer_inl_defd_expuint_strlendec_v];
-	mk_lib_flt_analyzer_inl_defd_lent_t m_exp_le1;
+	mk_lang_types_uchar_t m_exp_le1[sizeof(mk_lib_flt_analyzer_inl_defd_lent_t)];
 	mk_lang_types_pchar_t m_exp_dcd[mk_lib_flt_analyzer_inl_defd_expuint_strlendec_v + 1];
 	mk_lang_types_uchar_t m_type;
 	mk_lang_types_uchar_t m_one;
 	mk_lang_types_pchar_t m_mts_bin[mk_lib_flt_analyzer_inl_defd_mtsuint_strlenbin_v];
 	mk_lang_types_pchar_t m_mts_hex[mk_lib_flt_analyzer_inl_defd_mtsuint_strlenhex_v];
-	mk_lib_flt_analyzer_inl_defd_lent_t m_mts_len;
+	mk_lang_types_uchar_t m_mts_len[sizeof(mk_lib_flt_analyzer_inl_defd_lent_t)];
 	mk_lang_types_pchar_t m_mts_dec[mk_lib_flt_analyzer_inl_defd_mtsuint_strlendec_v];
-	mk_lib_flt_analyzer_inl_defd_lent_t m_mts_dcl;
+	mk_lang_types_uchar_t m_mts_dcl[sizeof(mk_lib_flt_analyzer_inl_defd_lent_t)];
 	mk_lang_types_pchar_t m_mts_dcd[1 + 1 + mk_lib_flt_analyzer_inl_defd_flt_frac];
-	mk_lib_flt_analyzer_inl_defd_mtslent_t m_val_len;
+	mk_lang_types_uchar_t m_val_len[sizeof(mk_lib_flt_analyzer_inl_defd_mtslent_t)];
 	mk_lang_types_pchar_t m_val_str[mk_lib_flt_analyzer_inl_fileh_flt_to_string_dec_basic_len_v];
 };
 typedef struct mk_lib_flt_analyzer_inl_defd_s mk_lib_flt_analyzer_inl_defd_t;

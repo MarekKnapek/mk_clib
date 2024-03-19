@@ -56,10 +56,15 @@
 #undef mk_lib_flt_analyzer_inl_defd_uint_from_bi_sint
 #undef mk_lib_flt_analyzer_inl_defd_uint_mul4_wrap_wi
 #undef mk_lib_flt_analyzer_inl_defd_uint_to_bi_sint
+#undef mk_lib_flt_analyzer_inl_defd_uint_from_buis_uchar_le
 
 
 #undef mk_lib_flt_analyzer_inl_defd_lent_t
 #undef mk_lib_flt_analyzer_inl_defd_lent_pt
+#undef mk_lib_flt_analyzer_inl_defd_lent_set_zero
+#undef mk_lib_flt_analyzer_inl_defd_lent_inc1
+#undef mk_lib_flt_analyzer_inl_defd_lent_from_bi_sint
+#undef mk_lib_flt_analyzer_inl_defd_lent_to_buis_uchar_le
 
 #undef mk_lib_flt_analyzer_inl_defd_expuint_t
 #undef mk_lib_flt_analyzer_inl_defd_expuint_strlenbin_v
@@ -87,3 +92,5 @@
 #undef mk_lib_flt_analyzer_inl_defd_mtsuint_strlendec_v
 
 #undef mk_lib_flt_analyzer_inl_defd_mtslent_t
+#undef mk_lib_flt_analyzer_inl_defd_mtslent_from_bi_sint
+#undef mk_lib_flt_analyzer_inl_defd_mtslent_to_buis_uchar_le

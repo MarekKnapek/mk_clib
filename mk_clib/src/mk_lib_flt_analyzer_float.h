@@ -11,10 +11,10 @@
 #define mk_lib_flt_analyzer_t_flt_bits 32
 #define mk_lib_flt_analyzer_t_flt_frac 23
 #define mk_lib_flt_analyzer_t_uint mk_sl_cui_uint32
-#define mk_lib_flt_analyzer_t_lent mk_lang_types_uchar
+#define mk_lib_flt_analyzer_t_lent mk_sl_cui_uint8
 #define mk_lib_flt_analyzer_t_expuint mk_sl_cui_uint8
 #define mk_lib_flt_analyzer_t_mtsuint mk_sl_cui_uint32
-#define mk_lib_flt_analyzer_t_mtslent mk_lang_types_uchar
+#define mk_lib_flt_analyzer_t_mtslent mk_sl_cui_uint8
 #include "mk_lib_flt_analyzer_inl_fileh.h"
 
 

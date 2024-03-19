@@ -43,7 +43,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_flt_analyzer
 		ptr[0] = 'n'; ++ptr;
 		ptr[0] = '/'; ++ptr;
 		ptr[0] = 'a'; ++ptr;
-		*mts_dcl = 3;
+		tsi = 3; mk_lib_flt_analyzer_inl_defd_lent_from_bi_sint(mts_dcl, &tsi);
 	}
 	else
 	{
@@ -52,7 +52,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_flt_analyzer
 		if(mk_lib_flt_analyzer_inl_defd_uint_is_zero(mts))
 		{
 			ptr[0] = s_symbols[0];
-			*mts_dcl = 3;
+			tsi = 3; mk_lib_flt_analyzer_inl_defd_lent_from_bi_sint(mts_dcl, &tsi);
 		}
 		else
 		{
@@ -66,7 +66,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_flt_analyzer
 				ptr[0] = s_symbols[tsi]; ++ptr;
 				if(mk_lib_flt_analyzer_inl_defd_uint_is_zero(&ta))
 				{
-					*mts_dcl = ((mk_lib_flt_analyzer_inl_defd_lent_t)(((mk_lang_types_sint_t)(ptr - &mts_dcd[0]))));
+					tsi = ((mk_lang_types_sint_t)(ptr - &mts_dcd[0])); mk_lib_flt_analyzer_inl_defd_lent_from_bi_sint(mts_dcl, &tsi);
 					break;
 				}
 			}
@@ -77,7 +77,9 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_flt_analyzer
 
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_flt_analyzer_inl_defd_analyze(mk_lib_flt_analyzer_inl_defd_pt const analyzer) mk_lang_noexcept
 {
+	mk_lib_flt_analyzer_inl_defd_uint_t tuint mk_lang_constexpr_init;
 	mk_lang_types_sint_t tsi mk_lang_constexpr_init;
+	mk_lib_flt_analyzer_inl_defd_lent_t tlent mk_lang_constexpr_init;
 	mk_lib_flt_analyzer_inl_defd_uint_t tui mk_lang_constexpr_init;
 	mk_lang_types_uint_t tuis[mk_lang_div_roundup(sizeof(mk_lib_flt_analyzer_inl_defd_uint_t), sizeof(mk_lang_types_uint_t))] mk_lang_constexpr_init;
 	mk_lib_flt_analyzer_inl_defd_expuint_t teuia mk_lang_constexpr_init;
@@ -87,39 +89,49 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_flt_analyzer_inl_def
 	mk_lang_types_bool_t exp_zero mk_lang_constexpr_init;
 	mk_lang_types_bool_t exp_max mk_lang_constexpr_init;
 	mk_lang_types_bool_t mts_zero mk_lang_constexpr_init;
+	mk_lib_flt_analyzer_inl_defd_mtslent_t tmtslent mk_lang_constexpr_init;
 
 	mk_lang_assert(analyzer);
 
-	tsi = mk_lib_flt_analyzer_inl_defd_uint_to_str_binf_n(&analyzer->m_bytes, &analyzer->m_bin[0], mk_lang_countof(analyzer->m_bin)); mk_lang_assert(tsi == mk_lib_flt_analyzer_inl_defd_uint_strlenbin_v);
-	tsi = mk_lib_flt_analyzer_inl_defd_uint_to_str_hexf_n(&analyzer->m_bytes, &analyzer->m_hex[0], mk_lang_countof(analyzer->m_hex)); mk_lang_assert(tsi == mk_lib_flt_analyzer_inl_defd_uint_strlenhex_v);
-	tsi = mk_lib_flt_analyzer_inl_defd_uint_to_str_dec_n(&analyzer->m_bytes, &analyzer->m_uns_str[0], mk_lang_countof(analyzer->m_uns_str)); mk_lang_assert(tsi <= mk_lib_flt_analyzer_inl_defd_uint_strlendec_v); analyzer->m_uns_len = ((mk_lib_flt_analyzer_inl_defd_lent_t)(tsi));
-	mk_lib_flt_analyzer_inl_defd_uint_shr3(&analyzer->m_bytes, mk_lib_flt_analyzer_inl_defd_flt_bits - 1, &tui);
+	mk_lib_flt_analyzer_inl_defd_uint_from_buis_uchar_le(&tuint, &analyzer->m_bytes[0]); tsi = mk_lib_flt_analyzer_inl_defd_uint_to_str_binf_n(&tuint, &analyzer->m_bin[0], mk_lang_countof(analyzer->m_bin)); mk_lang_assert(tsi == mk_lib_flt_analyzer_inl_defd_uint_strlenbin_v);
+	mk_lib_flt_analyzer_inl_defd_uint_from_buis_uchar_le(&tuint, &analyzer->m_bytes[0]); tsi = mk_lib_flt_analyzer_inl_defd_uint_to_str_hexf_n(&tuint, &analyzer->m_hex[0], mk_lang_countof(analyzer->m_hex)); mk_lang_assert(tsi == mk_lib_flt_analyzer_inl_defd_uint_strlenhex_v);
+	mk_lib_flt_analyzer_inl_defd_uint_from_buis_uchar_le(&tuint, &analyzer->m_bytes[0]); tsi = mk_lib_flt_analyzer_inl_defd_uint_to_str_dec_n(&tuint, &analyzer->m_uns_str[0], mk_lang_countof(analyzer->m_uns_str)); mk_lang_assert(tsi <= mk_lib_flt_analyzer_inl_defd_uint_strlendec_v);
+	mk_lib_flt_analyzer_inl_defd_lent_from_bi_sint(&tlent, &tsi);
+	mk_lib_flt_analyzer_inl_defd_lent_to_buis_uchar_le(&tlent, &analyzer->m_uns_len[0]);
+	mk_lib_flt_analyzer_inl_defd_uint_from_buis_uchar_le(&tuint, &analyzer->m_bytes[0]); mk_lib_flt_analyzer_inl_defd_uint_shr3(&tuint, mk_lib_flt_analyzer_inl_defd_flt_bits - 1, &tui);
 	if(!mk_lib_flt_analyzer_inl_defd_uint_has_lsb(&tui))
 	{
-		tsi = mk_lib_flt_analyzer_inl_defd_uint_to_str_dec_n(&analyzer->m_bytes, &analyzer->m_sig_str[0], mk_lang_countof(analyzer->m_sig_str)); mk_lang_assert(tsi <= mk_lib_flt_analyzer_inl_defd_uint_strlendec_v); analyzer->m_sig_len = ((mk_lib_flt_analyzer_inl_defd_lent_t)(tsi));
+		mk_lib_flt_analyzer_inl_defd_uint_from_buis_uchar_le(&tuint, &analyzer->m_bytes[0]); tsi = mk_lib_flt_analyzer_inl_defd_uint_to_str_dec_n(&tuint, &analyzer->m_sig_str[0], mk_lang_countof(analyzer->m_sig_str)); mk_lang_assert(tsi <= mk_lib_flt_analyzer_inl_defd_uint_strlendec_v);
+		mk_lib_flt_analyzer_inl_defd_lent_from_bi_sint(&tlent, &tsi);
+		mk_lib_flt_analyzer_inl_defd_lent_to_buis_uchar_le(&tlent, &analyzer->m_sig_len[0]);
 		analyzer->m_val_sgn = 0;
 	}
 	else
 	{
 		analyzer->m_sig_str[0] = '-';
-		mk_lib_flt_analyzer_inl_defd_uint_not2(&analyzer->m_bytes, &tui);
+		mk_lib_flt_analyzer_inl_defd_uint_from_buis_uchar_le(&tuint, &analyzer->m_bytes[0]); mk_lib_flt_analyzer_inl_defd_uint_not2(&tuint, &tui);
 		mk_lib_flt_analyzer_inl_defd_uint_inc1(&tui);
-		tsi = mk_lib_flt_analyzer_inl_defd_uint_to_str_dec_n(&tui, &analyzer->m_sig_str[1], mk_lang_countof(analyzer->m_sig_str) - 1); mk_lang_assert(tsi <= mk_lib_flt_analyzer_inl_defd_uint_strlendec_v); analyzer->m_sig_len = ((mk_lib_flt_analyzer_inl_defd_lent_t)(tsi)) + 1;
+		tsi = mk_lib_flt_analyzer_inl_defd_uint_to_str_dec_n(&tui, &analyzer->m_sig_str[1], mk_lang_countof(analyzer->m_sig_str) - 1); mk_lang_assert(tsi <= mk_lib_flt_analyzer_inl_defd_uint_strlendec_v);
+		++tsi;
+		mk_lib_flt_analyzer_inl_defd_lent_from_bi_sint(&tlent, &tsi);
+		mk_lib_flt_analyzer_inl_defd_lent_to_buis_uchar_le(&tlent, &analyzer->m_sig_len[0]);
 		analyzer->m_val_sgn = 1;
 	}
-	mk_lib_flt_analyzer_inl_defd_uint_shl3(&analyzer->m_bytes, 1, &tui);
+	mk_lib_flt_analyzer_inl_defd_uint_from_buis_uchar_le(&tuint, &analyzer->m_bytes[0]); mk_lib_flt_analyzer_inl_defd_uint_shl3(&tuint, 1, &tui);
 	mk_lib_flt_analyzer_inl_defd_uint_shr2(&tui, 1 + mk_lib_flt_analyzer_inl_defd_flt_frac);
 	mk_lib_flt_analyzer_inl_defd_uint_to_buis_uint_le(&tui, &tuis[0]);
 	mk_lib_flt_analyzer_inl_defd_expuint_from_buis_uint_le(&teuia, &tuis[0]);
 	tsi = mk_lib_flt_analyzer_inl_defd_expuint_to_str_binf_n(&teuia, &analyzer->m_exp_bin[0], mk_lang_countof(analyzer->m_exp_bin)); mk_lang_assert(tsi == mk_lib_flt_analyzer_inl_defd_expuint_strlenbin_v);
 	tsi = mk_lib_flt_analyzer_inl_defd_expuint_to_str_hexf_n(&teuia, &analyzer->m_exp_hex[0], mk_lang_countof(analyzer->m_exp_hex)); mk_lang_assert(tsi == mk_lib_flt_analyzer_inl_defd_expuint_strlenhex_v);
-	tsi = mk_lib_flt_analyzer_inl_defd_expuint_to_str_dec_n(&teuia, &analyzer->m_exp_dec[0], mk_lang_countof(analyzer->m_exp_dec)); mk_lang_assert(tsi <= mk_lib_flt_analyzer_inl_defd_expuint_strlendec_v); analyzer->m_exp_len = ((mk_lang_types_uchar_t)(tsi));
+	tsi = mk_lib_flt_analyzer_inl_defd_expuint_to_str_dec_n(&teuia, &analyzer->m_exp_dec[0], mk_lang_countof(analyzer->m_exp_dec)); mk_lang_assert(tsi <= mk_lib_flt_analyzer_inl_defd_expuint_strlendec_v);
+	mk_lib_flt_analyzer_inl_defd_lent_from_bi_sint(&tlent, &tsi);
+	mk_lib_flt_analyzer_inl_defd_lent_to_buis_uchar_le(&tlent, &analyzer->m_exp_len[0]);
 	mk_lib_flt_analyzer_inl_defd_expuint_set_mask(&teuib, mk_lib_flt_analyzer_inl_defd_flt_expb);
 	mk_lib_flt_analyzer_inl_defd_expuint_dec1(&teuib);
 	mk_lib_flt_analyzer_inl_defd_expuint_shr2(&teuib, 1);
 	mk_lib_flt_analyzer_inl_defd_expuint_sub3_wrap_cid_cod(&teuia, &teuib, &teuic);
 	mk_lib_flt_analyzer_inl_defd_expuint_shr3(&teuic, mk_lib_flt_analyzer_inl_defd_flt_expb - 1, &teuib);
-	mk_lib_flt_analyzer_inl_defd_uint_shl3(&analyzer->m_bytes, 1 + mk_lib_flt_analyzer_inl_defd_flt_expb, &tui);
+	mk_lib_flt_analyzer_inl_defd_uint_from_buis_uchar_le(&tuint, &analyzer->m_bytes[0]); mk_lib_flt_analyzer_inl_defd_uint_shl3(&tuint, 1 + mk_lib_flt_analyzer_inl_defd_flt_expb, &tui);
 	mk_lib_flt_analyzer_inl_defd_uint_shr2(&tui, 1 + mk_lib_flt_analyzer_inl_defd_flt_expb);
 	mk_lib_flt_analyzer_inl_defd_expuint_set_mask(&teuix, mk_lib_flt_analyzer_inl_defd_flt_expb);
 	exp_zero = mk_lib_flt_analyzer_inl_defd_expuint_is_zero(&teuia);
@@ -155,7 +167,11 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_flt_analyzer_inl_def
 		analyzer->m_exp_dcd[0] = 'n';
 		analyzer->m_exp_dcd[1] = '/';
 		analyzer->m_exp_dcd[2] = 'a';
-		analyzer->m_exp_le1 = 3;
+		mk_lib_flt_analyzer_inl_defd_lent_set_zero(&tlent);
+		mk_lib_flt_analyzer_inl_defd_lent_inc1(&tlent);
+		mk_lib_flt_analyzer_inl_defd_lent_inc1(&tlent);
+		mk_lib_flt_analyzer_inl_defd_lent_inc1(&tlent);
+		mk_lib_flt_analyzer_inl_defd_lent_to_buis_uchar_le(&tlent, &analyzer->m_exp_le1[0]);
 	}
 	else if(analyzer->m_type == 1)
 	{
@@ -163,29 +179,41 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_flt_analyzer_inl_def
 		mk_lib_flt_analyzer_inl_defd_expuint_dec1(&teuix);
 		analyzer->m_exp_dcd[0] = '-';
 		tsi = mk_lib_flt_analyzer_inl_defd_expuint_to_str_dec_n(&teuix, &analyzer->m_exp_dcd[1], mk_lang_countof(analyzer->m_exp_dcd) - 1);
-		analyzer->m_exp_le1 = ((mk_lib_flt_analyzer_inl_defd_lent_t)(tsi)) + 1;
+		++tsi;
+		mk_lib_flt_analyzer_inl_defd_lent_from_bi_sint(&tlent, &tsi);
+		mk_lib_flt_analyzer_inl_defd_lent_to_buis_uchar_le(&tlent, &analyzer->m_exp_le1[0]);
 	}
 	else
 	{
 		if(!mk_lib_flt_analyzer_inl_defd_expuint_has_lsb(&teuib))
 		{
-			tsi = mk_lib_flt_analyzer_inl_defd_expuint_to_str_dec_n(&teuic, &analyzer->m_exp_dcd[0], mk_lang_countof(analyzer->m_exp_dcd)); mk_lang_assert(tsi <= mk_lib_flt_analyzer_inl_defd_expuint_strlendec_v); analyzer->m_exp_le1 = ((mk_lang_types_uchar_t)(tsi));
+			tsi = mk_lib_flt_analyzer_inl_defd_expuint_to_str_dec_n(&teuic, &analyzer->m_exp_dcd[0], mk_lang_countof(analyzer->m_exp_dcd)); mk_lang_assert(tsi <= mk_lib_flt_analyzer_inl_defd_expuint_strlendec_v);
+			mk_lib_flt_analyzer_inl_defd_lent_from_bi_sint(&tlent, &tsi);
+			mk_lib_flt_analyzer_inl_defd_lent_to_buis_uchar_le(&tlent, &analyzer->m_exp_le1[0]);
+
 		}
 		else
 		{
 			analyzer->m_exp_dcd[0] = '-';
 			mk_lib_flt_analyzer_inl_defd_expuint_not2(&teuic, &teuib);
 			mk_lib_flt_analyzer_inl_defd_expuint_inc1(&teuib);
-			tsi = mk_lib_flt_analyzer_inl_defd_expuint_to_str_dec_n(&teuib, &analyzer->m_exp_dcd[1], mk_lang_countof(analyzer->m_exp_dcd) - 1); mk_lang_assert(tsi <= mk_lib_flt_analyzer_inl_defd_expuint_strlendec_v); analyzer->m_exp_le1 = ((mk_lang_types_uchar_t)(tsi)) + 1;
+			tsi = mk_lib_flt_analyzer_inl_defd_expuint_to_str_dec_n(&teuib, &analyzer->m_exp_dcd[1], mk_lang_countof(analyzer->m_exp_dcd) - 1); mk_lang_assert(tsi <= mk_lib_flt_analyzer_inl_defd_expuint_strlendec_v);
+			++tsi;
+			mk_lib_flt_analyzer_inl_defd_lent_from_bi_sint(&tlent, &tsi);
+			mk_lib_flt_analyzer_inl_defd_lent_to_buis_uchar_le(&tlent, &analyzer->m_exp_le1[0]);
 		}
 	}
-	mk_lib_flt_analyzer_inl_defd_uint_shl3(&analyzer->m_bytes, 1 + mk_lib_flt_analyzer_inl_defd_flt_expb, &tui);
+	mk_lib_flt_analyzer_inl_defd_uint_from_buis_uchar_le(&tuint, &analyzer->m_bytes[0]); mk_lib_flt_analyzer_inl_defd_uint_shl3(&tuint, 1 + mk_lib_flt_analyzer_inl_defd_flt_expb, &tui);
 	mk_lib_flt_analyzer_inl_defd_uint_shr2(&tui, 1 + mk_lib_flt_analyzer_inl_defd_flt_expb);
 	tsi = mk_lib_flt_analyzer_inl_defd_uint_to_str_binf_n(&tui, &analyzer->m_mts_bin[0], mk_lang_countof(analyzer->m_mts_bin)); mk_lang_assert(tsi == mk_lib_flt_analyzer_inl_defd_uint_strlenbin_v);
 	tsi = mk_lib_flt_analyzer_inl_defd_uint_to_str_hexf_n(&tui, &analyzer->m_mts_hex[0], mk_lang_countof(analyzer->m_mts_hex)); mk_lang_assert(tsi == mk_lib_flt_analyzer_inl_defd_uint_strlenhex_v);
-	tsi = mk_lib_flt_analyzer_inl_defd_uint_to_str_dec_n(&tui, &analyzer->m_mts_dec[0], mk_lang_countof(analyzer->m_mts_dec)); mk_lang_assert(tsi >= 1 && tsi <= mk_lib_flt_analyzer_inl_defd_uint_strlendec_v); analyzer->m_mts_len = ((mk_lang_types_uchar_t)(tsi));
-	mk_lib_flt_analyzer_inl_defd_analyze_mts(&tui, analyzer->m_type, &analyzer->m_mts_dcl, &analyzer->m_mts_dcd[0]);
-	tsi = mk_lib_flt_analyzer_inl_filec_flt_to_string_dec_basic_n(&analyzer->m_bytes, &analyzer->m_val_str[0], mk_lang_countof(analyzer->m_val_str)); mk_lang_assert(tsi <= mk_lib_flt_analyzer_inl_filec_flt_to_string_dec_basic_len_v); analyzer->m_val_len = ((mk_lib_flt_analyzer_inl_defd_mtslent_t)(tsi));
+	tsi = mk_lib_flt_analyzer_inl_defd_uint_to_str_dec_n(&tui, &analyzer->m_mts_dec[0], mk_lang_countof(analyzer->m_mts_dec)); mk_lang_assert(tsi >= 1 && tsi <= mk_lib_flt_analyzer_inl_defd_uint_strlendec_v);
+	mk_lib_flt_analyzer_inl_defd_lent_from_bi_sint(&tlent, &tsi);
+	mk_lib_flt_analyzer_inl_defd_lent_to_buis_uchar_le(&tlent, &analyzer->m_mts_len[0]);
+	mk_lib_flt_analyzer_inl_defd_analyze_mts(&tui, analyzer->m_type, &tlent, &analyzer->m_mts_dcd[0]); mk_lib_flt_analyzer_inl_defd_lent_to_buis_uchar_le(&tlent, &analyzer->m_mts_dcl[0]);
+	mk_lib_flt_analyzer_inl_defd_uint_from_buis_uchar_le(&tuint, &analyzer->m_bytes[0]); tsi = mk_lib_flt_analyzer_inl_filec_flt_to_string_dec_basic_n(&tuint, &analyzer->m_val_str[0], mk_lang_countof(analyzer->m_val_str)); mk_lang_assert(tsi <= mk_lib_flt_analyzer_inl_filec_flt_to_string_dec_basic_len_v);
+	mk_lib_flt_analyzer_inl_defd_mtslent_from_bi_sint(&tmtslent, &tsi);
+	mk_lib_flt_analyzer_inl_defd_mtslent_to_buis_uchar_le(&tmtslent, &analyzer->m_val_len[0]);
 }
 
 
