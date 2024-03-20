@@ -6,6 +6,7 @@
 /* nist fips pub 180-4 */
 
 #include "mk_lang_alignof.h"
+#include "mk_lang_arch.h"
 #include "mk_lang_assert.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_cpuid.h"
@@ -21,7 +22,7 @@
 #include "mk_sl_uint64.h"
 #include "mk_sl_uint8.h"
 
-#if defined _MSC_VER && _MSC_VER >= mk_lang_msvc_ver_2015
+#if defined _MSC_VER && _MSC_VER >= mk_lang_msvc_ver_2015 && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
 
 #include <emmintrin.h> /* _mm_add_epi32 _mm_load_si128 _mm_set_epi32 _mm_set_epi64x _mm_setzero_si128 _mm_shuffle_epi32 _mm_store_si128 _mm_xor_si128 */
 #include <immintrin.h> /* _mm_sha1msg1_epu32 _mm_sha1msg2_epu32 _mm_sha1nexte_epu32 _mm_sha1rnds4_epu32 */

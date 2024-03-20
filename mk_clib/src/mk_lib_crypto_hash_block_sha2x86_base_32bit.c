@@ -2,6 +2,7 @@
 
 #include "mk_lang_alignas.h"
 #include "mk_lang_alignof.h"
+#include "mk_lang_arch.h"
 #include "mk_lang_assert.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_cpuid.h"
@@ -18,7 +19,7 @@
 #include "mk_sl_uint8.h"
 
 
-#if defined _MSC_VER && _MSC_VER >= mk_lang_msvc_ver_2015
+#if defined _MSC_VER && _MSC_VER >= mk_lang_msvc_ver_2015 && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
 
 
 #include <emmintrin.h> /* _mm_add_epi32 _mm_load_si128 _mm_set_epi64x _mm_shuffle_epi32 _mm_store_si128 */
