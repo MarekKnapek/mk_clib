@@ -891,6 +891,8 @@ mk_lang_extern_c void mk_lib_crypto_alg_des_test(void) mk_lang_noexcept
 	mk_lang_constexpr_static auto const s_out_computed_008 = mk_lib_crypto_alg_des_test_encrypt_from_str_lit(key_008, msg_008);
 	mk_lang_constexpr_static auto const s_out_computed_009 = mk_lib_crypto_alg_des_test_encrypt_from_str_lit(key_009, msg_009);
 	mk_lang_constexpr_static auto const s_out_computed_010 = mk_lib_crypto_alg_des_test_encrypt_from_str_lit(key_010, msg_010);
+	#if defined mk_clib_test_smol_want && mk_clib_test_smol_want == 1
+	#else
 	mk_lang_constexpr_static auto const s_out_computed_011 = mk_lib_crypto_alg_des_test_encrypt_from_str_lit(key_011, msg_011);
 	mk_lang_constexpr_static auto const s_out_computed_012 = mk_lib_crypto_alg_des_test_encrypt_from_str_lit(key_012, msg_012);
 	mk_lang_constexpr_static auto const s_out_computed_013 = mk_lib_crypto_alg_des_test_encrypt_from_str_lit(key_013, msg_013);
@@ -1150,6 +1152,7 @@ mk_lang_extern_c void mk_lib_crypto_alg_des_test(void) mk_lang_noexcept
 	mk_lang_constexpr_static auto const s_out_computed_267 = mk_lib_crypto_alg_des_test_encrypt_from_str_lit(key_267, msg_267);
 	mk_lang_constexpr_static auto const s_out_computed_268 = mk_lib_crypto_alg_des_test_encrypt_from_str_lit(key_268, msg_268);
 	mk_lang_constexpr_static auto const s_out_computed_269 = mk_lib_crypto_alg_des_test_encrypt_from_str_lit(key_269, msg_269);
+	#endif
 
 	mk_lang_constexpr_static auto const s_msg_computed_000 = mk_lib_crypto_alg_des_test_decrypt_from_str_lit(key_000, s_out_computed_000);
 	mk_lang_constexpr_static auto const s_msg_computed_001 = mk_lib_crypto_alg_des_test_decrypt_from_str_lit(key_001, s_out_computed_001);
@@ -1162,6 +1165,8 @@ mk_lang_extern_c void mk_lib_crypto_alg_des_test(void) mk_lang_noexcept
 	mk_lang_constexpr_static auto const s_msg_computed_008 = mk_lib_crypto_alg_des_test_decrypt_from_str_lit(key_008, s_out_computed_008);
 	mk_lang_constexpr_static auto const s_msg_computed_009 = mk_lib_crypto_alg_des_test_decrypt_from_str_lit(key_009, s_out_computed_009);
 	mk_lang_constexpr_static auto const s_msg_computed_010 = mk_lib_crypto_alg_des_test_decrypt_from_str_lit(key_010, s_out_computed_010);
+	#if defined mk_clib_test_smol_want && mk_clib_test_smol_want == 1
+	#else
 	mk_lang_constexpr_static auto const s_msg_computed_011 = mk_lib_crypto_alg_des_test_decrypt_from_str_lit(key_011, s_out_computed_011);
 	mk_lang_constexpr_static auto const s_msg_computed_012 = mk_lib_crypto_alg_des_test_decrypt_from_str_lit(key_012, s_out_computed_012);
 	mk_lang_constexpr_static auto const s_msg_computed_013 = mk_lib_crypto_alg_des_test_decrypt_from_str_lit(key_013, s_out_computed_013);
@@ -1421,6 +1426,7 @@ mk_lang_extern_c void mk_lib_crypto_alg_des_test(void) mk_lang_noexcept
 	mk_lang_constexpr_static auto const s_msg_computed_267 = mk_lib_crypto_alg_des_test_decrypt_from_str_lit(key_267, s_out_computed_267);
 	mk_lang_constexpr_static auto const s_msg_computed_268 = mk_lib_crypto_alg_des_test_decrypt_from_str_lit(key_268, s_out_computed_268);
 	mk_lang_constexpr_static auto const s_msg_computed_269 = mk_lib_crypto_alg_des_test_decrypt_from_str_lit(key_269, s_out_computed_269);
+	#endif
 
 	mk_lang_constexpr_static auto const s_out_precomputed_000 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(out_000);
 	mk_lang_constexpr_static auto const s_out_precomputed_001 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(out_001);
@@ -1433,6 +1439,8 @@ mk_lang_extern_c void mk_lib_crypto_alg_des_test(void) mk_lang_noexcept
 	mk_lang_constexpr_static auto const s_out_precomputed_008 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(out_008);
 	mk_lang_constexpr_static auto const s_out_precomputed_009 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(out_009);
 	mk_lang_constexpr_static auto const s_out_precomputed_010 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(out_010);
+	#if defined mk_clib_test_smol_want && mk_clib_test_smol_want == 1
+	#else
 	mk_lang_constexpr_static auto const s_out_precomputed_011 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(out_011);
 	mk_lang_constexpr_static auto const s_out_precomputed_012 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(out_012);
 	mk_lang_constexpr_static auto const s_out_precomputed_013 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(out_013);
@@ -1692,6 +1700,7 @@ mk_lang_extern_c void mk_lib_crypto_alg_des_test(void) mk_lang_noexcept
 	mk_lang_constexpr_static auto const s_out_precomputed_267 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(out_267);
 	mk_lang_constexpr_static auto const s_out_precomputed_268 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(out_268);
 	mk_lang_constexpr_static auto const s_out_precomputed_269 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(out_269);
+	#endif
 
 	mk_lang_constexpr_static auto const s_msg_precomputed_000 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(msg_000);
 	mk_lang_constexpr_static auto const s_msg_precomputed_001 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(msg_001);
@@ -1704,6 +1713,8 @@ mk_lang_extern_c void mk_lib_crypto_alg_des_test(void) mk_lang_noexcept
 	mk_lang_constexpr_static auto const s_msg_precomputed_008 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(msg_008);
 	mk_lang_constexpr_static auto const s_msg_precomputed_009 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(msg_009);
 	mk_lang_constexpr_static auto const s_msg_precomputed_010 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(msg_010);
+	#if defined mk_clib_test_smol_want && mk_clib_test_smol_want == 1
+	#else
 	mk_lang_constexpr_static auto const s_msg_precomputed_011 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(msg_011);
 	mk_lang_constexpr_static auto const s_msg_precomputed_012 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(msg_012);
 	mk_lang_constexpr_static auto const s_msg_precomputed_013 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(msg_013);
@@ -1963,6 +1974,7 @@ mk_lang_extern_c void mk_lib_crypto_alg_des_test(void) mk_lang_noexcept
 	mk_lang_constexpr_static auto const s_msg_precomputed_267 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(msg_267);
 	mk_lang_constexpr_static auto const s_msg_precomputed_268 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(msg_268);
 	mk_lang_constexpr_static auto const s_msg_precomputed_269 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(msg_269);
+	#endif
 
 	mk_lang_static_assert(s_out_computed_000 == s_out_precomputed_000);
 	mk_lang_static_assert(s_out_computed_001 == s_out_precomputed_001);
@@ -1975,6 +1987,8 @@ mk_lang_extern_c void mk_lib_crypto_alg_des_test(void) mk_lang_noexcept
 	mk_lang_static_assert(s_out_computed_008 == s_out_precomputed_008);
 	mk_lang_static_assert(s_out_computed_009 == s_out_precomputed_009);
 	mk_lang_static_assert(s_out_computed_010 == s_out_precomputed_010);
+	#if defined mk_clib_test_smol_want && mk_clib_test_smol_want == 1
+	#else
 	mk_lang_static_assert(s_out_computed_011 == s_out_precomputed_011);
 	mk_lang_static_assert(s_out_computed_012 == s_out_precomputed_012);
 	mk_lang_static_assert(s_out_computed_013 == s_out_precomputed_013);
@@ -2234,6 +2248,7 @@ mk_lang_extern_c void mk_lib_crypto_alg_des_test(void) mk_lang_noexcept
 	mk_lang_static_assert(s_out_computed_267 == s_out_precomputed_267);
 	mk_lang_static_assert(s_out_computed_268 == s_out_precomputed_268);
 	mk_lang_static_assert(s_out_computed_269 == s_out_precomputed_269);
+	#endif
 
 	mk_lang_static_assert(s_msg_computed_000 == s_msg_precomputed_000);
 	mk_lang_static_assert(s_msg_computed_001 == s_msg_precomputed_001);
@@ -2246,6 +2261,8 @@ mk_lang_extern_c void mk_lib_crypto_alg_des_test(void) mk_lang_noexcept
 	mk_lang_static_assert(s_msg_computed_008 == s_msg_precomputed_008);
 	mk_lang_static_assert(s_msg_computed_009 == s_msg_precomputed_009);
 	mk_lang_static_assert(s_msg_computed_010 == s_msg_precomputed_010);
+	#if defined mk_clib_test_smol_want && mk_clib_test_smol_want == 1
+	#else
 	mk_lang_static_assert(s_msg_computed_011 == s_msg_precomputed_011);
 	mk_lang_static_assert(s_msg_computed_012 == s_msg_precomputed_012);
 	mk_lang_static_assert(s_msg_computed_013 == s_msg_precomputed_013);
@@ -2505,6 +2522,7 @@ mk_lang_extern_c void mk_lib_crypto_alg_des_test(void) mk_lang_noexcept
 	mk_lang_static_assert(s_msg_computed_267 == s_msg_precomputed_267);
 	mk_lang_static_assert(s_msg_computed_268 == s_msg_precomputed_268);
 	mk_lang_static_assert(s_msg_computed_269 == s_msg_precomputed_269);
+	#endif
 
 	#endif
 

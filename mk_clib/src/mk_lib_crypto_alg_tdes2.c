@@ -6,55 +6,80 @@
 
 #include "mk_lang_assert.h"
 #include "mk_lang_constexpr.h"
-#include "mk_lang_countof.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_limits.h"
-#include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
-#include "mk_lang_static_assert.h"
 #include "mk_lang_types.h"
-#include "mk_lib_crypto_alg_des.h"
-#include "mk_sl_uint.h"
-#include "mk_sl_uint32.h"
+#include "mk_lib_crypto_alg_des_base.h"
 #include "mk_sl_uint64.h"
 #include "mk_sl_uint8.h"
+
+#define mk_lang_memcpy_t_name mk_lib_crypto_alg_tdes2_memcpy_u8
+#define mk_lang_memcpy_t_base mk_sl_cui_uint8
+#include "mk_lang_memcpy_inl_fileh.h"
+#include "mk_lang_memcpy_inl_filec.h"
+
+#define mk_lang_memcpy_t_name mk_lib_crypto_alg_tdes2_memcpy_u64
+#define mk_lang_memcpy_t_base mk_sl_cui_uint64
+#include "mk_lang_memcpy_inl_fileh.h"
+#include "mk_lang_memcpy_inl_filec.h"
 
 
 mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_tdes2_expand(mk_lib_crypto_alg_tdes2_key_pct const key, mk_lib_crypto_alg_tdes2_schedule_pt const schedule) mk_lang_noexcept
 {
-	mk_lang_types_sint_t i mk_lang_constexpr_init;
-	mk_lib_crypto_alg_des_key_t des_key mk_lang_constexpr_init;
-	mk_lib_crypto_alg_des_schedule_t des_schedule mk_lang_constexpr_init;
-
-	mk_lang_static_assert(mk_lib_crypto_alg_tdes2_key_len_v == 2 * mk_lib_crypto_alg_des_key_len_v);
-	mk_lang_static_assert(mk_lang_countof(schedule->m_data.m_uint64s) == 2 * mk_lang_countof(des_schedule.m_data.m_uint64s));
-
 	mk_lang_assert(key);
 	mk_lang_assert(schedule);
 
-	for(i = 0; i != mk_lib_crypto_alg_des_key_len_v; ++i){ des_key.m_data.m_uint8s[i] = key->m_data.m_uint8s[0 * mk_lib_crypto_alg_des_key_len_v + i]; } mk_lib_crypto_alg_des_expand_enc(&des_key, &des_schedule); for(i = 0; i != mk_lang_countof(des_schedule.m_data.m_uint64s); ++i){ schedule->m_data.m_uint64s[0 * mk_lang_countof(des_schedule.m_data.m_uint64s) + i] = des_schedule.m_data.m_uint64s[i]; }
-	for(i = 0; i != mk_lib_crypto_alg_des_key_len_v; ++i){ des_key.m_data.m_uint8s[i] = key->m_data.m_uint8s[1 * mk_lib_crypto_alg_des_key_len_v + i]; } mk_lib_crypto_alg_des_expand_dec(&des_key, &des_schedule); for(i = 0; i != mk_lang_countof(des_schedule.m_data.m_uint64s); ++i){ schedule->m_data.m_uint64s[1 * mk_lang_countof(des_schedule.m_data.m_uint64s) + i] = des_schedule.m_data.m_uint64s[i]; }
+	#if mk_lang_constexpr_is_constant_evaluated
+	if(mk_lang_constexpr_is_constant_evaluated_test)
+	{
+		mk_lib_crypto_alg_des_base_key_t base_key mk_lang_constexpr_init;
+		mk_lib_crypto_alg_des_base_schedule_t base_schedule mk_lang_constexpr_init;
+
+		mk_lib_crypto_alg_tdes2_memcpy_u8_fn(&base_key.m_data.m_uint8s[0], &key->m_data.m_uint8s[0 * mk_lib_crypto_alg_des_base_key_len_v], mk_lib_crypto_alg_des_base_key_len_v);
+		mk_lib_crypto_alg_des_base_expand_enc(&base_key, &base_schedule);
+		mk_lib_crypto_alg_tdes2_memcpy_u64_fn(&schedule->m_data.m_uint64s[0 * mk_lib_crypto_alg_des_base_nr], &base_schedule.m_data.m_uint64s[0], mk_lib_crypto_alg_des_base_nr);
+		mk_lib_crypto_alg_tdes2_memcpy_u8_fn(&base_key.m_data.m_uint8s[0], &key->m_data.m_uint8s[1 * mk_lib_crypto_alg_des_base_key_len_v], mk_lib_crypto_alg_des_base_key_len_v);
+		mk_lib_crypto_alg_des_base_expand_dec(&base_key, &base_schedule);
+		mk_lib_crypto_alg_tdes2_memcpy_u64_fn(&schedule->m_data.m_uint64s[1 * mk_lib_crypto_alg_des_base_nr], &base_schedule.m_data.m_uint64s[0], mk_lib_crypto_alg_des_base_nr);
+	}
+	else
+	#endif
+	{
+		mk_lib_crypto_alg_des_base_expand_enc(((mk_lib_crypto_alg_des_base_key_pct)(&key->m_data.m_uint8s[0 * mk_lib_crypto_alg_des_base_key_len_v])), ((mk_lib_crypto_alg_des_base_schedule_pt)(&schedule->m_data.m_uint64s[0 * mk_lib_crypto_alg_tdes2_nr])));
+		mk_lib_crypto_alg_des_base_expand_dec(((mk_lib_crypto_alg_des_base_key_pct)(&key->m_data.m_uint8s[1 * mk_lib_crypto_alg_des_base_key_len_v])), ((mk_lib_crypto_alg_des_base_schedule_pt)(&schedule->m_data.m_uint64s[1 * mk_lib_crypto_alg_tdes2_nr])));
+	}
 }
 
 mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_tdes2_schedule_crypt_one(mk_lib_crypto_alg_tdes2_schedule_pct const schedule, mk_lib_crypto_alg_tdes2_msg_pct const input, mk_lib_crypto_alg_tdes2_msg_pt const output) mk_lang_noexcept
 {
-	mk_lang_types_sint_t i mk_lang_constexpr_init;
-	mk_lib_crypto_alg_des_msg_t des_msg mk_lang_constexpr_init;
-	mk_lib_crypto_alg_des_schedule_t des_schedule mk_lang_constexpr_init;
-
-	mk_lang_static_assert(mk_lib_crypto_alg_tdes2_msg_len_v == mk_lib_crypto_alg_des_msg_len_v);
-	mk_lang_static_assert(mk_lang_countof(schedule->m_data.m_uint64s) == 2 * mk_lang_countof(des_schedule.m_data.m_uint64s));
-
 	mk_lang_assert(schedule);
 	mk_lang_assert(input);
 	mk_lang_assert(output);
 
-	for(i = 0; i != mk_lib_crypto_alg_des_msg_len_v; ++i){ des_msg.m_data.m_uint8s[i] = input->m_data.m_uint8s[i]; }
-	for(i = 0; i != mk_lang_countof(des_schedule.m_data.m_uint64s); ++i){ des_schedule.m_data.m_uint64s[i] = schedule->m_data.m_uint64s[0 * mk_lang_countof(des_schedule.m_data.m_uint64s) + i]; } mk_lib_crypto_alg_des_schedule_encrypt(&des_schedule, &des_msg, &des_msg, 1);
-	for(i = 0; i != mk_lang_countof(des_schedule.m_data.m_uint64s); ++i){ des_schedule.m_data.m_uint64s[i] = schedule->m_data.m_uint64s[1 * mk_lang_countof(des_schedule.m_data.m_uint64s) + i]; } mk_lib_crypto_alg_des_schedule_decrypt(&des_schedule, &des_msg, &des_msg, 1);
-	for(i = 0; i != mk_lang_countof(des_schedule.m_data.m_uint64s); ++i){ des_schedule.m_data.m_uint64s[i] = schedule->m_data.m_uint64s[0 * mk_lang_countof(des_schedule.m_data.m_uint64s) + i]; } mk_lib_crypto_alg_des_schedule_encrypt(&des_schedule, &des_msg, &des_msg, 1);
-	for(i = 0; i != mk_lib_crypto_alg_des_msg_len_v; ++i){ output->m_data.m_uint8s[i] = des_msg.m_data.m_uint8s[i]; }
+	#if mk_lang_constexpr_is_constant_evaluated
+	if(mk_lang_constexpr_is_constant_evaluated_test)
+	{
+		mk_lib_crypto_alg_des_base_msg_t base_msg mk_lang_constexpr_init;
+		mk_lib_crypto_alg_des_base_schedule_t base_schedule mk_lang_constexpr_init;
+
+		mk_lib_crypto_alg_tdes2_memcpy_u8_fn(&base_msg.m_data.m_uint8s[0], &input->m_data.m_uint8s[0], mk_lib_crypto_alg_des_base_msg_len_v);
+		mk_lib_crypto_alg_tdes2_memcpy_u64_fn(&base_schedule.m_data.m_uint64s[0], &schedule->m_data.m_uint64s[0 * mk_lib_crypto_alg_des_base_nr], mk_lib_crypto_alg_des_base_nr);
+		mk_lib_crypto_alg_des_base_schedule_encrypt(&base_schedule, &base_msg, &base_msg, 1);
+		mk_lib_crypto_alg_tdes2_memcpy_u64_fn(&base_schedule.m_data.m_uint64s[0], &schedule->m_data.m_uint64s[1 * mk_lib_crypto_alg_des_base_nr], mk_lib_crypto_alg_des_base_nr);
+		mk_lib_crypto_alg_des_base_schedule_decrypt(&base_schedule, &base_msg, &base_msg, 1);
+		mk_lib_crypto_alg_tdes2_memcpy_u64_fn(&base_schedule.m_data.m_uint64s[0], &schedule->m_data.m_uint64s[0 * mk_lib_crypto_alg_des_base_nr], mk_lib_crypto_alg_des_base_nr);
+		mk_lib_crypto_alg_des_base_schedule_encrypt(&base_schedule, &base_msg, &base_msg, 1);
+		mk_lib_crypto_alg_tdes2_memcpy_u8_fn(&output->m_data.m_uint8s[0], &base_msg.m_data.m_uint8s[0], mk_lib_crypto_alg_des_base_msg_len_v);
+	}
+	else
+	#endif
+	{
+		mk_lib_crypto_alg_des_base_schedule_encrypt(((mk_lib_crypto_alg_des_base_schedule_pct)(&schedule->m_data.m_uint64s[0 * mk_lib_crypto_alg_des_base_nr])), ((mk_lib_crypto_alg_des_base_msg_pct)(input)), ((mk_lib_crypto_alg_des_base_msg_pt)(output)), 1);
+		mk_lib_crypto_alg_des_base_schedule_decrypt(((mk_lib_crypto_alg_des_base_schedule_pct)(&schedule->m_data.m_uint64s[1 * mk_lib_crypto_alg_des_base_nr])), ((mk_lib_crypto_alg_des_base_msg_pct)(output)), ((mk_lib_crypto_alg_des_base_msg_pt)(output)), 1);
+		mk_lib_crypto_alg_des_base_schedule_encrypt(((mk_lib_crypto_alg_des_base_schedule_pct)(&schedule->m_data.m_uint64s[0 * mk_lib_crypto_alg_des_base_nr])), ((mk_lib_crypto_alg_des_base_msg_pct)(output)), ((mk_lib_crypto_alg_des_base_msg_pt)(output)), 1);
+	}
 }
 
 mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_tdes2_schedule_crypt_all(mk_lib_crypto_alg_tdes2_schedule_pct const schedule, mk_lib_crypto_alg_tdes2_msg_pct const input, mk_lib_crypto_alg_tdes2_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
