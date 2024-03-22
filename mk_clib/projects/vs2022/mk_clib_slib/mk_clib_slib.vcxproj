@@ -1152,7 +1152,7 @@
 			<FunctionLevelLinking>true</FunctionLevelLinking>
 			<IntrinsicFunctions>true</IntrinsicFunctions>
 			<SDLCheck>true</SDLCheck>
-			<PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;mk_lang_jumbo_want=0;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>mk_clib_test_smol_want=1;_CRT_SECURE_NO_WARNINGS;mk_lang_jumbo_want=0;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<ConformanceMode>true</ConformanceMode>
 			<MultiProcessorCompilation>true</MultiProcessorCompilation>
 			<LanguageStandard>stdcpp14</LanguageStandard>
@@ -1196,7 +1196,7 @@
 			<FunctionLevelLinking>true</FunctionLevelLinking>
 			<IntrinsicFunctions>true</IntrinsicFunctions>
 			<SDLCheck>true</SDLCheck>
-			<PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;mk_lang_jumbo_want=0;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>mk_clib_test_smol_want=1;_CRT_SECURE_NO_WARNINGS;mk_lang_jumbo_want=0;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<ConformanceMode>true</ConformanceMode>
 			<MultiProcessorCompilation>true</MultiProcessorCompilation>
 			<LanguageStandard>stdcpp14</LanguageStandard>
@@ -1240,7 +1240,7 @@
 			<FunctionLevelLinking>true</FunctionLevelLinking>
 			<IntrinsicFunctions>true</IntrinsicFunctions>
 			<SDLCheck>true</SDLCheck>
-			<PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;mk_lang_jumbo_want=0;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>mk_clib_test_smol_want=1;_CRT_SECURE_NO_WARNINGS;mk_lang_jumbo_want=0;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<ConformanceMode>true</ConformanceMode>
 			<MultiProcessorCompilation>true</MultiProcessorCompilation>
 			<LanguageStandard>stdcpp14</LanguageStandard>
@@ -1284,7 +1284,7 @@
 			<FunctionLevelLinking>true</FunctionLevelLinking>
 			<IntrinsicFunctions>true</IntrinsicFunctions>
 			<SDLCheck>true</SDLCheck>
-			<PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;mk_lang_jumbo_want=0;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>mk_clib_test_smol_want=1;_CRT_SECURE_NO_WARNINGS;mk_lang_jumbo_want=0;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<ConformanceMode>true</ConformanceMode>
 			<MultiProcessorCompilation>true</MultiProcessorCompilation>
 			<LanguageStandard>stdcpp14</LanguageStandard>
@@ -1328,7 +1328,7 @@
 			<FunctionLevelLinking>true</FunctionLevelLinking>
 			<IntrinsicFunctions>true</IntrinsicFunctions>
 			<SDLCheck>true</SDLCheck>
-			<PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;mk_lang_jumbo_want=0;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>mk_clib_test_smol_want=1;_CRT_SECURE_NO_WARNINGS;mk_lang_jumbo_want=0;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<ConformanceMode>true</ConformanceMode>
 			<MultiProcessorCompilation>true</MultiProcessorCompilation>
 			<LanguageStandard>stdcpp14</LanguageStandard>
