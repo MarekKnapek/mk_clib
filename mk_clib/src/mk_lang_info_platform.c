@@ -32,6 +32,8 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_info_platform_print(mk_lang_types_voi
 	printf("platform: arm32\n");
 	#elif mk_lang_arch == mk_lang_arch_arm64
 	printf("platform: arm64\n");
+	#elif mk_lang_arch == mk_lang_arch_arm64ec
+	printf("platform: arm64ec\n");
 	#elif mk_lang_arch == mk_lang_arch_emscripten
 	printf("platform: emscripten\n");
 	#else

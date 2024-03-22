@@ -65,7 +65,7 @@
       "matrix":
         "proj": ["mkcc", "mkcfct", "mkcflt", "mkch", "mkci"]
         "conf": ["debug", "release"]
-        "plat": ["x86", "x64"]
+        "plat": ["x86", "x64", "arm32", "arm64", "arm64ec"]
     "runs-on": "windows-latest"
     "steps":
       - "uses": "actions/checkout@main"
