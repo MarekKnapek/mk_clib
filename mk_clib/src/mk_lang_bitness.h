@@ -13,7 +13,7 @@
 #define mk_lang_bitness mk_lang_bitness_16
 #elif mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_alpha || mk_lang_arch == mk_lang_arch_ppc || mk_lang_arch == mk_lang_arch_mips || mk_lang_arch == mk_lang_arch_arm32 || mk_lang_arch == mk_lang_arch_emscripten
 #define mk_lang_bitness mk_lang_bitness_32
-#elif mk_lang_arch == mk_lang_arch_x8664 || mk_lang_arch == mk_lang_arch_ia64 || mk_lang_arch == mk_lang_arch_arm64
+#elif mk_lang_arch == mk_lang_arch_x8664 || mk_lang_arch == mk_lang_arch_ia64 || mk_lang_arch == mk_lang_arch_arm64 || mk_lang_arch == mk_lang_arch_arm64ec
 #define mk_lang_bitness mk_lang_bitness_64
 #else
 #error xxxxxxxxxx
