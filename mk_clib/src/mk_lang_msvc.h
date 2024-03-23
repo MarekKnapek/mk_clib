@@ -2,7 +2,13 @@
 #define mk_include_guard_mk_lang_msvc
 
 
-#define mk_lang_msvc_ver_2022_17_3_4 1933l
+#define mk_lang_msvc_ver_2022_17_9_2 1939l
+#define mk_lang_msvc_ver_2022_17_8_3 1938l
+#define mk_lang_msvc_ver_2022_17_7_0 1937l
+#define mk_lang_msvc_ver_2022_17_6_2 1936l
+#define mk_lang_msvc_ver_2022_17_5_4 1935l
+#define mk_lang_msvc_ver_2022_17_4_9 1934l
+#define mk_lang_msvc_ver_2022_17_3_6 1933l
 #define mk_lang_msvc_ver_2022_17_2_2 1932l
 #define mk_lang_msvc_ver_2022_17_0_2 1930l
 #define mk_lang_msvc_ver_2022_17_0_1 1930l
@@ -77,7 +83,13 @@
 #define mk_lang_msvc_ver_2005      1400l
 
 
-#define mk_lang_msvc_full_ver_2022_17_3_4 193331630l
+#define mk_lang_msvc_full_ver_2022_17_9_2 193933521l
+#define mk_lang_msvc_full_ver_2022_17_8_3 193833133l
+#define mk_lang_msvc_full_ver_2022_17_7_0 193732822l
+#define mk_lang_msvc_full_ver_2022_17_6_2 193632532l
+#define mk_lang_msvc_full_ver_2022_17_5_4 193532217l
+#define mk_lang_msvc_full_ver_2022_17_4_9 193431944l
+#define mk_lang_msvc_full_ver_2022_17_3_6 193331630l
 #define mk_lang_msvc_full_ver_2022_17_2_2 193231329l
 #define mk_lang_msvc_full_ver_2022_17_0_2 193030706l
 #define mk_lang_msvc_full_ver_2022_17_0_1 193030705l
