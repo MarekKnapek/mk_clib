@@ -1,4 +1,4 @@
-#include "mk_lib_crypto_hash_block_sha1_x86.h"
+#include "mk_lib_crypto_hash_block_sha1_x86_msvc.h"
 
 /* nist fips pub 180-1 */
 /* nist fips pub 180-2 */
@@ -46,7 +46,7 @@
 #pragma intrinsic(_mm_xor_si128)
 
 
-mk_lang_constexpr_static_inline mk_sl_cui_uint32_t const s_mk_lib_crypto_hash_block_sha1_x86_init[5] =
+mk_lang_constexpr_static_inline mk_sl_cui_uint32_t const s_mk_lib_crypto_hash_block_sha1_x86_msvc_init[5] =
 {
 	mk_sl_cui_uint32_c(0x67452301ul),
 	mk_sl_cui_uint32_c(0xefcdab89ul),
@@ -56,27 +56,27 @@ mk_lang_constexpr_static_inline mk_sl_cui_uint32_t const s_mk_lib_crypto_hash_bl
 };
 
 
-mk_lang_jumbo void mk_lib_crypto_hash_block_sha1_x86_init(mk_lib_crypto_hash_block_sha1_x86_pt const sha1) mk_lang_noexcept
+mk_lang_jumbo void mk_lib_crypto_hash_block_sha1_x86_msvc_init(mk_lib_crypto_hash_block_sha1_x86_msvc_pt const sha1) mk_lang_noexcept
 {
 	mk_lang_static_assert(sizeof(mk_sl_cui_uint8_t) == 1);
 	mk_lang_static_assert(sizeof(mk_sl_cui_uint32_t) == 4);
 	mk_lang_static_assert(sizeof(mk_sl_cui_uint64_t) == 8);
-	mk_lang_static_assert(sizeof(mk_lib_crypto_hash_block_sha1_x86_block_t) == 64);
-	mk_lang_static_assert(sizeof(mk_lib_crypto_hash_block_sha1_x86_digest_t) >= 20);
+	mk_lang_static_assert(sizeof(mk_lib_crypto_hash_block_sha1_x86_msvc_block_t) == 64);
+	mk_lang_static_assert(sizeof(mk_lib_crypto_hash_block_sha1_x86_msvc_digest_t) >= 20);
 
 	mk_lang_assert(sha1);
 
-	sha1->m_state[0] = s_mk_lib_crypto_hash_block_sha1_x86_init[0];
-	sha1->m_state[1] = s_mk_lib_crypto_hash_block_sha1_x86_init[1];
-	sha1->m_state[2] = s_mk_lib_crypto_hash_block_sha1_x86_init[2];
-	sha1->m_state[3] = s_mk_lib_crypto_hash_block_sha1_x86_init[3];
-	sha1->m_state[4] = s_mk_lib_crypto_hash_block_sha1_x86_init[4];
+	sha1->m_state[0] = s_mk_lib_crypto_hash_block_sha1_x86_msvc_init[0];
+	sha1->m_state[1] = s_mk_lib_crypto_hash_block_sha1_x86_msvc_init[1];
+	sha1->m_state[2] = s_mk_lib_crypto_hash_block_sha1_x86_msvc_init[2];
+	sha1->m_state[3] = s_mk_lib_crypto_hash_block_sha1_x86_msvc_init[3];
+	sha1->m_state[4] = s_mk_lib_crypto_hash_block_sha1_x86_msvc_init[4];
 	mk_sl_cui_uint64_set_zero(&sha1->m_len);
 }
 
-mk_lang_jumbo void mk_lib_crypto_hash_block_sha1_x86_append_blocks(mk_lib_crypto_hash_block_sha1_x86_pt const sha1, mk_lib_crypto_hash_block_sha1_x86_block_pct const pblocks, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
+mk_lang_jumbo void mk_lib_crypto_hash_block_sha1_x86_msvc_append_blocks(mk_lib_crypto_hash_block_sha1_x86_msvc_pt const sha1, mk_lib_crypto_hash_block_sha1_x86_msvc_block_pct const pblocks, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
-	#define mk_lib_crypto_hash_block_sha1_x86_reverse_32 ((0x0 << (3 * 2)) | (0x1 << (2 * 2)) | (0x2 << (1 * 2)) | (0x3 << (0 * 2)))
+	#define mk_lib_crypto_hash_block_sha1_x86_msvc_reverse_32 ((0x0 << (3 * 2)) | (0x1 << (2 * 2)) | (0x2 << (1 * 2)) | (0x3 << (0 * 2)))
 
 	__m128i reverse_8;
 	mk_sl_cui_uint64_t ta;
@@ -95,7 +95,7 @@ mk_lang_jumbo void mk_lib_crypto_hash_block_sha1_x86_append_blocks(mk_lib_crypto
 	mk_lang_assert(sha1);
 	mk_lang_assert(pblocks || nblocks == 0);
 	mk_lang_assert(nblocks >= 0);
-	mk_lang_assert(nblocks <= mk_lang_limits_usize_max / mk_lib_crypto_hash_block_sha1_x86_block_len);
+	mk_lang_assert(nblocks <= mk_lang_limits_usize_max / mk_lib_crypto_hash_block_sha1_x86_msvc_block_len);
 	mk_lang_assert((((mk_lang_types_uintptr_t)(&sha1->m_state[0])) & 0xf) == 0);
 	mk_lang_assert((((mk_lang_types_uintptr_t)(pblocks)) & 0xf) == 0);
 	mk_lang_assert(sizeof(mk_sl_cui_uint32_t) == sizeof(int));
@@ -113,9 +113,9 @@ mk_lang_jumbo void mk_lib_crypto_hash_block_sha1_x86_append_blocks(mk_lib_crypto
 		mk_lang_assert(!mk_sl_cui_uint64_would_overflow_add_cc(&sha1->m_len, &ta));
 		mk_sl_cui_uint64_add2_wrap_cid_cod(&sha1->m_len, &ta);
 		abcdx = _mm_load_si128(((__m128i const*)(&sha1->m_state[0])));
-		abcdx = _mm_shuffle_epi32(abcdx, mk_lib_crypto_hash_block_sha1_x86_reverse_32);
+		abcdx = _mm_shuffle_epi32(abcdx, mk_lib_crypto_hash_block_sha1_x86_msvc_reverse_32);
 		e = _mm_set_epi32(*((int const*)(&sha1->m_state[4])), 0, 0, 0);
-		for(iblock = 0, ptr = &pblocks[0].m_uint8s[0]; iblock != nblocks; ++iblock, ptr += mk_lib_crypto_hash_block_sha1_x86_block_len)
+		for(iblock = 0, ptr = &pblocks[0].m_uint8s[0]; iblock != nblocks; ++iblock, ptr += mk_lib_crypto_hash_block_sha1_x86_msvc_block_len)
 		{
 			old_abcd = abcdx;
 			old_e = e;
@@ -220,13 +220,13 @@ mk_lang_jumbo void mk_lib_crypto_hash_block_sha1_x86_append_blocks(mk_lib_crypto
 			abcdx = _mm_add_epi32(abcdx, old_abcd);
 			e = _mm_add_epi32(e, old_e);
 		}
-		abcdx = _mm_shuffle_epi32(abcdx, mk_lib_crypto_hash_block_sha1_x86_reverse_32);
+		abcdx = _mm_shuffle_epi32(abcdx, mk_lib_crypto_hash_block_sha1_x86_msvc_reverse_32);
 		_mm_store_si128(((__m128i*)(&sha1->m_state[0])), abcdx);
 		*((int*)(&sha1->m_state[4])) = _mm_extract_epi32(e, 3);
 	}
 }
 
-mk_lang_jumbo void mk_lib_crypto_hash_block_sha1_x86_finish(mk_lib_crypto_hash_block_sha1_x86_pt const sha1, mk_lib_crypto_hash_block_sha1_x86_block_pt const block, int const idx, mk_lib_crypto_hash_block_sha1_x86_digest_pt const digest) mk_lang_noexcept
+mk_lang_jumbo void mk_lib_crypto_hash_block_sha1_x86_msvc_finish(mk_lib_crypto_hash_block_sha1_x86_msvc_pt const sha1, mk_lib_crypto_hash_block_sha1_x86_msvc_block_pt const block, int const idx, mk_lib_crypto_hash_block_sha1_x86_msvc_digest_pt const digest) mk_lang_noexcept
 {
 	unsigned ui mk_lang_constexpr_init;
 	mk_sl_cui_uint64_t ta mk_lang_constexpr_init;
@@ -236,10 +236,10 @@ mk_lang_jumbo void mk_lib_crypto_hash_block_sha1_x86_finish(mk_lib_crypto_hash_b
 
 	mk_lang_assert(sha1);
 	mk_lang_assert(block);
-	mk_lang_assert(idx >= 0 && idx < mk_lib_crypto_hash_block_sha1_x86_block_len);
+	mk_lang_assert(idx >= 0 && idx < mk_lib_crypto_hash_block_sha1_x86_msvc_block_len);
 	mk_lang_assert(digest);
 
-	ui = mk_lib_crypto_hash_block_sha1_x86_block_len;
+	ui = mk_lib_crypto_hash_block_sha1_x86_msvc_block_len;
 	mk_sl_cui_uint64_from_bi_uint(&ta, &ui);
 	mk_lang_assert(!mk_sl_cui_uint64_would_overflow_mul(&sha1->m_len, &ta));
 	mk_sl_cui_uint64_shl3(&sha1->m_len, 6, &ta);
@@ -252,7 +252,7 @@ mk_lang_jumbo void mk_lib_crypto_hash_block_sha1_x86_finish(mk_lib_crypto_hash_b
 	mk_sl_cui_uint64_shl2(&ta, 3);
 	ui = 0x80;
 	mk_sl_cui_uint8_from_bi_uint(&block->m_uint8s[idx], &ui);
-	rest = mk_lib_crypto_hash_block_sha1_x86_block_len - idx - 1;
+	rest = mk_lib_crypto_hash_block_sha1_x86_msvc_block_len - idx - 1;
 	if(rest >= 8)
 	{
 		for(i = 0; i != rest - 8; ++i)
@@ -266,14 +266,14 @@ mk_lang_jumbo void mk_lib_crypto_hash_block_sha1_x86_finish(mk_lib_crypto_hash_b
 		{
 			mk_sl_cui_uint8_set_zero(&block->m_uint8s[idx + 1 + i]);
 		}
-		mk_lib_crypto_hash_block_sha1_x86_append_blocks(sha1, block, 1);
-		for(i = 0; i != mk_lib_crypto_hash_block_sha1_x86_block_len - 8; ++i)
+		mk_lib_crypto_hash_block_sha1_x86_msvc_append_blocks(sha1, block, 1);
+		for(i = 0; i != mk_lib_crypto_hash_block_sha1_x86_msvc_block_len - 8; ++i)
 		{
 			mk_sl_cui_uint8_set_zero(&block->m_uint8s[i]);
 		}
 	}
-	mk_sl_uint_64_to_8_be(&ta, &block->m_uint8s[mk_lib_crypto_hash_block_sha1_x86_block_len - 8]);
-	mk_lib_crypto_hash_block_sha1_x86_append_blocks(sha1, block, 1);
+	mk_sl_uint_64_to_8_be(&ta, &block->m_uint8s[mk_lib_crypto_hash_block_sha1_x86_msvc_block_len - 8]);
+	mk_lib_crypto_hash_block_sha1_x86_msvc_append_blocks(sha1, block, 1);
 	for(i = 0; i != 5; ++i)
 	{
 		mk_sl_uint_32_to_8_be(&sha1->m_state[i], &digest->m_uint8s[i * 4]);
@@ -282,13 +282,13 @@ mk_lang_jumbo void mk_lib_crypto_hash_block_sha1_x86_finish(mk_lib_crypto_hash_b
 
 #else
 
-mk_lang_jumbo void mk_lib_crypto_hash_block_sha1_x86_init(mk_lib_crypto_hash_block_sha1_x86_pt const sha1) mk_lang_noexcept
+mk_lang_jumbo void mk_lib_crypto_hash_block_sha1_x86_msvc_init(mk_lib_crypto_hash_block_sha1_x86_msvc_pt const sha1) mk_lang_noexcept
 {
 	((void)(sha1));
 	mk_lang_assert(0);
 }
 
-mk_lang_jumbo void mk_lib_crypto_hash_block_sha1_x86_append_blocks(mk_lib_crypto_hash_block_sha1_x86_pt const sha1, mk_lib_crypto_hash_block_sha1_x86_block_pct const pblocks, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
+mk_lang_jumbo void mk_lib_crypto_hash_block_sha1_x86_msvc_append_blocks(mk_lib_crypto_hash_block_sha1_x86_msvc_pt const sha1, mk_lib_crypto_hash_block_sha1_x86_msvc_block_pct const pblocks, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
 	((void)(sha1));
 	((void)(pblocks));
@@ -296,7 +296,7 @@ mk_lang_jumbo void mk_lib_crypto_hash_block_sha1_x86_append_blocks(mk_lib_crypto
 	mk_lang_assert(0);
 }
 
-mk_lang_jumbo void mk_lib_crypto_hash_block_sha1_x86_finish(mk_lib_crypto_hash_block_sha1_x86_pt const sha1, mk_lib_crypto_hash_block_sha1_x86_block_pt const block, int const idx, mk_lib_crypto_hash_block_sha1_x86_digest_pt const digest) mk_lang_noexcept
+mk_lang_jumbo void mk_lib_crypto_hash_block_sha1_x86_msvc_finish(mk_lib_crypto_hash_block_sha1_x86_msvc_pt const sha1, mk_lib_crypto_hash_block_sha1_x86_msvc_block_pt const block, int const idx, mk_lib_crypto_hash_block_sha1_x86_msvc_digest_pt const digest) mk_lang_noexcept
 {
 	((void)(sha1));
 	((void)(block));

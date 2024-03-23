@@ -29,7 +29,7 @@
 #include "mk_lib_crypto_hash_stream_sha0_test.hpp"
 #include "mk_lib_crypto_hash_stream_sha1_c_test.hpp"
 #include "mk_lib_crypto_hash_stream_sha1_test.hpp"
-#include "mk_lib_crypto_hash_stream_sha1_x86_test.hpp"
+#include "mk_lib_crypto_hash_stream_sha1_x86_msvc_test.hpp"
 #include "mk_lib_crypto_hash_stream_sha2_224_test.hpp"
 #include "mk_lib_crypto_hash_stream_sha2_256_test.hpp"
 #include "mk_lib_crypto_hash_stream_sha2_384_test.hpp"
@@ -51,10 +51,10 @@
 #include "mk_lib_crypto_hash_stream_whirlpool_test.hpp"
 #include "mk_lib_crypto_kdf_pbkdf1_sha1_c_test.hpp"
 #include "mk_lib_crypto_kdf_pbkdf1_sha1_test.hpp"
-#include "mk_lib_crypto_kdf_pbkdf1_sha1_x86_test.hpp"
+#include "mk_lib_crypto_kdf_pbkdf1_sha1_x86_msvc_test.hpp"
 #include "mk_lib_crypto_mac_hmac_sha1_c_test.hpp"
 #include "mk_lib_crypto_mac_hmac_sha1_test.hpp"
-#include "mk_lib_crypto_mac_hmac_sha1_x86_test.hpp"
+#include "mk_lib_crypto_mac_hmac_sha1_x86_msvc_test.hpp"
 #include "mk_lib_crypto_mac_hmac_sha2_224_test.hpp"
 #include "mk_lib_crypto_mac_hmac_sha2_256_test.hpp"
 #include "mk_lib_crypto_mac_hmac_sha2_384_test.hpp"
@@ -117,7 +117,7 @@ mk_lang_jumbo void mk_clib_test(void) mk_lang_noexcept
 	mk_lib_crypto_hash_stream_sha0_test();
 	mk_lib_crypto_hash_stream_sha1_c_test();
 	mk_lib_crypto_hash_stream_sha1_test();
-	mk_lib_crypto_hash_stream_sha1_x86_test();
+	mk_lib_crypto_hash_stream_sha1_x86_msvc_test();
 	mk_lib_crypto_hash_stream_sha2_224_test();
 	mk_lib_crypto_hash_stream_sha2_256_test();
 	mk_lib_crypto_hash_stream_sha2_384_test();
@@ -139,10 +139,10 @@ mk_lang_jumbo void mk_clib_test(void) mk_lang_noexcept
 	mk_lib_crypto_hash_stream_whirlpool_test();
 	mk_lib_crypto_kdf_pbkdf1_sha1_c_test();
 	mk_lib_crypto_kdf_pbkdf1_sha1_test();
-	mk_lib_crypto_kdf_pbkdf1_sha1_x86_test();
+	mk_lib_crypto_kdf_pbkdf1_sha1_x86_msvc_test();
 	mk_lib_crypto_mac_hmac_sha1_c_test();
 	mk_lib_crypto_mac_hmac_sha1_test();
-	mk_lib_crypto_mac_hmac_sha1_x86_test();
+	mk_lib_crypto_mac_hmac_sha1_x86_msvc_test();
 	mk_lib_crypto_mac_hmac_sha2_224_test();
 	mk_lib_crypto_mac_hmac_sha2_256_test();
 	mk_lib_crypto_mac_hmac_sha2_384_test();
