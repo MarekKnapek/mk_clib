@@ -14,6 +14,7 @@
 #include "mk_lang_stringify.h"
 #include "mk_lang_types.h"
 #include "mk_lib_crypto_hash_block_sha1_c.h"
+#include "mk_lib_crypto_hash_block_sha1_x86_gcc.h"
 #include "mk_lib_crypto_hash_block_sha1_x86_msvc.h"
 
 
@@ -28,6 +29,7 @@ union mk_lib_crypto_hash_block_sha1_data_u
 {
 	mk_lib_crypto_hash_block_sha1_c_t m_sha1_c;
 	mk_lib_crypto_hash_block_sha1_x86_msvc_t m_sha1_x86_msvc;
+	mk_lib_crypto_hash_block_sha1_x86_gcc_t m_sha1_x86_gcc;
 };
 typedef union mk_lib_crypto_hash_block_sha1_data_u mk_lib_crypto_hash_block_sha1_data_t;
 
