@@ -14,8 +14,8 @@
 #include "mk_lang_msvc.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
-#include "mk_lib_crypto_hash_block_sha1c.h"
-#include "mk_lib_crypto_hash_block_sha1x86.h"
+#include "mk_lib_crypto_hash_block_sha1_c.h"
+#include "mk_lib_crypto_hash_block_sha1_x86.h"
 #include "mk_sl_uint32.h"
 
 
@@ -30,7 +30,7 @@
 	(mk_lang_cpuid_has_sha()) && \
 	1 \
 )
-#define mk_lib_crypto_hash_block_sha1_conditions_2 ((((mk_lang_types_uintptr_t)(&sha1->m_data.m_sha1x86.m_state[0])) & 0xf) == 0)
+#define mk_lib_crypto_hash_block_sha1_conditions_2 ((((mk_lang_types_uintptr_t)(&sha1->m_data.m_sha1_x86.m_state[0])) & 0xf) == 0)
 #define mk_lib_crypto_hash_block_sha1_conditions_3 ((((mk_lang_types_uintptr_t)(pblocks)) & 0xf) == 0)
 #define mk_lib_crypto_hash_block_sha1_conditions_4 ((((mk_lang_types_uintptr_t)(block)) & 0xf) == 0)
 
@@ -46,12 +46,12 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sh
 	if(!mk_lang_constexpr_is_constant_evaluated_test && mk_lib_crypto_hash_block_sha1_conditions_1 && mk_lib_crypto_hash_block_sha1_conditions_2)
 	#endif
 	{
-		mk_lib_crypto_hash_block_sha1x86_init(&sha1->m_data.m_sha1x86);
+		mk_lib_crypto_hash_block_sha1_x86_init(&sha1->m_data.m_sha1_x86);
 	}
 	else
 	#endif
 	{
-		mk_lib_crypto_hash_block_sha1c_init(&sha1->m_data.m_sha1c);
+		mk_lib_crypto_hash_block_sha1_c_init(&sha1->m_data.m_sha1_c);
 	}
 }
 
@@ -66,12 +66,12 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sh
 	if(!mk_lang_constexpr_is_constant_evaluated_test && mk_lib_crypto_hash_block_sha1_conditions_1 && mk_lib_crypto_hash_block_sha1_conditions_2 && mk_lib_crypto_hash_block_sha1_conditions_3)
 	#endif
 	{
-		mk_lib_crypto_hash_block_sha1x86_append_blocks(&sha1->m_data.m_sha1x86, ((mk_lib_crypto_hash_block_sha1x86_block_pct)(pblocks)), nblocks);
+		mk_lib_crypto_hash_block_sha1_x86_append_blocks(&sha1->m_data.m_sha1_x86, ((mk_lib_crypto_hash_block_sha1_x86_block_pct)(pblocks)), nblocks);
 	}
 	else
 	#endif
 	{
-		mk_lib_crypto_hash_block_sha1c_append_blocks(&sha1->m_data.m_sha1c, pblocks, nblocks);
+		mk_lib_crypto_hash_block_sha1_c_append_blocks(&sha1->m_data.m_sha1_c, pblocks, nblocks);
 	}
 }
 
@@ -86,11 +86,11 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sh
 	if(!mk_lang_constexpr_is_constant_evaluated_test && mk_lib_crypto_hash_block_sha1_conditions_1 && mk_lib_crypto_hash_block_sha1_conditions_2 && mk_lib_crypto_hash_block_sha1_conditions_4)
 	#endif
 	{
-		mk_lib_crypto_hash_block_sha1x86_finish(&sha1->m_data.m_sha1x86, ((mk_lib_crypto_hash_block_sha1x86_block_pt)(block)), idx, ((mk_lib_crypto_hash_block_sha1x86_digest_pt)(digest)));
+		mk_lib_crypto_hash_block_sha1_x86_finish(&sha1->m_data.m_sha1_x86, ((mk_lib_crypto_hash_block_sha1_x86_block_pt)(block)), idx, ((mk_lib_crypto_hash_block_sha1_x86_digest_pt)(digest)));
 	}
 	else
 	#endif
 	{
-		mk_lib_crypto_hash_block_sha1c_finish(&sha1->m_data.m_sha1c, block, idx, digest);
+		mk_lib_crypto_hash_block_sha1_c_finish(&sha1->m_data.m_sha1_c, block, idx, digest);
 	}
 }
