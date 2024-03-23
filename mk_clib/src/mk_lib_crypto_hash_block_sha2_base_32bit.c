@@ -34,7 +34,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sh
 {
 	mk_lang_assert(sha2_base_32bit);
 
-	#if defined _MSC_VER && _MSC_VER >= mk_lang_msvc_ver_2015 && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
+	#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2015 && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
 	#if !mk_lang_constexpr_is_constant_evaluated
 	if(mk_lib_crypto_hash_block_sha2_base_32bit_conditions_1 && mk_lib_crypto_hash_block_sha2_base_32bit_conditions_2)
 	#else
@@ -54,7 +54,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sh
 {
 	mk_lang_assert(sha2_base_32bit);
 
-	#if defined _MSC_VER && _MSC_VER >= mk_lang_msvc_ver_2015 && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
+	#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2015 && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
 	#if !mk_lang_constexpr_is_constant_evaluated
 	if(mk_lib_crypto_hash_block_sha2_base_32bit_conditions_1 && mk_lib_crypto_hash_block_sha2_base_32bit_conditions_2 && mk_lib_crypto_hash_block_sha2_base_32bit_conditions_3)
 	#else
@@ -74,7 +74,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sh
 {
 	mk_lang_assert(sha2_base_32bit);
 
-	#if defined _MSC_VER && _MSC_VER >= mk_lang_msvc_ver_2015 && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
+	#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2015 && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
 	#if !mk_lang_constexpr_is_constant_evaluated
 	if(mk_lib_crypto_hash_block_sha2_base_32bit_conditions_1 && mk_lib_crypto_hash_block_sha2_base_32bit_conditions_2 && mk_lib_crypto_hash_block_sha2_base_32bit_conditions_4)
 	#else

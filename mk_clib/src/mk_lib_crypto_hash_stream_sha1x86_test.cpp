@@ -7,7 +7,7 @@
 #include "mk_lang_msvc.h"
 #include "mk_lang_noexcept.h"
 
-#if !mk_lang_constexpr_is_constant_evaluated && defined _MSC_VER && _MSC_VER >= mk_lang_msvc_ver_2015
+#if !mk_lang_constexpr_is_constant_evaluated && mk_lang_msvc_ver >= mk_lang_msvc_ver_2015
 
 #include "mk_lang_assert.h"
 #include "mk_lang_crash.h"

@@ -163,7 +163,7 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_inl_defd_c_de
 }
 
 
-#if((mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (defined _MSC_FULL_VER && _MSC_FULL_VER >= mk_lang_msvc_full_ver_2008_sp_1))
+#if((mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1))
 
 
 #include <emmintrin.h> /* _mm_castpd_si128 _mm_castsi128_pd _mm_load_si128 _mm_loadu_si128 _mm_shuffle_epi32 _mm_slli_si128 _mm_store_si128 _mm_storeu_si128 _mm_xor_si128 */
@@ -534,7 +534,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_portable_dec
 
 mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_accelerated_schedule_encrypt(mk_lib_crypto_alg_aes_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_base_msg_pct const input, mk_lib_crypto_alg_aes_base_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
-	#if((mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (defined _MSC_FULL_VER && _MSC_FULL_VER >= mk_lang_msvc_full_ver_2008_sp_1) && (mk_lang_alignas_has && mk_lang_alignof_has))
+	#if((mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1) && (mk_lang_alignas_has && mk_lang_alignof_has))
 	mk_lang_assert(mk_lang_cpuid_has_sse2() && mk_lang_cpuid_has_aes_ni());
 	mk_lib_crypto_alg_aes_inl_defd_msvc_aes_ni_schedule_encrypt(schedule, input, output, nblocks);
 	#else
@@ -548,7 +548,7 @@ mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_accelerated_schedule_encrypt(m
 
 mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_accelerated_schedule_decrypt(mk_lib_crypto_alg_aes_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_base_msg_pct const input, mk_lib_crypto_alg_aes_base_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
-	#if((mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (defined _MSC_FULL_VER && _MSC_FULL_VER >= mk_lang_msvc_full_ver_2008_sp_1) && (mk_lang_alignas_has && mk_lang_alignof_has))
+	#if((mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1) && (mk_lang_alignas_has && mk_lang_alignof_has))
 	mk_lang_assert(mk_lang_cpuid_has_sse2() && mk_lang_cpuid_has_aes_ni());
 	mk_lib_crypto_alg_aes_inl_defd_msvc_aes_ni_schedule_decrypt(schedule, input, output, nblocks);
 	#else
@@ -562,7 +562,7 @@ mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_accelerated_schedule_decrypt(m
 
 mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_accelerated_expand_enc(mk_lib_crypto_alg_aes_inl_defd_key_pct const key, mk_lib_crypto_alg_aes_inl_defd_schedule_pt const schedule) mk_lang_noexcept
 {
-	#if((mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (defined _MSC_FULL_VER && _MSC_FULL_VER >= mk_lang_msvc_full_ver_2008_sp_1) && (mk_lang_alignas_has && mk_lang_alignof_has))
+	#if((mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1) && (mk_lang_alignas_has && mk_lang_alignof_has))
 	mk_lang_assert(mk_lang_cpuid_has_sse2() && mk_lang_cpuid_has_aes_ni());
 	mk_lib_crypto_alg_aes_inl_defd_msvc_aes_ni_expand_enc(key, schedule);
 	#else
@@ -574,7 +574,7 @@ mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_accelerated_expand_enc(mk_lib_
 
 mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_accelerated_expand_dec(mk_lib_crypto_alg_aes_inl_defd_key_pct const key, mk_lib_crypto_alg_aes_inl_defd_schedule_pt const schedule) mk_lang_noexcept
 {
-	#if((mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (defined _MSC_FULL_VER && _MSC_FULL_VER >= mk_lang_msvc_full_ver_2008_sp_1) && (mk_lang_alignas_has && mk_lang_alignof_has))
+	#if((mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1) && (mk_lang_alignas_has && mk_lang_alignof_has))
 	mk_lang_assert(mk_lang_cpuid_has_sse2() && mk_lang_cpuid_has_aes_ni());
 	mk_lib_crypto_alg_aes_inl_defd_msvc_aes_ni_expand_dec(key, schedule);
 	#else
@@ -586,7 +586,7 @@ mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_accelerated_expand_dec(mk_lib_
 
 mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_accelerated_encrypt(mk_lib_crypto_alg_aes_inl_defd_key_pct const key, mk_lib_crypto_alg_aes_base_msg_pct const input, mk_lib_crypto_alg_aes_base_msg_pt const output) mk_lang_noexcept
 {
-	#if((mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (defined _MSC_FULL_VER && _MSC_FULL_VER >= mk_lang_msvc_full_ver_2008_sp_1) && (mk_lang_alignas_has && mk_lang_alignof_has))
+	#if((mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1) && (mk_lang_alignas_has && mk_lang_alignof_has))
 	mk_lang_assert(mk_lang_cpuid_has_sse2() && mk_lang_cpuid_has_aes_ni());
 	mk_lib_crypto_alg_aes_inl_defd_msvc_aes_ni_encrypt(key, input, output);
 	#else
@@ -599,7 +599,7 @@ mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_accelerated_encrypt(mk_lib_cry
 
 mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_accelerated_decrypt(mk_lib_crypto_alg_aes_inl_defd_key_pct const key, mk_lib_crypto_alg_aes_base_msg_pct const input, mk_lib_crypto_alg_aes_base_msg_pt const output) mk_lang_noexcept
 {
-	#if((mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (defined _MSC_FULL_VER && _MSC_FULL_VER >= mk_lang_msvc_full_ver_2008_sp_1) && (mk_lang_alignas_has && mk_lang_alignof_has))
+	#if((mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1) && (mk_lang_alignas_has && mk_lang_alignof_has))
 	mk_lang_assert(mk_lang_cpuid_has_sse2() && mk_lang_cpuid_has_aes_ni());
 	mk_lib_crypto_alg_aes_inl_defd_msvc_aes_ni_decrypt(key, input, output);
 	#else
@@ -613,7 +613,7 @@ mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_accelerated_decrypt(mk_lib_cry
 
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_schedule_encrypt(mk_lib_crypto_alg_aes_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_base_msg_pct const input, mk_lib_crypto_alg_aes_base_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
-	#if((mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (defined _MSC_FULL_VER && _MSC_FULL_VER >= mk_lang_msvc_full_ver_2008_sp_1) && (mk_lang_alignas_has && mk_lang_alignof_has))
+	#if((mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1) && (mk_lang_alignas_has && mk_lang_alignof_has))
 	#if(!mk_lang_constexpr_is_constant_evaluated)
 	if(mk_lang_cpuid_has_sse2() && mk_lang_cpuid_has_aes_ni())
 	#else
@@ -631,7 +631,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_schedule_enc
 
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_schedule_decrypt(mk_lib_crypto_alg_aes_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_base_msg_pct const input, mk_lib_crypto_alg_aes_base_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
-	#if((mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (defined _MSC_FULL_VER && _MSC_FULL_VER >= mk_lang_msvc_full_ver_2008_sp_1) && (mk_lang_alignas_has && mk_lang_alignof_has))
+	#if((mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1) && (mk_lang_alignas_has && mk_lang_alignof_has))
 	#if(!mk_lang_constexpr_is_constant_evaluated)
 	if(mk_lang_cpuid_has_sse2() && mk_lang_cpuid_has_aes_ni())
 	#else
@@ -649,7 +649,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_schedule_dec
 
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_expand_enc(mk_lib_crypto_alg_aes_inl_defd_key_pct const key, mk_lib_crypto_alg_aes_inl_defd_schedule_pt const schedule) mk_lang_noexcept
 {
-	#if((mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (defined _MSC_FULL_VER && _MSC_FULL_VER >= mk_lang_msvc_full_ver_2008_sp_1) && (mk_lang_alignas_has && mk_lang_alignof_has))
+	#if((mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1) && (mk_lang_alignas_has && mk_lang_alignof_has))
 	#if(!mk_lang_constexpr_is_constant_evaluated)
 	if(mk_lang_cpuid_has_sse2() && mk_lang_cpuid_has_aes_ni())
 	#else
@@ -667,7 +667,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_expand_enc(m
 
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_expand_dec(mk_lib_crypto_alg_aes_inl_defd_key_pct const key, mk_lib_crypto_alg_aes_inl_defd_schedule_pt const schedule) mk_lang_noexcept
 {
-	#if((mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (defined _MSC_FULL_VER && _MSC_FULL_VER >= mk_lang_msvc_full_ver_2008_sp_1) && (mk_lang_alignas_has && mk_lang_alignof_has))
+	#if((mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1) && (mk_lang_alignas_has && mk_lang_alignof_has))
 	#if(!mk_lang_constexpr_is_constant_evaluated)
 	if(mk_lang_cpuid_has_sse2() && mk_lang_cpuid_has_aes_ni())
 	#else
@@ -685,7 +685,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_expand_dec(m
 
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_encrypt(mk_lib_crypto_alg_aes_inl_defd_key_pct const key, mk_lib_crypto_alg_aes_base_msg_pct const input, mk_lib_crypto_alg_aes_base_msg_pt const output) mk_lang_noexcept
 {
-	#if((mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (defined _MSC_FULL_VER && _MSC_FULL_VER >= mk_lang_msvc_full_ver_2008_sp_1) && (mk_lang_alignas_has && mk_lang_alignof_has))
+	#if((mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1) && (mk_lang_alignas_has && mk_lang_alignof_has))
 	#if(!mk_lang_constexpr_is_constant_evaluated)
 	if(mk_lang_cpuid_has_sse2() && mk_lang_cpuid_has_aes_ni())
 	#else
@@ -703,7 +703,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_encrypt(mk_l
 
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_aes_inl_defd_decrypt(mk_lib_crypto_alg_aes_inl_defd_key_pct const key, mk_lib_crypto_alg_aes_base_msg_pct const input, mk_lib_crypto_alg_aes_base_msg_pt const output) mk_lang_noexcept
 {
-	#if((mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (defined _MSC_FULL_VER && _MSC_FULL_VER >= mk_lang_msvc_full_ver_2008_sp_1) && (mk_lang_alignas_has && mk_lang_alignof_has))
+	#if((mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1) && (mk_lang_alignas_has && mk_lang_alignof_has))
 	#if(!mk_lang_constexpr_is_constant_evaluated)
 	if(mk_lang_cpuid_has_sse2() && mk_lang_cpuid_has_aes_ni())
 	#else
