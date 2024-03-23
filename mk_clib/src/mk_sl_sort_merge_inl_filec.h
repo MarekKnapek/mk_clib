@@ -335,11 +335,6 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_sort_merge_inl_defd_f
 	mk_sl_sort_merge_inl_defd_counter_t i mk_lang_constexpr_init;
 	mk_sl_sort_merge_inl_defd_counter_t j mk_lang_constexpr_init;
 
-	#if defined _MSC_VER && _MSC_VER == 1936
-	#pragma warning(push)
-	#pragma warning(disable:4296) /* warning C4296: '>=': expression is always true */
-	#endif
-
 	mk_lang_assert(data);
 	mk_lang_assert(proxy);
 	mk_lang_assert(count >= 0);
@@ -347,10 +342,6 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_sort_merge_inl_defd_f
 	mk_lang_assert(tmp);
 	/* todo if data type is the same as proxy type (but it usually is not), then also check for overlap with data-proxy and data-tmp */
 	mk_lang_assert(!mk_sl_sort_merge_overlap_proxy_fn(proxy, count, tmp, count));
-
-	#if defined _MSC_VER && _MSC_VER == 1936
-	#pragma warning(pop)
-	#endif
 
 	if(count <= 1)
 	{
