@@ -2,6 +2,15 @@
 #define mk_include_guard_mk_lang_msvc
 
 
+#if defined _MSC_VER && defined _MSC_FULL_VER
+#define mk_lang_msvc_ver _MSC_VER
+#define  mk_lang_msvc_full_ver _MSC_FULL_VER
+#else
+#define mk_lang_msvc_ver 0
+#define  mk_lang_msvc_full_ver 0
+#endif
+
+
 #define mk_lang_msvc_ver_2022_17_9_2 1939l
 #define mk_lang_msvc_ver_2022_17_8_3 1938l
 #define mk_lang_msvc_ver_2022_17_7_0 1937l
