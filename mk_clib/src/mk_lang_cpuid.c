@@ -3,6 +3,7 @@
 #include "mk_lang_arch.h"
 #include "mk_lang_assert.h"
 #include "mk_lang_countof.h"
+#include "mk_lang_gnuc.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_min.h"
 #include "mk_lang_msvc.h"
@@ -179,10 +180,137 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_sha(mk_la
 }
 
 
-#elif 0
+#elif mk_lang_gnuc_is_at_least(4, 1) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
 
 
-gcc
+mk_lang_jumbo mk_lang_types_void_t mk_lang_cpuid_init(mk_lang_types_void_t) mk_lang_noexcept
+{
+	__builtin_cpu_init();
+}
+
+mk_lang_jumbo mk_lang_types_void_t mk_lang_cpuid_reset(mk_lang_types_void_t) mk_lang_noexcept
+{
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_ssse3(mk_lang_types_void_t) mk_lang_noexcept
+{
+	mk_lang_types_bool_t has;
+
+	#if mk_lang_gnuc_is_at_least(4, 8)
+	has = __builtin_cpu_supports("ssse3");
+	#else
+	has = mk_lang_false;
+	#endif
+	return has;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_sse41(mk_lang_types_void_t) mk_lang_noexcept
+{
+	mk_lang_types_bool_t has;
+
+	#if mk_lang_gnuc_is_at_least(4, 8)
+	has = __builtin_cpu_supports("sse4.1");
+	#else
+	has = mk_lang_false;
+	#endif
+	return has;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_popcnt(mk_lang_types_void_t) mk_lang_noexcept
+{
+	mk_lang_types_bool_t has;
+
+	#if mk_lang_gnuc_is_at_least(4, 8)
+	has = __builtin_cpu_supports("popcnt");
+	#else
+	has = mk_lang_false;
+	#endif
+	return has;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_aes_ni(mk_lang_types_void_t) mk_lang_noexcept
+{
+	mk_lang_types_bool_t has;
+
+	#if mk_lang_gnuc_is_at_least(6, 1)
+	has = __builtin_cpu_supports("aes");
+	#else
+	has = mk_lang_false;
+	#endif
+	return has;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_avx(mk_lang_types_void_t) mk_lang_noexcept
+{
+	mk_lang_types_bool_t has;
+
+	#if mk_lang_gnuc_is_at_least(4, 8)
+	has = __builtin_cpu_supports("avx");
+	#else
+	has = mk_lang_false;
+	#endif
+	return has;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_sse(mk_lang_types_void_t) mk_lang_noexcept
+{
+	mk_lang_types_bool_t has;
+
+	#if mk_lang_gnuc_is_at_least(4, 8)
+	has = __builtin_cpu_supports("sse");
+	#else
+	has = mk_lang_false;
+	#endif
+	return has;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_sse2(mk_lang_types_void_t) mk_lang_noexcept
+{
+	mk_lang_types_bool_t has;
+
+	#if mk_lang_gnuc_is_at_least(4, 8)
+	has = __builtin_cpu_supports("sse2");
+	#else
+	has = mk_lang_false;
+	#endif
+	return has;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_avx2(mk_lang_types_void_t) mk_lang_noexcept
+{
+	mk_lang_types_bool_t has;
+
+	#if mk_lang_gnuc_is_at_least(4, 8)
+	has = __builtin_cpu_supports("avx2");
+	#else
+	has = mk_lang_false;
+	#endif
+	return has;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_avx512_f(mk_lang_types_void_t) mk_lang_noexcept
+{
+	mk_lang_types_bool_t has;
+
+	#if mk_lang_gnuc_is_at_least(5, 1)
+	has = __builtin_cpu_supports("avx512f");
+	#else
+	has = mk_lang_false;
+	#endif
+	return has;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_sha(mk_lang_types_void_t) mk_lang_noexcept
+{
+	mk_lang_types_bool_t has;
+
+	#if mk_lang_gnuc_is_at_least(11, 1)
+	has = __builtin_cpu_supports("sha");
+	#else
+	has = mk_lang_false;
+	#endif
+	return has;
+}
 
 
 #else
