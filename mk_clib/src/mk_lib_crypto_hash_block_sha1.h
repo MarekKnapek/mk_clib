@@ -14,8 +14,7 @@
 #include "mk_lang_stringify.h"
 #include "mk_lang_types.h"
 #include "mk_lib_crypto_hash_block_sha1_c.h"
-#include "mk_lib_crypto_hash_block_sha1_x86_gcc.h"
-#include "mk_lib_crypto_hash_block_sha1_x86_msvc.h"
+#include "mk_lib_crypto_hash_block_sha1_x86.h"
 
 
 #define mk_lib_crypto_hash_block_sha1_block_len 64
@@ -28,8 +27,7 @@ mk_lang_constexpr_static_inline mk_lang_types_sint_t const mk_lib_crypto_hash_bl
 union mk_lib_crypto_hash_block_sha1_data_u
 {
 	mk_lib_crypto_hash_block_sha1_c_t m_sha1_c;
-	mk_lib_crypto_hash_block_sha1_x86_msvc_t m_sha1_x86_msvc;
-	mk_lib_crypto_hash_block_sha1_x86_gcc_t m_sha1_x86_gcc;
+	mk_lib_crypto_hash_block_sha1_x86_t m_sha1_x86;
 };
 typedef union mk_lib_crypto_hash_block_sha1_data_u mk_lib_crypto_hash_block_sha1_data_t;
 

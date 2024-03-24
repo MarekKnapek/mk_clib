@@ -16,8 +16,7 @@
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
 #include "mk_lib_crypto_hash_block_sha1_c.h"
-#include "mk_lib_crypto_hash_block_sha1_x86_gcc.h"
-#include "mk_lib_crypto_hash_block_sha1_x86_msvc.h"
+#include "mk_lib_crypto_hash_block_sha1_x86.h"
 #include "mk_sl_uint32.h"
 
 
@@ -32,7 +31,7 @@
 	(mk_lang_cpuid_has_sha()) && \
 	1 \
 )
-#define mk_lib_crypto_hash_block_sha1_conditions_2 ((((mk_lang_types_uintptr_t)(&sha1->m_data.m_sha1_x86_msvc.m_state[0])) & 0xf) == 0)
+#define mk_lib_crypto_hash_block_sha1_conditions_2 ((((mk_lang_types_uintptr_t)(&sha1->m_data.m_sha1_x86.m_state[0])) & 0xf) == 0)
 #define mk_lib_crypto_hash_block_sha1_conditions_3 ((((mk_lang_types_uintptr_t)(pblocks)) & 0xf) == 0)
 #define mk_lib_crypto_hash_block_sha1_conditions_4 ((((mk_lang_types_uintptr_t)(block)) & 0xf) == 0)
 
@@ -41,24 +40,14 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sh
 {
 	mk_lang_assert(sha1);
 
-	#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2015 && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
+	#if (mk_lang_msvc_ver >= mk_lang_msvc_ver_2015 || mk_lang_gnuc_is_at_least(11, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
 	#if !mk_lang_constexpr_is_constant_evaluated
 	if(mk_lib_crypto_hash_block_sha1_conditions_1 && mk_lib_crypto_hash_block_sha1_conditions_2)
 	#else
 	if(!mk_lang_constexpr_is_constant_evaluated_test && mk_lib_crypto_hash_block_sha1_conditions_1 && mk_lib_crypto_hash_block_sha1_conditions_2)
 	#endif
 	{
-		mk_lib_crypto_hash_block_sha1_x86_msvc_init(&sha1->m_data.m_sha1_x86_msvc);
-	}
-	else
-	#elif mk_lang_gnuc_is_at_least(11, 1) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
-	#if !mk_lang_constexpr_is_constant_evaluated
-	if(mk_lib_crypto_hash_block_sha1_conditions_1 && mk_lib_crypto_hash_block_sha1_conditions_2)
-	#else
-	if(!mk_lang_constexpr_is_constant_evaluated_test && mk_lib_crypto_hash_block_sha1_conditions_1 && mk_lib_crypto_hash_block_sha1_conditions_2)
-	#endif
-	{
-		mk_lib_crypto_hash_block_sha1_x86_gcc_init(&sha1->m_data.m_sha1_x86_gcc);
+		mk_lib_crypto_hash_block_sha1_x86_init(&sha1->m_data.m_sha1_x86);
 	}
 	else
 	#endif
@@ -71,24 +60,14 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sh
 {
 	mk_lang_assert(sha1);
 
-	#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2015 && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
+	#if (mk_lang_msvc_ver >= mk_lang_msvc_ver_2015 || mk_lang_gnuc_is_at_least(11, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
 	#if !mk_lang_constexpr_is_constant_evaluated
 	if(mk_lib_crypto_hash_block_sha1_conditions_1 && mk_lib_crypto_hash_block_sha1_conditions_2 && mk_lib_crypto_hash_block_sha1_conditions_3)
 	#else
 	if(!mk_lang_constexpr_is_constant_evaluated_test && mk_lib_crypto_hash_block_sha1_conditions_1 && mk_lib_crypto_hash_block_sha1_conditions_2 && mk_lib_crypto_hash_block_sha1_conditions_3)
 	#endif
 	{
-		mk_lib_crypto_hash_block_sha1_x86_msvc_append_blocks(&sha1->m_data.m_sha1_x86_msvc, ((mk_lib_crypto_hash_block_sha1_x86_msvc_block_pct)(pblocks)), nblocks);
-	}
-	else
-	#elif mk_lang_gnuc_is_at_least(11, 1) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
-	#if !mk_lang_constexpr_is_constant_evaluated
-	if(mk_lib_crypto_hash_block_sha1_conditions_1 && mk_lib_crypto_hash_block_sha1_conditions_2 && mk_lib_crypto_hash_block_sha1_conditions_3)
-	#else
-	if(!mk_lang_constexpr_is_constant_evaluated_test && mk_lib_crypto_hash_block_sha1_conditions_1 && mk_lib_crypto_hash_block_sha1_conditions_2 && mk_lib_crypto_hash_block_sha1_conditions_3)
-	#endif
-	{
-		mk_lib_crypto_hash_block_sha1_x86_gcc_append_blocks(&sha1->m_data.m_sha1_x86_gcc, ((mk_lib_crypto_hash_block_sha1_x86_gcc_block_pct)(pblocks)), nblocks);
+		mk_lib_crypto_hash_block_sha1_x86_append_blocks(&sha1->m_data.m_sha1_x86, ((mk_lib_crypto_hash_block_sha1_x86_block_pct)(pblocks)), nblocks);
 	}
 	else
 	#endif
@@ -101,24 +80,14 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sh
 {
 	mk_lang_assert(sha1);
 
-	#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2015 && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
+	#if (mk_lang_msvc_ver >= mk_lang_msvc_ver_2015 || mk_lang_gnuc_is_at_least(11, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
 	#if !mk_lang_constexpr_is_constant_evaluated
 	if(mk_lib_crypto_hash_block_sha1_conditions_1 && mk_lib_crypto_hash_block_sha1_conditions_2 && mk_lib_crypto_hash_block_sha1_conditions_4)
 	#else
 	if(!mk_lang_constexpr_is_constant_evaluated_test && mk_lib_crypto_hash_block_sha1_conditions_1 && mk_lib_crypto_hash_block_sha1_conditions_2 && mk_lib_crypto_hash_block_sha1_conditions_4)
 	#endif
 	{
-		mk_lib_crypto_hash_block_sha1_x86_msvc_finish(&sha1->m_data.m_sha1_x86_msvc, ((mk_lib_crypto_hash_block_sha1_x86_msvc_block_pt)(block)), idx, ((mk_lib_crypto_hash_block_sha1_x86_msvc_digest_pt)(digest)));
-	}
-	else
-	#elif mk_lang_gnuc_is_at_least(11, 1) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
-	#if !mk_lang_constexpr_is_constant_evaluated
-	if(mk_lib_crypto_hash_block_sha1_conditions_1 && mk_lib_crypto_hash_block_sha1_conditions_2 && mk_lib_crypto_hash_block_sha1_conditions_4)
-	#else
-	if(!mk_lang_constexpr_is_constant_evaluated_test && mk_lib_crypto_hash_block_sha1_conditions_1 && mk_lib_crypto_hash_block_sha1_conditions_2 && mk_lib_crypto_hash_block_sha1_conditions_4)
-	#endif
-	{
-		mk_lib_crypto_hash_block_sha1_x86_gcc_finish(&sha1->m_data.m_sha1_x86_gcc, ((mk_lib_crypto_hash_block_sha1_x86_gcc_block_pt)(block)), idx, ((mk_lib_crypto_hash_block_sha1_x86_gcc_digest_pt)(digest)));
+		mk_lib_crypto_hash_block_sha1_x86_finish(&sha1->m_data.m_sha1_x86, ((mk_lib_crypto_hash_block_sha1_x86_block_pt)(block)), idx, ((mk_lib_crypto_hash_block_sha1_x86_digest_pt)(digest)));
 	}
 	else
 	#endif

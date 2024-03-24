@@ -1,13 +1,14 @@
-#include "mk_lib_crypto_kdf_pbkdf1_sha1_x86_msvc_test.hpp"
+#include "mk_lib_crypto_kdf_pbkdf1_sha1_x86_test.hpp"
 #undef mk_lang_jumbo_want
 #define mk_lang_jumbo_want 1
 
+#include "mk_lang_arch.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_cpp.h"
-#include "mk_lang_msvc.h"
+#include "mk_lang_gnuc.h"
 #include "mk_lang_noexcept.h"
 
-#if !mk_lang_constexpr_is_constant_evaluated && mk_lang_msvc_ver >= mk_lang_msvc_ver_2015
+#if !mk_lang_constexpr_is_constant_evaluated && mk_lang_gnuc_is_at_least(11, 1) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
 
 #include "mk_lang_assert.h"
 #include "mk_lang_crash.h"
@@ -18,11 +19,11 @@
 #include "mk_lang_types.h"
 #include "mk_lang_version.h"
 #include "mk_lib_cpp_constexpr.hpp"
-#include "mk_lib_crypto_kdf_pbkdf1_sha1_x86_msvc.h"
+#include "mk_lib_crypto_kdf_pbkdf1_sha1_x86.h"
 #include "mk_sl_uint8.h"
 
 
-mk_lang_extern_c void mk_lib_crypto_kdf_pbkdf1_sha1_x86_msvc_test(void) mk_lang_noexcept
+mk_lang_extern_c void mk_lib_crypto_kdf_pbkdf1_sha1_x86_test(void) mk_lang_noexcept
 {
 	#define password_1 "password"
 
@@ -90,7 +91,7 @@ mk_lang_extern_c void mk_lib_crypto_kdf_pbkdf1_sha1_x86_msvc_test(void) mk_lang_
 			salt[j] = byte;
 		}
 		mk_lang_assert(s_key_lens[i] <= ((int)(sizeof(key) / sizeof(key[0]))));
-		mk_lib_crypto_kdf_pbkdf1_sha1_x86_msvc(((mk_lang_types_uchar_pct)(s_passwords[i])), s_password_lens[i], salt, s_costs[i], s_key_lens[i], key);
+		mk_lib_crypto_kdf_pbkdf1_sha1_x86(((mk_lang_types_uchar_pct)(s_passwords[i])), s_password_lens[i], salt, s_costs[i], s_key_lens[i], key);
 		for(j = 0; j != s_key_lens[i]; ++j)
 		{
 			hi = mk_lib_cpp_constexpr_char_to_nibble(s_keys[i][j * 2 + 0]); mk_lang_assert(hi >= 0x0 && hi <= 0xf);
@@ -113,7 +114,7 @@ mk_lang_extern_c void mk_lib_crypto_kdf_pbkdf1_sha1_x86_msvc_test(void) mk_lang_
 
 #else
 
-mk_lang_extern_c void mk_lib_crypto_kdf_pbkdf1_sha1_x86_msvc_test(void) mk_lang_noexcept
+mk_lang_extern_c void mk_lib_crypto_kdf_pbkdf1_sha1_x86_test(void) mk_lang_noexcept
 {
 }
 

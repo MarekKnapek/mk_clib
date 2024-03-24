@@ -1,4 +1,4 @@
-#include "mk_lib_crypto_mac_hmac_sha1_x86_gcc_test.hpp"
+#include "mk_lib_crypto_mac_hmac_sha1_x86_test.hpp"
 #undef mk_lang_jumbo_want
 #define mk_lang_jumbo_want 1
 
@@ -19,11 +19,11 @@
 #include "mk_lang_types.h"
 #include "mk_lang_version.h"
 #include "mk_lib_cpp_constexpr.hpp"
-#include "mk_lib_crypto_mac_hmac_sha1_x86_gcc.h"
+#include "mk_lib_crypto_mac_hmac_sha1_x86.h"
 #include "mk_sl_uint8.h"
 
 
-mk_lang_extern_c void mk_lib_crypto_mac_hmac_sha1_x86_gcc_test(void) mk_lang_noexcept
+mk_lang_extern_c void mk_lib_crypto_mac_hmac_sha1_x86_test(void) mk_lang_noexcept
 {
 	#define msg_1 "Sample message for keylen=blocklen"
 	#define msg_2 "Sample message for keylen<blocklen"
@@ -99,8 +99,8 @@ mk_lang_extern_c void mk_lib_crypto_mac_hmac_sha1_x86_gcc_test(void) mk_lang_noe
 	mk_lang_types_uchar_t lo;
 	mk_lang_types_uchar_t byte;
 	mk_sl_cui_uint8_t msg[64];
-	mk_lib_crypto_mac_hmac_sha1_x86_gcc_t hmac;
-	mk_lib_crypto_hash_block_sha1_x86_gcc_digest_t digest;
+	mk_lib_crypto_mac_hmac_sha1_x86_t hmac;
+	mk_lib_crypto_hash_block_sha1_x86_digest_t digest;
 	mk_sl_cui_uint8_t u8;
 
 	mk_lang_static_assert(sizeof(s_msgs) / sizeof(s_msgs[0]) == sizeof(s_msg_lens) / sizeof(s_msg_lens[0]));
@@ -126,9 +126,9 @@ mk_lang_extern_c void mk_lib_crypto_mac_hmac_sha1_x86_gcc_test(void) mk_lang_noe
 		{
 			mk_sl_cui_uint8_from_bi_pchar(&msg[j], &s_msgs[i][j]);
 		}
-		mk_lib_crypto_mac_hmac_sha1_x86_gcc_init(&hmac, &key[0], s_key_lens[i]);
-		mk_lib_crypto_mac_hmac_sha1_x86_gcc_append(&hmac, &msg[0], s_msg_lens[i]);
-		mk_lib_crypto_mac_hmac_sha1_x86_gcc_finish(&hmac, &digest);
+		mk_lib_crypto_mac_hmac_sha1_x86_init(&hmac, &key[0], s_key_lens[i]);
+		mk_lib_crypto_mac_hmac_sha1_x86_append(&hmac, &msg[0], s_msg_lens[i]);
+		mk_lib_crypto_mac_hmac_sha1_x86_finish(&hmac, &digest);
 		m = s_mac_lens[i];
 		for(j = 0; j != m; ++j)
 		{
@@ -160,7 +160,7 @@ mk_lang_extern_c void mk_lib_crypto_mac_hmac_sha1_x86_gcc_test(void) mk_lang_noe
 
 #else
 
-mk_lang_extern_c void mk_lib_crypto_mac_hmac_sha1_x86_gcc_test(void) mk_lang_noexcept
+mk_lang_extern_c void mk_lib_crypto_mac_hmac_sha1_x86_test(void) mk_lang_noexcept
 {
 }
 
