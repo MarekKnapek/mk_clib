@@ -1,5 +1,6 @@
 #include <emmintrin.h>
 
+#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2015
 #pragma intrinsic(_mm_and_si128)
 #pragma intrinsic(_mm_cmpeq_epi32)
 #pragma intrinsic(_mm_load_si128)
@@ -12,8 +13,9 @@
 #pragma intrinsic(_mm_unpacklo_epi32)
 #pragma intrinsic(_mm_unpacklo_epi64)
 #pragma intrinsic(_mm_xor_si128)
+#endif
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_ui_and2(__m128i* const a, __m128i const* const b) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_ui_and2(__m128i* const a, __m128i const* const b) mk_lang_noexcept
 {
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -23,7 +25,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_ui_and
 	*a = _mm_and_si128(*a, *b);
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_ui_not1(__m128i* const a) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_ui_not1(__m128i* const a) mk_lang_noexcept
 {
 	__m128i b;
 
@@ -34,7 +36,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_ui_not
 	*a = _mm_xor_si128(*a, b);
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_ui_or2(__m128i* const a, __m128i const* const b) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_ui_or2(__m128i* const a, __m128i const* const b) mk_lang_noexcept
 {
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -44,7 +46,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_ui_or2
 	*a = _mm_or_si128(*a, *b);
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_ui_rotl2(__m128i* const a, mk_lang_types_sint_t const b) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_ui_rotl2(__m128i* const a, mk_lang_types_sint_t const b) mk_lang_noexcept
 {
 	__m128i ta;
 	__m128i tb;
@@ -58,7 +60,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_ui_rot
 	*a = _mm_or_si128(ta, tb);
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_ui_rotr2(__m128i* const a, mk_lang_types_sint_t const b) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_ui_rotr2(__m128i* const a, mk_lang_types_sint_t const b) mk_lang_noexcept
 {
 	__m128i ta;
 	__m128i tb;
@@ -72,7 +74,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_ui_rot
 	*a = _mm_or_si128(ta, tb);
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_ui_shl3(__m128i const* const a, mk_lang_types_sint_t const b, __m128i* const c) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_ui_shl3(__m128i const* const a, mk_lang_types_sint_t const b, __m128i* const c) mk_lang_noexcept
 {
 	mk_lang_assert(a);
 	mk_lang_assert(b >= 1 && b <= 31);
@@ -83,7 +85,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_ui_shl
 	*c = _mm_slli_epi32(*a, b);
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_ui_xor2(__m128i* const a, __m128i const* const b) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_ui_xor2(__m128i* const a, __m128i const* const b) mk_lang_noexcept
 {
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -93,7 +95,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_ui_xor
 	*a = _mm_xor_si128(*a, *b);
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_ui_xor3(__m128i const* const a, __m128i const* const b, __m128i* const c) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_ui_xor3(__m128i const* const a, __m128i const* const b, __m128i* const c) mk_lang_noexcept
 {
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -106,7 +108,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_ui_xor
 	*c = _mm_xor_si128(*a, *b);
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_transpose(__m128i* const ta, __m128i* const tb, __m128i* const tc, __m128i* const td) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_transpose(__m128i* const ta, __m128i* const tb, __m128i* const tc, __m128i* const td) mk_lang_noexcept
 {
 	__m128i tta;
 	__m128i ttb;
@@ -135,7 +137,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_transp
 	*td = _mm_unpackhi_epi64(ttc, ttd);
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_load(mk_lib_crypto_alg_serpent_msg_pct const msgs, __m128i* const ta, __m128i* const tb, __m128i* const tc, __m128i* const td) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_load(mk_lib_crypto_alg_serpent_msg_pct const msgs, __m128i* const ta, __m128i* const tb, __m128i* const tc, __m128i* const td) mk_lang_noexcept
 {
 	mk_lang_assert(msgs);
 	mk_lang_assert(ta);
@@ -158,7 +160,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_load(m
 	mk_lib_crypto_alg_serpent_sse2_transpose(ta, tb, tc, td);
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_store(mk_lib_crypto_alg_serpent_msg_pt const msgs, __m128i* const ta, __m128i* const tb, __m128i* const tc, __m128i* const td) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_store(mk_lib_crypto_alg_serpent_msg_pt const msgs, __m128i* const ta, __m128i* const tb, __m128i* const tc, __m128i* const td) mk_lang_noexcept
 {
 	mk_lang_assert(msgs);
 	mk_lang_assert(ta);
@@ -181,7 +183,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_store(
 	_mm_store_si128(((__m128i*)(&msgs->m_data.m_uint8s[3 * 16])), *td);
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_xor2(mk_lib_crypto_alg_serpent_msg_pt const a, mk_lib_crypto_alg_serpent_msg_pct const b) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_xor2(mk_lib_crypto_alg_serpent_msg_pt const a, mk_lib_crypto_alg_serpent_msg_pct const b) mk_lang_noexcept
 {
 	__m128i bb;
 	__m128i ta;
@@ -211,7 +213,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_xor2(m
 	_mm_store_si128(((__m128i*)(((mk_lang_types_uchar_pt)(a)) + 3 * 16)), td);
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_xor3(mk_lib_crypto_alg_serpent_msg_pct const a, mk_lib_crypto_alg_serpent_msg_pct const b, mk_lib_crypto_alg_serpent_msg_pt const c) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_xor3(mk_lib_crypto_alg_serpent_msg_pct const a, mk_lib_crypto_alg_serpent_msg_pct const b, mk_lib_crypto_alg_serpent_msg_pt const c) mk_lang_noexcept
 {
 	__m128i bb;
 	__m128i ta;
@@ -244,7 +246,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_xor3(m
 	_mm_store_si128(((__m128i*)(((mk_lang_types_uchar_pt)(c)) + 3 * 16)), td);
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_copy(mk_lib_crypto_alg_serpent_msg_pct const a, mk_lib_crypto_alg_serpent_msg_pct const b) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_copy(mk_lib_crypto_alg_serpent_msg_pct const a, mk_lib_crypto_alg_serpent_msg_pct const b) mk_lang_noexcept
 {
 	__m128i ta;
 	__m128i tb;
@@ -268,7 +270,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_copy(m
 	_mm_store_si128(((__m128i*)(((mk_lang_types_uchar_pt)(b)) + 3 * 16)), td);
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_substitute_enc_0(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_substitute_enc_0(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
 {
 	__m128i ta;
 	__m128i tb;
@@ -293,7 +295,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_substi
 	mk_lib_crypto_alg_serpent_sse2_store(msgs, &tb, &te, &tc, &ta);
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_substitute_enc_1(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_substitute_enc_1(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
 {
 	__m128i ta;
 	__m128i tb;
@@ -319,7 +321,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_substi
 	mk_lib_crypto_alg_serpent_sse2_store(msgs, &tc, &ta, &td, &tb);
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_substitute_enc_2(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_substitute_enc_2(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
 {
 	__m128i ta;
 	__m128i tb;
@@ -343,7 +345,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_substi
 	mk_lib_crypto_alg_serpent_sse2_store(msgs, &tc, &td, &tb, &te);
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_substitute_enc_3(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_substitute_enc_3(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
 {
 	__m128i ta;
 	__m128i tb;
@@ -369,7 +371,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_substi
 	mk_lib_crypto_alg_serpent_sse2_store(msgs, &tb, &tc, &td, &te);
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_substitute_enc_4(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_substitute_enc_4(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
 {
 	__m128i ta;
 	__m128i tb;
@@ -395,7 +397,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_substi
 	mk_lib_crypto_alg_serpent_sse2_store(msgs, &tb, &te, &ta, &td);
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_substitute_enc_5(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_substitute_enc_5(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
 {
 	__m128i ta;
 	__m128i tb;
@@ -421,7 +423,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_substi
 	mk_lib_crypto_alg_serpent_sse2_store(msgs, &tb, &td, &ta, &tc);
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_substitute_enc_6(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_substitute_enc_6(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
 {
 	__m128i ta;
 	__m128i tb;
@@ -447,7 +449,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_substi
 	mk_lib_crypto_alg_serpent_sse2_store(msgs, &ta, &tb, &te, &tc);
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_substitute_enc_7(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_substitute_enc_7(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
 {
 	__m128i ta;
 	__m128i tb;
@@ -474,7 +476,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_substi
 	mk_lib_crypto_alg_serpent_sse2_store(msgs, &te, &td, &tb, &ta);
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_substitute_enc(int const sbox_idx, mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_substitute_enc(int const sbox_idx, mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
 {
 	mk_lang_assert(sbox_idx >= 0 && sbox_idx < 8);
 	mk_lang_assert(msgs);
@@ -495,7 +497,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_substi
 	}
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_substitute_dec_0(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_substitute_dec_0(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
 {
 	__m128i ta;
 	__m128i tb;
@@ -522,7 +524,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_substi
 	mk_lib_crypto_alg_serpent_sse2_store(msgs, &ta, &te, &tb, &td);
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_substitute_dec_1(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_substitute_dec_1(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
 {
 	__m128i ta;
 	__m128i tb;
@@ -549,7 +551,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_substi
 	mk_lib_crypto_alg_serpent_sse2_store(msgs, &te, &ta, &td, &tc);
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_substitute_dec_2(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_substitute_dec_2(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
 {
 	__m128i ta;
 	__m128i tb;
@@ -575,7 +577,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_substi
 	mk_lib_crypto_alg_serpent_sse2_store(msgs, &tb, &te, &tc, &td);
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_substitute_dec_3(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_substitute_dec_3(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
 {
 	__m128i ta;
 	__m128i tb;
@@ -601,7 +603,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_substi
 	mk_lib_crypto_alg_serpent_sse2_store(msgs, &tc, &tb, &td, &ta);
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_substitute_dec_4(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_substitute_dec_4(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
 {
 	__m128i ta;
 	__m128i tb;
@@ -628,7 +630,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_substi
 	mk_lib_crypto_alg_serpent_sse2_store(msgs, &ta, &td, &tc, &te);
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_substitute_dec_5(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_substitute_dec_5(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
 {
 	__m128i ta;
 	__m128i tb;
@@ -654,7 +656,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_substi
 	mk_lib_crypto_alg_serpent_sse2_store(msgs, &tb, &te, &td, &tc);
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_substitute_dec_6(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_substitute_dec_6(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
 {
 	__m128i ta;
 	__m128i tb;
@@ -679,7 +681,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_substi
 	mk_lib_crypto_alg_serpent_sse2_store(msgs, &tb, &tc, &te, &td);
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_substitute_dec_7(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_substitute_dec_7(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
 {
 	__m128i ta;
 	__m128i tb;
@@ -705,7 +707,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_substi
 	mk_lib_crypto_alg_serpent_sse2_store(msgs, &td, &ta, &tb, &te);
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_substitute_dec(int const sbox_idx, mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_substitute_dec(int const sbox_idx, mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
 {
 	mk_lang_assert(sbox_idx >= 0 && sbox_idx < 8);
 	mk_lang_assert(msgs);
@@ -726,7 +728,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_substi
 	}
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_lt_enc(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_lt_enc(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
 {
 	__m128i ta;
 	__m128i tb;
@@ -756,7 +758,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_lt_enc
 	mk_lib_crypto_alg_serpent_sse2_store(msgs, &ta, &tb, &tc, &td);
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_round_middle_enc(mk_lib_crypto_alg_serpent_schedule_pct const schedule, int const rnd_idx, mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_round_middle_enc(mk_lib_crypto_alg_serpent_schedule_pct const schedule, int const rnd_idx, mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
 {
 	mk_lang_assert(schedule);
 	mk_lang_assert(rnd_idx >= 0 && rnd_idx < mk_lib_crypto_alg_serpent_nr - 1);
@@ -767,7 +769,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_round_
 	mk_lib_crypto_alg_serpent_sse2_lt_enc(msgs);
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_round_last_enc(mk_lib_crypto_alg_serpent_schedule_pct const schedule, mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_round_last_enc(mk_lib_crypto_alg_serpent_schedule_pct const schedule, mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
 {
 	mk_lang_assert(schedule);
 	mk_lang_assert(msgs);
@@ -777,7 +779,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_round_
 	mk_lib_crypto_alg_serpent_sse2_xor2(msgs, &schedule->m_data.m_msgs[mk_lib_crypto_alg_serpent_nr - 0]);
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_lt_dec(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_lt_dec(mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
 {
 	__m128i ta;
 	__m128i tb;
@@ -807,7 +809,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_lt_dec
 	mk_lib_crypto_alg_serpent_sse2_store(msgs, &ta, &tb, &tc, &td);
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_round_first_dec(mk_lib_crypto_alg_serpent_schedule_pct const schedule, mk_lib_crypto_alg_serpent_msg_pct const input, mk_lib_crypto_alg_serpent_msg_pt const output) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_round_first_dec(mk_lib_crypto_alg_serpent_schedule_pct const schedule, mk_lib_crypto_alg_serpent_msg_pct const input, mk_lib_crypto_alg_serpent_msg_pt const output) mk_lang_noexcept
 {
 	mk_lang_assert(schedule);
 	mk_lang_assert(input);
@@ -816,7 +818,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_round_
 	mk_lib_crypto_alg_serpent_sse2_xor3(input, &schedule->m_data.m_msgs[(mk_lib_crypto_alg_serpent_nr - 0)], output);
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_round_middle_dec(mk_lib_crypto_alg_serpent_schedule_pct const schedule, int const rnd_idx, mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_round_middle_dec(mk_lib_crypto_alg_serpent_schedule_pct const schedule, int const rnd_idx, mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
 {
 	mk_lang_assert(schedule);
 	mk_lang_assert(rnd_idx >= 0 && rnd_idx < mk_lib_crypto_alg_serpent_nr - 1);
@@ -827,7 +829,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_round_
 	mk_lib_crypto_alg_serpent_sse2_lt_dec(msgs);
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_round_last_dec(mk_lib_crypto_alg_serpent_schedule_pct const schedule, mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_round_last_dec(mk_lib_crypto_alg_serpent_schedule_pct const schedule, mk_lib_crypto_alg_serpent_msg_pt const msgs) mk_lang_noexcept
 {
 	mk_lang_assert(schedule);
 	mk_lang_assert(msgs);
@@ -836,7 +838,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_sse2_round_
 	mk_lib_crypto_alg_serpent_sse2_xor2(msgs, &schedule->m_data.m_msgs[0]);
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_schedule_encrypt_sse2(mk_lib_crypto_alg_serpent_schedule_pct const schedule, mk_lib_crypto_alg_serpent_msg_pct const input, mk_lib_crypto_alg_serpent_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_schedule_encrypt_sse2(mk_lib_crypto_alg_serpent_schedule_pct const schedule, mk_lib_crypto_alg_serpent_msg_pct const input, mk_lib_crypto_alg_serpent_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
 	mk_lang_types_usize_t iblock;
 	mk_lang_types_sint_t i;
@@ -857,7 +859,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_schedule_en
 	}
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_schedule_decrypt_sse2(mk_lib_crypto_alg_serpent_schedule_pct const schedule, mk_lib_crypto_alg_serpent_msg_pct const input, mk_lib_crypto_alg_serpent_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_schedule_decrypt_sse2(mk_lib_crypto_alg_serpent_schedule_pct const schedule, mk_lib_crypto_alg_serpent_msg_pct const input, mk_lib_crypto_alg_serpent_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
 	mk_lang_types_usize_t iblock;
 	mk_lang_types_sint_t i;
