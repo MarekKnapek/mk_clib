@@ -92,7 +92,11 @@ typedef struct mk_clib_app_crypt_buff_s mk_clib_app_crypt_buff_t;
 typedef mk_clib_app_crypt_buff_t* mk_clib_app_crypt_buff_pt;
 
 
-#define check(x) if(!(x)) return 1; ((void)(0))
+#if defined NDEBUG
+#define mk_clib_app_crypt_check(x) if(!(x)) return 1; ((mk_lang_types_void_t)(0))
+#else
+#define mk_clib_app_crypt_check(x) if(!(x)) return ((mk_lang_types_sint_t)(__LINE__)); ((mk_lang_types_void_t)(0))
+#endif
 
 
 mk_lang_nodiscard static mk_lang_inline char const* mk_clib_app_crypt_args_get_exe_name(char const* const arg) mk_lang_noexcept
@@ -155,14 +159,14 @@ mk_lang_nodiscard static mk_lang_inline int mk_clib_app_crypt_usage(int const ar
 	printf("Example usage:\n\n");
 	printf("%s /direction encrypt /alg aes_128 /padding pkcs7 /mode cbc /kdf pbkdf2_sha2_512_256 /password Hunter2 /salt cryptor /cost 1000 /input secret.txt /output secret.dat\n\n", mk_clib_app_crypt_args_get_exe_name(argv[0]));
 	printf("%s /direction decrypt /alg aes_128 /padding pkcs7 /mode cbc /kdf pbkdf2_sha2_512_256 /password Hunter2 /salt cryptor /cost 1000 /input secret.dat /output secret.txt\n\n", mk_clib_app_crypt_args_get_exe_name(argv[0]));
-	data = mk_lib_crypto_gapp_get_data_addr(); check(data);
-	r = mk_lib_crypto_gapp_get_names(); check(r >= 1 && r <= 4 * 1024);
+	data = mk_lib_crypto_gapp_get_data_addr(); mk_clib_app_crypt_check(data);
+	r = mk_lib_crypto_gapp_get_names(); mk_clib_app_crypt_check(r >= 1 && r <= 4 * 1024);
 	ptr = data;
 	printf("Possible values:\n\n");
-	ptr = mk_clib_app_crypt_usage_strs(ptr); check(ptr); printf("\n"); printf("\n");
-	ptr = mk_clib_app_crypt_usage_strs(ptr); check(ptr); printf("\n"); printf("\n");
-	ptr = mk_clib_app_crypt_usage_strs(ptr); check(ptr); printf("\n"); printf("\n");
-	ptr = mk_clib_app_crypt_usage_strs(ptr); check(ptr); printf("\n"); printf("\n");
+	ptr = mk_clib_app_crypt_usage_strs(ptr); mk_clib_app_crypt_check(ptr); printf("\n"); printf("\n");
+	ptr = mk_clib_app_crypt_usage_strs(ptr); mk_clib_app_crypt_check(ptr); printf("\n"); printf("\n");
+	ptr = mk_clib_app_crypt_usage_strs(ptr); mk_clib_app_crypt_check(ptr); printf("\n"); printf("\n");
+	ptr = mk_clib_app_crypt_usage_strs(ptr); mk_clib_app_crypt_check(ptr); printf("\n"); printf("\n");
 	return 0;
 }
 
@@ -325,7 +329,7 @@ mk_lang_nodiscard static mk_lang_inline int mk_clib_app_crypt_work(int const arg
 	c = argc;
 	v = argv;
 	mk_lang_cpuid_init();
-	check(c >= 1 + ((int)(mk_clib_app_crypt_param_id_e_dummy_end)) * 2);
+	mk_clib_app_crypt_check(c >= 1 + ((int)(mk_clib_app_crypt_param_id_e_dummy_end)) * 2);
 	c -= 1;
 	v += 1;
 	n = ((int)(mk_clib_app_crypt_param_id_e_dummy_end));
@@ -335,7 +339,7 @@ mk_lang_nodiscard static mk_lang_inline int mk_clib_app_crypt_work(int const arg
 	}
 	while(c != 0)
 	{
-		check(c >= 2);
+		mk_clib_app_crypt_check(c >= 2);
 		n = ((int)(sizeof(s_mk_clib_app_crypt_arg_names) / sizeof(s_mk_clib_app_crypt_arg_names[0])));
 		for(i = 0; i != n; ++i)
 		{
@@ -352,7 +356,7 @@ mk_lang_nodiscard static mk_lang_inline int mk_clib_app_crypt_work(int const arg
 				break;
 			}
 		}
-		check(i != n);
+		mk_clib_app_crypt_check(i != n);
 		mk_lang_assert(i >= 0 && i < n);
 		params[i] = v[1];
 		c -= 2;
@@ -360,49 +364,49 @@ mk_lang_nodiscard static mk_lang_inline int mk_clib_app_crypt_work(int const arg
 	}
 	for(i = 0; i != n; ++i)
 	{
-		check(params[i]);
+		mk_clib_app_crypt_check(params[i]);
 	}
 	dir_str = params[mk_clib_app_crypt_param_id_e_dir];
 	dir_str_len = mk_clib_app_crypt_strlen(dir_str);
 	direction_found = mk_lang_false;
 	if(!direction_found && dir_str_len == sizeof(s_mk_clib_app_crypt_arg_name_dir_enc) / sizeof(s_mk_clib_app_crypt_arg_name_dir_enc[0]) - 1){ n = ((int)(dir_str_len)); for(i = 0; i != n; ++i){ if(dir_str[i] != s_mk_clib_app_crypt_arg_name_dir_enc[i]){ break; } } if(i == n){ direction_found = mk_lang_true; direction = mk_lang_true; } }
 	if(!direction_found && dir_str_len == sizeof(s_mk_clib_app_crypt_arg_name_dir_dec) / sizeof(s_mk_clib_app_crypt_arg_name_dir_dec[0]) - 1){ n = ((int)(dir_str_len)); for(i = 0; i != n; ++i){ if(dir_str[i] != s_mk_clib_app_crypt_arg_name_dir_dec[i]){ break; } } if(i == n){ direction_found = mk_lang_true; direction = mk_lang_false; } }
-	check(direction_found);
+	mk_clib_app_crypt_check(direction_found);
 	cost_str = params[mk_clib_app_crypt_param_id_e_cost];
 	cost_str_len = mk_clib_app_crypt_strlen(cost_str);
-	check(cost_str_len <= mk_sl_cui_uint32_strlendec_v);
-	n = mk_sl_cui_uint32_from_str_dec_n(&cost_32, cost_str, ((int)(cost_str_len))); check(n == ((int)(cost_str_len)));
+	mk_clib_app_crypt_check(cost_str_len <= mk_sl_cui_uint32_strlendec_v);
+	n = mk_sl_cui_uint32_from_str_dec_n(&cost_32, cost_str, ((int)(cost_str_len))); mk_clib_app_crypt_check(n == ((int)(cost_str_len)));
 	data = mk_lib_crypto_gapp_get_data_addr();
 	mk_lang_assert(data);
-	iv_len_max = mk_lib_crypto_gapp_get_iv_size_max(); check(iv_len_max >= 0x00 && iv_len_max <= 0xff);
-	inputf = fopen(params[mk_clib_app_crypt_param_id_e_input], "rb"); check(inputf);
+	iv_len_max = mk_lib_crypto_gapp_get_iv_size_max(); mk_clib_app_crypt_check(iv_len_max >= 0x00 && iv_len_max <= 0xff);
+	inputf = fopen(params[mk_clib_app_crypt_param_id_e_input], "rb"); mk_clib_app_crypt_check(inputf);
 	if(!direction)
 	{
-		read = fread(&buff_a.m_data.m_uchars[0], 1, iv_len_max, inputf); check(read <= ((mk_lang_types_usize_t)(iv_len_max)));
+		read = fread(&buff_a.m_data.m_uchars[0], 1, iv_len_max, inputf); mk_clib_app_crypt_check(read <= ((mk_lang_types_usize_t)(iv_len_max)));
 	}
 	ptr = data;
-	ptr = mk_clib_app_crypt_append_cod(ptr, params[mk_clib_app_crypt_param_id_e_alg]); check(ptr);
-	ptr = mk_clib_app_crypt_append_cod(ptr, params[mk_clib_app_crypt_param_id_e_padding]); check(ptr);
-	ptr = mk_clib_app_crypt_append_cod(ptr, params[mk_clib_app_crypt_param_id_e_mode]); check(ptr);
-	ptr = mk_clib_app_crypt_append_cod(ptr, params[mk_clib_app_crypt_param_id_e_kdf]); check(ptr);
-	ptr = mk_clib_app_crypt_append_rnd(ptr, iv_len_max, &iv, direction, &buff_a.m_data.m_uchars[0]); check(ptr);
-	ptr = mk_clib_app_crypt_append_u32(ptr, &cost_32); check(ptr);
-	ptr = mk_clib_app_crypt_append_str(ptr, params[mk_clib_app_crypt_param_id_e_password]); check(ptr);
-	ptr = mk_clib_app_crypt_append_str(ptr, params[mk_clib_app_crypt_param_id_e_salt]); check(ptr);
-	r = mk_lib_crypto_gapp_init(); check(r >= 0x00 && r <= iv_len_max);
+	ptr = mk_clib_app_crypt_append_cod(ptr, params[mk_clib_app_crypt_param_id_e_alg]); mk_clib_app_crypt_check(ptr);
+	ptr = mk_clib_app_crypt_append_cod(ptr, params[mk_clib_app_crypt_param_id_e_padding]); mk_clib_app_crypt_check(ptr);
+	ptr = mk_clib_app_crypt_append_cod(ptr, params[mk_clib_app_crypt_param_id_e_mode]); mk_clib_app_crypt_check(ptr);
+	ptr = mk_clib_app_crypt_append_cod(ptr, params[mk_clib_app_crypt_param_id_e_kdf]); mk_clib_app_crypt_check(ptr);
+	ptr = mk_clib_app_crypt_append_rnd(ptr, iv_len_max, &iv, direction, &buff_a.m_data.m_uchars[0]); mk_clib_app_crypt_check(ptr);
+	ptr = mk_clib_app_crypt_append_u32(ptr, &cost_32); mk_clib_app_crypt_check(ptr);
+	ptr = mk_clib_app_crypt_append_str(ptr, params[mk_clib_app_crypt_param_id_e_password]); mk_clib_app_crypt_check(ptr);
+	ptr = mk_clib_app_crypt_append_str(ptr, params[mk_clib_app_crypt_param_id_e_salt]); mk_clib_app_crypt_check(ptr);
+	r = mk_lib_crypto_gapp_init(); mk_clib_app_crypt_check(r >= 0x00 && r <= iv_len_max);
 	iv_len = ((int)(r));
 	if(!direction)
 	{
-		check(((int)(read)) >= iv_len);
+		mk_clib_app_crypt_check(((int)(read)) >= iv_len);
 		if(((int)(read)) > iv_len)
 		{
-			n = fseek(inputf, iv_len - ((int)(read)), SEEK_CUR); check(n == 0);
+			n = fseek(inputf, iv_len - ((int)(read)), SEEK_CUR); mk_clib_app_crypt_check(n == 0);
 		}
 	}
-	outputf = fopen(params[mk_clib_app_crypt_param_id_e_output], "wb"); check(outputf);
+	outputf = fopen(params[mk_clib_app_crypt_param_id_e_output], "wb"); mk_clib_app_crypt_check(outputf);
 	if(direction && iv_len != 0)
 	{
-		written = fwrite(iv, 1, iv_len, outputf); check(written == ((mk_lang_types_usize_t)(iv_len)));
+		written = fwrite(iv, 1, iv_len, outputf); mk_clib_app_crypt_check(written == ((mk_lang_types_usize_t)(iv_len)));
 	}
 	block_len = ((int)(sizeof(buff_a.m_data.m_uchars) / sizeof(buff_a.m_data.m_uchars[0])));
 	buff_pa = &buff_a;
@@ -416,17 +420,17 @@ mk_lang_nodiscard static mk_lang_inline int mk_clib_app_crypt_work(int const arg
 		if(*read_pb != 0)
 		{
 			n = ((int)(*read_pa));
-			check(n == block_len);
+			mk_clib_app_crypt_check(n == block_len);
 			for(i = 0; i != n; ++i){ mk_sl_cui_uint8_from_bi_uchar(&data[i], &buff_pa->m_data.m_uchars[i]); }
 			if(direction)
 			{
-				r = mk_lib_crypto_gapp_encrypt_append(n); check(r == 0);
+				r = mk_lib_crypto_gapp_encrypt_append(n); mk_clib_app_crypt_check(r == 0);
 			}
 			else
 			{
-				r = mk_lib_crypto_gapp_decrypt_append(n); check(r == 0);
+				r = mk_lib_crypto_gapp_decrypt_append(n); mk_clib_app_crypt_check(r == 0);
 			}
-			written = fwrite(data, 1, *read_pa, outputf); check(written == ((mk_lang_types_usize_t)(n)));
+			written = fwrite(data, 1, *read_pa, outputf); mk_clib_app_crypt_check(written == ((mk_lang_types_usize_t)(n)));
 			read_pc = read_pa; read_pa = read_pb; read_pb = read_pc;
 			buff_pc = buff_pa; buff_pa = buff_pb; buff_pb = buff_pc;
 		}
@@ -436,19 +440,19 @@ mk_lang_nodiscard static mk_lang_inline int mk_clib_app_crypt_work(int const arg
 			for(i = 0; i != n; ++i){ mk_sl_cui_uint8_from_bi_uchar(&data[i], &buff_pa->m_data.m_uchars[i]); }
 			if(direction)
 			{
-				r = mk_lib_crypto_gapp_encrypt_finish(n); check(r >= 0x01 && r <= iv_len_max);
-				written = fwrite(data, 1, n + r, outputf); check(written == ((mk_lang_types_usize_t)(n + r)));
+				r = mk_lib_crypto_gapp_encrypt_finish(n); mk_clib_app_crypt_check(r >= 0x01 && r <= iv_len_max);
+				written = fwrite(data, 1, n + r, outputf); mk_clib_app_crypt_check(written == ((mk_lang_types_usize_t)(n + r)));
 			}
 			else
 			{
-				r = mk_lib_crypto_gapp_decrypt_finish(n); check(r >= 0x01 && r <= iv_len_max);
-				written = fwrite(data, 1, n - r, outputf); check(written == ((mk_lang_types_usize_t)(n - ((int)(r)))));
+				r = mk_lib_crypto_gapp_decrypt_finish(n); mk_clib_app_crypt_check(r >= 0x01 && r <= iv_len_max);
+				written = fwrite(data, 1, n - r, outputf); mk_clib_app_crypt_check(written == ((mk_lang_types_usize_t)(n - ((int)(r)))));
 			}
 			break;
 		}
 	}
-	closed = fclose(inputf); check(closed == 0);
-	closed = fclose(outputf); check(closed == 0);
+	closed = fclose(inputf); mk_clib_app_crypt_check(closed == 0);
+	closed = fclose(outputf); mk_clib_app_crypt_check(closed == 0);
 	return 0;
 }
 
