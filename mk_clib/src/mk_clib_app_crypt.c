@@ -346,7 +346,7 @@ mk_lang_nodiscard static mk_lang_inline int mk_clib_app_crypt_work(int const arg
 			m = s_mk_clib_app_crypt_arg_namelens[i];
 			for(j = 0; j != m; ++j)
 			{
-				if(!v[0][j] || v[0][j] != s_mk_clib_app_crypt_arg_names[i][j])
+				if((v[0][j] == '\0') || ((j != 0 && v[0][j] != s_mk_clib_app_crypt_arg_names[i][j]) || (j == 0 && v[0][j] != '-' && v[0][j] != '/')))
 				{
 					break;
 				}
