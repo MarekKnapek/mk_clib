@@ -124,3 +124,6 @@ mm_per_bui(`#undef mk_lang_bui_inl_defd_to_buis_$1_be')
 `#'undef mk_lang_bui_inl_defd_div2_wrap
 `#'undef mk_lang_bui_inl_defd_mod2_wrap
 `#'undef mk_lang_bui_inl_defd_divmod2_wrap
+
+`#'undef mk_lang_bui_inl_defd_mul3_wrap_hi_portable
+`#'undef mk_lang_bui_inl_defd_mul4_wrap_wi_portable

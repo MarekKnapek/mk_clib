@@ -4,9 +4,10 @@ include(`mk_lang_bui_inl.m')dnl
 #include "mk_lang_charbit.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_cpuid.h"
+#include "mk_lang_gnuc.h"
 #include "mk_lang_inline.h"
-#include "mk_lang_intrinsic.h"
 #include "mk_lang_jumbo.h"
+#include "mk_lang_llong.h"
 #include "mk_lang_msvc.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
@@ -268,57 +269,98 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lang_bui_inl_defd_set_ma
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lang_bui_inl_defd_count_leading_zeros(mk_lang_bui_inl_defd_pct const x) mk_lang_noexcept
 {
-#if mk_lang_intrinsic_has && mk_lang_msvc_ver >= mk_lang_msvc_ver_2005 && mk_lang_bui_inl_defd_sizebits_d <= 32
-	unsigned char nz;
-	unsigned long index;
-
-	mk_lang_assert(x);
-
-	nz = ((unsigned char)(_BitScanReverse(&index, ((unsigned long)(*x)))));
-	return nz ? ((mk_lang_types_sint_t)(((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_sizebits_d - 1)) - ((mk_lang_types_sint_t)(index)))) : ((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_sizebits_d));
-#elif mk_lang_intrinsic_has && mk_lang_msvc_ver >= mk_lang_msvc_ver_2005 && (mk_lang_arch == mk_lang_arch_ia64 || mk_lang_arch == mk_lang_arch_x8664 || mk_lang_arch == mk_lang_arch_arm64) && mk_lang_bui_inl_defd_sizebits_d <= 64
-	unsigned char nz;
-	unsigned long index;
-
-	mk_lang_assert(x);
-
-	nz = ((unsigned char)(_BitScanReverse64(&index, ((unsigned __int64)(*x)))));
-	return nz ? ((mk_lang_types_sint_t)(((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_sizebits_d - 1)) - ((mk_lang_types_sint_t)(index)))) : ((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_sizebits_d));
-#else
-	mk_lang_bui_inl_defd_t xx mk_lang_constexpr_init;
-	mk_lang_types_sint_t cnt mk_lang_constexpr_init;
-	mk_lang_types_sint_t n mk_lang_constexpr_init;
-	mk_lang_bui_inl_defd_t yy mk_lang_constexpr_init;
-
-	mk_lang_assert(x);
-
-	if(((mk_lang_bui_inl_defd_t)(*x)) == ((mk_lang_bui_inl_defd_t)(0)))
+	#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2005 && mk_lang_bui_inl_defd_sizebits_d <= 32
+	#if !mk_lang_constexpr_is_constant_evaluated
+	if(1)
+	#else
+	if(!mk_lang_constexpr_is_constant_evaluated_test && 1)
+	#endif
 	{
-		return mk_lang_bui_inl_defd_sizebits_d;
-	}
-	xx = ((mk_lang_bui_inl_defd_t)(*x));
-	cnt = mk_lang_bui_inl_defd_sizebits_d;
-	n = cnt / 2;
-	do
-	{
-		yy = ((mk_lang_bui_inl_defd_t)(xx >> n));
-		if(yy != ((mk_lang_bui_inl_defd_t)(0)))
-		{
-			cnt -= n;
-			xx = yy;
-		}
-		n /= 2;
-	}while(n != 1);
-	yy = ((mk_lang_bui_inl_defd_t)(xx >> 1));
-	if(yy != ((mk_lang_bui_inl_defd_t)(0)))
-	{
-		return cnt - 2;
+		unsigned char nz mk_lang_constexpr_init;
+		unsigned long index mk_lang_constexpr_init;
+
+		mk_lang_assert(x);
+
+		nz = ((unsigned char)(_BitScanReverse(&index, ((unsigned long)(*x)))));
+		return nz ? ((mk_lang_types_sint_t)(((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_sizebits_d - 1)) - ((mk_lang_types_sint_t)(index)))) : ((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_sizebits_d));
 	}
 	else
+	#elif mk_lang_gnuc_is_at_least(4, 1) && mk_lang_bui_inl_defd_sizebits_d <= 32
+	#if !mk_lang_constexpr_is_constant_evaluated
+	if(1)
+	#else
+	if(!mk_lang_constexpr_is_constant_evaluated_test && 1)
+	#endif
 	{
-		return cnt - ((mk_lang_types_sint_t)(xx));
+		mk_lang_assert(x);
+
+		return *x == 0 ? mk_lang_bui_inl_defd_sizebits_d : __builtin_clzl(((unsigned long)(*x)));
 	}
-#endif
+	else
+	#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2005 && (mk_lang_arch == mk_lang_arch_ia64 || mk_lang_arch == mk_lang_arch_x8664 || mk_lang_arch == mk_lang_arch_arm64) && mk_lang_bui_inl_defd_sizebits_d <= 64
+	#if !mk_lang_constexpr_is_constant_evaluated
+	if(1)
+	#else
+	if(!mk_lang_constexpr_is_constant_evaluated_test && 1)
+	#endif
+	{
+		unsigned char nz mk_lang_constexpr_init;
+		unsigned long index mk_lang_constexpr_init;
+
+		mk_lang_assert(x);
+
+		nz = ((unsigned char)(_BitScanReverse64(&index, ((unsigned __int64)(*x)))));
+		return nz ? ((mk_lang_types_sint_t)(((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_sizebits_d - 1)) - ((mk_lang_types_sint_t)(index)))) : ((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_sizebits_d));
+	}
+	else
+	#elif mk_lang_gnuc_is_at_least(4, 1) && mk_lang_llong_has && mk_lang_bui_inl_defd_sizebits_d <= 64
+	#if !mk_lang_constexpr_is_constant_evaluated
+	if(1)
+	#else
+	if(!mk_lang_constexpr_is_constant_evaluated_test && 1)
+	#endif
+	{
+		mk_lang_assert(x);
+
+		return *x == 0 ? mk_lang_bui_inl_defd_sizebits_d : __builtin_clzll(((unsigned long long)(*x)));
+	}
+	else
+	#endif
+	{
+		mk_lang_bui_inl_defd_t xx mk_lang_constexpr_init;
+		mk_lang_types_sint_t cnt mk_lang_constexpr_init;
+		mk_lang_types_sint_t n mk_lang_constexpr_init;
+		mk_lang_bui_inl_defd_t yy mk_lang_constexpr_init;
+
+		mk_lang_assert(x);
+
+		if(((mk_lang_bui_inl_defd_t)(*x)) == ((mk_lang_bui_inl_defd_t)(0)))
+		{
+			return mk_lang_bui_inl_defd_sizebits_d;
+		}
+		xx = ((mk_lang_bui_inl_defd_t)(*x));
+		cnt = mk_lang_bui_inl_defd_sizebits_d;
+		n = cnt / 2;
+		do
+		{
+			yy = ((mk_lang_bui_inl_defd_t)(xx >> n));
+			if(yy != ((mk_lang_bui_inl_defd_t)(0)))
+			{
+				cnt -= n;
+				xx = yy;
+			}
+			n /= 2;
+		}while(n != 1);
+		yy = ((mk_lang_bui_inl_defd_t)(xx >> 1));
+		if(yy != ((mk_lang_bui_inl_defd_t)(0)))
+		{
+			return cnt - 2;
+		}
+		else
+		{
+			return cnt - ((mk_lang_types_sint_t)(xx));
+		}
+	}
 }
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lang_bui_inl_defd_count_leading_ones(mk_lang_bui_inl_defd_pct const x) mk_lang_noexcept
@@ -333,47 +375,88 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lang_b
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lang_bui_inl_defd_count_trailing_zeros(mk_lang_bui_inl_defd_pct const x) mk_lang_noexcept
 {
-#if mk_lang_intrinsic_has && mk_lang_msvc_ver >= mk_lang_msvc_ver_2005 && mk_lang_bui_inl_defd_sizebits_d <= 32
-	unsigned char nz;
-	unsigned long index;
-
-	mk_lang_assert(x);
-
-	nz = ((unsigned char)(_BitScanForward(&index, ((unsigned long)(*x)))));
-	return nz ? ((mk_lang_types_sint_t)(index)) : ((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_sizebits_d));
-#elif mk_lang_intrinsic_has && mk_lang_msvc_ver >= mk_lang_msvc_ver_2005 && (mk_lang_arch == mk_lang_arch_ia64 || mk_lang_arch == mk_lang_arch_x8664 || mk_lang_arch == mk_lang_arch_arm64) && mk_lang_bui_inl_defd_sizebits_d <= 64
-	unsigned char nz;
-	unsigned long index;
-
-	mk_lang_assert(x);
-
-	nz = ((unsigned char)(_BitScanForward64(&index, ((unsigned __int64)(*x)))));
-	return nz ? ((mk_lang_types_sint_t)(index)) : ((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_sizebits_d));
-#else
-	mk_lang_bui_inl_defd_t xx mk_lang_constexpr_init;
-	mk_lang_types_sint_t cnt mk_lang_constexpr_init;
-	mk_lang_types_sint_t n mk_lang_constexpr_init;
-
-	mk_lang_assert(x);
-
-	if(((mk_lang_bui_inl_defd_t)(*x)) == ((mk_lang_bui_inl_defd_t)(0)))
+	#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2005 && mk_lang_bui_inl_defd_sizebits_d <= 32
+	#if !mk_lang_constexpr_is_constant_evaluated
+	if(1)
+	#else
+	if(!mk_lang_constexpr_is_constant_evaluated_test && 1)
+	#endif
 	{
-		return mk_lang_bui_inl_defd_sizebits_d;
+		unsigned char nz mk_lang_constexpr_init;
+		unsigned long index mk_lang_constexpr_init;
+
+		mk_lang_assert(x);
+
+		nz = ((unsigned char)(_BitScanForward(&index, ((unsigned long)(*x)))));
+		return nz ? ((mk_lang_types_sint_t)(index)) : ((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_sizebits_d));
 	}
-	xx = ((mk_lang_bui_inl_defd_t)(*x));
-	cnt = 1;
-	n = mk_lang_bui_inl_defd_sizebits_d / 2;
-	do
+	else
+	#elif mk_lang_gnuc_is_at_least(4, 1) && mk_lang_bui_inl_defd_sizebits_d <= 32
+	#if !mk_lang_constexpr_is_constant_evaluated
+	if(1)
+	#else
+	if(!mk_lang_constexpr_is_constant_evaluated_test && 1)
+	#endif
 	{
-		if(((mk_lang_bui_inl_defd_t)(xx & ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(1)) << n)) - ((mk_lang_bui_inl_defd_t)(1)))))) == ((mk_lang_bui_inl_defd_t)(0)))
+		mk_lang_assert(x);
+
+		return *x == 0 ? mk_lang_bui_inl_defd_sizebits_d : __builtin_ctzl(((unsigned long)(*x)));
+	}
+	else
+	#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2005 && (mk_lang_arch == mk_lang_arch_ia64 || mk_lang_arch == mk_lang_arch_x8664 || mk_lang_arch == mk_lang_arch_arm64) && mk_lang_bui_inl_defd_sizebits_d <= 64
+	#if !mk_lang_constexpr_is_constant_evaluated
+	if(1)
+	#else
+	if(!mk_lang_constexpr_is_constant_evaluated_test && 1)
+	#endif
+	{
+		unsigned char nz mk_lang_constexpr_init;
+		unsigned long index mk_lang_constexpr_init;
+
+		mk_lang_assert(x);
+
+		nz = ((unsigned char)(_BitScanForward64(&index, ((unsigned __int64)(*x)))));
+		return nz ? ((mk_lang_types_sint_t)(index)) : ((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_sizebits_d));
+	}
+	else
+	#elif mk_lang_gnuc_is_at_least(4, 1) && mk_lang_llong_has && mk_lang_bui_inl_defd_sizebits_d <= 64
+	#if !mk_lang_constexpr_is_constant_evaluated
+	if(1)
+	#else
+	if(!mk_lang_constexpr_is_constant_evaluated_test && 1)
+	#endif
+	{
+		mk_lang_assert(x);
+
+		return *x == 0 ? mk_lang_bui_inl_defd_sizebits_d : __builtin_ctzll(((unsigned long long)(*x)));
+	}
+	else
+	#endif
+	{
+		mk_lang_bui_inl_defd_t xx mk_lang_constexpr_init;
+		mk_lang_types_sint_t cnt mk_lang_constexpr_init;
+		mk_lang_types_sint_t n mk_lang_constexpr_init;
+
+		mk_lang_assert(x);
+
+		if(((mk_lang_bui_inl_defd_t)(*x)) == ((mk_lang_bui_inl_defd_t)(0)))
 		{
-			cnt += n;
-			xx = ((mk_lang_bui_inl_defd_t)(xx >> n));
+			return mk_lang_bui_inl_defd_sizebits_d;
 		}
-		n /= 2;
-	}while(n != 1);
-	return cnt - ((mk_lang_types_sint_t)(((mk_lang_bui_inl_defd_t)((xx & ((mk_lang_bui_inl_defd_t)(1)))))));
-#endif
+		xx = ((mk_lang_bui_inl_defd_t)(*x));
+		cnt = 1;
+		n = mk_lang_bui_inl_defd_sizebits_d / 2;
+		do
+		{
+			if(((mk_lang_bui_inl_defd_t)(xx & ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(1)) << n)) - ((mk_lang_bui_inl_defd_t)(1)))))) == ((mk_lang_bui_inl_defd_t)(0)))
+			{
+				cnt += n;
+				xx = ((mk_lang_bui_inl_defd_t)(xx >> n));
+			}
+			n /= 2;
+		}while(n != 1);
+		return cnt - ((mk_lang_types_sint_t)(((mk_lang_bui_inl_defd_t)((xx & ((mk_lang_bui_inl_defd_t)(1)))))));
+	}
 }
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lang_bui_inl_defd_count_trailing_ones(mk_lang_bui_inl_defd_pct const x) mk_lang_noexcept
@@ -405,36 +488,70 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lang_bui_inl_defd_count_zeros(mk_lang_bui_inl_defd_pct const x) mk_lang_noexcept
 {
-#if mk_lang_intrinsic_has && mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && mk_lang_bui_inl_defd_sizebits_d <= 16
+	#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && mk_lang_bui_inl_defd_sizebits_d <= 16
+	#if !mk_lang_constexpr_is_constant_evaluated
 	if(mk_lang_cpuid_has_popcnt())
+	#else
+	if(!mk_lang_constexpr_is_constant_evaluated_test && mk_lang_cpuid_has_popcnt())
+	#endif
 	{
 		return mk_lang_bui_inl_defd_sizebits_d - mk_lang_bui_inl_defd_count_ones(x);
 	}
 	else
-	{
-		return mk_lang_bui_inl_defd_count_zeros_portable(x);
-	}
-#elif mk_lang_intrinsic_has && mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && mk_lang_bui_inl_defd_sizebits_d <= 32
-	if(mk_lang_cpuid_has_popcnt())
-	{
-		return mk_lang_bui_inl_defd_sizebits_d - mk_lang_bui_inl_defd_count_ones(x);
-	}
-	else
-	{
-		return mk_lang_bui_inl_defd_count_zeros_portable(x);
-	}
-#elif mk_lang_intrinsic_has && mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && mk_lang_arch == mk_lang_arch_x8664 && mk_lang_bui_inl_defd_sizebits_d <= 64
-	if(mk_lang_cpuid_has_popcnt())
+	#elif mk_lang_gnuc_is_at_least(4, 1) && mk_lang_bui_inl_defd_sizebits_d <= 16
+	#if !mk_lang_constexpr_is_constant_evaluated
+	if(1)
+	#else
+	if(!mk_lang_constexpr_is_constant_evaluated_test && 1)
+	#endif
 	{
 		return mk_lang_bui_inl_defd_sizebits_d - mk_lang_bui_inl_defd_count_ones(x);
 	}
 	else
+	#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && mk_lang_bui_inl_defd_sizebits_d <= 32
+	#if !mk_lang_constexpr_is_constant_evaluated
+	if(mk_lang_cpuid_has_popcnt())
+	#else
+	if(!mk_lang_constexpr_is_constant_evaluated_test && mk_lang_cpuid_has_popcnt())
+	#endif
+	{
+		return mk_lang_bui_inl_defd_sizebits_d - mk_lang_bui_inl_defd_count_ones(x);
+	}
+	else
+	#elif mk_lang_gnuc_is_at_least(4, 1) && mk_lang_bui_inl_defd_sizebits_d <= 32
+	#if !mk_lang_constexpr_is_constant_evaluated
+	if(1)
+	#else
+	if(!mk_lang_constexpr_is_constant_evaluated_test && 1)
+	#endif
+	{
+		return mk_lang_bui_inl_defd_sizebits_d - mk_lang_bui_inl_defd_count_ones(x);
+	}
+	else
+	#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && mk_lang_arch == mk_lang_arch_x8664 && mk_lang_bui_inl_defd_sizebits_d <= 64
+	#if !mk_lang_constexpr_is_constant_evaluated
+	if(mk_lang_cpuid_has_popcnt())
+	#else
+	if(!mk_lang_constexpr_is_constant_evaluated_test && mk_lang_cpuid_has_popcnt())
+	#endif
+	{
+		return mk_lang_bui_inl_defd_sizebits_d - mk_lang_bui_inl_defd_count_ones(x);
+	}
+	else
+	#elif mk_lang_gnuc_is_at_least(4, 1) && mk_lang_llong_has && mk_lang_bui_inl_defd_sizebits_d <= 64
+	#if !mk_lang_constexpr_is_constant_evaluated
+	if(1)
+	#else
+	if(!mk_lang_constexpr_is_constant_evaluated_test && 1)
+	#endif
+	{
+		return mk_lang_bui_inl_defd_sizebits_d - mk_lang_bui_inl_defd_count_ones(x);
+	}
+	else
+	#endif
 	{
 		return mk_lang_bui_inl_defd_count_zeros_portable(x);
 	}
-#else
-	return mk_lang_bui_inl_defd_count_zeros_portable(x);
-#endif
 }
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lang_bui_inl_defd_count_ones_portable(mk_lang_bui_inl_defd_pct const x) mk_lang_noexcept
@@ -449,51 +566,91 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lang_bui_inl_defd_count_ones(mk_lang_bui_inl_defd_pct const x) mk_lang_noexcept
 {
-#if mk_lang_intrinsic_has && mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && mk_lang_bui_inl_defd_sizebits_d <= 16
-	unsigned short u;
-
-	mk_lang_assert(x);
-
+	#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && mk_lang_bui_inl_defd_sizebits_d <= 16
+	#if !mk_lang_constexpr_is_constant_evaluated
 	if(mk_lang_cpuid_has_popcnt())
+	#else
+	if(!mk_lang_constexpr_is_constant_evaluated_test && mk_lang_cpuid_has_popcnt())
+	#endif
 	{
+		unsigned short u mk_lang_constexpr_init;
+
+		mk_lang_assert(x);
+
 		u = ((unsigned short)(__popcnt16(((unsigned short)(*x)))));
 		return ((mk_lang_types_sint_t)(u));
 	}
 	else
+	#elif mk_lang_gnuc_is_at_least(4, 1) && mk_lang_bui_inl_defd_sizebits_d <= 16
+	#if !mk_lang_constexpr_is_constant_evaluated
+	if(1)
+	#else
+	if(!mk_lang_constexpr_is_constant_evaluated_test && 1)
+	#endif
 	{
-		return mk_lang_bui_inl_defd_count_ones_portable(x);
+		mk_lang_assert(x);
+
+		return __builtin_popcount(((unsigned int)(*x)));
 	}
-#elif mk_lang_intrinsic_has && mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && mk_lang_bui_inl_defd_sizebits_d <= 32
-	unsigned int u;
-
-	mk_lang_assert(x);
-
+	else
+	#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && mk_lang_bui_inl_defd_sizebits_d <= 32
+	#if !mk_lang_constexpr_is_constant_evaluated
 	if(mk_lang_cpuid_has_popcnt())
+	#else
+	if(!mk_lang_constexpr_is_constant_evaluated_test && mk_lang_cpuid_has_popcnt())
+	#endif
 	{
+		unsigned int u mk_lang_constexpr_init;
+
+		mk_lang_assert(x);
+
 		u = ((unsigned int)(__popcnt(((unsigned int)(*x)))));
 		return ((mk_lang_types_sint_t)(u));
 	}
 	else
+	#elif mk_lang_gnuc_is_at_least(4, 1) && mk_lang_bui_inl_defd_sizebits_d <= 32
+	#if !mk_lang_constexpr_is_constant_evaluated
+	if(1)
+	#else
+	if(!mk_lang_constexpr_is_constant_evaluated_test && 1)
+	#endif
 	{
-		return mk_lang_bui_inl_defd_count_ones_portable(x);
+		mk_lang_assert(x);
+
+		return __builtin_popcountl(((unsigned long)(*x)));
 	}
-#elif mk_lang_intrinsic_has && mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && mk_lang_arch == mk_lang_arch_x8664 && mk_lang_bui_inl_defd_sizebits_d <= 64
-	unsigned __int64 u;
-
-	mk_lang_assert(x);
-
+	else
+	#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && mk_lang_arch == mk_lang_arch_x8664 && mk_lang_bui_inl_defd_sizebits_d <= 64
+	#if !mk_lang_constexpr_is_constant_evaluated
 	if(mk_lang_cpuid_has_popcnt())
+	#else
+	if(!mk_lang_constexpr_is_constant_evaluated_test && mk_lang_cpuid_has_popcnt())
+	#endif
 	{
+		unsigned __int64 u mk_lang_constexpr_init;
+
+		mk_lang_assert(x);
+
 		u = ((unsigned __int64)(__popcnt64(((unsigned __int64)(*x)))));
 		return ((mk_lang_types_sint_t)(u));
 	}
 	else
+	#elif mk_lang_gnuc_is_at_least(4, 1) && mk_lang_llong_has && mk_lang_bui_inl_defd_sizebits_d <= 64
+	#if !mk_lang_constexpr_is_constant_evaluated
+	if(1)
+	#else
+	if(!mk_lang_constexpr_is_constant_evaluated_test && 1)
+	#endif
+	{
+		mk_lang_assert(x);
+
+		return __builtin_popcountll(((unsigned long long)(*x)));
+	}
+	else
+	#endif
 	{
 		return mk_lang_bui_inl_defd_count_ones_portable(x);
 	}
-#else
-	return mk_lang_bui_inl_defd_count_ones_portable(x);
-#endif
 }
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_bool_t mk_lang_bui_inl_defd_has_lsb(mk_lang_bui_inl_defd_pct const x) mk_lang_noexcept
@@ -895,6 +1052,39 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lang_bui_inl_defd_mul3_w
 	*c = ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(*a)) * ((mk_lang_bui_inl_defd_t)(*b))));
 }
 
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lang_bui_inl_defd_mul3_wrap_hi_portable(mk_lang_bui_inl_defd_pct const a, mk_lang_bui_inl_defd_pct const b, mk_lang_bui_inl_defd_pt const c) mk_lang_noexcept
+{
+	#define mk_lang_bui_inl_filec_shift ((mk_lang_types_sint_t)(((mk_lang_types_sint_t)(((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_sizeof_d)) * ((mk_lang_types_sint_t)(mk_lang_charbit)))) / ((mk_lang_types_sint_t)(2))))
+	#define mk_lang_bui_inl_filec_mask ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(1)) << mk_lang_bui_inl_filec_shift)) - ((mk_lang_bui_inl_defd_t)(1))))
+
+	mk_lang_bui_inl_defd_t alo mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t ahi mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t blo mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t bhi mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t ablo mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t abmi mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t bami mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t abhi mk_lang_constexpr_init;
+
+	mk_lang_static_assert(((mk_lang_types_sint_t)(((((mk_lang_types_sint_t)(((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_sizeof_d)) * ((mk_lang_types_sint_t)(mk_lang_charbit))))) % ((mk_lang_types_sint_t)(2))))) == ((mk_lang_types_sint_t)(0)));
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(c);
+
+	alo = ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(*a)) & mk_lang_bui_inl_filec_mask));
+	ahi = ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(*a)) >> mk_lang_bui_inl_filec_shift));
+	blo = ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(*b)) & mk_lang_bui_inl_filec_mask));
+	bhi = ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(*b)) >> mk_lang_bui_inl_filec_shift));
+	ablo = ((mk_lang_bui_inl_defd_t)(alo * blo));
+	abmi = ((mk_lang_bui_inl_defd_t)(alo * bhi));
+	bami = ((mk_lang_bui_inl_defd_t)(ahi * blo));
+	abhi = ((mk_lang_bui_inl_defd_t)(ahi * bhi));
+	*c = ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(abhi + ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(abmi >> mk_lang_bui_inl_filec_shift)) + ((mk_lang_bui_inl_defd_t)(bami >> mk_lang_bui_inl_filec_shift)))))) + ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(abmi & mk_lang_bui_inl_filec_mask)) + ((mk_lang_bui_inl_defd_t)(bami & mk_lang_bui_inl_filec_mask)))) + ((mk_lang_bui_inl_defd_t)(ablo >> mk_lang_bui_inl_filec_shift)))) >> mk_lang_bui_inl_filec_shift))));
+
+	#undef mk_lang_bui_inl_filec_shift
+	#undef mk_lang_bui_inl_filec_mask
+}
+
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lang_bui_inl_defd_mul3_wrap_hi(mk_lang_bui_inl_defd_pct const a, mk_lang_bui_inl_defd_pct const b, mk_lang_bui_inl_defd_pt const c) mk_lang_noexcept
 {
 #if mk_lang_sizeof_bi_ushort_t >= 2 * mk_lang_bui_inl_defd_sizeof_d
@@ -927,25 +1117,64 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lang_bui_inl_defd_mul3_w
 	mk_lang_assert(c);
 
 	*c = ((mk_lang_bui_inl_defd_t)(((mk_lang_types_ulllong_t)(((mk_lang_types_ulllong_t)(*a)) * ((mk_lang_types_ulllong_t)(*b)))) >> ((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_sizebits_d))));
-#elif mk_lang_intrinsic_has && mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && (mk_lang_arch == mk_lang_arch_ia64 || mk_lang_arch == mk_lang_arch_x8664 || mk_lang_arch == mk_lang_arch_arm64) && mk_lang_bui_inl_defd_sizebits_d == 64
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(c);
+#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && (mk_lang_arch == mk_lang_arch_ia64 || mk_lang_arch == mk_lang_arch_x8664 || mk_lang_arch == mk_lang_arch_arm64) && mk_lang_bui_inl_defd_sizebits_d == 64
+	#if !mk_lang_constexpr_is_constant_evaluated
+	if(1)
+	#else
+	if(!mk_lang_constexpr_is_constant_evaluated_test && 1)
+	#endif
+	{
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(c);
 
-	*c = ((mk_lang_bui_inl_defd_t)(((unsigned __int64)(__umulh(((unsigned __int64)(*a)), ((unsigned __int64)(*b)))))));
-#elif mk_lang_intrinsic_has && mk_lang_msvc_ver >= mk_lang_msvc_ver_2008 && mk_lang_arch == mk_lang_arch_x8664 && mk_lang_bui_inl_defd_sizebits_d == 32
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(c);
+		*c = ((mk_lang_bui_inl_defd_t)(((unsigned __int64)(__umulh(((unsigned __int64)(*a)), ((unsigned __int64)(*b)))))));
+	}
+	else
+	{
+		mk_lang_bui_inl_defd_mul3_wrap_hi_portable(a, b, c);
+	}
+#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2008 && mk_lang_arch == mk_lang_arch_x8664 && mk_lang_bui_inl_defd_sizebits_d == 32
+	#if !mk_lang_constexpr_is_constant_evaluated
+	if(1)
+	#else
+	if(!mk_lang_constexpr_is_constant_evaluated_test && 1)
+	#endif
+	{
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(c);
 
-	*c = ((mk_lang_bui_inl_defd_t)(((unsigned __int64)(__ull_rshift(((unsigned __int64)(__emulu(((unsigned int)(*a)), ((unsigned int)(*b))))), 32)))));
-#elif mk_lang_intrinsic_has && mk_lang_msvc_ver >= mk_lang_msvc_ver_2008 && mk_lang_arch == mk_lang_arch_x8632 && mk_lang_bui_inl_defd_sizebits_d == 32
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(c);
+		*c = ((mk_lang_bui_inl_defd_t)(((unsigned __int64)(__ull_rshift(((unsigned __int64)(__emulu(((unsigned int)(*a)), ((unsigned int)(*b))))), 32)))));
+	}
+	else
+	{
+		mk_lang_bui_inl_defd_mul3_wrap_hi_portable(a, b, c);
+	}
+#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2008 && mk_lang_arch == mk_lang_arch_x8632 && mk_lang_bui_inl_defd_sizebits_d == 32
+	#if !mk_lang_constexpr_is_constant_evaluated
+	if(1)
+	#else
+	if(!mk_lang_constexpr_is_constant_evaluated_test && 1)
+	#endif
+	{
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(c);
 
-	*c = ((mk_lang_bui_inl_defd_t)(((unsigned __int64)(((unsigned __int64)(__emulu(((unsigned int)(*a)), ((unsigned int)(*b))))) >> 32))));
+		*c = ((mk_lang_bui_inl_defd_t)(((unsigned __int64)(((unsigned __int64)(__emulu(((unsigned int)(*a)), ((unsigned int)(*b))))) >> 32))));
+	}
+	else
+	{
+		mk_lang_bui_inl_defd_mul3_wrap_hi_portable(a, b, c);
+	}
 #else
+	mk_lang_bui_inl_defd_mul3_wrap_hi_portable(a, b, c);
+#endif
+}
+
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lang_bui_inl_defd_mul4_wrap_wi_portable(mk_lang_bui_inl_defd_pct const a, mk_lang_bui_inl_defd_pct const b, mk_lang_bui_inl_defd_pt const c, mk_lang_bui_inl_defd_pt const d) mk_lang_noexcept
+{
 	#define mk_lang_bui_inl_filec_shift ((mk_lang_types_sint_t)(((mk_lang_types_sint_t)(((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_sizeof_d)) * ((mk_lang_types_sint_t)(mk_lang_charbit)))) / ((mk_lang_types_sint_t)(2))))
 	#define mk_lang_bui_inl_filec_mask ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(1)) << mk_lang_bui_inl_filec_shift)) - ((mk_lang_bui_inl_defd_t)(1))))
 
@@ -962,6 +1191,8 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lang_bui_inl_defd_mul3_w
 	mk_lang_assert(a);
 	mk_lang_assert(b);
 	mk_lang_assert(c);
+	mk_lang_assert(d);
+	mk_lang_assert(c != d);
 
 	alo = ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(*a)) & mk_lang_bui_inl_filec_mask));
 	ahi = ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(*a)) >> mk_lang_bui_inl_filec_shift));
@@ -971,11 +1202,11 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lang_bui_inl_defd_mul3_w
 	abmi = ((mk_lang_bui_inl_defd_t)(alo * bhi));
 	bami = ((mk_lang_bui_inl_defd_t)(ahi * blo));
 	abhi = ((mk_lang_bui_inl_defd_t)(ahi * bhi));
-	*c = ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(abhi + ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(abmi >> mk_lang_bui_inl_filec_shift)) + ((mk_lang_bui_inl_defd_t)(bami >> mk_lang_bui_inl_filec_shift)))))) + ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(abmi & mk_lang_bui_inl_filec_mask)) + ((mk_lang_bui_inl_defd_t)(bami & mk_lang_bui_inl_filec_mask)))) + ((mk_lang_bui_inl_defd_t)(ablo >> mk_lang_bui_inl_filec_shift)))) >> mk_lang_bui_inl_filec_shift))));
+	*c = ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(*a)) * ((mk_lang_bui_inl_defd_t)(*b))));
+	*d = ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(abhi + ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(abmi >> mk_lang_bui_inl_filec_shift)) + ((mk_lang_bui_inl_defd_t)(bami >> mk_lang_bui_inl_filec_shift)))))) + ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(abmi & mk_lang_bui_inl_filec_mask)) + ((mk_lang_bui_inl_defd_t)(bami & mk_lang_bui_inl_filec_mask)))) + ((mk_lang_bui_inl_defd_t)(ablo >> mk_lang_bui_inl_filec_shift)))) >> mk_lang_bui_inl_filec_shift))));
 
 	#undef mk_lang_bui_inl_filec_shift
 	#undef mk_lang_bui_inl_filec_mask
-#endif
 }
 
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lang_bui_inl_defd_mul4_wrap_wi(mk_lang_bui_inl_defd_pct const a, mk_lang_bui_inl_defd_pct const b, mk_lang_bui_inl_defd_pt const c, mk_lang_bui_inl_defd_pt const d) mk_lang_noexcept
@@ -1060,96 +1291,109 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lang_bui_inl_defd_mul4_w
 	cc = ((mk_lang_types_ulllong_t)(aa * bb));
 	*c = ((mk_lang_bui_inl_defd_t)(cc));
 	*d = ((mk_lang_bui_inl_defd_t)(cc >> ((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_sizebits_d))));
-#elif mk_lang_intrinsic_has && mk_lang_msvc_ver >= mk_lang_msvc_ver_2012 && mk_lang_arch == mk_lang_arch_x8664 && mk_lang_bui_inl_defd_sizebits_d == 64
-	unsigned __int64 cc;
+#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2012 && mk_lang_arch == mk_lang_arch_x8664 && mk_lang_bui_inl_defd_sizebits_d == 64
+	#if !mk_lang_constexpr_is_constant_evaluated
+	if(1)
+	#else
+	if(!mk_lang_constexpr_is_constant_evaluated_test && 1)
+	#endif
+	{
+		unsigned __int64 cc mk_lang_constexpr_init;
 
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(c);
-	mk_lang_assert(d);
-	mk_lang_assert(c != d);
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(c);
+		mk_lang_assert(d);
+		mk_lang_assert(c != d);
 
-	*c = ((mk_lang_bui_inl_defd_t)(((unsigned __int64)(_umul128(((unsigned __int64)(*a)), ((unsigned __int64)(*b)), &cc)))));
-	*d = ((mk_lang_bui_inl_defd_t)(cc));
-#elif mk_lang_intrinsic_has && mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && (mk_lang_arch == mk_lang_arch_ia64 || mk_lang_arch == mk_lang_arch_x8664 || mk_lang_arch == mk_lang_arch_arm64) && mk_lang_bui_inl_defd_sizebits_d == 64
-	unsigned __int64 aa;
-	unsigned __int64 bb;
+		*c = ((mk_lang_bui_inl_defd_t)(((unsigned __int64)(_umul128(((unsigned __int64)(*a)), ((unsigned __int64)(*b)), &cc)))));
+		*d = ((mk_lang_bui_inl_defd_t)(cc));
+	}
+	else
+	{
+		mk_lang_bui_inl_defd_mul4_wrap_wi_portable(a, b, c, d);
+	}
+#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && (mk_lang_arch == mk_lang_arch_ia64 || mk_lang_arch == mk_lang_arch_x8664 || mk_lang_arch == mk_lang_arch_arm64) && mk_lang_bui_inl_defd_sizebits_d == 64
+	#if !mk_lang_constexpr_is_constant_evaluated
+	if(1)
+	#else
+	if(!mk_lang_constexpr_is_constant_evaluated_test && 1)
+	#endif
+	{
+		unsigned __int64 aa mk_lang_constexpr_init;
+		unsigned __int64 bb mk_lang_constexpr_init;
 
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(c);
-	mk_lang_assert(d);
-	mk_lang_assert(c != d);
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(c);
+		mk_lang_assert(d);
+		mk_lang_assert(c != d);
 
-	aa = ((unsigned __int64)(*a));
-	bb = ((unsigned __int64)(*b));
-	*c = ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(*a)) * ((mk_lang_bui_inl_defd_t)(*b))));
-	*d = ((mk_lang_bui_inl_defd_t)(((unsigned __int64)(__umulh(aa, bb)))));
-#elif mk_lang_intrinsic_has && mk_lang_msvc_ver >= mk_lang_msvc_ver_2008 && mk_lang_arch == mk_lang_arch_x8664 && mk_lang_bui_inl_defd_sizebits_d == 32
-	unsigned int aa;
-	unsigned int bb;
-	unsigned __int64 cc;
+		aa = ((unsigned __int64)(*a));
+		bb = ((unsigned __int64)(*b));
+		*c = ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(*a)) * ((mk_lang_bui_inl_defd_t)(*b))));
+		*d = ((mk_lang_bui_inl_defd_t)(((unsigned __int64)(__umulh(aa, bb)))));
+	}
+	else
+	{
+		mk_lang_bui_inl_defd_mul4_wrap_wi_portable(a, b, c, d);
+	}
+#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2008 && mk_lang_arch == mk_lang_arch_x8664 && mk_lang_bui_inl_defd_sizebits_d == 32
+	#if !mk_lang_constexpr_is_constant_evaluated
+	if(1)
+	#else
+	if(!mk_lang_constexpr_is_constant_evaluated_test && 1)
+	#endif
+	{
+		unsigned int aa mk_lang_constexpr_init;
+		unsigned int bb mk_lang_constexpr_init;
+		unsigned __int64 cc mk_lang_constexpr_init;
 
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(c);
-	mk_lang_assert(d);
-	mk_lang_assert(c != d);
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(c);
+		mk_lang_assert(d);
+		mk_lang_assert(c != d);
 
-	aa = ((unsigned int)(*a));
-	bb = ((unsigned int)(*b));
-	cc = ((unsigned __int64)(__emulu(aa, bb)));
-	*c = ((mk_lang_bui_inl_defd_t)(cc));
-	*d = ((mk_lang_bui_inl_defd_t)(((unsigned __int64)(__ull_rshift(cc, 32)))));
-#elif mk_lang_intrinsic_has && mk_lang_msvc_ver >= mk_lang_msvc_ver_2008 && mk_lang_arch == mk_lang_arch_x8632 && mk_lang_bui_inl_defd_sizebits_d == 32
-	unsigned int aa;
-	unsigned int bb;
-	unsigned __int64 cc;
+		aa = ((unsigned int)(*a));
+		bb = ((unsigned int)(*b));
+		cc = ((unsigned __int64)(__emulu(aa, bb)));
+		*c = ((mk_lang_bui_inl_defd_t)(cc));
+		*d = ((mk_lang_bui_inl_defd_t)(((unsigned __int64)(__ull_rshift(cc, 32)))));
+	}
+	else
+	{
+		mk_lang_bui_inl_defd_mul4_wrap_wi_portable(a, b, c, d);
+	}
+#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2008 && mk_lang_arch == mk_lang_arch_x8632 && mk_lang_bui_inl_defd_sizebits_d == 32
+	#if !mk_lang_constexpr_is_constant_evaluated
+	if(1)
+	#else
+	if(!mk_lang_constexpr_is_constant_evaluated_test && 1)
+	#endif
+	{
+		unsigned int aa mk_lang_constexpr_init;
+		unsigned int bb mk_lang_constexpr_init;
+		unsigned __int64 cc mk_lang_constexpr_init;
 
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(c);
-	mk_lang_assert(d);
-	mk_lang_assert(c != d);
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(c);
+		mk_lang_assert(d);
+		mk_lang_assert(c != d);
 
-	aa = ((unsigned int)(*a));
-	bb = ((unsigned int)(*b));
-	cc = ((unsigned __int64)(__emulu(aa, bb)));
-	*c = ((mk_lang_bui_inl_defd_t)(cc));
-	*d = ((mk_lang_bui_inl_defd_t)(cc >> 32));
+		aa = ((unsigned int)(*a));
+		bb = ((unsigned int)(*b));
+		cc = ((unsigned __int64)(__emulu(aa, bb)));
+		*c = ((mk_lang_bui_inl_defd_t)(cc));
+		*d = ((mk_lang_bui_inl_defd_t)(cc >> 32));
+	}
+	else
+	{
+		mk_lang_bui_inl_defd_mul4_wrap_wi_portable(a, b, c, d);
+	}
 #else
-	#define mk_lang_bui_inl_filec_shift ((mk_lang_types_sint_t)(((mk_lang_types_sint_t)(((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_sizeof_d)) * ((mk_lang_types_sint_t)(mk_lang_charbit)))) / ((mk_lang_types_sint_t)(2))))
-	#define mk_lang_bui_inl_filec_mask ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(1)) << mk_lang_bui_inl_filec_shift)) - ((mk_lang_bui_inl_defd_t)(1))))
-
-	mk_lang_bui_inl_defd_t alo mk_lang_constexpr_init;
-	mk_lang_bui_inl_defd_t ahi mk_lang_constexpr_init;
-	mk_lang_bui_inl_defd_t blo mk_lang_constexpr_init;
-	mk_lang_bui_inl_defd_t bhi mk_lang_constexpr_init;
-	mk_lang_bui_inl_defd_t ablo mk_lang_constexpr_init;
-	mk_lang_bui_inl_defd_t abmi mk_lang_constexpr_init;
-	mk_lang_bui_inl_defd_t bami mk_lang_constexpr_init;
-	mk_lang_bui_inl_defd_t abhi mk_lang_constexpr_init;
-
-	mk_lang_static_assert(((mk_lang_types_sint_t)(((((mk_lang_types_sint_t)(((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_sizeof_d)) * ((mk_lang_types_sint_t)(mk_lang_charbit))))) % ((mk_lang_types_sint_t)(2))))) == ((mk_lang_types_sint_t)(0)));
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(c);
-	mk_lang_assert(d);
-	mk_lang_assert(c != d);
-
-	alo = ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(*a)) & mk_lang_bui_inl_filec_mask));
-	ahi = ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(*a)) >> mk_lang_bui_inl_filec_shift));
-	blo = ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(*b)) & mk_lang_bui_inl_filec_mask));
-	bhi = ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(*b)) >> mk_lang_bui_inl_filec_shift));
-	ablo = ((mk_lang_bui_inl_defd_t)(alo * blo));
-	abmi = ((mk_lang_bui_inl_defd_t)(alo * bhi));
-	bami = ((mk_lang_bui_inl_defd_t)(ahi * blo));
-	abhi = ((mk_lang_bui_inl_defd_t)(ahi * bhi));
-	*c = ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(*a)) * ((mk_lang_bui_inl_defd_t)(*b))));
-	*d = ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(abhi + ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(abmi >> mk_lang_bui_inl_filec_shift)) + ((mk_lang_bui_inl_defd_t)(bami >> mk_lang_bui_inl_filec_shift)))))) + ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(abmi & mk_lang_bui_inl_filec_mask)) + ((mk_lang_bui_inl_defd_t)(bami & mk_lang_bui_inl_filec_mask)))) + ((mk_lang_bui_inl_defd_t)(ablo >> mk_lang_bui_inl_filec_shift)))) >> mk_lang_bui_inl_filec_shift))));
-
-	#undef mk_lang_bui_inl_filec_shift
-	#undef mk_lang_bui_inl_filec_mask
+	mk_lang_bui_inl_defd_mul4_wrap_wi_portable(a, b, c, d);
 #endif
 }
 

@@ -124,3 +124,6 @@ mm_per_bui(`#define mk_lang_bui_inl_defd_to_buis_$1_be mk_lang_concat(mk_lang_bu
 #define mk_lang_bui_inl_defd_div2_wrap mk_lang_concat(mk_lang_bui_inl_defd_name, _div2_wrap)
 #define mk_lang_bui_inl_defd_mod2_wrap mk_lang_concat(mk_lang_bui_inl_defd_name, _mod2_wrap)
 #define mk_lang_bui_inl_defd_divmod2_wrap mk_lang_concat(mk_lang_bui_inl_defd_name, _divmod2_wrap)
+
+#define mk_lang_bui_inl_defd_mul3_wrap_hi_portable mk_lang_concat(mk_lang_bui_inl_defd_name, _mul3_wrap_hi_portable)
+#define mk_lang_bui_inl_defd_mul4_wrap_wi_portable mk_lang_concat(mk_lang_bui_inl_defd_name, _mul4_wrap_wi_portable)
