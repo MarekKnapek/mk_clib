@@ -328,7 +328,6 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha1_c_test.hpp"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha1_test.hpp"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha1_x86.h"><Filter>src</Filter></ClInclude>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha1_x86_test.hpp"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_224.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_224_test.hpp"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_256.h"><Filter>src</Filter></ClInclude>
@@ -379,7 +378,6 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf1_sha1_c_test.hpp"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf1_sha1_test.hpp"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf1_sha1_x86.h"><Filter>src</Filter></ClInclude>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf1_sha1_x86_test.hpp"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_blake2b_256.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_blake2b_384.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_blake2b_512.h"><Filter>src</Filter></ClInclude>
@@ -439,7 +437,6 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha1_c_test.hpp"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha1_test.hpp"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha1_x86.h"><Filter>src</Filter></ClInclude>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha1_x86_test.hpp"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha2_224.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha2_224_test.hpp"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha2_256.h"><Filter>src</Filter></ClInclude>
@@ -743,7 +740,6 @@
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha1_c_test.cpp"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha1_test.cpp"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha1_x86.c"><Filter>src</Filter></ClCompile>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha1_x86_test.cpp"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_224.c"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_224_test.cpp"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_256.c"><Filter>src</Filter></ClCompile>
@@ -790,7 +786,6 @@
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf1_sha1_c_test.cpp"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf1_sha1_test.cpp"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf1_sha1_x86.c"><Filter>src</Filter></ClCompile>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf1_sha1_x86_test.cpp"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_blake2b_256.c"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_blake2b_384.c"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_blake2b_512.c"><Filter>src</Filter></ClCompile>
@@ -842,7 +837,6 @@
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha1_c_test.cpp"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha1_test.cpp"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha1_x86.c"><Filter>src</Filter></ClCompile>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha1_x86_test.cpp"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha2_224.c"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha2_224_test.cpp"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha2_256.c"><Filter>src</Filter></ClCompile>

@@ -365,7 +365,6 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha1_c_test.hpp"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha1_test.hpp"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha1_x86.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha1_x86_test.hpp"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_224.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_224_test.hpp"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_256.h"/>
@@ -416,7 +415,6 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf1_sha1_c_test.hpp"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf1_sha1_test.hpp"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf1_sha1_x86.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf1_sha1_x86_test.hpp"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_blake2b_256.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_blake2b_384.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_blake2b_512.h"/>
@@ -476,7 +474,6 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha1_c_test.hpp"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha1_test.hpp"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha1_x86.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha1_x86_test.hpp"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha2_224.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha2_224_test.hpp"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha2_256.h"/>
@@ -780,7 +777,6 @@
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha1_c_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha1_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha1_x86.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha1_x86_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_224.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_224_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_256.c"/>
@@ -827,7 +823,6 @@
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf1_sha1_c_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf1_sha1_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf1_sha1_x86.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf1_sha1_x86_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_blake2b_256.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_blake2b_384.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_blake2b_512.c"/>
@@ -879,7 +874,6 @@
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha1_c_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha1_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha1_x86.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha1_x86_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha2_224.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha2_224_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha2_256.c"/>
