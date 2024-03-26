@@ -87,14 +87,21 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_xof_block_sha
 	tuc = 0x80; mk_sl_cui_uint8_from_bi_uchar(&tu8, &tuc);
 	mk_sl_cui_uint8_or2(&block->m_uint8s[mk_lib_crypto_xof_block_shake_128_block_len - 1], &tu8);
 	mk_lib_crypto_xof_block_shake_128_mix_block(shake_128, block);
+	shake_128->m_idx = 0;
 }
 
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_xof_block_shake_128_squeeze(mk_lib_crypto_xof_block_shake_128_pt const shake_128, mk_lang_types_usize_t const len, mk_sl_cui_uint8_pt const digest) mk_lang_noexcept
 {
 	#define bytes_per_word ((mk_lang_types_sint_t)(sizeof(mk_sl_cui_uint64_t) / sizeof(mk_sl_cui_uint8_t)))
+	#define words_per_block ((mk_lang_types_sint_t)(mk_lib_crypto_xof_block_shake_128_block_len / bytes_per_word))
 
 	mk_lang_types_usize_t rem mk_lang_constexpr_init;
 	mk_sl_cui_uint8_pt out mk_lang_constexpr_init;
+	mk_lang_types_sint_t nfbytes mk_lang_constexpr_init;
+	mk_lang_types_sint_t ifword mk_lang_constexpr_init;
+	mk_sl_cui_uint8_t first_word[bytes_per_word] mk_lang_constexpr_init;
+	mk_lang_types_sint_t ifbyte mk_lang_constexpr_init;
+	mk_lang_types_sint_t nfwords mk_lang_constexpr_init;
 	mk_lang_types_usize_t nblocks mk_lang_constexpr_init;
 	mk_lang_types_usize_t iblock mk_lang_constexpr_init;
 	mk_lang_types_sint_t nwords mk_lang_constexpr_init;
@@ -105,18 +112,51 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_xof_block_sha
 
 	mk_lang_static_assert(sizeof(mk_sl_cui_uint8_t) == 1);
 	mk_lang_static_assert(sizeof(mk_sl_cui_uint64_t) == 8);
+	mk_lang_static_assert((mk_lang_types_sint_t)(sizeof(mk_sl_cui_uint64_t) % sizeof(mk_sl_cui_uint8_t)) == 0);
 	mk_lang_static_assert(mk_lib_crypto_xof_block_shake_128_block_len % bytes_per_word == 0);
 
 	mk_lang_assert(shake_128);
 	mk_lang_assert(len >= 0);
 	mk_lang_assert(digest);
+	mk_lang_assert(shake_128->m_idx >= 0 && shake_128->m_idx < mk_lib_crypto_xof_block_shake_128_block_len);
 
 	rem = len;
 	out = digest;
+	if(shake_128->m_idx != 0)
+	{
+		nfbytes = bytes_per_word - (shake_128->m_idx - ((shake_128->m_idx / bytes_per_word) * bytes_per_word));
+		nfbytes = ((mk_lang_types_sint_t)(mk_lang_min(((mk_lang_types_usize_t)(nfbytes)), rem)));
+		nfbytes = nfbytes % bytes_per_word;
+		if(nfbytes != 0)
+		{
+			ifword = shake_128->m_idx / bytes_per_word;
+			mk_sl_uint_64_to_8_le(&shake_128->m_sha3.m_uint64s[ifword], &first_word[0]);
+			for(ifbyte = 0; ifbyte != nfbytes; ++ifbyte)
+			{
+				out[ifbyte] = first_word[shake_128->m_idx % bytes_per_word + ifbyte];
+			}
+			rem = rem - nfbytes;
+			out = out + nfbytes;
+			shake_128->m_idx = (shake_128->m_idx + nfbytes) % mk_lib_crypto_xof_block_shake_128_block_len;
+		}
+		nfwords = (mk_lib_crypto_xof_block_shake_128_block_len - shake_128->m_idx) / bytes_per_word;
+		nfwords = ((mk_lang_types_sint_t)(mk_lang_min(((mk_lang_types_usize_t)(nfwords)), rem / bytes_per_word)));
+		nfwords = nfwords % words_per_block;
+		if(nfwords != 0 && shake_128->m_idx == 0)
+		{
+			mk_lib_crypto_hash_block_sha3_base_f(&shake_128->m_sha3);
+		}
+		for(ifword = 0; ifword != nfwords; ++ifword, out += bytes_per_word)
+		{
+			mk_sl_uint_64_to_8_le(&shake_128->m_sha3.m_uint64s[shake_128->m_idx / bytes_per_word + ifword], out);
+		}
+		rem = rem - nfwords * bytes_per_word;
+		shake_128->m_idx = (shake_128->m_idx + nfwords * bytes_per_word) % mk_lib_crypto_xof_block_shake_128_block_len;
+	}
 	nblocks = rem / mk_lib_crypto_xof_block_shake_128_block_len;
-	rem = rem - nblocks * mk_lib_crypto_xof_block_shake_128_block_len;
 	for(iblock = 0; iblock != nblocks; ++iblock)
 	{
+		mk_lang_assert(shake_128->m_idx == 0);
 		mk_lib_crypto_hash_block_sha3_base_f(&shake_128->m_sha3);
 		nwords = mk_lib_crypto_xof_block_shake_128_block_len / bytes_per_word;
 		for(iword = 0; iword != nwords; ++iword, out += bytes_per_word)
@@ -124,27 +164,36 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_xof_block_sha
 			mk_sl_uint_64_to_8_le(&shake_128->m_sha3.m_uint64s[iword], out);
 		}
 	}
+	rem = rem - nblocks * mk_lib_crypto_xof_block_shake_128_block_len;
 	mk_lang_assert(rem >= 0 && rem < mk_lib_crypto_xof_block_shake_128_block_len);
+	mk_lang_assert(rem < mk_lib_crypto_xof_block_shake_128_block_len - shake_128->m_idx);
 	if(rem != 0)
 	{
-		mk_lib_crypto_hash_block_sha3_base_f(&shake_128->m_sha3);
+		if(shake_128->m_idx == 0)
+		{
+			mk_lib_crypto_hash_block_sha3_base_f(&shake_128->m_sha3);
+		}
 		nwords = ((mk_lang_types_sint_t)(rem)) / bytes_per_word;
-		rem = rem - nwords * bytes_per_word;
 		for(iword = 0; iword != nwords; ++iword, out += bytes_per_word)
 		{
-			mk_sl_uint_64_to_8_le(&shake_128->m_sha3.m_uint64s[iword], out);
+			mk_sl_uint_64_to_8_le(&shake_128->m_sha3.m_uint64s[shake_128->m_idx / bytes_per_word + iword], out);
 		}
+		shake_128->m_idx = (shake_128->m_idx + nwords * bytes_per_word) % mk_lib_crypto_xof_block_shake_128_block_len;
+		rem = rem - nwords * bytes_per_word;
 		mk_lang_assert(rem >= 0 && rem < bytes_per_word);
+		mk_lang_assert(rem < mk_lib_crypto_xof_block_shake_128_block_len - shake_128->m_idx);
 		if(rem != 0)
 		{
-			mk_sl_uint_64_to_8_le(&shake_128->m_sha3.m_uint64s[iword], &last_word[0]);
+			mk_sl_uint_64_to_8_le(&shake_128->m_sha3.m_uint64s[shake_128->m_idx / bytes_per_word], &last_word[0]);
 			nbytes = ((mk_lang_types_sint_t)(rem));
 			for(ibyte = 0; ibyte != nbytes; ++ibyte)
 			{
-				out[ibyte] = last_word[ibyte];
+				out[ibyte] = last_word[shake_128->m_idx % bytes_per_word + ibyte];
 			}
+			shake_128->m_idx = (shake_128->m_idx + rem) % mk_lib_crypto_xof_block_shake_128_block_len;
 		}
 	}
 
 	#undef bytes_per_word
+	#undef words_per_block
 }

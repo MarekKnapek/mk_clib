@@ -10,6 +10,8 @@
 #include "mk_lib_crypto_serpent_fuzz.h"
 #include "mk_lib_crypto_tdes2_fuzz.h"
 #include "mk_lib_crypto_tdes3_fuzz.h"
+#include "mk_lib_crypto_xof_stream_shake_128_fuzz.h"
+#include "mk_lib_crypto_xof_stream_shake_256_fuzz.h"
 #include "mk_sl_sort_merge_fuzz.h"
 
 #if defined mk_clib_test_smol_want && mk_clib_test_smol_want == 1
@@ -27,6 +29,8 @@ mk_lang_jumbo void mk_clib_fuzz(unsigned char const* const data, mk_lang_types_u
 	mk_lib_crypto_serpent_fuzz(data, size);
 	mk_lib_crypto_tdes2_fuzz(data, size);
 	mk_lib_crypto_tdes3_fuzz(data, size);
+	mk_lib_crypto_xof_stream_shake_128_fuzz(data, size);
+	mk_lib_crypto_xof_stream_shake_256_fuzz(data, size);
 	mk_sl_sort_merge_fuzz(data, size);
 
 	#if defined mk_clib_test_smol_want && mk_clib_test_smol_want == 1

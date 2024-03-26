@@ -33,6 +33,7 @@ typedef union mk_lib_crypto_xof_block_shake_128_aligned168_u mk_lib_crypto_xof_b
 struct mk_lib_crypto_xof_block_shake_128_s
 {
 	mk_lib_crypto_hash_block_sha3_base_state_t m_sha3;
+	mk_lang_types_sint_t m_idx;
 };
 typedef struct mk_lib_crypto_xof_block_shake_128_s mk_lib_crypto_xof_block_shake_128_t;
 typedef mk_lib_crypto_xof_block_shake_128_t const mk_lib_crypto_xof_block_shake_128_ct;
