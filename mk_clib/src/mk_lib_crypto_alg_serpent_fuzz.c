@@ -1,4 +1,4 @@
-#include "mk_lib_crypto_serpent_fuzz.h"
+#include "mk_lib_crypto_alg_serpent_fuzz.h"
 
 #include "mk_lang_alignas.h"
 #include "mk_lang_cpuid.h"
@@ -18,7 +18,7 @@
 #define advance(x) { d += (x); s -= (x); } ((void)(0))
 
 
-mk_lang_jumbo void mk_lib_crypto_serpent_fuzz(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
+mk_lang_jumbo void mk_lib_crypto_alg_serpent_fuzz(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
 {
 	mk_lang_types_uchar_pct d;
 	mk_lang_types_usize_t s;

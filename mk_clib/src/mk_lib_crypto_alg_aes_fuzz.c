@@ -1,4 +1,4 @@
-#include "mk_lib_crypto_aes_fuzz.h"
+#include "mk_lib_crypto_alg_aes_fuzz.h"
 
 #include "mk_lang_assert.h"
 #include "mk_lang_cpuid.h"
@@ -26,7 +26,7 @@
 static mk_lib_crypto_app_t g_app;
 
 
-mk_lang_jumbo void mk_lib_crypto_aes_fuzz_my(mk_lang_types_bool_t const cpuida, mk_lang_types_bool_t const cpuidb, mk_lib_crypto_app_alg_id_t const alg_id, mk_lib_crypto_app_padding_id_t const padding_id, mk_lib_crypto_app_mode_id_t const mode_id, mk_lang_types_uchar_pct const key, mk_lang_types_uchar_pct const iv, mk_lang_types_uchar_pct const msg, mk_lang_types_sint_t const msg_len, mk_lang_types_uchar_pt const out, mk_lang_types_uint_pt const padding_len) mk_lang_noexcept
+mk_lang_jumbo void mk_lib_crypto_alg_aes_fuzz_my(mk_lang_types_bool_t const cpuida, mk_lang_types_bool_t const cpuidb, mk_lib_crypto_app_alg_id_t const alg_id, mk_lib_crypto_app_padding_id_t const padding_id, mk_lib_crypto_app_mode_id_t const mode_id, mk_lang_types_uchar_pct const key, mk_lang_types_uchar_pct const iv, mk_lang_types_uchar_pct const msg, mk_lang_types_sint_t const msg_len, mk_lang_types_uchar_pt const out, mk_lang_types_uint_pt const padding_len) mk_lang_noexcept
 {
 	int i;
 	mk_lang_types_ssize_t ra;
@@ -50,7 +50,7 @@ mk_lang_jumbo void mk_lib_crypto_aes_fuzz_my(mk_lang_types_bool_t const cpuida, 
 
 #if defined _MSC_VER
 
-mk_lang_jumbo void mk_lib_crypto_aes_fuzz_win(mk_lang_types_bool_t const cpuida, mk_lang_types_bool_t const cpuidb, mk_lib_crypto_app_alg_id_t const alg_id, mk_lib_crypto_app_padding_id_t const padding_id, mk_lib_crypto_app_mode_id_t const mode_id, mk_lang_types_uchar_pct const key, mk_lang_types_uchar_pct const iv, mk_lang_types_uchar_pct const msg, mk_lang_types_uint_t const msg_len, mk_lang_types_uchar_pt const out, mk_lang_types_uint_pct const padding_len) mk_lang_noexcept
+mk_lang_jumbo void mk_lib_crypto_alg_aes_fuzz_win(mk_lang_types_bool_t const cpuida, mk_lang_types_bool_t const cpuidb, mk_lib_crypto_app_alg_id_t const alg_id, mk_lib_crypto_app_padding_id_t const padding_id, mk_lib_crypto_app_mode_id_t const mode_id, mk_lang_types_uchar_pct const key, mk_lang_types_uchar_pct const iv, mk_lang_types_uchar_pct const msg, mk_lang_types_uint_t const msg_len, mk_lang_types_uchar_pt const out, mk_lang_types_uint_pct const padding_len) mk_lang_noexcept
 {
 	struct aes_128_key_blob_s
 	{
@@ -166,7 +166,7 @@ mk_lang_jumbo void mk_lib_crypto_aes_fuzz_win(mk_lang_types_bool_t const cpuida,
 
 #if defined _MSC_VER
 
-mk_lang_jumbo void mk_lib_crypto_aes_fuzz_winng(mk_lang_types_bool_t const cpuida, mk_lang_types_bool_t const cpuidb, mk_lib_crypto_app_alg_id_t const alg_id, mk_lib_crypto_app_padding_id_t const padding_id, mk_lib_crypto_app_mode_id_t const mode_id, mk_lang_types_uchar_pct const key, mk_lang_types_uchar_pct const iv, mk_lang_types_uchar_pct const msg, mk_lang_types_uint_t const msg_len, mk_lang_types_uchar_pt const out, mk_lang_types_uint_pct const padding_len) mk_lang_noexcept
+mk_lang_jumbo void mk_lib_crypto_alg_aes_fuzz_winng(mk_lang_types_bool_t const cpuida, mk_lang_types_bool_t const cpuidb, mk_lib_crypto_app_alg_id_t const alg_id, mk_lib_crypto_app_padding_id_t const padding_id, mk_lib_crypto_app_mode_id_t const mode_id, mk_lang_types_uchar_pct const key, mk_lang_types_uchar_pct const iv, mk_lang_types_uchar_pct const msg, mk_lang_types_uint_t const msg_len, mk_lang_types_uchar_pt const out, mk_lang_types_uint_pct const padding_len) mk_lang_noexcept
 {
 	union aligned_key_u
 	{
@@ -249,7 +249,7 @@ mk_lang_jumbo void mk_lib_crypto_aes_fuzz_winng(mk_lang_types_bool_t const cpuid
 #endif
 
 
-mk_lang_jumbo void mk_lib_crypto_aes_fuzz(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
+mk_lang_jumbo void mk_lib_crypto_alg_aes_fuzz(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
 {
 	mk_lang_types_uchar_pct d;
 	mk_lang_types_usize_t s;
@@ -283,10 +283,10 @@ mk_lang_jumbo void mk_lib_crypto_aes_fuzz(mk_lang_types_uchar_pct const data, mk
 	alg_e = ((mk_lib_crypto_app_alg_id_t)(alg_id));
 	padding_e = ((mk_lib_crypto_app_padding_id_t)(padding_id));
 	mode_e = ((mk_lib_crypto_app_mode_id_t)(mode_id));
-	mk_lib_crypto_aes_fuzz_my   (cpuida != 0, cpuidb != 0, alg_e, padding_e, mode_e, key, iv, msg, msg_len, out, &padding_len);
+	mk_lib_crypto_alg_aes_fuzz_my   (cpuida != 0, cpuidb != 0, alg_e, padding_e, mode_e, key, iv, msg, msg_len, out, &padding_len);
 	#if defined _MSC_VER
-	mk_lib_crypto_aes_fuzz_win  (cpuida != 0, cpuidb != 0, alg_e, padding_e, mode_e, key, iv, msg, msg_len, out, &padding_len);
-	mk_lib_crypto_aes_fuzz_winng(cpuida != 0, cpuidb != 0, alg_e, padding_e, mode_e, key, iv, msg, msg_len, out, &padding_len);
+	mk_lib_crypto_alg_aes_fuzz_win  (cpuida != 0, cpuidb != 0, alg_e, padding_e, mode_e, key, iv, msg, msg_len, out, &padding_len);
+	mk_lib_crypto_alg_aes_fuzz_winng(cpuida != 0, cpuidb != 0, alg_e, padding_e, mode_e, key, iv, msg, msg_len, out, &padding_len);
 	#endif
 }
 
