@@ -5,6 +5,8 @@ echo $?
 rm ./a.out
 popd > /dev/null
 
+set -xe
+
 pushd ../../src > /dev/null
 gcc -DNDEBUG ./mk_sl_cui_example.c
 ./a.out
@@ -26,6 +28,7 @@ popd > /dev/null
 pushd ../../src > /dev/null
 function example_hash()
 {
+	set -xe
 	echo $1
 	echo "changequote(\`^', \`~')include(mk_lib_crypto_hash_stream_example.c.m)mm_hash_program(^~, ^$1~, ^~)" > ./example.m4
 	m4 ./example.m4 > ./example.c
