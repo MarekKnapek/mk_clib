@@ -22,12 +22,11 @@
 #define xof_bits 3000
 
 
-union mk_lib_crypto_xof_stream_shake_128_test_digest_u
+struct mk_lib_crypto_xof_stream_shake_128_test_digest_s
 {
-	mk_lib_crypto_xof_block_shake_128_digest_t m_data[mk_lang_div_roundup(xof_bits / 8, sizeof(mk_lib_crypto_xof_block_shake_128_digest_t))];
-	mk_sl_cui_uint8_t m_uint8s[sizeof(mk_lib_crypto_xof_block_shake_128_digest_t)];
+	mk_sl_cui_uint8_t m_uint8s[mk_lang_div_roundup(xof_bits, 8)];
 };
-typedef union mk_lib_crypto_xof_stream_shake_128_test_digest_u mk_lib_crypto_xof_stream_shake_128_test_digest_t;
+typedef struct mk_lib_crypto_xof_stream_shake_128_test_digest_s mk_lib_crypto_xof_stream_shake_128_test_digest_t;
 
 
 #if mk_lang_version_at_least_cpp_14 || mk_lang_version_at_least_msvc_cpp_14
@@ -39,8 +38,6 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto mk_lib_crypto_xof_stream_
 	mk_lib_crypto_xof_stream_shake_128_t shake_128 mk_lang_constexpr_init;
 	mk_lib_crypto_xof_stream_shake_128_test_digest_t digest mk_lang_constexpr_init;
 	mk_lang_types_usize_t i mk_lang_constexpr_init;
-	mk_lang_types_usize_t b mk_lang_constexpr_init;
-	mk_lang_types_usize_t s mk_lang_constexpr_init;
 	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, xof_bits / 8> ret mk_lang_constexpr_init;
 
 	mk_lang_static_assert(str_lit_len >= 1);
@@ -48,12 +45,11 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto mk_lib_crypto_xof_stream_
 	msg = mk_lib_cpp_constexpr_str_lit_to_u8s(str_lit);
 	mk_lib_crypto_xof_stream_shake_128_init(&shake_128);
 	mk_lib_crypto_xof_stream_shake_128_append_u8(&shake_128, msg.data(), msg.size());
-	mk_lib_crypto_xof_stream_shake_128_finish(&shake_128, xof_bits / 8, digest.m_data);
+	mk_lib_crypto_xof_stream_shake_128_finish(&shake_128);
+	mk_lib_crypto_xof_stream_shake_128_squeeze(&shake_128, xof_bits / 8, &digest.m_uint8s[0]);
 	for(i = 0; i != xof_bits / 8; ++i)
 	{
-		b = i / sizeof(mk_lib_crypto_xof_block_shake_128_digest_t);
-		s = i % sizeof(mk_lib_crypto_xof_block_shake_128_digest_t);
-		ret[i] = digest.m_data[b].m_uint8s[s];
+		ret[i] = digest.m_uint8s[i];
 	}
 	return ret;
 }
@@ -61,7 +57,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto mk_lib_crypto_xof_stream_
 #endif
 
 
-mk_lang_extern_c void mk_lib_crypto_xof_stream_shake_128_test(void) mk_lang_noexcept
+mk_lang_extern_c mk_lang_types_void_t mk_lib_crypto_xof_stream_shake_128_test(mk_lang_types_void_t) mk_lang_noexcept
 {
 	#define message_1 ""
 	#define message_2 "a"
@@ -112,9 +108,9 @@ mk_lang_extern_c void mk_lib_crypto_xof_stream_shake_128_test(void) mk_lang_noex
 
 	#endif
 
-	#define test(x) if(!(x)) { mk_lang_unlikely mk_lang_crash(); } ((void)(0))
+	#define test(x) if(!(x)) { mk_lang_unlikely mk_lang_crash(); } ((mk_lang_types_void_t)(0))
 
-	static char const* const s_messages[] =
+	static mk_lang_types_pchar_pct const s_messages[] =
 	{
 		message_1,
 		message_2,
@@ -126,19 +122,19 @@ mk_lang_extern_c void mk_lib_crypto_xof_stream_shake_128_test(void) mk_lang_noex
 		message_8,
 	};
 
-	static int const s_message_lens[] =
+	static mk_lang_types_sint_t const s_message_lens[] =
 	{
-		((int)(sizeof(message_1) / sizeof(message_1[0]) - 1)),
-		((int)(sizeof(message_2) / sizeof(message_2[0]) - 1)),
-		((int)(sizeof(message_3) / sizeof(message_3[0]) - 1)),
-		((int)(sizeof(message_4) / sizeof(message_4[0]) - 1)),
-		((int)(sizeof(message_5) / sizeof(message_5[0]) - 1)),
-		((int)(sizeof(message_6) / sizeof(message_6[0]) - 1)),
-		((int)(sizeof(message_7) / sizeof(message_7[0]) - 1)),
-		((int)(sizeof(message_8) / sizeof(message_8[0]) - 1)),
+		((mk_lang_types_sint_t)(sizeof(message_1) / sizeof(message_1[0]) - 1)),
+		((mk_lang_types_sint_t)(sizeof(message_2) / sizeof(message_2[0]) - 1)),
+		((mk_lang_types_sint_t)(sizeof(message_3) / sizeof(message_3[0]) - 1)),
+		((mk_lang_types_sint_t)(sizeof(message_4) / sizeof(message_4[0]) - 1)),
+		((mk_lang_types_sint_t)(sizeof(message_5) / sizeof(message_5[0]) - 1)),
+		((mk_lang_types_sint_t)(sizeof(message_6) / sizeof(message_6[0]) - 1)),
+		((mk_lang_types_sint_t)(sizeof(message_7) / sizeof(message_7[0]) - 1)),
+		((mk_lang_types_sint_t)(sizeof(message_8) / sizeof(message_8[0]) - 1)),
 	};
 
-	static char const* const s_digests[] =
+	static mk_lang_types_pchar_pct const s_digests[] =
 	{
 		digest_1,
 		digest_2,
@@ -150,36 +146,33 @@ mk_lang_extern_c void mk_lib_crypto_xof_stream_shake_128_test(void) mk_lang_noex
 		digest_8,
 	};
 
-	int n;
-	int i;
+	mk_lang_types_sint_t n;
+	mk_lang_types_sint_t i;
 	mk_lib_crypto_xof_stream_shake_128_t shake_128;
-	mk_lib_crypto_xof_stream_shake_128_test_digest_t digest;
-	int j;
+	mk_sl_cui_uint8_t digest[mk_lang_div_roundup(xof_bits, 8)];
+	mk_lang_types_sint_t j;
 	mk_lang_types_uchar_t hi;
 	mk_lang_types_uchar_t lo;
 	mk_lang_types_uchar_t byte;
-	int b;
-	int s;
 	mk_lang_types_uchar_t ta;
 
 	mk_lang_static_assert(sizeof(s_messages) / sizeof(s_messages[0]) == sizeof(s_digests) / sizeof(s_digests[0]));
 	mk_lang_static_assert(sizeof(s_messages) / sizeof(s_messages[0]) == sizeof(s_message_lens) / sizeof(s_message_lens[0]));
 
-	n = ((int)(sizeof(s_messages) / sizeof(s_messages[0])));
+	n = ((mk_lang_types_sint_t)(sizeof(s_messages) / sizeof(s_messages[0])));
 	for(i = 0; i != n; ++i)
 	{
 		mk_lang_assert(s_message_lens[i] >= 0);
 		mk_lib_crypto_xof_stream_shake_128_init(&shake_128);
 		mk_lib_crypto_xof_stream_shake_128_append(&shake_128, ((mk_lang_types_uchar_pct)(s_messages[i])), s_message_lens[i]);
-		mk_lib_crypto_xof_stream_shake_128_finish(&shake_128, xof_bits / 8, digest.m_data);
+		mk_lib_crypto_xof_stream_shake_128_finish(&shake_128);
+		mk_lib_crypto_xof_stream_shake_128_squeeze(&shake_128, xof_bits / 8, &digest[0]);
 		for(j = 0; j != xof_bits / 8; ++j)
 		{
 			hi = mk_lib_cpp_constexpr_char_to_nibble(s_digests[i][j * 2 + 0]); mk_lang_assert(hi >= 0x0 && hi <= 0xf);
 			lo = mk_lib_cpp_constexpr_char_to_nibble(s_digests[i][j * 2 + 1]); mk_lang_assert(lo >= 0x0 && lo <= 0xf);
 			byte = ((mk_lang_types_uchar_t)(((mk_lang_types_uchar_t)(hi << 4)) | ((mk_lang_types_uchar_t)(lo << 0))));
-			b = j / sizeof(mk_lib_crypto_xof_block_shake_128_digest_t);
-			s = j % sizeof(mk_lib_crypto_xof_block_shake_128_digest_t);
-			mk_sl_cui_uint8_to_bi_uchar(&digest.m_data[b].m_uint8s[s], &ta);
+			mk_sl_cui_uint8_to_bi_uchar(&digest[j], &ta);
 			test(ta == byte);
 		}
 	}

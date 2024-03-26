@@ -8,6 +8,7 @@
 #undef mk_lib_crypto_xof_stream_inl_defd_append_u8
 #undef mk_lib_crypto_xof_stream_inl_defd_append
 #undef mk_lib_crypto_xof_stream_inl_defd_finish
+#undef mk_lib_crypto_xof_stream_inl_defd_squeeze
 
 #undef mk_lib_crypto_xof_stream_inl_defd_base_block_len
 #undef mk_lib_crypto_xof_stream_inl_defd_base_t
@@ -19,3 +20,4 @@
 #undef mk_lib_crypto_xof_stream_inl_defd_base_append_blocks
 #undef mk_lib_crypto_xof_stream_inl_defd_base_pad_block
 #undef mk_lib_crypto_xof_stream_inl_defd_base_finish
+#undef mk_lib_crypto_xof_stream_inl_defd_base_squeeze

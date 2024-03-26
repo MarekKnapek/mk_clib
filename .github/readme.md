@@ -741,7 +741,8 @@ int main(void)
 	mk_lib_crypto_xof_stream_shake_128_append(&xofer, ((unsigned char const*)("abcdef")), 6);
 	mk_lib_crypto_xof_stream_shake_128_append(&xofer, ((unsigned char const*)("ghijklmnopqrstuvw")), 17);
 	mk_lib_crypto_xof_stream_shake_128_append(&xofer, ((unsigned char const*)("xyz")), 3);
-	mk_lib_crypto_xof_stream_shake_128_finish(&xofer, 3000 / 8, ((mk_lib_crypto_xof_block_shake_128_digest_pt)(digest)));
+	mk_lib_crypto_xof_stream_shake_128_finish(&xofer);
+	mk_lib_crypto_xof_stream_shake_128_squeeze(&xofer, 3000 / 8, ((unsigned char const*)(digest)));
 	for(i = 0; i != 3000 / 8; ++i)
 	{
 		t = sprintf(str + 2 * i, "%02x", ((unsigned char const*)(&digest))[i]);
@@ -780,7 +781,8 @@ int main(void)
 	mk_lib_crypto_xof_stream_shake_256_append(&xofer, ((unsigned char const*)("abcdef")), 6);
 	mk_lib_crypto_xof_stream_shake_256_append(&xofer, ((unsigned char const*)("ghijklmnopqrstuvw")), 17);
 	mk_lib_crypto_xof_stream_shake_256_append(&xofer, ((unsigned char const*)("xyz")), 3);
-	mk_lib_crypto_xof_stream_shake_256_finish(&xofer, 3000 / 8, ((mk_lib_crypto_xof_block_shake_256_digest_pt)(digest)));
+	mk_lib_crypto_xof_stream_shake_256_finish(&xofer);
+	mk_lib_crypto_xof_stream_shake_256_squeeze(&xofer, 3000 / 8, ((unsigned char const*)(digest)));
 	for(i = 0; i != 3000 / 8; ++i)
 	{
 		t = sprintf(str + 2 * i, "%02x", ((unsigned char const*)(&digest))[i]);

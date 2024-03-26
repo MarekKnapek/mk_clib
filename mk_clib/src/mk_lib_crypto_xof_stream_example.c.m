@@ -16,7 +16,8 @@ int main(void)
 	mk_lib_crypto_xof_stream_$2_append(&xofer, ((unsigned char const*)("abcdef")), 6);
 	mk_lib_crypto_xof_stream_$2_append(&xofer, ((unsigned char const*)("ghijklmnopqrstuvw")), 17);
 	mk_lib_crypto_xof_stream_$2_append(&xofer, ((unsigned char const*)("xyz")), 3);
-	mk_lib_crypto_xof_stream_$2_finish(&xofer, 3000 / 8, ((mk_lib_crypto_xof_block_$2_digest_pt)(digest)));
+	mk_lib_crypto_xof_stream_$2_finish(&xofer);
+	mk_lib_crypto_xof_stream_$2_squeeze(&xofer, 3000 / 8, ((unsigned char const*)(digest)));
 	for(i = 0; i != 3000 / 8; ++i)
 	{
 		t = sprintf(str + 2 * i, "%02x", ((unsigned char const*)(&digest))[i]);

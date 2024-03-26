@@ -12,7 +12,7 @@
 #include "mk_lib_crypto_xof_stream_inl_defd.h"
 
 
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_xof_stream_inl_defd_init(mk_lib_crypto_xof_stream_inl_defd_pt const xof) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_xof_stream_inl_defd_init(mk_lib_crypto_xof_stream_inl_defd_pt const xof) mk_lang_noexcept
 {
 	mk_lang_assert(xof);
 
@@ -20,7 +20,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_xof_stream_inl_defd_init(mk_l
 	xof->m_idx = 0;
 }
 
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_xof_stream_inl_defd_append_u8(mk_lib_crypto_xof_stream_inl_defd_pt const xof, mk_sl_cui_uint8_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_xof_stream_inl_defd_append_u8(mk_lib_crypto_xof_stream_inl_defd_pt const xof, mk_sl_cui_uint8_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_pct ptr mk_lang_constexpr_init;
 	mk_lang_types_usize_t rem mk_lang_constexpr_init;
@@ -68,7 +68,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_xof_stream_inl_defd_append_u8
 	xof->m_idx += ((int)(rem));
 }
 
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_xof_stream_inl_defd_append(mk_lib_crypto_xof_stream_inl_defd_pt const xof, mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_xof_stream_inl_defd_append(mk_lib_crypto_xof_stream_inl_defd_pt const xof, mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
 {
 	mk_lang_types_usize_t n mk_lang_constexpr_init;
 	mk_lang_types_usize_t j mk_lang_constexpr_init;
@@ -101,12 +101,19 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_xof_stream_inl_defd_append(mk
 	}
 }
 
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_xof_stream_inl_defd_finish(mk_lib_crypto_xof_stream_inl_defd_pt const xof, mk_lang_types_usize_t const digest_len, mk_lib_crypto_xof_stream_inl_defd_base_digest_pt const digest) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_xof_stream_inl_defd_finish(mk_lib_crypto_xof_stream_inl_defd_pt const xof) mk_lang_noexcept
+{
+	mk_lang_assert(xof);
+
+	mk_lib_crypto_xof_stream_inl_defd_base_finish(&xof->m_base, &xof->m_block, xof->m_idx);
+}
+
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_xof_stream_inl_defd_squeeze(mk_lib_crypto_xof_stream_inl_defd_pt const xof, mk_lang_types_usize_t const len, mk_sl_cui_uint8_pt const digest) mk_lang_noexcept
 {
 	mk_lang_assert(xof);
 	mk_lang_assert(digest);
 
-	mk_lib_crypto_xof_stream_inl_defd_base_finish(&xof->m_base, &xof->m_block, xof->m_idx, digest_len, digest);
+	mk_lib_crypto_xof_stream_inl_defd_base_squeeze(&xof->m_base, len, digest);
 }
 
 
