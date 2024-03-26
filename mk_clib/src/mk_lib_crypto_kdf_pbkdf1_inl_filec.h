@@ -42,11 +42,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_kdf_pbkdf1_inl_defd_fn(mk_lan
 	mk_sl_cui_uint8_t slt[8] mk_lang_constexpr_init;
 	mk_sl_cui_uint8_t k[mk_lib_crypto_kdf_pbkdf1_inl_defd_digest_len] mk_lang_constexpr_init;
 
-	#if !mk_lang_constexpr_is_constant_evaluated
-	if(1)
-	#else
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
-	#endif
 	{
 		mk_lib_crypto_kdf_pbkdf1_inl_defd_fn_u8(((mk_sl_cui_uint8_pct)(password)), password_len, ((mk_sl_cui_uint8_pct)(salt)), cost, key_len, ((mk_sl_cui_uint8_pt)(key)));
 	}

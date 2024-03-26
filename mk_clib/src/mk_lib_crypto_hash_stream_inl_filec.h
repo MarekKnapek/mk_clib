@@ -47,11 +47,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_stream_inl_defd_append_u
 			hash->m_idx = 0;
 		}
 		blocks = rem / mk_lib_crypto_hash_stream_inl_defd_base_block_len;
-		#if !mk_lang_constexpr_is_constant_evaluated
-		if((((mk_lang_types_uintptr_t)(ptr)) % mk_lang_alignof(mk_lib_crypto_hash_stream_inl_defd_base_block_t)) == 0)
-		#else
 		if(!mk_lang_constexpr_is_constant_evaluated_test && ((((mk_lang_types_uintptr_t)(ptr)) % mk_lang_alignof(mk_lib_crypto_hash_stream_inl_defd_base_block_t)) == 0))
-		#endif
 		{
 			mk_lib_crypto_hash_stream_inl_defd_base_append_blocks(&hash->m_base, ((mk_lib_crypto_hash_stream_inl_defd_base_block_pct)(ptr)), blocks);
 		}
@@ -84,11 +80,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_stream_inl_defd_append(m
 	mk_lang_assert(data || size == 0);
 	mk_lang_assert(size >= 0);
 
-	#if !mk_lang_constexpr_is_constant_evaluated
-	if(1)
-	#else
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
-	#endif
 	{
 		mk_lib_crypto_hash_stream_inl_defd_append_u8(hash, ((mk_sl_cui_uint8_pct)(data)), size);
 	}

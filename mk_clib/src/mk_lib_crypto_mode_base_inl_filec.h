@@ -32,11 +32,7 @@
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_mode_base_inl_defd_xor3(mk_sl_cui_uint8_pct const a, mk_sl_cui_uint8_pct const b, mk_sl_cui_uint8_pt const c) mk_lang_noexcept
 {
 	#if((mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1) && (mk_lang_alignas_has && mk_lang_alignof_has) && (mk_lib_crypto_mode_base_inl_defd_len == 16))
-	#if(!mk_lang_constexpr_is_constant_evaluated)
-	if(mk_lang_cpuid_has_sse() && ((mk_lang_types_uintptr_t)(a)) % 0xf == 0 && ((mk_lang_types_uintptr_t)(b)) % 0xf == 0 && ((mk_lang_types_uintptr_t)(c)) % 0xf == 0)
-	#else
 	if(!mk_lang_constexpr_is_constant_evaluated_test && mk_lang_cpuid_has_sse() && ((mk_lang_types_uintptr_t)(a)) % 0xf == 0 && ((mk_lang_types_uintptr_t)(b)) % 0xf == 0 && ((mk_lang_types_uintptr_t)(c)) % 0xf == 0)
-	#endif
 	{
 		mk_lib_crypto_mode_base_inl_defd_x86_xor3(a, b, c);
 	}
@@ -50,11 +46,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_mode_base_inl
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_mode_base_inl_defd_xor2(mk_sl_cui_uint8_pt const a, mk_sl_cui_uint8_pct const b) mk_lang_noexcept
 {
 	#if((mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1) && (mk_lang_alignas_has && mk_lang_alignof_has) && (mk_lib_crypto_mode_base_inl_defd_len == 16))
-	#if(!mk_lang_constexpr_is_constant_evaluated)
-	if(mk_lang_cpuid_has_sse() && ((mk_lang_types_uintptr_t)(a)) % 0xf == 0 && ((mk_lang_types_uintptr_t)(b)) % 0xf == 0)
-	#else
 	if(!mk_lang_constexpr_is_constant_evaluated_test && mk_lang_cpuid_has_sse() && ((mk_lang_types_uintptr_t)(a)) % 0xf == 0 && ((mk_lang_types_uintptr_t)(b)) % 0xf == 0)
-	#endif
 	{
 		mk_lib_crypto_mode_base_inl_defd_x86_xor2(a, b);
 	}

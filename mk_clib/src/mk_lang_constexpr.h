@@ -2,6 +2,7 @@
 #define mk_include_guard_mk_lang_constexpr
 
 
+#include "mk_lang_bool.h"
 #include "mk_lang_version.h"
 
 
@@ -38,9 +39,10 @@
 #define mk_lang_constexpr_is_constant_evaluated_test std::is_constant_evaluated()
 #elif mk_lang_constexpr_has
 #define mk_lang_constexpr_is_constant_evaluated 1
-#define mk_lang_constexpr_is_constant_evaluated_test 1
+#define mk_lang_constexpr_is_constant_evaluated_test mk_lang_true
 #else
 #define mk_lang_constexpr_is_constant_evaluated 0
+#define mk_lang_constexpr_is_constant_evaluated_test mk_lang_false
 #endif
 
 
@@ -49,7 +51,7 @@
 #define mk_lang_constexpr_if_consteval_test if consteval
 #else
 #define mk_lang_constexpr_if_consteval_has 0
-#define mk_lang_constexpr_if_consteval_test if(0)
+#define mk_lang_constexpr_if_consteval_test if(mk_lang_false)
 #endif
 
 

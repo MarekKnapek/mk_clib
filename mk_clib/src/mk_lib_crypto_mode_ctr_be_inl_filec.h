@@ -59,11 +59,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ctr_be_inl_defd_incremen
 
 	mk_lang_assert(iv);
 
-	#if !mk_lang_constexpr_is_constant_evaluated
-	if(1)
-	#else
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
-	#endif
 	{
 		ctr_from_uchars(&num, ((mk_lang_types_uchar_pct)(iv)));
 		ctr_inc(&num);

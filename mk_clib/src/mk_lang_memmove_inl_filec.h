@@ -22,11 +22,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lang_memmove_inl_defd_fn
 	mk_lang_assert(dst != src);
 
 	#if defined __SANITIZE_ADDRESS__ && __SANITIZE_ADDRESS__ == 1
-	#if !mk_lang_constexpr_is_constant_evaluated
-	if(1)
-	#else
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
-	#endif
 	{
 		memmove(dst, src, len * sizeof(*src));
 	}
