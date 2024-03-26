@@ -30,9 +30,9 @@
 
 mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_inl_defd_c_schedule_encrypt(mk_lib_crypto_alg_aes_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_base_msg_pct const input, mk_lib_crypto_alg_aes_base_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
-	int iblock mk_lang_constexpr_init;
+	mk_lang_types_usize_t iblock mk_lang_constexpr_init;
 	mk_lib_crypto_alg_aes_base_msg_t state mk_lang_constexpr_init;
-	int ir mk_lang_constexpr_init;
+	mk_lang_types_sint_t ir mk_lang_constexpr_init;
 
 	mk_lang_static_assert(sizeof(mk_lib_crypto_alg_aes_inl_defd_key_t) >= mk_lib_crypto_alg_aes_inl_defd_key_len_v);
 	mk_lang_static_assert(sizeof(mk_lib_crypto_alg_aes_base_msg_t) == mk_lib_crypto_alg_aes_base_msg_len_v);
@@ -61,9 +61,9 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_inl_defd_c_sc
 
 mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_aes_inl_defd_c_schedule_decrypt(mk_lib_crypto_alg_aes_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_base_msg_pct const input, mk_lib_crypto_alg_aes_base_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
-	int iblock mk_lang_constexpr_init;
+	mk_lang_types_usize_t iblock mk_lang_constexpr_init;
 	mk_lib_crypto_alg_aes_base_msg_t state mk_lang_constexpr_init;
-	int ir mk_lang_constexpr_init;
+	mk_lang_types_sint_t ir mk_lang_constexpr_init;
 
 	mk_lang_static_assert(sizeof(mk_lib_crypto_alg_aes_inl_defd_key_t) >= mk_lib_crypto_alg_aes_inl_defd_key_len_v);
 	mk_lang_static_assert(sizeof(mk_lib_crypto_alg_aes_base_msg_t) == mk_lib_crypto_alg_aes_base_msg_len_v);
