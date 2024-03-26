@@ -194,8 +194,8 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_serpent_schedule_decrypt(
 	mk_lang_assert(input);
 	mk_lang_assert(output);
 
-	#if((mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1) && (mk_lang_alignas_has && mk_lang_alignof_has))
-	#if(!mk_lang_constexpr_is_constant_evaluated)
+	#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_gnuc_is_at_least(5, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_alignas_has && mk_lang_alignof_has)
+	#if !mk_lang_constexpr_is_constant_evaluated
 	if(nblocks >= 16 && (((mk_lang_types_uintptr_t)(input)) & 0x3f) == 0 && (((mk_lang_types_uintptr_t)(output)) & 0x3f) == 0 && mk_lang_cpuid_has_sse2() && mk_lang_cpuid_has_avx512_f())
 	#else
 	if(!mk_lang_constexpr_is_constant_evaluated_test && nblocks >= 16 && (((mk_lang_types_uintptr_t)(input)) & 0x3f) == 0 && (((mk_lang_types_uintptr_t)(output)) & 0x3f) == 0 && mk_lang_cpuid_has_sse2() && mk_lang_cpuid_has_avx512_f())
@@ -207,7 +207,9 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_serpent_schedule_decrypt(
 		mk_lib_crypto_alg_serpent_schedule_decrypt_portable(schedule, input + n, output + n, nblocks - n);
 	}
 	else
-	#if(!mk_lang_constexpr_is_constant_evaluated)
+	#endif
+	#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_gnuc_is_at_least(4, 8)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_alignas_has && mk_lang_alignof_has)
+	#if !mk_lang_constexpr_is_constant_evaluated
 	if(nblocks >= 8 && (((mk_lang_types_uintptr_t)(input)) & 0x1f) == 0 && (((mk_lang_types_uintptr_t)(output)) & 0x1f) == 0 && mk_lang_cpuid_has_avx() && mk_lang_cpuid_has_avx2())
 	#else
 	if(!mk_lang_constexpr_is_constant_evaluated_test && nblocks >= 8 && (((mk_lang_types_uintptr_t)(input)) & 0x1f) == 0 && (((mk_lang_types_uintptr_t)(output)) & 0x1f) == 0 && mk_lang_cpuid_has_avx() && mk_lang_cpuid_has_avx2())
@@ -219,7 +221,9 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_serpent_schedule_decrypt(
 		mk_lib_crypto_alg_serpent_schedule_decrypt_portable(schedule, input + n, output + n, nblocks - n);
 	}
 	else
-	#if(!mk_lang_constexpr_is_constant_evaluated)
+	#endif
+	#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_gnuc_is_at_least(4, 8)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_alignas_has && mk_lang_alignof_has)
+	#if !mk_lang_constexpr_is_constant_evaluated
 	if(nblocks >= 4 && (((mk_lang_types_uintptr_t)(input)) & 0xf) == 0 && (((mk_lang_types_uintptr_t)(output)) & 0xf) == 0 && mk_lang_cpuid_has_sse2())
 	#else
 	if(!mk_lang_constexpr_is_constant_evaluated_test && nblocks >= 4 && (((mk_lang_types_uintptr_t)(input)) & 0xf) == 0 && (((mk_lang_types_uintptr_t)(output)) & 0xf) == 0 && mk_lang_cpuid_has_sse2())
@@ -231,7 +235,9 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_serpent_schedule_decrypt(
 		mk_lib_crypto_alg_serpent_schedule_decrypt_portable(schedule, input + n, output + n, nblocks - n);
 	}
 	else
-	#if(!mk_lang_constexpr_is_constant_evaluated)
+	#endif
+	#if mk_lang_llong_has
+	#if !mk_lang_constexpr_is_constant_evaluated
 	if(nblocks >= 2 && (((mk_lang_types_uintptr_t)(input)) & 0x7) == 0 && (((mk_lang_types_uintptr_t)(output)) & 0x7) == 0)
 	#else
 	if(!mk_lang_constexpr_is_constant_evaluated_test && nblocks >= 2 && (((mk_lang_types_uintptr_t)(input)) & 0x7) == 0 && (((mk_lang_types_uintptr_t)(output)) & 0x7) == 0)
