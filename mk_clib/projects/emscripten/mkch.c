@@ -526,8 +526,8 @@ static mk_lang_inline int finish(alg_pt const alg, alg_id_t const id, int const 
 		case alg_id_e_hash_tiger_160   : mk_lib_crypto_hash_stream_tiger_160_finish   (&alg->m_tiger_160   ,          ((mk_lib_crypto_hash_block_tiger_160_digest_pt   )(digest))); return mk_lib_crypto_hash_block_tiger_160_digest_len   ; break;
 		case alg_id_e_hash_tiger_192   : mk_lib_crypto_hash_stream_tiger_192_finish   (&alg->m_tiger_192   ,          ((mk_lib_crypto_hash_block_tiger_192_digest_pt   )(digest))); return mk_lib_crypto_hash_block_tiger_192_digest_len   ; break;
 		case alg_id_e_hash_whirlpool   : mk_lib_crypto_hash_stream_whirlpool_finish   (&alg->m_whirlpool   ,          ((mk_lib_crypto_hash_block_whirlpool_digest_pt   )(digest))); return mk_lib_crypto_hash_block_whirlpool_digest_len   ; break;
-		case alg_id_e_xof_shake_128    : mk_lib_crypto_xof_stream_shake_128_finish    (&alg->m_shake_128   , xof_len, ((mk_lib_crypto_xof_block_shake_128_digest_pt    )(digest))); return xof_len                                         ; break;
-		case alg_id_e_xof_shake_256    : mk_lib_crypto_xof_stream_shake_256_finish    (&alg->m_shake_256   , xof_len, ((mk_lib_crypto_xof_block_shake_256_digest_pt    )(digest))); return xof_len                                         ; break;
+		case alg_id_e_xof_shake_128    : mk_lib_crypto_xof_stream_shake_128_finish    (&alg->m_shake_128); mk_lib_crypto_xof_stream_shake_128_squeeze(&alg->m_shake_128, xof_len, &digest->m_uint8s[0]); return xof_len; break;
+		case alg_id_e_xof_shake_256    : mk_lib_crypto_xof_stream_shake_256_finish    (&alg->m_shake_256); mk_lib_crypto_xof_stream_shake_256_squeeze(&alg->m_shake_256, xof_len, &digest->m_uint8s[0]); return xof_len; break;
 	}
 	return 0;
 }
