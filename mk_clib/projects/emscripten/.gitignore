@@ -4,6 +4,7 @@
 /float_analyzer.wasm
 /mkcc.cpp
 /mkcc.wasm
+/mkch.cpp
 /mkch.wasm
 /quad_analyzer.cpp
 /quad_analyzer.wasm
