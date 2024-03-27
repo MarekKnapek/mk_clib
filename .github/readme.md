@@ -1346,6 +1346,47 @@ $ ./a
 2468eec8894acfb4e4df3a51ea916ba115d48268287754290aae8e9e6228e85f
 ```
 
+## BLAKE3
+
+Example how to compute the BLAKE3 XOF.
+
+```c
+#include "mk_lib_crypto_xof_stream_blake3.h"
+
+#include <assert.h> /* assert */
+#include <stdio.h> /* printf sprintf */
+
+
+int main(void)
+{
+	mk_lib_crypto_xof_stream_blake3_t xofer;
+	unsigned char digest[2000 / 8];
+	int i;
+	int t;
+	char str[2000 / 8 * 2 + 1];
+
+	mk_lib_crypto_xof_stream_blake3_init(&xofer);
+	mk_lib_crypto_xof_stream_blake3_append(&xofer, ((unsigned char const*)("abcdef")), 6);
+	mk_lib_crypto_xof_stream_blake3_append(&xofer, ((unsigned char const*)("ghijklmnopqrstuvw")), 17);
+	mk_lib_crypto_xof_stream_blake3_append(&xofer, ((unsigned char const*)("xyz")), 3);
+	mk_lib_crypto_xof_stream_blake3_finish(&xofer);
+	mk_lib_crypto_xof_stream_blake3_squeeze(&xofer, 2000 / 8 / 2, ((unsigned char const*)(digest)) + (0 * 2000 / 8 / 2));
+	mk_lib_crypto_xof_stream_blake3_squeeze(&xofer, 2000 / 8 / 2, ((unsigned char const*)(digest)) + (1 * 2000 / 8 / 2));
+	for(i = 0; i != 2000 / 8; ++i)
+	{
+		t = sprintf(str + 2 * i, "%02x", ((unsigned char const*)(&digest))[i]);
+		assert(t == 2);
+	}
+	t = printf("%s\n", str); /* 2468eec8894acfb4e4df3a51ea916ba115d48268287754290aae8e9e6228e85f29d5c0ccdcab1524708f03c8e85e1ddc24fdc3671fe72e93823d9371aff729595dda8b899fdcb3bbb550f9fe850e93139efafb20c8f5537f0e1c5797c55fb9ef4cbcd9bdcd3ffa1076ba38d8da0ededc38643f1704de132d8c02f49e0a42b2cb147b3c265538d21e97dce5309e8d05b1b28108267a2987551884ae502891d143be5791ba2d120fd6e5ff73810b1ccb409ea932f5a9809b557ac0ddf72b8888ffc3c398dbf3949ec6763a17afb6d59ae098e7ef369550cac7cce99089478153abfa1d61e41ddca1d966bc6944bbdb303c3bc1d617595451205645 */
+	assert(t == 2000 / 8 * 2 + 1);
+}
+```
+```bash
+$ gcc -DNDEBUG example.c
+$ ./a
+2468eec8894acfb4e4df3a51ea916ba115d48268287754290aae8e9e6228e85f29d5c0ccdcab1524708f03c8e85e1ddc24fdc3671fe72e93823d9371aff729595dda8b899fdcb3bbb550f9fe850e93139efafb20c8f5537f0e1c5797c55fb9ef4cbcd9bdcd3ffa1076ba38d8da0ededc38643f1704de132d8c02f49e0a42b2cb147b3c265538d21e97dce5309e8d05b1b28108267a2987551884ae502891d143be5791ba2d120fd6e5ff73810b1ccb409ea932f5a9809b557ac0ddf72b8888ffc3c398dbf3949ec6763a17afb6d59ae098e7ef369550cac7cce99089478153abfa1d61e41ddca1d966bc6944bbdb303c3bc1d617595451205645
+```
+
 ## Whirlpool
 
 Example how to compute the Whirlpool hash.

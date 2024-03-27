@@ -64,6 +64,8 @@ example_hash sha3_224
 example_hash sha3_256
 example_hash sha3_384
 example_hash sha3_512
+example_xof shake_128
+example_xof shake_256
 example_hash tiger_128
 example_hash tiger_160
 example_hash tiger_192
@@ -78,9 +80,8 @@ example_hash blake2b_256
 example_hash blake2b_384
 example_hash blake2b_512
 example_hash blake3
+example_xof blake3
 example_hash whirlpool
 example_hash streebog_256
 example_hash streebog_512
-example_xof shake_128
-example_xof shake_256
 popd > /dev/null

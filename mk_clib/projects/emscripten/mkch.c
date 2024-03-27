@@ -43,6 +43,7 @@
 #include "../../src/mk_lib_crypto_hash_stream_tiger_160.h"
 #include "../../src/mk_lib_crypto_hash_stream_tiger_192.h"
 #include "../../src/mk_lib_crypto_hash_stream_whirlpool.h"
+#include "../../src/mk_lib_crypto_xof_stream_blake3.h"
 #include "../../src/mk_lib_crypto_xof_stream_shake_128.h"
 #include "../../src/mk_lib_crypto_xof_stream_shake_256.h"
 #include "../../src/mk_sl_uint8.h"
@@ -82,6 +83,7 @@ enum alg_id_e
 	alg_id_e_hash_tiger_160   ,
 	alg_id_e_hash_tiger_192   ,
 	alg_id_e_hash_whirlpool   ,
+	alg_id_e_xof_blake3       ,
 	alg_id_e_xof_shake_128    ,
 	alg_id_e_xof_shake_256    ,
 	alg_id_e_dummy_end
@@ -120,6 +122,7 @@ typedef enum alg_id_e alg_id_t;
 #define alg_name_dn_hash_tiger_160    "tiger_160"
 #define alg_name_dn_hash_tiger_192    "tiger_192"
 #define alg_name_dn_hash_whirlpool    "whirlpool"
+#define alg_name_dn_xof_blake3        "blake3xof"
 #define alg_name_dn_xof_shake_128     "shake_128"
 #define alg_name_dn_xof_shake_256     "shake_256"
 
@@ -155,6 +158,7 @@ typedef enum alg_id_e alg_id_t;
 #define alg_name_dl_hash_tiger_160    ((int)(sizeof(alg_name_dn_hash_tiger_160   ) / sizeof(alg_name_dn_hash_tiger_160   [0]) - 1))
 #define alg_name_dl_hash_tiger_192    ((int)(sizeof(alg_name_dn_hash_tiger_192   ) / sizeof(alg_name_dn_hash_tiger_192   [0]) - 1))
 #define alg_name_dl_hash_whirlpool    ((int)(sizeof(alg_name_dn_hash_whirlpool   ) / sizeof(alg_name_dn_hash_whirlpool   [0]) - 1))
+#define alg_name_dl_xof_blake3        ((int)(sizeof(alg_name_dn_xof_blake3       ) / sizeof(alg_name_dn_xof_blake3       [0]) - 1))
 #define alg_name_dl_xof_shake_128     ((int)(sizeof(alg_name_dn_xof_shake_128    ) / sizeof(alg_name_dn_xof_shake_128    [0]) - 1))
 #define alg_name_dl_xof_shake_256     ((int)(sizeof(alg_name_dn_xof_shake_256    ) / sizeof(alg_name_dn_xof_shake_256    [0]) - 1))
 
@@ -191,6 +195,7 @@ mk_lang_constexpr_static_inline char const s_alg_names[] =
 	alg_name_dn_hash_tiger_160
 	alg_name_dn_hash_tiger_192
 	alg_name_dn_hash_whirlpool
+	alg_name_dn_xof_blake3
 	alg_name_dn_xof_shake_128
 	alg_name_dn_xof_shake_256
 ;
@@ -229,6 +234,7 @@ mk_lang_constexpr_static_inline mk_lang_types_uchar_t const s_alg_name_lens[] =
 	((mk_lang_types_uchar_t)(alg_name_dl_hash_tiger_160   )),
 	((mk_lang_types_uchar_t)(alg_name_dl_hash_tiger_192   )),
 	((mk_lang_types_uchar_t)(alg_name_dl_hash_whirlpool   )),
+	((mk_lang_types_uchar_t)(alg_name_dl_xof_blake3       )),
 	((mk_lang_types_uchar_t)(alg_name_dl_xof_shake_128    )),
 	((mk_lang_types_uchar_t)(alg_name_dl_xof_shake_256    )),
 };
@@ -266,6 +272,7 @@ mk_lang_constexpr_static_inline char const s_alg_pretty_names[] =
 	mk_lang_stringify(mk_lib_crypto_hash_block_tiger_160_name_def)
 	mk_lang_stringify(mk_lib_crypto_hash_block_tiger_192_name_def)
 	mk_lang_stringify(mk_lib_crypto_hash_block_whirlpool_name_def)
+	mk_lang_stringify(mk_lib_crypto_xof_block_blake3_name_def)
 	mk_lang_stringify(mk_lib_crypto_xof_block_shake_128_name_def)
 	mk_lang_stringify(mk_lib_crypto_xof_block_shake_256_name_def)
 ;
@@ -304,6 +311,7 @@ mk_lang_constexpr_static_inline mk_lang_types_uchar_t const s_alg_pretty_name_le
 	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_tiger_160_name_def   )) - 1)))),
 	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_tiger_192_name_def   )) - 1)))),
 	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_hash_block_whirlpool_name_def   )) - 1)))),
+	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_xof_block_blake3_name_def       )) - 1)))),
 	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_xof_block_shake_128_name_def    )) - 1)))),
 	((mk_lang_types_uchar_t)(((int)(sizeof(mk_lang_stringify(mk_lib_crypto_xof_block_shake_256_name_def    )) - 1)))),
 };
@@ -341,6 +349,7 @@ mk_lang_constexpr_static_inline mk_lang_types_uchar_t const s_alg_order[] =
 	((mk_lang_types_uchar_t)(alg_id_e_hash_blake2b_384 )),
 	((mk_lang_types_uchar_t)(alg_id_e_hash_blake2b_512 )),
 	((mk_lang_types_uchar_t)(alg_id_e_hash_blake3      )),
+	((mk_lang_types_uchar_t)(alg_id_e_xof_blake3       )),
 	((mk_lang_types_uchar_t)(alg_id_e_hash_whirlpool   )),
 	((mk_lang_types_uchar_t)(alg_id_e_hash_streebog_256)),
 	((mk_lang_types_uchar_t)(alg_id_e_hash_streebog_512)),
@@ -380,6 +389,7 @@ union alg_u
 	mk_lib_crypto_hash_stream_tiger_160_t    m_tiger_160   ;
 	mk_lib_crypto_hash_stream_tiger_192_t    m_tiger_192   ;
 	mk_lib_crypto_hash_stream_whirlpool_t    m_whirlpool   ;
+	mk_lib_crypto_xof_stream_blake3_t        m_blake3xof   ;
 	mk_lib_crypto_xof_stream_shake_128_t     m_shake_128   ;
 	mk_lib_crypto_xof_stream_shake_256_t     m_shake_256   ;
 };
@@ -444,6 +454,7 @@ static mk_lang_inline void init(alg_pt const alg, alg_id_t const id) mk_lang_noe
 		case alg_id_e_hash_tiger_160   : mk_lib_crypto_hash_stream_tiger_160_init   (&alg->m_tiger_160   ); break;
 		case alg_id_e_hash_tiger_192   : mk_lib_crypto_hash_stream_tiger_192_init   (&alg->m_tiger_192   ); break;
 		case alg_id_e_hash_whirlpool   : mk_lib_crypto_hash_stream_whirlpool_init   (&alg->m_whirlpool   ); break;
+		case alg_id_e_xof_blake3       : mk_lib_crypto_xof_stream_blake3_init       (&alg->m_blake3xof   ); break;
 		case alg_id_e_xof_shake_128    : mk_lib_crypto_xof_stream_shake_128_init    (&alg->m_shake_128   ); break;
 		case alg_id_e_xof_shake_256    : mk_lib_crypto_xof_stream_shake_256_init    (&alg->m_shake_256   ); break;
 	}
@@ -485,6 +496,7 @@ static mk_lang_inline void append(alg_pt const alg, alg_id_t const id, mk_lang_t
 		case alg_id_e_hash_tiger_160   : mk_lib_crypto_hash_stream_tiger_160_append   (&alg->m_tiger_160   , msg, msg_len); break;
 		case alg_id_e_hash_tiger_192   : mk_lib_crypto_hash_stream_tiger_192_append   (&alg->m_tiger_192   , msg, msg_len); break;
 		case alg_id_e_hash_whirlpool   : mk_lib_crypto_hash_stream_whirlpool_append   (&alg->m_whirlpool   , msg, msg_len); break;
+		case alg_id_e_xof_blake3       : mk_lib_crypto_xof_stream_blake3_append       (&alg->m_blake3xof   , msg, msg_len); break;
 		case alg_id_e_xof_shake_128    : mk_lib_crypto_xof_stream_shake_128_append    (&alg->m_shake_128   , msg, msg_len); break;
 		case alg_id_e_xof_shake_256    : mk_lib_crypto_xof_stream_shake_256_append    (&alg->m_shake_256   , msg, msg_len); break;
 	}
@@ -526,6 +538,7 @@ static mk_lang_inline int finish(alg_pt const alg, alg_id_t const id, int const 
 		case alg_id_e_hash_tiger_160   : mk_lib_crypto_hash_stream_tiger_160_finish   (&alg->m_tiger_160   ,          ((mk_lib_crypto_hash_block_tiger_160_digest_pt   )(digest))); return mk_lib_crypto_hash_block_tiger_160_digest_len   ; break;
 		case alg_id_e_hash_tiger_192   : mk_lib_crypto_hash_stream_tiger_192_finish   (&alg->m_tiger_192   ,          ((mk_lib_crypto_hash_block_tiger_192_digest_pt   )(digest))); return mk_lib_crypto_hash_block_tiger_192_digest_len   ; break;
 		case alg_id_e_hash_whirlpool   : mk_lib_crypto_hash_stream_whirlpool_finish   (&alg->m_whirlpool   ,          ((mk_lib_crypto_hash_block_whirlpool_digest_pt   )(digest))); return mk_lib_crypto_hash_block_whirlpool_digest_len   ; break;
+		case alg_id_e_xof_blake3       : mk_lib_crypto_xof_stream_blake3_finish       (&alg->m_blake3xof); mk_lib_crypto_xof_stream_blake3_squeeze   (&alg->m_blake3xof, xof_len, &digest->m_uint8s[0]); return xof_len; break;
 		case alg_id_e_xof_shake_128    : mk_lib_crypto_xof_stream_shake_128_finish    (&alg->m_shake_128); mk_lib_crypto_xof_stream_shake_128_squeeze(&alg->m_shake_128, xof_len, &digest->m_uint8s[0]); return xof_len; break;
 		case alg_id_e_xof_shake_256    : mk_lib_crypto_xof_stream_shake_256_finish    (&alg->m_shake_256); mk_lib_crypto_xof_stream_shake_256_squeeze(&alg->m_shake_256, xof_len, &digest->m_uint8s[0]); return xof_len; break;
 	}
