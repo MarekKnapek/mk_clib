@@ -114,7 +114,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_info_platform_print(mk_lang_types_voi
 	printf("ssse3    : %s\n", mk_lang_cpuid_has_ssse3()     ? "yes" : "no");
 	printf("sse41    : %s\n", mk_lang_cpuid_has_sse41()     ? "yes" : "no");
 	printf("popcnt   : %s\n", mk_lang_cpuid_has_popcnt()    ? "yes" : "no");
-	printf("aes_ni  : %s\n", mk_lang_cpuid_has_aes_ni()     ? "yes" : "no");
+	printf("aesni    : %s\n", mk_lang_cpuid_has_aesni()     ? "yes" : "no");
 	printf("avx      : %s\n", mk_lang_cpuid_has_avx()       ? "yes" : "no");
 	printf("sse      : %s\n", mk_lang_cpuid_has_sse()       ? "yes" : "no");
 	printf("sse2     : %s\n", mk_lang_cpuid_has_sse2()      ? "yes" : "no");

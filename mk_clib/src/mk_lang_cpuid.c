@@ -123,7 +123,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_popcnt(mk
 	return has;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_aes_ni(mk_lang_types_void_t) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_aesni(mk_lang_types_void_t) mk_lang_noexcept
 {
 	mk_lang_types_bool_t has;
 
@@ -244,7 +244,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_popcnt(mk
 	return has;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_aes_ni(mk_lang_types_void_t) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_aesni(mk_lang_types_void_t) mk_lang_noexcept
 {
 	mk_lang_types_bool_t has;
 
