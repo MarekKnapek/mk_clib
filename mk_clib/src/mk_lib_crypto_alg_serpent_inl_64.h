@@ -212,10 +212,10 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_64_load(mk_
 	mk_lang_assert(tc != td);
 	mk_lang_assert((((mk_lang_types_uintptr_t)(msgs)) & 0x7) == 0);
 
-	mk_sl_cui_uint64_from_buis_uchar_le(ta, ((mk_lang_types_uchar_pct)(&msgs->m_data.m_uint8s[0 * 8])));
-	mk_sl_cui_uint64_from_buis_uchar_le(tb, ((mk_lang_types_uchar_pct)(&msgs->m_data.m_uint8s[1 * 8])));
-	mk_sl_cui_uint64_from_buis_uchar_le(tc, ((mk_lang_types_uchar_pct)(&msgs->m_data.m_uint8s[2 * 8])));
-	mk_sl_cui_uint64_from_buis_uchar_le(td, ((mk_lang_types_uchar_pct)(&msgs->m_data.m_uint8s[3 * 8])));
+	mk_sl_cui_uint64_from_buis_uchar_le(ta, ((mk_lang_types_uchar_pct)(&msgs[0].m_data.m_uint8s[0 * 8])));
+	mk_sl_cui_uint64_from_buis_uchar_le(tb, ((mk_lang_types_uchar_pct)(&msgs[0].m_data.m_uint8s[1 * 8])));
+	mk_sl_cui_uint64_from_buis_uchar_le(tc, ((mk_lang_types_uchar_pct)(&msgs[1].m_data.m_uint8s[0 * 8])));
+	mk_sl_cui_uint64_from_buis_uchar_le(td, ((mk_lang_types_uchar_pct)(&msgs[1].m_data.m_uint8s[1 * 8])));
 	mk_lib_crypto_alg_serpent_64_transpose_load(ta, tb, tc, td);
 }
 
@@ -237,10 +237,10 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_64_store(mk
 	mk_lang_assert((((mk_lang_types_uintptr_t)(msgs)) & 0x7) == 0);
 
 	mk_lib_crypto_alg_serpent_64_transpose_store(ta, tb, tc, td);
-	mk_sl_cui_uint64_to_buis_uchar_le(ta, ((mk_lang_types_uchar_pt)(&msgs->m_data.m_uint8s[0 * 8])));
-	mk_sl_cui_uint64_to_buis_uchar_le(tb, ((mk_lang_types_uchar_pt)(&msgs->m_data.m_uint8s[1 * 8])));
-	mk_sl_cui_uint64_to_buis_uchar_le(tc, ((mk_lang_types_uchar_pt)(&msgs->m_data.m_uint8s[2 * 8])));
-	mk_sl_cui_uint64_to_buis_uchar_le(td, ((mk_lang_types_uchar_pt)(&msgs->m_data.m_uint8s[3 * 8])));
+	mk_sl_cui_uint64_to_buis_uchar_le(ta, ((mk_lang_types_uchar_pt)(&msgs[0].m_data.m_uint8s[0 * 8])));
+	mk_sl_cui_uint64_to_buis_uchar_le(tb, ((mk_lang_types_uchar_pt)(&msgs[0].m_data.m_uint8s[1 * 8])));
+	mk_sl_cui_uint64_to_buis_uchar_le(tc, ((mk_lang_types_uchar_pt)(&msgs[1].m_data.m_uint8s[0 * 8])));
+	mk_sl_cui_uint64_to_buis_uchar_le(td, ((mk_lang_types_uchar_pt)(&msgs[1].m_data.m_uint8s[1 * 8])));
 }
 
 static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_64_xor2(mk_lib_crypto_alg_serpent_msg_pt const a, mk_lib_crypto_alg_serpent_msg_pct const b) mk_lang_noexcept
