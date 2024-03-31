@@ -163,6 +163,14 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_avx2(mk_l
 	return has;
 }
 
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_vaes(mk_lang_types_void_t) mk_lang_noexcept
+{
+	mk_lang_types_bool_t has;
+
+	has = (g_mk_lang_cpuid_regset.m_leafs >= 0x7) && ((((mk_lang_types_uint_t)(g_mk_lang_cpuid_regset.m_data.m_regset[0x7].m_data.m_sints[1])) & (1u << 9)) != 0);
+	return has;
+}
+
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_avx512_f(mk_lang_types_void_t) mk_lang_noexcept
 {
 	mk_lang_types_bool_t has;
@@ -176,6 +184,14 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_sha(mk_la
 	mk_lang_types_bool_t has;
 
 	has = (g_mk_lang_cpuid_regset.m_leafs >= 0x7) && ((((mk_lang_types_uint_t)(g_mk_lang_cpuid_regset.m_data.m_regset[0x7].m_data.m_sints[1])) & (1u << 29)) != 0);
+	return has;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_avx512_vl(mk_lang_types_void_t) mk_lang_noexcept
+{
+	mk_lang_types_bool_t has;
+
+	has = (g_mk_lang_cpuid_regset.m_leafs >= 0x7) && ((((mk_lang_types_uint_t)(g_mk_lang_cpuid_regset.m_data.m_regset[0x7].m_data.m_sints[1])) & (1u << 31)) != 0);
 	return has;
 }
 
@@ -288,6 +304,18 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_avx2(mk_l
 	return has;
 }
 
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_vaes(mk_lang_types_void_t) mk_lang_noexcept
+{
+	mk_lang_types_bool_t has;
+
+	#if mk_lang_gnuc_is_at_least(11, 1)
+	has = __builtin_cpu_supports("vaes");
+	#else
+	has = mk_lang_false;
+	#endif
+	return has;
+}
+
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_avx512_f(mk_lang_types_void_t) mk_lang_noexcept
 {
 	mk_lang_types_bool_t has;
@@ -306,6 +334,18 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_sha(mk_la
 
 	#if mk_lang_gnuc_is_at_least(11, 1)
 	has = __builtin_cpu_supports("sha");
+	#else
+	has = mk_lang_false;
+	#endif
+	return has;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_avx512_vl(mk_lang_types_void_t) mk_lang_noexcept
+{
+	mk_lang_types_bool_t has;
+
+	#if mk_lang_gnuc_is_at_least(6, 1)
+	has = __builtin_cpu_supports("avx512vl");
 	#else
 	has = mk_lang_false;
 	#endif

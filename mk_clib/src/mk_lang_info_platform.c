@@ -111,16 +111,18 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_info_platform_print(mk_lang_types_voi
 
 	#if mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664
 	mk_lang_cpuid_init();
-	printf("ssse3   : %s\n", mk_lang_cpuid_has_ssse3()    ? "yes" : "no");
-	printf("sse41   : %s\n", mk_lang_cpuid_has_sse41()    ? "yes" : "no");
-	printf("popcnt  : %s\n", mk_lang_cpuid_has_popcnt()   ? "yes" : "no");
-	printf("aes_ni  : %s\n", mk_lang_cpuid_has_aes_ni()   ? "yes" : "no");
-	printf("avx     : %s\n", mk_lang_cpuid_has_avx()      ? "yes" : "no");
-	printf("sse     : %s\n", mk_lang_cpuid_has_sse()      ? "yes" : "no");
-	printf("sse2    : %s\n", mk_lang_cpuid_has_sse2()     ? "yes" : "no");
-	printf("avx2    : %s\n", mk_lang_cpuid_has_avx2()     ? "yes" : "no");
-	printf("avx512_f: %s\n", mk_lang_cpuid_has_avx512_f() ? "yes" : "no");
-	printf("sha     : %s\n", mk_lang_cpuid_has_sha()      ? "yes" : "no");
+	printf("ssse3    : %s\n", mk_lang_cpuid_has_ssse3()     ? "yes" : "no");
+	printf("sse41    : %s\n", mk_lang_cpuid_has_sse41()     ? "yes" : "no");
+	printf("popcnt   : %s\n", mk_lang_cpuid_has_popcnt()    ? "yes" : "no");
+	printf("aes_ni  : %s\n", mk_lang_cpuid_has_aes_ni()     ? "yes" : "no");
+	printf("avx      : %s\n", mk_lang_cpuid_has_avx()       ? "yes" : "no");
+	printf("sse      : %s\n", mk_lang_cpuid_has_sse()       ? "yes" : "no");
+	printf("sse2     : %s\n", mk_lang_cpuid_has_sse2()      ? "yes" : "no");
+	printf("avx2     : %s\n", mk_lang_cpuid_has_avx2()      ? "yes" : "no");
+	printf("vaes     : %s\n", mk_lang_cpuid_has_vaes()      ? "yes" : "no");
+	printf("avx512_f : %s\n", mk_lang_cpuid_has_avx512_f()  ? "yes" : "no");
+	printf("sha      : %s\n", mk_lang_cpuid_has_sha()       ? "yes" : "no");
+	printf("avx512_vl: %s\n", mk_lang_cpuid_has_avx512_vl() ? "yes" : "no");
 	printf("\n");
 	#endif
 }
