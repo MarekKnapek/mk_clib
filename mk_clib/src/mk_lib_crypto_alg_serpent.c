@@ -123,103 +123,141 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_alg_serpent_expand(mk
 
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_serpent_schedule_encrypt(mk_lib_crypto_alg_serpent_schedule_pct const schedule, mk_lib_crypto_alg_serpent_msg_pct const input, mk_lib_crypto_alg_serpent_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
+	mk_lib_crypto_alg_serpent_msg_pct in mk_lang_constexpr_init;
+	mk_lib_crypto_alg_serpent_msg_pt out mk_lang_constexpr_init;
+	mk_lang_types_usize_t rem mk_lang_constexpr_init;
+	mk_lang_types_usize_t n mk_lang_constexpr_init;
+
 	mk_lang_assert(schedule);
 	mk_lang_assert(input);
 	mk_lang_assert(output);
 
-	#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_gnuc_is_at_least(5, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_alignas_has && mk_lang_alignof_has)
-	if(!mk_lang_constexpr_is_constant_evaluated_test && nblocks >= 16 && (((mk_lang_types_uintptr_t)(input)) & 0x3f) == 0 && (((mk_lang_types_uintptr_t)(output)) & 0x3f) == 0 && mk_lang_cpuid_has_sse2() && mk_lang_cpuid_has_avx512_f())
+	in = input;
+	out = output;
+	rem = nblocks;
+	while(rem != 0)
 	{
-		mk_lang_types_usize_t n mk_lang_constexpr_init;
-		n = (nblocks / 16) * 16;
-		mk_lib_crypto_alg_serpent_schedule_encrypt_avx512(schedule, input, output, n);
-		mk_lib_crypto_alg_serpent_schedule_encrypt_portable(schedule, input + n, output + n, nblocks - n);
-	}
-	else
-	#endif
-	#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_gnuc_is_at_least(4, 8)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_alignas_has && mk_lang_alignof_has)
-	if(!mk_lang_constexpr_is_constant_evaluated_test && nblocks >= 8 && (((mk_lang_types_uintptr_t)(input)) & 0x1f) == 0 && (((mk_lang_types_uintptr_t)(output)) & 0x1f) == 0 && mk_lang_cpuid_has_avx() && mk_lang_cpuid_has_avx2())
-	{
-		mk_lang_types_usize_t n mk_lang_constexpr_init;
-		n = (nblocks / 8) * 8;
-		mk_lib_crypto_alg_serpent_schedule_encrypt_avx2(schedule, input, output, n);
-		mk_lib_crypto_alg_serpent_schedule_encrypt_portable(schedule, input + n, output + n, nblocks - n);
-	}
-	else
-	#endif
-	#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_gnuc_is_at_least(4, 8)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_alignas_has && mk_lang_alignof_has)
-	if(!mk_lang_constexpr_is_constant_evaluated_test && nblocks >= 4 && (((mk_lang_types_uintptr_t)(input)) & 0xf) == 0 && (((mk_lang_types_uintptr_t)(output)) & 0xf) == 0 && mk_lang_cpuid_has_sse2())
-	{
-		mk_lang_types_usize_t n mk_lang_constexpr_init;
-		n = (nblocks / 4) * 4;
-		mk_lib_crypto_alg_serpent_schedule_encrypt_sse2(schedule, input, output, n);
-		mk_lib_crypto_alg_serpent_schedule_encrypt_portable(schedule, input + n, output + n, nblocks - n);
-	}
-	else
-	#endif
-	#if mk_lang_llong_has
-	if(!mk_lang_constexpr_is_constant_evaluated_test && nblocks >= 2 && (((mk_lang_types_uintptr_t)(input)) & 0x7) == 0 && (((mk_lang_types_uintptr_t)(output)) & 0x7) == 0)
-	{
-		mk_lang_types_usize_t n mk_lang_constexpr_init;
-		n = (nblocks / 2) * 2;
-		mk_lib_crypto_alg_serpent_schedule_encrypt_64(schedule, input, output, n);
-		mk_lib_crypto_alg_serpent_schedule_encrypt_portable(schedule, input + n, output + n, nblocks - n);
-	}
-	else
-	#endif
-	{
-		mk_lib_crypto_alg_serpent_schedule_encrypt_portable(schedule, input, output, nblocks);
+		#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_gnuc_is_at_least(5, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_alignas_has && mk_lang_alignof_has)
+		if(!mk_lang_constexpr_is_constant_evaluated_test && rem >= 16 && (((mk_lang_types_uintptr_t)(input)) & 0x3f) == 0 && (((mk_lang_types_uintptr_t)(output)) & 0x3f) == 0 && mk_lang_cpuid_has_sse2() && mk_lang_cpuid_has_avx512_f())
+		{
+			n = (rem / 16) * 16;
+			mk_lib_crypto_alg_serpent_schedule_encrypt_avx512(schedule, in, out, n);
+			in += n;
+			out += n;
+			rem -= n;
+		}
+		else
+		#endif
+		#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_gnuc_is_at_least(4, 8)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_alignas_has && mk_lang_alignof_has)
+		if(!mk_lang_constexpr_is_constant_evaluated_test && rem >= 8 && (((mk_lang_types_uintptr_t)(input)) & 0x1f) == 0 && (((mk_lang_types_uintptr_t)(output)) & 0x1f) == 0 && mk_lang_cpuid_has_avx() && mk_lang_cpuid_has_avx2())
+		{
+			n = (rem / 8) * 8;
+			mk_lib_crypto_alg_serpent_schedule_encrypt_avx2(schedule, in, out, n);
+			in += n;
+			out += n;
+			rem -= n;
+		}
+		else
+		#endif
+		#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_gnuc_is_at_least(4, 8)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_alignas_has && mk_lang_alignof_has)
+		if(!mk_lang_constexpr_is_constant_evaluated_test && rem >= 4 && (((mk_lang_types_uintptr_t)(input)) & 0xf) == 0 && (((mk_lang_types_uintptr_t)(output)) & 0xf) == 0 && mk_lang_cpuid_has_sse2())
+		{
+			n = (rem / 4) * 4;
+			mk_lib_crypto_alg_serpent_schedule_encrypt_sse2(schedule, in, out, n);
+			in += n;
+			out += n;
+			rem -= n;
+		}
+		else
+		#endif
+		#if mk_lang_llong_has
+		if(!mk_lang_constexpr_is_constant_evaluated_test && rem >= 2 && (((mk_lang_types_uintptr_t)(input)) & 0x7) == 0 && (((mk_lang_types_uintptr_t)(output)) & 0x7) == 0)
+		{
+			n = (rem / 2) * 2;
+			mk_lib_crypto_alg_serpent_schedule_encrypt_64(schedule, in, out, n);
+			in += n;
+			out += n;
+			rem -= n;
+		}
+		else
+		#endif
+		{
+			n = (rem / 1) * 1;
+			mk_lib_crypto_alg_serpent_schedule_encrypt_portable(schedule, in, out, n);
+			in += n;
+			out += n;
+			rem -= n;
+		}
 	}
 }
 
 mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_alg_serpent_schedule_decrypt(mk_lib_crypto_alg_serpent_schedule_pct const schedule, mk_lib_crypto_alg_serpent_msg_pct const input, mk_lib_crypto_alg_serpent_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
+	mk_lib_crypto_alg_serpent_msg_pct in mk_lang_constexpr_init;
+	mk_lib_crypto_alg_serpent_msg_pt out mk_lang_constexpr_init;
+	mk_lang_types_usize_t rem mk_lang_constexpr_init;
+	mk_lang_types_usize_t n mk_lang_constexpr_init;
+
 	mk_lang_assert(schedule);
 	mk_lang_assert(input);
 	mk_lang_assert(output);
 
-	#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_gnuc_is_at_least(5, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_alignas_has && mk_lang_alignof_has)
-	if(!mk_lang_constexpr_is_constant_evaluated_test && nblocks >= 16 && (((mk_lang_types_uintptr_t)(input)) & 0x3f) == 0 && (((mk_lang_types_uintptr_t)(output)) & 0x3f) == 0 && mk_lang_cpuid_has_sse2() && mk_lang_cpuid_has_avx512_f())
+	in = input;
+	out = output;
+	rem = nblocks;
+	while(rem != 0)
 	{
-		mk_lang_types_usize_t n mk_lang_constexpr_init;
-		n = (nblocks / 16) * 16;
-		mk_lib_crypto_alg_serpent_schedule_decrypt_avx512(schedule, input, output, n);
-		mk_lib_crypto_alg_serpent_schedule_decrypt_portable(schedule, input + n, output + n, nblocks - n);
-	}
-	else
-	#endif
-	#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_gnuc_is_at_least(4, 8)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_alignas_has && mk_lang_alignof_has)
-	if(!mk_lang_constexpr_is_constant_evaluated_test && nblocks >= 8 && (((mk_lang_types_uintptr_t)(input)) & 0x1f) == 0 && (((mk_lang_types_uintptr_t)(output)) & 0x1f) == 0 && mk_lang_cpuid_has_avx() && mk_lang_cpuid_has_avx2())
-	{
-		mk_lang_types_usize_t n mk_lang_constexpr_init;
-		n = (nblocks / 8) * 8;
-		mk_lib_crypto_alg_serpent_schedule_decrypt_avx2(schedule, input, output, n);
-		mk_lib_crypto_alg_serpent_schedule_decrypt_portable(schedule, input + n, output + n, nblocks - n);
-	}
-	else
-	#endif
-	#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_gnuc_is_at_least(4, 8)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_alignas_has && mk_lang_alignof_has)
-	if(!mk_lang_constexpr_is_constant_evaluated_test && nblocks >= 4 && (((mk_lang_types_uintptr_t)(input)) & 0xf) == 0 && (((mk_lang_types_uintptr_t)(output)) & 0xf) == 0 && mk_lang_cpuid_has_sse2())
-	{
-		mk_lang_types_usize_t n mk_lang_constexpr_init;
-		n = (nblocks / 4) * 4;
-		mk_lib_crypto_alg_serpent_schedule_decrypt_sse2(schedule, input, output, n);
-		mk_lib_crypto_alg_serpent_schedule_decrypt_portable(schedule, input + n, output + n, nblocks - n);
-	}
-	else
-	#endif
-	#if mk_lang_llong_has
-	if(!mk_lang_constexpr_is_constant_evaluated_test && nblocks >= 2 && (((mk_lang_types_uintptr_t)(input)) & 0x7) == 0 && (((mk_lang_types_uintptr_t)(output)) & 0x7) == 0)
-	{
-		mk_lang_types_usize_t n mk_lang_constexpr_init;
-		n = (nblocks / 2) * 2;
-		mk_lib_crypto_alg_serpent_schedule_decrypt_64(schedule, input, output, n);
-		mk_lib_crypto_alg_serpent_schedule_decrypt_portable(schedule, input + n, output + n, nblocks - n);
-	}
-	else
-	#endif
-	{
-		mk_lib_crypto_alg_serpent_schedule_decrypt_portable(schedule, input, output, nblocks);
+		#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_gnuc_is_at_least(5, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_alignas_has && mk_lang_alignof_has)
+		if(!mk_lang_constexpr_is_constant_evaluated_test && rem >= 16 && (((mk_lang_types_uintptr_t)(input)) & 0x3f) == 0 && (((mk_lang_types_uintptr_t)(output)) & 0x3f) == 0 && mk_lang_cpuid_has_sse2() && mk_lang_cpuid_has_avx512_f())
+		{
+			n = (rem / 16) * 16;
+			mk_lib_crypto_alg_serpent_schedule_decrypt_avx512(schedule, in, out, n);
+			in += n;
+			out += n;
+			rem -= n;
+		}
+		else
+		#endif
+		#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_gnuc_is_at_least(4, 8)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_alignas_has && mk_lang_alignof_has)
+		if(!mk_lang_constexpr_is_constant_evaluated_test && rem >= 8 && (((mk_lang_types_uintptr_t)(input)) & 0x1f) == 0 && (((mk_lang_types_uintptr_t)(output)) & 0x1f) == 0 && mk_lang_cpuid_has_avx() && mk_lang_cpuid_has_avx2())
+		{
+			n = (rem / 8) * 8;
+			mk_lib_crypto_alg_serpent_schedule_decrypt_avx2(schedule, in, out, n);
+			in += n;
+			out += n;
+			rem -= n;
+		}
+		else
+		#endif
+		#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_gnuc_is_at_least(4, 8)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_alignas_has && mk_lang_alignof_has)
+		if(!mk_lang_constexpr_is_constant_evaluated_test && rem >= 4 && (((mk_lang_types_uintptr_t)(input)) & 0xf) == 0 && (((mk_lang_types_uintptr_t)(output)) & 0xf) == 0 && mk_lang_cpuid_has_sse2())
+		{
+			n = (rem / 4) * 4;
+			mk_lib_crypto_alg_serpent_schedule_decrypt_sse2(schedule, in, out, n);
+			in += n;
+			out += n;
+			rem -= n;
+		}
+		else
+		#endif
+		#if mk_lang_llong_has
+		if(!mk_lang_constexpr_is_constant_evaluated_test && rem >= 2 && (((mk_lang_types_uintptr_t)(input)) & 0x7) == 0 && (((mk_lang_types_uintptr_t)(output)) & 0x7) == 0)
+		{
+			n = (rem / 2) * 2;
+			mk_lib_crypto_alg_serpent_schedule_decrypt_64(schedule, in, out, n);
+			in += n;
+			out += n;
+			rem -= n;
+		}
+		else
+		#endif
+		{
+			n = (rem / 1) * 1;
+			mk_lib_crypto_alg_serpent_schedule_decrypt_portable(schedule, in, out, n);
+			in += n;
+			out += n;
+			rem -= n;
+		}
 	}
 }
 
