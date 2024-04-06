@@ -19,9 +19,9 @@
 	(defined mk_lang_num_longdivmod_t_tn2_get_lo) && \
 	(defined mk_lang_num_longdivmod_t_tn2_get_hi) && \
 	(defined mk_lang_num_longdivmod_t_tn3_get_tn2 || ((defined mk_lang_num_longdivmod_t_alg && mk_lang_num_longdivmod_t_alg == 2) || !defined mk_lang_num_longdivmod_t_alg)) && \
-	(defined mk_sl_cui_inl_defd_t1_sizebits_d || !defined mk_sl_cui_inl_defd_t1_sizebits_d) && \
-	(defined mk_sl_cui_inl_defd_t2_sizebits_d || !defined mk_sl_cui_inl_defd_t2_sizebits_d) && \
-	(defined mk_sl_cui_inl_defd_t3_sizebits_d || !defined mk_sl_cui_inl_defd_t3_sizebits_d) && \
+	(defined mk_lang_num_longdivmod_t_tn1_sizebits_d || !defined mk_lang_num_longdivmod_t_tn1_sizebits_d) && \
+	(defined mk_lang_num_longdivmod_t_tn2_sizebits_d || !defined mk_lang_num_longdivmod_t_tn2_sizebits_d) && \
+	(defined mk_lang_num_longdivmod_t_tn3_sizebits_d || !defined mk_lang_num_longdivmod_t_tn3_sizebits_d) && \
 	1))
 #error xxxxxxxxxx
 #endif
