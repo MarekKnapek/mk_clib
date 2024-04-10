@@ -10,8 +10,8 @@
 #include "mk_lang_msvc.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
-#include "mk_lib_crypto_hash_block_sha2_c_base_32bit.h"
-#include "mk_lib_crypto_hash_block_sha2_x86_base_32bit.h"
+#include "mk_lib_crypto_hash_block_sha2_base_32bit_c.h"
+#include "mk_lib_crypto_hash_block_sha2_base_32bit_x86.h"
 #include "mk_sl_uint32.h"
 
 
@@ -38,12 +38,12 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sh
 	#if (mk_lang_msvc_ver >= mk_lang_msvc_ver_2015 || mk_lang_gnuc_is_at_least(11, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
 	if(!mk_lang_constexpr_is_constant_evaluated_test && mk_lib_crypto_hash_block_sha2_base_32bit_conditions_1 && mk_lib_crypto_hash_block_sha2_base_32bit_conditions_2)
 	{
-		mk_lib_crypto_hash_block_sha2_x86_base_32bit_init(&sha2_base_32bit->m_data.m_sha2_x86_base_32bit, iv);
+		mk_lib_crypto_hash_block_sha2_base_32bit_x86_init(&sha2_base_32bit->m_data.m_sha2_x86_base_32bit, iv);
 	}
 	else
 	#endif
 	{
-		mk_lib_crypto_hash_block_sha2_c_base_32bit_init(&sha2_base_32bit->m_data.m_sha2_c_base_32bit, iv);
+		mk_lib_crypto_hash_block_sha2_base_32bit_c_init(&sha2_base_32bit->m_data.m_sha2_c_base_32bit, iv);
 	}
 }
 
@@ -54,12 +54,12 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sh
 	#if (mk_lang_msvc_ver >= mk_lang_msvc_ver_2015 || mk_lang_gnuc_is_at_least(11, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
 	if(!mk_lang_constexpr_is_constant_evaluated_test && mk_lib_crypto_hash_block_sha2_base_32bit_conditions_1 && mk_lib_crypto_hash_block_sha2_base_32bit_conditions_2 && mk_lib_crypto_hash_block_sha2_base_32bit_conditions_3)
 	{
-		mk_lib_crypto_hash_block_sha2_x86_base_32bit_append_blocks(&sha2_base_32bit->m_data.m_sha2_x86_base_32bit, ((mk_lib_crypto_hash_block_sha2_x86_base_32bit_block_pct)(pblocks)), nblocks);
+		mk_lib_crypto_hash_block_sha2_base_32bit_x86_append_blocks(&sha2_base_32bit->m_data.m_sha2_x86_base_32bit, ((mk_lib_crypto_hash_block_sha2_base_32bit_x86_block_pct)(pblocks)), nblocks);
 	}
 	else
 	#endif
 	{
-		mk_lib_crypto_hash_block_sha2_c_base_32bit_append_blocks(&sha2_base_32bit->m_data.m_sha2_c_base_32bit, pblocks, nblocks);
+		mk_lib_crypto_hash_block_sha2_base_32bit_c_append_blocks(&sha2_base_32bit->m_data.m_sha2_c_base_32bit, pblocks, nblocks);
 	}
 }
 
@@ -70,11 +70,11 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sh
 	#if (mk_lang_msvc_ver >= mk_lang_msvc_ver_2015 || mk_lang_gnuc_is_at_least(11, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
 	if(!mk_lang_constexpr_is_constant_evaluated_test && mk_lib_crypto_hash_block_sha2_base_32bit_conditions_1 && mk_lib_crypto_hash_block_sha2_base_32bit_conditions_2 && mk_lib_crypto_hash_block_sha2_base_32bit_conditions_4)
 	{
-		mk_lib_crypto_hash_block_sha2_x86_base_32bit_finish(&sha2_base_32bit->m_data.m_sha2_x86_base_32bit, ((mk_lib_crypto_hash_block_sha2_x86_base_32bit_block_pt)(block)), idx, ((mk_lib_crypto_hash_block_sha2_x86_base_32bit_digest_pt)(digest)));
+		mk_lib_crypto_hash_block_sha2_base_32bit_x86_finish(&sha2_base_32bit->m_data.m_sha2_x86_base_32bit, ((mk_lib_crypto_hash_block_sha2_base_32bit_x86_block_pt)(block)), idx, ((mk_lib_crypto_hash_block_sha2_base_32bit_x86_digest_pt)(digest)));
 	}
 	else
 	#endif
 	{
-		mk_lib_crypto_hash_block_sha2_c_base_32bit_finish(&sha2_base_32bit->m_data.m_sha2_c_base_32bit, block, idx, digest);
+		mk_lib_crypto_hash_block_sha2_base_32bit_c_finish(&sha2_base_32bit->m_data.m_sha2_c_base_32bit, block, idx, digest);
 	}
 }
