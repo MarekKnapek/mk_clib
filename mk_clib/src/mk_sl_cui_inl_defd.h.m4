@@ -163,6 +163,13 @@ mm_per_bui(`#define mk_sl_cui_inl_defd_base_to_buis_$1_be mk_lang_concat(mk_sl_c
 #define mk_sl_cui_inl_defd_sizebits_t mk_lang_concat(mk_sl_cui_inl_defd_name, _sizebits_t)
 #define mk_sl_cui_inl_defd_sizebits_v mk_lang_concat(mk_sl_cui_inl_defd_name, _sizebits_v)
 
+#define mk_sl_cui_inl_defd_symbols_dec_a mk_lang_concat(mk_sl_cui_inl_defd_name, _symbols_dec_a)
+#define mk_sl_cui_inl_defd_symbols_hex_a mk_lang_concat(mk_sl_cui_inl_defd_name, _symbols_hex_a)
+#define mk_sl_cui_inl_defd_symbols_bin_a mk_lang_concat(mk_sl_cui_inl_defd_name, _symbols_bin_a)
+#define mk_sl_cui_inl_defd_symbols_dec_b mk_lang_concat(mk_sl_cui_inl_defd_name, _symbols_dec_b)
+#define mk_sl_cui_inl_defd_symbols_hex_b mk_lang_concat(mk_sl_cui_inl_defd_name, _symbols_hex_b)
+#define mk_sl_cui_inl_defd_symbols_bin_b mk_lang_concat(mk_sl_cui_inl_defd_name, _symbols_bin_b)
+
 #define mk_sl_cui_inl_defd_strlenbin_e mk_lang_concat(mk_sl_cui_inl_defd_name, _strlenbin_e)
 #define mk_sl_cui_inl_defd_strlenbin_t mk_lang_concat(mk_sl_cui_inl_defd_name, _strlenbin_t)
 #define mk_sl_cui_inl_defd_strlenbin_v mk_lang_concat(mk_sl_cui_inl_defd_name, _strlenbin_v)

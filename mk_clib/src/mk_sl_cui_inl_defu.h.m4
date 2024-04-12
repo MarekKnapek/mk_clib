@@ -163,6 +163,13 @@ mm_per_bui(`#undef mk_sl_cui_inl_defd_base_to_buis_$1_be')
 `#'undef mk_sl_cui_inl_defd_sizebits_t
 `#'undef mk_sl_cui_inl_defd_sizebits_v
 
+`#'undef mk_sl_cui_inl_defd_symbols_dec_a
+`#'undef mk_sl_cui_inl_defd_symbols_hex_a
+`#'undef mk_sl_cui_inl_defd_symbols_bin_a
+`#'undef mk_sl_cui_inl_defd_symbols_dec_b
+`#'undef mk_sl_cui_inl_defd_symbols_hex_b
+`#'undef mk_sl_cui_inl_defd_symbols_bin_b
+
 `#'undef mk_sl_cui_inl_defd_strlenbin_e
 `#'undef mk_sl_cui_inl_defd_strlenbin_t
 `#'undef mk_sl_cui_inl_defd_strlenbin_v
