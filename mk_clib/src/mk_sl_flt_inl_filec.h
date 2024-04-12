@@ -3,6 +3,7 @@
 #include "mk_lang_constexpr.h"
 #include "mk_lang_countof.h"
 #include "mk_lang_div_roundup.h"
+#include "mk_lang_encoding.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_likely.h"
@@ -54,6 +55,10 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_flt_defd_conv
 }
 
 
+#if !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic
+mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_flt_defd_symbols[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+#endif
+
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_flt_defd_uchars_to_string_dec_basic_n(mk_lang_types_uchar_pct const x, mk_lang_types_pchar_pt const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept
 {
 	enum flt_kind_e
@@ -75,7 +80,6 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_flt
 
 	mk_lang_constexpr_static mk_lang_types_pchar_t const s_minus = '-';
 	mk_lang_constexpr_static mk_lang_types_pchar_t const s_dot = '.';
-	mk_lang_constexpr_static mk_lang_types_pchar_t const s_symbols[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 	mk_lang_constexpr_static mk_lang_types_pchar_t const s_nan[] = {'n', 'a', 'n'};
 	mk_lang_constexpr_static mk_lang_types_pchar_t const s_inf[] = {'i', 'n', 'f'};
 
@@ -159,7 +163,11 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_flt
 		mk_lang_assert(exponent_decoded >= mk_sl_flt_defd_exponent_decoded_min && exponent_decoded <= mk_sl_flt_defd_exponent_decoded_max);
 		if(exponent_decoded <= -1)
 		{
-			if(((mk_lang_types_sint_t)(pstr - str)) == str_len){ mk_lang_unlikely return 0; } pstr[0] = s_symbols[0]; ++pstr;
+			#if mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic
+			if(((mk_lang_types_sint_t)(pstr - str)) == str_len){ mk_lang_unlikely return 0; } pstr[0] = ((mk_lang_types_pchar_t)('0' + 0)); ++pstr;
+			#else
+			if(((mk_lang_types_sint_t)(pstr - str)) == str_len){ mk_lang_unlikely return 0; } pstr[0] = mk_sl_flt_defd_symbols[0]; ++pstr;
+			#endif
 			if(((mk_lang_types_sint_t)(pstr - str)) == str_len){ mk_lang_unlikely return 0; } pstr[0] = s_dot; ++pstr;
 		}
 		else
@@ -188,7 +196,11 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_flt
 	}
 	else if(kind == flt_kind_e_subnormal)
 	{
-		if(((mk_lang_types_sint_t)(pstr - str)) == str_len){ mk_lang_unlikely return 0; } pstr[0] = s_symbols[0]; ++pstr;
+		#if mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic
+		if(((mk_lang_types_sint_t)(pstr - str)) == str_len){ mk_lang_unlikely return 0; } pstr[0] = ((mk_lang_types_pchar_t)('0' + 0)); ++pstr;
+		#else
+		if(((mk_lang_types_sint_t)(pstr - str)) == str_len){ mk_lang_unlikely return 0; } pstr[0] = mk_sl_flt_defd_symbols[0]; ++pstr;
+		#endif
 		if(((mk_lang_types_sint_t)(pstr - str)) == str_len){ mk_lang_unlikely return 0; } pstr[0] = s_dot; ++pstr;
 	}
 	if(kind == flt_kind_e_normal || kind == flt_kind_e_subnormal)
@@ -199,7 +211,11 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_flt
 		}
 		if(exponent_decoded >= mk_sl_flt_defd_fraction_bits)
 		{
-			if(((mk_lang_types_sint_t)(pstr - str)) == str_len){ mk_lang_unlikely return 0; } pstr[0] = s_symbols[0]; ++pstr;
+			#if mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic
+			if(((mk_lang_types_sint_t)(pstr - str)) == str_len){ mk_lang_unlikely return 0; } pstr[0] = ((mk_lang_types_pchar_t)('0' + 0)); ++pstr;
+			#else
+			if(((mk_lang_types_sint_t)(pstr - str)) == str_len){ mk_lang_unlikely return 0; } pstr[0] = mk_sl_flt_defd_symbols[0]; ++pstr;
+			#endif
 		}
 		else
 		{
@@ -213,7 +229,11 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_flt
 			{
 				mk_sl_flt_defd_cuibb_mul4_wrap_wi_smol(pbb1, &base, pbb2, &rem);
 				mk_lang_assert(rem >= 0 && rem <= 9);
-				if(((mk_lang_types_sint_t)(pstr - str)) == str_len){ mk_lang_unlikely return 0; } pstr[0] = s_symbols[rem]; ++pstr;
+				#if mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic
+				if(((mk_lang_types_sint_t)(pstr - str)) == str_len){ mk_lang_unlikely return 0; } pstr[0] = ((mk_lang_types_pchar_t)('0' + rem)); ++pstr;
+				#else
+				if(((mk_lang_types_sint_t)(pstr - str)) == str_len){ mk_lang_unlikely return 0; } pstr[0] = mk_sl_flt_defd_symbols[rem]; ++pstr;
+				#endif
 				pbb3 = pbb1;
 				pbb1 = pbb2;
 				pbb2 = pbb3;
@@ -222,9 +242,17 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_flt
 	}
 	else if(kind == flt_kind_e_zero)
 	{
-		if(((mk_lang_types_sint_t)(pstr - str)) == str_len){ mk_lang_unlikely return 0; } pstr[0] = s_symbols[0]; ++pstr;
+		#if mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic
+		if(((mk_lang_types_sint_t)(pstr - str)) == str_len){ mk_lang_unlikely return 0; } pstr[0] = ((mk_lang_types_pchar_t)('0' + 0)); ++pstr;
+		#else
+		if(((mk_lang_types_sint_t)(pstr - str)) == str_len){ mk_lang_unlikely return 0; } pstr[0] = mk_sl_flt_defd_symbols[0]; ++pstr;
+		#endif
 		if(((mk_lang_types_sint_t)(pstr - str)) == str_len){ mk_lang_unlikely return 0; } pstr[0] = s_dot; ++pstr;
-		if(((mk_lang_types_sint_t)(pstr - str)) == str_len){ mk_lang_unlikely return 0; } pstr[0] = s_symbols[0]; ++pstr;
+		#if mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic
+		if(((mk_lang_types_sint_t)(pstr - str)) == str_len){ mk_lang_unlikely return 0; } pstr[0] = ((mk_lang_types_pchar_t)('0' + 0)); ++pstr;
+		#else
+		if(((mk_lang_types_sint_t)(pstr - str)) == str_len){ mk_lang_unlikely return 0; } pstr[0] = mk_sl_flt_defd_symbols[0]; ++pstr;
+		#endif
 	}
 	else if(kind == flt_kind_e_infinity)
 	{

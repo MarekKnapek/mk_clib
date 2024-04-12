@@ -34,6 +34,8 @@
 #define mk_lib_flt_analyzer_inl_defd_pt mk_lang_concat(mk_lib_flt_analyzer_inl_defd_prefix, _pt)
 #define mk_lib_flt_analyzer_inl_defd_pct mk_lang_concat(mk_lib_flt_analyzer_inl_defd_prefix, _pct)
 
+#define mk_lib_flt_analyzer_inl_defd_symbols mk_lang_concat(mk_lib_flt_analyzer_inl_defd_prefix, _symbols)
+
 #define mk_lib_flt_analyzer_inl_defd_analyze_mts mk_lang_concat(mk_lib_flt_analyzer_inl_defd_prefix, _analyze_mts)
 #define mk_lib_flt_analyzer_inl_defd_analyze mk_lang_concat(mk_lib_flt_analyzer_inl_defd_prefix, _analyze)
 

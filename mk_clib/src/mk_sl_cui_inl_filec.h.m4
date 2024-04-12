@@ -5,6 +5,7 @@ include(`mk_sl_cui_inl.m')dnl
 #include "mk_lang_constexpr.h"
 #include "mk_lang_countof.h"
 #include "mk_lang_div_roundup.h"
+#include "mk_lang_encoding.h"
 #include "mk_lang_endian.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
@@ -3677,7 +3678,9 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_inl_defd_divmod2_
 	mk_sl_cui_inl_defd_divmod4_wrap(a, b, a, b);
 }
 
+#if !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_cui_inl_defd_symbols_dec_a[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+#endif
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_to_str_dec_n(mk_sl_cui_inl_defd_pct const x, mk_lang_types_pchar_pt const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept
 {
@@ -3710,7 +3713,11 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui
 		mk_sl_cui_inl_defd_base_to_bi_sint(&b, &n);
 		mk_lang_assert(n >= 0 && n < 10);
 		--i;
+		#if mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic
+		str[i] = ((mk_lang_types_pchar_t)('0' + n));
+		#else
 		str[i] = mk_sl_cui_inl_defd_symbols_dec_a[n];
+		#endif
 		if(mk_sl_cui_inl_defd_is_zero(pa2))
 		{
 			break;
@@ -3730,7 +3737,9 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui
 	return str_len - i;
 }
 
+#if !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_cui_inl_defd_symbols_dec_b[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+#endif
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_from_str_dec_n(mk_sl_cui_inl_defd_pt const x, mk_lang_types_pchar_pct const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept
 {
@@ -3778,6 +3787,16 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui
 	it = str;
 	ite = str + str_len;
 	e = *it;
+	#if mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic
+	if(e >= '0' && e <= '9')
+	{
+		i = e - '0';
+	}
+	else
+	{
+		return 0;
+	}
+	#else
 	n = mk_lang_countof(mk_sl_cui_inl_defd_symbols_dec_b);
 	for(i = 0; i != n; ++i)
 	{
@@ -3790,6 +3809,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui
 	{
 		return 0;
 	}
+	#endif
 	overflow = 1;
 	px1 = &xx;
 	px2 = x;
@@ -3797,6 +3817,16 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui
 	for(++it; it != ite; ++it)
 	{
 		e = *it;
+		#if mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic
+		if(e >= '0' && e <= '9')
+		{
+			i = e - '0';
+		}
+		else
+		{
+			break;
+		}
+		#else
 		n = mk_lang_countof(mk_sl_cui_inl_defd_symbols_dec_b);
 		for(i = 0; i != n; ++i)
 		{
@@ -3809,6 +3839,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui
 		{
 			break;
 		}
+		#endif
 		if(!(mk_sl_cui_inl_defd_lt(px1, &s_border_value) || (mk_sl_cui_inl_defd_eq(px1, &s_border_value) && i <= s_border_digit)))
 		{
 			overflow = -1;
@@ -3828,7 +3859,9 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui
 	return ((mk_lang_types_sint_t)(((mk_lang_types_sint_t)(it - str)) * overflow));
 }
 
+#if !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_cui_inl_defd_symbols_hex_a[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+#endif
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_to_str_hex_n(mk_sl_cui_inl_defd_pct const x, mk_lang_types_pchar_pt const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept
 {
@@ -3858,11 +3891,19 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui
 		zero = mk_sl_cui_inl_defd_is_zero(&xx);
 		tuc_lo = (tuc >> 0) & 0xf;
 		if(rem == 0){ return 0; } --rem; /* todo return negative? */
+		#if mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic
+		ptr[0] = (tuc_lo >= 0 && tuc_lo <= 9) ? ((mk_lang_types_pchar_t)('0' + tuc_lo)) : ((mk_lang_types_pchar_t)('a' + (tuc_lo - 10))); --ptr;
+		#else
 		ptr[0] = mk_sl_cui_inl_defd_symbols_hex_a[tuc_lo]; --ptr;
+		#endif
 		tuc_hi = (tuc >> 4) & 0xf;
 		if(tuc_hi == 0 && zero){ break; }
 		if(rem == 0){ return 0; } --rem; /* todo return negative? */
+		#if mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic
+		ptr[0] = (tuc_hi >= 0 && tuc_hi <= 9) ? ((mk_lang_types_pchar_t)('0' + tuc_hi)) : ((mk_lang_types_pchar_t)('a' + (tuc_hi - 10))); --ptr;
+		#else
 		ptr[0] = mk_sl_cui_inl_defd_symbols_hex_a[tuc_hi]; --ptr;
+		#endif
 		if(zero){ break; }
 	}
 	ret = str_len - rem;
@@ -3873,7 +3914,9 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui
 	return ret;
 }
 
+#if !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_cui_inl_defd_symbols_hex_b[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+#endif
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_to_str_hexf_n(mk_sl_cui_inl_defd_pct const x, mk_lang_types_pchar_pt const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept
 {
@@ -3903,13 +3946,20 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui
 		mk_sl_cui_inl_defd_shr2(&xx, mk_lang_charbit / 2);
 		tuc_lo = (tuc >> 0) & 0xf;
 		tuc_hi = (tuc >> 4) & 0xf;
+		#if mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic
+		ptr[0] = (tuc_lo >= 0 && tuc_lo <= 9) ? ((mk_lang_types_pchar_t)('0' + tuc_lo)) : ((mk_lang_types_pchar_t)('a' + (tuc_lo - 10))); --ptr;
+		ptr[0] = (tuc_hi >= 0 && tuc_hi <= 9) ? ((mk_lang_types_pchar_t)('0' + tuc_hi)) : ((mk_lang_types_pchar_t)('a' + (tuc_hi - 10))); --ptr;
+		#else
 		ptr[0] = mk_sl_cui_inl_defd_symbols_hex_b[tuc_lo]; --ptr;
 		ptr[0] = mk_sl_cui_inl_defd_symbols_hex_b[tuc_hi]; --ptr;
+		#endif
 	}
 	return mk_sl_cui_inl_defd_strlenhex_v;
 }
 
+#if !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_cui_inl_defd_symbols_bin_a[] = {'0', '1'};
+#endif
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_to_str_bin_n(mk_sl_cui_inl_defd_pct const x, mk_lang_types_pchar_pt const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept
 {
@@ -3930,7 +3980,11 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui
 	{
 		if(rem == 0){ return 0; } --rem; /* todo return negative? */
 		lsb = mk_sl_cui_inl_defd_has_lsb(&xx);
+		#if mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic
+		ptr[0] = ((mk_lang_types_pchar_t)('0' + (lsb ? 1 : 0))); --ptr;
+		#else
 		ptr[0] = mk_sl_cui_inl_defd_symbols_bin_a[lsb ? 1 : 0]; --ptr;
+		#endif
 		mk_sl_cui_inl_defd_shr2(&xx, 1);
 		if(mk_sl_cui_inl_defd_is_zero(&xx))
 		{
@@ -3945,7 +3999,9 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui
 	return ret;
 }
 
+#if !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_cui_inl_defd_symbols_bin_b[] = {'0', '1'};
+#endif
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_to_str_binf_n(mk_sl_cui_inl_defd_pct const x, mk_lang_types_pchar_pt const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept
 {
@@ -3966,7 +4022,11 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui
 	for(i = 0; i != n; ++i)
 	{
 		lsb = mk_sl_cui_inl_defd_has_lsb(&xx);
+		#if mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic
+		ptr[0] = ((mk_lang_types_pchar_t)('0' + (lsb ? 1 : 0))); --ptr;
+		#else
 		ptr[0] = mk_sl_cui_inl_defd_symbols_bin_b[lsb ? 1 : 0]; --ptr;
+		#endif
 		mk_sl_cui_inl_defd_shr2(&xx, 1);
 	}
 	return mk_sl_cui_inl_defd_strlenbin_v;

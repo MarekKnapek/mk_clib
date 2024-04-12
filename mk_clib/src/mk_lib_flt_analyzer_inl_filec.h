@@ -1,11 +1,15 @@
 #include "mk_lang_assert.h"
+#include "mk_lang_constexpr.h"
 #include "mk_lang_countof.h"
 #include "mk_lang_div_roundup.h"
+#include "mk_lang_encoding.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_static_param.h"
 #include "mk_lang_types.h"
+#include "mk_sl_uint16.h"
+#include "mk_sl_uint64.h"
 
 
 #include "mk_lib_flt_analyzer_inl_defd.h"
@@ -23,10 +27,12 @@
 #define mk_lib_flt_analyzer_inl_filec_flt_to_string_dec_basic_len_v mk_lang_concat(mk_lang_concat(mk_sl_flt_, mk_lib_flt_analyzer_inl_filec_flt_name), _to_string_dec_basic_len_v)
 
 
+#if !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic
+mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lib_flt_analyzer_inl_defd_symbols[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+#endif
+
 mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_flt_analyzer_inl_defd_analyze_mts(mk_lib_flt_analyzer_inl_defd_uint_pct const mts, mk_lang_types_uchar_t const type, mk_lib_flt_analyzer_inl_defd_lent_pt const mts_dcl, mk_lang_static_param(mk_lang_types_pchar_t, mts_dcd, 1 + 1 + mk_lib_flt_analyzer_inl_defd_flt_frac)) mk_lang_noexcept
 {
-	mk_lang_constexpr_static mk_lang_types_pchar_t const s_symbols[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
-
 	mk_lang_types_pchar_pt ptr mk_lang_constexpr_init;
 	mk_lang_types_sint_t tsi mk_lang_constexpr_init;
 	mk_lib_flt_analyzer_inl_defd_uint_t base mk_lang_constexpr_init;
@@ -47,11 +53,19 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_flt_analyzer
 	}
 	else
 	{
-		ptr[0] = type == 4 ? s_symbols[1] : s_symbols[0]; ++ptr;
+		#if mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic
+		ptr[0] = ((mk_lang_types_pchar_t)('0' + type == 4 ? 1 : 0)); ++ptr;
+		#else
+		ptr[0] = type == 4 ? mk_lib_flt_analyzer_inl_defd_symbols[1] : mk_lib_flt_analyzer_inl_defd_symbols[0]; ++ptr;
+		#endif
 		ptr[0] = '.'; ++ptr;
 		if(mk_lib_flt_analyzer_inl_defd_uint_is_zero(mts))
 		{
-			ptr[0] = s_symbols[0];
+			#if mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic
+			ptr[0] = ((mk_lang_types_pchar_t)('0' + 0));
+			#else
+			ptr[0] = mk_lib_flt_analyzer_inl_defd_symbols[0];
+			#endif
 			tsi = 3; mk_lib_flt_analyzer_inl_defd_lent_from_bi_sint(mts_dcl, &tsi);
 		}
 		else
@@ -63,7 +77,11 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_flt_analyzer
 				mk_lib_flt_analyzer_inl_defd_uint_mul4_wrap_wi(&ta, &base, &ta, &tb);
 				mk_lib_flt_analyzer_inl_defd_uint_to_bi_sint(&tb, &tsi);
 				mk_lang_assert(tsi >= 0 && tsi <= 9);
-				ptr[0] = s_symbols[tsi]; ++ptr;
+				#if mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic
+				ptr[0] = ((mk_lang_types_pchar_t)('0' + tsi)); ++ptr;
+				#else
+				ptr[0] = mk_lib_flt_analyzer_inl_defd_symbols[tsi]; ++ptr;
+				#endif
 				if(mk_lib_flt_analyzer_inl_defd_uint_is_zero(&ta))
 				{
 					tsi = ((mk_lang_types_sint_t)(ptr - &mts_dcd[0])); mk_lib_flt_analyzer_inl_defd_lent_from_bi_sint(mts_dcl, &tsi);

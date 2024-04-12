@@ -34,6 +34,8 @@
 #undef mk_lib_flt_analyzer_inl_defd_pt
 #undef mk_lib_flt_analyzer_inl_defd_pct
 
+#undef mk_lib_flt_analyzer_inl_defd_symbols
+
 #undef mk_lib_flt_analyzer_inl_defd_analyze_mts
 #undef mk_lib_flt_analyzer_inl_defd_analyze
 
