@@ -1,4 +1,4 @@
-#include <emmintrin.h>
+#include <emmintrin.h> /* SSE2 _mm_and_si128 _mm_cmpeq_epi32 _mm_load_si128 _mm_or_si128 _mm_slli_epi32 _mm_srli_epi32 _mm_store_si128 _mm_unpackhi_epi32 _mm_unpackhi_epi64 _mm_unpacklo_epi32 _mm_unpacklo_epi64 _mm_xor_si128 */
 
 #if mk_lang_msvc_ver >= mk_lang_msvc_ver_2015
 #pragma intrinsic(_mm_and_si128)

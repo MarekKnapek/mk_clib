@@ -28,9 +28,13 @@
 #if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_gnuc_is_at_least(6, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && mk_lang_alignas_has && mk_lang_alignof_has
 
 
-#include <emmintrin.h>
-#include <immintrin.h>
-#include <wmmintrin.h>
+#include <emmintrin.h> /* SSE2 _mm_castpd_si128 _mm_castsi128_pd _mm_load_si128 _mm_shuffle_epi32 _mm_shuffle_pd _mm_slli_si128 _mm_store_si128 _mm_xor_si128 */
+#include <wmmintrin.h> /* AES _mm_aesdec_si128 _mm_aesdeclast_si128 _mm_aesenc_si128 _mm_aesenclast_si128 _mm_aesimc_si128 _mm_aeskeygenassist_si128 */
+#include <immintrin.h> /* AVX _mm256_load_si256 _mm256_store_si256 */
+#include <immintrin.h> /* AVX2 _mm256_broadcastsi128_si256 _mm256_xor_si256 */
+#include <immintrin.h> /* AVX512F _mm512_broadcast_i32x4 _mm512_load_si512 _mm512_store_si512 _mm512_xor_si512 */
+#include <immintrin.h> /* VAES + AVX512F _mm512_aesdec_epi128 _mm512_aesdeclast_epi128 _mm512_aesenc_epi128 _mm512_aesenclast_epi128 */
+#include <immintrin.h> /* VAES + AVX512VL _mm256_aesdec_epi128 _mm256_aesdeclast_epi128 _mm256_aesenc_epi128 _mm256_aesenclast_epi128 */
 
 
 #if mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1
@@ -59,7 +63,6 @@
 #pragma intrinsic(_mm_castpd_si128)
 #pragma intrinsic(_mm_castsi128_pd)
 #pragma intrinsic(_mm_load_si128)
-#pragma intrinsic(_mm_loadu_si128)
 #pragma intrinsic(_mm_shuffle_epi32)
 #pragma intrinsic(_mm_shuffle_pd)
 #pragma intrinsic(_mm_slli_si128)
@@ -511,7 +514,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_gnuc_attribute_target("aes") mk_lib_c
 	mk_lang_assert(mk_lang_cpuid_has_sse2());
 	mk_lang_assert(mk_lang_cpuid_has_aesni());
 
-	ta = _mm_loadu_si128(((__m128i const*)(&key->m_data.m_uint8s[0])));
+	ta = _mm_load_si128(((__m128i const*)(&key->m_data.m_uint8s[0])));
 	_mm_store_si128(((__m128i*)(&schedule->m_data.m_msgs[0])), ta);
 	tb = _mm_aeskeygenassist_si128(ta, 0x01); ta = mk_lib_crypto_alg_aes_x86_inl_defd_assist_128(ta, tb); _mm_store_si128(((__m128i*)(&schedule->m_data.m_msgs[ 1])), ta);
 	tb = _mm_aeskeygenassist_si128(ta, 0x02); ta = mk_lib_crypto_alg_aes_x86_inl_defd_assist_128(ta, tb); _mm_store_si128(((__m128i*)(&schedule->m_data.m_msgs[ 2])), ta);
@@ -557,13 +560,13 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_gnuc_attribute_target("aes") mk_lib_c
 	{
 		w.m_uchars[i] = 0;
 	}
-	ta = _mm_loadu_si128(((__m128i const*)(&key->m_data.m_uint8s[0])));
-	tb = _mm_loadu_si128(((__m128i const*)(&w.m_uchars[0])));
+	ta = _mm_load_si128(((__m128i const*)(&key->m_data.m_uint8s[0])));
+	tb = _mm_load_si128(((__m128i const*)(&w.m_uchars[0])));
 	_mm_store_si128(((__m128i*)(&schedule->m_data.m_msgs[0])), ta);
 	_mm_store_si128(((__m128i*)(&schedule->m_data.m_msgs[1])), tb);
 	tc = _mm_aeskeygenassist_si128(tb, 0x01);
 	mk_lib_crypto_alg_aes_x86_inl_defd_assist_192(&ta, &tc, &tb);
-	_mm_store_si128(((__m128i*)(&schedule->m_data.m_msgs[1])), _mm_castpd_si128(_mm_shuffle_pd(_mm_castsi128_pd(_mm_loadu_si128(((__m128i const*)(&schedule->m_data.m_msgs[1])))), _mm_castsi128_pd(ta), 0)));
+	_mm_store_si128(((__m128i*)(&schedule->m_data.m_msgs[1])), _mm_castpd_si128(_mm_shuffle_pd(_mm_castsi128_pd(_mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[1])))), _mm_castsi128_pd(ta), 0)));
 	_mm_store_si128(((__m128i*)(&schedule->m_data.m_msgs[2])), _mm_castpd_si128(_mm_shuffle_pd(_mm_castsi128_pd(ta), _mm_castsi128_pd(tb), 1)));
 	tc = _mm_aeskeygenassist_si128(tb, 0x02);
 	mk_lib_crypto_alg_aes_x86_inl_defd_assist_192(&ta, &tc, &tb);
@@ -571,7 +574,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_gnuc_attribute_target("aes") mk_lib_c
 	_mm_store_si128(((__m128i*)(&schedule->m_data.m_msgs[4])), tb);
 	tc = _mm_aeskeygenassist_si128(tb, 0x04);
 	mk_lib_crypto_alg_aes_x86_inl_defd_assist_192(&ta, &tc, &tb);
-	_mm_store_si128(((__m128i*)(&schedule->m_data.m_msgs[4])), _mm_castpd_si128(_mm_shuffle_pd(_mm_castsi128_pd(_mm_loadu_si128(((__m128i const*)(&schedule->m_data.m_msgs[4])))), _mm_castsi128_pd(ta), 0)));
+	_mm_store_si128(((__m128i*)(&schedule->m_data.m_msgs[4])), _mm_castpd_si128(_mm_shuffle_pd(_mm_castsi128_pd(_mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[4])))), _mm_castsi128_pd(ta), 0)));
 	_mm_store_si128(((__m128i*)(&schedule->m_data.m_msgs[5])), _mm_castpd_si128(_mm_shuffle_pd(_mm_castsi128_pd(ta), _mm_castsi128_pd(tb), 1)));
 	tc = _mm_aeskeygenassist_si128(tb, 0x08);
 	mk_lib_crypto_alg_aes_x86_inl_defd_assist_192(&ta, &tc, &tb);
@@ -579,7 +582,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_gnuc_attribute_target("aes") mk_lib_c
 	_mm_store_si128(((__m128i*)(&schedule->m_data.m_msgs[7])), tb);
 	tc = _mm_aeskeygenassist_si128(tb, 0x10);
 	mk_lib_crypto_alg_aes_x86_inl_defd_assist_192(&ta, &tc, &tb);
-	_mm_store_si128(((__m128i*)(&schedule->m_data.m_msgs[7])), _mm_castpd_si128(_mm_shuffle_pd(_mm_castsi128_pd(_mm_loadu_si128(((__m128i const*)(&schedule->m_data.m_msgs[7])))), _mm_castsi128_pd(ta), 0)));
+	_mm_store_si128(((__m128i*)(&schedule->m_data.m_msgs[7])), _mm_castpd_si128(_mm_shuffle_pd(_mm_castsi128_pd(_mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[7])))), _mm_castsi128_pd(ta), 0)));
 	_mm_store_si128(((__m128i*)(&schedule->m_data.m_msgs[8])), _mm_castpd_si128(_mm_shuffle_pd(_mm_castsi128_pd(ta), _mm_castsi128_pd(tb), 1)));
 	tc = _mm_aeskeygenassist_si128(tb, 0x20);
 	mk_lib_crypto_alg_aes_x86_inl_defd_assist_192(&ta, &tc, &tb);
@@ -587,7 +590,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_gnuc_attribute_target("aes") mk_lib_c
 	_mm_store_si128(((__m128i*)(&schedule->m_data.m_msgs[10])), tb);
 	tc = _mm_aeskeygenassist_si128(tb, 0x40);
 	mk_lib_crypto_alg_aes_x86_inl_defd_assist_192(&ta, &tc, &tb);
-	_mm_store_si128(((__m128i*)(&schedule->m_data.m_msgs[10])), _mm_castpd_si128(_mm_shuffle_pd(_mm_castsi128_pd(_mm_loadu_si128(((__m128i const*)(&schedule->m_data.m_msgs[10])))), _mm_castsi128_pd(ta), 0)));
+	_mm_store_si128(((__m128i*)(&schedule->m_data.m_msgs[10])), _mm_castpd_si128(_mm_shuffle_pd(_mm_castsi128_pd(_mm_load_si128(((__m128i const*)(&schedule->m_data.m_msgs[10])))), _mm_castsi128_pd(ta), 0)));
 	_mm_store_si128(((__m128i*)(&schedule->m_data.m_msgs[11])), _mm_castpd_si128(_mm_shuffle_pd(_mm_castsi128_pd(ta), _mm_castsi128_pd(tb), 1)));
 	tc = _mm_aeskeygenassist_si128(tb, 0x80);
 	mk_lib_crypto_alg_aes_x86_inl_defd_assist_192(&ta, &tc, &tb);

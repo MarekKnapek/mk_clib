@@ -1,4 +1,5 @@
-#include <immintrin.h>
+#include <immintrin.h> /* AVX _mm256_loadu2_m128i _mm256_store_si256 */
+#include <immintrin.h> /* AVX2 _mm256_and_si256 _mm256_cmpeq_epi32 _mm256_load_si256 _mm256_or_si256 _mm256_slli_epi32 _mm256_srli_epi32 _mm256_unpackhi_epi32 _mm256_unpackhi_epi64 _mm256_unpacklo_epi32 _mm256_unpacklo_epi64 _mm256_xor_si256 */
 
 #if mk_lang_msvc_ver >= mk_lang_msvc_ver_2015
 #pragma intrinsic(_mm256_and_si256)

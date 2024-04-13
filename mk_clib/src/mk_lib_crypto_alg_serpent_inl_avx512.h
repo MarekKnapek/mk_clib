@@ -1,5 +1,5 @@
-#include <emmintrin.h>
-#include <immintrin.h>
+#include <emmintrin.h> /* SSE2 _mm_load_si128 _mm_store_si128 */
+#include <immintrin.h> /* AVX512F _mm512_and_si512 _mm512_load_si512 _mm512_or_si512 _mm512_set1_epi32 _mm512_slli_epi32 _mm512_srli_epi32 _mm512_store_si512 _mm512_unpackhi_epi32 _mm512_unpackhi_epi64 _mm512_unpacklo_epi32 _mm512_unpacklo_epi64 _mm512_xor_si512 */
 
 #if mk_lang_msvc_ver >= mk_lang_msvc_ver_2015
 #pragma intrinsic(_mm_load_si128)

@@ -25,10 +25,10 @@
 
 #if (mk_lang_msvc_ver >= mk_lang_msvc_ver_2015 || mk_lang_gnuc_is_at_least(11, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
 
-#include <emmintrin.h> /* _mm_add_epi32 _mm_load_si128 _mm_set_epi32 _mm_set_epi64x _mm_setzero_si128 _mm_shuffle_epi32 _mm_store_si128 _mm_xor_si128 */
-#include <immintrin.h> /* _mm_sha1msg1_epu32 _mm_sha1msg2_epu32 _mm_sha1nexte_epu32 _mm_sha1rnds4_epu32 */
-#include <smmintrin.h> /* _mm_extract_epi32 */
-#include <tmmintrin.h> /* _mm_shuffle_epi8 */
+#include <emmintrin.h> /* SSE2 _mm_add_epi32 _mm_load_si128 _mm_set_epi32 _mm_set_epi64x _mm_setzero_si128 _mm_shuffle_epi32 _mm_store_si128 _mm_xor_si128 */
+#include <tmmintrin.h> /* SSSE3 _mm_shuffle_epi8 */
+#include <smmintrin.h> /* SSE4.1 _mm_extract_epi32 */
+#include <immintrin.h> /* SHA _mm_sha1msg1_epu32 _mm_sha1msg2_epu32 _mm_sha1nexte_epu32 _mm_sha1rnds4_epu32 */
 
 
 #if mk_lang_msvc_ver >= mk_lang_msvc_ver_2015
