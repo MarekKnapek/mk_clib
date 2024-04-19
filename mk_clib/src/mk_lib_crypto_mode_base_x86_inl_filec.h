@@ -28,9 +28,9 @@ mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_mode_base_x86_inl_defd_xor3(mk_
 	mk_lang_assert(b);
 	mk_lang_assert(c);
 	mk_lang_assert(mk_lang_cpuid_has_sse());
-	mk_lang_assert(((mk_lang_types_uintptr_t)(a)) % 0xf == 0);
-	mk_lang_assert(((mk_lang_types_uintptr_t)(b)) % 0xf == 0);
-	mk_lang_assert(((mk_lang_types_uintptr_t)(c)) % 0xf == 0);
+	mk_lang_assert((((mk_lang_types_uintptr_t)(a)) & 0xf) == 0);
+	mk_lang_assert((((mk_lang_types_uintptr_t)(b)) & 0xf) == 0);
+	mk_lang_assert((((mk_lang_types_uintptr_t)(c)) & 0xf) == 0);
 
 	ta = _mm_load_ps(((mk_lang_types_float_pct)(a)));
 	tb = _mm_load_ps(((mk_lang_types_float_pct)(b)));
@@ -46,8 +46,8 @@ mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_mode_base_x86_inl_defd_xor2(mk_
 	mk_lang_assert(a);
 	mk_lang_assert(b);
 	mk_lang_assert(mk_lang_cpuid_has_sse());
-	mk_lang_assert(((mk_lang_types_uintptr_t)(a)) % 0xf == 0);
-	mk_lang_assert(((mk_lang_types_uintptr_t)(b)) % 0xf == 0);
+	mk_lang_assert((((mk_lang_types_uintptr_t)(a)) & 0xf) == 0);
+	mk_lang_assert((((mk_lang_types_uintptr_t)(b)) & 0xf) == 0);
 
 	ta = _mm_load_ps(((mk_lang_types_float_pct)(a)));
 	tb = _mm_load_ps(((mk_lang_types_float_pct)(b)));
