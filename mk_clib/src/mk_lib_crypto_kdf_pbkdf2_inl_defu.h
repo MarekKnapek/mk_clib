@@ -1,6 +1,5 @@
 #undef mk_lib_crypto_kdf_pbkdf2_inl_defd_name
 
-#undef mk_lib_crypto_kdf_pbkdf2_inl_defd_fn_u8
 #undef mk_lib_crypto_kdf_pbkdf2_inl_defd_fn
 
 #undef mk_lib_crypto_kdf_pbkdf2_inl_defd_block_len

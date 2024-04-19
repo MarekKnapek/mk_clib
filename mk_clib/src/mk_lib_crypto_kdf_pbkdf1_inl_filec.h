@@ -8,12 +8,12 @@
 #include "mk_lib_crypto_kdf_pbkdf1_inl_defd.h"
 
 
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_kdf_pbkdf1_inl_defd_fn_u8(mk_sl_cui_uint8_pct const password, int const password_len, mk_sl_cui_uint8_pct const salt, mk_lang_types_ulong_t const cost, int const key_len, mk_sl_cui_uint8_pt const key) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_kdf_pbkdf1_inl_defd_fn(mk_sl_cui_uint8_pct const password, mk_lang_types_sint_t const password_len, mk_sl_cui_uint8_pct const salt, mk_lang_types_ulong_t const cost, mk_lang_types_sint_t const key_len, mk_sl_cui_uint8_pt const key) mk_lang_noexcept
 {
 	mk_lib_crypto_kdf_pbkdf1_inl_defd_hasher_t hasher mk_lang_constexpr_init;
 	mk_lib_crypto_kdf_pbkdf1_inl_defd_digest_t digest mk_lang_constexpr_init;
 	mk_lang_types_ulong_t it mk_lang_constexpr_init;
-	int i mk_lang_constexpr_init;
+	mk_lang_types_sint_t i mk_lang_constexpr_init;
 
 	mk_lang_assert(password || password_len == 0);
 	mk_lang_assert(password_len >= 0);
@@ -32,27 +32,9 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_kdf_pbkdf1_inl_defd_fn_u8(mk_
 		mk_lib_crypto_kdf_pbkdf1_inl_defd_hasher_append_u8(&hasher, &digest.m_uint8s[0], mk_lib_crypto_kdf_pbkdf1_inl_defd_digest_len);
 		mk_lib_crypto_kdf_pbkdf1_inl_defd_hasher_finish(&hasher, &digest);
 	}
-	for(i = 0; i != key_len; ++i){ key[i] = digest.m_uint8s[i]; }
-}
-
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_kdf_pbkdf1_inl_defd_fn(mk_lang_types_uchar_pct const password, int const password_len, mk_lang_types_uchar_pct const salt, mk_lang_types_ulong_t const cost, int const key_len, mk_lang_types_uchar_pt const key) mk_lang_noexcept
-{
-	int i mk_lang_constexpr_init;
-	mk_sl_cui_uint8_t pwd[mk_lib_crypto_kdf_pbkdf1_inl_defd_block_len] mk_lang_constexpr_init;
-	mk_sl_cui_uint8_t slt[8] mk_lang_constexpr_init;
-	mk_sl_cui_uint8_t k[mk_lib_crypto_kdf_pbkdf1_inl_defd_digest_len] mk_lang_constexpr_init;
-
-	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	for(i = 0; i != key_len; ++i)
 	{
-		mk_lib_crypto_kdf_pbkdf1_inl_defd_fn_u8(((mk_sl_cui_uint8_pct)(password)), password_len, ((mk_sl_cui_uint8_pct)(salt)), cost, key_len, ((mk_sl_cui_uint8_pt)(key)));
-	}
-	else
-	{
-		mk_lang_assert(password_len <= ((int)(sizeof(pwd) / sizeof(pwd[0]))));
-		for(i = 0; i != password_len; ++i){ mk_sl_cui_uint8_from_bi_uchar(&pwd[i], &password[i]); }
-		for(i = 0; i != 8; ++i){ mk_sl_cui_uint8_from_bi_uchar(&slt[i], &salt[i]); }
-		mk_lib_crypto_kdf_pbkdf1_inl_defd_fn_u8(pwd, password_len, slt, cost, key_len, k);
-		for(i = 0; i != key_len; ++i){ mk_sl_cui_uint8_to_bi_uchar(&k[i], &key[i]); }
+		key[i] = digest.m_uint8s[i];
 	}
 }
 
