@@ -718,7 +718,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_try_dec
 	mk_lang_assert(volume_len);
 
 	mk_clib_app_vc_derive_keys(kdfid, password, password_len, &salt->m_data.m_uint8s[0], cost, &key_material);
-	for(seqid = ((mk_clib_app_vc_seqid_t)(0)); seqid != mk_clib_app_vc_seqid_e_dummy; ++seqid)
+	for(seqid = ((mk_clib_app_vc_seqid_t)(0)); seqid != mk_clib_app_vc_seqid_e_dummy; seqid = ((mk_clib_app_vc_seqid_t)(((mk_lang_types_sint_t)(seqid)) + 1)))
 	{
 		ret = mk_clib_app_try_decrypt_header_seq(seqid, &key_material, block, schedules, volume_len);
 		if(ret == 0)
@@ -747,7 +747,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_try_dec
 
 	if(kdf_hint == mk_clib_app_vc_kdfid_e_dummy)
 	{
-		for(kdfid = ((mk_clib_app_vc_kdfid_t)(0)); kdfid != mk_clib_app_vc_kdfid_e_dummy; ++kdfid)
+		for(kdfid = ((mk_clib_app_vc_kdfid_t)(0)); kdfid != mk_clib_app_vc_kdfid_e_dummy; kdfid = ((mk_clib_app_vc_kdfid_t)(((mk_lang_types_sint_t)(kdfid)) + 1)))
 		{
 			ret = mk_clib_app_try_decrypt_header_kdf(kdfid, password, password_len, salt, cost, block, seqid_out, schedules, volume_len);
 			if(ret == 0)
