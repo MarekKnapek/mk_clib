@@ -3,7 +3,7 @@
   "build_run_c":
     "strategy":
       "matrix":
-        "proj": ["mkcc", "mkch", "mkci", "mkct"]
+        "proj": ["vc"]
         "cver": ["89", "99", "11", "18", "2x"]
     "runs-on": "ubuntu-latest"
     "steps":
@@ -20,7 +20,7 @@
   "build_run_cpp":
     "strategy":
       "matrix":
-        "proj": ["mkcc", "mkch", "mkci", "mkct"]
+        "proj": ["vc"]
         "cver": ["98", "11", "14", "17", "20"]
     "runs-on": "ubuntu-latest"
     "steps":
@@ -34,36 +34,10 @@
         "with":
           "name": "${{matrix.proj}}-cpp${{matrix.cver}}.txt"
           "path": "./mk_clib/app/${{matrix.proj}}-cpp${{matrix.cver}}.txt"
-  "build_wasm":
-    "strategy":
-      "matrix":
-        "proj": ["mkch", "mkcc", "float_analyzer", "double_analyzer", "quad_analyzer"]
-    "runs-on": "ubuntu-latest"
-    "defaults":
-      "run":
-        "working-directory": "./mk_clib/projects/emscripten"
-    "steps":
-      - "uses": mymindstorm/setup-emsdk@v13
-      - "uses": "actions/checkout@main"
-      - "run": "bash ./../gcc/build_m4.sh"
-      - "run": "bash ./${{matrix.proj}}.sh"
-      - "uses": "actions/upload-artifact@main"
-        "with":
-          "name": "${{matrix.proj}}.wasm"
-          "path": "./mk_clib/projects/emscripten/${{matrix.proj}}.wasm"
-  "build_run_examples":
-    "runs-on": "ubuntu-latest"
-    "defaults":
-      "run":
-        "working-directory": "./mk_clib/projects/gcc"
-    "steps":
-      - "uses": "actions/checkout@main"
-      - "run": "bash ./build_m4.sh"
-      - "run": "bash ./build_run_examples.sh"
   "build_run_win":
     "strategy":
       "matrix":
-        "proj": ["mkcc", "mkcfct", "mkcflt", "mkch", "mkci", "mkct"]
+        "proj": ["vc"]
         "conf": ["debug", "release"]
         "plat": ["x86", "x64", "arm32", "arm64", "arm64ec"]
     "runs-on": "windows-latest"
@@ -84,7 +58,7 @@
           "path": "${{matrix.proj}}-${{matrix.conf}}-${{matrix.plat}}.txt"
   "mk_clib":
     "runs-on": "ubuntu-latest"
-    "needs": ["build_run_c", "build_run_cpp", "build_wasm", "build_run_win"]
+    "needs": ["build_run_c", "build_run_cpp", "build_run_win"]
     "steps":
       - "uses": "actions/download-artifact@main"
         "with":
