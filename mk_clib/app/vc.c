@@ -1,3 +1,6 @@
+#define mk_lang_assert_want 1
+
+
 #include "../src/mk_clib_app_vc.h"
 
 
