@@ -59,6 +59,11 @@ Project("{8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942}") = "quad_analyzer", "quad_analy
 		{8286250d-5be4-4739-befc-05c1fef305be} = {8286250d-5be4-4739-befc-05c1fef305be}
 	EndProjectSection
 EndProject
+Project("{8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942}") = "vc", "vc\vc.vcxproj", "{6416563a-41fe-42cd-950d-0ab99f9bf8f3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8286250d-5be4-4739-befc-05c1fef305be} = {8286250d-5be4-4739-befc-05c1fef305be}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -311,6 +316,26 @@ Global
 		{a1cbb4a8-c1ba-40dd-8772-26844c6b7c59}.Debug|ARM64EC.Build.0 = Debug|ARM64EC
 		{a1cbb4a8-c1ba-40dd-8772-26844c6b7c59}.Release|ARM64EC.ActiveCfg = Release|ARM64EC
 		{a1cbb4a8-c1ba-40dd-8772-26844c6b7c59}.Release|ARM64EC.Build.0 = Release|ARM64EC
+		{6416563a-41fe-42cd-950d-0ab99f9bf8f3}.Debug|x86.ActiveCfg = Debug|Win32
+		{6416563a-41fe-42cd-950d-0ab99f9bf8f3}.Debug|x86.Build.0 = Debug|Win32
+		{6416563a-41fe-42cd-950d-0ab99f9bf8f3}.Release|x86.ActiveCfg = Release|Win32
+		{6416563a-41fe-42cd-950d-0ab99f9bf8f3}.Release|x86.Build.0 = Release|Win32
+		{6416563a-41fe-42cd-950d-0ab99f9bf8f3}.Debug|x64.ActiveCfg = Debug|x64
+		{6416563a-41fe-42cd-950d-0ab99f9bf8f3}.Debug|x64.Build.0 = Debug|x64
+		{6416563a-41fe-42cd-950d-0ab99f9bf8f3}.Release|x64.ActiveCfg = Release|x64
+		{6416563a-41fe-42cd-950d-0ab99f9bf8f3}.Release|x64.Build.0 = Release|x64
+		{6416563a-41fe-42cd-950d-0ab99f9bf8f3}.Debug|ARM.ActiveCfg = Debug|ARM
+		{6416563a-41fe-42cd-950d-0ab99f9bf8f3}.Debug|ARM.Build.0 = Debug|ARM
+		{6416563a-41fe-42cd-950d-0ab99f9bf8f3}.Release|ARM.ActiveCfg = Release|ARM
+		{6416563a-41fe-42cd-950d-0ab99f9bf8f3}.Release|ARM.Build.0 = Release|ARM
+		{6416563a-41fe-42cd-950d-0ab99f9bf8f3}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{6416563a-41fe-42cd-950d-0ab99f9bf8f3}.Debug|ARM64.Build.0 = Debug|ARM64
+		{6416563a-41fe-42cd-950d-0ab99f9bf8f3}.Release|ARM64.ActiveCfg = Release|ARM64
+		{6416563a-41fe-42cd-950d-0ab99f9bf8f3}.Release|ARM64.Build.0 = Release|ARM64
+		{6416563a-41fe-42cd-950d-0ab99f9bf8f3}.Debug|ARM64EC.ActiveCfg = Debug|ARM64EC
+		{6416563a-41fe-42cd-950d-0ab99f9bf8f3}.Debug|ARM64EC.Build.0 = Debug|ARM64EC
+		{6416563a-41fe-42cd-950d-0ab99f9bf8f3}.Release|ARM64EC.ActiveCfg = Release|ARM64EC
+		{6416563a-41fe-42cd-950d-0ab99f9bf8f3}.Release|ARM64EC.Build.0 = Release|ARM64EC
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
