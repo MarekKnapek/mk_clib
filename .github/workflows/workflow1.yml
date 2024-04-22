@@ -3,7 +3,7 @@
   "build_run_c":
     "strategy":
       "matrix":
-        "proj": ["mkcc", "mkch", "mkci", "mkct"]
+        "proj": ["mkcc", "mkcfct", "mkcflt", "mkch", "mkci", "mkct"]
         "cver": ["89", "99", "11", "18", "2x"]
     "runs-on": "ubuntu-latest"
     "steps":
@@ -20,7 +20,7 @@
   "build_run_cpp":
     "strategy":
       "matrix":
-        "proj": ["mkcc", "mkch", "mkci", "mkct"]
+        "proj": ["mkcc", "mkcfct", "mkcflt", "mkch", "mkci", "mkct"]
         "cver": ["98", "11", "14", "17", "20"]
     "runs-on": "ubuntu-latest"
     "steps":
