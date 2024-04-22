@@ -11,52 +11,52 @@ Project("{8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942}") = "mk_clib_slib", "mk_clib_sli
 EndProject
 Project("{8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942}") = "mkcf", "mkcf\mkcf.vcxproj", "{506f012d-14b4-4024-a3d2-70fc0fe8bee7}"
 	ProjectSection(ProjectDependencies) = postProject
-		{daee6d32-db72-46dc-9a17-b38426c518f3} = {daee6d32-db72-46dc-9a17-b38426c518f3}
+		{8286250d-5be4-4739-befc-05c1fef305be} = {8286250d-5be4-4739-befc-05c1fef305be}
 	EndProjectSection
 EndProject
 Project("{8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942}") = "mkcfct", "mkcfct\mkcfct.vcxproj", "{658933b8-56b8-4158-9a0c-300b9c4feac6}"
 	ProjectSection(ProjectDependencies) = postProject
-		{daee6d32-db72-46dc-9a17-b38426c518f3} = {daee6d32-db72-46dc-9a17-b38426c518f3}
+		{8286250d-5be4-4739-befc-05c1fef305be} = {8286250d-5be4-4739-befc-05c1fef305be}
 	EndProjectSection
 EndProject
 Project("{8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942}") = "mkcflt", "mkcflt\mkcflt.vcxproj", "{df9ab380-961c-4f86-88a6-ba8228ccb1c5}"
 	ProjectSection(ProjectDependencies) = postProject
-		{daee6d32-db72-46dc-9a17-b38426c518f3} = {daee6d32-db72-46dc-9a17-b38426c518f3}
+		{8286250d-5be4-4739-befc-05c1fef305be} = {8286250d-5be4-4739-befc-05c1fef305be}
 	EndProjectSection
 EndProject
 Project("{8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942}") = "mkci", "mkci\mkci.vcxproj", "{cc790e7f-aa98-4255-9e19-55f2c9f0ff15}"
 	ProjectSection(ProjectDependencies) = postProject
-		{daee6d32-db72-46dc-9a17-b38426c518f3} = {daee6d32-db72-46dc-9a17-b38426c518f3}
+		{8286250d-5be4-4739-befc-05c1fef305be} = {8286250d-5be4-4739-befc-05c1fef305be}
 	EndProjectSection
 EndProject
 Project("{8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942}") = "mkct", "mkct\mkct.vcxproj", "{8bfe218e-41a7-4973-9140-4fa391c26eeb}"
 	ProjectSection(ProjectDependencies) = postProject
-		{daee6d32-db72-46dc-9a17-b38426c518f3} = {daee6d32-db72-46dc-9a17-b38426c518f3}
+		{8286250d-5be4-4739-befc-05c1fef305be} = {8286250d-5be4-4739-befc-05c1fef305be}
 	EndProjectSection
 EndProject
 Project("{8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942}") = "mkcc", "mkcc\mkcc.vcxproj", "{fbcf45f1-cf7a-42a0-8e4f-952a78381e66}"
 	ProjectSection(ProjectDependencies) = postProject
-		{daee6d32-db72-46dc-9a17-b38426c518f3} = {daee6d32-db72-46dc-9a17-b38426c518f3}
+		{8286250d-5be4-4739-befc-05c1fef305be} = {8286250d-5be4-4739-befc-05c1fef305be}
 	EndProjectSection
 EndProject
 Project("{8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942}") = "mkch", "mkch\mkch.vcxproj", "{6aa73750-b615-4361-9fdf-e0a82b7148ae}"
 	ProjectSection(ProjectDependencies) = postProject
-		{daee6d32-db72-46dc-9a17-b38426c518f3} = {daee6d32-db72-46dc-9a17-b38426c518f3}
+		{8286250d-5be4-4739-befc-05c1fef305be} = {8286250d-5be4-4739-befc-05c1fef305be}
 	EndProjectSection
 EndProject
 Project("{8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942}") = "float_analyzer", "float_analyzer\float_analyzer.vcxproj", "{d373cec0-6b32-4ea2-b320-d05e72116855}"
 	ProjectSection(ProjectDependencies) = postProject
-		{daee6d32-db72-46dc-9a17-b38426c518f3} = {daee6d32-db72-46dc-9a17-b38426c518f3}
+		{8286250d-5be4-4739-befc-05c1fef305be} = {8286250d-5be4-4739-befc-05c1fef305be}
 	EndProjectSection
 EndProject
 Project("{8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942}") = "double_analyzer", "double_analyzer\double_analyzer.vcxproj", "{c44def45-a5d4-460c-8aa4-2aad83de189e}"
 	ProjectSection(ProjectDependencies) = postProject
-		{daee6d32-db72-46dc-9a17-b38426c518f3} = {daee6d32-db72-46dc-9a17-b38426c518f3}
+		{8286250d-5be4-4739-befc-05c1fef305be} = {8286250d-5be4-4739-befc-05c1fef305be}
 	EndProjectSection
 EndProject
 Project("{8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942}") = "quad_analyzer", "quad_analyzer\quad_analyzer.vcxproj", "{a1cbb4a8-c1ba-40dd-8772-26844c6b7c59}"
 	ProjectSection(ProjectDependencies) = postProject
-		{daee6d32-db72-46dc-9a17-b38426c518f3} = {daee6d32-db72-46dc-9a17-b38426c518f3}
+		{8286250d-5be4-4739-befc-05c1fef305be} = {8286250d-5be4-4739-befc-05c1fef305be}
 	EndProjectSection
 EndProject
 Global
