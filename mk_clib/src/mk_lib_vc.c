@@ -243,18 +243,15 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_vc_keys_init(mk_lib_
 	}
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_vc_derive_keys(mk_lib_vc_kdfid_t const kdfid, mk_lang_types_pchar_pct const str_password, mk_lang_types_sint_t const password_len, mk_sl_cui_uint8_pct const salt, mk_lang_types_ulong_t const cost, mk_lib_vc_keys_material_pt const key_material) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_vc_derive_keys(mk_lib_vc_kdfid_t const kdfid, mk_sl_cui_uint8_pct const password, mk_lang_types_sint_t const password_len, mk_sl_cui_uint8_pct const salt, mk_lang_types_ulong_t const cost, mk_lib_vc_keys_material_pt const key_material) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pct password mk_lang_constexpr_init;
-
 	mk_lang_assert(kdfid >= 0 && kdfid < mk_lib_vc_kdfid_e_dummy);
-	mk_lang_assert(str_password && str_password[0] != '\0');
+	mk_lang_assert(password);
 	mk_lang_assert(password_len >= 1);
 	mk_lang_assert(salt);
 	mk_lang_assert(cost >= 1);
 	mk_lang_assert(key_material);
 
-	password = ((mk_sl_cui_uint8_pct)(str_password));
 	switch(kdfid)
 	{
 		case mk_lib_vc_kdfid_e_sha512:     mk_lib_crypto_kdf_pbkdf2_sha2_512    (password, password_len, salt, mk_lib_vc_salt_len, cost, mk_lang_countof(key_material->m_data.m_uint8s), &key_material->m_data.m_uint8s[0]); break;
@@ -359,14 +356,14 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc_try_decrypt_header_kdf(mk_lib_vc_kdfid_t const kdfid, mk_lang_types_pchar_pct const password, mk_lang_types_sint_t const password_len, mk_lib_vc_salt_pct const salt, mk_lang_types_ulong_t const cost, mk_lib_vc_block_pct const block, mk_lib_vc_seqid_pt const seqid_out, mk_lib_vc_seq_schedules_pt const schedules, mk_sl_cui_uint64_pt const volume_len) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc_try_decrypt_header_kdf(mk_lib_vc_kdfid_t const kdfid, mk_sl_cui_uint8_pct const password, mk_lang_types_sint_t const password_len, mk_lib_vc_salt_pct const salt, mk_lang_types_ulong_t const cost, mk_lib_vc_block_pct const block, mk_lib_vc_seqid_pt const seqid_out, mk_lib_vc_seq_schedules_pt const schedules, mk_sl_cui_uint64_pt const volume_len) mk_lang_noexcept
 {
 	mk_lib_vc_keys_material_t key_material mk_lang_constexpr_init;
 	mk_lib_vc_seqid_t seqid mk_lang_constexpr_init;
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	mk_lang_assert(kdfid >= 0 && kdfid < mk_lib_vc_kdfid_e_dummy);
-	mk_lang_assert(password && password[0] != '\0');
+	mk_lang_assert(password);
 	mk_lang_assert(password_len >= 1 && password_len <= 4 * 1024);
 	mk_lang_assert(salt);
 	mk_lang_assert(cost >= 1);
@@ -389,13 +386,13 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc_try_decrypt_header(mk_lib_vc_kdfid_t const kdf_hint, mk_lang_types_pchar_pct const password, mk_lang_types_sint_t const password_len, mk_lib_vc_salt_pct const salt, mk_lang_types_ulong_t const cost, mk_lib_vc_block_pct const block, mk_lib_vc_seqid_pt const seqid_out, mk_lib_vc_seq_schedules_pt const schedules, mk_sl_cui_uint64_pt const volume_len) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc_try_decrypt_header(mk_lib_vc_kdfid_t const kdf_hint, mk_sl_cui_uint8_pct const password, mk_lang_types_sint_t const password_len, mk_lib_vc_salt_pct const salt, mk_lang_types_ulong_t const cost, mk_lib_vc_block_pct const block, mk_lib_vc_seqid_pt const seqid_out, mk_lib_vc_seq_schedules_pt const schedules, mk_sl_cui_uint64_pt const volume_len) mk_lang_noexcept
 {
 	mk_lib_vc_kdfid_t kdfid mk_lang_constexpr_init;
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	mk_lang_assert(kdf_hint >= 0 && kdf_hint <= mk_lib_vc_kdfid_e_dummy);
-	mk_lang_assert(password && password[0] != '\0');
+	mk_lang_assert(password);
 	mk_lang_assert(password_len >= 1 && password_len <= 4 * 1024);
 	mk_lang_assert(salt);
 	mk_lang_assert(cost >= 1);

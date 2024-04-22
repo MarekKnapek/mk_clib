@@ -365,7 +365,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_
 		mk_sl_io_reader_file_portable_read(&reader, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &read, &err); mk_lang_check_rebreak(err); err = mk_lang_check_line; mk_lang_check_break(read == mk_lang_countof(block->m_data.m_uint8s)); err = 0;
 		salt = ((mk_lib_vc_salt_pt)(block));
 		block = ((mk_lib_vc_block_pt)(((mk_lang_types_uintptr_t)(block)) + mk_lib_vc_salt_len));
-		err = mk_lib_vc_try_decrypt_header(mk_lib_vc_kdfid_e_dummy, str_password, password_len, salt, cost, block, &seqid, &schedules, &volume_len); mk_lang_check_rebreak(err);
+		err = mk_lib_vc_try_decrypt_header(mk_lib_vc_kdfid_e_dummy, ((mk_sl_cui_uint8_pct)(str_password)), password_len, salt, cost, block, &seqid, &schedules, &volume_len); mk_lang_check_rebreak(err);
 		block = ((mk_lib_vc_block_pt)(((mk_lang_types_uintptr_t)(block)) - mk_lib_vc_salt_len));
 		mk_sl_io_reader_file_portable_seek_rel(&reader, mk_lib_vc_offsets_volume - mk_lib_vc_block_len, &err); mk_lang_check_rebreak(err);
 		tsi = mk_lib_vc_offsets_volume / mk_lib_vc_block_len; mk_sl_cui_uint64_from_bi_sint(&block_id, &tsi);
