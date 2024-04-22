@@ -242,6 +242,30 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_vc_keys_init(mk_lib_
 	}
 }
 
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_vc_derive_keys(mk_lib_vc_kdfid_t const kdfid, mk_lang_types_pchar_pct const str_password, mk_lang_types_sint_t const password_len, mk_sl_cui_uint8_pct const salt, mk_lang_types_ulong_t const cost, mk_lib_vc_keys_material_pt const key_material) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pct password mk_lang_constexpr_init;
+
+	mk_lang_assert(kdfid >= 0 && kdfid < mk_lib_vc_kdfid_e_dummy);
+	mk_lang_assert(str_password && str_password[0] != '\0');
+	mk_lang_assert(password_len >= 1);
+	mk_lang_assert(salt);
+	mk_lang_assert(cost >= 1);
+	mk_lang_assert(key_material);
+
+	password = ((mk_sl_cui_uint8_pct)(str_password));
+	switch(kdfid)
+	{
+		case mk_lib_vc_kdfid_e_sha512:     mk_lib_crypto_kdf_pbkdf2_sha2_512    (password, password_len, salt, mk_lib_vc_salt_len, cost, mk_lang_countof(key_material->m_data.m_uint8s), &key_material->m_data.m_uint8s[0]); break;
+		case mk_lib_vc_kdfid_e_whirlpool:  mk_lib_crypto_kdf_pbkdf2_whirlpool   (password, password_len, salt, mk_lib_vc_salt_len, cost, mk_lang_countof(key_material->m_data.m_uint8s), &key_material->m_data.m_uint8s[0]); break;
+		case mk_lib_vc_kdfid_e_sha256:     mk_lib_crypto_kdf_pbkdf2_sha2_256    (password, password_len, salt, mk_lib_vc_salt_len, cost, mk_lang_countof(key_material->m_data.m_uint8s), &key_material->m_data.m_uint8s[0]); break;
+		case mk_lib_vc_kdfid_e_blake2s256: mk_lib_crypto_kdf_pbkdf2_blake2s_256 (password, password_len, salt, mk_lib_vc_salt_len, cost, mk_lang_countof(key_material->m_data.m_uint8s), &key_material->m_data.m_uint8s[0]); break;
+		case mk_lib_vc_kdfid_e_streebog:   mk_lib_crypto_kdf_pbkdf2_streebog_512(password, password_len, salt, mk_lib_vc_salt_len, cost, mk_lang_countof(key_material->m_data.m_uint8s), &key_material->m_data.m_uint8s[0]); break;
+		case mk_lib_vc_kdfid_e_dummy: mk_lang_assert(mk_lang_false); break;
+		default: mk_lang_assert(mk_lang_false); break;
+	}
+}
+
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc_parse_cost(mk_lang_types_pchar_pct const str_pim, mk_lang_types_ulong_pt const cost) mk_lang_noexcept
 {
 	mk_lang_types_sint_t str_pim_len mk_lang_constexpr_init;
@@ -275,31 +299,6 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc
 		mk_sl_uint_64_to_32_le(&pim64, &pim32[0]);
 		mk_lang_check_return(mk_sl_cui_uint32_is_zero(&pim32[1]));
 		mk_sl_cui_uint32_to_bi_ulong(&pim32[0], cost);
-	}
-	return 0;
-}
-
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc_derive_keys(mk_lib_vc_kdfid_t const kdfid, mk_lang_types_pchar_pct const str_password, mk_lang_types_sint_t const password_len, mk_sl_cui_uint8_pct const salt, mk_lang_types_ulong_t const cost, mk_lib_vc_keys_material_pt const key_material) mk_lang_noexcept
-{
-	mk_sl_cui_uint8_pct password mk_lang_constexpr_init;
-
-	mk_lang_assert(kdfid >= 0 && kdfid < mk_lib_vc_kdfid_e_dummy);
-	mk_lang_assert(str_password && str_password[0] != '\0');
-	mk_lang_assert(password_len >= 1);
-	mk_lang_assert(salt);
-	mk_lang_assert(cost >= 1);
-	mk_lang_assert(key_material);
-
-	password = ((mk_sl_cui_uint8_pct)(str_password));
-	switch(kdfid)
-	{
-		case mk_lib_vc_kdfid_e_sha512:     mk_lib_crypto_kdf_pbkdf2_sha2_512    (password, password_len, salt, mk_lib_vc_salt_len, cost, mk_lang_countof(key_material->m_data.m_uint8s), &key_material->m_data.m_uint8s[0]); break;
-		case mk_lib_vc_kdfid_e_whirlpool:  mk_lib_crypto_kdf_pbkdf2_whirlpool   (password, password_len, salt, mk_lib_vc_salt_len, cost, mk_lang_countof(key_material->m_data.m_uint8s), &key_material->m_data.m_uint8s[0]); break;
-		case mk_lib_vc_kdfid_e_sha256:     mk_lib_crypto_kdf_pbkdf2_sha2_256    (password, password_len, salt, mk_lib_vc_salt_len, cost, mk_lang_countof(key_material->m_data.m_uint8s), &key_material->m_data.m_uint8s[0]); break;
-		case mk_lib_vc_kdfid_e_blake2s256: mk_lib_crypto_kdf_pbkdf2_blake2s_256 (password, password_len, salt, mk_lib_vc_salt_len, cost, mk_lang_countof(key_material->m_data.m_uint8s), &key_material->m_data.m_uint8s[0]); break;
-		case mk_lib_vc_kdfid_e_streebog:   mk_lib_crypto_kdf_pbkdf2_streebog_512(password, password_len, salt, mk_lib_vc_salt_len, cost, mk_lang_countof(key_material->m_data.m_uint8s), &key_material->m_data.m_uint8s[0]); break;
-		case mk_lib_vc_kdfid_e_dummy: mk_lang_assert(mk_lang_false); break;
-		default: mk_lang_assert(mk_lang_false); break;
 	}
 	return 0;
 }
@@ -363,7 +362,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc
 {
 	mk_lib_vc_keys_material_t key_material mk_lang_constexpr_init;
 	mk_lib_vc_seqid_t seqid mk_lang_constexpr_init;
-	mk_lang_types_sint_t ret mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	mk_lang_assert(kdfid >= 0 && kdfid < mk_lib_vc_kdfid_e_dummy);
 	mk_lang_assert(password && password[0] != '\0');
@@ -378,20 +377,21 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc
 	mk_lib_vc_derive_keys(kdfid, password, password_len, &salt->m_data.m_uint8s[0], cost, &key_material);
 	for(seqid = ((mk_lib_vc_seqid_t)(0)); seqid != mk_lib_vc_seqid_e_dummy; seqid = ((mk_lib_vc_seqid_t)(((mk_lang_types_sint_t)(seqid)) + 1)))
 	{
-		ret = mk_lib_vc_try_decrypt_header_seq(seqid, &key_material, block, schedules, volume_len);
-		if(ret == 0)
+		err = mk_lib_vc_try_decrypt_header_seq(seqid, &key_material, block, schedules, volume_len);
+		if(err == 0)
 		{
 			*seqid_out = seqid;
 			break;
 		}
 	}
-	return ret;
+	mk_lang_check_rereturn(err);
+	return 0;
 }
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc_try_decrypt_header(mk_lib_vc_kdfid_t const kdf_hint, mk_lang_types_pchar_pct const password, mk_lang_types_sint_t const password_len, mk_lib_vc_salt_pct const salt, mk_lang_types_ulong_t const cost, mk_lib_vc_block_pct const block, mk_lib_vc_seqid_pt const seqid_out, mk_lib_vc_seq_schedules_pt const schedules, mk_sl_cui_uint64_pt const volume_len) mk_lang_noexcept
 {
 	mk_lib_vc_kdfid_t kdfid mk_lang_constexpr_init;
-	mk_lang_types_sint_t ret mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	mk_lang_assert(kdf_hint >= 0 && kdf_hint <= mk_lib_vc_kdfid_e_dummy);
 	mk_lang_assert(password && password[0] != '\0');
@@ -407,8 +407,8 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc
 	{
 		for(kdfid = ((mk_lib_vc_kdfid_t)(0)); kdfid != mk_lib_vc_kdfid_e_dummy; kdfid = ((mk_lib_vc_kdfid_t)(((mk_lang_types_sint_t)(kdfid)) + 1)))
 		{
-			ret = mk_lib_vc_try_decrypt_header_kdf(kdfid, password, password_len, salt, cost, block, seqid_out, schedules, volume_len);
-			if(ret == 0)
+			err = mk_lib_vc_try_decrypt_header_kdf(kdfid, password, password_len, salt, cost, block, seqid_out, schedules, volume_len);
+			if(err == 0)
 			{
 				break;
 			}
@@ -416,7 +416,8 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc
 	}
 	else
 	{
-		ret = mk_lib_vc_try_decrypt_header_kdf(kdf_hint, password, password_len, salt, cost, block, seqid_out, schedules, volume_len);
+		err = mk_lib_vc_try_decrypt_header_kdf(kdf_hint, password, password_len, salt, cost, block, seqid_out, schedules, volume_len); mk_lang_check_rereturn(err);
 	}
-	return ret;
+	mk_lang_check_rereturn(err);
+	return 0;
 }
