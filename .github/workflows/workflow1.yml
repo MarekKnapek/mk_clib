@@ -3,7 +3,7 @@
   "build_run_c":
     "strategy":
       "matrix":
-        "proj": ["mkcc", "mkcfct", "mkcflt", "mkch", "mkci", "mkct"]
+        "proj": ["mkcc", "mkcfct", "mkcflt", "mkch", "mkci", "mkct", "vc"]
         "cver": ["89", "99", "11", "18", "2x"]
     "runs-on": "ubuntu-latest"
     "steps":
@@ -20,7 +20,7 @@
   "build_run_cpp":
     "strategy":
       "matrix":
-        "proj": ["mkcc", "mkcfct", "mkcflt", "mkch", "mkci", "mkct"]
+        "proj": ["mkcc", "mkcfct", "mkcflt", "mkch", "mkci", "mkct", "vc"]
         "cver": ["98", "11", "14", "17", "20"]
     "runs-on": "ubuntu-latest"
     "steps":
@@ -63,7 +63,7 @@
   "build_run_win":
     "strategy":
       "matrix":
-        "proj": ["mkcc", "mkcfct", "mkcflt", "mkch", "mkci", "mkct"]
+        "proj": ["mkcc", "mkcfct", "mkcflt", "mkch", "mkci", "mkct", "vc"]
         "conf": ["debug", "release"]
         "plat": ["x86", "x64", "arm32", "arm64", "arm64ec"]
     "runs-on": "windows-latest"
