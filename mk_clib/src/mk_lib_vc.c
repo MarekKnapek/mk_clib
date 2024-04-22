@@ -1,6 +1,7 @@
 #include "mk_lib_vc.h"
 
 #include "mk_lang_assert.h"
+#include "mk_lang_charbit.h"
 #include "mk_lang_check.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_countof.h"
