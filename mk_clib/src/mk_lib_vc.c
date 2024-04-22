@@ -1,18 +1,28 @@
 #include "mk_lib_vc.h"
 
 #include "mk_lang_assert.h"
-#include "mk_lang_limits.h"
 #include "mk_lang_check.h"
+#include "mk_lang_constexpr.h"
 #include "mk_lang_countof.h"
+#include "mk_lang_jumbo.h"
+#include "mk_lang_limits.h"
+#include "mk_lang_max.h"
+#include "mk_lang_nodiscard.h"
+#include "mk_lang_noexcept.h"
 #include "mk_lang_static_assert.h"
-#include "mk_sl_uint128.h"
-#include "mk_sl_uint.h"
-#include "mk_lib_hash_crc32.h"
+#include "mk_lang_types.h"
+#include "mk_lib_crypto_alg_aes_256.h"
+#include "mk_lib_crypto_alg_serpent.h"
 #include "mk_lib_crypto_kdf_pbkdf2_blake2s_256.h"
 #include "mk_lib_crypto_kdf_pbkdf2_sha2_256.h"
 #include "mk_lib_crypto_kdf_pbkdf2_sha2_512.h"
 #include "mk_lib_crypto_kdf_pbkdf2_streebog_512.h"
 #include "mk_lib_crypto_kdf_pbkdf2_whirlpool.h"
+#include "mk_lib_hash_crc32.h"
+#include "mk_sl_uint.h"
+#include "mk_sl_uint128.h"
+#include "mk_sl_uint64.h"
+#include "mk_sl_uint8.h"
 
 #define mk_lang_memcpy_t_name mk_lib_vc_memcpyu8
 #define mk_lang_memcpy_t_base mk_sl_cui_uint8
@@ -35,24 +45,24 @@
 #include "mk_lib_crypto_mode_base_inl_filec.h"
 
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_vc_tweak_next(mk_lib_vc_tweak_pct const a, mk_lib_vc_tweak_pt const b) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_vc_tweak_next(mk_lib_vc_tweak_pct const curr, mk_lib_vc_tweak_pt const next) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_t tu8 mk_lang_constexpr_init;
 	mk_sl_cui_uint128_t tu128 mk_lang_constexpr_init;
 	mk_lang_types_sint_t tsi mk_lang_constexpr_init;
 
-	mk_lang_assert(a);
-	mk_lang_assert(b);
+	mk_lang_assert(curr);
+	mk_lang_assert(next);
 
-	mk_sl_cui_uint8_shr3(&a->m_data.m_uint8s[mk_lib_vc_msg_len - 1], mk_lang_charbit - 1, &tu8);
-	mk_sl_uint_128_from_8_le(&tu128, &a->m_data.m_uint8s[0]);
+	mk_sl_cui_uint8_shr3(&curr->m_data.m_uint8s[mk_lib_vc_msg_len - 1], mk_lang_charbit - 1, &tu8);
+	mk_sl_uint_128_from_8_le(&tu128, &curr->m_data.m_uint8s[0]);
 	mk_sl_cui_uint128_shl2(&tu128, 1);
-	mk_sl_uint_128_to_8_le(&tu128, &b->m_data.m_uint8s[0]);
+	mk_sl_uint_128_to_8_le(&tu128, &next->m_data.m_uint8s[0]);
 	if(!mk_sl_cui_uint8_is_zero(&tu8))
 	{
 		tsi = 0x87;
 		mk_sl_cui_uint8_from_bi_sint(&tu8, &tsi);
-		mk_sl_cui_uint8_xor2(&b->m_data.m_uint8s[0], &tu8);
+		mk_sl_cui_uint8_xor2(&next->m_data.m_uint8s[0], &tu8);
 	}
 }
 
@@ -71,25 +81,25 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_vc_alg_encrypt_tweak
 	}
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_vc_alg_decrypt_block(mk_lib_vc_algid_t const algid, mk_lib_vc_alg_schedule_t const schedule, mk_lib_vc_block_pct const block_in, mk_lib_vc_block_pt const block_out) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_vc_alg_decrypt_block(mk_lib_vc_algid_t const algid, mk_lib_vc_alg_schedule_t const schedule, mk_lib_vc_block_pct const in, mk_lib_vc_block_pt const out) mk_lang_noexcept
 {
 	mk_lang_static_assert(mk_lib_vc_msg_len == mk_lib_crypto_alg_aes_256_msg_len_v);
 	mk_lang_static_assert(mk_lib_vc_msg_len == mk_lib_crypto_alg_serpent_msg_len_v);
 
 	mk_lang_assert(algid >= 0 && algid < mk_lib_vc_algid_e_dummy);
-	mk_lang_assert(block_in);
-	mk_lang_assert(block_out);
+	mk_lang_assert(in);
+	mk_lang_assert(out);
 
 	switch(algid)
 	{
-		case mk_lib_vc_algid_e_aes:     mk_lang_assert(schedule.m_data.m_aes);     mk_lib_crypto_alg_aes_256_schedule_decrypt(schedule.m_data.m_aes,     &block_in->m_data.m_aess[0],     &block_out->m_data.m_aess[0],     mk_lib_vc_msgs_per_block); break;
-		case mk_lib_vc_algid_e_serpent: mk_lang_assert(schedule.m_data.m_serpent); mk_lib_crypto_alg_serpent_schedule_decrypt(schedule.m_data.m_serpent, &block_in->m_data.m_serpents[0], &block_out->m_data.m_serpents[0], mk_lib_vc_msgs_per_block); break;
+		case mk_lib_vc_algid_e_aes:     mk_lang_assert(schedule.m_data.m_aes);     mk_lib_crypto_alg_aes_256_schedule_decrypt(schedule.m_data.m_aes,     &in->m_data.m_aess[0],     &out->m_data.m_aess[0],     mk_lib_vc_msgs_per_block); break;
+		case mk_lib_vc_algid_e_serpent: mk_lang_assert(schedule.m_data.m_serpent); mk_lib_crypto_alg_serpent_schedule_decrypt(schedule.m_data.m_serpent, &in->m_data.m_serpents[0], &out->m_data.m_serpents[0], mk_lib_vc_msgs_per_block); break;
 		case mk_lib_vc_algid_e_dummy: mk_lang_assert(mk_lang_false); break;
 		default: mk_lang_assert(mk_lang_false); break;
 	}
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_vc_xts_decrypt_block(mk_lib_vc_algid_t const algid, mk_lib_vc_alg_schedule_t const schedule_a, mk_lib_vc_alg_schedule_t const schedule_b, mk_sl_cui_uint64_pct const block_id, mk_lib_vc_block_pct const in, mk_lib_vc_block_pt const out) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_vc_xts_decrypt_block(mk_lib_vc_algid_t const algid, mk_lib_vc_alg_schedule_t const schedule_pri, mk_lib_vc_alg_schedule_t const schedule_sec, mk_sl_cui_uint64_pct const block_id, mk_lib_vc_block_pct const in, mk_lib_vc_block_pt const out) mk_lang_noexcept
 {
 	mk_lib_vc_block_pt tweaks mk_lang_constexpr_init;
 	mk_lib_vc_block_oversized_t tweaks_oversized mk_lang_constexpr_init;
@@ -108,14 +118,14 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_vc_xts_decrypt_block
 	mk_sl_uint_64_to_8_le(block_id, &tweaks->m_data.m_tweaks[0].m_data.m_uint8s[0 * 8]);
 	mk_sl_cui_uint64_set_zero(&tu64);
 	mk_sl_uint_64_to_8_le(&tu64, &tweaks->m_data.m_tweaks[0].m_data.m_uint8s[1 * 8]);
-	mk_lib_vc_alg_encrypt_tweak(algid, schedule_b, &tweaks->m_data.m_tweaks[0], &tweaks->m_data.m_tweaks[0]);
+	mk_lib_vc_alg_encrypt_tweak(algid, schedule_sec, &tweaks->m_data.m_tweaks[0], &tweaks->m_data.m_tweaks[0]);
 	mk_lib_vc_mode_xor3(&in->m_data.m_tweaks[0].m_data.m_uint8s[0], &tweaks->m_data.m_tweaks[0].m_data.m_uint8s[0], &out->m_data.m_tweaks[0].m_data.m_uint8s[0]);
 	for(i = 1; i != mk_lib_vc_msgs_per_block; ++i)
 	{
 		mk_lib_vc_tweak_next(&tweaks->m_data.m_tweaks[i - 1], &tweaks->m_data.m_tweaks[i]);
 		mk_lib_vc_mode_xor3(&in->m_data.m_tweaks[i].m_data.m_uint8s[0], &tweaks->m_data.m_tweaks[i].m_data.m_uint8s[0], &out->m_data.m_tweaks[i].m_data.m_uint8s[0]);
 	}
-	mk_lib_vc_alg_decrypt_block(algid, schedule_a, out, out);
+	mk_lib_vc_alg_decrypt_block(algid, schedule_pri, out, out);
 	for(i = 0; i != mk_lib_vc_msgs_per_block; ++i)
 	{
 		mk_lib_vc_mode_xor2(&out->m_data.m_tweaks[i].m_data.m_uint8s[0], &tweaks->m_data.m_tweaks[i].m_data.m_uint8s[0]);
@@ -201,7 +211,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_vc_seq_expand_dec(mk
 	}
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_vc_keys_init(mk_lib_vc_seqid_t const seqid, mk_lib_vc_key_material_pct const key_material, mk_lib_vc_seq_keys_pt const keys) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_vc_keys_init(mk_lib_vc_seqid_t const seqid, mk_lib_vc_keys_material_pct const key_material, mk_lib_vc_seq_keys_pt const keys) mk_lang_noexcept
 {
 	mk_lang_assert(seqid >= 0 && seqid < mk_lib_vc_seqid_e_dummy);
 	mk_lang_assert(key_material);
@@ -250,7 +260,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc
 	mk_lang_check_return(err == str_pim_len);
 	if(mk_sl_cui_uint32_is_zero(&pim32[0]))
 	{
-		*cost = 500 * 1000;
+		*cost = 500ul * 1000ul;
 	}
 	else
 	{
@@ -269,12 +279,12 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc_derive_keys(mk_lib_vc_kdfid_t const kdfid, mk_lang_types_pchar_pct const str_password, mk_lang_types_sint_t const password_len, mk_sl_cui_uint8_pct const salt, mk_lang_types_ulong_t const cost, mk_lib_vc_key_material_pt const key_material) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc_derive_keys(mk_lib_vc_kdfid_t const kdfid, mk_lang_types_pchar_pct const str_password, mk_lang_types_sint_t const password_len, mk_sl_cui_uint8_pct const salt, mk_lang_types_ulong_t const cost, mk_lib_vc_keys_material_pt const key_material) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_pct password mk_lang_constexpr_init;
 
 	mk_lang_assert(kdfid >= 0 && kdfid < mk_lib_vc_kdfid_e_dummy);
-	mk_lang_assert(str_password);
+	mk_lang_assert(str_password && str_password[0] != '\0');
 	mk_lang_assert(password_len >= 1);
 	mk_lang_assert(salt);
 	mk_lang_assert(cost >= 1);
@@ -294,7 +304,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc_try_decrypt_header_seq(mk_lib_vc_seqid_t const seqid, mk_lib_vc_key_material_pct const key_material, mk_lib_vc_block_pct const block, mk_lib_vc_seq_schedules_pt const schedules, mk_sl_cui_uint64_pt const volume_len) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc_try_decrypt_header_seq(mk_lib_vc_seqid_t const seqid, mk_lib_vc_keys_material_pct const key_material, mk_lib_vc_block_pct const block, mk_lib_vc_seq_schedules_pt const schedules, mk_sl_cui_uint64_pt const volume_len) mk_lang_noexcept
 {
 	mk_lib_vc_block_pt decrypted mk_lang_constexpr_init;
 	mk_lib_vc_block_oversized_t decrypted_oversized mk_lang_constexpr_init;
@@ -311,7 +321,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc
 	mk_sl_cui_uint64_t tu64a mk_lang_constexpr_init;
 	mk_sl_cui_uint64_t tu64b mk_lang_constexpr_init;
 	mk_lang_types_ulong_t tul mk_lang_constexpr_init;
-	mk_lib_vc_key_material_t master_key_material mk_lang_constexpr_init;
+	mk_lib_vc_keys_material_t master_keys_material mk_lang_constexpr_init;
 	mk_lib_vc_seq_keys_t master_keys mk_lang_constexpr_init;
 
 	mk_lang_assert(seqid >= 0 && seqid < mk_lib_vc_seqid_e_dummy);
@@ -333,33 +343,25 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc
 	mk_sl_uint_16_from_8_be(&tu16, &decrypted->m_data.m_uint8s[mk_lib_vc_offsets_minimum_program_version]); mk_sl_cui_uint16_to_bi_ushort(&tu16, &tus); mk_lang_check_return(tus == 0x10b);
 	mk_lib_hash_crc32_fn(&decrypted->m_data.m_uint8s[mk_lib_vc_offsets_keys], mk_lib_vc_lens_keys, &tu32a);
 	mk_sl_uint_32_from_8_be(&tu32b, &decrypted->m_data.m_uint8s[mk_lib_vc_offsets_crc_a]); mk_lang_check_return(mk_sl_cui_uint32_eq(&tu32a, &tu32b));
-	n = mk_lib_vc_lens_reserved_a;
-	for(i = 0; i != n; ++i)
-	{
-		mk_lang_check_return(mk_sl_cui_uint8_is_zero(&decrypted->m_data.m_uint8s[mk_lib_vc_offsets_reserved_a + i]));
-	}
-	mk_sl_uint_64_from_8_be(&tu64a, &decrypted->m_data.m_uint8s[mk_lib_vc_offsets_hidden_volume_size]); mk_lang_check_return(mk_sl_cui_uint64_is_zero(&tu64a)); /* todo hidden volumes not supported, yet */
+	n = mk_lib_vc_lens_reserved_a; for(i = 0; i != n; ++i){ mk_lang_check_return(mk_sl_cui_uint8_is_zero(&decrypted->m_data.m_uint8s[mk_lib_vc_offsets_reserved_a + i])); }
+	mk_sl_uint_64_from_8_be(&tu64a, &decrypted->m_data.m_uint8s[mk_lib_vc_offsets_hidden_volume_size]); mk_lang_check_return(mk_sl_cui_uint64_is_zero(&tu64a)); /* todo hidden volumes not supported */
 	mk_sl_uint_64_from_8_be(&tu64a, &decrypted->m_data.m_uint8s[mk_lib_vc_offsets_normal_volume_size]); mk_sl_cui_uint64_shl2(&tu64a, 64 - 9); mk_lang_check_return(mk_sl_cui_uint64_is_zero(&tu64a));
 	mk_sl_uint_64_from_8_be(&tu64a, &decrypted->m_data.m_uint8s[mk_lib_vc_offsets_master_key_scope_start]); tul = mk_lib_vc_offsets_volume; mk_sl_cui_uint64_from_bi_ulong(&tu64b, &tul); mk_lang_check_return(mk_sl_cui_uint64_eq(&tu64a, &tu64b));
 	mk_sl_uint_64_from_8_be(&tu64a, &decrypted->m_data.m_uint8s[mk_lib_vc_offsets_master_key_scope_len]); mk_sl_uint_64_from_8_be(&tu64b, &decrypted->m_data.m_uint8s[mk_lib_vc_offsets_normal_volume_size]); mk_lang_check_return(mk_sl_cui_uint64_eq(&tu64a, &tu64b)); *volume_len = tu64a;
 	mk_sl_uint_32_from_8_be(&tu32a, &decrypted->m_data.m_uint8s[mk_lib_vc_offsets_flags]); mk_lang_check_return(mk_sl_cui_uint32_is_zero(&tu32a)); /* todo only non-system encryption supported */
 	mk_sl_uint_32_from_8_be(&tu32a, &decrypted->m_data.m_uint8s[mk_lib_vc_offsets_block_len]); mk_sl_cui_uint32_to_bi_ulong(&tu32a, &tul); mk_lang_check_return(tul == mk_lib_vc_block_len); /* todo other block lens not supported */
-	n = mk_lib_vc_lens_reserved_b;
-	for(i = 0; i != n; ++i)
-	{
-		mk_lang_check_return(mk_sl_cui_uint8_is_zero(&decrypted->m_data.m_uint8s[mk_lib_vc_offsets_reserved_b + i]));
-	}
+	n = mk_lib_vc_lens_reserved_b; for(i = 0; i != n; ++i){ mk_lang_check_return(mk_sl_cui_uint8_is_zero(&decrypted->m_data.m_uint8s[mk_lib_vc_offsets_reserved_b + i])); }
 	mk_lib_hash_crc32_fn(&decrypted->m_data.m_uint8s[mk_lib_vc_offsets_magic], mk_lib_vc_offsets_crc_b - mk_lib_vc_offsets_magic, &tu32a);
 	mk_sl_uint_32_from_8_be(&tu32b, &decrypted->m_data.m_uint8s[mk_lib_vc_offsets_crc_b]); mk_lang_check_return(mk_sl_cui_uint32_eq(&tu32a, &tu32b));
-	mk_lib_vc_memcpyu8_fn(&master_key_material.m_data.m_uint8s[0], &decrypted->m_data.m_uint8s[mk_lib_vc_offsets_keys], mk_lang_countof(master_key_material.m_data.m_uint8s));
-	mk_lib_vc_keys_init(seqid, &master_key_material, &master_keys);
+	mk_lib_vc_memcpyu8_fn(&master_keys_material.m_data.m_uint8s[0], &decrypted->m_data.m_uint8s[mk_lib_vc_offsets_keys], mk_lang_countof(master_keys_material.m_data.m_uint8s));
+	mk_lib_vc_keys_init(seqid, &master_keys_material, &master_keys);
 	mk_lib_vc_seq_expand_dec(seqid, &master_keys, schedules);
 	return 0;
 }
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc_try_decrypt_header_kdf(mk_lib_vc_kdfid_t const kdfid, mk_lang_types_pchar_pct const password, mk_lang_types_sint_t const password_len, mk_lib_vc_salt_pct const salt, mk_lang_types_ulong_t const cost, mk_lib_vc_block_pct const block, mk_lib_vc_seqid_pt const seqid_out, mk_lib_vc_seq_schedules_pt const schedules, mk_sl_cui_uint64_pt const volume_len) mk_lang_noexcept
 {
-	mk_lib_vc_key_material_t key_material mk_lang_constexpr_init;
+	mk_lib_vc_keys_material_t key_material mk_lang_constexpr_init;
 	mk_lib_vc_seqid_t seqid mk_lang_constexpr_init;
 	mk_lang_types_sint_t ret mk_lang_constexpr_init;
 
