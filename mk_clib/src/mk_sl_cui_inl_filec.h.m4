@@ -23,10 +23,17 @@ include(`mk_sl_cui_inl.m')dnl
 #include "mk_sl_cui_inl_defd.h"
 
 
-#define mk_sl_cui_inl_filec_memmove_name mk_lang_concat(mk_sl_cui_inl_defd_name, _memmove_pchar)
-#define mk_sl_cui_inl_filec_memmove_fn mk_lang_concat(mk_sl_cui_inl_filec_memmove_name, _fn)
-#define mk_lang_memmove_t_name mk_sl_cui_inl_filec_memmove_name
+#define mk_sl_cui_inl_filec_memmove_pc_name mk_lang_concat(mk_sl_cui_inl_defd_name, _memmove_pchar)
+#define mk_sl_cui_inl_filec_memmove_pc_fn mk_lang_concat(mk_sl_cui_inl_filec_memmove_pc_name, _fn)
+#define mk_lang_memmove_t_name mk_sl_cui_inl_filec_memmove_pc_name
 #define mk_lang_memmove_t_base mk_lang_types_pchar
+#include "mk_lang_memmove_inl_fileh.h"
+#include "mk_lang_memmove_inl_filec.h"
+
+#define mk_sl_cui_inl_filec_memmove_wc_name mk_lang_concat(mk_sl_cui_inl_defd_name, _memmove_wchar)
+#define mk_sl_cui_inl_filec_memmove_wc_fn mk_lang_concat(mk_sl_cui_inl_filec_memmove_wc_name, _fn)
+#define mk_lang_memmove_t_name mk_sl_cui_inl_filec_memmove_wc_name
+#define mk_lang_memmove_t_base mk_lang_types_wchar
 #include "mk_lang_memmove_inl_fileh.h"
 #include "mk_lang_memmove_inl_filec.h"
 
@@ -3730,7 +3737,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui
 	if(i != 0)
 	{
 		mk_lang_assert(str_len - i >= 1);
-		mk_sl_cui_inl_filec_memmove_fn(str, str + i, ((mk_lang_types_uint_t)(str_len - i)));
+		mk_sl_cui_inl_filec_memmove_pc_fn(str, str + i, ((mk_lang_types_uint_t)(str_len - i)));
 	}
 	mk_lang_assert(str_len - i >= 0);
 	mk_lang_assert(str_len - i <= mk_sl_cui_inl_defd_strlendec_v);
@@ -3738,7 +3745,66 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui
 }
 
 #if !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic
-mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_cui_inl_defd_symbols_dec_b[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+mk_lang_constexpr_static_inline mk_lang_types_wchar_t const mk_sl_cui_inl_defd_symbols_dec_b[] = {L'0', L'1', L'2', L'3', L'4', L'5', L'6', L'7', L'8', L'9'};
+#endif
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_to_str_dec_w(mk_sl_cui_inl_defd_pct const x, mk_lang_types_wchar_pt const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_lang_types_sint_t i mk_lang_constexpr_init;
+	mk_lang_types_sint_t n mk_lang_constexpr_init;
+	mk_sl_cui_inl_defd_base_t base mk_lang_constexpr_init;
+	mk_sl_cui_inl_defd_pt pa1 mk_lang_constexpr_init;
+	mk_sl_cui_inl_defd_t a1 mk_lang_constexpr_init;
+	mk_sl_cui_inl_defd_pt pa2 mk_lang_constexpr_init;
+	mk_sl_cui_inl_defd_t a2 mk_lang_constexpr_init;
+	mk_sl_cui_inl_defd_pt pa3 mk_lang_constexpr_init;
+	mk_sl_cui_inl_defd_base_t b mk_lang_constexpr_init;
+
+	mk_lang_assert(x);
+	mk_lang_assert(str || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	i = str_len;
+	n = 10;
+	mk_sl_cui_inl_defd_base_from_bi_sint(&base, &n);
+	pa1 = &a1;
+	pa2 = &a2;
+	*pa2 = *x;
+	for(;;)
+	{
+		pa3 = pa1;
+		pa1 = pa2;
+		pa2 = pa3;
+		mk_sl_cui_inl_defd_divmod4_wrap_smol(pa1, &base, pa2, &b);
+		mk_sl_cui_inl_defd_base_to_bi_sint(&b, &n);
+		mk_lang_assert(n >= 0 && n < 10);
+		--i;
+		#if mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic
+		str[i] = ((mk_lang_types_wchar_t)(L'0' + n));
+		#else
+		str[i] = mk_sl_cui_inl_defd_symbols_dec_b[n];
+		#endif
+		if(mk_sl_cui_inl_defd_is_zero(pa2))
+		{
+			break;
+		}
+		if(i == 0)
+		{
+			return 0;
+		}
+	}
+	if(i != 0)
+	{
+		mk_lang_assert(str_len - i >= 1);
+		mk_sl_cui_inl_filec_memmove_wc_fn(str, str + i, ((mk_lang_types_uint_t)(str_len - i)));
+	}
+	mk_lang_assert(str_len - i >= 0);
+	mk_lang_assert(str_len - i <= mk_sl_cui_inl_defd_strlendec_v);
+	return str_len - i;
+}
+
+#if !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic
+mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_cui_inl_defd_symbols_dec_c[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 #endif
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_from_str_dec_n(mk_sl_cui_inl_defd_pt const x, mk_lang_types_pchar_pct const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept
@@ -3797,10 +3863,10 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui
 		return 0;
 	}
 	#else
-	n = mk_lang_countof(mk_sl_cui_inl_defd_symbols_dec_b);
+	n = mk_lang_countof(mk_sl_cui_inl_defd_symbols_dec_c);
 	for(i = 0; i != n; ++i)
 	{
-		if(e == mk_sl_cui_inl_defd_symbols_dec_b[i])
+		if(e == mk_sl_cui_inl_defd_symbols_dec_c[i])
 		{
 			break;
 		}
@@ -3827,10 +3893,132 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui
 			break;
 		}
 		#else
-		n = mk_lang_countof(mk_sl_cui_inl_defd_symbols_dec_b);
+		n = mk_lang_countof(mk_sl_cui_inl_defd_symbols_dec_c);
 		for(i = 0; i != n; ++i)
 		{
-			if(e == mk_sl_cui_inl_defd_symbols_dec_b[i])
+			if(e == mk_sl_cui_inl_defd_symbols_dec_c[i])
+			{
+				break;
+			}
+		}
+		if(i == n)
+		{
+			break;
+		}
+		#endif
+		if(!(mk_sl_cui_inl_defd_lt(px1, &s_border_value) || (mk_sl_cui_inl_defd_eq(px1, &s_border_value) && i <= s_border_digit)))
+		{
+			overflow = -1;
+			break;
+		}
+		mk_sl_cui_inl_defd_mul3_wrap_lo_smol(px1, &s_base, px2);
+		mk_sl_cui_inl_defd_base_from_bi_sint(&digit, &i);
+		mk_sl_cui_inl_defd_add2_wrap_cid_cod_smol(px2, &digit);
+		px3 = px1;
+		px1 = px2;
+		px2 = px3;
+	}
+	if(px1 == &xx)
+	{
+		*x = xx;
+	}
+	return ((mk_lang_types_sint_t)(((mk_lang_types_sint_t)(it - str)) * overflow));
+}
+
+#if !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic
+mk_lang_constexpr_static_inline mk_lang_types_wchar_t const mk_sl_cui_inl_defd_symbols_dec_d[] = {L'0', L'1', L'2', L'3', L'4', L'5', L'6', L'7', L'8', L'9'};
+#endif
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_from_str_dec_w(mk_sl_cui_inl_defd_pt const x, mk_lang_types_wchar_pct const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_sl_cui_inl_defd_base_t s_base mk_lang_constexpr_init;
+	mk_sl_cui_inl_defd_t s_border_value mk_lang_constexpr_init;
+	mk_lang_types_sint_t s_border_digit mk_lang_constexpr_init;
+
+	mk_lang_types_wchar_pct it mk_lang_constexpr_init;
+	mk_lang_types_wchar_pct ite mk_lang_constexpr_init;
+	mk_lang_types_wchar_t e mk_lang_constexpr_init;
+	mk_lang_types_sint_t n mk_lang_constexpr_init;
+	mk_lang_types_sint_t i mk_lang_constexpr_init;
+	mk_lang_types_sint_t overflow mk_lang_constexpr_init;
+	mk_sl_cui_inl_defd_pt px1 mk_lang_constexpr_init;
+	mk_sl_cui_inl_defd_t xx mk_lang_constexpr_init;
+	mk_sl_cui_inl_defd_pt px2 mk_lang_constexpr_init;
+	mk_sl_cui_inl_defd_base_t digit mk_lang_constexpr_init;
+	mk_sl_cui_inl_defd_pt px3 mk_lang_constexpr_init;
+
+	mk_lang_assert(x);
+	mk_lang_assert(str);
+	mk_lang_assert(str_len >= 0);
+
+	if(str_len == 0)
+	{
+		return 0;
+	}
+	{
+		mk_lang_types_sint_t nn mk_lang_constexpr_init;
+		mk_sl_cui_inl_defd_base_t base mk_lang_constexpr_init;
+		mk_sl_cui_inl_defd_t mx mk_lang_constexpr_init;
+		mk_sl_cui_inl_defd_t border_value mk_lang_constexpr_init;
+		mk_sl_cui_inl_defd_base_t border_digit mk_lang_constexpr_init;
+
+		nn = 10;
+		mk_sl_cui_inl_defd_base_from_bi_sint(&base, &nn);
+		mk_sl_cui_inl_defd_set_max(&mx);
+		mk_sl_cui_inl_defd_divmod4_wrap_smol(&mx, &base, &border_value, &border_digit);
+		mk_sl_cui_inl_defd_base_to_bi_sint(&border_digit, &nn);
+		s_base = base;
+		s_border_value = border_value;
+		s_border_digit = nn;
+	}
+
+	it = str;
+	ite = str + str_len;
+	e = *it;
+	#if mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic
+	if(e >= L'0' && e <= L'9')
+	{
+		i = e - L'0';
+	}
+	else
+	{
+		return 0;
+	}
+	#else
+	n = mk_lang_countof(mk_sl_cui_inl_defd_symbols_dec_d);
+	for(i = 0; i != n; ++i)
+	{
+		if(e == mk_sl_cui_inl_defd_symbols_dec_d[i])
+		{
+			break;
+		}
+	}
+	if(i == n)
+	{
+		return 0;
+	}
+	#endif
+	overflow = 1;
+	px1 = &xx;
+	px2 = x;
+	mk_sl_cui_inl_defd_from_bi_sint(px1, &i);
+	for(++it; it != ite; ++it)
+	{
+		e = *it;
+		#if mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic
+		if(e >= L'0' && e <= L'9')
+		{
+			i = e - L'0';
+		}
+		else
+		{
+			break;
+		}
+		#else
+		n = mk_lang_countof(mk_sl_cui_inl_defd_symbols_dec_d);
+		for(i = 0; i != n; ++i)
+		{
+			if(e == mk_sl_cui_inl_defd_symbols_dec_d[i])
 			{
 				break;
 			}
@@ -3909,13 +4097,68 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui
 	ret = str_len - rem;
 	if(ret != str_len)
 	{
-		mk_sl_cui_inl_filec_memmove_fn(&str[0], &str[str_len - ret], ret);
+		mk_sl_cui_inl_filec_memmove_pc_fn(&str[0], &str[str_len - ret], ret);
 	}
 	return ret;
 }
 
 #if !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic
-mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_cui_inl_defd_symbols_hex_b[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+mk_lang_constexpr_static_inline mk_lang_types_wchar_t const mk_sl_cui_inl_defd_symbols_hex_b[] = {L'0', L'1', L'2', L'3', L'4', L'5', L'6', L'7', L'8', L'9', L'a', L'b', L'c', L'd', L'e', L'f'};
+#endif
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_to_str_hex_w(mk_sl_cui_inl_defd_pct const x, mk_lang_types_wchar_pt const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_sl_cui_inl_defd_t xx mk_lang_constexpr_init;
+	mk_lang_types_wchar_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_uchar_t tuc mk_lang_constexpr_init;
+	mk_lang_types_bool_t zero mk_lang_constexpr_init;
+	mk_lang_types_uchar_t tuc_lo mk_lang_constexpr_init;
+	mk_lang_types_uchar_t tuc_hi mk_lang_constexpr_init;
+	mk_lang_types_sint_t ret mk_lang_constexpr_init;
+
+	mk_lang_static_assert(mk_lang_charbit % 2 == 0);
+
+	mk_lang_assert(x);
+	mk_lang_assert(str || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	xx = *x;
+	ptr = &str[str_len - 1];
+	rem = str_len;
+	for(;;)
+	{
+		mk_sl_cui_inl_defd_to_bi_uchar(&xx, &tuc);
+		mk_sl_cui_inl_defd_shr2(&xx, mk_lang_charbit / 2);
+		mk_sl_cui_inl_defd_shr2(&xx, mk_lang_charbit / 2);
+		zero = mk_sl_cui_inl_defd_is_zero(&xx);
+		tuc_lo = (tuc >> 0) & 0xf;
+		if(rem == 0){ return 0; } --rem; /* todo return negative? */
+		#if mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic
+		ptr[0] = (tuc_lo >= 0 && tuc_lo <= 9) ? ((mk_lang_types_wchar_t)(L'0' + tuc_lo)) : ((mk_lang_types_wchar_t)(L'a' + (tuc_lo - 10))); --ptr;
+		#else
+		ptr[0] = mk_sl_cui_inl_defd_symbols_hex_b[tuc_lo]; --ptr;
+		#endif
+		tuc_hi = (tuc >> 4) & 0xf;
+		if(tuc_hi == 0 && zero){ break; }
+		if(rem == 0){ return 0; } --rem; /* todo return negative? */
+		#if mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic
+		ptr[0] = (tuc_hi >= 0 && tuc_hi <= 9) ? ((mk_lang_types_wchar_t)(L'0' + tuc_hi)) : ((mk_lang_types_wchar_t)(L'a' + (tuc_hi - 10))); --ptr;
+		#else
+		ptr[0] = mk_sl_cui_inl_defd_symbols_hex_b[tuc_hi]; --ptr;
+		#endif
+		if(zero){ break; }
+	}
+	ret = str_len - rem;
+	if(ret != str_len)
+	{
+		mk_sl_cui_inl_filec_memmove_wc_fn(&str[0], &str[str_len - ret], ret);
+	}
+	return ret;
+}
+
+#if !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic
+mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_cui_inl_defd_symbols_hex_c[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 #endif
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_to_str_hexf_n(mk_sl_cui_inl_defd_pct const x, mk_lang_types_pchar_pt const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept
@@ -3950,8 +4193,8 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui
 		ptr[0] = (tuc_lo >= 0 && tuc_lo <= 9) ? ((mk_lang_types_pchar_t)('0' + tuc_lo)) : ((mk_lang_types_pchar_t)('a' + (tuc_lo - 10))); --ptr;
 		ptr[0] = (tuc_hi >= 0 && tuc_hi <= 9) ? ((mk_lang_types_pchar_t)('0' + tuc_hi)) : ((mk_lang_types_pchar_t)('a' + (tuc_hi - 10))); --ptr;
 		#else
-		ptr[0] = mk_sl_cui_inl_defd_symbols_hex_b[tuc_lo]; --ptr;
-		ptr[0] = mk_sl_cui_inl_defd_symbols_hex_b[tuc_hi]; --ptr;
+		ptr[0] = mk_sl_cui_inl_defd_symbols_hex_c[tuc_lo]; --ptr;
+		ptr[0] = mk_sl_cui_inl_defd_symbols_hex_c[tuc_hi]; --ptr;
 		#endif
 	}
 	return mk_sl_cui_inl_defd_strlenhex_v;
@@ -3994,7 +4237,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui
 	ret = str_len - rem;
 	if(ret != str_len)
 	{
-		mk_sl_cui_inl_filec_memmove_fn(&str[0], &str[str_len - ret], ret);
+		mk_sl_cui_inl_filec_memmove_pc_fn(&str[0], &str[str_len - ret], ret);
 	}
 	return ret;
 }
@@ -4035,8 +4278,11 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui
 #undef mk_sl_cui_inl_defd_t1_sizebits_d
 #undef mk_sl_cui_inl_defd_t2_sizebits_d
 
-#undef mk_sl_cui_inl_filec_memmove_name
-#undef mk_sl_cui_inl_filec_memmove_fn
+#undef mk_sl_cui_inl_filec_memmove_pc_name
+#undef mk_sl_cui_inl_filec_memmove_pc_fn
+
+#undef mk_sl_cui_inl_filec_memmove_wc_name
+#undef mk_sl_cui_inl_filec_memmove_wc_fn
 
 #undef mk_sl_cui_inl_defd_ldm_divmod4
 #undef mk_sl_cui_inl_defd_ldms_divmod4
