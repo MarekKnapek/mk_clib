@@ -3,18 +3,19 @@
 
 
 #include "mk_lang_jumbo.h"
-#include "mk_lang_nodiscard.h"
-#include "mk_lang_noexcept.h"
-#include "mk_lang_types.h"
-
-#include <stdarg.h> /* va_list */
 
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_usize_t mk_lib_fmt_v(mk_lang_types_pchar_pct const fmt, va_list* const vp, mk_lang_types_pchar_pt const dst) mk_lang_noexcept;
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_usize_t mk_lib_fmt(mk_lang_types_pchar_pct const fmt, mk_lang_types_pchar_pt const dst, ...) mk_lang_noexcept;
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_fmt_sprintf(mk_lang_types_pchar_pt const dst, mk_lang_types_pchar_pct const fmt, ...) mk_lang_noexcept;
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_fmt_vsnprintf(mk_lang_types_pchar_pt const dst, mk_lang_types_sint_t const len, mk_lang_types_pchar_pct const fmt, va_list* const va) mk_lang_noexcept;
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_fmt_snprintf(mk_lang_types_pchar_pt const dst, mk_lang_types_sint_t const len, mk_lang_types_pchar_pct const fmt, ...) mk_lang_noexcept;
+#define mk_lib_fmt_t_name mk_lib_fmt_n
+#define mk_lib_fmt_t_wide 0
+#include "mk_lib_fmt_inl_fileh.h"
+#undef mk_lib_fmt_t_name
+#undef mk_lib_fmt_t_wide
+
+#define mk_lib_fmt_t_name mk_lib_fmt_w
+#define mk_lib_fmt_t_wide 1
+#include "mk_lib_fmt_inl_fileh.h"
+#undef mk_lib_fmt_t_name
+#undef mk_lib_fmt_t_wide
 
 
 #if mk_lang_jumbo_want == 1
