@@ -2,11 +2,13 @@
 #include "mk_lang_bool.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
+#include "mk_lang_limits.h"
 #include "mk_lang_min.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
 #include "mk_sl_uint32.h"
+#include "mk_sl_uint64.h"
 
 #include <stdarg.h> /* va_list va_start va_arg va_end */
 
@@ -16,27 +18,25 @@
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fmt_inl_defd_fn_vsnprintf(mk_lib_fmt_inl_defd_char_pt const dst, mk_lang_types_sint_t const len, mk_lib_fmt_inl_defd_char_pct const fmt, va_list* const va) mk_lang_noexcept
 {
-	static mk_lang_types_sint_t const s_negative_offset = 64;
-
 	mk_lib_fmt_inl_defd_char_pt d;
 	mk_lang_types_sint_t rem;
 	mk_lang_types_bool_t bad;
 	mk_lib_fmt_inl_defd_char_pct f;
 	mk_lib_fmt_inl_defd_char_t ch;
 	mk_lib_fmt_inl_defd_char_pct vas;
-	mk_lang_types_sint_pct vasip;
-	mk_lang_types_sint_t vasiv;
-	mk_lang_types_uint_t vauiv;
-	mk_sl_cui_uint32_t tu32;
+	mk_sl_cui_uint32_pct vau32;
+	mk_sl_cui_uint32_t tu32a;
 	mk_lang_types_sint_t lim;
 	mk_lang_types_sint_t tsi;
-	mk_lang_types_uint_pct vauip;
 	mk_lang_types_sint_t ret;
+	mk_sl_cui_uint64_pct vau64;
+	mk_sl_cui_uint64_t tu64a;
 
 	mk_lang_assert(dst);
 	mk_lang_assert(len >= 0);
 	mk_lang_assert(fmt);
 	mk_lang_assert(va);
+	mk_lang_assert(dst != fmt);
 
 	d = dst;
 	rem = len;
@@ -52,8 +52,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fmt_inl_defd
 			{
 				if(!(rem >= 1)){ bad = mk_lang_true; break; }
 				d[0] = mk_lib_fmt_inl_defd_char_c('%');
-				++d;
-				--rem;
+				++d; --rem;
 				break;
 			}
 			else if(ch == mk_lib_fmt_inl_defd_char_c('s'))
@@ -64,96 +63,119 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fmt_inl_defd
 				{
 					if(!(rem >= 1)){ bad = mk_lang_true; break; }
 					d[0] = vas[0];
-					++d;
-					--rem;
-					++vas;
+					++d; --rem; ++vas;
 				}
 			}
 			else if(ch == mk_lib_fmt_inl_defd_char_c('d'))
 			{
-				vasip = va_arg(*va, mk_lang_types_sint_pct);
-				vasiv = *vasip;
-				if(vasiv < 0)
+				vau32 = va_arg(*va, mk_sl_cui_uint32_pct);
+				mk_sl_cui_uint32_shr3(vau32, 32 - 1, &tu32a);
+				if(mk_sl_cui_uint32_has_lsb(&tu32a))
 				{
 					if(!(rem >= 1)){ bad = mk_lang_true; break; }
 					d[0] = mk_lib_fmt_inl_defd_char_c('-');
-					++d;
-					--rem;
-					if(vasiv < -s_negative_offset)
-					{
-						vauiv = ((mk_lang_types_uint_t)(((mk_lang_types_uint_t)(((mk_lang_types_sint_t)(((mk_lang_types_sint_t)(0)) - ((mk_lang_types_sint_t)(((mk_lang_types_sint_t)(vasiv)) + ((mk_lang_types_sint_t)(s_negative_offset)))))))) + ((mk_lang_types_uint_t)(s_negative_offset))));
-					}
-					else
-					{
-						vauiv = ((mk_lang_types_uint_t)(((mk_lang_types_sint_t)(((mk_lang_types_sint_t)(0)) - ((mk_lang_types_sint_t)(vasiv))))));
-					}
+					++d; --rem;
+					mk_sl_cui_uint32_not2(vau32, &tu32a);
+					mk_sl_cui_uint32_inc1(&tu32a);
 				}
 				else
 				{
-					vauiv = ((mk_lang_types_uint_t)(vasiv));
+					tu32a = *vau32;
 				}
-				mk_sl_cui_uint32_from_bi_uint(&tu32, &vauiv);
 				lim = mk_lang_min(mk_sl_cui_uint32_strlendec_v, rem);
 				#if mk_lib_fmt_inl_defd_wide == 0
-				tsi = mk_sl_cui_uint32_to_str_dec_n(&tu32, d, lim);
+				tsi = mk_sl_cui_uint32_to_str_dec_n(&tu32a, d, lim);
 				#else
-				tsi = mk_sl_cui_uint32_to_str_dec_w(&tu32, d, lim);
+				tsi = mk_sl_cui_uint32_to_str_dec_w(&tu32a, d, lim);
 				#endif
 				if(!(tsi >= 1 && tsi <= lim)){ bad = mk_lang_true; break; }
-				d += tsi;
-				rem -= tsi;
+				d += tsi; rem -= tsi;
 			}
 			else if(ch == mk_lib_fmt_inl_defd_char_c('u'))
 			{
-				vauip = va_arg(*va, mk_lang_types_uint_pct);
-				vauiv = *vauip;
-				mk_sl_cui_uint32_from_bi_uint(&tu32, &vauiv);
+				vau32 = va_arg(*va, mk_sl_cui_uint32_pct);
 				lim = mk_lang_min(mk_sl_cui_uint32_strlendec_v, rem);
 				#if mk_lib_fmt_inl_defd_wide == 0
-				tsi = mk_sl_cui_uint32_to_str_dec_n(&tu32, d, lim);
+				tsi = mk_sl_cui_uint32_to_str_dec_n(vau32, d, lim);
 				#else
-				tsi = mk_sl_cui_uint32_to_str_dec_w(&tu32, d, lim);
+				tsi = mk_sl_cui_uint32_to_str_dec_w(vau32, d, lim);
 				#endif
 				if(!(tsi >= 1 && tsi <= lim)){ bad = mk_lang_true; break; }
-				d += tsi;
-				rem -= tsi;
+				d += tsi; rem -= tsi;
 			}
 			else if(ch == mk_lib_fmt_inl_defd_char_c('x'))
 			{
-				vauip = va_arg(*va, mk_lang_types_uint_pct);
-				vauiv = *vauip;
-				mk_sl_cui_uint32_from_bi_uint(&tu32, &vauiv);
+				vau32 = va_arg(*va, mk_sl_cui_uint32_pct);
 				lim = mk_lang_min(mk_sl_cui_uint32_strlenhex_v, rem);
 				#if mk_lib_fmt_inl_defd_wide == 0
-				tsi = mk_sl_cui_uint32_to_str_hex_n(&tu32, d, lim);
+				tsi = mk_sl_cui_uint32_to_str_hex_n(vau32, d, lim);
 				#else
-				tsi = mk_sl_cui_uint32_to_str_hex_w(&tu32, d, lim);
+				tsi = mk_sl_cui_uint32_to_str_hex_w(vau32, d, lim);
 				#endif
 				if(!(tsi >= 1 && tsi <= lim)){ bad = mk_lang_true; break; }
-				d += tsi;
-				rem -= tsi;
+				d += tsi; rem -= tsi;
 			}
-			/*else if(ch == 'l')
+			else if(ch == mk_lib_fmt_inl_defd_char_c('l'))
 			{
 				++f;
 				ch = f[0];
-				mk_lang_assert(ch == 'l');
+				mk_lang_assert(ch == mk_lib_fmt_inl_defd_char_c('l'));
 				++f;
 				ch = f[0];
-				if(ch == 'u')
+				if(ch == mk_lib_fmt_inl_defd_char_c('d'))
 				{
-					vaullp = va_arg(*va, mk_lib_fmt_cui_ullong_pct);
-					lim = mk_lang_min(mk_lib_fmt_cui_ullong_strlendec_v, rem);
-					tsi = mk_lib_fmt_cui_ullong_to_str_dec_n(vaullp, d, lim);
+					vau64 = va_arg(*va, mk_sl_cui_uint64_pct);
+					mk_sl_cui_uint64_shr3(vau64, 64 - 1, &tu64a);
+					if(mk_sl_cui_uint64_has_lsb(&tu64a))
+					{
+						if(!(rem >= 1)){ bad = mk_lang_true; break; }
+						d[0] = mk_lib_fmt_inl_defd_char_c('-');
+						++d; --rem;
+						mk_sl_cui_uint64_not2(vau64, &tu64a);
+						mk_sl_cui_uint64_inc1(&tu64a);
+					}
+					else
+					{
+						tu64a = *vau64;
+					}
+					lim = mk_lang_min(mk_sl_cui_uint64_strlendec_v, rem);
+					#if mk_lib_fmt_inl_defd_wide == 0
+					tsi = mk_sl_cui_uint64_to_str_dec_n(&tu64a, d, lim);
+					#else
+					tsi = mk_sl_cui_uint64_to_str_dec_w(&tu64a, d, lim);
+					#endif
 					if(!(tsi >= 1 && tsi <= lim)){ bad = mk_lang_true; break; }
-					d += tsi;
-					rem -= tsi;
+					d += tsi; rem -= tsi;
+				}
+				else if(ch == mk_lib_fmt_inl_defd_char_c('u'))
+				{
+					vau64 = va_arg(*va, mk_sl_cui_uint64_pct);
+					lim = mk_lang_min(mk_sl_cui_uint64_strlendec_v, rem);
+					#if mk_lib_fmt_inl_defd_wide == 0
+					tsi = mk_sl_cui_uint64_to_str_dec_n(vau64, d, lim);
+					#else
+					tsi = mk_sl_cui_uint64_to_str_dec_w(vau64, d, lim);
+					#endif
+					if(!(tsi >= 1 && tsi <= lim)){ bad = mk_lang_true; break; }
+					d += tsi; rem -= tsi;
+				}
+				else if(ch == mk_lib_fmt_inl_defd_char_c('x'))
+				{
+					vau64 = va_arg(*va, mk_sl_cui_uint64_pct);
+					lim = mk_lang_min(mk_sl_cui_uint64_strlenhex_v, rem);
+					#if mk_lib_fmt_inl_defd_wide == 0
+					tsi = mk_sl_cui_uint64_to_str_hex_n(vau64, d, lim);
+					#else
+					tsi = mk_sl_cui_uint64_to_str_hex_w(vau64, d, lim);
+					#endif
+					if(!(tsi >= 1 && tsi <= lim)){ bad = mk_lang_true; break; }
+					d += tsi; rem -= tsi;
 				}
 				else
 				{
 					mk_lang_assert(mk_lang_false);
 				}
-			}*/
+			}
 			else
 			{
 				mk_lang_assert(mk_lang_false);
@@ -171,7 +193,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fmt_inl_defd
 	{
 		if(rem >= 1)
 		{
-			d[0] = '\0';
+			d[0] = mk_lib_fmt_inl_defd_char_c('\0');
+			mk_lang_assert(d - dst <= ((mk_lang_types_sintptr_t)(mk_lang_limits_sint_max)));
 			ret = ((mk_lang_types_sint_t)(d - dst));
 		}
 		else
