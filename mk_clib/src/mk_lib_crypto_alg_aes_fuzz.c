@@ -362,8 +362,8 @@ mk_lang_jumbo void mk_lib_crypto_alg_aes_fuzz_win(mk_lang_types_bool_t const cpu
 	}
 	win_padding = mk_win_advapi_pkcs5_padding;
 	win_feedback_bits = 8;
-	b = CryptAcquireContextA(&csp, mk_lang_null, mk_win_advapi_ms_enh_rsa_aes_prov_a, mk_win_advapi_prov_rsa_aes, mk_win_advapi_crypt_verifycontext | mk_win_advapi_crypt_silent); test(b != 0); test(csp);
-	b = CryptImportKey(csp, ((mk_lang_types_uchar_pct)(&win_key_data)), win_key_data_len, mk_lang_null, 0, &win_key); test(b != 0); test(win_key);
+	b = CryptAcquireContextA(&csp, mk_lang_null, mk_win_advapi_ms_enh_rsa_aes_prov_a, mk_win_advapi_prov_rsa_aes, mk_win_advapi_crypt_verifycontext | mk_win_advapi_crypt_silent); test(b != 0); test(csp.m_data);
+	b = CryptImportKey(csp, ((mk_lang_types_uchar_pct)(&win_key_data)), win_key_data_len, mk_lang_null, 0, &win_key); test(b != 0); test(win_key.m_data);
 	b = CryptSetKeyParam(win_key, mk_win_advapi_kp_mode, ((mk_lang_types_uchar_pct)(&win_mode)), 0); test(b != 0);
 	b = CryptSetKeyParam(win_key, mk_win_advapi_kp_padding, ((mk_lang_types_uchar_pct)(&win_padding)), 0); test(b != 0);
 	b = CryptSetKeyParam(win_key, mk_win_advapi_kp_mode_bits, ((mk_lang_types_uchar_pct)(&win_feedback_bits)), 0); test(b != 0);
@@ -373,7 +373,7 @@ mk_lang_jumbo void mk_lib_crypto_alg_aes_fuzz_win(mk_lang_types_bool_t const cpu
 	}
 	win_msg_len = msg_len;
 	for(i = 0; i != msg_len; ++i){ ((mk_lang_types_uchar_pt)(&g_app.m_buffer))[i] = msg[i]; }
-	b = CryptEncrypt(win_key, mk_lang_null, mk_win_base_true, 0, ((mk_lang_types_uchar_pt)(&g_app.m_buffer)), &win_msg_len, msg_len + 0x10); test(b != 0); test(win_msg_len == msg_len + *padding_len || mode_id == mk_lib_crypto_app_mode_id_e_cfb_8);
+	b = CryptEncrypt(win_key, mk_win_handle_advapi_hash_get_null(), mk_win_base_true, 0, ((mk_lang_types_uchar_pt)(&g_app.m_buffer)), &win_msg_len, msg_len + 0x10); test(b != 0); test(win_msg_len == msg_len + *padding_len || mode_id == mk_lib_crypto_app_mode_id_e_cfb_8);
 	to_check_len = msg_len + *padding_len;
 	if(mode_id == mk_lib_crypto_app_mode_id_e_cfb_8){ to_check_len = msg_len; }
 	for(i = 0; i != to_check_len; ++i){ test(((mk_lang_types_uchar_pt)(&g_app.m_buffer))[i] == out[i]); }
@@ -409,10 +409,10 @@ mk_lang_jumbo void mk_lib_crypto_alg_aes_fuzz_winng(mk_lang_types_bool_t const c
 	mk_lang_types_ulong_t key_len;
 	mk_lang_types_ulong_t win_out_len;
 	mk_win_base_ntstatus_t st;
-	mk_win_handle_bcrypt_alg_t alg;
+	mk_win_bcrypt_alg_t alg;
 	mk_win_base_dword_t len;
 	mk_lang_types_ulong_t len_real;
-	mk_win_handle_bcrypt_key_t hkey;
+	mk_win_bcrypt_key_t hkey;
 	key_t win_key;
 	mk_lang_types_uchar_t win_out[0xff + 0x10];
 	mk_lang_types_ulong_t win_out_len_real;
@@ -450,12 +450,12 @@ mk_lang_jumbo void mk_lib_crypto_alg_aes_fuzz_winng(mk_lang_types_bool_t const c
 	}
 	win_out_len = ((mk_lang_types_ulong_t)(sizeof(win_out) / sizeof(win_out[0])));
 	st = BCryptOpenAlgorithmProvider(&alg, mk_win_bcrypt_bcrypt_aes_algorithm, mk_win_bcrypt_ms_primitive_provider, 0); test(st == 0);
-	st = BCryptGetProperty(((mk_win_handle_bcrypt_handle_t)(alg)), mk_win_bcrypt_bcrypt_object_length, ((mk_lang_types_uchar_pt)(&len)), ((mk_lang_types_ulong_t)(sizeof(len))), &len_real, 0); test(st == 0); test(len_real == ((mk_lang_types_ulong_t)(sizeof(len)))); test(len != 0); test(len <= ((mk_win_base_dword_t)(sizeof(win_key))));
-	st = BCryptSetProperty(((mk_win_handle_bcrypt_handle_t)(alg)), mk_win_bcrypt_bcrypt_chaining_mode, win_mode, win_mode_len, 0);
+	st = BCryptGetProperty(mk_win_bcrypt_handle_from(alg.m_data), mk_win_bcrypt_bcrypt_object_length, ((mk_lang_types_uchar_pt)(&len)), ((mk_lang_types_ulong_t)(sizeof(len))), &len_real, 0); test(st == 0); test(len_real == ((mk_lang_types_ulong_t)(sizeof(len)))); test(len != 0); test(len <= ((mk_win_base_dword_t)(sizeof(win_key))));
+	st = BCryptSetProperty(mk_win_bcrypt_handle_from(alg.m_data), mk_win_bcrypt_bcrypt_chaining_mode, win_mode, win_mode_len, 0);
 	st = BCryptGenerateSymmetricKey(alg, &hkey, ((mk_lang_types_uchar_pt)(&win_key)), ((mk_lang_types_ulong_t)(sizeof(win_key))), key, key_len, 0); test(st == 0);
 	if(win_feedback_bytes != 0)
 	{
-		st = BCryptSetProperty(((mk_win_handle_bcrypt_handle_t)(hkey)), mk_win_bcrypt_bcrypt_message_block_length, ((mk_lang_types_uchar_pct)(&win_feedback_bytes)), ((mk_lang_types_ulong_t)(sizeof(win_feedback_bytes))), 0); test(st == 0);
+		st = BCryptSetProperty(mk_win_bcrypt_handle_from(hkey.m_data), mk_win_bcrypt_bcrypt_message_block_length, ((mk_lang_types_uchar_pct)(&win_feedback_bytes)), ((mk_lang_types_ulong_t)(sizeof(win_feedback_bytes))), 0); test(st == 0);
 	}
 	st = BCryptEncrypt(hkey, msg, msg_len, mk_lang_null, win_piv, win_iv_len, &win_out[0], win_out_len, &win_out_len_real, mk_win_bcrypt_bcrypt_block_padding); test(st == 0); test(win_out_len_real == msg_len + *padding_len || mode_id == mk_lib_crypto_app_mode_id_e_cfb_8);
 	to_check_len = msg_len + *padding_len;
