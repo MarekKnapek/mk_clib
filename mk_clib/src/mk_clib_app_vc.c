@@ -384,7 +384,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_
 
 	((mk_lang_types_void_t)(argc));
 
-	exe_name = mk_lang_exe_name_get(argv[0]);
+	exe_name = mk_lang_exe_name_get_n(argv[0]);
 	tsi = printf("Example usage: %s <input_file> <password> <pim> <output_file>\n", exe_name); mk_lang_check_return(tsi > 0);
 	return 0;
 }

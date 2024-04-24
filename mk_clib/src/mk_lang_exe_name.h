@@ -9,7 +9,8 @@
 #include "mk_lang_types.h"
 
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_pchar_pct mk_lang_exe_name_get(mk_lang_types_pchar_pct const arg) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_pchar_pct mk_lang_exe_name_get_n(mk_lang_types_pchar_pct const arg) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_wchar_pct mk_lang_exe_name_get_w(mk_lang_types_wchar_pct const arg) mk_lang_noexcept;
 
 
 #if mk_lang_jumbo_want == 1
