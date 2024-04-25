@@ -668,7 +668,9 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_flt_inl_filec.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_flt_inl_fileh.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_flt_test.hpp"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_reader_file.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_reader_file_portable.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_reader_file_windows.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_writer_file_portable.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_mallocator_lang.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_sort_merge_fuzz.h"/>
@@ -1054,7 +1056,9 @@
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_flt.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_flt_fuzz.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_flt_test.cpp"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_reader_file.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_reader_file_portable.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_reader_file_windows.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_writer_file_portable.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_mallocator_lang.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_sort_merge_fuzz.c"/>

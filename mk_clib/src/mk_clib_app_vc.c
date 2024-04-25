@@ -312,7 +312,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_
 		mk_lang_check_rebreak(err);
 		for(; mk_sl_cui_uint64_ne(block_id, max_block_id); mk_sl_cui_uint64_inc1(block_id))
 		{
-			mk_sl_io_reader_file_portable_read(reader, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &read, &err); mk_lang_check_rebreak(err); err = mk_lang_check_line; mk_lang_check_break(read == mk_lang_countof(block->m_data.m_uint8s)); err = 0;
+			err = mk_sl_io_reader_file_portable_read(reader, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &read); mk_lang_check_rebreak(err); err = mk_lang_check_line; mk_lang_check_break(read == mk_lang_countof(block->m_data.m_uint8s)); err = 0;
 			mk_lib_vc_seq_decrypt_block(seqid, schedules, block_id, block, block);
 			mk_sl_io_writer_file_portable_write(&writer, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &written, &err); mk_lang_check_rebreak(err); err = mk_lang_check_line; mk_lang_check_break(written == mk_lang_countof(block->m_data.m_uint8s)); err = 0;
 		}
@@ -359,15 +359,15 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_
 	password_len = ((mk_lang_types_sint_t)(mk_clib_app_vc_strlenpc_fn(str_password)));
 	err = mk_lib_vc_parse_cost(str_pim, &cost); mk_lang_check_rereturn(err);
 	block = ((mk_lib_vc_block_pt)(((((mk_lang_types_uintptr_t)(&block_oversized)) + (sizeof(*block) - 1)) / sizeof(*block)) * sizeof(*block)));
-	mk_sl_io_reader_file_portable_open_n(&reader, str_input, &err); mk_lang_check_rereturn(err);
+	err = mk_sl_io_reader_file_portable_open_n(&reader, str_input); mk_lang_check_rereturn(err);
 	do
 	{
-		mk_sl_io_reader_file_portable_read(&reader, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &read, &err); mk_lang_check_rebreak(err); err = mk_lang_check_line; mk_lang_check_break(read == mk_lang_countof(block->m_data.m_uint8s)); err = 0;
+		err = mk_sl_io_reader_file_portable_read(&reader, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &read); mk_lang_check_rebreak(err); err = mk_lang_check_line; mk_lang_check_break(read == mk_lang_countof(block->m_data.m_uint8s)); err = 0;
 		salt = ((mk_lib_vc_salt_pt)(block));
 		block = ((mk_lib_vc_block_pt)(((mk_lang_types_uintptr_t)(block)) + mk_lib_vc_salt_len));
 		err = mk_lib_vc_try_decrypt_header(mk_lib_vc_kdfid_e_dummy, ((mk_sl_cui_uint8_pct)(str_password)), password_len, salt, cost, block, &seqid, &schedules, &volume_len); mk_lang_check_rebreak(err);
 		block = ((mk_lib_vc_block_pt)(((mk_lang_types_uintptr_t)(block)) - mk_lib_vc_salt_len));
-		mk_sl_io_reader_file_portable_seek_rel(&reader, mk_lib_vc_offsets_volume - mk_lib_vc_block_len, &err); mk_lang_check_rebreak(err);
+		err = mk_sl_io_reader_file_portable_seek_rel(&reader, mk_lib_vc_offsets_volume - mk_lib_vc_block_len); mk_lang_check_rebreak(err);
 		tsi = mk_lib_vc_offsets_volume / mk_lib_vc_block_len; mk_sl_cui_uint64_from_bi_sint(&block_id, &tsi);
 		mk_sl_cui_uint64_shr3(&volume_len, 9, &max_block_id); mk_sl_cui_uint64_add2_wrap_cid_cod(&max_block_id, &block_id);
 		err = mk_clib_app_vc_arg_write_vhd(&reader, seqid, &schedules, &block_id, &max_block_id, &volume_len, block, str_output); mk_lang_check_rebreak(err);
