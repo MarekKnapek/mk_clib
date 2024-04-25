@@ -295,33 +295,33 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_
 	mk_lang_assert(block);
 	mk_lang_assert(str_output);
 
-	mk_sl_io_writer_file_portable_open_n(&writer, str_output, &err); mk_lang_check_rereturn(err);
+	err = mk_sl_io_writer_file_portable_open_n(&writer, str_output); mk_lang_check_rereturn(err);
 	do
 	{
 		tul = 1ul * 1024ul * 1024ul; mk_sl_cui_uint32_from_bi_ulong(&align, &tul);
 		mk_clib_app_vc_mbr_header_generate(block, volume_len, &align);
-		mk_sl_io_writer_file_portable_write(&writer, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &written, &err); mk_lang_check_rebreak(err); err = mk_lang_check_line; mk_lang_check_break(written == mk_lang_countof(block->m_data.m_uint8s)); err = 0;
+		err = mk_sl_io_writer_file_portable_write(&writer, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &written); mk_lang_check_rebreak(err); err = mk_lang_check_line; mk_lang_check_break(written == mk_lang_countof(block->m_data.m_uint8s)); err = 0;
 		mk_sl_cui_uint8_set_zero(&tu8); mk_clib_app_vc_memsetu8_fn(&block->m_data.m_uint8s[0], &tu8, mk_lib_vc_block_len);
 		mk_sl_cui_uint32_shr3(&align, 9, &tu32);
 		mk_sl_cui_uint32_to_bi_ulong(&tu32, &tul);
 		n = tul - 1;
 		for(i = 0; i != n; ++i)
 		{
-			mk_sl_io_writer_file_portable_write(&writer, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &written, &err); mk_lang_check_rebreak(err); err = mk_lang_check_line; mk_lang_check_break(written == mk_lang_countof(block->m_data.m_uint8s)); err = 0;
+			err = mk_sl_io_writer_file_portable_write(&writer, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &written); mk_lang_check_rebreak(err); err = mk_lang_check_line; mk_lang_check_break(written == mk_lang_countof(block->m_data.m_uint8s)); err = 0;
 		}
 		mk_lang_check_rebreak(err);
 		for(; mk_sl_cui_uint64_ne(block_id, max_block_id); mk_sl_cui_uint64_inc1(block_id))
 		{
 			err = mk_sl_io_reader_file_portable_read(reader, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &read); mk_lang_check_rebreak(err); err = mk_lang_check_line; mk_lang_check_break(read == mk_lang_countof(block->m_data.m_uint8s)); err = 0;
 			mk_lib_vc_seq_decrypt_block(seqid, schedules, block_id, block, block);
-			mk_sl_io_writer_file_portable_write(&writer, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &written, &err); mk_lang_check_rebreak(err); err = mk_lang_check_line; mk_lang_check_break(written == mk_lang_countof(block->m_data.m_uint8s)); err = 0;
+			err = mk_sl_io_writer_file_portable_write(&writer, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &written); mk_lang_check_rebreak(err); err = mk_lang_check_line; mk_lang_check_break(written == mk_lang_countof(block->m_data.m_uint8s)); err = 0;
 		}
 		mk_lang_check_rebreak(err);
 		mk_sl_cui_uint32_to_bi_ulong(&align, &tul);
 		mk_sl_cui_uint64_from_bi_ulong(&tu64, &tul);
 		mk_sl_cui_uint64_add3_wrap_cid_cod(volume_len, &tu64, &disk_len);
 		mk_clib_app_vc_vhd_footer_generate(block, &disk_len);
-		mk_sl_io_writer_file_portable_write(&writer, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &written, &err); mk_lang_check_rebreak(err); err = mk_lang_check_line; mk_lang_check_break(written == mk_lang_countof(block->m_data.m_uint8s)); err = 0;
+		err = mk_sl_io_writer_file_portable_write(&writer, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &written); mk_lang_check_rebreak(err); err = mk_lang_check_line; mk_lang_check_break(written == mk_lang_countof(block->m_data.m_uint8s)); err = 0;
 	}while(mk_lang_false);
 	mk_sl_io_writer_file_portable_close(&writer);
 	mk_lang_check_rereturn(err);

@@ -3,24 +3,16 @@
 
 
 #include "mk_lang_jumbo.h"
+#include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_restrict.h"
 #include "mk_lang_types.h"
 #include "mk_sl_uint8.h"
 
-#include <stdio.h>
+#include <stdio.h> /* FILE */
 
 
 typedef FILE* mk_sl_io_writer_file_portable_handle_t;
-
-enum mk_sl_io_writer_file_portable_err_e
-{
-	mk_sl_io_writer_file_portable_err_e_ok,
-	mk_sl_io_writer_file_portable_err_e_eof,
-	mk_sl_io_writer_file_portable_err_e_err,
-	mk_sl_io_writer_file_portable_err_e_dummy
-};
-typedef enum mk_sl_io_writer_file_portable_err_e mk_sl_io_writer_file_portable_err_t;
 
 struct mk_sl_io_writer_file_portable_s
 {
@@ -34,10 +26,10 @@ typedef mk_sl_io_writer_file_portable_t const* mk_sl_io_writer_file_portable_pct
 typedef mk_sl_io_writer_file_portable_t const* mk_lang_restrict mk_sl_io_writer_file_portable_prct;
 
 
-mk_lang_jumbo mk_lang_types_void_t mk_sl_io_writer_file_portable_open_n(mk_sl_io_writer_file_portable_pt const writer, mk_lang_types_pchar_pct const name, mk_lang_types_sint_pt const err) mk_lang_noexcept;
-mk_lang_jumbo mk_lang_types_void_t mk_sl_io_writer_file_portable_open_w(mk_sl_io_writer_file_portable_pt const writer, mk_lang_types_wchar_pct const name, mk_lang_types_sint_pt const err) mk_lang_noexcept;
-mk_lang_jumbo mk_lang_types_void_t mk_sl_io_writer_file_portable_write(mk_sl_io_writer_file_portable_pt const writer, mk_sl_cui_uint8_pct const buf, mk_lang_types_usize_t const len, mk_lang_types_usize_pt const written, mk_lang_types_sint_pt const err) mk_lang_noexcept;
-mk_lang_jumbo mk_lang_types_void_t mk_sl_io_writer_file_portable_close(mk_sl_io_writer_file_portable_pt const writer) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_writer_file_portable_open_n(mk_sl_io_writer_file_portable_pt const writer, mk_lang_types_pchar_pct const name) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_writer_file_portable_open_w(mk_sl_io_writer_file_portable_pt const writer, mk_lang_types_wchar_pct const name) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_writer_file_portable_write(mk_sl_io_writer_file_portable_pt const writer, mk_sl_cui_uint8_pct const buf, mk_lang_types_usize_t const len, mk_lang_types_usize_pt const written) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_writer_file_portable_close(mk_sl_io_writer_file_portable_pt const writer) mk_lang_noexcept;
 
 
 #if mk_lang_jumbo_want == 1
