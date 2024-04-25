@@ -404,14 +404,14 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_clib_app_vc_arg(mk_lang_
 		mk_lang_check_return(argv[i]);
 		mk_lang_check_return(argv[i][0] != '\0');
 	}
-	if(argc != 5)
-	{
-		err = mk_clib_app_vc_arg_readme(argc, argv); mk_lang_check_rereturn(err);
-	}
-	else
+	if(argc == 5)
 	{
 		mk_lang_cpuid_init();
 		err = mk_clib_app_vc_arg_work(argc, argv); mk_lang_check_rereturn(err);
+	}
+	else
+	{
+		err = mk_clib_app_vc_arg_readme(argc, argv); mk_lang_check_rereturn(err);
 	}
 	return 0;
 }
