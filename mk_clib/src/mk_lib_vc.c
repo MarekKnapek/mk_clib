@@ -40,6 +40,11 @@
 #include "mk_lang_strlen_inl_fileh.h"
 #include "mk_lang_strlen_inl_filec.h"
 
+#define mk_lang_strlen_t_name mk_lib_vc_strlenwc
+#define mk_lang_strlen_t_base mk_lang_types_wchar
+#include "mk_lang_strlen_inl_fileh.h"
+#include "mk_lang_strlen_inl_filec.h"
+
 #define mk_lib_crypto_mode_base_t_name mk_lib_vc_mode
 #define mk_lib_crypto_mode_base_t_len mk_lib_vc_msg_len
 #include "mk_lib_crypto_mode_base_inl_fileh.h"
@@ -264,7 +269,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_vc_derive_keys(mk_li
 	}
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc_parse_cost(mk_lang_types_pchar_pct const str_pim, mk_lang_types_ulong_pt const cost) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc_parse_cost(mk_lang_types_bool_t const wide, mk_lang_types_pchar_pct const str_pim, mk_lang_types_ulong_pt const cost) mk_lang_noexcept
 {
 	mk_lang_types_sint_t str_pim_len mk_lang_constexpr_init;
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
@@ -275,10 +280,14 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc
 
 	mk_lang_assert(str_pim);
 	mk_lang_assert(cost);
-	mk_lang_assert(mk_lib_vc_strlenpc_fn(str_pim) <= ((mk_lang_types_usize_t)(mk_lang_limits_sint_max)));
+	mk_lang_assert
+	(
+		(!wide && mk_lib_vc_strlenpc_fn(str_pim) <= ((mk_lang_types_usize_t)(mk_lang_limits_sint_max))) ||
+		(wide && mk_lib_vc_strlenwc_fn(((mk_lang_types_wchar_pct)(str_pim))) <= ((mk_lang_types_usize_t)(mk_lang_limits_sint_max)))
+	);
 
-	str_pim_len = ((mk_lang_types_sint_t)(mk_lib_vc_strlenpc_fn(str_pim)));
-	err = mk_sl_cui_uint32_from_str_dec_n(&pim32[0], str_pim, str_pim_len);
+	str_pim_len = wide ? ((mk_lang_types_sint_t)(mk_lib_vc_strlenwc_fn(((mk_lang_types_wchar_pct)(str_pim))))) : ((mk_lang_types_sint_t)(mk_lib_vc_strlenpc_fn(str_pim)));
+	err = wide ? mk_sl_cui_uint32_from_str_dec_w(&pim32[0], ((mk_lang_types_wchar_pct)(str_pim)), str_pim_len) : mk_sl_cui_uint32_from_str_dec_n(&pim32[0], str_pim, str_pim_len);
 	mk_lang_check_return(err == str_pim_len);
 	if(mk_sl_cui_uint32_is_zero(&pim32[0]))
 	{
