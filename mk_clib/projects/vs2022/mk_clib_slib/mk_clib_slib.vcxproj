@@ -698,6 +698,7 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_advapi_types.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_base.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_bcrypt.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_console.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_errors.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_files.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_handle.h"/>
@@ -1080,6 +1081,7 @@
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_advapi_types.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_base.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_bcrypt.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_console.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_errors.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_files.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_handle.c"/>
