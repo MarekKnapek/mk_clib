@@ -15,7 +15,7 @@
 
 
 mk_win_base_make_handle(mk_win_user_icon)
-mk_lang_extern_c mk_win_base_dll_import mk_win_user_icon_t mk_win_base_stdcall LoadIconW(mk_win_base_instance_t, mk_win_base_wchar_lpct) mk_lang_noexcept;
+mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_user_icon_t mk_win_base_stdcall LoadIconW(mk_win_base_instance_t, mk_win_base_wchar_lpct) mk_lang_noexcept;
 
 
 enum mk_win_unicode_api_is_wide_e

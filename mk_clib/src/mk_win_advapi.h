@@ -5,6 +5,7 @@
 #include "mk_lang_concat.h"
 #include "mk_lang_cpp.h"
 #include "mk_lang_jumbo.h"
+#include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
 #include "mk_win_base.h"
@@ -325,14 +326,14 @@ mk_win_base_make_handle(mk_win_handle_advapi_hash)
 #define mk_win_advapi_crypt_mode_cts 5
 
 
-mk_lang_extern_c mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall CryptAcquireContextA(mk_win_handle_advapi_prov_pt const csp, mk_lang_types_pchar_pct const container, mk_lang_types_pchar_pct const provider, mk_win_base_dword_t const provider_type, mk_win_base_dword_t const flags) mk_lang_noexcept;
-mk_lang_extern_c mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall CryptAcquireContextW(mk_win_handle_advapi_prov_pt const csp, mk_win_base_wchar_pct const container, mk_win_base_wchar_pct const provider, mk_win_base_dword_t const provider_type, mk_win_base_dword_t const flags) mk_lang_noexcept;
-mk_lang_extern_c mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall CryptReleaseContext(mk_win_handle_advapi_prov_t const csp, mk_win_base_dword_t const flags) mk_lang_noexcept;
-mk_lang_extern_c mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall CryptImportKey(mk_win_handle_advapi_prov_t const csp, mk_lang_types_uchar_pct const data, mk_win_base_dword_t const data_len, mk_win_handle_advapi_key_pct const pub_key, mk_win_base_dword_t const flags, mk_win_handle_advapi_key_pt const key) mk_lang_noexcept;
-mk_lang_extern_c mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall CryptDestroyKey(mk_win_handle_advapi_key_t const key) mk_lang_noexcept;
-mk_lang_extern_c mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall CryptSetKeyParam(mk_win_handle_advapi_key_t const key, mk_win_base_dword_t const param, mk_lang_types_uchar_pct const data, mk_win_base_dword_t const flags) mk_lang_noexcept;
-mk_lang_extern_c mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall CryptEncrypt(mk_win_handle_advapi_key_t const key, mk_win_handle_advapi_hash_t const hash, mk_win_base_bool_t const final, mk_win_base_dword_t const flags, mk_lang_types_uchar_pt const data, mk_win_base_dword_pt const data_len, mk_win_base_dword_t const buff_len) mk_lang_noexcept;
-mk_lang_extern_c mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall CryptDecrypt(mk_win_handle_advapi_key_t const key, mk_win_handle_advapi_hash_t const hash, mk_win_base_bool_t const final, mk_win_base_dword_t const flags, mk_lang_types_uchar_pt const data, mk_win_base_dword_pt const data_len) mk_lang_noexcept;
+mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall CryptAcquireContextA(mk_win_handle_advapi_prov_pt const csp, mk_lang_types_pchar_pct const container, mk_lang_types_pchar_pct const provider, mk_win_base_dword_t const provider_type, mk_win_base_dword_t const flags) mk_lang_noexcept;
+mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall CryptAcquireContextW(mk_win_handle_advapi_prov_pt const csp, mk_win_base_wchar_pct const container, mk_win_base_wchar_pct const provider, mk_win_base_dword_t const provider_type, mk_win_base_dword_t const flags) mk_lang_noexcept;
+mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall CryptReleaseContext(mk_win_handle_advapi_prov_t const csp, mk_win_base_dword_t const flags) mk_lang_noexcept;
+mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall CryptImportKey(mk_win_handle_advapi_prov_t const csp, mk_lang_types_uchar_pct const data, mk_win_base_dword_t const data_len, mk_win_handle_advapi_key_pct const pub_key, mk_win_base_dword_t const flags, mk_win_handle_advapi_key_pt const key) mk_lang_noexcept;
+mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall CryptDestroyKey(mk_win_handle_advapi_key_t const key) mk_lang_noexcept;
+mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall CryptSetKeyParam(mk_win_handle_advapi_key_t const key, mk_win_base_dword_t const param, mk_lang_types_uchar_pct const data, mk_win_base_dword_t const flags) mk_lang_noexcept;
+mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall CryptEncrypt(mk_win_handle_advapi_key_t const key, mk_win_handle_advapi_hash_t const hash, mk_win_base_bool_t const final, mk_win_base_dword_t const flags, mk_lang_types_uchar_pt const data, mk_win_base_dword_pt const data_len, mk_win_base_dword_t const buff_len) mk_lang_noexcept;
+mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall CryptDecrypt(mk_win_handle_advapi_key_t const key, mk_win_handle_advapi_hash_t const hash, mk_win_base_bool_t const final, mk_win_base_dword_t const flags, mk_lang_types_uchar_pt const data, mk_win_base_dword_pt const data_len) mk_lang_noexcept;
 
 
 #if mk_lang_jumbo_want == 1
