@@ -238,7 +238,7 @@
 			<EnableCOMDATFolding>true</EnableCOMDATFolding>
 			<OptimizeReferences>true</OptimizeReferences>
 			<GenerateDebugInformation>true</GenerateDebugInformation>
-			<AdditionalOptions>/brepro %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions>/brepro /pdbaltpath:%_PDB% %(AdditionalOptions)</AdditionalOptions>
 			<LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
 			<SetChecksum>true</SetChecksum>
 		</Link>
@@ -285,7 +285,7 @@
 			<EnableCOMDATFolding>true</EnableCOMDATFolding>
 			<OptimizeReferences>true</OptimizeReferences>
 			<GenerateDebugInformation>true</GenerateDebugInformation>
-			<AdditionalOptions>/brepro %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions>/brepro /pdbaltpath:%_PDB% %(AdditionalOptions)</AdditionalOptions>
 			<LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
 			<SetChecksum>true</SetChecksum>
 		</Link>
@@ -330,7 +330,7 @@
 			<EnableCOMDATFolding>true</EnableCOMDATFolding>
 			<OptimizeReferences>true</OptimizeReferences>
 			<GenerateDebugInformation>true</GenerateDebugInformation>
-			<AdditionalOptions>/brepro %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions>/brepro /pdbaltpath:%_PDB% %(AdditionalOptions)</AdditionalOptions>
 		</Link>
 	</ItemDefinitionGroup>
 	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
@@ -373,7 +373,7 @@
 			<EnableCOMDATFolding>true</EnableCOMDATFolding>
 			<OptimizeReferences>true</OptimizeReferences>
 			<GenerateDebugInformation>true</GenerateDebugInformation>
-			<AdditionalOptions>/brepro %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions>/brepro /pdbaltpath:%_PDB% %(AdditionalOptions)</AdditionalOptions>
 		</Link>
 	</ItemDefinitionGroup>
 	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64EC'">
@@ -416,7 +416,7 @@
 			<EnableCOMDATFolding>true</EnableCOMDATFolding>
 			<OptimizeReferences>true</OptimizeReferences>
 			<GenerateDebugInformation>true</GenerateDebugInformation>
-			<AdditionalOptions>/brepro %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions>/brepro /pdbaltpath:%_PDB% %(AdditionalOptions)</AdditionalOptions>
 		</Link>
 	</ItemDefinitionGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
