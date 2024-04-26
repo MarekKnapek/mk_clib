@@ -3,18 +3,21 @@
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_os.h"
 #include "mk_lang_types.h"
 #include "mk_sl_uint8.h"
 
 
-#if defined _MSC_VER && defined _MSC_FULL_VER
+#if mk_lang_os == mk_lang_os_windows
 #include "mk_sl_io_console_windows.h"
 #define mk_sl_io_console_impl_write_n mk_sl_io_console_windows_write_n
 #define mk_sl_io_console_impl_write_w mk_sl_io_console_windows_write_w
-#else
+#elif mk_lang_os == mk_lang_os_c
 #include "mk_sl_io_console_portable.h"
 #define mk_sl_io_console_impl_write_n mk_sl_io_console_portable_write_n
 #define mk_sl_io_console_impl_write_w mk_sl_io_console_portable_write_w
+#else
+#error todo xxxxxxxxxx
 #endif
 
 
