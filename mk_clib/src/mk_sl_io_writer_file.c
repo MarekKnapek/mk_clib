@@ -23,7 +23,7 @@
 #define mk_sl_io_writer_file_impl_write  mk_sl_io_writer_file_portable_write
 #define mk_sl_io_writer_file_impl_close  mk_sl_io_writer_file_portable_close
 #else
-#error todo xxxxxxxxxx
+#error xxxxxxxxxx todo
 #endif
 
 

@@ -17,7 +17,7 @@
 #define mk_sl_io_console_impl_write_n mk_sl_io_console_portable_write_n
 #define mk_sl_io_console_impl_write_w mk_sl_io_console_portable_write_w
 #else
-#error todo xxxxxxxxxx
+#error xxxxxxxxxx todo
 #endif
 
 

@@ -661,7 +661,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_inl_defd_from_bui
 #elif mk_lang_sizeof_bi_$1_t * mk_lang_charbit > mk_sl_cui_inl_defd_base_sizebits_d && (mk_lang_sizeof_bi_$1_t * mk_lang_charbit) % mk_sl_cui_inl_defd_base_sizebits_d == 0
 	mk_sl_cui_inl_defd_from_buis_$1_le_impl_smoler_int(a, b);
 #else
-	#error todo xxxxxxxxxx
+	#error xxxxxxxxxx todo
 	mk_lang_assert(0);
 #endif
 }
@@ -796,7 +796,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_inl_defd_to_buis_
 #elif mk_lang_sizeof_bi_$1_t * mk_lang_charbit > mk_sl_cui_inl_defd_base_sizebits_d && (mk_lang_sizeof_bi_$1_t * mk_lang_charbit) % mk_sl_cui_inl_defd_base_sizebits_d == 0
 	mk_sl_cui_inl_defd_to_buis_$1_le_impl_smoler_int(a, b);
 #else
-	#error todo xxxxxxxxxx
+	#error xxxxxxxxxx todo
 	mk_lang_assert(0);
 #endif
 }
@@ -926,7 +926,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_inl_defd_from_bui
 #elif mk_lang_sizeof_bi_$1_t * mk_lang_charbit > mk_sl_cui_inl_defd_base_sizebits_d && (mk_lang_sizeof_bi_$1_t * mk_lang_charbit) % mk_sl_cui_inl_defd_base_sizebits_d == 0
 	mk_sl_cui_inl_defd_from_buis_$1_be_impl_smoler_int(a, b);
 #else
-	#error todo xxxxxxxxxx
+	#error xxxxxxxxxx todo
 	mk_lang_assert(0);
 #endif
 }
@@ -1065,7 +1065,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_inl_defd_to_buis_
 #elif mk_lang_sizeof_bi_$1_t * mk_lang_charbit > mk_sl_cui_inl_defd_base_sizebits_d && (mk_lang_sizeof_bi_$1_t * mk_lang_charbit) % mk_sl_cui_inl_defd_base_sizebits_d == 0
 	mk_sl_cui_inl_defd_to_buis_$1_be_impl_smoler_int(a, b);
 #else
-	#error todo xxxxxxxxxx
+	#error xxxxxxxxxx todo
 	mk_lang_assert(0);
 #endif
 }
@@ -2749,7 +2749,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_inl_defd_mul3_wra
 	mk_sl_cui_inl_defd_base_add2_wrap_cid_coe(&c->m_data[mk_sl_cui_inl_defd_idx(0)], &ta, &cf);
 	mk_sl_cui_inl_defd_base_add2_wrap_cie_cod(&c->m_data[mk_sl_cui_inl_defd_idx(1)], &tb, cf);
 #elif mk_sl_cui_inl_defd_count == 3
-	#error todo xxxxxxxxxx
+	#error xxxxxxxxxx todo
 #elif mk_sl_cui_inl_defd_count == 4
 	mk_sl_cui_inl_defd_base_t ta mk_lang_constexpr_init;
 	mk_sl_cui_inl_defd_base_t tb mk_lang_constexpr_init;
@@ -3497,7 +3497,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_inl_defd_divmod4_
 	mk_sl_cui_inl_defd_from_buis_ushort_le(d, &dd[0]);
 
 		#else
-	#error todo xxxxxxxxxx
+	#error xxxxxxxxxx todo
 		#endif
 	#endif
 #endif
@@ -3665,7 +3665,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_inl_defd_divmod4_
 
 #else
 
-#error todo xxxxxxxxxx
+#error xxxxxxxxxx todo
 
 #endif
 }
