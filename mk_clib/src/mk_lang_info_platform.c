@@ -37,7 +37,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_info_platform_print(mk_lang_types_voi
 	#elif mk_lang_arch == mk_lang_arch_emscripten
 	printf("platform: emscripten\n");
 	#else
-	#error todo xxxxxxxxxx
+	#error xxxxxxxxxx todo
 	#endif
 	printf("\n");
 

@@ -25,7 +25,7 @@
 #define mk_sl_io_reader_file_impl_seek_rel mk_sl_io_reader_file_portable_seek_rel
 #define mk_sl_io_reader_file_impl_close    mk_sl_io_reader_file_portable_close
 #else
-#error todo xxxxxxxxxx
+#error xxxxxxxxxx todo
 #endif
 
 
