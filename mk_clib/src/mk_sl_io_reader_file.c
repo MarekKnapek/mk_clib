@@ -4,25 +4,28 @@
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_os.h"
 #include "mk_lang_restrict.h"
 #include "mk_lang_types.h"
 #include "mk_sl_uint8.h"
 
 
-#if defined _MSC_VER && defined _MSC_FULL_VER
+#if mk_lang_os == mk_lang_os_windows
 #include "mk_sl_io_reader_file_windows.h"
 #define mk_sl_io_reader_file_impl_open_n   mk_sl_io_reader_file_windows_open_n
 #define mk_sl_io_reader_file_impl_open_w   mk_sl_io_reader_file_windows_open_w
 #define mk_sl_io_reader_file_impl_read     mk_sl_io_reader_file_windows_read
 #define mk_sl_io_reader_file_impl_seek_rel mk_sl_io_reader_file_windows_seek_rel
 #define mk_sl_io_reader_file_impl_close    mk_sl_io_reader_file_windows_close
-#else
+#elif mk_lang_os == mk_lang_os_c
 #include "mk_sl_io_reader_file_portable.h"
 #define mk_sl_io_reader_file_impl_open_n   mk_sl_io_reader_file_portable_open_n
 #define mk_sl_io_reader_file_impl_open_w   mk_sl_io_reader_file_portable_open_w
 #define mk_sl_io_reader_file_impl_read     mk_sl_io_reader_file_portable_read
 #define mk_sl_io_reader_file_impl_seek_rel mk_sl_io_reader_file_portable_seek_rel
 #define mk_sl_io_reader_file_impl_close    mk_sl_io_reader_file_portable_close
+#else
+#error todo xxxxxxxxxx
 #endif
 
 
