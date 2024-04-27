@@ -30,9 +30,6 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_fuzz_n_d(mk_lang_types_uch
 	#define check(x) if(!(x)) return;
 	#define advance(x) d += (x); s -= (x); ((mk_lang_types_void_t)(0))
 
-	mk_lang_static_assert(sizeof(mk_lang_types_uint_t) == 4);
-	mk_lang_static_assert(sizeof(mk_sl_cui_uint32_t) == 4);
-
 	mk_lang_types_uchar_pct d;
 	mk_lang_types_usize_t s;
 	mk_lang_types_uint_t tui;
@@ -41,6 +38,9 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_fuzz_n_d(mk_lang_types_uch
 	mk_lang_types_pchar_t bufa[64];
 	mk_lang_types_sint_t tsib;
 	mk_lang_types_pchar_t bufb[mk_lang_countof(bufa)];
+
+	mk_lang_static_assert(sizeof(mk_lang_types_uint_t) == 4);
+	mk_lang_static_assert(sizeof(mk_sl_cui_uint32_t) == 4);
 
 	mk_lang_assert(data || size == 0);
 	mk_lang_assert(size >= 0);
@@ -65,9 +65,6 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_fuzz_w_d(mk_lang_types_uch
 	#define check(x) if(!(x)) return;
 	#define advance(x) d += (x); s -= (x); ((mk_lang_types_void_t)(0))
 
-	mk_lang_static_assert(sizeof(mk_lang_types_uint_t) == 4);
-	mk_lang_static_assert(sizeof(mk_sl_cui_uint32_t) == 4);
-
 	mk_lang_types_uchar_pct d;
 	mk_lang_types_usize_t s;
 	mk_lang_types_uint_t tui;
@@ -76,6 +73,9 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_fuzz_w_d(mk_lang_types_uch
 	mk_lang_types_wchar_t bufa[64];
 	mk_lang_types_sint_t tsib;
 	mk_lang_types_wchar_t bufb[mk_lang_countof(bufa)];
+
+	mk_lang_static_assert(sizeof(mk_lang_types_uint_t) == 4);
+	mk_lang_static_assert(sizeof(mk_sl_cui_uint32_t) == 4);
 
 	mk_lang_assert(data || size == 0);
 	mk_lang_assert(size >= 0);
@@ -100,9 +100,6 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_fuzz_n_u(mk_lang_types_uch
 	#define check(x) if(!(x)) return;
 	#define advance(x) d += (x); s -= (x); ((mk_lang_types_void_t)(0))
 
-	mk_lang_static_assert(sizeof(mk_lang_types_uint_t) == 4);
-	mk_lang_static_assert(sizeof(mk_sl_cui_uint32_t) == 4);
-
 	mk_lang_types_uchar_pct d;
 	mk_lang_types_usize_t s;
 	mk_lang_types_uint_t tui;
@@ -111,6 +108,9 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_fuzz_n_u(mk_lang_types_uch
 	mk_lang_types_pchar_t bufa[64];
 	mk_lang_types_sint_t tsib;
 	mk_lang_types_pchar_t bufb[mk_lang_countof(bufa)];
+
+	mk_lang_static_assert(sizeof(mk_lang_types_uint_t) == 4);
+	mk_lang_static_assert(sizeof(mk_sl_cui_uint32_t) == 4);
 
 	mk_lang_assert(data || size == 0);
 	mk_lang_assert(size >= 0);
@@ -135,9 +135,6 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_fuzz_w_u(mk_lang_types_uch
 	#define check(x) if(!(x)) return;
 	#define advance(x) d += (x); s -= (x); ((mk_lang_types_void_t)(0))
 
-	mk_lang_static_assert(sizeof(mk_lang_types_uint_t) == 4);
-	mk_lang_static_assert(sizeof(mk_sl_cui_uint32_t) == 4);
-
 	mk_lang_types_uchar_pct d;
 	mk_lang_types_usize_t s;
 	mk_lang_types_uint_t tui;
@@ -146,6 +143,9 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_fuzz_w_u(mk_lang_types_uch
 	mk_lang_types_wchar_t bufa[64];
 	mk_lang_types_sint_t tsib;
 	mk_lang_types_wchar_t bufb[mk_lang_countof(bufa)];
+
+	mk_lang_static_assert(sizeof(mk_lang_types_uint_t) == 4);
+	mk_lang_static_assert(sizeof(mk_sl_cui_uint32_t) == 4);
 
 	mk_lang_assert(data || size == 0);
 	mk_lang_assert(size >= 0);
@@ -170,9 +170,6 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_fuzz_n_x(mk_lang_types_uch
 	#define check(x) if(!(x)) return;
 	#define advance(x) d += (x); s -= (x); ((mk_lang_types_void_t)(0))
 
-	mk_lang_static_assert(sizeof(mk_lang_types_uint_t) == 4);
-	mk_lang_static_assert(sizeof(mk_sl_cui_uint32_t) == 4);
-
 	mk_lang_types_uchar_pct d;
 	mk_lang_types_usize_t s;
 	mk_lang_types_uint_t tui;
@@ -181,6 +178,9 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_fuzz_n_x(mk_lang_types_uch
 	mk_lang_types_pchar_t bufa[64];
 	mk_lang_types_sint_t tsib;
 	mk_lang_types_pchar_t bufb[mk_lang_countof(bufa)];
+
+	mk_lang_static_assert(sizeof(mk_lang_types_uint_t) == 4);
+	mk_lang_static_assert(sizeof(mk_sl_cui_uint32_t) == 4);
 
 	mk_lang_assert(data || size == 0);
 	mk_lang_assert(size >= 0);
@@ -205,9 +205,6 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_fuzz_w_x(mk_lang_types_uch
 	#define check(x) if(!(x)) return;
 	#define advance(x) d += (x); s -= (x); ((mk_lang_types_void_t)(0))
 
-	mk_lang_static_assert(sizeof(mk_lang_types_uint_t) == 4);
-	mk_lang_static_assert(sizeof(mk_sl_cui_uint32_t) == 4);
-
 	mk_lang_types_uchar_pct d;
 	mk_lang_types_usize_t s;
 	mk_lang_types_uint_t tui;
@@ -216,6 +213,9 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_fuzz_w_x(mk_lang_types_uch
 	mk_lang_types_wchar_t bufa[64];
 	mk_lang_types_sint_t tsib;
 	mk_lang_types_wchar_t bufb[mk_lang_countof(bufa)];
+
+	mk_lang_static_assert(sizeof(mk_lang_types_uint_t) == 4);
+	mk_lang_static_assert(sizeof(mk_sl_cui_uint32_t) == 4);
 
 	mk_lang_assert(data || size == 0);
 	mk_lang_assert(size >= 0);
@@ -240,9 +240,6 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_fuzz_n_lld(mk_lang_types_u
 	#define check(x) if(!(x)) return;
 	#define advance(x) d += (x); s -= (x); ((mk_lang_types_void_t)(0))
 
-	mk_lang_static_assert(sizeof(mk_lang_types_ullong_t) == 8);
-	mk_lang_static_assert(sizeof(mk_sl_cui_uint64_t) == 8);
-
 	mk_lang_types_uchar_pct d;
 	mk_lang_types_usize_t s;
 	mk_lang_types_ullong_t tull;
@@ -251,6 +248,9 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_fuzz_n_lld(mk_lang_types_u
 	mk_lang_types_pchar_t bufa[64];
 	mk_lang_types_sint_t tsib;
 	mk_lang_types_pchar_t bufb[mk_lang_countof(bufa)];
+
+	mk_lang_static_assert(sizeof(mk_lang_types_ullong_t) == 8);
+	mk_lang_static_assert(sizeof(mk_sl_cui_uint64_t) == 8);
 
 	mk_lang_assert(data || size == 0);
 	mk_lang_assert(size >= 0);
@@ -275,9 +275,6 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_fuzz_w_lld(mk_lang_types_u
 	#define check(x) if(!(x)) return;
 	#define advance(x) d += (x); s -= (x); ((mk_lang_types_void_t)(0))
 
-	mk_lang_static_assert(sizeof(mk_lang_types_ullong_t) == 8);
-	mk_lang_static_assert(sizeof(mk_sl_cui_uint64_t) == 8);
-
 	mk_lang_types_uchar_pct d;
 	mk_lang_types_usize_t s;
 	mk_lang_types_ullong_t tull;
@@ -286,6 +283,9 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_fuzz_w_lld(mk_lang_types_u
 	mk_lang_types_wchar_t bufa[64];
 	mk_lang_types_sint_t tsib;
 	mk_lang_types_wchar_t bufb[mk_lang_countof(bufa)];
+
+	mk_lang_static_assert(sizeof(mk_lang_types_ullong_t) == 8);
+	mk_lang_static_assert(sizeof(mk_sl_cui_uint64_t) == 8);
 
 	mk_lang_assert(data || size == 0);
 	mk_lang_assert(size >= 0);
@@ -310,9 +310,6 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_fuzz_n_llu(mk_lang_types_u
 	#define check(x) if(!(x)) return;
 	#define advance(x) d += (x); s -= (x); ((mk_lang_types_void_t)(0))
 
-	mk_lang_static_assert(sizeof(mk_lang_types_ullong_t) == 8);
-	mk_lang_static_assert(sizeof(mk_sl_cui_uint64_t) == 8);
-
 	mk_lang_types_uchar_pct d;
 	mk_lang_types_usize_t s;
 	mk_lang_types_ullong_t tull;
@@ -321,6 +318,9 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_fuzz_n_llu(mk_lang_types_u
 	mk_lang_types_pchar_t bufa[64];
 	mk_lang_types_sint_t tsib;
 	mk_lang_types_pchar_t bufb[mk_lang_countof(bufa)];
+
+	mk_lang_static_assert(sizeof(mk_lang_types_ullong_t) == 8);
+	mk_lang_static_assert(sizeof(mk_sl_cui_uint64_t) == 8);
 
 	mk_lang_assert(data || size == 0);
 	mk_lang_assert(size >= 0);
@@ -345,9 +345,6 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_fuzz_w_llu(mk_lang_types_u
 	#define check(x) if(!(x)) return;
 	#define advance(x) d += (x); s -= (x); ((mk_lang_types_void_t)(0))
 
-	mk_lang_static_assert(sizeof(mk_lang_types_ullong_t) == 8);
-	mk_lang_static_assert(sizeof(mk_sl_cui_uint64_t) == 8);
-
 	mk_lang_types_uchar_pct d;
 	mk_lang_types_usize_t s;
 	mk_lang_types_ullong_t tull;
@@ -356,6 +353,9 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_fuzz_w_llu(mk_lang_types_u
 	mk_lang_types_wchar_t bufa[64];
 	mk_lang_types_sint_t tsib;
 	mk_lang_types_wchar_t bufb[mk_lang_countof(bufa)];
+
+	mk_lang_static_assert(sizeof(mk_lang_types_ullong_t) == 8);
+	mk_lang_static_assert(sizeof(mk_sl_cui_uint64_t) == 8);
 
 	mk_lang_assert(data || size == 0);
 	mk_lang_assert(size >= 0);
@@ -380,9 +380,6 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_fuzz_n_llx(mk_lang_types_u
 	#define check(x) if(!(x)) return;
 	#define advance(x) d += (x); s -= (x); ((mk_lang_types_void_t)(0))
 
-	mk_lang_static_assert(sizeof(mk_lang_types_ullong_t) == 8);
-	mk_lang_static_assert(sizeof(mk_sl_cui_uint64_t) == 8);
-
 	mk_lang_types_uchar_pct d;
 	mk_lang_types_usize_t s;
 	mk_lang_types_ullong_t tull;
@@ -391,6 +388,9 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_fuzz_n_llx(mk_lang_types_u
 	mk_lang_types_pchar_t bufa[64];
 	mk_lang_types_sint_t tsib;
 	mk_lang_types_pchar_t bufb[mk_lang_countof(bufa)];
+
+	mk_lang_static_assert(sizeof(mk_lang_types_ullong_t) == 8);
+	mk_lang_static_assert(sizeof(mk_sl_cui_uint64_t) == 8);
 
 	mk_lang_assert(data || size == 0);
 	mk_lang_assert(size >= 0);
@@ -415,9 +415,6 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_fuzz_w_llx(mk_lang_types_u
 	#define check(x) if(!(x)) return;
 	#define advance(x) d += (x); s -= (x); ((mk_lang_types_void_t)(0))
 
-	mk_lang_static_assert(sizeof(mk_lang_types_ullong_t) == 8);
-	mk_lang_static_assert(sizeof(mk_sl_cui_uint64_t) == 8);
-
 	mk_lang_types_uchar_pct d;
 	mk_lang_types_usize_t s;
 	mk_lang_types_ullong_t tull;
@@ -426,6 +423,9 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_fuzz_w_llx(mk_lang_types_u
 	mk_lang_types_wchar_t bufa[64];
 	mk_lang_types_sint_t tsib;
 	mk_lang_types_wchar_t bufb[mk_lang_countof(bufa)];
+
+	mk_lang_static_assert(sizeof(mk_lang_types_ullong_t) == 8);
+	mk_lang_static_assert(sizeof(mk_sl_cui_uint64_t) == 8);
 
 	mk_lang_assert(data || size == 0);
 	mk_lang_assert(size >= 0);
