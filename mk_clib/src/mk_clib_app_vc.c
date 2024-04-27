@@ -28,6 +28,11 @@
 #include "mk_sl_uint64.h"
 #include "mk_sl_uint8.h"
 
+#define mk_sl_io_writer_buffered_t_name mk_clib_app_vc_writer
+#define mk_sl_io_writer_buffered_t_base mk_sl_io_writer_file
+#include "mk_sl_io_writer_buffered_inl_fileh.h"
+#include "mk_sl_io_writer_buffered_inl_filec.h"
+
 #define mk_lang_memset_t_name mk_clib_app_vc_memsetu8
 #define mk_lang_memset_t_base mk_sl_cui_uint8
 #include "mk_lang_memset_inl_fileh.h"
@@ -55,6 +60,9 @@ struct mk_lib_vc_block_oversized2_s
 	mk_lib_vc_block_oversized2_data_t m_data;
 };
 typedef struct mk_lib_vc_block_oversized2_s mk_lib_vc_block_oversized2_t;
+
+
+static mk_sl_cui_uint8_t g_mk_clib_app_vc_buf[(64ul * 1024ul) + ((64ul * 1024ul) - 1ul)];
 
 
 static mk_lang_inline mk_lang_types_void_t mk_clib_app_vc_chs_from_bytes(mk_sl_cui_uint32_pct const bytes, mk_sl_cui_uint8_pt const a, mk_sl_cui_uint8_pt const b, mk_sl_cui_uint8_pt const c) mk_lang_noexcept
@@ -281,6 +289,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_
 {
 	mk_lang_types_sint_t err;
 	mk_sl_io_writer_file_t writer;
+	mk_sl_cui_uint8_pt buf;
+	mk_clib_app_vc_writer_t buffered;
 	mk_lang_types_ulong_t tul;
 	mk_sl_cui_uint32_t align;
 	mk_lang_types_usize_t written;
@@ -303,32 +313,35 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_
 	mk_lang_assert(str_output);
 
 	err = wide ? mk_sl_io_writer_file_open_w(&writer, ((mk_lang_types_wchar_pct)(str_output))) : mk_sl_io_writer_file_open_n(&writer, str_output); mk_lang_check_rereturn(err);
+	buf = ((mk_sl_cui_uint8_pt)(((((mk_lang_types_uintptr_t)(&g_mk_clib_app_vc_buf[0])) + ((64ul * 1024ul) - 1ul)) / (64ul * 1024ul)) * (64ul * 1024ul)));
+	mk_clib_app_vc_writer_init(&buffered, &writer, buf, 64ul * 1024ul);
 	do
 	{
 		tul = 1ul * 1024ul * 1024ul; mk_sl_cui_uint32_from_bi_ulong(&align, &tul);
 		mk_clib_app_vc_mbr_header_generate(block, volume_len, &align);
-		err = mk_sl_io_writer_file_write(&writer, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &written); mk_lang_check_rebreak(err); err = mk_lang_check_line; mk_lang_check_break(written == mk_lang_countof(block->m_data.m_uint8s)); err = 0;
+		err = mk_clib_app_vc_writer_write(&buffered, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &written); mk_lang_check_rebreak(err); err = mk_lang_check_line; mk_lang_check_break(written == mk_lang_countof(block->m_data.m_uint8s)); err = 0;
 		mk_sl_cui_uint8_set_zero(&tu8); mk_clib_app_vc_memsetu8_fn(&block->m_data.m_uint8s[0], &tu8, mk_lib_vc_block_len);
 		mk_sl_cui_uint32_shr3(&align, 9, &tu32);
 		mk_sl_cui_uint32_to_bi_ulong(&tu32, &tul);
 		n = tul - 1;
 		for(i = 0; i != n; ++i)
 		{
-			err = mk_sl_io_writer_file_write(&writer, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &written); mk_lang_check_rebreak(err); err = mk_lang_check_line; mk_lang_check_break(written == mk_lang_countof(block->m_data.m_uint8s)); err = 0;
+			err = mk_clib_app_vc_writer_write(&buffered, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &written); mk_lang_check_rebreak(err); err = mk_lang_check_line; mk_lang_check_break(written == mk_lang_countof(block->m_data.m_uint8s)); err = 0;
 		}
 		mk_lang_check_rebreak(err);
 		for(; mk_sl_cui_uint64_ne(block_id, max_block_id); mk_sl_cui_uint64_inc1(block_id))
 		{
 			err = mk_sl_io_reader_file_read(reader, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &read); mk_lang_check_rebreak(err); err = mk_lang_check_line; mk_lang_check_break(read == mk_lang_countof(block->m_data.m_uint8s)); err = 0;
 			mk_lib_vc_seq_decrypt_block(seqid, schedules, block_id, block, block);
-			err = mk_sl_io_writer_file_write(&writer, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &written); mk_lang_check_rebreak(err); err = mk_lang_check_line; mk_lang_check_break(written == mk_lang_countof(block->m_data.m_uint8s)); err = 0;
+			err = mk_clib_app_vc_writer_write(&buffered, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &written); mk_lang_check_rebreak(err); err = mk_lang_check_line; mk_lang_check_break(written == mk_lang_countof(block->m_data.m_uint8s)); err = 0;
 		}
 		mk_lang_check_rebreak(err);
 		mk_sl_cui_uint32_to_bi_ulong(&align, &tul);
 		mk_sl_cui_uint64_from_bi_ulong(&tu64, &tul);
 		mk_sl_cui_uint64_add3_wrap_cid_cod(volume_len, &tu64, &disk_len);
 		mk_clib_app_vc_vhd_footer_generate(block, &disk_len);
-		err = mk_sl_io_writer_file_write(&writer, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &written); mk_lang_check_rebreak(err); err = mk_lang_check_line; mk_lang_check_break(written == mk_lang_countof(block->m_data.m_uint8s)); err = 0;
+		err = mk_clib_app_vc_writer_write(&buffered, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &written); mk_lang_check_rebreak(err); err = mk_lang_check_line; mk_lang_check_break(written == mk_lang_countof(block->m_data.m_uint8s)); err = 0;
+		err = mk_clib_app_vc_writer_flush(&buffered); mk_lang_check_rereturn(err);
 	}while(mk_lang_false);
 	err_b = mk_sl_io_writer_file_close(&writer); mk_lang_check_rereturn(err_b);
 	mk_lang_check_rereturn(err);
