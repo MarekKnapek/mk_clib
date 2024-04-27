@@ -28,6 +28,11 @@
 #include "mk_sl_uint64.h"
 #include "mk_sl_uint8.h"
 
+#define mk_sl_io_reader_buffered_t_name mk_clib_app_vc_reader
+#define mk_sl_io_reader_buffered_t_base mk_sl_io_reader_file
+#include "mk_sl_io_reader_buffered_inl_fileh.h"
+#include "mk_sl_io_reader_buffered_inl_filec.h"
+
 #define mk_sl_io_writer_buffered_t_name mk_clib_app_vc_writer
 #define mk_sl_io_writer_buffered_t_base mk_sl_io_writer_file
 #include "mk_sl_io_writer_buffered_inl_fileh.h"
@@ -62,7 +67,7 @@ struct mk_lib_vc_block_oversized2_s
 typedef struct mk_lib_vc_block_oversized2_s mk_lib_vc_block_oversized2_t;
 
 
-static mk_sl_cui_uint8_t g_mk_clib_app_vc_buf[(64ul * 1024ul) + ((64ul * 1024ul) - 1ul)];
+static mk_sl_cui_uint8_t g_mk_clib_app_vc_buf[(2ul * 64ul * 1024ul) + ((64ul * 1024ul) - 1ul)];
 
 
 static mk_lang_inline mk_lang_types_void_t mk_clib_app_vc_chs_from_bytes(mk_sl_cui_uint32_pct const bytes, mk_sl_cui_uint8_pt const a, mk_sl_cui_uint8_pt const b, mk_sl_cui_uint8_pt const c) mk_lang_noexcept
@@ -285,7 +290,7 @@ static mk_lang_inline mk_lang_types_void_t mk_clib_app_vc_vhd_footer_generate(mk
 	mk_clib_app_vc_vhd_footer_checksum(block);
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_write_vhd(mk_lang_types_bool_t const wide, mk_sl_io_reader_file_pt const reader, mk_lib_vc_seqid_t const seqid, mk_lib_vc_seq_schedules_pct const schedules, mk_sl_cui_uint64_pt const block_id, mk_sl_cui_uint64_pct const max_block_id, mk_sl_cui_uint64_pct const volume_len, mk_lib_vc_block_pt const block, mk_lang_types_pchar_pct const str_output) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_write_vhd(mk_lang_types_bool_t const wide, mk_clib_app_vc_reader_pt const reader, mk_lib_vc_seqid_t const seqid, mk_lib_vc_seq_schedules_pct const schedules, mk_sl_cui_uint64_pt const block_id, mk_sl_cui_uint64_pct const max_block_id, mk_sl_cui_uint64_pct const volume_len, mk_lib_vc_block_pt const block, mk_lang_types_pchar_pct const str_output) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 	mk_sl_io_writer_file_t writer;
@@ -313,7 +318,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_
 	mk_lang_assert(str_output);
 
 	err = wide ? mk_sl_io_writer_file_open_w(&writer, ((mk_lang_types_wchar_pct)(str_output))) : mk_sl_io_writer_file_open_n(&writer, str_output); mk_lang_check_rereturn(err);
-	buf = ((mk_sl_cui_uint8_pt)(((((mk_lang_types_uintptr_t)(&g_mk_clib_app_vc_buf[0])) + ((64ul * 1024ul) - 1ul)) / (64ul * 1024ul)) * (64ul * 1024ul)));
+	buf = ((mk_sl_cui_uint8_pt)(((((mk_lang_types_uintptr_t)(&g_mk_clib_app_vc_buf[0])) + ((64ul * 1024ul) - 1ul)) / (64ul * 1024ul)) * (64ul * 1024ul))) + (1ul * 64ul * 1024ul);
 	mk_clib_app_vc_writer_init(&buffered, &writer, buf, 64ul * 1024ul);
 	do
 	{
@@ -331,7 +336,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_
 		mk_lang_check_rebreak(err);
 		for(; mk_sl_cui_uint64_ne(block_id, max_block_id); mk_sl_cui_uint64_inc1(block_id))
 		{
-			err = mk_sl_io_reader_file_read(reader, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &read); mk_lang_check_rebreak(err); err = mk_lang_check_line; mk_lang_check_break(read == mk_lang_countof(block->m_data.m_uint8s)); err = 0;
+			err = mk_clib_app_vc_reader_read(reader, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &read); mk_lang_check_rebreak(err); err = mk_lang_check_line; mk_lang_check_break(read == mk_lang_countof(block->m_data.m_uint8s)); err = 0;
 			mk_lib_vc_seq_decrypt_block(seqid, schedules, block_id, block, block);
 			err = mk_clib_app_vc_writer_write(&buffered, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &written); mk_lang_check_rebreak(err); err = mk_lang_check_line; mk_lang_check_break(written == mk_lang_countof(block->m_data.m_uint8s)); err = 0;
 		}
@@ -390,6 +395,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_
 	mk_lib_vc_block_pt block;
 	mk_lib_vc_block_oversized2_t block_oversized;
 	mk_sl_io_reader_file_t reader;
+	mk_sl_cui_uint8_pt buf;
+	mk_clib_app_vc_reader_t buffered;
 	mk_lang_types_usize_t read;
 	mk_lib_vc_salt_pt salt;
 	mk_lib_vc_seqid_t seqid;
@@ -415,17 +422,19 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_
 	err = mk_lib_vc_parse_cost(wide, str_pim, &cost); mk_lang_check_rereturn(err);
 	block = ((mk_lib_vc_block_pt)(((((mk_lang_types_uintptr_t)(&block_oversized)) + (sizeof(*block) - 1)) / sizeof(*block)) * sizeof(*block)));
 	err = wide ? mk_sl_io_reader_file_open_w(&reader, ((mk_lang_types_wchar_pct)(str_input))) : mk_sl_io_reader_file_open_n(&reader, str_input); mk_lang_check_rereturn(err);
+	buf = ((mk_sl_cui_uint8_pt)(((((mk_lang_types_uintptr_t)(&g_mk_clib_app_vc_buf[0])) + ((64ul * 1024ul) - 1ul)) / (64ul * 1024ul)) * (64ul * 1024ul))) + (0ul * 64ul * 1024ul);
+	err = mk_clib_app_vc_reader_init(&buffered, &reader, buf, 64ul * 1024ul); mk_lang_check_rereturn(err);
 	do
 	{
-		err = mk_sl_io_reader_file_read(&reader, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &read); mk_lang_check_rebreak(err); err = mk_lang_check_line; mk_lang_check_break(read == mk_lang_countof(block->m_data.m_uint8s)); err = 0;
+		err = mk_clib_app_vc_reader_read(&buffered, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &read); mk_lang_check_rebreak(err); err = mk_lang_check_line; mk_lang_check_break(read == mk_lang_countof(block->m_data.m_uint8s)); err = 0;
 		salt = ((mk_lib_vc_salt_pt)(block));
 		block = ((mk_lib_vc_block_pt)(((mk_lang_types_uintptr_t)(block)) + mk_lib_vc_salt_len));
 		err = mk_lib_vc_try_decrypt_header(mk_lib_vc_kdfid_e_dummy, password_utf8, password_len, salt, cost, block, &seqid, &schedules, &volume_len); mk_lang_check_rebreak(err);
 		block = ((mk_lib_vc_block_pt)(((mk_lang_types_uintptr_t)(block)) - mk_lib_vc_salt_len));
-		err = mk_sl_io_reader_file_seek_rel(&reader, mk_lib_vc_offsets_volume - mk_lib_vc_block_len); mk_lang_check_rebreak(err);
+		err = mk_clib_app_vc_reader_seek_rel(&buffered, mk_lib_vc_offsets_volume - mk_lib_vc_block_len); mk_lang_check_rebreak(err);
 		tsi = mk_lib_vc_offsets_volume / mk_lib_vc_block_len; mk_sl_cui_uint64_from_bi_sint(&block_id, &tsi);
 		mk_sl_cui_uint64_shr3(&volume_len, 9, &max_block_id); mk_sl_cui_uint64_add2_wrap_cid_cod(&max_block_id, &block_id);
-		err = mk_clib_app_vc_arg_write_vhd(wide, &reader, seqid, &schedules, &block_id, &max_block_id, &volume_len, block, str_output); mk_lang_check_rebreak(err);
+		err = mk_clib_app_vc_arg_write_vhd(wide, &buffered, seqid, &schedules, &block_id, &max_block_id, &volume_len, block, str_output); mk_lang_check_rebreak(err);
 	}while(mk_lang_false);
 	err_b = mk_sl_io_reader_file_close(&reader); mk_lang_check_rereturn(err_b);
 	mk_lang_check_rereturn(err);
