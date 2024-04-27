@@ -52,7 +52,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 			twcb = wide_str[i];
 			tusb = ((mk_lang_types_ushort_t)(twcb));
 			if(validate){ mk_lang_check_return((tusb & 0xfc00) == 0xdc00); }else{ mk_lang_assert((tusb & 0xfc00) == 0xdc00); }
-			tul = ((mk_lang_types_ulong_t)(((mk_lang_types_ulong_t)(((mk_lang_types_ulong_t)(tusa & 0x03ff)) << 10)) | ((mk_lang_types_ulong_t)(tusb & 0x03ff))));
+			tul = ((mk_lang_types_ulong_t)(((mk_lang_types_ulong_t)(((mk_lang_types_ulong_t)(((mk_lang_types_ulong_t)(((mk_lang_types_ulong_t)(tusa)) & ((mk_lang_types_ulong_t)(0x03fful)))) << 10)) | ((mk_lang_types_ulong_t)(((mk_lang_types_ulong_t)(tusb)) & ((mk_lang_types_ulong_t)(0x03fful)))))) + ((mk_lang_types_ulong_t)(0x10000ul))));
 		}
 		if(tul >= 0x00000000ul && tul <= 0x0000007ful)
 		{
@@ -140,7 +140,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 			twcb = wide_str[i];
 			tusb = ((mk_lang_types_ushort_t)(twcb));
 			if(validate){ mk_lang_check_return((tusb & 0xfc00) == 0xdc00); }else{ mk_lang_assert((tusb & 0xfc00) == 0xdc00); }
-			tul = ((mk_lang_types_ulong_t)(((mk_lang_types_ulong_t)(((mk_lang_types_ulong_t)(tusa & 0x03ff)) << 10)) | ((mk_lang_types_ulong_t)(tusb & 0x03ff))));
+			tul = ((mk_lang_types_ulong_t)(((mk_lang_types_ulong_t)(((mk_lang_types_ulong_t)(((mk_lang_types_ulong_t)(((mk_lang_types_ulong_t)(tusa)) & ((mk_lang_types_ulong_t)(0x03fful)))) << 10)) | ((mk_lang_types_ulong_t)(((mk_lang_types_ulong_t)(tusb)) & ((mk_lang_types_ulong_t)(0x03fful)))))) + ((mk_lang_types_ulong_t)(0x10000ul))));
 		}
 		if(tul >= 0x00000000ul && tul <= 0x0000007ful)
 		{
