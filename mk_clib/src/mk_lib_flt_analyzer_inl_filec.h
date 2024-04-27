@@ -54,7 +54,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_flt_analyzer
 	else
 	{
 		#if mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic
-		ptr[0] = ((mk_lang_types_pchar_t)('0' + type == 4 ? 1 : 0)); ++ptr;
+		ptr[0] = ((mk_lang_types_pchar_t)('0' + (type == 4 ? 1 : 0))); ++ptr;
 		#else
 		ptr[0] = type == 4 ? mk_lib_flt_analyzer_inl_defd_symbols[1] : mk_lib_flt_analyzer_inl_defd_symbols[0]; ++ptr;
 		#endif
