@@ -10,6 +10,7 @@
 #include "mk_lang_null.h"
 #include "mk_lang_restrict.h"
 #include "mk_lang_types.h"
+#include "mk_sl_io_transaction_portable.h"
 #include "mk_sl_uint8.h"
 
 #include <stdio.h> /* fopen fclose fwrite _wfopen */
@@ -49,6 +50,26 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_writer_file_portab
 	mk_lang_check_return(mk_lang_false);
 	return 0;
 #endif
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_writer_file_portable_open_tx_n(mk_sl_io_writer_file_portable_pt const writer, mk_lang_types_pchar_pct const name, mk_sl_io_transaction_portable_pt const tx) mk_lang_noexcept
+{
+	mk_lang_assert(writer);
+	mk_lang_assert(name && name[0] != '\0');
+	mk_lang_assert(tx);
+
+	mk_lang_check_return(mk_lang_false);
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_writer_file_portable_open_tx_w(mk_sl_io_writer_file_portable_pt const writer, mk_lang_types_wchar_pct const name, mk_sl_io_transaction_portable_pt const tx) mk_lang_noexcept
+{
+	mk_lang_assert(writer);
+	mk_lang_assert(name && name[0] != '\0');
+	mk_lang_assert(tx);
+
+	mk_lang_check_return(mk_lang_false);
+	return 0;
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_writer_file_portable_write(mk_sl_io_writer_file_portable_pt const writer, mk_sl_cui_uint8_pct const buf, mk_lang_types_usize_t const len, mk_lang_types_usize_pt const written) mk_lang_noexcept
