@@ -10,10 +10,12 @@
 #include "mk_lang_os.h"
 #include "mk_lang_restrict.h"
 #include "mk_lang_types.h"
+#include "mk_sl_io_transaction_windows.h"
 #include "mk_sl_uint8.h"
 #include "mk_win_kernel_errors.h"
 #include "mk_win_kernel_files.h"
 #include "mk_win_kernel_handle.h"
+#include "mk_win_ktmw32_transaction.h"
 
 
 #if mk_lang_os == mk_lang_os_windows
@@ -42,6 +44,36 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_reader_file_window
 	mk_lang_assert(name && name[0] != L'\0');
 
 	handle = mk_win_kernel_files_w_create_file(name, mk_win_advapi_base_right_generic_e_read, mk_win_kernel_files_share_e_read | mk_win_kernel_files_share_e_delete, mk_win_base_null, mk_win_kernel_files_create_e_open_existing, mk_win_kernel_files_flag_e_sequential_scan, mk_win_base_handle_get_null()); mk_lang_check_return(handle.m_data != mk_win_base_handle_invalid);
+	reader->m_file_handle = handle;
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_reader_file_windows_open_tx_n(mk_sl_io_reader_file_windows_pt const reader, mk_lang_types_pchar_pct const name, mk_sl_io_transaction_windows_pt const tx) mk_lang_noexcept
+{
+	mk_win_base_ushort_t mv;
+	mk_sl_io_reader_file_windows_handle_t handle;
+
+	mk_lang_assert(reader);
+	mk_lang_assert(name && name[0] != '\0');
+	mk_lang_assert(tx && tx->m_transaction.m_data);
+
+	mv = mk_win_ktmw32_transaction_txfs_miniversion_view_e_committed;
+	handle = mk_win_ktmw32_transaction_a_create_file_transacted(name, mk_win_advapi_base_right_generic_e_read, mk_win_kernel_files_share_e_read | mk_win_kernel_files_share_e_delete, mk_win_base_null, mk_win_kernel_files_create_e_open_existing, mk_win_kernel_files_flag_e_sequential_scan, mk_win_base_handle_get_null(), tx->m_transaction, &mv, mk_win_base_null); mk_lang_check_return(handle.m_data != mk_win_base_handle_invalid);
+	reader->m_file_handle = handle;
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_reader_file_windows_open_tx_w(mk_sl_io_reader_file_windows_pt const reader, mk_lang_types_wchar_pct const name, mk_sl_io_transaction_windows_pt const tx) mk_lang_noexcept
+{
+	mk_win_base_ushort_t mv;
+	mk_sl_io_reader_file_windows_handle_t handle;
+
+	mk_lang_assert(reader);
+	mk_lang_assert(name && name[0] != '\0');
+	mk_lang_assert(tx && tx->m_transaction.m_data);
+
+	mv = mk_win_ktmw32_transaction_txfs_miniversion_view_e_committed;
+	handle = mk_win_ktmw32_transaction_w_create_file_transacted(name, mk_win_advapi_base_right_generic_e_read, mk_win_kernel_files_share_e_read | mk_win_kernel_files_share_e_delete, mk_win_base_null, mk_win_kernel_files_create_e_open_existing, mk_win_kernel_files_flag_e_sequential_scan, mk_win_base_handle_get_null(), tx->m_transaction, &mv, mk_win_base_null); mk_lang_check_return(handle.m_data != mk_win_base_handle_invalid);
 	reader->m_file_handle = handle;
 	return 0;
 }
