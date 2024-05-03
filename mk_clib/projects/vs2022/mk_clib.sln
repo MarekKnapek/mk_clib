@@ -59,7 +59,7 @@ Project("{8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942}") = "quad_analyzer", "quad_analy
 		{8286250d-5be4-4739-befc-05c1fef305be} = {8286250d-5be4-4739-befc-05c1fef305be}
 	EndProjectSection
 EndProject
-Project("{8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942}") = "vc", "vc\vc.vcxproj", "{6416563a-41fe-42cd-950d-0ab99f9bf8f3}"
+Project("{8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942}") = "mkvc", "mkvc\mkvc.vcxproj", "{6416563a-41fe-42cd-950d-0ab99f9bf8f3}"
 	ProjectSection(ProjectDependencies) = postProject
 		{8286250d-5be4-4739-befc-05c1fef305be} = {8286250d-5be4-4739-befc-05c1fef305be}
 	EndProjectSection

@@ -43,13 +43,13 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<ItemGroup>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\app\vc.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\app\mkvc.c"/>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
 		<VCProjectVersion>17.0</VCProjectVersion>
 		<Keyword>Win32Proj</Keyword>
 		<ProjectGuid>{6416563a-41fe-42cd-950d-0ab99f9bf8f3}</ProjectGuid>
-		<RootNamespace>vc</RootNamespace>
+		<RootNamespace>mkvc</RootNamespace>
 		<WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
 	</PropertyGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
