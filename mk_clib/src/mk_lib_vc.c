@@ -14,6 +14,7 @@
 #include "mk_lang_types.h"
 #include "mk_lib_crypto_alg_aes_256.h"
 #include "mk_lib_crypto_alg_serpent.h"
+#include "mk_lib_crypto_alg_twofish_256.h"
 #include "mk_lib_crypto_kdf_pbkdf2_blake2s_256.h"
 #include "mk_lib_crypto_kdf_pbkdf2_sha2_256.h"
 #include "mk_lib_crypto_kdf_pbkdf2_sha2_512.h"
@@ -80,8 +81,9 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_vc_alg_encrypt_tweak
 
 	switch(algid)
 	{
-		case mk_lib_vc_algid_e_aes:     mk_lang_assert(schedule.m_data.m_aes);     mk_lib_crypto_alg_aes_256_schedule_encrypt(schedule.m_data.m_aes,     &in->m_data.m_aes,     &out->m_data.m_aes,     1); break;
-		case mk_lib_vc_algid_e_serpent: mk_lang_assert(schedule.m_data.m_serpent); mk_lib_crypto_alg_serpent_schedule_encrypt(schedule.m_data.m_serpent, &in->m_data.m_serpent, &out->m_data.m_serpent, 1); break;
+		case mk_lib_vc_algid_e_aes:     mk_lang_assert(schedule.m_data.m_aes);     mk_lib_crypto_alg_aes_256_schedule_encrypt    (schedule.m_data.m_aes,     &in->m_data.m_aes,     &out->m_data.m_aes,     1); break;
+		case mk_lib_vc_algid_e_serpent: mk_lang_assert(schedule.m_data.m_serpent); mk_lib_crypto_alg_serpent_schedule_encrypt    (schedule.m_data.m_serpent, &in->m_data.m_serpent, &out->m_data.m_serpent, 1); break;
+		case mk_lib_vc_algid_e_twofish: mk_lang_assert(schedule.m_data.m_twofish); mk_lib_crypto_alg_twofish_256_schedule_encrypt(schedule.m_data.m_twofish, &in->m_data.m_twofish, &out->m_data.m_twofish, 1); break;
 		case mk_lib_vc_algid_e_dummy: mk_lang_assert(mk_lang_false); break;
 		default: mk_lang_assert(mk_lang_false); break;
 	}
@@ -98,8 +100,9 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_vc_alg_decrypt_block
 
 	switch(algid)
 	{
-		case mk_lib_vc_algid_e_aes:     mk_lang_assert(schedule.m_data.m_aes);     mk_lib_crypto_alg_aes_256_schedule_decrypt(schedule.m_data.m_aes,     &in->m_data.m_aess[0],     &out->m_data.m_aess[0],     mk_lib_vc_msgs_per_block); break;
-		case mk_lib_vc_algid_e_serpent: mk_lang_assert(schedule.m_data.m_serpent); mk_lib_crypto_alg_serpent_schedule_decrypt(schedule.m_data.m_serpent, &in->m_data.m_serpents[0], &out->m_data.m_serpents[0], mk_lib_vc_msgs_per_block); break;
+		case mk_lib_vc_algid_e_aes:     mk_lang_assert(schedule.m_data.m_aes);     mk_lib_crypto_alg_aes_256_schedule_decrypt    (schedule.m_data.m_aes,     &in->m_data.m_aess[0],     &out->m_data.m_aess[0],     mk_lib_vc_msgs_per_block); break;
+		case mk_lib_vc_algid_e_serpent: mk_lang_assert(schedule.m_data.m_serpent); mk_lib_crypto_alg_serpent_schedule_decrypt    (schedule.m_data.m_serpent, &in->m_data.m_serpents[0], &out->m_data.m_serpents[0], mk_lib_vc_msgs_per_block); break;
+		case mk_lib_vc_algid_e_twofish: mk_lang_assert(schedule.m_data.m_twofish); mk_lib_crypto_alg_twofish_256_schedule_decrypt(schedule.m_data.m_twofish, &in->m_data.m_twofishs[0], &out->m_data.m_twofishs[0], mk_lib_vc_msgs_per_block); break;
 		case mk_lib_vc_algid_e_dummy: mk_lang_assert(mk_lang_false); break;
 		default: mk_lang_assert(mk_lang_false); break;
 	}
@@ -112,8 +115,9 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_vc_xts_decrypt_block
 	mk_sl_cui_uint64_t tu64 mk_lang_constexpr_init;
 	mk_lang_types_sint_t i mk_lang_constexpr_init;
 
-	mk_lang_static_assert(mk_lib_crypto_alg_aes_256_msg_len_v == mk_lib_vc_msg_len);
-	mk_lang_static_assert(mk_lib_crypto_alg_serpent_msg_len_v == mk_lib_vc_msg_len);
+	mk_lang_static_assert(mk_lib_crypto_alg_aes_256_msg_len_v     == mk_lib_vc_msg_len);
+	mk_lang_static_assert(mk_lib_crypto_alg_serpent_msg_len_v     == mk_lib_vc_msg_len);
+	mk_lang_static_assert(mk_lib_crypto_alg_twofish_256_msg_len_v == mk_lib_vc_msg_len);
 
 	mk_lang_assert(algid >= 0 && algid < mk_lib_vc_algid_e_dummy);
 	mk_lang_assert(block_id);
@@ -146,6 +150,9 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_vc_seq_decrypt_block
 	mk_lib_vc_algid_t second_alg mk_lang_constexpr_init;
 	mk_lib_vc_alg_schedule_t second_sch_pri mk_lang_constexpr_init;
 	mk_lib_vc_alg_schedule_t second_sch_sec mk_lang_constexpr_init;
+	mk_lib_vc_algid_t third_alg mk_lang_constexpr_init;
+	mk_lib_vc_alg_schedule_t third_sch_pri mk_lang_constexpr_init;
+	mk_lib_vc_alg_schedule_t third_sch_sec mk_lang_constexpr_init;
 
 	mk_lang_assert(seqid >= 0 && seqid < mk_lib_vc_seqid_e_dummy);
 	mk_lang_assert(schedules);
@@ -167,13 +174,67 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_vc_seq_decrypt_block
 			first_sch_sec.m_data.m_serpent = &schedules->m_data.m_serpent.m_sec;
 			mk_lib_vc_xts_decrypt_block(first_alg, first_sch_pri, first_sch_sec, block_id, in, out);
 		break;
-		case mk_lib_vc_seqid_e_aes_serpent:
+		case mk_lib_vc_seqid_e_twofish:
+			first_alg = mk_lib_vc_algid_e_twofish;
+			first_sch_pri.m_data.m_twofish = &schedules->m_data.m_twofish.m_pri;
+			first_sch_sec.m_data.m_twofish = &schedules->m_data.m_twofish.m_sec;
+			mk_lib_vc_xts_decrypt_block(first_alg, first_sch_pri, first_sch_sec, block_id, in, out);
+		break;
+		case mk_lib_vc_seqid_e_aes_twofish:
+			first_alg = mk_lib_vc_algid_e_aes;
+			first_sch_pri.m_data.m_aes = &schedules->m_data.m_aes_twofish.m_aes_pri;
+			first_sch_sec.m_data.m_aes = &schedules->m_data.m_aes_twofish.m_aes_sec;
+			second_alg = mk_lib_vc_algid_e_twofish;
+			second_sch_pri.m_data.m_twofish = &schedules->m_data.m_aes_twofish.m_twofish_pri;
+			second_sch_sec.m_data.m_twofish = &schedules->m_data.m_aes_twofish.m_twofish_sec;
+			mk_lib_vc_xts_decrypt_block(first_alg,  first_sch_pri,  first_sch_sec,  block_id, in,  out);
+			mk_lib_vc_xts_decrypt_block(second_alg, second_sch_pri, second_sch_sec, block_id, out, out);
+		break;
+		case mk_lib_vc_seqid_e_aes_twofish_serpent:
+			first_alg = mk_lib_vc_algid_e_aes;
+			first_sch_pri.m_data.m_aes = &schedules->m_data.m_aes_twofish_serpent.m_aes_pri;
+			first_sch_sec.m_data.m_aes = &schedules->m_data.m_aes_twofish_serpent.m_aes_sec;
+			second_alg = mk_lib_vc_algid_e_twofish;
+			second_sch_pri.m_data.m_twofish = &schedules->m_data.m_aes_twofish_serpent.m_twofish_pri;
+			second_sch_sec.m_data.m_twofish = &schedules->m_data.m_aes_twofish_serpent.m_twofish_sec;
+			third_alg = mk_lib_vc_algid_e_serpent;
+			third_sch_pri.m_data.m_serpent = &schedules->m_data.m_aes_twofish_serpent.m_serpent_pri;
+			third_sch_sec.m_data.m_serpent = &schedules->m_data.m_aes_twofish_serpent.m_serpent_sec;
+			mk_lib_vc_xts_decrypt_block(first_alg,  first_sch_pri,  first_sch_sec,  block_id, in,  out);
+			mk_lib_vc_xts_decrypt_block(second_alg, second_sch_pri, second_sch_sec, block_id, out, out);
+			mk_lib_vc_xts_decrypt_block(third_alg,  third_sch_pri,  third_sch_sec,  block_id, out, out);
+		break;
+		case mk_lib_vc_seqid_e_serpent_aes:
 			first_alg = mk_lib_vc_algid_e_serpent;
-			first_sch_pri.m_data.m_serpent = &schedules->m_data.m_aes_serpent.m_serpent_pri;
-			first_sch_sec.m_data.m_serpent = &schedules->m_data.m_aes_serpent.m_serpent_sec;
+			first_sch_pri.m_data.m_serpent = &schedules->m_data.m_serpent_aes.m_serpent_pri;
+			first_sch_sec.m_data.m_serpent = &schedules->m_data.m_serpent_aes.m_serpent_sec;
 			second_alg = mk_lib_vc_algid_e_aes;
-			second_sch_pri.m_data.m_aes = &schedules->m_data.m_aes_serpent.m_aes_pri;
-			second_sch_sec.m_data.m_aes = &schedules->m_data.m_aes_serpent.m_aes_sec;
+			second_sch_pri.m_data.m_aes = &schedules->m_data.m_serpent_aes.m_aes_pri;
+			second_sch_sec.m_data.m_aes = &schedules->m_data.m_serpent_aes.m_aes_sec;
+			mk_lib_vc_xts_decrypt_block(first_alg,  first_sch_pri,  first_sch_sec,  block_id, in,  out);
+			mk_lib_vc_xts_decrypt_block(second_alg, second_sch_pri, second_sch_sec, block_id, out, out);
+		break;
+		case mk_lib_vc_seqid_e_serpent_twofish_aes:
+			first_alg = mk_lib_vc_algid_e_serpent;
+			first_sch_pri.m_data.m_serpent = &schedules->m_data.m_serpent_twofish_aes.m_serpent_pri;
+			first_sch_sec.m_data.m_serpent = &schedules->m_data.m_serpent_twofish_aes.m_serpent_sec;
+			second_alg = mk_lib_vc_algid_e_twofish;
+			second_sch_pri.m_data.m_twofish = &schedules->m_data.m_serpent_twofish_aes.m_twofish_pri;
+			second_sch_sec.m_data.m_twofish = &schedules->m_data.m_serpent_twofish_aes.m_twofish_sec;
+			third_alg = mk_lib_vc_algid_e_aes;
+			third_sch_pri.m_data.m_aes = &schedules->m_data.m_serpent_twofish_aes.m_aes_pri;
+			third_sch_sec.m_data.m_aes = &schedules->m_data.m_serpent_twofish_aes.m_aes_sec;
+			mk_lib_vc_xts_decrypt_block(first_alg,  first_sch_pri,  first_sch_sec,  block_id, in,  out);
+			mk_lib_vc_xts_decrypt_block(second_alg, second_sch_pri, second_sch_sec, block_id, out, out);
+			mk_lib_vc_xts_decrypt_block(third_alg,  third_sch_pri,  third_sch_sec,  block_id, out, out);
+		break;
+		case mk_lib_vc_seqid_e_twofish_serpent:
+			first_alg = mk_lib_vc_algid_e_twofish;
+			first_sch_pri.m_data.m_twofish = &schedules->m_data.m_twofish_serpent.m_twofish_pri;
+			first_sch_sec.m_data.m_twofish = &schedules->m_data.m_twofish_serpent.m_twofish_sec;
+			second_alg = mk_lib_vc_algid_e_serpent;
+			second_sch_pri.m_data.m_serpent = &schedules->m_data.m_twofish_serpent.m_serpent_pri;
+			second_sch_sec.m_data.m_serpent = &schedules->m_data.m_twofish_serpent.m_serpent_sec;
 			mk_lib_vc_xts_decrypt_block(first_alg,  first_sch_pri,  first_sch_sec,  block_id, in,  out);
 			mk_lib_vc_xts_decrypt_block(second_alg, second_sch_pri, second_sch_sec, block_id, out, out);
 		break;
@@ -202,11 +263,43 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_vc_seq_expand_dec(mk
 			mk_lib_crypto_alg_serpent_expand_dec(&keys->m_data.m_serpent.m_pri, &schedules->m_data.m_serpent.m_pri);
 			mk_lib_crypto_alg_serpent_expand_enc(&keys->m_data.m_serpent.m_sec, &schedules->m_data.m_serpent.m_sec);
 		break;
-		case mk_lib_vc_seqid_e_aes_serpent:
-			mk_lib_crypto_alg_aes_256_expand_dec(&keys->m_data.m_aes_serpent.m_aes_pri,     &schedules->m_data.m_aes_serpent.m_aes_pri    );
-			mk_lib_crypto_alg_serpent_expand_dec(&keys->m_data.m_aes_serpent.m_serpent_pri, &schedules->m_data.m_aes_serpent.m_serpent_pri);
-			mk_lib_crypto_alg_aes_256_expand_enc(&keys->m_data.m_aes_serpent.m_aes_sec,     &schedules->m_data.m_aes_serpent.m_aes_sec    );
-			mk_lib_crypto_alg_serpent_expand_enc(&keys->m_data.m_aes_serpent.m_serpent_sec, &schedules->m_data.m_aes_serpent.m_serpent_sec);
+		case mk_lib_vc_seqid_e_twofish:
+			mk_lib_crypto_alg_twofish_256_expand_dec(&keys->m_data.m_twofish.m_pri, &schedules->m_data.m_twofish.m_pri);
+			mk_lib_crypto_alg_twofish_256_expand_enc(&keys->m_data.m_twofish.m_sec, &schedules->m_data.m_twofish.m_sec);
+		break;
+		case mk_lib_vc_seqid_e_aes_twofish:
+			mk_lib_crypto_alg_twofish_256_expand_dec(&keys->m_data.m_aes_twofish.m_twofish_pri, &schedules->m_data.m_aes_twofish.m_twofish_pri);
+			mk_lib_crypto_alg_aes_256_expand_dec    (&keys->m_data.m_aes_twofish.m_aes_pri,     &schedules->m_data.m_aes_twofish.m_aes_pri    );
+			mk_lib_crypto_alg_twofish_256_expand_enc(&keys->m_data.m_aes_twofish.m_twofish_sec, &schedules->m_data.m_aes_twofish.m_twofish_sec);
+			mk_lib_crypto_alg_aes_256_expand_enc    (&keys->m_data.m_aes_twofish.m_aes_sec,     &schedules->m_data.m_aes_twofish.m_aes_sec    );
+		break;
+		case mk_lib_vc_seqid_e_aes_twofish_serpent:
+			mk_lib_crypto_alg_serpent_expand_dec    (&keys->m_data.m_aes_twofish_serpent.m_serpent_pri, &schedules->m_data.m_aes_twofish_serpent.m_serpent_pri);
+			mk_lib_crypto_alg_twofish_256_expand_dec(&keys->m_data.m_aes_twofish_serpent.m_twofish_pri, &schedules->m_data.m_aes_twofish_serpent.m_twofish_pri);
+			mk_lib_crypto_alg_aes_256_expand_dec    (&keys->m_data.m_aes_twofish_serpent.m_aes_pri,     &schedules->m_data.m_aes_twofish_serpent.m_aes_pri    );
+			mk_lib_crypto_alg_serpent_expand_enc    (&keys->m_data.m_aes_twofish_serpent.m_serpent_sec, &schedules->m_data.m_aes_twofish_serpent.m_serpent_sec);
+			mk_lib_crypto_alg_twofish_256_expand_enc(&keys->m_data.m_aes_twofish_serpent.m_twofish_sec, &schedules->m_data.m_aes_twofish_serpent.m_twofish_sec);
+			mk_lib_crypto_alg_aes_256_expand_enc    (&keys->m_data.m_aes_twofish_serpent.m_aes_sec,     &schedules->m_data.m_aes_twofish_serpent.m_aes_sec    );
+		break;
+		case mk_lib_vc_seqid_e_serpent_aes:
+			mk_lib_crypto_alg_aes_256_expand_dec(&keys->m_data.m_serpent_aes.m_aes_pri,     &schedules->m_data.m_serpent_aes.m_aes_pri    );
+			mk_lib_crypto_alg_serpent_expand_dec(&keys->m_data.m_serpent_aes.m_serpent_pri, &schedules->m_data.m_serpent_aes.m_serpent_pri);
+			mk_lib_crypto_alg_aes_256_expand_enc(&keys->m_data.m_serpent_aes.m_aes_sec,     &schedules->m_data.m_serpent_aes.m_aes_sec    );
+			mk_lib_crypto_alg_serpent_expand_enc(&keys->m_data.m_serpent_aes.m_serpent_sec, &schedules->m_data.m_serpent_aes.m_serpent_sec);
+		break;
+		case mk_lib_vc_seqid_e_serpent_twofish_aes:
+			mk_lib_crypto_alg_aes_256_expand_dec    (&keys->m_data.m_serpent_twofish_aes.m_aes_pri,     &schedules->m_data.m_serpent_twofish_aes.m_aes_pri    );
+			mk_lib_crypto_alg_twofish_256_expand_dec(&keys->m_data.m_serpent_twofish_aes.m_twofish_pri, &schedules->m_data.m_serpent_twofish_aes.m_twofish_pri);
+			mk_lib_crypto_alg_serpent_expand_dec    (&keys->m_data.m_serpent_twofish_aes.m_serpent_pri, &schedules->m_data.m_serpent_twofish_aes.m_serpent_pri);
+			mk_lib_crypto_alg_aes_256_expand_enc    (&keys->m_data.m_serpent_twofish_aes.m_aes_sec,     &schedules->m_data.m_serpent_twofish_aes.m_aes_sec    );
+			mk_lib_crypto_alg_twofish_256_expand_enc(&keys->m_data.m_serpent_twofish_aes.m_twofish_sec, &schedules->m_data.m_serpent_twofish_aes.m_twofish_sec);
+			mk_lib_crypto_alg_serpent_expand_enc    (&keys->m_data.m_serpent_twofish_aes.m_serpent_sec, &schedules->m_data.m_serpent_twofish_aes.m_serpent_sec);
+		break;
+		case mk_lib_vc_seqid_e_twofish_serpent:
+			mk_lib_crypto_alg_serpent_expand_dec    (&keys->m_data.m_twofish_serpent.m_serpent_pri, &schedules->m_data.m_twofish_serpent.m_serpent_pri);
+			mk_lib_crypto_alg_twofish_256_expand_dec(&keys->m_data.m_twofish_serpent.m_twofish_pri, &schedules->m_data.m_twofish_serpent.m_twofish_pri);
+			mk_lib_crypto_alg_serpent_expand_enc    (&keys->m_data.m_twofish_serpent.m_serpent_sec, &schedules->m_data.m_twofish_serpent.m_serpent_sec);
+			mk_lib_crypto_alg_twofish_256_expand_enc(&keys->m_data.m_twofish_serpent.m_twofish_sec, &schedules->m_data.m_twofish_serpent.m_twofish_sec);
 		break;
 		case mk_lib_vc_seqid_e_dummy:
 			mk_lang_assert(mk_lang_false);
@@ -233,11 +326,43 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_vc_keys_init(mk_lib_
 			mk_lib_vc_memcpyu8_fn(&keys->m_data.m_serpent.m_pri.m_data.m_uint8s[0], &key_material->m_data.m_uint8s[0 * mk_lib_crypto_alg_serpent_key_len_v], mk_lib_crypto_alg_serpent_key_len_v);
 			mk_lib_vc_memcpyu8_fn(&keys->m_data.m_serpent.m_sec.m_data.m_uint8s[0], &key_material->m_data.m_uint8s[1 * mk_lib_crypto_alg_serpent_key_len_v], mk_lib_crypto_alg_serpent_key_len_v);
 		break;
-		case mk_lib_vc_seqid_e_aes_serpent:
-			mk_lib_vc_memcpyu8_fn(&keys->m_data.m_aes_serpent.m_aes_pri    .m_data.m_uint8s[0], &key_material->m_data.m_uint8s[(0 * (mk_lib_crypto_alg_aes_256_key_len_v + mk_lib_crypto_alg_serpent_key_len_v)) + (0 * mk_lib_crypto_alg_aes_256_key_len_v)], mk_lib_crypto_alg_aes_256_key_len_v);
-			mk_lib_vc_memcpyu8_fn(&keys->m_data.m_aes_serpent.m_serpent_pri.m_data.m_uint8s[0], &key_material->m_data.m_uint8s[(0 * (mk_lib_crypto_alg_aes_256_key_len_v + mk_lib_crypto_alg_serpent_key_len_v)) + (1 * mk_lib_crypto_alg_aes_256_key_len_v)], mk_lib_crypto_alg_serpent_key_len_v);
-			mk_lib_vc_memcpyu8_fn(&keys->m_data.m_aes_serpent.m_aes_sec    .m_data.m_uint8s[0], &key_material->m_data.m_uint8s[(1 * (mk_lib_crypto_alg_aes_256_key_len_v + mk_lib_crypto_alg_serpent_key_len_v)) + (0 * mk_lib_crypto_alg_aes_256_key_len_v)], mk_lib_crypto_alg_aes_256_key_len_v);
-			mk_lib_vc_memcpyu8_fn(&keys->m_data.m_aes_serpent.m_serpent_sec.m_data.m_uint8s[0], &key_material->m_data.m_uint8s[(1 * (mk_lib_crypto_alg_aes_256_key_len_v + mk_lib_crypto_alg_serpent_key_len_v)) + (1 * mk_lib_crypto_alg_aes_256_key_len_v)], mk_lib_crypto_alg_serpent_key_len_v);
+		case mk_lib_vc_seqid_e_twofish:
+			mk_lib_vc_memcpyu8_fn(&keys->m_data.m_twofish.m_pri.m_data.m_uint8s[0], &key_material->m_data.m_uint8s[0 * mk_lib_crypto_alg_twofish_256_key_len_v], mk_lib_crypto_alg_twofish_256_key_len_v);
+			mk_lib_vc_memcpyu8_fn(&keys->m_data.m_twofish.m_sec.m_data.m_uint8s[0], &key_material->m_data.m_uint8s[1 * mk_lib_crypto_alg_twofish_256_key_len_v], mk_lib_crypto_alg_twofish_256_key_len_v);
+		break;
+		case mk_lib_vc_seqid_e_aes_twofish:
+			mk_lib_vc_memcpyu8_fn(&keys->m_data.m_aes_twofish.m_twofish_pri.m_data.m_uint8s[0], &key_material->m_data.m_uint8s[(0 * (mk_lib_crypto_alg_aes_256_key_len_v + mk_lib_crypto_alg_twofish_256_key_len_v)) + (0 * mk_lib_crypto_alg_twofish_256_key_len_v)], mk_lib_crypto_alg_twofish_256_key_len_v);
+			mk_lib_vc_memcpyu8_fn(&keys->m_data.m_aes_twofish.m_aes_pri    .m_data.m_uint8s[0], &key_material->m_data.m_uint8s[(0 * (mk_lib_crypto_alg_aes_256_key_len_v + mk_lib_crypto_alg_twofish_256_key_len_v)) + (1 * mk_lib_crypto_alg_twofish_256_key_len_v)], mk_lib_crypto_alg_aes_256_key_len_v    );
+			mk_lib_vc_memcpyu8_fn(&keys->m_data.m_aes_twofish.m_twofish_sec.m_data.m_uint8s[0], &key_material->m_data.m_uint8s[(1 * (mk_lib_crypto_alg_aes_256_key_len_v + mk_lib_crypto_alg_twofish_256_key_len_v)) + (0 * mk_lib_crypto_alg_twofish_256_key_len_v)], mk_lib_crypto_alg_twofish_256_key_len_v);
+			mk_lib_vc_memcpyu8_fn(&keys->m_data.m_aes_twofish.m_aes_sec    .m_data.m_uint8s[0], &key_material->m_data.m_uint8s[(1 * (mk_lib_crypto_alg_aes_256_key_len_v + mk_lib_crypto_alg_twofish_256_key_len_v)) + (1 * mk_lib_crypto_alg_twofish_256_key_len_v)], mk_lib_crypto_alg_aes_256_key_len_v    );
+		break;
+		case mk_lib_vc_seqid_e_aes_twofish_serpent:
+			mk_lib_vc_memcpyu8_fn(&keys->m_data.m_aes_twofish_serpent.m_serpent_pri.m_data.m_uint8s[0], &key_material->m_data.m_uint8s[(0 * (mk_lib_crypto_alg_serpent_key_len_v + mk_lib_crypto_alg_twofish_256_key_len_v + mk_lib_crypto_alg_aes_256_key_len_v)) + (0 * mk_lib_crypto_alg_twofish_256_key_len_v) + (0 * mk_lib_crypto_alg_serpent_key_len_v)], mk_lib_crypto_alg_serpent_key_len_v    );
+			mk_lib_vc_memcpyu8_fn(&keys->m_data.m_aes_twofish_serpent.m_twofish_pri.m_data.m_uint8s[0], &key_material->m_data.m_uint8s[(0 * (mk_lib_crypto_alg_serpent_key_len_v + mk_lib_crypto_alg_twofish_256_key_len_v + mk_lib_crypto_alg_aes_256_key_len_v)) + (0 * mk_lib_crypto_alg_twofish_256_key_len_v) + (1 * mk_lib_crypto_alg_serpent_key_len_v)], mk_lib_crypto_alg_twofish_256_key_len_v);
+			mk_lib_vc_memcpyu8_fn(&keys->m_data.m_aes_twofish_serpent.m_aes_pri    .m_data.m_uint8s[0], &key_material->m_data.m_uint8s[(0 * (mk_lib_crypto_alg_serpent_key_len_v + mk_lib_crypto_alg_twofish_256_key_len_v + mk_lib_crypto_alg_aes_256_key_len_v)) + (1 * mk_lib_crypto_alg_twofish_256_key_len_v) + (1 * mk_lib_crypto_alg_serpent_key_len_v)], mk_lib_crypto_alg_aes_256_key_len_v    );
+			mk_lib_vc_memcpyu8_fn(&keys->m_data.m_aes_twofish_serpent.m_serpent_sec.m_data.m_uint8s[0], &key_material->m_data.m_uint8s[(1 * (mk_lib_crypto_alg_serpent_key_len_v + mk_lib_crypto_alg_twofish_256_key_len_v + mk_lib_crypto_alg_aes_256_key_len_v)) + (0 * mk_lib_crypto_alg_twofish_256_key_len_v) + (0 * mk_lib_crypto_alg_serpent_key_len_v)], mk_lib_crypto_alg_serpent_key_len_v    );
+			mk_lib_vc_memcpyu8_fn(&keys->m_data.m_aes_twofish_serpent.m_twofish_sec.m_data.m_uint8s[0], &key_material->m_data.m_uint8s[(1 * (mk_lib_crypto_alg_serpent_key_len_v + mk_lib_crypto_alg_twofish_256_key_len_v + mk_lib_crypto_alg_aes_256_key_len_v)) + (0 * mk_lib_crypto_alg_twofish_256_key_len_v) + (1 * mk_lib_crypto_alg_serpent_key_len_v)], mk_lib_crypto_alg_twofish_256_key_len_v);
+			mk_lib_vc_memcpyu8_fn(&keys->m_data.m_aes_twofish_serpent.m_aes_sec    .m_data.m_uint8s[0], &key_material->m_data.m_uint8s[(1 * (mk_lib_crypto_alg_serpent_key_len_v + mk_lib_crypto_alg_twofish_256_key_len_v + mk_lib_crypto_alg_aes_256_key_len_v)) + (1 * mk_lib_crypto_alg_twofish_256_key_len_v) + (1 * mk_lib_crypto_alg_serpent_key_len_v)], mk_lib_crypto_alg_aes_256_key_len_v    );
+		break;
+		case mk_lib_vc_seqid_e_serpent_aes:
+			mk_lib_vc_memcpyu8_fn(&keys->m_data.m_serpent_aes.m_aes_pri    .m_data.m_uint8s[0], &key_material->m_data.m_uint8s[(0 * (mk_lib_crypto_alg_aes_256_key_len_v + mk_lib_crypto_alg_serpent_key_len_v)) + (0 * mk_lib_crypto_alg_aes_256_key_len_v)], mk_lib_crypto_alg_aes_256_key_len_v);
+			mk_lib_vc_memcpyu8_fn(&keys->m_data.m_serpent_aes.m_serpent_pri.m_data.m_uint8s[0], &key_material->m_data.m_uint8s[(0 * (mk_lib_crypto_alg_aes_256_key_len_v + mk_lib_crypto_alg_serpent_key_len_v)) + (1 * mk_lib_crypto_alg_aes_256_key_len_v)], mk_lib_crypto_alg_serpent_key_len_v);
+			mk_lib_vc_memcpyu8_fn(&keys->m_data.m_serpent_aes.m_aes_sec    .m_data.m_uint8s[0], &key_material->m_data.m_uint8s[(1 * (mk_lib_crypto_alg_aes_256_key_len_v + mk_lib_crypto_alg_serpent_key_len_v)) + (0 * mk_lib_crypto_alg_aes_256_key_len_v)], mk_lib_crypto_alg_aes_256_key_len_v);
+			mk_lib_vc_memcpyu8_fn(&keys->m_data.m_serpent_aes.m_serpent_sec.m_data.m_uint8s[0], &key_material->m_data.m_uint8s[(1 * (mk_lib_crypto_alg_aes_256_key_len_v + mk_lib_crypto_alg_serpent_key_len_v)) + (1 * mk_lib_crypto_alg_aes_256_key_len_v)], mk_lib_crypto_alg_serpent_key_len_v);
+		break;
+		case mk_lib_vc_seqid_e_serpent_twofish_aes:
+			mk_lib_vc_memcpyu8_fn(&keys->m_data.m_serpent_twofish_aes.m_aes_pri    .m_data.m_uint8s[0], &key_material->m_data.m_uint8s[(0 * (mk_lib_crypto_alg_aes_256_key_len_v + mk_lib_crypto_alg_twofish_256_key_len_v + mk_lib_crypto_alg_serpent_key_len_v)) + (0 * mk_lib_crypto_alg_twofish_256_key_len_v) + (0 * mk_lib_crypto_alg_aes_256_key_len_v)], mk_lib_crypto_alg_aes_256_key_len_v    );
+			mk_lib_vc_memcpyu8_fn(&keys->m_data.m_serpent_twofish_aes.m_twofish_pri.m_data.m_uint8s[0], &key_material->m_data.m_uint8s[(0 * (mk_lib_crypto_alg_aes_256_key_len_v + mk_lib_crypto_alg_twofish_256_key_len_v + mk_lib_crypto_alg_serpent_key_len_v)) + (0 * mk_lib_crypto_alg_twofish_256_key_len_v) + (1 * mk_lib_crypto_alg_aes_256_key_len_v)], mk_lib_crypto_alg_twofish_256_key_len_v);
+			mk_lib_vc_memcpyu8_fn(&keys->m_data.m_serpent_twofish_aes.m_serpent_pri.m_data.m_uint8s[0], &key_material->m_data.m_uint8s[(0 * (mk_lib_crypto_alg_aes_256_key_len_v + mk_lib_crypto_alg_twofish_256_key_len_v + mk_lib_crypto_alg_serpent_key_len_v)) + (1 * mk_lib_crypto_alg_twofish_256_key_len_v) + (1 * mk_lib_crypto_alg_aes_256_key_len_v)], mk_lib_crypto_alg_serpent_key_len_v    );
+			mk_lib_vc_memcpyu8_fn(&keys->m_data.m_serpent_twofish_aes.m_aes_sec    .m_data.m_uint8s[0], &key_material->m_data.m_uint8s[(1 * (mk_lib_crypto_alg_aes_256_key_len_v + mk_lib_crypto_alg_twofish_256_key_len_v + mk_lib_crypto_alg_serpent_key_len_v)) + (0 * mk_lib_crypto_alg_twofish_256_key_len_v) + (0 * mk_lib_crypto_alg_aes_256_key_len_v)], mk_lib_crypto_alg_aes_256_key_len_v    );
+			mk_lib_vc_memcpyu8_fn(&keys->m_data.m_serpent_twofish_aes.m_twofish_sec.m_data.m_uint8s[0], &key_material->m_data.m_uint8s[(1 * (mk_lib_crypto_alg_aes_256_key_len_v + mk_lib_crypto_alg_twofish_256_key_len_v + mk_lib_crypto_alg_serpent_key_len_v)) + (0 * mk_lib_crypto_alg_twofish_256_key_len_v) + (1 * mk_lib_crypto_alg_aes_256_key_len_v)], mk_lib_crypto_alg_twofish_256_key_len_v);
+			mk_lib_vc_memcpyu8_fn(&keys->m_data.m_serpent_twofish_aes.m_serpent_sec.m_data.m_uint8s[0], &key_material->m_data.m_uint8s[(1 * (mk_lib_crypto_alg_aes_256_key_len_v + mk_lib_crypto_alg_twofish_256_key_len_v + mk_lib_crypto_alg_serpent_key_len_v)) + (1 * mk_lib_crypto_alg_twofish_256_key_len_v) + (1 * mk_lib_crypto_alg_aes_256_key_len_v)], mk_lib_crypto_alg_serpent_key_len_v    );
+		break;
+		case mk_lib_vc_seqid_e_twofish_serpent:
+			mk_lib_vc_memcpyu8_fn(&keys->m_data.m_twofish_serpent.m_serpent_pri.m_data.m_uint8s[0], &key_material->m_data.m_uint8s[(0 * (mk_lib_crypto_alg_serpent_key_len_v + mk_lib_crypto_alg_twofish_256_key_len_v)) + (0 * mk_lib_crypto_alg_serpent_key_len_v)], mk_lib_crypto_alg_serpent_key_len_v    );
+			mk_lib_vc_memcpyu8_fn(&keys->m_data.m_twofish_serpent.m_twofish_pri.m_data.m_uint8s[0], &key_material->m_data.m_uint8s[(0 * (mk_lib_crypto_alg_serpent_key_len_v + mk_lib_crypto_alg_twofish_256_key_len_v)) + (1 * mk_lib_crypto_alg_serpent_key_len_v)], mk_lib_crypto_alg_twofish_256_key_len_v);
+			mk_lib_vc_memcpyu8_fn(&keys->m_data.m_twofish_serpent.m_serpent_sec.m_data.m_uint8s[0], &key_material->m_data.m_uint8s[(1 * (mk_lib_crypto_alg_serpent_key_len_v + mk_lib_crypto_alg_twofish_256_key_len_v)) + (0 * mk_lib_crypto_alg_serpent_key_len_v)], mk_lib_crypto_alg_serpent_key_len_v    );
+			mk_lib_vc_memcpyu8_fn(&keys->m_data.m_twofish_serpent.m_twofish_sec.m_data.m_uint8s[0], &key_material->m_data.m_uint8s[(1 * (mk_lib_crypto_alg_serpent_key_len_v + mk_lib_crypto_alg_twofish_256_key_len_v)) + (1 * mk_lib_crypto_alg_serpent_key_len_v)], mk_lib_crypto_alg_twofish_256_key_len_v);
 		break;
 		case mk_lib_vc_seqid_e_dummy:
 			mk_lang_assert(mk_lang_false);

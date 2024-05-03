@@ -10,6 +10,7 @@
 #include "mk_lang_types.h"
 #include "mk_lib_crypto_alg_aes_256.h"
 #include "mk_lib_crypto_alg_serpent.h"
+#include "mk_lib_crypto_alg_twofish_256.h"
 #include "mk_sl_uint64.h"
 #include "mk_sl_uint8.h"
 
@@ -69,6 +70,7 @@ enum mk_lib_vc_algid_e
 {
 	mk_lib_vc_algid_e_aes,
 	mk_lib_vc_algid_e_serpent,
+	mk_lib_vc_algid_e_twofish,
 	mk_lib_vc_algid_e_dummy
 };
 typedef enum mk_lib_vc_algid_e mk_lib_vc_algid_t;
@@ -77,7 +79,12 @@ enum mk_lib_vc_seqid_e
 {
 	mk_lib_vc_seqid_e_aes,
 	mk_lib_vc_seqid_e_serpent,
-	mk_lib_vc_seqid_e_aes_serpent,
+	mk_lib_vc_seqid_e_twofish,
+	mk_lib_vc_seqid_e_aes_twofish,
+	mk_lib_vc_seqid_e_aes_twofish_serpent,
+	mk_lib_vc_seqid_e_serpent_aes,
+	mk_lib_vc_seqid_e_serpent_twofish_aes,
+	mk_lib_vc_seqid_e_twofish_serpent,
 	mk_lib_vc_seqid_e_dummy
 };
 typedef enum mk_lib_vc_seqid_e mk_lib_vc_seqid_t;
@@ -103,7 +110,7 @@ typedef mk_lib_vc_salt_t const* mk_lib_vc_salt_pct;
 
 struct mk_lib_vc_keys_material_data_s
 {
-	mk_sl_cui_uint8_t m_uint8s[2 * mk_lang_max(mk_lang_max(mk_lib_crypto_alg_aes_256_key_len_v, mk_lib_crypto_alg_serpent_key_len_v), mk_lib_crypto_alg_aes_256_key_len_v + mk_lib_crypto_alg_serpent_key_len_v)];
+	mk_sl_cui_uint8_t m_uint8s[2 * mk_lang_max(mk_lang_max(mk_lang_max(mk_lang_max(mk_lang_max(mk_lang_max(mk_lang_max(mk_lib_crypto_alg_aes_256_key_len_v, mk_lib_crypto_alg_serpent_key_len_v), mk_lib_crypto_alg_twofish_256_key_len_v), mk_lib_crypto_alg_aes_256_key_len_v + mk_lib_crypto_alg_twofish_256_key_len_v), mk_lib_crypto_alg_aes_256_key_len_v + mk_lib_crypto_alg_twofish_256_key_len_v + mk_lib_crypto_alg_serpent_key_len_v), mk_lib_crypto_alg_serpent_key_len_v + mk_lib_crypto_alg_aes_256_key_len_v), mk_lib_crypto_alg_serpent_key_len_v + mk_lib_crypto_alg_twofish_256_key_len_v + mk_lib_crypto_alg_aes_256_key_len_v), mk_lib_crypto_alg_twofish_256_key_len_v + mk_lib_crypto_alg_serpent_key_len_v)];
 };
 typedef struct mk_lib_vc_keys_material_data_s mk_lib_vc_keys_material_data_t;
 
@@ -130,20 +137,72 @@ struct mk_lib_vc_seq_serpent_keys_s
 };
 typedef struct mk_lib_vc_seq_serpent_keys_s mk_lib_vc_seq_serpent_keys_t;
 
-struct mk_lib_vc_seq_aes_serpent_keys_s
+struct mk_lib_vc_seq_twofish_keys_s
+{
+	mk_lib_crypto_alg_twofish_256_key_t m_pri;
+	mk_lib_crypto_alg_twofish_256_key_t m_sec;
+};
+typedef struct mk_lib_vc_seq_twofish_keys_s mk_lib_vc_seq_twofish_keys_t;
+
+struct mk_lib_vc_seq_aes_twofish_keys_s
+{
+	mk_lib_crypto_alg_twofish_256_key_t m_twofish_pri;
+	mk_lib_crypto_alg_aes_256_key_t     m_aes_pri;
+	mk_lib_crypto_alg_twofish_256_key_t m_twofish_sec;
+	mk_lib_crypto_alg_aes_256_key_t     m_aes_sec;
+};
+typedef struct mk_lib_vc_seq_aes_twofish_keys_s mk_lib_vc_seq_aes_twofish_keys_t;
+
+struct mk_lib_vc_seq_aes_twofish_serpent_keys_s
+{
+	mk_lib_crypto_alg_serpent_key_t     m_serpent_pri;
+	mk_lib_crypto_alg_twofish_256_key_t m_twofish_pri;
+	mk_lib_crypto_alg_aes_256_key_t     m_aes_pri;
+	mk_lib_crypto_alg_serpent_key_t     m_serpent_sec;
+	mk_lib_crypto_alg_twofish_256_key_t m_twofish_sec;
+	mk_lib_crypto_alg_aes_256_key_t     m_aes_sec;
+};
+typedef struct mk_lib_vc_seq_aes_twofish_serpent_keys_s mk_lib_vc_seq_aes_twofish_serpent_keys_t;
+
+struct mk_lib_vc_seq_serpent_aes_keys_s
 {
 	mk_lib_crypto_alg_aes_256_key_t m_aes_pri;
 	mk_lib_crypto_alg_serpent_key_t m_serpent_pri;
 	mk_lib_crypto_alg_aes_256_key_t m_aes_sec;
 	mk_lib_crypto_alg_serpent_key_t m_serpent_sec;
 };
-typedef struct mk_lib_vc_seq_aes_serpent_keys_s mk_lib_vc_seq_aes_serpent_keys_t;
+typedef struct mk_lib_vc_seq_serpent_aes_keys_s mk_lib_vc_seq_serpent_aes_keys_t;
+
+struct mk_lib_vc_seq_serpent_twofish_aes_keys_s
+{
+	mk_lib_crypto_alg_aes_256_key_t     m_aes_pri;
+	mk_lib_crypto_alg_twofish_256_key_t m_twofish_pri;
+	mk_lib_crypto_alg_serpent_key_t     m_serpent_pri;
+	mk_lib_crypto_alg_aes_256_key_t     m_aes_sec;
+	mk_lib_crypto_alg_twofish_256_key_t m_twofish_sec;
+	mk_lib_crypto_alg_serpent_key_t     m_serpent_sec;
+};
+typedef struct mk_lib_vc_seq_serpent_twofish_aes_keys_s mk_lib_vc_seq_serpent_twofish_aes_keys_t;
+
+struct mk_lib_vc_seq_twofish_serpent_keys_s
+{
+	mk_lib_crypto_alg_serpent_key_t     m_serpent_pri;
+	mk_lib_crypto_alg_twofish_256_key_t m_twofish_pri;
+	mk_lib_crypto_alg_serpent_key_t     m_serpent_sec;
+	mk_lib_crypto_alg_twofish_256_key_t m_twofish_sec;
+};
+typedef struct mk_lib_vc_seq_twofish_serpent_keys_s mk_lib_vc_seq_twofish_serpent_keys_t;
 
 union mk_lib_vc_seq_keys_data_u
 {
-	mk_lib_vc_seq_aes_keys_t m_aes;
-	mk_lib_vc_seq_serpent_keys_t m_serpent;
-	mk_lib_vc_seq_aes_serpent_keys_t m_aes_serpent;
+	mk_lib_vc_seq_aes_keys_t                 m_aes;
+	mk_lib_vc_seq_serpent_keys_t             m_serpent;
+	mk_lib_vc_seq_twofish_keys_t             m_twofish;
+	mk_lib_vc_seq_aes_twofish_keys_t         m_aes_twofish;
+	mk_lib_vc_seq_aes_twofish_serpent_keys_t m_aes_twofish_serpent;
+	mk_lib_vc_seq_serpent_aes_keys_t         m_serpent_aes;
+	mk_lib_vc_seq_serpent_twofish_aes_keys_t m_serpent_twofish_aes;
+	mk_lib_vc_seq_twofish_serpent_keys_t     m_twofish_serpent;
 };
 typedef union mk_lib_vc_seq_keys_data_u mk_lib_vc_seq_keys_data_t;
 
@@ -158,9 +217,10 @@ typedef mk_lib_vc_seq_keys_t const* mk_lib_vc_seq_keys_pct;
 
 union mk_lib_vc_tweak_data_u
 {
-	mk_sl_cui_uint8_t m_uint8s[mk_lib_vc_msg_len];
-	mk_lib_crypto_alg_aes_256_msg_t m_aes;
-	mk_lib_crypto_alg_serpent_msg_t m_serpent;
+	mk_sl_cui_uint8_t                   m_uint8s[mk_lib_vc_msg_len];
+	mk_lib_crypto_alg_aes_256_msg_t     m_aes;
+	mk_lib_crypto_alg_serpent_msg_t     m_serpent;
+	mk_lib_crypto_alg_twofish_256_msg_t m_twofish;
 };
 typedef union mk_lib_vc_tweak_data_u mk_lib_vc_tweak_data_t;
 
@@ -175,10 +235,11 @@ typedef mk_lib_vc_tweak_t const* mk_lib_vc_tweak_pct;
 
 union mk_lib_vc_block_data_u
 {
-	mk_sl_cui_uint8_t m_uint8s[mk_lib_vc_block_len];
-	mk_lib_crypto_alg_aes_256_msg_t m_aess[mk_lib_vc_block_len / mk_lib_crypto_alg_aes_256_msg_len_v];
-	mk_lib_crypto_alg_serpent_msg_t m_serpents[mk_lib_vc_block_len / mk_lib_crypto_alg_serpent_msg_len_v];
-	mk_lib_vc_tweak_t m_tweaks[mk_lib_vc_block_len / mk_lib_vc_msg_len];
+	mk_sl_cui_uint8_t                   m_uint8s  [mk_lib_vc_block_len];
+	mk_lib_crypto_alg_aes_256_msg_t     m_aess    [mk_lib_vc_block_len / mk_lib_crypto_alg_aes_256_msg_len_v];
+	mk_lib_crypto_alg_serpent_msg_t     m_serpents[mk_lib_vc_block_len / mk_lib_crypto_alg_serpent_msg_len_v];
+	mk_lib_crypto_alg_twofish_256_msg_t m_twofishs[mk_lib_vc_block_len / mk_lib_crypto_alg_twofish_256_msg_len_v];
+	mk_lib_vc_tweak_t                   m_tweaks  [mk_lib_vc_block_len / mk_lib_vc_msg_len];
 };
 typedef union mk_lib_vc_block_data_u mk_lib_vc_block_data_t;
 
@@ -205,8 +266,9 @@ typedef struct mk_lib_vc_block_oversized_s mk_lib_vc_block_oversized_t;
 
 union mk_lib_vc_alg_schedule_data_u
 {
-	mk_lib_crypto_alg_aes_256_schedule_pct m_aes;
-	mk_lib_crypto_alg_serpent_schedule_pct m_serpent;
+	mk_lib_crypto_alg_aes_256_schedule_pct     m_aes;
+	mk_lib_crypto_alg_serpent_schedule_pct     m_serpent;
+	mk_lib_crypto_alg_twofish_256_schedule_pct m_twofish;
 };
 typedef union mk_lib_vc_alg_schedule_data_u mk_lib_vc_alg_schedule_data_t;
 
@@ -230,20 +292,72 @@ struct mk_lib_vc_seq_serpent_schedules_s
 };
 typedef struct mk_lib_vc_seq_serpent_schedules_s mk_lib_vc_seq_serpent_schedules_t;
 
-struct mk_lib_vc_seq_aes_serpent_schedules_s
+struct mk_lib_vc_seq_twofish_schedules_s
+{
+	mk_lib_crypto_alg_twofish_256_schedule_t m_pri;
+	mk_lib_crypto_alg_twofish_256_schedule_t m_sec;
+};
+typedef struct mk_lib_vc_seq_twofish_schedules_s mk_lib_vc_seq_twofish_schedules_t;
+
+struct mk_lib_vc_seq_aes_twofish_schedules_s
+{
+	mk_lib_crypto_alg_twofish_256_schedule_t m_twofish_pri;
+	mk_lib_crypto_alg_aes_256_schedule_t     m_aes_pri;
+	mk_lib_crypto_alg_twofish_256_schedule_t m_twofish_sec;
+	mk_lib_crypto_alg_aes_256_schedule_t     m_aes_sec;
+};
+typedef struct mk_lib_vc_seq_aes_twofish_schedules_s mk_lib_vc_seq_aes_twofish_schedules_t;
+
+struct mk_lib_vc_seq_aes_twofish_serpent_schedules_s
+{
+	mk_lib_crypto_alg_serpent_schedule_t     m_serpent_pri;
+	mk_lib_crypto_alg_twofish_256_schedule_t m_twofish_pri;
+	mk_lib_crypto_alg_aes_256_schedule_t     m_aes_pri;
+	mk_lib_crypto_alg_serpent_schedule_t     m_serpent_sec;
+	mk_lib_crypto_alg_twofish_256_schedule_t m_twofish_sec;
+	mk_lib_crypto_alg_aes_256_schedule_t     m_aes_sec;
+};
+typedef struct mk_lib_vc_seq_aes_twofish_serpent_schedules_s mk_lib_vc_seq_aes_twofish_serpent_schedules_t;
+
+struct mk_lib_vc_seq_serpent_aes_schedules_s
 {
 	mk_lib_crypto_alg_aes_256_schedule_t m_aes_pri;
 	mk_lib_crypto_alg_serpent_schedule_t m_serpent_pri;
 	mk_lib_crypto_alg_aes_256_schedule_t m_aes_sec;
 	mk_lib_crypto_alg_serpent_schedule_t m_serpent_sec;
 };
-typedef struct mk_lib_vc_seq_aes_serpent_schedules_s mk_lib_vc_seq_aes_serpent_schedules_t;
+typedef struct mk_lib_vc_seq_serpent_aes_schedules_s mk_lib_vc_seq_serpent_aes_schedules_t;
+
+struct mk_lib_vc_seq_serpent_twofish_aes_schedules_s
+{
+	mk_lib_crypto_alg_aes_256_schedule_t     m_aes_pri;
+	mk_lib_crypto_alg_twofish_256_schedule_t m_twofish_pri;
+	mk_lib_crypto_alg_serpent_schedule_t     m_serpent_pri;
+	mk_lib_crypto_alg_aes_256_schedule_t     m_aes_sec;
+	mk_lib_crypto_alg_twofish_256_schedule_t m_twofish_sec;
+	mk_lib_crypto_alg_serpent_schedule_t     m_serpent_sec;
+};
+typedef struct mk_lib_vc_seq_serpent_twofish_aes_schedules_s mk_lib_vc_seq_serpent_twofish_aes_schedules_t;
+
+struct mk_lib_vc_seq_twofish_serpent_schedules_s
+{
+	mk_lib_crypto_alg_serpent_schedule_t     m_serpent_pri;
+	mk_lib_crypto_alg_twofish_256_schedule_t m_twofish_pri;
+	mk_lib_crypto_alg_serpent_schedule_t     m_serpent_sec;
+	mk_lib_crypto_alg_twofish_256_schedule_t m_twofish_sec;
+};
+typedef struct mk_lib_vc_seq_twofish_serpent_schedules_s mk_lib_vc_seq_twofish_serpent_schedules_t;
 
 union mk_lib_vc_seq_schedules_data_u
 {
-	mk_lib_vc_seq_aes_schedules_t m_aes;
-	mk_lib_vc_seq_serpent_schedules_t m_serpent;
-	mk_lib_vc_seq_aes_serpent_schedules_t m_aes_serpent;
+	mk_lib_vc_seq_aes_schedules_t                 m_aes;
+	mk_lib_vc_seq_serpent_schedules_t             m_serpent;
+	mk_lib_vc_seq_twofish_schedules_t             m_twofish;
+	mk_lib_vc_seq_aes_twofish_schedules_t         m_aes_twofish;
+	mk_lib_vc_seq_aes_twofish_serpent_schedules_t m_aes_twofish_serpent;
+	mk_lib_vc_seq_serpent_aes_schedules_t         m_serpent_aes;
+	mk_lib_vc_seq_serpent_twofish_aes_schedules_t m_serpent_twofish_aes;
+	mk_lib_vc_seq_twofish_serpent_schedules_t     m_twofish_serpent;
 };
 typedef union mk_lib_vc_seq_schedules_data_u mk_lib_vc_seq_schedules_data_t;
 
