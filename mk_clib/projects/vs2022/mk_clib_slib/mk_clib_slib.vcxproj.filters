@@ -273,6 +273,10 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_twofish_192_test.hpp"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_twofish_256.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_twofish_256_test.hpp"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_twofish_base_inl_defd.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_twofish_base_inl_defu.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_twofish_base_inl_filec.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_twofish_base_inl_fileh.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_app.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_gapp.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_blake2b_256.h"><Filter>src</Filter></ClInclude>

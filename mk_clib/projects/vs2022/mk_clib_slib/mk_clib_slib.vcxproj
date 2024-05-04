@@ -310,6 +310,10 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_twofish_192_test.hpp"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_twofish_256.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_twofish_256_test.hpp"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_twofish_base_inl_defd.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_twofish_base_inl_defu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_twofish_base_inl_filec.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_twofish_base_inl_fileh.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_app.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_gapp.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_blake2b_256.h"/>
