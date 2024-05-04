@@ -2,6 +2,7 @@
 #define mk_include_guard_mk_lang_check
 
 
+#include "mk_lang_builtin.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_crash.h"
 #include "mk_lang_jumbo.h"
@@ -19,7 +20,13 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_check_to_bool_impl(
 #define mk_lang_check_debug_break()
 #else
 #define mk_lang_check_line ((mk_lang_types_sint_t)(__LINE__))
+#if defined _MSC_VER && defined _MSC_FULL_VER
 #define mk_lang_check_debug_break() __debugbreak()
+#elif mk_lang_builtin_has_debugtrap
+#define mk_lang_check_debug_break() __builtin_debugtrap()
+#else
+#define mk_lang_check_debug_break()
+#endif
 #endif
 
 
