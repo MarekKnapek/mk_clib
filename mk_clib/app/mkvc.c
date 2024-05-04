@@ -8,7 +8,7 @@ mk_lang_types_sint_t wmain(mk_lang_types_sint_t const argc, mk_lang_types_wchar_
 	return mk_clib_app_vc_arg(mk_lang_true, argc, ((mk_lang_types_pchar_pcpct)(argv)));
 }
 
-#elif mk_lang_os == mk_lang_os_c
+#elif mk_lang_os == mk_lang_os_linux || mk_lang_os == mk_lang_os_c
 
 mk_lang_types_sint_t main(mk_lang_types_sint_t const argc, mk_lang_types_pchar_pcpct const argv) mk_lang_noexcept
 {
