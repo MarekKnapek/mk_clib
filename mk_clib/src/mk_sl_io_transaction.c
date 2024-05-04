@@ -15,6 +15,13 @@
 #define mk_sl_io_transaction_impl_abort  mk_sl_io_transaction_windows_abort
 #define mk_sl_io_transaction_impl_close  mk_sl_io_transaction_windows_close
 #define mk_sl_io_transaction_impl_dummy  mk_sl_io_transaction_windows_dummy
+#elif mk_lang_os == mk_lang_os_linux
+#include "mk_sl_io_transaction_linux.h"
+#define mk_sl_io_transaction_impl_create mk_sl_io_transaction_linux_create
+#define mk_sl_io_transaction_impl_commit mk_sl_io_transaction_linux_commit
+#define mk_sl_io_transaction_impl_abort  mk_sl_io_transaction_linux_abort
+#define mk_sl_io_transaction_impl_close  mk_sl_io_transaction_linux_close
+#define mk_sl_io_transaction_impl_dummy  mk_sl_io_transaction_linux_dummy
 #elif mk_lang_os == mk_lang_os_c
 #include "mk_sl_io_transaction_portable.h"
 #define mk_sl_io_transaction_impl_create mk_sl_io_transaction_portable_create

@@ -11,16 +11,13 @@
 
 #if mk_lang_os == mk_lang_os_windows
 #include "mk_sl_io_transaction_windows.h"
-struct mk_sl_io_transaction_s
-{
-	mk_sl_io_transaction_windows_t m_data;
-};
+struct mk_sl_io_transaction_s { mk_sl_io_transaction_windows_t m_data; };
+#elif mk_lang_os == mk_lang_os_linux
+#include "mk_sl_io_transaction_linux.h"
+struct mk_sl_io_transaction_s { mk_sl_io_transaction_linux_t m_data; };
 #elif mk_lang_os == mk_lang_os_c
 #include "mk_sl_io_transaction_portable.h"
-struct mk_sl_io_transaction_s
-{
-	mk_sl_io_transaction_portable_t m_data;
-};
+struct mk_sl_io_transaction_s { mk_sl_io_transaction_portable_t m_data; };
 #else
 #error xxxxxxxxxx todo
 #endif

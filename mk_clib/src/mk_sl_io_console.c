@@ -12,6 +12,10 @@
 #include "mk_sl_io_console_windows.h"
 #define mk_sl_io_console_impl_write_n mk_sl_io_console_windows_write_n
 #define mk_sl_io_console_impl_write_w mk_sl_io_console_windows_write_w
+#elif mk_lang_os == mk_lang_os_linux
+#include "mk_sl_io_console_linux.h"
+#define mk_sl_io_console_impl_write_n mk_sl_io_console_linux_write_n
+#define mk_sl_io_console_impl_write_w mk_sl_io_console_linux_write_w
 #elif mk_lang_os == mk_lang_os_c
 #include "mk_sl_io_console_portable.h"
 #define mk_sl_io_console_impl_write_n mk_sl_io_console_portable_write_n

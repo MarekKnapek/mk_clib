@@ -19,6 +19,14 @@
 #define mk_sl_io_writer_file_impl_open_tx_w mk_sl_io_writer_file_windows_open_tx_w
 #define mk_sl_io_writer_file_impl_write     mk_sl_io_writer_file_windows_write
 #define mk_sl_io_writer_file_impl_close     mk_sl_io_writer_file_windows_close
+#elif mk_lang_os == mk_lang_os_linux
+#include "mk_sl_io_writer_file_linux.h"
+#define mk_sl_io_writer_file_impl_open_n    mk_sl_io_writer_file_linux_open_n
+#define mk_sl_io_writer_file_impl_open_w    mk_sl_io_writer_file_linux_open_w
+#define mk_sl_io_writer_file_impl_open_tx_n mk_sl_io_writer_file_linux_open_tx_n
+#define mk_sl_io_writer_file_impl_open_tx_w mk_sl_io_writer_file_linux_open_tx_w
+#define mk_sl_io_writer_file_impl_write     mk_sl_io_writer_file_linux_write
+#define mk_sl_io_writer_file_impl_close     mk_sl_io_writer_file_linux_close
 #elif mk_lang_os == mk_lang_os_c
 #include "mk_sl_io_writer_file_portable.h"
 #define mk_sl_io_writer_file_impl_open_n    mk_sl_io_writer_file_portable_open_n

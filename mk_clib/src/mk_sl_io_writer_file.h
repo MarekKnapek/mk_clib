@@ -15,6 +15,9 @@
 #if mk_lang_os == mk_lang_os_windows
 #include "mk_sl_io_writer_file_windows.h"
 typedef mk_sl_io_writer_file_windows_t mk_sl_io_writer_file_handle_t;
+#elif mk_lang_os == mk_lang_os_linux
+#include "mk_sl_io_writer_file_linux.h"
+typedef mk_sl_io_writer_file_linux_t mk_sl_io_writer_file_handle_t;
 #elif mk_lang_os == mk_lang_os_c
 #include "mk_sl_io_writer_file_portable.h"
 typedef mk_sl_io_writer_file_portable_t mk_sl_io_writer_file_handle_t;
