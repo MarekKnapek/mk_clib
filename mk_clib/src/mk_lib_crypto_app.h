@@ -102,9 +102,6 @@ typedef mk_lib_crypto_app_mode_id_t const* mk_lib_crypto_app_mode_id_pct;
 
 enum mk_lib_crypto_app_kdf_id_e
 {
-	mk_lib_crypto_app_kdf_id_e_pbkdf1_md2,
-	mk_lib_crypto_app_kdf_id_e_pbkdf1_md5,
-	mk_lib_crypto_app_kdf_id_e_pbkdf1_sha1,
 	mk_lib_crypto_app_kdf_id_e_pbkdf2_blake2b_256,
 	mk_lib_crypto_app_kdf_id_e_pbkdf2_blake2b_384,
 	mk_lib_crypto_app_kdf_id_e_pbkdf2_blake2b_512,

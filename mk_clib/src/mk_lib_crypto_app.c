@@ -20,9 +20,6 @@
 #include "mk_lib_crypto_alg_aes_128.h"
 #include "mk_lib_crypto_alg_aes_192.h"
 #include "mk_lib_crypto_alg_aes_256.h"
-#include "mk_lib_crypto_kdf_pbkdf1_md2.h"
-#include "mk_lib_crypto_kdf_pbkdf1_md5.h"
-#include "mk_lib_crypto_kdf_pbkdf1_sha1.h"
 #include "mk_lib_crypto_kdf_pbkdf2_blake2b_256.h"
 #include "mk_lib_crypto_kdf_pbkdf2_blake2b_384.h"
 #include "mk_lib_crypto_kdf_pbkdf2_blake2b_512.h"
@@ -122,9 +119,6 @@
 #define mk_lib_crypto_app_name_code_mode_ecb     "ecb"
 #define mk_lib_crypto_app_name_code_mode_ofb     "ofb"
 
-#define mk_lib_crypto_app_name_code_kdf_pbkdf1_md2          "pbkdf1_md2"
-#define mk_lib_crypto_app_name_code_kdf_pbkdf1_md5          "pbkdf1_md5"
-#define mk_lib_crypto_app_name_code_kdf_pbkdf1_sha1         "pbkdf1_sha1"
 #define mk_lib_crypto_app_name_code_kdf_pbkdf2_blake2b_256  "pbkdf2_blake2b_256"
 #define mk_lib_crypto_app_name_code_kdf_pbkdf2_blake2b_384  "pbkdf2_blake2b_384"
 #define mk_lib_crypto_app_name_code_kdf_pbkdf2_blake2b_512  "pbkdf2_blake2b_512"
@@ -177,9 +171,6 @@
 #define mk_lib_crypto_app_name_pretty_mode_ecb     "ECB"
 #define mk_lib_crypto_app_name_pretty_mode_ofb     "OFB"
 
-#define mk_lib_crypto_app_name_pretty_kdf_pbkdf1_md2          "PBKDF1-MD2"
-#define mk_lib_crypto_app_name_pretty_kdf_pbkdf1_md5          "PBKDF1-MD5"
-#define mk_lib_crypto_app_name_pretty_kdf_pbkdf1_sha1         "PBKDF1-SHA1"
 #define mk_lib_crypto_app_name_pretty_kdf_pbkdf2_blake2b_256  "PBKDF2-BLAKE2b-256"
 #define mk_lib_crypto_app_name_pretty_kdf_pbkdf2_blake2b_384  "PBKDF2-BLAKE2b-384"
 #define mk_lib_crypto_app_name_pretty_kdf_pbkdf2_blake2b_512  "PBKDF2-BLAKE2b-512"
@@ -232,9 +223,6 @@
 #define mk_lib_crypto_app_namelen_code_mode_ecb     ((mk_lang_types_uchar_t)(sizeof(mk_lib_crypto_app_name_code_mode_ecb     ) / sizeof(mk_lib_crypto_app_name_code_mode_ecb     [0]) - 1))
 #define mk_lib_crypto_app_namelen_code_mode_ofb     ((mk_lang_types_uchar_t)(sizeof(mk_lib_crypto_app_name_code_mode_ofb     ) / sizeof(mk_lib_crypto_app_name_code_mode_ofb     [0]) - 1))
 
-#define mk_lib_crypto_app_namelen_code_kdf_pbkdf1_md2          ((mk_lang_types_uchar_t)(sizeof(mk_lib_crypto_app_name_code_kdf_pbkdf1_md2          ) / sizeof(mk_lib_crypto_app_name_code_kdf_pbkdf1_md2          [0]) - 1))
-#define mk_lib_crypto_app_namelen_code_kdf_pbkdf1_md5          ((mk_lang_types_uchar_t)(sizeof(mk_lib_crypto_app_name_code_kdf_pbkdf1_md5          ) / sizeof(mk_lib_crypto_app_name_code_kdf_pbkdf1_md5          [0]) - 1))
-#define mk_lib_crypto_app_namelen_code_kdf_pbkdf1_sha1         ((mk_lang_types_uchar_t)(sizeof(mk_lib_crypto_app_name_code_kdf_pbkdf1_sha1         ) / sizeof(mk_lib_crypto_app_name_code_kdf_pbkdf1_sha1         [0]) - 1))
 #define mk_lib_crypto_app_namelen_code_kdf_pbkdf2_blake2b_256  ((mk_lang_types_uchar_t)(sizeof(mk_lib_crypto_app_name_code_kdf_pbkdf2_blake2b_256  ) / sizeof(mk_lib_crypto_app_name_code_kdf_pbkdf2_blake2b_256  [0]) - 1))
 #define mk_lib_crypto_app_namelen_code_kdf_pbkdf2_blake2b_384  ((mk_lang_types_uchar_t)(sizeof(mk_lib_crypto_app_name_code_kdf_pbkdf2_blake2b_384  ) / sizeof(mk_lib_crypto_app_name_code_kdf_pbkdf2_blake2b_384  [0]) - 1))
 #define mk_lib_crypto_app_namelen_code_kdf_pbkdf2_blake2b_512  ((mk_lang_types_uchar_t)(sizeof(mk_lib_crypto_app_name_code_kdf_pbkdf2_blake2b_512  ) / sizeof(mk_lib_crypto_app_name_code_kdf_pbkdf2_blake2b_512  [0]) - 1))
@@ -287,9 +275,6 @@
 #define mk_lib_crypto_app_namelen_pretty_mode_ecb     ((mk_lang_types_uchar_t)(sizeof(mk_lib_crypto_app_name_pretty_mode_ecb     ) / sizeof(mk_lib_crypto_app_name_pretty_mode_ecb     [0]) - 1))
 #define mk_lib_crypto_app_namelen_pretty_mode_ofb     ((mk_lang_types_uchar_t)(sizeof(mk_lib_crypto_app_name_pretty_mode_ofb     ) / sizeof(mk_lib_crypto_app_name_pretty_mode_ofb     [0]) - 1))
 
-#define mk_lib_crypto_app_namelen_pretty_kdf_pbkdf1_md2          ((mk_lang_types_uchar_t)(sizeof(mk_lib_crypto_app_name_pretty_kdf_pbkdf1_md2          ) / sizeof(mk_lib_crypto_app_name_pretty_kdf_pbkdf1_md2          [0]) - 1))
-#define mk_lib_crypto_app_namelen_pretty_kdf_pbkdf1_md5          ((mk_lang_types_uchar_t)(sizeof(mk_lib_crypto_app_name_pretty_kdf_pbkdf1_md5          ) / sizeof(mk_lib_crypto_app_name_pretty_kdf_pbkdf1_md5          [0]) - 1))
-#define mk_lib_crypto_app_namelen_pretty_kdf_pbkdf1_sha1         ((mk_lang_types_uchar_t)(sizeof(mk_lib_crypto_app_name_pretty_kdf_pbkdf1_sha1         ) / sizeof(mk_lib_crypto_app_name_pretty_kdf_pbkdf1_sha1         [0]) - 1))
 #define mk_lib_crypto_app_namelen_pretty_kdf_pbkdf2_blake2b_256  ((mk_lang_types_uchar_t)(sizeof(mk_lib_crypto_app_name_pretty_kdf_pbkdf2_blake2b_256  ) / sizeof(mk_lib_crypto_app_name_pretty_kdf_pbkdf2_blake2b_256  [0]) - 1))
 #define mk_lib_crypto_app_namelen_pretty_kdf_pbkdf2_blake2b_384  ((mk_lang_types_uchar_t)(sizeof(mk_lib_crypto_app_name_pretty_kdf_pbkdf2_blake2b_384  ) / sizeof(mk_lib_crypto_app_name_pretty_kdf_pbkdf2_blake2b_384  [0]) - 1))
 #define mk_lib_crypto_app_namelen_pretty_kdf_pbkdf2_blake2b_512  ((mk_lang_types_uchar_t)(sizeof(mk_lib_crypto_app_name_pretty_kdf_pbkdf2_blake2b_512  ) / sizeof(mk_lib_crypto_app_name_pretty_kdf_pbkdf2_blake2b_512  [0]) - 1))
@@ -349,9 +334,6 @@
 	""
 
 #define mk_lib_crypto_app_name_code_kdfs \
-	mk_lib_crypto_app_name_code_kdf_pbkdf1_md2          \
-	mk_lib_crypto_app_name_code_kdf_pbkdf1_md5          \
-	mk_lib_crypto_app_name_code_kdf_pbkdf1_sha1         \
 	mk_lib_crypto_app_name_code_kdf_pbkdf2_blake2b_256  \
 	mk_lib_crypto_app_name_code_kdf_pbkdf2_blake2b_384  \
 	mk_lib_crypto_app_name_code_kdf_pbkdf2_blake2b_512  \
@@ -411,9 +393,6 @@
 	""
 
 #define mk_lib_crypto_app_name_pretty_kdfs \
-	mk_lib_crypto_app_name_pretty_kdf_pbkdf1_md2          \
-	mk_lib_crypto_app_name_pretty_kdf_pbkdf1_md5          \
-	mk_lib_crypto_app_name_pretty_kdf_pbkdf1_sha1         \
 	mk_lib_crypto_app_name_pretty_kdf_pbkdf2_blake2b_256  \
 	mk_lib_crypto_app_name_pretty_kdf_pbkdf2_blake2b_384  \
 	mk_lib_crypto_app_name_pretty_kdf_pbkdf2_blake2b_512  \
@@ -470,9 +449,6 @@
 	mk_lib_crypto_app_namelen_code_mode_ofb,     \
 
 #define mk_lib_crypto_app_namelen_code_kdfs \
-	mk_lib_crypto_app_namelen_code_kdf_pbkdf1_md2,          \
-	mk_lib_crypto_app_namelen_code_kdf_pbkdf1_md5,          \
-	mk_lib_crypto_app_namelen_code_kdf_pbkdf1_sha1,         \
 	mk_lib_crypto_app_namelen_code_kdf_pbkdf2_blake2b_256,  \
 	mk_lib_crypto_app_namelen_code_kdf_pbkdf2_blake2b_384,  \
 	mk_lib_crypto_app_namelen_code_kdf_pbkdf2_blake2b_512,  \
@@ -528,9 +504,6 @@
 	mk_lib_crypto_app_namelen_pretty_mode_ofb,     \
 
 #define mk_lib_crypto_app_namelen_pretty_kdfs \
-	mk_lib_crypto_app_namelen_pretty_kdf_pbkdf1_md2,          \
-	mk_lib_crypto_app_namelen_pretty_kdf_pbkdf1_md5,          \
-	mk_lib_crypto_app_namelen_pretty_kdf_pbkdf1_sha1,         \
 	mk_lib_crypto_app_namelen_pretty_kdf_pbkdf2_blake2b_256,  \
 	mk_lib_crypto_app_namelen_pretty_kdf_pbkdf2_blake2b_384,  \
 	mk_lib_crypto_app_namelen_pretty_kdf_pbkdf2_blake2b_512,  \
@@ -686,9 +659,6 @@ mk_lang_constexpr_static_inline mk_lang_types_uchar_t const s_mk_lib_crypto_app_
 
 mk_lang_constexpr_static_inline mk_lang_types_uchar_t const s_mk_lib_crypto_app_order_kdfs[] =
 {
-	((mk_lang_types_uchar_t)(mk_lib_crypto_app_kdf_id_e_pbkdf1_md2)),
-	((mk_lang_types_uchar_t)(mk_lib_crypto_app_kdf_id_e_pbkdf1_md5)),
-	((mk_lang_types_uchar_t)(mk_lib_crypto_app_kdf_id_e_pbkdf1_sha1)),
 	((mk_lang_types_uchar_t)(mk_lib_crypto_app_kdf_id_e_pbkdf2_md2)),
 	((mk_lang_types_uchar_t)(mk_lib_crypto_app_kdf_id_e_pbkdf2_md4)),
 	((mk_lang_types_uchar_t)(mk_lib_crypto_app_kdf_id_e_pbkdf2_md5)),
@@ -1384,15 +1354,8 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_ssize_t 
 		case mk_lib_crypto_app_alg_id_e_tdes3  : key_len = mk_lib_crypto_alg_tdes3_key_len_v  ; break;
 		default: mk_lang_assert(0); break;
 	}
-	if(0){}
-	else if(kdf_id == mk_lib_crypto_app_kdf_id_e_pbkdf1_md2  ){ mk_lib_crypto_app_check(key_len <= mk_lib_crypto_hash_block_md2_digest_len  ); }
-	else if(kdf_id == mk_lib_crypto_app_kdf_id_e_pbkdf1_md5  ){ mk_lib_crypto_app_check(key_len <= mk_lib_crypto_hash_block_md5_digest_len  ); }
-	else if(kdf_id == mk_lib_crypto_app_kdf_id_e_pbkdf1_sha1 ){ mk_lib_crypto_app_check(key_len <= mk_lib_crypto_hash_block_sha1_digest_len ); }
 	switch(kdf_id)
 	{
-		case mk_lib_crypto_app_kdf_id_e_pbkdf1_md2         : mk_lib_crypto_kdf_pbkdf1_md2  (pwd_buf, pwd_len, slt8, cost_ul, key_len, &key_data[0]); break;
-		case mk_lib_crypto_app_kdf_id_e_pbkdf1_md5         : mk_lib_crypto_kdf_pbkdf1_md5  (pwd_buf, pwd_len, slt8, cost_ul, key_len, &key_data[0]); break;
-		case mk_lib_crypto_app_kdf_id_e_pbkdf1_sha1        : mk_lib_crypto_kdf_pbkdf1_sha1 (pwd_buf, pwd_len, slt8, cost_ul, key_len, &key_data[0]); break;
 		case mk_lib_crypto_app_kdf_id_e_pbkdf2_blake2b_256 : mk_lib_crypto_kdf_pbkdf2_blake2b_256  (pwd_buf, pwd_len, slt_buf, slt_len, cost_ul, key_len, &key_data[0]); break;
 		case mk_lib_crypto_app_kdf_id_e_pbkdf2_blake2b_384 : mk_lib_crypto_kdf_pbkdf2_blake2b_384  (pwd_buf, pwd_len, slt_buf, slt_len, cost_ul, key_len, &key_data[0]); break;
 		case mk_lib_crypto_app_kdf_id_e_pbkdf2_blake2b_512 : mk_lib_crypto_kdf_pbkdf2_blake2b_512  (pwd_buf, pwd_len, slt_buf, slt_len, cost_ul, key_len, &key_data[0]); break;
