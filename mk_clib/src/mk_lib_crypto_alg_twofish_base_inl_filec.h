@@ -21,6 +21,20 @@
 #define mk_lib_crypto_alg_twofish_base_inl_filec_sbox_words (mk_lib_crypto_alg_twofish_base_inl_filec_key_words / 2)
 
 
+union mk_lib_crypto_alg_twofish_base_inl_defd_uint328_data_u
+{
+	mk_sl_cui_uint8_t m_uint8s[32 / 8];
+	mk_sl_cui_uint32_t m_uint32;
+};
+typedef union mk_lib_crypto_alg_twofish_base_inl_defd_uint328_data_u mk_lib_crypto_alg_twofish_base_inl_defd_uint328_data_t;
+
+struct mk_lib_crypto_alg_twofish_base_inl_defd_uint328_s
+{
+	mk_lib_crypto_alg_twofish_base_inl_defd_uint328_data_t m_data;
+};
+typedef struct mk_lib_crypto_alg_twofish_base_inl_defd_uint328_s mk_lib_crypto_alg_twofish_base_inl_defd_uint328_t;
+
+
 union mk_lib_crypto_alg_twofish_base_inl_defd_table_data_u
 {
 	mk_lang_alignas(64) mk_sl_cui_uint8_t m_uint8s[0xff + 1];
@@ -292,7 +306,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_twofish_base_inl_defd_fx(mk_lang_types_sint_t const a, mk_sl_cui_uint8_pct const b, mk_lang_static_param(mk_sl_cui_uint32_ct, c, mk_lib_crypto_alg_twofish_base_inl_filec_sbox_words), mk_sl_cui_uint8_pt const d) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_t bb[mk_lib_crypto_alg_twofish_base_inl_filec_word_bytes] mk_lang_constexpr_init;
+	mk_lib_crypto_alg_twofish_base_inl_defd_uint328_t bb mk_lang_constexpr_init;
 	mk_lang_types_sint_t tsi mk_lang_constexpr_init;
 	mk_sl_cui_uint8_t ta mk_lang_constexpr_init;
 	mk_sl_cui_uint8_t tb mk_lang_constexpr_init;
@@ -305,8 +319,8 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_t
 	#if mk_lib_crypto_alg_twofish_base_inl_defd_keylen == 256
 	mk_sl_cui_uint8_to_bi_sint(b, &tsi);
 	ta = mk_lib_crypto_alg_twofish_base_inl_defd_tables.m_data.m_tables[mk_lib_crypto_alg_twofish_base_inl_defd_idxxy(a, 4)].m_data.m_uint8s[tsi];
-	mk_sl_uint_32_to_8_le(&c[3], &bb[0]);
-	mk_sl_cui_uint8_xor3(&ta, &bb[a], &tb);
+	mk_sl_uint_32_to_8_le(&c[3], &bb.m_data.m_uint8s[0]);
+	mk_sl_cui_uint8_xor3(&ta, &bb.m_data.m_uint8s[a], &tb);
 	#endif
 	#if mk_lib_crypto_alg_twofish_base_inl_defd_keylen == 256
 	mk_sl_cui_uint8_to_bi_sint(&tb, &tsi);
@@ -315,8 +329,8 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_t
 	#endif
 	#if mk_lib_crypto_alg_twofish_base_inl_defd_keylen == 256 || mk_lib_crypto_alg_twofish_base_inl_defd_keylen == 192
 	ta = mk_lib_crypto_alg_twofish_base_inl_defd_tables.m_data.m_tables[mk_lib_crypto_alg_twofish_base_inl_defd_idxxy(a, 3)].m_data.m_uint8s[tsi];
-	mk_sl_uint_32_to_8_le(&c[2], &bb[0]);
-	mk_sl_cui_uint8_xor3(&ta, &bb[a], &tb);
+	mk_sl_uint_32_to_8_le(&c[2], &bb.m_data.m_uint8s[0]);
+	mk_sl_cui_uint8_xor3(&ta, &bb.m_data.m_uint8s[a], &tb);
 	#endif
 	#if mk_lib_crypto_alg_twofish_base_inl_defd_keylen == 256 || mk_lib_crypto_alg_twofish_base_inl_defd_keylen == 192
 	mk_sl_cui_uint8_to_bi_sint(&tb, &tsi);
@@ -324,46 +338,46 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_t
 	mk_sl_cui_uint8_to_bi_sint(b, &tsi);
 	#endif
 	ta = mk_lib_crypto_alg_twofish_base_inl_defd_tables.m_data.m_tables[mk_lib_crypto_alg_twofish_base_inl_defd_idxxy(a, 2)].m_data.m_uint8s[tsi];
-	mk_sl_uint_32_to_8_le(&c[1], &bb[0]);
-	mk_sl_cui_uint8_xor3(&ta, &bb[a], &tb);
+	mk_sl_uint_32_to_8_le(&c[1], &bb.m_data.m_uint8s[0]);
+	mk_sl_cui_uint8_xor3(&ta, &bb.m_data.m_uint8s[a], &tb);
 	mk_sl_cui_uint8_to_bi_sint(&tb, &tsi);
 	ta = mk_lib_crypto_alg_twofish_base_inl_defd_tables.m_data.m_tables[mk_lib_crypto_alg_twofish_base_inl_defd_idxxy(a, 1)].m_data.m_uint8s[tsi];
-	mk_sl_uint_32_to_8_le(&c[0], &bb[0]);
-	mk_sl_cui_uint8_xor3(&ta, &bb[a], &tb);
+	mk_sl_uint_32_to_8_le(&c[0], &bb.m_data.m_uint8s[0]);
+	mk_sl_cui_uint8_xor3(&ta, &bb.m_data.m_uint8s[a], &tb);
 	mk_sl_cui_uint8_to_bi_sint(&tb, &tsi);
 	*d = mk_lib_crypto_alg_twofish_base_inl_defd_tables.m_data.m_tables[mk_lib_crypto_alg_twofish_base_inl_defd_idxxy(a, 0)].m_data.m_uint8s[tsi];
 }
 
 mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_twofish_base_inl_defd_f(mk_sl_cui_uint32_pct const a, mk_lang_static_param(mk_sl_cui_uint32_ct, b, mk_lib_crypto_alg_twofish_base_inl_filec_sbox_words), mk_sl_cui_uint32_pt const c) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_t ta[mk_lib_crypto_alg_twofish_base_inl_filec_word_bytes] mk_lang_constexpr_init;
+	mk_lib_crypto_alg_twofish_base_inl_defd_uint328_t ta mk_lang_constexpr_init;
 	mk_lang_types_sint_t i mk_lang_constexpr_init;
 	mk_lang_types_sint_t j mk_lang_constexpr_init;
-	mk_sl_cui_uint8_t tb[mk_lib_crypto_alg_twofish_base_inl_filec_word_bytes] mk_lang_constexpr_init;
+	mk_lib_crypto_alg_twofish_base_inl_defd_uint328_t tb mk_lang_constexpr_init;
 	mk_sl_cui_uint8_t tc mk_lang_constexpr_init;
 	mk_sl_cui_uint8_t td mk_lang_constexpr_init;
-	mk_sl_cui_uint8_t te[mk_lib_crypto_alg_twofish_base_inl_filec_word_bytes] mk_lang_constexpr_init;
+	mk_lib_crypto_alg_twofish_base_inl_defd_uint328_t te mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
 	mk_lang_assert(b);
 	mk_lang_assert(c);
 
-	mk_sl_uint_32_to_8_le(a, &ta[0]);
+	mk_sl_uint_32_to_8_le(a, &ta.m_data.m_uint8s[0]);
 	for(i = 0; i != mk_lib_crypto_alg_twofish_base_inl_filec_word_bytes; ++i)
 	{
-		mk_lib_crypto_alg_twofish_base_inl_defd_fx(i, &ta[i], b, &ta[i]);
+		mk_lib_crypto_alg_twofish_base_inl_defd_fx(i, &ta.m_data.m_uint8s[i], b, &ta.m_data.m_uint8s[i]);
 	}
 	for(i = 0; i != mk_lib_crypto_alg_twofish_base_inl_filec_word_bytes; ++i)
 	{
 		for(j = 0; j != mk_lib_crypto_alg_twofish_base_inl_filec_word_bytes; ++j)
 		{
-			mk_lib_crypto_alg_twofish_base_inl_defd_mulxy(i, j, &ta[j], &tb[j]);
+			mk_lib_crypto_alg_twofish_base_inl_defd_mulxy(i, j, &ta.m_data.m_uint8s[j], &tb.m_data.m_uint8s[j]);
 		}
-		mk_sl_cui_uint8_xor3(&tb[0], &tb[1], &tc);
-		mk_sl_cui_uint8_xor3(&tb[2], &tb[3], &td);
-		mk_sl_cui_uint8_xor3(&tc, &td, &te[i]);
+		mk_sl_cui_uint8_xor3(&tb.m_data.m_uint8s[0], &tb.m_data.m_uint8s[1], &tc);
+		mk_sl_cui_uint8_xor3(&tb.m_data.m_uint8s[2], &tb.m_data.m_uint8s[3], &td);
+		mk_sl_cui_uint8_xor3(&tc, &td, &te.m_data.m_uint8s[i]);
 	}
-	mk_sl_uint_32_from_8_le(c, &te[0]);
+	mk_sl_uint_32_from_8_le(c, &te.m_data.m_uint8s[0]);
 }
 
 mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_twofish_base_inl_defd_rsrem(mk_sl_cui_uint32_pct const a, mk_sl_cui_uint32_pt const b) mk_lang_noexcept
