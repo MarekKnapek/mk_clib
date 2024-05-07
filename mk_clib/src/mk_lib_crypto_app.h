@@ -59,7 +59,6 @@
 
 
 #define mk_lib_crypto_app_get_key_size_max_m 32
-#define mk_lib_crypto_app_get_schedule_size_max_m ((14 + 1) * 16)
 #define mk_lib_crypto_app_get_iv_size_max_m 16
 #define mk_lib_crypto_app_get_msg_size_max_m 16
 
