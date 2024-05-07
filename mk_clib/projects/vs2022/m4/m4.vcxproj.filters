@@ -16,10 +16,16 @@
 		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cbc_serpent.h.m4"/>
 		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cbc_tdes2.h.m4"/>
 		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cbc_tdes3.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cbc_twofish_128.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cbc_twofish_192.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cbc_twofish_256.h.m4"/>
 		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cfb_128_aes_128.h.m4"/>
 		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cfb_128_aes_192.h.m4"/>
 		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cfb_128_aes_256.h.m4"/>
 		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cfb_128_serpent.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cfb_128_twofish_128.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cfb_128_twofish_192.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cfb_128_twofish_256.h.m4"/>
 		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cfb_64_des.h.m4"/>
 		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cfb_64_tdes2.h.m4"/>
 		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cfb_64_tdes3.h.m4"/>
@@ -30,6 +36,9 @@
 		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cfb_8_serpent.h.m4"/>
 		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cfb_8_tdes2.h.m4"/>
 		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cfb_8_tdes3.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cfb_8_twofish_128.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cfb_8_twofish_192.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_cfb_8_twofish_256.h.m4"/>
 		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ctr_be_aes_128.h.m4"/>
 		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ctr_be_aes_192.h.m4"/>
 		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ctr_be_aes_256.h.m4"/>
@@ -37,6 +46,9 @@
 		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ctr_be_serpent.h.m4"/>
 		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ctr_be_tdes2.h.m4"/>
 		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ctr_be_tdes3.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ctr_be_twofish_128.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ctr_be_twofish_192.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ctr_be_twofish_256.h.m4"/>
 		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ecb_aes_128.h.m4"/>
 		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ecb_aes_192.h.m4"/>
 		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ecb_aes_256.h.m4"/>
@@ -44,6 +56,9 @@
 		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ecb_serpent.h.m4"/>
 		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ecb_tdes2.h.m4"/>
 		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ecb_tdes3.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ecb_twofish_128.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ecb_twofish_192.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ecb_twofish_256.h.m4"/>
 		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ofb_aes_128.h.m4"/>
 		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ofb_aes_192.h.m4"/>
 		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ofb_aes_256.h.m4"/>
@@ -51,6 +66,9 @@
 		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ofb_serpent.h.m4"/>
 		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ofb_tdes2.h.m4"/>
 		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ofb_tdes3.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ofb_twofish_128.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ofb_twofish_192.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ofb_twofish_256.h.m4"/>
 		<CustomBuild Include="..\..\..\src\mk_sl_cui_inl_defd.h.m4"/>
 		<CustomBuild Include="..\..\..\src\mk_sl_cui_inl_defu.h.m4"/>
 		<CustomBuild Include="..\..\..\src\mk_sl_cui_inl_filec.h.m4"/>
