@@ -55,6 +55,9 @@
 #include "mk_lang_strlen_inl_filec.h"
 
 
+#define mk_clib_app_vc_buffered_len (64ul * 1024ul)
+
+
 struct mk_lib_vc_block_oversized2_data_s
 {
 	mk_sl_cui_uint8_t m_uint8s[(mk_lib_vc_block_len + mk_lib_vc_salt_len) + (mk_lib_vc_block_len + mk_lib_vc_salt_len - 1)];
@@ -68,7 +71,7 @@ struct mk_lib_vc_block_oversized2_s
 typedef struct mk_lib_vc_block_oversized2_s mk_lib_vc_block_oversized2_t;
 
 
-static mk_sl_cui_uint8_t g_mk_clib_app_vc_buf[(2ul * 64ul * 1024ul) + ((64ul * 1024ul) - 1ul)];
+static mk_sl_cui_uint8_t g_mk_clib_app_vc_buf[(2ul * mk_clib_app_vc_buffered_len) + (mk_clib_app_vc_buffered_len - 1ul)];
 
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_tx_open_reader(mk_sl_io_reader_file_pt const reader, mk_sl_io_transaction_pt const tx, mk_lang_types_bool_t const wide, mk_lang_types_pchar_pct const name) mk_lang_noexcept
@@ -375,8 +378,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_
 	mk_lang_assert(str_output);
 
 	err = mk_clib_app_vc_tx_open_writer(&writer, tx, wide, str_output); mk_lang_check_rereturn(err);
-	buf = ((mk_sl_cui_uint8_pt)(((((mk_lang_types_uintptr_t)(&g_mk_clib_app_vc_buf[0])) + ((64ul * 1024ul) - 1ul)) / (64ul * 1024ul)) * (64ul * 1024ul))) + (1ul * 64ul * 1024ul);
-	mk_clib_app_vc_writer_init(&buffered, &writer, buf, 64ul * 1024ul);
+	buf = ((mk_sl_cui_uint8_pt)(((((mk_lang_types_uintptr_t)(&g_mk_clib_app_vc_buf[0])) + (mk_clib_app_vc_buffered_len - 1ul)) / mk_clib_app_vc_buffered_len) * mk_clib_app_vc_buffered_len)) + (1ul * mk_clib_app_vc_buffered_len);
+	mk_clib_app_vc_writer_init(&buffered, &writer, buf, mk_clib_app_vc_buffered_len);
 	do
 	{
 		tul = 1ul * 1024ul * 1024ul; mk_sl_cui_uint32_from_bi_ulong(&align, &tul);
@@ -481,8 +484,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_
 	err = mk_lib_vc_parse_cost(wide, str_pim, &cost); mk_lang_check_rereturn(err);
 	block = ((mk_lib_vc_block_pt)(((((mk_lang_types_uintptr_t)(&block_oversized)) + (sizeof(*block) - 1)) / sizeof(*block)) * sizeof(*block)));
 	err = mk_clib_app_vc_tx_open_reader(&reader, tx, wide, str_input); mk_lang_check_rereturn(err);
-	buf = ((mk_sl_cui_uint8_pt)(((((mk_lang_types_uintptr_t)(&g_mk_clib_app_vc_buf[0])) + ((64ul * 1024ul) - 1ul)) / (64ul * 1024ul)) * (64ul * 1024ul))) + (0ul * 64ul * 1024ul);
-	err = mk_clib_app_vc_reader_init(&buffered, &reader, buf, 64ul * 1024ul); mk_lang_check_rereturn(err);
+	buf = ((mk_sl_cui_uint8_pt)(((((mk_lang_types_uintptr_t)(&g_mk_clib_app_vc_buf[0])) + (mk_clib_app_vc_buffered_len - 1ul)) / mk_clib_app_vc_buffered_len) * mk_clib_app_vc_buffered_len)) + (0ul * mk_clib_app_vc_buffered_len);
+	err = mk_clib_app_vc_reader_init(&buffered, &reader, buf, mk_clib_app_vc_buffered_len); mk_lang_check_rereturn(err);
 	do
 	{
 		err = mk_clib_app_vc_reader_read(&buffered, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &read); mk_lang_check_rebreak(err); err = mk_lang_check_line; mk_lang_check_break(read == mk_lang_countof(block->m_data.m_uint8s)); err = 0;
