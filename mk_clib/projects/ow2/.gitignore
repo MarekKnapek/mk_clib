@@ -60,5 +60,12 @@
 /winnt/mkct.mk1
 /winnt/mkct.obj
 
+/winnt/mkvc.err
+/winnt/mkvc.exe
+/winnt/mkvc.lk1
+/winnt/mkvc.map
+/winnt/mkvc.mk1
+/winnt/mkvc.obj
+
 
 /mk_clib.mk
