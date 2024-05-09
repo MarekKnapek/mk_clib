@@ -1,21 +1,20 @@
 #include "mk_lib_crypto_alg_serpent_fuzz.h"
 
 #include "mk_lang_alignas.h"
+#include "mk_lang_countof.h"
 #include "mk_lang_cpuid.h"
-#include "mk_lang_crash.h"
 #include "mk_lang_jumbo.h"
-#include "mk_lang_likely.h"
 #include "mk_lang_min.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_test.h"
 #include "mk_lang_types.h"
 #include "mk_lib_crypto_alg_serpent.h"
 
 #include <string.h> /* memcpy memcmp */
 
 
-#define test(x) if(!(x)) { mk_lang_unlikely mk_lang_crash(); } ((void)(0))
-#define check_len(x) if(!(d && s >= (x))) { return; } ((void)(0))
-#define advance(x) { d += (x); s -= (x); } ((void)(0))
+#define check_len(x) if(!(d && s >= (x))) { return; } ((mk_lang_types_void_t)(0))
+#define advance(x) { d += (x); s -= (x); } ((mk_lang_types_void_t)(0))
 
 
 mk_lang_jumbo void mk_lib_crypto_alg_serpent_fuzz(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
@@ -35,21 +34,20 @@ mk_lang_jumbo void mk_lib_crypto_alg_serpent_fuzz(mk_lang_types_uchar_pct const 
 	s = size;
 	check_len(1); cpuida = d[0] % 2; advance(1);
 	check_len(1); cpuidb = d[0] % 2; advance(1);
-	check_len(mk_lib_crypto_alg_serpent_key_len_v); memcpy(&key, data, mk_lib_crypto_alg_serpent_key_len_v); advance(mk_lib_crypto_alg_serpent_key_len_v);
-	nmsgs = size / mk_lib_crypto_alg_serpent_msg_len_v;
+	check_len(mk_lib_crypto_alg_serpent_key_len_v); memcpy(&key, d, mk_lib_crypto_alg_serpent_key_len_v); advance(mk_lib_crypto_alg_serpent_key_len_v);
+	nmsgs = s / mk_lib_crypto_alg_serpent_msg_len_v;
 	if(nmsgs == 0) return;
-	nmsgs = mk_lang_min(nmsgs, ((mk_lang_types_uint_t)(sizeof(msgs) / sizeof(msgs[0]))));
-	memcpy(&msgs, data, nmsgs * mk_lib_crypto_alg_serpent_msg_len_v);
+	nmsgs = mk_lang_min(nmsgs, mk_lang_countof(msgs));
+	memcpy(&msgs, d, nmsgs * mk_lib_crypto_alg_serpent_msg_len_v); advance(nmsgs * mk_lib_crypto_alg_serpent_msg_len_v);
 	mk_lib_crypto_alg_serpent_expand_enc(&key, &schedule);
-	if(cpuida) mk_lang_cpuid_init(); else mk_lang_cpuid_reset();
+	if(cpuida){ mk_lang_cpuid_init(); }else{ mk_lang_cpuid_reset(); }
 	mk_lib_crypto_alg_serpent_schedule_encrypt(&schedule, &msgs[0], &cts[0], nmsgs);
 	mk_lib_crypto_alg_serpent_expand_dec(&key, &schedule);
-	if(cpuidb) mk_lang_cpuid_init(); else mk_lang_cpuid_reset();
+	if(cpuidb){ mk_lang_cpuid_init(); }else{ mk_lang_cpuid_reset(); }
 	mk_lib_crypto_alg_serpent_schedule_decrypt(&schedule, &cts[0], &pts[0], nmsgs);
-	test(memcmp(&pts, &msgs, nmsgs * mk_lib_crypto_alg_serpent_msg_len_v) == 0);
+	mk_lang_test(memcmp(&pts, &msgs, nmsgs * mk_lib_crypto_alg_serpent_msg_len_v) == 0);
 }
 
 
-#undef test
 #undef check_len
 #undef advance
