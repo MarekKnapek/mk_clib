@@ -485,7 +485,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_t
 	#undef mk_lib_crypto_alg_twofish_base_inl_filec_sk_bump
 }
 
-mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_twofish_base_inl_defd_rndenc(mk_lib_crypto_alg_twofish_base_inl_defd_schedule_pct const schedule, mk_lang_types_sint_t const ir, mk_lang_static_param(mk_sl_cui_uint32_t, x, mk_lib_crypto_alg_twofish_base_inl_filec_msg_words)) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_twofish_base_inl_defd_rnd_enc(mk_lib_crypto_alg_twofish_base_inl_defd_schedule_pct const schedule, mk_lang_types_sint_t const ir, mk_lang_static_param(mk_sl_cui_uint32_t, x, mk_lib_crypto_alg_twofish_base_inl_filec_msg_words)) mk_lang_noexcept
 {
 	mk_sl_cui_uint32_t ta mk_lang_constexpr_init;
 	mk_sl_cui_uint32_t tta mk_lang_constexpr_init;
@@ -509,7 +509,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_t
 	mk_sl_cui_uint32_rotr2(&x[2], 1);
 }
 
-mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_twofish_base_inl_defd_rnddec(mk_lib_crypto_alg_twofish_base_inl_defd_schedule_pct const schedule, mk_lang_types_sint_t const ir, mk_lang_static_param(mk_sl_cui_uint32_t, x, mk_lib_crypto_alg_twofish_base_inl_filec_sbox_words)) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_twofish_base_inl_defd_rnd_dec(mk_lib_crypto_alg_twofish_base_inl_defd_schedule_pct const schedule, mk_lang_types_sint_t const ir, mk_lang_static_param(mk_sl_cui_uint32_t, x, mk_lib_crypto_alg_twofish_base_inl_filec_sbox_words)) mk_lang_noexcept
 {
 	mk_sl_cui_uint32_t ta mk_lang_constexpr_init;
 	mk_sl_cui_uint32_t tta mk_lang_constexpr_init;
@@ -533,7 +533,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_t
 	mk_sl_cui_uint32_rotr2(&x[3], 1);
 }
 
-mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_twofish_base_inl_defd_oneenc(mk_lib_crypto_alg_twofish_base_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_twofish_base_inl_defd_msg_pct const input, mk_lib_crypto_alg_twofish_base_inl_defd_msg_pt const output) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_twofish_base_inl_defd_one_enc(mk_lib_crypto_alg_twofish_base_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_twofish_base_inl_defd_msg_pct const input, mk_lib_crypto_alg_twofish_base_inl_defd_msg_pt const output) mk_lang_noexcept
 {
 	mk_lang_types_sint_t n mk_lang_constexpr_init;
 	mk_lang_types_sint_t i mk_lang_constexpr_init;
@@ -553,11 +553,11 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_t
 	n = mk_lib_crypto_alg_twofish_base_inl_defd_nr;
 	for(i = 0; i != n - 1; ++i)
 	{
-		mk_lib_crypto_alg_twofish_base_inl_defd_rndenc(schedule, i, &x[0]);
+		mk_lib_crypto_alg_twofish_base_inl_defd_rnd_enc(schedule, i, &x[0]);
 		ta = x[0]; x[0] = x[2]; x[2] = ta;
 		ta = x[1]; x[1] = x[3]; x[3] = ta;
 	}
-	mk_lib_crypto_alg_twofish_base_inl_defd_rndenc(schedule, i, &x[0]);
+	mk_lib_crypto_alg_twofish_base_inl_defd_rnd_enc(schedule, i, &x[0]);
 	n = mk_lib_crypto_alg_twofish_base_inl_filec_msg_words;
 	for(i = 0; i != n; ++i)
 	{
@@ -566,7 +566,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_t
 	}
 }
 
-mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_twofish_base_inl_defd_onedec(mk_lib_crypto_alg_twofish_base_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_twofish_base_inl_defd_msg_pct const input, mk_lib_crypto_alg_twofish_base_inl_defd_msg_pt const output) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_twofish_base_inl_defd_one_dec(mk_lib_crypto_alg_twofish_base_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_twofish_base_inl_defd_msg_pct const input, mk_lib_crypto_alg_twofish_base_inl_defd_msg_pt const output) mk_lang_noexcept
 {
 	mk_lang_types_sint_t n mk_lang_constexpr_init;
 	mk_lang_types_sint_t i mk_lang_constexpr_init;
@@ -586,11 +586,11 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_t
 	n = mk_lib_crypto_alg_twofish_base_inl_defd_nr;
 	for(i = 0; i != n - 1; ++i)
 	{
-		mk_lib_crypto_alg_twofish_base_inl_defd_rnddec(schedule, (mk_lib_crypto_alg_twofish_base_inl_defd_nr - 1) - i, &x[0]);
+		mk_lib_crypto_alg_twofish_base_inl_defd_rnd_dec(schedule, (mk_lib_crypto_alg_twofish_base_inl_defd_nr - 1) - i, &x[0]);
 		ta = x[0]; x[0] = x[2]; x[2] = ta;
 		ta = x[1]; x[1] = x[3]; x[3] = ta;
 	}
-	mk_lib_crypto_alg_twofish_base_inl_defd_rnddec(schedule, (mk_lib_crypto_alg_twofish_base_inl_defd_nr - 1) - i, &x[0]);
+	mk_lib_crypto_alg_twofish_base_inl_defd_rnd_dec(schedule, (mk_lib_crypto_alg_twofish_base_inl_defd_nr - 1) - i, &x[0]);
 	n = mk_lib_crypto_alg_twofish_base_inl_filec_msg_words;
 	for(i = 0; i != n; ++i)
 	{
@@ -613,7 +613,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_alg_twofish_b
 	n = nblocks;
 	for(i = 0; i != n; ++i)
 	{
-		mk_lib_crypto_alg_twofish_base_inl_defd_oneenc(schedule, &input[i], &output[i]);
+		mk_lib_crypto_alg_twofish_base_inl_defd_one_enc(schedule, &input[i], &output[i]);
 	}
 }
 
@@ -630,7 +630,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_alg_twofish_b
 	n = nblocks;
 	for(i = 0; i != n; ++i)
 	{
-		mk_lib_crypto_alg_twofish_base_inl_defd_onedec(schedule, &input[i], &output[i]);
+		mk_lib_crypto_alg_twofish_base_inl_defd_one_dec(schedule, &input[i], &output[i]);
 	}
 }
 
