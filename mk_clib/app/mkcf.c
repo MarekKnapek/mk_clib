@@ -8,16 +8,11 @@
 mk_lang_extern_c mk_lang_nodiscard mk_lang_types_usize_t LLVMFuzzerMutate(mk_lang_types_uchar_pt const data, mk_lang_types_usize_t const size, mk_lang_types_usize_t const size_max) mk_lang_noexcept;
 
 
-mk_lang_extern_c int LLVMFuzzerTestOneInput(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
-{
-	return mk_clib_app_fuzz(data, size);
-}
-
-mk_lang_extern_c mk_lang_types_usize_t LLVMFuzzerCustomMutator(mk_lang_types_uchar_pt const data, mk_lang_types_usize_t const size, mk_lang_types_usize_t const size_max, mk_lang_types_uint_t const seed) mk_lang_noexcept
+mk_lang_extern_c mk_lang_nodiscard mk_lang_types_usize_t LLVMFuzzerCustomMutator(mk_lang_types_uchar_pt const data, mk_lang_types_usize_t const size, mk_lang_types_usize_t const size_max, mk_lang_types_uint_t const seed) mk_lang_noexcept
 {
 	mk_lang_types_usize_t s;
 
-	if(size != 0 && seed % 2 == 0)
+	if(size != 0 && seed % 64 == 0)
 	{
 		return size - 1;
 	}
@@ -26,4 +21,10 @@ mk_lang_extern_c mk_lang_types_usize_t LLVMFuzzerCustomMutator(mk_lang_types_uch
 		s = LLVMFuzzerMutate(data, size, size_max);
 		return s;
 	}
+}
+
+
+mk_lang_extern_c mk_lang_nodiscard mk_lang_types_sint_t LLVMFuzzerTestOneInput(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
+{
+	return mk_clib_app_fuzz(data, size);
 }
