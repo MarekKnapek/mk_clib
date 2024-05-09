@@ -18,6 +18,20 @@
 #include "mk_lang_overlap_inl_fileh.h"
 #include "mk_lang_overlap_inl_filec.h"
 
+#define mk_sl_sort_merge_memcpy_data_name mk_lang_concat(mk_sl_sort_merge_inl_defd_name, _memcpy_data)
+#define mk_sl_sort_merge_memcpy_data_fn mk_lang_concat(mk_sl_sort_merge_memcpy_data_name, _fn)
+#define mk_lang_memcpy_t_name mk_sl_sort_merge_memcpy_data_name
+#define mk_lang_memcpy_t_base mk_sl_sort_merge_inl_defd_data
+#include "mk_lang_memcpy_inl_fileh.h"
+#include "mk_lang_memcpy_inl_filec.h"
+
+#define mk_sl_sort_merge_swap_data_name mk_lang_concat(mk_sl_sort_merge_inl_defd_name, _swap_data)
+#define mk_sl_sort_merge_swap_data_fn mk_lang_concat(mk_sl_sort_merge_swap_data_name, _fn)
+#define mk_lang_swap_t_name mk_sl_sort_merge_swap_data_name
+#define mk_lang_swap_t_base mk_sl_sort_merge_inl_defd_data
+#include "mk_lang_swap_inl_fileh.h"
+#include "mk_lang_swap_inl_filec.h"
+
 #define mk_sl_sort_merge_overlap_proxy_name mk_lang_concat(mk_sl_sort_merge_inl_defd_name, _overlap_proxy)
 #define mk_sl_sort_merge_overlap_proxy_fn mk_lang_concat(mk_sl_sort_merge_overlap_proxy_name, _fn)
 #define mk_lang_overlap_t_name mk_sl_sort_merge_overlap_proxy_name
@@ -25,8 +39,22 @@
 #include "mk_lang_overlap_inl_fileh.h"
 #include "mk_lang_overlap_inl_filec.h"
 
+#define mk_sl_sort_merge_memcpy_proxy_name mk_lang_concat(mk_sl_sort_merge_inl_defd_name, _memcpy_proxy)
+#define mk_sl_sort_merge_memcpy_proxy_fn mk_lang_concat(mk_sl_sort_merge_memcpy_proxy_name, _fn)
+#define mk_lang_memcpy_t_name mk_sl_sort_merge_memcpy_proxy_name
+#define mk_lang_memcpy_t_base mk_sl_sort_merge_inl_defd_proxy
+#include "mk_lang_memcpy_inl_fileh.h"
+#include "mk_lang_memcpy_inl_filec.h"
 
-mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_sort_merge_inl_defd_fn_merge_plain(mk_sl_sort_merge_inl_defd_data_prct const input_a, mk_sl_sort_merge_inl_defd_counter_t const count_a, mk_sl_sort_merge_inl_defd_data_prct const input_b, mk_sl_sort_merge_inl_defd_counter_t const count_b, mk_sl_sort_merge_inl_defd_data_prt const output) mk_lang_noexcept
+#define mk_sl_sort_merge_swap_proxy_name mk_lang_concat(mk_sl_sort_merge_inl_defd_name, _swap_proxy)
+#define mk_sl_sort_merge_swap_proxy_fn mk_lang_concat(mk_sl_sort_merge_swap_proxy_name, _fn)
+#define mk_lang_swap_t_name mk_sl_sort_merge_swap_proxy_name
+#define mk_lang_swap_t_base mk_sl_sort_merge_inl_defd_proxy
+#include "mk_lang_swap_inl_fileh.h"
+#include "mk_lang_swap_inl_filec.h"
+
+
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_sort_merge_inl_defd_fn_merge_plain(mk_sl_sort_merge_inl_defd_data_pct const input_a, mk_sl_sort_merge_inl_defd_counter_t const count_a, mk_sl_sort_merge_inl_defd_data_pct const input_b, mk_sl_sort_merge_inl_defd_counter_t const count_b, mk_sl_sort_merge_inl_defd_data_pt const output) mk_lang_noexcept
 {
 	mk_sl_sort_merge_inl_defd_counter_t idx_a mk_lang_constexpr_init;
 	mk_sl_sort_merge_inl_defd_counter_t idx_b mk_lang_constexpr_init;
@@ -55,17 +83,14 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_sort_merge_in
 			output[idx_o++] = input_b[idx_b++];
 		}
 	}
-	while(idx_a != count_a)
-	{
-		output[idx_o++] = input_a[idx_a++];
-	}
-	while(idx_b != count_b)
-	{
-		output[idx_o++] = input_b[idx_b++];
-	}
+	mk_sl_sort_merge_memcpy_data_fn(&output[idx_o], &input_a[idx_a], count_a - idx_a); idx_o += count_a - idx_a; idx_a += count_a - idx_a;
+	mk_sl_sort_merge_memcpy_data_fn(&output[idx_o], &input_b[idx_b], count_b - idx_b); idx_o += count_b - idx_b; idx_b += count_b - idx_b;
+	mk_lang_assert(idx_a == count_a);
+	mk_lang_assert(idx_b == count_b);
+	mk_lang_assert(idx_o == count_a + count_b);
 }
 
-mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_sort_merge_inl_defd_fn_merge_proxy(mk_sl_sort_merge_inl_defd_data_prct const data, mk_sl_sort_merge_inl_defd_proxy_prct const input_a, mk_sl_sort_merge_inl_defd_counter_t const count_a, mk_sl_sort_merge_inl_defd_proxy_prct const input_b, mk_sl_sort_merge_inl_defd_counter_t const count_b, mk_sl_sort_merge_inl_defd_proxy_prt const output) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_sort_merge_inl_defd_fn_merge_proxy(mk_sl_sort_merge_inl_defd_data_pct const data, mk_sl_sort_merge_inl_defd_proxy_pct const input_a, mk_sl_sort_merge_inl_defd_counter_t const count_a, mk_sl_sort_merge_inl_defd_proxy_pct const input_b, mk_sl_sort_merge_inl_defd_counter_t const count_b, mk_sl_sort_merge_inl_defd_proxy_pt const output) mk_lang_noexcept
 {
 	mk_sl_sort_merge_inl_defd_counter_t idx_a mk_lang_constexpr_init;
 	mk_sl_sort_merge_inl_defd_counter_t idx_b mk_lang_constexpr_init;
@@ -98,57 +123,61 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_sort_merge_in
 			output[idx_o++] = input_b[idx_b++];
 		}
 	}
-	while(idx_a != count_a)
-	{
-		output[idx_o++] = input_a[idx_a++];
-	}
-	while(idx_b != count_b)
-	{
-		output[idx_o++] = input_b[idx_b++];
-	}
+	mk_sl_sort_merge_memcpy_proxy_fn(&output[idx_o], &input_a[idx_a], count_a - idx_a); idx_o += count_a - idx_a; idx_a += count_a - idx_a;
+	mk_sl_sort_merge_memcpy_proxy_fn(&output[idx_o], &input_b[idx_b], count_b - idx_b); idx_o += count_b - idx_b; idx_b += count_b - idx_b;
+	mk_lang_assert(idx_a == count_a);
+	mk_lang_assert(idx_b == count_b);
+	mk_lang_assert(idx_o == count_a + count_b);
 }
 
-mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_sort_merge_inl_defd_fn_first_round_plain_inplace(mk_sl_sort_merge_inl_defd_data_prt const data, mk_sl_sort_merge_inl_defd_counter_t const count, mk_sl_sort_merge_inl_defd_data_prt const tmp) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_sort_merge_inl_defd_fn_first_round_plain_inplace(mk_sl_sort_merge_inl_defd_data_pt const data, mk_sl_sort_merge_inl_defd_counter_t const count) mk_lang_noexcept
 {
 	mk_sl_sort_merge_inl_defd_counter_t i mk_lang_constexpr_init;
-	mk_sl_sort_merge_inl_defd_data_t t mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_data_pt a mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_data_pt b mk_lang_constexpr_init;
 
 	mk_lang_assert(data);
 	mk_lang_assert(count >= 2);
-	mk_lang_assert(tmp);
-	mk_lang_assert(!mk_sl_sort_merge_overlap_data_fn(data, count, tmp, count));
 
 	for(i = 0; i != count / 2; ++i)
 	{
-		if(!mk_sl_sort_merge_inl_defd_fn_is_sorted_plain(&data[i * 2 + 0], &data[i * 2 + 1]))
+		a = &data[i * 2 + 0];
+		b = &data[i * 2 + 1];
+		if(!mk_sl_sort_merge_inl_defd_fn_is_sorted_plain(a, b))
 		{
-			t = data[i * 2 + 0];
-			data[i * 2 + 0] = data[i * 2 + 1];
-			data[i * 2 + 1] = t;
+			mk_sl_sort_merge_swap_data_fn(a, b);
 		}
 	}
 }
 
-mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_sort_merge_inl_defd_fn_first_round_plain_copy(mk_sl_sort_merge_inl_defd_data_prt const data, mk_sl_sort_merge_inl_defd_counter_t const count, mk_sl_sort_merge_inl_defd_data_prt const tmp) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_sort_merge_inl_defd_fn_first_round_plain_copy(mk_sl_sort_merge_inl_defd_data_pct const data, mk_sl_sort_merge_inl_defd_counter_t const count, mk_sl_sort_merge_inl_defd_data_pt const tmp) mk_lang_noexcept
 {
 	mk_sl_sort_merge_inl_defd_counter_t i mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_data_pct ai mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_data_pct bi mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_data_pt ao mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_data_pt bo mk_lang_constexpr_init;
 
 	mk_lang_assert(data);
-	mk_lang_assert(count >= 2);
+	mk_lang_assert(count >= 3);
 	mk_lang_assert(tmp);
 	mk_lang_assert(!mk_sl_sort_merge_overlap_data_fn(data, count, tmp, count));
 
 	for(i = 0; i != count / 2; ++i)
 	{
-		if(mk_sl_sort_merge_inl_defd_fn_is_sorted_plain(&data[i * 2 + 0], &data[i * 2 + 1]))
+		ai = &data[i * 2 + 0];
+		bi = &data[i * 2 + 1];
+		ao = &tmp[i * 2 + 0];
+		bo = &tmp[i * 2 + 1];
+		if(mk_sl_sort_merge_inl_defd_fn_is_sorted_plain(ai, bi))
 		{
-			tmp[i * 2 + 0] = data[i * 2 + 0];
-			tmp[i * 2 + 1] = data[i * 2 + 1];
+			*ao = *ai;
+			*bo = *bi;
 		}
 		else
 		{
-			tmp[i * 2 + 0] = data[i * 2 + 1];
-			tmp[i * 2 + 1] = data[i * 2 + 0];
+			*ao = *bi;
+			*bo = *ai;
 		}
 	}
 	if(count % 2 != 0)
@@ -157,18 +186,18 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_sort_merge_in
 	}
 }
 
-mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_bool_t mk_sl_sort_merge_inl_defd_fn_first_round_plain(mk_sl_sort_merge_inl_defd_data_prt const data, mk_sl_sort_merge_inl_defd_counter_t const count, mk_sl_sort_merge_inl_defd_data_prt const tmp) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t mk_sl_sort_merge_inl_defd_fn_first_round_plain(mk_sl_sort_merge_inl_defd_data_pt const data, mk_sl_sort_merge_inl_defd_counter_t const count, mk_sl_sort_merge_inl_defd_data_pt const tmp) mk_lang_noexcept
 {
 	mk_sl_sort_merge_inl_defd_counter_t cnt mk_lang_constexpr_init;
-	int clz mk_lang_constexpr_init;
-	mk_lang_bool_t r mk_lang_constexpr_init;
+	mk_lang_types_sint_t clz mk_lang_constexpr_init;
+	mk_lang_types_bool_t r mk_lang_constexpr_init;
 
 	mk_lang_assert(data);
-	mk_lang_assert(count >= 2);
+	mk_lang_assert(count >= 3);
 	mk_lang_assert(tmp);
 	mk_lang_assert(!mk_sl_sort_merge_overlap_data_fn(data, count, tmp, count));
 
-	cnt = count - 1;
+	mk_sl_sort_merge_inl_defd_counter_dec2(&count, &cnt);
 	clz = mk_sl_sort_merge_inl_defd_counter_count_leading_zeros(&cnt);
 	r = clz % 2 == 0;
 	if(r)
@@ -177,54 +206,69 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_bool_t mk_sl_s
 	}
 	else
 	{
-		mk_sl_sort_merge_inl_defd_fn_first_round_plain_inplace(data, count, tmp);
+		mk_sl_sort_merge_inl_defd_fn_first_round_plain_inplace(data, count);
 	}
 	return r;
 }
 
-mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_sort_merge_inl_defd_fn_first_round_proxy_inplace(mk_sl_sort_merge_inl_defd_data_prct const data, mk_sl_sort_merge_inl_defd_proxy_prt const proxy, mk_sl_sort_merge_inl_defd_counter_t const count, mk_sl_sort_merge_inl_defd_proxy_prt const tmp) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_sort_merge_inl_defd_fn_first_round_proxy_inplace(mk_sl_sort_merge_inl_defd_data_pct const data, mk_sl_sort_merge_inl_defd_proxy_pt const proxy, mk_sl_sort_merge_inl_defd_counter_t const count) mk_lang_noexcept
 {
 	mk_sl_sort_merge_inl_defd_counter_t i mk_lang_constexpr_init;
-	mk_sl_sort_merge_inl_defd_proxy_t t mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_proxy_pt a mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_proxy_pt b mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_data_pct c mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_data_pct d mk_lang_constexpr_init;
 
 	mk_lang_assert(data);
 	mk_lang_assert(count >= 2);
-	mk_lang_assert(tmp);
-	/* todo if data type is the same as proxy type (but it usually is not), then also check for overlap with data-proxy and data-tmp */
-	mk_lang_assert(!mk_sl_sort_merge_overlap_proxy_fn(proxy, count, tmp, count));
 
 	for(i = 0; i != count / 2; ++i)
 	{
-		if(!mk_sl_sort_merge_inl_defd_fn_is_sorted_proxy(&data[proxy[i * 2 + 0]], &data[proxy[i * 2 + 1]]))
+		a = &proxy[i * 2 + 0];
+		b = &proxy[i * 2 + 1];
+		c = &data[*a];
+		d = &data[*b];
+		if(!mk_sl_sort_merge_inl_defd_fn_is_sorted_proxy(c, d))
 		{
-			t = proxy[i * 2 + 0];
-			proxy[i * 2 + 0] = proxy[i * 2 + 1];
-			proxy[i * 2 + 1] = t;
+			mk_sl_sort_merge_swap_proxy_fn(a, b);
 		}
 	}
 }
 
-mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_sort_merge_inl_defd_fn_first_round_proxy_copy(mk_sl_sort_merge_inl_defd_data_prct const data, mk_sl_sort_merge_inl_defd_proxy_prt const proxy, mk_sl_sort_merge_inl_defd_counter_t const count, mk_sl_sort_merge_inl_defd_proxy_prt const tmp) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_sort_merge_inl_defd_fn_first_round_proxy_copy(mk_sl_sort_merge_inl_defd_data_pct const data, mk_sl_sort_merge_inl_defd_proxy_pt const proxy, mk_sl_sort_merge_inl_defd_counter_t const count, mk_sl_sort_merge_inl_defd_proxy_pt const tmp) mk_lang_noexcept
 {
 	mk_sl_sort_merge_inl_defd_counter_t i mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_proxy_pct ai mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_proxy_pct bi mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_data_pct c mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_data_pct d mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_proxy_pt ao mk_lang_constexpr_init;
+	mk_sl_sort_merge_inl_defd_proxy_pt bo mk_lang_constexpr_init;
 
 	mk_lang_assert(data);
-	mk_lang_assert(count >= 2);
+	mk_lang_assert(proxy);
+	mk_lang_assert(count >= 3);
 	mk_lang_assert(tmp);
 	/* todo if data type is the same as proxy type (but it usually is not), then also check for overlap with data-proxy and data-tmp */
 	mk_lang_assert(!mk_sl_sort_merge_overlap_proxy_fn(proxy, count, tmp, count));
 
 	for(i = 0; i != count / 2; ++i)
 	{
-		if(mk_sl_sort_merge_inl_defd_fn_is_sorted_proxy(&data[proxy[i * 2 + 0]], &data[proxy[i * 2 + 1]]))
+		ai = &proxy[i * 2 + 0];
+		bi = &proxy[i * 2 + 1];
+		c = &data[*ai];
+		d = &data[*bi];
+		ao = &tmp[i * 2 + 0];
+		bo = &tmp[i * 2 + 1];
+		if(mk_sl_sort_merge_inl_defd_fn_is_sorted_plain(c, d))
 		{
-			tmp[i * 2 + 0] = proxy[i * 2 + 0];
-			tmp[i * 2 + 1] = proxy[i * 2 + 1];
+			*ao = *ai;
+			*bo = *bi;
 		}
 		else
 		{
-			tmp[i * 2 + 0] = proxy[i * 2 + 1];
-			tmp[i * 2 + 1] = proxy[i * 2 + 0];
+			*ao = *bi;
+			*bo = *ai;
 		}
 	}
 	if(count % 2 != 0)
@@ -233,11 +277,11 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_sort_merge_in
 	}
 }
 
-mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_bool_t mk_sl_sort_merge_inl_defd_fn_first_round_proxy(mk_sl_sort_merge_inl_defd_data_prct const data, mk_sl_sort_merge_inl_defd_proxy_prt const proxy, mk_sl_sort_merge_inl_defd_counter_t const count, mk_sl_sort_merge_inl_defd_proxy_prt const tmp) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t mk_sl_sort_merge_inl_defd_fn_first_round_proxy(mk_sl_sort_merge_inl_defd_data_pct const data, mk_sl_sort_merge_inl_defd_proxy_pt const proxy, mk_sl_sort_merge_inl_defd_counter_t const count, mk_sl_sort_merge_inl_defd_proxy_pt const tmp) mk_lang_noexcept
 {
 	mk_sl_sort_merge_inl_defd_counter_t cnt mk_lang_constexpr_init;
-	int clz mk_lang_constexpr_init;
-	mk_lang_bool_t r mk_lang_constexpr_init;
+	mk_lang_types_sint_t clz mk_lang_constexpr_init;
+	mk_lang_types_bool_t r mk_lang_constexpr_init;
 
 	mk_lang_assert(data);
 	mk_lang_assert(count >= 2);
@@ -245,7 +289,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_bool_t mk_sl_s
 	/* todo if data type is the same as proxy type (but it usually is not), then also check for overlap with data-proxy and data-tmp */
 	mk_lang_assert(!mk_sl_sort_merge_overlap_proxy_fn(proxy, count, tmp, count));
 
-	cnt = count - 1;
+	mk_sl_sort_merge_inl_defd_counter_dec2(&count, &cnt);
 	clz = mk_sl_sort_merge_inl_defd_counter_count_leading_zeros(&cnt);
 	r = clz % 2 == 0;
 	if(r)
@@ -254,13 +298,12 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_bool_t mk_sl_s
 	}
 	else
 	{
-		mk_sl_sort_merge_inl_defd_fn_first_round_proxy_inplace(data, proxy, count, tmp);
+		mk_sl_sort_merge_inl_defd_fn_first_round_proxy_inplace(data, proxy, count);
 	}
 	return r;
 }
 
-
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_sort_merge_inl_defd_fn_plain(mk_sl_sort_merge_inl_defd_data_prt const data, mk_sl_sort_merge_inl_defd_counter_t const count, mk_sl_sort_merge_inl_defd_data_prt const tmp) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_sort_merge_inl_defd_fn_plain_many(mk_sl_sort_merge_inl_defd_data_pt const data, mk_sl_sort_merge_inl_defd_counter_t const count, mk_sl_sort_merge_inl_defd_data_pt const tmp) mk_lang_noexcept
 {
 	mk_sl_sort_merge_inl_defd_data_pt in mk_lang_constexpr_init;
 	mk_sl_sort_merge_inl_defd_data_pt out mk_lang_constexpr_init;
@@ -270,23 +313,13 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_sort_merge_inl_defd_f
 	mk_sl_sort_merge_inl_defd_counter_t block_count mk_lang_constexpr_init;
 	mk_sl_sort_merge_inl_defd_counter_t rest mk_lang_constexpr_init;
 	mk_sl_sort_merge_inl_defd_counter_t i mk_lang_constexpr_init;
-	mk_sl_sort_merge_inl_defd_counter_t j mk_lang_constexpr_init;
 
 	mk_lang_assert(data);
-	mk_lang_assert(count >= 0);
+	mk_lang_assert(count >= 3);
 	mk_lang_assert(count <= ((mk_sl_sort_merge_inl_defd_counter_t)(((mk_sl_sort_merge_inl_defd_counter_t)(~((mk_sl_sort_merge_inl_defd_counter_t)(0)))) / ((mk_sl_sort_merge_inl_defd_counter_t)(2)))));
 	mk_lang_assert(tmp);
 	mk_lang_assert(!mk_sl_sort_merge_overlap_data_fn(data, count, tmp, count));
 
-	if(count <= 1)
-	{
-		return;
-	}
-	else if(count == 2)
-	{
-		mk_sl_sort_merge_inl_defd_fn_first_round_plain_inplace(data, 2, tmp);
-		return;
-	}
 	in = data;
 	out = tmp;
 	#if mk_sl_sort_merge_inl_defd_first_round
@@ -301,29 +334,29 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_sort_merge_inl_defd_f
 		rest = count - (block_count * block_size);
 		for(i = 0; i != block_count; ++i)
 		{
-			mk_sl_sort_merge_inl_defd_fn_merge_plain(&in[i * block_size], chunk_size, &in[i * block_size + chunk_size], chunk_size, &out[i * block_size]);
+			mk_sl_sort_merge_inl_defd_fn_merge_plain(&in[i * block_size + 0 * chunk_size], chunk_size, &in[i * block_size + 1 * chunk_size], chunk_size, &out[i * block_size]);
 		}
 		if(rest > chunk_size)
 		{
 			rest = rest - chunk_size;
-			mk_sl_sort_merge_inl_defd_fn_merge_plain(&in[i * block_size], chunk_size, &in[i * block_size + chunk_size], rest, &out[i * block_size]);
+			mk_sl_sort_merge_inl_defd_fn_merge_plain(&in[i * block_size + 0 * chunk_size], chunk_size, &in[i * block_size + 1 * chunk_size], rest, &out[i * block_size]);
 		}
 		else
 		{
-			for(j = 0; j != rest; ++j){ out[i * block_size + j] = in[i * block_size + j]; }
+			mk_sl_sort_merge_memcpy_data_fn(&out[i * block_size], &in[i * block_size], rest);
 		}
 	}
 	mk_lang_assert(count > chunk_size);
 	rest = count - chunk_size;
-	mk_sl_sort_merge_inl_defd_fn_merge_plain(&in[0], chunk_size, &in[chunk_size], rest, &out[0]);
+	mk_sl_sort_merge_inl_defd_fn_merge_plain(&in[0 * chunk_size], chunk_size, &in[1 * chunk_size], rest, &out[0]);
 	#if mk_sl_sort_merge_inl_defd_first_round
 	mk_lang_assert(out == data);
 	#else
-	if(out != data){ for(i = 0; i != count; ++i){ data[i] = out[i]; } }
+	if(out != data){ mk_sl_sort_merge_memcpy_data_fn(&data[0], &out[0], count); }
 	#endif
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_sort_merge_inl_defd_fn_proxy(mk_sl_sort_merge_inl_defd_data_prct const data, mk_sl_sort_merge_inl_defd_proxy_prt const proxy, mk_sl_sort_merge_inl_defd_counter_t const count, mk_sl_sort_merge_inl_defd_proxy_prt const tmp) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_sort_merge_inl_defd_fn_proxy_many(mk_sl_sort_merge_inl_defd_data_pct const data, mk_sl_sort_merge_inl_defd_proxy_pt const proxy, mk_sl_sort_merge_inl_defd_counter_t const count, mk_sl_sort_merge_inl_defd_proxy_pt const tmp) mk_lang_noexcept
 {
 	mk_sl_sort_merge_inl_defd_proxy_pt in mk_lang_constexpr_init;
 	mk_sl_sort_merge_inl_defd_proxy_pt out mk_lang_constexpr_init;
@@ -333,25 +366,15 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_sort_merge_inl_defd_f
 	mk_sl_sort_merge_inl_defd_counter_t block_count mk_lang_constexpr_init;
 	mk_sl_sort_merge_inl_defd_counter_t rest mk_lang_constexpr_init;
 	mk_sl_sort_merge_inl_defd_counter_t i mk_lang_constexpr_init;
-	mk_sl_sort_merge_inl_defd_counter_t j mk_lang_constexpr_init;
 
 	mk_lang_assert(data);
 	mk_lang_assert(proxy);
-	mk_lang_assert(count >= 0);
+	mk_lang_assert(count >= 3);
 	mk_lang_assert(count <= ((mk_sl_sort_merge_inl_defd_counter_t)(((mk_sl_sort_merge_inl_defd_counter_t)(~((mk_sl_sort_merge_inl_defd_counter_t)(0)))) / ((mk_sl_sort_merge_inl_defd_counter_t)(2)))));
 	mk_lang_assert(tmp);
 	/* todo if data type is the same as proxy type (but it usually is not), then also check for overlap with data-proxy and data-tmp */
 	mk_lang_assert(!mk_sl_sort_merge_overlap_proxy_fn(proxy, count, tmp, count));
 
-	if(count <= 1)
-	{
-		return;
-	}
-	else if(count == 2)
-	{
-		mk_sl_sort_merge_inl_defd_fn_first_round_proxy_inplace(data, proxy, 2, tmp);
-		return;
-	}
 	in = proxy;
 	out = tmp;
 	#if mk_sl_sort_merge_inl_defd_first_round
@@ -366,33 +389,86 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_sort_merge_inl_defd_f
 		rest = count - (block_count * block_size);
 		for(i = 0; i != block_count; ++i)
 		{
-			mk_sl_sort_merge_inl_defd_fn_merge_proxy(data, &in[i * block_size], chunk_size, &in[i * block_size + chunk_size], chunk_size, &out[i * block_size]);
+			mk_sl_sort_merge_inl_defd_fn_merge_proxy(data, &in[i * block_size + 0 * chunk_size], chunk_size, &in[i * block_size + 1 * chunk_size], chunk_size, &out[i * block_size]);
 		}
 		if(rest > chunk_size)
 		{
 			rest = rest - chunk_size;
-			mk_sl_sort_merge_inl_defd_fn_merge_proxy(data, &in[i * block_size], chunk_size, &in[i * block_size + chunk_size], rest, &out[i * block_size]);
+			mk_sl_sort_merge_inl_defd_fn_merge_proxy(data, &in[i * block_size + 0 * chunk_size], chunk_size, &in[i * block_size + 1 * chunk_size], rest, &out[i * block_size]);
 		}
 		else
 		{
-			for(j = 0; j != rest; ++j){ out[i * block_size + j] = in[i * block_size + j]; }
+			mk_sl_sort_merge_memcpy_proxy_fn(&out[i * block_size], &in[i * block_size], rest);
 		}
 	}
 	mk_lang_assert(count > chunk_size);
 	rest = count - chunk_size;
-	mk_sl_sort_merge_inl_defd_fn_merge_proxy(data, &in[0], chunk_size, &in[chunk_size], rest, &out[0]);
+	mk_sl_sort_merge_inl_defd_fn_merge_proxy(data, &in[0 * chunk_size], chunk_size, &in[1 * chunk_size], rest, &out[0]);
 	#if mk_sl_sort_merge_inl_defd_first_round
 	mk_lang_assert(out == proxy);
 	#else
-	if(out != proxy){ for(i = 0; i != count; ++i){ proxy[i] = out[i]; } }
+	if(out != proxy){ mk_sl_sort_merge_memcpy_proxy_fn(&proxy[0], &out[0], count); }
 	#endif
+}
+
+
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_sort_merge_inl_defd_fn_plain(mk_sl_sort_merge_inl_defd_data_pt const data, mk_sl_sort_merge_inl_defd_counter_t const count, mk_sl_sort_merge_inl_defd_data_pt const tmp) mk_lang_noexcept
+{
+	mk_lang_assert(data);
+	mk_lang_assert(count >= 0);
+	mk_lang_assert(count <= ((mk_sl_sort_merge_inl_defd_counter_t)(((mk_sl_sort_merge_inl_defd_counter_t)(~((mk_sl_sort_merge_inl_defd_counter_t)(0)))) / ((mk_sl_sort_merge_inl_defd_counter_t)(2)))));
+	mk_lang_assert(tmp);
+	mk_lang_assert(!mk_sl_sort_merge_overlap_data_fn(data, count, tmp, count));
+
+	if(count <= 1)
+	{
+	}
+	else if(count == 2)
+	{
+		mk_sl_sort_merge_inl_defd_fn_first_round_plain_inplace(data, 2);
+	}
+	else
+	{
+		mk_sl_sort_merge_inl_defd_fn_plain_many(data, count, tmp);
+	}
+}
+
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_sort_merge_inl_defd_fn_proxy(mk_sl_sort_merge_inl_defd_data_pct const data, mk_sl_sort_merge_inl_defd_proxy_pt const proxy, mk_sl_sort_merge_inl_defd_counter_t const count, mk_sl_sort_merge_inl_defd_proxy_pt const tmp) mk_lang_noexcept
+{
+	mk_lang_assert(data);
+	mk_lang_assert(proxy);
+	mk_lang_assert(count >= 0);
+	mk_lang_assert(count <= ((mk_sl_sort_merge_inl_defd_counter_t)(((mk_sl_sort_merge_inl_defd_counter_t)(~((mk_sl_sort_merge_inl_defd_counter_t)(0)))) / ((mk_sl_sort_merge_inl_defd_counter_t)(2)))));
+	mk_lang_assert(tmp);
+	/* todo if data type is the same as proxy type (but it usually is not), then also check for overlap with data-proxy and data-tmp */
+	mk_lang_assert(!mk_sl_sort_merge_overlap_proxy_fn(proxy, count, tmp, count));
+
+	if(count <= 1)
+	{
+	}
+	else if(count == 2)
+	{
+		mk_sl_sort_merge_inl_defd_fn_first_round_proxy_inplace(data, proxy, 2);
+	}
+	else
+	{
+		mk_sl_sort_merge_inl_defd_fn_proxy_many(data, proxy, count, tmp);
+	}
 }
 
 
 #undef mk_sl_sort_merge_overlap_data_name
 #undef mk_sl_sort_merge_overlap_data_fn
+#undef mk_sl_sort_merge_memcpy_data_name
+#undef mk_sl_sort_merge_memcpy_data_fn
+#undef mk_sl_sort_merge_swap_data_name
+#undef mk_sl_sort_merge_swap_data_fn
 #undef mk_sl_sort_merge_overlap_proxy_name
 #undef mk_sl_sort_merge_overlap_proxy_fn
+#undef mk_sl_sort_merge_memcpy_proxy_name
+#undef mk_sl_sort_merge_memcpy_proxy_fn
+#undef mk_sl_sort_merge_swap_proxy_name
+#undef mk_sl_sort_merge_swap_proxy_fn
 
 
 #include "mk_sl_sort_merge_inl_defu.h"
