@@ -1,0 +1,237 @@
+#include "mk_lang_assert.h"
+#include "mk_lang_constexpr.h"
+#include "mk_lang_jumbo.h"
+#include "mk_lang_nodiscard.h"
+#include "mk_lang_noexcept.h"
+#include "mk_lang_types.h"
+
+
+#include "mk_sl_fixed_vector_inl_defd.h"
+
+
+#define mk_sl_array_t_name mk_sl_fixed_vector_inl_defd_array_name
+#define mk_sl_array_t_element mk_sl_fixed_vector_inl_defd_element
+#define mk_sl_array_t_count mk_sl_fixed_vector_inl_defd_count
+#include "mk_sl_array_inl_filec.h"
+
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_sl_fixed_vector_inl_defd_st_capacity(mk_lang_types_void_t) mk_lang_noexcept
+{
+	mk_lang_types_usize_t ret mk_lang_constexpr_init;
+
+	ret = mk_sl_fixed_vector_inl_defd_array_st_capacity();
+	return ret;
+}
+
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_sl_fixed_vector_inl_defd_ro_capacity(mk_sl_fixed_vector_inl_defd_pct const fixed_vector) mk_lang_noexcept
+{
+	mk_lang_types_usize_t ret mk_lang_constexpr_init;
+
+	mk_lang_assert(fixed_vector);
+
+	((mk_lang_types_void_t)(fixed_vector));
+	ret = mk_sl_fixed_vector_inl_defd_st_capacity();
+	return ret;
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_sl_fixed_vector_inl_defd_ro_size(mk_sl_fixed_vector_inl_defd_pct const fixed_vector) mk_lang_noexcept
+{
+	mk_lang_types_usize_t ret mk_lang_constexpr_init;
+
+	mk_lang_assert(fixed_vector);
+
+	ret = fixed_vector->m_size;
+	return ret;
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_fixed_vector_inl_defd_ro_is_empty(mk_sl_fixed_vector_inl_defd_pct const fixed_vector) mk_lang_noexcept
+{
+	mk_lang_types_bool_t ret mk_lang_constexpr_init;
+
+	mk_lang_assert(fixed_vector);
+
+	ret = mk_sl_fixed_vector_inl_defd_ro_size(fixed_vector) == 0;
+	return ret;
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_fixed_vector_inl_defd_ro_is_full(mk_sl_fixed_vector_inl_defd_pct const fixed_vector) mk_lang_noexcept
+{
+	mk_lang_types_bool_t ret mk_lang_constexpr_init;
+
+	mk_lang_assert(fixed_vector);
+
+	ret = mk_sl_fixed_vector_inl_defd_ro_size(fixed_vector) == mk_sl_fixed_vector_inl_defd_ro_capacity(fixed_vector);;
+	return ret;
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_sl_fixed_vector_inl_defd_element_pct mk_sl_fixed_vector_inl_defd_ro_at(mk_sl_fixed_vector_inl_defd_pct const fixed_vector, mk_lang_types_usize_t const idx) mk_lang_noexcept
+{
+	mk_sl_fixed_vector_inl_defd_element_pct ret mk_lang_constexpr_init;
+
+	mk_lang_assert(fixed_vector);
+	mk_lang_assert(!mk_sl_fixed_vector_inl_defd_ro_is_empty(fixed_vector));
+	mk_lang_assert(idx >= 0 && idx < mk_sl_fixed_vector_inl_defd_ro_size(fixed_vector));
+
+	ret = mk_sl_fixed_vector_inl_defd_array_ro_at(&fixed_vector->m_array, idx);
+	return ret;
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_sl_fixed_vector_inl_defd_element_pct mk_sl_fixed_vector_inl_defd_ro_data(mk_sl_fixed_vector_inl_defd_pct const fixed_vector) mk_lang_noexcept
+{
+	mk_sl_fixed_vector_inl_defd_element_pct ret mk_lang_constexpr_init;
+
+	mk_lang_assert(fixed_vector);
+	mk_lang_assert(!mk_sl_fixed_vector_inl_defd_ro_is_empty(fixed_vector));
+
+	ret = mk_sl_fixed_vector_inl_defd_ro_at(fixed_vector, 0);
+	return ret;
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_sl_fixed_vector_inl_defd_element_pct mk_sl_fixed_vector_inl_defd_ro_front(mk_sl_fixed_vector_inl_defd_pct const fixed_vector) mk_lang_noexcept
+{
+	mk_sl_fixed_vector_inl_defd_element_pct ret mk_lang_constexpr_init;
+
+	mk_lang_assert(fixed_vector);
+	mk_lang_assert(!mk_sl_fixed_vector_inl_defd_ro_is_empty(fixed_vector));
+
+	ret = mk_sl_fixed_vector_inl_defd_ro_data(fixed_vector);
+	return ret;
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_sl_fixed_vector_inl_defd_element_pct mk_sl_fixed_vector_inl_defd_ro_back(mk_sl_fixed_vector_inl_defd_pct const fixed_vector) mk_lang_noexcept
+{
+	mk_sl_fixed_vector_inl_defd_element_pct ret mk_lang_constexpr_init;
+
+	mk_lang_assert(fixed_vector);
+	mk_lang_assert(!mk_sl_fixed_vector_inl_defd_ro_is_empty(fixed_vector));
+
+	ret = mk_sl_fixed_vector_inl_defd_ro_at(fixed_vector, mk_sl_fixed_vector_inl_defd_ro_size(fixed_vector) - 1);
+	return ret;
+}
+
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_sl_fixed_vector_inl_defd_rw_capacity(mk_sl_fixed_vector_inl_defd_pt const fixed_vector) mk_lang_noexcept
+{
+	mk_lang_types_usize_t ret mk_lang_constexpr_init;
+
+	mk_lang_assert(fixed_vector);
+
+	ret = mk_sl_fixed_vector_inl_defd_ro_capacity(fixed_vector);
+	return ret;
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_sl_fixed_vector_inl_defd_rw_size(mk_sl_fixed_vector_inl_defd_pt const fixed_vector) mk_lang_noexcept
+{
+	mk_lang_types_usize_t ret mk_lang_constexpr_init;
+
+	mk_lang_assert(fixed_vector);
+
+	ret = mk_sl_fixed_vector_inl_defd_ro_size(fixed_vector);
+	return ret;
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_fixed_vector_inl_defd_rw_is_empty(mk_sl_fixed_vector_inl_defd_pt const fixed_vector) mk_lang_noexcept
+{
+	mk_lang_types_bool_t ret mk_lang_constexpr_init;
+
+	mk_lang_assert(fixed_vector);
+
+	ret = mk_sl_fixed_vector_inl_defd_ro_is_empty(fixed_vector);
+	return ret;
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_fixed_vector_inl_defd_rw_is_full(mk_sl_fixed_vector_inl_defd_pt const fixed_vector) mk_lang_noexcept
+{
+	mk_lang_types_bool_t ret mk_lang_constexpr_init;
+
+	mk_lang_assert(fixed_vector);
+
+	ret = mk_sl_fixed_vector_inl_defd_ro_is_full(fixed_vector);
+	return ret;
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_sl_fixed_vector_inl_defd_element_pt mk_sl_fixed_vector_inl_defd_rw_at(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_lang_types_usize_t const idx) mk_lang_noexcept
+{
+	mk_sl_fixed_vector_inl_defd_element_pt ret mk_lang_constexpr_init;
+
+	mk_lang_assert(fixed_vector);
+	mk_lang_assert(!mk_sl_fixed_vector_inl_defd_rw_is_empty(fixed_vector));
+	mk_lang_assert(idx >= 0 && idx < mk_sl_fixed_vector_inl_defd_rw_size(fixed_vector));
+
+	ret = ((mk_sl_fixed_vector_inl_defd_element_pt)(mk_sl_fixed_vector_inl_defd_ro_at(fixed_vector, idx)));
+	return ret;
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_sl_fixed_vector_inl_defd_element_pt mk_sl_fixed_vector_inl_defd_rw_data(mk_sl_fixed_vector_inl_defd_pt const fixed_vector) mk_lang_noexcept
+{
+	mk_sl_fixed_vector_inl_defd_element_pt ret mk_lang_constexpr_init;
+
+	mk_lang_assert(fixed_vector);
+	mk_lang_assert(!mk_sl_fixed_vector_inl_defd_rw_is_empty(fixed_vector));
+
+	ret = ((mk_sl_fixed_vector_inl_defd_element_pt)(mk_sl_fixed_vector_inl_defd_ro_data(fixed_vector)));
+	return ret;
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_sl_fixed_vector_inl_defd_element_pt mk_sl_fixed_vector_inl_defd_rw_front(mk_sl_fixed_vector_inl_defd_pt const fixed_vector) mk_lang_noexcept
+{
+	mk_sl_fixed_vector_inl_defd_element_pt ret mk_lang_constexpr_init;
+
+	mk_lang_assert(fixed_vector);
+	mk_lang_assert(!mk_sl_fixed_vector_inl_defd_rw_is_empty(fixed_vector));
+
+	ret = ((mk_sl_fixed_vector_inl_defd_element_pt)(mk_sl_fixed_vector_inl_defd_ro_front(fixed_vector)));
+	return ret;
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_sl_fixed_vector_inl_defd_element_pt mk_sl_fixed_vector_inl_defd_rw_back(mk_sl_fixed_vector_inl_defd_pt const fixed_vector) mk_lang_noexcept
+{
+	mk_sl_fixed_vector_inl_defd_element_pt ret mk_lang_constexpr_init;
+
+	mk_lang_assert(fixed_vector);
+	mk_lang_assert(!mk_sl_fixed_vector_inl_defd_rw_is_empty(fixed_vector));
+
+	ret = ((mk_sl_fixed_vector_inl_defd_element_pt)(mk_sl_fixed_vector_inl_defd_ro_back(fixed_vector)));
+	return ret;
+}
+
+
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_fixed_vector_inl_defd_rw_construct(mk_sl_fixed_vector_inl_defd_pt const fixed_vector) mk_lang_noexcept
+{
+	mk_lang_assert(fixed_vector);
+
+	fixed_vector->m_size = 0;
+}
+
+mk_lang_constexpr mk_lang_jumbo mk_sl_fixed_vector_inl_defd_element_pt mk_sl_fixed_vector_inl_defd_rw_push_back(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_sl_fixed_vector_inl_defd_element_pct const element) mk_lang_noexcept
+{
+	mk_sl_fixed_vector_inl_defd_element_pt item mk_lang_constexpr_init;
+
+	mk_lang_assert(fixed_vector);
+	mk_lang_assert(element);
+	mk_lang_assert(!mk_sl_fixed_vector_inl_defd_rw_is_full(fixed_vector));
+
+	item = mk_sl_fixed_vector_inl_defd_array_rw_at(&fixed_vector->m_array, fixed_vector->m_size++);
+	*item = *element;
+	return item;
+}
+
+mk_lang_constexpr mk_lang_jumbo mk_sl_fixed_vector_inl_defd_element_pt mk_sl_fixed_vector_inl_defd_rw_pop_back(mk_sl_fixed_vector_inl_defd_pt const fixed_vector) mk_lang_noexcept
+{
+	mk_sl_fixed_vector_inl_defd_element_pt item mk_lang_constexpr_init;
+
+	mk_lang_assert(fixed_vector);
+	mk_lang_assert(!mk_sl_fixed_vector_inl_defd_rw_is_empty(fixed_vector));
+
+	item = mk_sl_fixed_vector_inl_defd_array_rw_at(&fixed_vector->m_array, --fixed_vector->m_size);
+	return item;
+}
+
+
+#include "mk_sl_fixed_vector_inl_defu.h"
+
+
+#undef mk_sl_fixed_vector_t_name
+#undef mk_sl_fixed_vector_t_element
+#undef mk_sl_fixed_vector_t_count
