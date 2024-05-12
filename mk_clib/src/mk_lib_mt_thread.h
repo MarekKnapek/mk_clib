@@ -10,14 +10,19 @@
 
 
 #if mk_lang_version_at_least_cpp_11 || mk_lang_version_at_least_msvc_cpp_11
+#define mk_lib_mt_thread_has 1
 #include "mk_lib_mt_thread_portable_cpp.hpp"
 typedef mk_lib_mt_thread_portable_cpp_t mk_lib_mt_thread_impl_t;
-#elif mk_lang_version_at_least_c_11
+#elif mk_lang_version_at_least_c_11 && !defined __STDC_NO_THREADS__
+#define mk_lib_mt_thread_has 1
 #include "mk_lib_mt_thread_portable_c.h"
 typedef mk_lib_mt_thread_portable_c_t mk_lib_mt_thread_impl_t;
 #else
-#error xxxxxxxxxx todo
+#define mk_lib_mt_thread_has 0
 #endif
+
+
+#if mk_lib_mt_thread_has
 
 
 #if mk_lang_version_at_least_cpp_17
@@ -43,6 +48,9 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_thread_hardware_c
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_thread_create(mk_lib_mt_thread_pt const thread, mk_lib_mt_thread_callback_t const callback, mk_lang_types_void_pt const context) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_thread_join(mk_lib_mt_thread_pt const thread) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_thread_destroy(mk_lib_mt_thread_pt const thread) mk_lang_noexcept;
+
+
+#endif
 
 
 #if mk_lang_jumbo_want == 1

@@ -8,6 +8,9 @@
 #include "mk_lang_version.h"
 
 
+#if mk_lib_mt_thread_has
+
+
 #if mk_lang_version_at_least_cpp_11 || mk_lang_version_at_least_msvc_cpp_11
 #include "mk_lib_mt_thread_portable_cpp.hpp"
 #define mk_lib_mt_thread_impl_hardware_concurrency mk_lib_mt_thread_portable_cpp_hardware_concurrency
@@ -50,3 +53,6 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_thread_destroy(mk
 
 	return mk_lib_mt_thread_impl_destroy(&thread->m_thread);
 }
+
+
+#endif
