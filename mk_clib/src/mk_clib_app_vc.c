@@ -13,10 +13,13 @@
 #include "mk_lang_min.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_null.h"
 #include "mk_lang_os.h"
 #include "mk_lang_pow2.h"
+#include "mk_lang_static_assert.h"
 #include "mk_lang_types.h"
 #include "mk_lib_fmt.h"
+#include "mk_lib_mt_thread.h"
 #include "mk_lib_text_encoding.h"
 #include "mk_lib_vc.h"
 #include "mk_sl_io_console.h"
@@ -55,7 +58,33 @@
 #include "mk_lang_strlen_inl_filec.h"
 
 
-#define mk_clib_app_vc_buffered_len (64ul * 1024ul)
+#define mk_clib_app_vc_buffered_len (128ul * 1024ul)
+#define mk_clib_app_vc_buffered_align (64ul * 1024ul)
+#define mk_clib_app_vc_max_threads (64)
+#define mk_clib_app_vc_max_tasks (mk_clib_app_vc_max_threads * 2)
+
+
+struct mk_clib_app_vc_task_s
+{
+	mk_sl_cui_uint64_t m_block_id;
+	mk_lib_vc_block_pt m_block;
+};
+typedef struct mk_clib_app_vc_task_s mk_clib_app_vc_task_t;
+typedef mk_clib_app_vc_task_t const mk_clib_app_vc_task_ct;
+typedef mk_clib_app_vc_task_t* mk_clib_app_vc_task_pt;
+typedef mk_clib_app_vc_task_t const* mk_clib_app_vc_task_pct;
+
+#define mk_lib_mt_ring_t_name mk_clib_app_vc_mtring
+#define mk_lib_mt_ring_t_element mk_clib_app_vc_task_t
+#define mk_lib_mt_ring_t_count mk_clib_app_vc_max_tasks
+#include "mk_lib_mt_ring_inl_fileh.h"
+#include "mk_lib_mt_ring_inl_filec.h"
+
+#define mk_sl_fixed_vector_t_name mk_clib_app_vc_fixed_vector
+#define mk_sl_fixed_vector_t_element mk_clib_app_vc_task_t
+#define mk_sl_fixed_vector_t_count mk_clib_app_vc_max_tasks
+#include "mk_sl_fixed_vector_inl_fileh.h"
+#include "mk_sl_fixed_vector_inl_filec.h"
 
 
 struct mk_lib_vc_block_oversized2_data_s
@@ -71,7 +100,18 @@ struct mk_lib_vc_block_oversized2_s
 typedef struct mk_lib_vc_block_oversized2_s mk_lib_vc_block_oversized2_t;
 
 
-static mk_sl_cui_uint8_t g_mk_clib_app_vc_buf[(2ul * mk_clib_app_vc_buffered_len) + (mk_clib_app_vc_buffered_len - 1ul)];
+static mk_sl_cui_uint8_t g_mk_clib_app_vc_buf[(3ul * mk_clib_app_vc_buffered_len) + (mk_clib_app_vc_buffered_align - 1ul)];
+static mk_lang_types_sint_t g_mk_clib_app_vc_threads_count;
+static mk_lib_mt_thread_t g_mk_clib_app_vc_threads[mk_clib_app_vc_max_threads];
+static mk_sl_cui_uint8_pt g_mk_clib_app_vc_threads_playground;
+static mk_lang_types_uint_t g_mk_clib_app_vc_threads_playground_idx;
+static mk_clib_app_vc_mtring_t g_mk_clib_app_vc_threads_ring_submit;
+static mk_clib_app_vc_mtring_t g_mk_clib_app_vc_threads_ring_receieve;
+static mk_clib_app_vc_fixed_vector_t g_mk_clib_app_vc_threads_finished;
+static mk_lang_types_sint_t g_mk_clib_app_vc_threads_submited;
+static mk_lib_vc_seqid_t g_mk_clib_app_vc_threads_seqid;
+static mk_lib_vc_seq_schedules_pct g_mk_clib_app_vc_threads_schedules;
+static mk_sl_cui_uint64_t g_mk_clib_app_vc_threads_to_write_id;
 
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_tx_open_reader(mk_sl_io_reader_file_pt const reader, mk_sl_io_transaction_pt const tx, mk_lang_types_bool_t const wide, mk_lang_types_pchar_pct const name) mk_lang_noexcept
@@ -350,66 +390,309 @@ static mk_lang_inline mk_lang_types_void_t mk_clib_app_vc_vhd_footer_generate(mk
 	mk_clib_app_vc_vhd_footer_checksum(block);
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_write_vhd(mk_lang_types_bool_t const wide, mk_clib_app_vc_reader_pt const reader, mk_lib_vc_seqid_t const seqid, mk_lib_vc_seq_schedules_pct const schedules, mk_sl_cui_uint64_pt const block_id, mk_sl_cui_uint64_pct const max_block_id, mk_sl_cui_uint64_pct const volume_len, mk_lib_vc_block_pt const block, mk_lang_types_pchar_pct const str_output, mk_sl_io_transaction_pt const tx) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_write_vhd_impl_write_one(mk_clib_app_vc_writer_pt const writer) mk_lang_noexcept
+{
+	mk_lang_types_sint_t n;
+	mk_lang_types_sint_t i;
+	mk_clib_app_vc_task_pt finished;
+	mk_lang_types_sint_t err;
+	mk_lang_types_usize_t written;
+	mk_clib_app_vc_task_pt back;
+	mk_clib_app_vc_task_t task;
+
+	mk_lang_assert(writer);
+
+	n = ((mk_lang_types_sint_t)(mk_clib_app_vc_fixed_vector_rw_size(&g_mk_clib_app_vc_threads_finished)));
+	for(i = 0; i != n; ++i)
+	{
+		finished = mk_clib_app_vc_fixed_vector_rw_at(&g_mk_clib_app_vc_threads_finished, i);
+		if(mk_sl_cui_uint64_eq(&finished->m_block_id, &g_mk_clib_app_vc_threads_to_write_id))
+		{
+			err = mk_clib_app_vc_writer_write(writer, &finished->m_block->m_data.m_uint8s[0], mk_lang_countof(finished->m_block->m_data.m_uint8s), &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == mk_lang_countof(finished->m_block->m_data.m_uint8s));
+			back = mk_clib_app_vc_fixed_vector_rw_pop_back(&g_mk_clib_app_vc_threads_finished);
+			if(i != n - 1)
+			{
+				*finished = *back;
+			}
+			break;
+		}
+	}
+	if(i == n)
+	{
+		for(;;)
+		{
+			err = mk_clib_app_vc_mtring_rw_pop_front_copy(&g_mk_clib_app_vc_threads_ring_receieve, &task); mk_lang_check_rereturn(err);
+			if(mk_sl_cui_uint64_eq(&task.m_block_id, &g_mk_clib_app_vc_threads_to_write_id))
+			{
+				finished = &task;
+				err = mk_clib_app_vc_writer_write(writer, &finished->m_block->m_data.m_uint8s[0], mk_lang_countof(finished->m_block->m_data.m_uint8s), &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == mk_lang_countof(finished->m_block->m_data.m_uint8s));
+				break;
+			}
+			else
+			{
+				mk_clib_app_vc_fixed_vector_rw_push_back(&g_mk_clib_app_vc_threads_finished, &task);
+			}
+		}
+	}
+	mk_sl_cui_uint64_inc1(&g_mk_clib_app_vc_threads_to_write_id);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_write_vhd_impl_5(mk_clib_app_vc_writer_pt const writer, mk_clib_app_vc_reader_pt const reader, mk_lib_vc_block_pt const block, mk_lib_vc_seqid_t const seqid, mk_lib_vc_seq_schedules_pct const schedules, mk_sl_cui_uint64_pct const max_block_id) mk_lang_noexcept
+{
+	mk_clib_app_vc_task_t task;
+	mk_lang_types_sint_t n;
+	mk_lang_types_sint_t i;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(writer);
+	mk_lang_assert(reader);
+	mk_lang_assert(block);
+	mk_lang_assert(seqid >= 0 && seqid < mk_lib_vc_seqid_e_dummy);
+	mk_lang_assert(schedules);
+	mk_lang_assert(max_block_id);
+
+	mk_sl_cui_uint64_set_zero(&task.m_block_id);
+	task.m_block = mk_lang_null;
+	n = g_mk_clib_app_vc_threads_count;
+	for(i = 0; i != n; ++i)
+	{
+		if(g_mk_clib_app_vc_threads_submited < mk_clib_app_vc_max_tasks)
+		{
+			++g_mk_clib_app_vc_threads_submited;
+		}
+		else
+		{
+			err = mk_clib_app_vc_arg_write_vhd_impl_write_one(writer); mk_lang_check_rereturn(err);
+		}
+		err = mk_clib_app_vc_mtring_rw_push_back(&g_mk_clib_app_vc_threads_ring_submit, &task); mk_lang_check_rereturn(err);
+	}
+	while(!mk_sl_cui_uint64_eq(&g_mk_clib_app_vc_threads_to_write_id, max_block_id))
+	{
+		err = mk_clib_app_vc_arg_write_vhd_impl_write_one(writer); mk_lang_check_rereturn(err);
+	}
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_write_vhd_impl_4(mk_clib_app_vc_writer_pt const writer, mk_clib_app_vc_reader_pt const reader, mk_lib_vc_block_pt const block, mk_lib_vc_seqid_t const seqid, mk_lib_vc_seq_schedules_pct const schedules, mk_sl_cui_uint64_pt const block_id) mk_lang_noexcept
+{
+	mk_lang_types_usize_t idx;
+	mk_lib_vc_block_pt blck;
+	mk_lang_types_sint_t err;
+	mk_lang_types_usize_t read;
+	mk_clib_app_vc_task_t task;
+
+	mk_lang_static_assert(mk_lang_pow2_is(mk_clib_app_vc_buffered_len / mk_lib_vc_block_len));
+
+	mk_lang_assert(writer);
+	mk_lang_assert(reader);
+	mk_lang_assert(block);
+	mk_lang_assert(seqid >= 0 && seqid < mk_lib_vc_seqid_e_dummy);
+	mk_lang_assert(schedules);
+	mk_lang_assert(block_id);
+
+	idx = g_mk_clib_app_vc_threads_playground_idx;
+	g_mk_clib_app_vc_threads_playground_idx = (g_mk_clib_app_vc_threads_playground_idx + 1) & ((mk_clib_app_vc_buffered_len / mk_lib_vc_block_len) - 1);
+	blck = ((mk_lib_vc_block_pt)(g_mk_clib_app_vc_threads_playground + idx * mk_lib_vc_block_len));
+	err = mk_clib_app_vc_reader_read(reader, &blck->m_data.m_uint8s[0], mk_lang_countof(blck->m_data.m_uint8s), &read); mk_lang_check_rereturn(err); mk_lang_check_return(read == mk_lang_countof(blck->m_data.m_uint8s));
+	task.m_block = blck;
+	task.m_block_id = *block_id;
+	if(g_mk_clib_app_vc_threads_submited < mk_clib_app_vc_max_tasks)
+	{
+		++g_mk_clib_app_vc_threads_submited;
+	}
+	else
+	{
+		err = mk_clib_app_vc_arg_write_vhd_impl_write_one(writer); mk_lang_check_rereturn(err);
+	}
+	err = mk_clib_app_vc_mtring_rw_push_back(&g_mk_clib_app_vc_threads_ring_submit, &task); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_types_sint_t mk_clib_app_vc_threads_job(mk_lang_types_void_pt const context) mk_lang_noexcept
+{
+	mk_lang_types_sint_t idx;
+	mk_lang_types_sint_t err;
+	mk_clib_app_vc_task_t task;
+	mk_lang_types_bool_t end;
+
+	idx = ((mk_lang_types_sint_t)(((mk_lang_types_uintptr_t)(context))));
+	for(;;)
+	{
+		err = mk_clib_app_vc_mtring_rw_pop_front_copy(&g_mk_clib_app_vc_threads_ring_submit, &task); mk_lang_check_rereturn(err);
+		end = mk_sl_cui_uint64_is_zero(&task.m_block_id) && task.m_block == mk_lang_null;
+		if(!end)
+		{
+			mk_lib_vc_seq_decrypt_block(g_mk_clib_app_vc_threads_seqid, g_mk_clib_app_vc_threads_schedules, &task.m_block_id, task.m_block, task.m_block);
+			err = mk_clib_app_vc_mtring_rw_push_back(&g_mk_clib_app_vc_threads_ring_receieve, &task); mk_lang_check_rereturn(err);
+		}
+		if(end)
+		{
+			break;
+		}
+	}
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_threads_init(mk_lib_vc_seqid_t const seqid, mk_lib_vc_seq_schedules_pct const schedules) mk_lang_noexcept
+{
+	mk_lang_types_sint_t tsi;
+	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t n;
+	mk_lang_types_sint_t i;
+	mk_lang_types_void_pt idx;
+
+	mk_lang_static_assert((mk_clib_app_vc_max_threads * 4) <= (mk_clib_app_vc_buffered_len / mk_lib_vc_block_len));
+
+	mk_lang_assert(seqid >= 0 && seqid < mk_lib_vc_seqid_e_dummy);
+	mk_lang_assert(schedules);
+
+	g_mk_clib_app_vc_threads_submited = 0;
+	g_mk_clib_app_vc_threads_seqid = seqid;
+	g_mk_clib_app_vc_threads_schedules = schedules;
+	mk_clib_app_vc_fixed_vector_rw_construct(&g_mk_clib_app_vc_threads_finished);
+	tsi = mk_lib_vc_offsets_volume / mk_lib_vc_block_len; mk_sl_cui_uint64_from_bi_sint(&g_mk_clib_app_vc_threads_to_write_id, &tsi);
+	err = mk_clib_app_vc_mtring_rw_construct(&g_mk_clib_app_vc_threads_ring_submit); mk_lang_check_rereturn(err);
+	err = mk_clib_app_vc_mtring_rw_construct(&g_mk_clib_app_vc_threads_ring_receieve); mk_lang_check_rereturn(err);
+	n = mk_lib_mt_thread_hardware_concurrency();
+	n = mk_lang_min(n, mk_lang_countof(g_mk_clib_app_vc_threads));
+	g_mk_clib_app_vc_threads_count = n;
+	for(i = 0; i != n; ++i)
+	{
+		idx = ((mk_lang_types_void_pt)(((mk_lang_types_uintptr_t)(i))));
+		err = mk_lib_mt_thread_create(&g_mk_clib_app_vc_threads[i], mk_clib_app_vc_threads_job, idx); mk_lang_check_rereturn(err);
+	}
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_threads_finish(mk_lang_types_void_t) mk_lang_noexcept
+{
+	mk_lang_types_sint_t n;
+	mk_lang_types_sint_t i;
+	mk_lang_types_sint_t err;
+
+	n = g_mk_clib_app_vc_threads_count;
+	for(i = 0; i != n; ++i)
+	{
+		err = mk_lib_mt_thread_join(&g_mk_clib_app_vc_threads[i]); mk_lang_check_rereturn(err);
+		err = mk_lib_mt_thread_destroy(&g_mk_clib_app_vc_threads[i]); mk_lang_check_rereturn(err);
+	}
+	err = mk_clib_app_vc_mtring_rw_destroy(&g_mk_clib_app_vc_threads_ring_receieve); mk_lang_check_rereturn(err);
+	err = mk_clib_app_vc_mtring_rw_destroy(&g_mk_clib_app_vc_threads_ring_submit); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_write_vhd_impl_3(mk_clib_app_vc_writer_pt const writer, mk_clib_app_vc_reader_pt const reader, mk_lib_vc_block_pt const block, mk_lib_vc_seqid_t const seqid, mk_lib_vc_seq_schedules_pct const schedules, mk_sl_cui_uint64_pt const block_id, mk_sl_cui_uint64_pct const max_block_id) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
-	mk_sl_io_writer_file_t writer;
+
+	mk_lang_assert(writer);
+	mk_lang_assert(reader);
+	mk_lang_assert(block);
+	mk_lang_assert(seqid >= 0 && seqid < mk_lib_vc_seqid_e_dummy);
+	mk_lang_assert(schedules);
+	mk_lang_assert(block_id);
+	mk_lang_assert(max_block_id);
+
+	for(; mk_sl_cui_uint64_ne(block_id, max_block_id); mk_sl_cui_uint64_inc1(block_id))
+	{
+		err = mk_clib_app_vc_arg_write_vhd_impl_4(writer, reader, block, seqid, schedules, block_id); mk_lang_check_rereturn(err);
+	}
+	err = mk_clib_app_vc_arg_write_vhd_impl_5(writer, reader, block, seqid, schedules, max_block_id); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_write_vhd_impl_2(mk_clib_app_vc_writer_pt const writer, mk_clib_app_vc_reader_pt const reader, mk_lib_vc_block_pt const block, mk_lib_vc_seqid_t const seqid, mk_lib_vc_seq_schedules_pct const schedules, mk_sl_cui_uint64_pt const block_id, mk_sl_cui_uint64_pct const max_block_id) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pt buf;
+	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t err_b;
+
+	mk_lang_assert(writer);
+	mk_lang_assert(reader);
+	mk_lang_assert(block);
+	mk_lang_assert(seqid >= 0 && seqid < mk_lib_vc_seqid_e_dummy);
+	mk_lang_assert(schedules);
+	mk_lang_assert(block_id);
+	mk_lang_assert(max_block_id);
+
+	buf = ((mk_sl_cui_uint8_pt)(((((mk_lang_types_uintptr_t)(&g_mk_clib_app_vc_buf[0])) + (mk_clib_app_vc_buffered_align - 1ul)) / mk_clib_app_vc_buffered_align) * mk_clib_app_vc_buffered_align)) + (2ul * mk_clib_app_vc_buffered_len);
+	g_mk_clib_app_vc_threads_playground = buf;
+	err = mk_clib_app_vc_threads_init(seqid, schedules); mk_lang_check_rereturn(err);
+	err_b = mk_clib_app_vc_arg_write_vhd_impl_3(writer, reader, block, seqid, schedules, block_id, max_block_id);
+	err = mk_clib_app_vc_threads_finish(); mk_lang_check_rereturn(err);
+	mk_lang_check_rereturn(err_b);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_write_vhd_impl_1(mk_sl_io_writer_file_pt const writer, mk_clib_app_vc_reader_pt const reader, mk_lib_vc_block_pt const block, mk_lib_vc_seqid_t const seqid, mk_lib_vc_seq_schedules_pct const schedules, mk_sl_cui_uint64_pt const block_id, mk_sl_cui_uint64_pct const max_block_id, mk_sl_cui_uint64_pct const volume_len) mk_lang_noexcept
+{
 	mk_sl_cui_uint8_pt buf;
 	mk_clib_app_vc_writer_t buffered;
 	mk_lang_types_ulong_t tul;
 	mk_sl_cui_uint32_t align;
+	mk_lang_types_sint_t err;
 	mk_lang_types_usize_t written;
 	mk_sl_cui_uint8_t tu8;
 	mk_sl_cui_uint32_t tu32;
 	mk_lang_types_ulong_t n;
 	mk_lang_types_ulong_t i;
-	mk_lang_types_usize_t read;
 	mk_sl_cui_uint64_t tu64;
 	mk_sl_cui_uint64_t disk_len;
-	mk_lang_types_sint_t err_b;
 
+	mk_lang_assert(writer);
 	mk_lang_assert(reader);
+	mk_lang_assert(block);
 	mk_lang_assert(seqid >= 0 && seqid < mk_lib_vc_seqid_e_dummy);
 	mk_lang_assert(schedules);
 	mk_lang_assert(block_id);
 	mk_lang_assert(max_block_id);
 	mk_lang_assert(volume_len);
+
+	buf = ((mk_sl_cui_uint8_pt)(((((mk_lang_types_uintptr_t)(&g_mk_clib_app_vc_buf[0])) + (mk_clib_app_vc_buffered_align - 1ul)) / mk_clib_app_vc_buffered_align) * mk_clib_app_vc_buffered_align)) + (1ul * mk_clib_app_vc_buffered_len);
+	mk_clib_app_vc_writer_init(&buffered, writer, buf, mk_clib_app_vc_buffered_len);
+	tul = 1ul * 1024ul * 1024ul; mk_sl_cui_uint32_from_bi_ulong(&align, &tul);
+	mk_clib_app_vc_mbr_header_generate(block, volume_len, &align);
+	err = mk_clib_app_vc_writer_write(&buffered, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == mk_lang_countof(block->m_data.m_uint8s));
+	mk_sl_cui_uint8_set_zero(&tu8); mk_clib_app_vc_memsetu8_fn(&block->m_data.m_uint8s[0], &tu8, mk_lib_vc_block_len);
+	mk_sl_cui_uint32_shr3(&align, 9, &tu32);
+	mk_sl_cui_uint32_to_bi_ulong(&tu32, &tul);
+	n = tul - 1;
+	for(i = 0; i != n; ++i)
+	{
+		err = mk_clib_app_vc_writer_write(&buffered, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == mk_lang_countof(block->m_data.m_uint8s));
+	}
+	err = mk_clib_app_vc_arg_write_vhd_impl_2(&buffered, reader, block, seqid, schedules, block_id, max_block_id); mk_lang_check_rereturn(err);
+	mk_sl_cui_uint32_to_bi_ulong(&align, &tul);
+	mk_sl_cui_uint64_from_bi_ulong(&tu64, &tul);
+	mk_sl_cui_uint64_add3_wrap_cid_cod(volume_len, &tu64, &disk_len);
+	mk_clib_app_vc_vhd_footer_generate(block, &disk_len);
+	err = mk_clib_app_vc_writer_write(&buffered, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == mk_lang_countof(block->m_data.m_uint8s));
+	err = mk_clib_app_vc_writer_flush(&buffered); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_write_vhd(mk_clib_app_vc_reader_pt const reader, mk_lib_vc_block_pt const block, mk_lib_vc_seqid_t const seqid, mk_lib_vc_seq_schedules_pct const schedules, mk_sl_cui_uint64_pt const block_id, mk_sl_cui_uint64_pct const max_block_id, mk_sl_cui_uint64_pct const volume_len, mk_lang_types_bool_t const wide, mk_lang_types_pchar_pct const str_output, mk_sl_io_transaction_pt const tx) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	mk_sl_io_writer_file_t writer;
+	mk_lang_types_sint_t err_b;
+
+	mk_lang_assert(reader);
 	mk_lang_assert(block);
+	mk_lang_assert(seqid >= 0 && seqid < mk_lib_vc_seqid_e_dummy);
+	mk_lang_assert(schedules);
+	mk_lang_assert(block_id);
+	mk_lang_assert(max_block_id);
+	mk_lang_assert(volume_len);
+	mk_lang_assert(wide == mk_lang_false || wide == mk_lang_true);
 	mk_lang_assert(str_output);
+	mk_lang_assert(tx);
 
 	err = mk_clib_app_vc_tx_open_writer(&writer, tx, wide, str_output); mk_lang_check_rereturn(err);
-	buf = ((mk_sl_cui_uint8_pt)(((((mk_lang_types_uintptr_t)(&g_mk_clib_app_vc_buf[0])) + (mk_clib_app_vc_buffered_len - 1ul)) / mk_clib_app_vc_buffered_len) * mk_clib_app_vc_buffered_len)) + (1ul * mk_clib_app_vc_buffered_len);
-	mk_clib_app_vc_writer_init(&buffered, &writer, buf, mk_clib_app_vc_buffered_len);
-	do
-	{
-		tul = 1ul * 1024ul * 1024ul; mk_sl_cui_uint32_from_bi_ulong(&align, &tul);
-		mk_clib_app_vc_mbr_header_generate(block, volume_len, &align);
-		err = mk_clib_app_vc_writer_write(&buffered, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &written); mk_lang_check_rebreak(err); err = mk_lang_check_line; mk_lang_check_break(written == mk_lang_countof(block->m_data.m_uint8s)); err = 0;
-		mk_sl_cui_uint8_set_zero(&tu8); mk_clib_app_vc_memsetu8_fn(&block->m_data.m_uint8s[0], &tu8, mk_lib_vc_block_len);
-		mk_sl_cui_uint32_shr3(&align, 9, &tu32);
-		mk_sl_cui_uint32_to_bi_ulong(&tu32, &tul);
-		n = tul - 1;
-		for(i = 0; i != n; ++i)
-		{
-			err = mk_clib_app_vc_writer_write(&buffered, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &written); mk_lang_check_rebreak(err); err = mk_lang_check_line; mk_lang_check_break(written == mk_lang_countof(block->m_data.m_uint8s)); err = 0;
-		}
-		mk_lang_check_rebreak(err);
-		for(; mk_sl_cui_uint64_ne(block_id, max_block_id); mk_sl_cui_uint64_inc1(block_id))
-		{
-			err = mk_clib_app_vc_reader_read(reader, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &read); mk_lang_check_rebreak(err); err = mk_lang_check_line; mk_lang_check_break(read == mk_lang_countof(block->m_data.m_uint8s)); err = 0;
-			mk_lib_vc_seq_decrypt_block(seqid, schedules, block_id, block, block);
-			err = mk_clib_app_vc_writer_write(&buffered, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &written); mk_lang_check_rebreak(err); err = mk_lang_check_line; mk_lang_check_break(written == mk_lang_countof(block->m_data.m_uint8s)); err = 0;
-		}
-		mk_lang_check_rebreak(err);
-		mk_sl_cui_uint32_to_bi_ulong(&align, &tul);
-		mk_sl_cui_uint64_from_bi_ulong(&tu64, &tul);
-		mk_sl_cui_uint64_add3_wrap_cid_cod(volume_len, &tu64, &disk_len);
-		mk_clib_app_vc_vhd_footer_generate(block, &disk_len);
-		err = mk_clib_app_vc_writer_write(&buffered, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &written); mk_lang_check_rebreak(err); err = mk_lang_check_line; mk_lang_check_break(written == mk_lang_countof(block->m_data.m_uint8s)); err = 0;
-		err = mk_clib_app_vc_writer_flush(&buffered); mk_lang_check_rereturn(err);
-	}while(mk_lang_false);
-	err_b = mk_sl_io_writer_file_close(&writer); mk_lang_check_rereturn(err_b);
-	mk_lang_check_rereturn(err);
+	err_b = mk_clib_app_vc_arg_write_vhd_impl_1(&writer, reader, block, seqid, schedules, block_id, max_block_id, volume_len);
+	err = mk_sl_io_writer_file_close(&writer); mk_lang_check_rereturn(err);
+	mk_lang_check_rereturn(err_b);
 	return 0;
 }
 
@@ -436,26 +719,16 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_pass
 		mk_lang_assert(mk_clib_app_vc_strlenwc_fn(((mk_lang_types_wchar_pct)(str_password))) <= ((mk_lang_types_usize_t)(mk_lang_limits_sint_max)));
 		len = ((mk_lang_types_sint_t)(mk_clib_app_vc_strlenwc_fn(((mk_lang_types_wchar_pct)(str_password)))));
 		err = mk_lib_text_encoding_wide_to_utf8(((mk_lang_types_wchar_pct)(str_password)), len, ((mk_lang_types_pchar_pt)(password_utf8_buf)), password_utf8_buf_len, password_len); mk_lang_check_rereturn(err);
-		*password_utf8  = &password_utf8_buf[0];
+		*password_utf8 = &password_utf8_buf[0];
 	}
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_work_txf(mk_lang_types_bool_t const wide, mk_lang_types_sint_t const argc, mk_lang_types_pchar_pcpct const argv, mk_sl_io_transaction_pt const tx) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_work_txf_impl_2(mk_sl_io_reader_file_pt const reader, mk_lib_vc_block_pt const block, mk_sl_cui_uint8_pct const password_utf8, mk_lang_types_sint_t const password_len, mk_lang_types_ulong_t const cost, mk_lang_types_bool_t const wide, mk_lang_types_pchar_pct const str_output, mk_sl_io_transaction_pt const tx) mk_lang_noexcept
 {
-	mk_lang_types_pchar_pct str_input;
-	mk_lang_types_pchar_pct str_password;
-	mk_lang_types_pchar_pct str_pim;
-	mk_lang_types_pchar_pct str_output;
-	mk_sl_cui_uint8_t password_utf8_buf[512];
-	mk_sl_cui_uint8_pct password_utf8;
-	mk_lang_types_sint_t password_len;
-	mk_lang_types_sint_t err;
-	mk_lang_types_ulong_t cost;
-	mk_lib_vc_block_pt block;
-	mk_lib_vc_block_oversized2_t block_oversized;
-	mk_sl_io_reader_file_t reader;
+	mk_lib_vc_block_pt blck;
 	mk_sl_cui_uint8_pt buf;
+	mk_lang_types_sint_t err;
 	mk_clib_app_vc_reader_t buffered;
 	mk_lang_types_usize_t read;
 	mk_lib_vc_salt_pt salt;
@@ -465,15 +738,70 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_
 	mk_lang_types_sint_t tsi;
 	mk_sl_cui_uint64_t block_id;
 	mk_sl_cui_uint64_t max_block_id;
+
+	mk_lang_assert(reader);
+	mk_lang_assert(block);
+	mk_lang_assert(password_utf8);
+	mk_lang_assert(password_len >= 1);
+	mk_lang_assert(cost >= 1);
+	mk_lang_assert(wide == mk_lang_false || wide == mk_lang_true);
+	mk_lang_assert(str_output);
+	mk_lang_assert(tx);
+
+	blck = block;
+	buf = ((mk_sl_cui_uint8_pt)(((((mk_lang_types_uintptr_t)(&g_mk_clib_app_vc_buf[0])) + (mk_clib_app_vc_buffered_align - 1ul)) / mk_clib_app_vc_buffered_align) * mk_clib_app_vc_buffered_align)) + (0ul * mk_clib_app_vc_buffered_len);
+	err = mk_clib_app_vc_reader_init(&buffered, reader, buf, mk_clib_app_vc_buffered_len); mk_lang_check_rereturn(err);
+	err = mk_clib_app_vc_reader_read(&buffered, &blck->m_data.m_uint8s[0], mk_lang_countof(blck->m_data.m_uint8s), &read); mk_lang_check_rereturn(err); mk_lang_check_return(read == mk_lang_countof(blck->m_data.m_uint8s));
+	salt = ((mk_lib_vc_salt_pt)(blck));
+	blck = ((mk_lib_vc_block_pt)(((mk_lang_types_uintptr_t)(blck)) + mk_lib_vc_salt_len));
+	err = mk_lib_vc_try_decrypt_header(mk_lib_vc_kdfid_e_dummy, password_utf8, password_len, salt, cost, blck, &seqid, &schedules, &volume_len); mk_lang_check_rereturn(err);
+	blck = ((mk_lib_vc_block_pt)(((mk_lang_types_uintptr_t)(blck)) - mk_lib_vc_salt_len));
+	err = mk_clib_app_vc_reader_seek_rel(&buffered, mk_lib_vc_offsets_volume - mk_lib_vc_block_len); mk_lang_check_rereturn(err);
+	tsi = mk_lib_vc_offsets_volume / mk_lib_vc_block_len; mk_sl_cui_uint64_from_bi_sint(&block_id, &tsi);
+	mk_sl_cui_uint64_shr3(&volume_len, 9, &max_block_id); mk_sl_cui_uint64_add2_wrap_cid_cod(&max_block_id, &block_id);
+	err = mk_clib_app_vc_arg_write_vhd(&buffered, blck, seqid, &schedules, &block_id, &max_block_id, &volume_len, wide, str_output, tx); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_work_txf_impl_1(mk_lib_vc_block_pt const block, mk_sl_cui_uint8_pct const password_utf8, mk_lang_types_sint_t const password_len, mk_lang_types_ulong_t const cost, mk_lang_types_bool_t const wide, mk_lang_types_pchar_pct const str_input, mk_lang_types_pchar_pct const str_output, mk_sl_io_transaction_pt const tx) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	mk_sl_io_reader_file_t reader;
 	mk_lang_types_sint_t err_b;
 
+	mk_lang_assert(block);
+	mk_lang_assert(password_utf8);
+	mk_lang_assert(password_len >= 1);
+	mk_lang_assert(cost >= 1);
 	mk_lang_assert(wide == mk_lang_false || wide == mk_lang_true);
-	mk_lang_assert(argc == 5);
-	mk_lang_assert
-	(
-		(!wide && mk_clib_app_vc_strlenpc_fn(argv[2]) <= ((mk_lang_types_usize_t)(mk_lang_limits_sint_max))) ||
-		(wide && mk_clib_app_vc_strlenwc_fn(((mk_lang_types_wchar_pct)(argv[2]))) <= ((mk_lang_types_usize_t)(mk_lang_limits_sint_max)))
-	);
+	mk_lang_assert(str_input);
+	mk_lang_assert(str_output);
+	mk_lang_assert(tx);
+
+	err = mk_clib_app_vc_tx_open_reader(&reader, tx, wide, str_input); mk_lang_check_rereturn(err);
+	err_b = mk_clib_app_vc_arg_work_txf_impl_2(&reader, block, password_utf8, password_len, cost, wide, str_output, tx);
+	err = mk_sl_io_reader_file_close(&reader); mk_lang_check_rereturn(err);
+	mk_lang_check_rereturn(err_b);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_work_txf(mk_lang_types_bool_t const wide, mk_lang_types_sint_t const argc, mk_lang_types_pchar_pcpct const argv, mk_sl_io_transaction_pt const tx) mk_lang_noexcept
+{
+	mk_lang_types_pchar_pct str_input;
+	mk_lang_types_pchar_pct str_password;
+	mk_lang_types_pchar_pct str_pim;
+	mk_lang_types_pchar_pct str_output;
+	mk_lang_types_sint_t err;
+	mk_sl_cui_uint8_t password_utf8_buf[512];
+	mk_sl_cui_uint8_pct password_utf8;
+	mk_lang_types_sint_t password_len;
+	mk_lang_types_ulong_t cost;
+	mk_lib_vc_block_pt block;
+	mk_lib_vc_block_oversized2_t block_oversized;
+
+	mk_lang_assert(wide == mk_lang_false || wide == mk_lang_true);
+	mk_lang_assert(argc >= 1);
+	mk_lang_assert(argv);
 	mk_lang_assert(tx);
 
 	str_input = argv[1];
@@ -483,23 +811,36 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_
 	err = mk_clib_app_vc_password_to_utf8(wide, str_password, &password_utf8_buf[0], mk_lang_countof(password_utf8_buf), &password_utf8, &password_len); mk_lang_check_rereturn(err);
 	err = mk_lib_vc_parse_cost(wide, str_pim, &cost); mk_lang_check_rereturn(err);
 	block = ((mk_lib_vc_block_pt)(((((mk_lang_types_uintptr_t)(&block_oversized)) + (sizeof(*block) - 1)) / sizeof(*block)) * sizeof(*block)));
-	err = mk_clib_app_vc_tx_open_reader(&reader, tx, wide, str_input); mk_lang_check_rereturn(err);
-	buf = ((mk_sl_cui_uint8_pt)(((((mk_lang_types_uintptr_t)(&g_mk_clib_app_vc_buf[0])) + (mk_clib_app_vc_buffered_len - 1ul)) / mk_clib_app_vc_buffered_len) * mk_clib_app_vc_buffered_len)) + (0ul * mk_clib_app_vc_buffered_len);
-	err = mk_clib_app_vc_reader_init(&buffered, &reader, buf, mk_clib_app_vc_buffered_len); mk_lang_check_rereturn(err);
-	do
+	err = mk_clib_app_vc_arg_work_txf_impl_1(block, &password_utf8[0], password_len, cost, wide, str_input, str_output, tx); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_work_impl(mk_lang_types_bool_t const wide, mk_lang_types_sint_t const argc, mk_lang_types_pchar_pcpct const argv, mk_sl_io_transaction_pt const tx) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(wide == mk_lang_false || wide == mk_lang_true);
+	mk_lang_assert(argc >= 1);
+	mk_lang_assert(argv);
+	mk_lang_assert(tx);
+
+	err = mk_clib_app_vc_arg_work_txf(wide, argc, argv, tx); mk_lang_check_rereturn(err);
+	err = mk_sl_io_transaction_commit(tx); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_tx(mk_sl_io_transaction_pt const tx) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err_b;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(tx);
+
+	err_b = mk_sl_io_transaction_create(tx);
+	if(err_b != 0)
 	{
-		err = mk_clib_app_vc_reader_read(&buffered, &block->m_data.m_uint8s[0], mk_lang_countof(block->m_data.m_uint8s), &read); mk_lang_check_rebreak(err); err = mk_lang_check_line; mk_lang_check_break(read == mk_lang_countof(block->m_data.m_uint8s)); err = 0;
-		salt = ((mk_lib_vc_salt_pt)(block));
-		block = ((mk_lib_vc_block_pt)(((mk_lang_types_uintptr_t)(block)) + mk_lib_vc_salt_len));
-		err = mk_lib_vc_try_decrypt_header(mk_lib_vc_kdfid_e_dummy, password_utf8, password_len, salt, cost, block, &seqid, &schedules, &volume_len); mk_lang_check_rebreak(err);
-		block = ((mk_lib_vc_block_pt)(((mk_lang_types_uintptr_t)(block)) - mk_lib_vc_salt_len));
-		err = mk_clib_app_vc_reader_seek_rel(&buffered, mk_lib_vc_offsets_volume - mk_lib_vc_block_len); mk_lang_check_rebreak(err);
-		tsi = mk_lib_vc_offsets_volume / mk_lib_vc_block_len; mk_sl_cui_uint64_from_bi_sint(&block_id, &tsi);
-		mk_sl_cui_uint64_shr3(&volume_len, 9, &max_block_id); mk_sl_cui_uint64_add2_wrap_cid_cod(&max_block_id, &block_id);
-		err = mk_clib_app_vc_arg_write_vhd(wide, &buffered, seqid, &schedules, &block_id, &max_block_id, &volume_len, block, str_output, tx); mk_lang_check_rebreak(err);
-	}while(mk_lang_false);
-	err_b = mk_sl_io_reader_file_close(&reader); mk_lang_check_rereturn(err_b);
-	mk_lang_check_rereturn(err);
+		err = mk_sl_io_transaction_dummy(tx); mk_lang_check_rereturn(err);
+	}
 	return 0;
 }
 
@@ -509,18 +850,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_
 	mk_sl_io_transaction_t tx;
 	mk_lang_types_sint_t err_b;
 
-	err = mk_sl_io_transaction_create(&tx);
-	if(err != 0)
-	{
-		err = mk_sl_io_transaction_dummy(&tx); mk_lang_check_rereturn(err);
-	}
-	do
-	{
-		err = mk_clib_app_vc_arg_work_txf(wide, argc, argv, &tx); mk_lang_check_rebreak(err);
-		err = mk_sl_io_transaction_commit(&tx); mk_lang_check_rebreak(err);
-	}while(mk_lang_false);
-	err_b = mk_sl_io_transaction_close(&tx); mk_lang_check_rereturn(err_b);
-	mk_lang_check_rereturn(err);
+	err = mk_clib_app_vc_tx(&tx); mk_lang_check_rereturn(err);
+	err_b = mk_clib_app_vc_arg_work_impl(wide, argc, argv, &tx);
+	err = mk_sl_io_transaction_close(&tx); mk_lang_check_rereturn(err);
+	mk_lang_check_rereturn(err_b);
 	return 0;
 }
 
