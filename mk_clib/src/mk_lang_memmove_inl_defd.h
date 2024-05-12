@@ -13,7 +13,7 @@
 #define mk_lang_memmove_inl_defd_base mk_lang_memmove_t_base
 
 
-#define mk_lang_memmove_inl_defd_prt mk_lang_concat(mk_lang_memmove_inl_defd_base, _prt)
-#define mk_lang_memmove_inl_defd_prct mk_lang_concat(mk_lang_memmove_inl_defd_base, _prct)
+#define mk_lang_memmove_inl_defd_pt mk_lang_concat(mk_lang_memmove_inl_defd_base, _pt)
+#define mk_lang_memmove_inl_defd_pct mk_lang_concat(mk_lang_memmove_inl_defd_base, _pct)
 
 #define mk_lang_memmove_inl_defd_fn mk_lang_concat(mk_lang_memmove_inl_defd_name, _fn)
