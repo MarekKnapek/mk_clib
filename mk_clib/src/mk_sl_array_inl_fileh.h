@@ -1,0 +1,47 @@
+#include "mk_lang_constexpr.h"
+#include "mk_lang_jumbo.h"
+#include "mk_lang_nodiscard.h"
+#include "mk_lang_noexcept.h"
+#include "mk_lang_types.h"
+
+
+#include "mk_sl_array_inl_defd.h"
+
+
+typedef mk_sl_array_inl_defd_element mk_sl_array_inl_defd_element_t;
+typedef mk_sl_array_inl_defd_element_t const mk_sl_array_inl_defd_element_ct;
+typedef mk_sl_array_inl_defd_element_t* mk_sl_array_inl_defd_element_pt;
+typedef mk_sl_array_inl_defd_element_t const* mk_sl_array_inl_defd_element_pct;
+
+enum mk_sl_array_inl_defd_len_e{ mk_sl_array_inl_defd_len_v = mk_sl_array_inl_defd_count };
+typedef enum mk_sl_array_inl_defd_len_e mk_sl_array_inl_defd_len_t;
+
+struct mk_sl_array_inl_defd_s
+{
+	mk_sl_array_inl_defd_element_t m_elements[mk_sl_array_inl_defd_count];
+};
+typedef struct mk_sl_array_inl_defd_s mk_sl_array_inl_defd_t;
+typedef mk_sl_array_inl_defd_t const mk_sl_array_inl_defd_ct;
+typedef mk_sl_array_inl_defd_t* mk_sl_array_inl_defd_pt;
+typedef mk_sl_array_inl_defd_t const* mk_sl_array_inl_defd_pct;
+
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_sl_array_inl_defd_st_capacity(mk_lang_types_void_t) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_sl_array_inl_defd_st_size(mk_lang_types_void_t) mk_lang_noexcept;
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_sl_array_inl_defd_ro_capacity(mk_sl_array_inl_defd_pct const arr) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_sl_array_inl_defd_ro_size(mk_sl_array_inl_defd_pct const arr) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_sl_array_inl_defd_element_pct mk_sl_array_inl_defd_ro_at(mk_sl_array_inl_defd_pct const arr, mk_lang_types_usize_t const idx) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_sl_array_inl_defd_element_pct mk_sl_array_inl_defd_ro_data(mk_sl_array_inl_defd_pct const arr) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_sl_array_inl_defd_element_pct mk_sl_array_inl_defd_ro_front(mk_sl_array_inl_defd_pct const arr) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_sl_array_inl_defd_element_pct mk_sl_array_inl_defd_ro_back(mk_sl_array_inl_defd_pct const arr) mk_lang_noexcept;
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_sl_array_inl_defd_rw_capacity(mk_sl_array_inl_defd_pt const arr) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_sl_array_inl_defd_rw_size(mk_sl_array_inl_defd_pt const arr) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_sl_array_inl_defd_element_pt mk_sl_array_inl_defd_rw_at(mk_sl_array_inl_defd_pt const arr, mk_lang_types_usize_t const idx) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_sl_array_inl_defd_element_pt mk_sl_array_inl_defd_rw_data(mk_sl_array_inl_defd_pt const arr) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_sl_array_inl_defd_element_pt mk_sl_array_inl_defd_rw_front(mk_sl_array_inl_defd_pt const arr) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_sl_array_inl_defd_element_pt mk_sl_array_inl_defd_rw_back(mk_sl_array_inl_defd_pt const arr) mk_lang_noexcept;
+
+
+#include "mk_sl_array_inl_defu.h"
