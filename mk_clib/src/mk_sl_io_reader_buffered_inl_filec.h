@@ -94,8 +94,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_reader_buffered_in
 
 	if(offset > 0 && reader->m_cursor + offset <= reader->m_end)
 	{
-		/* reader->m_cursor += offset; */
-		mk_lang_assert(mk_lang_false); /* todo */
+		reader->m_cursor += offset;
 	}
 	else if(offset > 0)
 	{
