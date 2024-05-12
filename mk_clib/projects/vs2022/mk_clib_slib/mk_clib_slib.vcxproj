@@ -705,6 +705,10 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_mutex.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_mutex_portable_c.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_mutex_portable_cpp.hpp"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_ring_inl_defd.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_ring_inl_defu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_ring_inl_filec.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_ring_inl_fileh.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_thread.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_thread_portable_c.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_thread_portable_cpp.hpp"/>
