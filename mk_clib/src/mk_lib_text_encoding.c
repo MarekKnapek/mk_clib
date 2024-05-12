@@ -15,16 +15,16 @@
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_text_encoding_wide_to_utf8_work(mk_lang_types_bool_t const validate, mk_lang_types_wchar_pct const wide_str, mk_lang_types_sint_t const wide_len, mk_lang_types_pchar_pt const utf8_str, mk_lang_types_sint_t const utf8_len, mk_lang_types_sint_pt const out_len) mk_lang_noexcept
 {
 #if mk_lang_sizeof_bi_wchar_t == 2 /* assuming UTF-16LE */
-	mk_lang_types_sint_t len;
-	mk_lang_types_pchar_pt out;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t n;
-	mk_lang_types_sint_t i;
-	mk_lang_types_wchar_t twca;
-	mk_lang_types_ushort_t tusa;
-	mk_lang_types_ulong_t tul;
-	mk_lang_types_wchar_t twcb;
-	mk_lang_types_ushort_t tusb;
+	mk_lang_types_sint_t len mk_lang_constexpr_init;
+	mk_lang_types_pchar_pt out mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t n mk_lang_constexpr_init;
+	mk_lang_types_sint_t i mk_lang_constexpr_init;
+	mk_lang_types_wchar_t twca mk_lang_constexpr_init;
+	mk_lang_types_ushort_t tusa mk_lang_constexpr_init;
+	mk_lang_types_ulong_t tul mk_lang_constexpr_init;
+	mk_lang_types_wchar_t twcb mk_lang_constexpr_init;
+	mk_lang_types_ushort_t tusb mk_lang_constexpr_init;
 
 	mk_lang_assert(validate == mk_lang_false || validate == mk_lang_true);
 	mk_lang_assert(wide_str);
@@ -107,14 +107,14 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_text_encoding_wide_to_utf8_len(mk_lang_types_bool_t const validate, mk_lang_types_wchar_pct const wide_str, mk_lang_types_sint_t const wide_len, mk_lang_types_pchar_pt const utf8_str, mk_lang_types_sint_t const utf8_len, mk_lang_types_sint_pt const out_len) mk_lang_noexcept
 {
 #if mk_lang_sizeof_bi_wchar_t == 2 /* assuming UTF-16LE */
-	mk_lang_types_sint_t len;
-	mk_lang_types_sint_t n;
-	mk_lang_types_sint_t i;
-	mk_lang_types_wchar_t twca;
-	mk_lang_types_ushort_t tusa;
-	mk_lang_types_ulong_t tul;
-	mk_lang_types_wchar_t twcb;
-	mk_lang_types_ushort_t tusb;
+	mk_lang_types_sint_t len mk_lang_constexpr_init;
+	mk_lang_types_sint_t n mk_lang_constexpr_init;
+	mk_lang_types_sint_t i mk_lang_constexpr_init;
+	mk_lang_types_wchar_t twca mk_lang_constexpr_init;
+	mk_lang_types_ushort_t tusa mk_lang_constexpr_init;
+	mk_lang_types_ulong_t tul mk_lang_constexpr_init;
+	mk_lang_types_wchar_t twcb mk_lang_constexpr_init;
+	mk_lang_types_ushort_t tusb mk_lang_constexpr_init;
 
 	mk_lang_assert(validate == mk_lang_false || validate == mk_lang_true);
 	mk_lang_assert(wide_str);
