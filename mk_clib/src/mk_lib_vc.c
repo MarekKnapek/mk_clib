@@ -10,6 +10,7 @@
 #include "mk_lang_max.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_offsetof.h"
 #include "mk_lang_roundup.h"
 #include "mk_lang_static_assert.h"
 #include "mk_lang_types.h"
@@ -313,6 +314,37 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_vc_seq_expand_dec(mk
 
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_vc_keys_init(mk_lib_vc_seqid_t const seqid, mk_lib_vc_keys_material_pct const key_material, mk_lib_vc_seq_keys_pt const keys) mk_lang_noexcept
 {
+	mk_lang_static_assert(mk_lang_offsetof(mk_lib_vc_seq_aes_keys_t, m_pri) == 0 * 32);
+	mk_lang_static_assert(mk_lang_offsetof(mk_lib_vc_seq_aes_keys_t, m_sec) == 1 * 32);
+	mk_lang_static_assert(mk_lang_offsetof(mk_lib_vc_seq_serpent_keys_t, m_pri) == 0 * 32);
+	mk_lang_static_assert(mk_lang_offsetof(mk_lib_vc_seq_serpent_keys_t, m_sec) == 1 * 32);
+	mk_lang_static_assert(mk_lang_offsetof(mk_lib_vc_seq_twofish_keys_t, m_pri) == 0 * 32);
+	mk_lang_static_assert(mk_lang_offsetof(mk_lib_vc_seq_twofish_keys_t, m_sec) == 1 * 32);
+	mk_lang_static_assert(mk_lang_offsetof(mk_lib_vc_seq_aes_twofish_keys_t, m_twofish_pri) == 0 * 32);
+	mk_lang_static_assert(mk_lang_offsetof(mk_lib_vc_seq_aes_twofish_keys_t, m_aes_pri    ) == 1 * 32);
+	mk_lang_static_assert(mk_lang_offsetof(mk_lib_vc_seq_aes_twofish_keys_t, m_twofish_sec) == 2 * 32);
+	mk_lang_static_assert(mk_lang_offsetof(mk_lib_vc_seq_aes_twofish_keys_t, m_aes_sec    ) == 3 * 32);
+	mk_lang_static_assert(mk_lang_offsetof(mk_lib_vc_seq_aes_twofish_serpent_keys_t, m_serpent_pri) == 0 * 32);
+	mk_lang_static_assert(mk_lang_offsetof(mk_lib_vc_seq_aes_twofish_serpent_keys_t, m_twofish_pri) == 1 * 32);
+	mk_lang_static_assert(mk_lang_offsetof(mk_lib_vc_seq_aes_twofish_serpent_keys_t, m_aes_pri    ) == 2 * 32);
+	mk_lang_static_assert(mk_lang_offsetof(mk_lib_vc_seq_aes_twofish_serpent_keys_t, m_serpent_sec) == 3 * 32);
+	mk_lang_static_assert(mk_lang_offsetof(mk_lib_vc_seq_aes_twofish_serpent_keys_t, m_twofish_sec) == 4 * 32);
+	mk_lang_static_assert(mk_lang_offsetof(mk_lib_vc_seq_aes_twofish_serpent_keys_t, m_aes_sec    ) == 5 * 32);
+	mk_lang_static_assert(mk_lang_offsetof(mk_lib_vc_seq_serpent_aes_keys_t, m_aes_pri    ) == 0 * 32);
+	mk_lang_static_assert(mk_lang_offsetof(mk_lib_vc_seq_serpent_aes_keys_t, m_serpent_pri) == 1 * 32);
+	mk_lang_static_assert(mk_lang_offsetof(mk_lib_vc_seq_serpent_aes_keys_t, m_aes_sec    ) == 2 * 32);
+	mk_lang_static_assert(mk_lang_offsetof(mk_lib_vc_seq_serpent_aes_keys_t, m_serpent_sec) == 3 * 32);
+	mk_lang_static_assert(mk_lang_offsetof(mk_lib_vc_seq_serpent_twofish_aes_keys_t, m_aes_pri    ) == 0 * 32);
+	mk_lang_static_assert(mk_lang_offsetof(mk_lib_vc_seq_serpent_twofish_aes_keys_t, m_twofish_pri) == 1 * 32);
+	mk_lang_static_assert(mk_lang_offsetof(mk_lib_vc_seq_serpent_twofish_aes_keys_t, m_serpent_pri) == 2 * 32);
+	mk_lang_static_assert(mk_lang_offsetof(mk_lib_vc_seq_serpent_twofish_aes_keys_t, m_aes_sec    ) == 3 * 32);
+	mk_lang_static_assert(mk_lang_offsetof(mk_lib_vc_seq_serpent_twofish_aes_keys_t, m_twofish_sec) == 4 * 32);
+	mk_lang_static_assert(mk_lang_offsetof(mk_lib_vc_seq_serpent_twofish_aes_keys_t, m_serpent_sec) == 5 * 32);
+	mk_lang_static_assert(mk_lang_offsetof(mk_lib_vc_seq_twofish_serpent_keys_t, m_serpent_pri) == 0 * 32);
+	mk_lang_static_assert(mk_lang_offsetof(mk_lib_vc_seq_twofish_serpent_keys_t, m_twofish_pri) == 1 * 32);
+	mk_lang_static_assert(mk_lang_offsetof(mk_lib_vc_seq_twofish_serpent_keys_t, m_serpent_sec) == 2 * 32);
+	mk_lang_static_assert(mk_lang_offsetof(mk_lib_vc_seq_twofish_serpent_keys_t, m_twofish_sec) == 3 * 32);
+
 	mk_lang_assert(seqid >= 0 && seqid < mk_lib_vc_seqid_e_dummy);
 	mk_lang_assert(key_material);
 	mk_lang_assert(keys);
