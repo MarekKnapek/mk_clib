@@ -16,6 +16,7 @@
 #include "mk_lang_null.h"
 #include "mk_lang_os.h"
 #include "mk_lang_pow2.h"
+#include "mk_lang_roundup.h"
 #include "mk_lang_static_assert.h"
 #include "mk_lang_types.h"
 #include "mk_lib_fmt.h"
@@ -584,7 +585,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_thre
 	mk_lang_assert(seqid >= 0 && seqid < mk_lib_vc_seqid_e_dummy);
 	mk_lang_assert(schedules);
 
-	buf = ((mk_sl_cui_uint8_pt)(((((mk_lang_types_uintptr_t)(&g_mk_clib_app_vc_buf[0])) + (mk_clib_app_vc_buffered_align - 1ul)) / mk_clib_app_vc_buffered_align) * mk_clib_app_vc_buffered_align)) + (2ul * mk_clib_app_vc_buffered_len);
+	buf = &((mk_sl_cui_uint8_pt)(mk_lang_roundup_align_ptr(&g_mk_clib_app_vc_buf[0], mk_clib_app_vc_buffered_align)))[2ul * mk_clib_app_vc_buffered_len];
 	g_mk_clib_app_vc_threads_playground = buf;
 	g_mk_clib_app_vc_threads_submited = 0;
 	g_mk_clib_app_vc_threads_seqid = seqid;
@@ -690,7 +691,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_
 	mk_lang_assert(max_block_id);
 	mk_lang_assert(volume_len);
 
-	buf = ((mk_sl_cui_uint8_pt)(((((mk_lang_types_uintptr_t)(&g_mk_clib_app_vc_buf[0])) + (mk_clib_app_vc_buffered_align - 1ul)) / mk_clib_app_vc_buffered_align) * mk_clib_app_vc_buffered_align)) + (1ul * mk_clib_app_vc_buffered_len);
+	buf = &((mk_sl_cui_uint8_pt)(mk_lang_roundup_align_ptr(&g_mk_clib_app_vc_buf[0], mk_clib_app_vc_buffered_align)))[1ul * mk_clib_app_vc_buffered_len];
 	mk_clib_app_vc_writer_init(&buffered, writer, buf, mk_clib_app_vc_buffered_len);
 	tul = 1ul * 1024ul * 1024ul; mk_sl_cui_uint32_from_bi_ulong(&align, &tul);
 	mk_clib_app_vc_mbr_header_generate(block, volume_len, &align);
@@ -790,7 +791,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_
 	mk_lang_assert(tx);
 
 	blck = block;
-	buf = ((mk_sl_cui_uint8_pt)(((((mk_lang_types_uintptr_t)(&g_mk_clib_app_vc_buf[0])) + (mk_clib_app_vc_buffered_align - 1ul)) / mk_clib_app_vc_buffered_align) * mk_clib_app_vc_buffered_align)) + (0ul * mk_clib_app_vc_buffered_len);
+	buf = &((mk_sl_cui_uint8_pt)(mk_lang_roundup_align_ptr(&g_mk_clib_app_vc_buf[0], mk_clib_app_vc_buffered_align)))[0ul * mk_clib_app_vc_buffered_len];
 	err = mk_clib_app_vc_reader_init(&buffered, reader, buf, mk_clib_app_vc_buffered_len); mk_lang_check_rereturn(err);
 	err = mk_clib_app_vc_reader_read(&buffered, &blck->m_data.m_uint8s[0], mk_lang_countof(blck->m_data.m_uint8s), &read); mk_lang_check_rereturn(err); mk_lang_check_return(read == mk_lang_countof(blck->m_data.m_uint8s));
 	salt = ((mk_lib_vc_salt_pt)(blck));
@@ -851,7 +852,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_
 	str_output = argv[4];
 	err = mk_clib_app_vc_password_to_utf8(wide, str_password, &password_utf8_buf[0], mk_lang_countof(password_utf8_buf), &password_utf8, &password_len); mk_lang_check_rereturn(err);
 	err = mk_lib_vc_parse_cost(wide, str_pim, &cost); mk_lang_check_rereturn(err);
-	block = ((mk_lib_vc_block_pt)(((((mk_lang_types_uintptr_t)(&block_oversized)) + (sizeof(*block) - 1)) / sizeof(*block)) * sizeof(*block)));
+	block = ((mk_lib_vc_block_pt)(mk_lang_roundup_align_ptr(&block_oversized, sizeof(*block))));
 	err = mk_clib_app_vc_arg_work_txf_impl_1(block, &password_utf8[0], password_len, cost, wide, str_input, str_output, tx); mk_lang_check_rereturn(err);
 	return 0;
 }

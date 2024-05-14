@@ -10,6 +10,7 @@
 #include "mk_lang_max.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_roundup.h"
 #include "mk_lang_static_assert.h"
 #include "mk_lang_types.h"
 #include "mk_lib_crypto_alg_aes_256.h"
@@ -124,7 +125,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_vc_xts_decrypt_block
 	mk_lang_assert(in);
 	mk_lang_assert(out);
 
-	tweaks = ((mk_lib_vc_block_pt)(((((mk_lang_types_uintptr_t)(&tweaks_oversized)) + (sizeof(*tweaks) - 1)) / sizeof(*tweaks)) * sizeof(*tweaks)));
+	tweaks = ((mk_lib_vc_block_pt)(mk_lang_roundup_align_ptr(&tweaks_oversized, sizeof(*tweaks))));
 	mk_sl_uint_64_to_8_le(block_id, &tweaks->m_data.m_tweaks[0].m_data.m_uint8s[0 * 8]);
 	mk_sl_cui_uint64_set_zero(&tu64);
 	mk_sl_uint_64_to_8_le(&tu64, &tweaks->m_data.m_tweaks[0].m_data.m_uint8s[1 * 8]);
@@ -461,7 +462,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc
 	mk_lang_assert(schedules);
 	mk_lang_assert(volume_len);
 
-	decrypted = ((mk_lib_vc_block_pt)(((((mk_lang_types_uintptr_t)(&decrypted_oversized)) + (sizeof(*decrypted) - 1)) / sizeof(*decrypted)) * sizeof(*decrypted)));
+	decrypted = ((mk_lib_vc_block_pt)(mk_lang_roundup_align_ptr(&decrypted_oversized, sizeof(*decrypted))));
 	mk_sl_cui_uint64_set_zero(&block_idx);
 	mk_lib_vc_keys_init(seqid, key_material, &keys);
 	mk_lib_vc_seq_expand_dec(seqid, &keys, schedules);
