@@ -37,7 +37,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 
 	if(mk_lang_constexpr_is_constant_evaluated_test)
 	{
-		mk_lang_check_return(mk_lang_false); /* todo */
+		return mk_lang_check_line; /* todo */
 	}
 	else
 	{
@@ -51,7 +51,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 
 	if(mk_lang_constexpr_is_constant_evaluated_test)
 	{
-		mk_lang_check_return(mk_lang_false); /* todo */
+		return mk_lang_check_line; /* todo */
 	}
 	else
 	{
@@ -66,7 +66,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 
 	if(mk_lang_constexpr_is_constant_evaluated_test)
 	{
-		mk_lang_check_return(mk_lang_false); /* todo */
+		return mk_lang_check_line; /* todo */
 	}
 	else
 	{
@@ -80,7 +80,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 
 	if(mk_lang_constexpr_is_constant_evaluated_test)
 	{
-		mk_lang_check_return(mk_lang_false); /* todo */
+		return mk_lang_check_line; /* todo */
 	}
 	else
 	{
@@ -94,7 +94,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 
 	if(mk_lang_constexpr_is_constant_evaluated_test)
 	{
-		mk_lang_check_return(mk_lang_false); /* todo */
+		return mk_lang_check_line; /* todo */
 	}
 	else
 	{
