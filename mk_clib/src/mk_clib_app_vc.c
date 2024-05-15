@@ -20,7 +20,10 @@
 #include "mk_lang_static_assert.h"
 #include "mk_lang_types.h"
 #include "mk_lib_fmt.h"
+#include "mk_lib_mt_cv.h"
+#include "mk_lib_mt_mutex.h"
 #include "mk_lib_mt_thread.h"
+#include "mk_lib_mt_unique_lock.h"
 #include "mk_lib_text_encoding.h"
 #include "mk_lib_vc.h"
 #include "mk_sl_io_console.h"
@@ -87,6 +90,18 @@ typedef mk_clib_app_vc_task_t const* mk_clib_app_vc_task_pct;
 #define mk_sl_fixed_vector_t_count mk_clib_app_vc_max_tasks
 #include "mk_sl_fixed_vector_inl_fileh.h"
 #include "mk_sl_fixed_vector_inl_filec.h"
+
+struct mk_clib_app_vc_thread_init_s
+{
+	mk_lang_types_bool_t m_inited;
+	mk_lib_mt_mutex_t m_mutex;
+	mk_lib_mt_cv_t m_cv;
+	mk_lang_types_sint_t m_idx;
+};
+typedef struct mk_clib_app_vc_thread_init_s mk_clib_app_vc_thread_init_t;
+typedef mk_clib_app_vc_thread_init_t const mk_clib_app_vc_thread_init_ct;
+typedef mk_clib_app_vc_thread_init_t* mk_clib_app_vc_thread_init_pt;
+typedef mk_clib_app_vc_thread_init_t const* mk_clib_app_vc_thread_init_pct;
 
 #endif
 
@@ -544,14 +559,37 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_
 #endif
 
 #if mk_lib_mt_thread_has
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_threads_job_1(mk_clib_app_vc_thread_init_pt const ti, mk_lang_types_sint_pt const idx) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	mk_lib_mt_unique_lock_t ul;
+
+	mk_lang_assert(ti);
+	mk_lang_assert(idx);
+
+	err = mk_lib_mt_unique_lock_construct(&ul, &ti->m_mutex); mk_lang_check_rereturn(err);
+	*idx = ti->m_idx;
+	ti->m_inited = mk_lang_true;
+	err = mk_lib_mt_unique_lock_destruct(&ul); mk_lang_check_rereturn(err);
+	err = mk_lib_mt_cv_notify_one(&ti->m_cv); mk_lang_check_rereturn(err);
+	return 0;
+}
+#endif
+
+#if mk_lib_mt_thread_has
 mk_lang_nodiscard static mk_lang_types_sint_t mk_clib_app_vc_threads_job(mk_lang_types_void_pt const context) mk_lang_noexcept
 {
-	mk_lang_types_sint_t idx;
+	mk_clib_app_vc_thread_init_pt ti;
 	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t idx;
 	mk_clib_app_vc_task_t task;
 	mk_lang_types_bool_t end;
 
-	idx = ((mk_lang_types_sint_t)(((mk_lang_types_uintptr_t)(context))));
+	mk_lang_assert(context);
+
+	ti = ((mk_clib_app_vc_thread_init_pt)(context));
+	err = mk_clib_app_vc_threads_job_1(ti, &idx); mk_lang_check_rereturn(err);
+	mk_lang_assert(idx >= 0 && idx < mk_clib_app_vc_max_threads);
 	for(;;)
 	{
 		err = mk_clib_app_vc_mtring_rw_pop_front_copy(&g_mk_clib_app_vc_threads_ring_submit, &task); mk_lang_check_rereturn(err);
@@ -570,15 +608,145 @@ mk_lang_nodiscard static mk_lang_types_sint_t mk_clib_app_vc_threads_job(mk_lang
 }
 #endif
 
+#if mk_lib_mt_thread_has
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_threads_init_7(mk_clib_app_vc_thread_init_pt const ti, mk_lib_mt_unique_lock_pt const ul) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(ti);
+	mk_lang_assert(ul);
+
+	while(!ti->m_inited)
+	{
+		err = mk_lib_mt_cv_wait(&ti->m_cv, ul); mk_lang_check_rereturn(err);
+	}
+	return 0;
+}
+#endif
+
+#if mk_lib_mt_thread_has
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_threads_init_6(mk_clib_app_vc_thread_init_pt const ti, mk_lang_types_sint_t const i) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	mk_lib_mt_unique_lock_t ul;
+	mk_lang_types_sint_t err_b;
+
+	mk_lang_assert(ti);
+	mk_lang_assert(i >= 0 && i < mk_clib_app_vc_max_threads);
+
+	ti->m_inited = mk_lang_false;
+	ti->m_idx = i;
+	err = mk_lib_mt_thread_create(&g_mk_clib_app_vc_threads[i], &mk_clib_app_vc_threads_job, ti); mk_lang_check_rereturn(err);
+	err = mk_lib_mt_unique_lock_construct(&ul, &ti->m_mutex); mk_lang_check_rereturn(err);
+	err_b = mk_clib_app_vc_threads_init_7(ti, &ul);
+	err = mk_lib_mt_unique_lock_destruct(&ul); mk_lang_check_rereturn(err);
+	mk_lang_check_rereturn(err_b);
+	return 0;
+}
+#endif
+
+#if mk_lib_mt_thread_has
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_threads_init_5(mk_clib_app_vc_thread_init_pt const ti) mk_lang_noexcept
+{
+	mk_lang_types_sint_t n;
+	mk_lang_types_sint_t i;
+	mk_lang_types_sint_t err_b;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(ti);
+
+	n = mk_lib_mt_thread_hardware_concurrency(); mk_lang_assert(n >= 1);
+	n = mk_lang_min(n, mk_lang_countof(g_mk_clib_app_vc_threads));
+	g_mk_clib_app_vc_threads_count = n;
+	for(i = 0; i != n; ++i)
+	{
+		err_b = mk_clib_app_vc_threads_init_6(ti, i); mk_lang_check_rebreak(err_b);
+	}
+	if(err_b != 0)
+	{
+		n = i;
+		for(i = 0; i != n; ++i)
+		{
+			err = mk_lib_mt_thread_join(&g_mk_clib_app_vc_threads[n - 1 + i]); mk_lang_check_recrash(err);
+			err = mk_lib_mt_thread_destroy(&g_mk_clib_app_vc_threads[n - 1 + 1]); mk_lang_check_recrash(err);
+		}
+		mk_lang_check_rereturn(err_b);
+	}
+	return 0;
+}
+#endif
+
+#if mk_lib_mt_thread_has
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_threads_init_4(mk_clib_app_vc_thread_init_pt const ti) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t err_b;
+
+	mk_lang_assert(ti);
+
+	err = mk_lib_mt_cv_construct(&ti->m_cv); mk_lang_check_rereturn(err);
+	err_b = mk_clib_app_vc_threads_init_5(ti);
+	err = mk_lib_mt_cv_destruct(&ti->m_cv); mk_lang_check_rereturn(err);
+	mk_lang_check_rereturn(err_b);
+	return 0;
+}
+#endif
+
+#if mk_lib_mt_thread_has
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_threads_init_3(mk_lang_types_void_t) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	mk_clib_app_vc_thread_init_t ti;
+	mk_lang_types_sint_t err_b;
+
+	err = mk_lib_mt_mutex_construct(&ti.m_mutex); mk_lang_check_rereturn(err);
+	err_b = mk_clib_app_vc_threads_init_4(&ti);
+	err = mk_lib_mt_mutex_destruct(&ti.m_mutex); mk_lang_check_rereturn(err);
+	mk_lang_check_rereturn(err_b);
+	return 0;
+}
+#endif
+
+#if mk_lib_mt_thread_has
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_threads_init_2(mk_lang_types_void_t) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t err_b;
+
+	err = mk_clib_app_vc_mtring_rw_construct(&g_mk_clib_app_vc_threads_ring_receieve); mk_lang_check_rereturn(err);
+	err_b = mk_clib_app_vc_threads_init_3();
+	if(err_b != 0)
+	{
+		err = mk_clib_app_vc_mtring_rw_destroy(&g_mk_clib_app_vc_threads_ring_receieve); mk_lang_check_rereturn(err);
+		mk_lang_check_rereturn(err_b);
+	}
+	return 0;
+}
+#endif
+
+#if mk_lib_mt_thread_has
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_threads_init_1(mk_lang_types_void_t) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t err_b;
+
+	err = mk_clib_app_vc_mtring_rw_construct(&g_mk_clib_app_vc_threads_ring_submit); mk_lang_check_rereturn(err);
+	err_b = mk_clib_app_vc_threads_init_2();
+	if(err_b != 0)
+	{
+		err = mk_clib_app_vc_mtring_rw_destroy(&g_mk_clib_app_vc_threads_ring_submit); mk_lang_check_rereturn(err);
+		mk_lang_check_rereturn(err_b);
+	}
+	return 0;
+}
+#endif
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_threads_init(mk_lib_vc_seqid_t const seqid, mk_lib_vc_seq_schedules_pct const schedules) mk_lang_noexcept
 {
 #if mk_lib_mt_thread_has
 	mk_sl_cui_uint8_pt buf;
 	mk_lang_types_sint_t tsi;
 	mk_lang_types_sint_t err;
-	mk_lang_types_sint_t n;
-	mk_lang_types_sint_t i;
-	mk_lang_types_void_pt idx;
 
 	mk_lang_static_assert((mk_clib_app_vc_max_threads * 4) <= (mk_clib_app_vc_buffered_len / mk_lib_vc_block_len));
 
@@ -592,16 +760,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_thre
 	g_mk_clib_app_vc_threads_schedules = schedules;
 	mk_clib_app_vc_fixed_vector_rw_construct(&g_mk_clib_app_vc_threads_finished);
 	tsi = mk_lib_vc_offsets_volume / mk_lib_vc_block_len; mk_sl_cui_uint64_from_bi_sint(&g_mk_clib_app_vc_threads_to_write_id, &tsi);
-	err = mk_clib_app_vc_mtring_rw_construct(&g_mk_clib_app_vc_threads_ring_submit); mk_lang_check_rereturn(err);
-	err = mk_clib_app_vc_mtring_rw_construct(&g_mk_clib_app_vc_threads_ring_receieve); mk_lang_check_rereturn(err);
-	n = mk_lib_mt_thread_hardware_concurrency();
-	n = mk_lang_min(n, mk_lang_countof(g_mk_clib_app_vc_threads));
-	g_mk_clib_app_vc_threads_count = n;
-	for(i = 0; i != n; ++i)
-	{
-		idx = ((mk_lang_types_void_pt)(((mk_lang_types_uintptr_t)(i))));
-		err = mk_lib_mt_thread_create(&g_mk_clib_app_vc_threads[i], mk_clib_app_vc_threads_job, idx); mk_lang_check_rereturn(err);
-	}
+	err = mk_clib_app_vc_threads_init_1(); mk_lang_check_rereturn(err);
 #endif
 	return 0;
 }
