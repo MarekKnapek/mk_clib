@@ -11,7 +11,15 @@
 #include "mk_lang_version.h"
 
 
-#if defined _MSC_VER && defined _MSC_FULL_VER
+#if defined _MSC_VER && defined _MSC_FULL_VER && defined _WIN32_WINNT && _WIN32_WINNT >= 0x0600
+#include "mk_lib_mt_mutex_windows_srwl.h"
+#define mk_lib_mt_mutex_impl_construct        mk_lib_mt_mutex_windows_srwl_construct
+#define mk_lib_mt_mutex_impl_destruct         mk_lib_mt_mutex_windows_srwl_destruct
+#define mk_lib_mt_mutex_impl_exclusive_lock   mk_lib_mt_mutex_windows_srwl_exclusive_lock
+#define mk_lib_mt_mutex_impl_exclusive_unlock mk_lib_mt_mutex_windows_srwl_exclusive_unlock
+#define mk_lib_mt_mutex_impl_shared_lock      mk_lib_mt_mutex_windows_srwl_shared_lock
+#define mk_lib_mt_mutex_impl_shared_unlock    mk_lib_mt_mutex_windows_srwl_shared_unlock
+#elif defined _MSC_VER && defined _MSC_FULL_VER
 #include "mk_lib_mt_mutex_windows_cs.h"
 #define mk_lib_mt_mutex_impl_construct        mk_lib_mt_mutex_windows_cs_construct
 #define mk_lib_mt_mutex_impl_destruct         mk_lib_mt_mutex_windows_cs_destruct
