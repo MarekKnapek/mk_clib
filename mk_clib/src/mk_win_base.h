@@ -51,6 +51,7 @@
 #define mk_win_base_null mk_lang_null
 #define mk_win_base_false ((mk_win_base_bool_t)(0))
 #define mk_win_base_true ((mk_win_base_bool_t)(1))
+#define mk_win_base_infinite ((mk_win_base_dword_t)(0xfffffffful))
 #define mk_win_base_proc_not_found ((mk_win_base_proc_t)(0x100))
 #define mk_win_base_handle_null ((mk_win_base_void_pct)(((mk_win_base_uintptr_t)(0))))
 #define mk_win_base_handle_invalid ((mk_win_base_void_pct)(((mk_win_base_sintptr_t)(-1))))
