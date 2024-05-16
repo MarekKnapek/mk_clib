@@ -12,7 +12,15 @@
 #include "mk_lib_mt_unique_lock.h"
 
 
-#if mk_lang_version_at_least_cpp_11 || mk_lang_version_at_least_msvc_cpp_11
+#if defined _MSC_VER && defined _MSC_FULL_VER
+#include "mk_lib_mt_cv_windows_cs.h"
+#define mk_lib_mt_cv_impl_construct      mk_lib_mt_cv_windows_cs_construct
+#define mk_lib_mt_cv_impl_destruct       mk_lib_mt_cv_windows_cs_destruct
+#define mk_lib_mt_cv_impl_wait_exclusive mk_lib_mt_cv_windows_cs_wait_exclusive
+#define mk_lib_mt_cv_impl_wait_shared    mk_lib_mt_cv_windows_cs_wait_shared
+#define mk_lib_mt_cv_impl_notify_one     mk_lib_mt_cv_windows_cs_notify_one
+#define mk_lib_mt_cv_impl_notify_all     mk_lib_mt_cv_windows_cs_notify_all
+#elif mk_lang_version_at_least_cpp_11 || mk_lang_version_at_least_msvc_cpp_11
 #include "mk_lib_mt_cv_portable_cpp.hpp"
 #define mk_lib_mt_cv_impl_construct      mk_lib_mt_cv_portable_cpp_construct
 #define mk_lib_mt_cv_impl_destruct       mk_lib_mt_cv_portable_cpp_destruct
