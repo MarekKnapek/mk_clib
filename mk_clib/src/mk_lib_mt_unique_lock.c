@@ -12,7 +12,13 @@
 #include "mk_lib_mt_mutex.h"
 
 
-#if mk_lang_version_at_least_cpp_11 || mk_lang_version_at_least_msvc_cpp_11
+#if defined _MSC_VER && defined _MSC_FULL_VER
+#include "mk_lib_mt_unique_lock_windows_cs.h"
+#define mk_lib_mt_unique_lock_exclusive_impl_construct mk_lib_mt_unique_lock_exclusive_windows_cs_construct
+#define mk_lib_mt_unique_lock_exclusive_impl_destruct  mk_lib_mt_unique_lock_exclusive_windows_cs_destruct
+#define mk_lib_mt_unique_lock_shared_impl_construct    mk_lib_mt_unique_lock_shared_windows_cs_construct
+#define mk_lib_mt_unique_lock_shared_impl_destruct     mk_lib_mt_unique_lock_shared_windows_cs_destruct
+#elif mk_lang_version_at_least_cpp_11 || mk_lang_version_at_least_msvc_cpp_11
 #include "mk_lib_mt_unique_lock_portable_cpp.hpp"
 #define mk_lib_mt_unique_lock_exclusive_impl_construct mk_lib_mt_unique_lock_exclusive_portable_cpp_construct
 #define mk_lib_mt_unique_lock_exclusive_impl_destruct  mk_lib_mt_unique_lock_exclusive_portable_cpp_destruct
