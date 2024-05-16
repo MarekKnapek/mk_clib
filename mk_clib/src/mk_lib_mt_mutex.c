@@ -11,7 +11,15 @@
 #include "mk_lang_version.h"
 
 
-#if mk_lang_version_at_least_cpp_11 || mk_lang_version_at_least_msvc_cpp_11
+#if defined _MSC_VER && defined _MSC_FULL_VER
+#include "mk_lib_mt_mutex_windows_cs.h"
+#define mk_lib_mt_mutex_impl_construct        mk_lib_mt_mutex_windows_cs_construct
+#define mk_lib_mt_mutex_impl_destruct         mk_lib_mt_mutex_windows_cs_destruct
+#define mk_lib_mt_mutex_impl_exclusive_lock   mk_lib_mt_mutex_windows_cs_exclusive_lock
+#define mk_lib_mt_mutex_impl_exclusive_unlock mk_lib_mt_mutex_windows_cs_exclusive_unlock
+#define mk_lib_mt_mutex_impl_shared_lock      mk_lib_mt_mutex_windows_cs_shared_lock
+#define mk_lib_mt_mutex_impl_shared_unlock    mk_lib_mt_mutex_windows_cs_shared_unlock
+#elif mk_lang_version_at_least_cpp_11 || mk_lang_version_at_least_msvc_cpp_11
 #include "mk_lib_mt_mutex_portable_cpp.hpp"
 #define mk_lib_mt_mutex_impl_construct        mk_lib_mt_mutex_portable_cpp_construct
 #define mk_lib_mt_mutex_impl_destruct         mk_lib_mt_mutex_portable_cpp_destruct

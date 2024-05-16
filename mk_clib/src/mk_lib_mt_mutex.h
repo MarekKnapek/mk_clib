@@ -10,7 +10,10 @@
 #include "mk_lang_version.h"
 
 
-#if mk_lang_version_at_least_cpp_11 || mk_lang_version_at_least_msvc_cpp_11
+#if defined _MSC_VER && defined _MSC_FULL_VER
+#include "mk_lib_mt_mutex_windows_cs.h"
+typedef mk_lib_mt_mutex_windows_cs_t mk_lib_mt_mutex_impl_t;
+#elif mk_lang_version_at_least_cpp_11 || mk_lang_version_at_least_msvc_cpp_11
 #include "mk_lib_mt_mutex_portable_cpp.hpp"
 typedef mk_lib_mt_mutex_portable_cpp_t mk_lib_mt_mutex_impl_t;
 #elif mk_lang_version_at_least_c_11
