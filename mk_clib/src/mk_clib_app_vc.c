@@ -562,15 +562,15 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_threads_job_1(mk_clib_app_vc_thread_init_pt const ti, mk_lang_types_sint_pt const idx) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
-	mk_lib_mt_unique_lock_t ul;
+	mk_lib_mt_unique_lock_exclusive_t ul;
 
 	mk_lang_assert(ti);
 	mk_lang_assert(idx);
 
-	err = mk_lib_mt_unique_lock_construct(&ul, &ti->m_mutex); mk_lang_check_rereturn(err);
+	err = mk_lib_mt_unique_lock_exclusive_construct(&ul, &ti->m_mutex); mk_lang_check_rereturn(err);
 	*idx = ti->m_idx;
 	ti->m_inited = mk_lang_true;
-	err = mk_lib_mt_unique_lock_destruct(&ul); mk_lang_check_rereturn(err);
+	err = mk_lib_mt_unique_lock_exclusive_destruct(&ul); mk_lang_check_rereturn(err);
 	err = mk_lib_mt_cv_notify_one(&ti->m_cv); mk_lang_check_rereturn(err);
 	return 0;
 }
@@ -609,7 +609,7 @@ mk_lang_nodiscard static mk_lang_types_sint_t mk_clib_app_vc_threads_job(mk_lang
 #endif
 
 #if mk_lib_mt_thread_has
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_threads_init_7(mk_clib_app_vc_thread_init_pt const ti, mk_lib_mt_unique_lock_pt const ul) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_threads_init_7(mk_clib_app_vc_thread_init_pt const ti, mk_lib_mt_unique_lock_exclusive_pt const ul) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 
@@ -618,7 +618,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_thre
 
 	while(!ti->m_inited)
 	{
-		err = mk_lib_mt_cv_wait(&ti->m_cv, ul); mk_lang_check_rereturn(err);
+		err = mk_lib_mt_cv_wait_exclusive(&ti->m_cv, ul); mk_lang_check_rereturn(err);
 	}
 	return 0;
 }
@@ -628,7 +628,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_thre
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_threads_init_6(mk_clib_app_vc_thread_init_pt const ti, mk_lang_types_sint_t const i) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
-	mk_lib_mt_unique_lock_t ul;
+	mk_lib_mt_unique_lock_exclusive_t ul;
 	mk_lang_types_sint_t err_b;
 
 	mk_lang_assert(ti);
@@ -637,9 +637,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_thre
 	ti->m_inited = mk_lang_false;
 	ti->m_idx = i;
 	err = mk_lib_mt_thread_create(&g_mk_clib_app_vc_threads[i], &mk_clib_app_vc_threads_job, ti); mk_lang_check_rereturn(err);
-	err = mk_lib_mt_unique_lock_construct(&ul, &ti->m_mutex); mk_lang_check_rereturn(err);
+	err = mk_lib_mt_unique_lock_exclusive_construct(&ul, &ti->m_mutex); mk_lang_check_rereturn(err);
 	err_b = mk_clib_app_vc_threads_init_7(ti, &ul);
-	err = mk_lib_mt_unique_lock_destruct(&ul); mk_lang_check_rereturn(err);
+	err = mk_lib_mt_unique_lock_exclusive_destruct(&ul); mk_lang_check_rereturn(err);
 	mk_lang_check_rereturn(err_b);
 	return 0;
 }

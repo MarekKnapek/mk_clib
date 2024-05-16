@@ -38,7 +38,16 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_portable_cpp_d
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_portable_cpp_wait(mk_lib_mt_cv_portable_cpp_pt const cv, mk_lib_mt_unique_lock_portable_cpp_pt const lock) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_portable_cpp_wait_exclusive(mk_lib_mt_cv_portable_cpp_pt const cv, mk_lib_mt_unique_lock_exclusive_portable_cpp_pt const lock) mk_lang_noexcept
+{
+	mk_lang_assert(cv);
+	mk_lang_assert(lock);
+
+	reinterpret_cast<std::condition_variable*>(&cv->m_cv)->wait(*reinterpret_cast<std::unique_lock<std::mutex>*>(&lock->m_unique_lock));
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_portable_cpp_wait_shared(mk_lib_mt_cv_portable_cpp_pt const cv, mk_lib_mt_unique_lock_shared_portable_cpp_pt const lock) mk_lang_noexcept
 {
 	mk_lang_assert(cv);
 	mk_lang_assert(lock);

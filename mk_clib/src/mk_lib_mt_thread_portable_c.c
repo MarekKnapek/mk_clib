@@ -32,18 +32,18 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_mt_thread_po
 {
 	mk_lib_mt_thread_portable_c_args_pt args;
 	mk_lang_types_sint_t err;
-	mk_lib_mt_unique_lock_portable_c_t ul;
+	mk_lib_mt_unique_lock_exclusive_portable_c_t ul;
 	mk_lib_mt_thread_portable_c_callback_t callback;
 	mk_lang_types_void_pt context;
 
 	mk_lang_assert(arg);
 
 	args = ((mk_lib_mt_thread_portable_c_args_pt)(arg));
-	err = mk_lib_mt_unique_lock_portable_c_construct(&ul, &args->m_mutex); mk_lang_check_rereturn(err);
+	err = mk_lib_mt_unique_lock_exclusive_portable_c_construct(&ul, &args->m_mutex); mk_lang_check_rereturn(err);
 	callback = args->m_callback;
 	context = args->m_context;
 	args->m_inited = mk_lang_true;
-	err = mk_lib_mt_unique_lock_portable_c_destruct(&ul); mk_lang_check_rereturn(err);
+	err = mk_lib_mt_unique_lock_exclusive_portable_c_destruct(&ul); mk_lang_check_rereturn(err);
 	err = mk_lib_mt_cv_portable_c_notify_one(&args->m_cv); mk_lang_check_rereturn(err);
 	err = callback(context); mk_lang_check_rereturn(err);
 	return 0;
@@ -57,7 +57,7 @@ mk_lang_nodiscard static mk_lang_types_sint_t mk_lib_mt_thread_portable_c_proced
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_mt_thread_portable_c_create_impl_4(mk_lib_mt_thread_portable_c_args_pt const args, mk_lib_mt_unique_lock_portable_c_pt const ul) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_mt_thread_portable_c_create_impl_4(mk_lib_mt_thread_portable_c_args_pt const args, mk_lib_mt_unique_lock_exclusive_portable_c_pt const ul) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 
@@ -66,7 +66,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_mt_thread_po
 
 	while(!args->m_inited)
 	{
-		err = mk_lib_mt_cv_portable_c_wait(&args->m_cv, ul); mk_lang_check_rereturn(err);
+		err = mk_lib_mt_cv_portable_c_wait_exclusive(&args->m_cv, ul); mk_lang_check_rereturn(err);
 	}
 	return 0;
 }
@@ -74,14 +74,14 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_mt_thread_po
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_mt_thread_portable_c_create_impl_3(mk_lib_mt_thread_portable_c_args_pt const args) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
-	mk_lib_mt_unique_lock_portable_c_t ul;
+	mk_lib_mt_unique_lock_exclusive_portable_c_t ul;
 	mk_lang_types_sint_t err_b;
 
 	mk_lang_assert(args);
 
-	err = mk_lib_mt_unique_lock_portable_c_construct(&ul, &args->m_mutex); mk_lang_check_rereturn(err);
+	err = mk_lib_mt_unique_lock_exclusive_portable_c_construct(&ul, &args->m_mutex); mk_lang_check_rereturn(err);
 	err_b = mk_lib_mt_thread_portable_c_create_impl_4(args, &ul);
-	err = mk_lib_mt_unique_lock_portable_c_destruct(&ul); mk_lang_check_rereturn(err);
+	err = mk_lib_mt_unique_lock_exclusive_portable_c_destruct(&ul); mk_lang_check_rereturn(err);
 	mk_lang_check_rereturn(err_b);
 	return 0;
 }

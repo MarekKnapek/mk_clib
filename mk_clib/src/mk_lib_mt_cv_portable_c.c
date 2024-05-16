@@ -29,7 +29,19 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_portable_c_des
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_portable_c_wait(mk_lib_mt_cv_portable_c_pt const cv, mk_lib_mt_unique_lock_portable_c_pt const lock) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_portable_c_wait_exclusive(mk_lib_mt_cv_portable_c_pt const cv, mk_lib_mt_unique_lock_exclusive_portable_c_pt const lock) mk_lang_noexcept
+{
+	mk_lang_types_sint_t ret;
+
+	mk_lang_assert(cv);
+	mk_lang_assert(lock);
+	mk_lang_assert(lock->m_mutex);
+
+	ret = cnd_wait(&cv->m_cv, &lock->m_mutex->m_mutex); mk_lang_check_return(ret == thrd_success);
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_portable_c_wait_shared(mk_lib_mt_cv_portable_c_pt const cv, mk_lib_mt_unique_lock_shared_portable_c_pt const lock) mk_lang_noexcept
 {
 	mk_lang_types_sint_t ret;
 
