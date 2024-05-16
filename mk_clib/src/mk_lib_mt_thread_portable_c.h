@@ -20,20 +20,9 @@ typedef decltype(&mk_lib_mt_thread_dummy) mk_lib_mt_thread_portable_c_callback_t
 typedef mk_lang_types_sint_t(*mk_lib_mt_thread_portable_c_callback_t)(mk_lang_types_void_pt) mk_lang_noexcept;
 #endif
 
-struct mk_lib_mt_thread_portable_c_args_s
-{
-	mk_lib_mt_thread_portable_c_callback_t m_callback;
-	mk_lang_types_void_pt m_context;
-};
-typedef struct mk_lib_mt_thread_portable_c_args_s mk_lib_mt_thread_portable_c_args_t;
-typedef mk_lib_mt_thread_portable_c_args_t const mk_lib_mt_thread_portable_c_args_ct;
-typedef mk_lib_mt_thread_portable_c_args_t* mk_lib_mt_thread_portable_c_args_pt;
-typedef mk_lib_mt_thread_portable_c_args_t const* mk_lib_mt_thread_portable_c_args_pct;
-
 struct mk_lib_mt_thread_portable_c_s
 {
 	thrd_t m_thread;
-	mk_lib_mt_thread_portable_c_args_t m_args;
 };
 typedef struct mk_lib_mt_thread_portable_c_s mk_lib_mt_thread_portable_c_t;
 typedef mk_lib_mt_thread_portable_c_t const mk_lib_mt_thread_portable_c_ct;
