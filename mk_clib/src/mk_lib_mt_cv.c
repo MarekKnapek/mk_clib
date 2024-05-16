@@ -12,7 +12,15 @@
 #include "mk_lib_mt_unique_lock.h"
 
 
-#if defined _MSC_VER && defined _MSC_FULL_VER
+#if defined _MSC_VER && defined _MSC_FULL_VER && defined _WIN32_WINNT && _WIN32_WINNT >= 0x0600
+#include "mk_lib_mt_cv_windows_srwl.h"
+#define mk_lib_mt_cv_impl_construct      mk_lib_mt_cv_windows_srwl_construct
+#define mk_lib_mt_cv_impl_destruct       mk_lib_mt_cv_windows_srwl_destruct
+#define mk_lib_mt_cv_impl_wait_exclusive mk_lib_mt_cv_windows_srwl_wait_exclusive
+#define mk_lib_mt_cv_impl_wait_shared    mk_lib_mt_cv_windows_srwl_wait_shared
+#define mk_lib_mt_cv_impl_notify_one     mk_lib_mt_cv_windows_srwl_notify_one
+#define mk_lib_mt_cv_impl_notify_all     mk_lib_mt_cv_windows_srwl_notify_all
+#elif defined _MSC_VER && defined _MSC_FULL_VER
 #include "mk_lib_mt_cv_windows_cs.h"
 #define mk_lib_mt_cv_impl_construct      mk_lib_mt_cv_windows_cs_construct
 #define mk_lib_mt_cv_impl_destruct       mk_lib_mt_cv_windows_cs_destruct
