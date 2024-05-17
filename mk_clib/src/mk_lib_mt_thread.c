@@ -48,6 +48,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_thread_hardware_c
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_thread_create(mk_lib_mt_thread_pt const thread, mk_lib_mt_thread_callback_t const callback, mk_lang_types_void_pt const context) mk_lang_noexcept
 {
 	mk_lang_assert(thread);
+	mk_lang_assert(callback);
 
 	return mk_lib_mt_thread_impl_create(&thread->m_thread, callback, context);
 }
