@@ -812,6 +812,7 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_process.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_processor.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_srwl.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_synchronization.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_system_information.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_time.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_ktmw32_transaction.h"/>
@@ -1256,6 +1257,7 @@
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_process.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_processor.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_srwl.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_synchronization.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_system_information.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_time.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_ktmw32_transaction.c"/>
