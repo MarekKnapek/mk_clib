@@ -11,7 +11,13 @@
 #if mk_lib_mt_thread_has
 
 
-#if mk_lang_version_at_least_cpp_11 || mk_lang_version_at_least_msvc_cpp_11
+#if defined _MSC_VER && defined _MSC_FULL_VER
+#include "mk_lib_mt_thread_windows_cs.h"
+#define mk_lib_mt_thread_impl_hardware_concurrency mk_lib_mt_thread_windows_cs_hardware_concurrency
+#define mk_lib_mt_thread_impl_create               mk_lib_mt_thread_windows_cs_create
+#define mk_lib_mt_thread_impl_join                 mk_lib_mt_thread_windows_cs_join
+#define mk_lib_mt_thread_impl_destroy              mk_lib_mt_thread_windows_cs_destroy
+#elif mk_lang_version_at_least_cpp_11 || mk_lang_version_at_least_msvc_cpp_11
 #include "mk_lib_mt_thread_portable_cpp.hpp"
 #define mk_lib_mt_thread_impl_hardware_concurrency mk_lib_mt_thread_portable_cpp_hardware_concurrency
 #define mk_lib_mt_thread_impl_create               mk_lib_mt_thread_portable_cpp_create
