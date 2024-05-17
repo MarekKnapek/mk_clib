@@ -11,7 +11,13 @@
 #if mk_lib_mt_thread_has
 
 
-#if defined _MSC_VER && defined _MSC_FULL_VER
+#if defined _MSC_VER && defined _MSC_FULL_VER && defined _WIN32_WINNT && _WIN32_WINNT >= 0x0600
+#include "mk_lib_mt_thread_windows_srwl.h"
+#define mk_lib_mt_thread_impl_hardware_concurrency mk_lib_mt_thread_windows_srwl_hardware_concurrency
+#define mk_lib_mt_thread_impl_create               mk_lib_mt_thread_windows_srwl_create
+#define mk_lib_mt_thread_impl_join                 mk_lib_mt_thread_windows_srwl_join
+#define mk_lib_mt_thread_impl_destroy              mk_lib_mt_thread_windows_srwl_destroy
+#elif defined _MSC_VER && defined _MSC_FULL_VER
 #include "mk_lib_mt_thread_windows_cs.h"
 #define mk_lib_mt_thread_impl_hardware_concurrency mk_lib_mt_thread_windows_cs_hardware_concurrency
 #define mk_lib_mt_thread_impl_create               mk_lib_mt_thread_windows_cs_create

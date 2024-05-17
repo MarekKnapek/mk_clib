@@ -9,7 +9,11 @@
 #include "mk_lang_version.h"
 
 
-#if defined _MSC_VER && defined _MSC_FULL_VER
+#if defined _MSC_VER && defined _MSC_FULL_VER && defined _WIN32_WINNT && _WIN32_WINNT >= 0x0600
+#define mk_lib_mt_thread_has 1
+#include "mk_lib_mt_thread_windows_srwl.h"
+typedef mk_lib_mt_thread_windows_srwl_t mk_lib_mt_thread_impl_t;
+#elif defined _MSC_VER && defined _MSC_FULL_VER
 #define mk_lib_mt_thread_has 1
 #include "mk_lib_mt_thread_windows_cs.h"
 typedef mk_lib_mt_thread_windows_cs_t mk_lib_mt_thread_impl_t;
