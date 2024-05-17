@@ -58,6 +58,7 @@ typedef mk_lib_mt_thread_t const* mk_lib_mt_thread_pct;
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_thread_hardware_concurrency(mk_lang_types_void_t) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_thread_create(mk_lib_mt_thread_pt const thread, mk_lib_mt_thread_callback_t const callback, mk_lang_types_void_pt const context) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_thread_create_all(mk_lib_mt_thread_pt const threads, mk_lang_types_sint_pt const count, mk_lib_mt_thread_callback_t const callback, mk_lang_types_void_pt const context) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_thread_join(mk_lib_mt_thread_pt const thread) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_thread_destroy(mk_lib_mt_thread_pt const thread) mk_lang_noexcept;
 

@@ -4,6 +4,7 @@
 #include "mk_lang_bool.h"
 #include "mk_lang_check.h"
 #include "mk_lang_jumbo.h"
+#include "mk_lang_min.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
@@ -12,6 +13,7 @@
 #include "mk_lib_mt_unique_lock_windows_srwl.h"
 #include "mk_win_base.h"
 #include "mk_win_kernel_handle.h"
+#include "mk_win_kernel_processor.h"
 #include "mk_win_kernel_synchronization.h"
 #include "mk_win_kernel_system_information.h"
 #include "mk_win_kernel_thread.h"
@@ -124,12 +126,19 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_mt_thread_wi
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_thread_windows_pg_hardware_concurrency(mk_lang_types_void_t) mk_lang_noexcept
 {
-	mk_win_kernel_system_information_t info;
-	mk_lang_types_sint_t ret;
+	mk_lang_types_sint_t count;
+	mk_win_base_word_t groups_count;
+	mk_win_base_word_t group_idx;
+	mk_win_base_dword_t cpus_count;
 
-	mk_win_kernel_system_information_get(&info);
-	ret = ((mk_lang_types_sint_t)(info.m_number_of_processors));
-	return ret;
+	count = 0;
+	groups_count = mk_win_kernel_processor_group_active_count(); mk_lang_assert(groups_count >= 1);
+	for(group_idx = 0; group_idx != groups_count; ++group_idx)
+	{
+		cpus_count = mk_win_kernel_processor_active_count(group_idx); mk_lang_assert(cpus_count <= 64);
+		count += ((mk_lang_types_sint_t)(cpus_count));
+	}
+	return count;
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_thread_windows_pg_create(mk_lib_mt_thread_windows_pg_pt const thread, mk_lib_mt_thread_windows_pg_callback_t const callback, mk_lang_types_void_pt const context) mk_lang_noexcept
@@ -148,6 +157,47 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_thread_windows_pg
 	err_b = mk_lib_mt_thread_windows_pg_create_impl_1(thread, &args);
 	err = mk_lib_mt_mutex_windows_srwl_destruct(&args.m_mutex); mk_lang_check_rereturn(err);
 	mk_lang_check_rereturn(err_b);
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_thread_windows_pg_create_all(mk_lib_mt_thread_windows_pg_pt const threads, mk_lang_types_sint_pt const count, mk_lib_mt_thread_windows_pg_callback_t const callback, mk_lang_types_void_pt const context) mk_lang_noexcept
+{
+	mk_lang_types_sint_t n;
+	mk_lang_types_sint_t cnt;
+	mk_win_base_word_t groups_count;
+	mk_win_base_word_t group_idx;
+	mk_win_base_dword_t cpus_count;
+	mk_win_base_dword_t cpu_idx;
+	mk_lang_types_sint_t err;
+	mk_win_kernel_processor_number_t ideal_processor;
+	mk_win_base_bool_t b;
+
+	mk_lang_assert(threads);
+	mk_lang_assert(count);
+	mk_lang_assert(*count >= 2);
+	mk_lang_assert(callback);
+
+	n = *count;
+	cnt = 0;
+	groups_count = mk_win_kernel_processor_group_active_count(); mk_lang_assert(groups_count >= 1);
+	for(group_idx = 0; group_idx != groups_count; ++group_idx)
+	{
+		cpus_count = mk_win_kernel_processor_active_count(group_idx); mk_lang_assert(cpus_count <= 64);
+		for(cpu_idx = 0; cpu_idx != cpus_count; ++cpu_idx)
+		{
+			if(cnt == n)
+			{
+				break;
+			}
+			err = mk_lib_mt_thread_windows_pg_create(&threads[cnt], callback, context); mk_lang_check_rereturn(err); /* todo if it fails, clean up previous successful */
+			ideal_processor.m_group = group_idx;
+			ideal_processor.m_number = ((mk_win_base_uchar_t)(cpu_idx));
+			ideal_processor.m_reserved = 0;
+			b = mk_win_kernel_processor_set_ideal(threads[cnt].m_thread, &ideal_processor, mk_win_base_null); mk_lang_check_return(b != mk_win_base_false); /* todo if it fails, clean up previous successful */
+			++cnt;
+		}
+	}
+	*count = cnt;
 	return 0;
 }
 

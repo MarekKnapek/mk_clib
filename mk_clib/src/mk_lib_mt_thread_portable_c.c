@@ -4,6 +4,7 @@
 #include "mk_lang_bool.h"
 #include "mk_lang_check.h"
 #include "mk_lang_jumbo.h"
+#include "mk_lang_min.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
@@ -138,6 +139,26 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_thread_portable_c
 	err_b = mk_lib_mt_thread_portable_c_create_impl_1(thread, &args);
 	err = mk_lib_mt_mutex_portable_c_destruct(&args.m_mutex); mk_lang_check_rereturn(err);
 	mk_lang_check_rereturn(err_b);
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_thread_portable_c_create_all(mk_lib_mt_thread_portable_c_pt const threads, mk_lang_types_sint_pt const count, mk_lib_mt_thread_portable_c_callback_t const callback, mk_lang_types_void_pt const context) mk_lang_noexcept
+{
+	mk_lang_types_sint_t n;
+	mk_lang_types_sint_t i;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(threads);
+	mk_lang_assert(count);
+	mk_lang_assert(*count >= 2);
+	mk_lang_assert(callback);
+
+	n = mk_lang_min(*count, mk_lib_mt_thread_portable_c_hardware_concurrency());
+	for(i = 0; i != n; ++i)
+	{
+		err = mk_lib_mt_thread_portable_c_create(&threads[i], callback, context); mk_lang_check_rereturn(err); /* todo if it fails, clean up previous successful */
+	}
+	*count = n;
 	return 0;
 }
 
