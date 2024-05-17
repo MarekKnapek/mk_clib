@@ -5,7 +5,7 @@
       "matrix":
         "proj": ["mkcc", "mkcfct", "mkcflt", "mkch", "mkci", "mkct", "mkvc"]
         "cver": ["89", "99", "11", "18", "2x"]
-    "runs-on": "ubuntu-latest"
+    "runs-on": "ubuntu-24.04"
     "steps":
       - "uses": "actions/checkout@main"
       - "run": "bash ./.github/workflows/build_run_lnx_c.sh ${{matrix.proj}} ${{matrix.cver}}"
@@ -22,7 +22,7 @@
       "matrix":
         "proj": ["mkcc", "mkcfct", "mkcflt", "mkch", "mkci", "mkct", "mkvc"]
         "cver": ["98", "11", "14", "17", "20"]
-    "runs-on": "ubuntu-latest"
+    "runs-on": "ubuntu-24.04"
     "steps":
       - "uses": "actions/checkout@main"
       - "run": "bash ./.github/workflows/build_run_lnx_cpp.sh ${{matrix.proj}} ${{matrix.cver}}"
@@ -38,7 +38,7 @@
     "strategy":
       "matrix":
         "proj": ["mkch", "mkcc", "float_analyzer", "double_analyzer", "quad_analyzer"]
-    "runs-on": "ubuntu-latest"
+    "runs-on": "ubuntu-24.04"
     "defaults":
       "run":
         "working-directory": "./mk_clib/projects/emscripten"
@@ -52,7 +52,7 @@
           "name": "${{matrix.proj}}.wasm"
           "path": "./mk_clib/projects/emscripten/${{matrix.proj}}.wasm"
   "build_run_examples":
-    "runs-on": "ubuntu-latest"
+    "runs-on": "ubuntu-24.04"
     "defaults":
       "run":
         "working-directory": "./mk_clib/projects/gcc"
@@ -83,7 +83,7 @@
           "name": "${{matrix.proj}}-${{matrix.conf}}-${{matrix.plat}}.txt"
           "path": "${{matrix.proj}}-${{matrix.conf}}-${{matrix.plat}}.txt"
   "mk_clib":
-    "runs-on": "ubuntu-latest"
+    "runs-on": "ubuntu-24.04"
     "needs": ["build_run_c", "build_run_cpp", "build_wasm", "build_run_win"]
     "steps":
       - "uses": "actions/download-artifact@main"
