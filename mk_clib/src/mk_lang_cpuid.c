@@ -172,7 +172,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_vaes(mk_l
 {
 	mk_lang_types_bool_t has;
 
-	has = (g_mk_lang_cpuid_regset.m_leafs_count >= 0x7) && ((((mk_lang_types_uint_t)(g_mk_lang_cpuid_regset.m_leafs.m_regs[0x7].m_data.m_sints[1])) & (1u << 9)) != 0);
+	has = (g_mk_lang_cpuid_regset.m_leafs_count >= 0x7) && ((((mk_lang_types_uint_t)(g_mk_lang_cpuid_regset.m_leafs.m_regs[0x7].m_data.m_sints[2])) & (1u << 9)) != 0);
 	return has;
 }
 
