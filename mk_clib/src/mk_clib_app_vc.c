@@ -58,12 +58,12 @@
 #include "mk_lang_strlen_inl_fileh.h"
 #include "mk_lang_strlen_inl_filec.h"
 
-#define mk_clib_app_vc_buffered_len (128ul * 1024ul)
+#define mk_clib_app_vc_buffered_len (2ul * 1024ul * 1024ul)
 #define mk_clib_app_vc_buffered_align (64ul * 1024ul)
 
 #if mk_lib_mt_thread_has
 
-#define mk_clib_app_vc_max_threads (64)
+#define mk_clib_app_vc_max_threads (1024)
 #define mk_clib_app_vc_max_tasks (mk_clib_app_vc_max_threads * 2)
 
 struct mk_clib_app_vc_task_s
