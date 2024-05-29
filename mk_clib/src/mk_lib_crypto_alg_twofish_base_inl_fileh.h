@@ -50,10 +50,34 @@ typedef mk_lib_crypto_alg_twofish_base_inl_defd_msg_t* mk_lib_crypto_alg_twofish
 typedef mk_lib_crypto_alg_twofish_base_inl_defd_msg_t const* mk_lib_crypto_alg_twofish_base_inl_defd_msg_pct;
 
 
+struct mk_lib_crypto_alg_twofish_base_inl_defd_rks_s
+{
+	mk_sl_cui_uint32_t m_uint32s[40];
+};
+typedef struct mk_lib_crypto_alg_twofish_base_inl_defd_rks_s mk_lib_crypto_alg_twofish_base_inl_defd_rks_t;
+
+struct mk_lib_crypto_alg_twofish_base_inl_defd_sbox_s
+{
+	mk_sl_cui_uint32_t m_uint32s[0xff + 1];
+};
+typedef struct mk_lib_crypto_alg_twofish_base_inl_defd_sbox_s mk_lib_crypto_alg_twofish_base_inl_defd_sbox_t;
+
+struct mk_lib_crypto_alg_twofish_base_inl_defd_sboxs_s
+{
+	mk_lib_crypto_alg_twofish_base_inl_defd_sbox_t m_sboxs[4];
+};
+typedef struct mk_lib_crypto_alg_twofish_base_inl_defd_sboxs_s mk_lib_crypto_alg_twofish_base_inl_defd_sboxs_t;
+
+struct mk_lib_crypto_alg_twofish_base_inl_defd_rks_sboxs_s
+{
+	mk_lib_crypto_alg_twofish_base_inl_defd_rks_t m_rks;
+	mk_lib_crypto_alg_twofish_base_inl_defd_sboxs_t m_sboxs;
+};
+typedef struct mk_lib_crypto_alg_twofish_base_inl_defd_rks_sboxs_s mk_lib_crypto_alg_twofish_base_inl_defd_rks_sboxs_t;
+
 union mk_lib_crypto_alg_twofish_base_inl_defd_schedule_data_u
 {
-	mk_lang_alignas(mk_lib_crypto_alg_twofish_base_inl_defd_msg_len_v) mk_sl_cui_uint8_t m_uint8s[mk_lib_crypto_alg_twofish_base_inl_defd_schedule_len_v];
-	mk_lang_alignas(mk_lib_crypto_alg_twofish_base_inl_defd_msg_len_v) mk_sl_cui_uint32_t m_uint32s[mk_lib_crypto_alg_twofish_base_inl_defd_schedule_len_v / (32 / mk_lang_charbit)];
+	mk_lang_alignas(mk_lib_crypto_alg_twofish_base_inl_defd_msg_len_v) mk_lib_crypto_alg_twofish_base_inl_defd_rks_sboxs_t m_rks_sboxs;
 	mk_lang_types_ulllong_t m_ulllong;
 };
 typedef union mk_lib_crypto_alg_twofish_base_inl_defd_schedule_data_u mk_lib_crypto_alg_twofish_base_inl_defd_schedule_data_t;
