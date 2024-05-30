@@ -13,7 +13,7 @@
 
 
 #define mk_lang_memcpy_t_name mk_sl_flt_fuzz_memcpyu8
-#define mk_lang_memcpy_t_base  mk_sl_cui_uint8
+#define mk_lang_memcpy_t_type mk_sl_cui_uint8_t
 #include "mk_lang_memcpy_inl_fileh.h"
 #include "mk_lang_memcpy_inl_filec.h"
 

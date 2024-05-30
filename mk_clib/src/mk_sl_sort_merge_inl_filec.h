@@ -21,7 +21,7 @@
 #define mk_sl_sort_merge_memcpy_data_name mk_lang_concat(mk_sl_sort_merge_inl_defd_name, _memcpy_data)
 #define mk_sl_sort_merge_memcpy_data_fn mk_lang_concat(mk_sl_sort_merge_memcpy_data_name, _fn)
 #define mk_lang_memcpy_t_name mk_sl_sort_merge_memcpy_data_name
-#define mk_lang_memcpy_t_base mk_sl_sort_merge_inl_defd_data
+#define mk_lang_memcpy_t_type mk_lang_concat(mk_sl_sort_merge_inl_defd_data, _t)
 #include "mk_lang_memcpy_inl_fileh.h"
 #include "mk_lang_memcpy_inl_filec.h"
 
@@ -42,7 +42,7 @@
 #define mk_sl_sort_merge_memcpy_proxy_name mk_lang_concat(mk_sl_sort_merge_inl_defd_name, _memcpy_proxy)
 #define mk_sl_sort_merge_memcpy_proxy_fn mk_lang_concat(mk_sl_sort_merge_memcpy_proxy_name, _fn)
 #define mk_lang_memcpy_t_name mk_sl_sort_merge_memcpy_proxy_name
-#define mk_lang_memcpy_t_base mk_sl_sort_merge_inl_defd_proxy
+#define mk_lang_memcpy_t_type mk_lang_concat(mk_sl_sort_merge_inl_defd_proxy, _t)
 #include "mk_lang_memcpy_inl_fileh.h"
 #include "mk_lang_memcpy_inl_filec.h"
 

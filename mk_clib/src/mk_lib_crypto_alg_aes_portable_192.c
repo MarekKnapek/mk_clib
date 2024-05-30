@@ -22,7 +22,7 @@
 #include "mk_sl_uint8.h"
 
 #define mk_lang_memcpy_t_name mk_lib_crypto_alg_aes_portable_192_memcpy_u8
-#define mk_lang_memcpy_t_base mk_sl_cui_uint8
+#define mk_lang_memcpy_t_type mk_sl_cui_uint8_t
 #include "mk_lang_memcpy_inl_fileh.h"
 #include "mk_lang_memcpy_inl_filec.h"
 

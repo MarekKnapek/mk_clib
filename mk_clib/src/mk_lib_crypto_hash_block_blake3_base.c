@@ -22,7 +22,7 @@
 #include "mk_lang_memset_inl_filec.h"
 
 #define mk_lang_memcpy_t_name mk_lib_crypto_hash_block_blake3_base_memcpy_u32
-#define mk_lang_memcpy_t_base mk_sl_cui_uint32
+#define mk_lang_memcpy_t_type mk_sl_cui_uint32_t
 #include "mk_lang_memcpy_inl_fileh.h"
 #include "mk_lang_memcpy_inl_filec.h"
 

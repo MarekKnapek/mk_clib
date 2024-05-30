@@ -16,7 +16,7 @@
 
 #define mk_sl_io_writer_buffered_inl_filec_name mk_lang_concat(mk_sl_io_writer_buffered_inl_defd_name, _memcpyu8)
 #define mk_lang_memcpy_t_name mk_sl_io_writer_buffered_inl_filec_name
-#define mk_lang_memcpy_t_base mk_sl_cui_uint8
+#define mk_lang_memcpy_t_type mk_sl_cui_uint8_t
 #include "mk_lang_memcpy_inl_fileh.h"
 #include "mk_lang_memcpy_inl_filec.h"
 #define mk_sl_io_writer_buffered_inl_filec_memcpyu8 mk_lang_concat(mk_sl_io_writer_buffered_inl_filec_name, _fn)
