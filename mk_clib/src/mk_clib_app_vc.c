@@ -445,7 +445,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_
 			}
 			else
 			{
-				mk_clib_app_vc_fixed_vector_rw_push_back(&g_mk_clib_app_vc_threads_finished, &task);
+				mk_clib_app_vc_fixed_vector_rw_push_back_one(&g_mk_clib_app_vc_threads_finished, &task);
 			}
 		}
 	}
