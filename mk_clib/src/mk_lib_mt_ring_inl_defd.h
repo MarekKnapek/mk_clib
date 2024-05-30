@@ -35,6 +35,7 @@
 
 #define mk_lib_mt_ring_inl_defd_ring_ro_capacity mk_lang_concat(mk_lib_mt_ring_inl_defd_ring_name, _ro_capacity)
 #define mk_lib_mt_ring_inl_defd_ring_ro_size mk_lang_concat(mk_lib_mt_ring_inl_defd_ring_name, _ro_size)
+#define mk_lib_mt_ring_inl_defd_ring_ro_free mk_lang_concat(mk_lib_mt_ring_inl_defd_ring_name, _ro_free)
 #define mk_lib_mt_ring_inl_defd_ring_ro_is_empty mk_lang_concat(mk_lib_mt_ring_inl_defd_ring_name, _ro_is_empty)
 #define mk_lib_mt_ring_inl_defd_ring_ro_is_full mk_lang_concat(mk_lib_mt_ring_inl_defd_ring_name, _ro_is_full)
 #define mk_lib_mt_ring_inl_defd_ring_ro_at mk_lang_concat(mk_lib_mt_ring_inl_defd_ring_name, _ro_at)
@@ -44,6 +45,7 @@
 
 #define mk_lib_mt_ring_inl_defd_ring_rw_capacity mk_lang_concat(mk_lib_mt_ring_inl_defd_ring_name, _rw_capacity)
 #define mk_lib_mt_ring_inl_defd_ring_rw_size mk_lang_concat(mk_lib_mt_ring_inl_defd_ring_name, _rw_size)
+#define mk_lib_mt_ring_inl_defd_ring_rw_free mk_lang_concat(mk_lib_mt_ring_inl_defd_ring_name, _rw_free)
 #define mk_lib_mt_ring_inl_defd_ring_rw_is_empty mk_lang_concat(mk_lib_mt_ring_inl_defd_ring_name, _rw_is_empty)
 #define mk_lib_mt_ring_inl_defd_ring_rw_is_full mk_lang_concat(mk_lib_mt_ring_inl_defd_ring_name, _rw_is_full)
 #define mk_lib_mt_ring_inl_defd_ring_rw_at mk_lang_concat(mk_lib_mt_ring_inl_defd_ring_name, _rw_at)
@@ -77,6 +79,7 @@
 
 #define mk_lib_mt_ring_inl_defd_ro_capacity mk_lang_concat(mk_lib_mt_ring_inl_defd_name, _ro_capacity)
 #define mk_lib_mt_ring_inl_defd_ro_size mk_lang_concat(mk_lib_mt_ring_inl_defd_name, _ro_size)
+#define mk_lib_mt_ring_inl_defd_ro_free mk_lang_concat(mk_lib_mt_ring_inl_defd_name, _ro_free)
 #define mk_lib_mt_ring_inl_defd_ro_is_empty mk_lang_concat(mk_lib_mt_ring_inl_defd_name, _ro_is_empty)
 #define mk_lib_mt_ring_inl_defd_ro_is_full mk_lang_concat(mk_lib_mt_ring_inl_defd_name, _ro_is_full)
 #define mk_lib_mt_ring_inl_defd_ro_at mk_lang_concat(mk_lib_mt_ring_inl_defd_name, _ro_at)
@@ -85,6 +88,7 @@
 
 #define mk_lib_mt_ring_inl_defd_rw_capacity mk_lang_concat(mk_lib_mt_ring_inl_defd_name, _rw_capacity)
 #define mk_lib_mt_ring_inl_defd_rw_size mk_lang_concat(mk_lib_mt_ring_inl_defd_name, _rw_size)
+#define mk_lib_mt_ring_inl_defd_rw_free mk_lang_concat(mk_lib_mt_ring_inl_defd_name, _rw_free)
 #define mk_lib_mt_ring_inl_defd_rw_is_empty mk_lang_concat(mk_lib_mt_ring_inl_defd_name, _rw_is_empty)
 #define mk_lib_mt_ring_inl_defd_rw_is_full mk_lang_concat(mk_lib_mt_ring_inl_defd_name, _rw_is_full)
 #define mk_lib_mt_ring_inl_defd_rw_at mk_lang_concat(mk_lib_mt_ring_inl_defd_name, _rw_at)

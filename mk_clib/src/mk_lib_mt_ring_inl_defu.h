@@ -35,6 +35,7 @@
 
 #undef mk_lib_mt_ring_inl_defd_ring_ro_capacity
 #undef mk_lib_mt_ring_inl_defd_ring_ro_size
+#undef mk_lib_mt_ring_inl_defd_ring_ro_free
 #undef mk_lib_mt_ring_inl_defd_ring_ro_is_empty
 #undef mk_lib_mt_ring_inl_defd_ring_ro_is_full
 #undef mk_lib_mt_ring_inl_defd_ring_ro_at
@@ -44,6 +45,7 @@
 
 #undef mk_lib_mt_ring_inl_defd_ring_rw_capacity
 #undef mk_lib_mt_ring_inl_defd_ring_rw_size
+#undef mk_lib_mt_ring_inl_defd_ring_rw_free
 #undef mk_lib_mt_ring_inl_defd_ring_rw_is_empty
 #undef mk_lib_mt_ring_inl_defd_ring_rw_is_full
 #undef mk_lib_mt_ring_inl_defd_ring_rw_at
@@ -77,6 +79,7 @@
 
 #undef mk_lib_mt_ring_inl_defd_ro_capacity
 #undef mk_lib_mt_ring_inl_defd_ro_size
+#undef mk_lib_mt_ring_inl_defd_ro_free
 #undef mk_lib_mt_ring_inl_defd_ro_is_empty
 #undef mk_lib_mt_ring_inl_defd_ro_is_full
 #undef mk_lib_mt_ring_inl_defd_ro_at
@@ -85,6 +88,7 @@
 
 #undef mk_lib_mt_ring_inl_defd_rw_capacity
 #undef mk_lib_mt_ring_inl_defd_rw_size
+#undef mk_lib_mt_ring_inl_defd_rw_free
 #undef mk_lib_mt_ring_inl_defd_rw_is_empty
 #undef mk_lib_mt_ring_inl_defd_rw_is_full
 #undef mk_lib_mt_ring_inl_defd_rw_at
