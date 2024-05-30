@@ -86,4 +86,5 @@
 
 #define mk_sl_fixed_vector_inl_defd_rw_construct mk_lang_concat(mk_sl_fixed_vector_inl_defd_name, _rw_construct)
 #define mk_sl_fixed_vector_inl_defd_rw_push_back_one mk_lang_concat(mk_sl_fixed_vector_inl_defd_name, _rw_push_back_one)
+#define mk_sl_fixed_vector_inl_defd_rw_push_back_many mk_lang_concat(mk_sl_fixed_vector_inl_defd_name, _rw_push_back_many)
 #define mk_sl_fixed_vector_inl_defd_rw_pop_back mk_lang_concat(mk_sl_fixed_vector_inl_defd_name, _rw_pop_back)

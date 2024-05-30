@@ -86,4 +86,5 @@
 
 #undef mk_sl_fixed_vector_inl_defd_rw_construct
 #undef mk_sl_fixed_vector_inl_defd_rw_push_back_one
+#undef mk_sl_fixed_vector_inl_defd_rw_push_back_many
 #undef mk_sl_fixed_vector_inl_defd_rw_pop_back
