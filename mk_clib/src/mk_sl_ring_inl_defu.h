@@ -67,6 +67,7 @@
 
 #undef mk_sl_ring_inl_defd_ro_capacity
 #undef mk_sl_ring_inl_defd_ro_size
+#undef mk_sl_ring_inl_defd_ro_free
 #undef mk_sl_ring_inl_defd_ro_is_empty
 #undef mk_sl_ring_inl_defd_ro_is_full
 #undef mk_sl_ring_inl_defd_ro_at
@@ -76,6 +77,7 @@
 
 #undef mk_sl_ring_inl_defd_rw_capacity
 #undef mk_sl_ring_inl_defd_rw_size
+#undef mk_sl_ring_inl_defd_rw_free
 #undef mk_sl_ring_inl_defd_rw_is_empty
 #undef mk_sl_ring_inl_defd_rw_is_full
 #undef mk_sl_ring_inl_defd_rw_at
