@@ -86,7 +86,7 @@
 #define mk_sl_ring_inl_defd_rw_back mk_lang_concat(mk_sl_ring_inl_defd_name, _rw_back)
 
 #define mk_sl_ring_inl_defd_rw_construct mk_lang_concat(mk_sl_ring_inl_defd_name, _rw_construct)
-#define mk_sl_ring_inl_defd_rw_push_back mk_lang_concat(mk_sl_ring_inl_defd_name, _rw_push_back)
+#define mk_sl_ring_inl_defd_rw_push_back_one mk_lang_concat(mk_sl_ring_inl_defd_name, _rw_push_back_one)
 #define mk_sl_ring_inl_defd_rw_pop_back mk_lang_concat(mk_sl_ring_inl_defd_name, _rw_pop_back)
 #define mk_sl_ring_inl_defd_rw_push_front mk_lang_concat(mk_sl_ring_inl_defd_name, _rw_push_front)
 #define mk_sl_ring_inl_defd_rw_pop_front mk_lang_concat(mk_sl_ring_inl_defd_name, _rw_pop_front)
