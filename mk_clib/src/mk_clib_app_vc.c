@@ -482,7 +482,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_
 		{
 			err = mk_clib_app_vc_arg_write_vhd_impl_write_one(writer); mk_lang_check_rereturn(err);
 		}
-		err = mk_clib_app_vc_mtring_rw_push_back(&g_mk_clib_app_vc_threads_ring_submit, &task); mk_lang_check_rereturn(err);
+		err = mk_clib_app_vc_mtring_rw_push_back_one(&g_mk_clib_app_vc_threads_ring_submit, &task); mk_lang_check_rereturn(err);
 	}
 	while(!mk_sl_cui_uint64_eq(&g_mk_clib_app_vc_threads_to_write_id, max_block_id))
 	{
@@ -524,7 +524,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_
 	{
 		err = mk_clib_app_vc_arg_write_vhd_impl_write_one(writer); mk_lang_check_rereturn(err);
 	}
-	err = mk_clib_app_vc_mtring_rw_push_back(&g_mk_clib_app_vc_threads_ring_submit, &task); mk_lang_check_rereturn(err);
+	err = mk_clib_app_vc_mtring_rw_push_back_one(&g_mk_clib_app_vc_threads_ring_submit, &task); mk_lang_check_rereturn(err);
 	return 0;
 }
 #else
@@ -570,7 +570,7 @@ mk_lang_nodiscard static mk_lang_types_sint_t mk_clib_app_vc_threads_job(mk_lang
 		if(!end)
 		{
 			mk_lib_vc_seq_decrypt_block(g_mk_clib_app_vc_threads_seqid, g_mk_clib_app_vc_threads_schedules, &task.m_block_id, task.m_block, task.m_block);
-			err = mk_clib_app_vc_mtring_rw_push_back(&g_mk_clib_app_vc_threads_ring_receieve, &task); mk_lang_check_rereturn(err);
+			err = mk_clib_app_vc_mtring_rw_push_back_one(&g_mk_clib_app_vc_threads_ring_receieve, &task); mk_lang_check_rereturn(err);
 		}
 		if(end)
 		{
