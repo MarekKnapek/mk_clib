@@ -15,7 +15,7 @@
 
 
 #define mk_lang_overlap_t_name mk_lang_concat(mk_lang_num_longdivmod_inl_defd_name, _overlap)
-#define mk_lang_overlap_t_base mk_lang_num_longdivmod_inl_defd_tn1
+#define mk_lang_overlap_t_type mk_lang_concat(mk_lang_num_longdivmod_inl_defd_tn1, _t)
 #include "mk_lang_overlap_inl_fileh.h"
 #include "mk_lang_overlap_inl_filec.h"
 #define mk_lang_num_longdivmod_inl_defd_overlap mk_lang_concat(mk_lang_concat(mk_lang_num_longdivmod_inl_defd_name, _overlap), _fn)

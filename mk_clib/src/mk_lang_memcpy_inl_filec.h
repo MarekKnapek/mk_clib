@@ -17,7 +17,7 @@
 
 
 #define mk_lang_overlap_t_name mk_lang_concat(mk_lang_memcpy_inl_defd_name, _filec_overlap)
-#define mk_lang_overlap_t_base mk_lang_memcpy_inl_defd_base
+#define mk_lang_overlap_t_type mk_lang_concat(mk_lang_memcpy_inl_defd_base, _t)
 #include "mk_lang_overlap_inl_fileh.h"
 #include "mk_lang_overlap_inl_filec.h"
 #define mk_lang_memcpy_inl_filec_overlap mk_lang_concat(mk_lang_concat(mk_lang_memcpy_inl_defd_name, _filec_overlap), _fn)
