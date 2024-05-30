@@ -162,8 +162,8 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_thread_windows_pg
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_thread_windows_pg_create_all(mk_lib_mt_thread_windows_pg_pt const threads, mk_lang_types_sint_pt const count, mk_lib_mt_thread_windows_pg_callback_t const callback, mk_lang_types_void_pt const context) mk_lang_noexcept
 {
-	mk_lang_types_sint_t n;
 	mk_lang_types_sint_t cnt;
+	mk_lang_types_sint_t idx;
 	mk_win_base_word_t groups_count;
 	mk_win_base_word_t group_idx;
 	mk_win_base_dword_t cpus_count;
@@ -177,27 +177,27 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_thread_windows_pg
 	mk_lang_assert(*count >= 2);
 	mk_lang_assert(callback);
 
-	n = *count;
-	cnt = 0;
+	cnt = *count;
+	idx = 0;
 	groups_count = mk_win_kernel_processor_group_active_count(); mk_lang_assert(groups_count >= 1);
 	for(group_idx = 0; group_idx != groups_count; ++group_idx)
 	{
 		cpus_count = mk_win_kernel_processor_active_count(group_idx); mk_lang_assert(cpus_count <= 64);
 		for(cpu_idx = 0; cpu_idx != cpus_count; ++cpu_idx)
 		{
-			if(cnt == n)
+			if(idx == cnt)
 			{
 				break;
 			}
-			err = mk_lib_mt_thread_windows_pg_create(&threads[cnt], callback, context); mk_lang_check_rereturn(err); /* todo if it fails, clean up previous successful */
+			err = mk_lib_mt_thread_windows_pg_create(&threads[idx], callback, context); mk_lang_check_rereturn(err); /* todo if it fails, clean up previous successful */
 			ideal_processor.m_group = group_idx;
 			ideal_processor.m_number = ((mk_win_base_uchar_t)(cpu_idx));
 			ideal_processor.m_reserved = 0;
-			b = mk_win_kernel_processor_set_ideal(threads[cnt].m_thread, &ideal_processor, mk_win_base_null); mk_lang_check_return(b != mk_win_base_false); /* todo if it fails, clean up previous successful */
-			++cnt;
+			b = mk_win_kernel_processor_set_ideal(threads[idx].m_thread, &ideal_processor, mk_win_base_null); mk_lang_check_return(b != mk_win_base_false); /* todo if it fails, clean up previous successful */
+			++idx;
 		}
 	}
-	*count = cnt;
+	*count = idx;
 	return 0;
 }
 
