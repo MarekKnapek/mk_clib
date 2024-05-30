@@ -259,7 +259,7 @@ mk_lang_constexpr mk_lang_jumbo mk_sl_fixed_vector_inl_defd_element_pt mk_sl_fix
 	return item;
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_sl_fixed_vector_inl_defd_element_pt mk_sl_fixed_vector_inl_defd_rw_pop_back(mk_sl_fixed_vector_inl_defd_pt const fixed_vector) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo mk_sl_fixed_vector_inl_defd_element_pt mk_sl_fixed_vector_inl_defd_rw_pop_back_one(mk_sl_fixed_vector_inl_defd_pt const fixed_vector) mk_lang_noexcept
 {
 	mk_sl_fixed_vector_inl_defd_element_pt item mk_lang_constexpr_init;
 

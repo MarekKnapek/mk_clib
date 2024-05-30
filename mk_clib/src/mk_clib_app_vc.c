@@ -424,7 +424,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_arg_
 		if(mk_sl_cui_uint64_eq(&finished->m_block_id, &g_mk_clib_app_vc_threads_to_write_id))
 		{
 			err = mk_clib_app_vc_writer_write(writer, &finished->m_block->m_data.m_uint8s[0], mk_lang_countof(finished->m_block->m_data.m_uint8s), &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == mk_lang_countof(finished->m_block->m_data.m_uint8s));
-			back = mk_clib_app_vc_fixed_vector_rw_pop_back(&g_mk_clib_app_vc_threads_finished);
+			back = mk_clib_app_vc_fixed_vector_rw_pop_back_one(&g_mk_clib_app_vc_threads_finished);
 			if(i != n - 1)
 			{
 				*finished = *back;
