@@ -1,6 +1,7 @@
 #include "mk_lib_crypto_xof_stream_blake3_fuzz.h"
 
 #include "mk_lang_jumbo.h"
+#include "mk_lang_min.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_test.h"
 #include "mk_lang_types.h"

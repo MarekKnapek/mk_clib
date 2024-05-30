@@ -85,7 +85,7 @@ mk_lang_jumbo void mk_sl_mallocator_lang_allocate(mk_lang_exception_pt const ex,
 	mk_lang_assert(mem);
 
 	m = mk_sl_mallocator_lang_m(size_bytes);
-	if(mk_lang_check_if_failed(m)) mk_lang_unlikely { mk_lang_exception_out_of_memory_make(ex, size_bytes); return; }
+	if(mk_lang_check_to_bool(m)){ mk_lang_unlikely mk_lang_exception_out_of_memory_make(ex, size_bytes); return; }
 	mk_sl_mallocator_lang_statistics_allocated(size_bytes);
 	*mem = m;
 }
@@ -113,7 +113,7 @@ mk_lang_jumbo void mk_sl_mallocator_lang_reallocate(mk_lang_exception_pt const e
 	mk_lang_assert(new_mem);
 
 	m = mk_sl_mallocator_lang_r(((mk_lang_types_void_pt)(old_mem)), new_size_bytes);
-	if(mk_lang_check_if_failed(m)) mk_lang_unlikely { mk_lang_exception_out_of_memory_make(ex, new_size_bytes); return; }
+	if(mk_lang_check_to_bool(m)) mk_lang_unlikely { mk_lang_exception_out_of_memory_make(ex, new_size_bytes); return; }
 	mk_sl_mallocator_lang_statistics_reallocated(old_size_bytes, new_size_bytes);
 	*new_mem = m;
 }
