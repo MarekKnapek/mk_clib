@@ -27,14 +27,14 @@ include(`mk_sl_cui_inl.m')dnl
 #define mk_sl_cui_inl_filec_memmove_pc_name mk_lang_concat(mk_sl_cui_inl_defd_name, _memmove_pchar)
 #define mk_sl_cui_inl_filec_memmove_pc_fn mk_lang_concat(mk_sl_cui_inl_filec_memmove_pc_name, _fn)
 #define mk_lang_memmove_t_name mk_sl_cui_inl_filec_memmove_pc_name
-#define mk_lang_memmove_t_base mk_lang_types_pchar
+#define mk_lang_memmove_t_type mk_lang_types_pchar_t
 #include "mk_lang_memmove_inl_fileh.h"
 #include "mk_lang_memmove_inl_filec.h"
 
 #define mk_sl_cui_inl_filec_memmove_wc_name mk_lang_concat(mk_sl_cui_inl_defd_name, _memmove_wchar)
 #define mk_sl_cui_inl_filec_memmove_wc_fn mk_lang_concat(mk_sl_cui_inl_filec_memmove_wc_name, _fn)
 #define mk_lang_memmove_t_name mk_sl_cui_inl_filec_memmove_wc_name
-#define mk_lang_memmove_t_base mk_lang_types_wchar
+#define mk_lang_memmove_t_type mk_lang_types_wchar_t
 #include "mk_lang_memmove_inl_fileh.h"
 #include "mk_lang_memmove_inl_filec.h"
 

@@ -24,7 +24,7 @@
 #include "mk_lib_crypto_mode_base_inl_filec.h"
 
 #define mk_lang_memmove_t_name mk_lib_crypto_alg_serpent_memmove_u8
-#define mk_lang_memmove_t_base mk_sl_cui_uint8
+#define mk_lang_memmove_t_type mk_sl_cui_uint8_t
 #include "mk_lang_memmove_inl_fileh.h"
 #include "mk_lang_memmove_inl_filec.h"
 
