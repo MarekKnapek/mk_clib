@@ -59,6 +59,7 @@
 #undef mk_lib_mt_ring_inl_defd_ring_rw_pop_back
 #undef mk_lib_mt_ring_inl_defd_ring_rw_push_front
 #undef mk_lib_mt_ring_inl_defd_ring_rw_pop_front_one
+#undef mk_lib_mt_ring_inl_defd_ring_rw_pop_front_many
 
 
 #undef mk_lib_mt_ring_inl_defd_element_t
@@ -116,3 +117,4 @@
 #undef mk_lib_mt_ring_inl_defd_rw_try_push_front
 #undef mk_lib_mt_ring_inl_defd_rw_try_pop_front_void
 #undef mk_lib_mt_ring_inl_defd_rw_try_pop_front_copy
+#undef mk_lib_mt_ring_inl_defd_rw_try_pop_front_few_copy

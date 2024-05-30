@@ -3,6 +3,7 @@
 #include "mk_lang_check.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_jumbo.h"
+#include "mk_lang_min.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
@@ -646,6 +647,26 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 		err = mk_lib_mt_cv_notify_one(&ring->m_cv); mk_lang_check_rereturn(err);
 		*success = mk_lang_true;
 	}
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_try_pop_front_few_copy(mk_lib_mt_ring_inl_defd_pt const ring, mk_lib_mt_ring_inl_defd_element_pt const elements, mk_lang_types_usize_pt const count) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lib_mt_unique_lock_exclusive_t lock mk_lang_constexpr_init;
+	mk_lang_types_usize_t cnt mk_lang_constexpr_init;
+
+	mk_lang_assert(ring);
+	mk_lang_assert(elements || *count == 0);
+	mk_lang_assert(count && *count >= 0);
+
+	err = mk_lib_mt_unique_lock_exclusive_construct(&lock, &ring->m_mutex); mk_lang_check_rereturn(err);
+	cnt = mk_lib_mt_ring_inl_defd_ring_rw_size(&ring->m_ring);
+	cnt = mk_lang_min(cnt, *count);
+	mk_lib_mt_ring_inl_defd_ring_rw_pop_front_many(&ring->m_ring, cnt, &elements[0]);
+	err = mk_lib_mt_unique_lock_exclusive_destruct(&lock); mk_lang_check_rereturn(err);
+	err = mk_lib_mt_cv_notify_one(&ring->m_cv); mk_lang_check_rereturn(err);
+	*count = cnt;
 	return 0;
 }
 
