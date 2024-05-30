@@ -4,3 +4,5 @@
 /Debug/
 /Release/
 /x64/
+
+/double_analyzer.vcxproj.user
