@@ -18,6 +18,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_check_to_bool_impl(
 #if defined NDEBUG
 #define mk_lang_check_line 1
 #define mk_lang_check_debug_break()
+#define mk_lang_check_debug_break_rethrow()
 #else
 #define mk_lang_check_line ((mk_lang_types_sint_t)(__LINE__))
 #if defined _MSC_VER && defined _MSC_FULL_VER
@@ -27,6 +28,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_check_to_bool_impl(
 #else
 #define mk_lang_check_debug_break()
 #endif
+#define mk_lang_check_debug_break_rethrow() /*mk_lang_check_debug_break()*/
 #endif
 
 
@@ -42,10 +44,10 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_check_to_bool_impl(
 #define mk_lang_check_goto_exret(x) { if(!mk_lang_check_to_bool(x)){ mk_lang_unlikely mk_lang_check_debug_break(); goto exret;                } } ((mk_lang_types_void_t)(0))
 #define mk_lang_check_crash(x)      { if(!mk_lang_check_to_bool(x)){ mk_lang_unlikely mk_lang_check_debug_break(); mk_lang_crash();           } } ((mk_lang_types_void_t)(0))
 
-#define mk_lang_check_rereturn(x)     { mk_lang_types_sint_t err_private mk_lang_constexpr_init; err_private = ((mk_lang_types_sint_t)(x)); if(err_private != 0){ mk_lang_unlikely return err_private;            } } ((mk_lang_types_void_t)(0))
-#define mk_lang_check_rebreak(x)      { mk_lang_types_sint_t err_private mk_lang_constexpr_init; err_private = ((mk_lang_types_sint_t)(x)); if(err_private != 0){ mk_lang_unlikely break;                         } } ((mk_lang_types_void_t)(0))
-#define mk_lang_check_regoto_exret(x) { mk_lang_types_sint_t err_private mk_lang_constexpr_init; err_private = ((mk_lang_types_sint_t)(x)); if(err_private != 0){ mk_lang_unlikely (x) = err_private; goto exret; } } ((mk_lang_types_void_t)(0))
-#define mk_lang_check_recrash(x)      { mk_lang_types_sint_t err_private mk_lang_constexpr_init; err_private = ((mk_lang_types_sint_t)(x)); if(err_private != 0){ mk_lang_unlikely mk_lang_crash();               } } ((mk_lang_types_void_t)(0))
+#define mk_lang_check_rereturn(x)     { mk_lang_types_sint_t err_private mk_lang_constexpr_init; err_private = ((mk_lang_types_sint_t)(x)); if(err_private != 0){ mk_lang_unlikely mk_lang_check_debug_break_rethrow(); return err_private;            } } ((mk_lang_types_void_t)(0))
+#define mk_lang_check_rebreak(x)      { mk_lang_types_sint_t err_private mk_lang_constexpr_init; err_private = ((mk_lang_types_sint_t)(x)); if(err_private != 0){ mk_lang_unlikely mk_lang_check_debug_break_rethrow(); break;                         } } ((mk_lang_types_void_t)(0))
+#define mk_lang_check_regoto_exret(x) { mk_lang_types_sint_t err_private mk_lang_constexpr_init; err_private = ((mk_lang_types_sint_t)(x)); if(err_private != 0){ mk_lang_unlikely mk_lang_check_debug_break_rethrow(); (x) = err_private; goto exret; } } ((mk_lang_types_void_t)(0))
+#define mk_lang_check_recrash(x)      { mk_lang_types_sint_t err_private mk_lang_constexpr_init; err_private = ((mk_lang_types_sint_t)(x)); if(err_private != 0){ mk_lang_unlikely mk_lang_check_debug_break_rethrow(); mk_lang_crash();               } } ((mk_lang_types_void_t)(0))
 
 
 #if mk_lang_jumbo_want == 1
