@@ -17,7 +17,7 @@
 #include "mk_sl_uint8.h"
 
 #define mk_lang_memset_t_name mk_lib_crypto_hash_block_blake3_base_memset_u8
-#define mk_lang_memset_t_base mk_sl_cui_uint8
+#define mk_lang_memset_t_type mk_sl_cui_uint8_t
 #include "mk_lang_memset_inl_fileh.h"
 #include "mk_lang_memset_inl_filec.h"
 

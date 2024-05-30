@@ -44,7 +44,7 @@
 #include "mk_sl_io_writer_buffered_inl_filec.h"
 
 #define mk_lang_memset_t_name mk_clib_app_vc_memsetu8
-#define mk_lang_memset_t_base mk_sl_cui_uint8
+#define mk_lang_memset_t_type mk_sl_cui_uint8_t
 #include "mk_lang_memset_inl_fileh.h"
 #include "mk_lang_memset_inl_filec.h"
 
