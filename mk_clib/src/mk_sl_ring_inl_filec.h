@@ -71,7 +71,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_rin
 
 	mk_lang_assert(ring);
 
-	ret = mk_sl_ring_inl_defd_ro_size(ring) == mk_sl_ring_inl_defd_ro_capacity(ring);;
+	ret = mk_sl_ring_inl_defd_ro_free(ring) == 0;
 	return ret;
 }
 
