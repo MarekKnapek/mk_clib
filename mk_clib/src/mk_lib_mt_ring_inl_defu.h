@@ -109,7 +109,7 @@
 #undef mk_lib_mt_ring_inl_defd_rw_push_front
 #undef mk_lib_mt_ring_inl_defd_rw_pop_front_void
 #undef mk_lib_mt_ring_inl_defd_rw_pop_front_copy
-#undef mk_lib_mt_ring_inl_defd_rw_try_push_back
+#undef mk_lib_mt_ring_inl_defd_rw_try_push_back_one
 #undef mk_lib_mt_ring_inl_defd_rw_try_pop_back_void
 #undef mk_lib_mt_ring_inl_defd_rw_try_pop_back_copy
 #undef mk_lib_mt_ring_inl_defd_rw_try_push_front

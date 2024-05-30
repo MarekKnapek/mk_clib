@@ -471,7 +471,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_try_push_back(mk_lib_mt_ring_inl_defd_pt const ring, mk_lib_mt_ring_inl_defd_element_pct const element, mk_lang_types_bool_pt const success) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_try_push_back_one(mk_lib_mt_ring_inl_defd_pt const ring, mk_lib_mt_ring_inl_defd_element_pct const element, mk_lang_types_bool_pt const success) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 	mk_lib_mt_unique_lock_exclusive_t lock mk_lang_constexpr_init;
