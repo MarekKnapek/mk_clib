@@ -39,12 +39,12 @@
 #include "mk_lang_memset_inl_filec.h"
 
 #define mk_lang_strlen_t_name mk_lib_vc_strlenpc
-#define mk_lang_strlen_t_base mk_lang_types_pchar
+#define mk_lang_strlen_t_type mk_lang_types_pchar_t
 #include "mk_lang_strlen_inl_fileh.h"
 #include "mk_lang_strlen_inl_filec.h"
 
 #define mk_lang_strlen_t_name mk_lib_vc_strlenwc
-#define mk_lang_strlen_t_base mk_lang_types_wchar
+#define mk_lang_strlen_t_type mk_lang_types_wchar_t
 #include "mk_lang_strlen_inl_fileh.h"
 #include "mk_lang_strlen_inl_filec.h"
 

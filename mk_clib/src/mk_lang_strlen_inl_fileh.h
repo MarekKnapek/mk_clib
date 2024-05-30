@@ -8,7 +8,13 @@
 #include "mk_lang_strlen_inl_defd.h"
 
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_lang_strlen_inl_defd_fn(mk_lang_strlen_inl_defd_pct const str) mk_lang_noexcept;
+typedef mk_lang_strlen_inl_defd_type mk_lang_strlen_inl_defd_type_t;
+typedef mk_lang_strlen_inl_defd_type_t const mk_lang_strlen_inl_defd_type_ct;
+typedef mk_lang_strlen_inl_defd_type_t* mk_lang_strlen_inl_defd_type_pt;
+typedef mk_lang_strlen_inl_defd_type_t const* mk_lang_strlen_inl_defd_type_pct;
+
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_lang_strlen_inl_defd_fn(mk_lang_strlen_inl_defd_type_pct const str) mk_lang_noexcept;
 
 
 #include "mk_lang_strlen_inl_defu.h"

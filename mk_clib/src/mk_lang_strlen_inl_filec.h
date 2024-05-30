@@ -1,5 +1,4 @@
 #include "mk_lang_assert.h"
-#include "mk_lang_concat.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_msvc.h"
@@ -18,10 +17,10 @@
 #include "mk_lang_strlen_inl_defd.h"
 
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_lang_strlen_inl_defd_fn(mk_lang_strlen_inl_defd_pct const str) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_lang_strlen_inl_defd_fn(mk_lang_strlen_inl_defd_type_pct const str) mk_lang_noexcept
 {
-#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2008
-	if(!mk_lang_constexpr_is_constant_evaluated_test && sizeof(*str) == 1)
+	#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2008
+	if(!mk_lang_constexpr_is_constant_evaluated_test && sizeof(mk_lang_strlen_inl_defd_type_t) == 1)
 	{
 		mk_lang_types_usize_t len;
 
@@ -31,9 +30,9 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_lang_
 		return len;
 	}
 	else
-#endif
-#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2008
-	if(!mk_lang_constexpr_is_constant_evaluated_test && sizeof(*str) == 2)
+	#endif
+	#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2008
+	if(!mk_lang_constexpr_is_constant_evaluated_test && sizeof(mk_lang_strlen_inl_defd_type_t) == 2)
 	{
 		mk_lang_types_usize_t len;
 
@@ -43,15 +42,15 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_lang_
 		return len;
 	}
 	else
-#endif
+	#endif
 	{
-		mk_lang_strlen_inl_defd_pct ptr mk_lang_constexpr_init;
+		mk_lang_strlen_inl_defd_type_pct ptr mk_lang_constexpr_init;
 		mk_lang_types_usize_t len mk_lang_constexpr_init;
 
 		mk_lang_assert(str);
 
 		ptr = str;
-		while(ptr[0] != ((mk_lang_strlen_inl_defd_t)(0)))
+		while(ptr[0] != ((mk_lang_strlen_inl_defd_type_t)(0)))
 		{
 			++ptr;
 		}
@@ -65,4 +64,4 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_lang_
 
 
 #undef mk_lang_strlen_t_name
-#undef mk_lang_strlen_t_base
+#undef mk_lang_strlen_t_type
