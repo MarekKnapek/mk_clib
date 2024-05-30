@@ -13,8 +13,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_transaction_portab
 {
 	mk_lang_assert(transaction);
 
-	mk_lang_check_return(mk_lang_false);
-	return 0;
+	return mk_lang_check_line;
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_transaction_portable_commit(mk_sl_io_transaction_portable_pt const transaction) mk_lang_noexcept
