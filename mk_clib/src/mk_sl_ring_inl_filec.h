@@ -1,6 +1,7 @@
 #include "mk_lang_assert.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_jumbo.h"
+#include "mk_lang_min.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
@@ -13,6 +14,13 @@
 #define mk_sl_array_t_element mk_sl_ring_inl_defd_element
 #define mk_sl_array_t_count mk_sl_ring_inl_defd_count
 #include "mk_sl_array_inl_filec.h"
+
+#define mk_sl_ring_inl_filec_memcpy_name mk_lang_concat(mk_sl_ring_inl_defd_name, _memcpy)
+#define mk_lang_memcpy_t_name mk_sl_ring_inl_filec_memcpy_name
+#define mk_lang_memcpy_t_type mk_sl_ring_inl_defd_element
+#include "mk_lang_memcpy_inl_fileh.h"
+#include "mk_lang_memcpy_inl_filec.h"
+#define mk_sl_ring_inl_filec_memcpy_fn mk_lang_concat(mk_sl_ring_inl_filec_memcpy_name, _fn)
 
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_sl_ring_inl_defd_st_capacity(mk_lang_types_void_t) mk_lang_noexcept
@@ -242,6 +250,34 @@ mk_lang_constexpr mk_lang_jumbo mk_sl_ring_inl_defd_element_pt mk_sl_ring_inl_de
 	return item;
 }
 
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_ring_inl_defd_rw_push_back_many(mk_sl_ring_inl_defd_pt const ring, mk_sl_ring_inl_defd_element_pct const elements, mk_lang_types_usize_t const count) mk_lang_noexcept
+{
+	mk_sl_ring_inl_defd_element_pct elems mk_lang_constexpr_init;
+	mk_lang_types_usize_t rest mk_lang_constexpr_init;
+	mk_lang_types_usize_t pos mk_lang_constexpr_init;
+	mk_lang_types_usize_t avl mk_lang_constexpr_init;
+	mk_lang_types_usize_t cnt mk_lang_constexpr_init;
+	mk_sl_ring_inl_defd_element_pt item mk_lang_constexpr_init;
+
+	mk_lang_assert(ring);
+	mk_lang_assert(elements || count == 0);
+	mk_lang_assert(count >= 0);
+	mk_lang_assert(mk_sl_ring_inl_defd_rw_free(ring) >= count);
+
+	elems = elements;
+	rest = count;
+	pos = ring->m_write & (mk_sl_ring_inl_defd_rw_capacity(ring) - 1);
+	avl = mk_sl_ring_inl_defd_rw_capacity(ring) - pos;
+	cnt = mk_lang_min(rest, avl);
+	item = mk_sl_ring_inl_defd_array_rw_at(&ring->m_array, pos);
+	mk_sl_ring_inl_filec_memcpy_fn(item, elems, cnt);
+	elems += cnt;
+	rest -= cnt;
+	item = mk_sl_ring_inl_defd_array_rw_front(&ring->m_array);
+	mk_sl_ring_inl_filec_memcpy_fn(item, elems, rest);
+	ring->m_write += count;
+}
+
 mk_lang_constexpr mk_lang_jumbo mk_sl_ring_inl_defd_element_pt mk_sl_ring_inl_defd_rw_pop_back(mk_sl_ring_inl_defd_pt const ring) mk_lang_noexcept
 {
 	mk_lang_types_usize_t pos mk_lang_constexpr_init;
@@ -282,6 +318,10 @@ mk_lang_constexpr mk_lang_jumbo mk_sl_ring_inl_defd_element_pt mk_sl_ring_inl_de
 	item = mk_sl_ring_inl_defd_array_rw_at(&ring->m_array, pos);
 	return item;
 }
+
+
+#undef mk_sl_ring_inl_filec_memcpy_name
+#undef mk_sl_ring_inl_filec_memcpy_fn
 
 
 #include "mk_sl_ring_inl_defu.h"
