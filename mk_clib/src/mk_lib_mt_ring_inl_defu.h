@@ -55,7 +55,7 @@
 #undef mk_lib_mt_ring_inl_defd_ring_rw_push_back_one
 #undef mk_lib_mt_ring_inl_defd_ring_rw_pop_back
 #undef mk_lib_mt_ring_inl_defd_ring_rw_push_front
-#undef mk_lib_mt_ring_inl_defd_ring_rw_pop_front
+#undef mk_lib_mt_ring_inl_defd_ring_rw_pop_front_one
 
 
 #undef mk_lib_mt_ring_inl_defd_element_t

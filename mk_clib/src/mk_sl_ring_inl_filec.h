@@ -306,7 +306,7 @@ mk_lang_constexpr mk_lang_jumbo mk_sl_ring_inl_defd_element_pt mk_sl_ring_inl_de
 	return item;
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_sl_ring_inl_defd_element_pt mk_sl_ring_inl_defd_rw_pop_front(mk_sl_ring_inl_defd_pt const ring) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo mk_sl_ring_inl_defd_element_pt mk_sl_ring_inl_defd_rw_pop_front_one(mk_sl_ring_inl_defd_pt const ring) mk_lang_noexcept
 {
 	mk_lang_types_usize_t pos mk_lang_constexpr_init;
 	mk_sl_ring_inl_defd_element_pt item mk_lang_constexpr_init;

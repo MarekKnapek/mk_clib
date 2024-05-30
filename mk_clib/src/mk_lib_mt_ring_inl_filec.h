@@ -333,7 +333,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	{
 		err = mk_lib_mt_cv_wait_exclusive(&ring->m_cv, &lock); mk_lang_check_rereturn(err);
 	}
-	item = mk_lib_mt_ring_inl_defd_ring_rw_pop_front(&ring->m_ring); ((mk_lang_types_void_t)(item));
+	item = mk_lib_mt_ring_inl_defd_ring_rw_pop_front_one(&ring->m_ring); ((mk_lang_types_void_t)(item));
 	err = mk_lib_mt_unique_lock_exclusive_destruct(&lock); mk_lang_check_rereturn(err);
 	err = mk_lib_mt_cv_notify_one(&ring->m_cv); mk_lang_check_rereturn(err);
 	return 0;
@@ -353,7 +353,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	{
 		err = mk_lib_mt_cv_wait_exclusive(&ring->m_cv, &lock); mk_lang_check_rereturn(err);
 	}
-	item = mk_lib_mt_ring_inl_defd_ring_rw_pop_front(&ring->m_ring);
+	item = mk_lib_mt_ring_inl_defd_ring_rw_pop_front_one(&ring->m_ring);
 	*element = *item;
 	err = mk_lib_mt_unique_lock_exclusive_destruct(&lock); mk_lang_check_rereturn(err);
 	err = mk_lib_mt_cv_notify_one(&ring->m_cv); mk_lang_check_rereturn(err);
@@ -477,7 +477,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	}
 	else
 	{
-		mk_lib_mt_ring_inl_defd_ring_rw_pop_front(&ring->m_ring);
+		mk_lib_mt_ring_inl_defd_ring_rw_pop_front_one(&ring->m_ring);
 		err = mk_lib_mt_unique_lock_exclusive_destruct(&lock); mk_lang_check_rereturn(err);
 		err = mk_lib_mt_cv_notify_one(&ring->m_cv); mk_lang_check_rereturn(err);
 		*success = mk_lang_true;
@@ -503,7 +503,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	}
 	else
 	{
-		item = mk_lib_mt_ring_inl_defd_ring_rw_pop_front(&ring->m_ring);
+		item = mk_lib_mt_ring_inl_defd_ring_rw_pop_front_one(&ring->m_ring);
 		*element = *item;
 		err = mk_lib_mt_unique_lock_exclusive_destruct(&lock); mk_lang_check_rereturn(err);
 		err = mk_lib_mt_cv_notify_one(&ring->m_cv); mk_lang_check_rereturn(err);
