@@ -496,6 +496,32 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	return 0;
 }
 
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_try_push_back_many(mk_lib_mt_ring_inl_defd_pt const ring, mk_lib_mt_ring_inl_defd_element_pct const elements, mk_lang_types_usize_t const count, mk_lang_types_bool_pt const success) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lib_mt_unique_lock_exclusive_t lock mk_lang_constexpr_init;
+
+	mk_lang_assert(ring);
+	mk_lang_assert(elements || count == 0);
+	mk_lang_assert(count >= 0);
+	mk_lang_assert(success);
+
+	err = mk_lib_mt_unique_lock_exclusive_construct(&lock, &ring->m_mutex); mk_lang_check_rereturn(err);
+	if(!(mk_lib_mt_ring_inl_defd_ring_rw_free(&ring->m_ring) >= count))
+	{
+		err = mk_lib_mt_unique_lock_exclusive_destruct(&lock); mk_lang_check_rereturn(err);
+		*success = mk_lang_false;
+	}
+	else
+	{
+		mk_lib_mt_ring_inl_defd_ring_rw_push_back_many(&ring->m_ring, elements, count);
+		err = mk_lib_mt_unique_lock_exclusive_destruct(&lock); mk_lang_check_rereturn(err);
+		err = mk_lib_mt_cv_notify_one(&ring->m_cv); mk_lang_check_rereturn(err);
+		*success = mk_lang_true;
+	}
+	return 0;
+}
+
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_try_pop_back_void(mk_lib_mt_ring_inl_defd_pt const ring, mk_lang_types_bool_pt const success) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
