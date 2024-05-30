@@ -5,20 +5,20 @@
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
-#include "mk_lang_os.h"
+#include "mk_lang_platform.h"
 #include "mk_lang_restrict.h"
 #include "mk_lang_types.h"
 #include "mk_sl_io_transaction.h"
 #include "mk_sl_uint8.h"
 
 
-#if mk_lang_os == mk_lang_os_windows
+#if mk_lang_platform == mk_lang_platform_windows
 #include "mk_sl_io_reader_file_windows.h"
 typedef mk_sl_io_reader_file_windows_t mk_sl_io_reader_file_handle_t;
-#elif mk_lang_os == mk_lang_os_linux
+#elif mk_lang_platform == mk_lang_platform_linux
 #include "mk_sl_io_reader_file_linux.h"
 typedef mk_sl_io_reader_file_linux_t mk_sl_io_reader_file_handle_t;
-#elif mk_lang_os == mk_lang_os_c
+#elif mk_lang_platform == mk_lang_platform_portable
 #include "mk_sl_io_reader_file_portable.h"
 typedef mk_sl_io_reader_file_portable_t mk_sl_io_reader_file_handle_t;
 #else

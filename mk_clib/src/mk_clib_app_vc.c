@@ -14,7 +14,7 @@
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_null.h"
-#include "mk_lang_os.h"
+#include "mk_lang_platform.h"
 #include "mk_lang_pow2.h"
 #include "mk_lang_roundup.h"
 #include "mk_lang_static_assert.h"

@@ -6,14 +6,14 @@
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
-#include "mk_lang_os.h"
+#include "mk_lang_platform.h"
 #include "mk_lang_restrict.h"
 #include "mk_lang_types.h"
 #include "mk_sl_io_transaction_linux.h"
 #include "mk_sl_uint8.h"
 
 
-#if mk_lang_os == mk_lang_os_linux
+#if mk_lang_platform == mk_lang_platform_linux
 
 
 /* close O_CLOEXEC O_CREAT O_TRUNC O_WRONLY open S_IRGRP S_IROTH S_IRUSR S_IWUSR write */

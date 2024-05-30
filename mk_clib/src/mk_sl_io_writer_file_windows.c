@@ -7,7 +7,7 @@
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_null.h"
-#include "mk_lang_os.h"
+#include "mk_lang_platform.h"
 #include "mk_lang_restrict.h"
 #include "mk_lang_types.h"
 #include "mk_sl_io_transaction_windows.h"
@@ -18,7 +18,7 @@
 #include "mk_win_ktmw32_transaction.h"
 
 
-#if mk_lang_os == mk_lang_os_windows
+#if mk_lang_platform == mk_lang_platform_windows
 
 
 #define mk_sl_io_writer_file_windows_is_valid(x) ((mk_lang_types_bool_t)((x).m_data != mk_lang_null))

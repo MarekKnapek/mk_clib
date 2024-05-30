@@ -6,7 +6,7 @@
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
-#include "mk_lang_os.h"
+#include "mk_lang_platform.h"
 #include "mk_lang_types.h"
 
 

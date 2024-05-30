@@ -5,17 +5,17 @@
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_platform.h"
 #include "mk_lang_types.h"
-#include "mk_lang_os.h"
 
 
-#if mk_lang_os == mk_lang_os_windows
+#if mk_lang_platform == mk_lang_platform_windows
 #include "mk_sl_io_transaction_windows.h"
 struct mk_sl_io_transaction_s { mk_sl_io_transaction_windows_t m_data; };
-#elif mk_lang_os == mk_lang_os_linux
+#elif mk_lang_platform == mk_lang_platform_linux
 #include "mk_sl_io_transaction_linux.h"
 struct mk_sl_io_transaction_s { mk_sl_io_transaction_linux_t m_data; };
-#elif mk_lang_os == mk_lang_os_c
+#elif mk_lang_platform == mk_lang_platform_portable
 #include "mk_sl_io_transaction_portable.h"
 struct mk_sl_io_transaction_s { mk_sl_io_transaction_portable_t m_data; };
 #else

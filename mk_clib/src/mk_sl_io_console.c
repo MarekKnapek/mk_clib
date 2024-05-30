@@ -3,20 +3,20 @@
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
-#include "mk_lang_os.h"
+#include "mk_lang_platform.h"
 #include "mk_lang_types.h"
 #include "mk_sl_uint8.h"
 
 
-#if mk_lang_os == mk_lang_os_windows
+#if mk_lang_platform == mk_lang_platform_windows
 #include "mk_sl_io_console_windows.h"
 #define mk_sl_io_console_impl_write_n mk_sl_io_console_windows_write_n
 #define mk_sl_io_console_impl_write_w mk_sl_io_console_windows_write_w
-#elif mk_lang_os == mk_lang_os_linux
+#elif mk_lang_platform == mk_lang_platform_linux
 #include "mk_sl_io_console_linux.h"
 #define mk_sl_io_console_impl_write_n mk_sl_io_console_linux_write_n
 #define mk_sl_io_console_impl_write_w mk_sl_io_console_linux_write_w
-#elif mk_lang_os == mk_lang_os_c
+#elif mk_lang_platform == mk_lang_platform_portable
 #include "mk_sl_io_console_portable.h"
 #define mk_sl_io_console_impl_write_n mk_sl_io_console_portable_write_n
 #define mk_sl_io_console_impl_write_w mk_sl_io_console_portable_write_w
