@@ -91,3 +91,4 @@
 #undef mk_sl_ring_inl_defd_rw_pop_back
 #undef mk_sl_ring_inl_defd_rw_push_front
 #undef mk_sl_ring_inl_defd_rw_pop_front_one
+#undef mk_sl_ring_inl_defd_rw_pop_front_many

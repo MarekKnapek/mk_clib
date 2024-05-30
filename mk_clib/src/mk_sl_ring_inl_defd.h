@@ -91,3 +91,4 @@
 #define mk_sl_ring_inl_defd_rw_pop_back mk_lang_concat(mk_sl_ring_inl_defd_name, _rw_pop_back)
 #define mk_sl_ring_inl_defd_rw_push_front mk_lang_concat(mk_sl_ring_inl_defd_name, _rw_push_front)
 #define mk_sl_ring_inl_defd_rw_pop_front_one mk_lang_concat(mk_sl_ring_inl_defd_name, _rw_pop_front_one)
+#define mk_sl_ring_inl_defd_rw_pop_front_many mk_lang_concat(mk_sl_ring_inl_defd_name, _rw_pop_front_many)
