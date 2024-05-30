@@ -83,6 +83,7 @@
 #define mk_lib_mt_ring_inl_defd_ro_is_empty mk_lang_concat(mk_lib_mt_ring_inl_defd_name, _ro_is_empty)
 #define mk_lib_mt_ring_inl_defd_ro_is_full mk_lang_concat(mk_lib_mt_ring_inl_defd_name, _ro_is_full)
 #define mk_lib_mt_ring_inl_defd_ro_at mk_lang_concat(mk_lib_mt_ring_inl_defd_name, _ro_at)
+#define mk_lib_mt_ring_inl_defd_ro_wait_til_empty mk_lang_concat(mk_lib_mt_ring_inl_defd_name, _ro_wait_til_empty)
 #define mk_lib_mt_ring_inl_defd_ro_front mk_lang_concat(mk_lib_mt_ring_inl_defd_name, _ro_front)
 #define mk_lib_mt_ring_inl_defd_ro_back mk_lang_concat(mk_lib_mt_ring_inl_defd_name, _ro_back)
 
@@ -91,6 +92,7 @@
 #define mk_lib_mt_ring_inl_defd_rw_free mk_lang_concat(mk_lib_mt_ring_inl_defd_name, _rw_free)
 #define mk_lib_mt_ring_inl_defd_rw_is_empty mk_lang_concat(mk_lib_mt_ring_inl_defd_name, _rw_is_empty)
 #define mk_lib_mt_ring_inl_defd_rw_is_full mk_lang_concat(mk_lib_mt_ring_inl_defd_name, _rw_is_full)
+#define mk_lib_mt_ring_inl_defd_rw_wait_til_empty mk_lang_concat(mk_lib_mt_ring_inl_defd_name, _rw_wait_til_empty)
 #define mk_lib_mt_ring_inl_defd_rw_at mk_lang_concat(mk_lib_mt_ring_inl_defd_name, _rw_at)
 #define mk_lib_mt_ring_inl_defd_rw_front mk_lang_concat(mk_lib_mt_ring_inl_defd_name, _rw_front)
 #define mk_lib_mt_ring_inl_defd_rw_back mk_lang_concat(mk_lib_mt_ring_inl_defd_name, _rw_back)

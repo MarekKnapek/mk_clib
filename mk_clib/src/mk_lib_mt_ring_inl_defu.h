@@ -83,6 +83,7 @@
 #undef mk_lib_mt_ring_inl_defd_ro_is_empty
 #undef mk_lib_mt_ring_inl_defd_ro_is_full
 #undef mk_lib_mt_ring_inl_defd_ro_at
+#undef mk_lib_mt_ring_inl_defd_ro_wait_til_empty
 #undef mk_lib_mt_ring_inl_defd_ro_front
 #undef mk_lib_mt_ring_inl_defd_ro_back
 
@@ -91,6 +92,7 @@
 #undef mk_lib_mt_ring_inl_defd_rw_free
 #undef mk_lib_mt_ring_inl_defd_rw_is_empty
 #undef mk_lib_mt_ring_inl_defd_rw_is_full
+#undef mk_lib_mt_ring_inl_defd_rw_wait_til_empty
 #undef mk_lib_mt_ring_inl_defd_rw_at
 #undef mk_lib_mt_ring_inl_defd_rw_front
 #undef mk_lib_mt_ring_inl_defd_rw_back
