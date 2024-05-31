@@ -6,6 +6,7 @@
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
+#include "mk_lib_mt_thread.h"
 
 
 struct mk_sl_io_async_reader_file_portable_s;
@@ -66,6 +67,7 @@ typedef mk_sl_io_async_iocp_iorp_portable_t const mk_sl_io_async_iocp_iorp_porta
 typedef mk_sl_io_async_iocp_iorp_portable_t* mk_sl_io_async_iocp_iorp_portable_pt;
 typedef mk_sl_io_async_iocp_iorp_portable_t const* mk_sl_io_async_iocp_iorp_portable_pct;
 
+#if mk_lib_mt_thread_has
 #define mk_lib_mt_ring_t_name mk_sl_io_async_iocp_portable_ring
 #define mk_lib_mt_ring_t_element mk_sl_io_async_iocp_iorp_portable_t
 #define mk_lib_mt_ring_t_count 32
@@ -73,6 +75,15 @@ typedef mk_sl_io_async_iocp_iorp_portable_t const* mk_sl_io_async_iocp_iorp_port
 #undef mk_lib_mt_ring_t_name
 #undef mk_lib_mt_ring_t_element
 #undef mk_lib_mt_ring_t_count
+#else
+#define mk_sl_ring_t_name mk_sl_io_async_iocp_portable_ring
+#define mk_sl_ring_t_element mk_sl_io_async_iocp_iorp_portable_t
+#define mk_sl_ring_t_count 32
+#include "mk_sl_ring_inl_fileh.h"
+#undef mk_sl_ring_t_name
+#undef mk_sl_ring_t_element
+#undef mk_sl_ring_t_count
+#endif
 
 struct mk_sl_io_async_iocp_portable_s
 {

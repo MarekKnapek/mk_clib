@@ -8,17 +8,26 @@
 #include "mk_lang_noexcept.h"
 #include "mk_lang_null.h"
 #include "mk_lang_types.h"
+#include "mk_lib_mt_thread.h"
 #include "mk_sl_io_async_reader_file_portable.h"
 #include "mk_sl_io_async_writer_file_portable.h"
 
+#if mk_lib_mt_thread_has
 #define mk_lib_mt_ring_t_name mk_sl_io_async_iocp_portable_ring
 #define mk_lib_mt_ring_t_element mk_sl_io_async_iocp_iorp_portable_t
 #define mk_lib_mt_ring_t_count 32
 #include "mk_lib_mt_ring_inl_filec.h"
+#else
+#define mk_sl_ring_t_name mk_sl_io_async_iocp_portable_ring
+#define mk_sl_ring_t_element mk_sl_io_async_iocp_iorp_portable_t
+#define mk_sl_ring_t_count 32
+#include "mk_sl_ring_inl_filec.h"
+#endif
 
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_iocp_portable_construct(mk_sl_io_async_iocp_portable_pt const iocp, mk_lang_types_sint_t const concurrency) mk_lang_noexcept
 {
+#if mk_lib_mt_thread_has
 	mk_lang_types_sint_t err;
 
 	mk_lang_assert(iocp);
@@ -26,6 +35,13 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_iocp_portabl
 
 	err = mk_sl_io_async_iocp_portable_ring_rw_construct(&iocp->m_iorps); mk_lang_check_rereturn(err);
 	return 0;
+#else
+	mk_lang_assert(iocp);
+	mk_lang_assert(concurrency >= 0);
+
+	mk_sl_io_async_iocp_portable_ring_rw_construct(&iocp->m_iorps);
+	return 0;
+#endif
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_iocp_portable_associate_r(mk_sl_io_async_iocp_portable_pt const iocp, mk_sl_io_async_reader_file_portable_pt const reader, mk_lang_types_usize_t const key) mk_lang_noexcept
@@ -50,6 +66,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_iocp_portabl
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_iocp_portable_post_read_finished(mk_sl_io_async_iocp_portable_pt const iocp, mk_sl_io_async_reader_file_portable_pt const reader, mk_sl_io_async_reader_file_iorp_portable_pt const iorp) mk_lang_noexcept
 {
+#if mk_lib_mt_thread_has
 	mk_sl_io_async_iocp_iorp_portable_t iocpiorp;
 	mk_lang_types_sint_t err;
 
@@ -63,10 +80,25 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_iocp_portabl
 	iocpiorp.m_data.m_reader = iorp;
 	err = mk_sl_io_async_iocp_portable_ring_rw_push_back_one(&iocp->m_iorps, &iocpiorp); mk_lang_check_rereturn(err);
 	return 0;
+#else
+	mk_sl_io_async_iocp_iorp_portable_t iocpiorp;
+
+	mk_lang_assert(iocp);
+	mk_lang_assert(reader);
+	mk_lang_assert(reader->m_iocp == iocp);
+	mk_lang_assert(iorp);
+
+	iocpiorp.m_kind = 0;
+	iocpiorp.m_file.m_data.m_reader = reader;
+	iocpiorp.m_data.m_reader = iorp;
+	mk_sl_io_async_iocp_portable_ring_rw_push_back_one(&iocp->m_iorps, &iocpiorp);
+	return 0;
+#endif
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_iocp_portable_post_write_finished(mk_sl_io_async_iocp_portable_pt const iocp, mk_sl_io_async_writer_file_portable_pt const writer, mk_sl_io_async_writer_file_iorp_portable_pt const iorp) mk_lang_noexcept
 {
+#if mk_lib_mt_thread_has
 	mk_sl_io_async_iocp_iorp_portable_t iocpiorp;
 	mk_lang_types_sint_t err;
 
@@ -80,10 +112,25 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_iocp_portabl
 	iocpiorp.m_data.m_writer = iorp;
 	err = mk_sl_io_async_iocp_portable_ring_rw_push_back_one(&iocp->m_iorps, &iocpiorp); mk_lang_check_rereturn(err);
 	return 0;
+#else
+	mk_sl_io_async_iocp_iorp_portable_t iocpiorp;
+
+	mk_lang_assert(iocp);
+	mk_lang_assert(writer);
+	mk_lang_assert(writer->m_iocp == iocp);
+	mk_lang_assert(iorp);
+
+	iocpiorp.m_kind = 1;
+	iocpiorp.m_file.m_data.m_writer = writer;
+	iocpiorp.m_data.m_writer = iorp;
+	mk_sl_io_async_iocp_portable_ring_rw_push_back_one(&iocp->m_iorps, &iocpiorp);
+	return 0;
+#endif
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_iocp_portable_peek(mk_sl_io_async_iocp_portable_pt const iocp, mk_sl_io_async_iocp_iorp_portable_pt const iorp) mk_lang_noexcept
 {
+#if mk_lib_mt_thread_has
 	mk_lang_types_sint_t err;
 	mk_lang_types_bool_t success;
 
@@ -96,10 +143,25 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_iocp_portabl
 		iorp->m_kind = 2;
 	}
 	return 0;
+#else
+	mk_lang_assert(iocp);
+	mk_lang_assert(iorp);
+
+	if(!mk_sl_io_async_iocp_portable_ring_rw_is_empty(&iocp->m_iorps))
+	{
+		*iorp = *mk_sl_io_async_iocp_portable_ring_rw_pop_front_one(&iocp->m_iorps);
+	}
+	else
+	{
+		iorp->m_kind = 2;
+	}
+	return 0;
+#endif
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_iocp_portable_wait(mk_sl_io_async_iocp_portable_pt const iocp, mk_sl_io_async_iocp_iorp_portable_pt const iorp) mk_lang_noexcept
 {
+#if mk_lib_mt_thread_has
 	mk_lang_types_sint_t err;
 
 	mk_lang_assert(iocp);
@@ -107,16 +169,31 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_iocp_portabl
 
 	err = mk_sl_io_async_iocp_portable_ring_rw_pop_front_copy(&iocp->m_iorps, iorp); mk_lang_check_rereturn(err);
 	return 0;
+#else
+	mk_lang_assert(iocp);
+	mk_lang_assert(iorp);
+	mk_lang_assert(!mk_sl_io_async_iocp_portable_ring_rw_is_empty(&iocp->m_iorps));
+
+	*iorp = *mk_sl_io_async_iocp_portable_ring_rw_pop_front_one(&iocp->m_iorps);
+	return 0;
+#endif
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_iocp_portable_destroy(mk_sl_io_async_iocp_portable_pt const iocp) mk_lang_noexcept
 {
+#if mk_lib_mt_thread_has
 	mk_lang_types_sint_t err;
 
 	mk_lang_assert(iocp);
 
 	err = mk_sl_io_async_iocp_portable_ring_rw_destroy(&iocp->m_iorps); mk_lang_check_rereturn(err);
 	return 0;
+#else
+	mk_lang_assert(iocp);
+
+	((mk_lang_types_void_t)(iocp));
+	return 0;
+#endif
 }
 
 
