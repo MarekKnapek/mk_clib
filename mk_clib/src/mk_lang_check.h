@@ -26,6 +26,8 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_check_to_bool_impl(
 #define mk_lang_check_debug_break() __debugbreak()
 #elif mk_lang_builtin_has_debugtrap
 #define mk_lang_check_debug_break() __builtin_debugtrap()
+#elif mk_lang_builtin_has_trap
+#define mk_lang_check_debug_break() __builtin_trap()
 #else
 #define mk_lang_check_debug_break()
 #endif
