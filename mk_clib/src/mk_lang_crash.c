@@ -2,6 +2,7 @@
 
 #include "mk_lang_builtin.h"
 #include "mk_lang_jumbo.h"
+#include "mk_lang_msvc.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_noreturn.h"
 #include "mk_lang_null.h"
@@ -29,7 +30,7 @@ mk_lang_noreturn mk_lang_jumbo void mk_lang_crash(void) mk_lang_noexcept
 	ta = fflush(stdout); /* assert(ta != EOF && ta == 0) */
 	#endif
 
-	#if defined _MSC_VER /* todo version */
+	#if mk_lang_msvc_ver >= 1200l /* vs6 */
 	__debugbreak();
 	#endif
 
