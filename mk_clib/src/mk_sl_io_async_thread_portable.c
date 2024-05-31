@@ -14,6 +14,22 @@
 #include "mk_sl_io_async_reader_file_portable.h"
 #include "mk_sl_io_async_writer_file_portable.h"
 
+#if mk_lib_mt_thread_has
+
+#define mk_lib_mt_ring_t_name mk_sl_io_async_thread_portable_ring
+#define mk_lib_mt_ring_t_element mk_sl_io_async_thread_portable_task_t
+#define mk_lib_mt_ring_t_count 32
+#include "mk_lib_mt_ring_inl_filec.h"
+
+#else
+
+#define mk_sl_ring_t_name mk_sl_io_async_thread_portable_ring
+#define mk_sl_ring_t_element mk_sl_io_async_thread_portable_task_t
+#define mk_sl_ring_t_count 32
+#include "mk_sl_ring_inl_filec.h"
+
+#endif
+
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_io_async_thread_portable_proc_impl_4(mk_sl_io_async_thread_portable_pt const thread, mk_sl_io_async_thread_portable_task_pt const task) mk_lang_noexcept
 {
@@ -224,6 +240,27 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_thread_porta
 		err = mk_sl_io_async_thread_portable_proc_impl_2(thread, &end); mk_lang_check_rereturn(err); mk_lang_assert(!end);
 	}
 	mk_sl_io_async_thread_portable_ring_rw_push_back_one(&thread->m_ring, &task);
+	return 0;
+#endif
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_thread_portable_poke(mk_sl_io_async_thread_portable_pt const thread) mk_lang_noexcept
+{
+#if mk_lib_mt_thread_has
+	mk_lang_assert(thread);
+
+	((mk_lang_types_void_t)(thread));
+	return 0;
+#else
+	mk_lang_types_sint_t err;
+	mk_lang_types_bool_t end;
+
+	mk_lang_assert(thread);
+
+	if(!mk_sl_io_async_thread_portable_ring_rw_is_empty(&thread->m_ring))
+	{
+		err = mk_sl_io_async_thread_portable_proc_impl_2(thread, &end); mk_lang_check_rereturn(err); mk_lang_assert(!end);
+	}
 	return 0;
 #endif
 }

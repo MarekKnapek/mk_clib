@@ -64,6 +64,20 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_thread_add_w
 #endif
 }
 
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_thread_poke(mk_sl_io_async_thread_pt const thread) mk_lang_noexcept
+{
+#if mk_sl_io_async_thread_needs
+	mk_lang_assert(thread);
+
+	return mk_sl_io_async_thread_portable_poke(&thread->m_thread);
+#else
+	mk_lang_assert(thread);
+
+	((mk_lang_types_void_t)(thread));
+	return 0;
+#endif
+}
+
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_thread_flush(mk_sl_io_async_thread_pt const thread) mk_lang_noexcept
 {
 #if mk_sl_io_async_thread_needs

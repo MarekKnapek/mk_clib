@@ -6,7 +6,6 @@
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
-#include "mk_lang_version.h"
 #include "mk_lib_mt_thread.h"
 
 
@@ -84,7 +83,9 @@ typedef mk_sl_io_async_thread_portable_task_t const* mk_sl_io_async_thread_porta
 #define mk_lib_mt_ring_t_element mk_sl_io_async_thread_portable_task_t
 #define mk_lib_mt_ring_t_count 32
 #include "mk_lib_mt_ring_inl_fileh.h"
-#include "mk_lib_mt_ring_inl_filec.h"
+#undef mk_lib_mt_ring_t_name
+#undef mk_lib_mt_ring_t_element
+#undef mk_lib_mt_ring_t_count
 
 #else
 
@@ -92,7 +93,9 @@ typedef mk_sl_io_async_thread_portable_task_t const* mk_sl_io_async_thread_porta
 #define mk_sl_ring_t_element mk_sl_io_async_thread_portable_task_t
 #define mk_sl_ring_t_count 32
 #include "mk_sl_ring_inl_fileh.h"
-#include "mk_sl_ring_inl_filec.h"
+#undef mk_sl_ring_t_name
+#undef mk_sl_ring_t_element
+#undef mk_sl_ring_t_count
 
 #endif
 
@@ -113,6 +116,7 @@ typedef mk_sl_io_async_thread_portable_t const* mk_sl_io_async_thread_portable_p
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_thread_portable_create(mk_sl_io_async_thread_portable_pt const thread) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_thread_portable_add_r(mk_sl_io_async_thread_portable_pt const thread, mk_sl_io_async_reader_file_portable_pt const reader, mk_sl_io_async_reader_file_iorp_portable_pt const iorp) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_thread_portable_add_w(mk_sl_io_async_thread_portable_pt const thread, mk_sl_io_async_writer_file_portable_pt const writer, mk_sl_io_async_writer_file_iorp_portable_pt const iorp) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_thread_portable_poke(mk_sl_io_async_thread_portable_pt const thread) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_thread_portable_flush(mk_sl_io_async_thread_portable_pt const thread) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_thread_portable_join(mk_sl_io_async_thread_portable_pt const thread) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_thread_portable_destroy(mk_sl_io_async_thread_portable_pt const thread) mk_lang_noexcept;
