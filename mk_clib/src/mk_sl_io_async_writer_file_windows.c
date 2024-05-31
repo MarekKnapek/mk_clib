@@ -51,10 +51,17 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_writer_file_
 	mk_lang_assert(name && name[0] != '\0');
 	mk_lang_assert(tx && tx->m_transaction.m_data);
 
-	mv = mk_win_ktmw32_transaction_txfs_miniversion_view_e_dirty;
-	file = mk_win_ktmw32_transaction_a_create_file_transacted(name, mk_win_advapi_base_right_generic_e_write, mk_win_kernel_files_share_e_delete, mk_win_base_null, mk_win_kernel_files_create_e_create_always, mk_win_kernel_files_attribute_e_normal | mk_win_kernel_files_flag_e_overlapped, mk_win_base_handle_get_null(), tx->m_transaction, &mv, mk_win_base_null); mk_lang_check_return(file.m_data != mk_win_base_handle_invalid);
-	writer->m_file = file;
-	return 0;
+	if(tx->m_transaction.m_data != mk_win_base_handle_invalid)
+	{
+		mv = mk_win_ktmw32_transaction_txfs_miniversion_view_e_dirty;
+		file = mk_win_ktmw32_transaction_a_create_file_transacted(name, mk_win_advapi_base_right_generic_e_write, mk_win_kernel_files_share_e_delete, mk_win_base_null, mk_win_kernel_files_create_e_create_always, mk_win_kernel_files_attribute_e_normal | mk_win_kernel_files_flag_e_overlapped, mk_win_base_handle_get_null(), tx->m_transaction, &mv, mk_win_base_null); mk_lang_check_return(file.m_data != mk_win_base_handle_invalid);
+		writer->m_file = file;
+		return 0;
+	}
+	else
+	{
+		return mk_lang_check_line;
+	}
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_writer_file_windows_open_tx_w(mk_sl_io_async_writer_file_windows_pt const writer, mk_lang_types_wchar_pct const name, mk_sl_io_transaction_windows_pt const tx) mk_lang_noexcept
@@ -66,10 +73,17 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_writer_file_
 	mk_lang_assert(name && name[0] != '\0');
 	mk_lang_assert(tx && tx->m_transaction.m_data);
 
-	mv = mk_win_ktmw32_transaction_txfs_miniversion_view_e_dirty;
-	file = mk_win_ktmw32_transaction_w_create_file_transacted(name, mk_win_advapi_base_right_generic_e_write, mk_win_kernel_files_share_e_delete, mk_win_base_null, mk_win_kernel_files_create_e_create_always, mk_win_kernel_files_attribute_e_normal | mk_win_kernel_files_flag_e_overlapped, mk_win_base_handle_get_null(), tx->m_transaction, &mv, mk_win_base_null); mk_lang_check_return(file.m_data != mk_win_base_handle_invalid);
-	writer->m_file = file;
-	return 0;
+	if(tx->m_transaction.m_data != mk_win_base_handle_invalid)
+	{
+		mv = mk_win_ktmw32_transaction_txfs_miniversion_view_e_dirty;
+		file = mk_win_ktmw32_transaction_w_create_file_transacted(name, mk_win_advapi_base_right_generic_e_write, mk_win_kernel_files_share_e_delete, mk_win_base_null, mk_win_kernel_files_create_e_create_always, mk_win_kernel_files_attribute_e_normal | mk_win_kernel_files_flag_e_overlapped, mk_win_base_handle_get_null(), tx->m_transaction, &mv, mk_win_base_null); mk_lang_check_return(file.m_data != mk_win_base_handle_invalid);
+		writer->m_file = file;
+		return 0;
+	}
+	else
+	{
+		return mk_lang_check_line;
+	}
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_writer_file_windows_request_write(mk_sl_io_async_writer_file_windows_pt const writer, mk_sl_io_async_writer_file_iorp_windows_pt const iorp) mk_lang_noexcept
