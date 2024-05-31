@@ -54,28 +54,14 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 {
 	mk_lang_assert(cv);
 
-	if(mk_lang_constexpr_is_constant_evaluated_test)
-	{
-		return mk_lang_check_line; /* todo */
-	}
-	else
-	{
-		return mk_lib_mt_cv_impl_construct(&cv->m_cv);
-	}
+	return mk_lib_mt_cv_impl_construct(&cv->m_cv);
 }
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_destruct(mk_lib_mt_cv_pt const cv) mk_lang_noexcept
 {
 	mk_lang_assert(cv);
 
-	if(mk_lang_constexpr_is_constant_evaluated_test)
-	{
-		return mk_lang_check_line; /* todo */
-	}
-	else
-	{
-		return mk_lib_mt_cv_impl_destruct(&cv->m_cv);
-	}
+	return mk_lib_mt_cv_impl_destruct(&cv->m_cv);
 }
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_wait_exclusive(mk_lib_mt_cv_pt const cv, mk_lib_mt_unique_lock_exclusive_pt const lock) mk_lang_noexcept
@@ -83,14 +69,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	mk_lang_assert(cv);
 	mk_lang_assert(lock);
 
-	if(mk_lang_constexpr_is_constant_evaluated_test)
-	{
-		return mk_lang_check_line; /* todo */
-	}
-	else
-	{
-		return mk_lib_mt_cv_impl_wait_exclusive(&cv->m_cv, &lock->m_unique_lock_exclusive);
-	}
+	return mk_lib_mt_cv_impl_wait_exclusive(&cv->m_cv, &lock->m_unique_lock_exclusive);
 }
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_wait_shared(mk_lib_mt_cv_pt const cv, mk_lib_mt_unique_lock_shared_pt const lock) mk_lang_noexcept
@@ -98,40 +77,19 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	mk_lang_assert(cv);
 	mk_lang_assert(lock);
 
-	if(mk_lang_constexpr_is_constant_evaluated_test)
-	{
-		return mk_lang_check_line; /* todo */
-	}
-	else
-	{
-		return mk_lib_mt_cv_impl_wait_shared(&cv->m_cv, &lock->m_unique_lock_shared);
-	}
+	return mk_lib_mt_cv_impl_wait_shared(&cv->m_cv, &lock->m_unique_lock_shared);
 }
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_notify_one(mk_lib_mt_cv_pt const cv) mk_lang_noexcept
 {
 	mk_lang_assert(cv);
 
-	if(mk_lang_constexpr_is_constant_evaluated_test)
-	{
-		return mk_lang_check_line; /* todo */
-	}
-	else
-	{
-		return mk_lib_mt_cv_impl_notify_one(&cv->m_cv);
-	}
+	return mk_lib_mt_cv_impl_notify_one(&cv->m_cv);
 }
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_notify_all(mk_lib_mt_cv_pt const cv) mk_lang_noexcept
 {
 	mk_lang_assert(cv);
 
-	if(mk_lang_constexpr_is_constant_evaluated_test)
-	{
-		return mk_lang_check_line; /* todo */
-	}
-	else
-	{
-		return mk_lib_mt_cv_impl_notify_all(&cv->m_cv);
-	}
+	return mk_lib_mt_cv_impl_notify_all(&cv->m_cv);
 }

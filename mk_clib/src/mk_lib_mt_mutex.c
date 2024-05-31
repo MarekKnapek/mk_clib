@@ -53,82 +53,40 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 {
 	mk_lang_assert(mutex);
 
-	if(mk_lang_constexpr_is_constant_evaluated_test)
-	{
-		return mk_lang_check_line; /* todo */
-	}
-	else
-	{
-		return mk_lib_mt_mutex_impl_construct(&mutex->m_mutex);
-	}
+	return mk_lib_mt_mutex_impl_construct(&mutex->m_mutex);
 }
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_mutex_destruct(mk_lib_mt_mutex_pt const mutex) mk_lang_noexcept
 {
 	mk_lang_assert(mutex);
 
-	if(mk_lang_constexpr_is_constant_evaluated_test)
-	{
-		return mk_lang_check_line; /* todo */
-	}
-	else
-	{
-		return mk_lib_mt_mutex_impl_destruct(&mutex->m_mutex);
-	}
+	return mk_lib_mt_mutex_impl_destruct(&mutex->m_mutex);
 }
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_mutex_exclusive_lock(mk_lib_mt_mutex_pt const mutex) mk_lang_noexcept
 {
 	mk_lang_assert(mutex);
 
-	if(mk_lang_constexpr_is_constant_evaluated_test)
-	{
-		return mk_lang_check_line; /* todo */
-	}
-	else
-	{
-		return mk_lib_mt_mutex_impl_exclusive_lock(&mutex->m_mutex);
-	}
+	return mk_lib_mt_mutex_impl_exclusive_lock(&mutex->m_mutex);
 }
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_mutex_exclusive_unlock(mk_lib_mt_mutex_pt const mutex) mk_lang_noexcept
 {
 	mk_lang_assert(mutex);
 
-	if(mk_lang_constexpr_is_constant_evaluated_test)
-	{
-		return mk_lang_check_line; /* todo */
-	}
-	else
-	{
-		return mk_lib_mt_mutex_impl_exclusive_unlock(&mutex->m_mutex);
-	}
+	return mk_lib_mt_mutex_impl_exclusive_unlock(&mutex->m_mutex);
 }
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_mutex_shared_lock(mk_lib_mt_mutex_pt const mutex) mk_lang_noexcept
 {
 	mk_lang_assert(mutex);
 
-	if(mk_lang_constexpr_is_constant_evaluated_test)
-	{
-		return mk_lang_check_line; /* todo */
-	}
-	else
-	{
-		return mk_lib_mt_mutex_impl_shared_lock(&mutex->m_mutex);
-	}
+	return mk_lib_mt_mutex_impl_shared_lock(&mutex->m_mutex);
 }
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_mutex_shared_unlock(mk_lib_mt_mutex_pt const mutex) mk_lang_noexcept
 {
 	mk_lang_assert(mutex);
 
-	if(mk_lang_constexpr_is_constant_evaluated_test)
-	{
-		return mk_lang_check_line; /* todo */
-	}
-	else
-	{
-		return mk_lib_mt_mutex_impl_shared_unlock(&mutex->m_mutex);
-	}
+	return mk_lib_mt_mutex_impl_shared_unlock(&mutex->m_mutex);
 }

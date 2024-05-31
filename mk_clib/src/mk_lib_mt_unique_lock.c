@@ -47,28 +47,14 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	mk_lang_assert(unique_lock_exclusive);
 	mk_lang_assert(mutex);
 
-	if(mk_lang_constexpr_is_constant_evaluated_test)
-	{
-		return mk_lang_check_line; /* todo */
-	}
-	else
-	{
-		return mk_lib_mt_unique_lock_exclusive_impl_construct(&unique_lock_exclusive->m_unique_lock_exclusive, &mutex->m_mutex);
-	}
+	return mk_lib_mt_unique_lock_exclusive_impl_construct(&unique_lock_exclusive->m_unique_lock_exclusive, &mutex->m_mutex);
 }
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_unique_lock_exclusive_destruct(mk_lib_mt_unique_lock_exclusive_pt const unique_lock_exclusive) mk_lang_noexcept
 {
 	mk_lang_assert(unique_lock_exclusive);
 
-	if(mk_lang_constexpr_is_constant_evaluated_test)
-	{
-		return mk_lang_check_line; /* todo */
-	}
-	else
-	{
-		return mk_lib_mt_unique_lock_exclusive_impl_destruct(&unique_lock_exclusive->m_unique_lock_exclusive);
-	}
+	return mk_lib_mt_unique_lock_exclusive_impl_destruct(&unique_lock_exclusive->m_unique_lock_exclusive);
 }
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_unique_lock_shared_construct(mk_lib_mt_unique_lock_shared_pt const unique_lock_shared, mk_lib_mt_mutex_pt const mutex) mk_lang_noexcept
@@ -76,26 +62,12 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	mk_lang_assert(unique_lock_shared);
 	mk_lang_assert(mutex);
 
-	if(mk_lang_constexpr_is_constant_evaluated_test)
-	{
-		return mk_lang_check_line; /* todo */
-	}
-	else
-	{
-		return mk_lib_mt_unique_lock_shared_impl_construct(&unique_lock_shared->m_unique_lock_shared, &mutex->m_mutex);
-	}
+	return mk_lib_mt_unique_lock_shared_impl_construct(&unique_lock_shared->m_unique_lock_shared, &mutex->m_mutex);
 }
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_unique_lock_shared_destruct(mk_lib_mt_unique_lock_shared_pt const unique_lock_shared) mk_lang_noexcept
 {
 	mk_lang_assert(unique_lock_shared);
 
-	if(mk_lang_constexpr_is_constant_evaluated_test)
-	{
-		return mk_lang_check_line; /* todo */
-	}
-	else
-	{
-		return mk_lib_mt_unique_lock_shared_impl_destruct(&unique_lock_shared->m_unique_lock_shared);
-	}
+	return mk_lib_mt_unique_lock_shared_impl_destruct(&unique_lock_shared->m_unique_lock_shared);
 }
