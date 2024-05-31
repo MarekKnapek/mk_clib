@@ -13,7 +13,7 @@
 #define mk_lang_platform mk_lang_platform_windows_61
 #elif defined _MSC_VER && defined _MSC_FULL_VER && defined _WIN32_WINNT && _WIN32_WINNT >= 0x0600
 #define mk_lang_platform mk_lang_platform_windows_60
-#elif defined _MSC_VER && defined _MSC_FULL_VER
+#elif (defined _MSC_VER && defined _MSC_FULL_VER) || ((defined __WATCOMC__ || defined __WATCOM_CPLUSPLUS__) && defined __NT__)
 #define mk_lang_platform mk_lang_platform_windows
 #elif ((defined linux && linux == 1) || (defined __linux && __linux == 1) || (defined __linux__ && __linux__ == 1) || (defined __gnu_linux__ && __gnu_linux__ == 1)) && ((defined _POSIX_C_SOURCE && _POSIX_C_SOURCE >= 200809l) && (defined _XOPEN_SOURCE && _XOPEN_SOURCE >= 700) && (defined _GNU_SOURCE))
 #define mk_lang_platform mk_lang_platform_linux
