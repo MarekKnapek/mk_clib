@@ -6,16 +6,17 @@
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_platform.h"
 #include "mk_lang_types.h"
 #include "mk_lang_version.h"
 #include "mk_lib_mt_mutex.h"
 
 
-#if defined _MSC_VER && defined _MSC_FULL_VER && defined _WIN32_WINNT && _WIN32_WINNT >= 0x0600
+#if mk_lang_platform == mk_lang_platform_windows_60
 #include "mk_lib_mt_unique_lock_windows_srwl.h"
 typedef mk_lib_mt_unique_lock_exclusive_windows_srwl_t mk_lib_mt_unique_lock_exclusive_impl_t;
 typedef mk_lib_mt_unique_lock_shared_windows_srwl_t    mk_lib_mt_unique_lock_shared_impl_t;
-#elif defined _MSC_VER && defined _MSC_FULL_VER
+#elif mk_lang_platform == mk_lang_platform_windows
 #include "mk_lib_mt_unique_lock_windows_cs.h"
 typedef mk_lib_mt_unique_lock_exclusive_windows_cs_t mk_lib_mt_unique_lock_exclusive_impl_t;
 typedef mk_lib_mt_unique_lock_shared_windows_cs_t    mk_lib_mt_unique_lock_shared_impl_t;

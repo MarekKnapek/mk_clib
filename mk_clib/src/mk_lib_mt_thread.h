@@ -5,19 +5,20 @@
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_platform.h"
 #include "mk_lang_types.h"
 #include "mk_lang_version.h"
 
 
-#if defined _MSC_VER && defined _MSC_FULL_VER && defined _WIN32_WINNT && _WIN32_WINNT >= 0x0601
+#if mk_lang_platform == mk_lang_platform_windows_61
 #define mk_lib_mt_thread_has 1
 #include "mk_lib_mt_thread_windows_pg.h"
 typedef mk_lib_mt_thread_windows_pg_t mk_lib_mt_thread_impl_t;
-#elif defined _MSC_VER && defined _MSC_FULL_VER && defined _WIN32_WINNT && _WIN32_WINNT >= 0x0600
+#elif mk_lang_platform == mk_lang_platform_windows_60
 #define mk_lib_mt_thread_has 1
 #include "mk_lib_mt_thread_windows_srwl.h"
 typedef mk_lib_mt_thread_windows_srwl_t mk_lib_mt_thread_impl_t;
-#elif defined _MSC_VER && defined _MSC_FULL_VER
+#elif mk_lang_platform == mk_lang_platform_windows
 #define mk_lib_mt_thread_has 1
 #include "mk_lib_mt_thread_windows_cs.h"
 typedef mk_lib_mt_thread_windows_cs_t mk_lib_mt_thread_impl_t;

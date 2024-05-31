@@ -34,7 +34,7 @@ typedef mk_sl_io_async_writer_file_iorp_t* mk_sl_io_async_writer_file_iorp_pt;
 typedef mk_sl_io_async_writer_file_iorp_t const* mk_sl_io_async_writer_file_iorp_pct;
 
 
-#if mk_lang_platform == mk_lang_platform_windows
+#if mk_lang_platform == mk_lang_platform_windows_61 || mk_lang_platform == mk_lang_platform_windows_60 || mk_lang_platform == mk_lang_platform_windows
 #include "mk_sl_io_async_iocp_windows.h"
 typedef mk_sl_io_async_iocp_windows_t mk_sl_io_async_iocp_impl_t;
 typedef mk_sl_io_async_iocp_iorp_windows_t mk_sl_io_async_iocp_iorp_impl_t;

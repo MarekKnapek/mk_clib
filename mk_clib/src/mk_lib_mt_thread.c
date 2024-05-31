@@ -4,6 +4,7 @@
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_platform.h"
 #include "mk_lang_types.h"
 #include "mk_lang_version.h"
 
@@ -11,21 +12,21 @@
 #if mk_lib_mt_thread_has
 
 
-#if defined _MSC_VER && defined _MSC_FULL_VER && defined _WIN32_WINNT && _WIN32_WINNT >= 0x0601
+#if mk_lang_platform == mk_lang_platform_windows_61
 #include "mk_lib_mt_thread_windows_pg.h"
 #define mk_lib_mt_thread_impl_hardware_concurrency mk_lib_mt_thread_windows_pg_hardware_concurrency
 #define mk_lib_mt_thread_impl_create               mk_lib_mt_thread_windows_pg_create
 #define mk_lib_mt_thread_impl_create_all           mk_lib_mt_thread_windows_pg_create_all
 #define mk_lib_mt_thread_impl_join                 mk_lib_mt_thread_windows_pg_join
 #define mk_lib_mt_thread_impl_destroy              mk_lib_mt_thread_windows_pg_destroy
-#elif defined _MSC_VER && defined _MSC_FULL_VER && defined _WIN32_WINNT && _WIN32_WINNT >= 0x0600
+#elif mk_lang_platform == mk_lang_platform_windows_60
 #include "mk_lib_mt_thread_windows_srwl.h"
 #define mk_lib_mt_thread_impl_hardware_concurrency mk_lib_mt_thread_windows_srwl_hardware_concurrency
 #define mk_lib_mt_thread_impl_create               mk_lib_mt_thread_windows_srwl_create
 #define mk_lib_mt_thread_impl_create_all           mk_lib_mt_thread_windows_srwl_create_all
 #define mk_lib_mt_thread_impl_join                 mk_lib_mt_thread_windows_srwl_join
 #define mk_lib_mt_thread_impl_destroy              mk_lib_mt_thread_windows_srwl_destroy
-#elif defined _MSC_VER && defined _MSC_FULL_VER
+#elif mk_lang_platform == mk_lang_platform_windows
 #include "mk_lib_mt_thread_windows_cs.h"
 #define mk_lib_mt_thread_impl_hardware_concurrency mk_lib_mt_thread_windows_cs_hardware_concurrency
 #define mk_lib_mt_thread_impl_create               mk_lib_mt_thread_windows_cs_create

@@ -7,18 +7,19 @@
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_platform.h"
 #include "mk_lang_types.h"
 #include "mk_lang_version.h"
 #include "mk_lib_mt_mutex.h"
 
 
-#if defined _MSC_VER && defined _MSC_FULL_VER && defined _WIN32_WINNT && _WIN32_WINNT >= 0x0600
+#if mk_lang_platform == mk_lang_platform_windows_60
 #include "mk_lib_mt_unique_lock_windows_srwl.h"
 #define mk_lib_mt_unique_lock_exclusive_impl_construct mk_lib_mt_unique_lock_exclusive_windows_srwl_construct
 #define mk_lib_mt_unique_lock_exclusive_impl_destruct  mk_lib_mt_unique_lock_exclusive_windows_srwl_destruct
 #define mk_lib_mt_unique_lock_shared_impl_construct    mk_lib_mt_unique_lock_shared_windows_srwl_construct
 #define mk_lib_mt_unique_lock_shared_impl_destruct     mk_lib_mt_unique_lock_shared_windows_srwl_destruct
-#elif defined _MSC_VER && defined _MSC_FULL_VER
+#elif mk_lang_platform == mk_lang_platform_windows
 #include "mk_lib_mt_unique_lock_windows_cs.h"
 #define mk_lib_mt_unique_lock_exclusive_impl_construct mk_lib_mt_unique_lock_exclusive_windows_cs_construct
 #define mk_lib_mt_unique_lock_exclusive_impl_destruct  mk_lib_mt_unique_lock_exclusive_windows_cs_destruct

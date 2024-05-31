@@ -9,7 +9,7 @@
 #include "mk_lang_types.h"
 
 
-#if mk_lang_platform == mk_lang_platform_windows
+#if mk_lang_platform == mk_lang_platform_windows_61 || mk_lang_platform == mk_lang_platform_windows_60 || mk_lang_platform == mk_lang_platform_windows
 #include "mk_sl_io_transaction_windows.h"
 struct mk_sl_io_transaction_s { mk_sl_io_transaction_windows_t m_data; };
 #elif mk_lang_platform == mk_lang_platform_linux

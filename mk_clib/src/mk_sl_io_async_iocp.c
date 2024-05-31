@@ -10,7 +10,7 @@
 #include "mk_sl_io_async_writer_file.h"
 
 
-#if mk_lang_platform == mk_lang_platform_windows
+#if mk_lang_platform == mk_lang_platform_windows_61 || mk_lang_platform == mk_lang_platform_windows_60 || mk_lang_platform == mk_lang_platform_windows
 #include "mk_sl_io_async_iocp_windows.h"
 #define mk_sl_io_async_reader_file_iorp_impl_pt mk_sl_io_async_reader_file_iorp_windows_pt
 #define mk_sl_io_async_writer_file_iorp_impl_pt mk_sl_io_async_writer_file_iorp_windows_pt

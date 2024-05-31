@@ -24,7 +24,7 @@ typedef mk_sl_io_async_thread_t* mk_sl_io_async_thread_pt;
 typedef mk_sl_io_async_thread_t const* mk_sl_io_async_thread_pct;
 
 
-#if mk_lang_platform == mk_lang_platform_windows
+#if mk_lang_platform == mk_lang_platform_windows_61 || mk_lang_platform == mk_lang_platform_windows_60 || mk_lang_platform == mk_lang_platform_windows
 #include "mk_sl_io_async_writer_file_windows.h"
 typedef mk_sl_io_async_writer_file_windows_t mk_sl_io_async_writer_file_impl_t;
 typedef mk_sl_io_async_writer_file_iorp_windows_t mk_sl_io_async_writer_file_iorp_impl_t;

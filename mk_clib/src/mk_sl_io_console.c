@@ -8,7 +8,7 @@
 #include "mk_sl_uint8.h"
 
 
-#if mk_lang_platform == mk_lang_platform_windows
+#if mk_lang_platform == mk_lang_platform_windows_61 || mk_lang_platform == mk_lang_platform_windows_60 || mk_lang_platform == mk_lang_platform_windows
 #include "mk_sl_io_console_windows.h"
 #define mk_sl_io_console_impl_write_n mk_sl_io_console_windows_write_n
 #define mk_sl_io_console_impl_write_w mk_sl_io_console_windows_write_w
