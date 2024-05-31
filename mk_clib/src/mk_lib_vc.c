@@ -468,10 +468,8 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc_try_decrypt_header_seq(mk_lib_vc_seqid_t const seqid, mk_lib_vc_keys_material_pct const key_material, mk_lib_vc_block_pct const block, mk_lib_vc_seq_schedules_pt const schedules, mk_sl_cui_uint64_pt const volume_len) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc_try_decrypt_header_seq(mk_lib_vc_seqid_t const seqid, mk_lib_vc_keys_material_pct const key_material, mk_lib_vc_block_pct const block, mk_lib_vc_block_pt const decrypted, mk_lib_vc_seq_schedules_pt const schedules, mk_sl_cui_uint64_pt const volume_len) mk_lang_noexcept
 {
-	mk_lib_vc_block_pt decrypted mk_lang_constexpr_init;
-	mk_lib_vc_block_oversized_t decrypted_oversized mk_lang_constexpr_init;
 	mk_sl_cui_uint64_t block_idx mk_lang_constexpr_init;
 	mk_lib_vc_seq_keys_t keys mk_lang_constexpr_init;
 	mk_lang_types_pchar_t tpc mk_lang_constexpr_init;
@@ -491,10 +489,10 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc
 	mk_lang_assert(seqid >= 0 && seqid < mk_lib_vc_seqid_e_dummy);
 	mk_lang_assert(key_material);
 	mk_lang_assert(block);
+	mk_lang_assert(decrypted);
 	mk_lang_assert(schedules);
 	mk_lang_assert(volume_len);
 
-	decrypted = ((mk_lib_vc_block_pt)(mk_lang_roundup_align_ptr(&decrypted_oversized, sizeof(*decrypted))));
 	mk_sl_cui_uint64_set_zero(&block_idx);
 	mk_lib_vc_keys_init(seqid, key_material, &keys);
 	mk_lib_vc_seq_expand_dec(seqid, &keys, schedules);
@@ -523,7 +521,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc_try_decrypt_header_kdf(mk_lib_vc_kdfid_t const kdfid, mk_sl_cui_uint8_pct const password, mk_lang_types_sint_t const password_len, mk_lib_vc_salt_pct const salt, mk_lang_types_ulong_t const cost, mk_lib_vc_block_pct const block, mk_lib_vc_seqid_pt const seqid_out, mk_lib_vc_seq_schedules_pt const schedules, mk_sl_cui_uint64_pt const volume_len) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc_try_decrypt_header_kdf(mk_lib_vc_kdfid_t const kdfid, mk_sl_cui_uint8_pct const password, mk_lang_types_sint_t const password_len, mk_lib_vc_salt_pct const salt, mk_lang_types_ulong_t const cost, mk_lib_vc_block_pct const block, mk_lib_vc_block_pt const decrypted, mk_lib_vc_seqid_pt const seqid_out, mk_lib_vc_seq_schedules_pt const schedules, mk_sl_cui_uint64_pt const volume_len) mk_lang_noexcept
 {
 	mk_lib_vc_keys_material_t key_material mk_lang_constexpr_init;
 	mk_lib_vc_seqid_t seqid mk_lang_constexpr_init;
@@ -535,6 +533,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc
 	mk_lang_assert(salt);
 	mk_lang_assert(cost >= 1);
 	mk_lang_assert(block);
+	mk_lang_assert(decrypted);
 	mk_lang_assert(seqid_out);
 	mk_lang_assert(schedules);
 	mk_lang_assert(volume_len);
@@ -542,7 +541,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc
 	mk_lib_vc_derive_keys(kdfid, password, password_len, &salt->m_data.m_uint8s[0], cost, &key_material);
 	for(seqid = ((mk_lib_vc_seqid_t)(0)); seqid != mk_lib_vc_seqid_e_dummy; seqid = ((mk_lib_vc_seqid_t)(((mk_lang_types_sint_t)(seqid)) + 1)))
 	{
-		err = mk_lib_vc_try_decrypt_header_seq(seqid, &key_material, block, schedules, volume_len);
+		err = mk_lib_vc_try_decrypt_header_seq(seqid, &key_material, block, decrypted, schedules, volume_len);
 		if(err == 0)
 		{
 			*seqid_out = seqid;
@@ -553,7 +552,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc_try_decrypt_header(mk_lib_vc_kdfid_t const kdf_hint, mk_sl_cui_uint8_pct const password, mk_lang_types_sint_t const password_len, mk_lib_vc_salt_pct const salt, mk_lang_types_ulong_t const cost, mk_lib_vc_block_pct const block, mk_lib_vc_seqid_pt const seqid_out, mk_lib_vc_seq_schedules_pt const schedules, mk_sl_cui_uint64_pt const volume_len) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc_try_decrypt_header(mk_lib_vc_kdfid_t const kdf_hint, mk_sl_cui_uint8_pct const password, mk_lang_types_sint_t const password_len, mk_lib_vc_salt_pct const salt, mk_lang_types_ulong_t const cost, mk_lib_vc_block_pct const block, mk_lib_vc_block_pt const decrypted, mk_lib_vc_seqid_pt const seqid_out, mk_lib_vc_seq_schedules_pt const schedules, mk_sl_cui_uint64_pt const volume_len) mk_lang_noexcept
 {
 	mk_lib_vc_kdfid_t kdfid mk_lang_constexpr_init;
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
@@ -564,6 +563,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc
 	mk_lang_assert(salt);
 	mk_lang_assert(cost >= 1);
 	mk_lang_assert(block);
+	mk_lang_assert(decrypted);
 	mk_lang_assert(seqid_out);
 	mk_lang_assert(schedules);
 	mk_lang_assert(volume_len);
@@ -572,7 +572,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc
 	{
 		for(kdfid = ((mk_lib_vc_kdfid_t)(0)); kdfid != mk_lib_vc_kdfid_e_dummy; kdfid = ((mk_lib_vc_kdfid_t)(((mk_lang_types_sint_t)(kdfid)) + 1)))
 		{
-			err = mk_lib_vc_try_decrypt_header_kdf(kdfid, password, password_len, salt, cost, block, seqid_out, schedules, volume_len);
+			err = mk_lib_vc_try_decrypt_header_kdf(kdfid, password, password_len, salt, cost, block, decrypted, seqid_out, schedules, volume_len);
 			if(err == 0)
 			{
 				break;
@@ -581,7 +581,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc
 	}
 	else
 	{
-		err = mk_lib_vc_try_decrypt_header_kdf(kdf_hint, password, password_len, salt, cost, block, seqid_out, schedules, volume_len); mk_lang_check_rereturn(err);
+		err = mk_lib_vc_try_decrypt_header_kdf(kdf_hint, password, password_len, salt, cost, block, decrypted, seqid_out, schedules, volume_len); mk_lang_check_rereturn(err);
 	}
 	mk_lang_check_rereturn(err);
 	return 0;
