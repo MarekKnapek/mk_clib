@@ -9,7 +9,7 @@
 #include "mk_lang_platform.h"
 #include "mk_lang_restrict.h"
 #include "mk_lang_types.h"
-#include "mk_sl_io_transaction_linux.h"
+#include "mk_sl_io_transaction_portable.h"
 #include "mk_sl_uint8.h"
 
 
@@ -48,7 +48,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_reader_file_linux_
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_reader_file_linux_open_tx_n(mk_sl_io_reader_file_linux_pt const reader, mk_lang_types_pchar_pct const name, mk_sl_io_transaction_linux_pt const tx) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_reader_file_linux_open_tx_n(mk_sl_io_reader_file_linux_pt const reader, mk_lang_types_pchar_pct const name, mk_sl_io_transaction_portable_pt const tx) mk_lang_noexcept
 {
 	mk_lang_assert(reader);
 	mk_lang_assert(name && name[0] != '\0');
@@ -58,7 +58,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_reader_file_linux_
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_reader_file_linux_open_tx_w(mk_sl_io_reader_file_linux_pt const reader, mk_lang_types_wchar_pct const name, mk_sl_io_transaction_linux_pt const tx) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_reader_file_linux_open_tx_w(mk_sl_io_reader_file_linux_pt const reader, mk_lang_types_wchar_pct const name, mk_sl_io_transaction_portable_pt const tx) mk_lang_noexcept
 {
 	mk_lang_assert(reader);
 	mk_lang_assert(name && name[0] != '\0');
