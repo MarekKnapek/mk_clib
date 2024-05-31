@@ -7,8 +7,8 @@
 #include "mk_lang_limits.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_platform.h"
 #include "mk_lang_types.h"
-#include "mk_sl_io_transaction_windows.h"
 #include "mk_sl_uint64.h"
 #include "mk_sl_uint8.h"
 #include "mk_win_base.h"
@@ -16,6 +16,17 @@
 #include "mk_win_kernel_files.h"
 #include "mk_win_kernel_handle.h"
 #include "mk_win_ktmw32_transaction.h"
+
+
+#if mk_lang_platform == mk_lang_platform_windows_61 || mk_lang_platform == mk_lang_platform_windows_60
+#define mk_sl_io_async_writer_file_windows_tx_has 1
+#include "mk_sl_io_transaction_windows.h"
+#elif mk_lang_platform == mk_lang_platform_windows || mk_lang_platform == mk_lang_platform_linux || mk_lang_platform == mk_lang_platform_portable
+#define mk_sl_io_async_writer_file_windows_tx_has 0
+#include "mk_sl_io_transaction_portable.h"
+#else
+#error xxxxxxxxxx todo
+#endif
 
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_writer_file_windows_open_n(mk_sl_io_async_writer_file_windows_pt const writer, mk_lang_types_pchar_pct const name) mk_lang_noexcept
@@ -42,8 +53,9 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_writer_file_
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_writer_file_windows_open_tx_n(mk_sl_io_async_writer_file_windows_pt const writer, mk_lang_types_pchar_pct const name, mk_sl_io_transaction_windows_pt const tx) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_writer_file_windows_open_tx_n(mk_sl_io_async_writer_file_windows_pt const writer, mk_lang_types_pchar_pct const name, mk_sl_io_async_writer_file_windows_transaction_pt const tx) mk_lang_noexcept
 {
+#if mk_sl_io_async_writer_file_windows_tx_has
 	mk_win_base_ushort_t mv;
 	mk_win_base_handle_t file;
 
@@ -62,10 +74,21 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_writer_file_
 	{
 		return mk_lang_check_line;
 	}
+#else
+	mk_lang_assert(writer);
+	mk_lang_assert(name && name[0] != '\0');
+	mk_lang_assert(tx);
+
+	((mk_lang_types_void_t)(writer));
+	((mk_lang_types_void_t)(name));
+	((mk_lang_types_void_t)(tx));
+	return mk_lang_check_line;
+#endif
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_writer_file_windows_open_tx_w(mk_sl_io_async_writer_file_windows_pt const writer, mk_lang_types_wchar_pct const name, mk_sl_io_transaction_windows_pt const tx) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_writer_file_windows_open_tx_w(mk_sl_io_async_writer_file_windows_pt const writer, mk_lang_types_wchar_pct const name, mk_sl_io_async_writer_file_windows_transaction_pt const tx) mk_lang_noexcept
 {
+#if mk_sl_io_async_writer_file_windows_tx_has
 	mk_win_base_ushort_t mv;
 	mk_win_base_handle_t file;
 
@@ -84,6 +107,16 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_writer_file_
 	{
 		return mk_lang_check_line;
 	}
+#else
+	mk_lang_assert(writer);
+	mk_lang_assert(name && name[0] != '\0');
+	mk_lang_assert(tx);
+
+	((mk_lang_types_void_t)(writer));
+	((mk_lang_types_void_t)(name));
+	((mk_lang_types_void_t)(tx));
+	return mk_lang_check_line;
+#endif
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_writer_file_windows_request_write(mk_sl_io_async_writer_file_windows_pt const writer, mk_sl_io_async_writer_file_iorp_windows_pt const iorp) mk_lang_noexcept
