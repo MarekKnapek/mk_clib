@@ -1,9 +1,14 @@
 @echo on
-curl -L -o m4-dep.zip http://downloads.sourceforge.net/gnuwin32/m4-1.4.14-1-dep.zip
-curl -L -o m4-1.4.14-1-bin.zip http://downloads.sourceforge.net/gnuwin32/m4-1.4.14-1-bin.zip
+mkdir m4
+cd m4
+git clone https://github.com/MarekKnapek/bin.git
+cd bin
+git checkout main
+git reset --hard origin/main
 7z e m4-dep.zip
 7z e m4-1.4.14-1-bin.zip
 set path=%path%;%cd%
+cd ..\..
 if "%~1"=="debug" goto debug
 if "%~1"=="release" goto release
 goto :eof
