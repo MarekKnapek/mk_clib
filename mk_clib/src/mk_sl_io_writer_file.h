@@ -12,7 +12,7 @@
 #include "mk_sl_uint8.h"
 
 
-#if mk_lang_platform == mk_lang_platform_windows
+#if mk_lang_platform == mk_lang_platform_windows_61 || mk_lang_platform == mk_lang_platform_windows_60 || mk_lang_platform == mk_lang_platform_windows
 #include "mk_sl_io_writer_file_windows.h"
 typedef mk_sl_io_writer_file_windows_t mk_sl_io_writer_file_handle_t;
 #elif mk_lang_platform == mk_lang_platform_linux

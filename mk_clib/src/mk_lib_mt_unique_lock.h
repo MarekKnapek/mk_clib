@@ -12,7 +12,7 @@
 #include "mk_lib_mt_mutex.h"
 
 
-#if mk_lang_platform == mk_lang_platform_windows_60
+#if mk_lang_platform == mk_lang_platform_windows_61 || mk_lang_platform == mk_lang_platform_windows_60
 #include "mk_lib_mt_unique_lock_windows_srwl.h"
 typedef mk_lib_mt_unique_lock_exclusive_windows_srwl_t mk_lib_mt_unique_lock_exclusive_impl_t;
 typedef mk_lib_mt_unique_lock_shared_windows_srwl_t    mk_lib_mt_unique_lock_shared_impl_t;

@@ -11,7 +11,7 @@
 #include "mk_lang_version.h"
 
 
-#if mk_lang_platform == mk_lang_platform_windows_60
+#if mk_lang_platform == mk_lang_platform_windows_61 || mk_lang_platform == mk_lang_platform_windows_60
 #include "mk_lib_mt_mutex_windows_srwl.h"
 typedef mk_lib_mt_mutex_windows_srwl_t mk_lib_mt_mutex_impl_t;
 #elif mk_lang_platform == mk_lang_platform_windows

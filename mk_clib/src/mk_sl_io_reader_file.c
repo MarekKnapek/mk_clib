@@ -11,7 +11,7 @@
 #include "mk_sl_uint8.h"
 
 
-#if mk_lang_platform == mk_lang_platform_windows
+#if mk_lang_platform == mk_lang_platform_windows_61 || mk_lang_platform == mk_lang_platform_windows_60 || mk_lang_platform == mk_lang_platform_windows
 #include "mk_sl_io_reader_file_windows.h"
 #define mk_sl_io_reader_file_impl_open_n    mk_sl_io_reader_file_windows_open_n
 #define mk_sl_io_reader_file_impl_open_w    mk_sl_io_reader_file_windows_open_w

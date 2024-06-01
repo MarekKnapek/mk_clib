@@ -13,7 +13,7 @@
 #include "mk_win_kernel_console.h"
 
 
-#if mk_lang_platform == mk_lang_platform_windows
+#if mk_lang_platform == mk_lang_platform_windows_61 || mk_lang_platform == mk_lang_platform_windows_60 || mk_lang_platform == mk_lang_platform_windows
 
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_console_windows_write_n(mk_sl_cui_uint8_pct const buf, mk_lang_types_sint_t const len) mk_lang_noexcept

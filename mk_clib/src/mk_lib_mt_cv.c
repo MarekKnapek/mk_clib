@@ -13,7 +13,7 @@
 #include "mk_lib_mt_unique_lock.h"
 
 
-#if mk_lang_platform == mk_lang_platform_windows_60
+#if mk_lang_platform == mk_lang_platform_windows_61 || mk_lang_platform == mk_lang_platform_windows_60
 #include "mk_lib_mt_cv_windows_srwl.h"
 #define mk_lib_mt_cv_impl_construct      mk_lib_mt_cv_windows_srwl_construct
 #define mk_lib_mt_cv_impl_destruct       mk_lib_mt_cv_windows_srwl_destruct

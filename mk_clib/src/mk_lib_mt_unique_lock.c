@@ -13,7 +13,7 @@
 #include "mk_lib_mt_mutex.h"
 
 
-#if mk_lang_platform == mk_lang_platform_windows_60
+#if mk_lang_platform == mk_lang_platform_windows_61 || mk_lang_platform == mk_lang_platform_windows_60
 #include "mk_lib_mt_unique_lock_windows_srwl.h"
 #define mk_lib_mt_unique_lock_exclusive_impl_construct mk_lib_mt_unique_lock_exclusive_windows_srwl_construct
 #define mk_lib_mt_unique_lock_exclusive_impl_destruct  mk_lib_mt_unique_lock_exclusive_windows_srwl_destruct
