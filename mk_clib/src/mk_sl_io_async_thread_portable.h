@@ -81,7 +81,7 @@ typedef mk_sl_io_async_thread_portable_task_t const* mk_sl_io_async_thread_porta
 
 #define mk_lib_mt_ring_t_name mk_sl_io_async_thread_portable_ring
 #define mk_lib_mt_ring_t_element mk_sl_io_async_thread_portable_task_t
-#define mk_lib_mt_ring_t_count 32
+#define mk_lib_mt_ring_t_count 512
 #include "mk_lib_mt_ring_inl_fileh.h"
 #undef mk_lib_mt_ring_t_name
 #undef mk_lib_mt_ring_t_element
@@ -91,7 +91,7 @@ typedef mk_sl_io_async_thread_portable_task_t const* mk_sl_io_async_thread_porta
 
 #define mk_sl_ring_t_name mk_sl_io_async_thread_portable_ring
 #define mk_sl_ring_t_element mk_sl_io_async_thread_portable_task_t
-#define mk_sl_ring_t_count 32
+#define mk_sl_ring_t_count 512
 #include "mk_sl_ring_inl_fileh.h"
 #undef mk_sl_ring_t_name
 #undef mk_sl_ring_t_element

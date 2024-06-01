@@ -18,14 +18,14 @@
 
 #define mk_lib_mt_ring_t_name mk_sl_io_async_thread_portable_ring
 #define mk_lib_mt_ring_t_element mk_sl_io_async_thread_portable_task_t
-#define mk_lib_mt_ring_t_count 32
+#define mk_lib_mt_ring_t_count 512
 #include "mk_lib_mt_ring_inl_filec.h"
 
 #else
 
 #define mk_sl_ring_t_name mk_sl_io_async_thread_portable_ring
 #define mk_sl_ring_t_element mk_sl_io_async_thread_portable_task_t
-#define mk_sl_ring_t_count 32
+#define mk_sl_ring_t_count 512
 #include "mk_sl_ring_inl_filec.h"
 
 #endif
