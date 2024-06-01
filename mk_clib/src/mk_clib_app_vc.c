@@ -8,12 +8,14 @@
 #include "mk_lang_cpuid.h"
 #include "mk_lang_exe_name.h"
 #include "mk_lang_inline.h"
+#include "mk_lang_jumbo.h"
 #include "mk_lang_limits.h"
 #include "mk_lang_min.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_null.h"
 #include "mk_lang_offsetof.h"
+#include "mk_lang_platform.h"
 #include "mk_lang_pow2.h"
 #include "mk_lang_roundup.h"
 #include "mk_lang_static_assert.h"
@@ -50,42 +52,21 @@
 
 
 #if mk_lib_mt_thread_has
-
 #define mk_clib_app_vc_max_threads (1024)
 #define mk_clib_app_vc_max_tasks (4 * mk_clib_app_vc_max_threads)
-
-struct mk_clib_app_vc_task_s
-{
-	mk_sl_cui_uint64_t m_block_id;
-	mk_lib_vc_block_pt m_block;
-};
-typedef struct mk_clib_app_vc_task_s mk_clib_app_vc_task_t;
-typedef mk_clib_app_vc_task_t const mk_clib_app_vc_task_ct;
-typedef mk_clib_app_vc_task_t* mk_clib_app_vc_task_pt;
-typedef mk_clib_app_vc_task_t const* mk_clib_app_vc_task_pct;
-
-#define mk_lib_mt_ring_t_name mk_clib_app_vc_mtring
-#define mk_lib_mt_ring_t_element mk_clib_app_vc_task_t
-#define mk_lib_mt_ring_t_count mk_clib_app_vc_max_tasks
-#include "mk_lib_mt_ring_inl_fileh.h"
-#include "mk_lib_mt_ring_inl_filec.h"
-
-#define mk_sl_fixed_vector_t_name mk_clib_app_vc_fixed_vector
-#define mk_sl_fixed_vector_t_element mk_clib_app_vc_task_t
-#define mk_sl_fixed_vector_t_count mk_clib_app_vc_max_tasks
-#include "mk_sl_fixed_vector_inl_fileh.h"
-#include "mk_sl_fixed_vector_inl_filec.h"
-
-#define mk_lang_swap_t_name mk_clib_app_vc_task_swap
-#define mk_lang_swap_t_type mk_clib_app_vc_task_t
-#include "mk_lang_swap_inl_fileh.h"
-#include "mk_lang_swap_inl_filec.h"
-
 #else
-
 #define mk_clib_app_vc_max_tasks 1
-
 #endif
+#define mk_clib_app_vc_iocp_idx_reader 1
+#define mk_clib_app_vc_iocp_idx_writer 2
+#define mk_clib_app_vc_vhd_volume_align (1ul * 1024ul * 1024ul)
+#define mk_clib_app_vc_io_block_len (64ul * 1024ul)
+#define mk_clib_app_vc_io_block_align (64ul * 1024ul)
+#define mk_clib_app_vc_io_blocks_len_min (8ul * 1024ul * 1024ul)
+#define mk_clib_app_vc_io_blocks_count_min_a (mk_clib_app_vc_io_blocks_len_min / mk_clib_app_vc_io_block_len)
+#define mk_clib_app_vc_io_blocks_count_min_b ((mk_clib_app_vc_max_tasks * mk_lib_vc_block_len) / mk_clib_app_vc_io_block_len)
+#define mk_clib_app_vc_io_blocks_count mk_lang_max(mk_clib_app_vc_io_blocks_count_min_a, mk_clib_app_vc_io_blocks_count_min_b)
+#define mk_clib_app_vc_io_blocks_len_real (mk_clib_app_vc_io_blocks_count * mk_clib_app_vc_io_block_len)
 
 
 union mk_clib_app_vc_iorp_data_u
@@ -109,17 +90,36 @@ typedef mk_clib_app_vc_iorp_t const mk_clib_app_vc_iorp_ct;
 typedef mk_clib_app_vc_iorp_t* mk_clib_app_vc_iorp_pt;
 typedef mk_clib_app_vc_iorp_t const* mk_clib_app_vc_iorp_pct;
 
+#if mk_lib_mt_thread_has
 
-#define mk_clib_app_vc_iocp_idx_reader 1
-#define mk_clib_app_vc_iocp_idx_writer 2
-#define mk_clib_app_vc_vhd_volume_align (1ul * 1024ul * 1024ul)
-#define mk_clib_app_vc_io_block_len (64ul * 1024ul)
-#define mk_clib_app_vc_io_block_align (64ul * 1024ul)
-#define mk_clib_app_vc_io_blocks_len_min (2ul * 1024ul * 1024ul)
-#define mk_clib_app_vc_io_blocks_count_min_a (mk_clib_app_vc_io_blocks_len_min / mk_clib_app_vc_io_block_len)
-#define mk_clib_app_vc_io_blocks_count_min_b ((mk_clib_app_vc_max_tasks * mk_lib_vc_block_len) / mk_clib_app_vc_io_block_len)
-#define mk_clib_app_vc_io_blocks_count mk_lang_max(mk_clib_app_vc_io_blocks_count_min_a, mk_clib_app_vc_io_blocks_count_min_b)
-#define mk_clib_app_vc_io_blocks_len_real (mk_clib_app_vc_io_blocks_count * mk_clib_app_vc_io_block_len)
+struct mk_clib_app_vc_task_s
+{
+	mk_sl_cui_uint64_t m_block_id;
+	mk_lib_vc_block_pt m_block;
+};
+typedef struct mk_clib_app_vc_task_s mk_clib_app_vc_task_t;
+typedef mk_clib_app_vc_task_t const mk_clib_app_vc_task_ct;
+typedef mk_clib_app_vc_task_t* mk_clib_app_vc_task_pt;
+typedef mk_clib_app_vc_task_t const* mk_clib_app_vc_task_pct;
+
+#define mk_lib_mt_ring_t_name mk_clib_app_vc_mtring
+#define mk_lib_mt_ring_t_element mk_clib_app_vc_task_t
+#define mk_lib_mt_ring_t_count mk_clib_app_vc_max_tasks
+#include "mk_lib_mt_ring_inl_fileh.h"
+#include "mk_lib_mt_ring_inl_filec.h"
+
+#define mk_sl_fixed_vector_t_name mk_clib_app_vc_fixed_vector
+#define mk_sl_fixed_vector_t_element mk_clib_app_vc_task_t
+#define mk_sl_fixed_vector_t_count (mk_clib_app_vc_io_blocks_len_real / mk_lib_vc_block_len)
+#include "mk_sl_fixed_vector_inl_fileh.h"
+#include "mk_sl_fixed_vector_inl_filec.h"
+
+#define mk_lang_swap_t_name mk_clib_app_vc_task_swap
+#define mk_lang_swap_t_type mk_clib_app_vc_task_t
+#include "mk_lang_swap_inl_fileh.h"
+#include "mk_lang_swap_inl_filec.h"
+
+#endif
 
 
 struct mk_clib_app_vc_s
@@ -1804,6 +1804,8 @@ mk_clib_app_vc_t g_mk_clib_app_vc;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_clib_app_vc_arg(mk_lang_types_bool_t const wide, mk_lang_types_sint_t const argc, mk_lang_types_pchar_pcpct const argv) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
+
+	mk_lang_static_assert(mk_clib_app_vc_io_blocks_len_real % mk_lib_vc_block_len == 0);
 
 	mk_lang_assert(wide == mk_lang_false || wide == mk_lang_true);
 
