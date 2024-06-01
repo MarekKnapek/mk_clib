@@ -42,7 +42,7 @@
 #endif
 
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_unique_lock_exclusive_construct(mk_lib_mt_unique_lock_exclusive_pt const unique_lock_exclusive, mk_lib_mt_mutex_pt const mutex) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_unique_lock_exclusive_construct(mk_lib_mt_unique_lock_exclusive_pt const unique_lock_exclusive, mk_lib_mt_mutex_pt const mutex) mk_lang_noexcept
 {
 	mk_lang_assert(unique_lock_exclusive);
 	mk_lang_assert(mutex);
@@ -50,14 +50,14 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	return mk_lib_mt_unique_lock_exclusive_impl_construct(&unique_lock_exclusive->m_unique_lock_exclusive, &mutex->m_mutex);
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_unique_lock_exclusive_destruct(mk_lib_mt_unique_lock_exclusive_pt const unique_lock_exclusive) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_unique_lock_exclusive_destruct(mk_lib_mt_unique_lock_exclusive_pt const unique_lock_exclusive) mk_lang_noexcept
 {
 	mk_lang_assert(unique_lock_exclusive);
 
 	return mk_lib_mt_unique_lock_exclusive_impl_destruct(&unique_lock_exclusive->m_unique_lock_exclusive);
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_unique_lock_shared_construct(mk_lib_mt_unique_lock_shared_pt const unique_lock_shared, mk_lib_mt_mutex_pt const mutex) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_unique_lock_shared_construct(mk_lib_mt_unique_lock_shared_pt const unique_lock_shared, mk_lib_mt_mutex_pt const mutex) mk_lang_noexcept
 {
 	mk_lang_assert(unique_lock_shared);
 	mk_lang_assert(mutex);
@@ -65,7 +65,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	return mk_lib_mt_unique_lock_shared_impl_construct(&unique_lock_shared->m_unique_lock_shared, &mutex->m_mutex);
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_unique_lock_shared_destruct(mk_lib_mt_unique_lock_shared_pt const unique_lock_shared) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_unique_lock_shared_destruct(mk_lib_mt_unique_lock_shared_pt const unique_lock_shared) mk_lang_noexcept
 {
 	mk_lang_assert(unique_lock_shared);
 

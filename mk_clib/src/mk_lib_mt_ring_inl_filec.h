@@ -21,7 +21,7 @@
 #include "mk_sl_ring_inl_filec.h"
 
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_lib_mt_ring_inl_defd_st_capacity(mk_lang_types_void_t) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_usize_t mk_lib_mt_ring_inl_defd_st_capacity(mk_lang_types_void_t) mk_lang_noexcept
 {
 	mk_lang_types_usize_t ret mk_lang_constexpr_init;
 
@@ -30,7 +30,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_lib_m
 }
 
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_lib_mt_ring_inl_defd_ro_capacity(mk_lib_mt_ring_inl_defd_pct const ring) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_usize_t mk_lib_mt_ring_inl_defd_ro_capacity(mk_lib_mt_ring_inl_defd_pct const ring) mk_lang_noexcept
 {
 	mk_lang_types_usize_t ret mk_lang_constexpr_init;
 
@@ -41,7 +41,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_lib_m
 	return ret;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_ro_size(mk_lib_mt_ring_inl_defd_pct const ring, mk_lang_types_usize_pt const size) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_ro_size(mk_lib_mt_ring_inl_defd_pct const ring, mk_lang_types_usize_pt const size) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 	mk_lib_mt_unique_lock_shared_t lock mk_lang_constexpr_init;
@@ -57,7 +57,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_ro_free(mk_lib_mt_ring_inl_defd_pct const ring, mk_lang_types_usize_pt const free) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_ro_free(mk_lib_mt_ring_inl_defd_pct const ring, mk_lang_types_usize_pt const free) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 	mk_lib_mt_unique_lock_shared_t lock mk_lang_constexpr_init;
@@ -73,7 +73,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_ro_is_empty(mk_lib_mt_ring_inl_defd_pct const ring, mk_lang_types_bool_pt const is_empty) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_ro_is_empty(mk_lib_mt_ring_inl_defd_pct const ring, mk_lang_types_bool_pt const is_empty) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 	mk_lib_mt_unique_lock_shared_t lock mk_lang_constexpr_init;
@@ -89,7 +89,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_ro_is_full(mk_lib_mt_ring_inl_defd_pct const ring, mk_lang_types_bool_pt const is_full) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_ro_is_full(mk_lib_mt_ring_inl_defd_pct const ring, mk_lang_types_bool_pt const is_full) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 	mk_lib_mt_unique_lock_shared_t lock mk_lang_constexpr_init;
@@ -105,7 +105,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_ro_wait_til_empty(mk_lib_mt_ring_inl_defd_pct const ring) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_ro_wait_til_empty(mk_lib_mt_ring_inl_defd_pct const ring) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 	mk_lib_mt_unique_lock_shared_t lock mk_lang_constexpr_init;
@@ -121,7 +121,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_ro_wait_til_non_empty(mk_lib_mt_ring_inl_defd_pct const ring) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_ro_wait_til_non_empty(mk_lib_mt_ring_inl_defd_pct const ring) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 	mk_lib_mt_unique_lock_shared_t lock mk_lang_constexpr_init;
@@ -137,7 +137,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_ro_at(mk_lib_mt_ring_inl_defd_pct const ring, mk_lang_types_usize_t const idx, mk_lib_mt_ring_inl_defd_element_pt const element) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_ro_at(mk_lib_mt_ring_inl_defd_pct const ring, mk_lang_types_usize_t const idx, mk_lib_mt_ring_inl_defd_element_pt const element) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 	mk_lib_mt_unique_lock_shared_t lock mk_lang_constexpr_init;
@@ -153,7 +153,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_ro_front(mk_lib_mt_ring_inl_defd_pct const ring, mk_lib_mt_ring_inl_defd_element_pt const element) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_ro_front(mk_lib_mt_ring_inl_defd_pct const ring, mk_lib_mt_ring_inl_defd_element_pt const element) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
@@ -164,7 +164,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_ro_back(mk_lib_mt_ring_inl_defd_pct const ring, mk_lib_mt_ring_inl_defd_element_pt const element) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_ro_back(mk_lib_mt_ring_inl_defd_pct const ring, mk_lib_mt_ring_inl_defd_element_pt const element) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 	mk_lib_mt_unique_lock_shared_t lock mk_lang_constexpr_init;
@@ -181,7 +181,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 }
 
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_lib_mt_ring_inl_defd_rw_capacity(mk_lib_mt_ring_inl_defd_pt const ring) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_usize_t mk_lib_mt_ring_inl_defd_rw_capacity(mk_lib_mt_ring_inl_defd_pt const ring) mk_lang_noexcept
 {
 	mk_lang_types_usize_t ret mk_lang_constexpr_init;
 
@@ -191,7 +191,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_lib_m
 	return ret;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_size(mk_lib_mt_ring_inl_defd_pt const ring, mk_lang_types_usize_pt const size) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_size(mk_lib_mt_ring_inl_defd_pt const ring, mk_lang_types_usize_pt const size) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
@@ -202,7 +202,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	return err;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_free(mk_lib_mt_ring_inl_defd_pt const ring, mk_lang_types_usize_pt const free) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_free(mk_lib_mt_ring_inl_defd_pt const ring, mk_lang_types_usize_pt const free) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
@@ -213,7 +213,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	return err;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_is_empty(mk_lib_mt_ring_inl_defd_pt const ring, mk_lang_types_bool_pt const is_empty) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_is_empty(mk_lib_mt_ring_inl_defd_pt const ring, mk_lang_types_bool_pt const is_empty) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
@@ -224,7 +224,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_is_full(mk_lib_mt_ring_inl_defd_pt const ring, mk_lang_types_bool_pt const is_full) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_is_full(mk_lib_mt_ring_inl_defd_pt const ring, mk_lang_types_bool_pt const is_full) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
@@ -235,7 +235,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_wait_til_empty(mk_lib_mt_ring_inl_defd_pt const ring) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_wait_til_empty(mk_lib_mt_ring_inl_defd_pt const ring) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 	mk_lib_mt_unique_lock_exclusive_t lock mk_lang_constexpr_init;
@@ -251,7 +251,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_wait_til_non_empty(mk_lib_mt_ring_inl_defd_pt const ring) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_wait_til_non_empty(mk_lib_mt_ring_inl_defd_pt const ring) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 	mk_lib_mt_unique_lock_exclusive_t lock mk_lang_constexpr_init;
@@ -267,7 +267,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_at(mk_lib_mt_ring_inl_defd_pt const ring, mk_lang_types_usize_t const idx, mk_lib_mt_ring_inl_defd_element_pt const element) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_at(mk_lib_mt_ring_inl_defd_pt const ring, mk_lang_types_usize_t const idx, mk_lib_mt_ring_inl_defd_element_pt const element) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
@@ -279,7 +279,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_front(mk_lib_mt_ring_inl_defd_pt const ring, mk_lib_mt_ring_inl_defd_element_pt const element) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_front(mk_lib_mt_ring_inl_defd_pt const ring, mk_lib_mt_ring_inl_defd_element_pt const element) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
@@ -290,7 +290,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_back(mk_lib_mt_ring_inl_defd_pt const ring, mk_lib_mt_ring_inl_defd_element_pt const element) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_back(mk_lib_mt_ring_inl_defd_pt const ring, mk_lib_mt_ring_inl_defd_element_pt const element) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
@@ -302,7 +302,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 }
 
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_construct(mk_lib_mt_ring_inl_defd_pt const ring) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_construct(mk_lib_mt_ring_inl_defd_pt const ring) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 	mk_lang_types_sint_t err_b mk_lang_constexpr_init;
@@ -320,7 +320,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_destroy(mk_lib_mt_ring_inl_defd_pt const ring) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_destroy(mk_lib_mt_ring_inl_defd_pt const ring) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err_a mk_lang_constexpr_init;
 	mk_lang_types_sint_t err_b mk_lang_constexpr_init;
@@ -334,7 +334,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_push_back_one(mk_lib_mt_ring_inl_defd_pt const ring, mk_lib_mt_ring_inl_defd_element_pct const element) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_push_back_one(mk_lib_mt_ring_inl_defd_pt const ring, mk_lib_mt_ring_inl_defd_element_pct const element) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 	mk_lib_mt_unique_lock_exclusive_t lock mk_lang_constexpr_init;
@@ -353,7 +353,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_push_back_many(mk_lib_mt_ring_inl_defd_pt const ring, mk_lib_mt_ring_inl_defd_element_pct const elements, mk_lang_types_usize_t const count) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_push_back_many(mk_lib_mt_ring_inl_defd_pt const ring, mk_lib_mt_ring_inl_defd_element_pct const elements, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 	mk_lib_mt_unique_lock_exclusive_t lock mk_lang_constexpr_init;
@@ -373,7 +373,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_pop_back_void(mk_lib_mt_ring_inl_defd_pt const ring) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_pop_back_void(mk_lib_mt_ring_inl_defd_pt const ring) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 	mk_lib_mt_unique_lock_exclusive_t lock mk_lang_constexpr_init;
@@ -392,7 +392,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_pop_back_copy(mk_lib_mt_ring_inl_defd_pt const ring, mk_lib_mt_ring_inl_defd_element_pt const element) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_pop_back_copy(mk_lib_mt_ring_inl_defd_pt const ring, mk_lib_mt_ring_inl_defd_element_pt const element) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 	mk_lib_mt_unique_lock_exclusive_t lock mk_lang_constexpr_init;
@@ -413,7 +413,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_push_front(mk_lib_mt_ring_inl_defd_pt const ring, mk_lib_mt_ring_inl_defd_element_pct const element) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_push_front(mk_lib_mt_ring_inl_defd_pt const ring, mk_lib_mt_ring_inl_defd_element_pct const element) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 	mk_lib_mt_unique_lock_exclusive_t lock mk_lang_constexpr_init;
@@ -432,7 +432,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_pop_front_void(mk_lib_mt_ring_inl_defd_pt const ring) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_pop_front_void(mk_lib_mt_ring_inl_defd_pt const ring) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 	mk_lib_mt_unique_lock_exclusive_t lock mk_lang_constexpr_init;
@@ -451,7 +451,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_pop_front_copy(mk_lib_mt_ring_inl_defd_pt const ring, mk_lib_mt_ring_inl_defd_element_pt const element) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_pop_front_copy(mk_lib_mt_ring_inl_defd_pt const ring, mk_lib_mt_ring_inl_defd_element_pt const element) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 	mk_lib_mt_unique_lock_exclusive_t lock mk_lang_constexpr_init;
@@ -472,7 +472,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_try_push_back_one(mk_lib_mt_ring_inl_defd_pt const ring, mk_lib_mt_ring_inl_defd_element_pct const element, mk_lang_types_bool_pt const success) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_try_push_back_one(mk_lib_mt_ring_inl_defd_pt const ring, mk_lib_mt_ring_inl_defd_element_pct const element, mk_lang_types_bool_pt const success) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 	mk_lib_mt_unique_lock_exclusive_t lock mk_lang_constexpr_init;
@@ -497,7 +497,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_try_push_back_many(mk_lib_mt_ring_inl_defd_pt const ring, mk_lib_mt_ring_inl_defd_element_pct const elements, mk_lang_types_usize_t const count, mk_lang_types_bool_pt const success) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_try_push_back_many(mk_lib_mt_ring_inl_defd_pt const ring, mk_lib_mt_ring_inl_defd_element_pct const elements, mk_lang_types_usize_t const count, mk_lang_types_bool_pt const success) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 	mk_lib_mt_unique_lock_exclusive_t lock mk_lang_constexpr_init;
@@ -523,7 +523,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_try_pop_back_void(mk_lib_mt_ring_inl_defd_pt const ring, mk_lang_types_bool_pt const success) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_try_pop_back_void(mk_lib_mt_ring_inl_defd_pt const ring, mk_lang_types_bool_pt const success) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 	mk_lib_mt_unique_lock_exclusive_t lock mk_lang_constexpr_init;
@@ -547,7 +547,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_try_pop_back_copy(mk_lib_mt_ring_inl_defd_pt const ring, mk_lib_mt_ring_inl_defd_element_pt const element, mk_lang_types_bool_pt const success) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_try_pop_back_copy(mk_lib_mt_ring_inl_defd_pt const ring, mk_lib_mt_ring_inl_defd_element_pt const element, mk_lang_types_bool_pt const success) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 	mk_lib_mt_unique_lock_exclusive_t lock mk_lang_constexpr_init;
@@ -574,7 +574,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_try_push_front(mk_lib_mt_ring_inl_defd_pt const ring, mk_lib_mt_ring_inl_defd_element_pct const element, mk_lang_types_bool_pt const success) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_try_push_front(mk_lib_mt_ring_inl_defd_pt const ring, mk_lib_mt_ring_inl_defd_element_pct const element, mk_lang_types_bool_pt const success) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 	mk_lib_mt_unique_lock_exclusive_t lock mk_lang_constexpr_init;
@@ -599,7 +599,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_try_pop_front_void(mk_lib_mt_ring_inl_defd_pt const ring, mk_lang_types_bool_pt const success) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_try_pop_front_void(mk_lib_mt_ring_inl_defd_pt const ring, mk_lang_types_bool_pt const success) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 	mk_lib_mt_unique_lock_exclusive_t lock mk_lang_constexpr_init;
@@ -623,7 +623,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_try_pop_front_copy(mk_lib_mt_ring_inl_defd_pt const ring, mk_lib_mt_ring_inl_defd_element_pt const element, mk_lang_types_bool_pt const success) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_try_pop_front_copy(mk_lib_mt_ring_inl_defd_pt const ring, mk_lib_mt_ring_inl_defd_element_pt const element, mk_lang_types_bool_pt const success) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 	mk_lib_mt_unique_lock_exclusive_t lock mk_lang_constexpr_init;
@@ -650,7 +650,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_try_pop_front_few_copy(mk_lib_mt_ring_inl_defd_pt const ring, mk_lib_mt_ring_inl_defd_element_pt const elements, mk_lang_types_usize_pt const count) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_ring_inl_defd_rw_try_pop_front_few_copy(mk_lib_mt_ring_inl_defd_pt const ring, mk_lib_mt_ring_inl_defd_element_pt const elements, mk_lang_types_usize_pt const count) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 	mk_lib_mt_unique_lock_exclusive_t lock mk_lang_constexpr_init;

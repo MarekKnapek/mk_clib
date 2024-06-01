@@ -49,42 +49,42 @@
 #endif
 
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_mutex_construct(mk_lib_mt_mutex_pt const mutex) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_mutex_construct(mk_lib_mt_mutex_pt const mutex) mk_lang_noexcept
 {
 	mk_lang_assert(mutex);
 
 	return mk_lib_mt_mutex_impl_construct(&mutex->m_mutex);
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_mutex_destruct(mk_lib_mt_mutex_pt const mutex) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_mutex_destruct(mk_lib_mt_mutex_pt const mutex) mk_lang_noexcept
 {
 	mk_lang_assert(mutex);
 
 	return mk_lib_mt_mutex_impl_destruct(&mutex->m_mutex);
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_mutex_exclusive_lock(mk_lib_mt_mutex_pt const mutex) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_mutex_exclusive_lock(mk_lib_mt_mutex_pt const mutex) mk_lang_noexcept
 {
 	mk_lang_assert(mutex);
 
 	return mk_lib_mt_mutex_impl_exclusive_lock(&mutex->m_mutex);
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_mutex_exclusive_unlock(mk_lib_mt_mutex_pt const mutex) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_mutex_exclusive_unlock(mk_lib_mt_mutex_pt const mutex) mk_lang_noexcept
 {
 	mk_lang_assert(mutex);
 
 	return mk_lib_mt_mutex_impl_exclusive_unlock(&mutex->m_mutex);
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_mutex_shared_lock(mk_lib_mt_mutex_pt const mutex) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_mutex_shared_lock(mk_lib_mt_mutex_pt const mutex) mk_lang_noexcept
 {
 	mk_lang_assert(mutex);
 
 	return mk_lib_mt_mutex_impl_shared_lock(&mutex->m_mutex);
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_mutex_shared_unlock(mk_lib_mt_mutex_pt const mutex) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_mutex_shared_unlock(mk_lib_mt_mutex_pt const mutex) mk_lang_noexcept
 {
 	mk_lang_assert(mutex);
 
