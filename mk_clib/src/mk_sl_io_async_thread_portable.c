@@ -10,6 +10,7 @@
 #include "mk_lang_types.h"
 #include "mk_lang_version.h"
 #include "mk_lib_mt_thread.h"
+#include "mk_lib_mt_thread_name.h"
 #include "mk_sl_io_async_iocp_portable.h"
 #include "mk_sl_io_async_reader_file_portable.h"
 #include "mk_sl_io_async_writer_file_portable.h"
@@ -121,6 +122,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_io_async_thre
 
 	mk_lang_assert(thread);
 
+	err = mk_lib_mt_thread_name_set("backgroundio"); mk_lang_check_rereturn(err);
 	for(;;)
 	{
 		err = mk_sl_io_async_thread_portable_proc_impl_2(thread, &end); mk_lang_check_rereturn(err);

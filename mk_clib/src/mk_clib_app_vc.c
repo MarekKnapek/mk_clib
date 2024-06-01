@@ -22,6 +22,7 @@
 #include "mk_lang_types.h"
 #include "mk_lib_fmt.h"
 #include "mk_lib_mt_thread.h"
+#include "mk_lib_mt_thread_name.h"
 #include "mk_lib_text_encoding.h"
 #include "mk_lib_vc.h"
 #include "mk_sl_io_async_iocp.h"
@@ -880,6 +881,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_thre
 
 	mk_lang_assert(vc);
 
+	err = mk_lib_mt_thread_name_set("decryptor"); mk_lang_check_rereturn(err);
 	for(;;)
 	{
 		err = mk_clib_app_vc_mtring_rw_pop_front_copy(&vc->m_decrypt_submit, &task); mk_lang_check_rereturn(err);
