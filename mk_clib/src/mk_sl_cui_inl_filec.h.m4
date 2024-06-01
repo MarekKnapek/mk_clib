@@ -19,6 +19,7 @@ include(`mk_sl_cui_inl.m')dnl
 #include "mk_lang_static_assert.h"
 #include "mk_lang_type_traits.h"
 #include "mk_lang_types.h"
+#include "mk_lang_version.h"
 
 
 #include "mk_sl_cui_inl_defd.h"
@@ -3808,6 +3809,81 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_cui_inl_defd_symbols_dec_c[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 #endif
 
+mk_lang_nodiscard mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_sl_cui_inl_defd_base_t mk_sl_cui_inl_defd_from_str_dec_border_base_impl(mk_lang_types_void_t) mk_lang_noexcept
+{
+	mk_lang_types_sint_t tsi mk_lang_constexpr_init;
+	mk_sl_cui_inl_defd_base_t base mk_lang_constexpr_init;
+
+	tsi = 10;
+	mk_sl_cui_inl_defd_base_from_bi_sint(&base, &tsi);
+	return base;
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_sl_cui_inl_defd_t mk_sl_cui_inl_defd_from_str_dec_border_value_impl(mk_lang_types_void_t) mk_lang_noexcept
+{
+	mk_lang_types_sint_t tsi mk_lang_constexpr_init;
+	mk_sl_cui_inl_defd_base_t base mk_lang_constexpr_init;
+	mk_sl_cui_inl_defd_t mx mk_lang_constexpr_init;
+	mk_sl_cui_inl_defd_t border_value mk_lang_constexpr_init;
+	mk_sl_cui_inl_defd_base_t border_digit mk_lang_constexpr_init;
+
+	tsi = 10;
+	mk_sl_cui_inl_defd_base_from_bi_sint(&base, &tsi);
+	mk_sl_cui_inl_defd_set_max(&mx);
+	mk_sl_cui_inl_defd_divmod4_wrap_smol(&mx, &base, &border_value, &border_digit);
+	mk_sl_cui_inl_defd_base_to_bi_sint(&border_digit, &tsi);
+	return border_value;
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_sl_cui_inl_defd_from_str_dec_border_digit_impl(mk_lang_types_void_t) mk_lang_noexcept
+{
+	mk_lang_types_sint_t tsi mk_lang_constexpr_init;
+	mk_sl_cui_inl_defd_base_t base mk_lang_constexpr_init;
+	mk_sl_cui_inl_defd_t mx mk_lang_constexpr_init;
+	mk_sl_cui_inl_defd_t border_value mk_lang_constexpr_init;
+	mk_sl_cui_inl_defd_base_t border_digit mk_lang_constexpr_init;
+
+	tsi = 10;
+	mk_sl_cui_inl_defd_base_from_bi_sint(&base, &tsi);
+	mk_sl_cui_inl_defd_set_max(&mx);
+	mk_sl_cui_inl_defd_divmod4_wrap_smol(&mx, &base, &border_value, &border_digit);
+	mk_sl_cui_inl_defd_base_to_bi_sint(&border_digit, &tsi);
+	return tsi;
+}
+
+#if mk_lang_version_at_least_cpp_14 || mk_lang_version_at_least_msvc_cpp_14
+mk_lang_constexpr_static_inline mk_sl_cui_inl_defd_base_t const mk_sl_cui_inl_defd_from_str_dec_border_base_val = mk_sl_cui_inl_defd_from_str_dec_border_base_impl();
+mk_lang_constexpr_static_inline mk_sl_cui_inl_defd_t const mk_sl_cui_inl_defd_from_str_dec_border_value_val = mk_sl_cui_inl_defd_from_str_dec_border_value_impl();
+mk_lang_constexpr_static_inline mk_lang_types_sint_t const mk_sl_cui_inl_defd_from_str_dec_border_digit_val = mk_sl_cui_inl_defd_from_str_dec_border_digit_impl();
+#endif
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_sl_cui_inl_defd_base_t mk_sl_cui_inl_defd_from_str_dec_border_base(mk_lang_types_void_t) mk_lang_noexcept
+{
+	#if mk_lang_version_at_least_cpp_14 || mk_lang_version_at_least_msvc_cpp_14
+	return mk_sl_cui_inl_defd_from_str_dec_border_base_val;
+	#else
+	return mk_sl_cui_inl_defd_from_str_dec_border_base_impl();
+	#endif
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_sl_cui_inl_defd_t mk_sl_cui_inl_defd_from_str_dec_border_value(mk_lang_types_void_t) mk_lang_noexcept
+{
+	#if mk_lang_version_at_least_cpp_14 || mk_lang_version_at_least_msvc_cpp_14
+	return mk_sl_cui_inl_defd_from_str_dec_border_value_val;
+	#else
+	return mk_sl_cui_inl_defd_from_str_dec_border_value_impl();
+	#endif
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_sl_cui_inl_defd_from_str_dec_border_digit(mk_lang_types_void_t) mk_lang_noexcept
+{
+	#if mk_lang_version_at_least_cpp_14 || mk_lang_version_at_least_msvc_cpp_14
+	return mk_sl_cui_inl_defd_from_str_dec_border_digit_val;
+	#else
+	return mk_sl_cui_inl_defd_from_str_dec_border_digit_impl();
+	#endif
+}
+
 mk_lang_nodiscard mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_from_str_dec_n(mk_sl_cui_inl_defd_pt const x, mk_lang_types_pchar_pct const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept
 {
 	mk_sl_cui_inl_defd_base_t s_base mk_lang_constexpr_init;
@@ -3835,22 +3911,10 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_
 		return 0;
 	}
 	{
-		mk_lang_types_sint_t nn mk_lang_constexpr_init;
-		mk_sl_cui_inl_defd_base_t base mk_lang_constexpr_init;
-		mk_sl_cui_inl_defd_t mx mk_lang_constexpr_init;
-		mk_sl_cui_inl_defd_t border_value mk_lang_constexpr_init;
-		mk_sl_cui_inl_defd_base_t border_digit mk_lang_constexpr_init;
-
-		nn = 10;
-		mk_sl_cui_inl_defd_base_from_bi_sint(&base, &nn);
-		mk_sl_cui_inl_defd_set_max(&mx);
-		mk_sl_cui_inl_defd_divmod4_wrap_smol(&mx, &base, &border_value, &border_digit);
-		mk_sl_cui_inl_defd_base_to_bi_sint(&border_digit, &nn);
-		s_base = base;
-		s_border_value = border_value;
-		s_border_digit = nn;
+		s_base = mk_sl_cui_inl_defd_from_str_dec_border_base();
+		s_border_value = mk_sl_cui_inl_defd_from_str_dec_border_value();
+		s_border_digit = mk_sl_cui_inl_defd_from_str_dec_border_digit();
 	}
-
 	it = str;
 	ite = str + str_len;
 	e = *it;

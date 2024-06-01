@@ -312,3 +312,12 @@ mm_per_bui(`#undef mk_sl_cui_inl_defd_to_buis_$1_be')
 `#'undef mk_sl_cui_inl_defd_mul3_wrap_hi_alias
 `#'undef mk_sl_cui_inl_defd_mul4_wrap_wi_restrict
 `#'undef mk_sl_cui_inl_defd_mul4_wrap_wi_alias
+`#'undef mk_sl_cui_inl_defd_from_str_dec_border_base_impl
+`#'undef mk_sl_cui_inl_defd_from_str_dec_border_value_impl
+`#'undef mk_sl_cui_inl_defd_from_str_dec_border_digit_impl
+`#'undef mk_sl_cui_inl_defd_from_str_dec_border_base_val
+`#'undef mk_sl_cui_inl_defd_from_str_dec_border_value_val
+`#'undef mk_sl_cui_inl_defd_from_str_dec_border_digit_val
+`#'undef mk_sl_cui_inl_defd_from_str_dec_border_base
+`#'undef mk_sl_cui_inl_defd_from_str_dec_border_value
+`#'undef mk_sl_cui_inl_defd_from_str_dec_border_digit
