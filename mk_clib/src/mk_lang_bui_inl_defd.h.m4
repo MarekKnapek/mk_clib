@@ -3,10 +3,10 @@ include(`mk_lang_bui_inl.m')dnl
 #include "mk_lang_concat.h"
 
 
-#if \
-	!defined mk_lang_bui_t_name || \
-	!defined mk_lang_bui_t_base || \
-	0
+#if(!( \
+	(defined mk_lang_bui_t_name) && \
+	(defined mk_lang_bui_t_base) && \
+1))
 #error xxxxxxxxxx
 #endif
 

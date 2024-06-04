@@ -11,8 +11,7 @@ include(`mk_sl_cui_inl.m')dnl
 	((defined mk_sl_cui_t_endian && (mk_sl_cui_t_endian == mk_lang_endian_little || mk_sl_cui_t_endian == mk_lang_endian_big)) || !defined mk_sl_cui_t_endian) && \
 	((defined mk_sl_cui_t_disable_big_div && (mk_sl_cui_t_disable_big_div == 0 || mk_sl_cui_t_disable_big_div == 1)) || !defined mk_sl_cui_t_disable_big_div) && \
 	((defined mk_sl_cui_t_base_sizebits_d && mk_sl_cui_t_base_sizebits_d >= 1) || !defined mk_sl_cui_t_base_sizebits_d) && \
-	1 \
-	))
+1))
 #error xxxxxxxxxx
 #endif
 #if !defined mk_sl_cui_t_endian
