@@ -46,6 +46,7 @@ mm_per_bui(`#define mk_lang_bui_inl_defd_from_buis_$1_le mk_lang_concat(mk_lang_
 mm_per_bui(`#define mk_lang_bui_inl_defd_to_buis_$1_le mk_lang_concat(mk_lang_bui_inl_defd_name, _to_buis_$1_le)')
 mm_per_bui(`#define mk_lang_bui_inl_defd_from_buis_$1_be mk_lang_concat(mk_lang_bui_inl_defd_name, _from_buis_$1_be)')
 mm_per_bui(`#define mk_lang_bui_inl_defd_to_buis_$1_be mk_lang_concat(mk_lang_bui_inl_defd_name, _to_buis_$1_be)')
+#define mk_lang_bui_inl_defd_assign mk_lang_concat(mk_lang_bui_inl_defd_name, _assign)
 #define mk_lang_bui_inl_defd_set_zero mk_lang_concat(mk_lang_bui_inl_defd_name, _set_zero)
 #define mk_lang_bui_inl_defd_set_max mk_lang_concat(mk_lang_bui_inl_defd_name, _set_max)
 #define mk_lang_bui_inl_defd_set_one mk_lang_concat(mk_lang_bui_inl_defd_name, _set_one)

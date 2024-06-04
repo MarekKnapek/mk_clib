@@ -231,6 +231,14 @@ mm_per_bui(`mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_void_t
 #endif
 }
 ')
+mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_void_t mk_lang_bui_inl_defd_assign(mk_lang_bui_inl_defd_pt const a, mk_lang_bui_inl_defd_pct const b) mk_lang_noexcept
+{
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	*a = *b;
+}
+
 mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_void_t mk_lang_bui_inl_defd_set_zero(mk_lang_bui_inl_defd_pt const x) mk_lang_noexcept
 {
 	mk_lang_assert(x);

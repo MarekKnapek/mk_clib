@@ -30,6 +30,7 @@ mm_per_bui(`mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_void_t
 mm_per_bui(`mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_void_t mk_lang_bui_inl_defd_to_buis_$1_le(mk_lang_bui_inl_defd_pct const a, mk_lang_types_$1_pt const b) mk_lang_noexcept;')
 mm_per_bui(`mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_void_t mk_lang_bui_inl_defd_from_buis_$1_be(mk_lang_bui_inl_defd_pt const a, mk_lang_types_$1_pct const b) mk_lang_noexcept;')
 mm_per_bui(`mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_void_t mk_lang_bui_inl_defd_to_buis_$1_be(mk_lang_bui_inl_defd_pct const a, mk_lang_types_$1_pt const b) mk_lang_noexcept;')
+mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_void_t mk_lang_bui_inl_defd_assign(mk_lang_bui_inl_defd_pt const a, mk_lang_bui_inl_defd_pct const b) mk_lang_noexcept;
 mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_void_t mk_lang_bui_inl_defd_set_zero(mk_lang_bui_inl_defd_pt const x) mk_lang_noexcept;
 mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_void_t mk_lang_bui_inl_defd_set_max(mk_lang_bui_inl_defd_pt const x) mk_lang_noexcept;
 mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_void_t mk_lang_bui_inl_defd_set_one(mk_lang_bui_inl_defd_pt const x) mk_lang_noexcept;

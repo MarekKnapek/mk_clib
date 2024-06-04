@@ -46,6 +46,7 @@ mm_per_bui(`#undef mk_lang_bui_inl_defd_from_buis_$1_le')
 mm_per_bui(`#undef mk_lang_bui_inl_defd_to_buis_$1_le')
 mm_per_bui(`#undef mk_lang_bui_inl_defd_from_buis_$1_be')
 mm_per_bui(`#undef mk_lang_bui_inl_defd_to_buis_$1_be')
+`#'undef mk_lang_bui_inl_defd_assign
 `#'undef mk_lang_bui_inl_defd_set_zero
 `#'undef mk_lang_bui_inl_defd_set_max
 `#'undef mk_lang_bui_inl_defd_set_one
