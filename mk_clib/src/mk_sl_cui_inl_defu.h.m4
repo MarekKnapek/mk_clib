@@ -59,6 +59,7 @@ mm_per_bui(`#undef mk_sl_cui_inl_defd_base_from_buis_$1_le')
 mm_per_bui(`#undef mk_sl_cui_inl_defd_base_to_buis_$1_le')
 mm_per_bui(`#undef mk_sl_cui_inl_defd_base_from_buis_$1_be')
 mm_per_bui(`#undef mk_sl_cui_inl_defd_base_to_buis_$1_be')
+`#'undef mk_sl_cui_inl_defd_base_assign
 `#'undef mk_sl_cui_inl_defd_base_set_zero
 `#'undef mk_sl_cui_inl_defd_base_set_max
 `#'undef mk_sl_cui_inl_defd_base_set_one
@@ -216,6 +217,7 @@ mm_per_bui(`#undef mk_sl_cui_inl_defd_to_buis_$1_be_impl_same')
 mm_per_bui(`#undef mk_sl_cui_inl_defd_to_buis_$1_be_impl_bigger_int')
 mm_per_bui(`#undef mk_sl_cui_inl_defd_to_buis_$1_be_impl_smoler_int')
 mm_per_bui(`#undef mk_sl_cui_inl_defd_to_buis_$1_be')
+`#'undef mk_sl_cui_inl_defd_assign
 `#'undef mk_sl_cui_inl_defd_set_zero
 `#'undef mk_sl_cui_inl_defd_set_max
 `#'undef mk_sl_cui_inl_defd_set_one

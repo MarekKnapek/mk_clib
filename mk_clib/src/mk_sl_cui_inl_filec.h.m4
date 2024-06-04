@@ -1072,6 +1072,28 @@ mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_i
 #endif
 }
 ')
+mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_inl_defd_assign(mk_sl_cui_inl_defd_pt const a, mk_sl_cui_inl_defd_pct const b) mk_lang_noexcept
+{
+#if mk_sl_cui_inl_defd_count == 1
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	mk_sl_cui_inl_defd_base_assign(&a->m_data[mk_sl_cui_inl_defd_idx(0)], &b->m_data[mk_sl_cui_inl_defd_idx(0)]);
+#else
+	mk_lang_types_sint_t n mk_lang_constexpr_init;
+	mk_lang_types_sint_t i mk_lang_constexpr_init;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	n = mk_sl_cui_inl_defd_count;
+	for(i = 0; i != n; ++i)
+	{
+		mk_sl_cui_inl_defd_base_assign(&a->m_data[mk_sl_cui_inl_defd_idx(i)], &b->m_data[mk_sl_cui_inl_defd_idx(i)]);
+	}
+#endif
+}
+
 mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_inl_defd_set_zero(mk_sl_cui_inl_defd_pt const x) mk_lang_noexcept
 {
 #if mk_sl_cui_inl_defd_count == 1
