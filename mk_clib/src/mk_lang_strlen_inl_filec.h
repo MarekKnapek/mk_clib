@@ -22,7 +22,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_lang_
 	#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2008
 	if(!mk_lang_constexpr_is_constant_evaluated_test && sizeof(mk_lang_strlen_inl_defd_type_t) == 1)
 	{
-		mk_lang_types_usize_t len;
+		mk_lang_types_usize_t len mk_lang_constexpr_init;
 
 		mk_lang_assert(str);
 
@@ -34,7 +34,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_lang_
 	#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2008
 	if(!mk_lang_constexpr_is_constant_evaluated_test && sizeof(mk_lang_strlen_inl_defd_type_t) == 2)
 	{
-		mk_lang_types_usize_t len;
+		mk_lang_types_usize_t len mk_lang_constexpr_init;
 
 		mk_lang_assert(str);
 
