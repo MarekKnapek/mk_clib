@@ -1,4 +1,5 @@
 include(`mk_lang_bui_inl.m')dnl
+#include "mk_lang_attribute.h"
 #include "mk_lang_charbit.h"
 #include "mk_lang_concat.h"
 
@@ -6,6 +7,7 @@ include(`mk_lang_bui_inl.m')dnl
 #if(!( \
 	(defined mk_lang_bui_t_name) && \
 	(defined mk_lang_bui_t_base) && \
+	((defined mk_lang_bui_t_inline && ((mk_lang_bui_t_inline) == 0 || (mk_lang_bui_t_inline) == 1)) || !defined mk_lang_bui_t_inline) && \
 1))
 #error xxxxxxxxxx
 #endif
@@ -13,6 +15,23 @@ include(`mk_lang_bui_inl.m')dnl
 
 #define mk_lang_bui_inl_defd_name mk_lang_bui_t_name
 #define mk_lang_bui_inl_defd_base mk_lang_bui_t_base
+
+
+#if defined mk_lang_bui_t_inline
+#define mk_lang_bui_inl_defd_inline (mk_lang_bui_t_inline)
+#else
+#define mk_lang_bui_inl_defd_inline 0
+#endif
+
+
+#if mk_lang_bui_inl_defd_inline
+#define mk_lang_bui_inl_defd_flatten mk_lang_attribute_msvc_flatten
+#define mk_lang_bui_inl_defd_forceinline mk_lang_attribute_msvc_forceinline
+#else
+#define mk_lang_bui_inl_defd_flatten
+#define mk_lang_bui_inl_defd_forceinline
+#endif
+
 
 #define mk_lang_bui_inl_defd_base_name mk_lang_concat(mk_lang_types_, mk_lang_bui_inl_defd_base)
 

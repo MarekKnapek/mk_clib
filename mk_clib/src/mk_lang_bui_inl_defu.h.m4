@@ -11,8 +11,27 @@ include(`mk_lang_bui_inl.m')dnl
 
 
 
+
+
 `#'undef mk_lang_bui_inl_defd_name
 `#'undef mk_lang_bui_inl_defd_base
+
+
+
+`#'undef mk_lang_bui_inl_defd_inline
+
+`#'undef mk_lang_bui_inl_defd_inline
+
+
+
+
+`#'undef mk_lang_bui_inl_defd_flatten
+`#'undef mk_lang_bui_inl_defd_forceinline
+
+`#'undef mk_lang_bui_inl_defd_flatten
+`#'undef mk_lang_bui_inl_defd_forceinline
+
+
 
 `#'undef mk_lang_bui_inl_defd_base_name
 
