@@ -9,11 +9,13 @@
 
 #define mk_lang_bui_t_name mk_sl_cui_uint8_base_helper
 #define mk_lang_bui_t_base uchar
+#define mk_lang_bui_t_inline 1
 #include "mk_lang_bui_inl_filec.h"
 
 #define mk_sl_cui_t_name mk_sl_cui_uint8
 #define mk_sl_cui_t_base mk_sl_cui_uint8_base_helper
 #define mk_sl_cui_t_count (8 / mk_sl_cui_uint8_base_helper_sizebits_d)
+#define mk_sl_cui_t_inline 1
 #include "mk_sl_cui_inl_filec.h"
 
 #endif
