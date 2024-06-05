@@ -1,4 +1,5 @@
 include(`mk_sl_cui_inl.m')dnl
+#include "mk_lang_attribute.h"
 #include "mk_lang_concat.h"
 #include "mk_lang_div_roundup.h"
 #include "mk_lang_endian.h"
@@ -11,18 +12,36 @@ include(`mk_sl_cui_inl.m')dnl
 	((defined mk_sl_cui_t_endian && (mk_sl_cui_t_endian == mk_lang_endian_little || mk_sl_cui_t_endian == mk_lang_endian_big)) || !defined mk_sl_cui_t_endian) && \
 	((defined mk_sl_cui_t_disable_big_div && (mk_sl_cui_t_disable_big_div == 0 || mk_sl_cui_t_disable_big_div == 1)) || !defined mk_sl_cui_t_disable_big_div) && \
 	((defined mk_sl_cui_t_base_sizebits_d && mk_sl_cui_t_base_sizebits_d >= 1) || !defined mk_sl_cui_t_base_sizebits_d) && \
+	((defined mk_sl_cui_t_inline && ((mk_sl_cui_t_inline) == 0 || (mk_sl_cui_t_inline) == 1)) || !defined mk_sl_cui_t_inline) && \
 1))
 #error xxxxxxxxxx
-#endif
-#if !defined mk_sl_cui_t_endian
-#define mk_sl_cui_t_endian mk_lang_endian_little
 #endif
 
 
 #define mk_sl_cui_inl_defd_name mk_sl_cui_t_name
 #define mk_sl_cui_inl_defd_base mk_sl_cui_t_base
 #define mk_sl_cui_inl_defd_count (mk_sl_cui_t_count)
-#define mk_sl_cui_inl_defd_endian mk_sl_cui_t_endian
+
+
+#if defined mk_sl_cui_t_endian
+#define mk_sl_cui_inl_defd_endian (mk_sl_cui_t_endian)
+#else
+#define mk_sl_cui_inl_defd_endian mk_lang_endian_little
+#endif
+#if defined mk_sl_cui_t_inline
+#define mk_sl_cui_inl_defd_inline (mk_sl_cui_t_inline)
+#else
+#define mk_sl_cui_inl_defd_inline 0
+#endif
+
+
+#if mk_sl_cui_inl_defd_inline
+#define mk_sl_cui_inl_defd_flatten mk_lang_attribute_msvc_flatten
+#define mk_sl_cui_inl_defd_forceinline mk_lang_attribute_msvc_forceinline
+#else
+#define mk_sl_cui_inl_defd_flatten
+#define mk_sl_cui_inl_defd_forceinline
+#endif
 
 
 #define mk_sl_cui_inl_defd_base_t mk_lang_concat(mk_sl_cui_inl_defd_base, _t)

@@ -16,14 +16,32 @@ include(`mk_sl_cui_inl.m')dnl
 
 
 
-`#'undef mk_sl_cui_t_endian
-
 
 
 `#'undef mk_sl_cui_inl_defd_name
 `#'undef mk_sl_cui_inl_defd_base
 `#'undef mk_sl_cui_inl_defd_count
+
+
+
 `#'undef mk_sl_cui_inl_defd_endian
+
+`#'undef mk_sl_cui_inl_defd_endian
+
+
+`#'undef mk_sl_cui_inl_defd_inline
+
+`#'undef mk_sl_cui_inl_defd_inline
+
+
+
+
+`#'undef mk_sl_cui_inl_defd_flatten
+`#'undef mk_sl_cui_inl_defd_forceinline
+
+`#'undef mk_sl_cui_inl_defd_flatten
+`#'undef mk_sl_cui_inl_defd_forceinline
+
 
 
 `#'undef mk_sl_cui_inl_defd_base_t
