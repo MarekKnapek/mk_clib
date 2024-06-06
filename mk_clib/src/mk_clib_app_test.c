@@ -31,7 +31,7 @@ mk_lang_jumbo int mk_clib_app_test_void(void) mk_lang_noexcept
 	int progress_curr;
 	long i;
 	int j;
-	unsigned char data[128];
+	unsigned char data[1024];
 
 	t = printf("Started.\n"); mk_lang_assert(t >= 0); t = fflush(stdout); mk_lang_assert(t == 0);
 	mk_lang_cpuid_init();
