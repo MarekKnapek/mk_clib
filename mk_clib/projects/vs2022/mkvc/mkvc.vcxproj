@@ -43,7 +43,9 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<ItemGroup>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\app\mkvc.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\app\mkvc.c">
+			<CompileAs>CompileAsCpp</CompileAs>
+		</ClCompile>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
 		<VCProjectVersion>17.0</VCProjectVersion>
