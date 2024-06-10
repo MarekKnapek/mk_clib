@@ -28,6 +28,7 @@ mk_lang_noreturn mk_lang_jumbo void mk_lang_crash(void) mk_lang_noexcept
 	#if mk_lang_crash_detail_have
 	ta = puts(msg); /* assert(ta != EOF && ta >= 0) */
 	ta = fflush(stdout); /* assert(ta != EOF && ta == 0) */
+	((void)(ta));
 	#endif
 
 	#if mk_lang_msvc_ver >= 1200l /* vs6 */

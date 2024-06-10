@@ -218,7 +218,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_hash_
 
 	mk_lang_assert(state);
 	mk_lang_assert(uint8s);
-	mk_lang_assert(((mk_lang_types_uintptr_t)(uint8s)) % sizeof(mk_sl_cui_uint32_t) == 0);
+	mk_lang_assert(mk_lang_constexpr_is_constant_evaluated_test || ((mk_lang_types_uintptr_t)(uint8s)) % sizeof(mk_sl_cui_uint32_t) == 0);
 
 	for(i = 0; i != 8; ++i)
 	{

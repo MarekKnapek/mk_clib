@@ -62,6 +62,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_lang_constexpr_test_(vo
 		mk_lang_constexpr_test_cnstxpr_bui_from_buis_ulllong_le(&a, &d);
 		mk_lang_constexpr_test_cnstxpr_bui_to_buis_ulllong_be(&a, &d);
 		mk_lang_constexpr_test_cnstxpr_bui_from_buis_ulllong_be(&a, &d);
+		mk_lang_constexpr_test_cnstxpr_bui_set_zero(&e);
 		(void)mk_lang_constexpr_test_cnstxpr_bui_is_zero(&a);
 		(void)mk_lang_constexpr_test_cnstxpr_bui_is_max(&a);
 		(void)mk_lang_constexpr_test_cnstxpr_bui_eq(&a, &e);
@@ -91,7 +92,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_lang_constexpr_test_(vo
 		mk_lang_constexpr_test_cnstxpr_bui_rotl2(&a, 2);
 		mk_lang_constexpr_test_cnstxpr_bui_rotr2(&a, 2);
 		(void)mk_lang_constexpr_test_cnstxpr_bui_would_overflow_add_cc(&a, &e);
-		(void)mk_lang_constexpr_test_cnstxpr_bui_would_overflow_add_cs(&a, &e);
+		(void)mk_lang_constexpr_test_cnstxpr_bui_would_overflow_add_cs(&a, &e); cf = {};
 		(void)mk_lang_constexpr_test_cnstxpr_bui_would_overflow_add(&a, &e, cf);
 		(void)mk_lang_constexpr_test_cnstxpr_bui_would_overflow_sub_cc(&a, &e);
 		(void)mk_lang_constexpr_test_cnstxpr_bui_would_overflow_sub_cs(&a, &e);
@@ -152,6 +153,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_lang_constexpr_test_(vo
 		mk_lang_constexpr_test_cnstxpr_cui_from_buis_ulllong_le(&a, d);
 		mk_lang_constexpr_test_cnstxpr_cui_to_buis_ulllong_be(&a, d);
 		mk_lang_constexpr_test_cnstxpr_cui_from_buis_ulllong_be(&a, d);
+		mk_lang_constexpr_test_cnstxpr_cui_set_zero(&e);
 		(void)mk_lang_constexpr_test_cnstxpr_cui_is_zero(&a);
 		(void)mk_lang_constexpr_test_cnstxpr_cui_is_max(&a);
 		(void)mk_lang_constexpr_test_cnstxpr_cui_eq(&a, &e);
@@ -220,6 +222,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo int mk_lang_constexpr_test_(vo
 	{
 		int ret mk_lang_constexpr_init;
 
+		ret = 0;
 		return ret;
 	}
 }

@@ -19,7 +19,6 @@
 union mk_lib_crypto_hash_block_tiger_base_aligned64_u
 {
 	mk_lang_alignas(64) mk_sl_cui_uint8_t m_uint8s[64];
-	mk_sl_cui_uint64_t m_uint64s[8];
 	mk_sl_cui_uint64_t m_align;
 };
 typedef union mk_lib_crypto_hash_block_tiger_base_aligned64_u mk_lib_crypto_hash_block_tiger_base_aligned64_t;

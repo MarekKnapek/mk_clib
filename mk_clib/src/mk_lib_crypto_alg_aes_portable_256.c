@@ -37,7 +37,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_a
 {
 	mk_lib_crypto_alg_aes_portable_base_msg_t msg mk_lang_constexpr_init;
 
-	mk_lang_static_assert(mk_lib_crypto_alg_aes_portable_base_msg_len_v == mk_lib_crypto_alg_aes_portable_256_msg_len_v);
+	mk_lang_static_assert(((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_portable_base_msg_len_v)) == ((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_portable_256_msg_len_v)));
 
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -51,7 +51,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_a
 {
 	mk_lib_crypto_alg_aes_portable_base_msg_t msg mk_lang_constexpr_init;
 
-	mk_lang_static_assert(mk_lib_crypto_alg_aes_portable_base_msg_len_v == mk_lib_crypto_alg_aes_portable_256_msg_len_v);
+	mk_lang_static_assert(((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_portable_base_msg_len_v)) == ((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_portable_256_msg_len_v)));
 
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -65,7 +65,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_a
 {
 	mk_lib_crypto_alg_aes_portable_base_msg_t msg mk_lang_constexpr_init;
 
-	mk_lang_static_assert(mk_lib_crypto_alg_aes_portable_base_msg_len_v == mk_lib_crypto_alg_aes_portable_256_msg_len_v);
+	mk_lang_static_assert(((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_portable_base_msg_len_v)) == ((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_portable_256_msg_len_v)));
 
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -79,7 +79,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_a
 {
 	mk_lib_crypto_alg_aes_portable_base_msg_t msg mk_lang_constexpr_init;
 
-	mk_lang_static_assert(mk_lib_crypto_alg_aes_portable_base_msg_len_v == mk_lib_crypto_alg_aes_portable_256_msg_len_v);
+	mk_lang_static_assert(((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_portable_base_msg_len_v)) == ((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_portable_256_msg_len_v)));
 
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -93,7 +93,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_a
 {
 	mk_lib_crypto_alg_aes_portable_base_msg_t msg mk_lang_constexpr_init;
 
-	mk_lang_static_assert(mk_lib_crypto_alg_aes_portable_base_msg_len_v == mk_lib_crypto_alg_aes_portable_256_msg_len_v);
+	mk_lang_static_assert(((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_portable_base_msg_len_v)) == ((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_portable_256_msg_len_v)));
 
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -107,7 +107,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_a
 {
 	mk_lib_crypto_alg_aes_portable_base_msg_t msg mk_lang_constexpr_init;
 
-	mk_lang_static_assert(mk_lib_crypto_alg_aes_portable_base_msg_len_v == mk_lib_crypto_alg_aes_portable_256_msg_len_v);
+	mk_lang_static_assert(((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_portable_base_msg_len_v)) == ((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_portable_256_msg_len_v)));
 
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -122,7 +122,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_a
 	mk_lib_crypto_alg_aes_portable_base_msg_t aa mk_lang_constexpr_init;
 	mk_lib_crypto_alg_aes_portable_base_msg_t bb mk_lang_constexpr_init;
 
-	mk_lang_static_assert(mk_lib_crypto_alg_aes_portable_base_msg_len_v == mk_lib_crypto_alg_aes_portable_256_msg_len_v);
+	mk_lang_static_assert(((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_portable_base_msg_len_v)) == ((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_portable_256_msg_len_v)));
 
 	mk_lang_assert(a);
 	mk_lang_assert(b);
