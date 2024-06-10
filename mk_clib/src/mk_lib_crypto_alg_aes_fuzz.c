@@ -67,7 +67,7 @@ mk_lang_jumbo void mk_lib_crypto_alg_aes_fuzz_my(mk_lang_types_bool_t const cpui
 
 mk_lang_jumbo void mk_lib_crypto_alg_aes_fuzz_accelerated(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
 {
-	#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_gnuc_is_at_least(6, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && mk_lang_alignas_has && mk_lang_alignof_has
+#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_gnuc_is_at_least(6, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && mk_lang_alignas_has && mk_lang_alignof_has
 	mk_lang_cpuid_init();
 	{
 		mk_lang_types_uchar_pct d;
@@ -264,7 +264,10 @@ mk_lang_jumbo void mk_lib_crypto_alg_aes_fuzz_accelerated(mk_lang_types_uchar_pc
 			test(memcmp(&outsb[0], &msgs[0], sizeof(msgs)) == 0);
 		}
 	}
-	#endif
+#else
+	((void)(data));
+	((void)(size));
+#endif
 }
 
 #if defined _MSC_VER
@@ -498,7 +501,7 @@ mk_lang_jumbo void mk_lib_crypto_alg_aes_fuzz(mk_lang_types_uchar_pct const data
 	check_len(32); for(i = 0; i != 32; ++i){ key[i] = d[i]; } advance(32);
 	check_len(16); for(i = 0; i != 16; ++i){ iv[i] = d[i]; } advance(16);
 	check_len(1); msg_len = d[0]; advance(1);
-	check_len(msg_len); for(i = 0; i != msg_len; ++i){ msg[i] = d[i]; } advance(msg_len);
+	check_len(((mk_lang_types_usize_t)(msg_len))); for(i = 0; i != msg_len; ++i){ msg[i] = d[i]; } advance(msg_len);
 	alg_e = ((mk_lib_crypto_app_alg_id_t)(alg_id));
 	padding_e = ((mk_lib_crypto_app_padding_id_t)(padding_id));
 	mode_e = ((mk_lib_crypto_app_mode_id_t)(mode_id));

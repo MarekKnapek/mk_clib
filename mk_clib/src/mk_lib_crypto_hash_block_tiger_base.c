@@ -13,6 +13,23 @@
 #include "mk_sl_uint8.h"
 
 
+union mk_lib_crypto_hash_block_tiger_base_block2_data_u
+{
+	mk_lang_alignas(64) mk_sl_cui_uint64_t m_uint64s[8];
+	mk_lang_types_ulllong_t m_align;
+};
+typedef union mk_lib_crypto_hash_block_tiger_base_block2_data_u mk_lib_crypto_hash_block_tiger_base_block2_data_t;
+
+struct mk_lib_crypto_hash_block_tiger_base_block2_s
+{
+	mk_lib_crypto_hash_block_tiger_base_block2_data_t m_data;
+};
+typedef struct mk_lib_crypto_hash_block_tiger_base_block2_s mk_lib_crypto_hash_block_tiger_base_block2_t;
+typedef mk_lib_crypto_hash_block_tiger_base_block2_t const mk_lib_crypto_hash_block_tiger_base_block2_ct;
+typedef mk_lib_crypto_hash_block_tiger_base_block2_t* mk_lib_crypto_hash_block_tiger_base_block2_pt;
+typedef mk_lib_crypto_hash_block_tiger_base_block2_t const* mk_lib_crypto_hash_block_tiger_base_block2_pct;
+
+
 mk_lang_constexpr_static_inline mk_sl_cui_uint64_t const s_mk_lib_crypto_hash_block_tiger_base_table[4 * 256] =
 {
 	mk_sl_cui_uint64_c(0x02aab17cul, 0xf7e90c5eul), mk_sl_cui_uint64_c(0xac424b03ul, 0xe243a8ecul), mk_sl_cui_uint64_c(0x72cd5be3ul, 0x0dd5fcd3ul), mk_sl_cui_uint64_c(0x6d019b93ul, 0xf6f97f3aul),
@@ -274,7 +291,7 @@ mk_lang_constexpr_static_inline mk_sl_cui_uint64_t const s_mk_lib_crypto_hash_bl
 };
 
 
-mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_tiger_base_key_schedule(mk_lib_crypto_hash_block_tiger_base_block_pt const block) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_tiger_base_key_schedule(mk_lib_crypto_hash_block_tiger_base_block2_pt const block) mk_lang_noexcept
 {
 	mk_lang_constexpr_static mk_sl_cui_uint64_t const s_key_schedule_constant_a = mk_sl_cui_uint64_c(0xa5a5a5a5ul, 0xa5a5a5a5ul);
 	mk_lang_constexpr_static mk_sl_cui_uint64_t const s_key_schedule_constant_b = mk_sl_cui_uint64_c(0x01234567ul, 0x89abcdeful);
@@ -283,36 +300,36 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_tiger_base
 
 	mk_lang_assert(block);
 
-	mk_sl_cui_uint64_xor3(&block->m_uint64s[7], &s_key_schedule_constant_a, &ta);
-	mk_sl_cui_uint64_sub2_wrap_cid_cod(&block->m_uint64s[0], &ta);
-	mk_sl_cui_uint64_xor2(&block->m_uint64s[1], &block->m_uint64s[0]);
-	mk_sl_cui_uint64_add2_wrap_cid_cod(&block->m_uint64s[2], &block->m_uint64s[1]);
-	mk_sl_cui_uint64_not2(&block->m_uint64s[1], &ta);
+	mk_sl_cui_uint64_xor3(&block->m_data.m_uint64s[7], &s_key_schedule_constant_a, &ta);
+	mk_sl_cui_uint64_sub2_wrap_cid_cod(&block->m_data.m_uint64s[0], &ta);
+	mk_sl_cui_uint64_xor2(&block->m_data.m_uint64s[1], &block->m_data.m_uint64s[0]);
+	mk_sl_cui_uint64_add2_wrap_cid_cod(&block->m_data.m_uint64s[2], &block->m_data.m_uint64s[1]);
+	mk_sl_cui_uint64_not2(&block->m_data.m_uint64s[1], &ta);
 	mk_sl_cui_uint64_shl2(&ta, 19);
-	mk_sl_cui_uint64_xor2(&ta, &block->m_uint64s[2]);
-	mk_sl_cui_uint64_sub2_wrap_cid_cod(&block->m_uint64s[3], &ta);
-	mk_sl_cui_uint64_xor2(&block->m_uint64s[4], &block->m_uint64s[3]);
-	mk_sl_cui_uint64_add2_wrap_cid_cod(&block->m_uint64s[5], &block->m_uint64s[4]);
-	mk_sl_cui_uint64_not2(&block->m_uint64s[4], &ta);
+	mk_sl_cui_uint64_xor2(&ta, &block->m_data.m_uint64s[2]);
+	mk_sl_cui_uint64_sub2_wrap_cid_cod(&block->m_data.m_uint64s[3], &ta);
+	mk_sl_cui_uint64_xor2(&block->m_data.m_uint64s[4], &block->m_data.m_uint64s[3]);
+	mk_sl_cui_uint64_add2_wrap_cid_cod(&block->m_data.m_uint64s[5], &block->m_data.m_uint64s[4]);
+	mk_sl_cui_uint64_not2(&block->m_data.m_uint64s[4], &ta);
 	mk_sl_cui_uint64_shr2(&ta, 23);
-	mk_sl_cui_uint64_xor2(&ta, &block->m_uint64s[5]);
-	mk_sl_cui_uint64_sub2_wrap_cid_cod(&block->m_uint64s[6], &ta);
-	mk_sl_cui_uint64_xor2(&block->m_uint64s[7], &block->m_uint64s[6]);
-	mk_sl_cui_uint64_add2_wrap_cid_cod(&block->m_uint64s[0], &block->m_uint64s[7]);
-	mk_sl_cui_uint64_not2(&block->m_uint64s[7], &ta);
+	mk_sl_cui_uint64_xor2(&ta, &block->m_data.m_uint64s[5]);
+	mk_sl_cui_uint64_sub2_wrap_cid_cod(&block->m_data.m_uint64s[6], &ta);
+	mk_sl_cui_uint64_xor2(&block->m_data.m_uint64s[7], &block->m_data.m_uint64s[6]);
+	mk_sl_cui_uint64_add2_wrap_cid_cod(&block->m_data.m_uint64s[0], &block->m_data.m_uint64s[7]);
+	mk_sl_cui_uint64_not2(&block->m_data.m_uint64s[7], &ta);
 	mk_sl_cui_uint64_shl2(&ta, 19);
-	mk_sl_cui_uint64_xor2(&ta, &block->m_uint64s[0]);
-	mk_sl_cui_uint64_sub2_wrap_cid_cod(&block->m_uint64s[1], &ta);
-	mk_sl_cui_uint64_xor2(&block->m_uint64s[2], &block->m_uint64s[1]);
-	mk_sl_cui_uint64_add2_wrap_cid_cod(&block->m_uint64s[3], &block->m_uint64s[2]);
-	mk_sl_cui_uint64_not2(&block->m_uint64s[2], &ta);
+	mk_sl_cui_uint64_xor2(&ta, &block->m_data.m_uint64s[0]);
+	mk_sl_cui_uint64_sub2_wrap_cid_cod(&block->m_data.m_uint64s[1], &ta);
+	mk_sl_cui_uint64_xor2(&block->m_data.m_uint64s[2], &block->m_data.m_uint64s[1]);
+	mk_sl_cui_uint64_add2_wrap_cid_cod(&block->m_data.m_uint64s[3], &block->m_data.m_uint64s[2]);
+	mk_sl_cui_uint64_not2(&block->m_data.m_uint64s[2], &ta);
 	mk_sl_cui_uint64_shr2(&ta, 23);
-	mk_sl_cui_uint64_xor2(&ta, &block->m_uint64s[3]);
-	mk_sl_cui_uint64_sub2_wrap_cid_cod(&block->m_uint64s[4], &ta);
-	mk_sl_cui_uint64_xor2(&block->m_uint64s[5], &block->m_uint64s[4]);
-	mk_sl_cui_uint64_add2_wrap_cid_cod(&block->m_uint64s[6], &block->m_uint64s[5]);
-	mk_sl_cui_uint64_xor3(&block->m_uint64s[6], &s_key_schedule_constant_b, &ta);
-	mk_sl_cui_uint64_sub2_wrap_cid_cod(&block->m_uint64s[7], &ta);
+	mk_sl_cui_uint64_xor2(&ta, &block->m_data.m_uint64s[3]);
+	mk_sl_cui_uint64_sub2_wrap_cid_cod(&block->m_data.m_uint64s[4], &ta);
+	mk_sl_cui_uint64_xor2(&block->m_data.m_uint64s[5], &block->m_data.m_uint64s[4]);
+	mk_sl_cui_uint64_add2_wrap_cid_cod(&block->m_data.m_uint64s[6], &block->m_data.m_uint64s[5]);
+	mk_sl_cui_uint64_xor3(&block->m_data.m_uint64s[6], &s_key_schedule_constant_b, &ta);
+	mk_sl_cui_uint64_sub2_wrap_cid_cod(&block->m_data.m_uint64s[7], &ta);
 }
 
 mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_tiger_base_round(mk_sl_cui_uint64_prt const a, mk_sl_cui_uint64_prt const b, mk_sl_cui_uint64_prt const c, mk_sl_cui_uint64_prct const x, int const mul) mk_lang_noexcept
@@ -347,7 +364,7 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_tiger_base
 	mk_sl_cui_uint64_mul3_wrap_lo(b, &mull, b);
 }
 
-mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_tiger_base_pass(mk_sl_cui_uint64_prt const a, mk_sl_cui_uint64_prt const b, mk_sl_cui_uint64_prt const c, mk_lib_crypto_hash_block_tiger_base_block_pct const block, int const mul) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_tiger_base_pass(mk_sl_cui_uint64_prt const a, mk_sl_cui_uint64_prt const b, mk_sl_cui_uint64_prt const c, mk_lib_crypto_hash_block_tiger_base_block2_pct const block, int const mul) mk_lang_noexcept
 {
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -357,14 +374,14 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_tiger_base
 	mk_lang_assert(b != c);
 	mk_lang_assert(block);
 
-	mk_lib_crypto_hash_block_tiger_base_round(a, b, c, &block->m_uint64s[0], mul);
-	mk_lib_crypto_hash_block_tiger_base_round(b, c, a, &block->m_uint64s[1], mul);
-	mk_lib_crypto_hash_block_tiger_base_round(c, a, b, &block->m_uint64s[2], mul);
-	mk_lib_crypto_hash_block_tiger_base_round(a, b, c, &block->m_uint64s[3], mul);
-	mk_lib_crypto_hash_block_tiger_base_round(b, c, a, &block->m_uint64s[4], mul);
-	mk_lib_crypto_hash_block_tiger_base_round(c, a, b, &block->m_uint64s[5], mul);
-	mk_lib_crypto_hash_block_tiger_base_round(a, b, c, &block->m_uint64s[6], mul);
-	mk_lib_crypto_hash_block_tiger_base_round(b, c, a, &block->m_uint64s[7], mul);
+	mk_lib_crypto_hash_block_tiger_base_round(a, b, c, &block->m_data.m_uint64s[0], mul);
+	mk_lib_crypto_hash_block_tiger_base_round(b, c, a, &block->m_data.m_uint64s[1], mul);
+	mk_lib_crypto_hash_block_tiger_base_round(c, a, b, &block->m_data.m_uint64s[2], mul);
+	mk_lib_crypto_hash_block_tiger_base_round(a, b, c, &block->m_data.m_uint64s[3], mul);
+	mk_lib_crypto_hash_block_tiger_base_round(b, c, a, &block->m_data.m_uint64s[4], mul);
+	mk_lib_crypto_hash_block_tiger_base_round(c, a, b, &block->m_data.m_uint64s[5], mul);
+	mk_lib_crypto_hash_block_tiger_base_round(a, b, c, &block->m_data.m_uint64s[6], mul);
+	mk_lib_crypto_hash_block_tiger_base_round(b, c, a, &block->m_data.m_uint64s[7], mul);
 }
 
 
@@ -395,7 +412,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_tiger_base_append_
 	mk_sl_cui_uint64_t c mk_lang_constexpr_init;
 	mk_lang_types_usize_t iblock mk_lang_constexpr_init;
 	int i mk_lang_constexpr_init;
-	mk_lib_crypto_hash_block_tiger_base_block_t block mk_lang_constexpr_init;
+	mk_lib_crypto_hash_block_tiger_base_block2_t block mk_lang_constexpr_init;
 	mk_sl_cui_uint64_t aa mk_lang_constexpr_init;
 	mk_sl_cui_uint64_t bb mk_lang_constexpr_init;
 	mk_sl_cui_uint64_t cc mk_lang_constexpr_init;
@@ -413,7 +430,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_tiger_base_append_
 	c = tiger_base->m_c;
 	for(iblock = 0; iblock != nblocks; ++iblock)
 	{
-		for(i = 0; i != 8; ++i){ mk_sl_uint_64_from_8_le(&block.m_uint64s[i], &pblocks[iblock].m_uint8s[i * 8]); }
+		for(i = 0; i != 8; ++i){ mk_sl_uint_64_from_8_le(&block.m_data.m_uint64s[i], &pblocks[iblock].m_uint8s[i * 8]); }
 		aa = a;
 		bb = b;
 		cc = c;

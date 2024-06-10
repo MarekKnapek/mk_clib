@@ -110,7 +110,7 @@ typedef mk_lib_vc_salt_t const* mk_lib_vc_salt_pct;
 
 struct mk_lib_vc_keys_material_data_s
 {
-	mk_sl_cui_uint8_t m_uint8s[2 * mk_lang_max(mk_lang_max(mk_lang_max(mk_lang_max(mk_lang_max(mk_lang_max(mk_lang_max(mk_lib_crypto_alg_aes_256_key_len_v, mk_lib_crypto_alg_serpent_key_len_v), mk_lib_crypto_alg_twofish_256_key_len_v), mk_lib_crypto_alg_aes_256_key_len_v + mk_lib_crypto_alg_twofish_256_key_len_v), mk_lib_crypto_alg_aes_256_key_len_v + mk_lib_crypto_alg_twofish_256_key_len_v + mk_lib_crypto_alg_serpent_key_len_v), mk_lib_crypto_alg_serpent_key_len_v + mk_lib_crypto_alg_aes_256_key_len_v), mk_lib_crypto_alg_serpent_key_len_v + mk_lib_crypto_alg_twofish_256_key_len_v + mk_lib_crypto_alg_aes_256_key_len_v), mk_lib_crypto_alg_twofish_256_key_len_v + mk_lib_crypto_alg_serpent_key_len_v)];
+	mk_sl_cui_uint8_t m_uint8s[2 * mk_lang_max(mk_lang_max(mk_lang_max(mk_lang_max(mk_lang_max(mk_lang_max(mk_lang_max(((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_256_key_len_v)), ((mk_lang_types_sint_t)(mk_lib_crypto_alg_serpent_key_len_v))), ((mk_lang_types_sint_t)(mk_lib_crypto_alg_twofish_256_key_len_v))), ((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_256_key_len_v)) + ((mk_lang_types_sint_t)(mk_lib_crypto_alg_twofish_256_key_len_v))), ((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_256_key_len_v)) + ((mk_lang_types_sint_t)(mk_lib_crypto_alg_twofish_256_key_len_v)) + ((mk_lang_types_sint_t)(mk_lib_crypto_alg_serpent_key_len_v))), ((mk_lang_types_sint_t)(mk_lib_crypto_alg_serpent_key_len_v)) + ((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_256_key_len_v))), ((mk_lang_types_sint_t)(mk_lib_crypto_alg_serpent_key_len_v)) + ((mk_lang_types_sint_t)(mk_lib_crypto_alg_twofish_256_key_len_v)) + ((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_256_key_len_v))), ((mk_lang_types_sint_t)(mk_lib_crypto_alg_twofish_256_key_len_v)) + ((mk_lang_types_sint_t)(mk_lib_crypto_alg_serpent_key_len_v)))];
 };
 typedef struct mk_lib_vc_keys_material_data_s mk_lib_vc_keys_material_data_t;
 
@@ -252,11 +252,12 @@ typedef mk_lib_vc_block_t const mk_lib_vc_block_ct;
 typedef mk_lib_vc_block_t* mk_lib_vc_block_pt;
 typedef mk_lib_vc_block_t const* mk_lib_vc_block_pct;
 
-struct mk_lib_vc_block_oversized_data_s
+union mk_lib_vc_block_oversized_data_u
 {
+	mk_lib_vc_block_t m_block;
 	mk_sl_cui_uint8_t m_uint8s[mk_lib_vc_block_len + (mk_lib_vc_block_len - 1)];
 };
-typedef struct mk_lib_vc_block_oversized_data_s mk_lib_vc_block_oversized_data_t;
+typedef union mk_lib_vc_block_oversized_data_u mk_lib_vc_block_oversized_data_t;
 
 struct mk_lib_vc_block_oversized_s
 {

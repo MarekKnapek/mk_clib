@@ -18,12 +18,12 @@ mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_alg_des_fuzz(mk_lang_types_ucha
 	mk_lib_crypto_alg_des_msg_t pt2;
 	mk_lang_types_bool_t b;
 
-	if(!(size >= 2 * 64 / 8))
+	d = data;
+	s = size;
+	if(!(s >= 2 * 64 / 8))
 	{
 		return;
 	}
-	d = data;
-	s = size;
 	for(i = 0; i != 8; ++i)
 	{
 		mk_sl_cui_uint8_from_bi_uchar(&key.m_data.m_uint8s[i], &d[i]);

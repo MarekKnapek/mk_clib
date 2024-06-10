@@ -3915,7 +3915,9 @@ mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noali
 	mk_lang_types_pchar_pct it mk_lang_constexpr_init;
 	mk_lang_types_pchar_pct ite mk_lang_constexpr_init;
 	mk_lang_types_pchar_t e mk_lang_constexpr_init;
+	#if(!(mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic))
 	mk_lang_types_sint_t n mk_lang_constexpr_init;
+	#endif
 	mk_lang_types_sint_t i mk_lang_constexpr_init;
 	mk_lang_types_sint_t overflow mk_lang_constexpr_init;
 	mk_sl_cui_inl_defd_pt px1 mk_lang_constexpr_init;
@@ -4025,7 +4027,9 @@ mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noali
 	mk_lang_types_wchar_pct it mk_lang_constexpr_init;
 	mk_lang_types_wchar_pct ite mk_lang_constexpr_init;
 	mk_lang_types_wchar_t e mk_lang_constexpr_init;
+	#if(!(mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic))
 	mk_lang_types_sint_t n mk_lang_constexpr_init;
+	#endif
 	mk_lang_types_sint_t i mk_lang_constexpr_init;
 	mk_lang_types_sint_t overflow mk_lang_constexpr_init;
 	mk_sl_cui_inl_defd_pt px1 mk_lang_constexpr_init;

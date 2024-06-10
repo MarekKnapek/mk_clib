@@ -34,7 +34,6 @@ mk_lang_constexpr_static_inline mk_lang_types_sint_t const mk_lib_crypto_hash_bl
 union mk_lib_crypto_hash_block_whirlpool_aligned64_u
 {
 	mk_lang_alignas(64) mk_sl_cui_uint8_t m_uint8s[64];
-	mk_lang_alignas(64) mk_sl_cui_uint64_t m_uint64s[8];
 	mk_lang_types_ulllong_t m_ulllong;
 };
 typedef union mk_lib_crypto_hash_block_whirlpool_aligned64_u mk_lib_crypto_hash_block_whirlpool_aligned64_t;
@@ -43,9 +42,26 @@ typedef mk_lib_crypto_hash_block_whirlpool_aligned64_t* mk_lib_crypto_hash_block
 typedef mk_lib_crypto_hash_block_whirlpool_aligned64_t const* mk_lib_crypto_hash_block_whirlpool_aligned64_pct;
 
 
+union mk_lib_crypto_hash_block_whirlpool_state_data_u
+{
+	mk_lang_alignas(64) mk_sl_cui_uint64_t m_uint64s[8];
+	mk_lang_types_ulllong_t m_align;
+};
+typedef union mk_lib_crypto_hash_block_whirlpool_state_data_u mk_lib_crypto_hash_block_whirlpool_state_data_t;
+
+struct mk_lib_crypto_hash_block_whirlpool_state_s
+{
+	mk_lib_crypto_hash_block_whirlpool_state_data_t m_data;
+};
+typedef struct mk_lib_crypto_hash_block_whirlpool_state_s mk_lib_crypto_hash_block_whirlpool_state_t;
+typedef mk_lib_crypto_hash_block_whirlpool_state_t const mk_lib_crypto_hash_block_whirlpool_state_ct;
+typedef mk_lib_crypto_hash_block_whirlpool_state_t* mk_lib_crypto_hash_block_whirlpool_state_pt;
+typedef mk_lib_crypto_hash_block_whirlpool_state_t const* mk_lib_crypto_hash_block_whirlpool_state_pct;
+
+
 struct mk_lib_crypto_hash_block_whirlpool_s
 {
-	mk_lib_crypto_hash_block_whirlpool_aligned64_t m_state;
+	mk_lib_crypto_hash_block_whirlpool_state_t m_state;
 	mk_lib_crypto_hash_block_whirlpool_uint256_t m_len;
 };
 typedef struct mk_lib_crypto_hash_block_whirlpool_s mk_lib_crypto_hash_block_whirlpool_t;

@@ -98,7 +98,12 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	*out_len = len;
 	return 0;
 #else
-	mk_lang_assert(mk_lang_false); /* todo */
+	((mk_lang_types_void_t)(validate));
+	((mk_lang_types_void_t)(wide_str));
+	((mk_lang_types_void_t)(wide_len));
+	((mk_lang_types_void_t)(utf8_str));
+	((mk_lang_types_void_t)(utf8_len));
+	((mk_lang_types_void_t)(out_len));
 	mk_lang_check_return(mk_lang_false);
 	return 0;
 #endif
@@ -172,7 +177,12 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	*out_len = len;
 	return 0;
 #else
-	mk_lang_assert(mk_lang_false); /* todo */
+	((mk_lang_types_void_t)(validate));
+	((mk_lang_types_void_t)(wide_str));
+	((mk_lang_types_void_t)(wide_len));
+	((mk_lang_types_void_t)(utf8_str));
+	((mk_lang_types_void_t)(utf8_len));
+	((mk_lang_types_void_t)(out_len));
 	mk_lang_check_return(mk_lang_false);
 	return 0;
 #endif

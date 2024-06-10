@@ -72,7 +72,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_xof_block_bla
 			mk_lib_crypto_hash_block_blake3_base_squeeze(&blake3->m_blake3, &blake3->m_block, &blake3->m_seek, &blake3->m_output_block);
 			mk_sl_cui_uint64_inc1(&blake3->m_seek);
 		}
-		copy = mk_lang_min(rem, mk_lib_crypto_hash_block_blake3_base_output_block_len - blake3->m_idx);
+		copy = mk_lang_min(rem, ((mk_lang_types_usize_t)(mk_lib_crypto_hash_block_blake3_base_output_block_len - blake3->m_idx)));
 		mk_lib_crypto_xof_block_blake3_memcpy_u8_fn(out, &blake3->m_output_block.m_uint8s[blake3->m_idx], copy);
 		blake3->m_idx = (blake3->m_idx + copy) % mk_lib_crypto_hash_block_blake3_base_output_block_len;
 		rem -= copy;

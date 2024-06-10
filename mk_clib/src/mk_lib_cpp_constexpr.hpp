@@ -110,6 +110,7 @@ public:
 	}
 	mk_lang_constexpr mk_lang_types_bool_t operator==(mk_lib_cpp_constexpr_array_t<t, 0> const& other) const mk_lang_noexcept
 	{
+		((void)(other));
 		return mk_lang_true;
 	}
 	mk_lang_constexpr mk_lang_types_bool_t operator!=(mk_lib_cpp_constexpr_array_t<t, 0> const& other) const mk_lang_noexcept

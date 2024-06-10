@@ -87,7 +87,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_async_writer_file_
 	mk_lang_assert(iorp->m_buf || iorp->m_len == 0);
 	mk_lang_assert(iorp->m_len >= 0);
 
-	err = mk_sl_io_async_thread_portable_add_w(writer->m_thread, writer, iorp);
+	err = mk_sl_io_async_thread_portable_add_w(writer->m_thread, writer, iorp); mk_lang_check_rereturn(err);
 	return 0;
 }
 

@@ -620,7 +620,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_wh
 
 	for(i = 0; i != 8; ++i)
 	{
-		mk_sl_cui_uint64_set_zero(&whirlpool->m_state.m_uint64s[i]);
+		mk_sl_cui_uint64_set_zero(&whirlpool->m_state.m_data.m_uint64s[i]);
 	}
 	mk_lib_crypto_hash_block_whirlpool_uint256_set_zero(&whirlpool->m_len);
 }
@@ -629,20 +629,20 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_wh
 {
 	mk_lib_crypto_hash_block_whirlpool_uint256_t tsize mk_lang_constexpr_init;
 	mk_lang_types_usize_t iblock mk_lang_constexpr_init;
-	mk_lib_crypto_hash_block_whirlpool_block_pt pfree[3] mk_lang_constexpr_init;
-	mk_lib_crypto_hash_block_whirlpool_block_t storages[3] mk_lang_constexpr_init;
+	mk_lib_crypto_hash_block_whirlpool_state_pt pfree[3] mk_lang_constexpr_init;
+	mk_lib_crypto_hash_block_whirlpool_state_t storages[3] mk_lang_constexpr_init;
 	mk_lang_types_sint_t nfree mk_lang_constexpr_init;
-	mk_lib_crypto_hash_block_whirlpool_block_pt ptr1 mk_lang_constexpr_init;
-	mk_lib_crypto_hash_block_whirlpool_block_pt ptr2 mk_lang_constexpr_init;
+	mk_lib_crypto_hash_block_whirlpool_state_pt ptr1 mk_lang_constexpr_init;
+	mk_lib_crypto_hash_block_whirlpool_state_pt ptr2 mk_lang_constexpr_init;
 	mk_lang_types_sint_t i mk_lang_constexpr_init;
 	mk_sl_cui_uint64_t ta mk_lang_constexpr_init;
 	mk_lang_types_sint_t ir mk_lang_constexpr_init;
-	mk_lib_crypto_hash_block_whirlpool_block_pt ptr3 mk_lang_constexpr_init;
+	mk_lib_crypto_hash_block_whirlpool_state_pt ptr3 mk_lang_constexpr_init;
 	mk_lang_types_uchar_t idxs[8] mk_lang_constexpr_init;
 	mk_sl_cui_uint64_t tb mk_lang_constexpr_init;
 	mk_sl_cui_uint64_t tc mk_lang_constexpr_init;
 	mk_sl_cui_uint64_t td mk_lang_constexpr_init;
-	mk_lib_crypto_hash_block_whirlpool_block_pt ptr4 mk_lang_constexpr_init;
+	mk_lib_crypto_hash_block_whirlpool_state_pt ptr4 mk_lang_constexpr_init;
 
 	mk_lang_assert(whirlpool);
 	mk_lang_assert(pblocks || nblocks == 0);
@@ -663,42 +663,42 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_wh
 		for(i = 0; i != 8; ++i)
 		{
 			mk_sl_uint_64_from_8_le(&ta, &pblocks[iblock].m_uint8s[i * 8]);
-			mk_sl_cui_uint64_xor3(&whirlpool->m_state.m_uint64s[i], &ta, &ptr2->m_uint64s[i]);
+			mk_sl_cui_uint64_xor3(&whirlpool->m_state.m_data.m_uint64s[i], &ta, &ptr2->m_data.m_uint64s[i]);
 		}
 		for(ir = 0; ir != s_mk_lib_crypto_hash_block_whirlpool_nrounds; ++ir)
 		{
 			ptr3 = pfree[--nfree];
 			for(i = 0; i != 8; ++i)
 			{
-				mk_sl_cui_uint64_shr3(&ptr1->m_uint64s[(0 + i) % 8], 0 * 8, &ta); mk_sl_cui_uint64_to_bi_uchar(&ta, &idxs[0]);
-				mk_sl_cui_uint64_shr3(&ptr1->m_uint64s[(7 + i) % 8], 1 * 8, &ta); mk_sl_cui_uint64_to_bi_uchar(&ta, &idxs[1]);
-				mk_sl_cui_uint64_shr3(&ptr1->m_uint64s[(6 + i) % 8], 2 * 8, &ta); mk_sl_cui_uint64_to_bi_uchar(&ta, &idxs[2]);
-				mk_sl_cui_uint64_shr3(&ptr1->m_uint64s[(5 + i) % 8], 3 * 8, &ta); mk_sl_cui_uint64_to_bi_uchar(&ta, &idxs[3]);
-				mk_sl_cui_uint64_shr3(&ptr1->m_uint64s[(4 + i) % 8], 4 * 8, &ta); mk_sl_cui_uint64_to_bi_uchar(&ta, &idxs[4]);
-				mk_sl_cui_uint64_shr3(&ptr1->m_uint64s[(3 + i) % 8], 5 * 8, &ta); mk_sl_cui_uint64_to_bi_uchar(&ta, &idxs[5]);
-				mk_sl_cui_uint64_shr3(&ptr1->m_uint64s[(2 + i) % 8], 6 * 8, &ta); mk_sl_cui_uint64_to_bi_uchar(&ta, &idxs[6]);
-				mk_sl_cui_uint64_shr3(&ptr1->m_uint64s[(1 + i) % 8], 7 * 8, &ta); mk_sl_cui_uint64_to_bi_uchar(&ta, &idxs[7]);
+				mk_sl_cui_uint64_shr3(&ptr1->m_data.m_uint64s[(0 + i) % 8], 0 * 8, &ta); mk_sl_cui_uint64_to_bi_uchar(&ta, &idxs[0]);
+				mk_sl_cui_uint64_shr3(&ptr1->m_data.m_uint64s[(7 + i) % 8], 1 * 8, &ta); mk_sl_cui_uint64_to_bi_uchar(&ta, &idxs[1]);
+				mk_sl_cui_uint64_shr3(&ptr1->m_data.m_uint64s[(6 + i) % 8], 2 * 8, &ta); mk_sl_cui_uint64_to_bi_uchar(&ta, &idxs[2]);
+				mk_sl_cui_uint64_shr3(&ptr1->m_data.m_uint64s[(5 + i) % 8], 3 * 8, &ta); mk_sl_cui_uint64_to_bi_uchar(&ta, &idxs[3]);
+				mk_sl_cui_uint64_shr3(&ptr1->m_data.m_uint64s[(4 + i) % 8], 4 * 8, &ta); mk_sl_cui_uint64_to_bi_uchar(&ta, &idxs[4]);
+				mk_sl_cui_uint64_shr3(&ptr1->m_data.m_uint64s[(3 + i) % 8], 5 * 8, &ta); mk_sl_cui_uint64_to_bi_uchar(&ta, &idxs[5]);
+				mk_sl_cui_uint64_shr3(&ptr1->m_data.m_uint64s[(2 + i) % 8], 6 * 8, &ta); mk_sl_cui_uint64_to_bi_uchar(&ta, &idxs[6]);
+				mk_sl_cui_uint64_shr3(&ptr1->m_data.m_uint64s[(1 + i) % 8], 7 * 8, &ta); mk_sl_cui_uint64_to_bi_uchar(&ta, &idxs[7]);
 				mk_sl_cui_uint64_xor3(&s_mk_lib_crypto_hash_block_whirlpool_tables.m_data[0].m_data.m_uint64s[idxs[0]], &s_mk_lib_crypto_hash_block_whirlpool_tables.m_data[1].m_data.m_uint64s[idxs[1]], &ta);
 				mk_sl_cui_uint64_xor3(&s_mk_lib_crypto_hash_block_whirlpool_tables.m_data[2].m_data.m_uint64s[idxs[2]], &s_mk_lib_crypto_hash_block_whirlpool_tables.m_data[3].m_data.m_uint64s[idxs[3]], &tb);
 				mk_sl_cui_uint64_xor3(&s_mk_lib_crypto_hash_block_whirlpool_tables.m_data[4].m_data.m_uint64s[idxs[4]], &s_mk_lib_crypto_hash_block_whirlpool_tables.m_data[5].m_data.m_uint64s[idxs[5]], &tc);
 				mk_sl_cui_uint64_xor3(&s_mk_lib_crypto_hash_block_whirlpool_tables.m_data[6].m_data.m_uint64s[idxs[6]], &s_mk_lib_crypto_hash_block_whirlpool_tables.m_data[7].m_data.m_uint64s[idxs[7]], &td);
 				mk_sl_cui_uint64_xor2(&ta, &tb);
 				mk_sl_cui_uint64_xor2(&tc, &td);
-				mk_sl_cui_uint64_xor3(&ta, &tc, &ptr3->m_uint64s[i]);
+				mk_sl_cui_uint64_xor3(&ta, &tc, &ptr3->m_data.m_uint64s[i]);
 			}
-			mk_sl_cui_uint64_xor2(&ptr3->m_uint64s[0], &s_mk_lib_crypto_hash_block_whirlpool_rc[ir]);
+			mk_sl_cui_uint64_xor2(&ptr3->m_data.m_uint64s[0], &s_mk_lib_crypto_hash_block_whirlpool_rc[ir]);
 			if(ir != 0){ pfree[nfree++] = ptr1; }
 			ptr4 = pfree[--nfree];
 			for(i = 0; i != 8; ++i)
 			{
-				mk_sl_cui_uint64_shr3(&ptr2->m_uint64s[(0 + i) % 8], 0 * 8, &ta); mk_sl_cui_uint64_to_bi_uchar(&ta, &idxs[0]);
-				mk_sl_cui_uint64_shr3(&ptr2->m_uint64s[(7 + i) % 8], 1 * 8, &ta); mk_sl_cui_uint64_to_bi_uchar(&ta, &idxs[1]);
-				mk_sl_cui_uint64_shr3(&ptr2->m_uint64s[(6 + i) % 8], 2 * 8, &ta); mk_sl_cui_uint64_to_bi_uchar(&ta, &idxs[2]);
-				mk_sl_cui_uint64_shr3(&ptr2->m_uint64s[(5 + i) % 8], 3 * 8, &ta); mk_sl_cui_uint64_to_bi_uchar(&ta, &idxs[3]);
-				mk_sl_cui_uint64_shr3(&ptr2->m_uint64s[(4 + i) % 8], 4 * 8, &ta); mk_sl_cui_uint64_to_bi_uchar(&ta, &idxs[4]);
-				mk_sl_cui_uint64_shr3(&ptr2->m_uint64s[(3 + i) % 8], 5 * 8, &ta); mk_sl_cui_uint64_to_bi_uchar(&ta, &idxs[5]);
-				mk_sl_cui_uint64_shr3(&ptr2->m_uint64s[(2 + i) % 8], 6 * 8, &ta); mk_sl_cui_uint64_to_bi_uchar(&ta, &idxs[6]);
-				mk_sl_cui_uint64_shr3(&ptr2->m_uint64s[(1 + i) % 8], 7 * 8, &ta); mk_sl_cui_uint64_to_bi_uchar(&ta, &idxs[7]);
+				mk_sl_cui_uint64_shr3(&ptr2->m_data.m_uint64s[(0 + i) % 8], 0 * 8, &ta); mk_sl_cui_uint64_to_bi_uchar(&ta, &idxs[0]);
+				mk_sl_cui_uint64_shr3(&ptr2->m_data.m_uint64s[(7 + i) % 8], 1 * 8, &ta); mk_sl_cui_uint64_to_bi_uchar(&ta, &idxs[1]);
+				mk_sl_cui_uint64_shr3(&ptr2->m_data.m_uint64s[(6 + i) % 8], 2 * 8, &ta); mk_sl_cui_uint64_to_bi_uchar(&ta, &idxs[2]);
+				mk_sl_cui_uint64_shr3(&ptr2->m_data.m_uint64s[(5 + i) % 8], 3 * 8, &ta); mk_sl_cui_uint64_to_bi_uchar(&ta, &idxs[3]);
+				mk_sl_cui_uint64_shr3(&ptr2->m_data.m_uint64s[(4 + i) % 8], 4 * 8, &ta); mk_sl_cui_uint64_to_bi_uchar(&ta, &idxs[4]);
+				mk_sl_cui_uint64_shr3(&ptr2->m_data.m_uint64s[(3 + i) % 8], 5 * 8, &ta); mk_sl_cui_uint64_to_bi_uchar(&ta, &idxs[5]);
+				mk_sl_cui_uint64_shr3(&ptr2->m_data.m_uint64s[(2 + i) % 8], 6 * 8, &ta); mk_sl_cui_uint64_to_bi_uchar(&ta, &idxs[6]);
+				mk_sl_cui_uint64_shr3(&ptr2->m_data.m_uint64s[(1 + i) % 8], 7 * 8, &ta); mk_sl_cui_uint64_to_bi_uchar(&ta, &idxs[7]);
 				mk_sl_cui_uint64_xor3(&s_mk_lib_crypto_hash_block_whirlpool_tables.m_data[0].m_data.m_uint64s[idxs[0]], &s_mk_lib_crypto_hash_block_whirlpool_tables.m_data[1].m_data.m_uint64s[idxs[1]], &ta);
 				mk_sl_cui_uint64_xor3(&s_mk_lib_crypto_hash_block_whirlpool_tables.m_data[2].m_data.m_uint64s[idxs[2]], &s_mk_lib_crypto_hash_block_whirlpool_tables.m_data[3].m_data.m_uint64s[idxs[3]], &tb);
 				mk_sl_cui_uint64_xor3(&s_mk_lib_crypto_hash_block_whirlpool_tables.m_data[4].m_data.m_uint64s[idxs[4]], &s_mk_lib_crypto_hash_block_whirlpool_tables.m_data[5].m_data.m_uint64s[idxs[5]], &tc);
@@ -706,7 +706,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_wh
 				mk_sl_cui_uint64_xor2(&ta, &tb);
 				mk_sl_cui_uint64_xor2(&tc, &td);
 				mk_sl_cui_uint64_xor2(&ta, &tc);
-				mk_sl_cui_uint64_xor3(&ta, &ptr3->m_uint64s[i], &ptr4->m_uint64s[i]);
+				mk_sl_cui_uint64_xor3(&ta, &ptr3->m_data.m_uint64s[i], &ptr4->m_data.m_uint64s[i]);
 			}
 			pfree[nfree++] = ptr2;
 			ptr1 = ptr3;
@@ -715,8 +715,8 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_wh
 		for(i = 0; i != 8; ++i)
 		{
 			mk_sl_uint_64_from_8_le(&ta, &pblocks[iblock].m_uint8s[i * 8]);
-			mk_sl_cui_uint64_xor2(&ta, &ptr2->m_uint64s[i]);
-			mk_sl_cui_uint64_xor2(&whirlpool->m_state.m_uint64s[i], &ta);
+			mk_sl_cui_uint64_xor2(&ta, &ptr2->m_data.m_uint64s[i]);
+			mk_sl_cui_uint64_xor2(&whirlpool->m_state.m_data.m_uint64s[i], &ta);
 		}
 	}
 }
@@ -776,6 +776,6 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_wh
 	mk_lib_crypto_hash_block_whirlpool_append_blocks(whirlpool, block, 1);
 	for(i = 0; i != 8; ++i)
 	{
-		mk_sl_uint_64_to_8_le(&whirlpool->m_state.m_uint64s[i], &digest->m_uint8s[i * 8]);
+		mk_sl_uint_64_to_8_le(&whirlpool->m_state.m_data.m_uint64s[i], &digest->m_uint8s[i * 8]);
 	}
 }
