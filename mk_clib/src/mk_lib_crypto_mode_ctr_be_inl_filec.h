@@ -82,8 +82,9 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_mode_ctr_be_inl_defd_schedule
 
 	mk_lang_assert(ctr_be);
 	mk_lang_assert(schedule);
-	mk_lang_assert(input);
-	mk_lang_assert(output);
+	mk_lang_assert(input || nblocks == 0);
+	mk_lang_assert(output || nblocks == 0);
+	mk_lang_assert(nblocks >= 0);
 
 	for(iblock = 0; iblock != (nblocks / 16) * 16; iblock += 16)
 	{

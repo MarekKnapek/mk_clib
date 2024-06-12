@@ -4,6 +4,7 @@
 
 #include "mk_lang_assert.h"
 #include "mk_lang_constexpr.h"
+#include "mk_lang_countof.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_null.h"
 #include "mk_lang_static_assert.h"
@@ -34,7 +35,7 @@ public:
 		m_data()
 	{
 	}
-	mk_lang_constexpr mk_lang_types_bool_t operator==(mk_lib_cpp_constexpr_array_t<t, n> const& other) const mk_lang_noexcept
+	mk_lang_nodiscard mk_lang_constexpr mk_lang_types_bool_t eq(mk_lib_cpp_constexpr_array_t<t, n> const& other) const mk_lang_noexcept
 	{
 		mk_lang_types_usize_t i mk_lang_constexpr_init;
 
@@ -47,39 +48,73 @@ public:
 		}
 		return mk_lang_true;
 	}
-	mk_lang_constexpr mk_lang_types_bool_t operator!=(mk_lib_cpp_constexpr_array_t<t, n> const& other) const mk_lang_noexcept
+	mk_lang_nodiscard mk_lang_constexpr mk_lang_types_bool_t ne(mk_lib_cpp_constexpr_array_t<t, n> const& other) const mk_lang_noexcept
 	{
-		return !(*this == other);
+		return !eq(other);
 	}
-	mk_lang_constexpr t const& operator[](mk_lang_types_usize_t const& idx) const mk_lang_noexcept
-	{
-		mk_lang_assert(idx < n);
-
-		return m_data[idx];
-	}
-	mk_lang_constexpr t& operator[](mk_lang_types_usize_t const& idx) mk_lang_noexcept
+	mk_lang_nodiscard mk_lang_constexpr t const& at(mk_lang_types_usize_t const& idx) const mk_lang_noexcept
 	{
 		mk_lang_assert(idx < n);
 
 		return m_data[idx];
 	}
-	mk_lang_constexpr t const* data() const mk_lang_noexcept
+	mk_lang_nodiscard mk_lang_constexpr t& at(mk_lang_types_usize_t const& idx) mk_lang_noexcept
+	{
+		mk_lang_assert(idx < n);
+
+		return m_data[idx];
+	}
+	mk_lang_nodiscard mk_lang_constexpr t const& cat(mk_lang_types_usize_t const& idx) const mk_lang_noexcept
+	{
+		mk_lang_assert(idx < n);
+
+		return m_data[idx];
+	}
+	mk_lang_nodiscard mk_lang_constexpr mk_lang_types_bool_t operator==(mk_lib_cpp_constexpr_array_t<t, n> const& other) const mk_lang_noexcept
+	{
+		return eq(other);
+	}
+	mk_lang_nodiscard mk_lang_constexpr mk_lang_types_bool_t operator!=(mk_lib_cpp_constexpr_array_t<t, n> const& other) const mk_lang_noexcept
+	{
+		return ne(other);
+	}
+	mk_lang_nodiscard mk_lang_constexpr t const& operator[](mk_lang_types_usize_t const& idx) const mk_lang_noexcept
+	{
+		mk_lang_assert(idx < n);
+
+		return at(idx);
+	}
+	mk_lang_nodiscard mk_lang_constexpr t& operator[](mk_lang_types_usize_t const& idx) mk_lang_noexcept
+	{
+		mk_lang_assert(idx < n);
+
+		return at(idx);
+	}
+	mk_lang_nodiscard mk_lang_constexpr t const* data() const mk_lang_noexcept
 	{
 		return m_data;
 	}
-	mk_lang_constexpr t* data() mk_lang_noexcept
+	mk_lang_nodiscard mk_lang_constexpr t* data() mk_lang_noexcept
 	{
 		return m_data;
 	}
-	mk_lang_constexpr mk_lang_types_usize_t size() const mk_lang_noexcept
+	mk_lang_nodiscard mk_lang_constexpr t const* cdata() const mk_lang_noexcept
+	{
+		return m_data;
+	}
+	mk_lang_nodiscard mk_lang_constexpr mk_lang_types_usize_t size() const mk_lang_noexcept
 	{
 		return n;
 	}
-	mk_lang_constexpr carr_t arr() const mk_lang_noexcept
+	mk_lang_nodiscard mk_lang_constexpr carr_t arr() const mk_lang_noexcept
 	{
 		return m_data;
 	}
-	mk_lang_constexpr arr_t arr() mk_lang_noexcept
+	mk_lang_nodiscard mk_lang_constexpr arr_t arr() mk_lang_noexcept
+	{
+		return m_data;
+	}
+	mk_lang_nodiscard mk_lang_constexpr carr_t carr() const mk_lang_noexcept
 	{
 		return m_data;
 	}
@@ -90,7 +125,7 @@ public:
 
 		for(i = 0; i != n; ++i)
 		{
-			ret[(n - 1) - i] = (*this)[i];
+			ret.at((n - 1) - i) = at(i);
 		}
 		return ret;
 	}
@@ -108,24 +143,36 @@ public:
 	mk_lang_constexpr mk_lib_cpp_constexpr_array_t() mk_lang_noexcept
 	{
 	}
-	mk_lang_constexpr mk_lang_types_bool_t operator==(mk_lib_cpp_constexpr_array_t<t, 0> const& other) const mk_lang_noexcept
+	mk_lang_nodiscard mk_lang_constexpr mk_lang_types_bool_t eq(mk_lib_cpp_constexpr_array_t<t, 0> const& other) const mk_lang_noexcept
 	{
-		((void)(other));
+		((mk_lang_types_void_t)(other));
 		return mk_lang_true;
 	}
-	mk_lang_constexpr mk_lang_types_bool_t operator!=(mk_lib_cpp_constexpr_array_t<t, 0> const& other) const mk_lang_noexcept
+	mk_lang_nodiscard mk_lang_constexpr mk_lang_types_bool_t ne(mk_lib_cpp_constexpr_array_t<t, 0> const& other) const mk_lang_noexcept
 	{
-		return !(*this == other);
+		return !eq(other);
 	}
-	mk_lang_constexpr t const* data() const mk_lang_noexcept
+	mk_lang_nodiscard mk_lang_constexpr mk_lang_types_bool_t operator==(mk_lib_cpp_constexpr_array_t<t, 0> const& other) const mk_lang_noexcept
+	{
+		return eq(other);
+	}
+	mk_lang_nodiscard mk_lang_constexpr mk_lang_types_bool_t operator!=(mk_lib_cpp_constexpr_array_t<t, 0> const& other) const mk_lang_noexcept
+	{
+		return ne(other);
+	}
+	mk_lang_nodiscard mk_lang_constexpr t const* data() const mk_lang_noexcept
 	{
 		return mk_lang_null;
 	}
-	mk_lang_constexpr t* data() mk_lang_noexcept
+	mk_lang_nodiscard mk_lang_constexpr t* data() mk_lang_noexcept
 	{
 		return mk_lang_null;
 	}
-	mk_lang_constexpr mk_lang_types_usize_t size() const mk_lang_noexcept
+	mk_lang_nodiscard mk_lang_constexpr t const* cdata() const mk_lang_noexcept
+	{
+		return mk_lang_null;
+	}
+	mk_lang_nodiscard mk_lang_constexpr mk_lang_types_usize_t size() const mk_lang_noexcept
 	{
 		return 0;
 	}
@@ -141,16 +188,17 @@ public:
 #endif
 
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_uchar_t mk_lib_cpp_constexpr_char_to_nibble(char const ch) mk_lang_noexcept
+mk_lang_constexpr_static_inline mk_lang_types_pchar_t const s_alphabet_lc[] = "0123456789abcdef";
+mk_lang_constexpr_static_inline mk_lang_types_pchar_t const s_alphabet_uc[] = "0123456789ABCDEF";
+
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_uchar_t mk_lib_cpp_constexpr_char_to_nibble(mk_lang_types_pchar_t const ch) mk_lang_noexcept
 {
-	mk_lang_constexpr_static char const s_alphabet_lc[] = "0123456789abcdef";
-	mk_lang_constexpr_static char const s_alphabet_uc[] = "0123456789ABCDEF";
+	mk_lang_types_sint_t i mk_lang_constexpr_init;
 
-	int i mk_lang_constexpr_init;
+	mk_lang_static_assert(mk_lang_countstr(s_alphabet_lc) == mk_lang_countstr(s_alphabet_uc));
 
-	mk_lang_static_assert(sizeof(s_alphabet_lc) == sizeof(s_alphabet_uc));
-
-	for(i = 0; i != ((int)(sizeof(s_alphabet_lc))) - 1; ++i)
+	for(i = 0; i != mk_lang_countstr(s_alphabet_lc); ++i)
 	{
 		if(ch == s_alphabet_lc[i])
 		{
@@ -169,7 +217,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_uchar_t mk_lib_c
 
 
 template<mk_lang_types_usize_t str_lit_len>
-mk_lang_constexpr mk_lang_jumbo void mk_lib_cpp_constexpr_hex_str_lit_to_u8s_ptr(mk_sl_cui_uint8_pt const dst, char const(&str_lit)[str_lit_len]) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_cpp_constexpr_hex_str_lit_to_u8s_ptr(mk_sl_cui_uint8_pt const dst, mk_lang_types_pchar_t const(&str_lit)[str_lit_len]) mk_lang_noexcept
 {
 	mk_lang_types_usize_t i mk_lang_constexpr_init;
 	mk_lang_types_uchar_t hi mk_lang_constexpr_init;
@@ -191,7 +239,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_cpp_constexpr_hex_str_lit_to_u8s_ptr
 }
 
 template<mk_lang_types_usize_t dst_len, mk_lang_types_usize_t str_lit_len>
-mk_lang_constexpr mk_lang_jumbo void mk_lib_cpp_constexpr_hex_str_lit_to_u8s_arr(mk_sl_cui_uint8_t(&dst)[dst_len], char const(&str_lit)[str_lit_len]) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_cpp_constexpr_hex_str_lit_to_u8s_arr(mk_sl_cui_uint8_t(&dst)[dst_len], mk_lang_types_pchar_t const(&str_lit)[str_lit_len]) mk_lang_noexcept
 {
 	mk_lang_static_assert(dst_len >= 0);
 	mk_lang_static_assert(str_lit_len >= 1);
@@ -202,9 +250,9 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_cpp_constexpr_hex_str_lit_to_u8s_arr
 }
 
 template<mk_lang_types_usize_t str_lit_len>
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto mk_lib_cpp_constexpr_hex_str_lit_to_u8s(char const(&str_lit)[str_lit_len]) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto mk_lib_cpp_constexpr_hex_str_lit_to_u8s(mk_lang_types_pchar_t const(&str_lit)[str_lit_len]) mk_lang_noexcept
 {
-	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, (str_lit_len - 1) / 2> ret;
+	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, (str_lit_len - 1) / 2> ret mk_lang_constexpr_init;
 
 	mk_lang_static_assert(str_lit_len >= 1);
 	mk_lang_static_assert((str_lit_len - 1) % 2 == 0);
@@ -213,8 +261,16 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto mk_lib_cpp_constexpr_hex_
 	return ret;
 }
 
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto mk_lib_cpp_constexpr_hex_str_lit_to_u8s(mk_lang_types_pchar_t const(&str_lit)[1]) mk_lang_noexcept
+{
+	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, (1 - 1) / 2> ret mk_lang_constexpr_init;
+
+	((mk_lang_types_void_t)(str_lit));
+	return ret;
+}
+
 template<mk_lang_types_usize_t str_lit_len>
-mk_lang_constexpr mk_lang_jumbo void mk_lib_cpp_constexpr_str_lit_to_u8s_ptr(mk_sl_cui_uint8_pt const dst, char const(&str_lit)[str_lit_len]) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_cpp_constexpr_str_lit_to_u8s_ptr(mk_sl_cui_uint8_pt const dst, mk_lang_types_pchar_t const(&str_lit)[str_lit_len]) mk_lang_noexcept
 {
 	mk_lang_types_usize_t i mk_lang_constexpr_init;
 
@@ -229,7 +285,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_cpp_constexpr_str_lit_to_u8s_ptr(mk_
 }
 
 template<mk_lang_types_usize_t dst_len, mk_lang_types_usize_t str_lit_len>
-mk_lang_constexpr mk_lang_jumbo void mk_lib_cpp_constexpr_str_lit_to_u8s_arr(mk_sl_cui_uint8_t(&dst)[dst_len], char const(&str_lit)[str_lit_len]) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_cpp_constexpr_str_lit_to_u8s_arr(mk_sl_cui_uint8_t(&dst)[dst_len], mk_lang_types_pchar_t const(&str_lit)[str_lit_len]) mk_lang_noexcept
 {
 	mk_lang_static_assert(dst_len >= 0);
 	mk_lang_static_assert(str_lit_len >= 1);
@@ -239,7 +295,7 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_cpp_constexpr_str_lit_to_u8s_arr(mk_
 }
 
 template<mk_lang_types_usize_t str_lit_len>
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto mk_lib_cpp_constexpr_str_lit_to_u8s(char const(&str_lit)[str_lit_len]) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto mk_lib_cpp_constexpr_str_lit_to_u8s(mk_lang_types_pchar_t const(&str_lit)[str_lit_len]) mk_lang_noexcept
 {
 	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, str_lit_len - 1> ret mk_lang_constexpr_init;
 
@@ -249,7 +305,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto mk_lib_cpp_constexpr_str_
 	return ret;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto mk_lib_cpp_constexpr_str_lit_to_u8s(char const(&)[1]) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto mk_lib_cpp_constexpr_str_lit_to_u8s(mk_lang_types_pchar_t const(&)[1]) mk_lang_noexcept
 {
 	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, 0> ret mk_lang_constexpr_init;
 

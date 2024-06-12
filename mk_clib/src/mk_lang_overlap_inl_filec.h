@@ -14,9 +14,9 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lang_o
 	mk_lang_types_usize_t it1 mk_lang_constexpr_init;
 	mk_lang_types_usize_t it2 mk_lang_constexpr_init;
 
-	mk_lang_assert(arr1);
+	mk_lang_assert(arr1 || len1 == 0);
 	mk_lang_assert(len1 >= 0);
-	mk_lang_assert(arr2);
+	mk_lang_assert(arr2 || len2 == 0);
 	mk_lang_assert(len2 >= 0);
 
 	if(mk_lang_constexpr_is_constant_evaluated_test)

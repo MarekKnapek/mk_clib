@@ -26,13 +26,14 @@ struct mk_lang_countstr_impl_s
 {
 };
 
-template<typename t>
-struct mk_lang_countstr_impl_s<t[1]>
+template<typename t, mk_lang_types_sint_t n>
+struct mk_lang_countstr_impl_s<t const[n]>
 {
+	mk_lang_constexpr static mk_lang_types_sint_t const value = n - 1;
 };
 
 template<typename t, mk_lang_types_sint_t n>
-struct mk_lang_countstr_impl_s<t[n]>
+struct mk_lang_countstr_impl_s<t const(&)[n]>
 {
 	mk_lang_constexpr static mk_lang_types_sint_t const value = n - 1;
 };
