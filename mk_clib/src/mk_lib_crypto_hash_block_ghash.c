@@ -2,11 +2,14 @@
 
 /* NIST SP 800-38D */
 
+#include "mk_lang_arch.h"
 #include "mk_lang_assert.h"
 #include "mk_lang_constexpr.h"
+#include "mk_lang_cpuid.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_limits.h"
+#include "mk_lang_msvc.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_static_assert.h"
 #include "mk_lang_static_param.h"
@@ -29,7 +32,93 @@
 #include "mk_lib_crypto_mode_base_inl_filec.h"
 
 
-mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_hash_block_ghash_multiply2(mk_lang_static_param(mk_sl_cui_uint8_t, a, 16), mk_lang_static_param(mk_sl_cui_uint8_ct, b, 16)) mk_lang_noexcept
+#if mk_lang_msvc_full_ver >= mk_lang_msvc_ver_2005 && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
+
+#include <wmmintrin.h> /* _mm_clmulepi64_si128 */
+#include <emmintrin.h> /* SSE2 _mm_load_si128 _mm_or_si128 _mm_set_epi8 _mm_slli_epi32 _mm_slli_si128 _mm_srli_epi32 _mm_srli_si128 _mm_store_si128 _mm_xor_si128 */
+#include <tmmintrin.h> /* SSSE3 _mm_shuffle_epi8 */
+
+#pragma intrinsic(_mm_clmulepi64_si128)
+#pragma intrinsic(_mm_load_si128)
+#pragma intrinsic(_mm_or_si128)
+#pragma intrinsic(_mm_set_epi8)
+#pragma intrinsic(_mm_shuffle_epi8)
+#pragma intrinsic(_mm_slli_epi32)
+#pragma intrinsic(_mm_slli_si128)
+#pragma intrinsic(_mm_srli_epi32)
+#pragma intrinsic(_mm_srli_si128)
+#pragma intrinsic(_mm_store_si128)
+#pragma intrinsic(_mm_xor_si128)
+
+static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_hash_block_ghash_multiply2_x86(mk_lang_static_param(mk_sl_cui_uint8_t, a, 16), mk_lang_static_param(mk_sl_cui_uint8_ct, b, 16)) mk_lang_noexcept
+{
+	__m128i bswap;
+	__m128i aa;
+	__m128i bb;
+	__m128i ta;
+	__m128i tb;
+	__m128i tc;
+	__m128i td;
+	__m128i te;
+	__m128i tf;
+	__m128i tg;
+	__m128i th;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(mk_lang_cpuid_has_pclmulqdq());
+	mk_lang_assert(mk_lang_cpuid_has_sse2());
+	mk_lang_assert(mk_lang_cpuid_has_ssse3());
+	mk_lang_assert((((mk_lang_types_uintptr_t)(a)) & 0xf) == 0);
+	mk_lang_assert((((mk_lang_types_uintptr_t)(b)) & 0xf) == 0);
+
+	bswap = _mm_set_epi8(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
+	aa = _mm_load_si128(((__m128i const*)(a)));
+	bb = _mm_load_si128(((__m128i const*)(b)));
+	aa = _mm_shuffle_epi8(aa, bswap);
+	bb = _mm_shuffle_epi8(bb, bswap);
+	ta = _mm_clmulepi64_si128(aa, bb, 0x00);
+	tb = _mm_clmulepi64_si128(aa, bb, 0x10);
+	tc = _mm_clmulepi64_si128(aa, bb, 0x01);
+	td = _mm_clmulepi64_si128(aa, bb, 0x11);
+	tb = _mm_xor_si128(tb, tc);
+	tc = _mm_slli_si128(tb, 8);
+	tb = _mm_srli_si128(tb, 8);
+	ta = _mm_xor_si128(ta, tc);
+	td = _mm_xor_si128(td, tb);
+	te = _mm_srli_epi32(ta, 31);
+	tf = _mm_srli_epi32(td, 31);
+	ta = _mm_slli_epi32(ta, 1);
+	td = _mm_slli_epi32(td, 1);
+	tg = _mm_srli_si128(te, 12);
+	tf = _mm_slli_si128(tf, 4);
+	te = _mm_slli_si128(te, 4);
+	ta = _mm_or_si128(ta, te);
+	td = _mm_or_si128(td, tf);
+	td = _mm_or_si128(td, tg);
+	te = _mm_slli_epi32(ta, 31);
+	tf = _mm_slli_epi32(ta, 30);
+	tg = _mm_slli_epi32(ta, 25);
+	te = _mm_xor_si128(te, tf);
+	te = _mm_xor_si128(te, tg);
+	tf = _mm_srli_si128(te, 4);
+	te = _mm_slli_si128(te, 12);
+	ta = _mm_xor_si128(ta, te);
+	th = _mm_srli_epi32(ta, 1);
+	tb = _mm_srli_epi32(ta, 2);
+	tc = _mm_srli_epi32(ta, 7);
+	th = _mm_xor_si128(th, tb);
+	th = _mm_xor_si128(th, tc);
+	th = _mm_xor_si128(th, tf);
+	ta = _mm_xor_si128(ta, th);
+	td = _mm_xor_si128(td, ta);
+	td = _mm_shuffle_epi8(td, bswap);
+	_mm_store_si128(((__m128i*)(a)), td);
+}
+
+#endif
+
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_hash_block_ghash_multiply2_portable(mk_lang_static_param(mk_sl_cui_uint8_t, a, 16), mk_lang_static_param(mk_sl_cui_uint8_ct, b, 16)) mk_lang_noexcept
 {
 	#define mk_lib_crypto_hash_block_ghash_r (0xe1)
 
@@ -73,6 +162,20 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_hash_
 		}
 	}
 	mk_lib_crypto_hash_block_ghash_memcpyu8_fn(a, z, 16);
+}
+
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_hash_block_ghash_multiply2(mk_lang_static_param(mk_sl_cui_uint8_t, a, 16), mk_lang_static_param(mk_sl_cui_uint8_ct, b, 16)) mk_lang_noexcept
+{
+	#if mk_lang_msvc_full_ver >= mk_lang_msvc_ver_2005 && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
+	if(!mk_lang_constexpr_is_constant_evaluated_test && mk_lang_cpuid_has_pclmulqdq() && mk_lang_cpuid_has_sse2() && mk_lang_cpuid_has_ssse3() && ((((mk_lang_types_uintptr_t)(a)) & 0xf) == 0) && ((((mk_lang_types_uintptr_t)(b)) & 0xf) == 0))
+	{
+		mk_lib_crypto_hash_block_ghash_multiply2_x86(a, b);
+	}
+	else
+	#endif
+	{
+		mk_lib_crypto_hash_block_ghash_multiply2_portable(a, b);
+	}
 }
 
 mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_hash_block_ghash_append_block(mk_lib_crypto_hash_block_ghash_pt const ghash, mk_lib_crypto_hash_block_ghash_block_pct const block) mk_lang_noexcept
