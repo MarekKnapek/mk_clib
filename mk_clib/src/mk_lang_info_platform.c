@@ -111,6 +111,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_info_platform_print(mk_lang_types_voi
 
 	#if mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664
 	mk_lang_cpuid_init();
+	printf("pclmulqdq: %s\n", mk_lang_cpuid_has_pclmulqdq() ? "yes" : "no");
 	printf("ssse3    : %s\n", mk_lang_cpuid_has_ssse3()     ? "yes" : "no");
 	printf("sse41    : %s\n", mk_lang_cpuid_has_sse41()     ? "yes" : "no");
 	printf("popcnt   : %s\n", mk_lang_cpuid_has_popcnt()    ? "yes" : "no");
