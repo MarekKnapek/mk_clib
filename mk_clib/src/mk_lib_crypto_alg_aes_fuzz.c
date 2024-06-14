@@ -1,8 +1,10 @@
 #include "mk_lib_crypto_alg_aes_fuzz.h"
 
 #include "mk_lang_assert.h"
+#include "mk_lang_countof.h"
 #include "mk_lang_cpuid.h"
 #include "mk_lang_crash.h"
+#include "mk_lang_div_roundup.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_likely.h"
@@ -25,6 +27,7 @@
 #include "mk_lib_crypto_alg_aes_x86_vaes512_192.h"
 #include "mk_lib_crypto_alg_aes_x86_vaes512_256.h"
 #include "mk_lib_crypto_app.h"
+#include "mk_lib_crypto_mode_gcm_be_aes_256.h"
 
 #if defined _MSC_VER
 #include "mk_win_advapi.h"
@@ -470,6 +473,195 @@ mk_lang_jumbo void mk_lib_crypto_alg_aes_fuzz_winng(mk_lang_types_bool_t const c
 
 #endif
 
+mk_lang_jumbo void mk_lib_crypto_alg_aes_fuzz_gcm(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
+{
+	mk_lang_types_uchar_pct d;
+	mk_lang_types_usize_t s;
+	mk_lang_types_uchar_pct key;
+	mk_lang_types_uchar_pct iv;
+	mk_sl_cui_uint32_t tu32;
+	mk_lang_types_ulong_t aad_len;
+	mk_lang_types_uchar_pct aad;
+	mk_lang_types_uchar_pct msg;
+	mk_lang_types_ulong_t msg_len;
+	mk_lib_crypto_mode_gcm_be_aes_256_key_t gcmkey;
+	mk_lib_crypto_mode_gcm_be_aes_256_t gcm;
+	mk_lang_types_sint_t i;
+	mk_lib_crypto_mode_gcm_be_aes_256_msg_t gcmmsg;
+	mk_lang_types_uchar_t out_a[1 * 1024];
+	mk_lib_crypto_mode_gcm_be_aes_256_msg_t tag_a;
+	mk_lang_types_uchar_t out_b[1 * 1024];
+	mk_lib_crypto_mode_gcm_be_aes_256_msg_t tag_b;
+
+	mk_lang_assert(data);
+	mk_lang_assert(size >= 0);
+
+	d = data;
+	s = size;
+	if(!(s >= 32 + 12 + 4))
+	{
+		return;
+	}
+	key = d;
+	d += 32;
+	s -= 32;
+	iv = d;
+	d += 12;
+	s -= 12;
+	mk_sl_cui_uint32_from_buis_uchar_le(&tu32, d);
+	d += 4;
+	s -= 4;
+	mk_sl_cui_uint32_to_bi_ulong(&tu32, &aad_len);
+	if(!(s >= aad_len))
+	{
+		return;
+	}
+	aad = d;
+	d += aad_len;
+	s -= aad_len;
+	if(!(s >= 1 && s <= 1 * 1024))
+	{
+		return;
+	}
+	msg = d;
+	msg_len = ((mk_lang_types_ulong_t)(s));
+	d += msg_len;
+	s -= msg_len;
+	memcpy(&gcmkey, &key[0], 32);
+	mk_lib_crypto_mode_gcm_be_aes_256_expand_enc(&gcm, &gcmkey);
+	mk_lib_crypto_mode_gcm_be_aes_256_iv_append(&gcm, ((mk_sl_cui_uint8_pct)(iv)), 12);
+	mk_lib_crypto_mode_gcm_be_aes_256_iv_finish(&gcm);
+	mk_lib_crypto_mode_gcm_be_aes_256_aad_append(&gcm, ((mk_sl_cui_uint8_pct)(aad)), aad_len);
+	mk_lib_crypto_mode_gcm_be_aes_256_aad_finish(&gcm);
+	for(i = 0; i != msg_len / 16; ++i)
+	{
+		memcpy(&gcmmsg, &msg[i * 16], 16);
+		mk_lib_crypto_mode_gcm_be_aes_256_encrypt(&gcm, &gcmmsg, &gcmmsg, 1);
+		memcpy(&out_a[i * 16], &gcmmsg, 16);
+	}
+	mk_lib_crypto_mode_gcm_be_aes_256_finish_enc(&gcm, ((mk_sl_cui_uint8_pct)(&msg[i * 16])), ((mk_sl_cui_uint8_pt)(&out_a[i * 16])), msg_len % 16, &tag_a);
+	mk_lib_crypto_mode_gcm_be_aes_256_expand_dec(&gcm, &gcmkey);
+	mk_lib_crypto_mode_gcm_be_aes_256_iv_append(&gcm, ((mk_sl_cui_uint8_pct)(iv)), 12);
+	mk_lib_crypto_mode_gcm_be_aes_256_iv_finish(&gcm);
+	mk_lib_crypto_mode_gcm_be_aes_256_aad_append(&gcm, ((mk_sl_cui_uint8_pct)(aad)), aad_len);
+	mk_lib_crypto_mode_gcm_be_aes_256_aad_finish(&gcm);
+	for(i = 0; i != msg_len / 16; ++i)
+	{
+		memcpy(&gcmmsg, &out_a[i * 16], 16);
+		mk_lib_crypto_mode_gcm_be_aes_256_decrypt(&gcm, &gcmmsg, &gcmmsg, 1);
+		memcpy(&out_b[i * 16], &gcmmsg, 16);
+	}
+	mk_lib_crypto_mode_gcm_be_aes_256_finish_dec(&gcm, ((mk_sl_cui_uint8_pct)(&out_a[i * 16])), ((mk_sl_cui_uint8_pt)(&out_b[i * 16])), msg_len % 16, &tag_b);
+	test(memcmp(&out_b[0], &msg[0], msg_len) == 0);
+	test(memcmp(&tag_b, &tag_a, 16) == 0);
+}
+
+mk_lang_jumbo void mk_lib_crypto_alg_aes_fuzz_gcm_win(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
+{
+#if defined _MSC_VER
+	mk_lang_types_uchar_pct d;
+	mk_lang_types_usize_t s;
+	mk_lang_types_uchar_pct key;
+	mk_lang_types_uchar_pct iv;
+	mk_sl_cui_uint32_t tu32;
+	mk_lang_types_ulong_t aad_len;
+	mk_lang_types_uchar_pct aad;
+	mk_lang_types_uchar_pct msg;
+	mk_lang_types_ulong_t msg_len;
+	mk_win_bcrypt_authenticated_cipher_mode_info_t aad_info;
+	mk_lang_types_uchar_t tag_a[16];
+	mk_win_base_ntstatus_t st;
+	mk_win_bcrypt_alg_t alg;
+	mk_win_base_dword_t len;
+	mk_win_base_ulong_t len_real;
+	mk_win_base_usize_t key_storage[mk_lang_div_roundup(3262, sizeof(mk_win_base_usize_t))];
+	mk_win_bcrypt_key_lengths_t tag_len;
+	mk_win_bcrypt_key_t hkey;
+	mk_lang_types_uchar_t out_a[1 * 1024];
+	mk_win_base_ulong_t out_len;
+	mk_lib_crypto_mode_gcm_be_aes_256_key_t gcmkey;
+	mk_lib_crypto_mode_gcm_be_aes_256_t gcm;
+	mk_lang_types_sint_t i;
+	mk_lib_crypto_mode_gcm_be_aes_256_msg_t gcmmsg;
+	mk_lang_types_uchar_t out_b[1 * 1024];
+	mk_lib_crypto_mode_gcm_be_aes_256_msg_t tag_b;
+
+	mk_lang_assert(data);
+	mk_lang_assert(size >= 0);
+
+	d = data;
+	s = size;
+	if(!(s >= 32 + 12 + 4))
+	{
+		return;
+	}
+	key = d;
+	d += 32;
+	s -= 32;
+	iv = d;
+	d += 12;
+	s -= 12;
+	mk_sl_cui_uint32_from_buis_uchar_le(&tu32, d);
+	d += 4;
+	s -= 4;
+	mk_sl_cui_uint32_to_bi_ulong(&tu32, &aad_len);
+	if(!(s >= aad_len))
+	{
+		return;
+	}
+	aad = d;
+	d += aad_len;
+	s -= aad_len;
+	if(!(s >= 1 && s <= 1 * 1024))
+	{
+		return;
+	}
+	msg = d;
+	msg_len = ((mk_lang_types_ulong_t)(s));
+	d += msg_len;
+	s -= msg_len;
+	aad_info.m_size = ((mk_win_base_ulong_t)(sizeof(aad_info)));
+	aad_info.m_version = ((mk_win_base_ulong_t)(1));
+	aad_info.m_nonce = ((mk_win_base_uchar_pt)(iv));
+	aad_info.m_nonce_len = ((mk_win_base_ulong_t)(12));
+	aad_info.m_aad = ((mk_win_base_uchar_pt)(aad));
+	aad_info.m_aad_len = ((mk_win_base_ulong_t)(aad_len));
+	aad_info.m_tag = ((mk_win_base_uchar_pt)(&tag_a[0]));
+	aad_info.m_tag_len = ((mk_win_base_ulong_t)(mk_lang_countof(tag_a)));
+	aad_info.m_mac_ctx = ((mk_win_base_uchar_pt)(mk_win_base_null));
+	aad_info.m_mac_ctx_len = ((mk_win_base_ulong_t)(0));
+	aad_info.m_aad_ctx_len = ((mk_win_base_ulong_t)(0));
+	aad_info.m_data_ctx_len_lo = ((mk_win_base_ulong_t)(0));
+	aad_info.m_data_ctx_len_hi = ((mk_win_base_ulong_t)(0));
+	aad_info.m_flags = ((mk_win_base_ulong_t)(0));
+	st = BCryptOpenAlgorithmProvider(&alg, mk_win_bcrypt_bcrypt_aes_algorithm, mk_win_bcrypt_ms_primitive_provider, 0); test(st == 0);
+	st = BCryptSetProperty(mk_win_bcrypt_handle_from(alg.m_data), mk_win_bcrypt_bcrypt_chaining_mode, ((mk_lang_types_uchar_pct)(mk_win_bcrypt_bcrypt_chain_mode_gcm)), ((mk_lang_types_ulong_t)(sizeof(mk_win_bcrypt_bcrypt_chain_mode_gcm))), 0);
+	st = BCryptGetProperty(mk_win_bcrypt_handle_from(alg.m_data), mk_win_bcrypt_bcrypt_object_length, ((mk_lang_types_uchar_pt)(&len)), ((mk_lang_types_ulong_t)(sizeof(len))), &len_real, 0); test(st == 0); test(len_real == ((mk_lang_types_ulong_t)(sizeof(len)))); test(len != 0); test(len <= ((mk_win_base_dword_t)(sizeof(key_storage))));
+	st = BCryptGetProperty(mk_win_bcrypt_handle_from(alg.m_data), mk_win_bcrypt_bcrypt_auth_tag_length, ((mk_lang_types_uchar_pt)(&tag_len)), ((mk_lang_types_ulong_t)(sizeof(tag_len))), &len_real, 0); test(st == 0); test(len_real == ((mk_lang_types_ulong_t)(sizeof(tag_len)))); test(tag_len.m_max <= mk_lang_countof(tag_a) * mk_lang_charbit);
+	st = BCryptGenerateSymmetricKey(alg, &hkey, ((mk_lang_types_uchar_pt)(&key_storage[0])), ((mk_lang_types_ulong_t)(sizeof(key_storage))), key, 32, 0); test(st == 0);
+	st = BCryptEncrypt(hkey, msg, msg_len, ((mk_lang_types_uchar_pct)(&aad_info)), ((mk_lang_types_uchar_pt)(mk_win_base_null)), ((mk_lang_types_ulong_t)(0)), ((mk_lang_types_uchar_pt)(&out_a[0])), ((mk_lang_types_ulong_t)(mk_lang_countof(out_a))), &out_len, ((mk_win_base_ulong_t)(0))); test(st == 0); test(out_len == msg_len);
+	st = BCryptDestroyKey(hkey); test(st == 0);
+	st = BCryptCloseAlgorithmProvider(alg, 0); test(st == 0);
+	memcpy(&gcmkey, &key[0], 32);
+	mk_lib_crypto_mode_gcm_be_aes_256_expand_enc(&gcm, &gcmkey);
+	mk_lib_crypto_mode_gcm_be_aes_256_iv_append(&gcm, ((mk_sl_cui_uint8_pct)(iv)), 12);
+	mk_lib_crypto_mode_gcm_be_aes_256_iv_finish(&gcm);
+	mk_lib_crypto_mode_gcm_be_aes_256_aad_append(&gcm, ((mk_sl_cui_uint8_pct)(aad)), aad_len);
+	mk_lib_crypto_mode_gcm_be_aes_256_aad_finish(&gcm);
+	for(i = 0; i != msg_len / 16; ++i)
+	{
+		memcpy(&gcmmsg, &msg[i * 16], 16);
+		mk_lib_crypto_mode_gcm_be_aes_256_encrypt(&gcm, &gcmmsg, &gcmmsg, 1);
+		memcpy(&out_b[i * 16], &gcmmsg, 16);
+	}
+	mk_lib_crypto_mode_gcm_be_aes_256_finish_enc(&gcm, ((mk_sl_cui_uint8_pct)(&msg[i * 16])), ((mk_sl_cui_uint8_pt)(&out_b[i * 16])), msg_len % 16, &tag_b);
+	test(memcmp(&out_a[0], &out_b[0], msg_len) == 0);
+	test(memcmp(&tag_a[0], &tag_b, 16) == 0);
+#else
+	((void)(data));
+	((void)(size));
+#endif
+}
 
 mk_lang_jumbo void mk_lib_crypto_alg_aes_fuzz(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
 {
@@ -491,6 +683,8 @@ mk_lang_jumbo void mk_lib_crypto_alg_aes_fuzz(mk_lang_types_uchar_pct const data
 	mk_lang_types_uchar_t out[0xff + 0x10];
 	mk_lang_types_uint_t padding_len;
 
+	mk_lib_crypto_alg_aes_fuzz_gcm(data, size);
+	mk_lib_crypto_alg_aes_fuzz_gcm_win(data, size);
 	d = data;
 	s = size;
 	check_len(1); cpuida = d[0] % 2; advance(1);

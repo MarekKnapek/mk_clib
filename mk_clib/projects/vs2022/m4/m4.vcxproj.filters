@@ -59,6 +59,13 @@
 		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ecb_twofish_128.h.m4"/>
 		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ecb_twofish_192.h.m4"/>
 		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ecb_twofish_256.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_gcm_be_aes_128.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_gcm_be_aes_192.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_gcm_be_aes_256.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_gcm_be_serpent.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_gcm_be_twofish_128.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_gcm_be_twofish_192.h.m4"/>
+		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_gcm_be_twofish_256.h.m4"/>
 		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ofb_aes_128.h.m4"/>
 		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ofb_aes_192.h.m4"/>
 		<CustomBuild Include="..\..\..\src\mk_lib_crypto_mode_ofb_aes_256.h.m4"/>

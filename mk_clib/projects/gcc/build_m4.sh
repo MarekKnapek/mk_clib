@@ -60,6 +60,13 @@ m4 -I $src_dir -- $src_dir/mk_lib_crypto_mode_ecb_tdes3.h.m4           > $src_di
 m4 -I $src_dir -- $src_dir/mk_lib_crypto_mode_ecb_twofish_128.h.m4     > $src_dir/mk_lib_crypto_mode_ecb_twofish_128.h
 m4 -I $src_dir -- $src_dir/mk_lib_crypto_mode_ecb_twofish_192.h.m4     > $src_dir/mk_lib_crypto_mode_ecb_twofish_192.h
 m4 -I $src_dir -- $src_dir/mk_lib_crypto_mode_ecb_twofish_256.h.m4     > $src_dir/mk_lib_crypto_mode_ecb_twofish_256.h
+m4 -I $src_dir -- $src_dir/mk_lib_crypto_mode_gcm_be_aes_128.h.m4      > $src_dir/mk_lib_crypto_mode_gcm_be_aes_128.h
+m4 -I $src_dir -- $src_dir/mk_lib_crypto_mode_gcm_be_aes_192.h.m4      > $src_dir/mk_lib_crypto_mode_gcm_be_aes_192.h
+m4 -I $src_dir -- $src_dir/mk_lib_crypto_mode_gcm_be_aes_256.h.m4      > $src_dir/mk_lib_crypto_mode_gcm_be_aes_256.h
+m4 -I $src_dir -- $src_dir/mk_lib_crypto_mode_gcm_be_serpent.h.m4      > $src_dir/mk_lib_crypto_mode_gcm_be_serpent.h
+m4 -I $src_dir -- $src_dir/mk_lib_crypto_mode_gcm_be_twofish_128.h.m4  > $src_dir/mk_lib_crypto_mode_gcm_be_twofish_128.h
+m4 -I $src_dir -- $src_dir/mk_lib_crypto_mode_gcm_be_twofish_192.h.m4  > $src_dir/mk_lib_crypto_mode_gcm_be_twofish_192.h
+m4 -I $src_dir -- $src_dir/mk_lib_crypto_mode_gcm_be_twofish_256.h.m4  > $src_dir/mk_lib_crypto_mode_gcm_be_twofish_256.h
 m4 -I $src_dir -- $src_dir/mk_lib_crypto_mode_ofb_aes_128.h.m4         > $src_dir/mk_lib_crypto_mode_ofb_aes_128.h
 m4 -I $src_dir -- $src_dir/mk_lib_crypto_mode_ofb_aes_192.h.m4         > $src_dir/mk_lib_crypto_mode_ofb_aes_192.h
 m4 -I $src_dir -- $src_dir/mk_lib_crypto_mode_ofb_aes_256.h.m4         > $src_dir/mk_lib_crypto_mode_ofb_aes_256.h

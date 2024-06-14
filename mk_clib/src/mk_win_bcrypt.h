@@ -104,6 +104,40 @@ mk_win_base_make_handle(mk_win_bcrypt_key);
 #define mk_win_bcrypt_bcrypt_block_padding 0x00000001ul
 
 
+struct mk_win_bcrypt_key_lengths_s
+{
+	mk_win_base_ulong_t m_min;
+	mk_win_base_ulong_t m_max;
+	mk_win_base_ulong_t m_increment;
+};
+typedef struct mk_win_bcrypt_key_lengths_s mk_win_bcrypt_key_lengths_t;
+typedef mk_win_bcrypt_key_lengths_t const mk_win_bcrypt_key_lengths_ct;
+typedef mk_win_bcrypt_key_lengths_t* mk_win_bcrypt_key_lengths_pt;
+typedef mk_win_bcrypt_key_lengths_t const* mk_win_bcrypt_key_lengths_pct;
+
+struct mk_win_bcrypt_authenticated_cipher_mode_info_s
+{
+	mk_win_base_ulong_t m_size;
+	mk_win_base_ulong_t m_version;
+	mk_win_base_uchar_pt m_nonce;
+	mk_win_base_ulong_t m_nonce_len;
+	mk_win_base_uchar_pt m_aad;
+	mk_win_base_ulong_t m_aad_len;
+	mk_win_base_uchar_pt m_tag;
+	mk_win_base_ulong_t m_tag_len;
+	mk_win_base_uchar_pt m_mac_ctx;
+	mk_win_base_ulong_t m_mac_ctx_len;
+	mk_win_base_ulong_t m_aad_ctx_len;
+	mk_win_base_ulong_t m_data_ctx_len_lo;
+	mk_win_base_ulong_t m_data_ctx_len_hi;
+	mk_win_base_ulong_t m_flags;
+};
+typedef struct mk_win_bcrypt_authenticated_cipher_mode_info_s mk_win_bcrypt_authenticated_cipher_mode_info_t;
+typedef mk_win_bcrypt_authenticated_cipher_mode_info_t const mk_win_bcrypt_authenticated_cipher_mode_info_ct;
+typedef mk_win_bcrypt_authenticated_cipher_mode_info_t* mk_win_bcrypt_authenticated_cipher_mode_info_pt;
+typedef mk_win_bcrypt_authenticated_cipher_mode_info_t const* mk_win_bcrypt_authenticated_cipher_mode_info_pct;
+
+
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_ntstatus_t mk_win_base_stdcall BCryptOpenAlgorithmProvider(mk_win_bcrypt_alg_pt const alg, mk_win_base_wchar_pct const alg_id, mk_win_base_wchar_pct const implementation, mk_lang_types_ulong_t const flags) mk_lang_noexcept;
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_ntstatus_t mk_win_base_stdcall BCryptCloseAlgorithmProvider(mk_win_bcrypt_alg_t const alg, mk_lang_types_ulong_t const flags) mk_lang_noexcept;
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_ntstatus_t mk_win_base_stdcall BCryptGetProperty(mk_win_bcrypt_handle_t const handle, mk_win_base_wchar_pct const property, mk_lang_types_uchar_pt const data, mk_lang_types_ulong_t const data_len, mk_lang_types_ulong_pt const data_len_real, mk_lang_types_ulong_t const flags) mk_lang_noexcept;
