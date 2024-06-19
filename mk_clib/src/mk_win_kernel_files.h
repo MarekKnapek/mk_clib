@@ -271,6 +271,24 @@ enum mk_win_kernel_files_file_type_e
 };
 typedef enum mk_win_kernel_files_file_type_e mk_win_kernel_files_file_type_t;
 
+enum mk_win_kernel_files_file_name_e
+{
+	mk_win_kernel_files_file_name_e_normalized = 0x00000000ul,
+	mk_win_kernel_files_file_name_e_opened     = 0x00000008ul,
+	mk_win_kernel_files_file_name_e_dummy_end
+};
+typedef enum mk_win_kernel_files_file_name_e mk_win_kernel_files_file_name_t;
+
+enum mk_win_kernel_files_volume_name_e
+{
+	mk_win_kernel_files_volume_name_e_dos  = 0x00000000ul,
+	mk_win_kernel_files_volume_name_e_guid = 0x00000001ul,
+	mk_win_kernel_files_volume_name_e_nt   = 0x00000002ul,
+	mk_win_kernel_files_volume_name_e_none = 0x00000004ul,
+	mk_win_kernel_files_volume_name_e_dummy_end
+};
+typedef enum mk_win_kernel_files_volume_name_e mk_win_kernel_files_volume_name_t;
+
 
 #define s_mk_win_kernel_files_max_path 260
 #define s_mk_win_kernel_files_invalid_file_size ((mk_win_base_dword_t)(0xfffffffful))
