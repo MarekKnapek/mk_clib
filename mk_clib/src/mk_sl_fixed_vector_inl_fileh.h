@@ -26,8 +26,8 @@ typedef enum mk_sl_fixed_vector_inl_defd_len_e mk_sl_fixed_vector_inl_defd_len_t
 
 struct mk_sl_fixed_vector_inl_defd_s
 {
-	mk_lang_types_usize_t m_size;
 	mk_sl_fixed_vector_inl_defd_array_t m_array;
+	mk_lang_types_usize_t m_size;
 };
 typedef struct mk_sl_fixed_vector_inl_defd_s mk_sl_fixed_vector_inl_defd_t;
 typedef mk_sl_fixed_vector_inl_defd_t const mk_sl_fixed_vector_inl_defd_ct;
