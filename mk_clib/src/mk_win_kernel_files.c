@@ -39,6 +39,7 @@ mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_dword_t mk
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_dword_t mk_win_base_stdcall SetFilePointer(mk_win_base_handle_t, mk_win_base_slong_t, mk_win_base_slong_lpt, mk_win_base_dword_t) mk_lang_noexcept;
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall SetEndOfFile(mk_win_base_handle_t) mk_lang_noexcept;
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_dword_t mk_win_base_stdcall GetFileType(mk_win_base_handle_t) mk_lang_noexcept;
+mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall GetFileInformationByHandle(mk_win_base_handle_t, mk_win_kernel_files_info_by_handle_lpt) mk_lang_noexcept;
 
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_dword_t mk_win_kernel_files_a_get_current_directory(mk_win_base_dword_t const len, mk_win_base_pchar_pt const buf) mk_lang_noexcept
@@ -436,5 +437,13 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_dword_t mk_win_kernel_files_get_file
 	mk_win_base_dword_t ret;
 
 	ret = GetFileType(handle);
+	return ret;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_kernel_files_get_file_information_by_handle(mk_win_base_handle_t const handle, mk_win_kernel_files_info_by_handle_lpt const info) mk_lang_noexcept
+{
+	mk_win_base_bool_t ret;
+
+	ret = GetFileInformationByHandle(handle, info);
 	return ret;
 }
