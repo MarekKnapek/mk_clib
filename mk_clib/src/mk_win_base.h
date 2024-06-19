@@ -391,6 +391,41 @@ typedef mk_win_base_ntstatus_t mk_win_base_far const* mk_lang_restrict mk_win_ba
 typedef mk_win_base_ntstatus_t mk_win_base_near* mk_lang_restrict mk_win_base_ntstatus_nprt;
 typedef mk_win_base_ntstatus_t mk_win_base_near const* mk_lang_restrict mk_win_base_ntstatus_nprct;
 
+struct mk_win_base_large_integer_data_a_s
+{
+	mk_win_base_dword_t m_lo;
+	mk_win_base_slong_t m_hi;
+};
+typedef struct mk_win_base_large_integer_data_a_s mk_win_base_large_integer_data_a_t;
+
+typedef mk_win_base_ullong_t mk_win_base_large_integer_data_b_t;
+
+union mk_win_base_large_integer_data_u
+{
+	mk_win_base_large_integer_data_a_t m_data_a;
+	mk_win_base_large_integer_data_b_t m_data_b;
+};
+typedef union mk_win_base_large_integer_data_u mk_win_base_large_integer_data_t;
+
+struct mk_win_base_large_integer_s
+{
+	mk_win_base_large_integer_data_t m_data;
+};
+typedef struct mk_win_base_large_integer_s mk_win_base_large_integer_t;
+typedef mk_win_base_large_integer_t const mk_win_base_large_integer_ct;
+typedef mk_win_base_large_integer_t* mk_win_base_large_integer_pt;
+typedef mk_win_base_large_integer_t const* mk_win_base_large_integer_pct;
+typedef mk_win_base_large_integer_t mk_win_base_far* mk_win_base_large_integer_lpt;
+typedef mk_win_base_large_integer_t mk_win_base_far const* mk_win_base_large_integer_lpct;
+typedef mk_win_base_large_integer_t mk_win_base_near* mk_win_base_large_integer_npt;
+typedef mk_win_base_large_integer_t mk_win_base_near const* mk_win_base_large_integer_npct;
+typedef mk_win_base_large_integer_t* mk_lang_restrict mk_win_base_large_integer_prt;
+typedef mk_win_base_large_integer_t const* mk_lang_restrict mk_win_base_large_integer_prct;
+typedef mk_win_base_large_integer_t mk_win_base_far* mk_lang_restrict mk_win_base_large_integer_lprt;
+typedef mk_win_base_large_integer_t mk_win_base_far const* mk_lang_restrict mk_win_base_large_integer_lprct;
+typedef mk_win_base_large_integer_t mk_win_base_near* mk_lang_restrict mk_win_base_large_integer_nprt;
+typedef mk_win_base_large_integer_t mk_win_base_near const* mk_lang_restrict mk_win_base_large_integer_nprct;
+
 #define mk_win_base_make_handle(x) \
 	struct mk_lang_concat(x, _s){ mk_win_base_void_pct m_data; }; \
 	typedef struct mk_lang_concat(x, _s) mk_lang_concat(x, _t); \
