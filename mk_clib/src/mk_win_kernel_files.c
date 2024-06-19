@@ -11,12 +11,14 @@
 #include "mk_win_tstring.h"
 
 
+mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_dword_t mk_win_base_stdcall GetCurrentDirectoryA(mk_win_base_dword_t, mk_win_base_pchar_pt) mk_lang_noexcept;
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_uint_t mk_win_base_stdcall GetDriveTypeA(mk_win_base_pchar_lpct) mk_lang_noexcept;
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_handle_t mk_win_base_stdcall FindFirstFileA(mk_win_base_pchar_lpct, mk_win_kernel_files_a_find_data_lpt) mk_lang_noexcept;
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall FindNextFileA(mk_win_base_handle_t, mk_win_kernel_files_a_find_data_lpt) mk_lang_noexcept;
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_handle_t mk_win_base_stdcall CreateFileA(mk_win_base_pchar_lpct, mk_win_base_dword_t, mk_win_base_dword_t, mk_win_advapi_base_security_attributes_lpct, mk_win_base_dword_t, mk_win_base_dword_t, mk_win_base_handle_t) mk_lang_noexcept;
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall GetDiskFreeSpaceA(mk_win_base_pchar_lpct, mk_win_base_dword_lpt, mk_win_base_dword_lpt, mk_win_base_dword_lpt, mk_win_base_dword_lpt) mk_lang_noexcept;
 
+mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_dword_t mk_win_base_stdcall GetCurrentDirectoryW(mk_win_base_dword_t, mk_win_base_wchar_pt) mk_lang_noexcept;
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_uint_t mk_win_base_stdcall GetDriveTypeW(mk_win_base_wchar_lpct) mk_lang_noexcept;
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_handle_t mk_win_base_stdcall FindFirstFileW(mk_win_base_wchar_lpct, mk_win_kernel_files_w_find_data_lpt) mk_lang_noexcept;
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall FindNextFileW(mk_win_base_handle_t, mk_win_kernel_files_w_find_data_lpt) mk_lang_noexcept;
@@ -32,6 +34,14 @@ mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_dword_t mk
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall SetEndOfFile(mk_win_base_handle_t) mk_lang_noexcept;
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_dword_t mk_win_base_stdcall GetFileType(mk_win_base_handle_t) mk_lang_noexcept;
 
+
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_dword_t mk_win_kernel_files_a_get_current_directory(mk_win_base_dword_t const len, mk_win_base_pchar_pt const buf) mk_lang_noexcept
+{
+	mk_win_base_dword_t ret;
+
+	ret = GetCurrentDirectoryA(len, buf);
+	return ret;
+}
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_uint_t mk_win_kernel_files_a_get_drive_type(mk_win_base_pchar_lpct const path) mk_lang_noexcept
 {
@@ -73,6 +83,14 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_kernel_files_a_get_dis
 	return ret;
 }
 
+
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_dword_t mk_win_kernel_files_w_get_current_directory(mk_win_base_dword_t const len, mk_win_base_wchar_pt const buf) mk_lang_noexcept
+{
+	mk_win_base_dword_t ret;
+
+	ret = GetCurrentDirectoryW(len, buf);
+	return ret;
+}
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_uint_t mk_win_kernel_files_w_get_drive_type(mk_win_base_wchar_lpct const path) mk_lang_noexcept
 {
