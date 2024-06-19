@@ -16,6 +16,7 @@ mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_uint_t mk_
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_handle_t mk_win_base_stdcall FindFirstFileA(mk_win_base_pchar_lpct, mk_win_kernel_files_a_find_data_lpt) mk_lang_noexcept;
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall FindNextFileA(mk_win_base_handle_t, mk_win_kernel_files_a_find_data_lpt) mk_lang_noexcept;
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_handle_t mk_win_base_stdcall CreateFileA(mk_win_base_pchar_lpct, mk_win_base_dword_t, mk_win_base_dword_t, mk_win_advapi_base_security_attributes_lpct, mk_win_base_dword_t, mk_win_base_dword_t, mk_win_base_handle_t) mk_lang_noexcept;
+mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_dword_t mk_win_base_stdcall GetFinalPathNameByHandleA(mk_win_base_handle_t, mk_win_base_pchar_lpt, mk_win_base_dword_t, mk_win_base_dword_t) mk_lang_noexcept; /* todo vista: yes, 2k8: yes, xp:? */
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall GetDiskFreeSpaceA(mk_win_base_pchar_lpct, mk_win_base_dword_lpt, mk_win_base_dword_lpt, mk_win_base_dword_lpt, mk_win_base_dword_lpt) mk_lang_noexcept;
 
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_dword_t mk_win_base_stdcall GetCurrentDirectoryW(mk_win_base_dword_t, mk_win_base_wchar_pt) mk_lang_noexcept;
@@ -23,6 +24,7 @@ mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_uint_t mk_
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_handle_t mk_win_base_stdcall FindFirstFileW(mk_win_base_wchar_lpct, mk_win_kernel_files_w_find_data_lpt) mk_lang_noexcept;
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall FindNextFileW(mk_win_base_handle_t, mk_win_kernel_files_w_find_data_lpt) mk_lang_noexcept;
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_handle_t mk_win_base_stdcall CreateFileW(mk_win_base_wchar_lpct, mk_win_base_dword_t, mk_win_base_dword_t, mk_win_advapi_base_security_attributes_lpct, mk_win_base_dword_t, mk_win_base_dword_t, mk_win_base_handle_t) mk_lang_noexcept;
+mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_dword_t mk_win_base_stdcall GetFinalPathNameByHandleW(mk_win_base_handle_t, mk_win_base_wchar_lpt, mk_win_base_dword_t, mk_win_base_dword_t) mk_lang_noexcept; /* todo vista: yes, 2k8: yes, xp:? */
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall GetDiskFreeSpaceW(mk_win_base_wchar_lpct, mk_win_base_dword_lpt, mk_win_base_dword_lpt, mk_win_base_dword_lpt, mk_win_base_dword_lpt) mk_lang_noexcept;
 
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_dword_t mk_win_base_stdcall GetLogicalDrives(mk_lang_types_void_t) mk_lang_noexcept;
@@ -75,6 +77,14 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_handle_t mk_win_kernel_files_a_creat
 	return ret;
 }
 
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_dword_t mk_win_kernel_files_a_get_final_path_name_by_handle(mk_win_base_handle_t const handle, mk_win_base_pchar_lpt const buf, mk_win_base_dword_t const len, mk_win_base_dword_t const flags) mk_lang_noexcept
+{
+	mk_win_base_dword_t ret;
+
+	ret = GetFinalPathNameByHandleA(handle, buf, len, flags);
+	return ret;
+}
+
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_kernel_files_a_get_disk_free_space(mk_win_base_pchar_lpct const root_path_name, mk_win_base_dword_lpt const sectors_per_cluster, mk_win_base_dword_lpt const bytes_per_sector, mk_win_base_dword_lpt const free_clusters_count, mk_win_base_dword_lpt const total_clusters_count) mk_lang_noexcept
 {
 	mk_win_base_bool_t ret;
@@ -121,6 +131,14 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_handle_t mk_win_kernel_files_w_creat
 	mk_win_base_handle_t ret;
 
 	ret = CreateFileW(file_name, desired_access, share_mode, security_attributes, creation_disposition, flags_and_attributes, template_file);
+	return ret;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_dword_t mk_win_kernel_files_w_get_final_path_name_by_handle(mk_win_base_handle_t const handle, mk_win_base_wchar_lpt const buf, mk_win_base_dword_t const len, mk_win_base_dword_t const flags) mk_lang_noexcept
+{
+	mk_win_base_dword_t ret;
+
+	ret = GetFinalPathNameByHandleW(handle, buf, len, flags);
 	return ret;
 }
 
