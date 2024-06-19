@@ -19,6 +19,7 @@ mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_handle_t m
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_dword_t mk_win_base_stdcall GetFinalPathNameByHandleA(mk_win_base_handle_t, mk_win_base_pchar_lpt, mk_win_base_dword_t, mk_win_base_dword_t) mk_lang_noexcept; /* todo vista: yes, 2k8: yes, xp:? */
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall GetDiskFreeSpaceA(mk_win_base_pchar_lpct, mk_win_base_dword_lpt, mk_win_base_dword_lpt, mk_win_base_dword_lpt, mk_win_base_dword_lpt) mk_lang_noexcept;
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall GetVolumePathNameA(mk_win_base_pchar_lpct, mk_win_base_pchar_lpt, mk_win_base_dword_t) mk_lang_noexcept; /* todo since winxp and win2k3 maybe earlier */
+mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall GetVolumeNameForVolumeMountPointA(mk_win_base_pchar_lpct, mk_win_base_pchar_lpt, mk_win_base_dword_t) mk_lang_noexcept; /* todo since winxp and win2k3 maybe earlier */
 
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_dword_t mk_win_base_stdcall GetCurrentDirectoryW(mk_win_base_dword_t, mk_win_base_wchar_pt) mk_lang_noexcept;
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_uint_t mk_win_base_stdcall GetDriveTypeW(mk_win_base_wchar_lpct) mk_lang_noexcept;
@@ -28,6 +29,7 @@ mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_handle_t m
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_dword_t mk_win_base_stdcall GetFinalPathNameByHandleW(mk_win_base_handle_t, mk_win_base_wchar_lpt, mk_win_base_dword_t, mk_win_base_dword_t) mk_lang_noexcept; /* todo vista: yes, 2k8: yes, xp:? */
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall GetDiskFreeSpaceW(mk_win_base_wchar_lpct, mk_win_base_dword_lpt, mk_win_base_dword_lpt, mk_win_base_dword_lpt, mk_win_base_dword_lpt) mk_lang_noexcept;
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall GetVolumePathNameW(mk_win_base_wchar_lpct, mk_win_base_wchar_lpt, mk_win_base_dword_t) mk_lang_noexcept; /* todo since winxp and win2k3 maybe earlier */
+mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall GetVolumeNameForVolumeMountPointW(mk_win_base_wchar_lpct, mk_win_base_wchar_lpt, mk_win_base_dword_t) mk_lang_noexcept; /* todo since winxp and win2k3 maybe earlier */
 
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_dword_t mk_win_base_stdcall GetLogicalDrives(mk_lang_types_void_t) mk_lang_noexcept;
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall FindClose(mk_win_base_handle_t) mk_lang_noexcept;
@@ -103,6 +105,14 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_kernel_files_a_get_vol
 	return ret;
 }
 
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_kernel_files_a_get_volume_name_for_volume_mount_point(mk_win_base_pchar_lpct const volume_mount_point, mk_win_base_pchar_lpt const volume_name, mk_win_base_dword_t const len) mk_lang_noexcept
+{
+	mk_win_base_bool_t ret;
+
+	ret = GetVolumeNameForVolumeMountPointA(volume_mount_point, volume_name, len);
+	return ret;
+}
+
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_dword_t mk_win_kernel_files_w_get_current_directory(mk_win_base_dword_t const len, mk_win_base_wchar_pt const buf) mk_lang_noexcept
 {
@@ -165,6 +175,14 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_kernel_files_w_get_vol
 	mk_win_base_bool_t ret;
 
 	ret = GetVolumePathNameW(file_path, volume_path, len);
+	return ret;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_kernel_files_w_get_volume_name_for_volume_mount_point(mk_win_base_wchar_lpct const volume_mount_point, mk_win_base_wchar_lpt const volume_name, mk_win_base_dword_t const len) mk_lang_noexcept
+{
+	mk_win_base_bool_t ret;
+
+	ret = GetVolumeNameForVolumeMountPointW(volume_mount_point, volume_name, len);
 	return ret;
 }
 
