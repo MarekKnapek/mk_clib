@@ -25,6 +25,8 @@ mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_dword_t mk
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_uint_t mk_win_base_stdcall GetDriveTypeW(mk_win_base_wchar_lpct) mk_lang_noexcept;
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_handle_t mk_win_base_stdcall FindFirstFileW(mk_win_base_wchar_lpct, mk_win_kernel_files_w_find_data_lpt) mk_lang_noexcept;
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall FindNextFileW(mk_win_base_handle_t, mk_win_kernel_files_w_find_data_lpt) mk_lang_noexcept;
+mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_handle_t mk_win_base_stdcall FindFirstStreamW(mk_win_base_wchar_lpct, mk_win_base_dword_t, mk_win_base_void_lpt, mk_win_base_dword_t) mk_lang_noexcept;
+mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall FindNextStreamW(mk_win_base_handle_t, mk_win_base_void_lpt) mk_lang_noexcept;
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_handle_t mk_win_base_stdcall CreateFileW(mk_win_base_wchar_lpct, mk_win_base_dword_t, mk_win_base_dword_t, mk_win_advapi_base_security_attributes_lpct, mk_win_base_dword_t, mk_win_base_dword_t, mk_win_base_handle_t) mk_lang_noexcept;
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_dword_t mk_win_base_stdcall GetFinalPathNameByHandleW(mk_win_base_handle_t, mk_win_base_wchar_lpt, mk_win_base_dword_t, mk_win_base_dword_t) mk_lang_noexcept; /* todo vista: yes, 2k8: yes, xp:? */
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall GetDiskFreeSpaceW(mk_win_base_wchar_lpct, mk_win_base_dword_lpt, mk_win_base_dword_lpt, mk_win_base_dword_lpt, mk_win_base_dword_lpt) mk_lang_noexcept;
@@ -144,6 +146,22 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_kernel_files_w_find_ne
 	mk_win_base_bool_t ret;
 
 	ret = FindNextFileW(handle, data);
+	return ret;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_handle_t mk_win_kernel_files_w_find_first_stream(mk_win_base_wchar_lpct const name, mk_win_base_dword_t const level, mk_win_base_void_lpt const data, mk_win_base_dword_t const flags) mk_lang_noexcept
+{
+	mk_win_base_handle_t ret;
+
+	ret = FindFirstStreamW(name, level, data, flags);
+	return ret;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_kernel_files_w_find_next_stream(mk_win_base_handle_t const handle, mk_win_base_void_lpt const data) mk_lang_noexcept
+{
+	mk_win_base_bool_t ret;
+
+	ret = FindNextStreamW(handle, data);
 	return ret;
 }
 
