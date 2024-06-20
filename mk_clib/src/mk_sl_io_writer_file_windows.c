@@ -124,6 +124,15 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_writer_file_window
 #endif
 }
 
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_writer_file_windows_adopt(mk_sl_io_writer_file_windows_pt const writer, mk_win_base_handle_t const handle) mk_lang_noexcept
+{
+	mk_lang_assert(writer);
+	mk_lang_assert(handle.m_data != mk_win_base_handle_invalid);
+
+	writer->m_file_handle = handle;
+	return 0;
+}
+
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_writer_file_windows_write(mk_sl_io_writer_file_windows_pt const writer, mk_sl_cui_uint8_pct const buf, mk_lang_types_usize_t const len, mk_lang_types_usize_pt const written) mk_lang_noexcept
 {
 	mk_win_base_bool_t ret;
