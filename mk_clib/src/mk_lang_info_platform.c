@@ -107,6 +107,12 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_info_platform_print(mk_lang_types_voi
 	printf("__WATCOM_CPLUSPLUS__ not defined\n");
 	#endif
 
+	#if defined __TINYC__
+	printf("__TINYC__ " mk_lang_stringify(__TINYC__) "\n");
+	#else
+	printf("__TINYC__ not defined\n");
+	#endif
+
 	printf("\n");
 
 	#if mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664

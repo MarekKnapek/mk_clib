@@ -55,6 +55,8 @@
 #define mk_lang_bi_to_unsigned_pchar_t mk_lang_bi_uchar_t
 #if defined __SIZEOF_WCHAR_T__ && __SIZEOF_WCHAR_T__ == 4
 #define mk_lang_bi_to_unsigned_wchar_t mk_lang_bi_uint_t
+#elif defined __TINYC__ && !defined _WIN32
+#define mk_lang_bi_to_unsigned_wchar_t mk_lang_bi_uint_t
 #else
 #define mk_lang_bi_to_unsigned_wchar_t mk_lang_bi_ushort_t
 #endif

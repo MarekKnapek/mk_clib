@@ -27,6 +27,8 @@
 
 #if defined __SIZEOF_WCHAR_T__
 #define mk_lang_alignof_bi_wchar_t __SIZEOF_WCHAR_T__
+#elif defined __TINYC__ && !defined _WIN32
+#define mk_lang_alignof_bi_wchar_t 4
 #else
 #define mk_lang_alignof_bi_wchar_t 2
 #endif
