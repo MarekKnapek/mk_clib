@@ -10,6 +10,7 @@
 
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall SetConsoleCtrlHandler(mk_win_kernel_console_handler_lpt const handler, mk_win_base_bool_t const add) mk_lang_noexcept;
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_handle_t mk_win_base_stdcall GetStdHandle(mk_win_base_dword_t const handle_id) mk_lang_noexcept;
+mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall GetConsoleMode(mk_win_base_handle_t const handle, mk_win_base_dword_lpt const mode) mk_lang_noexcept;
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall WriteConsoleA(mk_win_base_handle_t const handle, mk_win_base_pchar_lpct const buff, mk_win_base_dword_t const len, mk_win_base_dword_lpt const nwritten, mk_win_base_void_lpt const reserved) mk_lang_noexcept;
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall WriteConsoleW(mk_win_base_handle_t const handle, mk_win_base_wchar_lpct const buff, mk_win_base_dword_t const len, mk_win_base_dword_lpt const nwritten, mk_win_base_void_lpt const reserved) mk_lang_noexcept;
 
@@ -29,6 +30,14 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_handle_t mk_win_kernel_console_get_s
 	mk_win_base_handle_t ret;
 
 	ret = GetStdHandle(((mk_win_base_dword_t)(handle_id)));
+	return ret;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_kernel_console_get_mode(mk_win_base_handle_t const handle, mk_win_base_dword_lpt const mode) mk_lang_noexcept
+{
+	mk_win_base_bool_t ret;
+
+	ret = GetConsoleMode(handle, mode);
 	return ret;
 }
 
