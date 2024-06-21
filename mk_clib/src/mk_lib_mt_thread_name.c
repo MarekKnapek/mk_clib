@@ -104,15 +104,15 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_mt_thread_na
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_thread_name_set(mk_lang_types_pchar_pct const name) mk_lang_noexcept
 {
-#if defined NDEBUG
+	#if defined NDEBUG
 	return mk_lib_mt_thread_name_set_not(name);
-#else
-#if mk_lang_platform == mk_lang_platform_windows_61 || mk_lang_platform == mk_lang_platform_windows_60 || mk_lang_platform == mk_lang_platform_windows
+	#else
+	#if mk_lang_platform == mk_lang_platform_windows_61 || mk_lang_platform == mk_lang_platform_windows_60 || mk_lang_platform == mk_lang_platform_windows
 	return mk_lib_mt_thread_name_set_win_seh(name);
-#elif mk_lang_platform == mk_lang_platform_linux || mk_lang_platform == mk_lang_platform_portable
+	#elif mk_lang_platform == mk_lang_platform_linux || mk_lang_platform == mk_lang_platform_portable
 	return mk_lib_mt_thread_name_set_win_portable(name);
-#else
-#error xxxxxxxxxx todo
-#endif
-#endif
+	#else
+	#error xxxxxxxxxx todo
+	#endif
+	#endif
 }
