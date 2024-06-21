@@ -15,27 +15,27 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_info_platform_print(mk_lang_types_voi
 {
 	#if 0
 	#elif mk_lang_arch == mk_lang_arch_x8616
-	printf("platform: x8616\n");
+	printf("Architecture: x8616\n");
 	#elif mk_lang_arch == mk_lang_arch_x8632
-	printf("platform: x8632\n");
+	printf("Architecture: x8632\n");
 	#elif mk_lang_arch == mk_lang_arch_x8664
-	printf("platform: x8664\n");
+	printf("Architecture: x8664\n");
 	#elif mk_lang_arch == mk_lang_arch_ia64
-	printf("platform: ia64\n");
+	printf("Architecture: ia64\n");
 	#elif mk_lang_arch == mk_lang_arch_alpha
-	printf("platform: alpha\n");
+	printf("Architecture: alpha\n");
 	#elif mk_lang_arch == mk_lang_arch_ppc
-	printf("platform: ppc\n");
+	printf("Architecture: ppc\n");
 	#elif mk_lang_arch == mk_lang_arch_mips
-	printf("platform: mips\n");
+	printf("Architecture: mips\n");
 	#elif mk_lang_arch == mk_lang_arch_arm32
-	printf("platform: arm32\n");
+	printf("Architecture: arm32\n");
 	#elif mk_lang_arch == mk_lang_arch_arm64
-	printf("platform: arm64\n");
+	printf("Architecture: arm64\n");
 	#elif mk_lang_arch == mk_lang_arch_arm64ec
-	printf("platform: arm64ec\n");
+	printf("Architecture: arm64ec\n");
 	#elif mk_lang_arch == mk_lang_arch_emscripten
-	printf("platform: emscripten\n");
+	printf("Architecture: emscripten\n");
 	#else
 	#error xxxxxxxxxx todo
 	#endif
