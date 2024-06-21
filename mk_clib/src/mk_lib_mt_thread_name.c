@@ -6,6 +6,7 @@
 #include "mk_lang_cpp.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
+#include "mk_lang_msvc.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_offsetof.h"
@@ -47,6 +48,7 @@ typedef mk_lib_mt_thread_name_info_t const* mk_lib_mt_thread_name_info_pct;
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_mt_thread_name_set_win_seh(mk_lang_types_pchar_pct const name) mk_lang_noexcept
 {
+	#if mk_lang_msvc_full_ver != 0
 	mk_lib_mt_thread_name_info_t info;
 	mk_win_base_dword_t excode;
 
@@ -82,6 +84,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_mt_thread_na
 	{
 	}
 	return 0;
+	#else
+	mk_lang_assert(name);
+	mk_lang_assert(name[0] != '\0');
+
+	((mk_lang_types_void_t)(name));
+	return 0;
+	#endif
 }
 
 #elif mk_lang_platform == mk_lang_platform_linux || mk_lang_platform == mk_lang_platform_portable
