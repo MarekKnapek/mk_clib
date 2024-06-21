@@ -58,60 +58,22 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_info_platform_print(mk_lang_types_voi
 	printf("at_least_msvc_cpp_17: %s\n", mk_lang_version_at_least_msvc_cpp_17 == 1 ? "yes" : "no");
 	printf("at_least_msvc_cpp_20: %s\n", mk_lang_version_at_least_msvc_cpp_20 == 1 ? "yes" : "no");
 	printf("\n");
-
-	#if defined _MSC_VER
-	printf("_MSC_VER " mk_lang_stringify(_MSC_VER) "\n");
+define(`test_macro', `
+	#if defined $1
+	printf("$1 substr(`                                        ', 1, eval(20 - len($1)))" mk_lang_stringify($1) "\n");
 	#else
-	printf("_MSC_VER not defined\n");
-	#endif
-
-	#if defined _MSC_FULL_VER
-	printf("_MSC_FULL_VER " mk_lang_stringify(_MSC_FULL_VER) "\n");
-	#else
-	printf("_MSC_FULL_VER not defined\n");
-	#endif
-
-	#if defined __GNUC__
-	printf("__GNUC__ " mk_lang_stringify(__GNUC__) "\n");
-	#else
-	printf("__GNUC__ not defined\n");
-	#endif
-
-	#if defined __GNUC_MINOR__
-	printf("__GNUC_MINOR__ " mk_lang_stringify(__GNUC_MINOR__) "\n");
-	#else
-	printf("__GNUC_MINOR__ not defined\n");
-	#endif
-
-	#if defined __clang_major__
-	printf("__clang_major__ " mk_lang_stringify(__clang_major__) "\n");
-	#else
-	printf("__clang_major__ not defined\n");
-	#endif
-
-	#if defined __clang_minor__
-	printf("__clang_minor__ " mk_lang_stringify(__clang_minor__) "\n");
-	#else
-	printf("__clang_minor__ not defined\n");
-	#endif
-
-	#if defined __WATCOMC__
-	printf("__WATCOMC__ " mk_lang_stringify(__WATCOMC__) "\n");
-	#else
-	printf("__WATCOMC__ not defined\n");
-	#endif
-
-	#if defined __WATCOM_CPLUSPLUS__
-	printf("__WATCOM_CPLUSPLUS__ " mk_lang_stringify(__WATCOM_CPLUSPLUS__) "\n");
-	#else
-	printf("__WATCOM_CPLUSPLUS__ not defined\n");
-	#endif
-
-	#if defined __TINYC__
-	printf("__TINYC__ " mk_lang_stringify(__TINYC__) "\n");
-	#else
-	printf("__TINYC__ not defined\n");
-	#endif
+	printf("$1 substr(`                                        ', 1, eval(20 - len($1)))not defined\n");
+	#endif')dnl
+test_macro(`_MSC_VER')
+test_macro(`_MSC_FULL_VER')
+test_macro(`__GNUC__')
+test_macro(`__GNUC_MINOR__')
+test_macro(`__clang_major__')
+test_macro(`__clang_minor__')
+test_macro(`__WATCOMC__')
+test_macro(`__WATCOM_CPLUSPLUS__')
+test_macro(`__TINYC__')
+undefine(`test_macro')dnl
 
 	printf("\n");
 

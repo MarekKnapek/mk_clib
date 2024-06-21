@@ -7,6 +7,7 @@ m4 -I $src_dir -- $src_dir/mk_lang_bui_inl_defd.h.m4                   > $src_di
 m4 -I $src_dir -- $src_dir/mk_lang_bui_inl_defu.h.m4                   > $src_dir/mk_lang_bui_inl_defu.h
 m4 -I $src_dir -- $src_dir/mk_lang_bui_inl_filec.h.m4                  > $src_dir/mk_lang_bui_inl_filec.h
 m4 -I $src_dir -- $src_dir/mk_lang_bui_inl_fileh.h.m4                  > $src_dir/mk_lang_bui_inl_fileh.h
+m4 -I $src_dir -- $src_dir/mk_lang_info_platform.c.m4                  > $src_dir/mk_lang_info_platform.c
 m4 -I $src_dir -- $src_dir/mk_lib_crypto_alg_aes_128.h.m4              > $src_dir/mk_lib_crypto_alg_aes_128.h
 m4 -I $src_dir -- $src_dir/mk_lib_crypto_alg_aes_192.h.m4              > $src_dir/mk_lib_crypto_alg_aes_192.h
 m4 -I $src_dir -- $src_dir/mk_lib_crypto_alg_aes_256.h.m4              > $src_dir/mk_lib_crypto_alg_aes_256.h

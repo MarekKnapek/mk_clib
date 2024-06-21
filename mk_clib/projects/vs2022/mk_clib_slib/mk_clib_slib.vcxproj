@@ -76,6 +76,7 @@
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_defu.h.m4"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_filec.h.m4"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_fileh.h.m4"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_info_platform.c.m4"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_128.h.m4"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_192.h.m4"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_256.h.m4"/>
