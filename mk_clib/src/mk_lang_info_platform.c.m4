@@ -4,6 +4,7 @@
 #include "mk_lang_cpuid.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_platform.h"
 #include "mk_lang_stringify.h"
 #include "mk_lang_types.h"
 #include "mk_lang_version.h"
@@ -36,6 +37,20 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_info_platform_print(mk_lang_types_voi
 	printf("Architecture: arm64ec\n");
 	#elif mk_lang_arch == mk_lang_arch_emscripten
 	printf("Architecture: emscripten\n");
+	#else
+	#error xxxxxxxxxx todo
+	#endif
+	#if 0
+	#elif mk_lang_platform == mk_lang_platform_windows_61
+	printf("Platform: Windows 6.1\n");
+	#elif mk_lang_platform == mk_lang_platform_windows_60
+	printf("Platform: Windows 6.0\n");
+	#elif mk_lang_platform == mk_lang_platform_windows
+	printf("Platform: Windows\n");
+	#elif mk_lang_platform == mk_lang_platform_linux
+	printf("Platform: Linux\n");
+	#elif mk_lang_platform == mk_lang_platform_portable
+	printf("Platform: Portable\n");
 	#else
 	#error xxxxxxxxxx todo
 	#endif
