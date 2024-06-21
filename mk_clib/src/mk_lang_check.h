@@ -16,11 +16,26 @@
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_check_to_bool_impl(mk_lang_types_bool_t const b) mk_lang_noexcept;
 
 
+#if defined mk_lang_check_debug_want && (mk_lang_check_debug_want) == 1
+#define mk_lang_check_debug 1
+#elif defined mk_lang_check_debug_want && (mk_lang_check_debug_want) == 0
+#define mk_lang_check_debug 0
+#elif !defined mk_lang_check_debug_want
 #if defined NDEBUG
+#define mk_lang_check_debug 0
+#else
+#define mk_lang_check_debug 1
+#endif
+#else
+#error xxxxxxxxxx
+#endif
+
+
+#if mk_lang_check_debug == 0
 #define mk_lang_check_line 1
 #define mk_lang_check_debug_break()
 #define mk_lang_check_debug_break_rethrow()
-#else
+#elif mk_lang_check_debug == 1
 #define mk_lang_check_line ((mk_lang_types_sint_t)(__LINE__))
 #if mk_lang_msvc_ver >= 1200l /* vs6 */
 #define mk_lang_check_debug_break() __debugbreak()
@@ -32,6 +47,8 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_check_to_bool_impl(
 #define mk_lang_check_debug_break()
 #endif
 #define mk_lang_check_debug_break_rethrow() /*mk_lang_check_debug_break()*/
+#else
+#error xxxxxxxxxx
 #endif
 
 
