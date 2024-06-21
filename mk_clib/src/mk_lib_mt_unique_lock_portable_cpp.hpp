@@ -6,6 +6,7 @@
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
+#include "mk_lang_version.h"
 #include "mk_lib_mt_mutex_portable_cpp.hpp"
 
 #include <mutex> /* std::unique_lock */
@@ -14,7 +15,11 @@
 
 struct mk_lib_mt_unique_lock_exclusive_portable_cpp_s
 {
+	#if mk_lang_version_at_least_cpp_23
+	alignas(alignof(std::unique_lock<std::mutex>)) mk_lang_types_uchar_t m_unique_lock[sizeof(std::unique_lock<std::mutex>)];
+	#else
 	typename std::aligned_storage<sizeof(std::unique_lock<std::mutex>), alignof(std::unique_lock<std::mutex>)>::type m_unique_lock;
+	#endif
 };
 typedef struct mk_lib_mt_unique_lock_exclusive_portable_cpp_s mk_lib_mt_unique_lock_exclusive_portable_cpp_t;
 typedef mk_lib_mt_unique_lock_exclusive_portable_cpp_t const mk_lib_mt_unique_lock_exclusive_portable_cpp_ct;
@@ -23,7 +28,11 @@ typedef mk_lib_mt_unique_lock_exclusive_portable_cpp_t const* mk_lib_mt_unique_l
 
 struct mk_lib_mt_unique_lock_shared_portable_cpp_s
 {
+	#if mk_lang_version_at_least_cpp_23
+	alignas(alignof(std::unique_lock<std::mutex>)) mk_lang_types_uchar_t m_unique_lock[sizeof(std::unique_lock<std::mutex>)];
+	#else
 	typename std::aligned_storage<sizeof(std::unique_lock<std::mutex>), alignof(std::unique_lock<std::mutex>)>::type m_unique_lock;
+	#endif
 };
 typedef struct mk_lib_mt_unique_lock_shared_portable_cpp_s mk_lib_mt_unique_lock_shared_portable_cpp_t;
 typedef mk_lib_mt_unique_lock_shared_portable_cpp_t const mk_lib_mt_unique_lock_shared_portable_cpp_ct;

@@ -6,6 +6,7 @@
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
+#include "mk_lang_version.h"
 #include "mk_lib_mt_unique_lock_portable_cpp.hpp"
 
 #include <condition_variable> /* std::condition_variable */
@@ -14,7 +15,11 @@
 
 struct mk_lib_mt_cv_portable_cpp_s
 {
+	#if mk_lang_version_at_least_cpp_23
+	alignas(alignof(std::condition_variable)) mk_lang_types_uchar_t m_cv[sizeof(std::condition_variable)];
+	#else
 	typename std::aligned_storage<sizeof(std::condition_variable), alignof(std::condition_variable)>::type m_cv;
+	#endif
 };
 typedef struct mk_lib_mt_cv_portable_cpp_s mk_lib_mt_cv_portable_cpp_t;
 typedef mk_lib_mt_cv_portable_cpp_t const mk_lib_mt_cv_portable_cpp_ct;

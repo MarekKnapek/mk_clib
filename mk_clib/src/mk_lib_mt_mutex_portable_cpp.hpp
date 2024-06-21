@@ -6,6 +6,7 @@
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
+#include "mk_lang_version.h"
 
 #include <mutex> /* std::mutex */
 #include <type_traits> /* std::aligned_storage */
@@ -13,7 +14,11 @@
 
 struct mk_lib_mt_mutex_portable_cpp_s
 {
+	#if mk_lang_version_at_least_cpp_23
+	alignas(alignof(std::mutex)) mk_lang_types_uchar_t m_mutex[sizeof(std::mutex)];
+	#else
 	typename std::aligned_storage<sizeof(std::mutex), alignof(std::mutex)>::type m_mutex;
+	#endif
 };
 typedef struct mk_lib_mt_mutex_portable_cpp_s mk_lib_mt_mutex_portable_cpp_t;
 typedef mk_lib_mt_mutex_portable_cpp_t const mk_lib_mt_mutex_portable_cpp_ct;

@@ -23,7 +23,11 @@ typedef mk_lang_types_sint_t(*mk_lib_mt_thread_portable_cpp_callback_t)(mk_lang_
 
 struct mk_lib_mt_thread_portable_cpp_s
 {
+	#if mk_lang_version_at_least_cpp_23
+	alignas(alignof(std::thread)) mk_lang_types_uchar_t m_thread[sizeof(std::thread)];
+	#else
 	typename std::aligned_storage<sizeof(std::thread), alignof(std::thread)>::type m_thread;
+	#endif
 };
 typedef struct mk_lib_mt_thread_portable_cpp_s mk_lib_mt_thread_portable_cpp_t;
 typedef mk_lib_mt_thread_portable_cpp_t const mk_lib_mt_thread_portable_cpp_ct;
