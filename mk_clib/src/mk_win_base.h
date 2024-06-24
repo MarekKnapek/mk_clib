@@ -8,6 +8,7 @@
 #include "mk_lang_constexpr.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
+#include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_null.h"
 #include "mk_lang_restrict.h"
@@ -442,8 +443,8 @@ typedef mk_win_base_large_integer_t mk_win_base_near const* mk_lang_restrict mk_
 	typedef mk_lang_concat(x, _t) mk_win_base_far const* mk_lang_restrict mk_lang_concat(x, _lprct); \
 	typedef mk_lang_concat(x, _t) mk_win_base_near* mk_lang_restrict mk_lang_concat(x, _nprt); \
 	typedef mk_lang_concat(x, _t) mk_win_base_near const* mk_lang_restrict mk_lang_concat(x, _nprct); \
-	mk_lang_constexpr static mk_lang_inline mk_lang_concat(x, _t) mk_lang_concat(x, _get_null)(mk_lang_types_void_t) mk_lang_noexcept { mk_lang_concat(x, _t) r mk_lang_constexpr_init; r.m_data = mk_win_base_null; return r; } \
-	mk_lang_constexpr static mk_lang_inline mk_lang_concat(x, _t) mk_lang_concat(x, _from)(mk_win_base_void_pct const handle) mk_lang_noexcept { mk_lang_concat(x, _t) r mk_lang_constexpr_init; r.m_data = handle; return r; } \
+	mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_concat(x, _t) mk_lang_concat(x, _get_null)(mk_lang_types_void_t) mk_lang_noexcept { mk_lang_concat(x, _t) r mk_lang_constexpr_init; r.m_data = mk_win_base_null; return r; } \
+	mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_concat(x, _t) mk_lang_concat(x, _from)(mk_win_base_void_pct const handle) mk_lang_noexcept { mk_lang_concat(x, _t) r mk_lang_constexpr_init; r.m_data = handle; return r; } \
 
 mk_win_base_make_handle(mk_win_base_handle)
 mk_win_base_make_handle(mk_win_base_instance)
