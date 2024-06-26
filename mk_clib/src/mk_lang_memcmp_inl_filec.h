@@ -11,7 +11,6 @@
 #include <memory.h> /* memcmp */
 #include <wchar.h> /* wmemcmp */
 #pragma intrinsic(memcmp)
-#pragma intrinsic(wmemcmp)
 #endif
 
 

@@ -4168,14 +4168,14 @@ mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noali
 		mk_sl_cui_inl_defd_shr2(&xx, mk_lang_charbit / 2);
 		mk_sl_cui_inl_defd_shr2(&xx, mk_lang_charbit / 2);
 		zero = mk_sl_cui_inl_defd_is_zero(&xx);
-		tuc_lo = (tuc >> 0) & 0xf;
+		tuc_lo = ((mk_lang_types_uchar_t)((tuc >> 0) & 0xf));
 		if(rem == 0){ return 0; } --rem; /* todo return negative? */
 		#if mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic
 		ptr[0] = (tuc_lo >= 0 && tuc_lo <= 9) ? ((mk_lang_types_pchar_t)('0' + tuc_lo)) : ((mk_lang_types_pchar_t)('a' + (tuc_lo - 10))); --ptr;
 		#else
 		ptr[0] = mk_sl_cui_inl_defd_symbols_hex_a[tuc_lo]; --ptr;
 		#endif
-		tuc_hi = (tuc >> 4) & 0xf;
+		tuc_hi = ((mk_lang_types_uchar_t)((tuc >> 4) & 0xf));
 		if(tuc_hi == 0 && zero){ break; }
 		if(rem == 0){ return 0; } --rem; /* todo return negative? */
 		#if mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic
@@ -4188,7 +4188,7 @@ mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noali
 	ret = str_len - rem;
 	if(ret != str_len)
 	{
-		mk_sl_cui_inl_filec_memmove_pc_fn(&str[0], &str[str_len - ret], ret);
+		mk_sl_cui_inl_filec_memmove_pc_fn(&str[0], &str[str_len - ret], ((mk_lang_types_usize_t)(ret)));
 	}
 	return ret;
 }}
@@ -4223,14 +4223,14 @@ mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noali
 		mk_sl_cui_inl_defd_shr2(&xx, mk_lang_charbit / 2);
 		mk_sl_cui_inl_defd_shr2(&xx, mk_lang_charbit / 2);
 		zero = mk_sl_cui_inl_defd_is_zero(&xx);
-		tuc_lo = (tuc >> 0) & 0xf;
+		tuc_lo = ((mk_lang_types_uchar_t)((tuc >> 0) & 0xf));
 		if(rem == 0){ return 0; } --rem; /* todo return negative? */
 		#if mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic
 		ptr[0] = (tuc_lo >= 0 && tuc_lo <= 9) ? ((mk_lang_types_wchar_t)(L'0' + tuc_lo)) : ((mk_lang_types_wchar_t)(L'a' + (tuc_lo - 10))); --ptr;
 		#else
 		ptr[0] = mk_sl_cui_inl_defd_symbols_hex_b[tuc_lo]; --ptr;
 		#endif
-		tuc_hi = (tuc >> 4) & 0xf;
+		tuc_hi = ((mk_lang_types_uchar_t)((tuc >> 4) & 0xf));
 		if(tuc_hi == 0 && zero){ break; }
 		if(rem == 0){ return 0; } --rem; /* todo return negative? */
 		#if mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic
@@ -4243,7 +4243,7 @@ mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noali
 	ret = str_len - rem;
 	if(ret != str_len)
 	{
-		mk_sl_cui_inl_filec_memmove_wc_fn(&str[0], &str[str_len - ret], ret);
+		mk_sl_cui_inl_filec_memmove_wc_fn(&str[0], &str[str_len - ret], ((mk_lang_types_usize_t)(ret)));
 	}
 	return ret;
 }}
@@ -4278,8 +4278,8 @@ mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noali
 		mk_sl_cui_inl_defd_to_bi_uchar(&xx, &tuc);
 		mk_sl_cui_inl_defd_shr2(&xx, mk_lang_charbit / 2);
 		mk_sl_cui_inl_defd_shr2(&xx, mk_lang_charbit / 2);
-		tuc_lo = (tuc >> 0) & 0xf;
-		tuc_hi = (tuc >> 4) & 0xf;
+		tuc_lo = ((mk_lang_types_uchar_t)((tuc >> 0) & 0xf));
+		tuc_hi = ((mk_lang_types_uchar_t)((tuc >> 4) & 0xf));
 		#if mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic
 		ptr[0] = (tuc_lo >= 0 && tuc_lo <= 9) ? ((mk_lang_types_pchar_t)('0' + tuc_lo)) : ((mk_lang_types_pchar_t)('a' + (tuc_lo - 10))); --ptr;
 		ptr[0] = (tuc_hi >= 0 && tuc_hi <= 9) ? ((mk_lang_types_pchar_t)('0' + tuc_hi)) : ((mk_lang_types_pchar_t)('a' + (tuc_hi - 10))); --ptr;
@@ -4328,7 +4328,7 @@ mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noali
 	ret = str_len - rem;
 	if(ret != str_len)
 	{
-		mk_sl_cui_inl_filec_memmove_pc_fn(&str[0], &str[str_len - ret], ret);
+		mk_sl_cui_inl_filec_memmove_pc_fn(&str[0], &str[str_len - ret], ((mk_lang_types_usize_t)(ret)));
 	}
 	return ret;
 }}

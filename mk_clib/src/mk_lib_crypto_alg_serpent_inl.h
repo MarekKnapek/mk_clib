@@ -121,51 +121,51 @@ do mk_lang_attribute_msvc_flatten \
 #define mk_lib_crypto_alg_serpent_inl_swaparoo(da, db, dc, dd, de, sa, sb, sc, sd, se) \
 do mk_lang_attribute_msvc_flatten \
 { \
-	mk_lib_crypto_alg_serpent_inl_type_pt ta mk_lib_crypto_alg_serpent_inl_constexpr_init; \
-	mk_lib_crypto_alg_serpent_inl_type_pt tb mk_lib_crypto_alg_serpent_inl_constexpr_init; \
-	mk_lib_crypto_alg_serpent_inl_type_pt tc mk_lib_crypto_alg_serpent_inl_constexpr_init; \
-	mk_lib_crypto_alg_serpent_inl_type_pt td mk_lib_crypto_alg_serpent_inl_constexpr_init; \
-	mk_lib_crypto_alg_serpent_inl_type_pt te mk_lib_crypto_alg_serpent_inl_constexpr_init; \
-	mk_lang_assert(sa);                                                                    \
-	mk_lang_assert(sb);                                                                    \
-	mk_lang_assert(sc);                                                                    \
-	mk_lang_assert(sd);                                                                    \
-	mk_lang_assert(se);                                                                    \
-	mk_lang_assert(sa != sb);                                                              \
-	mk_lang_assert(sa != sc);                                                              \
-	mk_lang_assert(sa != sd);                                                              \
-	mk_lang_assert(sa != se);                                                              \
-	mk_lang_assert(sb != sc);                                                              \
-	mk_lang_assert(sb != sd);                                                              \
-	mk_lang_assert(sb != se);                                                              \
-	mk_lang_assert(sc != sd);                                                              \
-	mk_lang_assert(sc != se);                                                              \
-	mk_lang_assert(sd != se);                                                              \
-	mk_lang_assert(da);                                                                    \
-	mk_lang_assert(db);                                                                    \
-	mk_lang_assert(dc);                                                                    \
-	mk_lang_assert(dd);                                                                    \
-	mk_lang_assert(de);                                                                    \
-	mk_lang_assert(da != db);                                                              \
-	mk_lang_assert(da != dc);                                                              \
-	mk_lang_assert(da != dd);                                                              \
-	mk_lang_assert(da != de);                                                              \
-	mk_lang_assert(db != dc);                                                              \
-	mk_lang_assert(db != dd);                                                              \
-	mk_lang_assert(db != de);                                                              \
-	mk_lang_assert(dc != dd);                                                              \
-	mk_lang_assert(dc != de);                                                              \
-	mk_lang_assert(dd != de);                                                              \
-	ta = *sa;                                                                              \
-	tb = *sb;                                                                              \
-	tc = *sc;                                                                              \
-	td = *sd;                                                                              \
-	te = *se;                                                                              \
-	*da = ta;                                                                              \
-	*db = tb;                                                                              \
-	*dc = tc;                                                                              \
-	*dd = td;                                                                              \
-	*de = te;                                                                              \
+	mk_lib_crypto_alg_serpent_inl_type_pt tta mk_lib_crypto_alg_serpent_inl_constexpr_init; \
+	mk_lib_crypto_alg_serpent_inl_type_pt ttb mk_lib_crypto_alg_serpent_inl_constexpr_init; \
+	mk_lib_crypto_alg_serpent_inl_type_pt ttc mk_lib_crypto_alg_serpent_inl_constexpr_init; \
+	mk_lib_crypto_alg_serpent_inl_type_pt ttd mk_lib_crypto_alg_serpent_inl_constexpr_init; \
+	mk_lib_crypto_alg_serpent_inl_type_pt tte mk_lib_crypto_alg_serpent_inl_constexpr_init; \
+	mk_lang_assert(sa);                                                                     \
+	mk_lang_assert(sb);                                                                     \
+	mk_lang_assert(sc);                                                                     \
+	mk_lang_assert(sd);                                                                     \
+	mk_lang_assert(se);                                                                     \
+	mk_lang_assert(sa != sb);                                                               \
+	mk_lang_assert(sa != sc);                                                               \
+	mk_lang_assert(sa != sd);                                                               \
+	mk_lang_assert(sa != se);                                                               \
+	mk_lang_assert(sb != sc);                                                               \
+	mk_lang_assert(sb != sd);                                                               \
+	mk_lang_assert(sb != se);                                                               \
+	mk_lang_assert(sc != sd);                                                               \
+	mk_lang_assert(sc != se);                                                               \
+	mk_lang_assert(sd != se);                                                               \
+	mk_lang_assert(da);                                                                     \
+	mk_lang_assert(db);                                                                     \
+	mk_lang_assert(dc);                                                                     \
+	mk_lang_assert(dd);                                                                     \
+	mk_lang_assert(de);                                                                     \
+	mk_lang_assert(da != db);                                                               \
+	mk_lang_assert(da != dc);                                                               \
+	mk_lang_assert(da != dd);                                                               \
+	mk_lang_assert(da != de);                                                               \
+	mk_lang_assert(db != dc);                                                               \
+	mk_lang_assert(db != dd);                                                               \
+	mk_lang_assert(db != de);                                                               \
+	mk_lang_assert(dc != dd);                                                               \
+	mk_lang_assert(dc != de);                                                               \
+	mk_lang_assert(dd != de);                                                               \
+	tta = *sa;                                                                              \
+	ttb = *sb;                                                                              \
+	ttc = *sc;                                                                              \
+	ttd = *sd;                                                                              \
+	tte = *se;                                                                              \
+	*da = tta;                                                                              \
+	*db = ttb;                                                                              \
+	*dc = ttc;                                                                              \
+	*dd = ttd;                                                                              \
+	*de = tte;                                                                              \
 }while(mk_lang_false)
 
 #define mk_lib_crypto_alg_serpent_inl_enc_lt(ta, tb, tc, td, te) \
