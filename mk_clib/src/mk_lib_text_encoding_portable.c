@@ -200,3 +200,25 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_te
 		return mk_lib_text_encoding_portable_wide_to_utf8_work(mk_lang_false, wide_str, wide_len, utf8_str, utf8_len, out_len);
 	}
 }
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_text_encoding_portable_asci_to_wide(mk_lang_types_pchar_pct const asci_str, mk_lang_types_sint_t const asci_len, mk_lang_types_wchar_pt const wide_str, mk_lang_types_sint_t const wide_len, mk_lang_types_sint_pt const out_len) mk_lang_noexcept
+{
+	mk_lang_types_sint_t n mk_lang_constexpr_init;
+	mk_lang_types_sint_t i mk_lang_constexpr_init;
+
+	mk_lang_assert(asci_str || asci_len == 0);
+	mk_lang_assert(asci_len >= 0);
+	mk_lang_assert(wide_str || wide_len == 0);
+	mk_lang_assert(wide_len >= 0);
+	mk_lang_assert(out_len);
+
+	mk_lang_check_return(wide_len >= asci_len);
+	n = asci_len;
+	for(i = 0; i != n; ++i)
+	{
+		mk_lang_assert(asci_str[i] >= 0x00 || asci_str[i] <= 0x7f);
+		wide_str[i] = ((mk_lang_types_wchar_t)(asci_str[i]));
+	}
+	*out_len = asci_len;
+	return 0;
+}

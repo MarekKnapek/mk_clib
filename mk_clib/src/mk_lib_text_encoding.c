@@ -27,3 +27,8 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_te
 		return mk_lib_text_encoding_portable_wide_to_utf8(wide_str, wide_len, utf8_str, utf8_len, out_len);
 	}
 }
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_text_encoding_asci_to_wide(mk_lang_types_pchar_pct const asci_str, mk_lang_types_sint_t const asci_len, mk_lang_types_wchar_pt const wide_str, mk_lang_types_sint_t const wide_len, mk_lang_types_sint_pt const out_len) mk_lang_noexcept
+{
+	return mk_lib_text_encoding_portable_asci_to_wide(asci_str, asci_len, wide_str, wide_len, out_len);
+}
