@@ -11,6 +11,7 @@
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_handle_t mk_win_kernel_process_get_current(mk_lang_types_void_t) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_wchar_lpt mk_win_kernel_process_get_command_line(mk_lang_types_void_t) mk_lang_noexcept;
+mk_lang_jumbo mk_lang_types_void_t mk_win_kernel_process_exit(mk_lang_types_uint_t const exit_code) mk_lang_noexcept;
 
 
 #if mk_lang_jumbo_want == 1

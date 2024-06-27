@@ -10,6 +10,7 @@
 
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_handle_t mk_win_base_stdcall GetCurrentProcess(mk_lang_types_void_t) mk_lang_noexcept;
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_wchar_lpt mk_win_base_stdcall GetCommandLineW(mk_lang_types_void_t) mk_lang_noexcept;
+mk_lang_extern_c mk_win_base_dll_import mk_lang_types_void_t mk_win_base_stdcall ExitProcess(mk_lang_types_uint_t) mk_lang_noexcept;
 
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_handle_t mk_win_kernel_process_get_current(mk_lang_types_void_t) mk_lang_noexcept
@@ -33,4 +34,9 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_wchar_lpt mk_win_kernel_process_get_
 
 	ret = GetCommandLineW();
 	return ret;
+}
+
+mk_lang_jumbo mk_lang_types_void_t mk_win_kernel_process_exit(mk_lang_types_uint_t const exit_code) mk_lang_noexcept
+{
+	ExitProcess(exit_code);
 }
