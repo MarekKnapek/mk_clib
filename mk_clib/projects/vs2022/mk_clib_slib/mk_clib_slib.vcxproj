@@ -51,6 +51,8 @@
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_abort_win_amd64.asm"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_abort_win_i386.asm"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_example.c"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcpy_win_amd64.asm"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcpy_win_i386.asm"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_example.c"/>
 	</ItemGroup>
 	<ItemGroup>
