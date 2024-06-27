@@ -29,4 +29,6 @@
 #undef mk_lib_fmt_inl_defd_char_pct
 
 #undef mk_lib_fmt_inl_defd_fn_vsnprintf
+#undef mk_lib_fmt_inl_defd_fn_vsnnprintf
 #undef mk_lib_fmt_inl_defd_fn_snprintf
+#undef mk_lib_fmt_inl_defd_fn_snnprintf

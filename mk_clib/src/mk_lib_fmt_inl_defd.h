@@ -29,4 +29,6 @@
 #define mk_lib_fmt_inl_defd_char_pct mk_lang_concat(mk_lib_fmt_inl_defd_base, _pct)
 
 #define mk_lib_fmt_inl_defd_fn_vsnprintf mk_lang_concat(mk_lib_fmt_inl_defd_name, _vsnprintf)
+#define mk_lib_fmt_inl_defd_fn_vsnnprintf mk_lang_concat(mk_lib_fmt_inl_defd_name, _vsnnprintf)
 #define mk_lib_fmt_inl_defd_fn_snprintf mk_lang_concat(mk_lib_fmt_inl_defd_name, _snprintf)
+#define mk_lib_fmt_inl_defd_fn_snnprintf mk_lang_concat(mk_lib_fmt_inl_defd_name, _snnprintf)
