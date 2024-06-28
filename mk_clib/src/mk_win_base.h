@@ -466,6 +466,7 @@ typedef mk_win_base_large_integer_t mk_win_base_near const* mk_lang_restrict mk_
 
 mk_win_base_make_handle(mk_win_base_handle)
 mk_win_base_make_handle(mk_win_base_instance)
+mk_win_base_make_handle(mk_win_base_module)
 
 typedef mk_win_base_sint_t(mk_win_base_far mk_win_base_stdcall*mk_win_base_proc_t)(mk_win_base_sint_t);
 typedef mk_win_base_proc_t const mk_win_base_proc_ct;
