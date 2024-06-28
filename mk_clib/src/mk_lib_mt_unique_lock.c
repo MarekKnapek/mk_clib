@@ -37,6 +37,12 @@
 #define mk_lib_mt_unique_lock_exclusive_impl_destruct  mk_lib_mt_unique_lock_exclusive_portable_c_destruct
 #define mk_lib_mt_unique_lock_shared_impl_construct    mk_lib_mt_unique_lock_shared_portable_c_construct
 #define mk_lib_mt_unique_lock_shared_impl_destruct     mk_lib_mt_unique_lock_shared_portable_c_destruct
+#elif defined mk_lib_mt_posix_has && mk_lib_mt_posix_has == 1
+#include "mk_lib_mt_unique_lock_posix.h"
+#define mk_lib_mt_unique_lock_exclusive_impl_construct mk_lib_mt_unique_lock_exclusive_posix_construct
+#define mk_lib_mt_unique_lock_exclusive_impl_destruct  mk_lib_mt_unique_lock_exclusive_posix_destruct
+#define mk_lib_mt_unique_lock_shared_impl_construct    mk_lib_mt_unique_lock_shared_posix_construct
+#define mk_lib_mt_unique_lock_shared_impl_destruct     mk_lib_mt_unique_lock_shared_posix_destruct
 #else
 #error xxxxxxxxxx todo
 #endif

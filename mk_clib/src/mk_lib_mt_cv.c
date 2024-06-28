@@ -45,6 +45,14 @@
 #define mk_lib_mt_cv_impl_wait_shared    mk_lib_mt_cv_portable_c_wait_shared
 #define mk_lib_mt_cv_impl_notify_one     mk_lib_mt_cv_portable_c_notify_one
 #define mk_lib_mt_cv_impl_notify_all     mk_lib_mt_cv_portable_c_notify_all
+#elif defined mk_lib_mt_posix_has && mk_lib_mt_posix_has == 1
+#include "mk_lib_mt_cv_posix.h"
+#define mk_lib_mt_cv_impl_construct      mk_lib_mt_cv_posix_construct
+#define mk_lib_mt_cv_impl_destruct       mk_lib_mt_cv_posix_destruct
+#define mk_lib_mt_cv_impl_wait_exclusive mk_lib_mt_cv_posix_wait_exclusive
+#define mk_lib_mt_cv_impl_wait_shared    mk_lib_mt_cv_posix_wait_shared
+#define mk_lib_mt_cv_impl_notify_one     mk_lib_mt_cv_posix_notify_one
+#define mk_lib_mt_cv_impl_notify_all     mk_lib_mt_cv_posix_notify_all
 #else
 #error xxxxxxxxxx todo
 #endif

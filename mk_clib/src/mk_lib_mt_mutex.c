@@ -44,6 +44,14 @@
 #define mk_lib_mt_mutex_impl_exclusive_unlock mk_lib_mt_mutex_portable_c_exclusive_unlock
 #define mk_lib_mt_mutex_impl_shared_lock      mk_lib_mt_mutex_portable_c_shared_lock
 #define mk_lib_mt_mutex_impl_shared_unlock    mk_lib_mt_mutex_portable_c_shared_unlock
+#elif defined mk_lib_mt_posix_has && mk_lib_mt_posix_has == 1
+#include "mk_lib_mt_mutex_posix.h"
+#define mk_lib_mt_mutex_impl_construct        mk_lib_mt_mutex_posix_construct
+#define mk_lib_mt_mutex_impl_destruct         mk_lib_mt_mutex_posix_destruct
+#define mk_lib_mt_mutex_impl_exclusive_lock   mk_lib_mt_mutex_posix_exclusive_lock
+#define mk_lib_mt_mutex_impl_exclusive_unlock mk_lib_mt_mutex_posix_exclusive_unlock
+#define mk_lib_mt_mutex_impl_shared_lock      mk_lib_mt_mutex_posix_shared_lock
+#define mk_lib_mt_mutex_impl_shared_unlock    mk_lib_mt_mutex_posix_shared_unlock
 #else
 #error xxxxxxxxxx todo
 #endif

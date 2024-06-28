@@ -47,6 +47,13 @@
 #define mk_lib_mt_thread_impl_create_all           mk_lib_mt_thread_portable_c_create_all
 #define mk_lib_mt_thread_impl_join                 mk_lib_mt_thread_portable_c_join
 #define mk_lib_mt_thread_impl_destroy              mk_lib_mt_thread_portable_c_destroy
+#elif defined mk_lib_mt_posix_has && mk_lib_mt_posix_has == 1
+#include "mk_lib_mt_thread_posix.h"
+#define mk_lib_mt_thread_impl_hardware_concurrency mk_lib_mt_thread_posix_hardware_concurrency
+#define mk_lib_mt_thread_impl_create               mk_lib_mt_thread_posix_create
+#define mk_lib_mt_thread_impl_create_all           mk_lib_mt_thread_posix_create_all
+#define mk_lib_mt_thread_impl_join                 mk_lib_mt_thread_posix_join
+#define mk_lib_mt_thread_impl_destroy              mk_lib_mt_thread_posix_destroy
 #else
 #error xxxxxxxxxx todo
 #endif

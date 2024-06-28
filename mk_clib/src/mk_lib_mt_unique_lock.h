@@ -28,6 +28,10 @@ typedef mk_lib_mt_unique_lock_shared_portable_cpp_t    mk_lib_mt_unique_lock_sha
 #include "mk_lib_mt_unique_lock_portable_c.h"
 typedef mk_lib_mt_unique_lock_exclusive_portable_c_t mk_lib_mt_unique_lock_exclusive_impl_t;
 typedef mk_lib_mt_unique_lock_shared_portable_c_t    mk_lib_mt_unique_lock_shared_impl_t;
+#elif defined mk_lib_mt_posix_has && mk_lib_mt_posix_has == 1
+#include "mk_lib_mt_unique_lock_posix.h"
+typedef mk_lib_mt_unique_lock_exclusive_posix_t mk_lib_mt_unique_lock_exclusive_impl_t;
+typedef mk_lib_mt_unique_lock_shared_posix_t    mk_lib_mt_unique_lock_shared_impl_t;
 #else
 #error xxxxxxxxxx todo
 #endif
