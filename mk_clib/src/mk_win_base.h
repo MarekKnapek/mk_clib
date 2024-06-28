@@ -392,6 +392,21 @@ typedef mk_win_base_ntstatus_t mk_win_base_far const* mk_lang_restrict mk_win_ba
 typedef mk_win_base_ntstatus_t mk_win_base_near* mk_lang_restrict mk_win_base_ntstatus_nprt;
 typedef mk_win_base_ntstatus_t mk_win_base_near const* mk_lang_restrict mk_win_base_ntstatus_nprct;
 
+typedef mk_lang_types_slong_t mk_win_base_hresult_t;
+typedef mk_win_base_hresult_t const mk_win_base_hresult_ct;
+typedef mk_win_base_hresult_t* mk_win_base_hresult_pt;
+typedef mk_win_base_hresult_t const* mk_win_base_hresult_pct;
+typedef mk_win_base_hresult_t mk_win_base_far* mk_win_base_hresult_lpt;
+typedef mk_win_base_hresult_t mk_win_base_far const* mk_win_base_hresult_lpct;
+typedef mk_win_base_hresult_t mk_win_base_near* mk_win_base_hresult_npt;
+typedef mk_win_base_hresult_t mk_win_base_near const* mk_win_base_hresult_npct;
+typedef mk_win_base_hresult_t* mk_lang_restrict mk_win_base_hresult_prt;
+typedef mk_win_base_hresult_t const* mk_lang_restrict mk_win_base_hresult_prct;
+typedef mk_win_base_hresult_t mk_win_base_far* mk_lang_restrict mk_win_base_hresult_lprt;
+typedef mk_win_base_hresult_t mk_win_base_far const* mk_lang_restrict mk_win_base_hresult_lprct;
+typedef mk_win_base_hresult_t mk_win_base_near* mk_lang_restrict mk_win_base_hresult_nprt;
+typedef mk_win_base_hresult_t mk_win_base_near const* mk_lang_restrict mk_win_base_hresult_nprct;
+
 struct mk_win_base_large_integer_data_a_s
 {
 	mk_win_base_dword_t m_lo;
