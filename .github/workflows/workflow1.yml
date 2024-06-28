@@ -63,7 +63,7 @@
   "build_run_win":
     "strategy":
       "matrix":
-        "proj": ["mkcc", "mkcfct", "mkcflt", "mkch", "mkci", "mkct", "mkvc"]
+        "proj": ["mkcc", "mkcfct", "mkcflt", "mkch", "mkci", "mkct", "mkdefrag", "mkvc"]
         "conf": ["debug", "release"]
         "plat": ["x86", "x64", "arm32", "arm64", "arm64ec"]
     "runs-on": "windows-latest"
