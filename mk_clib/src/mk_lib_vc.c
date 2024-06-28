@@ -444,8 +444,13 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_vc
 		(wide && mk_lib_vc_strlenwc_fn(((mk_lang_types_wchar_pct)(str_pim))) <= ((mk_lang_types_usize_t)(mk_lang_limits_sint_max)))
 	);
 
+	#if defined mk_lang_nodefaultlib_want && mk_lang_nodefaultlib_want == 1
+	str_pim_len = ((mk_lang_types_sint_t)(mk_lib_vc_strlenwc_fn(((mk_lang_types_wchar_pct)(str_pim)))));
+	err = mk_sl_cui_uint32_from_str_dec_w(&pim32[0], ((mk_lang_types_wchar_pct)(str_pim)), str_pim_len);
+	#else
 	str_pim_len = wide ? ((mk_lang_types_sint_t)(mk_lib_vc_strlenwc_fn(((mk_lang_types_wchar_pct)(str_pim))))) : ((mk_lang_types_sint_t)(mk_lib_vc_strlenpc_fn(str_pim)));
 	err = wide ? mk_sl_cui_uint32_from_str_dec_w(&pim32[0], ((mk_lang_types_wchar_pct)(str_pim)), str_pim_len) : mk_sl_cui_uint32_from_str_dec_n(&pim32[0], str_pim, str_pim_len);
+	#endif
 	mk_lang_check_return(err == str_pim_len);
 	if(mk_sl_cui_uint32_is_zero(&pim32[0]))
 	{

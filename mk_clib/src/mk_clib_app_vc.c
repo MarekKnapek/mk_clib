@@ -1372,6 +1372,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_open
 	#else
 	thread = mk_lang_null;
 	#endif
+	#if !(defined mk_lang_nodefaultlib_want && mk_lang_nodefaultlib_want == 1)
 	if(!vc->m_wide)
 	{
 		argsn = ((mk_lang_types_pchar_pcpct)(vc->m_argv));
@@ -1383,6 +1384,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_open
 		}
 	}
 	else
+	#endif
 	{
 		argsw = ((mk_lang_types_wchar_pcpct)(vc->m_argv));
 		namew = argsw[4];
@@ -1420,6 +1422,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_pass
 	mk_lang_assert(password_utf8);
 	mk_lang_assert(password_len);
 
+	#if !(defined mk_lang_nodefaultlib_want && mk_lang_nodefaultlib_want == 1)
 	if(!wide)
 	{
 		mk_lang_assert(mk_clib_app_vc_strlen_pc_fn(((mk_lang_types_pchar_pct)(str_password))) <= ((mk_lang_types_usize_t)(mk_lang_limits_sint_max)));
@@ -1428,6 +1431,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_pass
 		*password_len = len;
 	}
 	else
+	#endif
 	{
 		mk_lang_assert(mk_clib_app_vc_strlen_wc_fn(((mk_lang_types_wchar_pct)(str_password))) <= ((mk_lang_types_usize_t)(mk_lang_limits_sint_max)));
 		len = ((mk_lang_types_sint_t)(mk_clib_app_vc_strlen_wc_fn(((mk_lang_types_wchar_pct)(str_password)))));
@@ -1569,6 +1573,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_open
 	#else
 	thread = mk_lang_null;
 	#endif
+	#if !(defined mk_lang_nodefaultlib_want && mk_lang_nodefaultlib_want == 1)
 	if(!vc->m_wide)
 	{
 		argsn = ((mk_lang_types_pchar_pcpct)(vc->m_argv));
@@ -1580,6 +1585,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_open
 		}
 	}
 	else
+	#endif
 	{
 		argsw = ((mk_lang_types_wchar_pcpct)(vc->m_argv));
 		namew = argsw[1];
@@ -1725,8 +1731,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_read
 
 	mk_lang_assert(vc);
 
+	#if defined mk_lang_nodefaultlib_want && mk_lang_nodefaultlib_want == 1
+	err = mk_clib_app_vc_readme_w(vc); mk_lang_check_rereturn(err);
+	#else
 	if(!vc->m_wide){ err = mk_clib_app_vc_readme_n(vc); mk_lang_check_rereturn(err); }
 	else           { err = mk_clib_app_vc_readme_w(vc); mk_lang_check_rereturn(err); }
+	#endif
 	return 0;
 }
 
@@ -1778,8 +1788,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_vali
 
 	mk_lang_assert(vc);
 
+	#if defined mk_lang_nodefaultlib_want && mk_lang_nodefaultlib_want == 1
+	err = mk_clib_app_vc_validate_w(vc); mk_lang_check_rereturn(err);
+	#else
 	if(!vc->m_wide){ err = mk_clib_app_vc_validate_n(vc); mk_lang_check_rereturn(err); }
 	else           { err = mk_clib_app_vc_validate_w(vc); mk_lang_check_rereturn(err); }
+	#endif
 	return 0;
 }
 
@@ -1815,3 +1829,95 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_clib_app_vc_arg(mk_lang_
 	err = mk_clib_app_vc_run(&g_mk_clib_app_vc, wide, argc, argv); mk_lang_check_rereturn(err);
 	return 0;
 }
+
+
+#if defined mk_lang_nodefaultlib_want && mk_lang_nodefaultlib_want == 1
+
+
+#include "mk_win_base.h"
+#include "mk_win_kernel_process.h"
+
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_vc_run_cmdline(mk_lang_types_sint_pt const argc, mk_lang_types_wchar_ppct const argv, mk_lang_types_sint_t const n) mk_lang_noexcept
+{
+	mk_win_base_wchar_pt cmdline;
+	mk_win_base_wchar_pt ptr;
+	mk_win_base_wchar_pt arg;
+	mk_lang_types_sint_t len;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(argc);
+	mk_lang_assert(argv);
+	mk_lang_assert(n >= 1 && n <= 256);
+
+	cmdline = mk_win_kernel_process_get_command_line(); mk_lang_check_return(cmdline && cmdline[0] != L'\0');
+	ptr = cmdline;
+	for(;;)
+	{
+		while(ptr[0] == L' ')
+		{
+			++ptr;
+		}
+		if(ptr[0] == L'\0')
+		{
+			break;
+		}
+		if(ptr[0] == L'"')
+		{
+			arg = ptr + 1;
+			do
+			{
+				++ptr;
+			}while(ptr[0] != L'"' && ptr[0] != L'\0');
+			len = ((mk_lang_types_sint_t)(((mk_lang_types_sintptr_t)(ptr - arg))));
+			if(ptr[0] == L'"')
+			{
+				++ptr;
+			}
+		}
+		else
+		{
+			arg = ptr;
+			do
+			{
+				++ptr;
+			}while(ptr[0] != L' ' && ptr[0] != L'\0');
+			len = ((mk_lang_types_sint_t)(((mk_lang_types_sintptr_t)(ptr - arg))));
+		}
+		if(len == 0)
+		{
+			continue;
+		}
+		mk_lang_assert(len >= 1);
+		if(ptr[0] != L'\0'){ ++ptr; }
+		arg[len] = L'\0';
+		argv[*argc] = arg; ++*argc;
+		mk_lang_check_return(*argc < n);
+	}
+	return 0;
+}
+
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_clib_app_vc_peb(mk_lang_types_void_pt const peb) mk_lang_noexcept
+{
+	mk_lang_types_sint_t argc;
+	mk_lang_types_sint_t n;
+	mk_lang_types_wchar_pct argv[8];
+	mk_lang_types_sint_t i;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(peb);
+
+	argc = 0;
+	n = mk_lang_countof(argv);
+	for(i = 0; i != n; ++i)
+	{
+		argv[i] = mk_lang_null;
+	}
+	err = mk_clib_app_vc_run_cmdline(&argc, &argv[0], mk_lang_countof(argv)); mk_lang_check_rereturn(err);
+	err = mk_clib_app_vc_arg(mk_lang_true, argc, ((mk_lang_types_pchar_pcpct)(&argv[0]))); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+
+#endif
