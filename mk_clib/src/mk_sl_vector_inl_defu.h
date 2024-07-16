@@ -1,66 +1,63 @@
-#undef mk_sl_vector_inl_defd_prefix
-
-#undef mk_sl_vector_inl_defd_vector_s
-#undef mk_sl_vector_inl_defd_vector_t
-#undef mk_sl_vector_inl_defd_vector_ct
-#undef mk_sl_vector_inl_defd_vector_pt
-#undef mk_sl_vector_inl_defd_vector_pct
-
-#undef mk_sl_vector_inl_defd_vector_ro_destroy
-#undef mk_sl_vector_inl_defd_vector_ro_is_empty
-#undef mk_sl_vector_inl_defd_vector_ro_get_count
-#undef mk_sl_vector_inl_defd_vector_ro_get_capacity
-#undef mk_sl_vector_inl_defd_vector_ro_get_data
-#undef mk_sl_vector_inl_defd_vector_ro_get_data_at
-#undef mk_sl_vector_inl_defd_vector_ro_get_data_back
-
-#undef mk_sl_vector_inl_defd_vector_rw_destroy
-#undef mk_sl_vector_inl_defd_vector_rw_is_empty
-#undef mk_sl_vector_inl_defd_vector_rw_get_count
-#undef mk_sl_vector_inl_defd_vector_rw_get_capacity
-#undef mk_sl_vector_inl_defd_vector_rw_get_data
-#undef mk_sl_vector_inl_defd_vector_rw_get_data_at
-#undef mk_sl_vector_inl_defd_vector_rw_get_data_back
-
-#undef mk_sl_vector_inl_defd_vector_rw_construct
-#undef mk_sl_vector_inl_defd_vector_rw_reserve_n
-#undef mk_sl_vector_inl_defd_vector_rw_reserve_one
-#undef mk_sl_vector_inl_defd_vector_rw_resize
-#undef mk_sl_vector_inl_defd_vector_rw_push_back
-#undef mk_sl_vector_inl_defd_vector_rw_clear
-#undef mk_sl_vector_inl_defd_vector_rw_push_back_from_capacity_one
-#undef mk_sl_vector_inl_defd_vector_rw_push_back_from_capacity_n
-#undef mk_sl_vector_inl_defd_vector_rw_pop_back_one
-#undef mk_sl_vector_inl_defd_vector_rw_pop_back_n
-
-#undef mk_sl_vector_inl_defd_vector_pr_check_invariants
 
 
-#undef mk_sl_vector_inl_defd_elem_t
-#undef mk_sl_vector_inl_defd_elem_ct
-#undef mk_sl_vector_inl_defd_elem_pt
-#undef mk_sl_vector_inl_defd_elem_pct
 
 
-#undef mk_sl_vector_inl_defd_buffer_prefix
 
-#undef mk_sl_vector_inl_defd_buffer_s
-#undef mk_sl_vector_inl_defd_buffer_t
-#undef mk_sl_vector_inl_defd_buffer_ct
-#undef mk_sl_vector_inl_defd_buffer_pt
-#undef mk_sl_vector_inl_defd_buffer_pct
 
-#undef mk_sl_vector_inl_defd_buffer_ro_destroy
-#undef mk_sl_vector_inl_defd_buffer_ro_get_data
-#undef mk_sl_vector_inl_defd_buffer_ro_get_size
-#undef mk_sl_vector_inl_defd_buffer_ro_is_empty
-#undef mk_sl_vector_inl_defd_buffer_ro_get_data_at
 
-#undef mk_sl_vector_inl_defd_buffer_rw_destroy
-#undef mk_sl_vector_inl_defd_buffer_rw_get_data
-#undef mk_sl_vector_inl_defd_buffer_rw_get_size
-#undef mk_sl_vector_inl_defd_buffer_rw_is_empty
-#undef mk_sl_vector_inl_defd_buffer_rw_get_data_at
 
-#undef mk_sl_vector_inl_defd_buffer_rw_construct
-#undef mk_sl_vector_inl_defd_buffer_rw_resize
+
+
+
+
+#undef mk_sl_vector_inl_defd_name
+#undef mk_sl_vector_inl_defd_element
+#undef mk_sl_vector_inl_defd_mallocatorg
+
+
+#undef mk_sl_vector_inl_defd_element_t
+#undef mk_sl_vector_inl_defd_element_ct
+#undef mk_sl_vector_inl_defd_element_pt
+#undef mk_sl_vector_inl_defd_element_pct
+
+#undef mk_sl_vecotr_inl_defd_mallocatorg_allocate
+#undef mk_sl_vecotr_inl_defd_mallocatorg_deallocate
+#undef mk_sl_vecotr_inl_defd_mallocatorg_reallocate
+
+#undef mk_sl_vector_inl_defd_s
+#undef mk_sl_vector_inl_defd_t
+#undef mk_sl_vector_inl_defd_ct
+#undef mk_sl_vector_inl_defd_pt
+#undef mk_sl_vector_inl_defd_pct
+
+#undef mk_sl_vector_inl_defd_ro_capacity
+#undef mk_sl_vector_inl_defd_ro_size
+#undef mk_sl_vector_inl_defd_ro_free
+#undef mk_sl_vector_inl_defd_ro_is_empty
+#undef mk_sl_vector_inl_defd_ro_is_full
+#undef mk_sl_vector_inl_defd_ro_at
+#undef mk_sl_vector_inl_defd_ro_data
+#undef mk_sl_vector_inl_defd_ro_front
+#undef mk_sl_vector_inl_defd_ro_back
+
+#undef mk_sl_vector_inl_defd_rw_capacity
+#undef mk_sl_vector_inl_defd_rw_size
+#undef mk_sl_vector_inl_defd_rw_free
+#undef mk_sl_vector_inl_defd_rw_is_empty
+#undef mk_sl_vector_inl_defd_rw_is_full
+#undef mk_sl_vector_inl_defd_rw_at
+#undef mk_sl_vector_inl_defd_rw_data
+#undef mk_sl_vector_inl_defd_rw_front
+#undef mk_sl_vector_inl_defd_rw_back
+
+#undef mk_sl_vector_inl_defd_rw_construct
+#undef mk_sl_vector_inl_defd_rw_destroy
+#undef mk_sl_vector_inl_defd_rw_reserve_at_least
+#undef mk_sl_vector_inl_defd_rw_shrink
+#undef mk_sl_vector_inl_defd_rw_resize
+#undef mk_sl_vector_inl_defd_rw_clear
+#undef mk_sl_vector_inl_defd_rw_push_back_many
+#undef mk_sl_vector_inl_defd_rw_push_back_one
+#undef mk_sl_vector_inl_defd_rw_push_back_void
+#undef mk_sl_vector_inl_defd_rw_pop_back_one
+#undef mk_sl_vector_inl_defd_rw_pop_back_many
