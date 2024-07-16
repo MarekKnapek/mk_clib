@@ -1,0 +1,58 @@
+#include "mk_lang_concat.h"
+
+
+#if(!( \
+	(defined mk_lib_mt_atomic_t_name) && \
+	(defined mk_lib_mt_atomic_t_type) && \
+1))
+#error xxxxxxxxxx
+#endif
+
+
+#define mk_lib_mt_atomic_inl_defd_name mk_lib_mt_atomic_t_name
+#define mk_lib_mt_atomic_inl_defd_type mk_lib_mt_atomic_t_type
+
+
+#define mk_lib_mt_atomic_inl_defd_base mk_lang_concat(mk_lib_mt_atomic_inl_defd_name, _zzz_base)
+#define mk_lib_mt_atomic_inl_defd_base_t mk_lang_concat(mk_lib_mt_atomic_inl_defd_base, _t)
+
+#define mk_lib_mt_atomic_inl_defd_base_construct mk_lang_concat(mk_lib_mt_atomic_inl_defd_base, _construct)
+#define mk_lib_mt_atomic_inl_defd_base_destroy mk_lang_concat(mk_lib_mt_atomic_inl_defd_base, _destroy)
+#define mk_lib_mt_atomic_inl_defd_base_store mk_lang_concat(mk_lib_mt_atomic_inl_defd_base, _store)
+#define mk_lib_mt_atomic_inl_defd_base_load mk_lang_concat(mk_lib_mt_atomic_inl_defd_base, _load)
+#define mk_lib_mt_atomic_inl_defd_base_fetch_add mk_lang_concat(mk_lib_mt_atomic_inl_defd_base, _fetch_add)
+#define mk_lib_mt_atomic_inl_defd_base_fetch_sub mk_lang_concat(mk_lib_mt_atomic_inl_defd_base, _fetch_sub)
+#define mk_lib_mt_atomic_inl_defd_base_fetch_and mk_lang_concat(mk_lib_mt_atomic_inl_defd_base, _fetch_and)
+#define mk_lib_mt_atomic_inl_defd_base_fetch_xor mk_lang_concat(mk_lib_mt_atomic_inl_defd_base, _fetch_xor)
+#define mk_lib_mt_atomic_inl_defd_base_fetch_or mk_lang_concat(mk_lib_mt_atomic_inl_defd_base, _fetch_or)
+#define mk_lib_mt_atomic_inl_defd_base_inc mk_lang_concat(mk_lib_mt_atomic_inl_defd_base, _inc)
+#define mk_lib_mt_atomic_inl_defd_base_dec mk_lang_concat(mk_lib_mt_atomic_inl_defd_base, _dec)
+#define mk_lib_mt_atomic_inl_defd_base_exchange mk_lang_concat(mk_lib_mt_atomic_inl_defd_base, _exchange)
+#define mk_lib_mt_atomic_inl_defd_base_compare_exchange_weak mk_lang_concat(mk_lib_mt_atomic_inl_defd_base, _compare_exchange_weak)
+#define mk_lib_mt_atomic_inl_defd_base_compare_exchange_strong mk_lang_concat(mk_lib_mt_atomic_inl_defd_base, _compare_exchange_strong)
+
+#define mk_lib_mt_atomic_inl_defd_type_t mk_lang_concat(mk_lib_mt_atomic_inl_defd_name, _type_t)
+#define mk_lib_mt_atomic_inl_defd_type_ct mk_lang_concat(mk_lib_mt_atomic_inl_defd_name, _type_ct)
+#define mk_lib_mt_atomic_inl_defd_type_pt mk_lang_concat(mk_lib_mt_atomic_inl_defd_name, _type_pt)
+#define mk_lib_mt_atomic_inl_defd_type_pct mk_lang_concat(mk_lib_mt_atomic_inl_defd_name, _type_pct)
+
+#define mk_lib_mt_atomic_inl_defd_s mk_lang_concat(mk_lib_mt_atomic_inl_defd_name, _s)
+#define mk_lib_mt_atomic_inl_defd_t mk_lang_concat(mk_lib_mt_atomic_inl_defd_name, _t)
+#define mk_lib_mt_atomic_inl_defd_ct mk_lang_concat(mk_lib_mt_atomic_inl_defd_name, _ct)
+#define mk_lib_mt_atomic_inl_defd_pt mk_lang_concat(mk_lib_mt_atomic_inl_defd_name, _pt)
+#define mk_lib_mt_atomic_inl_defd_pct mk_lang_concat(mk_lib_mt_atomic_inl_defd_name, _pct)
+
+#define mk_lib_mt_atomic_inl_defd_construct mk_lang_concat(mk_lib_mt_atomic_inl_defd_name, _construct)
+#define mk_lib_mt_atomic_inl_defd_destroy mk_lang_concat(mk_lib_mt_atomic_inl_defd_name, _destroy)
+#define mk_lib_mt_atomic_inl_defd_store mk_lang_concat(mk_lib_mt_atomic_inl_defd_name, _store)
+#define mk_lib_mt_atomic_inl_defd_load mk_lang_concat(mk_lib_mt_atomic_inl_defd_name, _load)
+#define mk_lib_mt_atomic_inl_defd_fetch_add mk_lang_concat(mk_lib_mt_atomic_inl_defd_name, _fetch_add)
+#define mk_lib_mt_atomic_inl_defd_fetch_sub mk_lang_concat(mk_lib_mt_atomic_inl_defd_name, _fetch_sub)
+#define mk_lib_mt_atomic_inl_defd_fetch_and mk_lang_concat(mk_lib_mt_atomic_inl_defd_name, _fetch_and)
+#define mk_lib_mt_atomic_inl_defd_fetch_xor mk_lang_concat(mk_lib_mt_atomic_inl_defd_name, _fetch_xor)
+#define mk_lib_mt_atomic_inl_defd_fetch_or mk_lang_concat(mk_lib_mt_atomic_inl_defd_name, _fetch_or)
+#define mk_lib_mt_atomic_inl_defd_inc mk_lang_concat(mk_lib_mt_atomic_inl_defd_name, _inc)
+#define mk_lib_mt_atomic_inl_defd_dec mk_lang_concat(mk_lib_mt_atomic_inl_defd_name, _dec)
+#define mk_lib_mt_atomic_inl_defd_exchange mk_lang_concat(mk_lib_mt_atomic_inl_defd_name, _exchange)
+#define mk_lib_mt_atomic_inl_defd_compare_exchange_weak mk_lang_concat(mk_lib_mt_atomic_inl_defd_name, _compare_exchange_weak)
+#define mk_lib_mt_atomic_inl_defd_compare_exchange_strong mk_lang_concat(mk_lib_mt_atomic_inl_defd_name, _compare_exchange_strong)
