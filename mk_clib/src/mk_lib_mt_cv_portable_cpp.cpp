@@ -8,6 +8,7 @@
 #include "mk_lang_types.h"
 #include "mk_lib_mt_unique_lock_portable_cpp.hpp"
 
+#include <chrono> /* std::chrono::milliseconds */
 #include <condition_variable> /* std::condition_variable */
 #include <new> /* new */
 
@@ -47,12 +48,40 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_portable_cpp_w
 	return 0;
 }
 
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_portable_cpp_wait_exclusive_for(mk_lib_mt_cv_portable_cpp_pt const cv, mk_lib_mt_unique_lock_exclusive_portable_cpp_pt const lock, mk_lang_types_sint_t const ms, mk_lang_types_bool_pt const signaled) mk_lang_noexcept
+{
+	std::cv_status ret;
+
+	mk_lang_assert(cv);
+	mk_lang_assert(lock);
+	mk_lang_assert(ms >= 1);
+	mk_lang_assert(signaled);
+
+	ret = reinterpret_cast<std::condition_variable*>(&cv->m_cv)->wait_for(*reinterpret_cast<std::unique_lock<std::mutex>*>(&lock->m_unique_lock), std::chrono::milliseconds{ms}); mk_lang_assert(ret == std::cv_status::no_timeout || ret == std::cv_status::timeout);
+	*signaled = ret == std::cv_status::no_timeout;
+	return 0;
+}
+
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_portable_cpp_wait_shared(mk_lib_mt_cv_portable_cpp_pt const cv, mk_lib_mt_unique_lock_shared_portable_cpp_pt const lock) mk_lang_noexcept
 {
 	mk_lang_assert(cv);
 	mk_lang_assert(lock);
 
 	reinterpret_cast<std::condition_variable*>(&cv->m_cv)->wait(*reinterpret_cast<std::unique_lock<std::mutex>*>(&lock->m_unique_lock));
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_portable_cpp_wait_shared_for(mk_lib_mt_cv_portable_cpp_pt const cv, mk_lib_mt_unique_lock_shared_portable_cpp_pt const lock, mk_lang_types_sint_t const ms, mk_lang_types_bool_pt const signaled) mk_lang_noexcept
+{
+	std::cv_status ret;
+
+	mk_lang_assert(cv);
+	mk_lang_assert(lock);
+	mk_lang_assert(ms >= 1);
+	mk_lang_assert(signaled);
+
+	ret = reinterpret_cast<std::condition_variable*>(&cv->m_cv)->wait_for(*reinterpret_cast<std::unique_lock<std::mutex>*>(&lock->m_unique_lock), std::chrono::milliseconds{ms}); mk_lang_assert(ret == std::cv_status::no_timeout || ret == std::cv_status::timeout);
+	*signaled = ret == std::cv_status::no_timeout;
 	return 0;
 }
 
