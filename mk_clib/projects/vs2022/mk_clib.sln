@@ -69,6 +69,11 @@ Project("{8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942}") = "mkdefrag", "mkdefrag\mkdefr
 		{8286250d-5be4-4739-befc-05c1fef305be} = {8286250d-5be4-4739-befc-05c1fef305be}
 	EndProjectSection
 EndProject
+Project("{8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942}") = "mkfe", "mkfe\mkfe.vcxproj", "{1c374d1b-5d27-4ce6-ba46-55db46d737ae}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8286250d-5be4-4739-befc-05c1fef305be} = {8286250d-5be4-4739-befc-05c1fef305be}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -361,6 +366,26 @@ Global
 		{323d819f-23f2-459e-bb5d-eed8e09079f2}.Debug|ARM64EC.Build.0 = Debug|ARM64EC
 		{323d819f-23f2-459e-bb5d-eed8e09079f2}.Release|ARM64EC.ActiveCfg = Release|ARM64EC
 		{323d819f-23f2-459e-bb5d-eed8e09079f2}.Release|ARM64EC.Build.0 = Release|ARM64EC
+		{1c374d1b-5d27-4ce6-ba46-55db46d737ae}.Debug|x86.ActiveCfg = Debug|Win32
+		{1c374d1b-5d27-4ce6-ba46-55db46d737ae}.Debug|x86.Build.0 = Debug|Win32
+		{1c374d1b-5d27-4ce6-ba46-55db46d737ae}.Release|x86.ActiveCfg = Release|Win32
+		{1c374d1b-5d27-4ce6-ba46-55db46d737ae}.Release|x86.Build.0 = Release|Win32
+		{1c374d1b-5d27-4ce6-ba46-55db46d737ae}.Debug|x64.ActiveCfg = Debug|x64
+		{1c374d1b-5d27-4ce6-ba46-55db46d737ae}.Debug|x64.Build.0 = Debug|x64
+		{1c374d1b-5d27-4ce6-ba46-55db46d737ae}.Release|x64.ActiveCfg = Release|x64
+		{1c374d1b-5d27-4ce6-ba46-55db46d737ae}.Release|x64.Build.0 = Release|x64
+		{1c374d1b-5d27-4ce6-ba46-55db46d737ae}.Debug|ARM.ActiveCfg = Debug|ARM
+		{1c374d1b-5d27-4ce6-ba46-55db46d737ae}.Debug|ARM.Build.0 = Debug|ARM
+		{1c374d1b-5d27-4ce6-ba46-55db46d737ae}.Release|ARM.ActiveCfg = Release|ARM
+		{1c374d1b-5d27-4ce6-ba46-55db46d737ae}.Release|ARM.Build.0 = Release|ARM
+		{1c374d1b-5d27-4ce6-ba46-55db46d737ae}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{1c374d1b-5d27-4ce6-ba46-55db46d737ae}.Debug|ARM64.Build.0 = Debug|ARM64
+		{1c374d1b-5d27-4ce6-ba46-55db46d737ae}.Release|ARM64.ActiveCfg = Release|ARM64
+		{1c374d1b-5d27-4ce6-ba46-55db46d737ae}.Release|ARM64.Build.0 = Release|ARM64
+		{1c374d1b-5d27-4ce6-ba46-55db46d737ae}.Debug|ARM64EC.ActiveCfg = Debug|ARM64EC
+		{1c374d1b-5d27-4ce6-ba46-55db46d737ae}.Debug|ARM64EC.Build.0 = Debug|ARM64EC
+		{1c374d1b-5d27-4ce6-ba46-55db46d737ae}.Release|ARM64EC.ActiveCfg = Release|ARM64EC
+		{1c374d1b-5d27-4ce6-ba46-55db46d737ae}.Release|ARM64EC.Build.0 = Release|ARM64EC
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
