@@ -231,6 +231,15 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_fixed_vector_inl_defd
 	fixed_vector->m_size = 0;
 }
 
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_void_t mk_sl_fixed_vector_inl_defd_rw_shrink(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_lang_types_usize_t const count) mk_lang_noexcept
+{
+	mk_lang_assert(fixed_vector);
+	mk_lang_assert(count >= 0);
+	mk_lang_assert(mk_sl_fixed_vector_inl_defd_rw_size(fixed_vector) >= count);
+
+	fixed_vector->m_size -= count;
+}
+
 mk_lang_constexpr mk_lang_jumbo mk_sl_fixed_vector_inl_defd_element_pt mk_sl_fixed_vector_inl_defd_rw_push_back_many(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_sl_fixed_vector_inl_defd_element_pct const elements, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
 	mk_sl_fixed_vector_inl_defd_element_pt item mk_lang_constexpr_init;
