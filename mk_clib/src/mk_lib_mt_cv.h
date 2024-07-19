@@ -45,7 +45,9 @@ typedef mk_lib_mt_cv_t const* mk_lib_mt_cv_pct;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_construct(mk_lib_mt_cv_pt const cv) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_destruct(mk_lib_mt_cv_pt const cv) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_wait_exclusive(mk_lib_mt_cv_pt const cv, mk_lib_mt_unique_lock_exclusive_pt const lock) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_wait_exclusive_for(mk_lib_mt_cv_pt const cv, mk_lib_mt_unique_lock_exclusive_pt const lock, mk_lang_types_sint_t const ms, mk_lang_types_bool_pt const signaled) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_wait_shared(mk_lib_mt_cv_pt const cv, mk_lib_mt_unique_lock_shared_pt const lock) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_wait_shared_for(mk_lib_mt_cv_pt const cv, mk_lib_mt_unique_lock_shared_pt const lock, mk_lang_types_sint_t const ms, mk_lang_types_bool_pt const signaled) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_notify_one(mk_lib_mt_cv_pt const cv) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_notify_all(mk_lib_mt_cv_pt const cv) mk_lang_noexcept;
 
