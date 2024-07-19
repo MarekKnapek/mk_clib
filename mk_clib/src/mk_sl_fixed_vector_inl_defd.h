@@ -61,6 +61,12 @@
 #define mk_sl_fixed_vector_inl_defd_ct mk_lang_concat(mk_sl_fixed_vector_inl_defd_name, _ct)
 #define mk_sl_fixed_vector_inl_defd_pt mk_lang_concat(mk_sl_fixed_vector_inl_defd_name, _pt)
 #define mk_sl_fixed_vector_inl_defd_pct mk_lang_concat(mk_sl_fixed_vector_inl_defd_name, _pct)
+#define mk_sl_fixed_vector_inl_defd_cpt mk_lang_concat(mk_sl_fixed_vector_inl_defd_name, _cpt)
+#define mk_sl_fixed_vector_inl_defd_ppt mk_lang_concat(mk_sl_fixed_vector_inl_defd_name, _ppt)
+#define mk_sl_fixed_vector_inl_defd_pcpt mk_lang_concat(mk_sl_fixed_vector_inl_defd_name, _pcpt)
+#define mk_sl_fixed_vector_inl_defd_cpct mk_lang_concat(mk_sl_fixed_vector_inl_defd_name, _cpct)
+#define mk_sl_fixed_vector_inl_defd_ppct mk_lang_concat(mk_sl_fixed_vector_inl_defd_name, _ppct)
+#define mk_sl_fixed_vector_inl_defd_pcpct mk_lang_concat(mk_sl_fixed_vector_inl_defd_name, _pcpct)
 
 #define mk_sl_fixed_vector_inl_defd_st_capacity mk_lang_concat(mk_sl_fixed_vector_inl_defd_name, _st_capacity)
 
