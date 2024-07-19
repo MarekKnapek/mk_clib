@@ -239,6 +239,14 @@ struct mk_lib_win_statistics_s
 	mk_win_user_base_wnd_t m_wnd;
 	mk_win_user_base_wnd_t m_counters;
 	mk_win_base_rect_t m_last_rect;
+	mk_sl_cui_uint128_t m_cntr_last_bytes_allocated;
+	mk_sl_cui_uint128_t m_cntr_last_bytes_deallocated;
+	mk_sl_cui_uint128_t m_cntr_last_bytes_peak;
+	mk_sl_cui_uint128_t m_cntr_last_bytes_live;
+	mk_sl_cui_uint128_t m_cntr_last_blocks_allocated;
+	mk_sl_cui_uint128_t m_cntr_last_blocks_deallocated;
+	mk_sl_cui_uint128_t m_cntr_last_blocks_peak;
+	mk_sl_cui_uint128_t m_cntr_last_blocks_live;
 	mk_lang_types_uint_t m_cntr_as_text_idx;
 	mk_lang_types_wchar_t m_cntr_as_text_buf[8][mk_sl_cui_uint128_strlendec_v + 1];
 };
@@ -298,6 +306,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_wchar_pc
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statistics_on_create(mk_win_user_base_wnd_t const wnd, mk_win_base_uint_t const msg, mk_win_user_base_wparam_t const wparam, mk_win_user_base_lparam_t const lparam) mk_lang_noexcept
 {
+	mk_sl_cui_uint128_t zero;
 	mk_win_user_msg_createw_lpct create;
 	mk_lib_win_statistics_pt statistics;
 	mk_win_base_uintptr_t data;
@@ -305,6 +314,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statisti
 	((mk_lang_types_void_t)(wparam));
 	if(msg == mk_win_user_msg_id_e_create)
 	{
+		mk_sl_cui_uint128_set_zero(&zero);
 		create = ((mk_win_user_msg_createw_lpct)(lparam)); mk_lang_assert(create);
 		statistics = ((mk_lib_win_statistics_pt)(create->m_param));
 		statistics->m_wnd = wnd;
@@ -312,6 +322,14 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statisti
 		statistics->m_last_rect.m_top = 0;
 		statistics->m_last_rect.m_right = 0;
 		statistics->m_last_rect.m_bottom = 0;
+		statistics->m_cntr_last_bytes_allocated = zero;
+		statistics->m_cntr_last_bytes_deallocated = zero;
+		statistics->m_cntr_last_bytes_peak = zero;
+		statistics->m_cntr_last_bytes_live = zero;
+		statistics->m_cntr_last_blocks_allocated = zero;
+		statistics->m_cntr_last_blocks_deallocated = zero;
+		statistics->m_cntr_last_blocks_peak = zero;
+		statistics->m_cntr_last_blocks_live = zero;
 		statistics->m_cntr_as_text_idx = 0;
 		data = mk_win_user_window_w_data_set(wnd, ((mk_win_base_sint_t)(mk_win_user_window_data_id_e_userdata)), ((mk_win_base_uintptr_t)(statistics))); mk_lang_assert(data == 0);
 	}
@@ -389,14 +407,14 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statisti
 		{
 			switch(dispinfo->m_item.m_item)
 			{
-				case 0: err = mk_sl_mallocg_tracer_statistics_get_bytes_allocated   (&cntr); mk_lang_check_rereturn(err); break;
-				case 1: err = mk_sl_mallocg_tracer_statistics_get_bytes_deallocated (&cntr); mk_lang_check_rereturn(err); break;
-				case 2: err = mk_sl_mallocg_tracer_statistics_get_bytes_peak        (&cntr); mk_lang_check_rereturn(err); break;
-				case 3: err = mk_sl_mallocg_tracer_statistics_get_bytes_live        (&cntr); mk_lang_check_rereturn(err); break;
-				case 4: err = mk_sl_mallocg_tracer_statistics_get_blocks_allocated  (&cntr); mk_lang_check_rereturn(err); break;
-				case 5: err = mk_sl_mallocg_tracer_statistics_get_blocks_deallocated(&cntr); mk_lang_check_rereturn(err); break;
-				case 6: err = mk_sl_mallocg_tracer_statistics_get_blocks_peak       (&cntr); mk_lang_check_rereturn(err); break;
-				case 7: err = mk_sl_mallocg_tracer_statistics_get_blocks_live       (&cntr); mk_lang_check_rereturn(err); break;
+				case 0: err = mk_sl_mallocg_tracer_statistics_get_bytes_allocated   (&cntr); mk_lang_check_rereturn(err); statistics->m_cntr_last_bytes_allocated    = cntr; break;
+				case 1: err = mk_sl_mallocg_tracer_statistics_get_bytes_deallocated (&cntr); mk_lang_check_rereturn(err); statistics->m_cntr_last_bytes_deallocated  = cntr; break;
+				case 2: err = mk_sl_mallocg_tracer_statistics_get_bytes_peak        (&cntr); mk_lang_check_rereturn(err); statistics->m_cntr_last_bytes_peak         = cntr; break;
+				case 3: err = mk_sl_mallocg_tracer_statistics_get_bytes_live        (&cntr); mk_lang_check_rereturn(err); statistics->m_cntr_last_bytes_live         = cntr; break;
+				case 4: err = mk_sl_mallocg_tracer_statistics_get_blocks_allocated  (&cntr); mk_lang_check_rereturn(err); statistics->m_cntr_last_blocks_allocated   = cntr; break;
+				case 5: err = mk_sl_mallocg_tracer_statistics_get_blocks_deallocated(&cntr); mk_lang_check_rereturn(err); statistics->m_cntr_last_blocks_deallocated = cntr; break;
+				case 6: err = mk_sl_mallocg_tracer_statistics_get_blocks_peak       (&cntr); mk_lang_check_rereturn(err); statistics->m_cntr_last_blocks_peak        = cntr; break;
+				case 7: err = mk_sl_mallocg_tracer_statistics_get_blocks_live       (&cntr); mk_lang_check_rereturn(err); statistics->m_cntr_last_blocks_live        = cntr; break;
 			}
 			buf = &statistics->m_cntr_as_text_buf[statistics->m_cntr_as_text_idx][0];
 			statistics->m_cntr_as_text_idx = (statistics->m_cntr_as_text_idx + 1) % mk_lang_countof(statistics->m_cntr_as_text_buf);;
@@ -613,13 +631,28 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_win_statistics_close
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_win_statistics_invalidate(mk_lang_types_void_t) mk_lang_noexcept
 {
 	mk_lib_win_statistics_pt statistics;
+	mk_lang_types_bool_t gud;
+	mk_win_base_sint_t err;
+	mk_sl_cui_uint128_t cntr;
 	mk_win_base_bool_t b;
 
 	statistics = &g_mk_lib_win_statistics;
 	mk_lang_assert(statistics->m_atom != 0);
 	if(!mk_win_user_base_wnd_is_null(statistics->m_wnd))
 	{
-		b = mk_win_user_window_invalidate_region(statistics->m_counters, mk_win_user_region_get_null(), mk_win_base_true); mk_lang_check_return(b != 0);
+		gud = mk_lang_true;
+		if(gud){ err = mk_sl_mallocg_tracer_statistics_get_bytes_allocated   (&cntr); mk_lang_check_rereturn(err); gud = mk_sl_cui_uint128_eq(&cntr, &statistics->m_cntr_last_bytes_allocated   ); }
+		if(gud){ err = mk_sl_mallocg_tracer_statistics_get_bytes_deallocated (&cntr); mk_lang_check_rereturn(err); gud = mk_sl_cui_uint128_eq(&cntr, &statistics->m_cntr_last_bytes_deallocated ); }
+		if(gud){ err = mk_sl_mallocg_tracer_statistics_get_bytes_peak        (&cntr); mk_lang_check_rereturn(err); gud = mk_sl_cui_uint128_eq(&cntr, &statistics->m_cntr_last_bytes_peak        ); }
+		if(gud){ err = mk_sl_mallocg_tracer_statistics_get_bytes_live        (&cntr); mk_lang_check_rereturn(err); gud = mk_sl_cui_uint128_eq(&cntr, &statistics->m_cntr_last_bytes_live        ); }
+		if(gud){ err = mk_sl_mallocg_tracer_statistics_get_blocks_allocated  (&cntr); mk_lang_check_rereturn(err); gud = mk_sl_cui_uint128_eq(&cntr, &statistics->m_cntr_last_blocks_allocated  ); }
+		if(gud){ err = mk_sl_mallocg_tracer_statistics_get_blocks_deallocated(&cntr); mk_lang_check_rereturn(err); gud = mk_sl_cui_uint128_eq(&cntr, &statistics->m_cntr_last_blocks_deallocated); }
+		if(gud){ err = mk_sl_mallocg_tracer_statistics_get_blocks_peak       (&cntr); mk_lang_check_rereturn(err); gud = mk_sl_cui_uint128_eq(&cntr, &statistics->m_cntr_last_blocks_peak       ); }
+		if(gud){ err = mk_sl_mallocg_tracer_statistics_get_blocks_live       (&cntr); mk_lang_check_rereturn(err); gud = mk_sl_cui_uint128_eq(&cntr, &statistics->m_cntr_last_blocks_live       ); }
+		if(!gud)
+		{
+			b = mk_win_user_window_invalidate_region(statistics->m_counters, mk_win_user_region_get_null(), mk_win_base_true); mk_lang_check_return(b != 0);
+		}
 	}
 	return 0;
 }
