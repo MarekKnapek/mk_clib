@@ -145,6 +145,27 @@ enum list_view_col_mask_e
 	list_view_col_mask_e_dummy_end
 };
 typedef enum list_view_col_mask_e list_view_col_mask_t;
+enum list_view_col_fmt_e
+{
+	list_view_col_fmt_e_left           	= 0x00000000,
+	list_view_col_fmt_e_right          	= 0x00000001,
+	list_view_col_fmt_e_center         	= 0x00000002,
+	list_view_col_fmt_e_justifymask    	= 0x00000003,
+	list_view_col_fmt_e_image          	= 0x00000800,
+	list_view_col_fmt_e_bitmap_on_right	= 0x00001000,
+	list_view_col_fmt_e_col_has_images 	= 0x00008000,
+	list_view_col_fmt_e_fixed_width    	= 0x00000100, /* ntddi_version >= ntddi_vista */
+	list_view_col_fmt_e_no_dpi_scale   	= 0x00040000, /* ntddi_version >= ntddi_vista */
+	list_view_col_fmt_e_fixed_ratio    	= 0x00080000, /* ntddi_version >= ntddi_vista */
+	list_view_col_fmt_e_line_break     	= 0x00100000, /* ntddi_version >= ntddi_vista */
+	list_view_col_fmt_e_fill           	= 0x00200000, /* ntddi_version >= ntddi_vista */
+	list_view_col_fmt_e_wrap           	= 0x00400000, /* ntddi_version >= ntddi_vista */
+	list_view_col_fmt_e_no_title       	= 0x00800000, /* ntddi_version >= ntddi_vista */
+	list_view_col_fmt_e_splitbutton    	= 0x01000000, /* ntddi_version >= ntddi_vista */
+	list_view_col_fmt_e_tile_placementmask = (list_view_col_fmt_e_line_break | list_view_col_fmt_e_fill),
+	list_view_col_fmt_e_dummy_end
+};
+typedef enum list_view_col_fmt_e list_view_col_fmt_t;
 enum list_view_notification_id_e
 {
 	list_view_notification_id_e_first        = ((mk_win_base_dword_t)(0ul - 100ul)),
@@ -507,10 +528,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statisti
 
 	wnd = mk_win_user_window_w_createex(((mk_win_base_dword_t)(0)), list_view_class_name_w, L"", ((mk_win_base_dword_t)(mk_win_user_window_style_id_e_visible | mk_win_user_window_style_id_e_child)) | ((mk_win_base_dword_t)(list_view_window_style_id_e_report | list_view_window_style_id_e_showselalways | list_view_window_style_id_e_ownerdata)), mk_win_user_window_use_default, mk_win_user_window_use_default, mk_win_user_window_use_default, mk_win_user_window_use_default, wnd, mk_win_user_menu_get_null(), mk_win_base_instance_from(this_module.m_data), mk_win_base_null); mk_lang_check_return(!mk_win_user_base_wnd_is_null(wnd)); statistics->m_counters = wnd;
 	lr = mk_win_user_window_w_msg_send(statistics->m_counters, ((mk_win_base_uint_t)(list_view_msg_id_e_setextendedlistviewstyle)), ((mk_win_base_dword_t)(list_view_window_styleex_id_e_fullrowselect | list_view_window_styleex_id_e_autosizecolumns | list_view_window_styleex_id_e_doublebuffer)), ((mk_win_base_dword_t)(list_view_window_styleex_id_e_fullrowselect | list_view_window_styleex_id_e_autosizecolumns | list_view_window_styleex_id_e_doublebuffer))); ((mk_lang_types_void_t)(lr));
-	col_descr.m_mask = ((mk_win_base_uint_t)(list_view_col_mask_e_text | list_view_col_mask_e_width));
+	col_descr.m_mask = ((mk_win_base_uint_t)(list_view_col_mask_e_width | list_view_col_mask_e_text));
 	col_descr.m_cx = 100;
 	col_descr.m_text_buf = ((mk_win_base_wchar_lpt)(L"counter"));
 	lr = mk_win_user_window_w_msg_send(statistics->m_counters, ((mk_win_base_uint_t)(list_view_msg_id_e_insertcolumnw)), 0, ((mk_win_user_base_lparam_t)(&col_descr))); mk_lang_check_return(lr == 0);
+	col_descr.m_mask = ((mk_win_base_uint_t)(list_view_col_mask_e_fmt | list_view_col_mask_e_width | list_view_col_mask_e_text));
+	col_descr.m_fmt = ((mk_win_base_sint_t)(list_view_col_fmt_e_right));
 	col_descr.m_text_buf = ((mk_win_base_wchar_lpt)(L"value"));
 	lr = mk_win_user_window_w_msg_send(statistics->m_counters, ((mk_win_base_uint_t)(list_view_msg_id_e_insertcolumnw)), 1, ((mk_win_user_base_lparam_t)(&col_descr))); mk_lang_check_return(lr == 1);
 	lr = mk_win_user_window_w_msg_send(statistics->m_counters, ((mk_win_base_uint_t)(list_view_msg_id_e_setitemcount)), 8, 0); //mk_lang_check_return(lr == 0);
