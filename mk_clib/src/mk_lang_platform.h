@@ -4,9 +4,10 @@
 
 #define mk_lang_platform_windows_61 4001
 #define mk_lang_platform_windows_60 4002
-#define mk_lang_platform_windows    4003
-#define mk_lang_platform_linux      4004
-#define mk_lang_platform_portable   4005
+#define mk_lang_platform_windows_51 4003
+#define mk_lang_platform_windows    4004
+#define mk_lang_platform_linux      4005
+#define mk_lang_platform_portable   4006
 
 
 #if defined _WIN32_WINNT && _WIN32_WINNT >= 0x0601
