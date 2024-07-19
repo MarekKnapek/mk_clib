@@ -275,27 +275,6 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocatorg_windows_s
 #endif
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocatorg_windows_statistics_get_bytes_live(mk_sl_cui_uint128_pt const cnt) mk_lang_noexcept
-{
-#if mk_sl_mallocatorg_windows_statistics_have
-	mk_lang_types_sint_t err;
-	mk_lib_mt_unique_lock_exclusive_t ul;
-	mk_sl_cui_uint128_t c;
-
-	mk_lang_assert(cnt);
-
-	err = mk_lib_mt_unique_lock_exclusive_construct(&ul, &g_mk_sl_mallocatorg_windows_mtx); mk_lang_check_rereturn(err);
-	mk_sl_cui_uint128_sub3_wrap_cid_cod(&g_mk_sl_mallocatorg_windows_statistics_bytes_allocated, &g_mk_sl_mallocatorg_windows_statistics_bytes_deallocated, &c);
-	err = mk_lib_mt_unique_lock_exclusive_destruct(&ul); mk_lang_check_rereturn(err);
-	*cnt = c;
-	return 0;
-#else
-	mk_lang_assert(cnt);
-	((mk_lang_types_void_t)(cnt));
-	return 0;
-#endif
-}
-
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocatorg_windows_statistics_get_bytes_peak(mk_sl_cui_uint128_pt const cnt) mk_lang_noexcept
 {
 #if mk_sl_mallocatorg_windows_statistics_have
@@ -307,6 +286,27 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocatorg_windows_s
 
 	err = mk_lib_mt_unique_lock_exclusive_construct(&ul, &g_mk_sl_mallocatorg_windows_mtx); mk_lang_check_rereturn(err);
 	c = g_mk_sl_mallocatorg_windows_statistics_bytes_peak;
+	err = mk_lib_mt_unique_lock_exclusive_destruct(&ul); mk_lang_check_rereturn(err);
+	*cnt = c;
+	return 0;
+#else
+	mk_lang_assert(cnt);
+	((mk_lang_types_void_t)(cnt));
+	return 0;
+#endif
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocatorg_windows_statistics_get_bytes_live(mk_sl_cui_uint128_pt const cnt) mk_lang_noexcept
+{
+#if mk_sl_mallocatorg_windows_statistics_have
+	mk_lang_types_sint_t err;
+	mk_lib_mt_unique_lock_exclusive_t ul;
+	mk_sl_cui_uint128_t c;
+
+	mk_lang_assert(cnt);
+
+	err = mk_lib_mt_unique_lock_exclusive_construct(&ul, &g_mk_sl_mallocatorg_windows_mtx); mk_lang_check_rereturn(err);
+	mk_sl_cui_uint128_sub3_wrap_cid_cod(&g_mk_sl_mallocatorg_windows_statistics_bytes_allocated, &g_mk_sl_mallocatorg_windows_statistics_bytes_deallocated, &c);
 	err = mk_lib_mt_unique_lock_exclusive_destruct(&ul); mk_lang_check_rereturn(err);
 	*cnt = c;
 	return 0;
@@ -359,27 +359,6 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocatorg_windows_s
 #endif
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocatorg_windows_statistics_get_blocks_live(mk_sl_cui_uint128_pt const cnt) mk_lang_noexcept
-{
-#if mk_sl_mallocatorg_windows_statistics_have
-	mk_lang_types_sint_t err;
-	mk_lib_mt_unique_lock_exclusive_t ul;
-	mk_sl_cui_uint128_t c;
-
-	mk_lang_assert(cnt);
-
-	err = mk_lib_mt_unique_lock_exclusive_construct(&ul, &g_mk_sl_mallocatorg_windows_mtx); mk_lang_check_rereturn(err);
-	mk_sl_cui_uint128_sub3_wrap_cid_cod(&g_mk_sl_mallocatorg_windows_statistics_blocks_allocated, &g_mk_sl_mallocatorg_windows_statistics_blocks_deallocated, &c);
-	err = mk_lib_mt_unique_lock_exclusive_destruct(&ul); mk_lang_check_rereturn(err);
-	*cnt = c;
-	return 0;
-#else
-	mk_lang_assert(cnt);
-	((mk_lang_types_void_t)(cnt));
-	return 0;
-#endif
-}
-
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocatorg_windows_statistics_get_blocks_peak(mk_sl_cui_uint128_pt const cnt) mk_lang_noexcept
 {
 #if mk_sl_mallocatorg_windows_statistics_have
@@ -391,6 +370,27 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocatorg_windows_s
 
 	err = mk_lib_mt_unique_lock_exclusive_construct(&ul, &g_mk_sl_mallocatorg_windows_mtx); mk_lang_check_rereturn(err);
 	c = g_mk_sl_mallocatorg_windows_statistics_blocks_peak;
+	err = mk_lib_mt_unique_lock_exclusive_destruct(&ul); mk_lang_check_rereturn(err);
+	*cnt = c;
+	return 0;
+#else
+	mk_lang_assert(cnt);
+	((mk_lang_types_void_t)(cnt));
+	return 0;
+#endif
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocatorg_windows_statistics_get_blocks_live(mk_sl_cui_uint128_pt const cnt) mk_lang_noexcept
+{
+#if mk_sl_mallocatorg_windows_statistics_have
+	mk_lang_types_sint_t err;
+	mk_lib_mt_unique_lock_exclusive_t ul;
+	mk_sl_cui_uint128_t c;
+
+	mk_lang_assert(cnt);
+
+	err = mk_lib_mt_unique_lock_exclusive_construct(&ul, &g_mk_sl_mallocatorg_windows_mtx); mk_lang_check_rereturn(err);
+	mk_sl_cui_uint128_sub3_wrap_cid_cod(&g_mk_sl_mallocatorg_windows_statistics_blocks_allocated, &g_mk_sl_mallocatorg_windows_statistics_blocks_deallocated, &c);
 	err = mk_lib_mt_unique_lock_exclusive_destruct(&ul); mk_lang_check_rereturn(err);
 	*cnt = c;
 	return 0;
