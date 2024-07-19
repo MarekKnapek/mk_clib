@@ -312,50 +312,42 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocg_tracer_reallo
 }
 
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocg_tracer_statistics_get_blocks_allocated(mk_sl_cui_uint128_pt const cnt) mk_lang_noexcept
-{
-	mk_lang_types_sint_t ret;
-
-	ret = mk_sl_mallocatorg_statistics_get_blocks_allocated(cnt);
-	return ret;
-}
-
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocg_tracer_statistics_get_blocks_deallocated(mk_sl_cui_uint128_pt const cnt) mk_lang_noexcept
-{
-	mk_lang_types_sint_t ret;
-
-	ret = mk_sl_mallocatorg_statistics_get_blocks_deallocated(cnt);
-	return ret;
-}
-
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocg_tracer_statistics_get_blocks_live(mk_sl_cui_uint128_pt const cnt) mk_lang_noexcept
-{
-	mk_lang_types_sint_t ret;
-
-	ret = mk_sl_mallocatorg_statistics_get_blocks_live(cnt);
-	return ret;
-}
-
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocg_tracer_statistics_get_bytes_allocated(mk_sl_cui_uint128_pt const cnt) mk_lang_noexcept
 {
-	mk_lang_types_sint_t ret;
-
-	ret = mk_sl_mallocatorg_statistics_get_bytes_allocated(cnt);
-	return ret;
+	return mk_sl_mallocatorg_statistics_get_bytes_allocated(cnt);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocg_tracer_statistics_get_bytes_deallocated(mk_sl_cui_uint128_pt const cnt) mk_lang_noexcept
 {
-	mk_lang_types_sint_t ret;
-
-	ret = mk_sl_mallocatorg_statistics_get_bytes_deallocated(cnt);
-	return ret;
+	return mk_sl_mallocatorg_statistics_get_bytes_deallocated(cnt);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocg_tracer_statistics_get_bytes_live(mk_sl_cui_uint128_pt const cnt) mk_lang_noexcept
 {
-	mk_lang_types_sint_t ret;
+	return mk_sl_mallocatorg_statistics_get_bytes_live(cnt);
+}
 
-	ret = mk_sl_mallocatorg_statistics_get_bytes_live(cnt);
-	return ret;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocg_tracer_statistics_get_bytes_peak(mk_sl_cui_uint128_pt const cnt) mk_lang_noexcept
+{
+	return mk_sl_mallocatorg_statistics_get_bytes_peak(cnt);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocg_tracer_statistics_get_blocks_allocated(mk_sl_cui_uint128_pt const cnt) mk_lang_noexcept
+{
+	return mk_sl_mallocatorg_statistics_get_blocks_allocated(cnt);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocg_tracer_statistics_get_blocks_deallocated(mk_sl_cui_uint128_pt const cnt) mk_lang_noexcept
+{
+	return mk_sl_mallocatorg_statistics_get_blocks_deallocated(cnt);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocg_tracer_statistics_get_blocks_live(mk_sl_cui_uint128_pt const cnt) mk_lang_noexcept
+{
+	return mk_sl_mallocatorg_statistics_get_blocks_live(cnt);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocg_tracer_statistics_get_blocks_peak(mk_sl_cui_uint128_pt const cnt) mk_lang_noexcept
+{
+	return mk_sl_mallocatorg_statistics_get_blocks_peak(cnt);
 }

@@ -26,6 +26,7 @@ mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_uintptr_t 
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_uintptr_t mk_win_base_stdcall GetWindowLongW(mk_win_user_base_wnd_t const wnd, mk_win_base_sint_t const idx) mk_lang_noexcept;
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_uintptr_t mk_win_base_stdcall SetWindowLongPtrW(mk_win_user_base_wnd_t const wnd, mk_win_base_sint_t const idx, mk_win_base_uintptr_t const newdata) mk_lang_noexcept;
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_uintptr_t mk_win_base_stdcall GetWindowLongPtrW(mk_win_user_base_wnd_t const wnd, mk_win_base_sint_t const idx) mk_lang_noexcept;
+mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall SetWindowPos(mk_win_user_base_wnd_t const wnd, mk_win_user_base_wnd_t const insert_after, mk_win_base_sint_t const x, mk_win_base_sint_t const y, mk_win_base_sint_t const w, mk_win_base_sint_t const h, mk_win_base_uint_t const flags) mk_lang_noexcept;
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_user_base_lresult_t mk_win_base_stdcall SendMessageW(mk_win_user_base_wnd_t const wnd, mk_win_base_uint_t const msg, mk_win_user_base_lparam_t const wparam, mk_win_user_base_lparam_t const lparam) mk_lang_noexcept;
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall PostMessageW(mk_win_user_base_wnd_t const wnd, mk_win_base_uint_t const msg, mk_win_user_base_lparam_t const wparam, mk_win_user_base_lparam_t const lparam) mk_lang_noexcept;
 mk_lang_extern_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall InvalidateRgn(mk_win_user_base_wnd_t const wnd, mk_win_user_region_t const region, mk_win_base_bool_t const erase) mk_lang_noexcept;
@@ -150,6 +151,14 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_uintptr_t mk_win_user_window_w_data_
 	#else
 	#error xxxxxxxxxx
 	#endif
+	return ret;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_user_window_pos_set(mk_win_user_base_wnd_t const wnd, mk_win_user_base_wnd_t const insert_after, mk_win_base_sint_t const x, mk_win_base_sint_t const y, mk_win_base_sint_t const w, mk_win_base_sint_t const h, mk_win_base_uint_t const flags) mk_lang_noexcept
+{
+	mk_win_base_bool_t ret;
+
+	ret = SetWindowPos(wnd, insert_after, x, y, w, h, flags);
 	return ret;
 }
 

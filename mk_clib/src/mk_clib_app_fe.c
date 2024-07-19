@@ -32,6 +32,7 @@
 #include "mk_lib_mt_thread.h"
 #include "mk_lib_mt_unique_lock.h"
 #include "mk_lib_win_impersonate_linked.h"
+#include "mk_lib_win_statistics.h"
 #include "mk_sl_uint.h"
 #include "mk_sl_uint32.h"
 #include "mk_sl_uint64.h"
@@ -2804,6 +2805,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 	err = mk_clib_app_fe_window_on_paint_dc_release(window, &ps); mk_lang_check_rereturn(err);
 	mk_lang_check_rereturn(err_b);
 	err = mk_clib_app_fe_window_scrollbar_refresh(window); mk_lang_check_rereturn(err);
+	err = mk_lib_win_statistics_invalidate(); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -3000,6 +3002,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 		case mk_win_user_msg_vk_e_up   : err = mk_clib_app_fe_window_on_keydown_vk_up   (window); mk_lang_check_rereturn(err); break;
 		case mk_win_user_msg_vk_e_down : err = mk_clib_app_fe_window_on_keydown_vk_down (window); mk_lang_check_rereturn(err); break;
 	}
+	err = mk_lib_win_statistics_invalidate(); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -3432,7 +3435,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_clib_app_fe_arg(mk_lang_
 	mk_lang_types_sint_t err;
 	mk_lang_types_sint_t res;
 
+	mk_lib_win_statistics_init(); /* todo */
+	mk_lib_win_statistics_display(); /* todo */
 	err = mk_clib_app_fe_run(&g_mk_clib_app_fe, wide, instance, prev, cmd_line, show); mk_lang_check_rereturn(err);
+	mk_lib_win_statistics_close(); /* todo */
+	mk_lib_win_statistics_deinit(); /* todo */
 	res = g_mk_clib_app_fe.m_exit_code;
 	return res;
 }
