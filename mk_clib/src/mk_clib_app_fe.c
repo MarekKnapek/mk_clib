@@ -336,6 +336,7 @@ struct mk_clib_app_fe_window_s
 	mk_win_user_dc_t m_mem_dc;
 	mk_win_user_bitmap_t m_bitmap;
 	mk_win_user_bitmap_t m_old_bitmap;
+	mk_clib_app_fe_server_name_t m_tmp_str;
 	mk_lang_types_bool_t m_init;
 	mk_lang_types_uint_t m_req_id;
 	mk_clib_app_fe_server_response_pt m_response_current;
@@ -2215,7 +2216,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 	mk_lang_types_sint_t scroll;
 	mk_lang_types_sint_t j;
 	mk_lang_types_sint_t err;
-	mk_clib_app_fe_server_name_t dirified;
+	mk_clib_app_fe_server_name_pt dirified;
 	mk_lang_types_bool_t has_up;
 	mk_lang_types_wchar_pct text_buf;
 	mk_lang_types_sint_t text_len;
@@ -2242,7 +2243,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 	line_height = window->m_line_height;
 	scroll = window->m_scroll;
 	j = 0;
-	err = mk_clib_app_fe_server_name_rw_construct(&dirified); mk_lang_check_rereturn(err);
+	dirified = &window->m_tmp_str;
+	err = mk_clib_app_fe_server_name_rw_clear(dirified); mk_lang_check_rereturn(err);
 	err = mk_clib_app_fe_server_response_has_up_idx(response, &has_up); mk_lang_check_rereturn(err);
 	tus = mk_clib_app_fe_server_files_ro_size(files); mk_lang_assert(tus <= ((mk_lang_types_usize_t)(mk_lang_limits_sint_max)));
 	n = ((mk_lang_types_sint_t)(tus));
@@ -2252,9 +2254,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 		idx = *mk_clib_app_fe_server_ints_ro_at(sort, i);
 		file = mk_clib_app_fe_server_files_ro_at(files, idx); mk_lang_assert(file);
 		name = &file->m_name;
-		err = mk_clib_app_fe_window_on_paint_impl_draw_response_idx_impl_dirify(file, &dirified); mk_lang_check_rereturn(err);
-		text_buf = mk_clib_app_fe_server_name_ro_data(&dirified); mk_lang_assert(text_buf && text_buf[0] != L'\0');
-		text_len = mk_clib_app_fe_server_name_ro_size(&dirified); mk_lang_assert(text_len >= 1);
+		err = mk_clib_app_fe_window_on_paint_impl_draw_response_idx_impl_dirify(file, dirified); mk_lang_check_rereturn(err);
+		text_buf = mk_clib_app_fe_server_name_ro_data(dirified); mk_lang_assert(text_buf && text_buf[0] != L'\0');
+		text_len = mk_clib_app_fe_server_name_ro_size(dirified); mk_lang_assert(text_len >= 1);
 		recta = *rect;
 		err = mk_clib_app_fe_window_on_paint_impl_row_selected_on(pt, j); mk_lang_check_rereturn(err);
 		height = mk_win_user_dc_draw_text_w(dc, &text_buf[0], text_len, &recta, flags); mk_lang_check_return(height != 0);
@@ -2272,7 +2274,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 			break;
 		}
 	}
-	err = mk_clib_app_fe_server_name_rw_destroy(&dirified); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -3200,6 +3201,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 	err = mk_clib_app_fe_server_ints_rw_destroy(&window->m_history_idx); mk_lang_check_rereturn(err);
 	err = mk_clib_app_fe_server_ints_rw_destroy(&window->m_history_scroll); mk_lang_check_rereturn(err);
 	err = mk_clib_app_fe_server_responsesmt_rw_destroy(&window->m_responses_waiting); mk_lang_check_rereturn(err);
+	err = mk_clib_app_fe_server_name_rw_destroy(&window->m_tmp_str); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -3223,6 +3225,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 	window->m_idx = 0;
 	window->m_scrollbar_status = 3;
 	window->m_scroll = 0;
+	err = mk_clib_app_fe_server_name_rw_construct(&window->m_tmp_str); mk_lang_check_rereturn(err);
 	err = mk_clib_app_fe_server_ints_rw_construct(&window->m_history_idx); mk_lang_check_rereturn(err);
 	err = mk_clib_app_fe_server_ints_rw_construct(&window->m_history_scroll); mk_lang_check_rereturn(err);
 	err = mk_clib_app_fe_server_responsesmt_rw_construct(&window->m_responses_waiting); mk_lang_check_rereturn(err);
