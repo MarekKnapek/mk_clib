@@ -8,6 +8,8 @@
 #include "mk_lang_types.h"
 #include "mk_win_base.h"
 
+#include <stdarg.h> /* va_list */
+
 
 enum mk_win_kernel_string_cp_id_e
 {
@@ -44,9 +46,22 @@ enum mk_win_kernel_string_flags_an_e
 };
 typedef enum mk_win_kernel_string_flags_an_e mk_win_kernel_string_flags_an_t;
 
+enum mk_win_kernel_string_format_flags_e
+{
+	mk_win_kernel_string_format_flags_e_ignore_inserts = 0x00000200ul,
+	mk_win_kernel_string_format_flags_e_from_string    = 0x00000400ul,
+	mk_win_kernel_string_format_flags_e_from_hmodule   = 0x00000800ul,
+	mk_win_kernel_string_format_flags_e_from_system    = 0x00001000ul,
+	mk_win_kernel_string_format_flags_e_argument_array = 0x00002000ul,
+	mk_win_kernel_string_format_flags_e_max_width_mask = 0x000000fful,
+	mk_win_kernel_string_format_flags_e_dummy_end
+};
+typedef enum mk_win_kernel_string_format_flags_e mk_win_kernel_string_format_flags_t;
+
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_kernel_string_wide_to_ansi(mk_win_base_uint_t const cp, mk_win_base_dword_t const flags, mk_win_base_wchar_lpct const wide_buf, mk_win_base_sint_t const wide_len, mk_win_base_pchar_lpt const ansi_buf, mk_win_base_sint_t const ansi_len, mk_win_base_pchar_lpct const def_char, mk_win_base_bool_lpt const def_used) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_kernel_string_ansi_to_wide(mk_win_base_uint_t const cp, mk_win_base_dword_t const flags, mk_win_base_pchar_lpct const ansi_buf, mk_win_base_sint_t const ansi_len, mk_win_base_wchar_lpt const wide_buf, mk_win_base_sint_t const wide_len) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_dword_t mk_win_kernel_string_w_format(mk_win_base_dword_t const flags, mk_win_base_void_lpct const src, mk_win_base_dword_t const msg_id, mk_win_base_dword_t const lang_id, mk_win_base_wchar_lpt const buf, mk_win_base_dword_t const len, va_list* const args) mk_lang_noexcept;
 
 
 #if mk_lang_jumbo_want == 1
