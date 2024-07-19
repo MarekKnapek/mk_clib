@@ -15,14 +15,19 @@
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_portable_cpp_construct(mk_lib_mt_cv_portable_cpp_pt const cv) mk_lang_noexcept
 {
+	typedef std::condition_variable cv_t;
+	typedef cv_t* cv_pt;
+
 	mk_lang_types_sint_t ret;
+	cv_pt real;
 
 	mk_lang_assert(cv);
 
 	ret = 0;
 	try
 	{
-		::new(static_cast<mk_lang_types_void_pt>(&cv->m_cv))(std::condition_variable)();
+		real = reinterpret_cast<cv_pt>(&cv->m_cv);
+		::new(static_cast<mk_lang_types_void_pt>(real))(cv_t)();
 	}
 	catch(...)
 	{
@@ -33,70 +38,126 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_portable_cpp_c
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_portable_cpp_destruct(mk_lib_mt_cv_portable_cpp_pt const cv) mk_lang_noexcept
 {
+	typedef std::condition_variable cv_t;
+	typedef cv_t* cv_pt;
+
+	cv_pt real;
+
 	mk_lang_assert(cv);
 
-	reinterpret_cast<std::condition_variable*>(&cv->m_cv)->~condition_variable();
+	real = reinterpret_cast<cv_pt>(&cv->m_cv);
+	real->~condition_variable();
 	return 0;
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_portable_cpp_wait_exclusive(mk_lib_mt_cv_portable_cpp_pt const cv, mk_lib_mt_unique_lock_exclusive_portable_cpp_pt const lock) mk_lang_noexcept
 {
+	typedef std::condition_variable cv_t;
+	typedef cv_t* cv_pt;
+	typedef std::unique_lock<std::mutex> ul_t;
+	typedef ul_t* ul_pt;
+
+	cv_pt real_cv;
+	ul_pt real_ul;
+
 	mk_lang_assert(cv);
 	mk_lang_assert(lock);
 
-	reinterpret_cast<std::condition_variable*>(&cv->m_cv)->wait(*reinterpret_cast<std::unique_lock<std::mutex>*>(&lock->m_unique_lock));
+	real_cv = reinterpret_cast<cv_pt>(&cv->m_cv);
+	real_ul = reinterpret_cast<ul_pt>(&lock->m_unique_lock);
+	real_cv->wait(*real_ul);
 	return 0;
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_portable_cpp_wait_exclusive_for(mk_lib_mt_cv_portable_cpp_pt const cv, mk_lib_mt_unique_lock_exclusive_portable_cpp_pt const lock, mk_lang_types_sint_t const ms, mk_lang_types_bool_pt const signaled) mk_lang_noexcept
 {
-	std::cv_status ret;
+	typedef std::condition_variable cv_t;
+	typedef cv_t* cv_pt;
+	typedef std::unique_lock<std::mutex> ul_t;
+	typedef ul_t* ul_pt;
+
+	cv_pt real_cv;
+	ul_pt real_ul;
+	std::cv_status res;
 
 	mk_lang_assert(cv);
 	mk_lang_assert(lock);
 	mk_lang_assert(ms >= 1);
 	mk_lang_assert(signaled);
 
-	ret = reinterpret_cast<std::condition_variable*>(&cv->m_cv)->wait_for(*reinterpret_cast<std::unique_lock<std::mutex>*>(&lock->m_unique_lock), std::chrono::milliseconds{ms}); mk_lang_assert(ret == std::cv_status::no_timeout || ret == std::cv_status::timeout);
-	*signaled = ret == std::cv_status::no_timeout;
+	real_cv = reinterpret_cast<cv_pt>(&cv->m_cv);
+	real_ul = reinterpret_cast<ul_pt>(&lock->m_unique_lock);
+	res = real_cv->wait_for(*real_ul, std::chrono::milliseconds{ms}); mk_lang_assert(res == std::cv_status::no_timeout || res == std::cv_status::timeout);
+	*signaled = res == std::cv_status::no_timeout;
 	return 0;
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_portable_cpp_wait_shared(mk_lib_mt_cv_portable_cpp_pt const cv, mk_lib_mt_unique_lock_shared_portable_cpp_pt const lock) mk_lang_noexcept
 {
+	typedef std::condition_variable cv_t;
+	typedef cv_t* cv_pt;
+	typedef std::unique_lock<std::mutex> ul_t;
+	typedef ul_t* ul_pt;
+
+	cv_pt real_cv;
+	ul_pt real_ul;
+
 	mk_lang_assert(cv);
 	mk_lang_assert(lock);
 
-	reinterpret_cast<std::condition_variable*>(&cv->m_cv)->wait(*reinterpret_cast<std::unique_lock<std::mutex>*>(&lock->m_unique_lock));
+	real_cv = reinterpret_cast<cv_pt>(&cv->m_cv);
+	real_ul = reinterpret_cast<ul_pt>(&lock->m_unique_lock);
+	real_cv->wait(*real_ul);
 	return 0;
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_portable_cpp_wait_shared_for(mk_lib_mt_cv_portable_cpp_pt const cv, mk_lib_mt_unique_lock_shared_portable_cpp_pt const lock, mk_lang_types_sint_t const ms, mk_lang_types_bool_pt const signaled) mk_lang_noexcept
 {
-	std::cv_status ret;
+	typedef std::condition_variable cv_t;
+	typedef cv_t* cv_pt;
+	typedef std::unique_lock<std::mutex> ul_t;
+	typedef ul_t* ul_pt;
+
+	cv_pt real_cv;
+	ul_pt real_ul;
+	std::cv_status res;
 
 	mk_lang_assert(cv);
 	mk_lang_assert(lock);
 	mk_lang_assert(ms >= 1);
 	mk_lang_assert(signaled);
 
-	ret = reinterpret_cast<std::condition_variable*>(&cv->m_cv)->wait_for(*reinterpret_cast<std::unique_lock<std::mutex>*>(&lock->m_unique_lock), std::chrono::milliseconds{ms}); mk_lang_assert(ret == std::cv_status::no_timeout || ret == std::cv_status::timeout);
-	*signaled = ret == std::cv_status::no_timeout;
+	real_cv = reinterpret_cast<cv_pt>(&cv->m_cv);
+	real_ul = reinterpret_cast<ul_pt>(&lock->m_unique_lock);
+	res = real_cv->wait_for(*real_ul, std::chrono::milliseconds{ms}); mk_lang_assert(res == std::cv_status::no_timeout || res == std::cv_status::timeout);
+	*signaled = res == std::cv_status::no_timeout;
 	return 0;
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_portable_cpp_notify_one(mk_lib_mt_cv_portable_cpp_pt const cv) mk_lang_noexcept
 {
+	typedef std::condition_variable cv_t;
+	typedef cv_t* cv_pt;
+
+	cv_pt real;
+
 	mk_lang_assert(cv);
 
-	reinterpret_cast<std::condition_variable*>(&cv->m_cv)->notify_one();
+	real = reinterpret_cast<cv_pt>(&cv->m_cv);
+	real->notify_one();
 	return 0;
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_portable_cpp_notify_all(mk_lib_mt_cv_portable_cpp_pt const cv) mk_lang_noexcept
 {
+	typedef std::condition_variable cv_t;
+	typedef cv_t* cv_pt;
+
+	cv_pt real;
+
 	mk_lang_assert(cv);
 
-	reinterpret_cast<std::condition_variable*>(&cv->m_cv)->notify_all();
+	real = reinterpret_cast<cv_pt>(&cv->m_cv);
+	real->notify_all();
 	return 0;
 }
