@@ -233,22 +233,62 @@ typedef list_view_notify_dispinfow_t* list_view_notify_dispinfow_pt;
 /* todo move this to list view class */
 
 
+struct mk_lib_win_statistics_cntrs_data_arrn_s
+{
+	mk_sl_cui_uint128_t m_bytes_allocated;
+	mk_sl_cui_uint128_t m_bytes_deallocated;
+	mk_sl_cui_uint128_t m_bytes_peak;
+	mk_sl_cui_uint128_t m_bytes_live;
+	mk_sl_cui_uint128_t m_blocks_allocated;
+	mk_sl_cui_uint128_t m_blocks_deallocated;
+	mk_sl_cui_uint128_t m_blocks_peak;
+	mk_sl_cui_uint128_t m_blocks_live;
+};
+typedef struct mk_lib_win_statistics_cntrs_data_arrn_s mk_lib_win_statistics_cntrs_data_arrn_t;
+struct mk_lib_win_statistics_cntrs_data_arry_s
+{
+	mk_sl_cui_uint128_t m_cntrs[8];
+};
+typedef struct mk_lib_win_statistics_cntrs_data_arry_s mk_lib_win_statistics_cntrs_data_arry_t;
+union mk_lib_win_statistics_cntrs_data_u
+{
+	mk_lib_win_statistics_cntrs_data_arrn_t m_arrn;
+	mk_lib_win_statistics_cntrs_data_arry_t m_arry;
+};
+typedef union mk_lib_win_statistics_cntrs_data_u mk_lib_win_statistics_cntrs_data_t;
+struct mk_lib_win_statistics_cntrs_s
+{
+	mk_lib_win_statistics_cntrs_data_t m_data;
+};
+typedef struct mk_lib_win_statistics_cntrs_s mk_lib_win_statistics_cntrs_t;
+typedef mk_lib_win_statistics_cntrs_t const mk_lib_win_statistics_cntrs_ct;
+typedef mk_lib_win_statistics_cntrs_t* mk_lib_win_statistics_cntrs_pt;
+typedef mk_lib_win_statistics_cntrs_t const* mk_lib_win_statistics_cntrs_pct;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lib_win_statistics_cntrs_ro_eq(mk_lib_win_statistics_cntrs_pct const a, mk_lib_win_statistics_cntrs_pct const b) mk_lang_noexcept
+{
+	mk_lang_types_bool_t ret mk_lang_constexpr_init;
+
+	ret =
+		mk_sl_cui_uint128_eq(&a->m_data.m_arry.m_cntrs[0], &b->m_data.m_arry.m_cntrs[0]) &&
+		mk_sl_cui_uint128_eq(&a->m_data.m_arry.m_cntrs[1], &b->m_data.m_arry.m_cntrs[1]) &&
+		mk_sl_cui_uint128_eq(&a->m_data.m_arry.m_cntrs[2], &b->m_data.m_arry.m_cntrs[2]) &&
+		mk_sl_cui_uint128_eq(&a->m_data.m_arry.m_cntrs[3], &b->m_data.m_arry.m_cntrs[3]) &&
+		mk_sl_cui_uint128_eq(&a->m_data.m_arry.m_cntrs[4], &b->m_data.m_arry.m_cntrs[4]) &&
+		mk_sl_cui_uint128_eq(&a->m_data.m_arry.m_cntrs[5], &b->m_data.m_arry.m_cntrs[5]) &&
+		mk_sl_cui_uint128_eq(&a->m_data.m_arry.m_cntrs[6], &b->m_data.m_arry.m_cntrs[6]) &&
+		mk_sl_cui_uint128_eq(&a->m_data.m_arry.m_cntrs[7], &b->m_data.m_arry.m_cntrs[7]);
+	return ret;
+}
+
 struct mk_lib_win_statistics_s
 {
 	mk_win_user_base_atom_t m_atom;
 	mk_win_user_base_wnd_t m_wnd;
 	mk_win_user_base_wnd_t m_counters;
 	mk_win_base_rect_t m_last_rect;
-	mk_sl_cui_uint128_t m_cntr_last_bytes_allocated;
-	mk_sl_cui_uint128_t m_cntr_last_bytes_deallocated;
-	mk_sl_cui_uint128_t m_cntr_last_bytes_peak;
-	mk_sl_cui_uint128_t m_cntr_last_bytes_live;
-	mk_sl_cui_uint128_t m_cntr_last_blocks_allocated;
-	mk_sl_cui_uint128_t m_cntr_last_blocks_deallocated;
-	mk_sl_cui_uint128_t m_cntr_last_blocks_peak;
-	mk_sl_cui_uint128_t m_cntr_last_blocks_live;
+	mk_lib_win_statistics_cntrs_t m_cntrs_last;
 	mk_lang_types_uint_t m_cntr_as_text_idx;
-	mk_lang_types_wchar_t m_cntr_as_text_buf[8][mk_sl_cui_uint128_strlendec_v + 1];
+	mk_lang_types_wchar_t m_cntr_as_text_buf[4][mk_sl_cui_uint128_strlendec_v + 1];
 };
 typedef struct mk_lib_win_statistics_s mk_lib_win_statistics_t;
 typedef mk_lib_win_statistics_t const mk_lib_win_statistics_ct;
@@ -324,14 +364,14 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statisti
 		statistics->m_last_rect.m_top = 0;
 		statistics->m_last_rect.m_right = 0;
 		statistics->m_last_rect.m_bottom = 0;
-		statistics->m_cntr_last_bytes_allocated = zero;
-		statistics->m_cntr_last_bytes_deallocated = zero;
-		statistics->m_cntr_last_bytes_peak = zero;
-		statistics->m_cntr_last_bytes_live = zero;
-		statistics->m_cntr_last_blocks_allocated = zero;
-		statistics->m_cntr_last_blocks_deallocated = zero;
-		statistics->m_cntr_last_blocks_peak = zero;
-		statistics->m_cntr_last_blocks_live = zero;
+		statistics->m_cntrs_last.m_data.m_arry.m_cntrs[0] = zero;
+		statistics->m_cntrs_last.m_data.m_arry.m_cntrs[1] = zero;
+		statistics->m_cntrs_last.m_data.m_arry.m_cntrs[2] = zero;
+		statistics->m_cntrs_last.m_data.m_arry.m_cntrs[3] = zero;
+		statistics->m_cntrs_last.m_data.m_arry.m_cntrs[4] = zero;
+		statistics->m_cntrs_last.m_data.m_arry.m_cntrs[5] = zero;
+		statistics->m_cntrs_last.m_data.m_arry.m_cntrs[6] = zero;
+		statistics->m_cntrs_last.m_data.m_arry.m_cntrs[7] = zero;
 		statistics->m_cntr_as_text_idx = 0;
 		data = mk_win_user_window_w_data_set(wnd, ((mk_win_base_sint_t)(mk_win_user_window_data_id_e_userdata)), ((mk_win_base_uintptr_t)(statistics))); mk_lang_assert(data == 0);
 	}
@@ -384,7 +424,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statisti
 	nmhdr_pt nmhdr;
 	mk_lang_types_sint_t err;
 	list_view_notify_dispinfow_pt dispinfo;
-	mk_sl_cui_uint128_t cntr;
+	mk_sl_cui_uint128_pct cntr;
 	mk_lang_types_wchar_pt buf;
 	mk_lang_types_sint_t len;
 
@@ -407,20 +447,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statisti
 		}
 		else
 		{
-			switch(dispinfo->m_item.m_item)
-			{
-				case 0: err = mk_sl_mallocg_tracer_statistics_get_bytes_allocated   (&cntr); mk_lang_check_rereturn(err); statistics->m_cntr_last_bytes_allocated    = cntr; break;
-				case 1: err = mk_sl_mallocg_tracer_statistics_get_bytes_deallocated (&cntr); mk_lang_check_rereturn(err); statistics->m_cntr_last_bytes_deallocated  = cntr; break;
-				case 2: err = mk_sl_mallocg_tracer_statistics_get_bytes_peak        (&cntr); mk_lang_check_rereturn(err); statistics->m_cntr_last_bytes_peak         = cntr; break;
-				case 3: err = mk_sl_mallocg_tracer_statistics_get_bytes_live        (&cntr); mk_lang_check_rereturn(err); statistics->m_cntr_last_bytes_live         = cntr; break;
-				case 4: err = mk_sl_mallocg_tracer_statistics_get_blocks_allocated  (&cntr); mk_lang_check_rereturn(err); statistics->m_cntr_last_blocks_allocated   = cntr; break;
-				case 5: err = mk_sl_mallocg_tracer_statistics_get_blocks_deallocated(&cntr); mk_lang_check_rereturn(err); statistics->m_cntr_last_blocks_deallocated = cntr; break;
-				case 6: err = mk_sl_mallocg_tracer_statistics_get_blocks_peak       (&cntr); mk_lang_check_rereturn(err); statistics->m_cntr_last_blocks_peak        = cntr; break;
-				case 7: err = mk_sl_mallocg_tracer_statistics_get_blocks_live       (&cntr); mk_lang_check_rereturn(err); statistics->m_cntr_last_blocks_live        = cntr; break;
-			}
+			mk_lang_assert(dispinfo->m_item.m_item >= 0 && dispinfo->m_item.m_item < mk_lang_countof(statistics->m_cntrs_last.m_data.m_arry.m_cntrs));
+			cntr = &statistics->m_cntrs_last.m_data.m_arry.m_cntrs[dispinfo->m_item.m_item];
 			buf = &statistics->m_cntr_as_text_buf[statistics->m_cntr_as_text_idx][0];
 			statistics->m_cntr_as_text_idx = (statistics->m_cntr_as_text_idx + 1) % mk_lang_countof(statistics->m_cntr_as_text_buf);;
-			len = mk_sl_cui_uint128_to_str_dec_w(&cntr, &buf[0], mk_sl_cui_uint128_strlendec_v); mk_lang_assert(len >= 1 && len <= mk_sl_cui_uint128_strlendec_v);
+			len = mk_sl_cui_uint128_to_str_dec_w(cntr, &buf[0], mk_sl_cui_uint128_strlendec_v); mk_lang_assert(len >= 1 && len <= mk_sl_cui_uint128_strlendec_v);
 			buf[len] = L'\0';
 			dispinfo->m_item.m_text_buf = buf;
 		}
@@ -633,26 +664,18 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_win_statistics_close
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_win_statistics_invalidate(mk_lang_types_void_t) mk_lang_noexcept
 {
 	mk_lib_win_statistics_pt statistics;
-	mk_lang_types_bool_t gud;
 	mk_win_base_sint_t err;
-	mk_sl_cui_uint128_t cntr;
+	mk_lib_win_statistics_cntrs_t cntrs;
 	mk_win_base_bool_t b;
 
 	statistics = &g_mk_lib_win_statistics;
 	mk_lang_assert(statistics->m_atom != 0);
 	if(!mk_win_user_base_wnd_is_null(statistics->m_wnd))
 	{
-		gud = mk_lang_true;
-		if(gud){ err = mk_sl_mallocg_tracer_statistics_get_bytes_allocated   (&cntr); mk_lang_check_rereturn(err); gud = mk_sl_cui_uint128_eq(&cntr, &statistics->m_cntr_last_bytes_allocated   ); }
-		if(gud){ err = mk_sl_mallocg_tracer_statistics_get_bytes_deallocated (&cntr); mk_lang_check_rereturn(err); gud = mk_sl_cui_uint128_eq(&cntr, &statistics->m_cntr_last_bytes_deallocated ); }
-		if(gud){ err = mk_sl_mallocg_tracer_statistics_get_bytes_peak        (&cntr); mk_lang_check_rereturn(err); gud = mk_sl_cui_uint128_eq(&cntr, &statistics->m_cntr_last_bytes_peak        ); }
-		if(gud){ err = mk_sl_mallocg_tracer_statistics_get_bytes_live        (&cntr); mk_lang_check_rereturn(err); gud = mk_sl_cui_uint128_eq(&cntr, &statistics->m_cntr_last_bytes_live        ); }
-		if(gud){ err = mk_sl_mallocg_tracer_statistics_get_blocks_allocated  (&cntr); mk_lang_check_rereturn(err); gud = mk_sl_cui_uint128_eq(&cntr, &statistics->m_cntr_last_blocks_allocated  ); }
-		if(gud){ err = mk_sl_mallocg_tracer_statistics_get_blocks_deallocated(&cntr); mk_lang_check_rereturn(err); gud = mk_sl_cui_uint128_eq(&cntr, &statistics->m_cntr_last_blocks_deallocated); }
-		if(gud){ err = mk_sl_mallocg_tracer_statistics_get_blocks_peak       (&cntr); mk_lang_check_rereturn(err); gud = mk_sl_cui_uint128_eq(&cntr, &statistics->m_cntr_last_blocks_peak       ); }
-		if(gud){ err = mk_sl_mallocg_tracer_statistics_get_blocks_live       (&cntr); mk_lang_check_rereturn(err); gud = mk_sl_cui_uint128_eq(&cntr, &statistics->m_cntr_last_blocks_live       ); }
-		if(!gud)
+		err = mk_sl_mallocg_tracer_statistics_get_all(&cntrs.m_data.m_arry.m_cntrs[0]); mk_lang_check_rereturn(err);
+		if(!mk_lib_win_statistics_cntrs_ro_eq(&cntrs, &statistics->m_cntrs_last))
 		{
+			statistics->m_cntrs_last = cntrs;
 			b = mk_win_user_window_invalidate_region(statistics->m_counters, mk_win_user_region_get_null(), mk_win_base_true); mk_lang_check_return(b != 0);
 		}
 	}
