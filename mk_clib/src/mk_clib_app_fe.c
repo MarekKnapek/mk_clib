@@ -51,6 +51,7 @@
 #include "mk_win_user_dc.h"
 #include "mk_win_user_icon.h"
 #include "mk_win_user_msg.h"
+#include "mk_win_user_todo.h"
 #include "mk_win_user_window.h"
 
 #if defined mk_clib_app_fe_mallocatorg_want && (mk_clib_app_fe_mallocatorg_want) == 2
@@ -336,6 +337,7 @@ struct mk_clib_app_fe_window_s
 	mk_win_user_dc_t m_mem_dc;
 	mk_win_user_bitmap_t m_bitmap;
 	mk_win_user_bitmap_t m_old_bitmap;
+	mk_win_user_font_t m_font;
 	mk_clib_app_fe_server_name_t m_tmp_str;
 	mk_lang_types_bool_t m_init;
 	mk_lang_types_uint_t m_req_id;
@@ -1496,18 +1498,36 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_window_get_font(mk_clib_app_fe_window_pt window) mk_lang_noexcept
+{
+	mk_win_user_todo_nonclientmetrics_t nonclientmetrics;
+	mk_win_base_bool_t b;
+	mk_win_user_font_t font;
+
+	mk_lang_assert(window);
+
+	nonclientmetrics.m_size = ((mk_win_base_uint_t)(sizeof(nonclientmetrics)));
+	b = mk_win_user_todo_w_system_parameters_info(((mk_win_base_uint_t)(mk_win_user_todo_system_parameters_info_id_e_getnonclientmetrics)), nonclientmetrics.m_size, &nonclientmetrics.m_size, 0); mk_lang_check_return(b != 0);
+	font = mk_win_user_todo_w_create_font_indirect(&nonclientmetrics.m_message_font); mk_lang_check_return(!mk_win_user_font_is_null(font));
+	window->m_font = font;
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_window_on_create(mk_win_user_base_wnd_t const wnd, mk_win_base_uint_t const msg, mk_win_user_base_wparam_t const wparam, mk_win_user_base_lparam_t const lparam) mk_lang_noexcept
 {
 	mk_win_user_msg_createw_lpct create;
 	mk_clib_app_fe_window_pt window;
+	mk_lang_types_sint_t err;
 	mk_win_base_uintptr_t data;
 
 	((mk_lang_types_void_t)(wparam));
 	if(msg == mk_win_user_msg_id_e_create)
 	{
-		create = ((mk_win_user_msg_createw_lpct)(lparam)); mk_lang_assert(create);
-		window = ((mk_clib_app_fe_window_pt)(create->m_param));
+		mk_lang_assert(lparam != 0);
+		create = ((mk_win_user_msg_createw_lpct)(lparam)); mk_lang_assert(create); mk_lang_assert(create->m_param);
+		window = ((mk_clib_app_fe_window_pt)(create->m_param)); mk_lang_assert(window);
 		window->m_wnd = wnd;
+		err = mk_clib_app_fe_window_get_font(window); mk_lang_check_rereturn(err);
 		data = mk_win_user_window_w_data_set(wnd, ((mk_win_base_sint_t)(mk_win_user_window_data_id_e_userdata)), ((mk_win_base_uintptr_t)(window))); mk_lang_assert(data == 0);
 	}
 	return 0;
@@ -1564,9 +1584,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 	mk_clib_app_fe_server_response_root_pct response;
 	mk_win_user_dc_t dc;
 	mk_win_base_rect_t recta;
-	mk_win_base_uint_t flags;
+	mk_win_base_uint_t format;
 	mk_win_base_wchar_t buf[2];
 	mk_win_base_rect_t rectb;
+	mk_win_user_font_t font_old;
 	mk_win_base_sint_t heighta;
 	mk_lang_types_sint_t err;
 	mk_lang_types_wchar_pct type_str_buf;
@@ -1580,14 +1601,16 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 	response = &window->m_response_current->m_data.m_root;
 	dc = window->m_mem_dc;
 	recta = window->m_rect;
-	flags = ((mk_win_base_uint_t)(mk_win_user_dc_flag_e_left | mk_win_user_dc_flag_e_singleline | mk_win_user_dc_flag_e_noclip | mk_win_user_dc_flag_e_calcrect | mk_win_user_dc_flag_e_noprefix | mk_win_user_dc_flag_e_internal));
+	format = ((mk_win_base_uint_t)(mk_win_user_dc_flag_e_left | mk_win_user_dc_flag_e_singleline | mk_win_user_dc_flag_e_noclip | mk_win_user_dc_flag_e_calcrect | mk_win_user_dc_flag_e_noprefix));
 	buf[0] = ((mk_lang_types_wchar_t)(L'A' + i));
 	buf[1] = L':';
 	rectb = recta;
-	heighta = mk_win_user_dc_draw_text_w(dc, &buf[0], 2, &recta, flags); mk_lang_check_return(heighta != 0); mk_lang_assert(heighta == ((mk_lang_types_sint_t)(recta.m_bottom - recta.m_top)));
+	font_old = mk_win_user_dc_select_font(dc, window->m_font);
+	heighta = mk_win_user_dc_draw_text_w(dc, &buf[0], 2, &recta, format); mk_lang_check_return(heighta != 0); mk_lang_assert(heighta == ((mk_lang_types_sint_t)(recta.m_bottom - recta.m_top)));
 	recta = rectb;
 	err = mk_clib_app_fe_window_on_paint_impl_draw_response_root_drive_type_to_str(response->m_drive_types[i], &type_str_buf, &type_str_len); mk_lang_check_rereturn(err); mk_lang_assert(type_str_buf && type_str_buf[0] != L'\0' && type_str_len >= 1);
-	heightb = mk_win_user_dc_draw_text_w(dc, &type_str_buf[0], type_str_len, &recta, flags); mk_lang_check_return(heightb != 0); mk_lang_assert(heightb == ((mk_lang_types_sint_t)(recta.m_bottom - recta.m_top)));
+	heightb = mk_win_user_dc_draw_text_w(dc, &type_str_buf[0], type_str_len, &recta, format); mk_lang_check_return(heightb != 0); mk_lang_assert(heightb == ((mk_lang_types_sint_t)(recta.m_bottom - recta.m_top)));
+	font_old = mk_win_user_dc_select_font(dc, font_old); mk_lang_assert(font_old.m_data == window->m_font.m_data);
 	*line_height = mk_lang_max(heighta, heightb);
 	return 0;
 }
@@ -1602,8 +1625,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 	mk_win_base_sint_t max_height;
 	mk_win_base_sint_t width;
 	mk_win_base_rect_t rectb;
-	mk_win_base_uint_t flags;
+	mk_win_base_uint_t format;
 	mk_win_base_wchar_t buf[2];
+	mk_win_user_font_t font_old;
 	mk_lang_types_uint_t drives;
 	mk_lang_types_sint_t n;
 	mk_lang_types_sint_t i;
@@ -1619,8 +1643,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 	max_height = 0;
 	width = 0;
 	rectb = recta;
-	flags = ((mk_win_base_uint_t)(mk_win_user_dc_flag_e_left | mk_win_user_dc_flag_e_singleline | mk_win_user_dc_flag_e_noclip | mk_win_user_dc_flag_e_calcrect | mk_win_user_dc_flag_e_noprefix | mk_win_user_dc_flag_e_internal));
+	format = ((mk_win_base_uint_t)(mk_win_user_dc_flag_e_left | mk_win_user_dc_flag_e_singleline | mk_win_user_dc_flag_e_noclip | mk_win_user_dc_flag_e_calcrect | mk_win_user_dc_flag_e_noprefix));
 	buf[1] = L':';
+	font_old = mk_win_user_dc_select_font(dc, window->m_font);
 	drives = response->m_drive_letters;
 	n = ((mk_lang_types_sint_t)(L'z' - L'a')) + 1;
 	for(i = 0; i != n; ++i)
@@ -1629,12 +1654,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 		{
 			recta = rectb;
 			buf[0] = ((mk_lang_types_wchar_t)(L'A' + i));
-			height = mk_win_user_dc_draw_text_w(dc, &buf[0], 2, &recta, flags); mk_lang_check_return(height != 0);
+			height = mk_win_user_dc_draw_text_w(dc, &buf[0], 2, &recta, format); mk_lang_check_return(height != 0);
 			width = mk_lang_max(width, ((mk_win_base_sint_t)(recta.m_right - recta.m_left)));
 			max_height = mk_lang_max(max_height, ((mk_win_base_sint_t)(recta.m_bottom - recta.m_top)));
 		}
 		drives >>= 1;
 	}
+	font_old = mk_win_user_dc_select_font(dc, font_old); mk_lang_assert(font_old.m_data == window->m_font.m_data);
 	if(max_height > window->m_line_height)
 	{
 		window->m_line_height = max_height;
@@ -1646,7 +1672,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_window_on_paint_impl_draw_response_root(mk_clib_app_fe_window_pt const window) mk_lang_noexcept
 {
 	mk_win_base_wchar_t buf[2];
-	mk_win_base_uint_t flags;
+	mk_win_base_uint_t format;
 	mk_win_base_rect_t recta;
 	mk_win_user_dc_t dc;
 	mk_clib_app_fe_server_response_root_pct response;
@@ -1654,6 +1680,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 	mk_lang_types_sint_t j;
 	mk_lang_types_sint_t line_height;
 	mk_lang_types_sint_t err;
+	mk_win_user_font_t font_old;
 	mk_lang_types_sint_t widest_drive;
 	mk_lang_types_sint_t n;
 	mk_lang_types_sint_t i;
@@ -1674,7 +1701,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 	mk_lang_assert(!mk_win_user_dc_is_null(window->m_mem_dc));
 
 	buf[1] = L':';
-	flags = ((mk_win_base_uint_t)(mk_win_user_dc_flag_e_left | mk_win_user_dc_flag_e_singleline | mk_win_user_dc_flag_e_noclip | mk_win_user_dc_flag_e_noprefix | mk_win_user_dc_flag_e_internal));
+	format = ((mk_win_base_uint_t)(mk_win_user_dc_flag_e_left | mk_win_user_dc_flag_e_singleline | mk_win_user_dc_flag_e_noclip | mk_win_user_dc_flag_e_noprefix));
 	recta = window->m_rect;
 	dc = window->m_mem_dc;
 	response = &window->m_response_current->m_data.m_root;
@@ -1691,6 +1718,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 	j = 0;
 	line_height = 0;
 	err = mk_clib_app_fe_window_on_paint_impl_draw_response_root_widest_drive(window, &widest_drive); mk_lang_check_rereturn(err);
+	font_old = mk_win_user_dc_select_font(dc, window->m_font);
 	n = ((mk_lang_types_sint_t)('z' - 'a')) + 1;
 	for(i = window->m_scroll; i != n; ++i)
 	{
@@ -1718,9 +1746,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 				tsi = mk_win_user_dc_fill_rect(dc, &rectb, mk_win_user_brush_from_color_id(mk_win_user_base_color_id_e_highlight)); mk_lang_check_return(tsi != 0);
 			}
 			rectb = recta;
-			height = mk_win_user_dc_draw_text_w(dc, &buf[0], 2, &rectb, flags); mk_lang_check_return(height != 0); mk_lang_assert(height <= line_height);
+			height = mk_win_user_dc_draw_text_w(dc, &buf[0], 2, &rectb, format); mk_lang_check_return(height != 0); mk_lang_assert(height <= line_height);
 			rectb = recta; rectb.m_left = recta.m_left + 2 * widest_drive;
-			height = mk_win_user_dc_draw_text_w(dc, type_str, type_len, &rectb, flags); mk_lang_check_return(height != 0); mk_lang_assert(height <= line_height);
+			height = mk_win_user_dc_draw_text_w(dc, type_str, type_len, &rectb, format); mk_lang_check_return(height != 0); mk_lang_assert(height <= line_height);
 			if(j == window->m_idx - window->m_scroll)
 			{
 				old_fg = mk_win_user_dc_set_text_color(dc, old_fg); mk_lang_check_return(old_fg != ((mk_win_user_base_colorref_t)(0xfffffffful)));
@@ -1730,6 +1758,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 		}
 		drives >>= 1;
 	}
+	font_old = mk_win_user_dc_select_font(dc, font_old); mk_lang_assert(font_old.m_data == window->m_font.m_data);
 	return 0;
 }
 
@@ -1737,7 +1766,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 {
 	mk_win_user_dc_t dc;
 	mk_win_base_rect_t rect;
-	mk_win_base_uint_t flags;
+	mk_win_base_uint_t format;
+	mk_win_user_font_t font_old;
 	mk_win_base_wchar_pct buf;
 	mk_win_base_usize_t lenus;
 	mk_win_base_sint_t lensi;
@@ -1749,10 +1779,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 
 	dc = window->m_mem_dc;
 	rect = window->m_rect;
-	flags = ((mk_win_base_uint_t)(mk_win_user_dc_flag_e_left | mk_win_user_dc_flag_e_singleline | mk_win_user_dc_flag_e_noclip | mk_win_user_dc_flag_e_calcrect | mk_win_user_dc_flag_e_noprefix | mk_win_user_dc_flag_e_internal));
+	format = ((mk_win_base_uint_t)(mk_win_user_dc_flag_e_left | mk_win_user_dc_flag_e_singleline | mk_win_user_dc_flag_e_noclip | mk_win_user_dc_flag_e_calcrect | mk_win_user_dc_flag_e_noprefix));
+	font_old = mk_win_user_dc_select_font(dc, window->m_font);
 	buf = mk_clib_app_fe_server_name_ro_data(name); mk_lang_assert(buf && buf[0] != L'\0');
 	lenus = mk_clib_app_fe_server_name_ro_size(name); mk_lang_assert(lenus >= 1 && lenus <= ((mk_lang_types_usize_t)(mk_lang_limits_sint_max))); lensi = ((mk_lang_types_sint_t)(lenus));
-	height = mk_win_user_dc_draw_text_w(dc, &buf[0], lensi, &rect, flags); mk_lang_check_return(height != 0); mk_lang_assert(height == ((mk_lang_types_sint_t)(rect.m_bottom - rect.m_top)));
+	height = mk_win_user_dc_draw_text_w(dc, &buf[0], lensi, &rect, format); mk_lang_check_return(height != 0); mk_lang_assert(height == ((mk_lang_types_sint_t)(rect.m_bottom - rect.m_top)));
+	font_old = mk_win_user_dc_select_font(dc, font_old); mk_lang_assert(font_old.m_data == window->m_font.m_data);
 	*line_height = height;
 	return 0;
 }
@@ -1807,7 +1839,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 struct mk_clib_app_fe_window_paint_s
 {
 	mk_clib_app_fe_window_pt m_window;
-	mk_win_base_uint_t m_flags;
+	mk_win_base_uint_t m_format;
 	mk_win_base_rect_t m_rect;
 	mk_win_user_dc_t m_dc;
 	mk_clib_app_fe_server_response_pct m_response;
@@ -1827,7 +1859,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 	mk_lang_assert(window);
 
 	pt->m_window = window;
-	pt->m_flags = ((mk_win_base_uint_t)(mk_win_user_dc_flag_e_left | mk_win_user_dc_flag_e_singleline | mk_win_user_dc_flag_e_noclip | mk_win_user_dc_flag_e_noprefix | mk_win_user_dc_flag_e_internal));
+	pt->m_format = ((mk_win_base_uint_t)(mk_win_user_dc_flag_e_left | mk_win_user_dc_flag_e_singleline | mk_win_user_dc_flag_e_noclip | mk_win_user_dc_flag_e_noprefix));
 	pt->m_rect = window->m_rect;
 	pt->m_dc = window->m_mem_dc;
 	pt->m_response = window->m_response_current;
@@ -1839,7 +1871,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 	mk_clib_app_fe_window_pt window;
 	mk_win_user_dc_t dc;
 	mk_win_base_rect_t rect;
-	mk_win_base_uint_t flags;
+	mk_win_base_uint_t format;
+	mk_win_user_font_t font_old;
 	mk_win_base_sint_t height;
 	mk_win_base_sint_t width;
 
@@ -1853,9 +1886,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 	window = pt->m_window;
 	dc = window->m_mem_dc;
 	rect = window->m_rect;
-	flags = pt->m_flags;
-	flags |= mk_win_user_dc_flag_e_calcrect;
-	height = mk_win_user_dc_draw_text_w(dc, &buf[0], len, &rect, flags); mk_lang_check_return(height != 0); mk_lang_assert(height == ((mk_lang_types_sint_t)(rect.m_bottom - rect.m_top)));
+	format = pt->m_format;
+	format |= mk_win_user_dc_flag_e_calcrect;
+	font_old = mk_win_user_dc_select_font(dc, window->m_font);
+	height = mk_win_user_dc_draw_text_w(dc, &buf[0], len, &rect, format); mk_lang_check_return(height != 0); mk_lang_assert(height == ((mk_lang_types_sint_t)(rect.m_bottom - rect.m_top)));
+	font_old = mk_win_user_dc_select_font(dc, font_old); mk_lang_assert(font_old.m_data == window->m_font.m_data);
 	width = ((mk_lang_types_sint_t)(rect.m_right - rect.m_left));
 	*out_width = width;
 	*out_height = height;
@@ -2032,13 +2067,14 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 	mk_lang_types_sint_t width_max;
 	mk_lang_types_sint_t height_max;
 	mk_lang_types_sint_t j;
+	mk_win_user_font_t font_old;
 	mk_lang_types_sint_t n;
 	mk_lang_types_sint_t i;
 	mk_lang_types_wchar_pct drive_type_buf;
 	mk_lang_types_sint_t drive_type_len;
 	mk_lang_types_sint_t height;
 	mk_win_user_dc_t dc;
-	mk_win_base_uint_t flags;
+	mk_win_base_uint_t format;
 	mk_win_base_rect_pt rect;
 	mk_win_base_rect_t recta;
 	mk_lang_types_sint_t line_height;
@@ -2047,7 +2083,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 
 	err = mk_clib_app_fe_window_on_paint_impl_rows_root_sizes(pt, &width); mk_lang_check_rereturn(err);
 	window = pt->m_window;
-	flags = pt->m_flags;
+	format = pt->m_format;
 	rect = &pt->m_rect;
 	dc = window->m_mem_dc;
 	resp = window->m_response_current;
@@ -2058,6 +2094,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 	width_max = 0;
 	height_max = 0;
 	j = 0;
+	font_old = mk_win_user_dc_select_font(dc, window->m_font);
 	n = ((mk_lang_types_sint_t)('z' - 'a')) + 1;
 	for(i = 0; i != n; ++i)
 	{
@@ -2067,9 +2104,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 			err = mk_clib_app_fe_window_on_paint_impl_draw_response_root_drive_type_to_str(response->m_drive_types[i], &drive_type_buf, &drive_type_len); mk_lang_check_rereturn(err);
 			err = mk_clib_app_fe_window_on_paint_impl_row_selected_on(pt, j); mk_lang_check_rereturn(err);
 			recta = *rect;
-			height = mk_win_user_dc_draw_text_w(dc, &drive_text[0], mk_lang_countof(drive_text), &recta, flags); mk_lang_check_return(height != 0); mk_lang_assert(height <= line_height);
+			height = mk_win_user_dc_draw_text_w(dc, &drive_text[0], mk_lang_countof(drive_text), &recta, format); mk_lang_check_return(height != 0); mk_lang_assert(height <= line_height);
 			recta = *rect; recta.m_left += 2 * width;
-			height = mk_win_user_dc_draw_text_w(dc, &drive_type_buf[0], drive_type_len, &recta, flags); mk_lang_check_return(height != 0); mk_lang_assert(height <= line_height);
+			height = mk_win_user_dc_draw_text_w(dc, &drive_type_buf[0], drive_type_len, &recta, format); mk_lang_check_return(height != 0); mk_lang_assert(height <= line_height);
 			err = mk_clib_app_fe_window_on_paint_impl_row_selected_of(pt, j); mk_lang_check_rereturn(err);
 			rect->m_top += line_height;
 			if(rect->m_top >= rect->m_bottom)
@@ -2080,13 +2117,14 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 		}
 		drives >>= 1;
 	}
+	font_old = mk_win_user_dc_select_font(dc, font_old); mk_lang_assert(font_old.m_data == window->m_font.m_data);
 	return 0;
 }
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_window_on_paint_impl_rows_idx_erry(mk_clib_app_fe_window_paint_pt const pt) mk_lang_noexcept
 {
 	mk_clib_app_fe_window_pt window;
-	mk_win_base_uint_t flags;
+	mk_win_base_uint_t format;
 	mk_win_base_rect_pt rect;
 	mk_win_user_dc_t dc;
 	mk_clib_app_fe_server_response_pct resp;
@@ -2098,6 +2136,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 	mk_lang_types_sint_t err;
 	mk_clib_app_fe_server_name_t err_msg;
 	mk_lang_types_wchar_pt err_buf;
+	mk_win_user_font_t font_old;
 	mk_win_user_base_colorref_t old_fg;
 	mk_win_user_base_colorref_t old_bg;
 	mk_lang_types_sint_t tsi;
@@ -2111,7 +2150,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 	mk_lang_assert(pt);
 
 	window = pt->m_window;
-	flags = pt->m_flags;
+	format = pt->m_format;
 	rect = &pt->m_rect;
 	dc = pt->m_dc;
 	resp = pt->m_response;
@@ -2124,8 +2163,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 	err = mk_clib_app_fe_server_name_rw_construct(&err_msg); mk_lang_check_rereturn(err);
 	err = mk_clib_app_fe_server_name_rw_push_back_void(&err_msg, lensi); mk_lang_check_rereturn(err);
 	err_buf = mk_clib_app_fe_server_name_rw_data(&err_msg); mk_lang_assert(err_buf);
-	flags &=~ ((mk_win_base_dword_t)(mk_win_user_dc_flag_e_left));
-	flags |= ((mk_win_base_dword_t)(mk_win_user_dc_flag_e_center));
+	format &=~ ((mk_win_base_dword_t)(mk_win_user_dc_flag_e_left));
+	format |= ((mk_win_base_dword_t)(mk_win_user_dc_flag_e_center));
+	font_old = mk_win_user_dc_select_font(dc, window->m_font);
 	old_fg = mk_win_user_dc_set_text_color(dc, mk_win_user_base_get_sys_color(((mk_win_base_sint_t)(mk_win_user_base_color_id_e_graytext)))); mk_lang_check_return(old_fg != ((mk_win_user_base_colorref_t)(0xfffffffful)));
 	old_bg = mk_win_user_dc_set_bk_color(dc, mk_win_user_base_get_sys_color(((mk_win_base_sint_t)(mk_win_user_base_color_id_e_window)))); mk_lang_check_return(old_bg != ((mk_win_user_base_colorref_t)(0xfffffffful)));
 	{
@@ -2133,7 +2173,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 		rectb = recta; rectb.m_bottom = recta.m_top + line_height;
 		tsi = mk_win_user_dc_fill_rect(dc, &rectb, mk_win_user_brush_from_color_id(mk_win_user_base_color_id_e_window)); mk_lang_check_return(tsi != 0);
 		rectb = recta;
-		height = mk_win_user_dc_draw_text_w(dc, &err_buf[0], len, &rectb, flags); mk_lang_check_return(height != 0); height_max = mk_lang_max(height_max, height);
+		height = mk_win_user_dc_draw_text_w(dc, &err_buf[0], len, &rectb, format); mk_lang_check_return(height != 0); height_max = mk_lang_max(height_max, height);
 		recta.m_top += line_height;
 	}
 	{
@@ -2144,7 +2184,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 			rectb = recta; rectb.m_bottom = recta.m_top + line_height;
 			tsi = mk_win_user_dc_fill_rect(dc, &rectb, mk_win_user_brush_from_color_id(mk_win_user_base_color_id_e_window)); mk_lang_check_return(tsi != 0);
 			rectb = recta;
-			height = mk_win_user_dc_draw_text_w(dc, &err_buf[0], ((mk_lang_types_sint_t)(lendw)), &rectb, flags); mk_lang_check_return(height != 0);
+			height = mk_win_user_dc_draw_text_w(dc, &err_buf[0], ((mk_lang_types_sint_t)(lendw)), &rectb, format); mk_lang_check_return(height != 0);
 		}
 		else
 		{
@@ -2154,6 +2194,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 	}
 	old_fg = mk_win_user_dc_set_text_color(dc, old_fg); mk_lang_check_return(old_fg != ((mk_win_user_base_colorref_t)(0xfffffffful)));
 	old_bg = mk_win_user_dc_set_bk_color(dc, old_bg); mk_lang_check_return(old_bg != ((mk_win_user_base_colorref_t)(0xfffffffful)));
+	font_old = mk_win_user_dc_select_font(dc, font_old); mk_lang_assert(font_old.m_data == window->m_font.m_data);
 	err = mk_clib_app_fe_server_name_rw_destroy(&err_msg); mk_lang_check_rereturn(err);
 	if(height > line_height)
 	{
@@ -2166,7 +2207,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_window_on_paint_impl_up(mk_clib_app_fe_window_paint_pt const pt) mk_lang_noexcept
 {
 	mk_clib_app_fe_window_pt window;
-	mk_win_base_uint_t flags;
+	mk_win_base_uint_t format;
 	mk_win_base_rect_pt rect;
 	mk_win_user_dc_t dc;
 	mk_clib_app_fe_server_response_pct response;
@@ -2178,11 +2219,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 	mk_lang_types_sint_t text_len;
 	mk_win_base_rect_t recta;
 	mk_lang_types_sint_t height;
+	mk_win_user_font_t font_old;
 
 	mk_lang_assert(pt);
 
 	window = pt->m_window;
-	flags = pt->m_flags;
+	format = pt->m_format;
 	rect = &pt->m_rect;
 	dc = pt->m_dc;
 	response = pt->m_response;
@@ -2195,7 +2237,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 		text_len = mk_lang_countstr(mk_clib_app_fe_up_str); mk_lang_assert(text_len >= 1);
 		recta = *rect;
 		err = mk_clib_app_fe_window_on_paint_impl_row_selected_on(pt, 0); mk_lang_check_rereturn(err);
-		height = mk_win_user_dc_draw_text_w(dc, &text_buf[0], text_len, &recta, flags); mk_lang_check_return(height != 0); *line_height = mk_lang_max(height, *line_height);
+		font_old = mk_win_user_dc_select_font(dc, window->m_font);
+		height = mk_win_user_dc_draw_text_w(dc, &text_buf[0], text_len, &recta, format); mk_lang_check_return(height != 0); *line_height = mk_lang_max(height, *line_height);
+		font_old = mk_win_user_dc_select_font(dc, font_old); mk_lang_assert(font_old.m_data == window->m_font.m_data);
 		err = mk_clib_app_fe_window_on_paint_impl_row_selected_of(pt, 0); mk_lang_check_rereturn(err);
 		rect->m_top += *line_height;
 	}
@@ -2205,7 +2249,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_window_on_paint_impl_rows_idx_errn(mk_clib_app_fe_window_paint_pt const pt) mk_lang_noexcept
 {
 	mk_clib_app_fe_window_pt window;
-	mk_win_base_uint_t flags;
+	mk_win_base_uint_t format;
 	mk_win_base_rect_pt rect;
 	mk_win_user_dc_t dc;
 	mk_clib_app_fe_server_response_pt resp;
@@ -2217,6 +2261,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 	mk_lang_types_sint_t j;
 	mk_lang_types_sint_t err;
 	mk_clib_app_fe_server_name_pt dirified;
+	mk_win_user_font_t font_old;
 	mk_lang_types_bool_t has_up;
 	mk_lang_types_wchar_pct text_buf;
 	mk_lang_types_sint_t text_len;
@@ -2233,7 +2278,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 	mk_lang_assert(pt);
 
 	window = pt->m_window;
-	flags = pt->m_flags;
+	format = pt->m_format;
 	rect = &pt->m_rect;
 	dc = window->m_mem_dc;
 	resp = window->m_response_current;
@@ -2244,6 +2289,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 	scroll = window->m_scroll;
 	j = 0;
 	dirified = &window->m_tmp_str;
+	font_old = mk_win_user_dc_select_font(dc, window->m_font);
 	err = mk_clib_app_fe_server_name_rw_clear(dirified); mk_lang_check_rereturn(err);
 	err = mk_clib_app_fe_server_response_has_up_idx(response, &has_up); mk_lang_check_rereturn(err);
 	tus = mk_clib_app_fe_server_files_ro_size(files); mk_lang_assert(tus <= ((mk_lang_types_usize_t)(mk_lang_limits_sint_max)));
@@ -2259,7 +2305,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 		text_len = mk_clib_app_fe_server_name_ro_size(dirified); mk_lang_assert(text_len >= 1);
 		recta = *rect;
 		err = mk_clib_app_fe_window_on_paint_impl_row_selected_on(pt, j); mk_lang_check_rereturn(err);
-		height = mk_win_user_dc_draw_text_w(dc, &text_buf[0], text_len, &recta, flags); mk_lang_check_return(height != 0);
+		height = mk_win_user_dc_draw_text_w(dc, &text_buf[0], text_len, &recta, format); mk_lang_check_return(height != 0);
 		err = mk_clib_app_fe_window_on_paint_impl_row_selected_of(pt, j); mk_lang_check_rereturn(err);
 		rect->m_top += line_height;
 		++j;
@@ -2274,6 +2320,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 			break;
 		}
 	}
+	font_old = mk_win_user_dc_select_font(dc, font_old); mk_lang_assert(font_old.m_data == window->m_font.m_data);
 	return 0;
 }
 
@@ -2309,6 +2356,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 	mk_lang_types_sint_t scroll;
 	mk_lang_types_wchar_pct text_buf;
 	mk_lang_types_sint_t text_len;
+	mk_win_user_font_t font_old;
 	mk_win_user_base_colorref_t old_fg;
 	mk_win_user_base_colorref_t old_bg;
 	mk_win_base_rect_t recta;
@@ -2318,7 +2366,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 	mk_lang_assert(pt);
 
 	window = pt->m_window;
-	flags = pt->m_flags;
+	flags = pt->m_format;
 	rect = &pt->m_rect;
 	dc = pt->m_dc;
 	response = pt->m_response;
@@ -2328,6 +2376,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 	text_len = mk_lang_countstr(mk_clib_app_fe_window_hourglass); mk_lang_assert(text_len >= 1);
 	flags &=~ ((mk_win_base_dword_t)(mk_win_user_dc_flag_e_left));
 	flags |= ((mk_win_base_dword_t)(mk_win_user_dc_flag_e_center));
+	font_old = mk_win_user_dc_select_font(dc, window->m_font);
 	old_fg = mk_win_user_dc_set_text_color(dc, mk_win_user_base_get_sys_color(((mk_win_base_sint_t)(mk_win_user_base_color_id_e_graytext)))); mk_lang_check_return(old_fg != ((mk_win_user_base_colorref_t)(0xfffffffful)));
 	old_bg = mk_win_user_dc_set_bk_color(dc, mk_win_user_base_get_sys_color(((mk_win_base_sint_t)(mk_win_user_base_color_id_e_window)))); mk_lang_check_return(old_bg != ((mk_win_user_base_colorref_t)(0xfffffffful)));
 	recta = *rect; recta.m_bottom = rect->m_top + *line_height;
@@ -2337,6 +2386,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 	rect->m_top += *line_height;
 	old_fg = mk_win_user_dc_set_text_color(dc, old_fg); mk_lang_check_return(old_fg != ((mk_win_user_base_colorref_t)(0xfffffffful)));
 	old_bg = mk_win_user_dc_set_bk_color(dc, old_bg); mk_lang_check_return(old_bg != ((mk_win_user_base_colorref_t)(0xfffffffful)));
+	font_old = mk_win_user_dc_select_font(dc, font_old); mk_lang_assert(font_old.m_data == window->m_font.m_data);
 	return 0;
 }
 
@@ -2823,6 +2873,17 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_window_on_setfont(mk_clib_app_fe_window_pt const window, mk_win_user_base_wparam_t const wparam, mk_win_user_base_lparam_t const lparam, mk_lang_types_bool_pt const override_defproc, mk_win_user_base_lresult_pt const override_result) mk_lang_noexcept
+{
+	mk_lang_assert(window);
+	mk_lang_assert(override_defproc);
+	mk_lang_assert(override_result);
+
+	((mk_lang_types_void_t)(wparam));
+	((mk_lang_types_void_t)(lparam));
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_window_on_keydown_vk_prior(mk_clib_app_fe_window_pt const window) mk_lang_noexcept
 {
 	mk_win_base_sint_t client_height;
@@ -3094,6 +3155,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 		case mk_win_user_msg_id_e_destroy   : err = mk_clib_app_fe_window_on_destroy   (window, wparam, lparam, override_defproc, override_result); mk_lang_check_rereturn(err); break;
 		case mk_win_user_msg_id_e_paint     : err = mk_clib_app_fe_window_on_paint     (window, wparam, lparam, override_defproc, override_result); mk_lang_check_rereturn(err); break;
 		case mk_win_user_msg_id_e_erasebkgnd: err = mk_clib_app_fe_window_on_erasebkgnd(window, wparam, lparam, override_defproc, override_result); mk_lang_check_rereturn(err); break;
+		case mk_win_user_msg_id_e_setfont   : err = mk_clib_app_fe_window_on_setfont   (window, wparam, lparam, override_defproc, override_result); mk_lang_check_rereturn(err); break;
 		case mk_win_user_msg_id_e_keydown   : err = mk_clib_app_fe_window_on_keydown   (window, wparam, lparam, override_defproc, override_result); mk_lang_check_rereturn(err); break;
 		case mk_win_user_msg_id_e_char      : err = mk_clib_app_fe_window_on_char      (window, wparam, lparam, override_defproc, override_result); mk_lang_check_rereturn(err); break;
 		case mk_win_user_msg_id_e_vscroll   : err = mk_clib_app_fe_window_on_vscroll   (window, wparam, lparam, override_defproc, override_result); mk_lang_check_rereturn(err); break;

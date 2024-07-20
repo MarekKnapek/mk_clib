@@ -14,6 +14,7 @@ mk_win_base_make_handle(mk_win_user_base_wnd)
 mk_win_base_make_handle(mk_win_user_bitmap)
 mk_win_base_make_handle(mk_win_user_brush)
 mk_win_base_make_handle(mk_win_user_dc)
+mk_win_base_make_handle(mk_win_user_font)
 
 
 enum mk_win_user_base_color_id_e

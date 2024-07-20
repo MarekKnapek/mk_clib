@@ -80,6 +80,17 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_user_bitmap_t mk_win_user_dc_select_bitma
 	return ret;
 }
 
+mk_lang_nodiscard mk_lang_jumbo mk_win_user_font_t mk_win_user_dc_select_font(mk_win_user_dc_t const dc, mk_win_user_font_t const font) mk_lang_noexcept
+{
+	mk_win_user_base_gdi_obj_t gdi_obj;
+	mk_win_user_font_t ret;
+
+	gdi_obj = mk_win_user_base_gdi_obj_from(font.m_data);
+	gdi_obj = SelectObject(dc, gdi_obj);
+	ret = mk_win_user_font_from(gdi_obj.m_data);
+	return ret;
+}
+
 mk_lang_nodiscard mk_lang_jumbo mk_win_user_bitmap_t mk_win_user_bitmap_create_compatible(mk_win_user_dc_t const dc, mk_win_base_sint_t const width, mk_win_base_sint_t const height) mk_lang_noexcept
 {
 	mk_win_user_bitmap_t ret;

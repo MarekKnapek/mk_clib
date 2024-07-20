@@ -50,6 +50,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_user_dc_delete(mk_win_
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_user_dc_draw_text_w(mk_win_user_dc_t const dc, mk_win_base_wchar_lpct const text, mk_win_base_sint_t const len, mk_win_base_rect_lpt const rect, mk_win_base_uint_t const flags) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_user_dc_fill_rect(mk_win_user_dc_t const dc, mk_win_base_rect_lpct const rect, mk_win_user_brush_t const brush) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_user_bitmap_t mk_win_user_dc_select_bitmap(mk_win_user_dc_t const dc, mk_win_user_bitmap_t const bitmap) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_win_user_font_t mk_win_user_dc_select_font(mk_win_user_dc_t const dc, mk_win_user_font_t const font) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_user_bitmap_t mk_win_user_bitmap_create_compatible(mk_win_user_dc_t const dc, mk_win_base_sint_t const width, mk_win_base_sint_t const height) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_user_gdi_obj_delete(mk_win_user_base_gdi_obj_t const gdi_obj) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t bitblast(mk_win_user_dc_t const dst, mk_win_base_sint_t const dst_x, mk_win_base_sint_t const dst_y, mk_win_base_sint_t const width, mk_win_base_sint_t const height, mk_win_user_dc_t const src, mk_win_base_sint_t const src_x, mk_win_base_sint_t const src_y, mk_win_base_dword_t const rop) mk_lang_noexcept;

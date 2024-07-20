@@ -309,13 +309,15 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statisti
 	mk_sl_cui_uint128_t zero;
 	mk_win_user_msg_createw_lpct create;
 	mk_lib_win_statistics_pt statistics;
+	mk_lang_types_sint_t err;
 	mk_win_base_uintptr_t data;
 
 	((mk_lang_types_void_t)(wparam));
 	if(msg == mk_win_user_msg_id_e_create)
 	{
+		mk_lang_assert(lparam != 0);
 		mk_sl_cui_uint128_set_zero(&zero);
-		create = ((mk_win_user_msg_createw_lpct)(lparam)); mk_lang_assert(create);
+		create = ((mk_win_user_msg_createw_lpct)(lparam)); mk_lang_assert(create); mk_lang_assert(create->m_param);
 		statistics = ((mk_lib_win_statistics_pt)(create->m_param));
 		statistics->m_wnd = wnd;
 		statistics->m_last_rect.m_left = 0;
