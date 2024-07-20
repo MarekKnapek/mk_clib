@@ -5,6 +5,7 @@
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_static_param.h"
 #include "mk_lang_types.h"
 #include "mk_sl_uint128.h"
 
@@ -38,6 +39,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocatorg_windows_s
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocatorg_windows_statistics_get_blocks_deallocated(mk_sl_cui_uint128_pt const cnt) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocatorg_windows_statistics_get_blocks_peak(mk_sl_cui_uint128_pt const cnt) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocatorg_windows_statistics_get_blocks_live(mk_sl_cui_uint128_pt const cnt) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocatorg_windows_statistics_get_all(mk_lang_static_param(mk_sl_cui_uint128_t, cnts, 8)) mk_lang_noexcept;
 
 
 #if mk_lang_jumbo_want == 1

@@ -6,6 +6,7 @@
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_static_param.h"
 #include "mk_lang_types.h"
 #include "mk_sl_uint128.h"
 
@@ -39,6 +40,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocg_tracer_statis
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocg_tracer_statistics_get_blocks_deallocated(mk_sl_cui_uint128_pt const cnt) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocg_tracer_statistics_get_blocks_peak(mk_sl_cui_uint128_pt const cnt) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocg_tracer_statistics_get_blocks_live(mk_sl_cui_uint128_pt const cnt) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocg_tracer_statistics_get_all(mk_lang_static_param(mk_sl_cui_uint128_t, cnts, 8)) mk_lang_noexcept;
 
 
 #define mk_sl_mallocg_tracer_allocate(size, mem) mk_sl_mallocg_tracer_allocate_impl(&__FILE__[0], mk_lang_countstr(__FILE__), ((mk_lang_types_sint_t)(__LINE__)), &__func__[0], mk_lang_countstr(__func__), (size), (mem))

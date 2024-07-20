@@ -4,6 +4,7 @@
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_platform.h"
+#include "mk_lang_static_param.h"
 #include "mk_lang_types.h"
 #include "mk_sl_uint128.h"
 
@@ -23,6 +24,7 @@
 #define mk_sl_mallocatorg_impl_statistics_get_blocks_deallocated mk_sl_mallocatorg_windows_statistics_get_blocks_deallocated
 #define mk_sl_mallocatorg_impl_statistics_get_blocks_live        mk_sl_mallocatorg_windows_statistics_get_blocks_live
 #define mk_sl_mallocatorg_impl_statistics_get_blocks_peak        mk_sl_mallocatorg_windows_statistics_get_blocks_peak
+#define mk_sl_mallocatorg_impl_statistics_get_all                mk_sl_mallocatorg_windows_statistics_get_all
 #elif defined __cplusplus
 #include "mk_sl_mallocatorg_portablecpp.hpp"
 #define mk_sl_mallocatorg_impl_init                              mk_sl_mallocatorg_portablecpp_init
@@ -38,6 +40,7 @@
 #define mk_sl_mallocatorg_impl_statistics_get_blocks_deallocated mk_sl_mallocatorg_portablecpp_statistics_get_blocks_deallocated
 #define mk_sl_mallocatorg_impl_statistics_get_blocks_live        mk_sl_mallocatorg_portablecpp_statistics_get_blocks_live
 #define mk_sl_mallocatorg_impl_statistics_get_blocks_peak        mk_sl_mallocatorg_portablecpp_statistics_get_blocks_peak
+#define mk_sl_mallocatorg_impl_statistics_get_all                mk_sl_mallocatorg_portablecpp_statistics_get_all
 #else
 #include "mk_sl_mallocatorg_portablec.h"
 #define mk_sl_mallocatorg_impl_init                              mk_sl_mallocatorg_portablec_init
@@ -53,6 +56,7 @@
 #define mk_sl_mallocatorg_impl_statistics_get_blocks_deallocated mk_sl_mallocatorg_portablec_statistics_get_blocks_deallocated
 #define mk_sl_mallocatorg_impl_statistics_get_blocks_live        mk_sl_mallocatorg_portablec_statistics_get_blocks_live
 #define mk_sl_mallocatorg_impl_statistics_get_blocks_peak        mk_sl_mallocatorg_portablec_statistics_get_blocks_peak
+#define mk_sl_mallocatorg_impl_statistics_get_all                mk_sl_mallocatorg_portablec_statistics_get_all
 #endif
 
 
@@ -158,5 +162,13 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocatorg_statistic
 	mk_lang_types_sint_t ret;
 
 	ret = mk_sl_mallocatorg_impl_statistics_get_blocks_peak(cnt);
+	return ret;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocatorg_statistics_get_all(mk_lang_static_param(mk_sl_cui_uint128_t, cnts, 8)) mk_lang_noexcept
+{
+	mk_lang_types_sint_t ret;
+
+	ret = mk_sl_mallocatorg_impl_statistics_get_all(cnts);
 	return ret;
 }

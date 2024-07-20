@@ -6,6 +6,7 @@
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_static_param.h"
 #include "mk_lang_types.h"
 #include "mk_lib_mt_mutex.h"
 #include "mk_lib_mt_unique_lock.h"
@@ -382,6 +383,32 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocatorg_portablec
 #else
 	mk_lang_assert(cnt);
 	((mk_lang_types_void_t)(cnt));
+	return 0;
+#endif
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocatorg_portablec_statistics_get_all(mk_lang_static_param(mk_sl_cui_uint128_t, cnts, 8)) mk_lang_noexcept
+{
+#if mk_sl_mallocatorg_portablec_statistics_have
+	mk_lang_types_sint_t err;
+	mk_lib_mt_unique_lock_exclusive_t ul;
+
+	mk_lang_assert(cnts);
+
+	err = mk_lib_mt_unique_lock_exclusive_construct(&ul, &g_mk_sl_mallocatorg_portablec_mtx); mk_lang_check_rereturn(err);
+	cnts[0] = g_mk_sl_mallocatorg_portablec_statistics_bytes_allocated;
+	cnts[1] = g_mk_sl_mallocatorg_portablec_statistics_bytes_deallocated;
+	cnts[2] = g_mk_sl_mallocatorg_portablec_statistics_bytes_peak;
+	mk_sl_cui_uint128_sub3_wrap_cid_cod(&g_mk_sl_mallocatorg_portablec_statistics_bytes_allocated, &g_mk_sl_mallocatorg_portablec_statistics_bytes_deallocated, &cnts[3]);
+	cnts[4] = g_mk_sl_mallocatorg_portablec_statistics_blocks_allocated;
+	cnts[5] = g_mk_sl_mallocatorg_portablec_statistics_blocks_deallocated;
+	cnts[6] = g_mk_sl_mallocatorg_portablec_statistics_blocks_peak;
+	mk_sl_cui_uint128_sub3_wrap_cid_cod(&g_mk_sl_mallocatorg_portablec_statistics_blocks_allocated, &g_mk_sl_mallocatorg_portablec_statistics_blocks_deallocated, &cnts[7]);
+	err = mk_lib_mt_unique_lock_exclusive_destruct(&ul); mk_lang_check_rereturn(err);
+	return 0;
+#else
+	mk_lang_assert(cnts);
+	((mk_lang_types_void_t)(cnts));
 	return 0;
 #endif
 }
