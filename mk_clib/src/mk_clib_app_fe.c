@@ -2159,7 +2159,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 	recta = *rect;
 	height_max = 0;
 	recta.m_top += 2 * line_height;
-	lensi = 2 * 1024;
+	lensi = 1 * 1024;
 	err = mk_clib_app_fe_server_name_rw_construct(&err_msg); mk_lang_check_rereturn(err);
 	err = mk_clib_app_fe_server_name_rw_push_back_void(&err_msg, lensi); mk_lang_check_rereturn(err);
 	err_buf = mk_clib_app_fe_server_name_rw_data(&err_msg); mk_lang_assert(err_buf);
