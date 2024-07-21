@@ -24,6 +24,6 @@ mk_lang_nodiscard mk_lang_types_sint_t mk_win_base_stdcall wWinMain(mk_win_base_
 
 #else
 
-#error toto xxxxxxxxxx
+#error todo xxxxxxxxxx
 
 #endif

@@ -1016,6 +1016,7 @@ mk_lang_nodiscard mk_sl_tree_wavl_inl_defd_constexpr mk_lang_jumbo mk_lang_types
 	mk_lang_assert(element);
 	mk_lang_assert(node);
 
+	mk_lang_assert(mk_sl_tree_wavl_inl_defd_prro_validate(tree));
 	curr = tree->m_root;
 	if(!curr)
 	{
@@ -1077,6 +1078,7 @@ mk_lang_nodiscard mk_sl_tree_wavl_inl_defd_constexpr mk_lang_jumbo mk_lang_types
 			err = mk_sl_tree_wavl_inl_defd_prrw_rebalance_insert(tree, tmp); mk_lang_check_rereturn(err);
 		}
 	}
+	mk_lang_assert(mk_sl_tree_wavl_inl_defd_prro_validate(tree));
 	return 0;
 }
 
@@ -1090,6 +1092,7 @@ mk_lang_nodiscard mk_sl_tree_wavl_inl_defd_constexpr mk_lang_jumbo mk_lang_types
 	mk_lang_assert(tree);
 	mk_lang_assert(node);
 
+	mk_lang_assert(mk_sl_tree_wavl_inl_defd_prro_validate(tree));
 	curr = tree->m_root;
 	if(!curr)
 	{
@@ -1152,6 +1155,7 @@ mk_lang_nodiscard mk_sl_tree_wavl_inl_defd_constexpr mk_lang_jumbo mk_lang_types
 			err = mk_sl_tree_wavl_inl_defd_prrw_rebalance_insert(tree, node); mk_lang_check_rereturn(err);
 		}
 	}
+	mk_lang_assert(mk_sl_tree_wavl_inl_defd_prro_validate(tree));
 	return 0;
 }
 
@@ -1199,6 +1203,7 @@ mk_lang_nodiscard mk_sl_tree_wavl_inl_defd_constexpr mk_lang_jumbo mk_lang_types
 	mk_lang_assert(tree);
 	mk_lang_assert(node);
 
+	mk_lang_assert(mk_sl_tree_wavl_inl_defd_prro_validate(tree));
 	nd = ((mk_sl_tree_wavl_inl_defd_node_pt)(node));
 	err = mk_sl_tree_wavl_inl_defd_prrw_node_dec(nd, &del); mk_lang_check_rereturn(err);
 	if(del)
@@ -1264,6 +1269,7 @@ mk_lang_nodiscard mk_sl_tree_wavl_inl_defd_constexpr mk_lang_jumbo mk_lang_types
 		err = mk_sl_tree_wavl_inl_defd_prrw_node_destroy_single(nd); mk_lang_check_rereturn(err);
 		--tree->m_cnt;
 	}
+	mk_lang_assert(mk_sl_tree_wavl_inl_defd_prro_validate(tree));
 	return 0;
 }
 
@@ -1280,6 +1286,7 @@ mk_lang_nodiscard mk_sl_tree_wavl_inl_defd_constexpr mk_lang_jumbo mk_lang_types
 	mk_lang_assert(tree);
 	mk_lang_assert(node);
 
+	mk_lang_assert(mk_sl_tree_wavl_inl_defd_prro_validate(tree));
 	nd = ((mk_sl_tree_wavl_inl_defd_node_pt)(node));
 	is_2child = mk_lang_false;
 	if(!nd->m_left || !nd->m_right)
@@ -1340,6 +1347,7 @@ mk_lang_nodiscard mk_sl_tree_wavl_inl_defd_constexpr mk_lang_jumbo mk_lang_types
 		}
 	}
 	--tree->m_cnt;
+	mk_lang_assert(mk_sl_tree_wavl_inl_defd_prro_validate(tree));
 	return 0;
 }
 

@@ -65,7 +65,7 @@
 #define mk_clib_app_fe_mallocatorg_id 6
 #elif !defined mk_clib_app_fe_mallocatorg_want
 #if defined NDEBUG
-#define mk_clib_app_fe_mallocatorg_id 2
+#define mk_clib_app_fe_mallocatorg_id 6
 #else
 #define mk_clib_app_fe_mallocatorg_id 6
 #endif
