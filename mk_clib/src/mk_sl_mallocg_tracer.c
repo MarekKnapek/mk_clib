@@ -15,8 +15,59 @@
 #include "mk_lib_mt_mutex.h"
 #include "mk_lib_mt_unique_lock.h"
 #include "mk_lib_stack_trace.h"
-#include "mk_sl_mallocatorg.h"
 #include "mk_sl_uint128.h"
+
+
+#define mk_sl_mallocg_tracer_mallocatorg_id_disp        11
+#define mk_sl_mallocg_tracer_mallocatorg_id_portablec   12
+#define mk_sl_mallocg_tracer_mallocatorg_id_portablecpp 13
+#define mk_sl_mallocg_tracer_mallocatorg_id_windows     14
+#if defined mk_sl_mallocg_tracer_mallocatorg_want && (mk_sl_mallocg_tracer_mallocatorg_want) == mk_sl_mallocg_tracer_mallocatorg_id_disp
+#define mk_sl_mallocg_tracer_mallocatorg_id mk_sl_mallocg_tracer_mallocatorg_id_disp
+#elif defined mk_sl_mallocg_tracer_mallocatorg_want && (mk_sl_mallocg_tracer_mallocatorg_want) == mk_sl_mallocg_tracer_mallocatorg_id_portablec
+#define mk_sl_mallocg_tracer_mallocatorg_id mk_sl_mallocg_tracer_mallocatorg_id_portablec
+#elif defined mk_sl_mallocg_tracer_mallocatorg_want && (mk_sl_mallocg_tracer_mallocatorg_want) == mk_sl_mallocg_tracer_mallocatorg_id_portablecpp
+#define mk_sl_mallocg_tracer_mallocatorg_id mk_sl_mallocg_tracer_mallocatorg_id_portablecpp
+#elif defined mk_sl_mallocg_tracer_mallocatorg_want && (mk_sl_mallocg_tracer_mallocatorg_want) == mk_sl_mallocg_tracer_mallocatorg_id_windows
+#define mk_sl_mallocg_tracer_mallocatorg_id mk_sl_mallocg_tracer_mallocatorg_id_windows
+#elif !defined mk_sl_mallocg_tracer_mallocatorg_want
+#if defined NDEBUG
+#define mk_sl_mallocg_tracer_mallocatorg_id mk_sl_mallocg_tracer_mallocatorg_id_disp
+#else
+#define mk_sl_mallocg_tracer_mallocatorg_id mk_sl_mallocg_tracer_mallocatorg_id_disp
+#endif
+#else
+#error xxxxxxxxxx
+#endif
+#if mk_sl_mallocg_tracer_mallocatorg_id == mk_sl_mallocg_tracer_mallocatorg_id_disp
+#include "mk_sl_mallocatorg.h"
+#define mk_sl_mallocg_tracer_mallocatorg_name mk_sl_mallocatorg
+#elif mk_sl_mallocg_tracer_mallocatorg_id == mk_sl_mallocg_tracer_mallocatorg_id_portablec
+#include "mk_sl_mallocatorg_portablec.h"
+#define mk_sl_mallocg_tracer_mallocatorg_name mk_sl_mallocatorg_portablec
+#elif mk_sl_mallocg_tracer_mallocatorg_id == mk_sl_mallocg_tracer_mallocatorg_id_portablecpp
+#include "mk_sl_mallocatorg_portablecpp.hpp"
+#define mk_sl_mallocg_tracer_mallocatorg_name mk_sl_mallocatorg_portablecpp
+#elif mk_sl_mallocg_tracer_mallocatorg_id == mk_sl_mallocg_tracer_mallocatorg_id_windows
+#include "mk_sl_mallocatorg_windows.h"
+#define mk_sl_mallocg_tracer_mallocatorg_name mk_sl_mallocatorg_windows
+#else
+#error xxxxxxxxxx
+#endif
+#define mk_sl_mallocg_tracer_mallocatorg_init                              mk_lang_concat(mk_sl_mallocg_tracer_mallocatorg_name, _init)
+#define mk_sl_mallocg_tracer_mallocatorg_deinit                            mk_lang_concat(mk_sl_mallocg_tracer_mallocatorg_name, _deinit)
+#define mk_sl_mallocg_tracer_mallocatorg_allocate                          mk_lang_concat(mk_sl_mallocg_tracer_mallocatorg_name, _allocate)
+#define mk_sl_mallocg_tracer_mallocatorg_deallocate                        mk_lang_concat(mk_sl_mallocg_tracer_mallocatorg_name, _deallocate)
+#define mk_sl_mallocg_tracer_mallocatorg_reallocate                        mk_lang_concat(mk_sl_mallocg_tracer_mallocatorg_name, _reallocate)
+#define mk_sl_mallocg_tracer_mallocatorg_statistics_get_bytes_allocated    mk_lang_concat(mk_sl_mallocg_tracer_mallocatorg_name, _statistics_get_bytes_allocated)
+#define mk_sl_mallocg_tracer_mallocatorg_statistics_get_bytes_deallocated  mk_lang_concat(mk_sl_mallocg_tracer_mallocatorg_name, _statistics_get_bytes_deallocated)
+#define mk_sl_mallocg_tracer_mallocatorg_statistics_get_bytes_live         mk_lang_concat(mk_sl_mallocg_tracer_mallocatorg_name, _statistics_get_bytes_live)
+#define mk_sl_mallocg_tracer_mallocatorg_statistics_get_bytes_peak         mk_lang_concat(mk_sl_mallocg_tracer_mallocatorg_name, _statistics_get_bytes_peak)
+#define mk_sl_mallocg_tracer_mallocatorg_statistics_get_blocks_allocated   mk_lang_concat(mk_sl_mallocg_tracer_mallocatorg_name, _statistics_get_blocks_allocated)
+#define mk_sl_mallocg_tracer_mallocatorg_statistics_get_blocks_deallocated mk_lang_concat(mk_sl_mallocg_tracer_mallocatorg_name, _statistics_get_blocks_deallocated)
+#define mk_sl_mallocg_tracer_mallocatorg_statistics_get_blocks_live        mk_lang_concat(mk_sl_mallocg_tracer_mallocatorg_name, _statistics_get_blocks_live)
+#define mk_sl_mallocg_tracer_mallocatorg_statistics_get_blocks_peak        mk_lang_concat(mk_sl_mallocg_tracer_mallocatorg_name, _statistics_get_blocks_peak)
+#define mk_sl_mallocg_tracer_mallocatorg_statistics_get_all                mk_lang_concat(mk_sl_mallocg_tracer_mallocatorg_name, _statistics_get_all)
 
 
 #if mk_lang_arch == mk_lang_arch_alpha || mk_lang_bitness == mk_lang_bitness_64
@@ -29,7 +80,7 @@
 #define mk_sl_tree_wavl_t_name mk_sl_mallocg_tracer_stack_traces
 #define mk_sl_tree_wavl_t_element_type mk_lib_stack_trace_t
 #define mk_sl_tree_wavl_t_elements_compare mk_lib_stack_trace_ro_cmp
-#define mk_sl_tree_wavl_t_mallocatorg_name mk_sl_mallocatorg
+#define mk_sl_tree_wavl_t_mallocatorg_name mk_sl_mallocg_tracer_mallocatorg_name
 #define mk_sl_tree_wavl_t_constexpr_want 0
 #include "mk_sl_tree_wavl_inl_fileh.h"
 #include "mk_sl_tree_wavl_inl_filec.h"
@@ -88,7 +139,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_mallocg_trace
 #define mk_sl_tree_wavl_t_name mk_sl_mallocg_tracer_allocs
 #define mk_sl_tree_wavl_t_element_type mk_sl_mallocg_tracer_alloc_t
 #define mk_sl_tree_wavl_t_elements_compare mk_sl_mallocg_tracer_alloc_ro_cmp
-#define mk_sl_tree_wavl_t_mallocatorg_name mk_sl_mallocatorg
+#define mk_sl_tree_wavl_t_mallocatorg_name mk_sl_mallocg_tracer_mallocatorg_name
 #define mk_sl_tree_wavl_t_constexpr_want 0
 #include "mk_sl_tree_wavl_inl_fileh.h"
 #include "mk_sl_tree_wavl_inl_filec.h"
@@ -362,7 +413,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocg_tracer_init(m
 {
 	mk_lang_types_sint_t err;
 
-	err = mk_sl_mallocatorg_init(); mk_lang_check_rereturn(err);
+	err = mk_sl_mallocg_tracer_mallocatorg_init(); mk_lang_check_rereturn(err);
 	err = mk_sl_mallocg_tracer_db_rw_construct(&g_mk_sl_mallocg_tracer_db); mk_lang_check_rereturn(err);
 	err = mk_sl_mallocg_tracer_statistics_init(); mk_lang_check_rereturn(err);
 	return 0;
@@ -374,7 +425,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocg_tracer_deinit
 
 	err = mk_sl_mallocg_tracer_statistics_deinit(); mk_lang_check_rereturn(err);
 	err = mk_sl_mallocg_tracer_db_rw_destroy(&g_mk_sl_mallocg_tracer_db); mk_lang_check_rereturn(err);
-	err = mk_sl_mallocatorg_deinit();
+	err = mk_sl_mallocg_tracer_mallocatorg_deinit();
 	return 0;
 }
 
@@ -392,7 +443,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocg_tracer_alloca
 
 	size_overhead = mk_lang_roundup_roundup(sizeof(*node), mk_sl_mallocg_tracer_align);
 	size_total = size_overhead + size;
-	err = mk_sl_mallocatorg_allocate(size_total, &mem_total); mk_lang_check_rereturn(err);
+	err = mk_sl_mallocg_tracer_mallocatorg_allocate(size_total, &mem_total); mk_lang_check_rereturn(err);
 	mem_overhead = ((mk_lang_types_void_pt)(((mk_lang_types_uchar_pt)(mem_total)) + 0 * size_overhead));
 	m = ((mk_lang_types_void_pt)(((mk_lang_types_uchar_pt)(mem_total)) + 1 * size_overhead));
 	node = ((mk_sl_mallocg_tracer_allocs_node_pt)(mem_overhead));
@@ -419,7 +470,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocg_tracer_deallo
 	mk_lang_assert(node->m_element.m_mem == mem);
 	mk_lang_assert(node->m_element.m_size == size);
 	err = mk_sl_mallocg_tracer_db_detrace(&g_mk_sl_mallocg_tracer_db, node); mk_lang_check_rereturn(err);
-	err = mk_sl_mallocatorg_deallocate(mem_total, size_total); mk_lang_check_rereturn(err);
+	err = mk_sl_mallocg_tracer_mallocatorg_deallocate(mem_total, size_total); mk_lang_check_rereturn(err);
 	err = mk_sl_mallocg_tracer_statistics_on_deallocated(size); mk_lang_check_rereturn(err);
 	return 0;
 }
@@ -451,7 +502,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocg_tracer_reallo
 	err = mk_sl_mallocg_tracer_db_detrace(&g_mk_sl_mallocg_tracer_db, node_old); mk_lang_check_rereturn(err);
 	size_overhead_new = mk_lang_roundup_roundup(sizeof(*node_new), mk_sl_mallocg_tracer_align);
 	size_total_new = size_overhead_new + new_size;
-	err = mk_sl_mallocatorg_reallocate(mem_total_old, size_total_old, size_total_new, &mem_total_new); mk_lang_check_rereturn(err);
+	err = mk_sl_mallocg_tracer_mallocatorg_reallocate(mem_total_old, size_total_old, size_total_new, &mem_total_new); mk_lang_check_rereturn(err);
 	mem_overhead_new = ((mk_lang_types_void_pt)(((mk_lang_types_uchar_pt)(mem_total_new)) + 0 * size_overhead_new));
 	m = ((mk_lang_types_void_pt)(((mk_lang_types_uchar_pt)(mem_total_new)) + 1 * size_overhead_new));
 	node_new = ((mk_sl_mallocg_tracer_allocs_node_pt)(mem_overhead_new));
