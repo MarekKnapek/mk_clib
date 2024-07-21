@@ -17,7 +17,7 @@
 #define mk_sl_mallocg_tracer_statistics_have 0
 #elif !defined mk_sl_mallocg_tracer_statistics_have
 #if defined NDEBUG
-#define mk_sl_mallocg_tracer_statistics_have 0
+#define mk_sl_mallocg_tracer_statistics_have 1
 #else
 #define mk_sl_mallocg_tracer_statistics_have 1
 #endif
