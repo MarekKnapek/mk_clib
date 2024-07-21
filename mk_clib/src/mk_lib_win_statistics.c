@@ -14,7 +14,6 @@
 #include "mk_lang_version.h"
 #include "mk_lib_cpp_constexpr.hpp"
 #include "mk_lib_crypto_hash_stream_sha1.h"
-#include "mk_sl_mallocg_tracer.h"
 #include "mk_sl_uint.h"
 #include "mk_sl_uint128.h"
 #include "mk_sl_uint32.h"
@@ -30,6 +29,66 @@
 #include "mk_win_user_icon.h"
 #include "mk_win_user_msg.h"
 #include "mk_win_user_window.h"
+
+
+#define mk_lib_win_statistics_mallocatorg_id_disp        11
+#define mk_lib_win_statistics_mallocatorg_id_portablec   12
+#define mk_lib_win_statistics_mallocatorg_id_portablecpp 13
+#define mk_lib_win_statistics_mallocatorg_id_windows     14
+#define mk_lib_win_statistics_mallocatorg_id_tracer      15
+
+#if defined mk_lib_win_statistics_mallocatorg_want && (mk_lib_win_statistics_mallocatorg_want) == mk_lib_win_statistics_mallocatorg_id_disp
+#define mk_lib_win_statistics_mallocatorg_id mk_lib_win_statistics_mallocatorg_id_disp
+#elif defined mk_lib_win_statistics_mallocatorg_want && (mk_lib_win_statistics_mallocatorg_want) == mk_lib_win_statistics_mallocatorg_id_portablec
+#define mk_lib_win_statistics_mallocatorg_id mk_lib_win_statistics_mallocatorg_id_portablec
+#elif defined mk_lib_win_statistics_mallocatorg_want && (mk_lib_win_statistics_mallocatorg_want) == mk_lib_win_statistics_mallocatorg_id_portablecpp
+#define mk_lib_win_statistics_mallocatorg_id mk_lib_win_statistics_mallocatorg_id_portablecpp
+#elif defined mk_lib_win_statistics_mallocatorg_want && (mk_lib_win_statistics_mallocatorg_want) == mk_lib_win_statistics_mallocatorg_id_windows
+#define mk_lib_win_statistics_mallocatorg_id mk_lib_win_statistics_mallocatorg_id_windows
+#elif defined mk_lib_win_statistics_mallocatorg_want && (mk_lib_win_statistics_mallocatorg_want) == mk_lib_win_statistics_mallocatorg_id_tracer
+#define mk_lib_win_statistics_mallocatorg_id mk_lib_win_statistics_mallocatorg_id_tracer
+#elif !defined mk_lib_win_statistics_mallocatorg_want
+#if defined NDEBUG
+#define mk_lib_win_statistics_mallocatorg_id mk_lib_win_statistics_mallocatorg_id_disp
+#else
+#define mk_lib_win_statistics_mallocatorg_id mk_lib_win_statistics_mallocatorg_id_tracer
+#endif
+#else
+#error xxxxxxxxxx
+#endif
+
+#if mk_lib_win_statistics_mallocatorg_id == mk_lib_win_statistics_mallocatorg_id_disp
+#include "mk_sl_mallocatorg.h"
+#define mk_lib_win_statistics_mallocatorg_name mk_sl_mallocatorg
+#elif mk_lib_win_statistics_mallocatorg_id == mk_lib_win_statistics_mallocatorg_id_portablec
+#include "mk_sl_mallocatorg_portablec.h"
+#define mk_lib_win_statistics_mallocatorg_name mk_sl_mallocatorg_portablec
+#elif mk_lib_win_statistics_mallocatorg_id == mk_lib_win_statistics_mallocatorg_id_portablecpp
+#include "mk_sl_mallocatorg_portablecpp.hpp"
+#define mk_lib_win_statistics_mallocatorg_name mk_sl_mallocatorg_portablecpp
+#elif mk_lib_win_statistics_mallocatorg_id == mk_lib_win_statistics_mallocatorg_id_windows
+#include "mk_sl_mallocatorg_windows.h"
+#define mk_lib_win_statistics_mallocatorg_name mk_sl_mallocatorg_windows
+#elif mk_lib_win_statistics_mallocatorg_id == mk_lib_win_statistics_mallocatorg_id_tracer
+#include "mk_sl_mallocg_tracer.h"
+#define mk_lib_win_statistics_mallocatorg_name mk_sl_mallocg_tracer
+#else
+#error xxxxxxxxxx
+#endif
+#define mk_lib_win_statistics_mallocatorg_init                              mk_lang_concat(mk_lib_win_statistics_mallocatorg_name, _init)
+#define mk_lib_win_statistics_mallocatorg_deinit                            mk_lang_concat(mk_lib_win_statistics_mallocatorg_name, _deinit)
+#define mk_lib_win_statistics_mallocatorg_allocate                          mk_lang_concat(mk_lib_win_statistics_mallocatorg_name, _allocate)
+#define mk_lib_win_statistics_mallocatorg_deallocate                        mk_lang_concat(mk_lib_win_statistics_mallocatorg_name, _deallocate)
+#define mk_lib_win_statistics_mallocatorg_reallocate                        mk_lang_concat(mk_lib_win_statistics_mallocatorg_name, _reallocate)
+#define mk_lib_win_statistics_mallocatorg_statistics_get_bytes_allocated    mk_lang_concat(mk_lib_win_statistics_mallocatorg_name, _statistics_get_bytes_allocated)
+#define mk_lib_win_statistics_mallocatorg_statistics_get_bytes_deallocated  mk_lang_concat(mk_lib_win_statistics_mallocatorg_name, _statistics_get_bytes_deallocated)
+#define mk_lib_win_statistics_mallocatorg_statistics_get_bytes_live         mk_lang_concat(mk_lib_win_statistics_mallocatorg_name, _statistics_get_bytes_live)
+#define mk_lib_win_statistics_mallocatorg_statistics_get_bytes_peak         mk_lang_concat(mk_lib_win_statistics_mallocatorg_name, _statistics_get_bytes_peak)
+#define mk_lib_win_statistics_mallocatorg_statistics_get_blocks_allocated   mk_lang_concat(mk_lib_win_statistics_mallocatorg_name, _statistics_get_blocks_allocated)
+#define mk_lib_win_statistics_mallocatorg_statistics_get_blocks_deallocated mk_lang_concat(mk_lib_win_statistics_mallocatorg_name, _statistics_get_blocks_deallocated)
+#define mk_lib_win_statistics_mallocatorg_statistics_get_blocks_live        mk_lang_concat(mk_lib_win_statistics_mallocatorg_name, _statistics_get_blocks_live)
+#define mk_lib_win_statistics_mallocatorg_statistics_get_blocks_peak        mk_lang_concat(mk_lib_win_statistics_mallocatorg_name, _statistics_get_blocks_peak)
+#define mk_lib_win_statistics_mallocatorg_statistics_get_all                mk_lang_concat(mk_lib_win_statistics_mallocatorg_name, _statistics_get_all)
 
 
 #define mk_lib_win_statistics_class_name_n  "mk_lib_win_statistics"
@@ -267,6 +326,11 @@ typedef mk_lib_win_statistics_cntrs_t const* mk_lib_win_statistics_cntrs_pct;
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lib_win_statistics_cntrs_ro_eq(mk_lib_win_statistics_cntrs_pct const a, mk_lib_win_statistics_cntrs_pct const b) mk_lang_noexcept
 {
 	mk_lang_types_bool_t ret mk_lang_constexpr_init;
+
+	mk_lang_static_assert(sizeof(a->m_data.m_arrn) == sizeof(a->m_data.m_arry));
+
+	mk_lang_assert(a);
+	mk_lang_assert(b);
 
 	ret =
 		mk_sl_cui_uint128_eq(&a->m_data.m_arry.m_cntrs[0], &b->m_data.m_arry.m_cntrs[0]) &&
@@ -672,7 +736,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_win_statistics_inval
 	mk_lang_assert(statistics->m_atom != 0);
 	if(!mk_win_user_base_wnd_is_null(statistics->m_wnd))
 	{
-		err = mk_sl_mallocg_tracer_statistics_get_all(&cntrs.m_data.m_arry.m_cntrs[0]); mk_lang_check_rereturn(err);
+		err = mk_lib_win_statistics_mallocatorg_statistics_get_all(&cntrs.m_data.m_arry.m_cntrs[0]); mk_lang_check_rereturn(err);
 		if(!mk_lib_win_statistics_cntrs_ro_eq(&cntrs, &statistics->m_cntrs_last))
 		{
 			statistics->m_cntrs_last = cntrs;
