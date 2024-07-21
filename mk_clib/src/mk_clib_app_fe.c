@@ -53,39 +53,45 @@
 #include "mk_win_user_todo.h"
 #include "mk_win_user_window.h"
 
-#if defined mk_clib_app_fe_mallocatorg_want && (mk_clib_app_fe_mallocatorg_want) == 2
-#define mk_clib_app_fe_mallocatorg_id 2
-#elif defined mk_clib_app_fe_mallocatorg_want && (mk_clib_app_fe_mallocatorg_want) == 3
-#define mk_clib_app_fe_mallocatorg_id 3
-#elif defined mk_clib_app_fe_mallocatorg_want && (mk_clib_app_fe_mallocatorg_want) == 4
-#define mk_clib_app_fe_mallocatorg_id 4
-#elif defined mk_clib_app_fe_mallocatorg_want && (mk_clib_app_fe_mallocatorg_want) == 5
-#define mk_clib_app_fe_mallocatorg_id 5
-#elif defined mk_clib_app_fe_mallocatorg_want && (mk_clib_app_fe_mallocatorg_want) == 6
-#define mk_clib_app_fe_mallocatorg_id 6
+
+#define mk_clib_app_fe_mallocatorg_id_disp        11
+#define mk_clib_app_fe_mallocatorg_id_portablec   12
+#define mk_clib_app_fe_mallocatorg_id_portablecpp 13
+#define mk_clib_app_fe_mallocatorg_id_windows     14
+#define mk_clib_app_fe_mallocatorg_id_tracer      15
+
+#if defined mk_clib_app_fe_mallocatorg_want && (mk_clib_app_fe_mallocatorg_want) == mk_clib_app_fe_mallocatorg_id_disp
+#define mk_clib_app_fe_mallocatorg_id mk_clib_app_fe_mallocatorg_id_disp
+#elif defined mk_clib_app_fe_mallocatorg_want && (mk_clib_app_fe_mallocatorg_want) == mk_clib_app_fe_mallocatorg_id_portablec
+#define mk_clib_app_fe_mallocatorg_id mk_clib_app_fe_mallocatorg_id_portablec
+#elif defined mk_clib_app_fe_mallocatorg_want && (mk_clib_app_fe_mallocatorg_want) == mk_clib_app_fe_mallocatorg_id_portablecpp
+#define mk_clib_app_fe_mallocatorg_id mk_clib_app_fe_mallocatorg_id_portablecpp
+#elif defined mk_clib_app_fe_mallocatorg_want && (mk_clib_app_fe_mallocatorg_want) == mk_clib_app_fe_mallocatorg_id_windows
+#define mk_clib_app_fe_mallocatorg_id mk_clib_app_fe_mallocatorg_id_windows
+#elif defined mk_clib_app_fe_mallocatorg_want && (mk_clib_app_fe_mallocatorg_want) == mk_clib_app_fe_mallocatorg_id_tracer
+#define mk_clib_app_fe_mallocatorg_id mk_clib_app_fe_mallocatorg_id_tracer
 #elif !defined mk_clib_app_fe_mallocatorg_want
 #if defined NDEBUG
-#define mk_clib_app_fe_mallocatorg_id 6
+#define mk_clib_app_fe_mallocatorg_id mk_clib_app_fe_mallocatorg_id_windows
 #else
-#define mk_clib_app_fe_mallocatorg_id 6
+#define mk_clib_app_fe_mallocatorg_id mk_clib_app_fe_mallocatorg_id_tracer
 #endif
 #else
 #error xxxxxxxxxx
 #endif
-
-#if mk_clib_app_fe_mallocatorg_id == 2
+#if mk_clib_app_fe_mallocatorg_id == mk_clib_app_fe_mallocatorg_id_disp
 #include "mk_sl_mallocatorg.h"
 #define mk_clib_app_fe_mallocatorg_name mk_sl_mallocatorg
-#elif mk_clib_app_fe_mallocatorg_id == 3
+#elif mk_clib_app_fe_mallocatorg_id == mk_clib_app_fe_mallocatorg_id_portablec
 #include "mk_sl_mallocatorg_portablec.h"
 #define mk_clib_app_fe_mallocatorg_name mk_sl_mallocatorg_portablec
-#elif mk_clib_app_fe_mallocatorg_id == 4
+#elif mk_clib_app_fe_mallocatorg_id == mk_clib_app_fe_mallocatorg_id_portablecpp
 #include "mk_sl_mallocatorg_portablecpp.hpp"
 #define mk_clib_app_fe_mallocatorg_name mk_sl_mallocatorg_portablecpp
-#elif mk_clib_app_fe_mallocatorg_id == 5
+#elif mk_clib_app_fe_mallocatorg_id == mk_clib_app_fe_mallocatorg_id_windows
 #include "mk_sl_mallocatorg_windows.h"
 #define mk_clib_app_fe_mallocatorg_name mk_sl_mallocatorg_windows
-#elif mk_clib_app_fe_mallocatorg_id == 6
+#elif mk_clib_app_fe_mallocatorg_id == mk_clib_app_fe_mallocatorg_id_tracer
 #include "mk_sl_mallocg_tracer.h"
 #define mk_clib_app_fe_mallocatorg_name mk_sl_mallocg_tracer
 #else
@@ -94,7 +100,18 @@
 #define mk_clib_app_fe_mallocatorg_init mk_lang_concat(mk_clib_app_fe_mallocatorg_name, _init)
 #define mk_clib_app_fe_mallocatorg_deinit mk_lang_concat(mk_clib_app_fe_mallocatorg_name, _deinit)
 
-#if mk_clib_app_fe_mallocatorg_id == 6
+#if defined mk_clib_app_fe_mallocatorg_statistics_want && (mk_clib_app_fe_mallocatorg_statistics_want) == 0
+#define mk_clib_app_fe_mallocatorg_statistics_have 0
+#elif defined mk_clib_app_fe_mallocatorg_statistics_want && (mk_clib_app_fe_mallocatorg_statistics_want) == 1
+#define mk_clib_app_fe_mallocatorg_statistics_have 1
+#elif mk_clib_app_fe_mallocatorg_id == mk_clib_app_fe_mallocatorg_id_tracer
+#define mk_clib_app_fe_mallocatorg_statistics_have 1
+#else
+#define mk_clib_app_fe_mallocatorg_statistics_have 0
+#endif
+
+#if mk_clib_app_fe_mallocatorg_statistics_have
+#define mk_lib_win_statistics_mallocatorg_want mk_clib_app_fe_mallocatorg_id
 #include "mk_lib_win_statistics.h"
 #endif
 
@@ -383,7 +400,7 @@ mk_lang_constexpr_static_inline mk_lang_types_wchar_t const mk_clib_app_fe_windo
 mk_lang_constexpr_static_inline mk_lang_types_wchar_t const mk_clib_app_fe_window_drive_type_removable[] = L"removable";
 mk_lang_constexpr_static_inline mk_lang_types_wchar_t const mk_clib_app_fe_window_drive_type_fixed    [] = L"fixed"    ;
 mk_lang_constexpr_static_inline mk_lang_types_wchar_t const mk_clib_app_fe_window_drive_type_remote   [] = L"remote"   ;
-mk_lang_constexpr_static_inline mk_lang_types_wchar_t const mk_clib_app_fe_window_drive_type_cdrom    [] = L"cdrom"    ;
+mk_lang_constexpr_static_inline mk_lang_types_wchar_t const mk_clib_app_fe_window_drive_type_cdrom    [] = L"CD-ROM"   ;
 mk_lang_constexpr_static_inline mk_lang_types_wchar_t const mk_clib_app_fe_window_drive_type_ramdisk  [] = L"RAM disk" ;
 mk_lang_constexpr_static_inline mk_lang_types_wchar_t const mk_clib_app_fe_up_str[] = L"[ .. ]" ;
 mk_lang_constexpr_static_inline mk_lang_types_wchar_t const mk_clib_app_fe_fmt_err[] = L"Error %d 0x%x";
@@ -2859,7 +2876,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 	err = mk_clib_app_fe_window_on_paint_dc_release(window, &ps); mk_lang_check_rereturn(err);
 	mk_lang_check_rereturn(err_b);
 	err = mk_clib_app_fe_window_scrollbar_refresh(window); mk_lang_check_rereturn(err);
-	#if mk_clib_app_fe_mallocatorg_id == 6
+	#if mk_clib_app_fe_mallocatorg_statistics_have
 	err = mk_lib_win_statistics_invalidate(); mk_lang_check_rereturn(err);
 	#endif
 	return 0;
@@ -3069,7 +3086,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 		case mk_win_user_msg_vk_e_up   : err = mk_clib_app_fe_window_on_keydown_vk_up   (window); mk_lang_check_rereturn(err); break;
 		case mk_win_user_msg_vk_e_down : err = mk_clib_app_fe_window_on_keydown_vk_down (window); mk_lang_check_rereturn(err); break;
 	}
-	#if mk_clib_app_fe_mallocatorg_id == 6
+	#if mk_clib_app_fe_mallocatorg_statistics_have
 	err = mk_lib_win_statistics_invalidate(); mk_lang_check_rereturn(err);
 	#endif
 	return 0;
@@ -3507,12 +3524,12 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_clib_app_fe_arg(mk_lang_
 	mk_lang_types_sint_t err;
 	mk_lang_types_sint_t res;
 
-	#if mk_clib_app_fe_mallocatorg_id == 6
+	#if mk_clib_app_fe_mallocatorg_statistics_have
 	mk_lib_win_statistics_init(); /* todo */
 	mk_lib_win_statistics_display(); /* todo */
 	#endif
 	err = mk_clib_app_fe_run(&g_mk_clib_app_fe, wide, instance, prev, cmd_line, show); mk_lang_check_rereturn(err);
-	#if mk_clib_app_fe_mallocatorg_id == 6
+	#if mk_clib_app_fe_mallocatorg_statistics_have
 	mk_lib_win_statistics_close(); /* todo */
 	mk_lib_win_statistics_deinit(); /* todo */
 	#endif
