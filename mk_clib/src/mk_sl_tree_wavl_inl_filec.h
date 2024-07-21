@@ -1,5 +1,6 @@
 #include "mk_lang_assert.h"
 #include "mk_lang_attribute.h"
+#include "mk_lang_bool.h"
 #include "mk_lang_check.h"
 #include "mk_lang_clobber.h"
 #include "mk_lang_constexpr.h"
@@ -452,8 +453,6 @@ mk_lang_nodiscard mk_lang_attribute_msvc_forceinline mk_sl_tree_wavl_inl_defd_co
 
 mk_lang_nodiscard mk_lang_attribute_msvc_forceinline mk_sl_tree_wavl_inl_defd_constexpr static mk_lang_inline mk_lang_types_sint_t mk_sl_tree_wavl_inl_defd_prrw_node_dec(mk_sl_tree_wavl_inl_defd_node_pt const node, mk_lang_types_bool_pt const del) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
 {
-	mk_lang_types_sint_t err mk_sl_tree_wavl_inl_defd_constexpr_init;
-
 	mk_lang_assert(node);
 	mk_lang_assert(node->m_ref_count_and_rank_diff >= 2);
 	mk_lang_assert(del);
@@ -478,7 +477,7 @@ mk_lang_nodiscard mk_sl_tree_wavl_inl_defd_constexpr static mk_lang_inline mk_la
 			err = mk_sl_tree_wavl_inl_defd_elements_compare_fn(&node->m_left->m_element, &node->m_element, &cmp); mk_lang_check_rereturn(err);
 			if(!(cmp < 0))
 			{
-				*validated == mk_lang_false;
+				*validated = mk_lang_false;
 			}
 		}
 		if(node->m_right)
@@ -486,12 +485,12 @@ mk_lang_nodiscard mk_sl_tree_wavl_inl_defd_constexpr static mk_lang_inline mk_la
 			err = mk_sl_tree_wavl_inl_defd_elements_compare_fn(&node->m_right->m_element, &node->m_element, &cmp); mk_lang_check_rereturn(err);
 			if(!(cmp > 0))
 			{
-				*validated == mk_lang_false;
+				*validated = mk_lang_false;
 			}
 		}
 		if(child == node)
 		{
-			*validated == mk_lang_false;
+			*validated = mk_lang_false;
 		}
 		if(child)
 		{
@@ -518,6 +517,7 @@ mk_lang_nodiscard mk_sl_tree_wavl_inl_defd_constexpr static mk_lang_inline mk_la
 
 mk_lang_nodiscard mk_sl_tree_wavl_inl_defd_constexpr static mk_lang_inline mk_lang_types_bool_t mk_sl_tree_wavl_inl_defd_prro_validate(mk_sl_tree_wavl_inl_defd_pct const tree) mk_lang_noexcept
 {
+#if defined mk_sl_tree_wavl_validate_want && (mk_sl_tree_wavl_validate_want) == 1
 	mk_lang_types_sint_t err mk_sl_tree_wavl_inl_defd_constexpr_init;
 	mk_lang_types_bool_t validated mk_sl_tree_wavl_inl_defd_constexpr_init;
 
@@ -526,6 +526,9 @@ mk_lang_nodiscard mk_sl_tree_wavl_inl_defd_constexpr static mk_lang_inline mk_la
 	validated = mk_lang_true;
 	err = mk_sl_tree_wavl_inl_defd_prro_validate_impl(tree, &validated);
 	return err == 0 && validated;
+#else
+	return mk_lang_true;
+#endif
 }
 
 mk_lang_nodiscard mk_sl_tree_wavl_inl_defd_constexpr static mk_lang_inline mk_lang_types_sint_t mk_sl_tree_wavl_inl_defd_prrw_rotate_left_single(mk_sl_tree_wavl_inl_defd_pt const tree_wavl, mk_sl_tree_wavl_inl_defd_node_pt const tree_node) mk_lang_noexcept
@@ -1259,7 +1262,10 @@ mk_lang_nodiscard mk_sl_tree_wavl_inl_defd_constexpr mk_lang_jumbo mk_lang_types
 		{
 			if(is_2child)
 			{
-				err = mk_sl_tree_wavl_inl_defd_prrw_rebalance_delete_3child(tree, x, p_y); mk_lang_check_rereturn(err);
+				if(tree->m_cnt != 2)
+				{
+					err = mk_sl_tree_wavl_inl_defd_prrw_rebalance_delete_3child(tree, x, p_y); mk_lang_check_rereturn(err);
+				}
 			}
 			else if(!x && p_y->m_left == p_y->m_right)
 			{
@@ -1276,7 +1282,6 @@ mk_lang_nodiscard mk_sl_tree_wavl_inl_defd_constexpr mk_lang_jumbo mk_lang_types
 mk_lang_nodiscard mk_sl_tree_wavl_inl_defd_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_tree_wavl_inl_defd_rw_remove_node(mk_sl_tree_wavl_inl_defd_pt const tree, mk_sl_tree_wavl_inl_defd_node_pct const node) mk_lang_noexcept
 {
 	mk_sl_tree_wavl_inl_defd_node_pt nd mk_sl_tree_wavl_inl_defd_constexpr_init;
-	mk_lang_types_bool_t del mk_sl_tree_wavl_inl_defd_constexpr_init;
 	mk_lang_types_bool_t is_2child mk_sl_tree_wavl_inl_defd_constexpr_init;
 	mk_sl_tree_wavl_inl_defd_node_pt y mk_sl_tree_wavl_inl_defd_constexpr_init;
 	mk_sl_tree_wavl_inl_defd_node_pt x mk_sl_tree_wavl_inl_defd_constexpr_init;
