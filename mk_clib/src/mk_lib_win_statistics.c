@@ -216,11 +216,11 @@ struct list_view_itemw_s
 	mk_win_base_sint_t m_image;
 	mk_win_user_base_lparam_t m_lparam;
 	mk_win_base_sint_t m_indent;
-	mk_win_base_sint_t m_group_id; /* NTDDI_VERSION >= NTDDI_WINXP */
-	mk_win_base_uint_t m_columns_cnt; /* NTDDI_VERSION >= NTDDI_WINXP */
-	mk_win_base_uint_pt m_columns_buf; /* NTDDI_VERSION >= NTDDI_WINXP */
-	mk_win_base_sint_pt m_col_fmt; /* NTDDI_VERSION >= NTDDI_VISTA */
-	mk_win_base_sint_t m_group; /* NTDDI_VERSION >= NTDDI_VISTA */
+	mk_win_base_sint_t m_group_id; /* ntddi_version >= ntddi_winxp */
+	mk_win_base_uint_t m_columns_cnt; /* ntddi_version >= ntddi_winxp */
+	mk_win_base_uint_pt m_columns_buf; /* ntddi_version >= ntddi_winxp */
+	mk_win_base_sint_pt m_col_fmt; /* ntddi_version >= ntddi_vista */
+	mk_win_base_sint_t m_group; /* ntddi_version >= ntddi_vista */
 };
 typedef struct list_view_itemw_s list_view_itemw_t;
 struct list_view_notify_dispinfow_s
@@ -322,7 +322,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_win_statisti
 
 #if mk_lang_version_at_least_cpp_14 || mk_lang_version_at_least_msvc_cpp_14
 
-mk_lang_constexpr static mk_lang_inline auto mk_lib_win_statistics_window_class_name_return(mk_lang_types_void_t) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline auto mk_lib_win_statistics_window_class_name_return(mk_lang_types_void_t) mk_lang_noexcept
 {
 	mk_lib_cpp_constexpr_array_t<mk_lang_types_wchar_t, 4 * 2 + 1> arr mk_lang_constexpr_init;
 
