@@ -126,6 +126,12 @@
 		<Xsd Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_application_manifest.xsd"><Filter>src</Filter></Xsd>
 	</ItemGroup>
 	<ItemGroup>
+		<Xml Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_comctl_manifest_amd64.xml"><Filter>src</Filter></Xml>
+		<Xml Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_comctl_manifest_i386.xml"><Filter>src</Filter></Xml>
+		<Xml Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_comctl_manifest_amd64_with_xsd.xml"><Filter>src</Filter></Xml>
+		<Xml Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_comctl_manifest_i386_with_xsd.xml"><Filter>src</Filter></Xml>
+	</ItemGroup>
+	<ItemGroup>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_crypt.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_defrag.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_double_analyzer.h"><Filter>src</Filter></ClInclude>

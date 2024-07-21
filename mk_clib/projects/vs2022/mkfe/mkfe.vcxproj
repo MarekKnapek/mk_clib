@@ -43,6 +43,8 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<ItemGroup>
+		<Xml Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_comctl_manifest_amd64.xml"/>
+		<Xml Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_comctl_manifest_i386.xml"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\app\mkfe.c"/>
 		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_abort_win_amd64.asm">
 			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -93,18 +95,6 @@
 			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64EC'">true</ExcludedFromBuild>
 			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64EC'">true</ExcludedFromBuild>
 		</MASM>
-		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memset_win_amd64.asm">
-			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</ExcludedFromBuild>
-			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</ExcludedFromBuild>
-			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
-			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
-			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64EC'">true</ExcludedFromBuild>
-			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64EC'">true</ExcludedFromBuild>
-		</MASM>
 		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcpy_win_i386.asm">
 			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
 			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -117,6 +107,18 @@
 			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64EC'">true</ExcludedFromBuild>
 			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64EC'">true</ExcludedFromBuild>
 			<UseSafeExceptionHandlers Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</UseSafeExceptionHandlers>
+		</MASM>
+		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memset_win_amd64.asm">
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64EC'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64EC'">true</ExcludedFromBuild>
 		</MASM>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
@@ -288,6 +290,9 @@
 			<GenerateDebugInformation>true</GenerateDebugInformation>
 			<SubSystem>Windows</SubSystem>
 		</Link>
+		<Manifest>
+			<AdditionalManifestFiles>$(MSBuildThisFileDirectory)..\..\..\src\mk_win_comctl_manifest_i386.xml</AdditionalManifestFiles>
+		</Manifest>
 	</ItemDefinitionGroup>
 	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
 		<ClCompile>
@@ -332,6 +337,9 @@
 			<SwapRunFromCD>true</SwapRunFromCD>
 			<SwapRunFromNET>true</SwapRunFromNET>
 		</Link>
+		<Manifest>
+			<AdditionalManifestFiles>$(MSBuildThisFileDirectory)..\..\..\src\mk_win_comctl_manifest_i386.xml</AdditionalManifestFiles>
+		</Manifest>
 	</ItemDefinitionGroup>
 	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
 		<ClCompile>
@@ -348,6 +356,9 @@
 			<GenerateDebugInformation>true</GenerateDebugInformation>
 			<SubSystem>Windows</SubSystem>
 		</Link>
+		<Manifest>
+			<AdditionalManifestFiles>$(MSBuildThisFileDirectory)..\..\..\src\mk_win_comctl_manifest_amd64.xml</AdditionalManifestFiles>
+		</Manifest>
 	</ItemDefinitionGroup>
 	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
 		<ClCompile>
@@ -392,6 +403,9 @@
 			<SwapRunFromCD>true</SwapRunFromCD>
 			<SwapRunFromNET>true</SwapRunFromNET>
 		</Link>
+		<Manifest>
+			<AdditionalManifestFiles>$(MSBuildThisFileDirectory)..\..\..\src\mk_win_comctl_manifest_amd64.xml</AdditionalManifestFiles>
+		</Manifest>
 	</ItemDefinitionGroup>
 	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
 		<ClCompile>

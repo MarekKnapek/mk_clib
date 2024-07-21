@@ -163,6 +163,12 @@
 		<Xsd Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_application_manifest.xsd"/>
 	</ItemGroup>
 	<ItemGroup>
+		<Xml Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_comctl_manifest_amd64.xml"/>
+		<Xml Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_comctl_manifest_i386.xml"/>
+		<Xml Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_comctl_manifest_amd64_with_xsd.xml"/>
+		<Xml Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_comctl_manifest_i386_with_xsd.xml"/>
+	</ItemGroup>
+	<ItemGroup>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_crypt.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_defrag.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_double_analyzer.h"/>
