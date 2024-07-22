@@ -19,6 +19,7 @@
 #include "mk_sl_uint32.h"
 #include "mk_sl_uint8.h"
 #include "mk_win_base.h"
+#include "mk_win_comctl_base.h"
 #include "mk_win_kernel_dll.h"
 #include "mk_win_kernel_handle.h"
 #include "mk_win_kernel_process.h"
@@ -669,6 +670,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_win_statistics_init(
 	mk_win_user_class_exw_t cls;
 	mk_win_user_base_atom_t atom;
 
+	mk_win_comctl_base_init();
 	statistics = &g_mk_lib_win_statistics;
 	b = mk_win_kernel_dll_w_get_module_handle_ex(((mk_win_base_dword_t)(mk_win_kernel_dll_get_module_handle_ex_flags_e_from_address)), ((mk_win_base_wchar_pct)(((mk_win_base_void_pt)(&mk_lib_win_statistics_on_raw_msg)))), &this_module); mk_lang_check_return(b != 0); mk_lang_check_return(!mk_win_base_module_is_null(this_module));
 	cls.m_len = ((mk_win_base_uint_t)(sizeof(cls)));

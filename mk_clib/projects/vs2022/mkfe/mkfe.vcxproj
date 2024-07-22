@@ -287,6 +287,7 @@
 			<WarningLevel>EnableAllWarnings</WarningLevel>
 		</ClCompile>
 		<Link>
+			<AdditionalDependencies>comctl32.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
 			<GenerateDebugInformation>true</GenerateDebugInformation>
 			<SubSystem>Windows</SubSystem>
 		</Link>
@@ -323,6 +324,7 @@
 			<WholeProgramOptimization>true</WholeProgramOptimization>
 		</ClCompile>
 		<Link>
+			<AdditionalDependencies>comctl32.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
 			<AdditionalOptions>/brepro /pdbaltpath:%_PDB% %(AdditionalOptions)</AdditionalOptions>
 			<EnableCOMDATFolding>true</EnableCOMDATFolding>
 			<EntryPointSymbol>mkentry</EntryPointSymbol>
@@ -353,6 +355,7 @@
 			<WarningLevel>EnableAllWarnings</WarningLevel>
 		</ClCompile>
 		<Link>
+			<AdditionalDependencies>comctl32.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
 			<GenerateDebugInformation>true</GenerateDebugInformation>
 			<SubSystem>Windows</SubSystem>
 		</Link>
@@ -389,6 +392,7 @@
 			<WholeProgramOptimization>true</WholeProgramOptimization>
 		</ClCompile>
 		<Link>
+			<AdditionalDependencies>comctl32.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
 			<AdditionalOptions>/brepro /pdbaltpath:%_PDB% %(AdditionalOptions)</AdditionalOptions>
 			<EnableCOMDATFolding>true</EnableCOMDATFolding>
 			<EntryPointSymbol>mkentry</EntryPointSymbol>
@@ -419,6 +423,7 @@
 			<WarningLevel>EnableAllWarnings</WarningLevel>
 		</ClCompile>
 		<Link>
+			<AdditionalDependencies>comctl32.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
 			<AdditionalLibraryDirectories>$(OutputPath);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 			<GenerateDebugInformation>true</GenerateDebugInformation>
 			<SubSystem>Windows</SubSystem>
@@ -453,6 +458,7 @@
 			<WholeProgramOptimization>true</WholeProgramOptimization>
 		</ClCompile>
 		<Link>
+			<AdditionalDependencies>comctl32.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
 			<AdditionalOptions>/brepro /pdbaltpath:%_PDB% %(AdditionalOptions)</AdditionalOptions>
 			<EnableCOMDATFolding>true</EnableCOMDATFolding>
 			<GenerateDebugInformation>false</GenerateDebugInformation>
@@ -476,6 +482,7 @@
 			<WarningLevel>EnableAllWarnings</WarningLevel>
 		</ClCompile>
 		<Link>
+			<AdditionalDependencies>comctl32.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
 			<AdditionalLibraryDirectories>$(OutputPath);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 			<GenerateDebugInformation>true</GenerateDebugInformation>
 			<SubSystem>Windows</SubSystem>
@@ -510,6 +517,7 @@
 			<WholeProgramOptimization>true</WholeProgramOptimization>
 		</ClCompile>
 		<Link>
+			<AdditionalDependencies>comctl32.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
 			<AdditionalOptions>/brepro /pdbaltpath:%_PDB% %(AdditionalOptions)</AdditionalOptions>
 			<EnableCOMDATFolding>true</EnableCOMDATFolding>
 			<GenerateDebugInformation>false</GenerateDebugInformation>
@@ -533,6 +541,7 @@
 			<WarningLevel>EnableAllWarnings</WarningLevel>
 		</ClCompile>
 		<Link>
+			<AdditionalDependencies>comctl32.lib;softintrin.lib;%(AdditionalDependencies)</AdditionalDependencies>
 			<GenerateDebugInformation>true</GenerateDebugInformation>
 			<SubSystem>Windows</SubSystem>
 		</Link>
@@ -566,6 +575,7 @@
 			<WholeProgramOptimization>true</WholeProgramOptimization>
 		</ClCompile>
 		<Link>
+			<AdditionalDependencies>comctl32.lib;softintrin.lib;%(AdditionalDependencies)</AdditionalDependencies>
 			<AdditionalOptions>/brepro /pdbaltpath:%_PDB% %(AdditionalOptions)</AdditionalOptions>
 			<EnableCOMDATFolding>true</EnableCOMDATFolding>
 			<GenerateDebugInformation>false</GenerateDebugInformation>
