@@ -3320,23 +3320,53 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_msg(mk_win_user_msg_pt const msg) mk_lang_noexcept
+{
+	mk_win_base_bool_t b;
+	mk_win_user_base_lresult_t lr;
+
+	mk_lang_assert(msg);
+
+	b = mk_win_user_msg_translate(msg); ((mk_lang_types_void_t)(b));
+	lr = mk_win_user_msg_w_dispatch(msg); ((mk_lang_types_void_t)(lr));
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_pump(mk_clib_app_fe_pt const fe) mk_lang_noexcept
 {
 	mk_win_base_bool_t b;
 	mk_win_user_msg_t msg;
-	mk_win_user_base_lresult_t lr;
+	mk_lang_types_sint_t err;
 
 	mk_lang_assert(fe);
 
 	for(;;)
 	{
-		b = mk_win_user_msg_w_get(&msg, mk_win_user_base_wnd_get_null(), 0, 0); mk_lang_assert((b != 0 && msg.m_msg != mk_win_user_msg_id_e_quit) || (b == 0 && msg.m_msg == mk_win_user_msg_id_e_quit));
-		if(b == 0)
+		b = mk_win_user_msg_w_peek(&msg, mk_win_user_base_wnd_get_null(), 0, 0, ((mk_win_base_uint_t)(mk_win_user_msg_peek_e_remove)));
+		if(b != 0)
 		{
-			break;
+			if(msg.m_msg != mk_win_user_msg_id_e_quit)
+			{
+				err = mk_clib_app_fe_msg(&msg); mk_lang_check_rereturn(err);
+			}
+			else
+			{
+				break;
+			}
 		}
-		b = mk_win_user_msg_translate(&msg); ((mk_lang_types_void_t)(b));
-		lr = mk_win_user_msg_w_dispatch(&msg); ((mk_lang_types_void_t)(lr));
+		else
+		{
+			err = mk_clib_app_fe_on_idle(fe); mk_lang_check_rereturn(err);
+			b = mk_win_user_msg_w_get(&msg, mk_win_user_base_wnd_get_null(), 0, 0); mk_lang_assert((b != 0 && msg.m_msg != mk_win_user_msg_id_e_quit) || (b == 0 && msg.m_msg == mk_win_user_msg_id_e_quit));
+			if(b != 0)
+			{
+				err = mk_clib_app_fe_msg(&msg); mk_lang_check_rereturn(err);
+			}
+			else
+			{
+				break;
+			}
+		}
 	}
 	fe->m_exit_code = ((mk_lang_types_sint_t)(msg.m_wparam));
 	return 0;
