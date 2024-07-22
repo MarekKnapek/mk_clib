@@ -7,6 +7,18 @@
 #include "mk_lang_types.h"
 
 
+struct mk_win_comctl_base_nmhdr_s
+{
+	mk_win_user_base_wnd_t m_wnd;
+	mk_win_base_uintptr_t m_id_from;
+	mk_win_base_uint_t m_code;
+};
+typedef struct mk_win_comctl_base_nmhdr_s mk_win_comctl_base_nmhdr_t;
+typedef mk_win_comctl_base_nmhdr_t const mk_win_comctl_base_nmhdr_ct;
+typedef mk_win_comctl_base_nmhdr_t* mk_win_comctl_base_nmhdr_pt;
+typedef mk_win_comctl_base_nmhdr_t const* mk_win_comctl_base_nmhdr_pct;
+
+
 mk_lang_jumbo mk_lang_types_void_t mk_win_comctl_base_init(mk_lang_types_void_t) mk_lang_noexcept;
 
 

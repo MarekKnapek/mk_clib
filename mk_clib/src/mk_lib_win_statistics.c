@@ -20,6 +20,7 @@
 #include "mk_sl_uint8.h"
 #include "mk_win_base.h"
 #include "mk_win_comctl_base.h"
+#include "mk_win_comctl_list_view.h"
 #include "mk_win_kernel_dll.h"
 #include "mk_win_kernel_handle.h"
 #include "mk_win_kernel_process.h"
@@ -105,192 +106,6 @@ mk_lang_constexpr_static_inline mk_lang_types_wchar_pct const mk_lib_win_statist
 	L"blocks peak",
 	L"blocks live",
 };
-
-
-/* todo move this to window or something */
-struct nmhdr_s
-{
-	mk_win_user_base_wnd_t m_wnd;
-	mk_win_base_uintptr_t m_id_from;
-	mk_win_base_uint_t m_code;
-};
-typedef struct nmhdr_s nmhdr_t;
-typedef nmhdr_t* nmhdr_pt;
-/* todo move this to window or something */
-/* todo move this to list view class */
-#define list_view_class_name_a  "SysListView32"
-#define list_view_class_name_w L"SysListView32"
-enum list_view_window_style_id_e
-{
-	list_view_window_style_id_e_aligntop        = 0x0000ul,
-	list_view_window_style_id_e_icon            = 0x0000ul,
-	list_view_window_style_id_e_report          = 0x0001ul,
-	list_view_window_style_id_e_smallicon       = 0x0002ul,
-	list_view_window_style_id_e_list            = 0x0003ul,
-	list_view_window_style_id_e_typemask        = 0x0003ul,
-	list_view_window_style_id_e_singlesel       = 0x0004ul,
-	list_view_window_style_id_e_showselalways   = 0x0008ul,
-	list_view_window_style_id_e_sortascending   = 0x0010ul,
-	list_view_window_style_id_e_sortdescending  = 0x0020ul,
-	list_view_window_style_id_e_shareimagelists = 0x0040ul,
-	list_view_window_style_id_e_nolabelwrap     = 0x0080ul,
-	list_view_window_style_id_e_autoarrange     = 0x0100ul,
-	list_view_window_style_id_e_editlabels      = 0x0200ul,
-	list_view_window_style_id_e_ownerdrawfixed  = 0x0400ul,
-	list_view_window_style_id_e_alignleft       = 0x0800ul,
-	list_view_window_style_id_e_alignmask       = 0x0c00ul,
-	list_view_window_style_id_e_ownerdata       = 0x1000ul,
-	list_view_window_style_id_e_noscroll        = 0x2000ul,
-	list_view_window_style_id_e_nocolumnheader  = 0x4000ul,
-	list_view_window_style_id_e_nosortheader    = 0x8000ul,
-	list_view_window_style_id_e_typestylemask   = 0xfc00ul,
-	list_view_window_style_id_e_dummy_end
-};
-typedef enum list_view_window_style_id_e list_view_window_style_id_t;
-enum list_view_window_styleex_id_e
-{
-	list_view_window_styleex_id_e_gridlines             = 0x00000001ul,
-	list_view_window_styleex_id_e_subitemimages         = 0x00000002ul,
-	list_view_window_styleex_id_e_checkboxes            = 0x00000004ul,
-	list_view_window_styleex_id_e_trackselect           = 0x00000008ul,
-	list_view_window_styleex_id_e_headerdragdrop        = 0x00000010ul,
-	list_view_window_styleex_id_e_fullrowselect         = 0x00000020ul,
-	list_view_window_styleex_id_e_oneclickactivate      = 0x00000040ul,
-	list_view_window_styleex_id_e_twoclickactivate      = 0x00000080ul,
-	list_view_window_styleex_id_e_flatsb                = 0x00000100ul,
-	list_view_window_styleex_id_e_regional              = 0x00000200ul,
-	list_view_window_styleex_id_e_infotip               = 0x00000400ul,
-	list_view_window_styleex_id_e_underlinehot          = 0x00000800ul,
-	list_view_window_styleex_id_e_underlinecold         = 0x00001000ul,
-	list_view_window_styleex_id_e_multiworkareas        = 0x00002000ul,
-	list_view_window_styleex_id_e_labeltip              = 0x00004000ul,
-	list_view_window_styleex_id_e_borderselect          = 0x00008000ul,
-	list_view_window_styleex_id_e_doublebuffer          = 0x00010000ul, /* ntddi_version >= ntddi_winxp */
-	list_view_window_styleex_id_e_hidelabels            = 0x00020000ul, /* ntddi_version >= ntddi_winxp */
-	list_view_window_styleex_id_e_singlerow             = 0x00040000ul, /* ntddi_version >= ntddi_winxp */
-	list_view_window_styleex_id_e_snaptogrid            = 0x00080000ul, /* ntddi_version >= ntddi_winxp */
-	list_view_window_styleex_id_e_simpleselect          = 0x00100000ul, /* ntddi_version >= ntddi_winxp */
-	list_view_window_styleex_id_e_justifycolumns        = 0x00200000ul, /* ntddi_version >= ntddi_vista */
-	list_view_window_styleex_id_e_transparentbkgnd      = 0x00400000ul, /* ntddi_version >= ntddi_vista */
-	list_view_window_styleex_id_e_transparentshadowtext = 0x00800000ul, /* ntddi_version >= ntddi_vista */
-	list_view_window_styleex_id_e_autoautoarrange       = 0x01000000ul, /* ntddi_version >= ntddi_vista */
-	list_view_window_styleex_id_e_headerinallviews      = 0x02000000ul, /* ntddi_version >= ntddi_vista */
-	list_view_window_styleex_id_e_autocheckselect       = 0x08000000ul, /* ntddi_version >= ntddi_vista */
-	list_view_window_styleex_id_e_autosizecolumns       = 0x10000000ul, /* ntddi_version >= ntddi_vista */
-	list_view_window_styleex_id_e_columnsnappoints      = 0x40000000ul, /* ntddi_version >= ntddi_vista */
-	list_view_window_styleex_id_e_columnoverflow        = 0x80000000ul, /* ntddi_version >= ntddi_vista */
-	list_view_window_styleex_id_e_dummy_end
-};
-typedef enum list_view_window_styleex_id_e list_view_window_styleex_id_t;
-enum list_view_msg_id_e
-{
-	list_view_msg_id_e_first                    = 0x1000ul,
-	list_view_msg_id_e_setitemcount             = list_view_msg_id_e_first + 47ul,
-	list_view_msg_id_e_setextendedlistviewstyle = list_view_msg_id_e_first + 54ul,
-	list_view_msg_id_e_insertcolumnw            = list_view_msg_id_e_first + 97ul,
-	list_view_msg_id_e_dummy_end
-};
-typedef enum list_view_msg_id_e list_view_msg_id_t;
-enum list_view_col_mask_e
-{
-	list_view_col_mask_e_fmt          = 0x0001ul,
-	list_view_col_mask_e_width        = 0x0002ul,
-	list_view_col_mask_e_text         = 0x0004ul,
-	list_view_col_mask_e_subitem      = 0x0008ul,
-	list_view_col_mask_e_image        = 0x0010ul,
-	list_view_col_mask_e_order        = 0x0020ul,
-	list_view_col_mask_e_minwidth     = 0x0040ul, /* ntddi_version >= ntddi_vista */
-	list_view_col_mask_e_defaultwidth = 0x0080ul, /* ntddi_version >= ntddi_vista */
-	list_view_col_mask_e_idealwidth   = 0x0100ul, /* ntddi_version >= ntddi_vista */
-	list_view_col_mask_e_dummy_end
-};
-typedef enum list_view_col_mask_e list_view_col_mask_t;
-enum list_view_col_fmt_e
-{
-	list_view_col_fmt_e_left           	= 0x00000000,
-	list_view_col_fmt_e_right          	= 0x00000001,
-	list_view_col_fmt_e_center         	= 0x00000002,
-	list_view_col_fmt_e_justifymask    	= 0x00000003,
-	list_view_col_fmt_e_image          	= 0x00000800,
-	list_view_col_fmt_e_bitmap_on_right	= 0x00001000,
-	list_view_col_fmt_e_col_has_images 	= 0x00008000,
-	list_view_col_fmt_e_fixed_width    	= 0x00000100, /* ntddi_version >= ntddi_vista */
-	list_view_col_fmt_e_no_dpi_scale   	= 0x00040000, /* ntddi_version >= ntddi_vista */
-	list_view_col_fmt_e_fixed_ratio    	= 0x00080000, /* ntddi_version >= ntddi_vista */
-	list_view_col_fmt_e_line_break     	= 0x00100000, /* ntddi_version >= ntddi_vista */
-	list_view_col_fmt_e_fill           	= 0x00200000, /* ntddi_version >= ntddi_vista */
-	list_view_col_fmt_e_wrap           	= 0x00400000, /* ntddi_version >= ntddi_vista */
-	list_view_col_fmt_e_no_title       	= 0x00800000, /* ntddi_version >= ntddi_vista */
-	list_view_col_fmt_e_splitbutton    	= 0x01000000, /* ntddi_version >= ntddi_vista */
-	list_view_col_fmt_e_tile_placementmask = (list_view_col_fmt_e_line_break | list_view_col_fmt_e_fill),
-	list_view_col_fmt_e_dummy_end
-};
-typedef enum list_view_col_fmt_e list_view_col_fmt_t;
-enum list_view_notification_id_e
-{
-	list_view_notification_id_e_first        = ((mk_win_base_dword_t)(0ul - 100ul)),
-	list_view_notification_id_e_getdispinfow = ((mk_win_base_dword_t)(list_view_notification_id_e_first)) - 77ul,
-	list_view_notification_id_e_dummy_end
-};
-typedef enum list_view_notification_id_e list_view_notification_id_t;
-enum list_view_item_mask_e
-{
-	list_view_item_mask_e_text        = 0x00000001ul,
-	list_view_item_mask_e_image       = 0x00000002ul,
-	list_view_item_mask_e_param       = 0x00000004ul,
-	list_view_item_mask_e_state       = 0x00000008ul,
-	list_view_item_mask_e_indent      = 0x00000010ul,
-	list_view_item_mask_e_groupid     = 0x00000100ul, /* ntddi_version >= ntddi_winxp */
-	list_view_item_mask_e_columns     = 0x00000200ul, /* ntddi_version >= ntddi_winxp */
-	list_view_item_mask_e_norecompute = 0x00000800ul,
-	list_view_item_mask_e_colfmt      = 0x00010000ul, /* ntddi_version >= ntddi_vista */
-	list_view_item_mask_e_dummy_end
-};
-typedef enum list_view_item_mask_e list_view_item_mask_t;
-struct list_view_column_descr_w_s
-{
-	mk_win_base_uint_t m_mask;
-	mk_win_base_sint_t m_fmt;
-	mk_win_base_sint_t m_cx;
-	mk_win_base_wchar_lpt m_text_buf;
-	mk_win_base_sint_t m_text_len;
-	mk_win_base_sint_t m_sub_item;
-	mk_win_base_sint_t m_image;
-	mk_win_base_sint_t m_order;
-	#if defined _WIN32_WINNT && _WIN32_WINNT >= 0x0600
-	mk_win_base_sint_t m_snap_min;
-	mk_win_base_sint_t m_snap_def;
-	mk_win_base_sint_t m_text_idl;
-	#endif
-};
-typedef struct list_view_column_descr_w_s list_view_column_descr_w_t;
-struct list_view_itemw_s
-{
-	mk_win_base_uint_t m_mask;
-	mk_win_base_sint_t m_item;
-	mk_win_base_sint_t m_sub_item;
-	mk_win_base_uint_t m_state_value;
-	mk_win_base_uint_t m_state_mask;
-	mk_win_base_wchar_lpt m_text_buf;
-	mk_win_base_sint_t m_text_len;
-	mk_win_base_sint_t m_image;
-	mk_win_user_base_lparam_t m_lparam;
-	mk_win_base_sint_t m_indent;
-	mk_win_base_sint_t m_group_id; /* ntddi_version >= ntddi_winxp */
-	mk_win_base_uint_t m_columns_cnt; /* ntddi_version >= ntddi_winxp */
-	mk_win_base_uint_pt m_columns_buf; /* ntddi_version >= ntddi_winxp */
-	mk_win_base_sint_pt m_col_fmt; /* ntddi_version >= ntddi_vista */
-	mk_win_base_sint_t m_group; /* ntddi_version >= ntddi_vista */
-};
-typedef struct list_view_itemw_s list_view_itemw_t;
-struct list_view_notify_dispinfow_s
-{
-	nmhdr_t m_nmhdr;
-	list_view_itemw_t m_item;
-};
-typedef struct list_view_notify_dispinfow_s list_view_notify_dispinfow_t;
-typedef list_view_notify_dispinfow_t* list_view_notify_dispinfow_pt;
-/* todo move this to list view class */
 
 
 struct mk_lib_win_statistics_cntrs_data_arrn_s
@@ -486,9 +301,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statisti
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statistics_on_notify_counters_dispinfo(mk_lib_win_statistics_pt const statistics, mk_win_user_base_wparam_t const wparam, mk_win_user_base_lparam_t const lparam, mk_lang_types_bool_pt const override_defproc, mk_win_user_base_lresult_pt const override_result) mk_lang_noexcept
 {
 
-	nmhdr_pt nmhdr;
+	mk_win_comctl_base_nmhdr_pt nmhdr;
 	mk_lang_types_sint_t err;
-	list_view_notify_dispinfow_pt dispinfo;
+	mk_win_comctl_list_view_notify_dispinfo_w_pt dispinfo;
 	mk_sl_cui_uint128_pct cntr;
 	mk_lang_types_wchar_pt buf;
 	mk_lang_types_sint_t len;
@@ -499,12 +314,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statisti
 	mk_lang_assert(override_result);
 
 	((mk_lang_types_void_t)(wparam));
-	nmhdr = ((nmhdr_pt)(lparam));
+	nmhdr = ((mk_win_comctl_base_nmhdr_pt)(lparam));
 	mk_lang_assert(nmhdr->m_wnd.m_data == statistics->m_counters.m_data);
-	mk_lang_assert(nmhdr->m_code == list_view_notification_id_e_getdispinfow);
-	dispinfo = ((list_view_notify_dispinfow_pt)(nmhdr));
+	mk_lang_assert(nmhdr->m_code == mk_win_comctl_list_view_notification_id_e_getdispinfow);
+	dispinfo = ((mk_win_comctl_list_view_notify_dispinfo_w_pt)(nmhdr));
 	mk_lang_assert(dispinfo->m_item.m_item != -1);
-	if((dispinfo->m_item.m_mask & list_view_item_mask_e_text) != 0)
+	if((dispinfo->m_item.m_mask & mk_win_comctl_list_view_item_mask_e_text) != 0)
 	{
 		if(dispinfo->m_item.m_sub_item == 0)
 		{
@@ -526,7 +341,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statisti
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statistics_on_notify_counters_general(mk_lib_win_statistics_pt const statistics, mk_win_user_base_wparam_t const wparam, mk_win_user_base_lparam_t const lparam, mk_lang_types_bool_pt const override_defproc, mk_win_user_base_lresult_pt const override_result) mk_lang_noexcept
 {
-	nmhdr_pt nmhdr;
+	mk_win_comctl_base_nmhdr_pt nmhdr;
 	mk_lang_types_sint_t err;
 
 	mk_lang_assert(statistics);
@@ -535,18 +350,18 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statisti
 	mk_lang_assert(override_result);
 
 	((mk_lang_types_void_t)(wparam));
-	nmhdr = ((nmhdr_pt)(lparam));
+	nmhdr = ((mk_win_comctl_base_nmhdr_pt)(lparam));
 	mk_lang_assert(nmhdr->m_wnd.m_data == statistics->m_counters.m_data);
 	switch(nmhdr->m_code)
 	{
-		case list_view_notification_id_e_getdispinfow: err = mk_lib_win_statistics_on_notify_counters_dispinfo(statistics, wparam, lparam, override_defproc, override_result); mk_lang_check_rereturn(err); break;
+		case mk_win_comctl_list_view_notification_id_e_getdispinfow: err = mk_lib_win_statistics_on_notify_counters_dispinfo(statistics, wparam, lparam, override_defproc, override_result); mk_lang_check_rereturn(err); break;
 	}
 	return 0;
 }
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statistics_on_notify(mk_lib_win_statistics_pt const statistics, mk_win_user_base_wparam_t const wparam, mk_win_user_base_lparam_t const lparam, mk_lang_types_bool_pt const override_defproc, mk_win_user_base_lresult_pt const override_result) mk_lang_noexcept
 {
-	nmhdr_pt nmhdr;
+	mk_win_comctl_base_nmhdr_pt nmhdr;
 	mk_lang_types_sint_t err;
 
 	mk_lang_assert(statistics);
@@ -555,7 +370,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statisti
 	mk_lang_assert(override_result);
 
 	((mk_lang_types_void_t)(wparam));
-	nmhdr = ((nmhdr_pt)(lparam));
+	nmhdr = ((mk_win_comctl_base_nmhdr_pt)(lparam));
 	if(nmhdr->m_wnd.m_data == statistics->m_counters.m_data)
 	{
 		err = mk_lib_win_statistics_on_notify_counters_general(statistics, wparam, lparam, override_defproc, override_result); mk_lang_check_rereturn(err);
@@ -634,7 +449,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statisti
 	mk_win_base_bool_t b;
 	mk_win_base_module_t this_module;
 	mk_win_user_base_wnd_t wnd;
-	list_view_column_descr_w_t col_descr;
+	mk_win_comctl_list_view_column_descr_w_v1_t col_descr;
 	mk_win_user_base_lresult_t lr;
 
 	mk_lang_assert(statistics);
@@ -642,17 +457,17 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statisti
 	b = mk_win_kernel_dll_w_get_module_handle_ex(((mk_win_base_dword_t)(mk_win_kernel_dll_get_module_handle_ex_flags_e_from_address)), ((mk_win_base_wchar_pct)(((mk_win_base_void_pt)(&mk_lib_win_statistics_on_raw_msg)))), &this_module); mk_lang_check_return(b != 0); mk_lang_check_return(!mk_win_base_module_is_null(this_module));
 	wnd = mk_win_user_window_w_createex(((mk_win_base_dword_t)(mk_win_user_window_styleex_id_e_overlappedwindow)), ((mk_win_base_wchar_lpct)(((mk_win_base_uintptr_t)(statistics->m_atom)))), L"statistics", ((mk_win_base_dword_t)(mk_win_user_window_style_id_e_overlappedwindow)), mk_win_user_window_use_default, mk_win_user_window_use_default, 250, 220, mk_win_user_base_wnd_get_null(), mk_win_user_menu_get_null(), mk_win_base_instance_from(this_module.m_data), statistics); mk_lang_check_return(!mk_win_user_base_wnd_is_null(wnd)); mk_lang_assert(statistics->m_wnd.m_data == wnd.m_data);
 
-	wnd = mk_win_user_window_w_createex(((mk_win_base_dword_t)(0)), list_view_class_name_w, L"", ((mk_win_base_dword_t)(mk_win_user_window_style_id_e_visible | mk_win_user_window_style_id_e_child)) | ((mk_win_base_dword_t)(list_view_window_style_id_e_report | list_view_window_style_id_e_showselalways | list_view_window_style_id_e_ownerdata)), mk_win_user_window_use_default, mk_win_user_window_use_default, mk_win_user_window_use_default, mk_win_user_window_use_default, wnd, mk_win_user_menu_get_null(), mk_win_base_instance_from(this_module.m_data), mk_win_base_null); mk_lang_check_return(!mk_win_user_base_wnd_is_null(wnd)); statistics->m_counters = wnd;
-	lr = mk_win_user_window_w_msg_send(statistics->m_counters, ((mk_win_base_uint_t)(list_view_msg_id_e_setextendedlistviewstyle)), ((mk_win_base_dword_t)(list_view_window_styleex_id_e_fullrowselect | list_view_window_styleex_id_e_autosizecolumns | list_view_window_styleex_id_e_doublebuffer)), ((mk_win_base_dword_t)(list_view_window_styleex_id_e_fullrowselect | list_view_window_styleex_id_e_autosizecolumns | list_view_window_styleex_id_e_doublebuffer))); ((mk_lang_types_void_t)(lr));
-	col_descr.m_mask = ((mk_win_base_uint_t)(list_view_col_mask_e_width | list_view_col_mask_e_text));
+	wnd = mk_win_user_window_w_createex(((mk_win_base_dword_t)(0)), mk_win_comctl_list_view_class_name_w, L"", ((mk_win_base_dword_t)(mk_win_user_window_style_id_e_visible | mk_win_user_window_style_id_e_child)) | ((mk_win_base_dword_t)(mk_win_comctl_list_view_window_style_id_e_report | mk_win_comctl_list_view_window_style_id_e_showselalways | mk_win_comctl_list_view_window_style_id_e_ownerdata)), mk_win_user_window_use_default, mk_win_user_window_use_default, mk_win_user_window_use_default, mk_win_user_window_use_default, wnd, mk_win_user_menu_get_null(), mk_win_base_instance_from(this_module.m_data), mk_win_base_null); mk_lang_check_return(!mk_win_user_base_wnd_is_null(wnd)); statistics->m_counters = wnd;
+	lr = mk_win_user_window_w_msg_send(statistics->m_counters, ((mk_win_base_uint_t)(mk_win_comctl_list_view_msg_id_e_setextendedlistviewstyle)), ((mk_win_base_dword_t)(mk_win_comctl_list_view_window_styleex_id_e_fullrowselect | mk_win_comctl_list_view_window_styleex_id_e_autosizecolumns | mk_win_comctl_list_view_window_styleex_id_e_doublebuffer)), ((mk_win_base_dword_t)(mk_win_comctl_list_view_window_styleex_id_e_fullrowselect | mk_win_comctl_list_view_window_styleex_id_e_autosizecolumns | mk_win_comctl_list_view_window_styleex_id_e_doublebuffer))); ((mk_lang_types_void_t)(lr));
+	col_descr.m_mask = ((mk_win_base_uint_t)(mk_win_comctl_list_view_col_mask_e_width | mk_win_comctl_list_view_col_mask_e_text));
 	col_descr.m_cx = 100;
 	col_descr.m_text_buf = ((mk_win_base_wchar_lpt)(L"counter"));
-	lr = mk_win_user_window_w_msg_send(statistics->m_counters, ((mk_win_base_uint_t)(list_view_msg_id_e_insertcolumnw)), 0, ((mk_win_user_base_lparam_t)(&col_descr))); mk_lang_check_return(lr == 0);
-	col_descr.m_mask = ((mk_win_base_uint_t)(list_view_col_mask_e_fmt | list_view_col_mask_e_width | list_view_col_mask_e_text));
-	col_descr.m_fmt = ((mk_win_base_sint_t)(list_view_col_fmt_e_right));
+	lr = mk_win_user_window_w_msg_send(statistics->m_counters, ((mk_win_base_uint_t)(mk_win_comctl_list_view_msg_id_e_insertcolumnw)), 0, ((mk_win_user_base_lparam_t)(&col_descr))); mk_lang_check_return(lr == 0);
+	col_descr.m_mask = ((mk_win_base_uint_t)(mk_win_comctl_list_view_col_mask_e_fmt | mk_win_comctl_list_view_col_mask_e_width | mk_win_comctl_list_view_col_mask_e_text));
+	col_descr.m_fmt = ((mk_win_base_sint_t)(mk_win_comctl_list_view_col_fmt_e_right));
 	col_descr.m_text_buf = ((mk_win_base_wchar_lpt)(L"value"));
-	lr = mk_win_user_window_w_msg_send(statistics->m_counters, ((mk_win_base_uint_t)(list_view_msg_id_e_insertcolumnw)), 1, ((mk_win_user_base_lparam_t)(&col_descr))); mk_lang_check_return(lr == 1);
-	lr = mk_win_user_window_w_msg_send(statistics->m_counters, ((mk_win_base_uint_t)(list_view_msg_id_e_setitemcount)), 8, 0); //mk_lang_check_return(lr == 0);
+	lr = mk_win_user_window_w_msg_send(statistics->m_counters, ((mk_win_base_uint_t)(mk_win_comctl_list_view_msg_id_e_insertcolumnw)), 1, ((mk_win_user_base_lparam_t)(&col_descr))); mk_lang_check_return(lr == 1);
+	lr = mk_win_user_window_w_msg_send(statistics->m_counters, ((mk_win_base_uint_t)(mk_win_comctl_list_view_msg_id_e_setitemcount)), 8, 0); /*mk_lang_check_return(lr == 0);*/
 
 	b = mk_win_user_window_show(statistics->m_wnd, mk_win_user_window_show_e_shownormal); ((mk_lang_types_void_t)(b));
 	return 0;
