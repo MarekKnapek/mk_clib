@@ -159,10 +159,8 @@
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_inl_fileh.h.m4"/>
 	</ItemGroup>
 	<ItemGroup>
-		<Xsd Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_application_compatibility.xsd"/>
-		<Xsd Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_application_manifest.xsd"/>
-	</ItemGroup>
-	<ItemGroup>
+		<Xml Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_application_compatibility.xsd"/>
+		<Xml Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_application_manifest.xsd"/>
 		<Xml Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_comctl_manifest_amd64.xml"/>
 		<Xml Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_comctl_manifest_i386.xml"/>
 		<Xml Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_comctl_manifest_amd64_with_xsd.xml"/>
