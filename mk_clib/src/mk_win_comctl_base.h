@@ -5,6 +5,8 @@
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
+#include "mk_win_base.h"
+#include "mk_win_user_base.h"
 
 
 struct mk_win_comctl_base_nmhdr_s
