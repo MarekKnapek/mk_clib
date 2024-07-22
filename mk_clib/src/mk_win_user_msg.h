@@ -305,6 +305,14 @@ enum mk_win_user_msg_sb_e
 };
 typedef enum mk_win_user_msg_sb_e mk_win_user_msg_sb_t;
 
+enum mk_win_user_msg_peek_e
+{
+	mk_win_user_msg_peek_e_noremove = 0,
+	mk_win_user_msg_peek_e_remove   = 1,
+	mk_win_user_msg_peek_e_dummy_end
+};
+typedef enum mk_win_user_msg_sb_e mk_win_user_msg_sb_t;
+
 
 struct mk_win_user_msg_s
 {
@@ -392,6 +400,7 @@ typedef mk_win_user_msg_createw_t mk_win_base_near const* mk_lang_restrict mk_wi
 
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_user_msg_w_get(mk_win_user_msg_lpt const msg, mk_win_user_base_wnd_t const wnd, mk_win_base_uint_t fmin, mk_win_base_uint_t const fmax) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_user_msg_w_peek(mk_win_user_msg_lpt const msg, mk_win_user_base_wnd_t const wnd, mk_win_base_uint_t fmin, mk_win_base_uint_t const fmax, mk_win_base_uint_t const remove) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_user_msg_translate(mk_win_user_msg_lpct const msg) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_user_base_lresult_t mk_win_user_msg_w_dispatch(mk_win_user_msg_lpct const msg) mk_lang_noexcept;
 mk_lang_jumbo mk_lang_types_void_t mk_win_user_msg_post_quit(mk_win_base_sint_t const exit_code) mk_lang_noexcept;
