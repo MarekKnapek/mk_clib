@@ -22,5 +22,11 @@
 #define mk_lang_platform mk_lang_platform_portable
 #endif
 
+#if defined mk_lang_platform_x11_want && (mk_lang_platform_x11_want) == 1
+#define mk_lang_platform_x11_have 1
+#else
+#define mk_lang_platform_x11_have 0
+#endif
+
 
 #endif

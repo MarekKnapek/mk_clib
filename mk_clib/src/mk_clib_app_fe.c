@@ -111,8 +111,8 @@
 #endif
 
 #if mk_clib_app_fe_mallocatorg_statistics_have
-#define mk_lib_win_statistics_mallocatorg_want mk_clib_app_fe_mallocatorg_id
-#include "mk_lib_win_statistics.h"
+#define mk_lib_statistics_mallocatorg_want mk_clib_app_fe_mallocatorg_id
+#include "mk_lib_statistics.h"
 #endif
 
 #define mk_lang_memset_t_name mk_clib_app_fe_memset_uc
@@ -2868,7 +2868,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 	mk_lang_check_rereturn(err_b);
 	err = mk_clib_app_fe_window_scrollbar_refresh(window); mk_lang_check_rereturn(err);
 	#if mk_clib_app_fe_mallocatorg_statistics_have
-	err = mk_lib_win_statistics_invalidate(); mk_lang_check_rereturn(err);
+	err = mk_lib_statistics_invalidate(); mk_lang_check_rereturn(err);
 	#endif
 	return 0;
 }
@@ -3078,7 +3078,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fe_wind
 		case mk_win_user_msg_vk_e_down : err = mk_clib_app_fe_window_on_keydown_vk_down (window); mk_lang_check_rereturn(err); break;
 	}
 	#if mk_clib_app_fe_mallocatorg_statistics_have
-	err = mk_lib_win_statistics_invalidate(); mk_lang_check_rereturn(err);
+	err = mk_lib_statistics_invalidate(); mk_lang_check_rereturn(err);
 	#endif
 	return 0;
 }
@@ -3561,13 +3561,13 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_clib_app_fe_arg(mk_lang_
 	mk_lang_types_sint_t res;
 
 	#if mk_clib_app_fe_mallocatorg_statistics_have
-	mk_lib_win_statistics_init(); /* todo */
-	mk_lib_win_statistics_display(); /* todo */
+	mk_lib_statistics_init(); /* todo */
+	mk_lib_statistics_display(); /* todo */
 	#endif
 	err = mk_clib_app_fe_run(&g_mk_clib_app_fe, wide, instance, prev, cmd_line, show); mk_lang_check_rereturn(err);
 	#if mk_clib_app_fe_mallocatorg_statistics_have
-	mk_lib_win_statistics_close(); /* todo */
-	mk_lib_win_statistics_deinit(); /* todo */
+	mk_lib_statistics_close(); /* todo */
+	mk_lib_statistics_deinit(); /* todo */
 	#endif
 	res = g_mk_clib_app_fe.m_exit_code;
 	return res;

@@ -12,17 +12,75 @@
 #include "src/mk_lang_null.h"
 #include "src/mk_lang_strlen.h"
 #include "src/mk_lang_types.h"
+
+#define mk_clib_app_fe_posix_mallocatorg_id_disp        11
+#define mk_clib_app_fe_posix_mallocatorg_id_portablec   12
+#define mk_clib_app_fe_posix_mallocatorg_id_portablecpp 13
+#define mk_clib_app_fe_posix_mallocatorg_id_windows     14
+#define mk_clib_app_fe_posix_mallocatorg_id_tracer      15
+
+#if defined mk_clib_app_fe_posix_mallocatorg_want && (mk_clib_app_fe_posix_mallocatorg_want) == mk_clib_app_fe_posix_mallocatorg_id_disp
+#define mk_clib_app_fe_posix_mallocatorg_id mk_clib_app_fe_posix_mallocatorg_id_disp
+#elif defined mk_clib_app_fe_posix_mallocatorg_want && (mk_clib_app_fe_posix_mallocatorg_want) == mk_clib_app_fe_posix_mallocatorg_id_portablec
+#define mk_clib_app_fe_posix_mallocatorg_id mk_clib_app_fe_posix_mallocatorg_id_portablec
+#elif defined mk_clib_app_fe_posix_mallocatorg_want && (mk_clib_app_fe_posix_mallocatorg_want) == mk_clib_app_fe_posix_mallocatorg_id_portablecpp
+#define mk_clib_app_fe_posix_mallocatorg_id mk_clib_app_fe_posix_mallocatorg_id_portablecpp
+#elif defined mk_clib_app_fe_posix_mallocatorg_want && (mk_clib_app_fe_posix_mallocatorg_want) == mk_clib_app_fe_posix_mallocatorg_id_windows
+#define mk_clib_app_fe_posix_mallocatorg_id mk_clib_app_fe_posix_mallocatorg_id_windows
+#elif defined mk_clib_app_fe_posix_mallocatorg_want && (mk_clib_app_fe_posix_mallocatorg_want) == mk_clib_app_fe_posix_mallocatorg_id_tracer
+#define mk_clib_app_fe_posix_mallocatorg_id mk_clib_app_fe_posix_mallocatorg_id_tracer
+#elif !defined mk_clib_app_fe_posix_mallocatorg_want
+#if defined NDEBUG
+#define mk_clib_app_fe_posix_mallocatorg_id mk_clib_app_fe_posix_mallocatorg_id_disp
+#else
+#define mk_clib_app_fe_posix_mallocatorg_id mk_clib_app_fe_posix_mallocatorg_id_tracer
+#endif
+#else
+#error xxxxxxxxxx
+#endif
+#if mk_clib_app_fe_posix_mallocatorg_id == mk_clib_app_fe_posix_mallocatorg_id_disp
 #include "src/mk_sl_mallocatorg.h"
+#define mk_clib_app_fe_posix_mallocatorg_name mk_sl_mallocatorg
+#elif mk_clib_app_fe_posix_mallocatorg_id == mk_clib_app_fe_posix_mallocatorg_id_portablec
+#include "src/mk_sl_mallocatorg_portablec.h"
+#define mk_clib_app_fe_posix_mallocatorg_name mk_sl_mallocatorg_portablec
+#elif mk_clib_app_fe_posix_mallocatorg_id == mk_clib_app_fe_posix_mallocatorg_id_portablecpp
+#include "src/mk_sl_mallocatorg_portablecpp.hpp"
+#define mk_clib_app_fe_posix_mallocatorg_name mk_sl_mallocatorg_portablecpp
+#elif mk_clib_app_fe_posix_mallocatorg_id == mk_clib_app_fe_posix_mallocatorg_id_windows
+#include "src/mk_sl_mallocatorg_windows.h"
+#define mk_clib_app_fe_posix_mallocatorg_name mk_sl_mallocatorg_windows
+#elif mk_clib_app_fe_posix_mallocatorg_id == mk_clib_app_fe_posix_mallocatorg_id_tracer
+#include "src/mk_sl_mallocg_tracer.h"
+#define mk_clib_app_fe_posix_mallocatorg_name mk_sl_mallocg_tracer
+#else
+#error xxxxxxxxxx
+#endif
+#define mk_clib_app_fe_posix_mallocatorg_init mk_lang_concat(mk_clib_app_fe_posix_mallocatorg_name, _init)
+#define mk_clib_app_fe_posix_mallocatorg_deinit mk_lang_concat(mk_clib_app_fe_posix_mallocatorg_name, _deinit)
+#if defined mk_clib_app_fe_posix_mallocatorg_statistics_want && (mk_clib_app_fe_posix_mallocatorg_statistics_want) == 0
+#define mk_clib_app_fe_posix_mallocatorg_statistics_have 0
+#elif defined mk_clib_app_fe_posix_mallocatorg_statistics_want && (mk_clib_app_fe_posix_mallocatorg_statistics_want) == 1
+#define mk_clib_app_fe_posix_mallocatorg_statistics_have 1
+#elif mk_clib_app_fe_posix_mallocatorg_id == mk_clib_app_fe_posix_mallocatorg_id_tracer
+#define mk_clib_app_fe_posix_mallocatorg_statistics_have 1
+#else
+#define mk_clib_app_fe_posix_mallocatorg_statistics_have 0
+#endif
+#if mk_clib_app_fe_posix_mallocatorg_statistics_have
+#define mk_lib_statistics_mallocatorg_want mk_clib_app_fe_posix_mallocatorg_id
+#include "src/mk_lib_statistics.h"
+#endif
 
 #define mk_sl_vector_t_name mkfe_string
 #define mk_sl_vector_t_element mk_lang_types_pchar_t
-#define mk_sl_vector_t_mallocatorg mk_sl_mallocatorg
+#define mk_sl_vector_t_mallocatorg mk_clib_app_fe_posix_mallocatorg_name
 #include "src/mk_sl_vector_inl_fileh.h"
 #include "src/mk_sl_vector_inl_filec.h"
 
 #define mk_sl_vector_t_name mkfe_strings
 #define mk_sl_vector_t_element mkfe_string_t
-#define mk_sl_vector_t_mallocatorg mk_sl_mallocatorg
+#define mk_sl_vector_t_mallocatorg mk_clib_app_fe_posix_mallocatorg_name
 #include "src/mk_sl_vector_inl_fileh.h"
 #include "src/mk_sl_vector_inl_filec.h"
 
@@ -156,13 +214,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_gather_dir(m
 	len = mkfe_string_rw_size(dir); mk_lang_assert(len >= 1);
 	err = mkfe_string_rw_push_back_one(dir, &nul); mk_lang_check_rereturn(err);
 	d = opendir(buf); mk_lang_check_return(d);
-	while((e = readdir(d)))
+	while((e = readdir(d)) != mk_lang_null)
 	{
-		if
-		(!(
-			(e->d_name[0] == '.' && e->d_name[1] == '\0') ||
-			(e->d_name[0] == '.' && e->d_name[1] == '.' && e->d_name[2] == '\0')
-		))
+		if(!(e->d_name[0] == '.' && e->d_name[1] == '\0'))
 		{
 			len = mk_lang_strlen_n_fn(&e->d_name[0]); mk_lang_assert(len >= 1);
 			err = mkfe_strings_rw_push_back_void(&fe->m_rows, 1); mk_lang_check_rereturn(err);
@@ -444,6 +498,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_on_keypress(
 		err = mkfe_x_invalidate_one(fe, old); mk_lang_check_rereturn(err);
 		err = mkfe_x_invalidate_one(fe, neu); mk_lang_check_rereturn(err);
 	}
+	err = mk_lib_statistics_invalidate(); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -520,6 +575,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_run(mkfe_pt 
 			case ButtonPress  : err = mkfe_x_on_buttonpress  (fe, evt); mk_lang_check_rereturn(err); break;
 			case ClientMessage: err = mkfe_x_on_clientmessage(fe, evt); mk_lang_check_rereturn(err); break;
 		}
+		err = mk_lib_statistics_pump(); mk_lang_check_rereturn(err);
 	}
 	return 0;
 }
@@ -530,10 +586,14 @@ mk_lang_types_sint_t main(mk_lang_types_sint_t const argc, mk_lang_types_pchar_p
 	mk_lang_types_sint_t err;
 	mkfe_t fe;
 
-	err = mk_sl_mallocatorg_init(); mk_lang_check_rereturn(err);
+	err = mk_clib_app_fe_posix_mallocatorg_init(); mk_lang_check_rereturn(err);
+	err = mk_lib_statistics_init(); mk_lang_check_rereturn(err);
+	err = mk_lib_statistics_display(); mk_lang_check_rereturn(err);
 	err = mkfe_x_init(&fe); mk_lang_check_rereturn(err);
 	err = mkfe_x_run(&fe); mk_lang_check_rereturn(err);
 	err = mkfe_x_deinit(&fe); mk_lang_check_rereturn(err);
-	err = mk_sl_mallocatorg_deinit(); mk_lang_check_rereturn(err);
+	err = mk_lib_statistics_close(); mk_lang_check_rereturn(err);
+	err = mk_lib_statistics_deinit(); mk_lang_check_rereturn(err);
+	err = mk_clib_app_fe_posix_mallocatorg_deinit(); mk_lang_check_rereturn(err);
 	return 0;
 }

@@ -1,4 +1,4 @@
-#include "mk_lib_win_statistics.h"
+#include "mk_lib_statistics_windows.h"
 
 #include "mk_lang_assert.h"
 #include "mk_lang_check.h"
@@ -33,69 +33,69 @@
 #include "mk_win_user_window.h"
 
 
-#define mk_lib_win_statistics_mallocatorg_id_disp        11
-#define mk_lib_win_statistics_mallocatorg_id_portablec   12
-#define mk_lib_win_statistics_mallocatorg_id_portablecpp 13
-#define mk_lib_win_statistics_mallocatorg_id_windows     14
-#define mk_lib_win_statistics_mallocatorg_id_tracer      15
+#define mk_lib_statistics_windows_mallocatorg_id_disp        11
+#define mk_lib_statistics_windows_mallocatorg_id_portablec   12
+#define mk_lib_statistics_windows_mallocatorg_id_portablecpp 13
+#define mk_lib_statistics_windows_mallocatorg_id_windows     14
+#define mk_lib_statistics_windows_mallocatorg_id_tracer      15
 
-#if defined mk_lib_win_statistics_mallocatorg_want && (mk_lib_win_statistics_mallocatorg_want) == mk_lib_win_statistics_mallocatorg_id_disp
-#define mk_lib_win_statistics_mallocatorg_id mk_lib_win_statistics_mallocatorg_id_disp
-#elif defined mk_lib_win_statistics_mallocatorg_want && (mk_lib_win_statistics_mallocatorg_want) == mk_lib_win_statistics_mallocatorg_id_portablec
-#define mk_lib_win_statistics_mallocatorg_id mk_lib_win_statistics_mallocatorg_id_portablec
-#elif defined mk_lib_win_statistics_mallocatorg_want && (mk_lib_win_statistics_mallocatorg_want) == mk_lib_win_statistics_mallocatorg_id_portablecpp
-#define mk_lib_win_statistics_mallocatorg_id mk_lib_win_statistics_mallocatorg_id_portablecpp
-#elif defined mk_lib_win_statistics_mallocatorg_want && (mk_lib_win_statistics_mallocatorg_want) == mk_lib_win_statistics_mallocatorg_id_windows
-#define mk_lib_win_statistics_mallocatorg_id mk_lib_win_statistics_mallocatorg_id_windows
-#elif defined mk_lib_win_statistics_mallocatorg_want && (mk_lib_win_statistics_mallocatorg_want) == mk_lib_win_statistics_mallocatorg_id_tracer
-#define mk_lib_win_statistics_mallocatorg_id mk_lib_win_statistics_mallocatorg_id_tracer
-#elif !defined mk_lib_win_statistics_mallocatorg_want
+#if defined mk_lib_statistics_windows_mallocatorg_want && (mk_lib_statistics_windows_mallocatorg_want) == mk_lib_statistics_windows_mallocatorg_id_disp
+#define mk_lib_statistics_windows_mallocatorg_id mk_lib_statistics_windows_mallocatorg_id_disp
+#elif defined mk_lib_statistics_windows_mallocatorg_want && (mk_lib_statistics_windows_mallocatorg_want) == mk_lib_statistics_windows_mallocatorg_id_portablec
+#define mk_lib_statistics_windows_mallocatorg_id mk_lib_statistics_windows_mallocatorg_id_portablec
+#elif defined mk_lib_statistics_windows_mallocatorg_want && (mk_lib_statistics_windows_mallocatorg_want) == mk_lib_statistics_windows_mallocatorg_id_portablecpp
+#define mk_lib_statistics_windows_mallocatorg_id mk_lib_statistics_windows_mallocatorg_id_portablecpp
+#elif defined mk_lib_statistics_windows_mallocatorg_want && (mk_lib_statistics_windows_mallocatorg_want) == mk_lib_statistics_windows_mallocatorg_id_windows
+#define mk_lib_statistics_windows_mallocatorg_id mk_lib_statistics_windows_mallocatorg_id_windows
+#elif defined mk_lib_statistics_windows_mallocatorg_want && (mk_lib_statistics_windows_mallocatorg_want) == mk_lib_statistics_windows_mallocatorg_id_tracer
+#define mk_lib_statistics_windows_mallocatorg_id mk_lib_statistics_windows_mallocatorg_id_tracer
+#elif !defined mk_lib_statistics_windows_mallocatorg_want
 #if defined NDEBUG
-#define mk_lib_win_statistics_mallocatorg_id mk_lib_win_statistics_mallocatorg_id_disp
+#define mk_lib_statistics_windows_mallocatorg_id mk_lib_statistics_windows_mallocatorg_id_disp
 #else
-#define mk_lib_win_statistics_mallocatorg_id mk_lib_win_statistics_mallocatorg_id_tracer
+#define mk_lib_statistics_windows_mallocatorg_id mk_lib_statistics_windows_mallocatorg_id_tracer
 #endif
 #else
 #error xxxxxxxxxx
 #endif
 
-#if mk_lib_win_statistics_mallocatorg_id == mk_lib_win_statistics_mallocatorg_id_disp
+#if mk_lib_statistics_windows_mallocatorg_id == mk_lib_statistics_windows_mallocatorg_id_disp
 #include "mk_sl_mallocatorg.h"
-#define mk_lib_win_statistics_mallocatorg_name mk_sl_mallocatorg
-#elif mk_lib_win_statistics_mallocatorg_id == mk_lib_win_statistics_mallocatorg_id_portablec
+#define mk_lib_statistics_windows_mallocatorg_name mk_sl_mallocatorg
+#elif mk_lib_statistics_windows_mallocatorg_id == mk_lib_statistics_windows_mallocatorg_id_portablec
 #include "mk_sl_mallocatorg_portablec.h"
-#define mk_lib_win_statistics_mallocatorg_name mk_sl_mallocatorg_portablec
-#elif mk_lib_win_statistics_mallocatorg_id == mk_lib_win_statistics_mallocatorg_id_portablecpp
+#define mk_lib_statistics_windows_mallocatorg_name mk_sl_mallocatorg_portablec
+#elif mk_lib_statistics_windows_mallocatorg_id == mk_lib_statistics_windows_mallocatorg_id_portablecpp
 #include "mk_sl_mallocatorg_portablecpp.hpp"
-#define mk_lib_win_statistics_mallocatorg_name mk_sl_mallocatorg_portablecpp
-#elif mk_lib_win_statistics_mallocatorg_id == mk_lib_win_statistics_mallocatorg_id_windows
+#define mk_lib_statistics_windows_mallocatorg_name mk_sl_mallocatorg_portablecpp
+#elif mk_lib_statistics_windows_mallocatorg_id == mk_lib_statistics_windows_mallocatorg_id_windows
 #include "mk_sl_mallocatorg_windows.h"
-#define mk_lib_win_statistics_mallocatorg_name mk_sl_mallocatorg_windows
-#elif mk_lib_win_statistics_mallocatorg_id == mk_lib_win_statistics_mallocatorg_id_tracer
+#define mk_lib_statistics_windows_mallocatorg_name mk_sl_mallocatorg_windows
+#elif mk_lib_statistics_windows_mallocatorg_id == mk_lib_statistics_windows_mallocatorg_id_tracer
 #include "mk_sl_mallocg_tracer.h"
-#define mk_lib_win_statistics_mallocatorg_name mk_sl_mallocg_tracer
+#define mk_lib_statistics_windows_mallocatorg_name mk_sl_mallocg_tracer
 #else
 #error xxxxxxxxxx
 #endif
-#define mk_lib_win_statistics_mallocatorg_init                              mk_lang_concat(mk_lib_win_statistics_mallocatorg_name, _init)
-#define mk_lib_win_statistics_mallocatorg_deinit                            mk_lang_concat(mk_lib_win_statistics_mallocatorg_name, _deinit)
-#define mk_lib_win_statistics_mallocatorg_allocate                          mk_lang_concat(mk_lib_win_statistics_mallocatorg_name, _allocate)
-#define mk_lib_win_statistics_mallocatorg_deallocate                        mk_lang_concat(mk_lib_win_statistics_mallocatorg_name, _deallocate)
-#define mk_lib_win_statistics_mallocatorg_reallocate                        mk_lang_concat(mk_lib_win_statistics_mallocatorg_name, _reallocate)
-#define mk_lib_win_statistics_mallocatorg_statistics_get_bytes_allocated    mk_lang_concat(mk_lib_win_statistics_mallocatorg_name, _statistics_get_bytes_allocated)
-#define mk_lib_win_statistics_mallocatorg_statistics_get_bytes_deallocated  mk_lang_concat(mk_lib_win_statistics_mallocatorg_name, _statistics_get_bytes_deallocated)
-#define mk_lib_win_statistics_mallocatorg_statistics_get_bytes_live         mk_lang_concat(mk_lib_win_statistics_mallocatorg_name, _statistics_get_bytes_live)
-#define mk_lib_win_statistics_mallocatorg_statistics_get_bytes_peak         mk_lang_concat(mk_lib_win_statistics_mallocatorg_name, _statistics_get_bytes_peak)
-#define mk_lib_win_statistics_mallocatorg_statistics_get_blocks_allocated   mk_lang_concat(mk_lib_win_statistics_mallocatorg_name, _statistics_get_blocks_allocated)
-#define mk_lib_win_statistics_mallocatorg_statistics_get_blocks_deallocated mk_lang_concat(mk_lib_win_statistics_mallocatorg_name, _statistics_get_blocks_deallocated)
-#define mk_lib_win_statistics_mallocatorg_statistics_get_blocks_live        mk_lang_concat(mk_lib_win_statistics_mallocatorg_name, _statistics_get_blocks_live)
-#define mk_lib_win_statistics_mallocatorg_statistics_get_blocks_peak        mk_lang_concat(mk_lib_win_statistics_mallocatorg_name, _statistics_get_blocks_peak)
-#define mk_lib_win_statistics_mallocatorg_statistics_get_all                mk_lang_concat(mk_lib_win_statistics_mallocatorg_name, _statistics_get_all)
+#define mk_lib_statistics_windows_mallocatorg_init                              mk_lang_concat(mk_lib_statistics_windows_mallocatorg_name, _init)
+#define mk_lib_statistics_windows_mallocatorg_deinit                            mk_lang_concat(mk_lib_statistics_windows_mallocatorg_name, _deinit)
+#define mk_lib_statistics_windows_mallocatorg_allocate                          mk_lang_concat(mk_lib_statistics_windows_mallocatorg_name, _allocate)
+#define mk_lib_statistics_windows_mallocatorg_deallocate                        mk_lang_concat(mk_lib_statistics_windows_mallocatorg_name, _deallocate)
+#define mk_lib_statistics_windows_mallocatorg_reallocate                        mk_lang_concat(mk_lib_statistics_windows_mallocatorg_name, _reallocate)
+#define mk_lib_statistics_windows_mallocatorg_statistics_get_bytes_allocated    mk_lang_concat(mk_lib_statistics_windows_mallocatorg_name, _statistics_get_bytes_allocated)
+#define mk_lib_statistics_windows_mallocatorg_statistics_get_bytes_deallocated  mk_lang_concat(mk_lib_statistics_windows_mallocatorg_name, _statistics_get_bytes_deallocated)
+#define mk_lib_statistics_windows_mallocatorg_statistics_get_bytes_live         mk_lang_concat(mk_lib_statistics_windows_mallocatorg_name, _statistics_get_bytes_live)
+#define mk_lib_statistics_windows_mallocatorg_statistics_get_bytes_peak         mk_lang_concat(mk_lib_statistics_windows_mallocatorg_name, _statistics_get_bytes_peak)
+#define mk_lib_statistics_windows_mallocatorg_statistics_get_blocks_allocated   mk_lang_concat(mk_lib_statistics_windows_mallocatorg_name, _statistics_get_blocks_allocated)
+#define mk_lib_statistics_windows_mallocatorg_statistics_get_blocks_deallocated mk_lang_concat(mk_lib_statistics_windows_mallocatorg_name, _statistics_get_blocks_deallocated)
+#define mk_lib_statistics_windows_mallocatorg_statistics_get_blocks_live        mk_lang_concat(mk_lib_statistics_windows_mallocatorg_name, _statistics_get_blocks_live)
+#define mk_lib_statistics_windows_mallocatorg_statistics_get_blocks_peak        mk_lang_concat(mk_lib_statistics_windows_mallocatorg_name, _statistics_get_blocks_peak)
+#define mk_lib_statistics_windows_mallocatorg_statistics_get_all                mk_lang_concat(mk_lib_statistics_windows_mallocatorg_name, _statistics_get_all)
 
 
-#define mk_lib_win_statistics_class_name_n  "mk_lib_win_statistics"
-#define mk_lib_win_statistics_class_name_w L"mk_lib_win_statistics"
-mk_lang_constexpr_static_inline mk_lang_types_wchar_pct const mk_lib_win_statistics_labels[] =
+#define mk_lib_statistics_windows_class_name_n  "mk_lib_statistics_windows"
+#define mk_lib_statistics_windows_class_name_w L"mk_lib_statistics_windows"
+mk_lang_constexpr_static_inline mk_lang_types_wchar_pct const mk_lib_statistics_windows_labels[] =
 {
 	L"bytes allocated",
 	L"bytes deallocated",
@@ -108,7 +108,7 @@ mk_lang_constexpr_static_inline mk_lang_types_wchar_pct const mk_lib_win_statist
 };
 
 
-struct mk_lib_win_statistics_cntrs_data_arrn_s
+struct mk_lib_statistics_windows_cntrs_data_arrn_s
 {
 	mk_sl_cui_uint128_t m_bytes_allocated;
 	mk_sl_cui_uint128_t m_bytes_deallocated;
@@ -119,27 +119,27 @@ struct mk_lib_win_statistics_cntrs_data_arrn_s
 	mk_sl_cui_uint128_t m_blocks_peak;
 	mk_sl_cui_uint128_t m_blocks_live;
 };
-typedef struct mk_lib_win_statistics_cntrs_data_arrn_s mk_lib_win_statistics_cntrs_data_arrn_t;
-struct mk_lib_win_statistics_cntrs_data_arry_s
+typedef struct mk_lib_statistics_windows_cntrs_data_arrn_s mk_lib_statistics_windows_cntrs_data_arrn_t;
+struct mk_lib_statistics_windows_cntrs_data_arry_s
 {
 	mk_sl_cui_uint128_t m_cntrs[8];
 };
-typedef struct mk_lib_win_statistics_cntrs_data_arry_s mk_lib_win_statistics_cntrs_data_arry_t;
-union mk_lib_win_statistics_cntrs_data_u
+typedef struct mk_lib_statistics_windows_cntrs_data_arry_s mk_lib_statistics_windows_cntrs_data_arry_t;
+union mk_lib_statistics_windows_cntrs_data_u
 {
-	mk_lib_win_statistics_cntrs_data_arrn_t m_arrn;
-	mk_lib_win_statistics_cntrs_data_arry_t m_arry;
+	mk_lib_statistics_windows_cntrs_data_arrn_t m_arrn;
+	mk_lib_statistics_windows_cntrs_data_arry_t m_arry;
 };
-typedef union mk_lib_win_statistics_cntrs_data_u mk_lib_win_statistics_cntrs_data_t;
-struct mk_lib_win_statistics_cntrs_s
+typedef union mk_lib_statistics_windows_cntrs_data_u mk_lib_statistics_windows_cntrs_data_t;
+struct mk_lib_statistics_windows_cntrs_s
 {
-	mk_lib_win_statistics_cntrs_data_t m_data;
+	mk_lib_statistics_windows_cntrs_data_t m_data;
 };
-typedef struct mk_lib_win_statistics_cntrs_s mk_lib_win_statistics_cntrs_t;
-typedef mk_lib_win_statistics_cntrs_t const mk_lib_win_statistics_cntrs_ct;
-typedef mk_lib_win_statistics_cntrs_t* mk_lib_win_statistics_cntrs_pt;
-typedef mk_lib_win_statistics_cntrs_t const* mk_lib_win_statistics_cntrs_pct;
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lib_win_statistics_cntrs_ro_eq(mk_lib_win_statistics_cntrs_pct const a, mk_lib_win_statistics_cntrs_pct const b) mk_lang_noexcept
+typedef struct mk_lib_statistics_windows_cntrs_s mk_lib_statistics_windows_cntrs_t;
+typedef mk_lib_statistics_windows_cntrs_t const mk_lib_statistics_windows_cntrs_ct;
+typedef mk_lib_statistics_windows_cntrs_t* mk_lib_statistics_windows_cntrs_pt;
+typedef mk_lib_statistics_windows_cntrs_t const* mk_lib_statistics_windows_cntrs_pct;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lib_statistics_windows_cntrs_ro_eq(mk_lib_statistics_windows_cntrs_pct const a, mk_lib_statistics_windows_cntrs_pct const b) mk_lang_noexcept
 {
 	mk_lang_types_bool_t ret mk_lang_constexpr_init;
 
@@ -160,27 +160,27 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lib_wi
 	return ret;
 }
 
-struct mk_lib_win_statistics_s
+struct mk_lib_statistics_windows_s
 {
 	mk_win_user_base_atom_t m_atom;
 	mk_win_user_base_wnd_t m_wnd;
 	mk_win_user_base_wnd_t m_counters;
 	mk_win_base_rect_t m_last_rect;
-	mk_lib_win_statistics_cntrs_t m_cntrs_last;
+	mk_lib_statistics_windows_cntrs_t m_cntrs_last;
 	mk_lang_types_uint_t m_cntr_as_text_idx;
 	mk_lang_types_wchar_t m_cntr_as_text_buf[4][mk_sl_cui_uint128_strlendec_v + 1];
 };
-typedef struct mk_lib_win_statistics_s mk_lib_win_statistics_t;
-typedef mk_lib_win_statistics_t const mk_lib_win_statistics_ct;
-typedef mk_lib_win_statistics_t* mk_lib_win_statistics_pt;
-typedef mk_lib_win_statistics_t const* mk_lib_win_statistics_pct;
+typedef struct mk_lib_statistics_windows_s mk_lib_statistics_windows_t;
+typedef mk_lib_statistics_windows_t const mk_lib_statistics_windows_ct;
+typedef mk_lib_statistics_windows_t* mk_lib_statistics_windows_pt;
+typedef mk_lib_statistics_windows_t const* mk_lib_statistics_windows_pct;
 
 
-mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_win_statistics_window_class_name_generate(mk_lang_static_param(mk_lang_types_wchar_t, res, 4 * 2)) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_statistics_windows_window_class_name_generate(mk_lang_static_param(mk_lang_types_wchar_t, res, 4 * 2)) mk_lang_noexcept
 {
 	mk_lang_types_sint_t n mk_lang_constexpr_init;
 	mk_lang_types_sint_t i mk_lang_constexpr_init;
-	mk_sl_cui_uint8_t arr[mk_lang_countstr(mk_lib_win_statistics_class_name_n)] mk_lang_constexpr_init;
+	mk_sl_cui_uint8_t arr[mk_lang_countstr(mk_lib_statistics_windows_class_name_n)] mk_lang_constexpr_init;
 	mk_lib_crypto_hash_stream_sha1_t hasher mk_lang_constexpr_init;
 	mk_lib_crypto_hash_block_sha1_digest_t digest mk_lang_constexpr_init;
 	mk_sl_cui_uint32_t u32 mk_lang_constexpr_init;
@@ -188,10 +188,10 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_win_statisti
 
 	mk_lang_assert(res);
 
-	n = mk_lang_countstr(mk_lib_win_statistics_class_name_n);
+	n = mk_lang_countstr(mk_lib_statistics_windows_class_name_n);
 	for(i = 0; i != n; ++i)
 	{
-		mk_sl_cui_uint8_from_bi_pchar(&arr[i], &mk_lib_win_statistics_class_name_n[i]);
+		mk_sl_cui_uint8_from_bi_pchar(&arr[i], &mk_lib_statistics_windows_class_name_n[i]);
 	}
 	mk_lib_crypto_hash_stream_sha1_init(&hasher);
 	mk_lib_crypto_hash_stream_sha1_append_u8(&hasher, &arr[0], n);
@@ -202,33 +202,33 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_win_statisti
 
 #if mk_lang_version_at_least_cpp_14 || mk_lang_version_at_least_msvc_cpp_14
 
-mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline auto mk_lib_win_statistics_window_class_name_return(mk_lang_types_void_t) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline auto mk_lib_statistics_windows_window_class_name_return(mk_lang_types_void_t) mk_lang_noexcept
 {
 	mk_lib_cpp_constexpr_array_t<mk_lang_types_wchar_t, 4 * 2 + 1> arr mk_lang_constexpr_init;
 
-	mk_lib_win_statistics_window_class_name_generate(arr.arr());
+	mk_lib_statistics_windows_window_class_name_generate(arr.arr());
 	arr[4 * 2 + 0] = L'\0';
 	return arr;
 }
 
-mk_lang_constexpr_static_inline auto const s_mk_lib_win_statistics_window_class_name = mk_lib_win_statistics_window_class_name_return();
+mk_lang_constexpr_static_inline auto const s_mk_lib_statistics_windows_window_class_name = mk_lib_statistics_windows_window_class_name_return();
 
 #endif
 
-mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_wchar_pct mk_lib_win_statistics_window_class_name_get(mk_lang_types_void_t) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_wchar_pct mk_lib_statistics_windows_window_class_name_get(mk_lang_types_void_t) mk_lang_noexcept
 {
 #if mk_lang_version_at_least_cpp_14 || mk_lang_version_at_least_msvc_cpp_14
-	return s_mk_lib_win_statistics_window_class_name.cdata();
+	return s_mk_lib_statistics_windows_window_class_name.cdata();
 #else
-	return mk_lib_win_statistics_class_name_w;
+	return mk_lib_statistics_windows_class_name_w;
 #endif
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statistics_on_create(mk_win_user_base_wnd_t const wnd, mk_win_base_uint_t const msg, mk_win_user_base_wparam_t const wparam, mk_win_user_base_lparam_t const lparam) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_windows_on_create(mk_win_user_base_wnd_t const wnd, mk_win_base_uint_t const msg, mk_win_user_base_wparam_t const wparam, mk_win_user_base_lparam_t const lparam) mk_lang_noexcept
 {
 	mk_sl_cui_uint128_t zero;
 	mk_win_user_msg_createw_lpct create;
-	mk_lib_win_statistics_pt statistics;
+	mk_lib_statistics_windows_pt statistics;
 	mk_lang_types_sint_t err;
 	mk_win_base_uintptr_t data;
 
@@ -238,7 +238,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statisti
 		mk_lang_assert(lparam != 0);
 		mk_sl_cui_uint128_set_zero(&zero);
 		create = ((mk_win_user_msg_createw_lpct)(lparam)); mk_lang_assert(create); mk_lang_assert(create->m_param);
-		statistics = ((mk_lib_win_statistics_pt)(create->m_param));
+		statistics = ((mk_lib_statistics_windows_pt)(create->m_param));
 		statistics->m_wnd = wnd;
 		statistics->m_last_rect.m_left = 0;
 		statistics->m_last_rect.m_top = 0;
@@ -258,7 +258,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statisti
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statistics_on_destroy(mk_lib_win_statistics_pt const statistics, mk_win_user_base_wparam_t const wparam, mk_win_user_base_lparam_t const lparam, mk_lang_types_bool_pt const override_defproc, mk_win_user_base_lresult_pt const override_result) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_windows_on_destroy(mk_lib_statistics_windows_pt const statistics, mk_win_user_base_wparam_t const wparam, mk_win_user_base_lparam_t const lparam, mk_lang_types_bool_pt const override_defproc, mk_win_user_base_lresult_pt const override_result) mk_lang_noexcept
 {
 	mk_win_base_uintptr_t data;
 
@@ -273,7 +273,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statisti
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statistics_on_paint(mk_lib_win_statistics_pt const statistics, mk_win_user_base_wparam_t const wparam, mk_win_user_base_lparam_t const lparam, mk_lang_types_bool_pt const override_defproc, mk_win_user_base_lresult_pt const override_result) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_windows_on_paint(mk_lib_statistics_windows_pt const statistics, mk_win_user_base_wparam_t const wparam, mk_win_user_base_lparam_t const lparam, mk_lang_types_bool_pt const override_defproc, mk_win_user_base_lresult_pt const override_result) mk_lang_noexcept
 {
 	mk_win_base_bool_t b;
 	mk_win_base_rect_t rect;
@@ -298,7 +298,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statisti
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statistics_on_notify_counters_dispinfo(mk_lib_win_statistics_pt const statistics, mk_win_user_base_wparam_t const wparam, mk_win_user_base_lparam_t const lparam, mk_lang_types_bool_pt const override_defproc, mk_win_user_base_lresult_pt const override_result) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_windows_on_notify_counters_dispinfo(mk_lib_statistics_windows_pt const statistics, mk_win_user_base_wparam_t const wparam, mk_win_user_base_lparam_t const lparam, mk_lang_types_bool_pt const override_defproc, mk_win_user_base_lresult_pt const override_result) mk_lang_noexcept
 {
 
 	mk_win_comctl_base_nmhdr_pt nmhdr;
@@ -323,7 +323,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statisti
 	{
 		if(dispinfo->m_item.m_sub_item == 0)
 		{
-			dispinfo->m_item.m_text_buf = ((mk_win_base_wchar_lpt)(mk_lib_win_statistics_labels[dispinfo->m_item.m_item]));
+			dispinfo->m_item.m_text_buf = ((mk_win_base_wchar_lpt)(mk_lib_statistics_windows_labels[dispinfo->m_item.m_item]));
 		}
 		else
 		{
@@ -339,7 +339,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statisti
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statistics_on_notify_counters_general(mk_lib_win_statistics_pt const statistics, mk_win_user_base_wparam_t const wparam, mk_win_user_base_lparam_t const lparam, mk_lang_types_bool_pt const override_defproc, mk_win_user_base_lresult_pt const override_result) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_windows_on_notify_counters_general(mk_lib_statistics_windows_pt const statistics, mk_win_user_base_wparam_t const wparam, mk_win_user_base_lparam_t const lparam, mk_lang_types_bool_pt const override_defproc, mk_win_user_base_lresult_pt const override_result) mk_lang_noexcept
 {
 	mk_win_comctl_base_nmhdr_pt nmhdr;
 	mk_lang_types_sint_t err;
@@ -354,12 +354,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statisti
 	mk_lang_assert(nmhdr->m_wnd.m_data == statistics->m_counters.m_data);
 	switch(nmhdr->m_code)
 	{
-		case mk_win_comctl_list_view_notification_id_e_getdispinfow: err = mk_lib_win_statistics_on_notify_counters_dispinfo(statistics, wparam, lparam, override_defproc, override_result); mk_lang_check_rereturn(err); break;
+		case mk_win_comctl_list_view_notification_id_e_getdispinfow: err = mk_lib_statistics_windows_on_notify_counters_dispinfo(statistics, wparam, lparam, override_defproc, override_result); mk_lang_check_rereturn(err); break;
 	}
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statistics_on_notify(mk_lib_win_statistics_pt const statistics, mk_win_user_base_wparam_t const wparam, mk_win_user_base_lparam_t const lparam, mk_lang_types_bool_pt const override_defproc, mk_win_user_base_lresult_pt const override_result) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_windows_on_notify(mk_lib_statistics_windows_pt const statistics, mk_win_user_base_wparam_t const wparam, mk_win_user_base_lparam_t const lparam, mk_lang_types_bool_pt const override_defproc, mk_win_user_base_lresult_pt const override_result) mk_lang_noexcept
 {
 	mk_win_comctl_base_nmhdr_pt nmhdr;
 	mk_lang_types_sint_t err;
@@ -373,12 +373,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statisti
 	nmhdr = ((mk_win_comctl_base_nmhdr_pt)(lparam));
 	if(nmhdr->m_wnd.m_data == statistics->m_counters.m_data)
 	{
-		err = mk_lib_win_statistics_on_notify_counters_general(statistics, wparam, lparam, override_defproc, override_result); mk_lang_check_rereturn(err);
+		err = mk_lib_statistics_windows_on_notify_counters_general(statistics, wparam, lparam, override_defproc, override_result); mk_lang_check_rereturn(err);
 	}
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statistics_on_user_1(mk_lib_win_statistics_pt const statistics, mk_win_user_base_wparam_t const wparam, mk_win_user_base_lparam_t const lparam, mk_lang_types_bool_pt const override_defproc, mk_win_user_base_lresult_pt const override_result) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_windows_on_user_1(mk_lib_statistics_windows_pt const statistics, mk_win_user_base_wparam_t const wparam, mk_win_user_base_lparam_t const lparam, mk_lang_types_bool_pt const override_defproc, mk_win_user_base_lresult_pt const override_result) mk_lang_noexcept
 {
 	mk_win_base_bool_t b;
 	mk_win_base_rect_t rect;
@@ -404,7 +404,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statisti
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statistics_on_msg(mk_lib_win_statistics_pt const statistics, mk_win_base_uint_t const msg, mk_win_user_base_wparam_t const wparam, mk_win_user_base_lparam_t const lparam, mk_lang_types_bool_pt const override_defproc, mk_win_user_base_lresult_pt const override_result) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_windows_on_msg(mk_lib_statistics_windows_pt const statistics, mk_win_base_uint_t const msg, mk_win_user_base_wparam_t const wparam, mk_win_user_base_lparam_t const lparam, mk_lang_types_bool_pt const override_defproc, mk_win_user_base_lresult_pt const override_result) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 
@@ -414,28 +414,28 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statisti
 
 	switch(msg)
 	{
-		case mk_win_user_msg_id_e_destroy : err = mk_lib_win_statistics_on_destroy(statistics, wparam, lparam, override_defproc, override_result); mk_lang_check_rereturn(err); break;
-		case mk_win_user_msg_id_e_paint   : err = mk_lib_win_statistics_on_paint  (statistics, wparam, lparam, override_defproc, override_result); mk_lang_check_rereturn(err); break;
-		case mk_win_user_msg_id_e_notify  : err = mk_lib_win_statistics_on_notify (statistics, wparam, lparam, override_defproc, override_result); mk_lang_check_rereturn(err); break;
-		case mk_win_user_msg_id_e_user + 1: err = mk_lib_win_statistics_on_user_1 (statistics, wparam, lparam, override_defproc, override_result); mk_lang_check_rereturn(err); break;
+		case mk_win_user_msg_id_e_destroy : err = mk_lib_statistics_windows_on_destroy(statistics, wparam, lparam, override_defproc, override_result); mk_lang_check_rereturn(err); break;
+		case mk_win_user_msg_id_e_paint   : err = mk_lib_statistics_windows_on_paint  (statistics, wparam, lparam, override_defproc, override_result); mk_lang_check_rereturn(err); break;
+		case mk_win_user_msg_id_e_notify  : err = mk_lib_statistics_windows_on_notify (statistics, wparam, lparam, override_defproc, override_result); mk_lang_check_rereturn(err); break;
+		case mk_win_user_msg_id_e_user + 1: err = mk_lib_statistics_windows_on_user_1 (statistics, wparam, lparam, override_defproc, override_result); mk_lang_check_rereturn(err); break;
 	}
 	return 0;
 }
 
-mk_lang_nodiscard static mk_win_user_base_lresult_t mk_win_base_stdcall mk_lib_win_statistics_on_raw_msg(mk_win_user_base_wnd_t const wnd, mk_win_base_uint_t const msg, mk_win_user_base_wparam_t const wparam, mk_win_user_base_lparam_t const lparam) mk_lang_noexcept
+mk_lang_nodiscard static mk_win_user_base_lresult_t mk_win_base_stdcall mk_lib_statistics_windows_on_raw_msg(mk_win_user_base_wnd_t const wnd, mk_win_base_uint_t const msg, mk_win_user_base_wparam_t const wparam, mk_win_user_base_lparam_t const lparam) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 	mk_lang_types_bool_t override_defproc;
 	mk_win_base_uintptr_t data;
-	mk_lib_win_statistics_pt statistics;
+	mk_lib_statistics_windows_pt statistics;
 	mk_win_user_base_lresult_t lr;
 
-	err = mk_lib_win_statistics_on_create(wnd, msg, wparam, lparam); mk_lang_check_recrash(err);
+	err = mk_lib_statistics_windows_on_create(wnd, msg, wparam, lparam); mk_lang_check_recrash(err);
 	override_defproc = mk_lang_false;
-	data = mk_win_user_window_w_data_get(wnd, ((mk_win_base_sint_t)(mk_win_user_window_data_id_e_userdata))); statistics = ((mk_lib_win_statistics_pt)(data));
+	data = mk_win_user_window_w_data_get(wnd, ((mk_win_base_sint_t)(mk_win_user_window_data_id_e_userdata))); statistics = ((mk_lib_statistics_windows_pt)(data));
 	if(data != 0)
 	{
-		err = mk_lib_win_statistics_on_msg(statistics, msg, wparam, lparam, &override_defproc, &lr); mk_lang_check_recrash(err);
+		err = mk_lib_statistics_windows_on_msg(statistics, msg, wparam, lparam, &override_defproc, &lr); mk_lang_check_recrash(err);
 	}
 	if(!override_defproc)
 	{
@@ -444,7 +444,7 @@ mk_lang_nodiscard static mk_win_user_base_lresult_t mk_win_base_stdcall mk_lib_w
 	return lr;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statistics_show(mk_lib_win_statistics_pt const statistics) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_windows_show(mk_lib_statistics_windows_pt const statistics) mk_lang_noexcept
 {
 	mk_win_base_bool_t b;
 	mk_win_base_module_t this_module;
@@ -454,7 +454,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statisti
 
 	mk_lang_assert(statistics);
 
-	b = mk_win_kernel_dll_w_get_module_handle_ex(((mk_win_base_dword_t)(mk_win_kernel_dll_get_module_handle_ex_flags_e_from_address)), ((mk_win_base_wchar_pct)(((mk_win_base_void_pt)(&mk_lib_win_statistics_on_raw_msg)))), &this_module); mk_lang_check_return(b != 0); mk_lang_check_return(!mk_win_base_module_is_null(this_module));
+	b = mk_win_kernel_dll_w_get_module_handle_ex(((mk_win_base_dword_t)(mk_win_kernel_dll_get_module_handle_ex_flags_e_from_address)), ((mk_win_base_wchar_pct)(((mk_win_base_void_pt)(&mk_lib_statistics_windows_on_raw_msg)))), &this_module); mk_lang_check_return(b != 0); mk_lang_check_return(!mk_win_base_module_is_null(this_module));
 	wnd = mk_win_user_window_w_createex(((mk_win_base_dword_t)(mk_win_user_window_styleex_id_e_overlappedwindow)), ((mk_win_base_wchar_lpct)(((mk_win_base_uintptr_t)(statistics->m_atom)))), L"statistics", ((mk_win_base_dword_t)(mk_win_user_window_style_id_e_overlappedwindow)), mk_win_user_window_use_default, mk_win_user_window_use_default, 250, 220, mk_win_user_base_wnd_get_null(), mk_win_user_menu_get_null(), mk_win_base_instance_from(this_module.m_data), statistics); mk_lang_check_return(!mk_win_user_base_wnd_is_null(wnd)); mk_lang_assert(statistics->m_wnd.m_data == wnd.m_data);
 
 	wnd = mk_win_user_window_w_createex(((mk_win_base_dword_t)(0)), mk_win_comctl_list_view_class_name_w, L"", ((mk_win_base_dword_t)(mk_win_user_window_style_id_e_visible | mk_win_user_window_style_id_e_child)) | ((mk_win_base_dword_t)(mk_win_comctl_list_view_window_style_id_e_report | mk_win_comctl_list_view_window_style_id_e_showselalways | mk_win_comctl_list_view_window_style_id_e_ownerdata)), mk_win_user_window_use_default, mk_win_user_window_use_default, mk_win_user_window_use_default, mk_win_user_window_use_default, wnd, mk_win_user_menu_get_null(), mk_win_base_instance_from(this_module.m_data), mk_win_base_null); mk_lang_check_return(!mk_win_user_base_wnd_is_null(wnd)); statistics->m_counters = wnd;
@@ -474,23 +474,23 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_win_statisti
 }
 
 
-static mk_lib_win_statistics_t g_mk_lib_win_statistics;
+static mk_lib_statistics_windows_t g_mk_lib_statistics_windows;
 
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_win_statistics_init(mk_lang_types_void_t) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_windows_init(mk_lang_types_void_t) mk_lang_noexcept
 {
-	mk_lib_win_statistics_pt statistics;
+	mk_lib_statistics_windows_pt statistics;
 	mk_win_base_bool_t b;
 	mk_win_base_module_t this_module;
 	mk_win_user_class_exw_t cls;
 	mk_win_user_base_atom_t atom;
 
 	mk_win_comctl_base_init();
-	statistics = &g_mk_lib_win_statistics;
-	b = mk_win_kernel_dll_w_get_module_handle_ex(((mk_win_base_dword_t)(mk_win_kernel_dll_get_module_handle_ex_flags_e_from_address)), ((mk_win_base_wchar_pct)(((mk_win_base_void_pt)(&mk_lib_win_statistics_on_raw_msg)))), &this_module); mk_lang_check_return(b != 0); mk_lang_check_return(!mk_win_base_module_is_null(this_module));
+	statistics = &g_mk_lib_statistics_windows;
+	b = mk_win_kernel_dll_w_get_module_handle_ex(((mk_win_base_dword_t)(mk_win_kernel_dll_get_module_handle_ex_flags_e_from_address)), ((mk_win_base_wchar_pct)(((mk_win_base_void_pt)(&mk_lib_statistics_windows_on_raw_msg)))), &this_module); mk_lang_check_return(b != 0); mk_lang_check_return(!mk_win_base_module_is_null(this_module));
 	cls.m_len = ((mk_win_base_uint_t)(sizeof(cls)));
 	cls.m_style = ((mk_win_base_uint_t)(mk_win_user_class_style_id_e_vredraw | mk_win_user_class_style_id_e_hredraw));
-	cls.m_callback = &mk_lib_win_statistics_on_raw_msg;
+	cls.m_callback = &mk_lib_statistics_windows_on_raw_msg;
 	cls.m_extra_cls = ((mk_win_base_sint_t)(0));
 	cls.m_extra_wnd = ((mk_win_base_sint_t)(sizeof(statistics)));
 	cls.m_instance = mk_win_base_instance_from(this_module.m_data);
@@ -498,42 +498,42 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_win_statistics_init(
 	cls.m_cursor = mk_win_user_cursor_w_load(mk_win_base_instance_get_null(), ((mk_win_base_wchar_lpct)(((mk_win_base_uintptr_t)(((mk_win_base_ushort_t)(mk_win_user_cursor_id_e_arrow)))))));
 	cls.m_background = mk_win_user_brush_from_color_id(mk_win_user_base_color_id_e_window);
 	cls.m_menu = ((mk_win_base_wchar_lpct)(mk_win_base_null));
-	cls.m_name = mk_lib_win_statistics_window_class_name_get();
+	cls.m_name = mk_lib_statistics_windows_window_class_name_get();
 	cls.m_icon_smol = cls.m_icon_big;
 	atom = mk_win_user_class_register_exw(&cls); mk_lang_check_return(atom != 0);
 	statistics->m_atom = atom;
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_win_statistics_deinit(mk_lang_types_void_t) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_windows_deinit(mk_lang_types_void_t) mk_lang_noexcept
 {
-	mk_lib_win_statistics_pt statistics;
+	mk_lib_statistics_windows_pt statistics;
 	mk_win_base_bool_t b;
 	mk_win_base_module_t this_module;
 
-	statistics = &g_mk_lib_win_statistics;
+	statistics = &g_mk_lib_statistics_windows;
 	mk_lang_assert(statistics->m_atom != 0);
-	b = mk_win_kernel_dll_w_get_module_handle_ex(((mk_win_base_dword_t)(mk_win_kernel_dll_get_module_handle_ex_flags_e_from_address)), ((mk_win_base_wchar_pct)(((mk_win_base_void_pt)(&mk_lib_win_statistics_on_raw_msg)))), &this_module); mk_lang_check_return(b != 0); mk_lang_check_return(!mk_win_base_module_is_null(this_module));
+	b = mk_win_kernel_dll_w_get_module_handle_ex(((mk_win_base_dword_t)(mk_win_kernel_dll_get_module_handle_ex_flags_e_from_address)), ((mk_win_base_wchar_pct)(((mk_win_base_void_pt)(&mk_lib_statistics_windows_on_raw_msg)))), &this_module); mk_lang_check_return(b != 0); mk_lang_check_return(!mk_win_base_module_is_null(this_module));
 	b = mk_win_user_class_w_unregister(((mk_win_base_wchar_pct)(((mk_win_base_uintptr_t)(statistics->m_atom)))), mk_win_base_instance_from(this_module.m_data)); mk_lang_check_return(b != 0);
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_win_statistics_display(mk_lang_types_void_t) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_windows_display(mk_lang_types_void_t) mk_lang_noexcept
 {
-	mk_lib_win_statistics_pt statistics;
+	mk_lib_statistics_windows_pt statistics;
 	mk_lang_types_sint_t err;
 
-	statistics = &g_mk_lib_win_statistics;
-	err = mk_lib_win_statistics_show(statistics); mk_lang_check_rereturn(err);
+	statistics = &g_mk_lib_statistics_windows;
+	err = mk_lib_statistics_windows_show(statistics); mk_lang_check_rereturn(err);
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_win_statistics_close(mk_lang_types_void_t) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_windows_close(mk_lang_types_void_t) mk_lang_noexcept
 {
-	mk_lib_win_statistics_pt statistics;
+	mk_lib_statistics_windows_pt statistics;
 	mk_win_user_base_lresult_t lr;
 
-	statistics = &g_mk_lib_win_statistics;
+	statistics = &g_mk_lib_statistics_windows;
 	mk_lang_assert(statistics->m_atom != 0);
 	if(!mk_win_user_base_wnd_is_null(statistics->m_wnd))
 	{
@@ -542,23 +542,27 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_win_statistics_close
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_win_statistics_invalidate(mk_lang_types_void_t) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_windows_invalidate(mk_lang_types_void_t) mk_lang_noexcept
 {
-	mk_lib_win_statistics_pt statistics;
+	mk_lib_statistics_windows_pt statistics;
 	mk_win_base_sint_t err;
-	mk_lib_win_statistics_cntrs_t cntrs;
+	mk_lib_statistics_windows_cntrs_t cntrs;
 	mk_win_base_bool_t b;
 
-	statistics = &g_mk_lib_win_statistics;
+	statistics = &g_mk_lib_statistics_windows;
 	mk_lang_assert(statistics->m_atom != 0);
 	if(!mk_win_user_base_wnd_is_null(statistics->m_wnd))
 	{
-		err = mk_lib_win_statistics_mallocatorg_statistics_get_all(&cntrs.m_data.m_arry.m_cntrs[0]); mk_lang_check_rereturn(err);
-		if(!mk_lib_win_statistics_cntrs_ro_eq(&cntrs, &statistics->m_cntrs_last))
+		err = mk_lib_statistics_windows_mallocatorg_statistics_get_all(&cntrs.m_data.m_arry.m_cntrs[0]); mk_lang_check_rereturn(err);
+		if(!mk_lib_statistics_windows_cntrs_ro_eq(&cntrs, &statistics->m_cntrs_last))
 		{
 			statistics->m_cntrs_last = cntrs;
 			b = mk_win_user_window_invalidate_region(statistics->m_counters, mk_win_user_region_get_null(), mk_win_base_true); mk_lang_check_return(b != 0);
 		}
 	}
 	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_windows_pump(mk_lang_types_void_t) mk_lang_noexcept
+{
 }
