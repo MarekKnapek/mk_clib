@@ -19,7 +19,8 @@
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_x11_init(mk_lang_types_void_t) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_x11_deinit(mk_lang_types_void_t) mk_lang_noexcept;
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_x11_get(Display** const display) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_x11_get_display(Display** const display) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_x11_get_wmdelete(Atom* const wmdelete) mk_lang_noexcept;
 
 
 #endif

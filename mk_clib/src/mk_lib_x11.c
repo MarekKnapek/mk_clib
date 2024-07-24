@@ -21,6 +21,7 @@
 struct mk_lib_x11_s
 {
 	Display* m_display;
+	Atom m_wmdelete;
 };
 typedef struct mk_lib_x11_s mk_lib_x11_t;
 typedef mk_lib_x11_t const mk_lib_x11_ct;
@@ -35,10 +36,13 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_x11_init(mk_lang_typ
 {
 	mk_lib_x11_pt x11;
 	Display* display;
+	Atom wmdelete;
 
 	x11 = &g_mk_lib_x11;
 	display = XOpenDisplay(mk_lang_null); mk_lang_check_return(display);
+	wmdelete = XInternAtom(display, "WM_DELETE_WINDOW", False);
 	x11->m_display = display;
+	x11->m_wmdelete = wmdelete;
 	return 0;
 }
 
@@ -54,7 +58,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_x11_deinit(mk_lang_t
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_x11_get(Display** const display) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_x11_get_display(Display** const display) mk_lang_noexcept
 {
 	mk_lib_x11_pt x11;
 	Display* dspl;
@@ -65,6 +69,20 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_x11_get(Display** co
 	x11 = &g_mk_lib_x11;
 	dspl = x11->m_display;
 	*display = dspl;
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_x11_get_wmdelete(Atom* const wmdelete) mk_lang_noexcept
+{
+	mk_lib_x11_pt x11;
+	Atom wmdlt;
+	mk_lang_types_sint_t tsi;
+
+	mk_lang_assert(wmdelete);
+
+	x11 = &g_mk_lib_x11;
+	wmdlt = x11->m_wmdelete;
+	*wmdelete = wmdlt;
 	return 0;
 }
 
