@@ -1,8 +1,8 @@
 #include "mk_lib_statistics_x11.h"
 
 #include "mk_lang_assert.h"
-#include "mk_lang_clamp.h"
 #include "mk_lang_check.h"
+#include "mk_lang_clamp.h"
 #include "mk_lang_countof.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
@@ -12,14 +12,18 @@
 #include "mk_lang_platform.h"
 #include "mk_lang_static_param.h"
 #include "mk_lang_stringify.h"
+#include "mk_lang_strlen.h"
 #include "mk_lang_types.h"
 #include "mk_lang_version.h"
 #include "mk_lib_cpp_constexpr.hpp"
 #include "mk_lib_crypto_hash_stream_sha1.h"
-#include "mk_sl_uint.h"
 #include "mk_sl_uint128.h"
-#include "mk_sl_uint32.h"
-#include "mk_sl_uint8.h"
+
+#define mk_lang_memcpy_t_name mk_lib_statistics_x11_memcpy_pc
+#define mk_lang_memcpy_t_type mk_lang_types_pchar_t
+#include "mk_lang_memcpy_inl_fileh.h"
+#include "mk_lang_memcpy_inl_filec.h"
+
 
 #if mk_lang_platform_x11_have == 1
 
@@ -88,16 +92,16 @@
 #define mk_lib_statistics_x11_mallocatorg_statistics_get_all                mk_lang_concat(mk_lib_statistics_x11_mallocatorg_name, _statistics_get_all)
 
 
-mk_lang_constexpr_static_inline mk_lang_types_wchar_pct const mk_lib_statistics_x11_labels[] =
+mk_lang_constexpr_static_inline mk_lang_types_pchar_pct const mk_lib_statistics_x11_labels[] =
 {
-	L"bytes allocated",
-	L"bytes deallocated",
-	L"bytes peak",
-	L"bytes live",
-	L"blocks allocated",
-	L"blocks deallocated",
-	L"blocks peak",
-	L"blocks live",
+	"bytes allocated",
+	"bytes deallocated",
+	"bytes peak",
+	"bytes live",
+	"blocks allocated",
+	"blocks deallocated",
+	"blocks peak",
+	"blocks live",
 };
 
 
@@ -156,7 +160,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lib_st
 struct mk_lib_statistics_x11_s
 {
 	mk_lang_types_bool_t m_keep_running;
-	Display* m_display;
+	mk_lang_types_bool_t m_closed;
 	mk_lang_types_sint_t m_screen;
 	mk_lang_types_ulong_t m_black;
 	mk_lang_types_ulong_t m_white;
@@ -177,6 +181,7 @@ typedef mk_lib_statistics_x11_t const* mk_lib_statistics_x11_pct;
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x11_invalidate_one(mk_lib_statistics_x11_pt const statistics, mk_lang_types_sint_t const idx) mk_lang_noexcept
 {
+	mk_lang_types_sint_t err;
 	Display* display;
 	Window window;
 	mk_lang_types_sint_t line_height;
@@ -187,7 +192,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x
 
 	mk_lang_assert(statistics);
 
-	display = statistics->m_display;
+	err = mk_lib_x11_get(&display); mk_lang_check_rereturn(err);
 	window = statistics->m_window;
 	line_height = statistics->m_line_height;
 	st = XGetWindowAttributes(display, window, &attr);
@@ -209,6 +214,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x11_invalidate_all(mk_lib_statistics_x11_pt const statistics) mk_lang_noexcept
 {
+	mk_lang_types_sint_t err;
 	Display* display;
 	Window window;
 	XEvent e;
@@ -217,7 +223,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x
 
 	mk_lang_assert(statistics);
 
-	display = statistics->m_display;
+	err = mk_lib_x11_get(&display); mk_lang_check_rereturn(err);
 	window = statistics->m_window;
 	st = XGetWindowAttributes(display, window, &attr);
 	e.type = Expose;
@@ -259,15 +265,15 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x
 	mk_lang_types_sint_t err;
 	mk_sl_cui_uint128_pct cntr;
 	mk_lang_types_pchar_t str[mk_sl_cui_uint128_strlendec_v];
+	mk_lang_types_pchar_t msg[32 + mk_lang_countof(str)];
 
 	mk_lang_assert(statistics);
-	mk_lang_assert(statistics->m_display);
 	mk_lang_assert(evt);
 	mk_lang_assert(evt->type == Expose);
 	mk_lang_assert(evt->xexpose.count == 0);
 	mk_lang_assert(idx >= 0 && idx <= mk_lang_countof(statistics->m_cntrs_last.m_data.m_arry.m_cntrs));
 
-	display = statistics->m_display;
+	err = mk_lib_x11_get(&display); mk_lang_check_rereturn(err);
 	window = statistics->m_window;
 	gc = statistics->m_gc;
 	black = statistics->m_black;
@@ -277,9 +283,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x
 	gcid = XGContextFromGC(gc);
 	cntr = &statistics->m_cntrs_last.m_data.m_arry.m_cntrs[idx];
 	lensi = mk_sl_cui_uint128_to_str_dec_n(cntr, &str[0], mk_lang_countof(str)); mk_lang_assert(lensi >= 1 && lensi <= mk_lang_countof(str));
+	lenus = mk_lang_strlen_n_fn(mk_lib_statistics_x11_labels[idx]);
+	mk_lib_statistics_x11_memcpy_pc_fn(&msg[0], &mk_lib_statistics_x11_labels[idx][0], lenus);
+	msg[lenus] = ' ';
+	mk_lib_statistics_x11_memcpy_pc_fn(&msg[lenus + 1], &str[0], lensi);
 	if(measure)
 	{
-		tsi = XQueryTextExtents(display, gcid, &str[0], lensi, &direction, &ascent, &descent, &dimensions);
+		tsi = XQueryTextExtents(display, gcid, &str[0], lenus + 1 + lensi, &direction, &ascent, &descent, &dimensions);
 		height = dimensions.ascent + dimensions.descent;
 		height_max = mk_lang_max(height_max, height);
 	}
@@ -319,13 +329,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x
 	mk_lang_types_sint_t ymax;
 
 	mk_lang_assert(statistics);
-	mk_lang_assert(statistics->m_display);
 	mk_lang_assert(evt);
 	mk_lang_assert(evt->type == Expose);
 
 	if(evt->xexpose.count == 0)
 	{
-		display = statistics->m_display;
+		err = mk_lib_x11_get(&display); mk_lang_check_rereturn(err);
 		window = statistics->m_window;
 		statistics->m_line_hcur = 0;
 		st = XGetWindowAttributes(display, window, &attr);
@@ -370,11 +379,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x
 	mk_lang_types_sint_t err;
 
 	mk_lang_assert(statistics);
-	mk_lang_assert(statistics->m_display);
 	mk_lang_assert(evt);
 	mk_lang_assert(evt->type == KeyPress);
 
-	display = statistics->m_display;
+	err = mk_lib_x11_get(&display); mk_lang_check_rereturn(err);
 	window = statistics->m_window;
 	idxmin = 0;
 	idxmax = mk_lang_countof(statistics->m_cntrs_last.m_data.m_arry.m_cntrs) - 1;
@@ -441,6 +449,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x11_on_buttonpress(mk_lib_statistics_x11_pt const statistics, XEvent* const evt) mk_lang_noexcept
 {
+	mk_lang_types_sint_t err;
 	Display* display;
 	Window window;
 	GC gc;
@@ -449,11 +458,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x
 	mk_lang_types_sint_t tsi;
 
 	mk_lang_assert(statistics);
-	mk_lang_assert(statistics->m_display);
 	mk_lang_assert(evt);
 	mk_lang_assert(evt->type == ButtonPress);
 
-	display = statistics->m_display;
+	err = mk_lib_x11_get(&display); mk_lang_check_rereturn(err);
 	window = statistics->m_window;
 	gc = statistics->m_gc;
 	x = evt->xbutton.x;
@@ -465,7 +473,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x11_on_delete(mk_lib_statistics_x11_pt const statistics, XEvent* const evt) mk_lang_noexcept
 {
 	mk_lang_assert(statistics);
-	mk_lang_assert(statistics->m_display);
 	mk_lang_assert(evt);
 	mk_lang_assert(evt->type == ClientMessage);
 	mk_lang_assert(evt->xclient.data.l[0] == statistics->m_wmdelete);
@@ -480,7 +487,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x
 	mk_lang_types_sint_t err;
 
 	mk_lang_assert(statistics);
-	mk_lang_assert(statistics->m_display);
 	mk_lang_assert(evt);
 	mk_lang_assert(evt->type == ClientMessage);
 
@@ -495,6 +501,7 @@ static mk_lib_statistics_x11_t g_mk_lib_statistics_x11;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_x11_init(mk_lang_types_void_t) mk_lang_noexcept
 {
 	mk_lib_statistics_x11_pt statistics;
+	mk_lang_types_sint_t err;
 	Display* display;
 	mk_lang_types_sint_t screen;
 	mk_lang_types_ulong_t black;
@@ -502,13 +509,13 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_x11_init(
 	Window parent;
 
 	statistics = &g_mk_lib_statistics_x11;
-	display = XOpenDisplay(mk_lang_null); mk_lang_check_return(display);
+	err = mk_lib_x11_get(&display); mk_lang_check_rereturn(err);
 	screen = DefaultScreen(display);
 	black = BlackPixel(display, screen);
 	white = WhitePixel(display, screen);
 	parent = RootWindow(display, screen);
 	statistics->m_keep_running = mk_lang_true;
-	statistics->m_display = display;
+	statistics->m_closed = mk_lang_false;
 	statistics->m_screen = screen;
 	statistics->m_black = black;
 	statistics->m_white = white;
@@ -529,6 +536,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_x11_displ
 {
 	mk_lib_statistics_x11_pt statistics;
 	mk_sl_cui_uint128_t zero;
+	mk_lang_types_sint_t err;
 	Display* display;
 	Window parent;
 	mk_lang_types_ulong_t black;
@@ -540,7 +548,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_x11_displ
 
 	statistics = &g_mk_lib_statistics_x11;
 	mk_sl_cui_uint128_set_zero(&zero);
-	display = statistics->m_display;
+	err = mk_lib_x11_get(&display); mk_lang_check_rereturn(err);
 	parent = statistics->m_parent;
 	black = statistics->m_black;
 	white = statistics->m_white;
@@ -574,24 +582,30 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_x11_displ
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_x11_close(mk_lang_types_void_t) mk_lang_noexcept
 {
 	mk_lib_statistics_x11_pt statistics;
+	mk_lang_types_sint_t err;
 	Display* display;
 	Window window;
 	GC gc;
 	mk_lang_types_sint_t tsi;
 
 	statistics = &g_mk_lib_statistics_x11;
-	display = statistics->m_display;
-	window = statistics->m_window;
-	gc = statistics->m_gc;
-	tsi = XFreeGC(display, gc);
-	tsi = XDestroyWindow(display, window);
-	tsi = XCloseDisplay(display);
+	if(!statistics->m_closed)
+	{
+		statistics->m_closed = mk_lang_true;
+		err = mk_lib_x11_get(&display); mk_lang_check_rereturn(err);
+		window = statistics->m_window;
+		gc = statistics->m_gc;
+		tsi = XFreeGC(display, gc);
+		tsi = XDestroyWindow(display, window);
+	}
 	return 0;
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_x11_invalidate(mk_lang_types_void_t) mk_lang_noexcept
 {
 	mk_lib_statistics_x11_pt statistics;
+	mk_lang_types_sint_t err;
+	mk_lib_statistics_x11_cntrs_t cntrs;
 	Display* display;
 	Window window;
 	Status st;
@@ -599,21 +613,29 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_x11_inval
 	XEvent e;
 
 	statistics = &g_mk_lib_statistics_x11;
-	display = statistics->m_display;
-	window = statistics->m_window;
-	st = XGetWindowAttributes(display, window, &attr);
-	e.type = Expose;
-	e.xexpose.type = Expose;
-	e.xexpose.serial = 0;
-	e.xexpose.send_event = True;
-	e.xexpose.display = display;
-	e.xexpose.window = window;
-	e.xexpose.x = 0;
-	e.xexpose.y = 0;
-	e.xexpose.width = attr.width;
-	e.xexpose.height = attr.height;
-	e.xexpose.count = 0;
-	st = XSendEvent(display, window, False, ExposureMask, &e);
+	if(!statistics->m_closed)
+	{
+		err = mk_lib_statistics_x11_mallocatorg_statistics_get_all(&cntrs.m_data.m_arry.m_cntrs[0]); mk_lang_check_rereturn(err);
+		if(!mk_lib_statistics_x11_cntrs_ro_eq(&cntrs, &statistics->m_cntrs_last))
+		{
+			statistics->m_cntrs_last = cntrs;
+			err = mk_lib_x11_get(&display); mk_lang_check_rereturn(err);
+			window = statistics->m_window;
+			st = XGetWindowAttributes(display, window, &attr);
+			e.type = Expose;
+			e.xexpose.type = Expose;
+			e.xexpose.serial = 0;
+			e.xexpose.send_event = True;
+			e.xexpose.display = display;
+			e.xexpose.window = window;
+			e.xexpose.x = 0;
+			e.xexpose.y = 0;
+			e.xexpose.width = attr.width;
+			e.xexpose.height = attr.height;
+			e.xexpose.count = 0;
+			st = XSendEvent(display, window, False, ExposureMask, &e);
+		}
+	}
 	return 0;
 }
 
@@ -626,23 +648,35 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_x11_pump(
 	XEvent* evt;
 	XEvent e;
 	Bool b;
+	mk_lang_types_bool_t gud;
 	mk_lang_types_sint_t tsi;
 	mk_lang_types_sint_t err;
 
 	statistics = &g_mk_lib_statistics_x11;
-	display = statistics->m_display;
-	window = statistics->m_window;
-	mask = ExposureMask | ButtonPressMask | KeyPressMask;
-	evt = &e;
-	while(statistics->m_keep_running && (b = XCheckWindowEvent(display, window, mask, evt)) == True)
+	if(statistics->m_keep_running && !statistics->m_closed)
 	{
-		tsi = XNextEvent(display, evt);
-		switch(evt->type)
+		err = mk_lib_x11_get(&display); mk_lang_check_rereturn(err);
+		window = statistics->m_window;
+		mask = ExposureMask | ButtonPressMask | KeyPressMask;
+		evt = &e;
+		for(;;)
 		{
-			case Expose       : err = mk_lib_statistics_x11_on_expose       (statistics, evt); mk_lang_check_rereturn(err); break;
-			case KeyPress     : err = mk_lib_statistics_x11_on_keypress     (statistics, evt); mk_lang_check_rereturn(err); break;
-			case ButtonPress  : err = mk_lib_statistics_x11_on_buttonpress  (statistics, evt); mk_lang_check_rereturn(err); break;
-			case ClientMessage: err = mk_lib_statistics_x11_on_clientmessage(statistics, evt); mk_lang_check_rereturn(err); break;
+			gud = (b = XCheckWindowEvent(display, window, mask, evt)) == True;
+			if(!gud)
+			{
+				break;
+			}
+			switch(evt->type)
+			{
+				case Expose       : err = mk_lib_statistics_x11_on_expose       (statistics, evt); mk_lang_check_rereturn(err); break;
+				case KeyPress     : err = mk_lib_statistics_x11_on_keypress     (statistics, evt); mk_lang_check_rereturn(err); break;
+				case ButtonPress  : err = mk_lib_statistics_x11_on_buttonpress  (statistics, evt); mk_lang_check_rereturn(err); break;
+				case ClientMessage: err = mk_lib_statistics_x11_on_clientmessage(statistics, evt); mk_lang_check_rereturn(err); break;
+			}
+		}
+		if(!statistics->m_keep_running)
+		{
+			err = mk_lib_statistics_x11_close(); mk_lang_check_rereturn(err);
 		}
 	}
 	return 0;
