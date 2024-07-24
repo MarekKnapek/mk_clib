@@ -1,16 +1,37 @@
-#include "src/mk_lang_bool.h"
 #include "src/mk_lang_assert.h"
+#include "src/mk_lang_bool.h"
 #include "src/mk_lang_check.h"
 #include "src/mk_lang_countof.h"
+#include "src/mk_lang_div_roundup.h"
 #include "src/mk_lang_inline.h"
+#include "src/mk_lang_limits.h"
+#include "src/mk_lang_max.h"
+#include "src/mk_lang_min.h"
 #include "src/mk_lang_nodiscard.h"
 #include "src/mk_lang_noexcept.h"
 #include "src/mk_lang_null.h"
+#include "src/mk_lang_strlen.h"
 #include "src/mk_lang_types.h"
+#include "src/mk_sl_mallocatorg.h"
+
+#define mk_sl_vector_t_name mkfe_string
+#define mk_sl_vector_t_element mk_lang_types_pchar_t
+#define mk_sl_vector_t_mallocatorg mk_sl_mallocatorg
+#include "src/mk_sl_vector_inl_fileh.h"
+#include "src/mk_sl_vector_inl_filec.h"
+
+#define mk_sl_vector_t_name mkfe_strings
+#define mk_sl_vector_t_element mkfe_string_t
+#define mk_sl_vector_t_mallocatorg mk_sl_mallocatorg
+#include "src/mk_sl_vector_inl_fileh.h"
+#include "src/mk_sl_vector_inl_filec.h"
 
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <X11/Xos.h>
+
+#include <sys/types.h>
+#include <dirent.h>
 
 
 struct mkfe_s
@@ -23,6 +44,10 @@ struct mkfe_s
 	Atom m_wmdelete;
 	GC m_gc;
 	mk_lang_types_bool_t m_keep_running;
+	mkfe_strings_t m_rows;
+	mk_lang_types_sint_t m_idx;
+	mk_lang_types_sint_t m_line_height;
+	mk_lang_types_sint_t m_line_hcur;
 };
 typedef struct mkfe_s mkfe_t;
 typedef mkfe_t const mkfe_ct;
@@ -39,8 +64,14 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_init(mkfe_pt
 	Window parent;
 	Window window;
 	mk_lang_types_sint_t tsi;
+	mk_lang_types_sint_t err;
 	Atom wmdelete;
 	GC gc;
+	GContext gcid;
+	mk_lang_types_sint_t direction;
+	mk_lang_types_sint_t ascent;
+	mk_lang_types_sint_t descent;
+	XCharStruct dimensions;
 
 	mk_lang_assert(fe);
 
@@ -67,6 +98,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_init(mkfe_pt
 	fe->m_wmdelete = wmdelete;
 	fe->m_gc = gc;
 	fe->m_keep_running = mk_lang_true;
+	fe->m_line_height = 10;
+	err = mkfe_strings_rw_construct(&fe->m_rows); mk_lang_check_rereturn(err);
+	gcid = XGContextFromGC(gc);
+	tsi = XQueryTextExtents(display, gcid, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]", mk_lang_countstr("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"), &direction, &ascent, &descent, &dimensions);
+	fe->m_line_height = mk_lang_max(fe->m_line_height, dimensions.ascent + dimensions.descent);
 	return 0;
 }
 
@@ -76,6 +112,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_deinit(mkfe_
 	Window window;
 	GC gc;
 	mk_lang_types_sint_t tsi;
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
+	mk_lang_types_sint_t err;
+	mkfe_string_pt row;
 
 	mk_lang_assert(fe);
 	mk_lang_assert(fe->m_display);
@@ -86,6 +126,193 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_deinit(mkfe_
 	tsi = XFreeGC(display, gc);
 	tsi = XDestroyWindow(display, window);
 	tsi = XCloseDisplay(display);
+	n = mkfe_strings_rw_size(&fe->m_rows);
+	for(i = 0; i != n; ++i)
+	{
+		row = mkfe_strings_rw_at(&fe->m_rows, i); mk_lang_assert(row);
+		err = mkfe_string_rw_destroy(row); mk_lang_check_rereturn(err);
+	}
+	err = mkfe_strings_rw_destroy(&fe->m_rows); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_gather_dir(mkfe_pt const fe, mkfe_string_pt const dir) mk_lang_noexcept
+{
+	mk_lang_types_pchar_t nul;
+	mk_lang_types_pchar_pt buf;
+	mk_lang_types_usize_t len;
+	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t tsi;
+	DIR* d;
+	struct dirent* e;
+	mkfe_string_pt row;
+
+	mk_lang_assert(fe);
+	mk_lang_assert(dir);
+
+	nul = '\0';
+	err = mkfe_strings_rw_clear(&fe->m_rows); mk_lang_check_rereturn(err);
+	buf = mkfe_string_rw_data(dir); mk_lang_assert(buf && buf[0] != '\0');
+	len = mkfe_string_rw_size(dir); mk_lang_assert(len >= 1);
+	err = mkfe_string_rw_push_back_one(dir, &nul); mk_lang_check_rereturn(err);
+	d = opendir(buf); mk_lang_check_return(d);
+	while((e = readdir(d)))
+	{
+		if
+		(!(
+			(e->d_name[0] == '.' && e->d_name[1] == '\0') ||
+			(e->d_name[0] == '.' && e->d_name[1] == '.' && e->d_name[2] == '\0')
+		))
+		{
+			len = mk_lang_strlen_n_fn(&e->d_name[0]); mk_lang_assert(len >= 1);
+			err = mkfe_strings_rw_push_back_void(&fe->m_rows, 1); mk_lang_check_rereturn(err);
+			row = mkfe_strings_rw_back(&fe->m_rows); mk_lang_assert(row);
+			err = mkfe_string_rw_construct(row); mk_lang_check_rereturn(err);
+			err = mkfe_string_rw_push_back_many(row, &e->d_name[0], len); mk_lang_check_rereturn(err);
+		}
+	}
+	tsi = closedir(d); mk_lang_check_return(tsi == 0);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_gather_root(mkfe_pt const fe) mk_lang_noexcept
+{
+	mk_lang_types_pchar_t name;
+	mkfe_string_t root;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(fe);
+
+	name = '/';
+	err = mkfe_string_rw_construct(&root); mk_lang_check_rereturn(err);
+	err = mkfe_string_rw_push_back_one(&root, &name); mk_lang_check_rereturn(err);
+	err = mkfe_x_gather_dir(fe, &root); mk_lang_check_rereturn(err);
+	err = mkfe_string_rw_destroy(&root); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_invalidate_all(mkfe_pt const fe) mk_lang_noexcept
+{
+	Display* display;
+	Window window;
+	XEvent e;
+	Status st;
+	XWindowAttributes attr;
+
+	mk_lang_assert(fe);
+
+	display = fe->m_display;
+	window = fe->m_window;
+	st = XGetWindowAttributes(display, window, &attr);
+	e.type = Expose;
+	e.xexpose.type = Expose;
+	e.xexpose.serial = 0;
+	e.xexpose.send_event = True;
+	e.xexpose.display = display;
+	e.xexpose.window = window;
+	e.xexpose.x = 0;
+	e.xexpose.y = 0;
+	e.xexpose.width = attr.width;
+	e.xexpose.height = attr.height;
+	e.xexpose.count = 0;
+	st = XSendEvent(display, window, False, ExposureMask, &e);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_invalidate_one(mkfe_pt const fe, mk_lang_types_usize_t const idx) mk_lang_noexcept
+{
+	Display* display;
+	Window window;
+	XEvent e;
+	Status st;
+	XWindowAttributes attr;
+
+	mk_lang_assert(fe);
+
+	display = fe->m_display;
+	window = fe->m_window;
+	st = XGetWindowAttributes(display, window, &attr);
+	e.type = Expose;
+	e.xexpose.type = Expose;
+	e.xexpose.serial = 0;
+	e.xexpose.send_event = True;
+	e.xexpose.display = display;
+	e.xexpose.window = window;
+	e.xexpose.x = 0;
+	e.xexpose.y = idx * fe->m_line_height;
+	e.xexpose.width = attr.width;
+	e.xexpose.height = fe->m_line_height;
+	e.xexpose.count = 0;
+	st = XSendEvent(display, window, False, ExposureMask, &e);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_on_expose_row(mkfe_pt const fe, XEvent* const evt, mk_lang_types_sint_t const width, mk_lang_types_bool_t const measure, mk_lang_types_sint_t const idx) mk_lang_noexcept
+{
+	Display* display;
+	Window window;
+	GC gc;
+	mk_lang_types_ulong_t black;
+	mk_lang_types_ulong_t white;
+	mk_lang_types_sint_t tsi;
+	Status st;
+	GContext gcid;
+	mk_lang_types_sint_t y;
+	mkfe_string_pct row;
+	mk_lang_types_pchar_pct buf;
+	mk_lang_types_usize_t lenus;
+	mk_lang_types_sint_t lensi;
+	mk_lang_types_sint_t height;
+	mk_lang_types_sint_t height_max;
+	mk_lang_types_sint_t line_height;
+	mk_lang_types_sint_t direction;
+	mk_lang_types_sint_t ascent;
+	mk_lang_types_sint_t descent;
+	XCharStruct dimensions;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(fe);
+	mk_lang_assert(fe->m_display);
+	mk_lang_assert(evt);
+	mk_lang_assert(evt->type == Expose);
+	mk_lang_assert(evt->xexpose.count == 0);
+
+	display = fe->m_display;
+	window = fe->m_window;
+	gc = fe->m_gc;
+	black = fe->m_black;
+	white = fe->m_white;
+	line_height = fe->m_line_height;
+	height_max = line_height;
+	gcid = XGContextFromGC(gc);
+	row = mkfe_strings_ro_at(&fe->m_rows, idx); mk_lang_assert(row);
+	buf = mkfe_string_ro_data(row); mk_lang_assert(buf && buf[0] != '\0');
+	lenus = mkfe_string_ro_size(row); mk_lang_assert(lenus >= 1 && lenus <= ((mk_lang_types_usize_t)(mk_lang_limits_sint_max))); lensi = ((mk_lang_types_sint_t)(lenus)); mk_lang_assert(lensi >= 1);
+	if(measure)
+	{
+		tsi = XQueryTextExtents(display, gcid, buf, lensi, &direction, &ascent, &descent, &dimensions);
+		height = dimensions.ascent + dimensions.descent;
+		height_max = mk_lang_max(height_max, height);
+	}
+	y = idx * line_height;
+	if(idx != fe->m_idx)
+	{
+		tsi = XSetForeground(display, gc, white);
+		tsi = XFillRectangle(display, window, gc, 0, y, width, line_height);
+		tsi = XSetForeground(display, gc, black);
+	}
+	else
+	{
+		tsi = XFillRectangle(display, window, gc, 0, y, width, line_height);
+		tsi = XSetForeground(display, gc, white);
+	}
+	y += line_height;
+	tsi = XDrawString(display, window, gc, 0, y, buf, lensi);
+	if(idx == fe->m_idx)
+	{
+		tsi = XSetForeground(display, gc, black);
+	}
+	fe->m_line_hcur = mk_lang_max(fe->m_line_hcur, height_max);
 	return 0;
 }
 
@@ -94,38 +321,128 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_on_expose(mk
 	Display* display;
 	Window window;
 	mk_lang_types_sint_t tsi;
+	Status st;
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
+	XWindowAttributes attr;
+	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t ymin;
+	mk_lang_types_sint_t ymax;
 
 	mk_lang_assert(fe);
 	mk_lang_assert(fe->m_display);
 	mk_lang_assert(evt);
 	mk_lang_assert(evt->type == Expose);
 
-	((mk_lang_types_void_t)(evt));
-	display = fe->m_display;
-	window = fe->m_window;
 	if(evt->xexpose.count == 0)
 	{
-		tsi = XClearWindow(display, window);
+		display = fe->m_display;
+		window = fe->m_window;
+		fe->m_line_hcur = 0;
+		st = XGetWindowAttributes(display, window, &attr);
+		n = mkfe_strings_ro_size(&fe->m_rows);
+		if(evt->xexpose.x == 0 && evt->xexpose.y == 0 && evt->xexpose.width == attr.width && evt->xexpose.height == attr.height)
+		{
+			tsi = XClearWindow(display, window);
+			for(i = 0; i != n; ++i)
+			{
+				err = mkfe_x_on_expose_row(fe, evt, attr.width, mk_lang_true, i); mk_lang_check_rereturn(err);
+			}
+		}
+		else
+		{
+			i = evt->xexpose.y / fe->m_line_height;
+			i = mk_lang_min(i, n);
+			n = mk_lang_min(n, i + mk_lang_div_roundup(evt->xexpose.height, fe->m_line_height));
+			for(; i != n; ++i)
+			{
+				err = mkfe_x_on_expose_row(fe, evt, attr.width, mk_lang_false, i); mk_lang_check_rereturn(err);
+			}
+		}
+	}
+	tsi = XFlush(display);
+	if(fe->m_line_height < fe->m_line_hcur)
+	{
+		fe->m_line_height = fe->m_line_hcur;
+		err = mkfe_x_invalidate_all(fe); mk_lang_check_rereturn(err);
 	}
 	return 0;
 }
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_on_keypress(mkfe_pt const fe, XEvent* const evt) mk_lang_noexcept
 {
-	mk_lang_types_pchar_t text[8];
-	KeySym key;
+	Display* display;
+	Window window;
+	mk_lang_types_sint_t err;
+	KeySym ks;
+	mk_lang_types_usize_t old;
+	mk_lang_types_usize_t neu;
+	mk_lang_types_usize_t n;
 
 	mk_lang_assert(fe);
 	mk_lang_assert(fe->m_display);
 	mk_lang_assert(evt);
 	mk_lang_assert(evt->type == KeyPress);
 
-	if(XLookupString(&evt->xkey, &text[0], mk_lang_countof(text), &key, 0) == 1)
+	display = fe->m_display;
+	window = fe->m_window;
+	n = mkfe_strings_ro_size(&fe->m_rows);
+	ks = XLookupKeysym(&evt->xkey, 0);
+	if(ks == XK_q)
 	{
-		if(text[0] == 'q')
-		{
-			fe->m_keep_running = mk_lang_false;
-		}
+		fe->m_keep_running = mk_lang_false;
+	}
+	else if(ks == XK_Escape)
+	{
+		fe->m_keep_running = mk_lang_false;
+	}
+	else if(ks == XK_Up)
+	{
+		old = fe->m_idx;
+		fe->m_idx = mk_lang_max(0, fe->m_idx - 1);
+		neu = fe->m_idx;
+		err = mkfe_x_invalidate_one(fe, old); mk_lang_check_rereturn(err);
+		err = mkfe_x_invalidate_one(fe, neu); mk_lang_check_rereturn(err);
+	}
+	else if(ks == XK_Down)
+	{
+		old = fe->m_idx;
+		fe->m_idx = mk_lang_min(n - 1, fe->m_idx + 1);
+		neu = fe->m_idx;
+		err = mkfe_x_invalidate_one(fe, old); mk_lang_check_rereturn(err);
+		err = mkfe_x_invalidate_one(fe, neu); mk_lang_check_rereturn(err);
+	}
+	else if(ks == XK_Page_Up)
+	{
+		old = fe->m_idx;
+		fe->m_idx = mk_lang_max(0, fe->m_idx - 10);
+		neu = fe->m_idx;
+		err = mkfe_x_invalidate_one(fe, old); mk_lang_check_rereturn(err);
+		err = mkfe_x_invalidate_one(fe, neu); mk_lang_check_rereturn(err);
+	}
+	else if(ks == XK_Page_Down)
+	{
+		old = fe->m_idx;
+		fe->m_idx = mk_lang_min(n - 1, fe->m_idx + 10);
+		neu = fe->m_idx;
+		err = mkfe_x_invalidate_one(fe, old); mk_lang_check_rereturn(err);
+		err = mkfe_x_invalidate_one(fe, neu); mk_lang_check_rereturn(err);
+	}
+	if(ks == XK_Home)
+	{
+		old = fe->m_idx;
+		fe->m_idx = mk_lang_max(0, fe->m_idx - 20);
+		neu = fe->m_idx;
+		err = mkfe_x_invalidate_one(fe, old); mk_lang_check_rereturn(err);
+		err = mkfe_x_invalidate_one(fe, neu); mk_lang_check_rereturn(err);
+	}
+	else if(ks == XK_End)
+	{
+		old = fe->m_idx;
+		fe->m_idx = mk_lang_min(n - 1, fe->m_idx + 20);
+		neu = fe->m_idx;
+		err = mkfe_x_invalidate_one(fe, old); mk_lang_check_rereturn(err);
+		err = mkfe_x_invalidate_one(fe, neu); mk_lang_check_rereturn(err);
 	}
 	return 0;
 }
@@ -160,7 +477,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_on_delete(mk
 	mk_lang_assert(evt);
 	mk_lang_assert(evt->type == ClientMessage);
 	mk_lang_assert(evt->xclient.data.l[0] == fe->m_wmdelete);
-	mk_lang_assert(evt->xdestroywindow.event == fe->m_window);
 
 	((mk_lang_types_void_t)(evt));
 	fe->m_keep_running = mk_lang_false;
@@ -191,6 +507,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_run(mkfe_pt 
 	mk_lang_assert(fe);
 	mk_lang_assert(fe->m_display);
 
+	err = mkfe_x_gather_root(fe); mk_lang_check_rereturn(err);
 	display = fe->m_display;
 	evt = &e;
 	while(fe->m_keep_running)
@@ -213,8 +530,10 @@ mk_lang_types_sint_t main(mk_lang_types_sint_t const argc, mk_lang_types_pchar_p
 	mk_lang_types_sint_t err;
 	mkfe_t fe;
 
+	err = mk_sl_mallocatorg_init(); mk_lang_check_rereturn(err);
 	err = mkfe_x_init(&fe); mk_lang_check_rereturn(err);
 	err = mkfe_x_run(&fe); mk_lang_check_rereturn(err);
 	err = mkfe_x_deinit(&fe); mk_lang_check_rereturn(err);
+	err = mk_sl_mallocatorg_deinit(); mk_lang_check_rereturn(err);
 	return 0;
 }
