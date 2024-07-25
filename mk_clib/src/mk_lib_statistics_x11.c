@@ -94,14 +94,14 @@
 
 mk_lang_constexpr_static_inline mk_lang_types_pchar_pct const mk_lib_statistics_x11_labels[] =
 {
-	"bytes allocated",
-	"bytes deallocated",
-	"bytes peak",
-	"bytes live",
-	"blocks allocated",
+	"bytes allocated   ",
+	"bytes deallocated ",
+	"bytes peak        ",
+	"bytes live        ",
+	"blocks allocated  ",
 	"blocks deallocated",
-	"blocks peak",
-	"blocks live",
+	"blocks peak       ",
+	"blocks live       ",
 };
 
 
@@ -288,7 +288,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x
 	mk_lib_statistics_x11_memcpy_pc_fn(&msg[lenus + 1], &str[0], lensi);
 	if(measure)
 	{
-		tsi = XQueryTextExtents(display, gcid, &str[0], lenus + 1 + lensi, &direction, &ascent, &descent, &dimensions);
+		tsi = XQueryTextExtents(display, gcid, &msg[0], lenus + 1 + lensi, &direction, &ascent, &descent, &dimensions);
 		height = dimensions.ascent + dimensions.descent;
 		height_max = mk_lang_max(height_max, height);
 	}
@@ -305,7 +305,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x
 		tsi = XSetForeground(display, gc, white);
 	}
 	y += line_height;
-	tsi = XDrawString(display, window, gc, 0, y, &str[0], lensi);
+	tsi = XDrawString(display, window, gc, 0, y, &msg[0], lenus + 1 + lensi);
 	if(idx == statistics->m_idx)
 	{
 		tsi = XSetForeground(display, gc, black);
@@ -646,7 +646,6 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_x11_pump(
 	mk_lang_types_slong_t mask;
 	XEvent* evt;
 	XEvent e;
-	Bool b;
 	mk_lang_types_bool_t gud;
 	mk_lang_types_sint_t tsi;
 	mk_lang_types_sint_t err;
@@ -660,17 +659,33 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_x11_pump(
 		evt = &e;
 		for(;;)
 		{
-			gud = (b = XCheckWindowEvent(display, window, mask, evt)) == True;
-			if(!gud)
+			gud = statistics->m_keep_running && XCheckWindowEvent(display, window, mask, evt) == True;
+			if(gud)
+			{
+				switch(evt->type)
+				{
+					case Expose       : err = mk_lib_statistics_x11_on_expose       (statistics, evt); mk_lang_check_rereturn(err); break;
+					case KeyPress     : err = mk_lib_statistics_x11_on_keypress     (statistics, evt); mk_lang_check_rereturn(err); break;
+					case ButtonPress  : err = mk_lib_statistics_x11_on_buttonpress  (statistics, evt); mk_lang_check_rereturn(err); break;
+					case ClientMessage: err = mk_lib_statistics_x11_on_clientmessage(statistics, evt); mk_lang_check_rereturn(err); break;
+				}
+			}
+			else
 			{
 				break;
 			}
-			switch(evt->type)
+		}
+		if(!statistics->m_keep_running)
+		{
+			err = mk_lib_statistics_x11_close(); mk_lang_check_rereturn(err);
+		}
+		tsi = XPeekEvent(display, evt);
+		if(evt->type == ClientMessage)
+		{
+			if(evt->xclient.window == window)
 			{
-				case Expose       : err = mk_lib_statistics_x11_on_expose       (statistics, evt); mk_lang_check_rereturn(err); break;
-				case KeyPress     : err = mk_lib_statistics_x11_on_keypress     (statistics, evt); mk_lang_check_rereturn(err); break;
-				case ButtonPress  : err = mk_lib_statistics_x11_on_buttonpress  (statistics, evt); mk_lang_check_rereturn(err); break;
-				case ClientMessage: err = mk_lib_statistics_x11_on_clientmessage(statistics, evt); mk_lang_check_rereturn(err); break;
+				tsi = XNextEvent(display, evt);
+				err = mk_lib_statistics_x11_on_clientmessage(statistics, evt); mk_lang_check_rereturn(err);
 			}
 		}
 		if(!statistics->m_keep_running)

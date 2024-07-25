@@ -556,7 +556,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_run(mkfe_pt 
 	XEvent* evt;
 	mk_lang_types_slong_t mask;
 	XEvent e;
-	Bool b;
+	mk_lang_types_bool_t gud;
 	mk_lang_types_sint_t tsi;
 	mk_lang_types_sint_t err;
 
@@ -571,8 +571,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_run(mkfe_pt 
 	{
 		for(;;)
 		{
-			b = XCheckWindowEvent(display, window, mask, evt);
-			if(b == True)
+			gud = fe->m_keep_running && XCheckWindowEvent(display, window, mask, evt) == True;
+			if(gud)
 			{
 				switch(evt->type)
 				{
@@ -587,15 +587,22 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_run(mkfe_pt 
 				break;
 			}
 		}
-		#if mk_clib_app_fe_posix_mallocatorg_statistics_have
-		err = mk_lib_statistics_pump(); mk_lang_check_rereturn(err);
-		#endif
 		if(!fe->m_keep_running)
 		{
 			break;
 		}
-		tsi = XNextEvent(display, evt);
-		tsi = XPutBackEvent(display, evt);
+		#if mk_clib_app_fe_posix_mallocatorg_statistics_have
+		err = mk_lib_statistics_pump(); mk_lang_check_rereturn(err);
+		#endif
+		tsi = XPeekEvent(display, evt);
+		if(evt->type == ClientMessage)
+		{
+			if(evt->xclient.window == window)
+			{
+				tsi = XNextEvent(display, evt);
+				err = mkfe_x_on_clientmessage(fe, evt); mk_lang_check_rereturn(err);
+			}
+		}
 	}
 	return 0;
 }
