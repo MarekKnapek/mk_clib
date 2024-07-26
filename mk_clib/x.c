@@ -100,7 +100,8 @@ struct mkfe_s
 	mk_lang_types_ulong_t m_white;
 	Window m_window;
 	GC m_gc;
-	mk_lang_types_bool_t m_keep_running;
+	mk_lang_types_bool_t m_visible;
+	mk_lang_types_bool_t m_hidden;
 	mkfe_strings_t m_rows;
 	mk_lang_types_sint_t m_idx;
 	mk_lang_types_sint_t m_line_height;
@@ -152,8 +153,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_init(mkfe_pt
 	fe->m_white = white;
 	fe->m_window = window;
 	fe->m_gc = gc;
-	fe->m_keep_running = mk_lang_true;
-	fe->m_line_height = 10;
+	fe->m_visible = mk_lang_true;
+	fe->m_hidden = mk_lang_false;
+	fe->m_line_height = 1;
 	err = mkfe_strings_rw_construct(&fe->m_rows); mk_lang_check_rereturn(err);
 	gcid = XGContextFromGC(gc);
 	tsi = XQueryTextExtents(display, gcid, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]", mk_lang_countstr("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"), &direction, &ascent, &descent, &dimensions);
@@ -237,6 +239,26 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_gather_root(
 	err = mkfe_string_rw_push_back_one(&root, &name); mk_lang_check_rereturn(err);
 	err = mkfe_x_gather_dir(fe, &root); mk_lang_check_rereturn(err);
 	err = mkfe_string_rw_destroy(&root); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mkfe_x_hide(mkfe_pt const fe) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	Display* display;
+	Window window;
+	mk_lang_types_sint_t tsi;
+
+	mk_lang_assert(fe);
+	mk_lang_assert(!fe->m_visible);
+
+	if(!fe->m_hidden)
+	{
+		fe->m_hidden = mk_lang_true;
+		err = mk_lib_x11_get_display(&display); mk_lang_check_rereturn(err);
+		window = fe->m_window;
+		tsi = XUnmapWindow(display, window);
+	}
 	return 0;
 }
 
@@ -441,11 +463,17 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_on_keypress(
 	ks = XLookupKeysym(&evt->xkey, 0);
 	if(ks == XK_q)
 	{
-		fe->m_keep_running = mk_lang_false;
+		fe->m_visible = mk_lang_false;
 	}
 	else if(ks == XK_Escape)
 	{
-		fe->m_keep_running = mk_lang_false;
+		fe->m_visible = mk_lang_false;
+	}
+	else if(ks == XK_i)
+	{
+		#if mk_clib_app_fe_posix_mallocatorg_statistics_have
+		err = mk_lib_statistics_display(); mk_lang_check_rereturn(err);
+		#endif
 	}
 	else if(ks == XK_Up)
 	{
@@ -531,7 +559,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_on_delete(mk
 	mk_lang_assert(evt->type == ClientMessage);
 
 	((mk_lang_types_void_t)(evt));
-	fe->m_keep_running = mk_lang_false;
+	fe->m_visible = mk_lang_false;
 	return 0;
 }
 
@@ -549,59 +577,131 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_on_clientmes
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_run(mkfe_pt const fe) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_pump_all_window_specific(mkfe_pt const fe, mk_lang_types_bool_pt const at_least_one) mk_lang_noexcept
 {
 	Display* display;
 	Window window;
-	XEvent* evt;
 	mk_lang_types_slong_t mask;
+	XEvent* evt;
 	XEvent e;
 	mk_lang_types_bool_t gud;
 	mk_lang_types_sint_t tsi;
 	mk_lang_types_sint_t err;
 
 	mk_lang_assert(fe);
+	mk_lang_assert(at_least_one);
 
-	err = mkfe_x_gather_root(fe); mk_lang_check_rereturn(err);
 	err = mk_lib_x11_get_display(&display); mk_lang_check_rereturn(err);
 	window = fe->m_window;
 	mask = ExposureMask | ButtonPressMask | KeyPressMask;
 	evt = &e;
-	for(;;)
+	while(XCheckWindowEvent(display, window, mask, evt) == True)
 	{
-		for(;;)
+		*at_least_one = mk_lang_true;
+		switch(evt->type)
 		{
-			gud = fe->m_keep_running && XCheckWindowEvent(display, window, mask, evt) == True;
-			if(gud)
-			{
-				switch(evt->type)
-				{
-					case Expose       : err = mkfe_x_on_expose       (fe, evt); mk_lang_check_rereturn(err); break;
-					case KeyPress     : err = mkfe_x_on_keypress     (fe, evt); mk_lang_check_rereturn(err); break;
-					case ButtonPress  : err = mkfe_x_on_buttonpress  (fe, evt); mk_lang_check_rereturn(err); break;
-					case ClientMessage: err = mkfe_x_on_clientmessage(fe, evt); mk_lang_check_rereturn(err); break;
-				}
-			}
-			else
-			{
-				break;
-			}
+			case Expose       : err = mkfe_x_on_expose       (fe, evt); mk_lang_check_rereturn(err); break;
+			case KeyPress     : err = mkfe_x_on_keypress     (fe, evt); mk_lang_check_rereturn(err); break;
+			case ButtonPress  : err = mkfe_x_on_buttonpress  (fe, evt); mk_lang_check_rereturn(err); break;
+			case ClientMessage: err = mkfe_x_on_clientmessage(fe, evt); mk_lang_check_rereturn(err); break;
 		}
-		if(!fe->m_keep_running)
-		{
-			break;
-		}
-		#if mk_clib_app_fe_posix_mallocatorg_statistics_have
-		err = mk_lib_statistics_pump(); mk_lang_check_rereturn(err);
-		#endif
+	}
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_pump_global(mkfe_pt const fe, mk_lang_types_bool_pt const at_least_one) mk_lang_noexcept
+{
+	Display* display;
+	Window window;
+	XEvent* evt;
+	XEvent e;
+	mk_lang_types_bool_t gud;
+	mk_lang_types_sint_t tsi;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(fe);
+	mk_lang_assert(at_least_one);
+
+	if(!fe->m_visible)
+	{
+		err = mkfe_x_hide(fe); mk_lang_check_rereturn(err);
+	}
+	err = mk_lib_x11_get_display(&display); mk_lang_check_rereturn(err);
+	window = fe->m_window;
+	evt = &e;
+	gud = mk_lang_true;
+	while(fe->m_visible && gud)
+	{
+		gud = mk_lang_false;
 		tsi = XPeekEvent(display, evt);
 		if(evt->type == ClientMessage)
 		{
 			if(evt->xclient.window == window)
 			{
+				gud = mk_lang_true;
+				*at_least_one = mk_lang_true;
 				tsi = XNextEvent(display, evt);
+				mk_lang_assert(evt->type == ClientMessage);
+				mk_lang_assert(evt->xclient.window == window);
 				err = mkfe_x_on_clientmessage(fe, evt); mk_lang_check_rereturn(err);
 			}
+		}
+	}
+	if(!fe->m_visible)
+	{
+		err = mkfe_x_hide(fe); mk_lang_check_rereturn(err);
+	}
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_pump(mkfe_pt const fe, mk_lang_types_bool_pt const at_least_one) mk_lang_noexcept
+{
+	mk_lang_types_bool_t gud;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(fe);
+	mk_lang_assert(at_least_one);
+
+	gud = mk_lang_true;
+	while(gud)
+	{
+		gud = mk_lang_false;
+		err = mkfe_x_pump_all_window_specific(fe, &gud); mk_lang_check_rereturn(err);
+		err = mkfe_x_pump_global(fe, &gud); mk_lang_check_rereturn(err);
+		if(gud)
+		{
+			*at_least_one = mk_lang_true;
+		}
+	}
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_run(mkfe_pt const fe) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	Display* display;
+	XEvent* evt;
+	XEvent e;
+	mk_lang_types_bool_t guda;
+	mk_lang_types_bool_t gudb;
+	mk_lang_types_sint_t tsi;
+
+	err = mkfe_x_gather_root(fe); mk_lang_check_rereturn(err);
+	err = mk_lib_x11_get_display(&display); mk_lang_check_rereturn(err);
+	evt = &e;
+	guda = mk_lang_true;
+	while(fe->m_visible)
+	{
+		gudb = guda;
+		guda = mk_lang_false;
+		err = mkfe_x_pump(fe, &guda); mk_lang_check_rereturn(err);
+		#if mk_clib_app_fe_posix_mallocatorg_statistics_have
+		if(fe->m_visible){ err = mk_lib_statistics_x11_pump(&guda); mk_lang_check_rereturn(err); }
+		#endif
+		if(!guda && !gudb)
+		{
+			tsi = XNextEvent(display, evt); /* drop */
+			guda = mk_lang_true;
 		}
 	}
 	return 0;
@@ -617,7 +717,6 @@ mk_lang_types_sint_t main(mk_lang_types_sint_t const argc, mk_lang_types_pchar_p
 	err = mk_lib_x11_init(); mk_lang_check_rereturn(err);
 	#if mk_clib_app_fe_posix_mallocatorg_statistics_have
 	err = mk_lib_statistics_init(); mk_lang_check_rereturn(err);
-	err = mk_lib_statistics_display(); mk_lang_check_rereturn(err);
 	#endif
 	err = mkfe_x_init(&fe); mk_lang_check_rereturn(err);
 	err = mkfe_x_run(&fe); mk_lang_check_rereturn(err);

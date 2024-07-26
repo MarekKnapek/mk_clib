@@ -1,5 +1,9 @@
 #include "mk_lib_statistics_x11.h"
 
+#include "mk_lang_platform.h"
+
+#if mk_lang_platform_x11_have == 1
+
 #include "mk_lang_assert.h"
 #include "mk_lang_check.h"
 #include "mk_lang_clamp.h"
@@ -9,7 +13,6 @@
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_null.h"
-#include "mk_lang_platform.h"
 #include "mk_lang_static_param.h"
 #include "mk_lang_stringify.h"
 #include "mk_lang_strlen.h"
@@ -23,9 +26,6 @@
 #define mk_lang_memcpy_t_type mk_lang_types_pchar_t
 #include "mk_lang_memcpy_inl_fileh.h"
 #include "mk_lang_memcpy_inl_filec.h"
-
-
-#if mk_lang_platform_x11_have == 1
 
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
@@ -103,6 +103,7 @@ mk_lang_constexpr_static_inline mk_lang_types_pchar_pct const mk_lib_statistics_
 	"blocks peak       ",
 	"blocks live       ",
 };
+mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lib_statistics_x11_alphabet[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]";
 
 
 struct mk_lib_statistics_x11_cntrs_data_arrn_s
@@ -159,8 +160,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lib_st
 
 struct mk_lib_statistics_x11_s
 {
-	mk_lang_types_bool_t m_keep_running;
-	mk_lang_types_bool_t m_closed;
+	mk_lang_types_bool_t m_visible;
 	mk_lang_types_sint_t m_screen;
 	mk_lang_types_ulong_t m_black;
 	mk_lang_types_ulong_t m_white;
@@ -177,6 +177,21 @@ typedef mk_lib_statistics_x11_t const mk_lib_statistics_x11_ct;
 typedef mk_lib_statistics_x11_t* mk_lib_statistics_x11_pt;
 typedef mk_lib_statistics_x11_t const* mk_lib_statistics_x11_pct;
 
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x11_hide_(mk_lib_statistics_x11_pt const statistics) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	Display* display;
+	Window window;
+	mk_lang_types_sint_t tsi;
+
+	mk_lang_assert(statistics);
+
+	err = mk_lib_x11_get_display(&display); mk_lang_check_rereturn(err);
+	window = statistics->m_window;
+	tsi = XUnmapWindow(display, window);
+	return 0;
+}
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x11_invalidate_one(mk_lib_statistics_x11_pt const statistics, mk_lang_types_sint_t const idx) mk_lang_noexcept
 {
@@ -388,11 +403,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x
 	ks = XLookupKeysym(&evt->xkey, 0);
 	if(ks == XK_q)
 	{
-		statistics->m_keep_running = mk_lang_false;
+		statistics->m_visible = mk_lang_false;
 	}
 	else if(ks == XK_Escape)
 	{
-		statistics->m_keep_running = mk_lang_false;
+		statistics->m_visible = mk_lang_false;
 	}
 	else if(ks == XK_Up)
 	{
@@ -476,7 +491,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x
 	mk_lang_assert(evt->type == ClientMessage);
 
 	((mk_lang_types_void_t)(evt));
-	statistics->m_keep_running = mk_lang_false;
+	statistics->m_visible = mk_lang_false;
 	return 0;
 }
 
@@ -494,66 +509,112 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x
 	return 0;
 }
 
-
-static mk_lib_statistics_x11_t g_mk_lib_statistics_x11;
-
-
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_x11_init(mk_lang_types_void_t) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x11_pump_all_window_specific(mk_lib_statistics_x11_pt const statistics, mk_lang_types_bool_pt const at_least_one) mk_lang_noexcept
 {
-	mk_lib_statistics_x11_pt statistics;
+	Display* display;
+	Window window;
+	mk_lang_types_slong_t mask;
+	XEvent* evt;
+	XEvent e;
+	mk_lang_types_bool_t gud;
+	mk_lang_types_sint_t tsi;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(statistics);
+	mk_lang_assert(at_least_one);
+
+	err = mk_lib_x11_get_display(&display); mk_lang_check_rereturn(err);
+	window = statistics->m_window;
+	mask = ExposureMask | ButtonPressMask | KeyPressMask;
+	evt = &e;
+	while(statistics->m_visible && XCheckWindowEvent(display, window, mask, evt) == True)
+	{
+		*at_least_one = mk_lang_true;
+		switch(evt->type)
+		{
+			case Expose       : err = mk_lib_statistics_x11_on_expose       (statistics, evt); mk_lang_check_rereturn(err); break;
+			case KeyPress     : err = mk_lib_statistics_x11_on_keypress     (statistics, evt); mk_lang_check_rereturn(err); break;
+			case ButtonPress  : err = mk_lib_statistics_x11_on_buttonpress  (statistics, evt); mk_lang_check_rereturn(err); break;
+			case ClientMessage: err = mk_lib_statistics_x11_on_clientmessage(statistics, evt); mk_lang_check_rereturn(err); break;
+		}
+	}
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x11_pump_global(mk_lib_statistics_x11_pt const statistics, mk_lang_types_bool_pt const at_least_one) mk_lang_noexcept
+{
+	Display* display;
+	Window window;
+	XEvent* evt;
+	XEvent e;
+	mk_lang_types_bool_t gud;
+	mk_lang_types_sint_t tsi;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(statistics);
+	mk_lang_assert(at_least_one);
+
+	if(!statistics->m_visible)
+	{
+		err = mk_lib_statistics_x11_hide_(statistics); mk_lang_check_rereturn(err);
+	}
+	err = mk_lib_x11_get_display(&display); mk_lang_check_rereturn(err);
+	window = statistics->m_window;
+	evt = &e;
+	gud = mk_lang_true;
+	while(statistics->m_visible && gud)
+	{
+		gud = mk_lang_false;
+		tsi = XPeekEvent(display, evt);
+		if(evt->type == ClientMessage)
+		{
+			if(evt->xclient.window == window)
+			{
+				gud = mk_lang_true;
+				*at_least_one = mk_lang_true;
+				tsi = XNextEvent(display, evt);
+				mk_lang_assert(evt->type == ClientMessage);
+				mk_lang_assert(evt->xclient.window == window);
+				err = mk_lib_statistics_x11_on_clientmessage(statistics, evt); mk_lang_check_rereturn(err);
+			}
+		}
+	}
+	if(!statistics->m_visible)
+	{
+		err = mk_lib_statistics_x11_hide_(statistics); mk_lang_check_rereturn(err);
+	}
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x11_init_(mk_lib_statistics_x11_pt const statistics) mk_lang_noexcept
+{
+	mk_sl_cui_uint128_t zero;
 	mk_lang_types_sint_t err;
 	Display* display;
+	Atom wmdelete;
 	mk_lang_types_sint_t screen;
 	mk_lang_types_ulong_t black;
 	mk_lang_types_ulong_t white;
 	Window parent;
+	Window window;
+	GC gc;
+	mk_lang_types_sint_t tsi;
+	GContext gcid;
+	mk_lang_types_sint_t direction;
+	mk_lang_types_sint_t ascent;
+	mk_lang_types_sint_t descent;
+	XCharStruct dimensions;
 
-	statistics = &g_mk_lib_statistics_x11;
+	mk_lang_assert(statistics);
+
+	mk_sl_cui_uint128_set_zero(&zero);
 	err = mk_lib_x11_get_display(&display); mk_lang_check_rereturn(err);
+	err = mk_lib_x11_get_wmdelete(&wmdelete); mk_lang_check_rereturn(err);
 	screen = DefaultScreen(display);
 	black = BlackPixel(display, screen);
 	white = WhitePixel(display, screen);
 	parent = RootWindow(display, screen);
-	statistics->m_keep_running = mk_lang_true;
-	statistics->m_closed = mk_lang_false;
-	statistics->m_screen = screen;
-	statistics->m_black = black;
-	statistics->m_white = white;
-	statistics->m_parent = parent;
-	return 0;
-}
-
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_x11_deinit(mk_lang_types_void_t) mk_lang_noexcept
-{
-	mk_lib_statistics_x11_pt statistics;
-
-	statistics = &g_mk_lib_statistics_x11;
-	((mk_lang_types_void_t)(statistics));
-	return 0;
-}
-
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_x11_display(mk_lang_types_void_t) mk_lang_noexcept
-{
-	mk_lib_statistics_x11_pt statistics;
-	mk_sl_cui_uint128_t zero;
-	mk_lang_types_sint_t err;
-	Display* display;
-	Window parent;
-	mk_lang_types_ulong_t black;
-	mk_lang_types_ulong_t white;
-	Window window;
-	mk_lang_types_sint_t tsi;
-	Atom wmdelete;
-	GC gc;
-
-	statistics = &g_mk_lib_statistics_x11;
-	mk_sl_cui_uint128_set_zero(&zero);
-	err = mk_lib_x11_get_display(&display); mk_lang_check_rereturn(err);
-	err = mk_lib_x11_get_wmdelete(&wmdelete); mk_lang_check_rereturn(err);
-	parent = statistics->m_parent;
-	black = statistics->m_black;
-	white = statistics->m_white;
-	window = XCreateSimpleWindow(display, parent, 0, 0, 250, 220, 5, black, white);
+	window = XCreateSimpleWindow(display, parent, 0, 0, 220, 100, 5, black, white);
 	tsi = XSetStandardProperties(display, window, "statistics", mk_lang_null, None, mk_lang_null, 0, mk_lang_null);
 	tsi = XSetWMProtocols(display, window, &wmdelete, 1);
 	tsi = XSelectInput(display, window, ExposureMask | ButtonPressMask | KeyPressMask);
@@ -561,12 +622,16 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_x11_displ
 	tsi = XSetBackground(display, gc, white);
 	tsi = XSetForeground(display ,gc , black);
 	tsi = XClearWindow(display, window);
-	tsi = XMapRaised(display, window);
+	statistics->m_visible = mk_lang_false;
+	statistics->m_screen = screen;
+	statistics->m_black = black;
+	statistics->m_white = white;
+	statistics->m_parent = parent;
 	statistics->m_window = window;
 	statistics->m_gc = gc;
 	statistics->m_idx = 0;
-	statistics->m_line_height = 0;
-	statistics->m_line_hcur = 0;
+	statistics->m_line_height = 1;
+	statistics->m_line_hcur = 1;
 	statistics->m_cntrs_last.m_data.m_arry.m_cntrs[0] = zero;
 	statistics->m_cntrs_last.m_data.m_arry.m_cntrs[1] = zero;
 	statistics->m_cntrs_last.m_data.m_arry.m_cntrs[2] = zero;
@@ -575,34 +640,52 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_x11_displ
 	statistics->m_cntrs_last.m_data.m_arry.m_cntrs[5] = zero;
 	statistics->m_cntrs_last.m_data.m_arry.m_cntrs[6] = zero;
 	statistics->m_cntrs_last.m_data.m_arry.m_cntrs[7] = zero;
+	gcid = XGContextFromGC(gc);
+	tsi = XQueryTextExtents(display, gcid, &mk_lib_statistics_x11_alphabet[0], mk_lang_countstr(mk_lib_statistics_x11_alphabet), &direction, &ascent, &descent, &dimensions);
+	statistics->m_line_height = mk_lang_max(statistics->m_line_height, dimensions.ascent + dimensions.descent);
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_x11_close(mk_lang_types_void_t) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x11_deinit_(mk_lib_statistics_x11_pt const statistics) mk_lang_noexcept
 {
-	mk_lib_statistics_x11_pt statistics;
 	mk_lang_types_sint_t err;
 	Display* display;
 	Window window;
 	GC gc;
 	mk_lang_types_sint_t tsi;
 
-	statistics = &g_mk_lib_statistics_x11;
-	if(!statistics->m_closed)
+	mk_lang_assert(statistics);
+
+	err = mk_lib_x11_get_display(&display); mk_lang_check_rereturn(err);
+	window = statistics->m_window;
+	gc = statistics->m_gc;
+	tsi = XFreeGC(display, gc);
+	tsi = XDestroyWindow(display, window);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x11_show_(mk_lib_statistics_x11_pt const statistics) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	Display* display;
+	Window window;
+	mk_lang_types_sint_t tsi;
+
+	mk_lang_assert(statistics);
+
+	err = mk_lib_statistics_x11_invalidate(); mk_lang_check_rereturn(err);
+	if(!statistics->m_visible)
 	{
-		statistics->m_closed = mk_lang_true;
+		statistics->m_visible = mk_lang_true;
 		err = mk_lib_x11_get_display(&display); mk_lang_check_rereturn(err);
 		window = statistics->m_window;
-		gc = statistics->m_gc;
-		tsi = XFreeGC(display, gc);
-		tsi = XDestroyWindow(display, window);
+		tsi = XMapRaised(display, window);
 	}
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_x11_invalidate(mk_lang_types_void_t) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x11_invalidate_(mk_lib_statistics_x11_pt const statistics) mk_lang_noexcept
 {
-	mk_lib_statistics_x11_pt statistics;
 	mk_lang_types_sint_t err;
 	mk_lib_statistics_x11_cntrs_t cntrs;
 	Display* display;
@@ -611,13 +694,14 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_x11_inval
 	XWindowAttributes attr;
 	XEvent e;
 
-	statistics = &g_mk_lib_statistics_x11;
-	if(!statistics->m_closed)
+	mk_lang_assert(statistics);
+
+	err = mk_lib_statistics_x11_mallocatorg_statistics_get_all(&cntrs.m_data.m_arry.m_cntrs[0]); mk_lang_check_rereturn(err);
+	if(!mk_lib_statistics_x11_cntrs_ro_eq(&cntrs, &statistics->m_cntrs_last))
 	{
-		err = mk_lib_statistics_x11_mallocatorg_statistics_get_all(&cntrs.m_data.m_arry.m_cntrs[0]); mk_lang_check_rereturn(err);
-		if(!mk_lib_statistics_x11_cntrs_ro_eq(&cntrs, &statistics->m_cntrs_last))
+		statistics->m_cntrs_last = cntrs;
+		if(statistics->m_visible)
 		{
-			statistics->m_cntrs_last = cntrs;
 			err = mk_lib_x11_get_display(&display); mk_lang_check_rereturn(err);
 			window = statistics->m_window;
 			st = XGetWindowAttributes(display, window, &attr);
@@ -638,63 +722,60 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_x11_inval
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_x11_pump(mk_lang_types_void_t) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x11_pump_(mk_lib_statistics_x11_pt const statistics, mk_lang_types_bool_pt const at_least_one) mk_lang_noexcept
 {
-	mk_lib_statistics_x11_pt statistics;
-	Display* display;
-	Window window;
-	mk_lang_types_slong_t mask;
-	XEvent* evt;
-	XEvent e;
 	mk_lang_types_bool_t gud;
-	mk_lang_types_sint_t tsi;
 	mk_lang_types_sint_t err;
 
-	statistics = &g_mk_lib_statistics_x11;
-	if(statistics->m_keep_running && !statistics->m_closed)
+	mk_lang_assert(statistics);
+	mk_lang_assert(at_least_one);
+
+	gud = mk_lang_true;
+	while(gud)
 	{
-		err = mk_lib_x11_get_display(&display); mk_lang_check_rereturn(err);
-		window = statistics->m_window;
-		mask = ExposureMask | ButtonPressMask | KeyPressMask;
-		evt = &e;
-		for(;;)
+		gud = mk_lang_false;
+		err = mk_lib_statistics_x11_pump_all_window_specific(statistics, &gud); mk_lang_check_rereturn(err);
+		err = mk_lib_statistics_x11_pump_global             (statistics, &gud); mk_lang_check_rereturn(err);
+		if(gud)
 		{
-			gud = statistics->m_keep_running && XCheckWindowEvent(display, window, mask, evt) == True;
-			if(gud)
-			{
-				switch(evt->type)
-				{
-					case Expose       : err = mk_lib_statistics_x11_on_expose       (statistics, evt); mk_lang_check_rereturn(err); break;
-					case KeyPress     : err = mk_lib_statistics_x11_on_keypress     (statistics, evt); mk_lang_check_rereturn(err); break;
-					case ButtonPress  : err = mk_lib_statistics_x11_on_buttonpress  (statistics, evt); mk_lang_check_rereturn(err); break;
-					case ClientMessage: err = mk_lib_statistics_x11_on_clientmessage(statistics, evt); mk_lang_check_rereturn(err); break;
-				}
-			}
-			else
-			{
-				break;
-			}
-		}
-		if(!statistics->m_keep_running)
-		{
-			err = mk_lib_statistics_x11_close(); mk_lang_check_rereturn(err);
-		}
-		tsi = XPeekEvent(display, evt);
-		if(evt->type == ClientMessage)
-		{
-			if(evt->xclient.window == window)
-			{
-				tsi = XNextEvent(display, evt);
-				err = mk_lib_statistics_x11_on_clientmessage(statistics, evt); mk_lang_check_rereturn(err);
-			}
-		}
-		if(!statistics->m_keep_running)
-		{
-			err = mk_lib_statistics_x11_close(); mk_lang_check_rereturn(err);
+			*at_least_one = mk_lang_true;
 		}
 	}
 	return 0;
 }
 
+
+static mk_lib_statistics_x11_t g_mk_lib_statistics_x11;
+
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_x11_init(mk_lang_types_void_t) mk_lang_noexcept
+{
+	return mk_lib_statistics_x11_init_(&g_mk_lib_statistics_x11);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_x11_deinit(mk_lang_types_void_t) mk_lang_noexcept
+{
+	return mk_lib_statistics_x11_deinit_(&g_mk_lib_statistics_x11);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_x11_show(mk_lang_types_void_t) mk_lang_noexcept
+{
+	return mk_lib_statistics_x11_show_(&g_mk_lib_statistics_x11);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_x11_hide(mk_lang_types_void_t) mk_lang_noexcept
+{
+	return mk_lib_statistics_x11_hide_(&g_mk_lib_statistics_x11);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_x11_invalidate(mk_lang_types_void_t) mk_lang_noexcept
+{
+	return mk_lib_statistics_x11_invalidate_(&g_mk_lib_statistics_x11);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_x11_pump(mk_lang_types_bool_pt const at_least_one) mk_lang_noexcept
+{
+	return mk_lib_statistics_x11_pump_(&g_mk_lib_statistics_x11, at_least_one);
+}
 
 #endif

@@ -518,7 +518,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_windows_d
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_windows_display(mk_lang_types_void_t) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_windows_show(mk_lang_types_void_t) mk_lang_noexcept
 {
 	mk_lib_statistics_windows_pt statistics;
 	mk_lang_types_sint_t err;
@@ -528,7 +528,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_windows_d
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_windows_close(mk_lang_types_void_t) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_windows_hide(mk_lang_types_void_t) mk_lang_noexcept
 {
 	mk_lib_statistics_windows_pt statistics;
 	mk_win_user_base_lresult_t lr;
@@ -563,6 +563,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_windows_i
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_windows_pump(mk_lang_types_void_t) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_windows_pump(mk_lang_types_bool_pt const at_least_one) mk_lang_noexcept
 {
+	mk_lang_assert(at_least_one);
 }

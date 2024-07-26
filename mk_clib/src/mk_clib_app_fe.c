@@ -3562,11 +3562,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_clib_app_fe_arg(mk_lang_
 
 	#if mk_clib_app_fe_mallocatorg_statistics_have
 	mk_lib_statistics_init(); /* todo */
-	mk_lib_statistics_display(); /* todo */
+	mk_lib_statistics_show(); /* todo */
 	#endif
 	err = mk_clib_app_fe_run(&g_mk_clib_app_fe, wide, instance, prev, cmd_line, show); mk_lang_check_rereturn(err);
 	#if mk_clib_app_fe_mallocatorg_statistics_have
-	mk_lib_statistics_close(); /* todo */
+	mk_lib_statistics_hide(); /* todo */
 	mk_lib_statistics_deinit(); /* todo */
 	#endif
 	res = g_mk_clib_app_fe.m_exit_code;
