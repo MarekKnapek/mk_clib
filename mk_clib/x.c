@@ -681,16 +681,16 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_on_expose_ro
 		height = dimensions.ascent + dimensions.descent;
 		height_max = mk_lang_max(height_max, height);
 	}
-	y = idx * line_height;
+	y = idx * line_height - 1;
 	if(idx != fe->m_idx)
 	{
 		tsi = XSetForeground(display, gc, white);
-		tsi = XFillRectangle(display, window, gc, 0, y, width, line_height);
+		tsi = XFillRectangle(display, window, gc, 0, y + 1, width, line_height + 1);
 		tsi = XSetForeground(display, gc, black);
 	}
 	else
 	{
-		tsi = XFillRectangle(display, window, gc, 0, y, width, line_height);
+		tsi = XFillRectangle(display, window, gc, 0, y + 1, width, line_height + 1);
 		tsi = XSetForeground(display, gc, white);
 	}
 	y += line_height;
@@ -795,6 +795,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_on_keypress(
 	else if(ks == XK_i)
 	{
 		#if mk_clib_app_fe_posix_mallocatorg_statistics_have
+		err = mk_lib_statistics_hide(); mk_lang_check_rereturn(err);
 		err = mk_lib_statistics_show(); mk_lang_check_rereturn(err);
 		#endif
 	}
