@@ -600,29 +600,35 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_go_up(mkfe_p
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_dirify(mkfe_pt const fe, mkfe_file_pct const file, mkfe_string_pct* const dirifyed) mk_lang_noexcept
 {
-	mk_lang_types_sint_t err;
+	mkfe_string_pct name;
+	mk_lang_types_pchar_pct src;
 	mk_lang_types_usize_t len;
-	mk_lang_types_pchar_pt buf;
+	mkfe_string_pt out;
+	mk_lang_types_sint_t err;
+	mk_lang_types_pchar_pt dst;
 
 	mk_lang_assert(fe);
 	mk_lang_assert(file);
 	mk_lang_assert(dirifyed);
 
+	name = &file->m_name; mk_lang_assert(name);
 	if(file->m_is_dir)
 	{
-		len = mkfe_string_ro_size(&file->m_name); mk_lang_assert(len >= 1);
-		err = mkfe_string_rw_resize(&fe->m_tmp_str, 2 + len + 2); mk_lang_check_rereturn(err);
-		buf = mkfe_string_rw_data(&fe->m_tmp_str); mk_lang_assert(buf);
-		buf[0] = '[';
-		buf[1] = ' ';
-		mkfe_memcpy_pc_fn(&buf[2], mkfe_string_ro_data(&file->m_name), len);
-		buf[2 + len + 0] = ' ';
-		buf[2 + len + 1] = ']';
-		*dirifyed = &fe->m_tmp_str;
+		src = mkfe_string_ro_data(name); mk_lang_assert(src && src[0] != '\0');
+		len = mkfe_string_ro_size(name); mk_lang_assert(len >= 1);
+		out = &fe->m_tmp_str; mk_lang_assert(out);
+		err = mkfe_string_rw_resize(out, 2 + len + 2); mk_lang_check_rereturn(err);
+		dst = mkfe_string_rw_data(out); mk_lang_assert(dst);
+		dst[0] = '[';
+		dst[1] = ' ';
+		mkfe_memcpy_pc_fn(&dst[2], src, len);
+		dst[2 + len + 0] = ' ';
+		dst[2 + len + 1] = ']';
+		*dirifyed = out;
 	}
 	else
 	{
-		*dirifyed = &file->m_name;
+		*dirifyed = name;
 	}
 	return 0;
 }
