@@ -190,6 +190,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x
 	err = mk_lib_x11_get_display(&display); mk_lang_check_rereturn(err);
 	window = statistics->m_window;
 	tsi = XUnmapWindow(display, window);
+	statistics->m_visible = mk_lang_false;
 	return 0;
 }
 
@@ -353,6 +354,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x
 		statistics->m_line_hcur = 0;
 		st = XGetWindowAttributes(display, window, &attr);
 		n = mk_lang_countof(statistics->m_cntrs_last.m_data.m_arry.m_cntrs);
+		n = mk_lang_min(n, mk_lang_div_roundup(attr.height, statistics->m_line_height));
 		if(evt->xexpose.x == 0 && evt->xexpose.y == 0 && evt->xexpose.width == attr.width && evt->xexpose.height == attr.height)
 		{
 			tsi = XClearWindow(display, window);
@@ -695,35 +697,22 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x
 {
 	mk_lang_types_sint_t err;
 	mk_lib_statistics_x11_cntrs_t cntrs;
-	Display* display;
-	Window window;
-	Status st;
-	XWindowAttributes attr;
-	XEvent e;
+	mk_lang_types_sint_t n;
+	mk_lang_types_sint_t i;
 
 	mk_lang_assert(statistics);
 
 	err = mk_lib_statistics_x11_mallocatorg_statistics_get_all(&cntrs.m_data.m_arry.m_cntrs[0]); mk_lang_check_rereturn(err);
-	if(!mk_lib_statistics_x11_cntrs_ro_eq(&cntrs, &statistics->m_cntrs_last))
+	n = mk_lang_countof(statistics->m_cntrs_last.m_data.m_arry.m_cntrs);
+	for(i = 0; i != n; ++i)
 	{
-		statistics->m_cntrs_last = cntrs;
-		if(statistics->m_visible)
+		if(!mk_sl_cui_uint128_eq(&cntrs.m_data.m_arry.m_cntrs[i], &statistics->m_cntrs_last.m_data.m_arry.m_cntrs[i]))
 		{
-			err = mk_lib_x11_get_display(&display); mk_lang_check_rereturn(err);
-			window = statistics->m_window;
-			st = XGetWindowAttributes(display, window, &attr);
-			e.type = Expose;
-			e.xexpose.type = Expose;
-			e.xexpose.serial = 0;
-			e.xexpose.send_event = True;
-			e.xexpose.display = display;
-			e.xexpose.window = window;
-			e.xexpose.x = 0;
-			e.xexpose.y = 0;
-			e.xexpose.width = attr.width;
-			e.xexpose.height = attr.height;
-			e.xexpose.count = 0;
-			st = XSendEvent(display, window, False, ExposureMask, &e);
+			statistics->m_cntrs_last.m_data.m_arry.m_cntrs[i] = cntrs.m_data.m_arry.m_cntrs[i];
+			if(statistics->m_visible)
+			{
+				err = mk_lib_statistics_x11_invalidate_one(statistics, i); mk_lang_check_rereturn(err);
+			}
 		}
 	}
 	return 0;

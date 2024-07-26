@@ -727,6 +727,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_on_expose(mk
 		fe->m_line_hcur = 0;
 		st = XGetWindowAttributes(display, window, &attr);
 		n = mkfe_files_ro_size(&fe->m_rows);
+		n = mk_lang_min(n, mk_lang_div_roundup(attr.height, fe->m_line_height));
 		if(evt->xexpose.x == 0 && evt->xexpose.y == 0 && evt->xexpose.width == attr.width && evt->xexpose.height == attr.height)
 		{
 			tsi = XClearWindow(display, window);
