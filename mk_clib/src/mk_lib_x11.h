@@ -2,15 +2,16 @@
 #define mk_include_guard_mk_lib_x11
 
 
-#include "mk_lang_jumbo.h"
-#include "mk_lang_nodiscard.h"
-#include "mk_lang_noexcept.h"
 #include "mk_lang_platform.h"
-#include "mk_lang_types.h"
 
 
 #if mk_lang_platform_x11_have == 1
 
+
+#include "mk_lang_jumbo.h"
+#include "mk_lang_nodiscard.h"
+#include "mk_lang_noexcept.h"
+#include "mk_lang_types.h"
 
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>

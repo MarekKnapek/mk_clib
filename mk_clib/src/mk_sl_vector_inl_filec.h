@@ -290,6 +290,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_re
 	if(count > size)
 	{
 		err = mk_sl_vector_inl_defd_rw_reserve_at_least(vector, count); mk_lang_check_rereturn(err);
+		vector->m_size = count;
 	}
 	else if(count < size)
 	{
