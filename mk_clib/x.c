@@ -1,3 +1,4 @@
+#include "src/mk_lang_clamp.h"
 #include "src/mk_lang_assert.h"
 #include "src/mk_lang_bool.h"
 #include "src/mk_lang_check.h"
@@ -472,7 +473,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_on_keypress(
 	else if(ks == XK_i)
 	{
 		#if mk_clib_app_fe_posix_mallocatorg_statistics_have
-		err = mk_lib_statistics_display(); mk_lang_check_rereturn(err);
+		err = mk_lib_statistics_show(); mk_lang_check_rereturn(err);
 		#endif
 	}
 	else if(ks == XK_Up)
@@ -534,10 +535,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_on_buttonpre
 	mk_lang_types_sint_t err;
 	Display* display;
 	Window window;
-	GC gc;
-	mk_lang_types_sint_t x;
 	mk_lang_types_sint_t y;
-	mk_lang_types_sint_t tsi;
+	mk_lang_types_sint_t idxold;
+	mk_lang_types_sint_t idxnew;
+	mk_lang_types_usize_t rowsus;
+	mk_lang_types_sint_t rowssi;
 
 	mk_lang_assert(fe);
 	mk_lang_assert(evt);
@@ -545,10 +547,16 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_on_buttonpre
 
 	err = mk_lib_x11_get_display(&display); mk_lang_check_rereturn(err);
 	window = fe->m_window;
-	gc = fe->m_gc;
-	x = evt->xbutton.x;
 	y = evt->xbutton.y;
-	tsi = XDrawString(display, window, gc, x, y, "test", mk_lang_countstr("test"));
+	idxold = fe->m_idx;
+	idxnew = y / fe->m_line_height;
+	rowsus = mkfe_strings_ro_size(&fe->m_rows); mk_lang_assert(rowsus <= ((mk_lang_types_usize_t)(mk_lang_limits_sint_max))); rowssi = ((mk_lang_types_sint_t)(rowsus));
+	if(idxnew >= 0 && idxnew < rowssi && idxnew != idxold)
+	{
+		fe->m_idx = idxnew;
+		err = mkfe_x_invalidate_one(fe, idxold); mk_lang_check_rereturn(err);
+		err = mkfe_x_invalidate_one(fe, idxnew); mk_lang_check_rereturn(err);
+	}
 	return 0;
 }
 
@@ -722,7 +730,7 @@ mk_lang_types_sint_t main(mk_lang_types_sint_t const argc, mk_lang_types_pchar_p
 	err = mkfe_x_run(&fe); mk_lang_check_rereturn(err);
 	err = mkfe_x_deinit(&fe); mk_lang_check_rereturn(err);
 	#if mk_clib_app_fe_posix_mallocatorg_statistics_have
-	err = mk_lib_statistics_close(); mk_lang_check_rereturn(err);
+	err = mk_lib_statistics_hide(); mk_lang_check_rereturn(err);
 	err = mk_lib_statistics_deinit(); mk_lang_check_rereturn(err);
 	#endif
 	err = mk_lib_x11_deinit(); mk_lang_check_rereturn(err);

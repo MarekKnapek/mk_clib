@@ -466,10 +466,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x
 	mk_lang_types_sint_t err;
 	Display* display;
 	Window window;
-	GC gc;
-	mk_lang_types_sint_t x;
 	mk_lang_types_sint_t y;
-	mk_lang_types_sint_t tsi;
+	mk_lang_types_sint_t idxold;
+	mk_lang_types_sint_t idxnew;
+	mk_lang_types_usize_t rowsus;
+	mk_lang_types_sint_t rowssi;
 
 	mk_lang_assert(statistics);
 	mk_lang_assert(evt);
@@ -477,10 +478,16 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x
 
 	err = mk_lib_x11_get_display(&display); mk_lang_check_rereturn(err);
 	window = statistics->m_window;
-	gc = statistics->m_gc;
-	x = evt->xbutton.x;
 	y = evt->xbutton.y;
-	tsi = XDrawString(display, window, gc, x, y, "test", mk_lang_countstr("test"));
+	idxold = statistics->m_idx;
+	idxnew = y / statistics->m_line_height;
+	rowssi = mk_lang_countof(statistics->m_cntrs_last.m_data.m_arry.m_cntrs);
+	if(idxnew >= 0 && idxnew < rowssi && idxnew != idxold)
+	{
+		statistics->m_idx = idxnew;
+		err = mk_lib_statistics_x11_invalidate_one(statistics, idxold); mk_lang_check_rereturn(err);
+		err = mk_lib_statistics_x11_invalidate_one(statistics, idxnew); mk_lang_check_rereturn(err);
+	}
 	return 0;
 }
 
