@@ -222,6 +222,7 @@ struct mkfe_s
 	mk_lang_types_bool_t m_hidden;
 	mkfe_files_t m_rows;
 	mkfe_ints_t m_sort;
+	mkfe_string_t m_curr_path;
 	mkfe_string_t m_tmp_str;
 	mk_lang_types_sint_t m_idx;
 	mk_lang_types_sint_t m_line_height;
@@ -278,6 +279,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_init(mkfe_pt
 	fe->m_line_height = 1;
 	err = mkfe_files_rw_construct(&fe->m_rows); mk_lang_check_rereturn(err);
 	err = mkfe_ints_rw_construct(&fe->m_sort); mk_lang_check_rereturn(err);
+	err = mkfe_string_rw_construct(&fe->m_curr_path); mk_lang_check_rereturn(err);
 	err = mkfe_string_rw_construct(&fe->m_tmp_str); mk_lang_check_rereturn(err);
 	gcid = XGContextFromGC(gc);
 	tsi = XQueryTextExtents(display, gcid, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]", mk_lang_countstr("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"), &direction, &ascent, &descent, &dimensions);
@@ -311,6 +313,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_deinit(mkfe_
 	}
 	err = mkfe_files_rw_destroy(&fe->m_rows); mk_lang_check_rereturn(err);
 	err = mkfe_ints_rw_destroy(&fe->m_sort); mk_lang_check_rereturn(err);
+	err = mkfe_string_rw_destroy(&fe->m_curr_path); mk_lang_check_rereturn(err);
 	err = mkfe_string_rw_destroy(&fe->m_tmp_str); mk_lang_check_rereturn(err);
 	return 0;
 }
@@ -351,6 +354,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_gather_dir(m
 	mk_lang_types_usize_t len;
 	mk_lang_types_sint_t err;
 	mk_lang_types_sint_t tsi;
+	mk_lang_types_usize_t i;
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t j;
 	DIR* d;
 	struct dirent* e;
 	mkfe_file_pt row;
@@ -361,7 +367,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_gather_dir(m
 
 	nul = '\0';
 	slash = '/';
-	err = mkfe_files_rw_clear(&fe->m_rows); mk_lang_check_rereturn(err);
 	len = mkfe_string_ro_size(dir); mk_lang_assert(len >= 0);
 	err = mkfe_string_rw_resize(&fe->m_tmp_str, len + 1); mk_lang_check_rereturn(err);
 	if(len != 0)
@@ -375,6 +380,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_gather_dir(m
 	}
 	err = mkfe_string_rw_push_back_one(dir, &nul); mk_lang_check_rereturn(err);
 	buf = mkfe_string_rw_data(dir); mk_lang_assert(buf && buf[0] != '\0');
+	i = 0;
 	d = opendir(buf); mk_lang_check_return(d);
 	while((e = readdir(d)) != mk_lang_null)
 	{
@@ -386,19 +392,46 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_gather_dir(m
 		))
 		{
 			len = mk_lang_strlen_n_fn(&e->d_name[0]); mk_lang_assert(len >= 1);
-			err = mkfe_files_rw_push_back_void(&fe->m_rows, 1); mk_lang_check_rereturn(err);
-			row = mkfe_files_rw_back(&fe->m_rows); mk_lang_assert(row);
-			err = mkfe_string_rw_construct(&row->m_name); mk_lang_check_rereturn(err);
+			if(i < mkfe_files_ro_size(&fe->m_rows))
+			{
+				row = mkfe_files_rw_at(&fe->m_rows, i); mk_lang_assert(row);
+				err = mkfe_string_rw_clear(&row->m_name); mk_lang_check_rereturn(err);
+			}
+			else
+			{
+				err = mkfe_files_rw_push_back_void(&fe->m_rows, 1); mk_lang_check_rereturn(err);
+				row = mkfe_files_rw_back(&fe->m_rows); mk_lang_assert(row);
+				err = mkfe_string_rw_construct(&row->m_name); mk_lang_check_rereturn(err);
+			}
 			err = mkfe_string_rw_push_back_many(&row->m_name, &e->d_name[0], len); mk_lang_check_rereturn(err);
 			err = mkfe_string_rw_push_back_many(&fe->m_tmp_str, &e->d_name[0], len); mk_lang_check_rereturn(err);
 			err = mkfe_string_rw_push_back_one(&fe->m_tmp_str, &nul); mk_lang_check_rereturn(err);
 			tsi = stat(mkfe_string_ro_data(&fe->m_tmp_str), &st); mk_lang_check_return(tsi == 0);
 			row->m_is_dir = !!S_ISDIR(st.st_mode);
 			err = mkfe_string_rw_shrink(&fe->m_tmp_str, len + 1); mk_lang_check_rereturn(err);
+			++i;
 		}
 	}
 	tsi = closedir(d); mk_lang_check_return(tsi == 0);
+	n = mkfe_files_ro_size(&fe->m_rows);
+	if(i < n)
+	{
+		n = n - i;
+		for(j = 0; j != n; ++j)
+		{
+			err = mkfe_string_rw_destroy(&mkfe_files_rw_at(&fe->m_rows, i + j)->m_name); mk_lang_check_rereturn(err);
+		}
+	}
+	err = mkfe_files_rw_resize(&fe->m_rows, i); mk_lang_check_rereturn(err);
 	err = mkfe_x_sort(fe); mk_lang_check_rereturn(err);
+	if(mkfe_string_ro_size(dir) != 2)
+	{
+		err = mkfe_string_rw_shrink(dir, 1); mk_lang_check_rereturn(err);
+	}
+	else
+	{
+		err = mkfe_string_rw_clear(dir); mk_lang_check_rereturn(err);
+	}
 	return 0;
 }
 
@@ -493,6 +526,107 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_invalidate_o
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_go_deep(mkfe_pt const fe) mk_lang_noexcept
+{
+	mk_lang_types_pchar_t slash;
+	mk_lang_types_sint_pct idxp;
+	mk_lang_types_sint_t idx;
+	mkfe_file_pct row;
+	mkfe_string_pct name;
+	mk_lang_types_pchar_pct buf;
+	mk_lang_types_usize_t len;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(fe);
+
+	slash = '/';
+	idxp = mkfe_ints_ro_at(&fe->m_sort, fe->m_idx); mk_lang_assert(idxp); idx = *idxp;
+	row = mkfe_files_ro_at(&fe->m_rows, idx); mk_lang_assert(row);
+	name = &row->m_name; mk_lang_assert(name);
+	buf = mkfe_string_ro_data(name); mk_lang_assert(buf && buf[0] != '\0');
+	len = mkfe_string_ro_size(name); mk_lang_assert(len >= 1);
+	err = mkfe_string_rw_push_back_one(&fe->m_curr_path, &slash); mk_lang_check_rereturn(err);
+	err = mkfe_string_rw_push_back_many(&fe->m_curr_path, buf, len); mk_lang_check_rereturn(err);
+	err = mkfe_x_gather_dir(fe, &fe->m_curr_path); mk_lang_check_rereturn(err);
+	fe->m_idx = 0;
+	err = mkfe_x_invalidate_all(fe); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_go_up(mkfe_pt const fe) mk_lang_noexcept
+{
+	mk_lang_types_pchar_t slash;
+	mk_lang_types_sint_pct idxp;
+	mk_lang_types_sint_t idx;
+	mkfe_file_pct row;
+	mkfe_string_pct name;
+	mk_lang_types_pchar_pct buf;
+	mk_lang_types_usize_t len;
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
+	mk_lang_types_usize_t j;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(fe);
+
+	slash = '/';
+	len = mkfe_string_ro_size(&fe->m_curr_path); mk_lang_assert(len >= 0);
+	if(len != 0)
+	{
+		buf = mkfe_string_ro_data(&fe->m_curr_path); mk_lang_assert(buf && buf[0] != '\0');
+		n = len;
+		for(i = 0; i != n; ++i)
+		{
+			j = (n - 1) - i;
+			if(buf[j] == slash)
+			{
+				break;
+			}
+		}
+		if(i != n)
+		{
+			err = mkfe_string_rw_resize(&fe->m_curr_path, j); mk_lang_check_rereturn(err);
+		}
+		else
+		{
+			err = mkfe_string_rw_clear(&fe->m_curr_path); mk_lang_check_rereturn(err);
+		}
+	}
+	err = mkfe_x_gather_dir(fe, &fe->m_curr_path); mk_lang_check_rereturn(err);
+	fe->m_idx = 0;
+	err = mkfe_x_invalidate_all(fe); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_dirify(mkfe_pt const fe, mkfe_file_pct const file, mkfe_string_pct* const dirifyed) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	mk_lang_types_usize_t len;
+	mk_lang_types_pchar_pt buf;
+
+	mk_lang_assert(fe);
+	mk_lang_assert(file);
+	mk_lang_assert(dirifyed);
+
+	if(file->m_is_dir)
+	{
+		len = mkfe_string_ro_size(&file->m_name); mk_lang_assert(len >= 1);
+		err = mkfe_string_rw_resize(&fe->m_tmp_str, 2 + len + 2); mk_lang_check_rereturn(err);
+		buf = mkfe_string_rw_data(&fe->m_tmp_str); mk_lang_assert(buf);
+		buf[0] = '[';
+		buf[1] = ' ';
+		mkfe_memcpy_pc_fn(&buf[2], mkfe_string_ro_data(&file->m_name), len);
+		buf[2 + len + 0] = ' ';
+		buf[2 + len + 1] = ']';
+		*dirifyed = &fe->m_tmp_str;
+	}
+	else
+	{
+		*dirifyed = &file->m_name;
+	}
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_on_expose_row(mkfe_pt const fe, XEvent* const evt, mk_lang_types_sint_t const width, mk_lang_types_bool_t const measure, mk_lang_types_sint_t const idx) mk_lang_noexcept
 {
 	Display* display;
@@ -516,6 +650,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_on_expose_ro
 	mk_lang_types_sint_t descent;
 	XCharStruct dimensions;
 	mk_lang_types_sint_t err;
+	mkfe_string_pct str;
 
 	mk_lang_assert(fe);
 	mk_lang_assert(evt);
@@ -531,8 +666,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_on_expose_ro
 	height_max = line_height;
 	gcid = XGContextFromGC(gc);
 	row = mkfe_files_ro_at(&fe->m_rows, *mkfe_ints_ro_at(&fe->m_sort, idx)); mk_lang_assert(row);
-	buf = mkfe_string_ro_data(&row->m_name); mk_lang_assert(buf && buf[0] != '\0');
-	lenus = mkfe_string_ro_size(&row->m_name); mk_lang_assert(lenus >= 1 && lenus <= ((mk_lang_types_usize_t)(mk_lang_limits_sint_max))); lensi = ((mk_lang_types_sint_t)(lenus)); mk_lang_assert(lensi >= 1);
+	err = mkfe_x_dirify(fe, row, &str); mk_lang_check_rereturn(err);
+	buf = mkfe_string_ro_data(str); mk_lang_assert(buf && buf[0] != '\0');
+	lenus = mkfe_string_ro_size(str); mk_lang_assert(lenus >= 1 && lenus <= ((mk_lang_types_usize_t)(mk_lang_limits_sint_max))); lensi = ((mk_lang_types_sint_t)(lenus)); mk_lang_assert(lensi >= 1);
 	if(measure)
 	{
 		tsi = XQueryTextExtents(display, gcid, buf, lensi, &direction, &ascent, &descent, &dimensions);
@@ -641,6 +777,14 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_on_keypress(
 	else if(ks == XK_Escape)
 	{
 		fe->m_visible = mk_lang_false;
+	}
+	else if(ks == XK_Return)
+	{
+		err = mkfe_x_go_deep(fe); mk_lang_check_rereturn(err);
+	}
+	else if(ks == XK_BackSpace)
+	{
+		err = mkfe_x_go_up(fe); mk_lang_check_rereturn(err);
 	}
 	else if(ks == XK_i)
 	{
