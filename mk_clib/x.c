@@ -561,19 +561,22 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_go_deep(mkfe
 
 	mk_lang_assert(fe);
 
-	slash = '/';
-	idxp = mkfe_ints_ro_at(&fe->m_sort, fe->m_idx); mk_lang_assert(idxp); idx = *idxp;
-	row = mkfe_files_ro_at(&fe->m_rows, idx); mk_lang_assert(row);
-	if(row->m_is_dir)
+	if(!mkfe_files_ro_is_empty(&fe->m_rows))
 	{
-		name = &row->m_name; mk_lang_assert(name);
-		buf = mkfe_string_ro_data(name); mk_lang_assert(buf && buf[0] != '\0');
-		len = mkfe_string_ro_size(name); mk_lang_assert(len >= 1);
-		err = mkfe_string_rw_push_back_one(&fe->m_curr_path, &slash); mk_lang_check_rereturn(err);
-		err = mkfe_string_rw_push_back_many(&fe->m_curr_path, buf, len); mk_lang_check_rereturn(err);
-		err = mkfe_x_gather_dir(fe, &fe->m_curr_path); mk_lang_check_rereturn(err);
-		fe->m_idx = 0;
-		err = mkfe_x_invalidate_all(fe); mk_lang_check_rereturn(err);
+		slash = '/';
+		idxp = mkfe_ints_ro_at(&fe->m_sort, fe->m_idx); mk_lang_assert(idxp); idx = *idxp;
+		row = mkfe_files_ro_at(&fe->m_rows, idx); mk_lang_assert(row);
+		if(row->m_is_dir)
+		{
+			name = &row->m_name; mk_lang_assert(name);
+			buf = mkfe_string_ro_data(name); mk_lang_assert(buf && buf[0] != '\0');
+			len = mkfe_string_ro_size(name); mk_lang_assert(len >= 1);
+			err = mkfe_string_rw_push_back_one(&fe->m_curr_path, &slash); mk_lang_check_rereturn(err);
+			err = mkfe_string_rw_push_back_many(&fe->m_curr_path, buf, len); mk_lang_check_rereturn(err);
+			err = mkfe_x_gather_dir(fe, &fe->m_curr_path); mk_lang_check_rereturn(err);
+			fe->m_idx = 0;
+			err = mkfe_x_invalidate_all(fe); mk_lang_check_rereturn(err);
+		}
 	}
 	return 0;
 }
