@@ -184,8 +184,8 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mkfe_file_lt(mkfe_file_pct 
 
 #define mk_lang_bui_t_name mkfe_cntr
 #define mk_lang_bui_t_base uint
-#include "mk_lang_bui_inl_fileh.h"
-#include "mk_lang_bui_inl_filec.h"
+#include "src/mk_lang_bui_inl_fileh.h"
+#include "src/mk_lang_bui_inl_filec.h"
 
 #define mk_sl_sort_merge_t_name mkfe_sort_files
 #define mk_sl_sort_merge_t_data mkfe_file
@@ -193,14 +193,19 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mkfe_file_lt(mkfe_file_pct 
 #define mk_sl_sort_merge_t_is_sorted mkfe_file_lt
 #define mk_sl_sort_merge_t_first_round 1
 #define mk_sl_sort_merge_t_proxy mk_lang_types_sint
-#include "mk_sl_sort_merge_inl_fileh.h"
-#include "mk_sl_sort_merge_inl_filec.h"
+#include "src/mk_sl_sort_merge_inl_fileh.h"
+#include "src/mk_sl_sort_merge_inl_filec.h"
 
 #define mk_sl_vector_t_name mkfe_ints
 #define mk_sl_vector_t_element mk_lang_types_sint_t
 #define mk_sl_vector_t_mallocatorg mk_clib_app_fe_posix_mallocatorg_name
-#include "mk_sl_vector_inl_fileh.h"
-#include "mk_sl_vector_inl_filec.h"
+#include "src/mk_sl_vector_inl_fileh.h"
+#include "src/mk_sl_vector_inl_filec.h"
+
+#define mk_lang_swap_t_name mkfe_swap_ul
+#define mk_lang_swap_t_type mk_lang_types_ulong_t
+#include "src/mk_lang_swap_inl_fileh.h"
+#include "src/mk_lang_swap_inl_filec.h"
 
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
@@ -225,13 +230,18 @@ struct mkfe_s
 	mkfe_string_t m_curr_path;
 	mkfe_string_t m_tmp_str;
 	mk_lang_types_sint_t m_idx;
-	mk_lang_types_sint_t m_line_height;
-	mk_lang_types_sint_t m_line_hcur;
+	mk_lang_types_sint_t m_text_asc;
+	mk_lang_types_sint_t m_text_des;
+	mk_lang_types_sint_t m_cur_asc;
+	mk_lang_types_sint_t m_cur_des;
 };
 typedef struct mkfe_s mkfe_t;
 typedef mkfe_t const mkfe_ct;
 typedef mkfe_t* mkfe_pt;
 typedef mkfe_t const* mkfe_pct;
+
+
+mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mkfe_x_alphabet[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]";
 
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_init(mkfe_pt const fe) mk_lang_noexcept
@@ -276,14 +286,20 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_init(mkfe_pt
 	fe->m_gc = gc;
 	fe->m_visible = mk_lang_true;
 	fe->m_hidden = mk_lang_false;
-	fe->m_line_height = 1;
+	fe->m_text_asc = 1;
+	fe->m_text_des = 0;
+	fe->m_cur_asc = 1;
+	fe->m_cur_des = 0;
 	err = mkfe_files_rw_construct(&fe->m_rows); mk_lang_check_rereturn(err);
 	err = mkfe_ints_rw_construct(&fe->m_sort); mk_lang_check_rereturn(err);
 	err = mkfe_string_rw_construct(&fe->m_curr_path); mk_lang_check_rereturn(err);
 	err = mkfe_string_rw_construct(&fe->m_tmp_str); mk_lang_check_rereturn(err);
 	gcid = XGContextFromGC(gc);
-	tsi = XQueryTextExtents(display, gcid, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]", mk_lang_countstr("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"), &direction, &ascent, &descent, &dimensions);
-	fe->m_line_height = mk_lang_max(fe->m_line_height, dimensions.ascent + dimensions.descent);
+	tsi = XQueryTextExtents(display, gcid, &mkfe_x_alphabet[0], mk_lang_countstr(mkfe_x_alphabet), &direction, &ascent, &descent, &dimensions);
+	fe->m_text_asc = dimensions.ascent;
+	fe->m_text_des = dimensions.descent;
+	fe->m_cur_asc = dimensions.ascent;
+	fe->m_cur_des = dimensions.descent;
 	return 0;
 }
 
@@ -456,7 +472,6 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mkfe_x_hide(mkfe_pt const f
 	mk_lang_types_sint_t tsi;
 
 	mk_lang_assert(fe);
-	mk_lang_assert(!fe->m_visible);
 
 	if(!fe->m_hidden)
 	{
@@ -464,6 +479,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mkfe_x_hide(mkfe_pt const f
 		err = mk_lib_x11_get_display(&display); mk_lang_check_rereturn(err);
 		window = fe->m_window;
 		tsi = XUnmapWindow(display, window);
+		fe->m_visible = mk_lang_false;
 	}
 	return 0;
 }
@@ -505,11 +521,17 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_invalidate_o
 	XEvent e;
 	Status st;
 	XWindowAttributes attr;
+	mk_lang_types_sint_t text_asc;
+	mk_lang_types_sint_t text_des;
+	mk_lang_types_sint_t line_height;
 
 	mk_lang_assert(fe);
 
 	err = mk_lib_x11_get_display(&display); mk_lang_check_rereturn(err);
 	window = fe->m_window;
+	text_asc = fe->m_text_asc;
+	text_des = fe->m_text_des;
+	line_height = text_asc + text_des;
 	st = XGetWindowAttributes(display, window, &attr);
 	e.type = Expose;
 	e.xexpose.type = Expose;
@@ -518,9 +540,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_invalidate_o
 	e.xexpose.display = display;
 	e.xexpose.window = window;
 	e.xexpose.x = 0;
-	e.xexpose.y = idx * fe->m_line_height;
+	e.xexpose.y = idx * line_height;
 	e.xexpose.width = attr.width;
-	e.xexpose.height = fe->m_line_height;
+	e.xexpose.height = line_height;
 	e.xexpose.count = 0;
 	st = XSendEvent(display, window, False, ExposureMask, &e);
 	return 0;
@@ -542,14 +564,17 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_go_deep(mkfe
 	slash = '/';
 	idxp = mkfe_ints_ro_at(&fe->m_sort, fe->m_idx); mk_lang_assert(idxp); idx = *idxp;
 	row = mkfe_files_ro_at(&fe->m_rows, idx); mk_lang_assert(row);
-	name = &row->m_name; mk_lang_assert(name);
-	buf = mkfe_string_ro_data(name); mk_lang_assert(buf && buf[0] != '\0');
-	len = mkfe_string_ro_size(name); mk_lang_assert(len >= 1);
-	err = mkfe_string_rw_push_back_one(&fe->m_curr_path, &slash); mk_lang_check_rereturn(err);
-	err = mkfe_string_rw_push_back_many(&fe->m_curr_path, buf, len); mk_lang_check_rereturn(err);
-	err = mkfe_x_gather_dir(fe, &fe->m_curr_path); mk_lang_check_rereturn(err);
-	fe->m_idx = 0;
-	err = mkfe_x_invalidate_all(fe); mk_lang_check_rereturn(err);
+	if(row->m_is_dir)
+	{
+		name = &row->m_name; mk_lang_assert(name);
+		buf = mkfe_string_ro_data(name); mk_lang_assert(buf && buf[0] != '\0');
+		len = mkfe_string_ro_size(name); mk_lang_assert(len >= 1);
+		err = mkfe_string_rw_push_back_one(&fe->m_curr_path, &slash); mk_lang_check_rereturn(err);
+		err = mkfe_string_rw_push_back_many(&fe->m_curr_path, buf, len); mk_lang_check_rereturn(err);
+		err = mkfe_x_gather_dir(fe, &fe->m_curr_path); mk_lang_check_rereturn(err);
+		fe->m_idx = 0;
+		err = mkfe_x_invalidate_all(fe); mk_lang_check_rereturn(err);
+	}
 	return 0;
 }
 
@@ -648,10 +673,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_on_expose_ro
 	mk_lang_types_pchar_pct buf;
 	mk_lang_types_usize_t lenus;
 	mk_lang_types_sint_t lensi;
-	mk_lang_types_sint_t height;
-	mk_lang_types_sint_t height_max;
-	mk_lang_types_sint_t line_height;
+	mk_lang_types_sint_t cur_asc;
+	mk_lang_types_sint_t cur_des;
 	mk_lang_types_sint_t direction;
+	mk_lang_types_sint_t text_asc;
+	mk_lang_types_sint_t text_des;
+	mk_lang_types_sint_t line_height;
 	mk_lang_types_sint_t ascent;
 	mk_lang_types_sint_t descent;
 	XCharStruct dimensions;
@@ -668,38 +695,44 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_on_expose_ro
 	gc = fe->m_gc;
 	black = fe->m_black;
 	white = fe->m_white;
-	line_height = fe->m_line_height;
-	height_max = line_height;
+	cur_asc = fe->m_cur_asc;
+	cur_des = fe->m_cur_des;
+	text_asc = fe->m_text_asc;
+	text_des = fe->m_text_des;
+	line_height = text_asc + text_des;
 	gcid = XGContextFromGC(gc);
 	row = mkfe_files_ro_at(&fe->m_rows, *mkfe_ints_ro_at(&fe->m_sort, idx)); mk_lang_assert(row);
 	err = mkfe_x_dirify(fe, row, &str); mk_lang_check_rereturn(err);
 	buf = mkfe_string_ro_data(str); mk_lang_assert(buf && buf[0] != '\0');
 	lenus = mkfe_string_ro_size(str); mk_lang_assert(lenus >= 1 && lenus <= ((mk_lang_types_usize_t)(mk_lang_limits_sint_max))); lensi = ((mk_lang_types_sint_t)(lenus)); mk_lang_assert(lensi >= 1);
-	if(measure)
+	if(measure && mk_lang_false)
 	{
 		tsi = XQueryTextExtents(display, gcid, buf, lensi, &direction, &ascent, &descent, &dimensions);
-		height = dimensions.ascent + dimensions.descent;
-		height_max = mk_lang_max(height_max, height);
+		cur_asc = mk_lang_max(cur_asc, dimensions.ascent);
+		cur_des = mk_lang_max(cur_des, dimensions.descent);
 	}
-	y = idx * line_height - 1;
+	y = idx * line_height;
 	if(idx != fe->m_idx)
 	{
 		tsi = XSetForeground(display, gc, white);
-		tsi = XFillRectangle(display, window, gc, 0, y + 1, width, line_height + 1);
+		tsi = XFillRectangle(display, window, gc, 0, y, width, line_height);
 		tsi = XSetForeground(display, gc, black);
 	}
 	else
 	{
-		tsi = XFillRectangle(display, window, gc, 0, y + 1, width, line_height + 1);
+		tsi = XFillRectangle(display, window, gc, 0, y, width, line_height);
 		tsi = XSetForeground(display, gc, white);
 	}
 	y += line_height;
+	y -= text_des;
 	tsi = XDrawString(display, window, gc, 0, y, buf, lensi);
+	y += text_des;
 	if(idx == fe->m_idx)
 	{
 		tsi = XSetForeground(display, gc, black);
 	}
-	fe->m_line_hcur = mk_lang_max(fe->m_line_hcur, height_max);
+	fe->m_cur_asc = cur_asc;
+	fe->m_cur_des = cur_des;
 	return 0;
 }
 
@@ -707,14 +740,21 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_on_expose(mk
 {
 	Display* display;
 	Window window;
+	GC gc;
+	mk_lang_types_ulong_t black;
+	mk_lang_types_ulong_t white;
 	mk_lang_types_sint_t tsi;
 	Status st;
 	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t visible_rows;
 	mk_lang_types_usize_t i;
 	XWindowAttributes attr;
 	mk_lang_types_sint_t err;
 	mk_lang_types_sint_t ymin;
 	mk_lang_types_sint_t ymax;
+	mk_lang_types_sint_t text_asc;
+	mk_lang_types_sint_t text_des;
+	mk_lang_types_sint_t line_height;
 
 	mk_lang_assert(fe);
 	mk_lang_assert(evt);
@@ -724,13 +764,21 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_on_expose(mk
 	{
 		err = mk_lib_x11_get_display(&display); mk_lang_check_rereturn(err);
 		window = fe->m_window;
-		fe->m_line_hcur = 0;
+		gc = fe->m_gc;
+		black = fe->m_black;
+		white = fe->m_white;
+		text_asc = fe->m_text_asc;
+		text_des = fe->m_text_des;
+		line_height = text_asc + text_des;
 		st = XGetWindowAttributes(display, window, &attr);
+		visible_rows = ((mk_lang_types_usize_t)(mk_lang_div_roundup(attr.height, line_height)));
 		n = mkfe_files_ro_size(&fe->m_rows);
-		n = mk_lang_min(n, mk_lang_div_roundup(attr.height, fe->m_line_height));
+		n = mk_lang_min(n, visible_rows);
 		if(evt->xexpose.x == 0 && evt->xexpose.y == 0 && evt->xexpose.width == attr.width && evt->xexpose.height == attr.height)
 		{
-			tsi = XClearWindow(display, window);
+			tsi = XSetForeground(display ,gc , white);
+			tsi = XFillRectangle(display, window, gc, 0, 0, attr.width, attr.height);
+			tsi = XSetForeground(display ,gc , black);
 			for(i = 0; i != n; ++i)
 			{
 				err = mkfe_x_on_expose_row(fe, evt, attr.width, mk_lang_true, i); mk_lang_check_rereturn(err);
@@ -741,9 +789,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_on_expose(mk
 		}
 		else
 		{
-			i = evt->xexpose.y / fe->m_line_height;
+			i = evt->xexpose.y / line_height;
 			i = mk_lang_min(i, n);
-			n = mk_lang_min(n, i + mk_lang_div_roundup(evt->xexpose.height, fe->m_line_height));
+			n = mk_lang_min(n, i + mk_lang_div_roundup(evt->xexpose.height, line_height));
 			for(; i != n; ++i)
 			{
 				err = mkfe_x_on_expose_row(fe, evt, attr.width, mk_lang_false, i); mk_lang_check_rereturn(err);
@@ -751,9 +799,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_on_expose(mk
 		}
 	}
 	tsi = XFlush(display);
-	if(fe->m_line_height < fe->m_line_hcur)
+	if(fe->m_text_asc != fe->m_cur_asc || fe->m_text_des != fe->m_cur_des)
 	{
-		fe->m_line_height = fe->m_line_hcur;
+		fe->m_text_asc = fe->m_cur_asc;
+		fe->m_text_des = fe->m_cur_des;
 		err = mkfe_x_invalidate_all(fe); mk_lang_check_rereturn(err);
 	}
 	return 0;
@@ -765,9 +814,16 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_on_keypress(
 	Window window;
 	mk_lang_types_sint_t err;
 	KeySym ks;
-	mk_lang_types_usize_t old;
-	mk_lang_types_usize_t neu;
-	mk_lang_types_usize_t n;
+	mk_lang_types_sint_t text_asc;
+	mk_lang_types_sint_t text_des;
+	mk_lang_types_sint_t line_height;
+	mk_lang_types_sint_t old;
+	mk_lang_types_sint_t neu;
+	mk_lang_types_sint_t n;
+	mk_lang_types_sint_t rows;
+	mk_lang_types_usize_t tus;
+	XWindowAttributes attr;
+	Status st;
 
 	mk_lang_assert(fe);
 	mk_lang_assert(evt);
@@ -775,7 +831,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_on_keypress(
 
 	err = mk_lib_x11_get_display(&display); mk_lang_check_rereturn(err);
 	window = fe->m_window;
-	n = mkfe_files_ro_size(&fe->m_rows);
+	text_asc = fe->m_text_asc;
+	text_des = fe->m_text_des;
+	line_height = text_asc + text_des;
+	tus = mkfe_files_ro_size(&fe->m_rows); mk_lang_assert(tus <= ((mk_lang_types_usize_t)(mk_lang_limits_sint_max))); n = ((mk_lang_types_sint_t)(tus));
 	ks = XLookupKeysym(&evt->xkey, 0);
 	if(ks == XK_q)
 	{
@@ -800,6 +859,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_on_keypress(
 		err = mk_lib_statistics_show(); mk_lang_check_rereturn(err);
 		#endif
 	}
+	else if(ks == XK_d)
+	{
+		mkfe_swap_ul_fn(&fe->m_black, &fe->m_white);
+		err = mkfe_x_invalidate_all(fe); mk_lang_check_rereturn(err);
+	}
 	else if(ks == XK_Up)
 	{
 		old = fe->m_idx;
@@ -818,16 +882,20 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_on_keypress(
 	}
 	else if(ks == XK_Page_Up)
 	{
+		st = XGetWindowAttributes(display, window, &attr);
+		rows = attr.height / line_height;
 		old = fe->m_idx;
-		fe->m_idx = mk_lang_max(0, fe->m_idx - 10);
+		fe->m_idx = mk_lang_max(0, fe->m_idx - rows);
 		neu = fe->m_idx;
 		err = mkfe_x_invalidate_one(fe, old); mk_lang_check_rereturn(err);
 		err = mkfe_x_invalidate_one(fe, neu); mk_lang_check_rereturn(err);
 	}
 	else if(ks == XK_Page_Down)
 	{
+		st = XGetWindowAttributes(display, window, &attr);
+		rows = attr.height / line_height;
 		old = fe->m_idx;
-		fe->m_idx = mk_lang_min(n - 1, fe->m_idx + 10);
+		fe->m_idx = mk_lang_min(n - 1, fe->m_idx + rows);
 		neu = fe->m_idx;
 		err = mkfe_x_invalidate_one(fe, old); mk_lang_check_rereturn(err);
 		err = mkfe_x_invalidate_one(fe, neu); mk_lang_check_rereturn(err);
@@ -835,7 +903,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_on_keypress(
 	if(ks == XK_Home)
 	{
 		old = fe->m_idx;
-		fe->m_idx = mk_lang_max(0, fe->m_idx - 20);
+		fe->m_idx = 0;
 		neu = fe->m_idx;
 		err = mkfe_x_invalidate_one(fe, old); mk_lang_check_rereturn(err);
 		err = mkfe_x_invalidate_one(fe, neu); mk_lang_check_rereturn(err);
@@ -843,7 +911,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_on_keypress(
 	else if(ks == XK_End)
 	{
 		old = fe->m_idx;
-		fe->m_idx = mk_lang_min(n - 1, fe->m_idx + 20);
+		fe->m_idx = n - 1;
 		neu = fe->m_idx;
 		err = mkfe_x_invalidate_one(fe, old); mk_lang_check_rereturn(err);
 		err = mkfe_x_invalidate_one(fe, neu); mk_lang_check_rereturn(err);
@@ -864,6 +932,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_on_buttonpre
 	mk_lang_types_sint_t idxnew;
 	mk_lang_types_usize_t rowsus;
 	mk_lang_types_sint_t rowssi;
+	mk_lang_types_sint_t text_asc;
+	mk_lang_types_sint_t text_des;
+	mk_lang_types_sint_t line_height;
 
 	mk_lang_assert(fe);
 	mk_lang_assert(evt);
@@ -871,9 +942,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_on_buttonpre
 
 	err = mk_lib_x11_get_display(&display); mk_lang_check_rereturn(err);
 	window = fe->m_window;
+	text_asc = fe->m_text_asc;
+	text_des = fe->m_text_des;
+	line_height = text_asc + text_des;
 	y = evt->xbutton.y;
 	idxold = fe->m_idx;
-	idxnew = y / fe->m_line_height;
+	idxnew = y / line_height;
 	rowsus = mkfe_files_ro_size(&fe->m_rows); mk_lang_assert(rowsus <= ((mk_lang_types_usize_t)(mk_lang_limits_sint_max))); rowssi = ((mk_lang_types_sint_t)(rowsus));
 	if(idxnew >= 0 && idxnew < rowssi && idxnew != idxold)
 	{
@@ -905,7 +979,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_on_clientmes
 	mk_lang_assert(evt->type == ClientMessage);
 
 	err = mk_lib_x11_get_wmdelete(&wmdelete); mk_lang_check_rereturn(err);
-	if(evt->xclient.data.l[0] == wmdelete){ err = mkfe_x_on_delete(fe, evt); mk_lang_check_rereturn(err); }
+	if(((Atom)(evt->xclient.data.l[0])) == wmdelete){ err = mkfe_x_on_delete(fe, evt); mk_lang_check_rereturn(err); }
 	return 0;
 }
 

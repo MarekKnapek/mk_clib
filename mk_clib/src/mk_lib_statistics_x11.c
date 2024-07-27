@@ -27,6 +27,11 @@
 #include "mk_lang_memcpy_inl_fileh.h"
 #include "mk_lang_memcpy_inl_filec.h"
 
+#define mk_lang_swap_t_name mk_lib_statistics_x11_swap_ul
+#define mk_lang_swap_t_type mk_lang_types_ulong_t
+#include "mk_lang_swap_inl_fileh.h"
+#include "mk_lang_swap_inl_filec.h"
+
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <X11/Xos.h>
@@ -37,7 +42,6 @@
 #define mk_lib_statistics_x11_mallocatorg_id_portablecpp 13
 #define mk_lib_statistics_x11_mallocatorg_id_windows     14
 #define mk_lib_statistics_x11_mallocatorg_id_tracer      15
-
 #if defined mk_lib_statistics_x11_mallocatorg_want && (mk_lib_statistics_x11_mallocatorg_want) == mk_lib_statistics_x11_mallocatorg_id_disp
 #define mk_lib_statistics_x11_mallocatorg_id mk_lib_statistics_x11_mallocatorg_id_disp
 #elif defined mk_lib_statistics_x11_mallocatorg_want && (mk_lib_statistics_x11_mallocatorg_want) == mk_lib_statistics_x11_mallocatorg_id_portablec
@@ -57,7 +61,6 @@
 #else
 #error xxxxxxxxxx
 #endif
-
 #if mk_lib_statistics_x11_mallocatorg_id == mk_lib_statistics_x11_mallocatorg_id_disp
 #include "mk_sl_mallocatorg.h"
 #define mk_lib_statistics_x11_mallocatorg_name mk_sl_mallocatorg
@@ -302,7 +305,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x
 	mk_lib_statistics_x11_memcpy_pc_fn(&msg[0], &mk_lib_statistics_x11_labels[idx][0], lenus);
 	msg[lenus] = ' ';
 	mk_lib_statistics_x11_memcpy_pc_fn(&msg[lenus + 1], &str[0], lensi);
-	if(measure)
+	if(measure && mk_lang_false)
 	{
 		tsi = XQueryTextExtents(display, gcid, &msg[0], lenus + 1 + lensi, &direction, &ascent, &descent, &dimensions);
 		height = dimensions.ascent + dimensions.descent;
@@ -334,6 +337,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x
 {
 	Display* display;
 	Window window;
+	GC gc;
+	mk_lang_types_ulong_t black;
+	mk_lang_types_ulong_t white;
 	mk_lang_types_sint_t tsi;
 	Status st;
 	mk_lang_types_usize_t n;
@@ -351,13 +357,18 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x
 	{
 		err = mk_lib_x11_get_display(&display); mk_lang_check_rereturn(err);
 		window = statistics->m_window;
+		gc = statistics->m_gc;
+		black = statistics->m_black;
+		white = statistics->m_white;
 		statistics->m_line_hcur = 0;
 		st = XGetWindowAttributes(display, window, &attr);
 		n = mk_lang_countof(statistics->m_cntrs_last.m_data.m_arry.m_cntrs);
 		n = mk_lang_min(n, mk_lang_div_roundup(attr.height, statistics->m_line_height));
 		if(evt->xexpose.x == 0 && evt->xexpose.y == 0 && evt->xexpose.width == attr.width && evt->xexpose.height == attr.height)
 		{
-			tsi = XClearWindow(display, window);
+			tsi = XSetForeground(display ,gc , white);
+			tsi = XFillRectangle(display, window, gc, 0, 0, attr.width, attr.height);
+			tsi = XSetForeground(display ,gc , black);
 			for(i = 0; i != n; ++i)
 			{
 				err = mk_lib_statistics_x11_on_expose_row(statistics, evt, attr.width, mk_lang_true, i); mk_lang_check_rereturn(err);
@@ -410,6 +421,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x
 	else if(ks == XK_Escape)
 	{
 		statistics->m_visible = mk_lang_false;
+	}
+	else if(ks == XK_d)
+	{
+		mk_lib_statistics_x11_swap_ul_fn(&statistics->m_black, &statistics->m_white);
+		err = mk_lib_statistics_x11_invalidate_all(statistics); mk_lang_check_rereturn(err);
 	}
 	else if(ks == XK_Up)
 	{
@@ -514,7 +530,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x
 	mk_lang_assert(evt->type == ClientMessage);
 
 	err = mk_lib_x11_get_wmdelete(&wmdelete); mk_lang_check_rereturn(err);
-	if(evt->xclient.data.l[0] == wmdelete){ err = mk_lib_statistics_x11_on_delete(statistics, evt); mk_lang_check_rereturn(err); }
+	if(((Atom)(evt->xclient.data.l[0])) == wmdelete){ err = mk_lib_statistics_x11_on_delete(statistics, evt); mk_lang_check_rereturn(err); }
 	return 0;
 }
 
