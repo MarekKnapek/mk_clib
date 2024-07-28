@@ -276,7 +276,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_init(mkfe_pt
 	tsi = XSelectInput(display, window, ExposureMask | ButtonPressMask | KeyPressMask);
 	gc = XCreateGC(display, window, 0, 0);
 	tsi = XSetBackground(display, gc, white);
-	tsi = XSetForeground(display ,gc , black);
+	tsi = XSetForeground(display ,gc, black);
 	tsi = XClearWindow(display, window);
 	tsi = XMapRaised(display, window);
 	fe->m_screen = screen;

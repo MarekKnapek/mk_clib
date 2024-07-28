@@ -20,6 +20,7 @@
 #include "mk_lang_version.h"
 #include "mk_lib_cpp_constexpr.hpp"
 #include "mk_lib_crypto_hash_stream_sha1.h"
+#include "mk_lib_x11_list_view.h"
 #include "mk_sl_uint128.h"
 
 #define mk_lang_memcpy_t_name mk_lib_statistics_x11_memcpy_pc
@@ -174,6 +175,8 @@ struct mk_lib_statistics_x11_s
 	mk_lang_types_sint_t m_line_height;
 	mk_lang_types_sint_t m_line_hcur;
 	mk_lib_statistics_x11_cntrs_t m_cntrs_last;
+	mk_lib_x11_list_view_t m_list_view;
+	mk_lang_types_pchar_t m_tmp_str[32 + mk_sl_cui_uint128_strlendec_v];
 };
 typedef struct mk_lib_statistics_x11_s mk_lib_statistics_x11_t;
 typedef mk_lib_statistics_x11_t const mk_lib_statistics_x11_ct;
@@ -343,6 +346,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x
 	mk_lang_types_sint_t tsi;
 	Status st;
 	mk_lang_types_usize_t n;
+	mk_lang_types_sint_t dimensions[4];
 	mk_lang_types_usize_t i;
 	XWindowAttributes attr;
 	mk_lang_types_sint_t err;
@@ -373,9 +377,17 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x
 			{
 				err = mk_lib_statistics_x11_on_expose_row(statistics, evt, attr.width, mk_lang_true, i); mk_lang_check_rereturn(err);
 			}
+			{
+				err = mk_lib_x11_list_view_ro_get_dimensions(&statistics->m_list_view, &dimensions[0]); mk_lang_check_rereturn(err);
+				dimensions[0] = (attr.width - dimensions[2]) / 2;
+				dimensions[1] = (attr.height - dimensions[3]) / 2;
+				err = mk_lib_x11_list_view_rw_set_dimensions(&statistics->m_list_view, &dimensions[0]); mk_lang_check_rereturn(err);
+				err = mk_lib_x11_list_view_rw_on_expose(&statistics->m_list_view, evt); mk_lang_check_rereturn(err);
+			}
 		}
 		else
 		{
+			err = mk_lib_x11_list_view_rw_on_expose(&statistics->m_list_view, evt); mk_lang_check_rereturn(err);
 			i = evt->xexpose.y / statistics->m_line_height;
 			i = mk_lang_min(i, n);
 			n = mk_lang_min(n, i + mk_lang_div_roundup(evt->xexpose.height, statistics->m_line_height));
@@ -404,11 +416,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x
 	mk_lang_types_sint_t idxold;
 	mk_lang_types_sint_t idxnew;
 	mk_lang_types_sint_t err;
+	mk_lang_types_bool_t consumed;
 
 	mk_lang_assert(statistics);
 	mk_lang_assert(evt);
 	mk_lang_assert(evt->type == KeyPress);
 
+	err = mk_lib_x11_list_view_rw_on_keypress(&statistics->m_list_view, evt, &consumed); mk_lang_check_rereturn(err);
 	err = mk_lib_x11_get_display(&display); mk_lang_check_rereturn(err);
 	window = statistics->m_window;
 	idxmin = 0;
@@ -611,6 +625,31 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x11_on_row(mk_lib_x11_list_view_callctx_t const context, mk_lang_types_sint_t const idx, mk_lang_types_pchar_ppct const text, mk_lang_types_sint_pt const len) mk_lang_noexcept
+{
+	mk_lib_statistics_x11_pt statistics;
+	mk_sl_cui_uint128_pct cntr;
+	mk_lang_types_sint_t lensi;
+	mk_lang_types_pchar_t str[mk_sl_cui_uint128_strlendec_v];
+	mk_lang_types_usize_t lenus;
+
+	mk_lang_assert(context);
+	mk_lang_assert(idx >= 0 && idx < mk_lang_countof(statistics->m_cntrs_last.m_data.m_arry.m_cntrs));
+	mk_lang_assert(text);
+	mk_lang_assert(len);
+
+	statistics = ((mk_lib_statistics_x11_pt)(context));
+	cntr = &statistics->m_cntrs_last.m_data.m_arry.m_cntrs[idx];
+	lensi = mk_sl_cui_uint128_to_str_dec_n(cntr, &str[0], mk_lang_countof(str)); mk_lang_assert(lensi >= 1 && lensi <= mk_lang_countof(str));
+	lenus = mk_lang_strlen_n_fn(mk_lib_statistics_x11_labels[idx]); mk_lang_assert(lenus <= mk_lang_countof(statistics->m_tmp_str) - mk_lang_countof(str) - 1);
+	mk_lib_statistics_x11_memcpy_pc_fn(&statistics->m_tmp_str[0], &mk_lib_statistics_x11_labels[idx][0], lenus);
+	statistics->m_tmp_str[lenus] = ' ';
+	mk_lib_statistics_x11_memcpy_pc_fn(&statistics->m_tmp_str[lenus + 1], &str[0], lensi);
+	*text = &statistics->m_tmp_str[0];
+	*len = ((mk_lang_types_sint_t)(lenus)) + 1 + lensi;
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x11_init_(mk_lib_statistics_x11_pt const statistics) mk_lang_noexcept
 {
 	mk_sl_cui_uint128_t zero;
@@ -629,6 +668,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x
 	mk_lang_types_sint_t ascent;
 	mk_lang_types_sint_t descent;
 	XCharStruct dimensions;
+	mk_lang_types_sint_t rect[4];
 
 	mk_lang_assert(statistics);
 
@@ -668,6 +708,15 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x
 	gcid = XGContextFromGC(gc);
 	tsi = XQueryTextExtents(display, gcid, &mk_lib_statistics_x11_alphabet[0], mk_lang_countstr(mk_lib_statistics_x11_alphabet), &direction, &ascent, &descent, &dimensions);
 	statistics->m_line_height = mk_lang_max(statistics->m_line_height, dimensions.ascent + dimensions.descent);
+	err = mk_lib_x11_list_view_rw_construct(&statistics->m_list_view, display, window, gc, black, white); mk_lang_check_rereturn(err);
+	err = mk_lib_x11_list_view_rw_set_callback(&statistics->m_list_view, &mk_lib_statistics_x11_on_row, statistics); mk_lang_check_rereturn(err);
+	err = mk_lib_x11_list_view_rw_set_rows(&statistics->m_list_view, 8); mk_lang_check_rereturn(err);
+	err = mk_lib_x11_list_view_rw_set_auto_height(&statistics->m_list_view, 8); mk_lang_check_rereturn(err);
+	rect[0] = 0;
+	rect[1] = 0;
+	rect[2] = 220;
+	rect[3] = 100;
+	err = mk_lib_x11_list_view_rw_set_dimensions(&statistics->m_list_view, &rect[0]); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -684,6 +733,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x
 	err = mk_lib_x11_get_display(&display); mk_lang_check_rereturn(err);
 	window = statistics->m_window;
 	gc = statistics->m_gc;
+	err = mk_lib_x11_list_view_rw_destruct(&statistics->m_list_view); mk_lang_check_rereturn(err);
 	tsi = XFreeGC(display, gc);
 	tsi = XDestroyWindow(display, window);
 	return 0;
