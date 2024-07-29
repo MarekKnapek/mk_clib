@@ -1,7 +1,7 @@
-#include "src/mk_lang_clamp.h"
 #include "src/mk_lang_assert.h"
 #include "src/mk_lang_bool.h"
 #include "src/mk_lang_check.h"
+#include "src/mk_lang_clamp.h"
 #include "src/mk_lang_countof.h"
 #include "src/mk_lang_div_roundup.h"
 #include "src/mk_lang_inline.h"
@@ -13,7 +13,7 @@
 #include "src/mk_lang_null.h"
 #include "src/mk_lang_strlen.h"
 #include "src/mk_lang_types.h"
-#include "src/mk_lib_x11.h"
+#include "src/mk_lib_x11_cong.h"
 
 #define mk_clib_app_fe_posix_mallocatorg_id_disp        11
 #define mk_clib_app_fe_posix_mallocatorg_id_portablec   12
@@ -264,8 +264,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_init(mkfe_pt
 
 	mk_lang_assert(fe);
 
-	err = mk_lib_x11_get_display(&display); mk_lang_check_rereturn(err);
-	err = mk_lib_x11_get_wmdelete(&wmdelete); mk_lang_check_rereturn(err);
+	err = mk_lib_x11_cong_get_display(&display); mk_lang_check_rereturn(err);
+	err = mk_lib_x11_cong_get_wmdelete(&wmdelete); mk_lang_check_rereturn(err);
 	screen = DefaultScreen(display);
 	black = BlackPixel(display, screen);
 	white = WhitePixel(display, screen);
@@ -316,7 +316,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_deinit(mkfe_
 
 	mk_lang_assert(fe);
 
-	err = mk_lib_x11_get_display(&display); mk_lang_check_rereturn(err);
+	err = mk_lib_x11_cong_get_display(&display); mk_lang_check_rereturn(err);
 	window = fe->m_window;
 	gc = fe->m_gc;
 	tsi = XFreeGC(display, gc);
@@ -476,7 +476,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mkfe_x_hide(mkfe_pt const f
 	if(!fe->m_hidden)
 	{
 		fe->m_hidden = mk_lang_true;
-		err = mk_lib_x11_get_display(&display); mk_lang_check_rereturn(err);
+		err = mk_lib_x11_cong_get_display(&display); mk_lang_check_rereturn(err);
 		window = fe->m_window;
 		tsi = XUnmapWindow(display, window);
 		fe->m_visible = mk_lang_false;
@@ -495,7 +495,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_invalidate_a
 
 	mk_lang_assert(fe);
 
-	err = mk_lib_x11_get_display(&display); mk_lang_check_rereturn(err);
+	err = mk_lib_x11_cong_get_display(&display); mk_lang_check_rereturn(err);
 	window = fe->m_window;
 	st = XGetWindowAttributes(display, window, &attr);
 	e.type = Expose;
@@ -527,7 +527,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_invalidate_o
 
 	mk_lang_assert(fe);
 
-	err = mk_lib_x11_get_display(&display); mk_lang_check_rereturn(err);
+	err = mk_lib_x11_cong_get_display(&display); mk_lang_check_rereturn(err);
 	window = fe->m_window;
 	text_asc = fe->m_text_asc;
 	text_des = fe->m_text_des;
@@ -693,7 +693,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_on_expose_ro
 	mk_lang_assert(evt->type == Expose);
 	mk_lang_assert(evt->xexpose.count == 0);
 
-	err = mk_lib_x11_get_display(&display); mk_lang_check_rereturn(err);
+	err = mk_lib_x11_cong_get_display(&display); mk_lang_check_rereturn(err);
 	window = fe->m_window;
 	gc = fe->m_gc;
 	black = fe->m_black;
@@ -765,7 +765,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_on_expose(mk
 
 	if(evt->xexpose.count == 0)
 	{
-		err = mk_lib_x11_get_display(&display); mk_lang_check_rereturn(err);
+		err = mk_lib_x11_cong_get_display(&display); mk_lang_check_rereturn(err);
 		window = fe->m_window;
 		gc = fe->m_gc;
 		black = fe->m_black;
@@ -832,7 +832,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_on_keypress(
 	mk_lang_assert(evt);
 	mk_lang_assert(evt->type == KeyPress);
 
-	err = mk_lib_x11_get_display(&display); mk_lang_check_rereturn(err);
+	err = mk_lib_x11_cong_get_display(&display); mk_lang_check_rereturn(err);
 	window = fe->m_window;
 	text_asc = fe->m_text_asc;
 	text_des = fe->m_text_des;
@@ -943,7 +943,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_on_buttonpre
 	mk_lang_assert(evt);
 	mk_lang_assert(evt->type == ButtonPress);
 
-	err = mk_lib_x11_get_display(&display); mk_lang_check_rereturn(err);
+	err = mk_lib_x11_cong_get_display(&display); mk_lang_check_rereturn(err);
 	window = fe->m_window;
 	text_asc = fe->m_text_asc;
 	text_des = fe->m_text_des;
@@ -981,7 +981,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_on_clientmes
 	mk_lang_assert(evt);
 	mk_lang_assert(evt->type == ClientMessage);
 
-	err = mk_lib_x11_get_wmdelete(&wmdelete); mk_lang_check_rereturn(err);
+	err = mk_lib_x11_cong_get_wmdelete(&wmdelete); mk_lang_check_rereturn(err);
 	if(((Atom)(evt->xclient.data.l[0])) == wmdelete){ err = mkfe_x_on_delete(fe, evt); mk_lang_check_rereturn(err); }
 	return 0;
 }
@@ -1000,7 +1000,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_pump_all_win
 	mk_lang_assert(fe);
 	mk_lang_assert(at_least_one);
 
-	err = mk_lib_x11_get_display(&display); mk_lang_check_rereturn(err);
+	err = mk_lib_x11_cong_get_display(&display); mk_lang_check_rereturn(err);
 	window = fe->m_window;
 	mask = ExposureMask | ButtonPressMask | KeyPressMask;
 	evt = &e;
@@ -1035,7 +1035,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_pump_global(
 	{
 		err = mkfe_x_hide(fe); mk_lang_check_rereturn(err);
 	}
-	err = mk_lib_x11_get_display(&display); mk_lang_check_rereturn(err);
+	err = mk_lib_x11_cong_get_display(&display); mk_lang_check_rereturn(err);
 	window = fe->m_window;
 	evt = &e;
 	gud = mk_lang_true;
@@ -1096,7 +1096,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_run(mkfe_pt 
 	mk_lang_types_sint_t tsi;
 
 	err = mkfe_x_gather_root(fe); mk_lang_check_rereturn(err);
-	err = mk_lib_x11_get_display(&display); mk_lang_check_rereturn(err);
+	err = mk_lib_x11_cong_get_display(&display); mk_lang_check_rereturn(err);
 	evt = &e;
 	guda = mk_lang_true;
 	while(fe->m_visible)
@@ -1123,7 +1123,7 @@ mk_lang_types_sint_t main(mk_lang_types_sint_t const argc, mk_lang_types_pchar_p
 	mkfe_t fe;
 
 	err = mk_clib_app_fe_posix_mallocatorg_init(); mk_lang_check_rereturn(err);
-	err = mk_lib_x11_init(); mk_lang_check_rereturn(err);
+	err = mk_lib_x11_cong_init(); mk_lang_check_rereturn(err);
 	#if mk_clib_app_fe_posix_mallocatorg_statistics_have
 	err = mk_lib_statistics_init(); mk_lang_check_rereturn(err);
 	#endif
@@ -1134,7 +1134,7 @@ mk_lang_types_sint_t main(mk_lang_types_sint_t const argc, mk_lang_types_pchar_p
 	err = mk_lib_statistics_hide(); mk_lang_check_rereturn(err);
 	err = mk_lib_statistics_deinit(); mk_lang_check_rereturn(err);
 	#endif
-	err = mk_lib_x11_deinit(); mk_lang_check_rereturn(err);
+	err = mk_lib_x11_cong_deinit(); mk_lang_check_rereturn(err);
 	err = mk_clib_app_fe_posix_mallocatorg_deinit(); mk_lang_check_rereturn(err);
 	return 0;
 }

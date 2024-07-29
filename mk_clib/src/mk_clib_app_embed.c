@@ -14,6 +14,7 @@
 
 struct mk_clib_app_embed_s
 {
+	int x;
 };
 typedef struct mk_clib_app_embed_s mk_clib_app_embed_t;
 typedef mk_clib_app_embed_t const mk_clib_app_embed_ct;

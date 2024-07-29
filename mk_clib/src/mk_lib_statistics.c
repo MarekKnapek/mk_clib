@@ -5,6 +5,7 @@
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
 #include "mk_lang_platform.h"
+#include "mk_lib_x11_headers.h"
 
 
 #if !defined mk_lib_statistics_mallocatorg_want
@@ -21,7 +22,7 @@
 #define mk_lib_statistics_impl_hide       mk_lib_statistics_windows_hide
 #define mk_lib_statistics_impl_invalidate mk_lib_statistics_windows_invalidate
 #define mk_lib_statistics_impl_pump       mk_lib_statistics_windows_pump
-#elif mk_lang_platform_x11_have == 1
+#elif mk_lib_x11_headers_have
 #define mk_lib_statistics_x11_mallocatorg_want mk_lib_statistics_mallocatorg_want
 #include "mk_lib_statistics_x11.h"
 #define mk_lib_statistics_impl_init       mk_lib_statistics_x11_init
