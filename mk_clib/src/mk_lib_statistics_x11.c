@@ -26,6 +26,11 @@
 #include "mk_lang_memcpy_inl_fileh.h"
 #include "mk_lang_memcpy_inl_filec.h"
 
+#define mk_lang_memset_t_name mk_lib_statistics_x11_memset_pc
+#define mk_lang_memset_t_type mk_lang_types_pchar_t
+#include "mk_lang_memset_inl_fileh.h"
+#include "mk_lang_memset_inl_filec.h"
+
 #define mk_lang_swap_t_name mk_lib_statistics_x11_swap_ul
 #define mk_lang_swap_t_type mk_lang_types_ulong_t
 #include "mk_lang_swap_inl_fileh.h"
@@ -289,36 +294,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x
 	return 0;
 }
 
-/*mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x11_on_buttonpress(mk_lib_statistics_x11_pt const statistics, XEvent* const evt) mk_lang_noexcept
-{
-	mk_lang_types_sint_t err;
-	Display* display;
-	Window window;
-	mk_lang_types_sint_t y;
-	mk_lang_types_sint_t idxold;
-	mk_lang_types_sint_t idxnew;
-	mk_lang_types_usize_t rowsus;
-	mk_lang_types_sint_t rowssi;
-
-	mk_lang_assert(statistics);
-	mk_lang_assert(evt);
-	mk_lang_assert(evt->type == ButtonPress);
-
-	err = mk_lib_x11_cong_get_display(&display); mk_lang_check_rereturn(err);
-	window = statistics->m_window;
-	y = evt->xbutton.y;
-	idxold = statistics->m_idx;
-	idxnew = y / statistics->m_line_height;
-	rowssi = mk_lang_countof(statistics->m_cntrs_last.m_data.m_arry.m_cntrs);
-	if(idxnew >= 0 && idxnew < rowssi && idxnew != idxold)
-	{
-		statistics->m_idx = idxnew;
-		err = mk_lib_statistics_x11_invalidate_one(statistics, idxold); mk_lang_check_rereturn(err);
-		err = mk_lib_statistics_x11_invalidate_one(statistics, idxnew); mk_lang_check_rereturn(err);
-	}
-	return 0;
-}*/
-
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x11_on_delete(mk_lib_statistics_x11_pt const statistics, XEvent* const evt) mk_lang_noexcept
 {
 	mk_lang_assert(statistics);
@@ -372,7 +347,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x
 		{
 			case Expose       : err = mk_lib_statistics_x11_on_expose       (statistics, evt); mk_lang_check_rereturn(err); break;
 			case KeyPress     : err = mk_lib_statistics_x11_on_keypress     (statistics, evt); mk_lang_check_rereturn(err); break;
-			/*case ButtonPress  : err = mk_lib_statistics_x11_on_buttonpress  (statistics, evt); mk_lang_check_rereturn(err); break;*/
 			case ClientMessage: err = mk_lib_statistics_x11_on_clientmessage(statistics, evt); mk_lang_check_rereturn(err); break;
 		}
 		err = mk_lib_x11_list_view_rw_on_event(list_view, evt, &consumed); mk_lang_check_rereturn(err);
@@ -425,6 +399,28 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x11_longest_text(mk_lib_statistics_x11_pt const statistics, mk_lang_types_sint_pt const longest) mk_lang_noexcept
+{
+	mk_lang_types_sint_t big;
+	mk_lang_types_sint_t n;
+	mk_lang_types_sint_t i;
+	mk_lang_types_sint_t len;
+	mk_lang_types_pchar_t str[mk_sl_cui_uint128_strlendec_v];
+
+	mk_lang_assert(statistics);
+	mk_lang_assert(longest);
+
+	big = 0;
+	n = mk_lang_countof(statistics->m_cntrs_last.m_data.m_arry.m_cntrs);
+	for(i = 0; i != n; ++i)
+	{
+		len = mk_sl_cui_uint128_to_str_dec_n(&statistics->m_cntrs_last.m_data.m_arry.m_cntrs[i], &str[0], mk_lang_countof(str)); mk_lang_assert(len >= 1 && len <= mk_lang_countof(str));
+		big = mk_lang_max(big, len);
+	}
+	*longest = big;
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x11_on_row(mk_lib_x11_list_view_callctx_t const context, mk_lang_types_sint_t const idx, mk_lang_types_pchar_ppct const text, mk_lang_types_sint_pt const len) mk_lang_noexcept
 {
 	mk_lib_statistics_x11_pt statistics;
@@ -432,6 +428,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x
 	mk_lang_types_sint_t lensi;
 	mk_lang_types_pchar_t str[mk_sl_cui_uint128_strlendec_v];
 	mk_lang_types_usize_t lenus;
+	mk_lang_types_pchar_t space;
+	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t longest;
 
 	mk_lang_assert(context);
 	mk_lang_assert(idx >= 0 && idx < mk_lang_countof(statistics->m_cntrs_last.m_data.m_arry.m_cntrs));
@@ -443,10 +442,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_x
 	lensi = mk_sl_cui_uint128_to_str_dec_n(cntr, &str[0], mk_lang_countof(str)); mk_lang_assert(lensi >= 1 && lensi <= mk_lang_countof(str));
 	lenus = mk_lang_strlen_n_fn(mk_lib_statistics_x11_labels[idx]); mk_lang_assert(lenus <= mk_lang_countof(statistics->m_tmp_str) - mk_lang_countof(str) - 1);
 	mk_lib_statistics_x11_memcpy_pc_fn(&statistics->m_tmp_str[0], &mk_lib_statistics_x11_labels[idx][0], lenus);
-	statistics->m_tmp_str[lenus] = ' ';
-	mk_lib_statistics_x11_memcpy_pc_fn(&statistics->m_tmp_str[lenus + 1], &str[0], lensi);
+	space = ' ';
+	statistics->m_tmp_str[lenus] = space;
+	err = mk_lib_statistics_x11_longest_text(statistics, &longest); mk_lang_check_rereturn(err);
+	mk_lib_statistics_x11_memset_pc_fn(&statistics->m_tmp_str[lenus + 1], &space, longest - lensi);
+	mk_lib_statistics_x11_memcpy_pc_fn(&statistics->m_tmp_str[lenus + 1 + (longest - lensi)], &str[0], lensi);
 	*text = &statistics->m_tmp_str[0];
-	*len = ((mk_lang_types_sint_t)(lenus)) + 1 + lensi;
+	*len = ((mk_lang_types_sint_t)(lenus)) + 1 + (longest - lensi) + lensi;
 	return 0;
 }
 

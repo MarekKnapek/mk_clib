@@ -444,7 +444,7 @@ mk_lang_nodiscard static mk_win_user_base_lresult_t mk_win_base_stdcall mk_lib_s
 	return lr;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_windows_show(mk_lib_statistics_windows_pt const statistics) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_statistics_windows_show_(mk_lib_statistics_windows_pt const statistics) mk_lang_noexcept
 {
 	mk_win_base_bool_t b;
 	mk_win_base_module_t this_module;
@@ -524,7 +524,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_statistics_windows_s
 	mk_lang_types_sint_t err;
 
 	statistics = &g_mk_lib_statistics_windows;
-	err = mk_lib_statistics_windows_show(statistics); mk_lang_check_rereturn(err);
+	err = mk_lib_statistics_windows_show_(statistics); mk_lang_check_rereturn(err);
 	return 0;
 }
 
