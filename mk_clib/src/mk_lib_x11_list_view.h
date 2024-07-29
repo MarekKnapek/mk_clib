@@ -42,8 +42,6 @@ struct mk_lib_x11_list_view_s
 	Display* m_display;
 	Window m_window;
 	GC m_gc;
-	mk_lang_types_ulong_t m_black;
-	mk_lang_types_ulong_t m_white;
 	mk_lang_types_sint_t m_text_asc;
 	mk_lang_types_sint_t m_text_des;
 };
@@ -53,7 +51,7 @@ typedef mk_lib_x11_list_view_t* mk_lib_x11_list_view_pt;
 typedef mk_lib_x11_list_view_t const* mk_lib_x11_list_view_pct;
 
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_x11_list_view_rw_construct(mk_lib_x11_list_view_pt const list_view, Display* const display, Window const window, GC const gc, mk_lang_types_ulong_t const black, mk_lang_types_ulong_t const white) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_x11_list_view_rw_construct(mk_lib_x11_list_view_pt const list_view, Display* const display, Window const window, GC const gc) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_x11_list_view_rw_destruct(mk_lib_x11_list_view_pt const list_view) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_x11_list_view_ro_get_border(mk_lib_x11_list_view_pct const list_view, mk_lang_types_sint_pt const border) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_x11_list_view_rw_set_border(mk_lib_x11_list_view_pt const list_view, mk_lang_types_sint_t const border) mk_lang_noexcept;

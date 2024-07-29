@@ -13,6 +13,7 @@
 #include "mk_lang_null.h"
 #include "mk_lang_types.h"
 #include "mk_lang_version.h"
+#include "mk_lib_x11_cong.h"
 
 
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lib_x11_list_view_alphabet[] = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
@@ -146,8 +147,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_x11_list_vie
 	display = list_view->m_display;
 	window = list_view->m_window;
 	gc = list_view->m_gc;
-	black = list_view->m_black;
-	white = list_view->m_white;
+	err = mk_lib_x11_cong_get_default_screen_black(&black); mk_lang_check_rereturn(err);
+	err = mk_lib_x11_cong_get_default_screen_white(&white); mk_lang_check_rereturn(err);
 	text_asc = list_view->m_text_asc;
 	text_des = list_view->m_text_des;
 	line_height = text_asc + text_des;
@@ -184,7 +185,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_x11_list_vie
 }
 
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_x11_list_view_rw_construct(mk_lib_x11_list_view_pt const list_view, Display* const display, Window const window, GC const gc, mk_lang_types_ulong_t const black, mk_lang_types_ulong_t const white) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_x11_list_view_rw_construct(mk_lib_x11_list_view_pt const list_view, Display* const display, Window const window, GC const gc) mk_lang_noexcept
 {
 	GContext gcid;
 	mk_lang_types_sint_t tsi;
@@ -207,8 +208,6 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_x11_list_view_rw_con
 	list_view->m_display = display;
 	list_view->m_window = window;
 	list_view->m_gc = gc;
-	list_view->m_black = black;
-	list_view->m_white = white;
 	list_view->m_text_asc = 1;
 	list_view->m_text_des = 1;
 	gcid = XGContextFromGC(gc);
@@ -474,6 +473,77 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_x11_list_vie
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_x11_list_view_prrw_on_buttonpress(mk_lib_x11_list_view_pt const list_view, XEvent* const evt, mk_lang_types_bool_pt const consumed) mk_lang_noexcept
+{
+	mk_lang_types_sint_t x;
+	mk_lang_types_sint_t y;
+	mk_lang_types_sint_t mx;
+	mk_lang_types_sint_t my;
+	mk_lang_types_sint_t mw;
+	mk_lang_types_sint_t mh;
+	mk_lang_types_sint_t border;
+	mk_lang_types_sint_t text_asc;
+	mk_lang_types_sint_t text_des;
+	mk_lang_types_sint_t idx_old;
+	mk_lang_types_sint_t rows;
+	mk_lang_types_sint_t line_height;
+	mk_lang_types_sint_t mr;
+	mk_lang_types_sint_t mb;
+	mk_lang_types_sint_t idx;
+	mk_lang_types_sint_t idx_new;
+	
+
+	mk_lang_types_sint_t err;
+	Display* display;
+	Window window;
+	mk_lang_types_usize_t rowsus;
+	mk_lang_types_sint_t rowssi;
+
+	mk_lang_assert(list_view);
+	mk_lang_assert(list_view->m_w >= 0);
+	mk_lang_assert(list_view->m_h >= 0);
+	mk_lang_assert(evt);
+	mk_lang_assert(evt->type == ButtonPress);
+	mk_lang_assert(consumed);
+
+	x = evt->xbutton.x;
+	y = evt->xbutton.y;
+	mx = list_view->m_x;
+	my = list_view->m_y;
+	mw = list_view->m_w;
+	mh = list_view->m_h;
+	border = list_view->m_border;
+	text_asc = list_view->m_text_asc;
+	text_des = list_view->m_text_des;
+	idx_old = list_view->m_idx;
+	rows = list_view->m_rows;
+	line_height = text_asc + text_des;
+	mr = mx + mw;
+	mb = my + mh;
+	if(x >= mx && x <= mr && y >= my && y <= mb)
+	{
+		mx += border;
+		my += border;
+		mw -= 2 * border;
+		mh -= 2 * border;
+		mr -= border;
+		mb -= border;
+		if(x >= mx && x <= mr && y >= my && y <= mb)
+		{
+			idx = (y - my) / line_height;
+			idx_new = mk_lang_min(mk_lang_max(0, rows - 1), idx);
+			if(idx_new != idx_old)
+			{
+				list_view->m_idx = idx_new;
+				err = mk_lib_x11_list_view_prrw_invalidate_row(list_view, idx_old); mk_lang_check_rereturn(err);
+				err = mk_lib_x11_list_view_prrw_invalidate_row(list_view, idx_new); mk_lang_check_rereturn(err);
+			}
+		}
+		*consumed = mk_lang_true;
+	}
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_x11_list_view_prrw_on_expose(mk_lib_x11_list_view_pt const list_view, XEvent* const evt, mk_lang_types_bool_pt const consumed) mk_lang_noexcept
 {
 	mk_lang_types_sint_t dimensions[4];
@@ -600,8 +670,9 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_x11_list_view_rw_on_
 
 	switch(evt->type)
 	{
-		case KeyPress: err = mk_lib_x11_list_view_prrw_on_keypres(list_view, evt, consumed); mk_lang_check_rereturn(err); break;
-		case Expose  : err = mk_lib_x11_list_view_prrw_on_expose (list_view, evt, consumed); mk_lang_check_rereturn(err); break;
+		case KeyPress   : err = mk_lib_x11_list_view_prrw_on_keypres    (list_view, evt, consumed); mk_lang_check_rereturn(err); break;
+		case ButtonPress: err = mk_lib_x11_list_view_prrw_on_buttonpress(list_view, evt, consumed); mk_lang_check_rereturn(err); break;
+		case Expose     : err = mk_lib_x11_list_view_prrw_on_expose     (list_view, evt, consumed); mk_lang_check_rereturn(err); break;
 	}
 	return 0;
 }
