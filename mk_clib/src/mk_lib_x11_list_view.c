@@ -67,6 +67,42 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_bool_t mk_lib_x11_list_vie
 	return ret;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_x11_list_view_prrw_invalidate_all(mk_lib_x11_list_view_pct const list_view) mk_lang_noexcept
+{
+	mk_lang_types_sint_t x;
+	mk_lang_types_sint_t y;
+	mk_lang_types_sint_t w;
+	mk_lang_types_sint_t h;
+	Display* display;
+	Window window;
+	XEvent* evt;
+	XEvent e;
+	Status st;
+
+	mk_lang_assert(list_view);
+
+	x = list_view->m_x;
+	y = list_view->m_y;
+	w = list_view->m_w;
+	h = list_view->m_h;
+	display = list_view->m_display;
+	window = list_view->m_window;
+	evt = &e;
+	evt->type = Expose;
+	evt->xexpose.type = Expose;
+	evt->xexpose.serial = 0;
+	evt->xexpose.send_event = True;
+	evt->xexpose.display = display;
+	evt->xexpose.window = window;
+	evt->xexpose.x = x;
+	evt->xexpose.y = y;
+	evt->xexpose.width = w;
+	evt->xexpose.height = h;
+	evt->xexpose.count = 0;
+	st = XSendEvent(display, window, False, ExposureMask, evt);
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_x11_list_view_prrw_invalidate_row(mk_lib_x11_list_view_pct const list_view, mk_lang_types_sint_t const id) mk_lang_noexcept
 {
 	mk_lang_types_sint_t x;
@@ -651,8 +687,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_x11_list_vie
 			a_h = line_height * auto_height;
 			if(list_view->m_h != a_h)
 			{
+				err = mk_lib_x11_list_view_prrw_invalidate_all(list_view); mk_lang_check_rereturn(err);
 				list_view->m_h = a_h;
-				/* todo invalidate all */
+				err = mk_lib_x11_list_view_prrw_invalidate_all(list_view); mk_lang_check_rereturn(err);
 			}
 		}
 		*consumed = mk_lang_true;
