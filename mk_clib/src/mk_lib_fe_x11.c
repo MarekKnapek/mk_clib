@@ -13,6 +13,7 @@
 #include "mk_lang_strlen.h"
 #include "mk_lang_types.h"
 #include "mk_lang_version.h"
+#include "mk_lib_fe_posix.h"
 #include "mk_lib_x11_cong.h"
 #include "mk_lib_x11_headers.h"
 #include "mk_lib_x11_list_view.h"
@@ -96,14 +97,14 @@
 #include "mk_sl_vector_inl_filec.h"
 
 #define mk_sl_vector_t_name mk_lib_fe_x11_strings
-#define mk_sl_vector_t_element mk_lib_fe_x11_string_t
+#define mk_sl_vector_t_element mk_lib_fe_posix_string_t
 #define mk_sl_vector_t_mallocatorg mk_lib_fe_x11_mallocatorg_name
 #include "mk_sl_vector_inl_fileh.h"
 #include "mk_sl_vector_inl_filec.h"
 
 struct mk_lib_fe_x11_file_s
 {
-	mk_lib_fe_x11_string_t m_name;
+	mk_lib_fe_posix_string_t m_name;
 	mk_lang_types_bool_t m_is_dir;
 };
 typedef struct mk_lib_fe_x11_file_s mk_lib_fe_x11_file_t;
@@ -143,10 +144,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_bool_t mk_lib_fe_x11_file_
 	else
 	{
 		cmpb = 0;
-		texta = mk_lib_fe_x11_string_ro_data(&a->m_name); mk_lang_assert(texta && texta[0] != '\0');
-		textb = mk_lib_fe_x11_string_ro_data(&b->m_name); mk_lang_assert(textb && textb[0] != '\0');
-		lena = mk_lib_fe_x11_string_ro_size(&a->m_name); mk_lang_assert(lena >= 1);
-		lenb = mk_lib_fe_x11_string_ro_size(&b->m_name); mk_lang_assert(lenb >= 1);
+		texta = mk_lib_fe_posix_string_ro_data(&a->m_name); mk_lang_assert(texta && texta[0] != '\0');
+		textb = mk_lib_fe_posix_string_ro_data(&b->m_name); mk_lang_assert(textb && textb[0] != '\0');
+		lena = mk_lib_fe_posix_string_ro_size(&a->m_name); mk_lang_assert(lena >= 1);
+		lenb = mk_lib_fe_posix_string_ro_size(&b->m_name); mk_lang_assert(lenb >= 1);
 		n = mk_lang_min(lena, lenb);
 		for(i = 0; i != n; ++i)
 		{
@@ -220,8 +221,7 @@ struct mk_lib_fe_x11_s
 	mk_lang_types_bool_t m_hidden;
 	Window m_window;
 	GC m_gc;
-	mk_lib_fe_x11_string_t m_path;
-	mk_lib_fe_x11_files_t m_rows;
+	mk_lib_fe_posix_t m_server;
 	mk_lib_x11_list_view_t m_list_view;
 };
 typedef struct mk_lib_fe_x11_s mk_lib_fe_x11_t;
@@ -233,23 +233,25 @@ typedef mk_lib_fe_x11_t const* mk_lib_fe_x11_pct;
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fe_x11_prro_on_row(mk_lib_x11_list_view_callctx_t const context, mk_lang_types_sint_t const idx, mk_lang_types_pchar_ppct const text, mk_lang_types_sint_pt const len) mk_lang_noexcept
 {
 	mk_lib_fe_x11_pct fe;
-	mk_lib_fe_x11_files_pct rows;
-	mk_lib_fe_x11_file_pct row;
-	mk_lib_fe_x11_string_pct name;
+	mk_lib_fe_posix_pct server;
+	mk_lib_fe_posix_files_pct files;
+	mk_lib_fe_posix_file_pct file;
+	mk_lib_fe_posix_string_pct name;
 	mk_lang_types_pchar_pct text_buf;
 	mk_lang_types_sint_t text_len;
+	mk_lang_types_sint_t err;
 
 	mk_lang_assert(context);
-	mk_lang_assert(idx >= 0 && idx < ((mk_lang_types_sint_t)(mk_lib_fe_x11_files_ro_size(&((mk_lib_fe_x11_pct)(context))->m_rows))));
 	mk_lang_assert(text);
 	mk_lang_assert(len);
 
 	fe = ((mk_lib_fe_x11_pct)(context));
-	rows = &fe->m_rows;
-	row = mk_lib_fe_x11_files_ro_at(rows, idx); mk_lang_assert(row);
-	name = &row->m_name; mk_lang_assert(name);
-	text_buf = mk_lib_fe_x11_string_ro_data(name); mk_lang_assert(text_buf && text_buf[0] != '\0');
-	text_len = ((mk_lang_types_sint_t)(mk_lib_fe_x11_string_ro_size(name))); mk_lang_assert(text_len >= 1);
+	server = &fe->m_server; mk_lang_assert(server);
+	err = mk_lib_fe_posix_ro_get_files(server, &files); mk_lang_check_rereturn(err);
+	file = mk_lib_fe_posix_files_ro_at(files, idx); mk_lang_assert(file);
+	name = &file->m_name; mk_lang_assert(name);
+	text_buf = mk_lib_fe_posix_string_ro_data(name); mk_lang_assert(text_buf && text_buf[0] != '\0');
+	text_len = ((mk_lang_types_sint_t)(mk_lib_fe_posix_string_ro_size(name))); mk_lang_assert(text_len >= 1);
 	*text = text_buf;
 	*len = text_len;
 	return 0;
@@ -267,6 +269,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fe_x11_prrw_
 	Window window;
 	mk_lang_types_slong_t mask;
 	mk_lang_types_sint_t tsi;
+	mk_lang_types_sint_t count;
 	GC gc;
 
 	mk_lang_assert(fe);
@@ -290,11 +293,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fe_x11_prrw_
 	fe->m_hidden = mk_lang_false;
 	fe->m_window = window;
 	fe->m_gc = gc;
-	err = mk_lib_fe_x11_string_rw_construct(&fe->m_path); mk_lang_check_rereturn(err);
-	err = mk_lib_fe_x11_files_rw_construct(&fe->m_rows); mk_lang_check_rereturn(err);
+	err = mk_lib_fe_posix_rw_construct(&fe->m_server); mk_lang_check_rereturn(err);
+	err = mk_lib_fe_posix_ro_get_count(&fe->m_server, &count); mk_lang_check_rereturn(err);
 	err = mk_lib_x11_list_view_rw_construct(&fe->m_list_view, display, window, gc); mk_lang_check_rereturn(err);
 	err = mk_lib_x11_list_view_rw_set_dimensions(&fe->m_list_view, 0, 0, 320, 200); mk_lang_check_rereturn(err);
 	err = mk_lib_x11_list_view_rw_set_callback(&fe->m_list_view, &mk_lib_fe_x11_prro_on_row, fe); mk_lang_check_rereturn(err);
+	err = mk_lib_x11_list_view_rw_set_rows(&fe->m_list_view, count); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -302,14 +306,15 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fe_x11_prrw_
 {
 	Window window;
 	GC gc;
-	mk_lib_fe_x11_string_pt path;
+	mk_lib_fe_posix_string_pt path;
 	mk_lib_fe_x11_files_pt rows;
+	mk_lib_fe_posix_pt server;
 	mk_lib_x11_list_view_pt list_view;
 	mk_lang_types_sint_t err;
 	mk_lang_types_sint_t n;
 	mk_lang_types_sint_t i;
 	mk_lib_fe_x11_file_pt row;
-	mk_lib_fe_x11_string_pt name;
+	mk_lib_fe_posix_string_pt name;
 	Display* display;
 	mk_lang_types_sint_t tsi;
 
@@ -317,19 +322,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fe_x11_prrw_
 
 	window = fe->m_window;
 	gc = fe->m_gc;
-	path = &fe->m_path;
-	rows = &fe->m_rows;
+	server = &fe->m_server;
 	list_view = &fe->m_list_view;
 	err = mk_lib_x11_list_view_rw_destruct(list_view); mk_lang_check_rereturn(err);
-	n = ((mk_lang_types_sint_t)(mk_lib_fe_x11_files_ro_size(rows)));
-	for(i = 0; i != n; ++i)
-	{
-		row = mk_lib_fe_x11_files_rw_at(rows, i); mk_lang_assert(row);
-		name = &row->m_name; mk_lang_assert(name);
-		err = mk_lib_fe_x11_string_rw_destroy(name); mk_lang_check_rereturn(err);
-	}
-	err = mk_lib_fe_x11_files_rw_destroy(rows); mk_lang_check_rereturn(err);
-	err = mk_lib_fe_x11_string_rw_destroy(path); mk_lang_check_rereturn(err);
+	err = mk_lib_fe_posix_rw_destruct(server); mk_lang_check_rereturn(err);
 	err = mk_lib_x11_cong_get_display(&display); mk_lang_check_rereturn(err);
 	tsi = XFreeGC(display, gc);
 	tsi = XDestroyWindow(display, window);
@@ -373,6 +369,15 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fe_x11_prrw_
 		err = mk_lib_x11_cong_get_display(&display); mk_lang_check_rereturn(err);
 		tsi = XUnmapWindow(display, window);
 	}
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_fe_x11_prrw_is_hidden(mk_lib_fe_x11_pt const fe, mk_lang_types_bool_pt const is_hidden) mk_lang_noexcept
+{
+	mk_lang_assert(fe);
+	mk_lang_assert(is_hidden);
+
+	*is_hidden = fe->m_hidden;
 	return 0;
 }
 
@@ -655,6 +660,18 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_fe_x11_hide(mk_lang_
 
 	fe = &g_mk_lib_fe_x11;
 	err = mk_lib_fe_x11_prrw_hide(fe); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_fe_x11_is_hidden(mk_lang_types_bool_pt const is_hidden) mk_lang_noexcept
+{
+	mk_lib_fe_x11_pt fe;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(is_hidden);
+
+	fe = &g_mk_lib_fe_x11;
+	err = mk_lib_fe_x11_prrw_is_hidden(fe, is_hidden); mk_lang_check_rereturn(err);
 	return 0;
 }
 

@@ -29,6 +29,10 @@
 #define mk_sl_vector_inl_defd_ct mk_lang_concat(mk_sl_vector_inl_defd_name, _ct)
 #define mk_sl_vector_inl_defd_pt mk_lang_concat(mk_sl_vector_inl_defd_name, _pt)
 #define mk_sl_vector_inl_defd_pct mk_lang_concat(mk_sl_vector_inl_defd_name, _pct)
+#define mk_sl_vector_inl_defd_ppt mk_lang_concat(mk_sl_vector_inl_defd_name, _ppt)
+#define mk_sl_vector_inl_defd_pcpt mk_lang_concat(mk_sl_vector_inl_defd_name, _pcpt)
+#define mk_sl_vector_inl_defd_ppct mk_lang_concat(mk_sl_vector_inl_defd_name, _ppct)
+#define mk_sl_vector_inl_defd_pcpct mk_lang_concat(mk_sl_vector_inl_defd_name, _pcpct)
 
 #define mk_sl_vector_inl_defd_ro_capacity mk_lang_concat(mk_sl_vector_inl_defd_name, _ro_capacity)
 #define mk_sl_vector_inl_defd_ro_size mk_lang_concat(mk_sl_vector_inl_defd_name, _ro_size)

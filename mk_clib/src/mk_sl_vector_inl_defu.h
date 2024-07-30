@@ -29,6 +29,10 @@
 #undef mk_sl_vector_inl_defd_ct
 #undef mk_sl_vector_inl_defd_pt
 #undef mk_sl_vector_inl_defd_pct
+#undef mk_sl_vector_inl_defd_ppt
+#undef mk_sl_vector_inl_defd_pcpt
+#undef mk_sl_vector_inl_defd_ppct
+#undef mk_sl_vector_inl_defd_pcpct
 
 #undef mk_sl_vector_inl_defd_ro_capacity
 #undef mk_sl_vector_inl_defd_ro_size
