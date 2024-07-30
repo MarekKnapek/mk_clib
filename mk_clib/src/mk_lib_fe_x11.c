@@ -7,6 +7,7 @@
 #include "mk_lang_countof.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
+#include "mk_lang_limits.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_null.h"
@@ -221,6 +222,7 @@ struct mk_lib_fe_x11_s
 	mk_lang_types_bool_t m_hidden;
 	Window m_window;
 	GC m_gc;
+	mk_lib_fe_x11_string_t m_tmp;
 	mk_lib_fe_posix_t m_server;
 	mk_lib_x11_list_view_t m_list_view;
 };
@@ -230,32 +232,61 @@ typedef mk_lib_fe_x11_t* mk_lib_fe_x11_pt;
 typedef mk_lib_fe_x11_t const* mk_lib_fe_x11_pct;
 
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fe_x11_prro_on_row(mk_lib_x11_list_view_callctx_t const context, mk_lang_types_sint_t const idx, mk_lang_types_pchar_ppct const text, mk_lang_types_sint_pt const len) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fe_x11_prrw_dirify(mk_lib_fe_x11_pt const fe, mk_lib_fe_posix_file_pct const file, mk_lang_types_pchar_ppct const text_out, mk_lang_types_sint_pt const len_out) mk_lang_noexcept
 {
-	mk_lib_fe_x11_pct fe;
+	mk_lang_types_pchar_pct text;
+	mk_lang_types_usize_t size;
+	mk_lang_types_sint_t len;
+	mk_lang_types_sint_t err;
+	mk_lang_types_pchar_t elem;
+
+	mk_lang_assert(fe);
+	mk_lang_assert(file);
+	mk_lang_assert(text_out);
+	mk_lang_assert(len_out);
+
+	text = mk_lib_fe_posix_string_ro_data(&file->m_name); mk_lang_assert(text && text[0] != '\0');
+	size = mk_lib_fe_posix_string_ro_size(&file->m_name); mk_lang_assert(size >= 1 && size <= ((mk_lang_types_usize_t)(mk_lang_limits_sint_max))); len = ((mk_lang_types_sint_t)(size));
+	if(file->m_is_dir)
+	{
+		err = mk_lib_fe_x11_string_rw_clear(&fe->m_tmp); mk_lang_check_rereturn(err);
+		err = mk_lib_fe_x11_string_rw_reserve_at_least(&fe->m_tmp, 2 + size + 2); mk_lang_check_rereturn(err);
+		elem = '['; err = mk_lib_fe_x11_string_rw_push_back_one(&fe->m_tmp, &elem); mk_lang_check_rereturn(err);
+		elem = ' '; err = mk_lib_fe_x11_string_rw_push_back_one(&fe->m_tmp, &elem); mk_lang_check_rereturn(err);
+		err = mk_lib_fe_x11_string_rw_push_back_many(&fe->m_tmp, text, size); mk_lang_check_rereturn(err);
+		elem = ' '; err = mk_lib_fe_x11_string_rw_push_back_one(&fe->m_tmp, &elem); mk_lang_check_rereturn(err);
+		elem = ']'; err = mk_lib_fe_x11_string_rw_push_back_one(&fe->m_tmp, &elem); mk_lang_check_rereturn(err);
+		text = mk_lib_fe_x11_string_ro_data(&fe->m_tmp); mk_lang_assert(text && text[0] != '\0');
+		size = mk_lib_fe_x11_string_ro_size(&fe->m_tmp); mk_lang_assert(size >= 1 && size <= ((mk_lang_types_usize_t)(mk_lang_limits_sint_max))); len = ((mk_lang_types_sint_t)(size));
+	}
+	*text_out = text;
+	*len_out = len;
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fe_x11_prrw_on_row(mk_lib_x11_list_view_callctx_t const context, mk_lang_types_sint_t const idx, mk_lang_types_pchar_ppct const text, mk_lang_types_sint_pt const len) mk_lang_noexcept
+{
+	mk_lib_fe_x11_pt fe;
 	mk_lib_fe_posix_pct server;
+	mk_lang_types_sint_t err;
 	mk_lib_fe_posix_files_pct files;
 	mk_lib_fe_posix_ints_pct sort;
+	mk_lang_types_sint_t id;
 	mk_lib_fe_posix_file_pct file;
-	mk_lib_fe_posix_string_pct name;
 	mk_lang_types_pchar_pct text_buf;
 	mk_lang_types_sint_t text_len;
-	mk_lang_types_sint_t err;
-	mk_lang_types_sint_t id;
 
 	mk_lang_assert(context);
 	mk_lang_assert(text);
 	mk_lang_assert(len);
 
-	fe = ((mk_lib_fe_x11_pct)(context));
+	fe = ((mk_lib_fe_x11_pt)(context));
 	server = &fe->m_server; mk_lang_assert(server);
 	err = mk_lib_fe_posix_ro_get_files(server, &files); mk_lang_check_rereturn(err);
 	err = mk_lib_fe_posix_ro_get_sort(server, &sort); mk_lang_check_rereturn(err);
 	id = *mk_lib_fe_posix_ints_ro_at(sort, idx);
 	file = mk_lib_fe_posix_files_ro_at(files, id); mk_lang_assert(file);
-	name = &file->m_name; mk_lang_assert(name);
-	text_buf = mk_lib_fe_posix_string_ro_data(name); mk_lang_assert(text_buf && text_buf[0] != '\0');
-	text_len = ((mk_lang_types_sint_t)(mk_lib_fe_posix_string_ro_size(name))); mk_lang_assert(text_len >= 1);
+	err = mk_lib_fe_x11_prrw_dirify(fe, file, &text_buf, &text_len); mk_lang_check_rereturn(err); mk_lang_assert(text_buf && text_buf[0] != '\0'); mk_lang_assert(text_len >= 1);
 	*text = text_buf;
 	*len = text_len;
 	return 0;
@@ -297,11 +328,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fe_x11_prrw_
 	fe->m_hidden = mk_lang_false;
 	fe->m_window = window;
 	fe->m_gc = gc;
+	err = mk_lib_fe_x11_string_rw_construct(&fe->m_tmp); mk_lang_check_rereturn(err);
 	err = mk_lib_fe_posix_rw_construct(&fe->m_server); mk_lang_check_rereturn(err);
 	err = mk_lib_fe_posix_ro_get_count(&fe->m_server, &count); mk_lang_check_rereturn(err);
 	err = mk_lib_x11_list_view_rw_construct(&fe->m_list_view, display, window, gc); mk_lang_check_rereturn(err);
 	err = mk_lib_x11_list_view_rw_set_dimensions(&fe->m_list_view, 0, 0, 320, 200); mk_lang_check_rereturn(err);
-	err = mk_lib_x11_list_view_rw_set_callback(&fe->m_list_view, &mk_lib_fe_x11_prro_on_row, fe); mk_lang_check_rereturn(err);
+	err = mk_lib_x11_list_view_rw_set_callback(&fe->m_list_view, &mk_lib_fe_x11_prrw_on_row, fe); mk_lang_check_rereturn(err);
 	err = mk_lib_x11_list_view_rw_set_rows(&fe->m_list_view, count); mk_lang_check_rereturn(err);
 	return 0;
 }
@@ -310,6 +342,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fe_x11_prrw_
 {
 	Window window;
 	GC gc;
+	mk_lib_fe_x11_string_pt tmp;
 	mk_lib_fe_posix_string_pt path;
 	mk_lib_fe_x11_files_pt rows;
 	mk_lib_fe_posix_pt server;
@@ -326,10 +359,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fe_x11_prrw_
 
 	window = fe->m_window;
 	gc = fe->m_gc;
+	tmp = &fe->m_tmp;
 	server = &fe->m_server;
 	list_view = &fe->m_list_view;
 	err = mk_lib_x11_list_view_rw_destruct(list_view); mk_lang_check_rereturn(err);
 	err = mk_lib_fe_posix_rw_destruct(server); mk_lang_check_rereturn(err);
+	err = mk_lib_fe_x11_string_rw_destroy(tmp); mk_lang_check_rereturn(err);
 	err = mk_lib_x11_cong_get_display(&display); mk_lang_check_rereturn(err);
 	tsi = XFreeGC(display, gc);
 	tsi = XDestroyWindow(display, window);
