@@ -426,6 +426,18 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fe_x11_prrw_
 				}
 			}
 			break;
+			case XK_BackSpace:
+			{
+				err = mk_lib_fe_posix_rw_go_up(&fe->m_server, &went); mk_lang_check_rereturn(err);
+				if(went)
+				{
+					err = mk_lib_fe_posix_ro_get_count(&fe->m_server, &count); mk_lang_check_rereturn(err);
+					err = mk_lib_x11_list_view_rw_set_rows(&fe->m_list_view, count); mk_lang_check_rereturn(err);
+					err = mk_lib_x11_list_view_rw_set_idx(&fe->m_list_view, 0); mk_lang_check_rereturn(err);
+					err = mk_lib_x11_list_view_rw_invalidate_all(&fe->m_list_view); mk_lang_check_rereturn(err);
+				}
+			}
+			break;
 			case XK_i:
 			{
 				err = mk_lib_statistics_hide(); mk_lang_check_rereturn(err);

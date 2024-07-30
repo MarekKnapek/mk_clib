@@ -401,7 +401,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_fe_posix_rw_go_dn(mk
 	return  0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_fe_posix_rw_go_up(mk_lib_fe_posix_pt const fe) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_fe_posix_rw_go_up(mk_lib_fe_posix_pt const fe, mk_lang_types_bool_pt const went) mk_lang_noexcept
 {
 	mk_lang_types_pchar_pct buf;
 	mk_lang_types_usize_t len;
@@ -409,13 +409,21 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_fe_posix_rw_go_up(mk
 	mk_lang_types_sint_t err;
 
 	mk_lang_assert(fe);
-	mk_lang_assert(fe->m_depth >= 1);
+	mk_lang_assert(went);
 
-	buf = mk_lib_fe_posix_string_ro_data(&fe->m_path); mk_lang_assert(buf && buf[0] != '\0');
-	len = mk_lib_fe_posix_string_ro_size(&fe->m_path); mk_lang_assert(len >= 1); mk_lang_assert(len <= ((mk_lang_types_usize_t)(mk_lang_limits_sint_max)));
-	idx = alg_find_reverse(&buf[0], ((mk_lang_types_sint_t)(len)), '/'); mk_lang_assert(idx != -1);
-	err = mk_lib_fe_posix_string_rw_shrink(&fe->m_path, len - idx); mk_lang_check_rereturn(err);
-	--fe->m_depth;
-	err = mk_lib_fe_posix_prrw_go(fe); mk_lang_check_rereturn(err);
+	if(fe->m_depth >= 1)
+	{
+		buf = mk_lib_fe_posix_string_ro_data(&fe->m_path); mk_lang_assert(buf && buf[0] != '\0');
+		len = mk_lib_fe_posix_string_ro_size(&fe->m_path); mk_lang_assert(len >= 1); mk_lang_assert(len <= ((mk_lang_types_usize_t)(mk_lang_limits_sint_max)));
+		idx = alg_find_reverse(&buf[0], ((mk_lang_types_sint_t)(len)), '/'); mk_lang_assert(idx != -1);
+		err = mk_lib_fe_posix_string_rw_shrink(&fe->m_path, len - idx); mk_lang_check_rereturn(err);
+		--fe->m_depth;
+		err = mk_lib_fe_posix_prrw_go(fe); mk_lang_check_rereturn(err);
+		*went = mk_lang_true;
+	}
+	else
+	{
+		*went = mk_lang_false;
+	}
 	return  0;
 }
