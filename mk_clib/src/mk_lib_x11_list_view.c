@@ -423,6 +423,16 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_x11_list_view_rw_inv
 	return 0;
 }
 
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_x11_list_view_rw_invalidate_all(mk_lib_x11_list_view_pt const list_view) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(list_view);
+
+	err = mk_lib_x11_list_view_prrw_invalidate_all(list_view); mk_lang_check_rereturn(err);
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_x11_list_view_prrw_on_keypres_home(mk_lib_x11_list_view_pt const list_view) mk_lang_noexcept
 {
 	mk_lang_types_sint_t idx_old;

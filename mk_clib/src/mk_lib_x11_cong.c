@@ -14,6 +14,7 @@ struct mk_lib_x11_cong_s
 {
 	Display* m_display;
 	mk_lang_types_sint_t m_screen;
+	Window m_rootw;
 	mk_lang_types_ulong_t m_black;
 	mk_lang_types_ulong_t m_white;
 	Atom m_wmdelete;
@@ -32,6 +33,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_x11_cong_init(mk_lan
 	mk_lib_x11_cong_pt x11_cong;
 	Display* display;
 	mk_lang_types_sint_t screen;
+	Window rootw;
 	mk_lang_types_ulong_t black;
 	mk_lang_types_ulong_t white;
 	Atom wmdelete;
@@ -39,11 +41,13 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_x11_cong_init(mk_lan
 	x11_cong = &g_mk_lib_x11_cong;
 	display = XOpenDisplay(mk_lang_null); mk_lang_check_return(display);
 	screen = DefaultScreen(display);
+	rootw = RootWindow(display, screen);
 	black = BlackPixel(display, screen);
 	white = WhitePixel(display, screen);
 	wmdelete = XInternAtom(display, "WM_DELETE_WINDOW", False);
 	x11_cong->m_display = display;
 	x11_cong->m_screen = screen;
+	x11_cong->m_rootw = rootw;
 	x11_cong->m_black = black;
 	x11_cong->m_white = white;
 	x11_cong->m_wmdelete = wmdelete;
@@ -85,6 +89,19 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_x11_cong_get_default
 	x11_cong = &g_mk_lib_x11_cong;
 	screen = x11_cong->m_screen;
 	*screen_out = screen;
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_x11_cong_get_default_screen_rootw(Window* const rootw_out) mk_lang_noexcept
+{
+	mk_lib_x11_cong_pt x11_cong;
+	mk_lang_types_ulong_t rootw;
+
+	mk_lang_assert(rootw_out);
+
+	x11_cong = &g_mk_lib_x11_cong;
+	rootw = x11_cong->m_rootw;
+	*rootw_out = rootw;
 	return 0;
 }
 

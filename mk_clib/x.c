@@ -14,6 +14,7 @@
 #include "src/mk_lang_strlen.h"
 #include "src/mk_lang_types.h"
 #include "src/mk_lib_x11_cong.h"
+#include "src/mk_lib_x11_list_view.h"
 
 #define mk_clib_app_fe_posix_mallocatorg_id_disp        11
 #define mk_clib_app_fe_posix_mallocatorg_id_portablec   12
@@ -234,6 +235,7 @@ struct mkfe_s
 	mk_lang_types_sint_t m_text_des;
 	mk_lang_types_sint_t m_cur_asc;
 	mk_lang_types_sint_t m_cur_des;
+	mk_lib_x11_list_view_t m_list_view;
 };
 typedef struct mkfe_s mkfe_t;
 typedef mkfe_t const mkfe_ct;
@@ -300,6 +302,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_init(mkfe_pt
 	fe->m_text_des = dimensions.descent;
 	fe->m_cur_asc = dimensions.ascent;
 	fe->m_cur_des = dimensions.descent;
+	err = mk_lib_x11_list_view_rw_construct(&fe->m_list_view, display, window, gc); mk_lang_check_rereturn(err);
 	return 0;
 }
 
