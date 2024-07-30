@@ -86,7 +86,9 @@
 #undef mk_lib_mt_ring_inl_defd_ro_is_full
 #undef mk_lib_mt_ring_inl_defd_ro_at
 #undef mk_lib_mt_ring_inl_defd_ro_wait_til_empty
+#undef mk_lib_mt_ring_inl_defd_ro_wait_til_empty_for
 #undef mk_lib_mt_ring_inl_defd_ro_wait_til_non_empty
+#undef mk_lib_mt_ring_inl_defd_ro_wait_til_non_empty_for
 #undef mk_lib_mt_ring_inl_defd_ro_front
 #undef mk_lib_mt_ring_inl_defd_ro_back
 
@@ -96,7 +98,9 @@
 #undef mk_lib_mt_ring_inl_defd_rw_is_empty
 #undef mk_lib_mt_ring_inl_defd_rw_is_full
 #undef mk_lib_mt_ring_inl_defd_rw_wait_til_empty
+#undef mk_lib_mt_ring_inl_defd_rw_wait_til_empty_for
 #undef mk_lib_mt_ring_inl_defd_rw_wait_til_non_empty
+#undef mk_lib_mt_ring_inl_defd_rw_wait_til_non_empty_for
 #undef mk_lib_mt_ring_inl_defd_rw_at
 #undef mk_lib_mt_ring_inl_defd_rw_front
 #undef mk_lib_mt_ring_inl_defd_rw_back
@@ -117,4 +121,6 @@
 #undef mk_lib_mt_ring_inl_defd_rw_try_push_front
 #undef mk_lib_mt_ring_inl_defd_rw_try_pop_front_void
 #undef mk_lib_mt_ring_inl_defd_rw_try_pop_front_copy
+#undef mk_lib_mt_ring_inl_defd_pr_try_pop_front_for_copy
+#undef mk_lib_mt_ring_inl_defd_rw_try_pop_front_for_copy
 #undef mk_lib_mt_ring_inl_defd_rw_try_pop_front_few_copy

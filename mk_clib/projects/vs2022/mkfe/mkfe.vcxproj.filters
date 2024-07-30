@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<Xml Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_comctl_manifest_amd64.xml"/>
+		<Xml Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_comctl_manifest_i386.xml"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\app\mkfe.c"/>
+		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_abort_win_amd64.asm"/>
+		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_abort_win_i386.asm"/>
+		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcmp_win_amd64.asm"/>
+		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcpy_win_amd64.asm"/>
+		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcpy_win_i386.asm"/>
+		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memset_win_amd64.asm"/>
+	</ItemGroup>
+</Project>

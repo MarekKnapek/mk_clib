@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<amv1:assembly xmlns:amv1="urn:schemas-microsoft-com:asm.v1" xmlns:acv1="urn:schemas-microsoft-com:compatibility.v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 mk_win_application_manifest.xsd urn:schemas-microsoft-com:compatibility.v1 mk_win_application_compatibility.xsd" manifestVersion="1.0">
+	<amv1:assemblyIdentity type="win32" name="mkfe.mkfe.mkfe" version="1.0.0.0"/>
+	<amv1:dependency>
+		<amv1:dependentAssembly>
+			<amv1:assemblyIdentity type="win32" name="Microsoft.Windows.Common-Controls" version="6.0.0.0" publicKeyToken="6595b64144ccf1df"/>
+		</amv1:dependentAssembly>
+	</amv1:dependency>
+</amv1:assembly>

@@ -30,7 +30,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_thread_portable_c
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_thread_portable_cpp_create(mk_lib_mt_thread_portable_cpp_pt const thread, mk_lib_mt_thread_portable_cpp_callback_t const callback, mk_lang_types_void_pt const context) mk_lang_noexcept
 {
+	typedef std::thread thread_t;
+	typedef thread_t* thread_pt;
+
 	mk_lang_types_sint_t ret;
+	thread_pt real;
 
 	mk_lang_assert(thread);
 	mk_lang_assert(callback);
@@ -38,7 +42,8 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_thread_portable_c
 	ret = 0;
 	try
 	{
-		::new(static_cast<mk_lang_types_void_pt>(&thread->m_thread))(std::thread)(mk_lib_mt_thread_portable_cpp_procedure, callback, context);
+		real = reinterpret_cast<thread_pt>(&thread->m_thread);
+		::new(static_cast<mk_lang_types_void_pt>(real))(thread_t)(mk_lib_mt_thread_portable_cpp_procedure, callback, context);
 	}
 	catch(...)
 	{
@@ -69,14 +74,19 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_thread_portable_c
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_thread_portable_cpp_join(mk_lib_mt_thread_portable_cpp_pt const thread) mk_lang_noexcept
 {
+	typedef std::thread thread_t;
+	typedef thread_t* thread_pt;
+
 	mk_lang_types_sint_t ret;
+	thread_pt real;
 
 	mk_lang_assert(thread);
 
 	ret = 0;
 	try
 	{
-		reinterpret_cast<std::thread*>(&thread->m_thread)->join();
+		real = reinterpret_cast<thread_pt>(&thread->m_thread);
+		real->join();
 	}
 	catch(...)
 	{
@@ -87,8 +97,14 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_thread_portable_c
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_thread_portable_cpp_destroy(mk_lib_mt_thread_portable_cpp_pt const thread) mk_lang_noexcept
 {
+	typedef std::thread thread_t;
+	typedef thread_t* thread_pt;
+
+	thread_pt real;
+
 	mk_lang_assert(thread);
 
-	reinterpret_cast<std::thread*>(&thread->m_thread)->~thread();
+	real = reinterpret_cast<thread_pt>(&thread->m_thread);
+	real->~thread();
 	return 0;
 }

@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup Label="ProjectConfigurations">
+		<ProjectConfiguration Include="Debug|Win32">
+			<Configuration>Debug</Configuration>
+			<Platform>Win32</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="Release|Win32">
+			<Configuration>Release</Configuration>
+			<Platform>Win32</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="Debug|x64">
+			<Configuration>Debug</Configuration>
+			<Platform>x64</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="Release|x64">
+			<Configuration>Release</Configuration>
+			<Platform>x64</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="Debug|ARM">
+			<Configuration>Debug</Configuration>
+			<Platform>ARM</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="Release|ARM">
+			<Configuration>Release</Configuration>
+			<Platform>ARM</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="Debug|ARM64">
+			<Configuration>Debug</Configuration>
+			<Platform>ARM64</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="Release|ARM64">
+			<Configuration>Release</Configuration>
+			<Platform>ARM64</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="Debug|ARM64EC">
+			<Configuration>Debug</Configuration>
+			<Platform>ARM64EC</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="Release|ARM64EC">
+			<Configuration>Release</Configuration>
+			<Platform>ARM64EC</Platform>
+		</ProjectConfiguration>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\app\embed.c"/>
+		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_abort_win_amd64.asm">
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64EC'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64EC'">true</ExcludedFromBuild>
+		</MASM>
+		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_abort_win_i386.asm">
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64EC'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64EC'">true</ExcludedFromBuild>
+			<UseSafeExceptionHandlers Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</UseSafeExceptionHandlers>
+		</MASM>
+		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcmp_win_amd64.asm">
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64EC'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64EC'">true</ExcludedFromBuild>
+		</MASM>
+		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcpy_win_amd64.asm">
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64EC'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64EC'">true</ExcludedFromBuild>
+		</MASM>
+		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcpy_win_i386.asm">
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64EC'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64EC'">true</ExcludedFromBuild>
+			<UseSafeExceptionHandlers Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</UseSafeExceptionHandlers>
+		</MASM>
+		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memset_win_amd64.asm">
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64EC'">true</ExcludedFromBuild>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64EC'">true</ExcludedFromBuild>
+		</MASM>
+	</ItemGroup>
+	<PropertyGroup Label="Globals">
+		<Keyword>Win32Proj</Keyword>
+		<ProjectGuid>{7c2255bc-c9f1-4b3e-8672-37dbe02d855c}</ProjectGuid>
+		<RootNamespace>embed</RootNamespace>
+		<VCProjectVersion>17.0</VCProjectVersion>
+		<WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+	</PropertyGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+		<CharacterSet>Unicode</CharacterSet>
+		<ConfigurationType>Application</ConfigurationType>
+		<EnableASAN>true</EnableASAN>
+		<PlatformToolset>v143</PlatformToolset>
+		<PreferredToolArchitecture>x64</PreferredToolArchitecture>
+		<UseDebugLibraries>true</UseDebugLibraries>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+		<CharacterSet>Unicode</CharacterSet>
+		<ConfigurationType>Application</ConfigurationType>
+		<PlatformToolset>v143</PlatformToolset>
+		<PreferredToolArchitecture>x64</PreferredToolArchitecture>
+		<UseDebugLibraries>false</UseDebugLibraries>
+		<WholeProgramOptimization>true</WholeProgramOptimization>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+		<CharacterSet>Unicode</CharacterSet>
+		<ConfigurationType>Application</ConfigurationType>
+		<EnableASAN>true</EnableASAN>
+		<PlatformToolset>v143</PlatformToolset>
+		<PreferredToolArchitecture>x64</PreferredToolArchitecture>
+		<UseDebugLibraries>true</UseDebugLibraries>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+		<CharacterSet>Unicode</CharacterSet>
+		<ConfigurationType>Application</ConfigurationType>
+		<PlatformToolset>v143</PlatformToolset>
+		<PreferredToolArchitecture>x64</PreferredToolArchitecture>
+		<UseDebugLibraries>false</UseDebugLibraries>
+		<WholeProgramOptimization>true</WholeProgramOptimization>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
+		<CharacterSet>Unicode</CharacterSet>
+		<ConfigurationType>Application</ConfigurationType>
+		<PlatformToolset>v143</PlatformToolset>
+		<PreferredToolArchitecture>x64</PreferredToolArchitecture>
+		<UseDebugLibraries>true</UseDebugLibraries>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
+		<CharacterSet>Unicode</CharacterSet>
+		<ConfigurationType>Application</ConfigurationType>
+		<PlatformToolset>v143</PlatformToolset>
+		<PreferredToolArchitecture>x64</PreferredToolArchitecture>
+		<UseDebugLibraries>false</UseDebugLibraries>
+		<WholeProgramOptimization>true</WholeProgramOptimization>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" Label="Configuration">
+		<CharacterSet>Unicode</CharacterSet>
+		<ConfigurationType>Application</ConfigurationType>
+		<PlatformToolset>v143</PlatformToolset>
+		<PreferredToolArchitecture>x64</PreferredToolArchitecture>
+		<UseDebugLibraries>true</UseDebugLibraries>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" Label="Configuration">
+		<CharacterSet>Unicode</CharacterSet>
+		<ConfigurationType>Application</ConfigurationType>
+		<PlatformToolset>v143</PlatformToolset>
+		<PreferredToolArchitecture>x64</PreferredToolArchitecture>
+		<UseDebugLibraries>false</UseDebugLibraries>
+		<WholeProgramOptimization>true</WholeProgramOptimization>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64EC'" Label="Configuration">
+		<CharacterSet>Unicode</CharacterSet>
+		<ConfigurationType>Application</ConfigurationType>
+		<PlatformToolset>v143</PlatformToolset>
+		<PreferredToolArchitecture>x64</PreferredToolArchitecture>
+		<UseDebugLibraries>true</UseDebugLibraries>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64EC'" Label="Configuration">
+		<CharacterSet>Unicode</CharacterSet>
+		<ConfigurationType>Application</ConfigurationType>
+		<PlatformToolset>v143</PlatformToolset>
+		<PreferredToolArchitecture>x64</PreferredToolArchitecture>
+		<UseDebugLibraries>false</UseDebugLibraries>
+		<WholeProgramOptimization>true</WholeProgramOptimization>
+	</PropertyGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.props"/>
+	<ImportGroup Label="ExtensionSettings">
+		<Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props"/>
+	</ImportGroup>
+	<ImportGroup Label="Shared">
+	</ImportGroup>
+	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+	</ImportGroup>
+	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+	</ImportGroup>
+	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+	</ImportGroup>
+	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+	</ImportGroup>
+	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+	</ImportGroup>
+	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+	</ImportGroup>
+	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+	</ImportGroup>
+	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+	</ImportGroup>
+	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64EC'">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+	</ImportGroup>
+	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|ARM64EC'">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+	</ImportGroup>
+	<PropertyGroup Label="UserMacros"/>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+		<LinkIncremental>false</LinkIncremental>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+		<GenerateManifest>false</GenerateManifest>
+		<LinkIncremental>false</LinkIncremental>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+		<LinkIncremental>false</LinkIncremental>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+		<GenerateManifest>false</GenerateManifest>
+		<LinkIncremental>false</LinkIncremental>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+		<LinkIncremental>false</LinkIncremental>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+		<LinkIncremental>false</LinkIncremental>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+		<LinkIncremental>false</LinkIncremental>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+		<LinkIncremental>false</LinkIncremental>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64EC'">
+		<LinkIncremental>false</LinkIncremental>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64EC'">
+		<LinkIncremental>false</LinkIncremental>
+	</PropertyGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+		<ClCompile>
+			<CompileAs>CompileAsCpp</CompileAs>
+			<ConformanceMode>true</ConformanceMode>
+			<DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+			<LanguageStandard>stdcpp20</LanguageStandard>
+			<LanguageStandard_C>stdc17</LanguageStandard_C>
+			<PreprocessorDefinitions>mk_lang_jumbo_want=1;_WIN32_WINNT=0x0601;_CRT_SECURE_NO_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<SDLCheck>true</SDLCheck>
+			<WarningLevel>EnableAllWarnings</WarningLevel>
+		</ClCompile>
+		<Link>
+			<AdditionalDependencies>comctl32.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+			<GenerateDebugInformation>true</GenerateDebugInformation>
+			<SubSystem>Windows</SubSystem>
+		</Link>
+		<Manifest>
+			<AdditionalManifestFiles>$(MSBuildThisFileDirectory)..\..\..\src\mk_win_comctl_manifest_i386.xml</AdditionalManifestFiles>
+		</Manifest>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+		<ClCompile>
+			<BasicRuntimeChecks>Default</BasicRuntimeChecks>
+			<BufferSecurityCheck>false</BufferSecurityCheck>
+			<CompileAs>CompileAsCpp</CompileAs>
+			<ConformanceMode>true</ConformanceMode>
+			<ControlFlowGuard>false</ControlFlowGuard>
+			<DebugInformationFormat>None</DebugInformationFormat>
+			<EnableParallelCodeGeneration>false</EnableParallelCodeGeneration>
+			<ExceptionHandling>false</ExceptionHandling>
+			<FunctionLevelLinking>true</FunctionLevelLinking>
+			<InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+			<IntrinsicFunctions>true</IntrinsicFunctions>
+			<LanguageStandard>stdcpp20</LanguageStandard>
+			<LanguageStandard_C>stdc17</LanguageStandard_C>
+			<MinimalRebuild>false</MinimalRebuild>
+			<MultiProcessorCompilation>false</MultiProcessorCompilation>
+			<Optimization>MaxSpeed</Optimization>
+			<PreprocessorDefinitions>mk_lang_jumbo_want=1;_WIN32_WINNT=0x0601;_CRT_SECURE_NO_WARNINGS;NDEBUG;mk_lang_nodefaultlib_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+			<RuntimeTypeInfo>false</RuntimeTypeInfo>
+			<SDLCheck>false</SDLCheck>
+			<SmallerTypeCheck>false</SmallerTypeCheck>
+			<StringPooling>true</StringPooling>
+			<UseFullPaths>false</UseFullPaths>
+			<WarningLevel>EnableAllWarnings</WarningLevel>
+			<WholeProgramOptimization>true</WholeProgramOptimization>
+		</ClCompile>
+		<Link>
+			<AdditionalDependencies>comctl32.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+			<AdditionalOptions>/brepro /pdbaltpath:%_PDB% %(AdditionalOptions)</AdditionalOptions>
+			<EnableCOMDATFolding>true</EnableCOMDATFolding>
+			<EntryPointSymbol>mkentry</EntryPointSymbol>
+			<GenerateDebugInformation>false</GenerateDebugInformation>
+			<LargeAddressAware>true</LargeAddressAware>
+			<LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+			<OptimizeReferences>true</OptimizeReferences>
+			<SetChecksum>true</SetChecksum>
+			<StackCommitSize>4096</StackCommitSize>
+			<StackReserveSize>65536</StackReserveSize>
+			<SubSystem>Windows</SubSystem>
+			<SwapRunFromCD>true</SwapRunFromCD>
+			<SwapRunFromNET>true</SwapRunFromNET>
+		</Link>
+		<Manifest>
+			<AdditionalManifestFiles>$(MSBuildThisFileDirectory)..\..\..\src\mk_win_comctl_manifest_i386.xml</AdditionalManifestFiles>
+		</Manifest>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+		<ClCompile>
+			<CompileAs>CompileAsCpp</CompileAs>
+			<ConformanceMode>true</ConformanceMode>
+			<DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+			<LanguageStandard>stdcpp20</LanguageStandard>
+			<LanguageStandard_C>stdc17</LanguageStandard_C>
+			<PreprocessorDefinitions>mk_lang_jumbo_want=1;_WIN32_WINNT=0x0601;_CRT_SECURE_NO_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<SDLCheck>true</SDLCheck>
+			<WarningLevel>EnableAllWarnings</WarningLevel>
+		</ClCompile>
+		<Link>
+			<AdditionalDependencies>comctl32.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+			<GenerateDebugInformation>true</GenerateDebugInformation>
+			<SubSystem>Windows</SubSystem>
+		</Link>
+		<Manifest>
+			<AdditionalManifestFiles>$(MSBuildThisFileDirectory)..\..\..\src\mk_win_comctl_manifest_amd64.xml</AdditionalManifestFiles>
+		</Manifest>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+		<ClCompile>
+			<BasicRuntimeChecks>Default</BasicRuntimeChecks>
+			<BufferSecurityCheck>false</BufferSecurityCheck>
+			<CompileAs>CompileAsCpp</CompileAs>
+			<ConformanceMode>true</ConformanceMode>
+			<ControlFlowGuard>false</ControlFlowGuard>
+			<DebugInformationFormat>None</DebugInformationFormat>
+			<EnableParallelCodeGeneration>false</EnableParallelCodeGeneration>
+			<ExceptionHandling>false</ExceptionHandling>
+			<FunctionLevelLinking>true</FunctionLevelLinking>
+			<InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+			<IntrinsicFunctions>true</IntrinsicFunctions>
+			<LanguageStandard>stdcpp20</LanguageStandard>
+			<LanguageStandard_C>stdc17</LanguageStandard_C>
+			<MinimalRebuild>false</MinimalRebuild>
+			<MultiProcessorCompilation>false</MultiProcessorCompilation>
+			<Optimization>MaxSpeed</Optimization>
+			<PreprocessorDefinitions>mk_lang_jumbo_want=1;_WIN32_WINNT=0x0601;_CRT_SECURE_NO_WARNINGS;NDEBUG;mk_lang_nodefaultlib_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+			<RuntimeTypeInfo>false</RuntimeTypeInfo>
+			<SDLCheck>false</SDLCheck>
+			<SmallerTypeCheck>false</SmallerTypeCheck>
+			<StringPooling>true</StringPooling>
+			<UseFullPaths>false</UseFullPaths>
+			<WarningLevel>EnableAllWarnings</WarningLevel>
+			<WholeProgramOptimization>true</WholeProgramOptimization>
+		</ClCompile>
+		<Link>
+			<AdditionalDependencies>comctl32.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+			<AdditionalOptions>/brepro /pdbaltpath:%_PDB% %(AdditionalOptions)</AdditionalOptions>
+			<EnableCOMDATFolding>true</EnableCOMDATFolding>
+			<EntryPointSymbol>mkentry</EntryPointSymbol>
+			<GenerateDebugInformation>false</GenerateDebugInformation>
+			<LargeAddressAware>true</LargeAddressAware>
+			<LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+			<OptimizeReferences>true</OptimizeReferences>
+			<SetChecksum>true</SetChecksum>
+			<StackCommitSize>4096</StackCommitSize>
+			<StackReserveSize>65536</StackReserveSize>
+			<SubSystem>Windows</SubSystem>
+			<SwapRunFromCD>true</SwapRunFromCD>
+			<SwapRunFromNET>true</SwapRunFromNET>
+		</Link>
+		<Manifest>
+			<AdditionalManifestFiles>$(MSBuildThisFileDirectory)..\..\..\src\mk_win_comctl_manifest_amd64.xml</AdditionalManifestFiles>
+		</Manifest>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+		<ClCompile>
+			<CompileAs>CompileAsCpp</CompileAs>
+			<ConformanceMode>true</ConformanceMode>
+			<DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+			<LanguageStandard>stdcpp20</LanguageStandard>
+			<LanguageStandard_C>stdc17</LanguageStandard_C>
+			<PreprocessorDefinitions>mk_lang_jumbo_want=1;_WIN32_WINNT=0x0601;_CRT_SECURE_NO_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<SDLCheck>true</SDLCheck>
+			<WarningLevel>EnableAllWarnings</WarningLevel>
+		</ClCompile>
+		<Link>
+			<AdditionalDependencies>comctl32.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+			<AdditionalLibraryDirectories>$(OutputPath);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+			<GenerateDebugInformation>true</GenerateDebugInformation>
+			<SubSystem>Windows</SubSystem>
+		</Link>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+		<ClCompile>
+			<BasicRuntimeChecks>Default</BasicRuntimeChecks>
+			<BufferSecurityCheck>false</BufferSecurityCheck>
+			<CompileAs>CompileAsCpp</CompileAs>
+			<ConformanceMode>true</ConformanceMode>
+			<ControlFlowGuard>false</ControlFlowGuard>
+			<DebugInformationFormat>None</DebugInformationFormat>
+			<EnableParallelCodeGeneration>false</EnableParallelCodeGeneration>
+			<ExceptionHandling>false</ExceptionHandling>
+			<FunctionLevelLinking>true</FunctionLevelLinking>
+			<InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+			<IntrinsicFunctions>true</IntrinsicFunctions>
+			<LanguageStandard>stdcpp20</LanguageStandard>
+			<LanguageStandard_C>stdc17</LanguageStandard_C>
+			<MinimalRebuild>false</MinimalRebuild>
+			<MultiProcessorCompilation>false</MultiProcessorCompilation>
+			<Optimization>MaxSpeed</Optimization>
+			<PreprocessorDefinitions>mk_lang_jumbo_want=1;_WIN32_WINNT=0x0601;_CRT_SECURE_NO_WARNINGS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+			<RuntimeTypeInfo>false</RuntimeTypeInfo>
+			<SDLCheck>false</SDLCheck>
+			<SmallerTypeCheck>false</SmallerTypeCheck>
+			<StringPooling>true</StringPooling>
+			<UseFullPaths>false</UseFullPaths>
+			<WarningLevel>EnableAllWarnings</WarningLevel>
+			<WholeProgramOptimization>true</WholeProgramOptimization>
+		</ClCompile>
+		<Link>
+			<AdditionalDependencies>comctl32.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+			<AdditionalOptions>/brepro /pdbaltpath:%_PDB% %(AdditionalOptions)</AdditionalOptions>
+			<EnableCOMDATFolding>true</EnableCOMDATFolding>
+			<GenerateDebugInformation>false</GenerateDebugInformation>
+			<LargeAddressAware>true</LargeAddressAware>
+			<OptimizeReferences>true</OptimizeReferences>
+			<SetChecksum>true</SetChecksum>
+			<SubSystem>Windows</SubSystem>
+			<SwapRunFromCD>true</SwapRunFromCD>
+			<SwapRunFromNET>true</SwapRunFromNET>
+		</Link>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+		<ClCompile>
+			<CompileAs>CompileAsCpp</CompileAs>
+			<ConformanceMode>true</ConformanceMode>
+			<DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+			<LanguageStandard>stdcpp20</LanguageStandard>
+			<LanguageStandard_C>stdc17</LanguageStandard_C>
+			<PreprocessorDefinitions>mk_lang_jumbo_want=1;_WIN32_WINNT=0x0601;_CRT_SECURE_NO_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<SDLCheck>true</SDLCheck>
+			<WarningLevel>EnableAllWarnings</WarningLevel>
+		</ClCompile>
+		<Link>
+			<AdditionalDependencies>comctl32.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+			<AdditionalLibraryDirectories>$(OutputPath);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+			<GenerateDebugInformation>true</GenerateDebugInformation>
+			<SubSystem>Windows</SubSystem>
+		</Link>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+		<ClCompile>
+			<BasicRuntimeChecks>Default</BasicRuntimeChecks>
+			<BufferSecurityCheck>false</BufferSecurityCheck>
+			<CompileAs>CompileAsCpp</CompileAs>
+			<ConformanceMode>true</ConformanceMode>
+			<ControlFlowGuard>false</ControlFlowGuard>
+			<DebugInformationFormat>None</DebugInformationFormat>
+			<EnableParallelCodeGeneration>false</EnableParallelCodeGeneration>
+			<ExceptionHandling>false</ExceptionHandling>
+			<FunctionLevelLinking>true</FunctionLevelLinking>
+			<InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+			<IntrinsicFunctions>true</IntrinsicFunctions>
+			<LanguageStandard>stdcpp20</LanguageStandard>
+			<LanguageStandard_C>stdc17</LanguageStandard_C>
+			<MinimalRebuild>false</MinimalRebuild>
+			<MultiProcessorCompilation>false</MultiProcessorCompilation>
+			<Optimization>MaxSpeed</Optimization>
+			<PreprocessorDefinitions>mk_lang_jumbo_want=1;_WIN32_WINNT=0x0601;_CRT_SECURE_NO_WARNINGS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+			<RuntimeTypeInfo>false</RuntimeTypeInfo>
+			<SDLCheck>false</SDLCheck>
+			<SmallerTypeCheck>false</SmallerTypeCheck>
+			<StringPooling>true</StringPooling>
+			<UseFullPaths>false</UseFullPaths>
+			<WarningLevel>EnableAllWarnings</WarningLevel>
+			<WholeProgramOptimization>true</WholeProgramOptimization>
+		</ClCompile>
+		<Link>
+			<AdditionalDependencies>comctl32.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+			<AdditionalOptions>/brepro /pdbaltpath:%_PDB% %(AdditionalOptions)</AdditionalOptions>
+			<EnableCOMDATFolding>true</EnableCOMDATFolding>
+			<GenerateDebugInformation>false</GenerateDebugInformation>
+			<LargeAddressAware>true</LargeAddressAware>
+			<OptimizeReferences>true</OptimizeReferences>
+			<SetChecksum>true</SetChecksum>
+			<SubSystem>Windows</SubSystem>
+			<SwapRunFromCD>true</SwapRunFromCD>
+			<SwapRunFromNET>true</SwapRunFromNET>
+		</Link>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64EC'">
+		<ClCompile>
+			<CompileAs>CompileAsCpp</CompileAs>
+			<ConformanceMode>true</ConformanceMode>
+			<DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+			<LanguageStandard>stdcpp20</LanguageStandard>
+			<LanguageStandard_C>stdc17</LanguageStandard_C>
+			<PreprocessorDefinitions>mk_lang_jumbo_want=1;_WIN32_WINNT=0x0601;_CRT_SECURE_NO_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<SDLCheck>true</SDLCheck>
+			<WarningLevel>EnableAllWarnings</WarningLevel>
+		</ClCompile>
+		<Link>
+			<AdditionalDependencies>comctl32.lib;softintrin.lib;%(AdditionalDependencies)</AdditionalDependencies>
+			<GenerateDebugInformation>true</GenerateDebugInformation>
+			<SubSystem>Windows</SubSystem>
+		</Link>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64EC'">
+		<ClCompile>
+			<BasicRuntimeChecks>Default</BasicRuntimeChecks>
+			<BufferSecurityCheck>false</BufferSecurityCheck>
+			<CompileAs>CompileAsCpp</CompileAs>
+			<ConformanceMode>true</ConformanceMode>
+			<ControlFlowGuard>false</ControlFlowGuard>
+			<DebugInformationFormat>None</DebugInformationFormat>
+			<EnableParallelCodeGeneration>false</EnableParallelCodeGeneration>
+			<ExceptionHandling>false</ExceptionHandling>
+			<FunctionLevelLinking>true</FunctionLevelLinking>
+			<InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+			<IntrinsicFunctions>true</IntrinsicFunctions>
+			<LanguageStandard>stdcpp20</LanguageStandard>
+			<LanguageStandard_C>stdc17</LanguageStandard_C>
+			<MinimalRebuild>false</MinimalRebuild>
+			<MultiProcessorCompilation>false</MultiProcessorCompilation>
+			<Optimization>MaxSpeed</Optimization>
+			<PreprocessorDefinitions>mk_lang_jumbo_want=1;_WIN32_WINNT=0x0601;_CRT_SECURE_NO_WARNINGS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+			<RuntimeTypeInfo>false</RuntimeTypeInfo>
+			<SDLCheck>false</SDLCheck>
+			<SmallerTypeCheck>false</SmallerTypeCheck>
+			<StringPooling>true</StringPooling>
+			<UseFullPaths>false</UseFullPaths>
+			<WarningLevel>EnableAllWarnings</WarningLevel>
+			<WholeProgramOptimization>true</WholeProgramOptimization>
+		</ClCompile>
+		<Link>
+			<AdditionalDependencies>comctl32.lib;softintrin.lib;%(AdditionalDependencies)</AdditionalDependencies>
+			<AdditionalOptions>/brepro /pdbaltpath:%_PDB% %(AdditionalOptions)</AdditionalOptions>
+			<EnableCOMDATFolding>true</EnableCOMDATFolding>
+			<GenerateDebugInformation>false</GenerateDebugInformation>
+			<LargeAddressAware>true</LargeAddressAware>
+			<OptimizeReferences>true</OptimizeReferences>
+			<SetChecksum>true</SetChecksum>
+			<SubSystem>Windows</SubSystem>
+			<SwapRunFromCD>true</SwapRunFromCD>
+			<SwapRunFromNET>true</SwapRunFromNET>
+		</Link>
+	</ItemDefinitionGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
+	<ImportGroup Label="ExtensionTargets">
+		<Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets"/>
+	</ImportGroup>
+</Project>
