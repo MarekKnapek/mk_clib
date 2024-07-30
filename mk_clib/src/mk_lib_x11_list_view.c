@@ -585,15 +585,18 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_x11_list_vie
 	mk_lang_assert(evt->type == KeyPress);
 	mk_lang_assert(consumed);
 
-	ks = XLookupKeysym(&evt->xkey, 0);
-	switch(ks)
+	if(evt->xkey.window == list_view->m_window)
 	{
-		case XK_Home     : err = mk_lib_x11_list_view_prrw_on_keypres_home     (list_view); mk_lang_check_rereturn(err); *consumed = mk_lang_true; break;
-		case XK_Up       : err = mk_lib_x11_list_view_prrw_on_keypres_up       (list_view); mk_lang_check_rereturn(err); *consumed = mk_lang_true; break;
-		case XK_Down     : err = mk_lib_x11_list_view_prrw_on_keypres_down     (list_view); mk_lang_check_rereturn(err); *consumed = mk_lang_true; break;
-		case XK_Page_Up  : err = mk_lib_x11_list_view_prrw_on_keypres_page_up  (list_view); mk_lang_check_rereturn(err); *consumed = mk_lang_true; break;
-		case XK_Page_Down: err = mk_lib_x11_list_view_prrw_on_keypres_page_down(list_view); mk_lang_check_rereturn(err); *consumed = mk_lang_true; break;
-		case XK_End      : err = mk_lib_x11_list_view_prrw_on_keypres_end      (list_view); mk_lang_check_rereturn(err); *consumed = mk_lang_true; break;
+		ks = XLookupKeysym(&evt->xkey, 0);
+		switch(ks)
+		{
+			case XK_Home     : err = mk_lib_x11_list_view_prrw_on_keypres_home     (list_view); mk_lang_check_rereturn(err); *consumed = mk_lang_true; break;
+			case XK_Up       : err = mk_lib_x11_list_view_prrw_on_keypres_up       (list_view); mk_lang_check_rereturn(err); *consumed = mk_lang_true; break;
+			case XK_Down     : err = mk_lib_x11_list_view_prrw_on_keypres_down     (list_view); mk_lang_check_rereturn(err); *consumed = mk_lang_true; break;
+			case XK_Page_Up  : err = mk_lib_x11_list_view_prrw_on_keypres_page_up  (list_view); mk_lang_check_rereturn(err); *consumed = mk_lang_true; break;
+			case XK_Page_Down: err = mk_lib_x11_list_view_prrw_on_keypres_page_down(list_view); mk_lang_check_rereturn(err); *consumed = mk_lang_true; break;
+			case XK_End      : err = mk_lib_x11_list_view_prrw_on_keypres_end      (list_view); mk_lang_check_rereturn(err); *consumed = mk_lang_true; break;
+		}
 	}
 	return 0;
 }
@@ -625,32 +628,35 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_x11_list_vie
 	mk_lang_assert(evt->type == ButtonPress);
 	mk_lang_assert(consumed);
 
-	bx = evt->xbutton.x;
-	by = evt->xbutton.y;
-	mx = list_view->m_x;
-	my = list_view->m_y;
-	mw = list_view->m_w;
-	mh = list_view->m_h;
-	border = list_view->m_border;
-	rows = list_view->m_rows;
-	idx_old = list_view->m_idx;
-	text_asc = list_view->m_text_asc;
-	text_des = list_view->m_text_des;
-	line_height = text_asc + text_des; mk_lang_assert(line_height >= 1);
-	mk_lib_x11_list_view_rect_shrink(mx, my, mw, mh, border, &mx, &my, &mw, &mh);
-	mr = mx + mw;
-	mb = my + mh;
-	if(bx >= mx && bx <= mr && by >= my && by <= mb)
+	if(evt->xbutton.window == list_view->m_window)
 	{
-		idx_cur = (by - my) / line_height;
-		idx_new = mk_lang_min(mk_lang_max(0, rows - 1), idx_cur);
-		if(idx_new != idx_old)
+		bx = evt->xbutton.x;
+		by = evt->xbutton.y;
+		mx = list_view->m_x;
+		my = list_view->m_y;
+		mw = list_view->m_w;
+		mh = list_view->m_h;
+		border = list_view->m_border;
+		rows = list_view->m_rows;
+		idx_old = list_view->m_idx;
+		text_asc = list_view->m_text_asc;
+		text_des = list_view->m_text_des;
+		line_height = text_asc + text_des; mk_lang_assert(line_height >= 1);
+		mk_lib_x11_list_view_rect_shrink(mx, my, mw, mh, border, &mx, &my, &mw, &mh);
+		mr = mx + mw;
+		mb = my + mh;
+		if(bx >= mx && bx <= mr && by >= my && by <= mb)
 		{
-			list_view->m_idx = idx_new;
-			err = mk_lib_x11_list_view_prrw_invalidate_row(list_view, idx_old); mk_lang_check_rereturn(err);
-			err = mk_lib_x11_list_view_prrw_invalidate_row(list_view, idx_new); mk_lang_check_rereturn(err);
+			idx_cur = (by - my) / line_height;
+			idx_new = mk_lang_min(mk_lang_max(0, rows - 1), idx_cur);
+			if(idx_new != idx_old)
+			{
+				list_view->m_idx = idx_new;
+				err = mk_lib_x11_list_view_prrw_invalidate_row(list_view, idx_old); mk_lang_check_rereturn(err);
+				err = mk_lib_x11_list_view_prrw_invalidate_row(list_view, idx_new); mk_lang_check_rereturn(err);
+			}
+			*consumed = mk_lang_true;
 		}
-		*consumed = mk_lang_true;
 	}
 	return 0;
 }
@@ -697,66 +703,69 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_x11_list_vie
 	mk_lang_assert(evt->type == Expose);
 	mk_lang_assert(consumed);
 
-	ex = evt->xexpose.x;
-	ey = evt->xexpose.y;
-	ew = evt->xexpose.width;
-	eh = evt->xexpose.height;
-	mx = list_view->m_x;
-	my = list_view->m_y;
-	mw = list_view->m_w;
-	mh = list_view->m_h;
-	border = list_view->m_border;
-	rows = list_view->m_rows;
-	auto_height = list_view->m_auto_height;
-	display = list_view->m_display;
-	window = list_view->m_window;
-	gc = list_view->m_gc;
-	text_asc = list_view->m_text_asc;
-	text_des = list_view->m_text_des;
-	er = ex + ew;
-	eb = ey + eh;
-	mr = mx + mw;
-	mb = my + mh;
-	line_height = text_asc + text_des;
-	mk_lang_assert(line_height >= 1);
-	if(mw >= 1 && mh >= 1 && ew >= 1 && eh >= 1)
+	if(evt->xexpose.window == list_view->m_window)
 	{
-		mk_lib_x11_list_view_rect_shrink(mx, my, mw, mh, border, &cx, &cy, &cw, &ch);
-		cr = cx + cw;
-		cb = cy + ch;
-		if(cw >= 1 && ch >= 1)
+		ex = evt->xexpose.x;
+		ey = evt->xexpose.y;
+		ew = evt->xexpose.width;
+		eh = evt->xexpose.height;
+		mx = list_view->m_x;
+		my = list_view->m_y;
+		mw = list_view->m_w;
+		mh = list_view->m_h;
+		border = list_view->m_border;
+		rows = list_view->m_rows;
+		auto_height = list_view->m_auto_height;
+		display = list_view->m_display;
+		window = list_view->m_window;
+		gc = list_view->m_gc;
+		text_asc = list_view->m_text_asc;
+		text_des = list_view->m_text_des;
+		er = ex + ew;
+		eb = ey + eh;
+		mr = mx + mw;
+		mb = my + mh;
+		line_height = text_asc + text_des;
+		mk_lang_assert(line_height >= 1);
+		if(mw >= 1 && mh >= 1 && ew >= 1 && eh >= 1)
 		{
-			if(mk_lib_x11_list_view_rect_intersect(mx, my, mw, mh, ex, ey, ew, eh))
+			mk_lib_x11_list_view_rect_shrink(mx, my, mw, mh, border, &cx, &cy, &cw, &ch);
+			cr = cx + cw;
+			cb = cy + ch;
+			if(cw >= 1 && ch >= 1)
 			{
-				if(mk_lib_x11_list_view_rect_intersect(mx, my, mw, mh, cx, cy, cw, ch))
+				if(mk_lib_x11_list_view_rect_intersect(mx, my, mw, mh, ex, ey, ew, eh))
 				{
-					y_min = mk_lang_max(cy, ey);
-					y_max = mk_lang_min(cb, eb);
-					mk_lang_assert(y_max >= y_min);
-					idx_min = (y_min - my) / line_height;
-					idx_max = mk_lang_div_roundup(y_max - my, line_height);
-					mk_lang_assert(idx_min <= idx_max);
-					for(idx = idx_min; idx != idx_max; ++idx)
+					if(mk_lib_x11_list_view_rect_intersect(mx, my, mw, mh, cx, cy, cw, ch))
 					{
-						err = mk_lib_x11_list_view_prro_on_expose_row(list_view, idx); mk_lang_check_rereturn(err);
+						y_min = mk_lang_max(cy, ey);
+						y_max = mk_lang_min(cb, eb);
+						mk_lang_assert(y_max >= y_min);
+						idx_min = (y_min - my) / line_height;
+						idx_max = mk_lang_div_roundup(y_max - my, line_height);
+						mk_lang_assert(idx_min <= idx_max);
+						for(idx = idx_min; idx != idx_max; ++idx)
+						{
+							err = mk_lib_x11_list_view_prro_on_expose_row(list_view, idx); mk_lang_check_rereturn(err);
+						}
 					}
-				}
-				mk_lang_assert(auto_height >= 0);
-				if(auto_height != 0)
-				{
-					mh = line_height * auto_height + 2 * border;
-					if(list_view->m_h != mh)
+					mk_lang_assert(auto_height >= 0);
+					if(auto_height != 0)
 					{
-						err = mk_lib_x11_list_view_prrw_invalidate_all(list_view); mk_lang_check_rereturn(err);
-						list_view->m_h = mh;
-						err = mk_lib_x11_list_view_prrw_invalidate_all(list_view); mk_lang_check_rereturn(err);
+						mh = line_height * auto_height + 2 * border;
+						if(list_view->m_h != mh)
+						{
+							err = mk_lib_x11_list_view_prrw_invalidate_all(list_view); mk_lang_check_rereturn(err);
+							list_view->m_h = mh;
+							err = mk_lib_x11_list_view_prrw_invalidate_all(list_view); mk_lang_check_rereturn(err);
+						}
 					}
+					if(border != 0)
+					{
+						tsi = XDrawRectangle(display, window, gc, mx, my, mw - 1, mh - 1);
+					}
+					*consumed = mk_lang_true;
 				}
-				if(border != 0)
-				{
-					tsi = XDrawRectangle(display, window, gc, mx, my, mw - 1, mh - 1);
-				}
-				*consumed = mk_lang_true;
 			}
 		}
 	}

@@ -370,7 +370,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_deinit(mkfe_
 	mk_lang_types_slong_t mask;
 	XEvent* evt;
 	XEvent e;
-	mk_lang_types_bool_t gud;
+	mk_lang_types_bool_t consumed;
 	mk_lang_types_sint_t tsi;
 	mk_lang_types_sint_t err;
 
@@ -401,7 +401,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_deinit(mkfe_
 	Window window;
 	XEvent* evt;
 	XEvent e;
-	mk_lang_types_bool_t gud;
+	mk_lang_types_bool_t consumed;
 	mk_lang_types_sint_t tsi;
 	mk_lang_types_sint_t err;
 
@@ -415,16 +415,16 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_deinit(mkfe_
 	err = mk_lib_x11_cong_get_display(&display); mk_lang_check_rereturn(err);
 	window = fe->m_window;
 	evt = &e;
-	gud = mk_lang_true;
-	while(fe->m_visible && gud)
+	consumed = mk_lang_true;
+	while(fe->m_visible && consumed)
 	{
-		gud = mk_lang_false;
+		consumed = mk_lang_false;
 		tsi = XPeekEvent(display, evt);
 		if(evt->type == ClientMessage)
 		{
 			if(evt->xclient.window == window)
 			{
-				gud = mk_lang_true;
+				consumed = mk_lang_true;
 				*at_least_one = mk_lang_true;
 				tsi = XNextEvent(display, evt);
 				mk_lang_assert(evt->type == ClientMessage);
@@ -442,19 +442,19 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_deinit(mkfe_
 
 /*mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_pump(mkfe_pt const fe, mk_lang_types_bool_pt const at_least_one) mk_lang_noexcept
 {
-	mk_lang_types_bool_t gud;
+	mk_lang_types_bool_t consumed;
 	mk_lang_types_sint_t err;
 
 	mk_lang_assert(fe);
 	mk_lang_assert(at_least_one);
 
-	gud = mk_lang_true;
-	while(gud)
+	consumed = mk_lang_true;
+	while(consumed)
 	{
-		gud = mk_lang_false;
-		err = mkfe_x_pump_all_window_specific(fe, &gud); mk_lang_check_rereturn(err);
-		err = mkfe_x_pump_global(fe, &gud); mk_lang_check_rereturn(err);
-		if(gud)
+		consumed = mk_lang_false;
+		err = mkfe_x_pump_all_window_specific(fe, &consumed); mk_lang_check_rereturn(err);
+		err = mkfe_x_pump_global(fe, &consumed); mk_lang_check_rereturn(err);
+		if(consumed)
 		{
 			*at_least_one = mk_lang_true;
 		}
@@ -468,26 +468,26 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_deinit(mkfe_
 	Display* display;
 	XEvent* evt;
 	XEvent e;
-	mk_lang_types_bool_t gud;
+	mk_lang_types_bool_t consumed;
 	mk_lang_types_bool_t gudb;
 	mk_lang_types_sint_t tsi;
 
 	err = mkfe_x_gather_root(fe); mk_lang_check_rereturn(err);
 	err = mk_lib_x11_cong_get_display(&display); mk_lang_check_rereturn(err);
 	evt = &e;
-	gud = mk_lang_true;
+	consumed = mk_lang_true;
 	while(fe->m_visible)
 	{
-		gudb = gud;
-		gud = mk_lang_false;
-		err = mkfe_x_pump(fe, &gud); mk_lang_check_rereturn(err);
+		gudb = consumed;
+		consumed = mk_lang_false;
+		err = mkfe_x_pump(fe, &consumed); mk_lang_check_rereturn(err);
 		#if mk_clib_app_fe_posix_mallocatorg_statistics_have
-		if(fe->m_visible){ err = mk_lib_statistics_x11_pump(&gud); mk_lang_check_rereturn(err); }
+		if(fe->m_visible){ err = mk_lib_statistics_x11_pump(&consumed); mk_lang_check_rereturn(err); }
 		#endif
-		if(!gud && !gudb)
+		if(!consumed && !gudb)
 		{
 			tsi = XNextEvent(display, evt);
-			gud = mk_lang_true;
+			consumed = mk_lang_true;
 		}
 	}
 	return 0;
@@ -495,10 +495,16 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_deinit(mkfe_
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_run(mkfe_pt const fe) mk_lang_noexcept
 {
+	XEvent* evt;
+	XEvent e;
 	mk_lang_types_sint_t err;
+	Display* display;
 	mk_lang_types_bool_t is_hidden;
-	mk_lang_types_bool_t gud;
+	mk_lang_types_sint_t tsi;
+	mk_lang_types_bool_t consumed;
 
+	evt = &e;
+	err = mk_lib_x11_cong_get_display(&display); mk_lang_check_rereturn(err);
 	err = mk_lib_fe_x11_show(); mk_lang_check_rereturn(err);
 	for(;;)
 	{
@@ -507,8 +513,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mkfe_x_run(mkfe_pt 
 		{
 			break;
 		}
-		err = mk_lib_fe_x11_pump(&gud); mk_lang_check_rereturn(err);
-		err = mk_lib_statistics_pump(&gud); mk_lang_check_rereturn(err);
+		tsi = XNextEvent(display, evt);
+		err = mk_lib_fe_x11_on_event(evt, &consumed); mk_lang_check_rereturn(err);
+		err = mk_lib_statistics_on_event(evt, &consumed); mk_lang_check_rereturn(err);
 		err = mk_lib_statistics_invalidate(); mk_lang_check_rereturn(err);
 	}
 	return 0;

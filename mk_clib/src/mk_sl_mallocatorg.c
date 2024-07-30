@@ -10,6 +10,9 @@
 
 
 #if mk_lang_platform == mk_lang_platform_windows_61 || mk_lang_platform == mk_lang_platform_windows_60 || mk_lang_platform == mk_lang_platform_windows
+#if !defined mk_sl_mallocatorg_windows_statistics_want
+#define mk_sl_mallocatorg_windows_statistics_want mk_sl_mallocatorg_statistics_have
+#endif
 #include "mk_sl_mallocatorg_windows.h"
 #define mk_sl_mallocatorg_impl_init                              mk_sl_mallocatorg_windows_init
 #define mk_sl_mallocatorg_impl_deinit                            mk_sl_mallocatorg_windows_deinit
@@ -26,6 +29,9 @@
 #define mk_sl_mallocatorg_impl_statistics_get_blocks_peak        mk_sl_mallocatorg_windows_statistics_get_blocks_peak
 #define mk_sl_mallocatorg_impl_statistics_get_all                mk_sl_mallocatorg_windows_statistics_get_all
 #elif defined __cplusplus
+#if !defined mk_sl_mallocatorg_portablecpp_statistics_want
+#define mk_sl_mallocatorg_portablecpp_statistics_want mk_sl_mallocatorg_statistics_have
+#endif
 #include "mk_sl_mallocatorg_portablecpp.hpp"
 #define mk_sl_mallocatorg_impl_init                              mk_sl_mallocatorg_portablecpp_init
 #define mk_sl_mallocatorg_impl_deinit                            mk_sl_mallocatorg_portablecpp_deinit
@@ -42,6 +48,9 @@
 #define mk_sl_mallocatorg_impl_statistics_get_blocks_peak        mk_sl_mallocatorg_portablecpp_statistics_get_blocks_peak
 #define mk_sl_mallocatorg_impl_statistics_get_all                mk_sl_mallocatorg_portablecpp_statistics_get_all
 #else
+#if !defined mk_sl_mallocatorg_portablec_statistics_want
+#define mk_sl_mallocatorg_portablec_statistics_want mk_sl_mallocatorg_statistics_have
+#endif
 #include "mk_sl_mallocatorg_portablec.h"
 #define mk_sl_mallocatorg_impl_init                              mk_sl_mallocatorg_portablec_init
 #define mk_sl_mallocatorg_impl_deinit                            mk_sl_mallocatorg_portablec_deinit
