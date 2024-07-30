@@ -15,66 +15,11 @@
 #include "mk_lang_types.h"
 #include "mk_lang_version.h"
 #include "mk_lib_fe_posix.h"
+#include "mk_lib_statistics.h"
 #include "mk_lib_x11_cong.h"
 #include "mk_lib_x11_headers.h"
 #include "mk_lib_x11_list_view.h"
-
-#define mk_lib_fe_x11_mallocatorg_id_disp        11
-#define mk_lib_fe_x11_mallocatorg_id_portablec   12
-#define mk_lib_fe_x11_mallocatorg_id_portablecpp 13
-#define mk_lib_fe_x11_mallocatorg_id_windows     14
-#define mk_lib_fe_x11_mallocatorg_id_tracer      15
-#if defined mk_lib_fe_x11_mallocatorg_want && (mk_lib_fe_x11_mallocatorg_want) == mk_lib_fe_x11_mallocatorg_id_disp
-#define mk_lib_fe_x11_mallocatorg_id mk_lib_fe_x11_mallocatorg_id_disp
-#elif defined mk_lib_fe_x11_mallocatorg_want && (mk_lib_fe_x11_mallocatorg_want) == mk_lib_fe_x11_mallocatorg_id_portablec
-#define mk_lib_fe_x11_mallocatorg_id mk_lib_fe_x11_mallocatorg_id_portablec
-#elif defined mk_lib_fe_x11_mallocatorg_want && (mk_lib_fe_x11_mallocatorg_want) == mk_lib_fe_x11_mallocatorg_id_portablecpp
-#define mk_lib_fe_x11_mallocatorg_id mk_lib_fe_x11_mallocatorg_id_portablecpp
-#elif defined mk_lib_fe_x11_mallocatorg_want && (mk_lib_fe_x11_mallocatorg_want) == mk_lib_fe_x11_mallocatorg_id_windows
-#define mk_lib_fe_x11_mallocatorg_id mk_lib_fe_x11_mallocatorg_id_windows
-#elif defined mk_lib_fe_x11_mallocatorg_want && (mk_lib_fe_x11_mallocatorg_want) == mk_lib_fe_x11_mallocatorg_id_tracer
-#define mk_lib_fe_x11_mallocatorg_id mk_lib_fe_x11_mallocatorg_id_tracer
-#elif !defined mk_lib_fe_x11_mallocatorg_want
-#if defined NDEBUG
-#define mk_lib_fe_x11_mallocatorg_id mk_lib_fe_x11_mallocatorg_id_disp
-#else
-#define mk_lib_fe_x11_mallocatorg_id mk_lib_fe_x11_mallocatorg_id_tracer
-#endif
-#else
-#error xxxxxxxxxx
-#endif
-#if mk_lib_fe_x11_mallocatorg_id == mk_lib_fe_x11_mallocatorg_id_disp
 #include "mk_sl_mallocatorg.h"
-#define mk_lib_fe_x11_mallocatorg_name mk_sl_mallocatorg
-#elif mk_lib_fe_x11_mallocatorg_id == mk_lib_fe_x11_mallocatorg_id_portablec
-#include "mk_sl_mallocatorg_portablec.h"
-#define mk_lib_fe_x11_mallocatorg_name mk_sl_mallocatorg_portablec
-#elif mk_lib_fe_x11_mallocatorg_id == mk_lib_fe_x11_mallocatorg_id_portablecpp
-#include "mk_sl_mallocatorg_portablecpp.hpp"
-#define mk_lib_fe_x11_mallocatorg_name mk_sl_mallocatorg_portablecpp
-#elif mk_lib_fe_x11_mallocatorg_id == mk_lib_fe_x11_mallocatorg_id_windows
-#include "mk_sl_mallocatorg_windows.h"
-#define mk_lib_fe_x11_mallocatorg_name mk_sl_mallocatorg_windows
-#elif mk_lib_fe_x11_mallocatorg_id == mk_lib_fe_x11_mallocatorg_id_tracer
-#include "mk_sl_mallocg_tracer.h"
-#define mk_lib_fe_x11_mallocatorg_name mk_sl_mallocg_tracer
-#else
-#error xxxxxxxxxx
-#endif
-#define mk_lib_fe_x11_mallocatorg_init                      mk_lang_concat(mk_lib_fe_x11_mallocatorg_name, _init)
-#define mk_lib_fe_x11_mallocatorg_deinit                    mk_lang_concat(mk_lib_fe_x11_mallocatorg_name, _deinit)
-#define mk_lib_fe_x11_mallocatorg_allocate                  mk_lang_concat(mk_lib_fe_x11_mallocatorg_name, _allocate)
-#define mk_lib_fe_x11_mallocatorg_deallocate                mk_lang_concat(mk_lib_fe_x11_mallocatorg_name, _deallocate)
-#define mk_lib_fe_x11_mallocatorg_reallocate                mk_lang_concat(mk_lib_fe_x11_mallocatorg_name, _reallocate)
-#define mk_lib_fe_x11_mallocatorg_fe_get_bytes_allocated    mk_lang_concat(mk_lib_fe_x11_mallocatorg_name, _fe_get_bytes_allocated)
-#define mk_lib_fe_x11_mallocatorg_fe_get_bytes_deallocated  mk_lang_concat(mk_lib_fe_x11_mallocatorg_name, _fe_get_bytes_deallocated)
-#define mk_lib_fe_x11_mallocatorg_fe_get_bytes_live         mk_lang_concat(mk_lib_fe_x11_mallocatorg_name, _fe_get_bytes_live)
-#define mk_lib_fe_x11_mallocatorg_fe_get_bytes_peak         mk_lang_concat(mk_lib_fe_x11_mallocatorg_name, _fe_get_bytes_peak)
-#define mk_lib_fe_x11_mallocatorg_fe_get_blocks_allocated   mk_lang_concat(mk_lib_fe_x11_mallocatorg_name, _fe_get_blocks_allocated)
-#define mk_lib_fe_x11_mallocatorg_fe_get_blocks_deallocated mk_lang_concat(mk_lib_fe_x11_mallocatorg_name, _fe_get_blocks_deallocated)
-#define mk_lib_fe_x11_mallocatorg_fe_get_blocks_live        mk_lang_concat(mk_lib_fe_x11_mallocatorg_name, _fe_get_blocks_live)
-#define mk_lib_fe_x11_mallocatorg_fe_get_blocks_peak        mk_lang_concat(mk_lib_fe_x11_mallocatorg_name, _fe_get_blocks_peak)
-#define mk_lib_fe_x11_mallocatorg_fe_get_all                mk_lang_concat(mk_lib_fe_x11_mallocatorg_name, _fe_get_all)
 
 #define mk_lang_memcpy_t_name mk_lib_fe_x11_memcpy_pc
 #define mk_lang_memcpy_t_type mk_lang_types_pchar_t
@@ -93,13 +38,13 @@
 
 #define mk_sl_vector_t_name mk_lib_fe_x11_string
 #define mk_sl_vector_t_element mk_lang_types_pchar_t
-#define mk_sl_vector_t_mallocatorg mk_lib_fe_x11_mallocatorg_name
+#define mk_sl_vector_t_mallocatorg mk_sl_mallocatorg
 #include "mk_sl_vector_inl_fileh.h"
 #include "mk_sl_vector_inl_filec.h"
 
 #define mk_sl_vector_t_name mk_lib_fe_x11_strings
 #define mk_sl_vector_t_element mk_lib_fe_posix_string_t
-#define mk_sl_vector_t_mallocatorg mk_lib_fe_x11_mallocatorg_name
+#define mk_sl_vector_t_mallocatorg mk_sl_mallocatorg
 #include "mk_sl_vector_inl_fileh.h"
 #include "mk_sl_vector_inl_filec.h"
 
@@ -115,7 +60,7 @@ typedef mk_lib_fe_x11_file_t const* mk_lib_fe_x11_file_pct;
 
 #define mk_sl_vector_t_name mk_lib_fe_x11_files
 #define mk_sl_vector_t_element mk_lib_fe_x11_file_t
-#define mk_sl_vector_t_mallocatorg mk_lib_fe_x11_mallocatorg_name
+#define mk_sl_vector_t_mallocatorg mk_sl_mallocatorg
 #include "mk_sl_vector_inl_fileh.h"
 #include "mk_sl_vector_inl_filec.h"
 
@@ -211,7 +156,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_bool_t mk_lib_fe_x11_file_
 
 #define mk_sl_vector_t_name mk_lib_fe_x11_ints
 #define mk_sl_vector_t_element mk_lang_types_sint_t
-#define mk_sl_vector_t_mallocatorg mk_lib_fe_x11_mallocatorg_name
+#define mk_sl_vector_t_mallocatorg mk_sl_mallocatorg
 #include "mk_sl_vector_inl_fileh.h"
 #include "mk_sl_vector_inl_filec.h"
 
@@ -437,6 +382,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fe_x11_prrw_
 {
 	KeySym ks;
 	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t idx;
+	mk_lang_types_sint_t count;
+	mk_lang_types_bool_t went;
 	mk_lang_types_ulong_t black;
 	mk_lang_types_ulong_t white;
 
@@ -455,6 +403,25 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fe_x11_prrw_
 		case XK_Escape:
 		{
 			fe->m_visible = mk_lang_false;
+		}
+		break;
+		case XK_Return:
+		{
+			err = mk_lib_x11_list_view_ro_get_idx(&fe->m_list_view, &idx); mk_lang_check_rereturn(err);
+			err = mk_lib_fe_posix_rw_go_dn(&fe->m_server, idx, &went); mk_lang_check_rereturn(err);
+			if(went)
+			{
+				err = mk_lib_fe_posix_ro_get_count(&fe->m_server, &count); mk_lang_check_rereturn(err);
+				err = mk_lib_x11_list_view_rw_set_rows(&fe->m_list_view, count); mk_lang_check_rereturn(err);
+				err = mk_lib_x11_list_view_rw_set_idx(&fe->m_list_view, 0); mk_lang_check_rereturn(err);
+				err = mk_lib_x11_list_view_rw_invalidate_all(&fe->m_list_view); mk_lang_check_rereturn(err);
+			}
+		}
+		break;
+		case XK_i:
+		{
+			err = mk_lib_statistics_hide(); mk_lang_check_rereturn(err);
+			err = mk_lib_statistics_show(); mk_lang_check_rereturn(err);
 		}
 		break;
 		case XK_d:

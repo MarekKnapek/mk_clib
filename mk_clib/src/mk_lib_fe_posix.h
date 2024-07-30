@@ -65,7 +65,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_fe_posix_ro_get_sort
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_fe_posix_ro_get_count(mk_lib_fe_posix_pct const fe, mk_lang_types_sint_pt const count_out) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_fe_posix_ro_get_depth(mk_lib_fe_posix_pct const fe, mk_lang_types_sint_pt const depth_out) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_fe_posix_ro_can_go_up(mk_lib_fe_posix_pct const fe, mk_lang_types_bool_pt const can_go_up_out) mk_lang_noexcept;
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_fe_posix_rw_go_dn(mk_lib_fe_posix_pt const fe, mk_lang_types_sint_t const idx) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_fe_posix_rw_go_dn(mk_lib_fe_posix_pt const fe, mk_lang_types_sint_t const idx, mk_lang_types_bool_pt const went) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_fe_posix_rw_go_up(mk_lib_fe_posix_pt const fe) mk_lang_noexcept;
 
 

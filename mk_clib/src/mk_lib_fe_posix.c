@@ -1,16 +1,17 @@
 #include "mk_lib_fe_posix.h"
 
-#include "mk_lang_countof.h"
-#include "mk_lang_limits.h"
 #include "mk_lang_assert.h"
+#include "mk_lang_bool.h"
 #include "mk_lang_check.h"
+#include "mk_lang_countof.h"
 #include "mk_lang_jumbo.h"
+#include "mk_lang_limits.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_strlen.h"
 #include "mk_lang_types.h"
 #include "mk_lib_posix_headers.h"
 #include "mk_sl_mallocatorg.h"
-#include "mk_lang_strlen.h"
 
 #define mk_sl_vector_t_name mk_lib_fe_posix_string
 #define mk_sl_vector_t_element mk_lang_types_pchar_t
@@ -364,11 +365,12 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_fe_posix_ro_can_go_u
 	return  0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_fe_posix_rw_go_dn(mk_lib_fe_posix_pt const fe, mk_lang_types_sint_t const idx) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_fe_posix_rw_go_dn(mk_lib_fe_posix_pt const fe, mk_lang_types_sint_t const idx, mk_lang_types_bool_pt const went) mk_lang_noexcept
 {
 	mk_lang_types_bool_t is_root;
 	mk_lang_types_pchar_t slash;
 	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t id;
 	mk_lib_fe_posix_file_pct file;
 	mk_lib_fe_posix_string_pct name;
 	mk_lang_types_pchar_pct buf;
@@ -376,19 +378,26 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_fe_posix_rw_go_dn(mk
 
 	mk_lang_assert(fe);
 	mk_lang_assert(idx >= 0 && idx < ((mk_lang_types_sint_t)(mk_lib_fe_posix_files_ro_size(&fe->m_files))));
+	mk_lang_assert(went);
 
-	is_root = mk_lib_fe_posix_string_ro_size(&fe->m_path) == 1;
-	if(!is_root)
+	id = *mk_lib_fe_posix_ints_ro_at(&fe->m_sort, idx);
+	file = mk_lib_fe_posix_files_ro_at(&fe->m_files, id); mk_lang_assert(file);
+	if(file->m_is_dir)
 	{
-		slash = '/'; err = mk_lib_fe_posix_string_rw_push_back_one(&fe->m_path, &slash); mk_lang_check_rereturn(err);
+		is_root = mk_lib_fe_posix_string_ro_size(&fe->m_path) == 1;
+		if(!is_root){ slash = '/'; err = mk_lib_fe_posix_string_rw_push_back_one(&fe->m_path, &slash); mk_lang_check_rereturn(err); }
+		name = &file->m_name;
+		buf = mk_lib_fe_posix_string_ro_data(name); mk_lang_assert(buf && buf[0] != '\0');
+		len = mk_lib_fe_posix_string_ro_size(name); mk_lang_assert(len >= 1);
+		err = mk_lib_fe_posix_string_rw_push_back_many(&fe->m_path, &buf[0], len); mk_lang_check_rereturn(err);
+		++fe->m_depth;
+		err = mk_lib_fe_posix_prrw_go(fe); mk_lang_check_rereturn(err);
+		*went = mk_lang_true;
 	}
-	file = mk_lib_fe_posix_files_ro_at(&fe->m_files, idx); mk_lang_assert(file);
-	name = &file->m_name;
-	buf = mk_lib_fe_posix_string_ro_data(name); mk_lang_assert(buf && buf[0] != '\0');
-	len = mk_lib_fe_posix_string_ro_size(name); mk_lang_assert(len >= 1);
-	err = mk_lib_fe_posix_string_rw_push_back_many(&fe->m_path, &buf[0], len); mk_lang_check_rereturn(err);
-	++fe->m_depth;
-	err = mk_lib_fe_posix_prrw_go(fe); mk_lang_check_rereturn(err);
+	else
+	{
+		*went = mk_lang_false;
+	}
 	return  0;
 }
 

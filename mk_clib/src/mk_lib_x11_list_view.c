@@ -107,7 +107,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_x11_list_vie
 	Status st;
 
 	mk_lang_assert(list_view);
-	mk_lang_assert(id >= 0 && id < list_view->m_rows);
+	mk_lang_assert(id >= 0);
 
 	x = list_view->m_x;
 	y = list_view->m_y;
@@ -377,6 +377,30 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_x11_list_view_rw_set
 		err = mk_lib_x11_list_view_prrw_invalidate_all(list_view); mk_lang_check_rereturn(err);
 		list_view->m_auto_height = auto_height;
 		err = mk_lib_x11_list_view_prrw_invalidate_all(list_view); mk_lang_check_rereturn(err);
+	}
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_x11_list_view_ro_get_idx(mk_lib_x11_list_view_pct const list_view, mk_lang_types_sint_pt const idx) mk_lang_noexcept
+{
+	mk_lang_assert(list_view);
+	mk_lang_assert(idx);
+
+	*idx = list_view->m_idx;
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_x11_list_view_rw_set_idx(mk_lib_x11_list_view_pt const list_view, mk_lang_types_sint_t const idx) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(list_view);
+
+	if(list_view->m_idx != idx)
+	{
+		err = mk_lib_x11_list_view_prrw_invalidate_row(list_view, list_view->m_idx); mk_lang_check_rereturn(err);
+		list_view->m_idx = idx;
+		err = mk_lib_x11_list_view_prrw_invalidate_row(list_view, list_view->m_idx); mk_lang_check_rereturn(err);
 	}
 	return 0;
 }
