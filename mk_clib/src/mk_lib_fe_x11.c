@@ -235,11 +235,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fe_x11_prro_
 	mk_lib_fe_x11_pct fe;
 	mk_lib_fe_posix_pct server;
 	mk_lib_fe_posix_files_pct files;
+	mk_lib_fe_posix_ints_pct sort;
 	mk_lib_fe_posix_file_pct file;
 	mk_lib_fe_posix_string_pct name;
 	mk_lang_types_pchar_pct text_buf;
 	mk_lang_types_sint_t text_len;
 	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t id;
 
 	mk_lang_assert(context);
 	mk_lang_assert(text);
@@ -248,7 +250,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fe_x11_prro_
 	fe = ((mk_lib_fe_x11_pct)(context));
 	server = &fe->m_server; mk_lang_assert(server);
 	err = mk_lib_fe_posix_ro_get_files(server, &files); mk_lang_check_rereturn(err);
-	file = mk_lib_fe_posix_files_ro_at(files, idx); mk_lang_assert(file);
+	err = mk_lib_fe_posix_ro_get_sort(server, &sort); mk_lang_check_rereturn(err);
+	id = *mk_lib_fe_posix_ints_ro_at(sort, idx);
+	file = mk_lib_fe_posix_files_ro_at(files, id); mk_lang_assert(file);
 	name = &file->m_name; mk_lang_assert(name);
 	text_buf = mk_lib_fe_posix_string_ro_data(name); mk_lang_assert(text_buf && text_buf[0] != '\0');
 	text_len = ((mk_lang_types_sint_t)(mk_lib_fe_posix_string_ro_size(name))); mk_lang_assert(text_len >= 1);

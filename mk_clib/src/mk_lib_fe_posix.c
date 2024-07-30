@@ -22,6 +22,99 @@
 #define mk_sl_vector_t_mallocatorg mk_sl_mallocatorg
 #include "mk_sl_vector_inl_filec.h"
 
+#define mk_sl_vector_t_name mk_lib_fe_posix_ints
+#define mk_sl_vector_t_element mk_lang_types_sint_t
+#define mk_sl_vector_t_mallocatorg mk_sl_mallocatorg
+#include "mk_sl_vector_inl_filec.h"
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lib_fe_posix_file_lt(mk_lib_fe_posix_file_pct const a, mk_lib_fe_posix_file_pct const b)
+{
+	mk_lang_types_bool_t ret;
+	mk_lang_types_pchar_pct texta;
+	mk_lang_types_pchar_pct textb;
+	mk_lang_types_usize_t lena;
+	mk_lang_types_usize_t lenb;
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
+	mk_lang_types_sint_t cmpa;
+	mk_lang_types_sint_t cmpb;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	if(a->m_is_dir && !b->m_is_dir)
+	{
+		ret = mk_lang_true;
+	}
+	else if(b->m_is_dir && !a->m_is_dir)
+	{
+		ret = mk_lang_false;
+	}
+	else
+	{
+		cmpb = 0;
+		texta = mk_lib_fe_posix_string_ro_data(&a->m_name); mk_lang_assert(texta && texta[0] != '\0');
+		textb = mk_lib_fe_posix_string_ro_data(&b->m_name); mk_lang_assert(textb && textb[0] != '\0');
+		lena = mk_lib_fe_posix_string_ro_size(&a->m_name); mk_lang_assert(lena >= 1);
+		lenb = mk_lib_fe_posix_string_ro_size(&b->m_name); mk_lang_assert(lenb >= 1);
+		n = mk_lang_min(lena, lenb);
+		for(i = 0; i != n; ++i)
+		{
+			if
+			(
+				((texta[i] >= 'a' && texta[i] <= 'z') || (texta[i] >= 'A' && texta[i] <= 'Z')) &&
+				((textb[i] >= 'a' && textb[i] <= 'z') || (textb[i] >= 'A' && textb[i] <= 'Z'))
+			)
+			{
+				cmpa =
+					((mk_lang_types_sint_t)(((mk_lang_types_ushort_t)(((mk_lang_types_ushort_t)(texta[i])) | ((mk_lang_types_ushort_t)(1u << 5)))))) -
+					((mk_lang_types_sint_t)(((mk_lang_types_ushort_t)(((mk_lang_types_ushort_t)(textb[i])) | ((mk_lang_types_ushort_t)(1u << 5))))));
+				if(cmpb == 0)
+				{
+					cmpb =
+						((mk_lang_types_sint_t)(((mk_lang_types_ushort_t)(texta[i])))) -
+						((mk_lang_types_sint_t)(((mk_lang_types_ushort_t)(textb[i]))));
+				}
+			}
+			else
+			{
+				cmpa =
+					((mk_lang_types_sint_t)(((mk_lang_types_ushort_t)(texta[i])))) -
+					((mk_lang_types_sint_t)(((mk_lang_types_ushort_t)(textb[i]))));
+			}
+			if(cmpa != 0)
+			{
+				ret = cmpa < 0;
+				break;
+			}
+		}
+		if(i == n)
+		{
+			if(cmpb != 0)
+			{
+				ret = cmpb < 0;
+			}
+			else
+			{
+				ret = lena <= lenb;
+			}
+		}
+	}
+	return ret;
+}
+#define mk_lang_bui_t_name mk_lib_fe_posix_cntr
+#define mk_lang_bui_t_base uint
+#include "mk_lang_bui_inl_fileh.h"
+#include "mk_lang_bui_inl_filec.h"
+#define mk_sl_sort_merge_t_name mk_lib_fe_posix_sort_files
+#define mk_sl_sort_merge_t_data mk_lib_fe_posix_file
+#define mk_sl_sort_merge_t_counter mk_lib_fe_posix_cntr
+#define mk_sl_sort_merge_t_is_sorted mk_lib_fe_posix_file_lt
+#define mk_sl_sort_merge_t_first_round 1
+#define mk_sl_sort_merge_t_proxy mk_lang_types_sint
+#include "mk_sl_sort_merge_inl_fileh.h"
+#include "mk_sl_sort_merge_inl_filec.h"
+
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t alg_find_reverse(mk_lang_types_pchar_pct const str, mk_lang_types_sint_t const len, mk_lang_types_pchar_t const chr) mk_lang_noexcept
 {
@@ -64,6 +157,34 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fe_posix_prr
 	}
 	err = mk_lib_fe_posix_files_rw_clear(&fe->m_files); mk_lang_check_rereturn(err);
 	return  0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fe_posix_prrw_sort(mk_lib_fe_posix_pt const fe) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	mk_lang_types_usize_t count;
+	mk_lib_fe_posix_file_pt files_buf;
+	mk_lang_types_sint_pt proxy;
+	mk_lang_types_sint_t n;
+	mk_lang_types_sint_t i;
+
+	mk_lang_assert(fe);
+
+	err = mk_lib_fe_posix_ints_rw_clear(&fe->m_sort); mk_lang_check_rereturn(err);
+	count = mk_lib_fe_posix_files_ro_size(&fe->m_files); mk_lang_assert(count >= 0 && count <= mk_lang_limits_usize_max / 2 && count <= ((mk_lang_types_usize_t)(mk_lang_limits_sint_max)) / 2);
+	if(count != 0)
+	{
+		files_buf = mk_lib_fe_posix_files_rw_data(&fe->m_files); mk_lang_assert(files_buf);
+		err = mk_lib_fe_posix_ints_rw_push_back_void(&fe->m_sort, count * 2); mk_lang_check_rereturn(err);
+		proxy = mk_lib_fe_posix_ints_rw_data(&fe->m_sort); mk_lang_assert(proxy);
+		n = ((mk_lang_types_sint_t)(count));
+		for(i = 0; i != n; ++i)
+		{
+			proxy[i] = i;
+		}
+		mk_lib_fe_posix_sort_files_proxy(&files_buf[0], &proxy[0], ((mk_lib_fe_posix_cntr_t)(count)), &proxy[count]);
+	}
+	return 0;
 }
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fe_posix_prrw_go_impl_1(mk_lib_fe_posix_pt const fe, DIR* const dir) mk_lang_noexcept
@@ -144,6 +265,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fe_posix_prr
 	err_b = mk_lib_fe_posix_prrw_go_impl_1(fe, dir);
 	tsi = closedir(dir); mk_lang_check_return(tsi == 0);
 	mk_lang_check_rereturn(err_b);
+	err = mk_lib_fe_posix_prrw_sort(fe); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -156,6 +278,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_fe_posix_rw_construc
 
 	err = mk_lib_fe_posix_string_rw_construct(&fe->m_path); mk_lang_check_rereturn(err);
 	err = mk_lib_fe_posix_files_rw_construct(&fe->m_files); mk_lang_check_rereturn(err);
+	err = mk_lib_fe_posix_ints_rw_construct(&fe->m_sort); mk_lang_check_rereturn(err);
 	fe->m_depth = 0;
 	err = mk_lib_fe_posix_prrw_go(fe); mk_lang_check_rereturn(err);
 	return  0;
@@ -170,6 +293,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_fe_posix_rw_destruct
 
 	mk_lang_assert(fe);
 
+	err = mk_lib_fe_posix_ints_rw_destroy(&fe->m_sort); mk_lang_check_rereturn(err);
 	n = mk_lib_fe_posix_files_ro_size(&fe->m_files);
 	for(i = 0; i != n; ++i)
 	{
@@ -196,6 +320,15 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_fe_posix_ro_get_file
 	mk_lang_assert(files_out);
 
 	*files_out = &fe->m_files;
+	return  0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_fe_posix_ro_get_sort(mk_lib_fe_posix_pct const fe, mk_lib_fe_posix_ints_ppct const sort_out) mk_lang_noexcept
+{
+	mk_lang_assert(fe);
+	mk_lang_assert(sort_out);
+
+	*sort_out = &fe->m_sort;
 	return  0;
 }
 
