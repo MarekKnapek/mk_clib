@@ -2366,6 +2366,24 @@ struct XExposeEvent
 };
 typedef struct XExposeEvent XExposeEvent;
 
+struct XConfigureEvent
+{
+	mk_lang_types_sint_t type;
+	mk_lang_types_ulong_t serial;
+	Bool send_event;
+	Display* display;
+	Window event;
+	Window window;
+	mk_lang_types_sint_t x;
+	mk_lang_types_sint_t y;
+	mk_lang_types_sint_t width;
+	mk_lang_types_sint_t height;
+	mk_lang_types_sint_t border_width;
+	Window above;
+	Bool override_redirect;
+};
+typedef struct XConfigureEvent XConfigureEvent;
+
 struct XClientMessageEvent
 {
 	mk_lang_types_sint_t type;
@@ -2390,6 +2408,7 @@ union XEvent
 	XKeyEvent xkey;
 	XButtonEvent xbutton;
 	XExposeEvent xexpose;
+	XConfigureEvent xconfigure;
 	XClientMessageEvent xclient;
 };
 typedef union XEvent XEvent;
