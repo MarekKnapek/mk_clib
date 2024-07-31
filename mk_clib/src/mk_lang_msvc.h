@@ -92,6 +92,8 @@
 
 #define mk_lang_msvc_ver_2005      1400l
 
+#define mk_lang_msvc_ver_2003      1310l
+
 
 #define mk_lang_msvc_full_ver_2022_17_10  194033813l
 #define mk_lang_msvc_full_ver_2022_17_9_2 193933521l
@@ -174,6 +176,8 @@
 
 #define mk_lang_msvc_full_ver_2005_sp_1 140050727l
 #define mk_lang_msvc_full_ver_2005      140050320l
+
+#define mk_lang_msvc_full_ver_2003      13103077l
 
 
 #endif
