@@ -85,6 +85,7 @@
 #include "mk_lib_crypto_xof_stream_shake_128_test.hpp"
 #include "mk_lib_crypto_xof_stream_shake_256_test.hpp"
 #include "mk_sl_sort_merge_test.hpp"
+#include "mk_sl_tree_wavl_test.hpp"
 
 #if defined mk_clib_test_smol_want && mk_clib_test_smol_want == 1
 #else
@@ -177,6 +178,7 @@ mk_lang_jumbo void mk_clib_test(void) mk_lang_noexcept
 	mk_lib_crypto_xof_stream_shake_128_test();
 	mk_lib_crypto_xof_stream_shake_256_test();
 	mk_sl_sort_merge_test();
+	mk_sl_tree_wavl_test();
 
 	#if defined mk_clib_test_smol_want && mk_clib_test_smol_want == 1
 	#else
