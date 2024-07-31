@@ -323,6 +323,7 @@ mm_per_bui(`#undef mk_sl_cui_inl_defd_to_buis_$1_be')
 `#'undef mk_sl_cui_inl_defd_to_str_hex_n
 `#'undef mk_sl_cui_inl_defd_to_str_hex_w
 `#'undef mk_sl_cui_inl_defd_to_str_hexf_n
+`#'undef mk_sl_cui_inl_defd_to_str_hexf_w
 `#'undef mk_sl_cui_inl_defd_to_str_bin_n
 `#'undef mk_sl_cui_inl_defd_to_str_binf_n
 

@@ -323,6 +323,7 @@ mm_per_bui(`#define mk_sl_cui_inl_defd_to_buis_$1_be mk_lang_concat(mk_sl_cui_in
 #define mk_sl_cui_inl_defd_to_str_hex_n mk_lang_concat(mk_sl_cui_inl_defd_name, _to_str_hex_n)
 #define mk_sl_cui_inl_defd_to_str_hex_w mk_lang_concat(mk_sl_cui_inl_defd_name, _to_str_hex_w)
 #define mk_sl_cui_inl_defd_to_str_hexf_n mk_lang_concat(mk_sl_cui_inl_defd_name, _to_str_hexf_n)
+#define mk_sl_cui_inl_defd_to_str_hexf_w mk_lang_concat(mk_sl_cui_inl_defd_name, _to_str_hexf_w)
 #define mk_sl_cui_inl_defd_to_str_bin_n mk_lang_concat(mk_sl_cui_inl_defd_name, _to_str_bin_n)
 #define mk_sl_cui_inl_defd_to_str_binf_n mk_lang_concat(mk_sl_cui_inl_defd_name, _to_str_binf_n)
 
