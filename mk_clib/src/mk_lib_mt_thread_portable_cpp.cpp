@@ -14,12 +14,11 @@
 
 static mk_lang_types_void_t mk_lib_mt_thread_portable_cpp_procedure(mk_lib_mt_thread_portable_cpp_callback_t const callback, mk_lang_types_void_pt const context) mk_lang_noexcept
 {
-	mk_lang_types_sint_t ret;
+	mk_lang_types_sint_t err;
 
 	mk_lang_assert(callback);
 
-	ret = callback(context);
-	mk_lang_assert(ret == 0);
+	err = callback(context); mk_lang_check_recrash(err);
 }
 
 
@@ -30,21 +29,26 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_thread_portable_c
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_thread_portable_cpp_create(mk_lib_mt_thread_portable_cpp_pt const thread, mk_lib_mt_thread_portable_cpp_callback_t const callback, mk_lang_types_void_pt const context) mk_lang_noexcept
 {
-	mk_lang_types_sint_t ret;
+	typedef std::thread thread_t;
+	typedef thread_t* thread_pt;
+
+	mk_lang_types_sint_t err;
+	thread_pt real;
 
 	mk_lang_assert(thread);
 	mk_lang_assert(callback);
 
-	ret = 0;
+	err = 0;
+	real = reinterpret_cast<thread_pt>(&thread->m_thread);
 	try
 	{
-		::new(static_cast<mk_lang_types_void_pt>(&thread->m_thread))(std::thread)(mk_lib_mt_thread_portable_cpp_procedure, callback, context);
+		::new(static_cast<mk_lang_types_void_pt>(real))(thread_t)(mk_lib_mt_thread_portable_cpp_procedure, callback, context);
 	}
 	catch(...)
 	{
-		ret = mk_lang_check_line;
+		err = mk_lang_check_line;
 	}
-	return ret;
+	return err;
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_thread_portable_cpp_create_all(mk_lib_mt_thread_portable_cpp_pt const threads, mk_lang_types_sint_pt const count, mk_lib_mt_thread_portable_cpp_callback_t const callback, mk_lang_types_void_pt const context) mk_lang_noexcept
@@ -69,26 +73,37 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_thread_portable_c
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_thread_portable_cpp_join(mk_lib_mt_thread_portable_cpp_pt const thread) mk_lang_noexcept
 {
-	mk_lang_types_sint_t ret;
+	typedef std::thread thread_t;
+	typedef thread_t* thread_pt;
+
+	mk_lang_types_sint_t err;
+	thread_pt real;
 
 	mk_lang_assert(thread);
 
-	ret = 0;
+	err = 0;
+	real = reinterpret_cast<thread_pt>(&thread->m_thread);
 	try
 	{
-		reinterpret_cast<std::thread*>(&thread->m_thread)->join();
+		real->join();
 	}
 	catch(...)
 	{
-		ret = mk_lang_check_line;
+		err = mk_lang_check_line;
 	}
-	return ret;
+	return err;
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_thread_portable_cpp_destroy(mk_lib_mt_thread_portable_cpp_pt const thread) mk_lang_noexcept
 {
+	typedef std::thread thread_t;
+	typedef thread_t* thread_pt;
+
+	thread_pt real;
+
 	mk_lang_assert(thread);
 
-	reinterpret_cast<std::thread*>(&thread->m_thread)->~thread();
+	real = reinterpret_cast<thread_pt>(&thread->m_thread);
+	real->~thread();
 	return 0;
 }
