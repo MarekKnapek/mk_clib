@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:acv1="urn:schemas-microsoft-com:compatibility.v1" targetNamespace="urn:schemas-microsoft-com:compatibility.v1" attributeFormDefault="unqualified">
+	<xs:element name="supportedOS">
+		<xs:complexType>
+			<xs:attribute name="Id" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="{e2011457-1546-43c5-a5fe-008deee3d3f0}">
+							<xs:annotation>
+								<xs:documentation>Windows Vista and Windows Server 2008</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="{35138b9a-5d96-4fbd-8e2d-a2440225f93a}">
+							<xs:annotation>
+								<xs:documentation>Windows 7 and Windows Server 2008 R2</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="{4a2f28e3-53b9-4441-ba9c-d69d4a4a6e38}">
+							<xs:annotation>
+								<xs:documentation>Windows 8 and Windows Server 2012</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="{1f676c76-80e1-4239-95bb-83d0f6d0da78}">
+							<xs:annotation>
+								<xs:documentation>Windows 8.1 and Windows Server 2012 R2</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="{8e0f7a12-bfb3-4fe8-b9a5-48fd50a15a9a}">
+							<xs:annotation>
+								<xs:documentation>Windows 10, Windows 11, Windows Server 2016, Windows Server 2019 and Windows Server 2022</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="maxversiontested">
+		<xs:complexType>
+			<xs:attribute name="Id" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+"/>
+						<xs:maxLength value="23"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="application">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="acv1:supportedOS" minOccurs="1" maxOccurs="unbounded"/>
+				<xs:element ref="acv1:maxversiontested" minOccurs="0" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="compatibility">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="acv1:application" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

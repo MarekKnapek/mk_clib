@@ -6,6 +6,7 @@
 	(defined mk_sl_tree_wavl_t_element_type) && \
 	(defined mk_sl_tree_wavl_t_elements_compare) && \
 	(defined mk_sl_tree_wavl_t_mallocatorg_name) && \
+	((defined mk_sl_tree_wavl_t_constexpr_want && ((mk_sl_tree_wavl_t_constexpr_want) == 0 || (mk_sl_tree_wavl_t_constexpr_want) == 1)) || !defined mk_sl_tree_wavl_t_constexpr_want) && \
 1))
 #error xxxxxxxxxx
 #endif
@@ -15,6 +16,16 @@
 #define mk_sl_tree_wavl_inl_defd_element_type mk_sl_tree_wavl_t_element_type
 #define mk_sl_tree_wavl_inl_defd_elements_compare mk_sl_tree_wavl_t_elements_compare
 #define mk_sl_tree_wavl_inl_defd_mallocatorg_name mk_sl_tree_wavl_t_mallocatorg_name
+
+#if defined mk_sl_tree_wavl_t_constexpr_want && (mk_sl_tree_wavl_t_constexpr_want) == 1
+#define mk_sl_tree_wavl_inl_defd_constexpr_want 1
+#define mk_sl_tree_wavl_inl_defd_constexpr mk_lang_constexpr
+#define mk_sl_tree_wavl_inl_defd_constexpr_init mk_lang_constexpr_init
+#else
+#define mk_sl_tree_wavl_inl_defd_constexpr_want 0
+#define mk_sl_tree_wavl_inl_defd_constexpr
+#define mk_sl_tree_wavl_inl_defd_constexpr_init
+#endif
 
 
 #define mk_sl_tree_wavl_inl_defd_element_t mk_lang_concat(mk_sl_tree_wavl_inl_defd_name, _element_t)
@@ -116,7 +127,7 @@
 #define mk_sl_tree_wavl_inl_defd_prrw_node_demote_double mk_lang_concat(mk_sl_tree_wavl_inl_defd_name, _prrw_node_demote_double)
 #define mk_sl_tree_wavl_inl_defd_prrw_node_alloc mk_lang_concat(mk_sl_tree_wavl_inl_defd_name, _prrw_node_alloc)
 #define mk_sl_tree_wavl_inl_defd_prrw_node_destroy_single mk_lang_concat(mk_sl_tree_wavl_inl_defd_name, _prrw_node_destroy_single)
-#define mk_sl_tree_wavl_inl_defd_prrw_node_destroy_iterative mk_lang_concat(mk_sl_tree_wavl_inl_defd_name, _prrw_node_destroy_iterative)
+#define mk_sl_tree_wavl_inl_defd_prrw_node_destroy_recursive mk_lang_concat(mk_sl_tree_wavl_inl_defd_name, _prrw_node_destroy_recursive)
 #define mk_sl_tree_wavl_inl_defd_prrw_node_inc mk_lang_concat(mk_sl_tree_wavl_inl_defd_name, _prrw_node_inc)
 #define mk_sl_tree_wavl_inl_defd_prrw_node_dec mk_lang_concat(mk_sl_tree_wavl_inl_defd_name, _prrw_node_dec)
 

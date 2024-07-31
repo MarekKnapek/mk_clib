@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:schemas-microsoft-com:asm.v1" attributeFormDefault="unqualified" xmlns:amv1="urn:schemas-microsoft-com:asm.v1" xmlns:acv1="urn:schemas-microsoft-com:compatibility.v1">
+	<xs:import namespace="urn:schemas-microsoft-com:compatibility.v1" schemaLocation="mk_win_application_compatibility.xsd"/>
+	<xs:element name="noInherit">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:length value="0"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="assemblyIdentity">
+		<xs:complexType>
+			<xs:attribute name="type" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="win32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="name" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value=".+\..+\..+"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="version" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+"/>
+						<xs:maxLength value="23"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="language" use="optional">
+				<xs:annotation>
+					<xs:documentation>DHTML language code or *</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="processorArchitecture" use="optional">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="*"/>
+						<xs:enumeration value="x86"/>
+						<xs:enumeration value="amd64"/>
+						<xs:enumeration value="arm"/>
+						<xs:enumeration value="arm64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="publicKeyToken" use="optional">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="[0-9|a-z|A-Z]{16}"/>
+						<xs:minLength value="16"/>
+						<xs:maxLength value="16"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="dependentAssembly">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="amv1:assemblyIdentity" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="dependency">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="amv1:dependentAssembly" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="assembly">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="amv1:noInherit" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="amv1:assemblyIdentity" minOccurs="1" maxOccurs="1"/>
+				<xs:choice minOccurs="0" maxOccurs="unbounded">
+					<xs:element ref="acv1:compatibility" minOccurs="0" maxOccurs="1"/>
+					<xs:element ref="amv1:dependency" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:choice>
+			</xs:sequence>
+			<xs:attribute name="manifestVersion" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="1.0"/>
+						<xs:minLength value="3"/>
+						<xs:maxLength value="3"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

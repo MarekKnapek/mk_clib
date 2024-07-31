@@ -11,10 +11,21 @@
 
 
 
+
 #undef mk_sl_tree_wavl_inl_defd_name
 #undef mk_sl_tree_wavl_inl_defd_element_type
 #undef mk_sl_tree_wavl_inl_defd_elements_compare
 #undef mk_sl_tree_wavl_inl_defd_mallocatorg_name
+
+
+#undef mk_sl_tree_wavl_inl_defd_constexpr_want
+#undef mk_sl_tree_wavl_inl_defd_constexpr
+#undef mk_sl_tree_wavl_inl_defd_constexpr_init
+
+#undef mk_sl_tree_wavl_inl_defd_constexpr_want
+#undef mk_sl_tree_wavl_inl_defd_constexpr
+#undef mk_sl_tree_wavl_inl_defd_constexpr_init
+
 
 
 #undef mk_sl_tree_wavl_inl_defd_element_t
@@ -116,7 +127,7 @@
 #undef mk_sl_tree_wavl_inl_defd_prrw_node_demote_double
 #undef mk_sl_tree_wavl_inl_defd_prrw_node_alloc
 #undef mk_sl_tree_wavl_inl_defd_prrw_node_destroy_single
-#undef mk_sl_tree_wavl_inl_defd_prrw_node_destroy_iterative
+#undef mk_sl_tree_wavl_inl_defd_prrw_node_destroy_recursive
 #undef mk_sl_tree_wavl_inl_defd_prrw_node_inc
 #undef mk_sl_tree_wavl_inl_defd_prrw_node_dec
 

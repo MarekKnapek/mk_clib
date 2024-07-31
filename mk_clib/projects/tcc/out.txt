@@ -1,0 +1,49 @@
+Tiny C Compiler 0.9.28rc - Copyright (C) 2001-2006 Fabrice Bellard
+Usage: tcc [options...] [-o outfile] [-c] infile(s)...
+       tcc [options...] -run infile (or --) [arguments...]
+General options:
+  -c           compile only - generate an object file
+  -o outfile   set output filename
+  -run         run compiled source
+  -fflag       set or reset (with 'no-' prefix) 'flag' (see tcc -hh)
+  -std=c99     Conform to the ISO 1999 C standard (default).
+  -std=c11     Conform to the ISO 2011 C standard.
+  -Wwarning    set or reset (with 'no-' prefix) 'warning' (see tcc -hh)
+  -w           disable all warnings
+  -v --version show version
+  -vv          show search paths or loaded files
+  -h -hh       show this, show more help
+  -bench       show compilation statistics
+  -            use stdin pipe as infile
+  @listfile    read arguments from listfile
+Preprocessor options:
+  -Idir        add include path 'dir'
+  -Dsym[=val]  define 'sym' with value 'val'
+  -Usym        undefine 'sym'
+  -E           preprocess only
+Linker options:
+  -Ldir        add library path 'dir'
+  -llib        link with dynamic or static library 'lib'
+  -r           generate (relocatable) object file
+  -shared      generate a shared library/dll
+  -rdynamic    export all global symbols to dynamic linker
+  -soname      set name for shared library to be used at runtime
+  -Wl,-opt[=val]  set linker option (see tcc -hh)
+Debugger options:
+  -g           generate stab runtime debug info
+  -gdwarf[-x]  generate dwarf runtime debug info
+  -g.pdb       create .pdb debug database
+  -b           compile with built-in memory and bounds checker (implies -g)
+  -bt[N]       link with backtrace (stack dump) support [show max N callers]
+Misc. options:
+  -x[c|a|b|n]  specify type of the next infile (C,ASM,BIN,NONE)
+  -nostdinc    do not use standard system include paths
+  -nostdlib    do not link with standard crt and libraries
+  -Bdir        set tcc's private include/library dir
+  -M[M]D       generate make dependency file [ignore system files]
+  -M[M]        as above but no other output
+  -MF file     specify dependency file name
+  -m32/64      defer to i386/x86_64 cross compiler
+Tools:
+  create library  : tcc -ar [crstvx] lib [files]
+  create def file : tcc -impdef lib.dll [-v] [-o lib.def]

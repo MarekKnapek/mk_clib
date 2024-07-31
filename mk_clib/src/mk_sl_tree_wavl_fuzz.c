@@ -28,6 +28,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 #define mk_sl_tree_wavl_t_element_type mk_lang_types_sint_t
 #define mk_sl_tree_wavl_t_elements_compare mk_sl_tree_wavl_fuzz_int_cmp
 #define mk_sl_tree_wavl_t_mallocatorg_name mk_sl_mallocatorg
+#define mk_sl_tree_wavl_t_constexpr_want 0
 #include "mk_sl_tree_wavl_inl_fileh.h"
 #include "mk_sl_tree_wavl_inl_filec.h"
 

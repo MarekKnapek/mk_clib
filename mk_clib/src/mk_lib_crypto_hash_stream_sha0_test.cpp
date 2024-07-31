@@ -44,22 +44,52 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto mk_lib_crypto_hash_stream
 
 mk_lang_extern_c void mk_lib_crypto_hash_stream_sha0_test(void) mk_lang_noexcept
 {
-	#define message_1 "abc"
-	#define message_2 "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq"
+	#define message_1 ""
+	#define message_2 "a"
+	#define message_3 "abc"
+	#define message_4 "message digest"
+	#define message_5 "abcdefghijklmnopqrstuvwxyz"
+	#define message_6 "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq"
+	#define message_7 "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+	#define message_8 "12345678901234567890123456789012345678901234567890123456789012345678901234567890"
 
-	#define digest_1 "0164b8a914cd2a5e74c4f7ff082c4d97f1edf880"
-	#define digest_2 "d2516ee1acfa5baf33dfc1c471e438449ef134c8"
+	#define digest_1 "f96cea198ad1dd5617ac084a3d92c6107708c0ef"
+	#define digest_2 "37f297772fae4cb1ba39b6cf9cf0381180bd62f2"
+	#define digest_3 "0164b8a914cd2a5e74c4f7ff082c4d97f1edf880"
+	#define digest_4 "c1b0f222d150ebb9aa36a40cafdc8bcbed830b14"
+	#define digest_5 "b40ce07a430cfd3c033039b9fe9afec95dc1bdcd"
+	#define digest_6 "d2516ee1acfa5baf33dfc1c471e438449ef134c8"
+	#define digest_7 "79e966f7a3a990df33e40e3d7f8f18d2caebadfa"
+	#define digest_8 "4aa29d14d171522ece47bee8957e35a41f3e9cff"
 
 	#if mk_lang_version_at_least_cpp_14 || mk_lang_version_at_least_msvc_cpp_14
 
 	mk_lang_constexpr_static auto const s_digest_computed_1 = mk_lib_crypto_hash_stream_sha0_test_compute_from_str_lit(message_1);
 	mk_lang_constexpr_static auto const s_digest_computed_2 = mk_lib_crypto_hash_stream_sha0_test_compute_from_str_lit(message_2);
+	mk_lang_constexpr_static auto const s_digest_computed_3 = mk_lib_crypto_hash_stream_sha0_test_compute_from_str_lit(message_3);
+	mk_lang_constexpr_static auto const s_digest_computed_4 = mk_lib_crypto_hash_stream_sha0_test_compute_from_str_lit(message_4);
+	mk_lang_constexpr_static auto const s_digest_computed_5 = mk_lib_crypto_hash_stream_sha0_test_compute_from_str_lit(message_5);
+	mk_lang_constexpr_static auto const s_digest_computed_6 = mk_lib_crypto_hash_stream_sha0_test_compute_from_str_lit(message_6);
+	mk_lang_constexpr_static auto const s_digest_computed_7 = mk_lib_crypto_hash_stream_sha0_test_compute_from_str_lit(message_7);
+	mk_lang_constexpr_static auto const s_digest_computed_8 = mk_lib_crypto_hash_stream_sha0_test_compute_from_str_lit(message_8);
 
 	mk_lang_constexpr_static auto const s_digest_precomputed_1 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(digest_1);
 	mk_lang_constexpr_static auto const s_digest_precomputed_2 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(digest_2);
+	mk_lang_constexpr_static auto const s_digest_precomputed_3 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(digest_3);
+	mk_lang_constexpr_static auto const s_digest_precomputed_4 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(digest_4);
+	mk_lang_constexpr_static auto const s_digest_precomputed_5 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(digest_5);
+	mk_lang_constexpr_static auto const s_digest_precomputed_6 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(digest_6);
+	mk_lang_constexpr_static auto const s_digest_precomputed_7 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(digest_7);
+	mk_lang_constexpr_static auto const s_digest_precomputed_8 = mk_lib_cpp_constexpr_hex_str_lit_to_u8s(digest_8);
 
 	mk_lang_static_assert(s_digest_computed_1 == s_digest_precomputed_1);
 	mk_lang_static_assert(s_digest_computed_2 == s_digest_precomputed_2);
+	mk_lang_static_assert(s_digest_computed_3 == s_digest_precomputed_3);
+	mk_lang_static_assert(s_digest_computed_4 == s_digest_precomputed_4);
+	mk_lang_static_assert(s_digest_computed_5 == s_digest_precomputed_5);
+	mk_lang_static_assert(s_digest_computed_6 == s_digest_precomputed_6);
+	mk_lang_static_assert(s_digest_computed_7 == s_digest_precomputed_7);
+	mk_lang_static_assert(s_digest_computed_8 == s_digest_precomputed_8);
 
 	#endif
 
@@ -69,18 +99,36 @@ mk_lang_extern_c void mk_lib_crypto_hash_stream_sha0_test(void) mk_lang_noexcept
 	{
 		message_1,
 		message_2,
+		message_3,
+		message_4,
+		message_5,
+		message_6,
+		message_7,
+		message_8,
 	};
 
 	static int const s_message_lens[] =
 	{
 		((int)(sizeof(message_1) / sizeof(message_1[0]) - 1)),
 		((int)(sizeof(message_2) / sizeof(message_2[0]) - 1)),
+		((int)(sizeof(message_3) / sizeof(message_3[0]) - 1)),
+		((int)(sizeof(message_4) / sizeof(message_4[0]) - 1)),
+		((int)(sizeof(message_5) / sizeof(message_5[0]) - 1)),
+		((int)(sizeof(message_6) / sizeof(message_6[0]) - 1)),
+		((int)(sizeof(message_7) / sizeof(message_7[0]) - 1)),
+		((int)(sizeof(message_8) / sizeof(message_8[0]) - 1)),
 	};
 
 	static char const* const s_digests[] =
 	{
 		digest_1,
 		digest_2,
+		digest_3,
+		digest_4,
+		digest_5,
+		digest_6,
+		digest_7,
+		digest_8,
 	};
 
 	int n;
@@ -122,6 +170,7 @@ mk_lang_extern_c void mk_lib_crypto_hash_stream_sha0_test(void) mk_lang_noexcept
 	#undef message_5
 	#undef message_6
 	#undef message_7
+	#undef message_8
 
 	#undef digest_1
 	#undef digest_2
@@ -130,4 +179,5 @@ mk_lang_extern_c void mk_lib_crypto_hash_stream_sha0_test(void) mk_lang_noexcept
 	#undef digest_5
 	#undef digest_6
 	#undef digest_7
+	#undef digest_8
 }

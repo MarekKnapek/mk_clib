@@ -24,6 +24,7 @@
 #include "mk_sl_io_writer_file_windows.h"
 #include "mk_sl_uint8.h"
 #include "mk_win_advapi_security.h"
+#include "mk_win_advapi_token.h"
 #include "mk_win_advapi_types.h"
 #include "mk_win_base.h"
 #include "mk_win_kernel_communication.h"
@@ -1644,8 +1645,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_defrag_
 {
 	mk_win_base_bool_t b;
 	mk_win_base_luid_t backup;
-	mk_win_advapi_security_token_privileges_t privs;
-	mk_win_base_handle_t token;
+	mk_win_advapi_token_privileges_t privs;
+	mk_win_advapi_token_t token;
 
 	mk_lang_assert(defrag);
 
@@ -1654,9 +1655,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_defrag_
 	privs.m_count = 1;
 	privs.m_privileges[0].m_luid = backup;
 	privs.m_privileges[0].m_attributes = ((mk_win_base_dword_t)(mk_win_advapi_security_privilege_attribute_e_enabled));
-	b = mk_win_advapi_security_open_process_token(mk_win_kernel_process_get_current(), ((mk_win_base_dword_t)(mk_win_advapi_base_right_specific_token_e_query | mk_win_advapi_base_right_specific_token_e_adjust_privileges)), &token); mk_lang_check_return(b != 0);
-	b = mk_win_advapi_security_adjust_token_privileges(token, mk_win_base_false, &privs, 0, mk_win_base_null, mk_win_base_null); mk_lang_check_return(b != 0);
-	b = mk_win_kernel_handle_close_handle(token); mk_lang_check_return(b != 0);
+	b = mk_win_advapi_token_open_process(mk_win_kernel_process_get_current(), ((mk_win_base_dword_t)(mk_win_advapi_base_right_specific_token_e_query | mk_win_advapi_base_right_specific_token_e_adjust_privileges)), &token); mk_lang_check_return(b != 0);
+	b = mk_win_advapi_token_adjust_token_privileges(token, mk_win_base_false, &privs, 0, mk_win_base_null, mk_win_base_null); mk_lang_check_return(b != 0);
+	b = mk_win_kernel_handle_close_handle(mk_win_base_handle_from(token.m_data)); mk_lang_check_return(b != 0);
 	return 0;
 }
 

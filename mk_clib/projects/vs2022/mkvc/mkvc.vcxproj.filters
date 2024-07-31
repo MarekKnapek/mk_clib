@@ -9,6 +9,7 @@
 		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcpy_win_amd64.asm"/>
 		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcpy_win_i386.asm"/>
 		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memset_win_amd64.asm"/>
+		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memset_win_amd64.asm"/>
 		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memset_win_i386.asm"/>
 	</ItemGroup>
 </Project>

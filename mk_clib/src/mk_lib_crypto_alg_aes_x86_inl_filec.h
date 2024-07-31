@@ -34,7 +34,7 @@
 #include <immintrin.h> /* AVX2 _mm256_broadcastsi128_si256 _mm256_xor_si256 */
 #include <immintrin.h> /* AVX512F _mm512_broadcast_i32x4 _mm512_load_si512 _mm512_store_si512 _mm512_xor_si512 */
 #include <immintrin.h> /* VAES + AVX512F _mm512_aesdec_epi128 _mm512_aesdeclast_epi128 _mm512_aesenc_epi128 _mm512_aesenclast_epi128 */
-#include <immintrin.h> /* VAES + AVX512VL _mm256_aesdec_epi128 _mm256_aesdeclast_epi128 _mm256_aesenc_epi128 _mm256_aesenclast_epi128 */
+#include <immintrin.h> /* VAES _mm256_aesdec_epi128 _mm256_aesdeclast_epi128 _mm256_aesenc_epi128 _mm256_aesenclast_epi128 */
 
 
 #if mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1
@@ -239,7 +239,6 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_gnuc_attribute_target("avx,avx2,vaes"
 	mk_lang_assert(mk_lang_cpuid_has_sse2());
 	mk_lang_assert(mk_lang_cpuid_has_avx());
 	mk_lang_assert(mk_lang_cpuid_has_avx2());
-	mk_lang_assert(mk_lang_cpuid_has_avx512_vl());
 	mk_lang_assert(mk_lang_cpuid_has_vaes());
 
 	for(iblock = 0; iblock != nblocks; iblock += 2)
@@ -406,7 +405,6 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_gnuc_attribute_target("avx2,vaes") mk
 	mk_lang_assert(mk_lang_cpuid_has_sse2());
 	mk_lang_assert(mk_lang_cpuid_has_avx());
 	mk_lang_assert(mk_lang_cpuid_has_avx2());
-	mk_lang_assert(mk_lang_cpuid_has_avx512_vl());
 	mk_lang_assert(mk_lang_cpuid_has_vaes());
 
 	for(iblock = 0; iblock != nblocks; iblock += 2)
