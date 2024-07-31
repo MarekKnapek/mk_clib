@@ -371,4 +371,6 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_po
 
 #undef mk_sl_vector_t_name
 #undef mk_sl_vector_t_element
+#undef mk_sl_vector_t_element_construct_void
+#undef mk_sl_vector_t_element_destruct
 #undef mk_sl_vector_t_mallocatorg
