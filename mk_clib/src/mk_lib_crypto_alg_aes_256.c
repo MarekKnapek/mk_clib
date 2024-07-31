@@ -52,7 +52,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_alg_aes_256_s
 		else
 		#endif
 		#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_gnuc_is_at_least(11, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && mk_lang_alignas_has && mk_lang_alignof_has
-		if(!mk_lang_constexpr_is_constant_evaluated_test && rem >= 2 && (((mk_lang_types_uintptr_t)(input)) & 0x1f) == 0 && (((mk_lang_types_uintptr_t)(output)) & 0x1f) == 0 && mk_lang_cpuid_has_sse2() && mk_lang_cpuid_has_avx() && mk_lang_cpuid_has_avx2() && mk_lang_cpuid_has_avx512_vl() && mk_lang_cpuid_has_vaes())
+		if(!mk_lang_constexpr_is_constant_evaluated_test && rem >= 2 && (((mk_lang_types_uintptr_t)(input)) & 0x1f) == 0 && (((mk_lang_types_uintptr_t)(output)) & 0x1f) == 0 && mk_lang_cpuid_has_sse2() && mk_lang_cpuid_has_avx() && mk_lang_cpuid_has_avx2() && mk_lang_cpuid_has_vaes())
 		{
 			n = (rem / 2) * 2;
 			mk_lib_crypto_alg_aes_x86_vaes256_256_schedule_encrypt(schedule, in, out, n);
@@ -112,7 +112,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_alg_aes_256_s
 		else
 		#endif
 		#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_gnuc_is_at_least(11, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && mk_lang_alignas_has && mk_lang_alignof_has
-		if(!mk_lang_constexpr_is_constant_evaluated_test && rem >= 2 && (((mk_lang_types_uintptr_t)(input)) & 0x1f) == 0 && (((mk_lang_types_uintptr_t)(output)) & 0x1f) == 0 && mk_lang_cpuid_has_sse2() && mk_lang_cpuid_has_avx() && mk_lang_cpuid_has_avx2() && mk_lang_cpuid_has_avx512_vl() && mk_lang_cpuid_has_vaes())
+		if(!mk_lang_constexpr_is_constant_evaluated_test && rem >= 2 && (((mk_lang_types_uintptr_t)(input)) & 0x1f) == 0 && (((mk_lang_types_uintptr_t)(output)) & 0x1f) == 0 && mk_lang_cpuid_has_sse2() && mk_lang_cpuid_has_avx() && mk_lang_cpuid_has_avx2() && mk_lang_cpuid_has_vaes())
 		{
 			n = (rem / 2) * 2;
 			mk_lib_crypto_alg_aes_x86_vaes256_256_schedule_decrypt(schedule, in, out, n);
