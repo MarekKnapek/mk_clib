@@ -8,6 +8,7 @@
 #include "mk_lang_types.h"
 #include "mk_lib_mt_unique_lock_portable_cpp.hpp"
 
+#include <chrono> /* std::chrono::milliseconds */
 #include <condition_variable> /* std::condition_variable */
 #include <new> /* new */
 
@@ -68,6 +69,29 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_portable_cpp_w
 	return 0;
 }
 
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_portable_cpp_wait_exclusive_for(mk_lib_mt_cv_portable_cpp_pt const cv, mk_lib_mt_unique_lock_exclusive_portable_cpp_pt const lock, mk_lang_types_sint_t const ms, mk_lang_types_bool_pt const signaled) mk_lang_noexcept
+{
+	typedef std::condition_variable cv_t;
+	typedef cv_t* cv_pt;
+	typedef std::unique_lock<std::mutex> ul_t;
+	typedef ul_t* ul_pt;
+
+	cv_pt real_cv;
+	ul_pt real_ul;
+	std::cv_status res;
+
+	mk_lang_assert(cv);
+	mk_lang_assert(lock);
+	mk_lang_assert(ms >= 1);
+	mk_lang_assert(signaled);
+
+	real_cv = reinterpret_cast<cv_pt>(&cv->m_cv);
+	real_ul = reinterpret_cast<ul_pt>(&lock->m_unique_lock);
+	res = real_cv->wait_for(*real_ul, std::chrono::milliseconds{ms}); mk_lang_assert(res == std::cv_status::no_timeout || res == std::cv_status::timeout);
+	*signaled = res == std::cv_status::no_timeout;
+	return 0;
+}
+
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_portable_cpp_wait_shared(mk_lib_mt_cv_portable_cpp_pt const cv, mk_lib_mt_unique_lock_shared_portable_cpp_pt const lock) mk_lang_noexcept
 {
 	typedef std::condition_variable cv_t;
@@ -84,6 +108,29 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_portable_cpp_w
 	real_cv = reinterpret_cast<cv_pt>(&cv->m_cv);
 	real_ul = reinterpret_cast<ul_pt>(&lock->m_unique_lock);
 	real_cv->wait(*real_ul);
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_cv_portable_cpp_wait_shared_for(mk_lib_mt_cv_portable_cpp_pt const cv, mk_lib_mt_unique_lock_shared_portable_cpp_pt const lock, mk_lang_types_sint_t const ms, mk_lang_types_bool_pt const signaled) mk_lang_noexcept
+{
+	typedef std::condition_variable cv_t;
+	typedef cv_t* cv_pt;
+	typedef std::unique_lock<std::mutex> ul_t;
+	typedef ul_t* ul_pt;
+
+	cv_pt real_cv;
+	ul_pt real_ul;
+	std::cv_status res;
+
+	mk_lang_assert(cv);
+	mk_lang_assert(lock);
+	mk_lang_assert(ms >= 1);
+	mk_lang_assert(signaled);
+
+	real_cv = reinterpret_cast<cv_pt>(&cv->m_cv);
+	real_ul = reinterpret_cast<ul_pt>(&lock->m_unique_lock);
+	res = real_cv->wait_for(*real_ul, std::chrono::milliseconds{ms}); mk_lang_assert(res == std::cv_status::no_timeout || res == std::cv_status::timeout);
+	*signaled = res == std::cv_status::no_timeout;
 	return 0;
 }
 
