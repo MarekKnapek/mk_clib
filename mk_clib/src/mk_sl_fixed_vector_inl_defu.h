@@ -61,6 +61,12 @@
 #undef mk_sl_fixed_vector_inl_defd_ct
 #undef mk_sl_fixed_vector_inl_defd_pt
 #undef mk_sl_fixed_vector_inl_defd_pct
+#undef mk_sl_fixed_vector_inl_defd_cpt
+#undef mk_sl_fixed_vector_inl_defd_ppt
+#undef mk_sl_fixed_vector_inl_defd_pcpt
+#undef mk_sl_fixed_vector_inl_defd_cpct
+#undef mk_sl_fixed_vector_inl_defd_ppct
+#undef mk_sl_fixed_vector_inl_defd_pcpct
 
 #undef mk_sl_fixed_vector_inl_defd_st_capacity
 
@@ -85,6 +91,8 @@
 #undef mk_sl_fixed_vector_inl_defd_rw_back
 
 #undef mk_sl_fixed_vector_inl_defd_rw_construct
+#undef mk_sl_fixed_vector_inl_defd_rw_shrink
+#undef mk_sl_fixed_vector_inl_defd_rw_resize
 #undef mk_sl_fixed_vector_inl_defd_rw_push_back_many
 #undef mk_sl_fixed_vector_inl_defd_rw_push_back_one
 #undef mk_sl_fixed_vector_inl_defd_rw_push_back_void
