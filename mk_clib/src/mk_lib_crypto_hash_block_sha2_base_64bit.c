@@ -8,12 +8,20 @@
 #include "mk_lang_gnuc.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_llong.h"
+#include "mk_lang_msvc.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
 #include "mk_lib_crypto_hash_block_sha2_base_64bit_c.h"
 #include "mk_lib_crypto_hash_block_sha2_base_64bit_x86.h"
 #include "mk_sl_uint64.h"
 
+
+#define mk_lib_crypto_hash_block_sha2_base_64bit_conditions_compile_time \
+( \
+	(mk_lang_msvc_ver >= mk_lang_msvc_ver_2022_17_10 || mk_lang_gnuc_is_at_least(14, 0)) && \
+	(mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && \
+	1 \
+)
 
 #define mk_lib_crypto_hash_block_sha2_base_64bit_conditions_common \
 ( \
@@ -54,7 +62,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sh
 {
 	mk_lang_assert(sha2_base_64bit);
 
-	#if mk_lang_gnuc_is_at_least(14, 0) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
+	#if mk_lib_crypto_hash_block_sha2_base_64bit_conditions_compile_time
 	if(!mk_lang_constexpr_is_constant_evaluated_test && mk_lib_crypto_hash_block_sha2_base_64bit_conditions_init)
 	{
 		mk_lib_crypto_hash_block_sha2_base_64bit_x86_init(&sha2_base_64bit->m_data.m_sha2_base_64bit_x86, iv);
@@ -70,7 +78,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sh
 {
 	mk_lang_assert(sha2_base_64bit);
 
-	#if mk_lang_gnuc_is_at_least(14, 0) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
+	#if mk_lib_crypto_hash_block_sha2_base_64bit_conditions_compile_time
 	if(!mk_lang_constexpr_is_constant_evaluated_test && mk_lib_crypto_hash_block_sha2_base_64bit_conditions_append)
 	{
 		mk_lib_crypto_hash_block_sha2_base_64bit_x86_append_blocks(&sha2_base_64bit->m_data.m_sha2_base_64bit_x86, ((mk_lib_crypto_hash_block_sha2_base_64bit_x86_block_pct)(pblocks)), nblocks);
@@ -86,7 +94,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sh
 {
 	mk_lang_assert(sha2_base_64bit);
 
-	#if mk_lang_gnuc_is_at_least(14, 0) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
+	#if mk_lib_crypto_hash_block_sha2_base_64bit_conditions_compile_time
 	if(!mk_lang_constexpr_is_constant_evaluated_test && mk_lib_crypto_hash_block_sha2_base_64bit_conditions_finish)
 	{
 		mk_lib_crypto_hash_block_sha2_base_64bit_x86_finish(&sha2_base_64bit->m_data.m_sha2_base_64bit_x86, ((mk_lib_crypto_hash_block_sha2_base_64bit_x86_block_pt)(block)), idx, ((mk_lib_crypto_hash_block_sha2_base_64bit_x86_digest_pt)(digest)));
