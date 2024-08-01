@@ -10,6 +10,7 @@
 
 
 #if mk_lang_platform == mk_lang_platform_windows_61 || mk_lang_platform == mk_lang_platform_windows_60 || mk_lang_platform == mk_lang_platform_windows
+#if defined NDEBUG
 #if !defined mk_sl_mallocatorg_windows_statistics_want
 #define mk_sl_mallocatorg_windows_statistics_want mk_sl_mallocatorg_statistics_have
 #endif
@@ -28,7 +29,29 @@
 #define mk_sl_mallocatorg_impl_statistics_get_blocks_live        mk_sl_mallocatorg_windows_statistics_get_blocks_live
 #define mk_sl_mallocatorg_impl_statistics_get_blocks_peak        mk_sl_mallocatorg_windows_statistics_get_blocks_peak
 #define mk_sl_mallocatorg_impl_statistics_get_all                mk_sl_mallocatorg_windows_statistics_get_all
+#else
+#define mk_sl_mallocg_tracer_mallocatorg_want 14
+#if !defined mk_sl_mallocg_tracer_statistics_want
+#define mk_sl_mallocg_tracer_statistics_want mk_sl_mallocatorg_statistics_have
+#endif
+#include "mk_sl_mallocg_tracer.h"
+#define mk_sl_mallocatorg_impl_init                              mk_sl_mallocg_tracer_init
+#define mk_sl_mallocatorg_impl_deinit                            mk_sl_mallocg_tracer_deinit
+#define mk_sl_mallocatorg_impl_allocate                          mk_sl_mallocg_tracer_allocate
+#define mk_sl_mallocatorg_impl_deallocate                        mk_sl_mallocg_tracer_deallocate
+#define mk_sl_mallocatorg_impl_reallocate                        mk_sl_mallocg_tracer_reallocate
+#define mk_sl_mallocatorg_impl_statistics_get_bytes_allocated    mk_sl_mallocg_tracer_statistics_get_bytes_allocated
+#define mk_sl_mallocatorg_impl_statistics_get_bytes_deallocated  mk_sl_mallocg_tracer_statistics_get_bytes_deallocated
+#define mk_sl_mallocatorg_impl_statistics_get_bytes_live         mk_sl_mallocg_tracer_statistics_get_bytes_live
+#define mk_sl_mallocatorg_impl_statistics_get_bytes_peak         mk_sl_mallocg_tracer_statistics_get_bytes_peak
+#define mk_sl_mallocatorg_impl_statistics_get_blocks_allocated   mk_sl_mallocg_tracer_statistics_get_blocks_allocated
+#define mk_sl_mallocatorg_impl_statistics_get_blocks_deallocated mk_sl_mallocg_tracer_statistics_get_blocks_deallocated
+#define mk_sl_mallocatorg_impl_statistics_get_blocks_live        mk_sl_mallocg_tracer_statistics_get_blocks_live
+#define mk_sl_mallocatorg_impl_statistics_get_blocks_peak        mk_sl_mallocg_tracer_statistics_get_blocks_peak
+#define mk_sl_mallocatorg_impl_statistics_get_all                mk_sl_mallocg_tracer_statistics_get_all
+#endif
 #elif defined __cplusplus
+#if defined NDEBUG
 #if !defined mk_sl_mallocatorg_portablecpp_statistics_want
 #define mk_sl_mallocatorg_portablecpp_statistics_want mk_sl_mallocatorg_statistics_have
 #endif
@@ -48,6 +71,28 @@
 #define mk_sl_mallocatorg_impl_statistics_get_blocks_peak        mk_sl_mallocatorg_portablecpp_statistics_get_blocks_peak
 #define mk_sl_mallocatorg_impl_statistics_get_all                mk_sl_mallocatorg_portablecpp_statistics_get_all
 #else
+#define mk_sl_mallocg_tracer_mallocatorg_want 13
+#if !defined mk_sl_mallocg_tracer_statistics_want
+#define mk_sl_mallocg_tracer_statistics_want mk_sl_mallocatorg_statistics_have
+#endif
+#include "mk_sl_mallocg_tracer.h"
+#define mk_sl_mallocatorg_impl_init                              mk_sl_mallocg_tracer_init
+#define mk_sl_mallocatorg_impl_deinit                            mk_sl_mallocg_tracer_deinit
+#define mk_sl_mallocatorg_impl_allocate                          mk_sl_mallocg_tracer_allocate
+#define mk_sl_mallocatorg_impl_deallocate                        mk_sl_mallocg_tracer_deallocate
+#define mk_sl_mallocatorg_impl_reallocate                        mk_sl_mallocg_tracer_reallocate
+#define mk_sl_mallocatorg_impl_statistics_get_bytes_allocated    mk_sl_mallocg_tracer_statistics_get_bytes_allocated
+#define mk_sl_mallocatorg_impl_statistics_get_bytes_deallocated  mk_sl_mallocg_tracer_statistics_get_bytes_deallocated
+#define mk_sl_mallocatorg_impl_statistics_get_bytes_live         mk_sl_mallocg_tracer_statistics_get_bytes_live
+#define mk_sl_mallocatorg_impl_statistics_get_bytes_peak         mk_sl_mallocg_tracer_statistics_get_bytes_peak
+#define mk_sl_mallocatorg_impl_statistics_get_blocks_allocated   mk_sl_mallocg_tracer_statistics_get_blocks_allocated
+#define mk_sl_mallocatorg_impl_statistics_get_blocks_deallocated mk_sl_mallocg_tracer_statistics_get_blocks_deallocated
+#define mk_sl_mallocatorg_impl_statistics_get_blocks_live        mk_sl_mallocg_tracer_statistics_get_blocks_live
+#define mk_sl_mallocatorg_impl_statistics_get_blocks_peak        mk_sl_mallocg_tracer_statistics_get_blocks_peak
+#define mk_sl_mallocatorg_impl_statistics_get_all                mk_sl_mallocg_tracer_statistics_get_all
+#endif
+#else
+#if defined NDEBUG
 #if !defined mk_sl_mallocatorg_portablec_statistics_want
 #define mk_sl_mallocatorg_portablec_statistics_want mk_sl_mallocatorg_statistics_have
 #endif
@@ -66,6 +111,27 @@
 #define mk_sl_mallocatorg_impl_statistics_get_blocks_live        mk_sl_mallocatorg_portablec_statistics_get_blocks_live
 #define mk_sl_mallocatorg_impl_statistics_get_blocks_peak        mk_sl_mallocatorg_portablec_statistics_get_blocks_peak
 #define mk_sl_mallocatorg_impl_statistics_get_all                mk_sl_mallocatorg_portablec_statistics_get_all
+#else
+#define mk_sl_mallocg_tracer_mallocatorg_want 12
+#if !defined mk_sl_mallocg_tracer_statistics_want
+#define mk_sl_mallocg_tracer_statistics_want mk_sl_mallocatorg_statistics_have
+#endif
+#include "mk_sl_mallocg_tracer.h"
+#define mk_sl_mallocatorg_impl_init                              mk_sl_mallocg_tracer_init
+#define mk_sl_mallocatorg_impl_deinit                            mk_sl_mallocg_tracer_deinit
+#define mk_sl_mallocatorg_impl_allocate                          mk_sl_mallocg_tracer_allocate
+#define mk_sl_mallocatorg_impl_deallocate                        mk_sl_mallocg_tracer_deallocate
+#define mk_sl_mallocatorg_impl_reallocate                        mk_sl_mallocg_tracer_reallocate
+#define mk_sl_mallocatorg_impl_statistics_get_bytes_allocated    mk_sl_mallocg_tracer_statistics_get_bytes_allocated
+#define mk_sl_mallocatorg_impl_statistics_get_bytes_deallocated  mk_sl_mallocg_tracer_statistics_get_bytes_deallocated
+#define mk_sl_mallocatorg_impl_statistics_get_bytes_live         mk_sl_mallocg_tracer_statistics_get_bytes_live
+#define mk_sl_mallocatorg_impl_statistics_get_bytes_peak         mk_sl_mallocg_tracer_statistics_get_bytes_peak
+#define mk_sl_mallocatorg_impl_statistics_get_blocks_allocated   mk_sl_mallocg_tracer_statistics_get_blocks_allocated
+#define mk_sl_mallocatorg_impl_statistics_get_blocks_deallocated mk_sl_mallocg_tracer_statistics_get_blocks_deallocated
+#define mk_sl_mallocatorg_impl_statistics_get_blocks_live        mk_sl_mallocg_tracer_statistics_get_blocks_live
+#define mk_sl_mallocatorg_impl_statistics_get_blocks_peak        mk_sl_mallocg_tracer_statistics_get_blocks_peak
+#define mk_sl_mallocatorg_impl_statistics_get_all                mk_sl_mallocg_tracer_statistics_get_all
+#endif
 #endif
 
 
