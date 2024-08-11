@@ -4,15 +4,37 @@
 #if(!( \
 	(defined mk_sl_vector_t_name) && \
 	(defined mk_sl_vector_t_element) && \
+	(defined mk_sl_vector_t_element_construct_void || !defined mk_sl_vector_t_element_construct_void) && \
+	(defined mk_sl_vector_t_element_destruct || !defined mk_sl_vector_t_element_destruct) && \
 	(defined mk_sl_vector_t_mallocatorg) && \
 1))
 #error xxxxxxxxxx
+#endif
+
+#if( \
+	defined mk_sl_vector_t_element_construct_void || \
+	defined mk_sl_vector_t_element_destruct || \
+0)
+#if(!( \
+	defined mk_sl_vector_t_element_construct_void && \
+	defined mk_sl_vector_t_element_destruct && \
+1))
+#error xxxxxxxxxx
+#endif
 #endif
 
 
 #define mk_sl_vector_inl_defd_name mk_sl_vector_t_name
 #define mk_sl_vector_inl_defd_element mk_sl_vector_t_element
 #define mk_sl_vector_inl_defd_mallocatorg mk_sl_vector_t_mallocatorg
+
+#if defined mk_sl_vector_t_element_construct_void
+#define mk_sl_vector_inl_defd_element_construct_void mk_sl_vector_t_element_construct_void
+#define mk_sl_vector_inl_defd_element_destruct mk_sl_vector_t_element_destruct
+#else
+#define mk_sl_vector_inl_defd_element_construct_void mk_sl_vector_inl_defd_pr_nothing
+#define mk_sl_vector_inl_defd_element_destruct mk_sl_vector_inl_defd_pr_nothing
+#endif
 
 
 #define mk_sl_vector_inl_defd_element_t mk_lang_concat(mk_sl_vector_inl_defd_name, _element_t)
@@ -54,14 +76,24 @@
 #define mk_sl_vector_inl_defd_rw_front mk_lang_concat(mk_sl_vector_inl_defd_name, _rw_front)
 #define mk_sl_vector_inl_defd_rw_back mk_lang_concat(mk_sl_vector_inl_defd_name, _rw_back)
 
+#define mk_sl_vector_inl_defd_pr_nothing mk_lang_concat(mk_sl_vector_inl_defd_name, _pr_nothing)
+#define mk_sl_vector_inl_defd_pr_construct_last_count mk_lang_concat(mk_sl_vector_inl_defd_name, _pr_construct_last_count)
+#define mk_sl_vector_inl_defd_pr_destruct_last_count mk_lang_concat(mk_sl_vector_inl_defd_name, _pr_destruct_last_count)
+#define mk_sl_vector_inl_defd_pr_destruct_all mk_lang_concat(mk_sl_vector_inl_defd_name, _pr_destruct_all)
+
 #define mk_sl_vector_inl_defd_rw_construct mk_lang_concat(mk_sl_vector_inl_defd_name, _rw_construct)
 #define mk_sl_vector_inl_defd_rw_destroy mk_lang_concat(mk_sl_vector_inl_defd_name, _rw_destroy)
 #define mk_sl_vector_inl_defd_rw_reserve_at_least mk_lang_concat(mk_sl_vector_inl_defd_name, _rw_reserve_at_least)
-#define mk_sl_vector_inl_defd_rw_shrink mk_lang_concat(mk_sl_vector_inl_defd_name, _rw_shrink)
-#define mk_sl_vector_inl_defd_rw_resize mk_lang_concat(mk_sl_vector_inl_defd_name, _rw_resize)
-#define mk_sl_vector_inl_defd_rw_clear mk_lang_concat(mk_sl_vector_inl_defd_name, _rw_clear)
+#define mk_sl_vector_inl_defd_rw_shrink_dy mk_lang_concat(mk_sl_vector_inl_defd_name, _rw_shrink_dy)
+#define mk_sl_vector_inl_defd_rw_shrink_dn mk_lang_concat(mk_sl_vector_inl_defd_name, _rw_shrink_dn)
+#define mk_sl_vector_inl_defd_rw_resize_dy mk_lang_concat(mk_sl_vector_inl_defd_name, _rw_resize_dy)
+#define mk_sl_vector_inl_defd_rw_resize_dn mk_lang_concat(mk_sl_vector_inl_defd_name, _rw_resize_dn)
+#define mk_sl_vector_inl_defd_rw_clear_dy mk_lang_concat(mk_sl_vector_inl_defd_name, _rw_clear_dy)
+#define mk_sl_vector_inl_defd_rw_clear_dn mk_lang_concat(mk_sl_vector_inl_defd_name, _rw_clear_dn)
 #define mk_sl_vector_inl_defd_rw_push_back_many mk_lang_concat(mk_sl_vector_inl_defd_name, _rw_push_back_many)
 #define mk_sl_vector_inl_defd_rw_push_back_one mk_lang_concat(mk_sl_vector_inl_defd_name, _rw_push_back_one)
 #define mk_sl_vector_inl_defd_rw_push_back_void mk_lang_concat(mk_sl_vector_inl_defd_name, _rw_push_back_void)
-#define mk_sl_vector_inl_defd_rw_pop_back_one mk_lang_concat(mk_sl_vector_inl_defd_name, _rw_pop_back_one)
-#define mk_sl_vector_inl_defd_rw_pop_back_many mk_lang_concat(mk_sl_vector_inl_defd_name, _rw_pop_back_many)
+#define mk_sl_vector_inl_defd_rw_pop_back_one_dy mk_lang_concat(mk_sl_vector_inl_defd_name, _rw_pop_back_one_dy)
+#define mk_sl_vector_inl_defd_rw_pop_back_one_dn mk_lang_concat(mk_sl_vector_inl_defd_name, _rw_pop_back_one_dn)
+#define mk_sl_vector_inl_defd_rw_pop_back_many_dy mk_lang_concat(mk_sl_vector_inl_defd_name, _rw_pop_back_many_dy)
+#define mk_sl_vector_inl_defd_rw_pop_back_many_dn mk_lang_concat(mk_sl_vector_inl_defd_name, _rw_pop_back_many_dn)
