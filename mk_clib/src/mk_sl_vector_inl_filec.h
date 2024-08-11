@@ -66,7 +66,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_sl_vector_inl_defd_ro_is
 
 	mk_lang_assert(vector);
 
-	ret = mk_sl_vector_inl_defd_ro_size(vector) == mk_sl_vector_inl_defd_ro_capacity(vector);;
+	ret = mk_sl_vector_inl_defd_ro_free(vector) == 0;
 	return ret;
 }
 
@@ -87,9 +87,9 @@ mk_lang_nodiscard mk_lang_jumbo mk_sl_vector_inl_defd_element_pct mk_sl_vector_i
 	mk_sl_vector_inl_defd_element_pct ret;
 
 	mk_lang_assert(vector);
-	mk_lang_assert(!mk_sl_vector_inl_defd_ro_is_empty(vector));
+	mk_lang_assert(mk_sl_vector_inl_defd_ro_capacity(vector) > 0);
 
-	ret = mk_sl_vector_inl_defd_ro_at(vector, 0);
+	ret = &vector->m_buffer[0];
 	return ret;
 }
 
@@ -118,97 +118,130 @@ mk_lang_nodiscard mk_lang_jumbo mk_sl_vector_inl_defd_element_pct mk_sl_vector_i
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_usize_t mk_sl_vector_inl_defd_rw_capacity(mk_sl_vector_inl_defd_pt const vector) mk_lang_noexcept
 {
-	mk_lang_types_usize_t ret;
-
-	mk_lang_assert(vector);
-
-	ret = mk_sl_vector_inl_defd_ro_capacity(vector);
-	return ret;
+	return mk_sl_vector_inl_defd_ro_capacity(vector);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_usize_t mk_sl_vector_inl_defd_rw_size(mk_sl_vector_inl_defd_pt const vector) mk_lang_noexcept
 {
-	mk_lang_types_usize_t ret;
-
-	mk_lang_assert(vector);
-
-	ret = mk_sl_vector_inl_defd_ro_size(vector);
-	return ret;
+	return mk_sl_vector_inl_defd_ro_size(vector);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_usize_t mk_sl_vector_inl_defd_rw_free(mk_sl_vector_inl_defd_pt const vector) mk_lang_noexcept
 {
-	mk_lang_types_usize_t ret;
-
-	mk_lang_assert(vector);
-
-	ret = mk_sl_vector_inl_defd_ro_free(vector);
-	return ret;
+	return mk_sl_vector_inl_defd_ro_free(vector);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_sl_vector_inl_defd_rw_is_empty(mk_sl_vector_inl_defd_pt const vector) mk_lang_noexcept
 {
-	mk_lang_types_bool_t ret;
-
-	mk_lang_assert(vector);
-
-	ret = mk_sl_vector_inl_defd_ro_is_empty(vector);
-	return ret;
+	return mk_sl_vector_inl_defd_ro_is_empty(vector);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_sl_vector_inl_defd_rw_is_full(mk_sl_vector_inl_defd_pt const vector) mk_lang_noexcept
 {
-	mk_lang_types_bool_t ret;
-
-	mk_lang_assert(vector);
-
-	ret = mk_sl_vector_inl_defd_ro_is_full(vector);
-	return ret;
+	return mk_sl_vector_inl_defd_ro_is_full(vector);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_sl_vector_inl_defd_element_pt mk_sl_vector_inl_defd_rw_at(mk_sl_vector_inl_defd_pt const vector, mk_lang_types_usize_t const idx) mk_lang_noexcept
 {
-	mk_sl_vector_inl_defd_element_pt ret;
-
-	mk_lang_assert(vector);
-	mk_lang_assert(!mk_sl_vector_inl_defd_rw_is_empty(vector));
-	mk_lang_assert(idx >= 0 && idx < mk_sl_vector_inl_defd_rw_size(vector));
-
-	ret = ((mk_sl_vector_inl_defd_element_pt)(mk_sl_vector_inl_defd_ro_at(vector, idx)));
-	return ret;
+	return ((mk_sl_vector_inl_defd_element_pt)(mk_sl_vector_inl_defd_ro_at(vector, idx)));
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_sl_vector_inl_defd_element_pt mk_sl_vector_inl_defd_rw_data(mk_sl_vector_inl_defd_pt const vector) mk_lang_noexcept
 {
-	mk_sl_vector_inl_defd_element_pt ret;
-
-	mk_lang_assert(vector);
-	mk_lang_assert(!mk_sl_vector_inl_defd_rw_is_empty(vector));
-
-	ret = ((mk_sl_vector_inl_defd_element_pt)(mk_sl_vector_inl_defd_ro_data(vector)));
-	return ret;
+	return ((mk_sl_vector_inl_defd_element_pt)(mk_sl_vector_inl_defd_ro_data(vector)));
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_sl_vector_inl_defd_element_pt mk_sl_vector_inl_defd_rw_front(mk_sl_vector_inl_defd_pt const vector) mk_lang_noexcept
 {
-	mk_sl_vector_inl_defd_element_pt ret;
-
-	mk_lang_assert(vector);
-	mk_lang_assert(!mk_sl_vector_inl_defd_rw_is_empty(vector));
-
-	ret = ((mk_sl_vector_inl_defd_element_pt)(mk_sl_vector_inl_defd_ro_front(vector)));
-	return ret;
+	return ((mk_sl_vector_inl_defd_element_pt)(mk_sl_vector_inl_defd_ro_front(vector)));
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_sl_vector_inl_defd_element_pt mk_sl_vector_inl_defd_rw_back(mk_sl_vector_inl_defd_pt const vector) mk_lang_noexcept
 {
-	mk_sl_vector_inl_defd_element_pt ret;
+	return ((mk_sl_vector_inl_defd_element_pt)(mk_sl_vector_inl_defd_ro_back(vector)));
+}
+
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_pr_nothing(mk_sl_vector_inl_defd_element_pt const element) mk_lang_noexcept
+{
+	mk_lang_assert(element);
+
+	((mk_lang_types_void_t)(element));
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_pr_construct_last_count(mk_sl_vector_inl_defd_pt const vector, mk_lang_types_usize_t const count) mk_lang_noexcept
+{
+#if defined mk_sl_vector_t_element_construct_void
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
+	mk_lang_types_usize_t j;
+	mk_sl_vector_inl_defd_element_pt element;
+	mk_lang_types_sint_t err;
 
 	mk_lang_assert(vector);
-	mk_lang_assert(!mk_sl_vector_inl_defd_rw_is_empty(vector));
+	mk_lang_assert(count >= 0);
+	mk_lang_assert(mk_sl_vector_inl_defd_rw_size(vector) >= count);
 
-	ret = ((mk_sl_vector_inl_defd_element_pt)(mk_sl_vector_inl_defd_ro_back(vector)));
-	return ret;
+	n = mk_sl_vector_inl_defd_rw_size(vector);
+	for(i = 0; i != count; ++i)
+	{
+		j = (n - count) + i;
+		element = mk_sl_vector_inl_defd_rw_at(vector, j); mk_lang_assert(element);
+		err = mk_sl_vector_inl_defd_element_construct_void(element); mk_lang_check_rereturn(err);
+	}
+	return 0;
+#else
+	mk_lang_assert(vector);
+	mk_lang_assert(count >= 0);
+	mk_lang_assert(mk_sl_vector_inl_defd_rw_size(vector) >= count);
+
+	((mk_lang_types_void_t)(vector));
+	((mk_lang_types_void_t)(count));
+	return 0;
+#endif
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_pr_destruct_last_count(mk_sl_vector_inl_defd_pt const vector, mk_lang_types_usize_t const count) mk_lang_noexcept
+{
+#if defined mk_sl_vector_t_element_destruct
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
+	mk_lang_types_usize_t j;
+	mk_sl_vector_inl_defd_element_pt element;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(vector);
+	mk_lang_assert(count >= 0);
+	mk_lang_assert(mk_sl_vector_inl_defd_rw_size(vector) >= count);
+
+	n = mk_sl_vector_inl_defd_rw_size(vector);
+	for(i = 0; i != count; ++i)
+	{
+		j = (n - 1) - i;
+		element = mk_sl_vector_inl_defd_rw_at(vector, j); mk_lang_assert(element);
+		err = mk_sl_vector_inl_defd_element_destruct(element); mk_lang_check_rereturn(err);
+	}
+	return 0;
+#else
+	mk_lang_assert(vector);
+	mk_lang_assert(count >= 0);
+	mk_lang_assert(mk_sl_vector_inl_defd_rw_size(vector) >= count);
+
+	((mk_lang_types_void_t)(vector));
+	((mk_lang_types_void_t)(count));
+	return 0;
+#endif
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_pr_destruct_all(mk_sl_vector_inl_defd_pt const vector) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(vector);
+
+	err = mk_sl_vector_inl_defd_pr_destruct_last_count(vector, mk_sl_vector_inl_defd_rw_size(vector)); mk_lang_check_rereturn(err);
+	return 0;
 }
 
 
@@ -228,6 +261,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_de
 
 	mk_lang_assert(vector);
 
+	err = mk_sl_vector_inl_defd_pr_destruct_all(vector); mk_lang_check_rereturn(err);
 	if(vector->m_buffer && vector->m_capacity >= 1)
 	{
 		err = mk_sl_vecotr_inl_defd_mallocatorg_deallocate(vector->m_buffer, vector->m_capacity * sizeof(mk_sl_vector_inl_defd_element_t)); mk_lang_check_rereturn(err);
@@ -268,7 +302,20 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_re
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_shrink(mk_sl_vector_inl_defd_pt const vector, mk_lang_types_usize_t const count) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_shrink_dy(mk_sl_vector_inl_defd_pt const vector, mk_lang_types_usize_t const count) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(vector);
+	mk_lang_assert(count >= 0);
+	mk_lang_assert(mk_sl_vector_inl_defd_rw_size(vector) >= count);
+
+	err = mk_sl_vector_inl_defd_pr_destruct_last_count(vector, count); mk_lang_check_rereturn(err);
+	vector->m_size -= count;
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_shrink_dn(mk_sl_vector_inl_defd_pt const vector, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
 	mk_lang_assert(vector);
 	mk_lang_assert(count >= 0);
@@ -278,7 +325,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_sh
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_resize(mk_sl_vector_inl_defd_pt const vector, mk_lang_types_usize_t const count) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_resize_dy(mk_sl_vector_inl_defd_pt const vector, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
 	mk_lang_types_usize_t size;
 	mk_lang_types_sint_t err;
@@ -291,21 +338,54 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_re
 	{
 		err = mk_sl_vector_inl_defd_rw_reserve_at_least(vector, count); mk_lang_check_rereturn(err);
 		vector->m_size = count;
+		err = mk_sl_vector_inl_defd_pr_construct_last_count(vector, count - size); mk_lang_check_rereturn(err);
 	}
 	else if(count < size)
 	{
-		err = mk_sl_vector_inl_defd_rw_shrink(vector, size - count); mk_lang_check_rereturn(err);
+		err = mk_sl_vector_inl_defd_rw_shrink_dy(vector, size - count); mk_lang_check_rereturn(err);
 	}
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_clear(mk_sl_vector_inl_defd_pt const vector) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_resize_dn(mk_sl_vector_inl_defd_pt const vector, mk_lang_types_usize_t const count) mk_lang_noexcept
+{
+	mk_lang_types_usize_t size;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(vector);
+	mk_lang_assert(count >= 0);
+
+	size = mk_sl_vector_inl_defd_rw_size(vector);
+	if(count > size)
+	{
+		err = mk_sl_vector_inl_defd_rw_reserve_at_least(vector, count); mk_lang_check_rereturn(err);
+		vector->m_size = count;
+		err = mk_sl_vector_inl_defd_pr_construct_last_count(vector, count - size); mk_lang_check_rereturn(err);
+	}
+	else if(count < size)
+	{
+		err = mk_sl_vector_inl_defd_rw_shrink_dn(vector, size - count); mk_lang_check_rereturn(err);
+	}
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_clear_dy(mk_sl_vector_inl_defd_pt const vector) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 
 	mk_lang_assert(vector);
 
-	err = mk_sl_vector_inl_defd_rw_resize(vector, 0); mk_lang_check_rereturn(err);
+	err = mk_sl_vector_inl_defd_rw_resize_dy(vector, 0); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_clear_dn(mk_sl_vector_inl_defd_pt const vector) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(vector);
+
+	err = mk_sl_vector_inl_defd_rw_resize_dn(vector, 0); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -339,10 +419,23 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_pu
 
 	err = mk_sl_vector_inl_defd_rw_reserve_at_least(vector, mk_sl_vector_inl_defd_rw_size(vector) + count); mk_lang_check_rereturn(err);
 	vector->m_size += count;
+	err = mk_sl_vector_inl_defd_pr_construct_last_count(vector, count); mk_lang_check_rereturn(err);
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_pop_back_one(mk_sl_vector_inl_defd_pt const vector) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_pop_back_one_dy(mk_sl_vector_inl_defd_pt const vector) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(vector);
+	mk_lang_assert(!mk_sl_vector_inl_defd_rw_is_empty(vector));
+
+	err = mk_sl_vector_inl_defd_pr_destruct_last_count(vector, 1);
+	--vector->m_size;
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_pop_back_one_dn(mk_sl_vector_inl_defd_pt const vector) mk_lang_noexcept
 {
 	mk_lang_assert(vector);
 	mk_lang_assert(!mk_sl_vector_inl_defd_rw_is_empty(vector));
@@ -351,7 +444,20 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_po
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_pop_back_many(mk_sl_vector_inl_defd_pt const vector, mk_lang_types_usize_t const count) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_pop_back_many_dy(mk_sl_vector_inl_defd_pt const vector, mk_lang_types_usize_t const count) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(vector);
+	mk_lang_assert(count >= 0);
+	mk_lang_assert(mk_sl_vector_inl_defd_rw_size(vector) >= count);
+
+	err = mk_sl_vector_inl_defd_pr_destruct_last_count(vector, count);
+	vector->m_size -= count;
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_pop_back_many_dn(mk_sl_vector_inl_defd_pt const vector, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
 	mk_lang_assert(vector);
 	mk_lang_assert(count >= 0);

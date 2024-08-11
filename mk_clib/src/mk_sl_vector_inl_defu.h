@@ -10,9 +10,31 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #undef mk_sl_vector_inl_defd_name
 #undef mk_sl_vector_inl_defd_element
 #undef mk_sl_vector_inl_defd_mallocatorg
+
+
+#undef mk_sl_vector_inl_defd_element_construct_void
+#undef mk_sl_vector_inl_defd_element_destruct
+
+#undef mk_sl_vector_inl_defd_element_construct_void
+#undef mk_sl_vector_inl_defd_element_destruct
+
 
 
 #undef mk_sl_vector_inl_defd_element_t
@@ -54,14 +76,24 @@
 #undef mk_sl_vector_inl_defd_rw_front
 #undef mk_sl_vector_inl_defd_rw_back
 
+#undef mk_sl_vector_inl_defd_pr_nothing
+#undef mk_sl_vector_inl_defd_pr_construct_last_count
+#undef mk_sl_vector_inl_defd_pr_destruct_last_count
+#undef mk_sl_vector_inl_defd_pr_destruct_all
+
 #undef mk_sl_vector_inl_defd_rw_construct
 #undef mk_sl_vector_inl_defd_rw_destroy
 #undef mk_sl_vector_inl_defd_rw_reserve_at_least
-#undef mk_sl_vector_inl_defd_rw_shrink
-#undef mk_sl_vector_inl_defd_rw_resize
-#undef mk_sl_vector_inl_defd_rw_clear
+#undef mk_sl_vector_inl_defd_rw_shrink_dy
+#undef mk_sl_vector_inl_defd_rw_shrink_dn
+#undef mk_sl_vector_inl_defd_rw_resize_dy
+#undef mk_sl_vector_inl_defd_rw_resize_dn
+#undef mk_sl_vector_inl_defd_rw_clear_dy
+#undef mk_sl_vector_inl_defd_rw_clear_dn
 #undef mk_sl_vector_inl_defd_rw_push_back_many
 #undef mk_sl_vector_inl_defd_rw_push_back_one
 #undef mk_sl_vector_inl_defd_rw_push_back_void
-#undef mk_sl_vector_inl_defd_rw_pop_back_one
-#undef mk_sl_vector_inl_defd_rw_pop_back_many
+#undef mk_sl_vector_inl_defd_rw_pop_back_one_dy
+#undef mk_sl_vector_inl_defd_rw_pop_back_one_dn
+#undef mk_sl_vector_inl_defd_rw_pop_back_many_dy
+#undef mk_sl_vector_inl_defd_rw_pop_back_many_dn

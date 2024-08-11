@@ -93,7 +93,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_sl_tree_wavl_fuzz(mk_lang_types_uchar_pct 
 				err = mk_sl_tree_wavl_fuzz_test_ro_find_node(&tree, &val, &node); mk_lang_test(err == 0); mk_lang_test(node); mk_lang_test(mk_sl_tree_wavl_fuzz_test_ro_node_get_element(node, &pval) == 0 && *pval == val);
 				err = mk_sl_tree_wavl_fuzz_test_rw_decrement_node(&tree, node); mk_lang_test(err == 0);
 				*mk_sl_tree_wavl_fuzz_vec_rw_at(&vec, j) = *mk_sl_tree_wavl_fuzz_vec_ro_back(&vec);
-				err = mk_sl_tree_wavl_fuzz_vec_rw_shrink(&vec, 1); mk_lang_check_recrash(err);
+				err = mk_sl_tree_wavl_fuzz_vec_rw_shrink_dn(&vec, 1); mk_lang_check_recrash(err);
 			}
 			else
 			{
