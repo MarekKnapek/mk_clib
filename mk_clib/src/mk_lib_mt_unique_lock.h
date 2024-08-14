@@ -12,11 +12,11 @@
 #include "mk_lib_mt_mutex.h"
 
 
-#if mk_lang_platform == mk_lang_platform_windows_61 || mk_lang_platform == mk_lang_platform_windows_60
+#if mk_lang_platform_is_windows_at_least_60
 #include "mk_lib_mt_unique_lock_windows_srwl.h"
 typedef mk_lib_mt_unique_lock_exclusive_windows_srwl_t mk_lib_mt_unique_lock_exclusive_impl_t;
 typedef mk_lib_mt_unique_lock_shared_windows_srwl_t    mk_lib_mt_unique_lock_shared_impl_t;
-#elif mk_lang_platform == mk_lang_platform_windows
+#elif mk_lang_platform_is_windows_at_least_any
 #include "mk_lib_mt_unique_lock_windows_cs.h"
 typedef mk_lib_mt_unique_lock_exclusive_windows_cs_t mk_lib_mt_unique_lock_exclusive_impl_t;
 typedef mk_lib_mt_unique_lock_shared_windows_cs_t    mk_lib_mt_unique_lock_shared_impl_t;
@@ -28,7 +28,7 @@ typedef mk_lib_mt_unique_lock_shared_portable_cpp_t    mk_lib_mt_unique_lock_sha
 #include "mk_lib_mt_unique_lock_portable_c.h"
 typedef mk_lib_mt_unique_lock_exclusive_portable_c_t mk_lib_mt_unique_lock_exclusive_impl_t;
 typedef mk_lib_mt_unique_lock_shared_portable_c_t    mk_lib_mt_unique_lock_shared_impl_t;
-#elif defined mk_lib_mt_posix_has && mk_lib_mt_posix_has == 1
+#elif defined mk_lang_platform_is_posix_at_least_1
 #include "mk_lib_mt_unique_lock_posix.h"
 typedef mk_lib_mt_unique_lock_exclusive_posix_t mk_lib_mt_unique_lock_exclusive_impl_t;
 typedef mk_lib_mt_unique_lock_shared_posix_t    mk_lib_mt_unique_lock_shared_impl_t;

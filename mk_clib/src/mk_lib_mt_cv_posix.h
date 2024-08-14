@@ -3,14 +3,16 @@
 
 
 #include "mk_lang_jumbo.h"
+#include "mk_lang_platform.h"
+
+
+#if mk_lang_platform_is_posix_at_least_1
+
+
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
 #include "mk_lib_mt_unique_lock_posix.h"
-
-
-#if defined mk_lib_mt_posix_has && mk_lib_mt_posix_has == 1
-
 
 #include <pthread.h> /* pthread_cond_t */
 

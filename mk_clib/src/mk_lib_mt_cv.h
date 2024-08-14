@@ -12,10 +12,10 @@
 #include "mk_lib_mt_unique_lock.h"
 
 
-#if mk_lang_platform == mk_lang_platform_windows_61 || mk_lang_platform == mk_lang_platform_windows_60
+#if mk_lang_platform_is_windows_at_least_60
 #include "mk_lib_mt_cv_windows_srwl.h"
 typedef mk_lib_mt_cv_windows_srwl_t mk_lib_mt_cv_impl_t;
-#elif mk_lang_platform == mk_lang_platform_windows
+#elif mk_lang_platform_is_windows_at_least_any
 #include "mk_lib_mt_cv_windows_cs.h"
 typedef mk_lib_mt_cv_windows_cs_t mk_lib_mt_cv_impl_t;
 #elif mk_lang_version_at_least_cpp_11 || mk_lang_version_at_least_msvc_cpp_11
@@ -24,7 +24,7 @@ typedef mk_lib_mt_cv_portable_cpp_t mk_lib_mt_cv_impl_t;
 #elif mk_lang_version_at_least_c_11
 #include "mk_lib_mt_cv_portable_c.h"
 typedef mk_lib_mt_cv_portable_c_t mk_lib_mt_cv_impl_t;
-#elif defined mk_lib_mt_posix_has && mk_lib_mt_posix_has == 1
+#elif defined mk_lang_platform_is_posix_at_least_1
 #include "mk_lib_mt_cv_posix.h"
 typedef mk_lib_mt_cv_posix_t mk_lib_mt_cv_impl_t;
 #else

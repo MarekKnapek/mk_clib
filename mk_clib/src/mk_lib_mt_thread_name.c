@@ -28,7 +28,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_mt_thread_na
 	return 0;
 }
 
-#if mk_lang_platform == mk_lang_platform_windows_61 || mk_lang_platform == mk_lang_platform_windows_60 || mk_lang_platform == mk_lang_platform_windows
+#if mk_lang_platform_is_windows_at_least_any
 
 #include "mk_win_base.h"
 #include "mk_win_kernel_thread.h"
@@ -104,7 +104,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_mt_thread_na
 	mk_lang_types_usize_t lenus;
 	mk_lang_types_sint_t len;
 	mk_lang_types_sint_t err;
-	mk_win_base_wchar_t namew[16];
+	mk_win_base_wchar_t namew[64];
 	mk_lang_types_sint_t olen;
 	mk_lang_types_bool_t b;
 	mk_win_base_hresult_t hr;
@@ -117,11 +117,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_mt_thread_na
 	err = mk_lib_text_encoding_asci_to_wide(&name[0], len, &namew[0], mk_lang_countof(namew) - 1, &olen); mk_lang_assert(err == 0);
 	mk_lang_assert(olen <= mk_lang_countof(namew) - 1);
 	namew[olen] = L'\0';
-	b = mk_win_kernel_thread_extra_description_set(mk_win_kernel_thread_get_current(), &namew[0], &hr); if(b){ mk_lang_check_return(hr >= 0); }
+	b = mk_win_kernel_thread_extra_description_set(mk_win_kernel_thread_get_current(), &namew[0], &hr); mk_lang_check_return(!b || hr >= 0);
 	return 0;
 }
 
-#elif mk_lang_platform == mk_lang_platform_linux || mk_lang_platform == mk_lang_platform_portable
+#else
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_mt_thread_name_set_win_portable(mk_lang_types_pchar_pct const name) mk_lang_noexcept
 {
@@ -132,10 +132,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_mt_thread_na
 	return 0;
 }
 
-#else
-
-#error xxxxxxxxxx todo
-
 #endif
 
 
@@ -144,15 +140,13 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_mt_thread_name_set(m
 #if defined NDEBUG
 	return mk_lib_mt_thread_name_set_not(name);
 #else
-#if mk_lang_platform == mk_lang_platform_windows_61 || mk_lang_platform == mk_lang_platform_windows_60 || mk_lang_platform == mk_lang_platform_windows
+#if mk_lang_platform_is_windows_at_least_any
 	mk_lang_types_sint_t err;
 	err = mk_lib_mt_thread_name_set_win_seh(name); mk_lang_check_rereturn(err);
 	err = mk_lib_mt_thread_name_set_win_des(name); mk_lang_check_rereturn(err);
 	return 0;
-#elif mk_lang_platform == mk_lang_platform_linux || mk_lang_platform == mk_lang_platform_portable
-	return mk_lib_mt_thread_name_set_win_portable(name);
 #else
-	#error xxxxxxxxxx todo
+	return mk_lib_mt_thread_name_set_win_portable(name);
 #endif
 #endif
 }

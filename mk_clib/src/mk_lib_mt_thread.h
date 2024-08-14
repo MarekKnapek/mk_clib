@@ -10,15 +10,15 @@
 #include "mk_lang_version.h"
 
 
-#if mk_lang_platform == mk_lang_platform_windows_61
+#if mk_lang_platform_is_windows_at_least_61
 #define mk_lib_mt_thread_has 1
 #include "mk_lib_mt_thread_windows_pg.h"
 typedef mk_lib_mt_thread_windows_pg_t mk_lib_mt_thread_impl_t;
-#elif mk_lang_platform == mk_lang_platform_windows_60
+#elif mk_lang_platform_is_windows_at_least_60
 #define mk_lib_mt_thread_has 1
 #include "mk_lib_mt_thread_windows_srwl.h"
 typedef mk_lib_mt_thread_windows_srwl_t mk_lib_mt_thread_impl_t;
-#elif mk_lang_platform == mk_lang_platform_windows
+#elif mk_lang_platform_is_windows_at_least_any
 #define mk_lib_mt_thread_has 1
 #include "mk_lib_mt_thread_windows_cs.h"
 typedef mk_lib_mt_thread_windows_cs_t mk_lib_mt_thread_impl_t;
@@ -30,7 +30,7 @@ typedef mk_lib_mt_thread_portable_cpp_t mk_lib_mt_thread_impl_t;
 #define mk_lib_mt_thread_has 1
 #include "mk_lib_mt_thread_portable_c.h"
 typedef mk_lib_mt_thread_portable_c_t mk_lib_mt_thread_impl_t;
-#elif defined mk_lib_mt_posix_has && mk_lib_mt_posix_has == 1
+#elif defined mk_lang_platform_is_posix_at_least_1
 #define mk_lib_mt_thread_has 1
 #include "mk_lib_mt_thread_posix.h"
 typedef mk_lib_mt_thread_posix_t mk_lib_mt_thread_impl_t;
@@ -48,7 +48,7 @@ typedef mk_lang_types_sint_t(*mk_lib_mt_thread_callback_t)(mk_lang_types_void_pt
 mk_lang_types_sint_t mk_lib_mt_thread_dummy(mk_lang_types_void_pt) mk_lang_noexcept;
 typedef decltype(&mk_lib_mt_thread_dummy) mk_lib_mt_thread_callback_t;
 #else
-typedef mk_lang_types_sint_t(*mk_lib_mt_thread_callback_t)(mk_lang_types_void_pt) mk_lang_noexcept;
+typedef mk_lang_types_sint_t(*mk_lib_mt_thread_callback_t)(mk_lang_types_void_pt);
 #endif
 
 struct mk_lib_mt_thread_s

@@ -24,7 +24,7 @@ typedef mk_lib_mt_atomic_counter_portable_ca_t mk_lib_mt_atomic_counter_impl_t;
 #include "mk_lib_mt_atomic_counter_portable_cb.h"
 typedef mk_lib_mt_atomic_counter_portable_cb_int_t mk_lib_mt_atomic_counter_impl_int_t;
 typedef mk_lib_mt_atomic_counter_portable_cb_t mk_lib_mt_atomic_counter_impl_t;
-#elif mk_lang_bitness == mk_lang_bitness_32 && (mk_lang_platform == mk_lang_platform_windows_61 || mk_lang_platform == mk_lang_platform_windows_60 || mk_lang_platform == mk_lang_platform_windows_51 || mk_lang_platform == mk_lang_platform_windows)
+#elif mk_lang_bitness == mk_lang_bitness_32 && mk_lang_platform_is_windows_at_least_any
 #include "mk_lib_mt_atomic_counter_windows.h"
 typedef mk_lib_mt_atomic_counter_windows_int_t mk_lib_mt_atomic_counter_impl_int_t;
 typedef mk_lib_mt_atomic_counter_windows_t mk_lib_mt_atomic_counter_impl_t;

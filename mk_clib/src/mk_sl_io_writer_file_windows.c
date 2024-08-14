@@ -17,18 +17,13 @@
 #include "mk_win_ktmw32_transaction.h"
 
 
-#if mk_lang_platform == mk_lang_platform_windows_61 || mk_lang_platform == mk_lang_platform_windows_60
+#if mk_lang_platform_is_windows_at_least_60
 #define mk_sl_io_reader_file_windows_tx_has 1
 #include "mk_sl_io_transaction_windows.h"
-#elif mk_lang_platform == mk_lang_platform_windows || mk_lang_platform == mk_lang_platform_linux || mk_lang_platform == mk_lang_platform_portable
+#else
 #define mk_sl_io_reader_file_windows_tx_has 0
 #include "mk_sl_io_transaction_portable.h"
-#else
-#error xxxxxxxxxx todo
 #endif
-
-
-#if mk_lang_platform == mk_lang_platform_windows_61 || mk_lang_platform == mk_lang_platform_windows_60 || mk_lang_platform == mk_lang_platform_windows
 
 
 #define mk_sl_io_writer_file_windows_is_valid(x) ((mk_lang_types_bool_t)((x).m_data != mk_lang_null))
@@ -159,6 +154,3 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_writer_file_window
 	ret = mk_win_kernel_handle_close_handle(writer->m_file_handle); mk_lang_check_return(ret != mk_win_base_false);
 	return 0;
 }
-
-
-#endif

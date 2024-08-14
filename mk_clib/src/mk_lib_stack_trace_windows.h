@@ -9,7 +9,7 @@
 #include "mk_lang_types.h"
 
 
-#if mk_lang_platform == mk_lang_platform_windows_61 || mk_lang_platform == mk_lang_platform_windows_60 || mk_lang_platform == mk_lang_platform_windows_51
+#if mk_lang_platform_is_windows_at_least_51
 
 
 #include "mk_win_base.h"

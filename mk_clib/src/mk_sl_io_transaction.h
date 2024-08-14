@@ -9,14 +9,12 @@
 #include "mk_lang_types.h"
 
 
-#if mk_lang_platform == mk_lang_platform_windows_61 || mk_lang_platform == mk_lang_platform_windows_60
+#if mk_lang_platform_is_windows_at_least_60
 #include "mk_sl_io_transaction_windows.h"
 struct mk_sl_io_transaction_s { mk_sl_io_transaction_windows_t m_data; };
-#elif mk_lang_platform == mk_lang_platform_windows || mk_lang_platform == mk_lang_platform_linux || mk_lang_platform == mk_lang_platform_portable
+#else
 #include "mk_sl_io_transaction_portable.h"
 struct mk_sl_io_transaction_s { mk_sl_io_transaction_portable_t m_data; };
-#else
-#error xxxxxxxxxx todo
 #endif
 typedef struct mk_sl_io_transaction_s mk_sl_io_transaction_t;
 typedef mk_sl_io_transaction_t const mk_sl_io_transaction_ct;

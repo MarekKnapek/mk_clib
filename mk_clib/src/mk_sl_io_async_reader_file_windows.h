@@ -13,22 +13,20 @@
 #include "mk_win_kernel_files.h"
 
 
-#if mk_lang_platform == mk_lang_platform_windows_61 || mk_lang_platform == mk_lang_platform_windows_60
+#if mk_lang_platform_is_windows_at_least_60
 struct mk_sl_io_transaction_windows_s;
 typedef struct mk_sl_io_transaction_windows_s mk_sl_io_transaction_windows_t;
 typedef mk_sl_io_transaction_windows_t const mk_sl_io_transaction_windows_ct;
 typedef mk_sl_io_transaction_windows_t* mk_sl_io_transaction_windows_pt;
 typedef mk_sl_io_transaction_windows_t const* mk_sl_io_transaction_windows_pct;
 typedef mk_sl_io_transaction_windows_t mk_sl_io_async_reader_file_windows_transaction_t;
-#elif mk_lang_platform == mk_lang_platform_windows || mk_lang_platform == mk_lang_platform_linux || mk_lang_platform == mk_lang_platform_portable
+#else
 struct mk_sl_io_transaction_portable_s;
 typedef struct mk_sl_io_transaction_portable_s mk_sl_io_transaction_portable_t;
 typedef mk_sl_io_transaction_portable_t const mk_sl_io_transaction_portable_ct;
 typedef mk_sl_io_transaction_portable_t* mk_sl_io_transaction_portable_pt;
 typedef mk_sl_io_transaction_portable_t const* mk_sl_io_transaction_portable_pct;
 typedef mk_sl_io_transaction_portable_t mk_sl_io_async_reader_file_windows_transaction_t;
-#else
-#error xxxxxxxxxx todo
 #endif
 typedef mk_sl_io_async_reader_file_windows_transaction_t const mk_sl_io_async_reader_file_windows_transaction_ct;
 typedef mk_sl_io_async_reader_file_windows_transaction_t* mk_sl_io_async_reader_file_windows_transaction_pt;
