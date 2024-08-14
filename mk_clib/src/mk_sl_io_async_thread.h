@@ -34,15 +34,13 @@ typedef mk_sl_io_async_writer_file_iorp_t* mk_sl_io_async_writer_file_iorp_pt;
 typedef mk_sl_io_async_writer_file_iorp_t const* mk_sl_io_async_writer_file_iorp_pct;
 
 
-#if mk_lang_platform == mk_lang_platform_windows_61 || mk_lang_platform == mk_lang_platform_windows_60 || mk_lang_platform == mk_lang_platform_windows
+#if mk_lang_platform_is_windows_at_least_any
 #define mk_sl_io_async_thread_needs 0
 typedef mk_lang_types_sint_t mk_sl_io_async_thread_impl_t;
-#elif mk_lang_platform == mk_lang_platform_portable || mk_lang_platform == mk_lang_platform_linux
+#else
 #define mk_sl_io_async_thread_needs 1
 #include "mk_sl_io_async_thread_portable.h"
 typedef mk_sl_io_async_thread_portable_t mk_sl_io_async_thread_impl_t;
-#else
-#error xxxxxxxxxx todo
 #endif
 
 

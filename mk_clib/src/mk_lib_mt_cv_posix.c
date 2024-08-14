@@ -1,6 +1,8 @@
 #include "mk_lib_mt_cv_posix.h"
 
-#if defined mk_lib_mt_posix_has && mk_lib_mt_posix_has == 1
+#include "mk_lang_platform.h"
+
+#if mk_lang_platform_is_posix_at_least_1
 
 #include "mk_lang_assert.h"
 #include "mk_lang_check.h"
@@ -11,6 +13,7 @@
 #include "mk_lang_types.h"
 #include "mk_lib_mt_unique_lock_posix.h"
 
+#include <errno.h> /* ETIMEDOUT */
 #include <pthread.h> /* pthread_cond_t pthread_cond_init pthread_cond_destroy pthread_cond_wait pthread_cond_timedwait pthread_cond_signal pthread_cond_broadcast ETIMEDOUT */
 
 

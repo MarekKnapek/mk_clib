@@ -24,16 +24,14 @@ typedef mk_sl_io_async_thread_t* mk_sl_io_async_thread_pt;
 typedef mk_sl_io_async_thread_t const* mk_sl_io_async_thread_pct;
 
 
-#if mk_lang_platform == mk_lang_platform_windows_61 || mk_lang_platform == mk_lang_platform_windows_60 || mk_lang_platform == mk_lang_platform_windows
+#if mk_lang_platform_is_windows_at_least_any
 #include "mk_sl_io_async_reader_file_windows.h"
 typedef mk_sl_io_async_reader_file_windows_t mk_sl_io_async_reader_file_impl_t;
 typedef mk_sl_io_async_reader_file_iorp_windows_t mk_sl_io_async_reader_file_iorp_impl_t;
-#elif mk_lang_platform == mk_lang_platform_portable || mk_lang_platform == mk_lang_platform_linux
+#else
 #include "mk_sl_io_async_reader_file_portable.h"
 typedef mk_sl_io_async_reader_file_portable_t mk_sl_io_async_reader_file_impl_t;
 typedef mk_sl_io_async_reader_file_iorp_portable_t mk_sl_io_async_reader_file_iorp_impl_t;
-#else
-#error xxxxxxxxxx todo
 #endif
 
 

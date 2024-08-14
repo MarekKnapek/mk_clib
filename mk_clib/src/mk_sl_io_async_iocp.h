@@ -34,18 +34,16 @@ typedef mk_sl_io_async_writer_file_iorp_t* mk_sl_io_async_writer_file_iorp_pt;
 typedef mk_sl_io_async_writer_file_iorp_t const* mk_sl_io_async_writer_file_iorp_pct;
 
 
-#if mk_lang_platform == mk_lang_platform_windows_61 || mk_lang_platform == mk_lang_platform_windows_60 || mk_lang_platform == mk_lang_platform_windows
+#if mk_lang_platform_is_windows_at_least_any
 #include "mk_sl_io_async_iocp_windows.h"
 typedef mk_sl_io_async_iocp_windows_t mk_sl_io_async_iocp_impl_t;
 typedef mk_sl_io_async_iocp_iorp_windows_t mk_sl_io_async_iocp_iorp_impl_t;
 typedef mk_sl_io_async_iocp_iorp_impl_t* mk_sl_io_async_iocp_iorp_impl_pt;
-#elif mk_lang_platform == mk_lang_platform_portable || mk_lang_platform == mk_lang_platform_linux
+#else
 #include "mk_sl_io_async_iocp_portable.h"
 typedef mk_sl_io_async_iocp_portable_t mk_sl_io_async_iocp_impl_t;
 typedef mk_sl_io_async_iocp_iorp_portable_t mk_sl_io_async_iocp_iorp_impl_t;
 typedef mk_sl_io_async_iocp_iorp_impl_t* mk_sl_io_async_iocp_iorp_impl_pt;
-#else
-#error xxxxxxxxxx todo
 #endif
 
 
