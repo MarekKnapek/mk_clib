@@ -10,7 +10,7 @@
 #include "mk_sl_io_async_writer_file.h"
 
 
-#if mk_lang_platform == mk_lang_platform_windows_61 || mk_lang_platform == mk_lang_platform_windows_60 || mk_lang_platform == mk_lang_platform_windows
+#if mk_lang_platform_is_windows_at_least_any
 #include "mk_sl_io_async_iocp_windows.h"
 #define mk_sl_io_async_reader_file_iorp_impl_pt mk_sl_io_async_reader_file_iorp_windows_pt
 #define mk_sl_io_async_writer_file_iorp_impl_pt mk_sl_io_async_writer_file_iorp_windows_pt
@@ -26,7 +26,7 @@
 #define mk_sl_io_async_iocp_iorp_impl_transfered mk_sl_io_async_iocp_iorp_windows_transfered
 #define mk_sl_io_async_iocp_iorp_impl_r          mk_sl_io_async_iocp_iorp_windows_r
 #define mk_sl_io_async_iocp_iorp_impl_w          mk_sl_io_async_iocp_iorp_windows_w
-#elif mk_lang_platform == mk_lang_platform_portable || mk_lang_platform == mk_lang_platform_linux
+#else
 #include "mk_sl_io_async_iocp_portable.h"
 #define mk_sl_io_async_reader_file_iorp_impl_pt mk_sl_io_async_reader_file_iorp_portable_pt
 #define mk_sl_io_async_writer_file_iorp_impl_pt mk_sl_io_async_writer_file_iorp_portable_pt
@@ -42,8 +42,6 @@
 #define mk_sl_io_async_iocp_iorp_impl_transfered mk_sl_io_async_iocp_iorp_portable_transfered
 #define mk_sl_io_async_iocp_iorp_impl_r          mk_sl_io_async_iocp_iorp_portable_r
 #define mk_sl_io_async_iocp_iorp_impl_w          mk_sl_io_async_iocp_iorp_portable_w
-#else
-#error xxxxxxxxxx todo
 #endif
 
 

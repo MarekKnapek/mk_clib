@@ -41,10 +41,14 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_info_platform_print(mk_lang_types_voi
 	#error xxxxxxxxxx todo
 	#endif
 	#if 0
+	#elif mk_lang_platform == mk_lang_platform_windows_62
+	printf("Platform: Windows 6.2 (Windows 8 / Windows Server 2012)\n");
 	#elif mk_lang_platform == mk_lang_platform_windows_61
-	printf("Platform: Windows 6.1\n");
+	printf("Platform: Windows 6.1 (Windows 7 / Windows Server 2008 R2)\n");
 	#elif mk_lang_platform == mk_lang_platform_windows_60
-	printf("Platform: Windows 6.0\n");
+	printf("Platform: Windows 6.0 (Windows Vista / Windows Server 2008)\n");
+	#elif mk_lang_platform == mk_lang_platform_windows_51
+	printf("Platform: Windows 5.1 (Windows XP)\n");
 	#elif mk_lang_platform == mk_lang_platform_windows
 	printf("Platform: Windows\n");
 	#elif mk_lang_platform == mk_lang_platform_linux

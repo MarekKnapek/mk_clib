@@ -10,15 +10,15 @@
 #include "mk_lang_version.h"
 
 
-#if mk_lang_platform == mk_lang_platform_windows_61
+#if mk_lang_platform_is_windows_at_least_61
 #define mk_lib_mt_thread_has 1
 #include "mk_lib_mt_thread_windows_pg.h"
 typedef mk_lib_mt_thread_windows_pg_t mk_lib_mt_thread_impl_t;
-#elif mk_lang_platform == mk_lang_platform_windows_60
+#elif mk_lang_platform_is_windows_at_least_60
 #define mk_lib_mt_thread_has 1
 #include "mk_lib_mt_thread_windows_srwl.h"
 typedef mk_lib_mt_thread_windows_srwl_t mk_lib_mt_thread_impl_t;
-#elif mk_lang_platform == mk_lang_platform_windows
+#elif mk_lang_platform_is_windows_at_least_any
 #define mk_lib_mt_thread_has 1
 #include "mk_lib_mt_thread_windows_cs.h"
 typedef mk_lib_mt_thread_windows_cs_t mk_lib_mt_thread_impl_t;

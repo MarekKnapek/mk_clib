@@ -18,14 +18,12 @@
 #include "mk_win_ktmw32_transaction.h"
 
 
-#if mk_lang_platform == mk_lang_platform_windows_61 || mk_lang_platform == mk_lang_platform_windows_60
+#if mk_lang_platform_is_windows_at_least_60
 #define mk_sl_io_async_writer_file_windows_tx_has 1
 #include "mk_sl_io_transaction_windows.h"
-#elif mk_lang_platform == mk_lang_platform_windows || mk_lang_platform == mk_lang_platform_linux || mk_lang_platform == mk_lang_platform_portable
+#else
 #define mk_sl_io_async_writer_file_windows_tx_has 0
 #include "mk_sl_io_transaction_portable.h"
-#else
-#error xxxxxxxxxx todo
 #endif
 
 

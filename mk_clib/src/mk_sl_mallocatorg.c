@@ -9,7 +9,7 @@
 #include "mk_sl_uint128.h"
 
 
-#if mk_lang_platform == mk_lang_platform_windows_61 || mk_lang_platform == mk_lang_platform_windows_60 || mk_lang_platform == mk_lang_platform_windows
+#if mk_lang_platform_is_windows_at_least_any
 #if defined NDEBUG
 #if !defined mk_sl_mallocatorg_windows_statistics_want
 #define mk_sl_mallocatorg_windows_statistics_want mk_sl_mallocatorg_statistics_have

@@ -12,7 +12,7 @@
 #include "mk_lang_version.h"
 
 
-#if mk_lang_platform == mk_lang_platform_windows_61 || mk_lang_platform == mk_lang_platform_windows_60
+#if mk_lang_platform_is_windows_at_least_60
 #include "mk_lib_mt_mutex_windows_srwl.h"
 #define mk_lib_mt_mutex_impl_construct        mk_lib_mt_mutex_windows_srwl_construct
 #define mk_lib_mt_mutex_impl_destruct         mk_lib_mt_mutex_windows_srwl_destruct
@@ -20,7 +20,7 @@
 #define mk_lib_mt_mutex_impl_exclusive_unlock mk_lib_mt_mutex_windows_srwl_exclusive_unlock
 #define mk_lib_mt_mutex_impl_shared_lock      mk_lib_mt_mutex_windows_srwl_shared_lock
 #define mk_lib_mt_mutex_impl_shared_unlock    mk_lib_mt_mutex_windows_srwl_shared_unlock
-#elif mk_lang_platform == mk_lang_platform_windows
+#elif mk_lang_platform_is_windows_at_least_any
 #include "mk_lib_mt_mutex_windows_cs.h"
 #define mk_lib_mt_mutex_impl_construct        mk_lib_mt_mutex_windows_cs_construct
 #define mk_lib_mt_mutex_impl_destruct         mk_lib_mt_mutex_windows_cs_destruct

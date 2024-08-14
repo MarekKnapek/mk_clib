@@ -13,7 +13,7 @@
 #include "mk_lib_mt_unique_lock.h"
 
 
-#if mk_lang_platform == mk_lang_platform_windows_61 || mk_lang_platform == mk_lang_platform_windows_60
+#if mk_lang_platform_is_windows_at_least_60
 #include "mk_lib_mt_cv_windows_srwl.h"
 #define mk_lib_mt_cv_impl_construct          mk_lib_mt_cv_windows_srwl_construct
 #define mk_lib_mt_cv_impl_destruct           mk_lib_mt_cv_windows_srwl_destruct
@@ -23,7 +23,7 @@
 #define mk_lib_mt_cv_impl_wait_shared_for    mk_lib_mt_cv_windows_srwl_wait_shared_for
 #define mk_lib_mt_cv_impl_notify_one         mk_lib_mt_cv_windows_srwl_notify_one
 #define mk_lib_mt_cv_impl_notify_all         mk_lib_mt_cv_windows_srwl_notify_all
-#elif mk_lang_platform == mk_lang_platform_windows
+#elif mk_lang_platform_is_windows_at_least_any
 #include "mk_lib_mt_cv_windows_cs.h"
 #define mk_lib_mt_cv_impl_construct          mk_lib_mt_cv_windows_cs_construct
 #define mk_lib_mt_cv_impl_destruct           mk_lib_mt_cv_windows_cs_destruct

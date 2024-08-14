@@ -9,7 +9,7 @@
 #include "mk_lang_version.h"
 
 
-#if mk_lang_platform == mk_lang_platform_windows_61 || mk_lang_platform == mk_lang_platform_windows_60 || mk_lang_platform == mk_lang_platform_windows_51
+#if mk_lang_platform_is_windows_at_least_51
 #include "mk_lib_stack_trace_windows.h"
 #define mk_lib_stack_trace_impl_rw_construct_void    mk_lib_stack_trace_windows_rw_construct_void
 #define mk_lib_stack_trace_impl_rw_construct_capture mk_lib_stack_trace_windows_rw_construct_capture
