@@ -231,7 +231,7 @@
 			<ConformanceMode>true</ConformanceMode>
 			<LanguageStandard>stdcpp20</LanguageStandard>
 			<LanguageStandard_C>stdc17</LanguageStandard_C>
-			<PreprocessorDefinitions>mk_lang_jumbo_want=1;_WIN32_WINNT=0x0601;_CONSOLE;_CRT_SECURE_NO_WARNINGS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>mk_lang_jumbo_want=1;_WIN32_WINNT=0x0602;_CONSOLE;_CRT_SECURE_NO_WARNINGS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<SDLCheck>true</SDLCheck>
 			<WarningLevel>EnableAllWarnings</WarningLevel>
 		</ClCompile>
@@ -258,7 +258,7 @@
 			<MinimalRebuild>false</MinimalRebuild>
 			<MultiProcessorCompilation>false</MultiProcessorCompilation>
 			<Optimization>MaxSpeed</Optimization>
-			<PreprocessorDefinitions>mk_lang_jumbo_want=1;_WIN32_WINNT=0x0601;_CONSOLE;_CRT_SECURE_NO_WARNINGS;NDEBUG;mk_lang_nodefaultlib_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>mk_lang_jumbo_want=1;_WIN32_WINNT=0x0602;_CONSOLE;_CRT_SECURE_NO_WARNINGS;NDEBUG;mk_lang_nodefaultlib_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<RuntimeLibrary>MultiThreaded</RuntimeLibrary>
 			<RuntimeTypeInfo>false</RuntimeTypeInfo>
 			<SDLCheck>false</SDLCheck>
@@ -289,7 +289,7 @@
 			<ConformanceMode>true</ConformanceMode>
 			<LanguageStandard>stdcpp20</LanguageStandard>
 			<LanguageStandard_C>stdc17</LanguageStandard_C>
-			<PreprocessorDefinitions>mk_lang_jumbo_want=1;_WIN32_WINNT=0x0601;_CONSOLE;_CRT_SECURE_NO_WARNINGS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>mk_lang_jumbo_want=1;_WIN32_WINNT=0x0602;_CONSOLE;_CRT_SECURE_NO_WARNINGS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<SDLCheck>true</SDLCheck>
 			<WarningLevel>EnableAllWarnings</WarningLevel>
 		</ClCompile>
@@ -316,7 +316,7 @@
 			<MinimalRebuild>false</MinimalRebuild>
 			<MultiProcessorCompilation>false</MultiProcessorCompilation>
 			<Optimization>MaxSpeed</Optimization>
-			<PreprocessorDefinitions>mk_lang_jumbo_want=1;_WIN32_WINNT=0x0601;_CONSOLE;_CRT_SECURE_NO_WARNINGS;NDEBUG;mk_lang_nodefaultlib_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>mk_lang_jumbo_want=1;_WIN32_WINNT=0x0602;_CONSOLE;_CRT_SECURE_NO_WARNINGS;NDEBUG;mk_lang_nodefaultlib_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<RuntimeLibrary>MultiThreaded</RuntimeLibrary>
 			<RuntimeTypeInfo>false</RuntimeTypeInfo>
 			<SDLCheck>false</SDLCheck>
@@ -347,7 +347,7 @@
 			<ConformanceMode>true</ConformanceMode>
 			<LanguageStandard>stdcpp20</LanguageStandard>
 			<LanguageStandard_C>stdc17</LanguageStandard_C>
-			<PreprocessorDefinitions>mk_lang_jumbo_want=1;_WIN32_WINNT=0x0601;_CONSOLE;_CRT_SECURE_NO_WARNINGS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>mk_lang_jumbo_want=1;_WIN32_WINNT=0x0602;_CONSOLE;_CRT_SECURE_NO_WARNINGS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<SDLCheck>true</SDLCheck>
 			<WarningLevel>EnableAllWarnings</WarningLevel>
 		</ClCompile>
@@ -374,7 +374,7 @@
 			<MinimalRebuild>false</MinimalRebuild>
 			<MultiProcessorCompilation>false</MultiProcessorCompilation>
 			<Optimization>MaxSpeed</Optimization>
-			<PreprocessorDefinitions>mk_lang_jumbo_want=1;_WIN32_WINNT=0x0601;_CONSOLE;_CRT_SECURE_NO_WARNINGS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>mk_lang_jumbo_want=1;_WIN32_WINNT=0x0602;_CONSOLE;_CRT_SECURE_NO_WARNINGS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<RuntimeLibrary>MultiThreaded</RuntimeLibrary>
 			<RuntimeTypeInfo>false</RuntimeTypeInfo>
 			<SDLCheck>false</SDLCheck>
@@ -402,7 +402,7 @@
 			<DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
 			<LanguageStandard>stdcpp20</LanguageStandard>
 			<LanguageStandard_C>stdc17</LanguageStandard_C>
-			<PreprocessorDefinitions>mk_lang_jumbo_want=1;_WIN32_WINNT=0x0601;_CONSOLE;_CRT_SECURE_NO_WARNINGS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>mk_lang_jumbo_want=1;_WIN32_WINNT=0x0602;_CONSOLE;_CRT_SECURE_NO_WARNINGS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<SDLCheck>true</SDLCheck>
 			<WarningLevel>EnableAllWarnings</WarningLevel>
 		</ClCompile>
@@ -429,7 +429,7 @@
 			<MinimalRebuild>false</MinimalRebuild>
 			<MultiProcessorCompilation>false</MultiProcessorCompilation>
 			<Optimization>MaxSpeed</Optimization>
-			<PreprocessorDefinitions>mk_lang_jumbo_want=1;_WIN32_WINNT=0x0601;_CONSOLE;_CRT_SECURE_NO_WARNINGS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>mk_lang_jumbo_want=1;_WIN32_WINNT=0x0602;_CONSOLE;_CRT_SECURE_NO_WARNINGS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<RuntimeLibrary>MultiThreaded</RuntimeLibrary>
 			<RuntimeTypeInfo>false</RuntimeTypeInfo>
 			<SDLCheck>false</SDLCheck>
@@ -457,7 +457,7 @@
 			<DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
 			<LanguageStandard>stdcpp20</LanguageStandard>
 			<LanguageStandard_C>stdc17</LanguageStandard_C>
-			<PreprocessorDefinitions>mk_lang_jumbo_want=1;_WIN32_WINNT=0x0601;_CONSOLE;_CRT_SECURE_NO_WARNINGS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>mk_lang_jumbo_want=1;_WIN32_WINNT=0x0602;_CONSOLE;_CRT_SECURE_NO_WARNINGS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<SDLCheck>true</SDLCheck>
 			<WarningLevel>EnableAllWarnings</WarningLevel>
 		</ClCompile>
@@ -484,7 +484,7 @@
 			<MinimalRebuild>false</MinimalRebuild>
 			<MultiProcessorCompilation>false</MultiProcessorCompilation>
 			<Optimization>MaxSpeed</Optimization>
-			<PreprocessorDefinitions>mk_lang_jumbo_want=1;_WIN32_WINNT=0x0601;_CONSOLE;_CRT_SECURE_NO_WARNINGS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>mk_lang_jumbo_want=1;_WIN32_WINNT=0x0602;_CONSOLE;_CRT_SECURE_NO_WARNINGS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<RuntimeLibrary>MultiThreaded</RuntimeLibrary>
 			<RuntimeTypeInfo>false</RuntimeTypeInfo>
 			<SDLCheck>false</SDLCheck>
