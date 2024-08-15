@@ -3,8 +3,8 @@
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
-#include "mk_lib_mt_mutex.h"
 #include "mk_lib_mt_cv.h"
+#include "mk_lib_mt_cv_mutex.h"
 
 
 #include "mk_lib_mt_ring_inl_defd.h"
@@ -28,7 +28,7 @@ typedef enum mk_lib_mt_ring_inl_defd_len_e mk_lib_mt_ring_inl_defd_len_t;
 
 struct mk_lib_mt_ring_inl_defd_s
 {
-	mk_lib_mt_mutex_t m_mutex;
+	mk_lib_mt_cv_mutex_t m_mutex;
 	mk_lib_mt_cv_t m_cv;
 	mk_lib_mt_ring_inl_defd_ring_t m_ring;
 };
