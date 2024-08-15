@@ -277,8 +277,6 @@
 			<LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
 			<OptimizeReferences>true</OptimizeReferences>
 			<SetChecksum>true</SetChecksum>
-			<StackCommitSize>4096</StackCommitSize>
-			<StackReserveSize>65536</StackReserveSize>
 			<SubSystem>Console</SubSystem>
 			<SwapRunFromCD>true</SwapRunFromCD>
 			<SwapRunFromNET>true</SwapRunFromNET>
@@ -335,8 +333,6 @@
 			<LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
 			<OptimizeReferences>true</OptimizeReferences>
 			<SetChecksum>true</SetChecksum>
-			<StackCommitSize>4096</StackCommitSize>
-			<StackReserveSize>65536</StackReserveSize>
 			<SubSystem>Console</SubSystem>
 			<SwapRunFromCD>true</SwapRunFromCD>
 			<SwapRunFromNET>true</SwapRunFromNET>
