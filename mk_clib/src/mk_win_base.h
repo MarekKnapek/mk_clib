@@ -64,6 +64,7 @@ typedef mk_lang_types_void_t mk_win_base_void_t;
 typedef mk_win_base_void_t const mk_win_base_void_ct;
 typedef mk_win_base_void_t* mk_win_base_void_pt;
 typedef mk_win_base_void_t const* mk_win_base_void_pct;
+typedef mk_win_base_void_t volatile* mk_win_base_void_pvt;
 typedef mk_win_base_void_t mk_win_base_far* mk_win_base_void_lpt;
 typedef mk_win_base_void_t mk_win_base_far const* mk_win_base_void_lpct;
 typedef mk_win_base_void_t mk_win_base_near* mk_win_base_void_npt;
