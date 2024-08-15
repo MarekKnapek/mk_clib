@@ -12,7 +12,15 @@
 #include "mk_lang_version.h"
 
 
-#if mk_lang_platform_is_windows_at_least_60
+#if mk_lang_platform_is_windows_at_least_62
+#include "mk_lib_mt_mutex_windows_wosa.h"
+#define mk_lib_mt_mutex_impl_construct        mk_lib_mt_mutex_windows_wosa_construct
+#define mk_lib_mt_mutex_impl_destruct         mk_lib_mt_mutex_windows_wosa_destruct
+#define mk_lib_mt_mutex_impl_exclusive_lock   mk_lib_mt_mutex_windows_wosa_exclusive_lock
+#define mk_lib_mt_mutex_impl_exclusive_unlock mk_lib_mt_mutex_windows_wosa_exclusive_unlock
+#define mk_lib_mt_mutex_impl_shared_lock      mk_lib_mt_mutex_windows_wosa_shared_lock
+#define mk_lib_mt_mutex_impl_shared_unlock    mk_lib_mt_mutex_windows_wosa_shared_unlock
+#elif mk_lang_platform_is_windows_at_least_60
 #include "mk_lib_mt_mutex_windows_srwl.h"
 #define mk_lib_mt_mutex_impl_construct        mk_lib_mt_mutex_windows_srwl_construct
 #define mk_lib_mt_mutex_impl_destruct         mk_lib_mt_mutex_windows_srwl_destruct
