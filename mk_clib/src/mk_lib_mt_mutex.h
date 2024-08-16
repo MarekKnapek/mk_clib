@@ -30,7 +30,8 @@ typedef mk_lib_mt_mutex_portable_c_t mk_lib_mt_mutex_impl_t;
 #include "mk_lib_mt_mutex_posix.h"
 typedef mk_lib_mt_mutex_posix_t mk_lib_mt_mutex_impl_t;
 #else
-#error xxxxxxxxxx todo
+#include "mk_lib_mt_mutex_fake.h"
+typedef mk_lib_mt_mutex_fake_t mk_lib_mt_mutex_impl_t;
 #endif
 
 

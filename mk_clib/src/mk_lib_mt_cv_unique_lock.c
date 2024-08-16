@@ -44,7 +44,11 @@
 #define mk_lib_mt_cv_unique_lock_shared_impl_construct    mk_lib_mt_unique_lock_shared_posix_construct
 #define mk_lib_mt_cv_unique_lock_shared_impl_destruct     mk_lib_mt_unique_lock_shared_posix_destruct
 #else
-#error xxxxxxxxxx todo
+#include "mk_lib_mt_unique_lock_fake.h"
+#define mk_lib_mt_cv_unique_lock_exclusive_impl_construct mk_lib_mt_unique_lock_exclusive_fake_construct
+#define mk_lib_mt_cv_unique_lock_exclusive_impl_destruct  mk_lib_mt_unique_lock_exclusive_fake_destruct
+#define mk_lib_mt_cv_unique_lock_shared_impl_construct    mk_lib_mt_unique_lock_shared_fake_construct
+#define mk_lib_mt_cv_unique_lock_shared_impl_destruct     mk_lib_mt_unique_lock_shared_fake_destruct
 #endif
 
 

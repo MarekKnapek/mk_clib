@@ -33,7 +33,9 @@ typedef mk_lib_mt_unique_lock_shared_portable_c_t    mk_lib_mt_cv_unique_lock_sh
 typedef mk_lib_mt_unique_lock_exclusive_posix_t mk_lib_mt_cv_unique_lock_exclusive_impl_t;
 typedef mk_lib_mt_unique_lock_shared_posix_t    mk_lib_mt_cv_unique_lock_shared_impl_t;
 #else
-#error xxxxxxxxxx todo
+#include "mk_lib_mt_unique_lock_fake.h"
+typedef mk_lib_mt_unique_lock_exclusive_fake_t mk_lib_mt_cv_unique_lock_exclusive_impl_t;
+typedef mk_lib_mt_unique_lock_shared_fake_t    mk_lib_mt_cv_unique_lock_shared_impl_t;
 #endif
 
 

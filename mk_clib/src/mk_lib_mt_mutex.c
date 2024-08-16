@@ -61,7 +61,13 @@
 #define mk_lib_mt_mutex_impl_shared_lock      mk_lib_mt_mutex_posix_shared_lock
 #define mk_lib_mt_mutex_impl_shared_unlock    mk_lib_mt_mutex_posix_shared_unlock
 #else
-#error xxxxxxxxxx todo
+#include "mk_lib_mt_mutex_fake.h"
+#define mk_lib_mt_mutex_impl_construct        mk_lib_mt_mutex_fake_construct
+#define mk_lib_mt_mutex_impl_destruct         mk_lib_mt_mutex_fake_destruct
+#define mk_lib_mt_mutex_impl_exclusive_lock   mk_lib_mt_mutex_fake_exclusive_lock
+#define mk_lib_mt_mutex_impl_exclusive_unlock mk_lib_mt_mutex_fake_exclusive_unlock
+#define mk_lib_mt_mutex_impl_shared_lock      mk_lib_mt_mutex_fake_shared_lock
+#define mk_lib_mt_mutex_impl_shared_unlock    mk_lib_mt_mutex_fake_shared_unlock
 #endif
 
 
