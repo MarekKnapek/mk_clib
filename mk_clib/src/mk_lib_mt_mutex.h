@@ -26,7 +26,7 @@ typedef mk_lib_mt_mutex_portable_cpp_t mk_lib_mt_mutex_impl_t;
 #elif mk_lang_version_at_least_c_11
 #include "mk_lib_mt_mutex_portable_c.h"
 typedef mk_lib_mt_mutex_portable_c_t mk_lib_mt_mutex_impl_t;
-#elif defined mk_lib_mt_posix_has && mk_lib_mt_posix_has == 1
+#elif defined mk_lang_platform_is_posix_at_least_1
 #include "mk_lib_mt_mutex_posix.h"
 typedef mk_lib_mt_mutex_posix_t mk_lib_mt_mutex_impl_t;
 #else

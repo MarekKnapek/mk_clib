@@ -40,19 +40,40 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_info_platform_print(mk_lang_types_voi
 	#else
 	#error xxxxxxxxxx todo
 	#endif
+
 	#if 0
-	#elif mk_lang_platform == mk_lang_platform_windows_62
-	printf("Platform: Windows 6.2 (Windows 8 / Windows Server 2012)\n");
-	#elif mk_lang_platform == mk_lang_platform_windows_61
-	printf("Platform: Windows 6.1 (Windows 7 / Windows Server 2008 R2)\n");
-	#elif mk_lang_platform == mk_lang_platform_windows_60
-	printf("Platform: Windows 6.0 (Windows Vista / Windows Server 2008)\n");
-	#elif mk_lang_platform == mk_lang_platform_windows_51
-	printf("Platform: Windows 5.1 (Windows XP)\n");
 	#elif mk_lang_platform == mk_lang_platform_windows
 	printf("Platform: Windows\n");
+	#if 0
+	#elif mk_lang_platform_is_windows_at_least_62
+	printf("Platform version: Windows 6.2 (Windows 8 / Windows Server 2012)\n");
+	#elif mk_lang_platform_is_windows_at_least_61
+	printf("Platform version: Windows 6.1 (Windows 7 / Windows Server 2008 R2)\n");
+	#elif mk_lang_platform_is_windows_at_least_60
+	printf("Platform version: Windows 6.0 (Windows Vista / Windows Server 2008)\n");
+	#elif mk_lang_platform_is_windows_at_least_51
+	printf("Platform version: Windows 5.1 (Windows XP)\n");
+	#elif mk_lang_platform_is_windows_at_least_any
+	printf("Platform version: Windows\n");
+	#endif
 	#elif mk_lang_platform == mk_lang_platform_linux
 	printf("Platform: Linux\n");
+	#elif mk_lang_platform == mk_lang_platform_posix
+	printf("Platform: POSIX\n");
+	#if 0
+	#elif mk_lang_platform_is_posix_at_least_2008_09
+	printf("Platform version: POSIX 2008\n");
+	#elif mk_lang_platform_is_posix_at_least_2001_12
+	printf("Platform version: POSIX 2001\n");
+	#elif mk_lang_platform_is_posix_at_least_1995_06
+	printf("Platform version: POSIX 1995\n");
+	#elif mk_lang_platform_is_posix_at_least_1993_09
+	printf("Platform version: POSIX 1993\n");
+	#elif mk_lang_platform_is_posix_at_least_2
+	printf("Platform version: POSIX 1992\n");
+	#elif mk_lang_platform_is_posix_at_least_1
+	printf("Platform version: POSIX 1990\n");
+	#endif
 	#elif mk_lang_platform == mk_lang_platform_portable
 	printf("Platform: Portable\n");
 	#else

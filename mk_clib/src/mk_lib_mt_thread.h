@@ -30,7 +30,7 @@ typedef mk_lib_mt_thread_portable_cpp_t mk_lib_mt_thread_impl_t;
 #define mk_lib_mt_thread_has 1
 #include "mk_lib_mt_thread_portable_c.h"
 typedef mk_lib_mt_thread_portable_c_t mk_lib_mt_thread_impl_t;
-#elif defined mk_lib_mt_posix_has && mk_lib_mt_posix_has == 1
+#elif defined mk_lang_platform_is_posix_at_least_1
 #define mk_lib_mt_thread_has 1
 #include "mk_lib_mt_thread_posix.h"
 typedef mk_lib_mt_thread_posix_t mk_lib_mt_thread_impl_t;

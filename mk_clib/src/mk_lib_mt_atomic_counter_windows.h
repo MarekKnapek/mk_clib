@@ -10,7 +10,7 @@
 #include "mk_lang_types.h"
 
 
-#if mk_lang_bitness == mk_lang_bitness_32 && mk_lang_platform_is_windows
+#if mk_lang_bitness == mk_lang_bitness_32 && mk_lang_platform_is_windows_at_least_any
 
 
 #include "mk_win_base.h"
