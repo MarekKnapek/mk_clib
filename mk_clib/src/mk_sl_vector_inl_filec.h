@@ -430,7 +430,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_po
 	mk_lang_assert(vector);
 	mk_lang_assert(!mk_sl_vector_inl_defd_rw_is_empty(vector));
 
-	err = mk_sl_vector_inl_defd_pr_destruct_last_count(vector, 1);
+	err = mk_sl_vector_inl_defd_pr_destruct_last_count(vector, 1); mk_lang_check_rereturn(err);
 	--vector->m_size;
 	return 0;
 }
@@ -452,7 +452,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_po
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(mk_sl_vector_inl_defd_rw_size(vector) >= count);
 
-	err = mk_sl_vector_inl_defd_pr_destruct_last_count(vector, count);
+	err = mk_sl_vector_inl_defd_pr_destruct_last_count(vector, count); mk_lang_check_rereturn(err);
 	vector->m_size -= count;
 	return 0;
 }

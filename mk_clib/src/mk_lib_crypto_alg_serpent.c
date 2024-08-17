@@ -320,7 +320,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_alg_serpent_s
 	rem = nblocks;
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
-		n = (4 - ((((mk_lang_types_uintptr_t)(in)) >> 4) & 0x3) & 0x3);
+		n = 4 - (((((mk_lang_types_uintptr_t)(in)) >> 4) & 0x3) & 0x3);
 		n = mk_lang_min(n, rem);
 		mk_lib_crypto_alg_serpent_schedule_encrypt_impl(schedule, in, out, n);
 		in += n;
@@ -348,7 +348,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_alg_serpent_s
 	rem = nblocks;
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
-		n = (4 - ((((mk_lang_types_uintptr_t)(in)) >> 4) & 0x3) & 0x3);
+		n = 4 - (((((mk_lang_types_uintptr_t)(in)) >> 4) & 0x3) & 0x3);
 		n = mk_lang_min(n, rem);
 		mk_lib_crypto_alg_serpent_schedule_decrypt_impl(schedule, in, out, n);
 		in += n;
