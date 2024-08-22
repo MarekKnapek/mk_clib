@@ -48,6 +48,9 @@
 #define mk_lib_crypto_mode_gcm_be_inl_filec_xor3 mk_lang_concat(mk_lib_crypto_mode_gcm_be_inl_filec_xor_name, _xor3)
 
 
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_mode_gcm_be_inl_defd_ctr_increment(mk_lib_crypto_mode_gcm_be_inl_defd_msg_pt const msg) mk_lang_noexcept;
+
+
 mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_mode_gcm_be_inl_defd_init(mk_lib_crypto_mode_gcm_be_inl_defd_pt const gcm_be, mk_lib_crypto_mode_gcm_be_inl_defd_key_pct const key) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_t tu8 mk_lang_constexpr_init;
