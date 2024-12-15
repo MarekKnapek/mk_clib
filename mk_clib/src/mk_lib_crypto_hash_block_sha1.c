@@ -8,9 +8,9 @@
 #include "mk_lang_alignof.h"
 #include "mk_lang_arch.h"
 #include "mk_lang_assert.h"
+#include "mk_lang_compiler.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_cpuid.h"
-#include "mk_lang_gnuc.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_msvc.h"
 #include "mk_lang_noexcept.h"
@@ -40,7 +40,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sh
 {
 	mk_lang_assert(sha1);
 
-	#if (mk_lang_msvc_ver >= mk_lang_msvc_ver_2015 || mk_lang_gnuc_is_at_least(11, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
+	#if (mk_lang_msvc_ver >= mk_lang_msvc_ver_2015 || mk_lang_compiler_is_at_least_gcc(11, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
 	if(!mk_lang_constexpr_is_constant_evaluated_test && mk_lib_crypto_hash_block_sha1_conditions_1 && mk_lib_crypto_hash_block_sha1_conditions_2)
 	{
 		mk_lib_crypto_hash_block_sha1_x86_init(&sha1->m_data.m_sha1_x86);
@@ -56,7 +56,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sh
 {
 	mk_lang_assert(sha1);
 
-	#if (mk_lang_msvc_ver >= mk_lang_msvc_ver_2015 || mk_lang_gnuc_is_at_least(11, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
+	#if (mk_lang_msvc_ver >= mk_lang_msvc_ver_2015 || mk_lang_compiler_is_at_least_gcc(11, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
 	if(!mk_lang_constexpr_is_constant_evaluated_test && mk_lib_crypto_hash_block_sha1_conditions_1 && mk_lib_crypto_hash_block_sha1_conditions_2 && mk_lib_crypto_hash_block_sha1_conditions_3)
 	{
 		mk_lib_crypto_hash_block_sha1_x86_append_blocks(&sha1->m_data.m_sha1_x86, ((mk_lib_crypto_hash_block_sha1_x86_block_pct)(pblocks)), nblocks);
@@ -72,7 +72,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sh
 {
 	mk_lang_assert(sha1);
 
-	#if (mk_lang_msvc_ver >= mk_lang_msvc_ver_2015 || mk_lang_gnuc_is_at_least(11, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
+	#if (mk_lang_msvc_ver >= mk_lang_msvc_ver_2015 || mk_lang_compiler_is_at_least_gcc(11, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
 	if(!mk_lang_constexpr_is_constant_evaluated_test && mk_lib_crypto_hash_block_sha1_conditions_1 && mk_lib_crypto_hash_block_sha1_conditions_2 && mk_lib_crypto_hash_block_sha1_conditions_4)
 	{
 		mk_lib_crypto_hash_block_sha1_x86_finish(&sha1->m_data.m_sha1_x86, ((mk_lib_crypto_hash_block_sha1_x86_block_pt)(block)), idx, ((mk_lib_crypto_hash_block_sha1_x86_digest_pt)(digest)));

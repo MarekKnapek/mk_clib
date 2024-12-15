@@ -4,9 +4,10 @@
 #include "mk_lang_alignof.h"
 #include "mk_lang_arch.h"
 #include "mk_lang_assert.h"
+#include "mk_lang_attribute.h"
+#include "mk_lang_compiler.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_cpuid.h"
-#include "mk_lang_gnuc.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_limits.h"
@@ -20,7 +21,7 @@
 #include "mk_sl_uint8.h"
 
 
-#if (mk_lang_msvc_ver >= mk_lang_msvc_ver_2015 || mk_lang_gnuc_is_at_least(11, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
+#if (mk_lang_msvc_ver >= mk_lang_msvc_ver_2015 || mk_lang_compiler_is_at_least_gcc(11, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
 
 
 #include <emmintrin.h> /* SSE2 _mm_add_epi32 _mm_load_si128 _mm_set_epi64x _mm_shuffle_epi32 _mm_store_si128 */
@@ -100,7 +101,7 @@ mk_lang_jumbo void mk_lib_crypto_hash_block_sha2_base_32bit_x86_init(mk_lib_cryp
 	mk_sl_cui_uint64_set_zero(&sha2_32bit->m_len);
 }
 
-mk_lang_jumbo void mk_lang_gnuc_attribute_target("sse2,ssse3,sse4.1,sha") mk_lib_crypto_hash_block_sha2_base_32bit_x86_append_blocks(mk_lib_crypto_hash_block_sha2_base_32bit_x86_pt const sha2_32bit, mk_lib_crypto_hash_block_sha2_base_32bit_x86_block_pct const pblocks, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
+mk_lang_jumbo void mk_lang_attribute_target("sse2,ssse3,sse4.1,sha") mk_lib_crypto_hash_block_sha2_base_32bit_x86_append_blocks(mk_lib_crypto_hash_block_sha2_base_32bit_x86_pt const sha2_32bit, mk_lib_crypto_hash_block_sha2_base_32bit_x86_block_pct const pblocks, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
 	#define mk_lib_crypto_hash_block_sha2_base_32bit_x86_shuffle_epi32(a, b, c, d) (((a) << (3 * 2)) | ((b) << (2 * 2)) | ((c) << (1 * 2)) | ((d) << (0 * 2)))
 	#define mk_lib_crypto_hash_block_sha2_base_32bit_x86_blend_16_impl(a, b, c, d, e, f, g, h) (((a) << (7 * 1)) | ((b) << (6 * 1)) | ((c) << (5 * 1)) | ((d) << (4 * 1)) | ((e) << (3 * 1)) | ((f) << (2 * 1)) | ((g) << (1 * 1)) | ((h) << (0 * 1)))

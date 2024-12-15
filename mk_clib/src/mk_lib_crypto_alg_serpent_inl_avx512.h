@@ -1,8 +1,8 @@
 #include "mk_lang_assert.h"
 #include "mk_lang_attribute.h"
 #include "mk_lang_bool.h"
+#include "mk_lang_compiler.h"
 #include "mk_lang_cpuid.h"
-#include "mk_lang_gnuc.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
@@ -45,7 +45,7 @@
 #define mk_lib_crypto_alg_serpent_inl_t_ui_broadcast mk_lib_crypto_alg_serpent_avx512_ui_broadcast
 #define mk_lib_crypto_alg_serpent_inl_t_load         mk_lib_crypto_alg_serpent_avx512_load
 #define mk_lib_crypto_alg_serpent_inl_t_store        mk_lib_crypto_alg_serpent_avx512_store
-#define mk_lib_crypto_alg_serpent_inl_t_target       mk_lang_gnuc_attribute_target("avx512f")
+#define mk_lib_crypto_alg_serpent_inl_t_target       mk_lang_attribute_target("avx512f")
 
 
 union mk_lib_crypto_alg_serpent_avx512_uints_data_u
@@ -65,7 +65,7 @@ typedef mk_lib_crypto_alg_serpent_avx512_uints_t* mk_lib_crypto_alg_serpent_avx5
 typedef mk_lib_crypto_alg_serpent_avx512_uints_t const* mk_lib_crypto_alg_serpent_avx512_uints_pct;
 
 
-mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("avx512f") mk_lib_crypto_alg_serpent_avx512_ui_assign(__m512i* const a, __m512i const* const b) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
+mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_attribute_target("avx512f") mk_lib_crypto_alg_serpent_avx512_ui_assign(__m512i* const a, __m512i const* const b) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
 {
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -75,7 +75,7 @@ mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk
 	*a = *b;
 }}
 
-mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("avx512f") mk_lib_crypto_alg_serpent_avx512_ui_and2(__m512i* const a, __m512i const* const b) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
+mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_attribute_target("avx512f") mk_lib_crypto_alg_serpent_avx512_ui_and2(__m512i* const a, __m512i const* const b) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
 {
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -85,7 +85,7 @@ mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk
 	*a = _mm512_and_si512(*a, *b);
 }}
 
-mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("avx512f") mk_lib_crypto_alg_serpent_avx512_ui_not1(__m512i* const a) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
+mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_attribute_target("avx512f") mk_lib_crypto_alg_serpent_avx512_ui_not1(__m512i* const a) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
 {
 	__m512i b;
 
@@ -96,7 +96,7 @@ mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk
 	*a = _mm512_xor_si512(*a, b);
 }}
 
-mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("avx512f") mk_lib_crypto_alg_serpent_avx512_ui_or2(__m512i* const a, __m512i const* const b) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
+mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_attribute_target("avx512f") mk_lib_crypto_alg_serpent_avx512_ui_or2(__m512i* const a, __m512i const* const b) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
 {
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -106,7 +106,7 @@ mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk
 	*a = _mm512_or_si512(*a, *b);
 }}
 
-mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("avx512f") mk_lib_crypto_alg_serpent_avx512_ui_rotl2(__m512i* const a, mk_lang_types_sint_t const b) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
+mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_attribute_target("avx512f") mk_lib_crypto_alg_serpent_avx512_ui_rotl2(__m512i* const a, mk_lang_types_sint_t const b) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
 {
 	__m512i ta;
 	__m512i tb;
@@ -120,7 +120,7 @@ mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk
 	*a = _mm512_or_si512(ta, tb);
 }}
 
-mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("avx512f") mk_lib_crypto_alg_serpent_avx512_ui_rotr2(__m512i* const a, mk_lang_types_sint_t const b) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
+mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_attribute_target("avx512f") mk_lib_crypto_alg_serpent_avx512_ui_rotr2(__m512i* const a, mk_lang_types_sint_t const b) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
 {
 	__m512i ta;
 	__m512i tb;
@@ -136,7 +136,7 @@ mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk
 	*a = _mm512_or_si512(ta, tb);
 }}
 
-mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("avx512f") mk_lib_crypto_alg_serpent_avx512_ui_shl3(__m512i const* const a, mk_lang_types_sint_t const b, __m512i* const c) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
+mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_attribute_target("avx512f") mk_lib_crypto_alg_serpent_avx512_ui_shl3(__m512i const* const a, mk_lang_types_sint_t const b, __m512i* const c) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
 {
 	mk_lang_assert(a);
 	mk_lang_assert(b >= 1 && b <= 31);
@@ -147,7 +147,7 @@ mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk
 	*c = _mm512_slli_epi32(*a, b);
 }}
 
-mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("avx512f") mk_lib_crypto_alg_serpent_avx512_ui_xor2(__m512i* const a, __m512i const* const b) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
+mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_attribute_target("avx512f") mk_lib_crypto_alg_serpent_avx512_ui_xor2(__m512i* const a, __m512i const* const b) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
 {
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -157,7 +157,7 @@ mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk
 	*a = _mm512_xor_si512(*a, *b);
 }}
 
-mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("avx512f") mk_lib_crypto_alg_serpent_avx512_ui_xor3(__m512i const* const a, __m512i const* const b, __m512i* const c) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
+mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_attribute_target("avx512f") mk_lib_crypto_alg_serpent_avx512_ui_xor3(__m512i const* const a, __m512i const* const b, __m512i* const c) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
 {
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -170,7 +170,7 @@ mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk
 	*c = _mm512_xor_si512(*a, *b);
 }}
 
-mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("avx512f") mk_lib_crypto_alg_serpent_avx512_ui_broadcast(__m512i* const a, mk_lib_crypto_alg_serpent_avx512_uints_pt const b) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
+mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_attribute_target("avx512f") mk_lib_crypto_alg_serpent_avx512_ui_broadcast(__m512i* const a, mk_lib_crypto_alg_serpent_avx512_uints_pt const b) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
 {
 	mk_lang_assert(a);
 	mk_lang_assert(b);

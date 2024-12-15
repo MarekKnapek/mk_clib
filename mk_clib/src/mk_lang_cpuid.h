@@ -3,7 +3,7 @@
 
 
 #include "mk_lang_arch.h"
-#include "mk_lang_gnuc.h"
+#include "mk_lang_compiler.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_msvc.h"
 #include "mk_lang_nodiscard.h"
@@ -49,7 +49,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_avx512_vl
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_sha512(mk_lang_types_void_t) mk_lang_noexcept;
 
 
-#elif mk_lang_gnuc_is_at_least(4, 1) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
+#elif mk_lang_compiler_is_at_least_gcc(4, 1) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
 
 
 #if mk_lang_arch == mk_lang_arch_x8664

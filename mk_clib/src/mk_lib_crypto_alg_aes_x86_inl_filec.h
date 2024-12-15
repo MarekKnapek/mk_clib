@@ -5,10 +5,11 @@
 #include "mk_lang_alignof.h"
 #include "mk_lang_arch.h"
 #include "mk_lang_assert.h"
+#include "mk_lang_attribute.h"
 #include "mk_lang_bool.h"
+#include "mk_lang_compiler.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_cpuid.h"
-#include "mk_lang_gnuc.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_limits.h"
@@ -25,7 +26,7 @@
 #include mk_lib_crypto_alg_aes_x86_inl_defd_base_file
 
 
-#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_gnuc_is_at_least(6, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && mk_lang_alignas_has && mk_lang_alignof_has
+#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_compiler_is_at_least_gcc(6, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && mk_lang_alignas_has && mk_lang_alignof_has
 
 
 #include <emmintrin.h> /* SSE2 _mm_castpd_si128 _mm_castsi128_pd _mm_load_si128 _mm_shuffle_epi32 _mm_shuffle_pd _mm_slli_si128 _mm_store_si128 _mm_xor_si128 */
@@ -73,7 +74,7 @@
 
 #if mk_lib_crypto_alg_aes_x86_inl_defd_bits == 128
 
-static mk_lang_inline __m128i mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_aes_x86_inl_defd_assist_128(__m128i const a, __m128i const b) mk_lang_noexcept
+static mk_lang_inline __m128i mk_lang_attribute_target("sse2") mk_lib_crypto_alg_aes_x86_inl_defd_assist_128(__m128i const a, __m128i const b) mk_lang_noexcept
 {
 	__m128i ta;
 	__m128i tb;
@@ -96,7 +97,7 @@ static mk_lang_inline __m128i mk_lang_gnuc_attribute_target("sse2") mk_lib_crypt
 
 #elif mk_lib_crypto_alg_aes_x86_inl_defd_bits == 192
 
-static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_aes_x86_inl_defd_assist_192(__m128i* const ta, __m128i* const tb, __m128i* const tc) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_attribute_target("sse2") mk_lib_crypto_alg_aes_x86_inl_defd_assist_192(__m128i* const ta, __m128i* const tb, __m128i* const tc) mk_lang_noexcept
 {
 	__m128i td;
 
@@ -121,7 +122,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2")
 
 #elif mk_lib_crypto_alg_aes_x86_inl_defd_bits == 256
 
-static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_aes_x86_inl_defd_assist_256_a(__m128i* const ta, __m128i* const tb) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_attribute_target("sse2") mk_lib_crypto_alg_aes_x86_inl_defd_assist_256_a(__m128i* const ta, __m128i* const tb) mk_lang_noexcept
 {
 	__m128i tc;
 
@@ -139,7 +140,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2")
 	*ta = _mm_xor_si128(*ta, *tb);
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2,aes") mk_lib_crypto_alg_aes_x86_inl_defd_assist_256_b(__m128i* const ta, __m128i* const tb) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lang_attribute_target("sse2,aes") mk_lib_crypto_alg_aes_x86_inl_defd_assist_256_b(__m128i* const ta, __m128i* const tb) mk_lang_noexcept
 {
 	__m128i tc;
 	__m128i td;
@@ -165,7 +166,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2,a
 
 #if mk_lib_crypto_alg_aes_x86_inl_defd_tech == 3
 
-mk_lang_jumbo mk_lang_types_void_t mk_lang_gnuc_attribute_target("aes") mk_lib_crypto_alg_aes_x86_inl_defd_schedule_encrypt(mk_lib_crypto_alg_aes_x86_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_x86_inl_defd_msg_pct const input, mk_lib_crypto_alg_aes_x86_inl_defd_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
+mk_lang_jumbo mk_lang_types_void_t mk_lang_attribute_target("aes") mk_lib_crypto_alg_aes_x86_inl_defd_schedule_encrypt(mk_lib_crypto_alg_aes_x86_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_x86_inl_defd_msg_pct const input, mk_lib_crypto_alg_aes_x86_inl_defd_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
 	mk_lang_types_usize_t iblock;
 	__m128i v;
@@ -217,7 +218,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_gnuc_attribute_target("aes") mk_lib_c
 
 #elif mk_lib_crypto_alg_aes_x86_inl_defd_tech == 4
 
-mk_lang_jumbo mk_lang_types_void_t mk_lang_gnuc_attribute_target("avx,avx2,vaes") mk_lib_crypto_alg_aes_x86_inl_defd_schedule_encrypt(mk_lib_crypto_alg_aes_x86_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_x86_inl_defd_msg_pct const input, mk_lib_crypto_alg_aes_x86_inl_defd_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
+mk_lang_jumbo mk_lang_types_void_t mk_lang_attribute_target("avx,avx2,vaes") mk_lib_crypto_alg_aes_x86_inl_defd_schedule_encrypt(mk_lib_crypto_alg_aes_x86_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_x86_inl_defd_msg_pct const input, mk_lib_crypto_alg_aes_x86_inl_defd_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
 	mk_lang_types_usize_t iblock;
 	__m256i v;
@@ -273,7 +274,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_gnuc_attribute_target("avx,avx2,vaes"
 
 #elif mk_lib_crypto_alg_aes_x86_inl_defd_tech == 5
 
-mk_lang_jumbo mk_lang_types_void_t mk_lang_gnuc_attribute_target("avx512f,vaes") mk_lib_crypto_alg_aes_x86_inl_defd_schedule_encrypt(mk_lib_crypto_alg_aes_x86_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_x86_inl_defd_msg_pct const input, mk_lib_crypto_alg_aes_x86_inl_defd_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
+mk_lang_jumbo mk_lang_types_void_t mk_lang_attribute_target("avx512f,vaes") mk_lib_crypto_alg_aes_x86_inl_defd_schedule_encrypt(mk_lib_crypto_alg_aes_x86_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_x86_inl_defd_msg_pct const input, mk_lib_crypto_alg_aes_x86_inl_defd_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
 	mk_lang_types_usize_t iblock;
 	__m512i v;
@@ -331,7 +332,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_gnuc_attribute_target("avx512f,vaes")
 
 #if mk_lib_crypto_alg_aes_x86_inl_defd_tech == 3
 
-mk_lang_jumbo mk_lang_types_void_t mk_lang_gnuc_attribute_target("aes") mk_lib_crypto_alg_aes_x86_inl_defd_schedule_decrypt(mk_lib_crypto_alg_aes_x86_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_x86_inl_defd_msg_pct const input, mk_lib_crypto_alg_aes_x86_inl_defd_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
+mk_lang_jumbo mk_lang_types_void_t mk_lang_attribute_target("aes") mk_lib_crypto_alg_aes_x86_inl_defd_schedule_decrypt(mk_lib_crypto_alg_aes_x86_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_x86_inl_defd_msg_pct const input, mk_lib_crypto_alg_aes_x86_inl_defd_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
 	mk_lang_types_usize_t iblock;
 	__m128i v;
@@ -383,7 +384,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_gnuc_attribute_target("aes") mk_lib_c
 
 #elif mk_lib_crypto_alg_aes_x86_inl_defd_tech == 4
 
-mk_lang_jumbo mk_lang_types_void_t mk_lang_gnuc_attribute_target("avx2,vaes") mk_lib_crypto_alg_aes_x86_inl_defd_schedule_decrypt(mk_lib_crypto_alg_aes_x86_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_x86_inl_defd_msg_pct const input, mk_lib_crypto_alg_aes_x86_inl_defd_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
+mk_lang_jumbo mk_lang_types_void_t mk_lang_attribute_target("avx2,vaes") mk_lib_crypto_alg_aes_x86_inl_defd_schedule_decrypt(mk_lib_crypto_alg_aes_x86_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_x86_inl_defd_msg_pct const input, mk_lib_crypto_alg_aes_x86_inl_defd_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
 	mk_lang_types_usize_t iblock;
 	__m256i v;
@@ -439,7 +440,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_gnuc_attribute_target("avx2,vaes") mk
 
 #elif mk_lib_crypto_alg_aes_x86_inl_defd_tech == 5
 
-mk_lang_jumbo mk_lang_types_void_t mk_lang_gnuc_attribute_target("avx512f,vaes") mk_lib_crypto_alg_aes_x86_inl_defd_schedule_decrypt(mk_lib_crypto_alg_aes_x86_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_x86_inl_defd_msg_pct const input, mk_lib_crypto_alg_aes_x86_inl_defd_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
+mk_lang_jumbo mk_lang_types_void_t mk_lang_attribute_target("avx512f,vaes") mk_lib_crypto_alg_aes_x86_inl_defd_schedule_decrypt(mk_lib_crypto_alg_aes_x86_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_x86_inl_defd_msg_pct const input, mk_lib_crypto_alg_aes_x86_inl_defd_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
 	mk_lang_types_usize_t iblock;
 	__m512i v;
@@ -495,7 +496,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_gnuc_attribute_target("avx512f,vaes")
 
 #endif
 
-mk_lang_jumbo mk_lang_types_void_t mk_lang_gnuc_attribute_target("aes") mk_lib_crypto_alg_aes_x86_inl_defd_expand_enc(mk_lib_crypto_alg_aes_x86_inl_defd_key_pct const key, mk_lib_crypto_alg_aes_x86_inl_defd_schedule_pt const schedule) mk_lang_noexcept
+mk_lang_jumbo mk_lang_types_void_t mk_lang_attribute_target("aes") mk_lib_crypto_alg_aes_x86_inl_defd_expand_enc(mk_lib_crypto_alg_aes_x86_inl_defd_key_pct const key, mk_lib_crypto_alg_aes_x86_inl_defd_schedule_pt const schedule) mk_lang_noexcept
 {
 #if mk_lib_crypto_alg_aes_x86_inl_defd_bits == 128
 
@@ -625,7 +626,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_gnuc_attribute_target("aes") mk_lib_c
 #endif
 }
 
-mk_lang_jumbo mk_lang_types_void_t mk_lang_gnuc_attribute_target("aes") mk_lib_crypto_alg_aes_x86_inl_defd_expand_dec(mk_lib_crypto_alg_aes_x86_inl_defd_key_pct const key, mk_lib_crypto_alg_aes_x86_inl_defd_schedule_pt const schedule) mk_lang_noexcept
+mk_lang_jumbo mk_lang_types_void_t mk_lang_attribute_target("aes") mk_lib_crypto_alg_aes_x86_inl_defd_expand_dec(mk_lib_crypto_alg_aes_x86_inl_defd_key_pct const key, mk_lib_crypto_alg_aes_x86_inl_defd_schedule_pt const schedule) mk_lang_noexcept
 {
 	__m128i ta;
 

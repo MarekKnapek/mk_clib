@@ -4,10 +4,10 @@
 
 #if defined _MSC_VER && defined _MSC_FULL_VER
 #define mk_lang_msvc_ver _MSC_VER
-#define  mk_lang_msvc_full_ver _MSC_FULL_VER
+#define mk_lang_msvc_full_ver _MSC_FULL_VER
 #else
 #define mk_lang_msvc_ver 0
-#define  mk_lang_msvc_full_ver 0
+#define mk_lang_msvc_full_ver 0
 #endif
 
 
@@ -92,9 +92,11 @@
 #define mk_lang_msvc_ver_2008_sp_1 1500l
 #define mk_lang_msvc_ver_2008      1500l
 
-#define mk_lang_msvc_ver_2005      1400l
+#define mk_lang_msvc_ver_2005 1400l
 
-#define mk_lang_msvc_ver_2003      1310l
+#define mk_lang_msvc_ver_2003 1310l
+
+#define mk_lang_msvc_ver_6 1200l
 
 
 #define mk_lang_msvc_full_ver_2022_17_12_3 194234435l
@@ -181,7 +183,7 @@
 #define mk_lang_msvc_full_ver_2005_sp_1 140050727l
 #define mk_lang_msvc_full_ver_2005      140050320l
 
-#define mk_lang_msvc_full_ver_2003      13103077l
+#define mk_lang_msvc_full_ver_2003 13103077l
 
 
 #endif

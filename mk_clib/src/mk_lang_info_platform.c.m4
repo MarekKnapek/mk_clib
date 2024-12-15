@@ -2,7 +2,9 @@
 
 #include "mk_lang_arch.h"
 #include "mk_lang_cpuid.h"
+#include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
+#include "mk_lang_llong.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_platform.h"
 #include "mk_lang_stringify.h"
@@ -82,6 +84,10 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_info_platform_print(mk_lang_types_voi
 	printf("Platform version: POSIX 1990\n");
 	#endif
 
+	printf("\n");
+
+	printf("mk_lang_inline_has: %s\n", mk_lang_inline_has ? "yes" : "no");
+	printf("mk_lang_llong_has : %s\n", mk_lang_llong_has  ? "yes" : "no");
 	printf("\n");
 
 	printf("at_least_c_89       : %s\n", mk_lang_version_at_least_c_89 == 1 ? "yes" : "no");

@@ -1,6 +1,7 @@
 #include "mk_lib_crypto_alg_aes_fuzz.h"
 
 #include "mk_lang_assert.h"
+#include "mk_lang_compiler.h"
 #include "mk_lang_countof.h"
 #include "mk_lang_cpuid.h"
 #include "mk_lang_crash.h"
@@ -70,7 +71,7 @@ mk_lang_jumbo void mk_lib_crypto_alg_aes_fuzz_my(mk_lang_types_bool_t const cpui
 
 mk_lang_jumbo void mk_lib_crypto_alg_aes_fuzz_accelerated(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
 {
-#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_gnuc_is_at_least(6, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && mk_lang_alignas_has && mk_lang_alignof_has
+#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_compiler_is_at_least_clang(6, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && mk_lang_alignas_has && mk_lang_alignof_has
 	mk_lang_cpuid_init();
 	{
 		mk_lang_types_uchar_pct d;

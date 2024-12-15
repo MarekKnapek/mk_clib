@@ -2,9 +2,9 @@ include(`mk_lang_bui_inl.m')dnl
 #include "mk_lang_arch.h"
 #include "mk_lang_assert.h"
 #include "mk_lang_charbit.h"
+#include "mk_lang_compiler.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_cpuid.h"
-#include "mk_lang_gnuc.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_llong.h"
@@ -304,7 +304,7 @@ mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noa
 		return nz ? ((mk_lang_types_sint_t)(((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_sizebits_d - 1)) - ((mk_lang_types_sint_t)(index)))) : ((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_sizebits_d));
 	}
 	else
-	#elif mk_lang_gnuc_is_at_least(4, 1) && mk_lang_bui_inl_defd_sizebits_d <= 32
+	#elif mk_lang_compiler_is_at_least_gcc(4, 1) && mk_lang_bui_inl_defd_sizebits_d <= 32
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
 		mk_lang_assert(x);
@@ -324,7 +324,7 @@ mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noa
 		return nz ? ((mk_lang_types_sint_t)(((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_sizebits_d - 1)) - ((mk_lang_types_sint_t)(index)))) : ((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_sizebits_d));
 	}
 	else
-	#elif mk_lang_gnuc_is_at_least(4, 1) && mk_lang_llong_has && mk_lang_bui_inl_defd_sizebits_d <= 64
+	#elif mk_lang_compiler_is_at_least_gcc(4, 1) && mk_lang_llong_has && mk_lang_bui_inl_defd_sizebits_d <= 64
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
 		mk_lang_assert(x);
@@ -394,7 +394,7 @@ mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noa
 		return nz ? ((mk_lang_types_sint_t)(index)) : ((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_sizebits_d));
 	}
 	else
-	#elif mk_lang_gnuc_is_at_least(4, 1) && mk_lang_bui_inl_defd_sizebits_d <= 32
+	#elif mk_lang_compiler_is_at_least_gcc(4, 1) && mk_lang_bui_inl_defd_sizebits_d <= 32
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
 		mk_lang_assert(x);
@@ -414,7 +414,7 @@ mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noa
 		return nz ? ((mk_lang_types_sint_t)(index)) : ((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_sizebits_d));
 	}
 	else
-	#elif mk_lang_gnuc_is_at_least(4, 1) && mk_lang_llong_has && mk_lang_bui_inl_defd_sizebits_d <= 64
+	#elif mk_lang_compiler_is_at_least_gcc(4, 1) && mk_lang_llong_has && mk_lang_bui_inl_defd_sizebits_d <= 64
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
 		mk_lang_assert(x);
@@ -485,7 +485,7 @@ mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noa
 		return mk_lang_bui_inl_defd_sizebits_d - mk_lang_bui_inl_defd_count_ones(x);
 	}
 	else
-	#elif mk_lang_gnuc_is_at_least(4, 1) && mk_lang_bui_inl_defd_sizebits_d <= 16
+	#elif mk_lang_compiler_is_at_least_gcc(4, 1) && mk_lang_bui_inl_defd_sizebits_d <= 16
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
 		return mk_lang_bui_inl_defd_sizebits_d - mk_lang_bui_inl_defd_count_ones(x);
@@ -497,7 +497,7 @@ mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noa
 		return mk_lang_bui_inl_defd_sizebits_d - mk_lang_bui_inl_defd_count_ones(x);
 	}
 	else
-	#elif mk_lang_gnuc_is_at_least(4, 1) && mk_lang_bui_inl_defd_sizebits_d <= 32
+	#elif mk_lang_compiler_is_at_least_gcc(4, 1) && mk_lang_bui_inl_defd_sizebits_d <= 32
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
 		return mk_lang_bui_inl_defd_sizebits_d - mk_lang_bui_inl_defd_count_ones(x);
@@ -509,7 +509,7 @@ mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noa
 		return mk_lang_bui_inl_defd_sizebits_d - mk_lang_bui_inl_defd_count_ones(x);
 	}
 	else
-	#elif mk_lang_gnuc_is_at_least(4, 1) && mk_lang_llong_has && mk_lang_bui_inl_defd_sizebits_d <= 64
+	#elif mk_lang_compiler_is_at_least_gcc(4, 1) && mk_lang_llong_has && mk_lang_bui_inl_defd_sizebits_d <= 64
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
 		return mk_lang_bui_inl_defd_sizebits_d - mk_lang_bui_inl_defd_count_ones(x);
@@ -544,7 +544,7 @@ mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noa
 		return ((mk_lang_types_sint_t)(u));
 	}
 	else
-	#elif mk_lang_gnuc_is_at_least(4, 1) && mk_lang_bui_inl_defd_sizebits_d <= 16
+	#elif mk_lang_compiler_is_at_least_gcc(4, 1) && mk_lang_bui_inl_defd_sizebits_d <= 16
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
 		mk_lang_assert(x);
@@ -563,7 +563,7 @@ mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noa
 		return ((mk_lang_types_sint_t)(u));
 	}
 	else
-	#elif mk_lang_gnuc_is_at_least(4, 1) && mk_lang_bui_inl_defd_sizebits_d <= 32
+	#elif mk_lang_compiler_is_at_least_gcc(4, 1) && mk_lang_bui_inl_defd_sizebits_d <= 32
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
 		mk_lang_assert(x);
@@ -582,7 +582,7 @@ mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noa
 		return ((mk_lang_types_sint_t)(u));
 	}
 	else
-	#elif mk_lang_gnuc_is_at_least(4, 1) && mk_lang_llong_has && mk_lang_bui_inl_defd_sizebits_d <= 64
+	#elif mk_lang_compiler_is_at_least_gcc(4, 1) && mk_lang_llong_has && mk_lang_bui_inl_defd_sizebits_d <= 64
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
 		mk_lang_assert(x);

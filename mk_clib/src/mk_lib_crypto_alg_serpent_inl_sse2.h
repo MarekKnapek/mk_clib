@@ -1,8 +1,8 @@
 #include "mk_lang_assert.h"
 #include "mk_lang_attribute.h"
 #include "mk_lang_bool.h"
+#include "mk_lang_compiler.h"
 #include "mk_lang_cpuid.h"
-#include "mk_lang_gnuc.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
@@ -45,7 +45,7 @@
 #define mk_lib_crypto_alg_serpent_inl_t_ui_broadcast mk_lib_crypto_alg_serpent_sse2_ui_broadcast
 #define mk_lib_crypto_alg_serpent_inl_t_load         mk_lib_crypto_alg_serpent_sse2_load
 #define mk_lib_crypto_alg_serpent_inl_t_store        mk_lib_crypto_alg_serpent_sse2_store
-#define mk_lib_crypto_alg_serpent_inl_t_target       mk_lang_gnuc_attribute_target("sse2")
+#define mk_lib_crypto_alg_serpent_inl_t_target       mk_lang_attribute_target("sse2")
 
 
 union mk_lib_crypto_alg_serpent_sse2_uints_data_u
@@ -65,7 +65,7 @@ typedef mk_lib_crypto_alg_serpent_sse2_uints_t* mk_lib_crypto_alg_serpent_sse2_u
 typedef mk_lib_crypto_alg_serpent_sse2_uints_t const* mk_lib_crypto_alg_serpent_sse2_uints_pct;
 
 
-mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_ui_assign(__m128i* const a, __m128i const* const b) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
+mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_ui_assign(__m128i* const a, __m128i const* const b) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
 {
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -75,7 +75,7 @@ mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk
 	*a = *b;
 }}
 
-mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_ui_and2(__m128i* const a, __m128i const* const b) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
+mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_ui_and2(__m128i* const a, __m128i const* const b) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
 {
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -85,7 +85,7 @@ mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk
 	*a = _mm_and_si128(*a, *b);
 }}
 
-mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_ui_not1(__m128i* const a) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
+mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_ui_not1(__m128i* const a) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
 {
 	__m128i b;
 
@@ -96,7 +96,7 @@ mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk
 	*a = _mm_xor_si128(*a, b);
 }}
 
-mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_ui_or2(__m128i* const a, __m128i const* const b) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
+mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_ui_or2(__m128i* const a, __m128i const* const b) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
 {
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -106,7 +106,7 @@ mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk
 	*a = _mm_or_si128(*a, *b);
 }}
 
-mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_ui_rotl2(__m128i* const a, mk_lang_types_sint_t const b) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
+mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_ui_rotl2(__m128i* const a, mk_lang_types_sint_t const b) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
 {
 	__m128i ta;
 	__m128i tb;
@@ -120,7 +120,7 @@ mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk
 	*a = _mm_or_si128(ta, tb);
 }}
 
-mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_ui_rotr2(__m128i* const a, mk_lang_types_sint_t const b) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
+mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_ui_rotr2(__m128i* const a, mk_lang_types_sint_t const b) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
 {
 	__m128i ta;
 	__m128i tb;
@@ -136,7 +136,7 @@ mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk
 	*a = _mm_or_si128(ta, tb);
 }}
 
-mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_ui_shl3(__m128i const* const a, mk_lang_types_sint_t const b, __m128i* const c) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
+mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_ui_shl3(__m128i const* const a, mk_lang_types_sint_t const b, __m128i* const c) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
 {
 	mk_lang_assert(a);
 	mk_lang_assert(b >= 1 && b <= 31);
@@ -147,7 +147,7 @@ mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk
 	*c = _mm_slli_epi32(*a, b);
 }}
 
-mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_ui_xor2(__m128i* const a, __m128i const* const b) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
+mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_ui_xor2(__m128i* const a, __m128i const* const b) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
 {
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -157,7 +157,7 @@ mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk
 	*a = _mm_xor_si128(*a, *b);
 }}
 
-mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_ui_xor3(__m128i const* const a, __m128i const* const b, __m128i* const c) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
+mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_ui_xor3(__m128i const* const a, __m128i const* const b, __m128i* const c) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
 {
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -170,7 +170,7 @@ mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk
 	*c = _mm_xor_si128(*a, *b);
 }}
 
-mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_ui_broadcast(__m128i* const a, mk_lib_crypto_alg_serpent_sse2_uints_pt const b) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
+mk_lang_attribute_msvc_forceinline static mk_lang_inline mk_lang_types_void_t mk_lang_attribute_target("sse2") mk_lib_crypto_alg_serpent_sse2_ui_broadcast(__m128i* const a, mk_lib_crypto_alg_serpent_sse2_uints_pt const b) mk_lang_noexcept { mk_lang_attribute_msvc_flatten
 {
 	mk_lang_assert(a);
 	mk_lang_assert(b);

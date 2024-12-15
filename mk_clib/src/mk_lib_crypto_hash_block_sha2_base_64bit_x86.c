@@ -4,9 +4,10 @@
 #include "mk_lang_alignof.h"
 #include "mk_lang_arch.h"
 #include "mk_lang_assert.h"
+#include "mk_lang_attribute.h"
+#include "mk_lang_compiler.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_cpuid.h"
-#include "mk_lang_gnuc.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_limits.h"
 #include "mk_lang_msvc.h"
@@ -18,7 +19,7 @@
 #include "mk_sl_uint8.h"
 
 
-#if (mk_lang_msvc_ver >= mk_lang_msvc_ver_2022_17_10 || mk_lang_gnuc_is_at_least(14, 0)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
+#if (mk_lang_msvc_ver >= mk_lang_msvc_ver_2022_17_10 || mk_lang_compiler_is_at_least_gcc(14, 0)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
 
 
 #include <emmintrin.h> /* SSE2 _mm_set_epi64x */
@@ -103,7 +104,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sha2_base_64bit_x86_
 	mk_sl_cui_uint128_set_zero(&sha2_base_64bit_x86->m_len);
 }
 
-mk_lang_jumbo mk_lang_types_void_t mk_lang_gnuc_attribute_target("sse2,avx,avx2,sha512") mk_lib_crypto_hash_block_sha2_base_64bit_x86_append_blocks(mk_lib_crypto_hash_block_sha2_base_64bit_x86_pt const sha2_base_64bit_x86, mk_lib_crypto_hash_block_sha2_base_64bit_x86_block_pct const pblocks, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
+mk_lang_jumbo mk_lang_types_void_t mk_lang_attribute_target("sse2,avx,avx2,sha512") mk_lib_crypto_hash_block_sha2_base_64bit_x86_append_blocks(mk_lib_crypto_hash_block_sha2_base_64bit_x86_pt const sha2_base_64bit_x86, mk_lib_crypto_hash_block_sha2_base_64bit_x86_block_pct const pblocks, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
 	#define mk_lib_crypto_hash_block_sha2_base_64bit_x86_permute_epi64_c(a, b, c, d) ((((a) & 0x3) << (3 * 2)) | (((b) & 0x3) << (2 * 2)) | (((c) & 0x3) << (1 * 2)) | (((d) & 0x3) << (0 * 2)))
 	#define mk_lib_crypto_hash_block_sha2_base_64bit_x86_blend_epi32_c(a, b, c, d, e, f, g, h) ((((a) & 0x1) << 7) | (((b) & 0x1) << 6) | (((c) & 0x1) << 5) | (((d) & 0x1) << 4) | (((e) & 0x1) << 3) | (((f) & 0x1) << 2) | (((g) & 0x1) << 1) | (((h) & 0x1) << 0))

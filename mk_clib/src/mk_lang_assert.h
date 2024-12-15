@@ -36,7 +36,7 @@
 #elif mk_lang_assert_mode == mk_lang_assert_mode_assume
 
 #include "mk_lang_builtin.h"
-#include "mk_lang_gnuc.h"
+#include "mk_lang_compiler.h"
 #include "mk_lang_version.h"
 #if mk_lang_version_at_least_cpp_23
 #define mk_lang_assert(x) [[assume(x)]]
@@ -52,7 +52,7 @@
 #define mk_lang_assert(x) __builtin_assume(x)
 #elif mk_lang_builtin_has_unreachable
 #define mk_lang_assert(x) ((void)((x) ? ((void)(0)) : ((void)(__builtin_unreachable()))))
-#elif mk_lang_gnuc_is_at_least(4, 5)
+#elif mk_lang_compiler_is_at_least_gcc(4, 5)
 #define mk_lang_assert(x) ((void)((x) ? ((void)(0)) : ((void)(__builtin_unreachable()))))
 #else
 #define mk_lang_assert(x) ((void)(0))

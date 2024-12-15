@@ -4,9 +4,9 @@
 #include "mk_lang_arch.h"
 #include "mk_lang_assert.h"
 #include "mk_lang_charbit.h"
+#include "mk_lang_compiler.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_cpuid.h"
-#include "mk_lang_gnuc.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_llong.h"
@@ -48,19 +48,19 @@
 
 #endif
 
-#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_gnuc_is_at_least(4, 8)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_alignas_has && mk_lang_alignof_has)
+#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_compiler_is_at_least_gcc(4, 8)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_alignas_has && mk_lang_alignof_has)
 
 #include "mk_lib_crypto_alg_serpent_inl_sse2.h"
 
 #endif
 
-#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_gnuc_is_at_least(4, 8)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_alignas_has && mk_lang_alignof_has)
+#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_compiler_is_at_least_gcc(4, 8)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_alignas_has && mk_lang_alignof_has)
 
 #include "mk_lib_crypto_alg_serpent_inl_avx2.h"
 
 #endif
 
-#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_gnuc_is_at_least(5, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_alignas_has && mk_lang_alignof_has)
+#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_compiler_is_at_least_gcc(5, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_alignas_has && mk_lang_alignof_has)
 
 #include "mk_lib_crypto_alg_serpent_inl_avx512.h"
 
@@ -175,7 +175,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_s
 	rem = nblocks;
 	while(rem != 0)
 	{
-		#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_gnuc_is_at_least(5, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_alignas_has && mk_lang_alignof_has)
+		#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_compiler_is_at_least_gcc(5, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_alignas_has && mk_lang_alignof_has)
 		if(!mk_lang_constexpr_is_constant_evaluated_test && rem >= 16 && (((mk_lang_types_uintptr_t)(in)) & 0x3f) == 0 && (((mk_lang_types_uintptr_t)(out)) & 0x3f) == 0 && mk_lang_cpuid_has_sse2() && mk_lang_cpuid_has_avx512_f())
 		{
 			n = (rem / 16) * 16;
@@ -186,7 +186,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_s
 		}
 		else
 		#endif
-		#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_gnuc_is_at_least(4, 8)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_alignas_has && mk_lang_alignof_has)
+		#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_compiler_is_at_least_gcc(4, 8)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_alignas_has && mk_lang_alignof_has)
 		if(!mk_lang_constexpr_is_constant_evaluated_test && rem >= 8 && (((mk_lang_types_uintptr_t)(in)) & 0x1f) == 0 && (((mk_lang_types_uintptr_t)(out)) & 0x1f) == 0 && mk_lang_cpuid_has_avx() && mk_lang_cpuid_has_avx2())
 		{
 			n = (rem / 8) * 8;
@@ -197,7 +197,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_s
 		}
 		else
 		#endif
-		#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_gnuc_is_at_least(4, 8)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_alignas_has && mk_lang_alignof_has)
+		#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_compiler_is_at_least_gcc(4, 8)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_alignas_has && mk_lang_alignof_has)
 		if(!mk_lang_constexpr_is_constant_evaluated_test && rem >= 4 && (((mk_lang_types_uintptr_t)(in)) & 0xf) == 0 && (((mk_lang_types_uintptr_t)(out)) & 0xf) == 0 && mk_lang_cpuid_has_sse2())
 		{
 			n = (rem / 4) * 4;
@@ -247,7 +247,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_s
 	rem = nblocks;
 	while(rem != 0)
 	{
-		#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_gnuc_is_at_least(5, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_alignas_has && mk_lang_alignof_has)
+		#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_compiler_is_at_least_gcc(5, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_alignas_has && mk_lang_alignof_has)
 		if(!mk_lang_constexpr_is_constant_evaluated_test && rem >= 16 && (((mk_lang_types_uintptr_t)(in)) & 0x3f) == 0 && (((mk_lang_types_uintptr_t)(out)) & 0x3f) == 0 && mk_lang_cpuid_has_sse2() && mk_lang_cpuid_has_avx512_f())
 		{
 			n = (rem / 16) * 16;
@@ -258,7 +258,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_s
 		}
 		else
 		#endif
-		#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_gnuc_is_at_least(4, 8)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_alignas_has && mk_lang_alignof_has)
+		#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_compiler_is_at_least_gcc(4, 8)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_alignas_has && mk_lang_alignof_has)
 		if(!mk_lang_constexpr_is_constant_evaluated_test && rem >= 8 && (((mk_lang_types_uintptr_t)(in)) & 0x1f) == 0 && (((mk_lang_types_uintptr_t)(out)) & 0x1f) == 0 && mk_lang_cpuid_has_avx() && mk_lang_cpuid_has_avx2())
 		{
 			n = (rem / 8) * 8;
@@ -269,7 +269,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_s
 		}
 		else
 		#endif
-		#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_gnuc_is_at_least(4, 8)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_alignas_has && mk_lang_alignof_has)
+		#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_compiler_is_at_least_gcc(4, 8)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && (mk_lang_alignas_has && mk_lang_alignof_has)
 		if(!mk_lang_constexpr_is_constant_evaluated_test && rem >= 4 && (((mk_lang_types_uintptr_t)(in)) & 0xf) == 0 && (((mk_lang_types_uintptr_t)(out)) & 0xf) == 0 && mk_lang_cpuid_has_sse2())
 		{
 			n = (rem / 4) * 4;

@@ -3,9 +3,9 @@
 #include "mk_lang_alignof.h"
 #include "mk_lang_arch.h"
 #include "mk_lang_assert.h"
+#include "mk_lang_compiler.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_cpuid.h"
-#include "mk_lang_gnuc.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_llong.h"
 #include "mk_lang_msvc.h"
@@ -18,7 +18,7 @@
 
 #define mk_lib_crypto_hash_block_sha2_base_64bit_conditions_compile_time \
 ( \
-	(mk_lang_msvc_ver >= mk_lang_msvc_ver_2022_17_10 || mk_lang_gnuc_is_at_least(14, 0)) && \
+	(mk_lang_msvc_ver >= mk_lang_msvc_ver_2022_17_10 || mk_lang_compiler_is_at_least_gcc(14, 0)) && \
 	(mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && \
 	1 \
 )

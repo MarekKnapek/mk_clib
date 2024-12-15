@@ -2,6 +2,7 @@
 #define mk_include_guard_mk_lang_attribute
 
 
+#include "mk_lang_compiler.h"
 #include "mk_lang_msvc.h"
 #include "mk_lang_version.h"
 
@@ -12,6 +13,12 @@
 #else
 #define mk_lang_attribute_msvc_flatten
 #define mk_lang_attribute_msvc_forceinline
+#endif
+
+#if mk_lang_compiler_is_at_least_clang(1, 0) || mk_lang_compiler_is_at_least_gcc(1, 0)
+#define mk_lang_attribute_target(x) __attribute__((__target__(x)))
+#else
+#define mk_lang_attribute_target(x)
 #endif
 
 
