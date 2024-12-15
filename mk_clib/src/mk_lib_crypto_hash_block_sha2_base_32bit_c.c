@@ -1,6 +1,7 @@
 #include "mk_lib_crypto_hash_block_sha2_base_32bit_c.h"
 
 #include "mk_lang_alignas.h"
+#include "mk_lang_alignof.h"
 #include "mk_lang_assert.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_inline.h"
@@ -8,6 +9,7 @@
 #include "mk_lang_limits.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_static_assert.h"
+#include "mk_lang_stringify.h"
 #include "mk_lang_types.h"
 #include "mk_sl_uint.h"
 #include "mk_sl_uint32.h"
@@ -15,20 +17,34 @@
 #include "mk_sl_uint8.h"
 
 
-struct mk_lib_crypto_hash_block_sha2_c_base_table_data_s
+union mk_lib_crypto_hash_block_sha2_base_32bit_c_block2_data_u
 {
-	mk_sl_cui_uint32_t m_uint32s[16 * 4];
+	mk_lang_alignas(64) mk_sl_cui_uint32_t m_uint32s[16];
+	mk_lang_types_ulllong_t m_align;
 };
-typedef struct mk_lib_crypto_hash_block_sha2_c_base_table_data_s mk_lib_crypto_hash_block_sha2_c_base_table_data_t;
+typedef union mk_lib_crypto_hash_block_sha2_base_32bit_c_block2_data_u mk_lib_crypto_hash_block_sha2_base_32bit_c_block2_data_t;
 
-struct mk_lib_crypto_hash_block_sha2_c_base_table_s
+struct mk_lib_crypto_hash_block_sha2_base_32bit_c_block2_s
 {
-	mk_lang_alignas(64) mk_lib_crypto_hash_block_sha2_c_base_table_data_t m_data;
+	mk_lib_crypto_hash_block_sha2_base_32bit_c_block2_data_t m_data;
 };
-typedef struct mk_lib_crypto_hash_block_sha2_c_base_table_s mk_lib_crypto_hash_block_sha2_c_base_table_t;
+typedef struct mk_lib_crypto_hash_block_sha2_base_32bit_c_block2_s mk_lib_crypto_hash_block_sha2_base_32bit_c_block2_t;
+
+union mk_lib_crypto_hash_block_sha2_base_32bit_c_table_data_u
+{
+	mk_sl_cui_uint32_t m_uint32s[64];
+	mk_lang_types_ulllong_t m_align;
+};
+typedef union mk_lib_crypto_hash_block_sha2_base_32bit_c_table_data_u mk_lib_crypto_hash_block_sha2_base_32bit_c_table_data_t;
+
+struct mk_lib_crypto_hash_block_sha2_base_32bit_c_table_s
+{
+	mk_lang_alignas(64) mk_lib_crypto_hash_block_sha2_base_32bit_c_table_data_t m_data;
+};
+typedef struct mk_lib_crypto_hash_block_sha2_base_32bit_c_table_s mk_lib_crypto_hash_block_sha2_base_32bit_c_table_t;
 
 
-mk_lang_constexpr_static_inline mk_lib_crypto_hash_block_sha2_c_base_table_t const s_mk_lib_crypto_hash_block_sha2_base_32bit_c_table =
+mk_lang_constexpr_static_inline mk_lib_crypto_hash_block_sha2_base_32bit_c_table_t const s_mk_lib_crypto_hash_block_sha2_base_32bit_c_table =
 {{{
 	mk_sl_cui_uint32_c(0x428a2f98ul), mk_sl_cui_uint32_c(0x71374491ul), mk_sl_cui_uint32_c(0xb5c0fbcful), mk_sl_cui_uint32_c(0xe9b5dba5ul),
 	mk_sl_cui_uint32_c(0x3956c25bul), mk_sl_cui_uint32_c(0x59f111f1ul), mk_sl_cui_uint32_c(0x923f82a4ul), mk_sl_cui_uint32_c(0xab1c5ed5ul),
@@ -49,7 +65,7 @@ mk_lang_constexpr_static_inline mk_lib_crypto_hash_block_sha2_c_base_table_t con
 }}};
 
 
-mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_sha2_base_32bit_c_ch(mk_sl_cui_uint32_pct const x, mk_sl_cui_uint32_pct const y, mk_sl_cui_uint32_pct const z, mk_sl_cui_uint32_pt const ret) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_hash_block_sha2_base_32bit_c_ch(mk_sl_cui_uint32_prct const x, mk_sl_cui_uint32_prct const y, mk_sl_cui_uint32_prct const z, mk_sl_cui_uint32_prt const ret) mk_lang_noexcept
 {
 	mk_sl_cui_uint32_t ta mk_lang_constexpr_init;
 	mk_sl_cui_uint32_t tb mk_lang_constexpr_init;
@@ -73,7 +89,7 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_sha2_base_
 	mk_sl_cui_uint32_or3(&ta, &tb, ret);
 }
 
-mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_sha2_base_32bit_c_maj(mk_sl_cui_uint32_pct const x, mk_sl_cui_uint32_pct const y, mk_sl_cui_uint32_pct const z, mk_sl_cui_uint32_pt const ret) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_hash_block_sha2_base_32bit_c_maj(mk_sl_cui_uint32_prct const x, mk_sl_cui_uint32_prct const y, mk_sl_cui_uint32_prct const z, mk_sl_cui_uint32_prt const ret) mk_lang_noexcept
 {
 	mk_sl_cui_uint32_t ta mk_lang_constexpr_init;
 	mk_sl_cui_uint32_t tb mk_lang_constexpr_init;
@@ -99,7 +115,7 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_sha2_base_
 	mk_sl_cui_uint32_xor3(&ta, &tc, ret);
 }
 
-mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_sha2_base_32bit_c_sum0(mk_sl_cui_uint32_pct const x, mk_sl_cui_uint32_pt const ret) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_hash_block_sha2_base_32bit_c_sum0(mk_sl_cui_uint32_prct const x, mk_sl_cui_uint32_prt const ret) mk_lang_noexcept
 {
 	mk_sl_cui_uint32_t ta mk_lang_constexpr_init;
 	mk_sl_cui_uint32_t tb mk_lang_constexpr_init;
@@ -117,7 +133,7 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_sha2_base_
 	mk_sl_cui_uint32_xor3(&ta, &tb, ret);
 }
 
-mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_sha2_base_32bit_c_sum1(mk_sl_cui_uint32_pct const x, mk_sl_cui_uint32_pt const ret) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_hash_block_sha2_base_32bit_c_sum1(mk_sl_cui_uint32_prct const x, mk_sl_cui_uint32_prt const ret) mk_lang_noexcept
 {
 	mk_sl_cui_uint32_t ta mk_lang_constexpr_init;
 	mk_sl_cui_uint32_t tb mk_lang_constexpr_init;
@@ -135,7 +151,7 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_sha2_base_
 	mk_sl_cui_uint32_xor3(&ta, &tb, ret);
 }
 
-mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_sha2_base_32bit_c_sig0(mk_sl_cui_uint32_pct const x, mk_sl_cui_uint32_pt const ret) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_hash_block_sha2_base_32bit_c_sig0(mk_sl_cui_uint32_prct const x, mk_sl_cui_uint32_prt const ret) mk_lang_noexcept
 {
 	mk_sl_cui_uint32_t ta mk_lang_constexpr_init;
 	mk_sl_cui_uint32_t tb mk_lang_constexpr_init;
@@ -153,7 +169,7 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_sha2_base_
 	mk_sl_cui_uint32_xor3(&ta, &tb, ret);
 }
 
-mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_sha2_base_32bit_c_sig1(mk_sl_cui_uint32_pct const x, mk_sl_cui_uint32_pt const ret) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_hash_block_sha2_base_32bit_c_sig1(mk_sl_cui_uint32_prct const x, mk_sl_cui_uint32_prt const ret) mk_lang_noexcept
 {
 	mk_sl_cui_uint32_t ta mk_lang_constexpr_init;
 	mk_sl_cui_uint32_t tb mk_lang_constexpr_init;
@@ -172,7 +188,7 @@ mk_lang_constexpr static mk_lang_inline void mk_lib_crypto_hash_block_sha2_base_
 }
 
 
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha2_base_32bit_c_init(mk_lib_crypto_hash_block_sha2_base_32bit_c_pt const sha2_32bit, mk_sl_cui_uint32_pct const iv) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sha2_base_32bit_c_init(mk_lib_crypto_hash_block_sha2_base_32bit_c_pt const sha2_base_32bit_c, mk_sl_cui_uint32_pct const iv) mk_lang_noexcept
 {
 	mk_lang_static_assert(sizeof(mk_sl_cui_uint8_t) == 1);
 	mk_lang_static_assert(sizeof(mk_sl_cui_uint32_t) == 4);
@@ -180,20 +196,20 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha2_base_32bit_c_
 	mk_lang_static_assert(sizeof(mk_lib_crypto_hash_block_sha2_base_32bit_c_block_t) == 64);
 	mk_lang_static_assert(sizeof(mk_lib_crypto_hash_block_sha2_base_32bit_c_digest_t) == 32);
 
-	mk_lang_assert(sha2_32bit);
+	mk_lang_assert(sha2_base_32bit_c);
 
-	sha2_32bit->m_state[0] = iv[0];
-	sha2_32bit->m_state[1] = iv[1];
-	sha2_32bit->m_state[2] = iv[2];
-	sha2_32bit->m_state[3] = iv[3];
-	sha2_32bit->m_state[4] = iv[4];
-	sha2_32bit->m_state[5] = iv[5];
-	sha2_32bit->m_state[6] = iv[6];
-	sha2_32bit->m_state[7] = iv[7];
-	mk_sl_cui_uint64_set_zero(&sha2_32bit->m_len);
+	sha2_base_32bit_c->m_state[0] = iv[0];
+	sha2_base_32bit_c->m_state[1] = iv[1];
+	sha2_base_32bit_c->m_state[2] = iv[2];
+	sha2_base_32bit_c->m_state[3] = iv[3];
+	sha2_base_32bit_c->m_state[4] = iv[4];
+	sha2_base_32bit_c->m_state[5] = iv[5];
+	sha2_base_32bit_c->m_state[6] = iv[6];
+	sha2_base_32bit_c->m_state[7] = iv[7];
+	mk_sl_cui_uint64_set_zero(&sha2_base_32bit_c->m_len);
 }
 
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha2_base_32bit_c_append_blocks(mk_lib_crypto_hash_block_sha2_base_32bit_c_pt const sha2_32bit, mk_lib_crypto_hash_block_sha2_base_32bit_c_block_pct const pblocks, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sha2_base_32bit_c_append_blocks(mk_lib_crypto_hash_block_sha2_base_32bit_c_pt const sha2_base_32bit_c, mk_lib_crypto_hash_block_sha2_base_32bit_c_block_pct const pblocks, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
 	mk_sl_cui_uint64_t tt mk_lang_constexpr_init;
 	mk_sl_cui_uint32_t oldh[8] mk_lang_constexpr_init;
@@ -207,29 +223,32 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha2_base_32bit_c_
 	mk_sl_cui_uint32_pt g mk_lang_constexpr_init;
 	mk_sl_cui_uint32_pt h mk_lang_constexpr_init;
 	mk_lang_types_usize_t iblock mk_lang_constexpr_init;
-	int i mk_lang_constexpr_init;
-	mk_sl_cui_uint32_t w[64] mk_lang_constexpr_init;
+	mk_lang_types_sint_t i mk_lang_constexpr_init;
+	mk_lib_crypto_hash_block_sha2_base_32bit_c_block2_t w mk_lang_constexpr_init;
 	mk_sl_cui_uint32_t ta mk_lang_constexpr_init;
 	mk_sl_cui_uint32_t tb mk_lang_constexpr_init;
 	mk_sl_cui_uint32_t t1 mk_lang_constexpr_init;
 	mk_sl_cui_uint32_t t2 mk_lang_constexpr_init;
 
-	mk_lang_assert(sha2_32bit);
+	mk_lang_static_assert(sizeof(mk_lib_crypto_hash_block_sha2_base_32bit_c_block2_t) == sizeof(mk_lib_crypto_hash_block_sha2_base_32bit_c_block_t));
+	mk_lang_static_assert(mk_lang_alignof(mk_lib_crypto_hash_block_sha2_base_32bit_c_block2_t) == mk_lang_alignof(mk_lib_crypto_hash_block_sha2_base_32bit_c_block_t));
+
+	mk_lang_assert(sha2_base_32bit_c);
 	mk_lang_assert(pblocks || nblocks == 0);
 	mk_lang_assert(nblocks >= 0);
 	mk_lang_assert(nblocks <= mk_lang_limits_usize_max / mk_lib_crypto_hash_block_sha2_base_32bit_c_block_len);
 
 	mk_sl_cui_uint64_from_bi_usize(&tt, &nblocks);
-	mk_lang_assert(!mk_sl_cui_uint64_would_overflow_add_cc(&sha2_32bit->m_len, &tt));
-	mk_sl_cui_uint64_add2_wrap_cid_cod(&sha2_32bit->m_len, &tt);
-	oldh[0] = sha2_32bit->m_state[0];
-	oldh[1] = sha2_32bit->m_state[1];
-	oldh[2] = sha2_32bit->m_state[2];
-	oldh[3] = sha2_32bit->m_state[3];
-	oldh[4] = sha2_32bit->m_state[4];
-	oldh[5] = sha2_32bit->m_state[5];
-	oldh[6] = sha2_32bit->m_state[6];
-	oldh[7] = sha2_32bit->m_state[7];
+	mk_lang_assert(!mk_sl_cui_uint64_would_overflow_add_cc(&sha2_base_32bit_c->m_len, &tt));
+	mk_sl_cui_uint64_add2_wrap_cid_cod(&sha2_base_32bit_c->m_len, &tt);
+	oldh[0] = sha2_base_32bit_c->m_state[0];
+	oldh[1] = sha2_base_32bit_c->m_state[1];
+	oldh[2] = sha2_base_32bit_c->m_state[2];
+	oldh[3] = sha2_base_32bit_c->m_state[3];
+	oldh[4] = sha2_base_32bit_c->m_state[4];
+	oldh[5] = sha2_base_32bit_c->m_state[5];
+	oldh[6] = sha2_base_32bit_c->m_state[6];
+	oldh[7] = sha2_base_32bit_c->m_state[7];
 	a = &hh[0];
 	b = &hh[1];
 	c = &hh[2];
@@ -250,26 +269,26 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha2_base_32bit_c_
 		hh[7] = oldh[7];
 		for(i = 0; i != 16; ++i)
 		{
-			mk_sl_uint_32_from_8_be(&w[i], &pblocks[iblock].m_uint8s[i * 4]);
-		}
-		for(i = 16; i != 64; ++i)
-		{
-			/* w[i] = sig1(w[i - 2]) + w[i - 7] + sig0(w[i - 15]) + w[i - 16]; */
-			mk_lib_crypto_hash_block_sha2_base_32bit_c_sig1(&w[i - 2], &ta);
-			mk_lib_crypto_hash_block_sha2_base_32bit_c_sig0(&w[i - 15], &tb);
-			mk_sl_cui_uint32_add2_wrap_cid_cod(&ta, &w[i - 7]);
-			mk_sl_cui_uint32_add2_wrap_cid_cod(&tb, &w[i - 16]);
-			mk_sl_cui_uint32_add3_wrap_cid_cod(&ta, &tb, &w[i]);
+			mk_sl_uint_32_from_8_be(&w.m_data.m_uint32s[(i - 0) % 16], &pblocks[iblock].m_uint8s[i * 4]);
 		}
 		for(i = 0; i != 64; ++i)
 		{
+			if(i >= 16)
+			{
+				/* w[i] = sig1(w[i - 2]) + w[i - 7] + sig0(w[i - 15]) + w[i - 16]; */
+				mk_lib_crypto_hash_block_sha2_base_32bit_c_sig1(&w.m_data.m_uint32s[(i - 2) % 16], &ta);
+				mk_lib_crypto_hash_block_sha2_base_32bit_c_sig0(&w.m_data.m_uint32s[(i - 15) % 16], &tb);
+				mk_sl_cui_uint32_add2_wrap_cid_cod(&ta, &w.m_data.m_uint32s[(i - 7) % 16]);
+				mk_sl_cui_uint32_add2_wrap_cid_cod(&tb, &w.m_data.m_uint32s[(i - 16) % 16]);
+				mk_sl_cui_uint32_add3_wrap_cid_cod(&ta, &tb, &w.m_data.m_uint32s[(i - 0) % 16]);
+			}
 			/* a = ch(e, f, g) + sum1(e) + wk + h + maj(a, b, c) + sum0(a) */
 			/* t1 = h + sum1(e) + ch(e, f, g) + table[i] + w[i]; */
 			mk_lib_crypto_hash_block_sha2_base_32bit_c_sum1(e, &ta);
 			mk_lib_crypto_hash_block_sha2_base_32bit_c_ch(e, f, g, &tb);
 			mk_sl_cui_uint32_add2_wrap_cid_cod(&ta, h);
 			mk_sl_cui_uint32_add2_wrap_cid_cod(&tb, &s_mk_lib_crypto_hash_block_sha2_base_32bit_c_table.m_data.m_uint32s[i]);
-			mk_sl_cui_uint32_add2_wrap_cid_cod(&tb, &w[i]);
+			mk_sl_cui_uint32_add2_wrap_cid_cod(&tb, &w.m_data.m_uint32s[(i - 0) % 16]);
 			mk_sl_cui_uint32_add3_wrap_cid_cod(&ta, &tb, &t1);
 			/* t2 = sum0(a) + maj(a, b, c); */
 			mk_lib_crypto_hash_block_sha2_base_32bit_c_sum0(a, &ta);
@@ -293,42 +312,40 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha2_base_32bit_c_
 		mk_sl_cui_uint32_add2_wrap_cid_cod(&oldh[6], &hh[6]);
 		mk_sl_cui_uint32_add2_wrap_cid_cod(&oldh[7], &hh[7]);
 	}
-	sha2_32bit->m_state[0] = oldh[0];
-	sha2_32bit->m_state[1] = oldh[1];
-	sha2_32bit->m_state[2] = oldh[2];
-	sha2_32bit->m_state[3] = oldh[3];
-	sha2_32bit->m_state[4] = oldh[4];
-	sha2_32bit->m_state[5] = oldh[5];
-	sha2_32bit->m_state[6] = oldh[6];
-	sha2_32bit->m_state[7] = oldh[7];
+	sha2_base_32bit_c->m_state[0] = oldh[0];
+	sha2_base_32bit_c->m_state[1] = oldh[1];
+	sha2_base_32bit_c->m_state[2] = oldh[2];
+	sha2_base_32bit_c->m_state[3] = oldh[3];
+	sha2_base_32bit_c->m_state[4] = oldh[4];
+	sha2_base_32bit_c->m_state[5] = oldh[5];
+	sha2_base_32bit_c->m_state[6] = oldh[6];
+	sha2_base_32bit_c->m_state[7] = oldh[7];
 }
 
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha2_base_32bit_c_finish(mk_lib_crypto_hash_block_sha2_base_32bit_c_pt const sha2_32bit, mk_lib_crypto_hash_block_sha2_base_32bit_c_block_pt const block, int const idx, mk_lib_crypto_hash_block_sha2_base_32bit_c_digest_pt const digest) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sha2_base_32bit_c_finish(mk_lib_crypto_hash_block_sha2_base_32bit_c_pt const sha2_base_32bit_c, mk_lib_crypto_hash_block_sha2_base_32bit_c_block_pt const block, int const idx, mk_lib_crypto_hash_block_sha2_base_32bit_c_digest_pt const digest) mk_lang_noexcept
 {
-	unsigned ui mk_lang_constexpr_init;
+	mk_lang_types_uint_t tui mk_lang_constexpr_init;
 	mk_sl_cui_uint64_t ta mk_lang_constexpr_init;
 	mk_sl_cui_uint64_t tb mk_lang_constexpr_init;
-	int rest mk_lang_constexpr_init;
-	int i mk_lang_constexpr_init;
+	mk_lang_types_sint_t rest mk_lang_constexpr_init;
+	mk_lang_types_sint_t i mk_lang_constexpr_init;
 
-	mk_lang_assert(sha2_32bit);
+	mk_lang_assert(sha2_base_32bit_c);
 	mk_lang_assert(block);
 	mk_lang_assert(idx >= 0 && idx < mk_lib_crypto_hash_block_sha2_base_32bit_c_block_len);
 	mk_lang_assert(digest);
 
-	ui = mk_lib_crypto_hash_block_sha2_base_32bit_c_block_len;
-	mk_sl_cui_uint64_from_bi_uint(&ta, &ui);
-	mk_lang_assert(!mk_sl_cui_uint64_would_overflow_mul(&sha2_32bit->m_len, &ta));
-	mk_sl_cui_uint64_shl3(&sha2_32bit->m_len, 6, &ta);
+	tui = mk_lib_crypto_hash_block_sha2_base_32bit_c_block_len;
+	mk_sl_cui_uint64_from_bi_uint(&ta, &tui);
+	mk_lang_assert(!mk_sl_cui_uint64_would_overflow_mul(&sha2_base_32bit_c->m_len, &ta));
+	mk_sl_cui_uint64_shl3(&sha2_base_32bit_c->m_len, 6, &ta);
 	mk_sl_cui_uint64_from_bi_sint(&tb, &idx);
 	mk_lang_assert(!mk_sl_cui_uint64_would_overflow_add_cc(&ta, &tb));
 	mk_sl_cui_uint64_add2_wrap_cid_cod(&ta, &tb);
-	ui = 8;
-	mk_sl_cui_uint64_from_bi_uint(&tb, &ui);
+	tui = 8; mk_sl_cui_uint64_from_bi_uint(&tb, &tui);
 	mk_lang_assert(!mk_sl_cui_uint64_would_overflow_mul(&ta, &tb));
 	mk_sl_cui_uint64_shl2(&ta, 3);
-	ui = 0x80;
-	mk_sl_cui_uint8_from_bi_uint(&block->m_uint8s[idx], &ui);
+	tui = 0x80; mk_sl_cui_uint8_from_bi_uint(&block->m_uint8s[idx], &tui);
 	rest = mk_lib_crypto_hash_block_sha2_base_32bit_c_block_len - idx - 1;
 	if(rest >= 8)
 	{
@@ -343,16 +360,16 @@ mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha2_base_32bit_c_
 		{
 			mk_sl_cui_uint8_set_zero(&block->m_uint8s[idx + 1 + i]);
 		}
-		mk_lib_crypto_hash_block_sha2_base_32bit_c_append_blocks(sha2_32bit, block, 1);
+		mk_lib_crypto_hash_block_sha2_base_32bit_c_append_blocks(sha2_base_32bit_c, block, 1);
 		for(i = 0; i != mk_lib_crypto_hash_block_sha2_base_32bit_c_block_len - 8; ++i)
 		{
 			mk_sl_cui_uint8_set_zero(&block->m_uint8s[i]);
 		}
 	}
 	mk_sl_uint_64_to_8_be(&ta, &block->m_uint8s[mk_lib_crypto_hash_block_sha2_base_32bit_c_block_len - 8]);
-	mk_lib_crypto_hash_block_sha2_base_32bit_c_append_blocks(sha2_32bit, block, 1);
+	mk_lib_crypto_hash_block_sha2_base_32bit_c_append_blocks(sha2_base_32bit_c, block, 1);
 	for(i = 0; i != 8; ++i)
 	{
-		mk_sl_uint_32_to_8_be(&sha2_32bit->m_state[i], &digest->m_uint8s[i * 4]);
+		mk_sl_uint_32_to_8_be(&sha2_base_32bit_c->m_state[i], &digest->m_uint8s[i * 4]);
 	}
 }

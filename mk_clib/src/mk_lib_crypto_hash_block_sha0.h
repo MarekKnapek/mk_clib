@@ -2,7 +2,7 @@
 #define mk_include_guard_mk_lib_crypto_hash_block_sha0
 
 
-/* nist fips pub 180 */
+/* NIST FIPS PUB 180 */
 
 
 #include "mk_lang_alignas.h"
@@ -65,9 +65,9 @@ typedef mk_lib_crypto_hash_block_sha0_digest_t const mk_lib_crypto_hash_block_sh
 typedef mk_lib_crypto_hash_block_sha0_digest_t* mk_lib_crypto_hash_block_sha0_digest_pt;
 typedef mk_lib_crypto_hash_block_sha0_digest_t const* mk_lib_crypto_hash_block_sha0_digest_pct;
 
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha0_init(mk_lib_crypto_hash_block_sha0_pt const sha0) mk_lang_noexcept;
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha0_append_blocks(mk_lib_crypto_hash_block_sha0_pt const sha0, mk_lib_crypto_hash_block_sha0_block_pct const pblocks, mk_lang_types_usize_t const nblocks) mk_lang_noexcept;
-mk_lang_constexpr mk_lang_jumbo void mk_lib_crypto_hash_block_sha0_finish(mk_lib_crypto_hash_block_sha0_pt const sha0, mk_lib_crypto_hash_block_sha0_block_pt const block, int const idx, mk_lib_crypto_hash_block_sha0_digest_pt const digest) mk_lang_noexcept;
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sha0_init(mk_lib_crypto_hash_block_sha0_pt const sha0) mk_lang_noexcept;
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sha0_append_blocks(mk_lib_crypto_hash_block_sha0_pt const sha0, mk_lib_crypto_hash_block_sha0_block_pct const pblocks, mk_lang_types_usize_t const nblocks) mk_lang_noexcept;
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sha0_finish(mk_lib_crypto_hash_block_sha0_pt const sha0, mk_lib_crypto_hash_block_sha0_block_pt const block, mk_lang_types_sint_t const idx, mk_lib_crypto_hash_block_sha0_digest_pt const digest) mk_lang_noexcept;
 
 
 #if mk_lang_jumbo_want == 1

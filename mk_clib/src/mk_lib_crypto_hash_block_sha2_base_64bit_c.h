@@ -34,7 +34,7 @@ typedef union mk_lib_crypto_hash_block_sha2_base_64bit_c_digest_data_u mk_lib_cr
 
 struct mk_lib_crypto_hash_block_sha2_base_64bit_c_s
 {
-	mk_sl_cui_uint64_t m_hs[8];
+	mk_sl_cui_uint64_t m_state[8];
 	mk_sl_cui_uint128_t m_len;
 };
 typedef struct mk_lib_crypto_hash_block_sha2_base_64bit_c_s mk_lib_crypto_hash_block_sha2_base_64bit_c_t;
