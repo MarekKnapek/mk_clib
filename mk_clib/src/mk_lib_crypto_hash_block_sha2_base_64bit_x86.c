@@ -9,6 +9,7 @@
 #include "mk_lang_gnuc.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_limits.h"
+#include "mk_lang_msvc.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_static_assert.h"
 #include "mk_lang_types.h"
@@ -17,13 +18,29 @@
 #include "mk_sl_uint8.h"
 
 
-#if mk_lang_gnuc_is_at_least(14, 0) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
+#if (mk_lang_msvc_ver >= mk_lang_msvc_ver_2022_17_10 || mk_lang_gnuc_is_at_least(14, 0)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
 
 
 #include <emmintrin.h> /* SSE2 _mm_set_epi64x */
 #include <immintrin.h> /* AVX _mm256_castsi128_si256 _mm256_castsi256_si128 _mm256_load_si256 _mm256_store_si256 */
 #include <immintrin.h> /* AVX2 _mm256_add_epi64 _mm256_blend_epi32 _mm256_permute4x64_epi64 _mm256_shuffle_epi8 */
 #include <immintrin.h> /* SHA512 _mm256_sha512msg1_epi64 _mm256_sha512msg2_epi64 _mm256_sha512rnds2_epi64 */
+
+
+#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2022_17_10
+#pragma intrinsic(_mm256_add_epi64)
+#pragma intrinsic(_mm256_blend_epi32)
+#pragma intrinsic(_mm256_castsi128_si256)
+#pragma intrinsic(_mm256_castsi256_si128)
+#pragma intrinsic(_mm256_load_si256)
+#pragma intrinsic(_mm256_permute4x64_epi64)
+#pragma intrinsic(_mm256_sha512msg1_epi64)
+#pragma intrinsic(_mm256_sha512msg2_epi64)
+#pragma intrinsic(_mm256_sha512rnds2_epi64)
+#pragma intrinsic(_mm256_shuffle_epi8)
+#pragma intrinsic(_mm256_store_si256)
+#pragma intrinsic(_mm_set_epi64x)
+#endif
 
 
 union mk_lib_crypto_hash_block_sha2_base_64bit_x86_table_data_u
