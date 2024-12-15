@@ -198,6 +198,7 @@ enum mk_win_kernel_errors_id_e
 	mk_win_kernel_errors_id_e_vc_disconnected                                                          =   240ul, /*   0xf0 */
 	mk_win_kernel_errors_id_e_invalid_ea_name                                                          =   254ul, /*   0xfe */
 	mk_win_kernel_errors_id_e_ea_list_inconsistent                                                     =   255ul, /*   0xff */
+	mk_win_kernel_errors_id_e_wait_timeout                                                             =   258ul, /*  0x102 */
 	mk_win_kernel_errors_id_e_no_more_items                                                            =   259ul, /*  0x103 */
 	mk_win_kernel_errors_id_e_cannot_copy                                                              =   266ul, /*  0x10a */
 	mk_win_kernel_errors_id_e_directory                                                                =   267ul, /*  0x10b */
