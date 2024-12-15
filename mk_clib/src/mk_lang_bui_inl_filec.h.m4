@@ -5,6 +5,7 @@ include(`mk_lang_bui_inl.m')dnl
 #include "mk_lang_compiler.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_cpuid.h"
+#include "mk_lang_encoding.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_llong.h"
@@ -15,6 +16,7 @@ include(`mk_lang_bui_inl.m')dnl
 #include "mk_lang_restrict.h"
 #include "mk_lang_sizeof.h"
 #include "mk_lang_static_assert.h"
+#include "mk_lang_string.h"
 #include "mk_lang_types.h"
 
 
@@ -1465,10 +1467,1586 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo
 	mk_lang_bui_inl_defd_divmod4_wrap(a, b, a, b);
 }}
 
+#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lang_bui_inl_defd_symbols_bin_a[] = {'0', '1'};
+#endif
+
+mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_lang_bui_inl_defd_to_str_bin_n(mk_lang_bui_inl_defd_pct const x, mk_lang_types_pchar_pt const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
+{
+	mk_lang_bui_inl_defd_t xx mk_lang_constexpr_init;
+	mk_lang_types_pchar_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_bool_t lsb mk_lang_constexpr_init;
+	mk_lang_types_bool_t zero mk_lang_constexpr_init;
+	mk_lang_types_sint_t ret mk_lang_constexpr_init;
+
+	mk_lang_assert(x);
+	mk_lang_assert(str || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	xx = *x;
+	ptr = &str[str_len - 1]; ++ptr;
+	rem = str_len;
+	for(;;)
+	{
+		if(rem == 0)
+		{
+			return 0; /* todo return negative? */
+		}
+		--rem;
+		lsb = mk_lang_bui_inl_defd_has_lsb(&xx);
+		#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+		--ptr; ptr[0] = mk_lang_bui_inl_defd_symbols_bin_a[lsb ? 1 : 0];
+		#elif (mk_lang_bui_inl_defd_str_style == 1002) || (mk_lang_bui_inl_defd_str_style == 1003 && (mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic))
+		--ptr; ptr[0] = ((mk_lang_types_pchar_t)('0' + (lsb ? 1 : 0)));
+		#endif
+		mk_lang_bui_inl_defd_shr2(&xx, 1);
+		zero = mk_lang_bui_inl_defd_is_zero(&xx);
+		if(zero)
+		{
+			break;
+		}
+	}
+	ret = str_len - rem;
+	if(ret != str_len)
+	{
+		mk_lang_string_memmove_pc_fn(&str[0], &str[str_len - ret], ((mk_lang_types_usize_t)(ret)));
+	}
+	return ret;
+}}
+
+#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+mk_lang_constexpr_static_inline mk_lang_types_wchar_t const mk_lang_bui_inl_defd_symbols_bin_b[] = {L'0', L'1'};
+#endif
+
+mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_lang_bui_inl_defd_to_str_bin_w(mk_lang_bui_inl_defd_pct const x, mk_lang_types_wchar_pt const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
+{
+	mk_lang_bui_inl_defd_t xx mk_lang_constexpr_init;
+	mk_lang_types_wchar_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_bool_t lsb mk_lang_constexpr_init;
+	mk_lang_types_bool_t zero mk_lang_constexpr_init;
+	mk_lang_types_sint_t ret mk_lang_constexpr_init;
+
+	mk_lang_assert(x);
+	mk_lang_assert(str || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	xx = *x;
+	ptr = &str[str_len - 1]; ++ptr;
+	rem = str_len;
+	for(;;)
+	{
+		if(rem == 0)
+		{
+			return 0; /* todo return negative? */
+		}
+		--rem;
+		lsb = mk_lang_bui_inl_defd_has_lsb(&xx);
+		#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+		--ptr; ptr[0] = mk_lang_bui_inl_defd_symbols_bin_a[lsb ? 1 : 0];
+		#elif (mk_lang_bui_inl_defd_str_style == 1002) || (mk_lang_bui_inl_defd_str_style == 1003 && (mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic))
+		--ptr; ptr[0] = ((mk_lang_types_pchar_t)(L'0' + (lsb ? 1 : 0)));
+		#endif
+		mk_lang_bui_inl_defd_shr2(&xx, 1);
+		zero = mk_lang_bui_inl_defd_is_zero(&xx);
+		if(zero)
+		{
+			break;
+		}
+	}
+	ret = str_len - rem;
+	if(ret != str_len)
+	{
+		mk_lang_string_memmove_wc_fn(&str[0], &str[str_len - ret], ((mk_lang_types_usize_t)(ret)));
+	}
+	return ret;
+}}
+
+#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lang_bui_inl_defd_symbols_bin_c[] = {'0', '1'};
+#endif
+
+mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_lang_bui_inl_defd_from_str_bin_n(mk_lang_bui_inl_defd_pt const x, mk_lang_types_pchar_pct const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
+{
+	mk_lang_types_pchar_pct it mk_lang_constexpr_init;
+	mk_lang_types_pchar_pct ite mk_lang_constexpr_init;
+	mk_lang_types_pchar_t e mk_lang_constexpr_init;
+	#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+	mk_lang_types_sint_t n mk_lang_constexpr_init;
+	#endif
+	mk_lang_types_sint_t i mk_lang_constexpr_init;
+	mk_lang_types_sint_t overflow mk_lang_constexpr_init;
+	mk_lang_types_sint_t shifts mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t xx mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t digit mk_lang_constexpr_init;
+
+	mk_lang_assert(x);
+	mk_lang_assert(str || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	if(str_len == 0)
+	{
+		return 0;
+	}
+	it = str;
+	ite = str + str_len;
+	e = *it;
+	#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+	n = mk_lang_countof(mk_lang_bui_inl_defd_symbols_bin_c);
+	for(i = 0; i != n; ++i)
+	{
+		if(e == mk_lang_bui_inl_defd_symbols_bin_c[i])
+		{
+			break;
+		}
+	}
+	if(i == n)
+	{
+		return 0;
+	}
+	#elif (mk_lang_bui_inl_defd_str_style == 1002) || (mk_lang_bui_inl_defd_str_style == 1003 && (mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic))
+	if(e >= '0' && e <= '1')
+	{
+		i = e - '0';
+	}
+	else
+	{
+		return 0;
+	}
+	#endif
+	overflow = 1;
+	shifts = 0;
+	mk_lang_bui_inl_defd_from_bi_sint(&xx, &i);
+	for(++it; it != ite; ++it)
+	{
+		e = *it;
+		#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+		n = mk_lang_countof(mk_lang_bui_inl_defd_symbols_bin_c);
+		for(i = 0; i != n; ++i)
+		{
+			if(e == mk_lang_bui_inl_defd_symbols_bin_c[i])
+			{
+				break;
+			}
+		}
+		if(i == n)
+		{
+			break;
+		}
+		#elif (mk_lang_bui_inl_defd_str_style == 1002) || (mk_lang_bui_inl_defd_str_style == 1003 && (mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic))
+		if(e >= '0' && e <= '1')
+		{
+			i = e - '0';
+		}
+		else
+		{
+			break;
+		}
+		#endif
+		if(!mk_lang_bui_inl_defd_is_zero(&xx))
+		{
+			++shifts;
+			if(shifts == mk_lang_bui_inl_defd_sizebits_d)
+			{
+				overflow = -1;
+				break;
+			}
+		}
+		mk_lang_bui_inl_defd_from_bi_sint(&digit, &i);
+		mk_lang_bui_inl_defd_shl2(&xx, 1);
+		mk_lang_bui_inl_defd_or2(&xx, &digit);
+	}
+	if(overflow == 1)
+	{
+		*x = xx;
+	}
+	return ((mk_lang_types_sint_t)(((mk_lang_types_sint_t)(it - str)) * overflow));
+}}
+
+#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+mk_lang_constexpr_static_inline mk_lang_types_wchar_t const mk_lang_bui_inl_defd_symbols_bin_d[] = {L'0', L'1'};
+#endif
+
+mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_lang_bui_inl_defd_from_str_bin_w(mk_lang_bui_inl_defd_pt const x, mk_lang_types_wchar_pct const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
+{
+	mk_lang_types_wchar_pct it mk_lang_constexpr_init;
+	mk_lang_types_wchar_pct ite mk_lang_constexpr_init;
+	mk_lang_types_wchar_t e mk_lang_constexpr_init;
+	#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+	mk_lang_types_sint_t n mk_lang_constexpr_init;
+	#endif
+	mk_lang_types_sint_t i mk_lang_constexpr_init;
+	mk_lang_types_sint_t overflow mk_lang_constexpr_init;
+	mk_lang_types_sint_t shifts mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t xx mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t digit mk_lang_constexpr_init;
+
+	mk_lang_assert(x);
+	mk_lang_assert(str || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	if(str_len == 0)
+	{
+		return 0;
+	}
+	it = str;
+	ite = str + str_len;
+	e = *it;
+	#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+	n = mk_lang_countof(mk_lang_bui_inl_defd_symbols_bin_d);
+	for(i = 0; i != n; ++i)
+	{
+		if(e == mk_lang_bui_inl_defd_symbols_bin_d[i])
+		{
+			break;
+		}
+	}
+	if(i == n)
+	{
+		return 0;
+	}
+	#elif (mk_lang_bui_inl_defd_str_style == 1002) || (mk_lang_bui_inl_defd_str_style == 1003 && (mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic))
+	if(e >= L'0' && e <= L'1')
+	{
+		i = e - L'0';
+	}
+	else
+	{
+		return 0;
+	}
+	#endif
+	overflow = 1;
+	shifts = 0;
+	mk_lang_bui_inl_defd_from_bi_sint(&xx, &i);
+	for(++it; it != ite; ++it)
+	{
+		e = *it;
+		#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+		n = mk_lang_countof(mk_lang_bui_inl_defd_symbols_bin_d);
+		for(i = 0; i != n; ++i)
+		{
+			if(e == mk_lang_bui_inl_defd_symbols_bin_d[i])
+			{
+				break;
+			}
+		}
+		if(i == n)
+		{
+			break;
+		}
+		#elif (mk_lang_bui_inl_defd_str_style == 1002) || (mk_lang_bui_inl_defd_str_style == 1003 && (mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic))
+		if(e >= L'0' && e <= L'1')
+		{
+			i = e - L'0';
+		}
+		else
+		{
+			break;
+		}
+		#endif
+		++shifts;
+		if(shifts == mk_lang_bui_inl_defd_sizebits_d)
+		{
+			overflow = -1;
+			break;
+		}
+		mk_lang_bui_inl_defd_from_bi_sint(&digit, &i);
+		mk_lang_bui_inl_defd_shl2(&xx, 1);
+		mk_lang_bui_inl_defd_or2(&xx, &digit);
+	}
+	if(overflow == 1)
+	{
+		*x = xx;
+	}
+	return ((mk_lang_types_sint_t)(((mk_lang_types_sint_t)(it - str)) * overflow));
+}}
+
+#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lang_bui_inl_defd_symbols_oct_a[] = {'0', '1', '2', '3', '4', '5', '6', '7'};
+#endif
+
+mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_lang_bui_inl_defd_to_str_oct_n(mk_lang_bui_inl_defd_pct const x, mk_lang_types_pchar_pt const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
+{
+	mk_lang_bui_inl_defd_t xx mk_lang_constexpr_init;
+	mk_lang_types_pchar_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_uchar_t tuc mk_lang_constexpr_init;
+	mk_lang_types_sint_t ret mk_lang_constexpr_init;
+
+	mk_lang_static_assert(mk_lang_charbit == 8);
+
+	mk_lang_assert(x);
+	mk_lang_assert(str || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	xx = *x;
+	ptr = &str[str_len - 1]; ++ptr;
+	rem = str_len;
+	for(;;)
+	{
+		mk_lang_bui_inl_defd_to_bi_uchar(&xx, &tuc);
+		tuc = tuc & 0x7;
+		if(rem == 0)
+		{
+			return 0; /* todo return negative? */
+		}
+		--rem;
+		#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+		--ptr; ptr[0] = mk_lang_bui_inl_defd_symbols_oct_a[tuc];
+		#elif (mk_lang_bui_inl_defd_str_style == 1002) || (mk_lang_bui_inl_defd_str_style == 1003 && (mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic))
+		--ptr; ptr[0] = ((mk_lang_types_pchar_t)('0' + tuc));
+		#endif
+		mk_lang_bui_inl_defd_shr2(&xx, 3);
+		if(mk_lang_bui_inl_defd_is_zero(&xx))
+		{
+			break;
+		}
+	}
+	ret = str_len - rem;
+	if(ret != str_len)
+	{
+		mk_lang_string_memmove_pc_fn(&str[0], &str[str_len - ret], ((mk_lang_types_usize_t)(ret)));
+	}
+	return ret;
+}}
+
+#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+mk_lang_constexpr_static_inline mk_lang_types_wchar_t const mk_lang_bui_inl_defd_symbols_oct_b[] = {L'0', L'1', L'2', L'3', L'4', L'5', L'6', L'7'};
+#endif
+
+mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_lang_bui_inl_defd_to_str_oct_w(mk_lang_bui_inl_defd_pct const x, mk_lang_types_wchar_pt const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
+{
+	mk_lang_bui_inl_defd_t xx mk_lang_constexpr_init;
+	mk_lang_types_wchar_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_uchar_t tuc mk_lang_constexpr_init;
+	mk_lang_types_sint_t ret mk_lang_constexpr_init;
+
+	mk_lang_static_assert(mk_lang_charbit == 8);
+
+	mk_lang_assert(x);
+	mk_lang_assert(str || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	xx = *x;
+	ptr = &str[str_len - 1]; ++ptr;
+	rem = str_len;
+	for(;;)
+	{
+		mk_lang_bui_inl_defd_to_bi_uchar(&xx, &tuc);
+		tuc = tuc & 0x7;
+		if(rem == 0)
+		{
+			return 0; /* todo return negative? */
+		}
+		--rem;
+		#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+		--ptr; ptr[0] = mk_lang_bui_inl_defd_symbols_oct_a[tuc];
+		#elif (mk_lang_bui_inl_defd_str_style == 1002) || (mk_lang_bui_inl_defd_str_style == 1003 && (mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic))
+		--ptr; ptr[0] = ((mk_lang_types_wchar_t)(L'0' + tuc));
+		#endif
+		mk_lang_bui_inl_defd_shr2(&xx, 3);
+		if(mk_lang_bui_inl_defd_is_zero(&xx))
+		{
+			break;
+		}
+	}
+	ret = str_len - rem;
+	if(ret != str_len)
+	{
+		mk_lang_string_memmove_wc_fn(&str[0], &str[str_len - ret], ((mk_lang_types_usize_t)(ret)));
+	}
+	return ret;
+}}
+
+#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lang_bui_inl_defd_symbols_oct_c[] = {'0', '1', '2', '3', '4', '5', '6', '7'};
+#endif
+
+mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_lang_bui_inl_defd_from_str_oct_n(mk_lang_bui_inl_defd_pt const x, mk_lang_types_pchar_pct const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
+{
+	mk_lang_types_pchar_pct it mk_lang_constexpr_init;
+	mk_lang_types_pchar_pct ite mk_lang_constexpr_init;
+	mk_lang_types_pchar_t e mk_lang_constexpr_init;
+	#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+	mk_lang_types_sint_t n mk_lang_constexpr_init;
+	#endif
+	mk_lang_types_sint_t i mk_lang_constexpr_init;
+	mk_lang_types_sint_t overflow mk_lang_constexpr_init;
+	mk_lang_types_sint_t shifts mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t xx mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t digit mk_lang_constexpr_init;
+
+	mk_lang_static_assert(mk_lang_charbit == 8);
+	mk_lang_static_assert(mk_lang_charbit % mk_lang_charbit == 0);
+
+	mk_lang_assert(x);
+	mk_lang_assert(str || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	if(str_len == 0)
+	{
+		return 0;
+	}
+	it = str;
+	ite = str + str_len;
+	e = *it;
+	#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+	n = mk_lang_countof(mk_lang_bui_inl_defd_symbols_oct_c);
+	for(i = 0; i != n; ++i)
+	{
+		if(e == mk_lang_bui_inl_defd_symbols_oct_c[i])
+		{
+			break;
+		}
+	}
+	if(i == n)
+	{
+		return 0;
+	}
+	#elif (mk_lang_bui_inl_defd_str_style == 1002) || (mk_lang_bui_inl_defd_str_style == 1003 && (mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic))
+	if(e >= '0' && e <= '7')
+	{
+		i = e - '0';
+	}
+	else
+	{
+		return 0;
+	}
+	#endif
+	overflow = 1;
+	shifts = 0;
+	mk_lang_bui_inl_defd_from_bi_sint(&xx, &i);
+	for(++it; it != ite; ++it)
+	{
+		e = *it;
+		#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+		n = mk_lang_countof(mk_lang_bui_inl_defd_symbols_oct_c);
+		for(i = 0; i != n; ++i)
+		{
+			if(e == mk_lang_bui_inl_defd_symbols_oct_c[i])
+			{
+				break;
+			}
+		}
+		if(i == n)
+		{
+			break;
+		}
+		#elif (mk_lang_bui_inl_defd_str_style == 1002) || (mk_lang_bui_inl_defd_str_style == 1003 && (mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic))
+		if(e >= '0' && e <= '7')
+		{
+			i = e - '0';
+		}
+		else
+		{
+			break;
+		}
+		#endif
+		if(!mk_lang_bui_inl_defd_is_zero(&xx))
+		{
+			++shifts;
+			if(shifts > mk_lang_bui_inl_defd_sizebits_d / 3 || (shifts == mk_lang_bui_inl_defd_sizebits_d / 3 && mk_lang_bui_inl_defd_count_leading_zeros(&xx) < 3))
+			{
+				overflow = -1;
+				break;
+			}
+		}
+		mk_lang_bui_inl_defd_from_bi_sint(&digit, &i);
+		mk_lang_bui_inl_defd_shl2(&xx, 3);
+		mk_lang_bui_inl_defd_or2(&xx, &digit);
+	}
+	if(overflow == 1)
+	{
+		*x = xx;
+	}
+	return ((mk_lang_types_sint_t)(((mk_lang_types_sint_t)(it - str)) * overflow));
+}}
+
+#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+mk_lang_constexpr_static_inline mk_lang_types_wchar_t const mk_lang_bui_inl_defd_symbols_oct_d[] = {L'0', L'1', L'2', L'3', L'4', L'5', L'6', L'7'};
+#endif
+
+mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_lang_bui_inl_defd_from_str_oct_w(mk_lang_bui_inl_defd_pt const x, mk_lang_types_wchar_pct const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
+{
+	mk_lang_types_wchar_pct it mk_lang_constexpr_init;
+	mk_lang_types_wchar_pct ite mk_lang_constexpr_init;
+	mk_lang_types_wchar_t e mk_lang_constexpr_init;
+	#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+	mk_lang_types_sint_t n mk_lang_constexpr_init;
+	#endif
+	mk_lang_types_sint_t i mk_lang_constexpr_init;
+	mk_lang_types_sint_t overflow mk_lang_constexpr_init;
+	mk_lang_types_sint_t shifts mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t xx mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t digit mk_lang_constexpr_init;
+
+	mk_lang_static_assert(mk_lang_charbit == 8);
+	mk_lang_static_assert(mk_lang_charbit % mk_lang_charbit == 0);
+
+	mk_lang_assert(x);
+	mk_lang_assert(str || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	if(str_len == 0)
+	{
+		return 0;
+	}
+	it = str;
+	ite = str + str_len;
+	e = *it;
+	#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+	n = mk_lang_countof(mk_lang_bui_inl_defd_symbols_oct_d);
+	for(i = 0; i != n; ++i)
+	{
+		if(e == mk_lang_bui_inl_defd_symbols_oct_d[i])
+		{
+			break;
+		}
+	}
+	if(i == n)
+	{
+		return 0;
+	}
+	#elif (mk_lang_bui_inl_defd_str_style == 1002) || (mk_lang_bui_inl_defd_str_style == 1003 && (mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic))
+	if(e >= L'0' && e <= L'7')
+	{
+		i = e - L'0';
+	}
+	else
+	{
+		return 0;
+	}
+	#endif
+	overflow = 1;
+	shifts = 0;
+	mk_lang_bui_inl_defd_from_bi_sint(&xx, &i);
+	for(++it; it != ite; ++it)
+	{
+		e = *it;
+		#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+		n = mk_lang_countof(mk_lang_bui_inl_defd_symbols_oct_d);
+		for(i = 0; i != n; ++i)
+		{
+			if(e == mk_lang_bui_inl_defd_symbols_oct_d[i])
+			{
+				break;
+			}
+		}
+		if(i == n)
+		{
+			break;
+		}
+		#elif (mk_lang_bui_inl_defd_str_style == 1002) || (mk_lang_bui_inl_defd_str_style == 1003 && (mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic))
+		if(e >= L'0' && e <= L'7')
+		{
+			i = e - L'0';
+		}
+		else
+		{
+			break;
+		}
+		#endif
+		++shifts;
+		if(shifts > mk_lang_bui_inl_defd_sizebits_d / 3 || (shifts == mk_lang_bui_inl_defd_sizebits_d / 3 && mk_lang_bui_inl_defd_count_leading_zeros(&xx) < 3))
+		{
+			overflow = -1;
+			break;
+		}
+		mk_lang_bui_inl_defd_from_bi_sint(&digit, &i);
+		mk_lang_bui_inl_defd_shl2(&xx, 3);
+		mk_lang_bui_inl_defd_or2(&xx, &digit);
+	}
+	if(overflow == 1)
+	{
+		*x = xx;
+	}
+	return ((mk_lang_types_sint_t)(((mk_lang_types_sint_t)(it - str)) * overflow));
+}}
+
+#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lang_bui_inl_defd_symbols_dec_a[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+#endif
+
+mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_lang_bui_inl_defd_to_str_dec_n(mk_lang_bui_inl_defd_pct const x, mk_lang_types_pchar_pt const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
+{
+	mk_lang_types_sint_t i mk_lang_constexpr_init;
+	mk_lang_types_sint_t n mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t base mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_pt pa1 mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t a1 mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_pt pa2 mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t a2 mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_pt pa3 mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t b mk_lang_constexpr_init;
+
+	mk_lang_assert(x);
+	mk_lang_assert(str || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	i = str_len;
+	n = 10;
+	mk_lang_bui_inl_defd_from_bi_sint(&base, &n);
+	pa1 = &a1;
+	pa2 = &a2;
+	*pa2 = *x;
+	for(;;)
+	{
+		pa3 = pa1;
+		pa1 = pa2;
+		pa2 = pa3;
+		mk_lang_bui_inl_defd_divmod4_wrap(pa1, &base, pa2, &b);
+		mk_lang_bui_inl_defd_to_bi_sint(&b, &n);
+		mk_lang_assert(n >= 0 && n < 10);
+		--i;
+		#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+		str[i] = mk_lang_bui_inl_defd_symbols_dec_a[n];
+		#elif (mk_lang_bui_inl_defd_str_style == 1002) || (mk_lang_bui_inl_defd_str_style == 1003 && (mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic))
+		str[i] = ((mk_lang_types_pchar_t)('0' + n));
+		#endif
+		if(mk_lang_bui_inl_defd_is_zero(pa2))
+		{
+			break;
+		}
+		if(i == 0)
+		{
+			return 0;
+		}
+	}
+	if(i != 0)
+	{
+		mk_lang_assert(str_len - i >= 1);
+		mk_lang_string_memmove_pc_fn(str, str + i, ((mk_lang_types_uint_t)(str_len - i)));
+	}
+	mk_lang_assert(str_len - i >= 0);
+	mk_lang_assert(str_len - i <= mk_lang_bui_inl_defd_strlendec_v);
+	return str_len - i;
+}}
+
+#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+mk_lang_constexpr_static_inline mk_lang_types_wchar_t const mk_lang_bui_inl_defd_symbols_dec_b[] = {L'0', L'1', L'2', L'3', L'4', L'5', L'6', L'7', L'8', L'9'};
+#endif
+
+mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_lang_bui_inl_defd_to_str_dec_w(mk_lang_bui_inl_defd_pct const x, mk_lang_types_wchar_pt const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
+{
+	mk_lang_types_sint_t i mk_lang_constexpr_init;
+	mk_lang_types_sint_t n mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t base mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_pt pa1 mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t a1 mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_pt pa2 mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t a2 mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_pt pa3 mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t b mk_lang_constexpr_init;
+
+	mk_lang_assert(x);
+	mk_lang_assert(str || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	i = str_len;
+	n = 10;
+	mk_lang_bui_inl_defd_from_bi_sint(&base, &n);
+	pa1 = &a1;
+	pa2 = &a2;
+	*pa2 = *x;
+	for(;;)
+	{
+		pa3 = pa1;
+		pa1 = pa2;
+		pa2 = pa3;
+		mk_lang_bui_inl_defd_divmod4_wrap(pa1, &base, pa2, &b);
+		mk_lang_bui_inl_defd_to_bi_sint(&b, &n);
+		mk_lang_assert(n >= 0 && n < 10);
+		--i;
+		#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+		str[i] = mk_lang_bui_inl_defd_symbols_dec_b[n];
+		#elif (mk_lang_bui_inl_defd_str_style == 1002) || (mk_lang_bui_inl_defd_str_style == 1003 && (mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic))
+		str[i] = ((mk_lang_types_wchar_t)(L'0' + n));
+		#endif
+		if(mk_lang_bui_inl_defd_is_zero(pa2))
+		{
+			break;
+		}
+		if(i == 0)
+		{
+			return 0;
+		}
+	}
+	if(i != 0)
+	{
+		mk_lang_assert(str_len - i >= 1);
+		mk_lang_string_memmove_wc_fn(str, str + i, ((mk_lang_types_uint_t)(str_len - i)));
+	}
+	mk_lang_assert(str_len - i >= 0);
+	mk_lang_assert(str_len - i <= mk_lang_bui_inl_defd_strlendec_v);
+	return str_len - i;
+}}
+
+#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lang_bui_inl_defd_symbols_dec_c[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+#endif
+
+mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_bui_inl_defd_t mk_lang_bui_inl_defd_from_str_dec_border_base_impl(mk_lang_types_void_t) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
+{
+	mk_lang_types_sint_t tsi mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t base mk_lang_constexpr_init;
+
+	tsi = 10;
+	mk_lang_bui_inl_defd_from_bi_sint(&base, &tsi);
+	return base;
+}}
+
+mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_bui_inl_defd_t mk_lang_bui_inl_defd_from_str_dec_border_value_impl(mk_lang_types_void_t) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
+{
+	mk_lang_types_sint_t tsi mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t base mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t mx mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t border_value mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t border_digit mk_lang_constexpr_init;
+
+	tsi = 10;
+	mk_lang_bui_inl_defd_from_bi_sint(&base, &tsi);
+	mk_lang_bui_inl_defd_set_max(&mx);
+	mk_lang_bui_inl_defd_divmod4_wrap(&mx, &base, &border_value, &border_digit);
+	return border_value;
+}}
+
+mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_lang_bui_inl_defd_from_str_dec_border_digit_impl(mk_lang_types_void_t) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
+{
+	mk_lang_types_sint_t tsi mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t base mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t mx mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t border_value mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t border_digit mk_lang_constexpr_init;
+
+	tsi = 10;
+	mk_lang_bui_inl_defd_from_bi_sint(&base, &tsi);
+	mk_lang_bui_inl_defd_set_max(&mx);
+	mk_lang_bui_inl_defd_divmod4_wrap(&mx, &base, &border_value, &border_digit);
+	mk_lang_bui_inl_defd_to_bi_sint(&border_digit, &tsi);
+	return tsi;
+}}
+
+#if mk_lang_version_at_least_cpp_14 || mk_lang_version_at_least_msvc_cpp_14
+mk_lang_constexpr_static_inline mk_lang_bui_inl_defd_t const mk_lang_bui_inl_defd_from_str_dec_border_base_val = mk_lang_bui_inl_defd_from_str_dec_border_base_impl();
+mk_lang_constexpr_static_inline mk_lang_bui_inl_defd_t const mk_lang_bui_inl_defd_from_str_dec_border_value_val = mk_lang_bui_inl_defd_from_str_dec_border_value_impl();
+mk_lang_constexpr_static_inline mk_lang_types_sint_t const mk_lang_bui_inl_defd_from_str_dec_border_digit_val = mk_lang_bui_inl_defd_from_str_dec_border_digit_impl();
+#endif
+
+mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_bui_inl_defd_t mk_lang_bui_inl_defd_from_str_dec_border_base(mk_lang_types_void_t) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
+{
+	#if mk_lang_version_at_least_cpp_14 || mk_lang_version_at_least_msvc_cpp_14
+	return mk_lang_bui_inl_defd_from_str_dec_border_base_val;
+	#else
+	return mk_lang_bui_inl_defd_from_str_dec_border_base_impl();
+	#endif
+}}
+
+mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_bui_inl_defd_t mk_lang_bui_inl_defd_from_str_dec_border_value(mk_lang_types_void_t) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
+{
+	#if mk_lang_version_at_least_cpp_14 || mk_lang_version_at_least_msvc_cpp_14
+	return mk_lang_bui_inl_defd_from_str_dec_border_value_val;
+	#else
+	return mk_lang_bui_inl_defd_from_str_dec_border_value_impl();
+	#endif
+}}
+
+mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_lang_bui_inl_defd_from_str_dec_border_digit(mk_lang_types_void_t) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
+{
+	#if mk_lang_version_at_least_cpp_14 || mk_lang_version_at_least_msvc_cpp_14
+	return mk_lang_bui_inl_defd_from_str_dec_border_digit_val;
+	#else
+	return mk_lang_bui_inl_defd_from_str_dec_border_digit_impl();
+	#endif
+}}
+
+mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_lang_bui_inl_defd_from_str_dec_n(mk_lang_bui_inl_defd_pt const x, mk_lang_types_pchar_pct const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
+{
+	mk_lang_bui_inl_defd_t s_base mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t s_border_value mk_lang_constexpr_init;
+	mk_lang_types_sint_t s_border_digit mk_lang_constexpr_init;
+
+	mk_lang_types_pchar_pct it mk_lang_constexpr_init;
+	mk_lang_types_pchar_pct ite mk_lang_constexpr_init;
+	mk_lang_types_pchar_t e mk_lang_constexpr_init;
+	#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+	mk_lang_types_sint_t n mk_lang_constexpr_init;
+	#endif
+	mk_lang_types_sint_t i mk_lang_constexpr_init;
+	mk_lang_types_sint_t overflow mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_pt px1 mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t xx mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_pt px2 mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t digit mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_pt px3 mk_lang_constexpr_init;
+
+	mk_lang_assert(x);
+	mk_lang_assert(str);
+	mk_lang_assert(str_len >= 0);
+
+	if(str_len == 0)
+	{
+		return 0;
+	}
+	s_base = mk_lang_bui_inl_defd_from_str_dec_border_base();
+	s_border_value = mk_lang_bui_inl_defd_from_str_dec_border_value();
+	s_border_digit = mk_lang_bui_inl_defd_from_str_dec_border_digit();
+	it = str;
+	ite = str + str_len;
+	e = *it;
+	#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+	n = mk_lang_countof(mk_lang_bui_inl_defd_symbols_dec_c);
+	for(i = 0; i != n; ++i)
+	{
+		if(e == mk_lang_bui_inl_defd_symbols_dec_c[i])
+		{
+			break;
+		}
+	}
+	if(i == n)
+	{
+		return 0;
+	}
+	#elif (mk_lang_bui_inl_defd_str_style == 1002) || (mk_lang_bui_inl_defd_str_style == 1003 && (mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic))
+	if(e >= '0' && e <= '9')
+	{
+		i = e - '0';
+	}
+	else
+	{
+		return 0;
+	}
+	#endif
+	overflow = 1;
+	px1 = &xx;
+	px2 = x;
+	mk_lang_bui_inl_defd_from_bi_sint(px1, &i);
+	for(++it; it != ite; ++it)
+	{
+		e = *it;
+		#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+		n = mk_lang_countof(mk_lang_bui_inl_defd_symbols_dec_c);
+		for(i = 0; i != n; ++i)
+		{
+			if(e == mk_lang_bui_inl_defd_symbols_dec_c[i])
+			{
+				break;
+			}
+		}
+		if(i == n)
+		{
+			break;
+		}
+		#elif (mk_lang_bui_inl_defd_str_style == 1002) || (mk_lang_bui_inl_defd_str_style == 1003 && (mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic))
+		if(e >= '0' && e <= '9')
+		{
+			i = e - '0';
+		}
+		else
+		{
+			break;
+		}
+		#endif
+		if(!(mk_lang_bui_inl_defd_lt(px1, &s_border_value) || (mk_lang_bui_inl_defd_eq(px1, &s_border_value) && i <= s_border_digit)))
+		{
+			overflow = -1;
+			break;
+		}
+		mk_lang_bui_inl_defd_mul3_wrap_lo(px1, &s_base, px2);
+		mk_lang_bui_inl_defd_from_bi_sint(&digit, &i);
+		mk_lang_bui_inl_defd_add2_wrap_cid_cod(px2, &digit);
+		px3 = px1;
+		px1 = px2;
+		px2 = px3;
+	}
+	if(px1 == &xx)
+	{
+		*x = xx;
+	}
+	return ((mk_lang_types_sint_t)(((mk_lang_types_sint_t)(it - str)) * overflow));
+}}
+
+#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+mk_lang_constexpr_static_inline mk_lang_types_wchar_t const mk_lang_bui_inl_defd_symbols_dec_d[] = {L'0', L'1', L'2', L'3', L'4', L'5', L'6', L'7', L'8', L'9'};
+#endif
+
+mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_lang_bui_inl_defd_from_str_dec_w(mk_lang_bui_inl_defd_pt const x, mk_lang_types_wchar_pct const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
+{
+	mk_lang_bui_inl_defd_t s_base mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t s_border_value mk_lang_constexpr_init;
+	mk_lang_types_sint_t s_border_digit mk_lang_constexpr_init;
+
+	mk_lang_types_wchar_pct it mk_lang_constexpr_init;
+	mk_lang_types_wchar_pct ite mk_lang_constexpr_init;
+	mk_lang_types_wchar_t e mk_lang_constexpr_init;
+	#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+	mk_lang_types_sint_t n mk_lang_constexpr_init;
+	#endif
+	mk_lang_types_sint_t i mk_lang_constexpr_init;
+	mk_lang_types_sint_t overflow mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_pt px1 mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t xx mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_pt px2 mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t digit mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_pt px3 mk_lang_constexpr_init;
+
+	mk_lang_assert(x);
+	mk_lang_assert(str);
+	mk_lang_assert(str_len >= 0);
+
+	if(str_len == 0)
+	{
+		return 0;
+	}
+	s_base = mk_lang_bui_inl_defd_from_str_dec_border_base();
+	s_border_value = mk_lang_bui_inl_defd_from_str_dec_border_value();
+	s_border_digit = mk_lang_bui_inl_defd_from_str_dec_border_digit();
+	it = str;
+	ite = str + str_len;
+	e = *it;
+	#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+	n = mk_lang_countof(mk_lang_bui_inl_defd_symbols_dec_d);
+	for(i = 0; i != n; ++i)
+	{
+		if(e == mk_lang_bui_inl_defd_symbols_dec_d[i])
+		{
+			break;
+		}
+	}
+	if(i == n)
+	{
+		return 0;
+	}
+	#elif (mk_lang_bui_inl_defd_str_style == 1002) || (mk_lang_bui_inl_defd_str_style == 1003 && (mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic))
+	if(e >= L'0' && e <= L'9')
+	{
+		i = e - L'0';
+	}
+	else
+	{
+		return 0;
+	}
+	#endif
+	overflow = 1;
+	px1 = &xx;
+	px2 = x;
+	mk_lang_bui_inl_defd_from_bi_sint(px1, &i);
+	for(++it; it != ite; ++it)
+	{
+		e = *it;
+		#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+		n = mk_lang_countof(mk_lang_bui_inl_defd_symbols_dec_d);
+		for(i = 0; i != n; ++i)
+		{
+			if(e == mk_lang_bui_inl_defd_symbols_dec_d[i])
+			{
+				break;
+			}
+		}
+		if(i == n)
+		{
+			break;
+		}
+		#elif (mk_lang_bui_inl_defd_str_style == 1002) || (mk_lang_bui_inl_defd_str_style == 1003 && (mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic))
+		if(e >= L'0' && e <= L'9')
+		{
+			i = e - L'0';
+		}
+		else
+		{
+			break;
+		}
+		#endif
+		if(!(mk_lang_bui_inl_defd_lt(px1, &s_border_value) || (mk_lang_bui_inl_defd_eq(px1, &s_border_value) && i <= s_border_digit)))
+		{
+			overflow = -1;
+			break;
+		}
+		mk_lang_bui_inl_defd_mul3_wrap_lo(px1, &s_base, px2);
+		mk_lang_bui_inl_defd_from_bi_sint(&digit, &i);
+		mk_lang_bui_inl_defd_add2_wrap_cid_cod(px2, &digit);
+		px3 = px1;
+		px1 = px2;
+		px2 = px3;
+	}
+	if(px1 == &xx)
+	{
+		*x = xx;
+	}
+	return ((mk_lang_types_sint_t)(((mk_lang_types_sint_t)(it - str)) * overflow));
+}}
+
+#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lang_bui_inl_defd_symbols_hex_a[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+#endif
+
+mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_lang_bui_inl_defd_to_str_hex_n(mk_lang_bui_inl_defd_pct const x, mk_lang_types_pchar_pt const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
+{
+	mk_lang_bui_inl_defd_t xx mk_lang_constexpr_init;
+	mk_lang_types_pchar_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_uchar_t tuc mk_lang_constexpr_init;
+	mk_lang_types_bool_t zero mk_lang_constexpr_init;
+	mk_lang_types_uchar_t tuc_lo mk_lang_constexpr_init;
+	mk_lang_types_uchar_t tuc_hi mk_lang_constexpr_init;
+	mk_lang_types_sint_t ret mk_lang_constexpr_init;
+
+	mk_lang_static_assert(mk_lang_charbit % 2 == 0);
+	mk_lang_static_assert(mk_lang_bui_inl_defd_sizebits_d > mk_lang_charbit / 2);
+
+	mk_lang_assert(x);
+	mk_lang_assert(str || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	xx = *x;
+	ptr = &str[str_len - 1]; ++ptr;
+	rem = str_len;
+	for(;;)
+	{
+		mk_lang_bui_inl_defd_to_bi_uchar(&xx, &tuc);
+		#if mk_lang_bui_inl_defd_sizebits_d > mk_lang_charbit
+		mk_lang_bui_inl_defd_shr2(&xx, mk_lang_charbit);
+		#else
+		mk_lang_bui_inl_defd_shr2(&xx, mk_lang_charbit / 2);
+		mk_lang_bui_inl_defd_shr2(&xx, mk_lang_charbit / 2);
+		#endif
+		zero = mk_lang_bui_inl_defd_is_zero(&xx);
+		tuc_lo = ((mk_lang_types_uchar_t)((tuc >> 0) & 0xf));
+		if(rem == 0)
+		{
+			return 0; /* todo return negative? */
+		}
+		--rem;
+		#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+		--ptr; ptr[0] = mk_lang_bui_inl_defd_symbols_hex_a[tuc_lo];
+		#elif (mk_lang_bui_inl_defd_str_style == 1002) || (mk_lang_bui_inl_defd_str_style == 1003 && (mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic))
+		--ptr; ptr[0] = (tuc_lo >= 0 && tuc_lo <= 9) ? ((mk_lang_types_pchar_t)('0' + tuc_lo)) : ((mk_lang_types_pchar_t)('a' + (tuc_lo - 10)));
+		#endif
+		tuc_hi = ((mk_lang_types_uchar_t)((tuc >> 4) & 0xf));
+		if(tuc_hi == 0 && zero)
+		{
+			break;
+		}
+		if(rem == 0)
+		{
+			return 0; /* todo return negative? */
+		}
+		--rem;
+		#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+		--ptr; ptr[0] = mk_lang_bui_inl_defd_symbols_hex_a[tuc_hi];
+		#elif (mk_lang_bui_inl_defd_str_style == 1002) || (mk_lang_bui_inl_defd_str_style == 1003 && (mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic))
+		--ptr; ptr[0] = (tuc_hi >= 0 && tuc_hi <= 9) ? ((mk_lang_types_pchar_t)('0' + tuc_hi)) : ((mk_lang_types_pchar_t)('a' + (tuc_hi - 10)));
+		#endif
+		if(zero)
+		{
+			break;
+		}
+	}
+	ret = str_len - rem;
+	if(ret != str_len)
+	{
+		mk_lang_string_memmove_pc_fn(&str[0], &str[str_len - ret], ((mk_lang_types_usize_t)(ret)));
+	}
+	return ret;
+}}
+
+#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+mk_lang_constexpr_static_inline mk_lang_types_wchar_t const mk_lang_bui_inl_defd_symbols_hex_b[] = {L'0', L'1', L'2', L'3', L'4', L'5', L'6', L'7', L'8', L'9', L'a', L'b', L'c', L'd', L'e', L'f'};
+#endif
+
+mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_lang_bui_inl_defd_to_str_hex_w(mk_lang_bui_inl_defd_pct const x, mk_lang_types_wchar_pt const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
+{
+	mk_lang_bui_inl_defd_t xx mk_lang_constexpr_init;
+	mk_lang_types_wchar_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_uchar_t tuc mk_lang_constexpr_init;
+	mk_lang_types_bool_t zero mk_lang_constexpr_init;
+	mk_lang_types_uchar_t tuc_lo mk_lang_constexpr_init;
+	mk_lang_types_uchar_t tuc_hi mk_lang_constexpr_init;
+	mk_lang_types_sint_t ret mk_lang_constexpr_init;
+
+	mk_lang_static_assert(mk_lang_charbit % 2 == 0);
+	mk_lang_static_assert(mk_lang_bui_inl_defd_sizebits_d > mk_lang_charbit / 2);
+
+	mk_lang_assert(x);
+	mk_lang_assert(str || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	xx = *x;
+	ptr = &str[str_len - 1]; ++ptr;
+	rem = str_len;
+	for(;;)
+	{
+		mk_lang_bui_inl_defd_to_bi_uchar(&xx, &tuc);
+		#if mk_lang_bui_inl_defd_sizebits_d > mk_lang_charbit
+		mk_lang_bui_inl_defd_shr2(&xx, mk_lang_charbit);
+		#else
+		mk_lang_bui_inl_defd_shr2(&xx, mk_lang_charbit / 2);
+		mk_lang_bui_inl_defd_shr2(&xx, mk_lang_charbit / 2);
+		#endif
+		zero = mk_lang_bui_inl_defd_is_zero(&xx);
+		tuc_lo = ((mk_lang_types_uchar_t)((tuc >> 0) & 0xf));
+		if(rem == 0)
+		{
+			return 0; /* todo return negative? */
+		}
+		--rem;
+		#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+		--ptr; ptr[0] = mk_lang_bui_inl_defd_symbols_hex_b[tuc_lo];
+		#elif (mk_lang_bui_inl_defd_str_style == 1002) || (mk_lang_bui_inl_defd_str_style == 1003 && (mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic))
+		--ptr; ptr[0] = (tuc_lo >= 0 && tuc_lo <= 9) ? ((mk_lang_types_wchar_t)(L'0' + tuc_lo)) : ((mk_lang_types_wchar_t)(L'a' + (tuc_lo - 10)));
+		#endif
+		tuc_hi = ((mk_lang_types_uchar_t)((tuc >> 4) & 0xf));
+		if(tuc_hi == 0 && zero)
+		{
+			break;
+		}
+		if(rem == 0)
+		{
+			return 0; /* todo return negative? */
+		}
+		--rem;
+		#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+		--ptr; ptr[0] = mk_lang_bui_inl_defd_symbols_hex_b[tuc_hi];
+		#elif (mk_lang_bui_inl_defd_str_style == 1002) || (mk_lang_bui_inl_defd_str_style == 1003 && (mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic))
+		--ptr; ptr[0] = (tuc_hi >= 0 && tuc_hi <= 9) ? ((mk_lang_types_wchar_t)(L'0' + tuc_hi)) : ((mk_lang_types_wchar_t)(L'a' + (tuc_hi - 10)));
+		#endif
+		if(zero)
+		{
+			break;
+		}
+	}
+	ret = str_len - rem;
+	if(ret != str_len)
+	{
+		mk_lang_string_memmove_wc_fn(&str[0], &str[str_len - ret], ((mk_lang_types_usize_t)(ret)));
+	}
+	return ret;
+}}
+
+#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lang_bui_inl_defd_symbols_hex_ca[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lang_bui_inl_defd_symbols_hex_cb[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+#endif
+
+mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_lang_bui_inl_defd_from_str_hex_n(mk_lang_bui_inl_defd_pt const x, mk_lang_types_pchar_pct const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
+{
+	mk_lang_types_pchar_pct it mk_lang_constexpr_init;
+	mk_lang_types_pchar_pct ite mk_lang_constexpr_init;
+	mk_lang_types_pchar_t e mk_lang_constexpr_init;
+	#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+	mk_lang_types_sint_t n mk_lang_constexpr_init;
+	#endif
+	mk_lang_types_sint_t i mk_lang_constexpr_init;
+	mk_lang_types_sint_t overflow mk_lang_constexpr_init;
+	mk_lang_types_sint_t shifts mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t xx mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t digit mk_lang_constexpr_init;
+
+	mk_lang_static_assert(mk_lang_charbit == 8);
+	mk_lang_static_assert(mk_lang_charbit % mk_lang_charbit == 0);
+	#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+	mk_lang_static_assert(mk_lang_countof(mk_lang_bui_inl_defd_symbols_hex_ca) == mk_lang_countof(mk_lang_bui_inl_defd_symbols_hex_cb));
+	#endif
+
+	mk_lang_assert(x);
+	mk_lang_assert(str || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	if(str_len == 0)
+	{
+		return 0;
+	}
+	it = str;
+	ite = str + str_len;
+	e = *it;
+	#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+	n = mk_lang_countof(mk_lang_bui_inl_defd_symbols_hex_ca);
+	for(i = 0; i != n; ++i)
+	{
+		if
+		(
+			e == mk_lang_bui_inl_defd_symbols_hex_ca[i] ||
+			e == mk_lang_bui_inl_defd_symbols_hex_cb[i]
+		)
+		{
+			break;
+		}
+	}
+	if(i == n)
+	{
+		return 0;
+	}
+	#elif (mk_lang_bui_inl_defd_str_style == 1002) || (mk_lang_bui_inl_defd_str_style == 1003 && (mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic))
+	if(e >= '0' && e <= '9')
+	{
+		i = e - '0';
+	}
+	else if(e >= 'a' && e <= 'f')
+	{
+		i = 10 + (e - 'a');
+	}
+	else if(e >= 'A' && e <= 'F')
+	{
+		i = 10 + (e - 'A');
+	}
+	else
+	{
+		return 0;
+	}
+	#endif
+	overflow = 1;
+	shifts = 0;
+	mk_lang_bui_inl_defd_from_bi_sint(&xx, &i);
+	for(++it; it != ite; ++it)
+	{
+		e = *it;
+		#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+		n = mk_lang_countof(mk_lang_bui_inl_defd_symbols_hex_ca);
+		for(i = 0; i != n; ++i)
+		{
+			if
+			(
+				e == mk_lang_bui_inl_defd_symbols_hex_ca[i] ||
+				e == mk_lang_bui_inl_defd_symbols_hex_cb[i]
+			)
+			{
+				break;
+			}
+		}
+		if(i == n)
+		{
+			break;
+		}
+		#elif (mk_lang_bui_inl_defd_str_style == 1002) || (mk_lang_bui_inl_defd_str_style == 1003 && (mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic))
+		if(e >= '0' && e <= '9')
+		{
+			i = e - '0';
+		}
+		else if(e >= 'a' && e <= 'f')
+		{
+			i = 10 + (e - 'a');
+		}
+		else if(e >= 'A' && e <= 'F')
+		{
+			i = 10 + (e - 'A');
+		}
+		else
+		{
+			break;
+		}
+		#endif
+		if(!mk_lang_bui_inl_defd_is_zero(&xx))
+		{
+			++shifts;
+			if(shifts == mk_lang_bui_inl_defd_sizebits_d / mk_lang_charbit * 2)
+			{
+				overflow = -1;
+				break;
+			}
+		}
+		mk_lang_bui_inl_defd_from_bi_sint(&digit, &i);
+		mk_lang_bui_inl_defd_shl2(&xx, mk_lang_charbit / 2);
+		mk_lang_bui_inl_defd_or2(&xx, &digit);
+	}
+	if(overflow == 1)
+	{
+		*x = xx;
+	}
+	return ((mk_lang_types_sint_t)(((mk_lang_types_sint_t)(it - str)) * overflow));
+}}
+
+#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+mk_lang_constexpr_static_inline mk_lang_types_wchar_t const mk_lang_bui_inl_defd_symbols_hex_da[] = {L'0', L'1', L'2', L'3', L'4', L'5', L'6', L'7', L'8', L'9', L'a', L'b', L'c', L'd', L'e', L'f'};
+mk_lang_constexpr_static_inline mk_lang_types_wchar_t const mk_lang_bui_inl_defd_symbols_hex_db[] = {L'0', L'1', L'2', L'3', L'4', L'5', L'6', L'7', L'8', L'9', L'A', L'B', L'C', L'D', L'E', L'F'};
+#endif
+
+mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_lang_bui_inl_defd_from_str_hex_w(mk_lang_bui_inl_defd_pt const x, mk_lang_types_wchar_pct const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
+{
+	mk_lang_types_wchar_pct it mk_lang_constexpr_init;
+	mk_lang_types_wchar_pct ite mk_lang_constexpr_init;
+	mk_lang_types_wchar_t e mk_lang_constexpr_init;
+	#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+	mk_lang_types_sint_t n mk_lang_constexpr_init;
+	#endif
+	mk_lang_types_sint_t i mk_lang_constexpr_init;
+	mk_lang_types_sint_t overflow mk_lang_constexpr_init;
+	mk_lang_types_sint_t shifts mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t xx mk_lang_constexpr_init;
+	mk_lang_bui_inl_defd_t digit mk_lang_constexpr_init;
+
+	mk_lang_static_assert(mk_lang_charbit == 8);
+	mk_lang_static_assert(mk_lang_charbit % mk_lang_charbit == 0);
+	#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+	mk_lang_static_assert(mk_lang_countof(mk_lang_bui_inl_defd_symbols_hex_da) == mk_lang_countof(mk_lang_bui_inl_defd_symbols_hex_db));
+	#endif
+
+	mk_lang_assert(x);
+	mk_lang_assert(str || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	if(str_len == 0)
+	{
+		return 0;
+	}
+	it = str;
+	ite = str + str_len;
+	e = *it;
+	#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+	n = mk_lang_countof(mk_lang_bui_inl_defd_symbols_hex_da);
+	for(i = 0; i != n; ++i)
+	{
+		if
+		(
+			e == mk_lang_bui_inl_defd_symbols_hex_da[i] ||
+			e == mk_lang_bui_inl_defd_symbols_hex_db[i]
+		)
+		{
+			break;
+		}
+	}
+	if(i == n)
+	{
+		return 0;
+	}
+	#elif (mk_lang_bui_inl_defd_str_style == 1002) || (mk_lang_bui_inl_defd_str_style == 1003 && (mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic))
+	if(e >= L'0' && e <= L'9')
+	{
+		i = e - L'0';
+	}
+	else if(e >= L'a' && e <= L'f')
+	{
+		i = 10 + (e - L'a');
+	}
+	else if(e >= L'A' && e <= L'F')
+	{
+		i = 10 + (e - L'A');
+	}
+	else
+	{
+		return 0;
+	}
+	#endif
+	overflow = 1;
+	shifts = 0;
+	mk_lang_bui_inl_defd_from_bi_sint(&xx, &i);
+	for(++it; it != ite; ++it)
+	{
+		e = *it;
+		#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+		n = mk_lang_countof(mk_lang_bui_inl_defd_symbols_hex_da);
+		for(i = 0; i != n; ++i)
+		{
+			if
+			(
+				e == mk_lang_bui_inl_defd_symbols_hex_da[i] ||
+				e == mk_lang_bui_inl_defd_symbols_hex_db[i]
+			)
+			{
+				break;
+			}
+		}
+		if(i == n)
+		{
+			break;
+		}
+		#elif (mk_lang_bui_inl_defd_str_style == 1002) || (mk_lang_bui_inl_defd_str_style == 1003 && (mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic))
+		if(e >= L'0' && e <= L'9')
+		{
+			i = e - L'0';
+		}
+		else if(e >= L'a' && e <= L'f')
+		{
+			i = 10 + (e - L'a');
+		}
+		else if(e >= L'A' && e <= L'F')
+		{
+			i = 10 + (e - L'A');
+		}
+		else
+		{
+			break;
+		}
+		#endif
+		++shifts;
+		if(shifts == mk_lang_bui_inl_defd_sizebits_d / mk_lang_charbit * 2)
+		{
+			overflow = -1;
+			break;
+		}
+		mk_lang_bui_inl_defd_from_bi_sint(&digit, &i);
+		mk_lang_bui_inl_defd_shl2(&xx, mk_lang_charbit / 2);
+		mk_lang_bui_inl_defd_or2(&xx, &digit);
+	}
+	if(overflow == 1)
+	{
+		*x = xx;
+	}
+	return ((mk_lang_types_sint_t)(((mk_lang_types_sint_t)(it - str)) * overflow));
+}}
+
+mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_lang_bui_inl_defd_to_str_binf_n(mk_lang_bui_inl_defd_pct const x, mk_lang_types_pchar_pt const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_lang_bui_inl_defd_t xx mk_lang_constexpr_init;
+	mk_lang_types_pchar_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t i mk_lang_constexpr_init;
+	mk_lang_types_bool_t lsb mk_lang_constexpr_init;
+
+	mk_lang_assert(x);
+	mk_lang_assert(str || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	mk_lang_static_assert(mk_lang_charbit == 8);
+
+	if(!(str_len >= mk_lang_bui_inl_defd_strlenbin_v))
+	{
+		return 0; /* todo return negative? */
+	}
+	xx = *x;
+	ptr = &str[mk_lang_bui_inl_defd_strlenbin_v - 1]; ++ptr;
+	for(i = 0; i != mk_lang_bui_inl_defd_strlenbin_v; ++i)
+	{
+		lsb = mk_lang_bui_inl_defd_has_lsb(&xx);
+		#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+		--ptr; ptr[0] = mk_lang_bui_inl_defd_symbols_bin_a[lsb ? 1 : 0];
+		#elif (mk_lang_bui_inl_defd_str_style == 1002) || (mk_lang_bui_inl_defd_str_style == 1003 && (mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic))
+		--ptr; ptr[0] = ((mk_lang_types_pchar_t)('0' + (lsb ? 1 : 0)));
+		#endif
+		mk_lang_bui_inl_defd_shr2(&xx, 1);
+	}
+	mk_lang_assert(mk_lang_bui_inl_defd_is_zero(&xx));
+	return mk_lang_bui_inl_defd_strlenbin_v;
+}
+
+mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_lang_bui_inl_defd_to_str_binf_w(mk_lang_bui_inl_defd_pct const x, mk_lang_types_wchar_pt const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_lang_bui_inl_defd_t xx mk_lang_constexpr_init;
+	mk_lang_types_wchar_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t i mk_lang_constexpr_init;
+	mk_lang_types_bool_t lsb mk_lang_constexpr_init;
+
+	mk_lang_assert(x);
+	mk_lang_assert(str || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	mk_lang_static_assert(mk_lang_charbit == 8);
+
+	if(!(str_len >= mk_lang_bui_inl_defd_strlenbin_v))
+	{
+		return 0; /* todo return negative? */
+	}
+	xx = *x;
+	ptr = &str[mk_lang_bui_inl_defd_strlenbin_v - 1]; ++ptr;
+	for(i = 0; i != mk_lang_bui_inl_defd_strlenbin_v; ++i)
+	{
+		lsb = mk_lang_bui_inl_defd_has_lsb(&xx);
+		#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+		--ptr; ptr[0] = mk_lang_bui_inl_defd_symbols_bin_b[lsb ? 1 : 0];
+		#elif (mk_lang_bui_inl_defd_str_style == 1002) || (mk_lang_bui_inl_defd_str_style == 1003 && (mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic))
+		--ptr; ptr[0] = ((mk_lang_types_pchar_t)(L'0' + (lsb ? 1 : 0)));
+		#endif
+		mk_lang_bui_inl_defd_shr2(&xx, 1);
+	}
+	mk_lang_assert(mk_lang_bui_inl_defd_is_zero(&xx));
+	return mk_lang_bui_inl_defd_strlenbin_v;
+}
+
+mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_lang_bui_inl_defd_to_str_hexf_n(mk_lang_bui_inl_defd_pct const x, mk_lang_types_pchar_pt const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_lang_bui_inl_defd_t xx mk_lang_constexpr_init;
+	mk_lang_types_pchar_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t i mk_lang_constexpr_init;
+	mk_lang_types_uchar_t tuc mk_lang_constexpr_init;
+	mk_lang_types_uchar_t tuc_lo mk_lang_constexpr_init;
+	mk_lang_types_uchar_t tuc_hi mk_lang_constexpr_init;
+
+	mk_lang_static_assert(mk_lang_charbit == 8);
+	mk_lang_static_assert(mk_lang_bui_inl_defd_sizebits_d > mk_lang_charbit / 2);
+
+	mk_lang_assert(x);
+	mk_lang_assert(str || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	if(!(str_len >= mk_lang_bui_inl_defd_strlenhex_v))
+	{
+		return 0; /* todo return negative? */
+	}
+	xx = *x;
+	ptr = &str[mk_lang_bui_inl_defd_strlenhex_v - 1]; ++ptr;
+	for(i = 0; i != mk_lang_bui_inl_defd_strlenhex_v / 2; ++i)
+	{
+		mk_lang_bui_inl_defd_to_bi_uchar(&xx, &tuc);
+		tuc_lo = ((mk_lang_types_uchar_t)((tuc >> (0 * 4)) & 0xf));
+		tuc_hi = ((mk_lang_types_uchar_t)((tuc >> (1 * 4)) & 0xf));
+		#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+		--ptr; ptr[0] = mk_lang_bui_inl_defd_symbols_hex_a[tuc_lo];
+		--ptr; ptr[0] = mk_lang_bui_inl_defd_symbols_hex_a[tuc_hi];
+		#elif (mk_lang_bui_inl_defd_str_style == 1002) || (mk_lang_bui_inl_defd_str_style == 1003 && (mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic))
+		--ptr; ptr[0] = (tuc_lo >= 0 && tuc_lo <= 9) ? ((mk_lang_types_pchar_t)('0' + tuc_lo)) : ((mk_lang_types_pchar_t)('a' + (tuc_lo - 10)));
+		--ptr; ptr[0] = (tuc_hi >= 0 && tuc_hi <= 9) ? ((mk_lang_types_pchar_t)('0' + tuc_hi)) : ((mk_lang_types_pchar_t)('a' + (tuc_hi - 10)));
+		#endif
+		#if mk_lang_bui_inl_defd_sizebits_d > mk_lang_charbit
+		mk_lang_bui_inl_defd_shr2(&xx, mk_lang_charbit);
+		#else
+		mk_lang_bui_inl_defd_shr2(&xx, mk_lang_charbit / 2);
+		mk_lang_bui_inl_defd_shr2(&xx, mk_lang_charbit / 2);
+		#endif
+	}
+	mk_lang_assert(mk_lang_bui_inl_defd_is_zero(&xx));
+	return mk_lang_bui_inl_defd_strlenhex_v;
+}
+
+mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_lang_bui_inl_defd_to_str_hexf_w(mk_lang_bui_inl_defd_pct const x, mk_lang_types_wchar_pt const str, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_lang_bui_inl_defd_t xx mk_lang_constexpr_init;
+	mk_lang_types_wchar_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t i mk_lang_constexpr_init;
+	mk_lang_types_uchar_t tuc mk_lang_constexpr_init;
+	mk_lang_types_uchar_t tuc_lo mk_lang_constexpr_init;
+	mk_lang_types_uchar_t tuc_hi mk_lang_constexpr_init;
+
+	mk_lang_static_assert(mk_lang_charbit == 8);
+	mk_lang_static_assert(mk_lang_bui_inl_defd_sizebits_d > mk_lang_charbit / 2);
+
+	mk_lang_assert(x);
+	mk_lang_assert(str || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	if(!(str_len >= mk_lang_bui_inl_defd_strlenhex_v))
+	{
+		return 0; /* todo return negative? */
+	}
+	xx = *x;
+	ptr = &str[mk_lang_bui_inl_defd_strlenhex_v - 1]; ++ptr;
+	for(i = 0; i != mk_lang_bui_inl_defd_strlenhex_v / 2; ++i)
+	{
+		mk_lang_bui_inl_defd_to_bi_uchar(&xx, &tuc);
+		tuc_lo = ((mk_lang_types_uchar_t)((tuc >> (0 * 4)) & 0xf));
+		tuc_hi = ((mk_lang_types_uchar_t)((tuc >> (1 * 4)) & 0xf));
+		#if (mk_lang_bui_inl_defd_str_style == 1001) || (mk_lang_bui_inl_defd_str_style == 1003 && !mk_lang_encoding_is_ascii && !mk_lang_encoding_is_ebcdic)
+		--ptr; ptr[0] = mk_lang_bui_inl_defd_symbols_hex_b[tuc_lo];
+		--ptr; ptr[0] = mk_lang_bui_inl_defd_symbols_hex_b[tuc_hi];
+		#elif (mk_lang_bui_inl_defd_str_style == 1002) || (mk_lang_bui_inl_defd_str_style == 1003 && (mk_lang_encoding_is_ascii || mk_lang_encoding_is_ebcdic))
+		--ptr; ptr[0] = (tuc_lo >= 0 && tuc_lo <= 9) ? ((mk_lang_types_pchar_t)(L'0' + tuc_lo)) : ((mk_lang_types_pchar_t)(L'a' + (tuc_lo - 10)));
+		--ptr; ptr[0] = (tuc_hi >= 0 && tuc_hi <= 9) ? ((mk_lang_types_pchar_t)(L'0' + tuc_hi)) : ((mk_lang_types_pchar_t)(L'a' + (tuc_hi - 10)));
+		#endif
+		#if mk_lang_bui_inl_defd_sizebits_d > mk_lang_charbit
+		mk_lang_bui_inl_defd_shr2(&xx, mk_lang_charbit);
+		#else
+		mk_lang_bui_inl_defd_shr2(&xx, mk_lang_charbit / 2);
+		mk_lang_bui_inl_defd_shr2(&xx, mk_lang_charbit / 2);
+		#endif
+	}
+	mk_lang_assert(mk_lang_bui_inl_defd_is_zero(&xx));
+	return mk_lang_bui_inl_defd_strlenhex_v;
+}
+
 
 #include "mk_lang_bui_inl_defu.h"
 
 
 #undef mk_lang_bui_t_name
 #undef mk_lang_bui_t_base
+#undef mk_lang_bui_t_str_style
 #undef mk_lang_bui_t_inline

@@ -1,5 +1,6 @@
 #include "mk_clib_fuzz.h"
 
+#include "mk_lang_bui_fuzz.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_num_longdivmod_fuzz_bui.h"
@@ -25,6 +26,7 @@
 
 mk_lang_jumbo void mk_clib_fuzz(unsigned char const* const data, mk_lang_types_usize_t const size) mk_lang_noexcept
 {
+	mk_lang_bui_fuzz(data, size);
 	mk_lang_num_longdivmod_fuzz_bui(data, size);
 	mk_lang_num_longdivmod_fuzz_cui(data, size);
 	mk_lib_crypto_alg_aes_fuzz(data, size);

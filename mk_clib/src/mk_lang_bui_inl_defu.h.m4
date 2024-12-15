@@ -13,8 +13,21 @@ include(`mk_lang_bui_inl.m')dnl
 
 
 
+
+
 `#'undef mk_lang_bui_inl_defd_name
 `#'undef mk_lang_bui_inl_defd_base
+
+
+
+
+
+
+
+
+`#'undef mk_lang_bui_inl_defd_str_style
+
+`#'undef mk_lang_bui_inl_defd_str_style
 
 
 
@@ -56,6 +69,44 @@ include(`mk_lang_bui_inl.m')dnl
 `#'undef mk_lang_bui_inl_defd_sizebits_e
 `#'undef mk_lang_bui_inl_defd_sizebits_t
 `#'undef mk_lang_bui_inl_defd_sizebits_v
+
+`#'undef mk_lang_bui_inl_defd_strlendec_log
+`#'undef mk_lang_bui_inl_defd_strlenbin_d
+`#'undef mk_lang_bui_inl_defd_strlenoct_d
+`#'undef mk_lang_bui_inl_defd_strlendec_d
+`#'undef mk_lang_bui_inl_defd_strlenhex_d
+
+`#'undef mk_lang_bui_inl_defd_strlenbin_e
+`#'undef mk_lang_bui_inl_defd_strlenbin_t
+`#'undef mk_lang_bui_inl_defd_strlenbin_v
+`#'undef mk_lang_bui_inl_defd_strlenoct_e
+`#'undef mk_lang_bui_inl_defd_strlenoct_t
+`#'undef mk_lang_bui_inl_defd_strlenoct_v
+`#'undef mk_lang_bui_inl_defd_strlendec_e
+`#'undef mk_lang_bui_inl_defd_strlendec_t
+`#'undef mk_lang_bui_inl_defd_strlendec_v
+`#'undef mk_lang_bui_inl_defd_strlenhex_e
+`#'undef mk_lang_bui_inl_defd_strlenhex_t
+`#'undef mk_lang_bui_inl_defd_strlenhex_v
+
+`#'undef mk_lang_bui_inl_defd_symbols_bin_a
+`#'undef mk_lang_bui_inl_defd_symbols_bin_b
+`#'undef mk_lang_bui_inl_defd_symbols_bin_c
+`#'undef mk_lang_bui_inl_defd_symbols_bin_d
+`#'undef mk_lang_bui_inl_defd_symbols_oct_a
+`#'undef mk_lang_bui_inl_defd_symbols_oct_b
+`#'undef mk_lang_bui_inl_defd_symbols_oct_c
+`#'undef mk_lang_bui_inl_defd_symbols_oct_d
+`#'undef mk_lang_bui_inl_defd_symbols_dec_a
+`#'undef mk_lang_bui_inl_defd_symbols_dec_b
+`#'undef mk_lang_bui_inl_defd_symbols_dec_c
+`#'undef mk_lang_bui_inl_defd_symbols_dec_d
+`#'undef mk_lang_bui_inl_defd_symbols_hex_a
+`#'undef mk_lang_bui_inl_defd_symbols_hex_b
+`#'undef mk_lang_bui_inl_defd_symbols_hex_ca
+`#'undef mk_lang_bui_inl_defd_symbols_hex_cb
+`#'undef mk_lang_bui_inl_defd_symbols_hex_da
+`#'undef mk_lang_bui_inl_defd_symbols_hex_db
 
 `#'undef mk_lang_bui_inl_defd_from_base
 mm_per_bi(`#undef mk_lang_bui_inl_defd_from_bi_$1')
@@ -144,6 +195,37 @@ mm_per_bui(`#undef mk_lang_bui_inl_defd_to_buis_$1_be')
 `#'undef mk_lang_bui_inl_defd_div2_wrap
 `#'undef mk_lang_bui_inl_defd_mod2_wrap
 `#'undef mk_lang_bui_inl_defd_divmod2_wrap
+`#'undef mk_lang_bui_inl_defd_to_str_bin_n
+`#'undef mk_lang_bui_inl_defd_to_str_bin_w
+`#'undef mk_lang_bui_inl_defd_from_str_bin_n
+`#'undef mk_lang_bui_inl_defd_from_str_bin_w
+`#'undef mk_lang_bui_inl_defd_to_str_oct_n
+`#'undef mk_lang_bui_inl_defd_to_str_oct_w
+`#'undef mk_lang_bui_inl_defd_from_str_oct_n
+`#'undef mk_lang_bui_inl_defd_from_str_oct_w
+`#'undef mk_lang_bui_inl_defd_to_str_dec_n
+`#'undef mk_lang_bui_inl_defd_to_str_dec_w
+`#'undef mk_lang_bui_inl_defd_from_str_dec_n
+`#'undef mk_lang_bui_inl_defd_from_str_dec_w
+`#'undef mk_lang_bui_inl_defd_to_str_hex_n
+`#'undef mk_lang_bui_inl_defd_to_str_hex_w
+`#'undef mk_lang_bui_inl_defd_from_str_hex_n
+`#'undef mk_lang_bui_inl_defd_from_str_hex_w
+`#'undef mk_lang_bui_inl_defd_to_str_binf_n
+`#'undef mk_lang_bui_inl_defd_to_str_binf_w
+`#'undef mk_lang_bui_inl_defd_to_str_hexf_n
+`#'undef mk_lang_bui_inl_defd_to_str_hexf_w
+
 
 `#'undef mk_lang_bui_inl_defd_mul3_wrap_hi_portable
 `#'undef mk_lang_bui_inl_defd_mul4_wrap_wi_portable
+
+`#'undef mk_lang_bui_inl_defd_from_str_dec_border_base_impl
+`#'undef mk_lang_bui_inl_defd_from_str_dec_border_value_impl
+`#'undef mk_lang_bui_inl_defd_from_str_dec_border_digit_impl
+`#'undef mk_lang_bui_inl_defd_from_str_dec_border_base_val
+`#'undef mk_lang_bui_inl_defd_from_str_dec_border_value_val
+`#'undef mk_lang_bui_inl_defd_from_str_dec_border_digit_val
+`#'undef mk_lang_bui_inl_defd_from_str_dec_border_base
+`#'undef mk_lang_bui_inl_defd_from_str_dec_border_value
+`#'undef mk_lang_bui_inl_defd_from_str_dec_border_digit
