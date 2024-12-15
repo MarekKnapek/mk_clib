@@ -13,13 +13,13 @@
 #include "mk_lib_mt_mutex.h"
 
 
-#if mk_lang_platform == mk_lang_platform_windows_61 || mk_lang_platform == mk_lang_platform_windows_60
+#if mk_lang_platform_is_windows_at_least_60
 #include "mk_lib_mt_unique_lock_windows_srwl.h"
 #define mk_lib_mt_unique_lock_exclusive_impl_construct mk_lib_mt_unique_lock_exclusive_windows_srwl_construct
 #define mk_lib_mt_unique_lock_exclusive_impl_destruct  mk_lib_mt_unique_lock_exclusive_windows_srwl_destruct
 #define mk_lib_mt_unique_lock_shared_impl_construct    mk_lib_mt_unique_lock_shared_windows_srwl_construct
 #define mk_lib_mt_unique_lock_shared_impl_destruct     mk_lib_mt_unique_lock_shared_windows_srwl_destruct
-#elif mk_lang_platform == mk_lang_platform_windows
+#elif mk_lang_platform_is_windows_at_least_any
 #include "mk_lib_mt_unique_lock_windows_cs.h"
 #define mk_lib_mt_unique_lock_exclusive_impl_construct mk_lib_mt_unique_lock_exclusive_windows_cs_construct
 #define mk_lib_mt_unique_lock_exclusive_impl_destruct  mk_lib_mt_unique_lock_exclusive_windows_cs_destruct
@@ -37,7 +37,7 @@
 #define mk_lib_mt_unique_lock_exclusive_impl_destruct  mk_lib_mt_unique_lock_exclusive_portable_c_destruct
 #define mk_lib_mt_unique_lock_shared_impl_construct    mk_lib_mt_unique_lock_shared_portable_c_construct
 #define mk_lib_mt_unique_lock_shared_impl_destruct     mk_lib_mt_unique_lock_shared_portable_c_destruct
-#elif defined mk_lib_mt_posix_has && mk_lib_mt_posix_has == 1
+#elif mk_lang_platform_is_posix_at_least_1
 #include "mk_lib_mt_unique_lock_posix.h"
 #define mk_lib_mt_unique_lock_exclusive_impl_construct mk_lib_mt_unique_lock_exclusive_posix_construct
 #define mk_lib_mt_unique_lock_exclusive_impl_destruct  mk_lib_mt_unique_lock_exclusive_posix_destruct

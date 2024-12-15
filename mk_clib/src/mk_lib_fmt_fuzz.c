@@ -63,7 +63,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_fuzz_n_d(mk_lang_types_uch
 
 static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_fuzz_w_d(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
 {
-#if !(defined __TINYC__ && mk_lang_platform == mk_lang_platform_windows)
+#if !(defined __TINYC__ && mk_lang_platform_is_windows_at_least_any)
 	#define check(x) if(!(x)) return;
 	#define advance(x) d += (x); s -= (x); ((mk_lang_types_void_t)(0))
 
@@ -135,7 +135,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_fuzz_n_u(mk_lang_types_uch
 
 static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_fuzz_w_u(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
 {
-#if !(defined __TINYC__ && mk_lang_platform == mk_lang_platform_windows)
+#if !(defined __TINYC__ && mk_lang_platform_is_windows_at_least_any)
 	#define check(x) if(!(x)) return;
 	#define advance(x) d += (x); s -= (x); ((mk_lang_types_void_t)(0))
 
@@ -207,7 +207,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_fuzz_n_x(mk_lang_types_uch
 
 static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_fuzz_w_x(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
 {
-#if !(defined __TINYC__ && mk_lang_platform == mk_lang_platform_windows)
+#if !(defined __TINYC__ && mk_lang_platform_is_windows_at_least_any)
 	#define check(x) if(!(x)) return;
 	#define advance(x) d += (x); s -= (x); ((mk_lang_types_void_t)(0))
 
@@ -279,7 +279,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_fuzz_n_lld(mk_lang_types_u
 
 static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_fuzz_w_lld(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
 {
-#if !(defined __TINYC__ && mk_lang_platform == mk_lang_platform_windows)
+#if !(defined __TINYC__ && mk_lang_platform_is_windows_at_least_any)
 	#define check(x) if(!(x)) return;
 	#define advance(x) d += (x); s -= (x); ((mk_lang_types_void_t)(0))
 
@@ -351,7 +351,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_fuzz_n_llu(mk_lang_types_u
 
 static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_fuzz_w_llu(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
 {
-#if !(defined __TINYC__ && mk_lang_platform == mk_lang_platform_windows)
+#if !(defined __TINYC__ && mk_lang_platform_is_windows_at_least_any)
 	#define check(x) if(!(x)) return;
 	#define advance(x) d += (x); s -= (x); ((mk_lang_types_void_t)(0))
 
@@ -423,7 +423,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_fuzz_n_llx(mk_lang_types_u
 
 static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_fuzz_w_llx(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
 {
-#if !(defined __TINYC__ && mk_lang_platform == mk_lang_platform_windows)
+#if !(defined __TINYC__ && mk_lang_platform_is_windows_at_least_any)
 	#define check(x) if(!(x)) return;
 	#define advance(x) d += (x); s -= (x); ((mk_lang_types_void_t)(0))
 

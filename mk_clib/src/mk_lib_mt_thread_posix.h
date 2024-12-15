@@ -3,14 +3,16 @@
 
 
 #include "mk_lang_jumbo.h"
+#include "mk_lang_platform.h"
+
+
+#if mk_lang_platform_is_posix_at_least_1
+
+
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
 #include "mk_lang_version.h"
-
-
-#if defined mk_lib_mt_posix_has && mk_lib_mt_posix_has == 1
-
 
 #include <pthread.h> /* pthread_t */
 
@@ -21,7 +23,7 @@ typedef mk_lang_types_sint_t(*mk_lib_mt_thread_posix_callback_t)(mk_lang_types_v
 mk_lang_types_sint_t mk_lib_mt_thread_dummy(mk_lang_types_void_pt) mk_lang_noexcept;
 typedef decltype(&mk_lib_mt_thread_dummy) mk_lib_mt_thread_posix_callback_t;
 #else
-typedef mk_lang_types_sint_t(*mk_lib_mt_thread_posix_callback_t)(mk_lang_types_void_pt) mk_lang_noexcept;
+typedef mk_lang_types_sint_t(*mk_lib_mt_thread_posix_callback_t)(mk_lang_types_void_pt);
 #endif
 
 struct mk_lib_mt_thread_posix_s
