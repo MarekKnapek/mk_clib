@@ -25,40 +25,42 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lang_memmove_inl_defd_fn
 	mk_lang_types_usize_t n mk_lang_constexpr_init;
 	mk_lang_types_usize_t i mk_lang_constexpr_init;
 
-	mk_lang_assert(dst);
-	mk_lang_assert(src);
+	mk_lang_assert(dst || count == 0);
+	mk_lang_assert(src || count == 0);
 	mk_lang_assert(count >= 0);
-	mk_lang_assert(dst != src);
 
-	#if defined __SANITIZE_ADDRESS__ && __SANITIZE_ADDRESS__ == 1
-	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	if(dst != src)
 	{
-		memmove(dst, src, count * sizeof(mk_lang_memmove_inl_defd_type_t));
-	}
-	else
-	#endif
-	{
-		if(!(
-			(dst >= src && dst < src + count) ||
-			(src >= dst && src < dst + count)
-		))
+		#if defined __SANITIZE_ADDRESS__ && __SANITIZE_ADDRESS__ == 1
+		if(!mk_lang_constexpr_is_constant_evaluated_test)
 		{
-			mk_lang_memmove_inl_filec_memcpy_fn(dst, src, count);
-		}
-		else if(!(dst >= src && dst < src + count))
-		{
-			n = count;
-			for(i = 0; i != n; ++i)
-			{
-				dst[i] = src[i];
-			}
+			memmove(dst, src, count * sizeof(mk_lang_memmove_inl_defd_type_t));
 		}
 		else
+		#endif
 		{
-			n = count;
-			for(i = 0; i != n; ++i)
+			if(!(
+				(dst >= src && dst < src + count) ||
+				(src >= dst && src < dst + count)
+			))
 			{
-				dst[(n - 1) - i] = src[(n - 1) - i];
+				mk_lang_memmove_inl_filec_memcpy_fn(dst, src, count);
+			}
+			else if(!(dst >= src && dst < src + count))
+			{
+				n = count;
+				for(i = 0; i != n; ++i)
+				{
+					dst[i] = src[i];
+				}
+			}
+			else
+			{
+				n = count;
+				for(i = 0; i != n; ++i)
+				{
+					dst[(n - 1) - i] = src[(n - 1) - i];
+				}
 			}
 		}
 	}
