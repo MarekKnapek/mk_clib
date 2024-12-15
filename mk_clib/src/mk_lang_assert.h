@@ -7,6 +7,9 @@
 #define mk_lang_assert_mode_assert 3
 
 
+#if defined mk_lang_assert_want_crash && (mk_lang_assert_want_crash) == 1
+#define mk_lang_assert_mode mk_lang_assert_mode_crash
+#else
 #if defined NDEBUG && !defined mk_lang_assert_want
 #define mk_lang_assert_mode mk_lang_assert_mode_assume
 #elif defined NDEBUG && defined mk_lang_assert_want && mk_lang_assert_want == 0
@@ -21,6 +24,7 @@
 #define mk_lang_assert_mode mk_lang_assert_mode_assume
 #else
 #error xxxxxxxxxx
+#endif
 #endif
 
 
