@@ -237,6 +237,7 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_strlen_inl_defu.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_strlen_inl_filec.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_strlen_inl_fileh.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_struct.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_swap_inl_defd.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_swap_inl_defu.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_swap_inl_filec.h"><Filter>src</Filter></ClInclude>
