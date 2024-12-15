@@ -11,6 +11,19 @@
 
 
 template<typename t>
+struct mk_lang_countof_impl_remove_reference_s
+{
+	typedef t type;
+};
+
+template<typename t>
+struct mk_lang_countof_impl_remove_reference_s<t&>
+{
+	typedef t type;
+};
+
+
+template<typename t>
 struct mk_lang_countof_impl_s
 {
 };
@@ -38,7 +51,7 @@ struct mk_lang_countstr_impl_s<t const(&)[n]>
 	mk_lang_constexpr static mk_lang_types_sint_t const value = n - 1;
 };
 
-#define mk_lang_countof(x) (mk_lang_countof_impl_s<decltype(x)>::value)
+#define mk_lang_countof(x) (mk_lang_countof_impl_s<typename mk_lang_countof_impl_remove_reference_s<decltype(x)>::type>::value)
 #define mk_lang_countstr(x) (mk_lang_countstr_impl_s<decltype(x)>::value)
 
 
