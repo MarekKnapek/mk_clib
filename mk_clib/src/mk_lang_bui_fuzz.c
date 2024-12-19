@@ -16,12 +16,13 @@
 #include "mk_lang_bui_fuzz_str_table_hex_w.h"
 #include "mk_lang_bui_fuzz_str_table_oct_n.h"
 #include "mk_lang_bui_fuzz_str_table_oct_w.h"
+#include "mk_lang_constexpr.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
 
 
-mk_lang_jumbo mk_lang_types_void_t mk_lang_bui_fuzz(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lang_bui_fuzz(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
 {
 	mk_lang_bui_fuzz_str_offset_bin_n(data, size);
 	mk_lang_bui_fuzz_str_offset_bin_w(data, size);

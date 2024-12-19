@@ -1,6 +1,7 @@
 #include "mk_lang_bui_fuzz_str_offset_oct_w.h"
 
 #include "mk_lang_assert.h"
+#include "mk_lang_constexpr.h"
 #include "mk_lang_countof.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
@@ -18,14 +19,14 @@
 #include "mk_lang_bui_inl_filec.h"
 
 
-static mk_lang_inline mk_lang_types_void_t mk_lang_bui_fuzz_str_offset_oct_w_uint_to_str_different(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lang_bui_fuzz_str_offset_oct_w_uint_to_str_different(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
 {
-	mk_lang_bui_fuzz_str_offset_oct_w_zzz_uint_t bui_a;
-	mk_lang_bui_fuzz_str_offset_oct_w_zzz_uint_t bui_b;
-	mk_lang_types_sint_t len_a;
-	mk_lang_types_wchar_t str_a[mk_lang_bui_fuzz_str_offset_oct_w_zzz_uint_strlenoct_v];
-	mk_lang_types_sint_t len_b;
-	mk_lang_types_wchar_t str_b[mk_lang_bui_fuzz_str_offset_oct_w_zzz_uint_strlenoct_v];
+	mk_lang_bui_fuzz_str_offset_oct_w_zzz_uint_t bui_a mk_lang_constexpr_init;
+	mk_lang_bui_fuzz_str_offset_oct_w_zzz_uint_t bui_b mk_lang_constexpr_init;
+	mk_lang_types_sint_t len_a mk_lang_constexpr_init;
+	mk_lang_types_wchar_t str_a[mk_lang_bui_fuzz_str_offset_oct_w_zzz_uint_strlenoct_v] mk_lang_constexpr_init;
+	mk_lang_types_sint_t len_b mk_lang_constexpr_init;
+	mk_lang_types_wchar_t str_b[mk_lang_bui_fuzz_str_offset_oct_w_zzz_uint_strlenoct_v] mk_lang_constexpr_init;
 
 	mk_lang_assert(data || size == 0);
 	mk_lang_assert(size >= 0);
@@ -44,13 +45,13 @@ static mk_lang_inline mk_lang_types_void_t mk_lang_bui_fuzz_str_offset_oct_w_uin
 	}
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lang_bui_fuzz_str_offset_oct_w_uint_to_str_and_back(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lang_bui_fuzz_str_offset_oct_w_uint_to_str_and_back(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
 {
-	mk_lang_bui_fuzz_str_offset_oct_w_zzz_uint_t bui_a;
-	mk_lang_types_sint_t len_a;
-	mk_lang_types_wchar_t str[mk_lang_bui_fuzz_str_offset_oct_w_zzz_uint_strlenoct_v];
-	mk_lang_types_sint_t len_b;
-	mk_lang_bui_fuzz_str_offset_oct_w_zzz_uint_t bui_b;
+	mk_lang_bui_fuzz_str_offset_oct_w_zzz_uint_t bui_a mk_lang_constexpr_init;
+	mk_lang_types_sint_t len_a mk_lang_constexpr_init;
+	mk_lang_types_wchar_t str[mk_lang_bui_fuzz_str_offset_oct_w_zzz_uint_strlenoct_v] mk_lang_constexpr_init;
+	mk_lang_types_sint_t len_b mk_lang_constexpr_init;
+	mk_lang_bui_fuzz_str_offset_oct_w_zzz_uint_t bui_b mk_lang_constexpr_init;
 
 	mk_lang_assert(data || size == 0);
 	mk_lang_assert(size >= 0);
@@ -68,15 +69,15 @@ static mk_lang_inline mk_lang_types_void_t mk_lang_bui_fuzz_str_offset_oct_w_uin
 	mk_lang_test(mk_lang_bui_fuzz_str_offset_oct_w_zzz_uint_eq(&bui_b, &bui_a));
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lang_bui_fuzz_str_offset_oct_w_uint_from_str_and_back(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lang_bui_fuzz_str_offset_oct_w_uint_from_str_and_back(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
 {
-	mk_lang_types_wchar_t str_a[4 * mk_lang_bui_fuzz_str_offset_oct_w_zzz_uint_strlenoct_v];
-	mk_lang_types_sint_t sz;
-	mk_lang_types_sint_t i;
-	mk_lang_types_sint_t len_a;
-	mk_lang_bui_fuzz_str_offset_oct_w_zzz_uint_t bui;
-	mk_lang_types_sint_t len_b;
-	mk_lang_types_wchar_t str_b[mk_lang_bui_fuzz_str_offset_oct_w_zzz_uint_strlenoct_v];
+	mk_lang_types_wchar_t str_a[4 * mk_lang_bui_fuzz_str_offset_oct_w_zzz_uint_strlenoct_v] mk_lang_constexpr_init;
+	mk_lang_types_sint_t sz mk_lang_constexpr_init;
+	mk_lang_types_sint_t i mk_lang_constexpr_init;
+	mk_lang_types_sint_t len_a mk_lang_constexpr_init;
+	mk_lang_bui_fuzz_str_offset_oct_w_zzz_uint_t bui mk_lang_constexpr_init;
+	mk_lang_types_sint_t len_b mk_lang_constexpr_init;
+	mk_lang_types_wchar_t str_b[mk_lang_bui_fuzz_str_offset_oct_w_zzz_uint_strlenoct_v] mk_lang_constexpr_init;
 
 	mk_lang_assert(data || size == 0);
 	mk_lang_assert(size >= 0);
@@ -102,7 +103,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lang_bui_fuzz_str_offset_oct_w_uin
 }
 
 
-mk_lang_jumbo mk_lang_types_void_t mk_lang_bui_fuzz_str_offset_oct_w(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lang_bui_fuzz_str_offset_oct_w(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
 {
 	mk_lang_assert(data || size == 0);
 	mk_lang_assert(size >= 0);
