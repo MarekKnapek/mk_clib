@@ -20,7 +20,7 @@
 #include "mk_lang_bui_inl_filec.h"
 
 
-#if mk_lang_version_at_least_cpp_17 || mk_lang_version_at_least_msvc_cpp_17 || (defined __cpp_lib_to_chars && __cpp_lib_to_chars >= 201611l)
+#if mk_lang_version_at_least_cpp_26
 #include <charconv>
 #include <system_error>
 #endif
@@ -111,7 +111,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lang_bui_fuzz_st
 
 mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lang_bui_fuzz_str_table_oct_n_uint_from_str_vs_cpp_a(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
 {
-#if mk_lang_version_at_least_cpp_17 || mk_lang_version_at_least_msvc_cpp_17 || (defined __cpp_lib_to_chars && __cpp_lib_to_chars >= 201611l)
+#if mk_lang_version_at_least_cpp_26
 	mk_lang_types_pchar_t str_a[4 * mk_lang_bui_fuzz_str_table_oct_n_zzz_uint_strlenoct_v] mk_lang_constexpr_init;
 	mk_lang_types_sint_t sz mk_lang_constexpr_init;
 	mk_lang_types_sint_t i mk_lang_constexpr_init;
@@ -151,7 +151,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lang_bui_fuzz_st
 
 mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lang_bui_fuzz_str_table_oct_n_uint_from_str_vs_cpp_b(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
 {
-#if mk_lang_version_at_least_cpp_17 || mk_lang_version_at_least_msvc_cpp_17 || (defined __cpp_lib_to_chars && __cpp_lib_to_chars >= 201611l)
+#if mk_lang_version_at_least_cpp_26
 	mk_lang_types_pchar_t str_a[4 * mk_lang_bui_fuzz_str_table_oct_n_zzz_uint_strlenoct_v] mk_lang_constexpr_init;
 	mk_lang_types_sint_t sz mk_lang_constexpr_init;
 	mk_lang_types_sint_t i mk_lang_constexpr_init;

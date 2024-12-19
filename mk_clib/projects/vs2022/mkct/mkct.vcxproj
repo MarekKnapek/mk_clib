@@ -43,7 +43,9 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<ItemGroup>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\app\mkct.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\app\mkct.c">
+			<CompileAs>CompileAsCpp</CompileAs>
+		</ClCompile>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
 		<VCProjectVersion>16.0</VCProjectVersion>
@@ -172,8 +174,9 @@
 			<SDLCheck>true</SDLCheck>
 			<PreprocessorDefinitions>mk_lang_jumbo_want=1;mk_clib_test_smol_want=1;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<ConformanceMode>true</ConformanceMode>
-			<LanguageStandard_C>stdc11</LanguageStandard_C>
-			<LanguageStandard>stdcpp14</LanguageStandard>
+			<LanguageStandard_C>stdc17</LanguageStandard_C>
+			<LanguageStandard>stdcpp20</LanguageStandard>
+			<AdditionalOptions>/constexpr:steps1073741824 %(AdditionalOptions)</AdditionalOptions>
 		</ClCompile>
 		<Link>
 			<SubSystem>Console</SubSystem>
@@ -191,8 +194,9 @@
 			<PreprocessorDefinitions>mk_lang_jumbo_want=1;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<ConformanceMode>true</ConformanceMode>
 			<RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-			<LanguageStandard_C>stdc11</LanguageStandard_C>
-			<LanguageStandard>stdcpp14</LanguageStandard>
+			<LanguageStandard_C>stdc17</LanguageStandard_C>
+			<LanguageStandard>stdcpp20</LanguageStandard>
+			<AdditionalOptions>/constexpr:steps1073741824 %(AdditionalOptions)</AdditionalOptions>
 		</ClCompile>
 		<Link>
 			<SubSystem>Console</SubSystem>
@@ -209,8 +213,9 @@
 			<SDLCheck>true</SDLCheck>
 			<PreprocessorDefinitions>mk_lang_jumbo_want=1;mk_clib_test_smol_want=1;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<ConformanceMode>true</ConformanceMode>
-			<LanguageStandard_C>stdc11</LanguageStandard_C>
-			<LanguageStandard>stdcpp14</LanguageStandard>
+			<LanguageStandard_C>stdc17</LanguageStandard_C>
+			<LanguageStandard>stdcpp20</LanguageStandard>
+			<AdditionalOptions>/constexpr:steps1073741824 %(AdditionalOptions)</AdditionalOptions>
 		</ClCompile>
 		<Link>
 			<SubSystem>Console</SubSystem>
@@ -228,8 +233,9 @@
 			<PreprocessorDefinitions>mk_lang_jumbo_want=1;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<ConformanceMode>true</ConformanceMode>
 			<RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-			<LanguageStandard_C>stdc11</LanguageStandard_C>
-			<LanguageStandard>stdcpp14</LanguageStandard>
+			<LanguageStandard_C>stdc17</LanguageStandard_C>
+			<LanguageStandard>stdcpp20</LanguageStandard>
+			<AdditionalOptions>/constexpr:steps1073741824 %(AdditionalOptions)</AdditionalOptions>
 		</ClCompile>
 		<Link>
 			<SubSystem>Console</SubSystem>
@@ -246,8 +252,9 @@
 			<SDLCheck>true</SDLCheck>
 			<PreprocessorDefinitions>mk_lang_jumbo_want=1;mk_clib_test_smol_want=1;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<ConformanceMode>true</ConformanceMode>
-			<LanguageStandard_C>stdc11</LanguageStandard_C>
-			<LanguageStandard>stdcpp14</LanguageStandard>
+			<LanguageStandard_C>stdc17</LanguageStandard_C>
+			<LanguageStandard>stdcpp20</LanguageStandard>
+			<AdditionalOptions>/constexpr:steps1073741824 %(AdditionalOptions)</AdditionalOptions>
 		</ClCompile>
 		<Link>
 			<SubSystem>Console</SubSystem>
@@ -265,8 +272,9 @@
 			<PreprocessorDefinitions>mk_lang_jumbo_want=1;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<ConformanceMode>true</ConformanceMode>
 			<RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-			<LanguageStandard_C>stdc11</LanguageStandard_C>
-			<LanguageStandard>stdcpp14</LanguageStandard>
+			<LanguageStandard_C>stdc17</LanguageStandard_C>
+			<LanguageStandard>stdcpp20</LanguageStandard>
+			<AdditionalOptions>/constexpr:steps1073741824 %(AdditionalOptions)</AdditionalOptions>
 		</ClCompile>
 		<Link>
 			<SubSystem>Console</SubSystem>
@@ -283,8 +291,9 @@
 			<SDLCheck>true</SDLCheck>
 			<PreprocessorDefinitions>mk_lang_jumbo_want=1;mk_clib_test_smol_want=1;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<ConformanceMode>true</ConformanceMode>
-			<LanguageStandard_C>stdc11</LanguageStandard_C>
-			<LanguageStandard>stdcpp14</LanguageStandard>
+			<LanguageStandard_C>stdc17</LanguageStandard_C>
+			<LanguageStandard>stdcpp20</LanguageStandard>
+			<AdditionalOptions>/constexpr:steps1073741824 %(AdditionalOptions)</AdditionalOptions>
 		</ClCompile>
 		<Link>
 			<SubSystem>Console</SubSystem>
@@ -302,8 +311,9 @@
 			<PreprocessorDefinitions>mk_lang_jumbo_want=1;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<ConformanceMode>true</ConformanceMode>
 			<RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-			<LanguageStandard_C>stdc11</LanguageStandard_C>
-			<LanguageStandard>stdcpp14</LanguageStandard>
+			<LanguageStandard_C>stdc17</LanguageStandard_C>
+			<LanguageStandard>stdcpp20</LanguageStandard>
+			<AdditionalOptions>/constexpr:steps1073741824 %(AdditionalOptions)</AdditionalOptions>
 		</ClCompile>
 		<Link>
 			<SubSystem>Console</SubSystem>
@@ -320,8 +330,9 @@
 			<SDLCheck>true</SDLCheck>
 			<PreprocessorDefinitions>mk_lang_jumbo_want=1;mk_clib_test_smol_want=1;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<ConformanceMode>true</ConformanceMode>
-			<LanguageStandard_C>stdc11</LanguageStandard_C>
-			<LanguageStandard>stdcpp14</LanguageStandard>
+			<LanguageStandard_C>stdc17</LanguageStandard_C>
+			<LanguageStandard>stdcpp20</LanguageStandard>
+			<AdditionalOptions>/constexpr:steps1073741824 %(AdditionalOptions)</AdditionalOptions>
 		</ClCompile>
 		<Link>
 			<SubSystem>Console</SubSystem>
@@ -339,8 +350,9 @@
 			<PreprocessorDefinitions>mk_lang_jumbo_want=1;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<ConformanceMode>true</ConformanceMode>
 			<RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-			<LanguageStandard_C>stdc11</LanguageStandard_C>
-			<LanguageStandard>stdcpp14</LanguageStandard>
+			<LanguageStandard_C>stdc17</LanguageStandard_C>
+			<LanguageStandard>stdcpp20</LanguageStandard>
+			<AdditionalOptions>/constexpr:steps1073741824 %(AdditionalOptions)</AdditionalOptions>
 		</ClCompile>
 		<Link>
 			<SubSystem>Console</SubSystem>

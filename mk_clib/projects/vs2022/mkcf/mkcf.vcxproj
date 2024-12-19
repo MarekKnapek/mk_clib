@@ -19,7 +19,9 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<ItemGroup>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\app\mkcf.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\app\mkcf.c">
+			<CompileAs>CompileAsCpp</CompileAs>
+		</ClCompile>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
 		<VCProjectVersion>16.0</VCProjectVersion>
@@ -93,7 +95,8 @@
 			<ConformanceMode>true</ConformanceMode>
 			<MultiProcessorCompilation>true</MultiProcessorCompilation>
 			<LanguageStandard_C>stdc11</LanguageStandard_C>
-			<LanguageStandard>stdcpp14</LanguageStandard>
+			<LanguageStandard>stdcpp20</LanguageStandard>
+			<AdditionalOptions>/constexpr:steps1073741824 %(AdditionalOptions)</AdditionalOptions>
 		</ClCompile>
 		<Link>
 			<SubSystem>Console</SubSystem>
@@ -110,7 +113,8 @@
 			<PreprocessorDefinitions>mk_lang_jumbo_want=1;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<ConformanceMode>true</ConformanceMode>
 			<LanguageStandard_C>stdc11</LanguageStandard_C>
-			<LanguageStandard>stdcpp14</LanguageStandard>
+			<LanguageStandard>stdcpp20</LanguageStandard>
+			<AdditionalOptions>/constexpr:steps1073741824 %(AdditionalOptions)</AdditionalOptions>
 		</ClCompile>
 		<Link>
 			<SubSystem>Console</SubSystem>
@@ -129,7 +133,8 @@
 			<ConformanceMode>true</ConformanceMode>
 			<MultiProcessorCompilation>true</MultiProcessorCompilation>
 			<LanguageStandard_C>stdc11</LanguageStandard_C>
-			<LanguageStandard>stdcpp14</LanguageStandard>
+			<LanguageStandard>stdcpp20</LanguageStandard>
+			<AdditionalOptions>/constexpr:steps1073741824 %(AdditionalOptions)</AdditionalOptions>
 		</ClCompile>
 		<Link>
 			<SubSystem>Console</SubSystem>
@@ -146,7 +151,8 @@
 			<PreprocessorDefinitions>mk_lang_jumbo_want=1;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<ConformanceMode>true</ConformanceMode>
 			<LanguageStandard_C>stdc11</LanguageStandard_C>
-			<LanguageStandard>stdcpp14</LanguageStandard>
+			<LanguageStandard>stdcpp20</LanguageStandard>
+			<AdditionalOptions>/constexpr:steps1073741824 %(AdditionalOptions)</AdditionalOptions>
 		</ClCompile>
 		<Link>
 			<SubSystem>Console</SubSystem>

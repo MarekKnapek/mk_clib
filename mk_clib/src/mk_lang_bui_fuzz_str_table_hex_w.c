@@ -118,8 +118,6 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lang_bui_fuzz_st
 	mk_lang_test(mk_lang_bui_fuzz_str_table_hex_w_zzz_uint_eq(&bui_b, &bui_a));
 }
 
-static mk_lang_types_uint_t mk_lang_bui_fuzz_str_table_hex_w_uint_from_str_and_back_g_cntr;
-
 mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lang_bui_fuzz_str_table_hex_w_uint_from_str_and_back(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
 {
 	mk_lang_types_wchar_t str_a[4 * mk_lang_bui_fuzz_str_table_hex_w_zzz_uint_strlenhex_v] mk_lang_constexpr_init;
@@ -151,7 +149,6 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lang_bui_fuzz_st
 		mk_lang_test(len_b <= len_a);
 		if(mk_lang_string_memcmp_wc_fn(&str_b[0], &str_a[0], len_b) != 0)
 		{
-			++mk_lang_bui_fuzz_str_table_hex_w_uint_from_str_and_back_g_cntr;
 		}
 	}
 }

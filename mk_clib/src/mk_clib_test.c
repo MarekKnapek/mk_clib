@@ -1,12 +1,13 @@
 #include "mk_clib_test.h"
 
+#include "mk_lang_jumbo.h"
+#include "mk_lang_noexcept.h"
+
 #include "mk_lang_alignof_test.h"
 #include "mk_lang_bi_test.h"
 #include "mk_lang_constexpr_test.hpp"
 #include "mk_lang_exception_test.h"
-#include "mk_lang_jumbo.h"
 #include "mk_lang_limits_test.h"
-#include "mk_lang_noexcept.h"
 #include "mk_lang_sizeof_test.h"
 #include "mk_lib_crypto_alg_aes_128_test.hpp"
 #include "mk_lib_crypto_alg_aes_192_test.hpp"
