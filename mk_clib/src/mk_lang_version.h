@@ -13,6 +13,7 @@
 #define mk_lang_version_value_cpp_17 201703l
 #define mk_lang_version_value_cpp_20 202002l
 #define mk_lang_version_value_cpp_23 202302l
+#define mk_lang_version_value_cpp_26 202600l /* todo */
 
 
 #if defined __STDC__
@@ -82,6 +83,12 @@
 #define mk_lang_version_at_least_cpp_23 1
 #else
 #define mk_lang_version_at_least_cpp_23 0
+#endif
+
+#if defined __cplusplus && __cplusplus >= mk_lang_version_value_cpp_26
+#define mk_lang_version_at_least_cpp_26 1
+#else
+#define mk_lang_version_at_least_cpp_26 0
 #endif
 
 
