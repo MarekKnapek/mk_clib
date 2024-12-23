@@ -12,6 +12,7 @@ include(`mk_sl_cui_inl.m')dnl
 	((defined mk_sl_cui_t_endian && (mk_sl_cui_t_endian == mk_lang_endian_little || mk_sl_cui_t_endian == mk_lang_endian_big)) || !defined mk_sl_cui_t_endian) && \
 	((defined mk_sl_cui_t_disable_big_div && (mk_sl_cui_t_disable_big_div == 0 || mk_sl_cui_t_disable_big_div == 1)) || !defined mk_sl_cui_t_disable_big_div) && \
 	((defined mk_sl_cui_t_base_sizebits_d && mk_sl_cui_t_base_sizebits_d >= 1) || !defined mk_sl_cui_t_base_sizebits_d) && \
+	((defined mk_sl_cui_t_str_style && ((mk_sl_cui_t_str_style) == 1001 || (mk_sl_cui_t_str_style) == 1002 || (mk_sl_cui_t_str_style) == 1003)) || !defined mk_sl_cui_t_str_style) && \
 	((defined mk_sl_cui_t_inline && ((mk_sl_cui_t_inline) == 0 || (mk_sl_cui_t_inline) == 1)) || !defined mk_sl_cui_t_inline) && \
 1))
 #error xxxxxxxxxx
@@ -34,6 +35,16 @@ include(`mk_sl_cui_inl.m')dnl
 #define mk_sl_cui_inl_defd_inline 0
 #endif
 
+/*
+	1001 - table
+	1002 - ascii / ebcdic offset
+	1003 - offset if possible, table otherwise
+*/
+#if defined mk_sl_cui_t_str_style
+#define mk_sl_cui_inl_defd_str_style (mk_sl_cui_t_str_style)
+#else
+#define mk_sl_cui_inl_defd_str_style 1003
+#endif
 
 #if mk_sl_cui_inl_defd_inline
 #define mk_sl_cui_inl_defd_flatten mk_lang_attribute_msvc_flatten
@@ -154,11 +165,32 @@ mm_per_bui(`#define mk_sl_cui_inl_defd_base_to_buis_$1_be mk_lang_concat(mk_sl_c
 #define mk_sl_cui_inl_defd_base_div2_wrap mk_lang_concat(mk_sl_cui_inl_defd_base, _div2_wrap)
 #define mk_sl_cui_inl_defd_base_mod2_wrap mk_lang_concat(mk_sl_cui_inl_defd_base, _mod2_wrap)
 #define mk_sl_cui_inl_defd_base_divmod2_wrap mk_lang_concat(mk_sl_cui_inl_defd_base, _divmod2_wrap)
+#define mk_sl_cui_inl_defd_base_to_str_bin_n mk_lang_concat(mk_sl_cui_inl_defd_base, _to_str_bin_n)
+#define mk_sl_cui_inl_defd_base_to_str_bin_w mk_lang_concat(mk_sl_cui_inl_defd_base, _to_str_bin_w)
+#define mk_sl_cui_inl_defd_base_from_str_bin_n mk_lang_concat(mk_sl_cui_inl_defd_base, _from_str_bin_n)
+#define mk_sl_cui_inl_defd_base_from_str_bin_w mk_lang_concat(mk_sl_cui_inl_defd_base, _from_str_bin_w)
+#define mk_sl_cui_inl_defd_base_to_str_oct_n mk_lang_concat(mk_sl_cui_inl_defd_base, _to_str_oct_n)
+#define mk_sl_cui_inl_defd_base_to_str_oct_w mk_lang_concat(mk_sl_cui_inl_defd_base, _to_str_oct_w)
+#define mk_sl_cui_inl_defd_base_from_str_oct_n mk_lang_concat(mk_sl_cui_inl_defd_base, _from_str_oct_n)
+#define mk_sl_cui_inl_defd_base_from_str_oct_w mk_lang_concat(mk_sl_cui_inl_defd_base, _from_str_oct_w)
+#define mk_sl_cui_inl_defd_base_to_str_dec_n mk_lang_concat(mk_sl_cui_inl_defd_base, _to_str_dec_n)
+#define mk_sl_cui_inl_defd_base_to_str_dec_w mk_lang_concat(mk_sl_cui_inl_defd_base, _to_str_dec_w)
+#define mk_sl_cui_inl_defd_base_from_str_dec_n mk_lang_concat(mk_sl_cui_inl_defd_base, _from_str_dec_n)
+#define mk_sl_cui_inl_defd_base_from_str_dec_w mk_lang_concat(mk_sl_cui_inl_defd_base, _from_str_dec_w)
+#define mk_sl_cui_inl_defd_base_to_str_hex_n mk_lang_concat(mk_sl_cui_inl_defd_base, _to_str_hex_n)
+#define mk_sl_cui_inl_defd_base_to_str_hex_w mk_lang_concat(mk_sl_cui_inl_defd_base, _to_str_hex_w)
+#define mk_sl_cui_inl_defd_base_from_str_hex_n mk_lang_concat(mk_sl_cui_inl_defd_base, _from_str_hex_n)
+#define mk_sl_cui_inl_defd_base_from_str_hex_w mk_lang_concat(mk_sl_cui_inl_defd_base, _from_str_hex_w)
+#define mk_sl_cui_inl_defd_base_to_str_binf_n mk_lang_concat(mk_sl_cui_inl_defd_base, _to_str_binf_n)
+#define mk_sl_cui_inl_defd_base_to_str_binf_w mk_lang_concat(mk_sl_cui_inl_defd_base, _to_str_binf_w)
+#define mk_sl_cui_inl_defd_base_to_str_hexf_n mk_lang_concat(mk_sl_cui_inl_defd_base, _to_str_hexf_n)
+#define mk_sl_cui_inl_defd_base_to_str_hexf_w mk_lang_concat(mk_sl_cui_inl_defd_base, _to_str_hexf_w)
 
 
 #define mk_sl_cui_inl_defd_strlendec_log 19728ul /* floor(log10(2) * (2^16)) */
 #define mk_sl_cui_inl_defd_sizebits_d (mk_sl_cui_inl_defd_count * mk_sl_cui_inl_defd_base_sizebits_d)
 #define mk_sl_cui_inl_defd_strlenbin_d mk_sl_cui_inl_defd_sizebits_d
+#define mk_sl_cui_inl_defd_strlenoct_d mk_lang_div_roundup(mk_sl_cui_inl_defd_sizebits_d, 3)
 #define mk_sl_cui_inl_defd_strlendec_d (((mk_sl_cui_inl_defd_sizebits_d * mk_sl_cui_inl_defd_strlendec_log) >> 16) + 1)
 #define mk_sl_cui_inl_defd_strlenhex_d mk_lang_div_roundup(mk_sl_cui_inl_defd_sizebits_d, 4)
 
@@ -182,22 +214,31 @@ mm_per_bui(`#define mk_sl_cui_inl_defd_base_to_buis_$1_be mk_lang_concat(mk_sl_c
 #define mk_sl_cui_inl_defd_sizebits_t mk_lang_concat(mk_sl_cui_inl_defd_name, _sizebits_t)
 #define mk_sl_cui_inl_defd_sizebits_v mk_lang_concat(mk_sl_cui_inl_defd_name, _sizebits_v)
 
+#define mk_sl_cui_inl_defd_symbols_bin_a mk_lang_concat(mk_sl_cui_inl_defd_name, _symbols_bin_a)
+#define mk_sl_cui_inl_defd_symbols_bin_b mk_lang_concat(mk_sl_cui_inl_defd_name, _symbols_bin_b)
+#define mk_sl_cui_inl_defd_symbols_bin_c mk_lang_concat(mk_sl_cui_inl_defd_name, _symbols_bin_c)
+#define mk_sl_cui_inl_defd_symbols_bin_d mk_lang_concat(mk_sl_cui_inl_defd_name, _symbols_bin_d)
+#define mk_sl_cui_inl_defd_symbols_oct_a mk_lang_concat(mk_sl_cui_inl_defd_name, _symbols_oct_a)
+#define mk_sl_cui_inl_defd_symbols_oct_b mk_lang_concat(mk_sl_cui_inl_defd_name, _symbols_oct_b)
+#define mk_sl_cui_inl_defd_symbols_oct_c mk_lang_concat(mk_sl_cui_inl_defd_name, _symbols_oct_c)
+#define mk_sl_cui_inl_defd_symbols_oct_d mk_lang_concat(mk_sl_cui_inl_defd_name, _symbols_oct_d)
 #define mk_sl_cui_inl_defd_symbols_dec_a mk_lang_concat(mk_sl_cui_inl_defd_name, _symbols_dec_a)
 #define mk_sl_cui_inl_defd_symbols_dec_b mk_lang_concat(mk_sl_cui_inl_defd_name, _symbols_dec_b)
 #define mk_sl_cui_inl_defd_symbols_dec_c mk_lang_concat(mk_sl_cui_inl_defd_name, _symbols_dec_c)
 #define mk_sl_cui_inl_defd_symbols_dec_d mk_lang_concat(mk_sl_cui_inl_defd_name, _symbols_dec_d)
 #define mk_sl_cui_inl_defd_symbols_hex_a mk_lang_concat(mk_sl_cui_inl_defd_name, _symbols_hex_a)
 #define mk_sl_cui_inl_defd_symbols_hex_b mk_lang_concat(mk_sl_cui_inl_defd_name, _symbols_hex_b)
-#define mk_sl_cui_inl_defd_symbols_hex_c mk_lang_concat(mk_sl_cui_inl_defd_name, _symbols_hex_c)
-#define mk_sl_cui_inl_defd_symbols_hex_d mk_lang_concat(mk_sl_cui_inl_defd_name, _symbols_hex_d)
-#define mk_sl_cui_inl_defd_symbols_bin_a mk_lang_concat(mk_sl_cui_inl_defd_name, _symbols_bin_a)
-#define mk_sl_cui_inl_defd_symbols_bin_b mk_lang_concat(mk_sl_cui_inl_defd_name, _symbols_bin_b)
-#define mk_sl_cui_inl_defd_symbols_bin_c mk_lang_concat(mk_sl_cui_inl_defd_name, _symbols_bin_c)
-#define mk_sl_cui_inl_defd_symbols_bin_d mk_lang_concat(mk_sl_cui_inl_defd_name, _symbols_bin_d)
+#define mk_sl_cui_inl_defd_symbols_hex_ca mk_lang_concat(mk_sl_cui_inl_defd_name, _symbols_hex_ca)
+#define mk_sl_cui_inl_defd_symbols_hex_cb mk_lang_concat(mk_sl_cui_inl_defd_name, _symbols_hex_cb)
+#define mk_sl_cui_inl_defd_symbols_hex_da mk_lang_concat(mk_sl_cui_inl_defd_name, _symbols_hex_da)
+#define mk_sl_cui_inl_defd_symbols_hex_db mk_lang_concat(mk_sl_cui_inl_defd_name, _symbols_hex_db)
 
 #define mk_sl_cui_inl_defd_strlenbin_e mk_lang_concat(mk_sl_cui_inl_defd_name, _strlenbin_e)
 #define mk_sl_cui_inl_defd_strlenbin_t mk_lang_concat(mk_sl_cui_inl_defd_name, _strlenbin_t)
 #define mk_sl_cui_inl_defd_strlenbin_v mk_lang_concat(mk_sl_cui_inl_defd_name, _strlenbin_v)
+#define mk_sl_cui_inl_defd_strlenoct_e mk_lang_concat(mk_sl_cui_inl_defd_name, _strlenoct_e)
+#define mk_sl_cui_inl_defd_strlenoct_t mk_lang_concat(mk_sl_cui_inl_defd_name, _strlenoct_t)
+#define mk_sl_cui_inl_defd_strlenoct_v mk_lang_concat(mk_sl_cui_inl_defd_name, _strlenoct_v)
 #define mk_sl_cui_inl_defd_strlendec_e mk_lang_concat(mk_sl_cui_inl_defd_name, _strlendec_e)
 #define mk_sl_cui_inl_defd_strlendec_t mk_lang_concat(mk_sl_cui_inl_defd_name, _strlendec_t)
 #define mk_sl_cui_inl_defd_strlendec_v mk_lang_concat(mk_sl_cui_inl_defd_name, _strlendec_v)
@@ -316,15 +357,27 @@ mm_per_bui(`#define mk_sl_cui_inl_defd_to_buis_$1_be mk_lang_concat(mk_sl_cui_in
 #define mk_sl_cui_inl_defd_div2_wrap mk_lang_concat(mk_sl_cui_inl_defd_name, _div2_wrap)
 #define mk_sl_cui_inl_defd_mod2_wrap mk_lang_concat(mk_sl_cui_inl_defd_name, _mod2_wrap)
 #define mk_sl_cui_inl_defd_divmod2_wrap mk_lang_concat(mk_sl_cui_inl_defd_name, _divmod2_wrap)
+#define mk_sl_cui_inl_defd_to_str_bin_n mk_lang_concat(mk_sl_cui_inl_defd_name, _to_str_bin_n)
+#define mk_sl_cui_inl_defd_to_str_bin_w mk_lang_concat(mk_sl_cui_inl_defd_name, _to_str_bin_w)
+#define mk_sl_cui_inl_defd_from_str_bin_n mk_lang_concat(mk_sl_cui_inl_defd_name, _from_str_bin_n)
+#define mk_sl_cui_inl_defd_from_str_bin_w mk_lang_concat(mk_sl_cui_inl_defd_name, _from_str_bin_w)
+#define mk_sl_cui_inl_defd_to_str_oct_n mk_lang_concat(mk_sl_cui_inl_defd_name, _to_str_oct_n)
+#define mk_sl_cui_inl_defd_to_str_oct_w mk_lang_concat(mk_sl_cui_inl_defd_name, _to_str_oct_w)
+#define mk_sl_cui_inl_defd_from_str_oct_n mk_lang_concat(mk_sl_cui_inl_defd_name, _from_str_oct_n)
+#define mk_sl_cui_inl_defd_from_str_oct_w mk_lang_concat(mk_sl_cui_inl_defd_name, _from_str_oct_w)
 #define mk_sl_cui_inl_defd_to_str_dec_n mk_lang_concat(mk_sl_cui_inl_defd_name, _to_str_dec_n)
 #define mk_sl_cui_inl_defd_to_str_dec_w mk_lang_concat(mk_sl_cui_inl_defd_name, _to_str_dec_w)
 #define mk_sl_cui_inl_defd_from_str_dec_n mk_lang_concat(mk_sl_cui_inl_defd_name, _from_str_dec_n)
 #define mk_sl_cui_inl_defd_from_str_dec_w mk_lang_concat(mk_sl_cui_inl_defd_name, _from_str_dec_w)
 #define mk_sl_cui_inl_defd_to_str_hex_n mk_lang_concat(mk_sl_cui_inl_defd_name, _to_str_hex_n)
 #define mk_sl_cui_inl_defd_to_str_hex_w mk_lang_concat(mk_sl_cui_inl_defd_name, _to_str_hex_w)
-#define mk_sl_cui_inl_defd_to_str_hexf_n mk_lang_concat(mk_sl_cui_inl_defd_name, _to_str_hexf_n)
-#define mk_sl_cui_inl_defd_to_str_bin_n mk_lang_concat(mk_sl_cui_inl_defd_name, _to_str_bin_n)
+#define mk_sl_cui_inl_defd_from_str_hex_n mk_lang_concat(mk_sl_cui_inl_defd_name, _from_str_hex_n)
+#define mk_sl_cui_inl_defd_from_str_hex_w mk_lang_concat(mk_sl_cui_inl_defd_name, _from_str_hex_w)
 #define mk_sl_cui_inl_defd_to_str_binf_n mk_lang_concat(mk_sl_cui_inl_defd_name, _to_str_binf_n)
+#define mk_sl_cui_inl_defd_to_str_binf_w mk_lang_concat(mk_sl_cui_inl_defd_name, _to_str_binf_w)
+#define mk_sl_cui_inl_defd_to_str_hexf_n mk_lang_concat(mk_sl_cui_inl_defd_name, _to_str_hexf_n)
+#define mk_sl_cui_inl_defd_to_str_hexf_w mk_lang_concat(mk_sl_cui_inl_defd_name, _to_str_hexf_w)
+
 
 #define mk_sl_cui_inl_defd_mul3_wrap_lo_restrict mk_lang_concat(mk_sl_cui_inl_defd_name, _mul3_wrap_lo_restrict)
 #define mk_sl_cui_inl_defd_mul3_wrap_lo_alias mk_lang_concat(mk_sl_cui_inl_defd_name, _mul3_wrap_lo_alias)

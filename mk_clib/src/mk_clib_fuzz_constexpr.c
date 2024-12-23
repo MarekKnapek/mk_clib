@@ -13,6 +13,7 @@
 #include "mk_sl_uint8.h"
 
 #include "mk_lang_bui_fuzz.h"
+#include "mk_sl_cui_fuzz.h"
 
 
 mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_clib_fuzz_constexpr_append_file(mk_lib_crypto_xof_stream_shake_128_pt const shaker, mk_lang_types_pchar_pct const file) mk_lang_noexcept
@@ -107,6 +108,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_clib_fuzz_conste
 mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_clib_fuzz_constexpr_impl(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
 {
 	mk_lang_bui_fuzz(data, size);
+	mk_sl_cui_fuzz(data, size);
 }
 
 mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_clib_fuzz_constexpr_test_nth_block(mk_lang_types_sint_t const nth) mk_lang_noexcept

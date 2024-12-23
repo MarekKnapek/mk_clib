@@ -17,6 +17,7 @@
 #include "mk_lib_crypto_xof_stream_shake_128_fuzz.h"
 #include "mk_lib_crypto_xof_stream_shake_256_fuzz.h"
 #include "mk_lib_fmt_fuzz.h"
+#include "mk_sl_cui_fuzz.h"
 #include "mk_sl_sort_merge_fuzz.h"
 
 #if defined mk_clib_test_smol_want && mk_clib_test_smol_want == 1
@@ -39,6 +40,7 @@ mk_lang_jumbo void mk_clib_fuzz(unsigned char const* const data, mk_lang_types_u
 	mk_lib_crypto_xof_stream_shake_128_fuzz(data, size);
 	mk_lib_crypto_xof_stream_shake_256_fuzz(data, size);
 	mk_lib_fmt_fuzz(data, size);
+	mk_sl_cui_fuzz(data, size);
 	mk_sl_sort_merge_fuzz(data, size);
 
 	#if(!(defined __GNUC__ && defined __GNUC_MINOR__))
