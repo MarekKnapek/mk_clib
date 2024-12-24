@@ -127,7 +127,6 @@
 		<ProjectGuid>{6416563a-41fe-42cd-950d-0ab99f9bf8f3}</ProjectGuid>
 		<RootNamespace>mkvc</RootNamespace>
 		<VCProjectVersion>17.0</VCProjectVersion>
-		<WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
 	</PropertyGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

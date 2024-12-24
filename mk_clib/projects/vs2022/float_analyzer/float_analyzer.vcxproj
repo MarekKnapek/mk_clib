@@ -50,7 +50,6 @@
 		<Keyword>Win32Proj</Keyword>
 		<ProjectGuid>{d373cec0-6b32-4ea2-b320-d05e72116855}</ProjectGuid>
 		<RootNamespace>floatanalyzer</RootNamespace>
-		<WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
 	</PropertyGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

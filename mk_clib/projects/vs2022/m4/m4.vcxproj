@@ -10,7 +10,6 @@
 		<VCProjectVersion>17.0</VCProjectVersion>
 		<ProjectGuid>{8286250d-5be4-4739-befc-05c1fef305be}</ProjectGuid>
 		<Keyword>Win32Proj</Keyword>
-		<WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
 	</PropertyGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
 	<PropertyGroup Label="Configuration">

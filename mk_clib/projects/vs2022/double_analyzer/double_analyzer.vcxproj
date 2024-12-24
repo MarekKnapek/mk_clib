@@ -50,7 +50,6 @@
 		<Keyword>Win32Proj</Keyword>
 		<ProjectGuid>{c44def45-a5d4-460c-8aa4-2aad83de189e}</ProjectGuid>
 		<RootNamespace>doubleanalyzer</RootNamespace>
-		<WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
 	</PropertyGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

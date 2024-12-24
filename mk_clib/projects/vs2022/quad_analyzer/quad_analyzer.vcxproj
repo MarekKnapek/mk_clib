@@ -50,7 +50,6 @@
 		<Keyword>Win32Proj</Keyword>
 		<ProjectGuid>{a1cbb4a8-c1ba-40dd-8772-26844c6b7c59}</ProjectGuid>
 		<RootNamespace>quadanalyzer</RootNamespace>
-		<WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
 	</PropertyGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
