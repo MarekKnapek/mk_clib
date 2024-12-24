@@ -97,8 +97,8 @@ mk_lang_jumbo void mk_lib_crypto_alg_aes_fuzz_accelerated(mk_lang_types_uchar_pc
 			mk_lib_crypto_alg_aes_x86_aesni_128_key_t key_b;
 			mk_lib_crypto_alg_aes_x86_aesni_128_schedule_t schedule_b;
 			mk_lang_alignas(64) mk_lib_crypto_alg_aes_x86_aesni_128_msg_t outs_b[4];
-			test(mk_lib_crypto_alg_aes_x86_aesni_128_key_len_v == mk_lib_crypto_alg_aes_portable_128_key_len_v);
-			test(mk_lib_crypto_alg_aes_x86_aesni_128_msg_len_v == mk_lib_crypto_alg_aes_portable_128_msg_len_v);
+			test(((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_x86_aesni_128_key_len_v)) == ((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_portable_128_key_len_v)));
+			test(((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_x86_aesni_128_msg_len_v)) == ((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_portable_128_msg_len_v)));
 			memcpy(&key_b, &key, mk_lib_crypto_alg_aes_portable_128_key_len_v);
 			mk_lib_crypto_alg_aes_x86_aesni_128_expand_enc(&key_b, &schedule_b);
 			mk_lib_crypto_alg_aes_x86_aesni_128_schedule_encrypt(&schedule_b, &msgs[0], &outs_b[0], 4);
@@ -112,8 +112,8 @@ mk_lang_jumbo void mk_lib_crypto_alg_aes_fuzz_accelerated(mk_lang_types_uchar_pc
 			mk_lib_crypto_alg_aes_x86_vaes256_128_key_t key_b;
 			mk_lib_crypto_alg_aes_x86_vaes256_128_schedule_t schedule_b;
 			mk_lang_alignas(64) mk_lib_crypto_alg_aes_x86_vaes256_128_msg_t outs_b[4];
-			test(mk_lib_crypto_alg_aes_x86_vaes256_128_key_len_v == mk_lib_crypto_alg_aes_portable_128_key_len_v);
-			test(mk_lib_crypto_alg_aes_x86_vaes256_128_msg_len_v == mk_lib_crypto_alg_aes_portable_128_msg_len_v);
+			test(((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_x86_vaes256_128_key_len_v)) == ((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_portable_128_key_len_v)));
+			test(((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_x86_vaes256_128_msg_len_v)) == ((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_portable_128_msg_len_v)));
 			memcpy(&key_b, &key, mk_lib_crypto_alg_aes_portable_128_key_len_v);
 			mk_lib_crypto_alg_aes_x86_vaes256_128_expand_enc(&key_b, &schedule_b);
 			mk_lib_crypto_alg_aes_x86_vaes256_128_schedule_encrypt(&schedule_b, &msgs[0], &outs_b[0], 4);
@@ -127,8 +127,8 @@ mk_lang_jumbo void mk_lib_crypto_alg_aes_fuzz_accelerated(mk_lang_types_uchar_pc
 			mk_lib_crypto_alg_aes_x86_vaes512_128_key_t key_b;
 			mk_lib_crypto_alg_aes_x86_vaes512_128_schedule_t schedule_b;
 			mk_lang_alignas(64) mk_lib_crypto_alg_aes_x86_vaes512_128_msg_t outs_b[4];
-			test(mk_lib_crypto_alg_aes_x86_vaes512_128_key_len_v == mk_lib_crypto_alg_aes_portable_128_key_len_v);
-			test(mk_lib_crypto_alg_aes_x86_vaes512_128_msg_len_v == mk_lib_crypto_alg_aes_portable_128_msg_len_v);
+			test(((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_x86_vaes512_128_key_len_v)) == ((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_portable_128_key_len_v)));
+			test(((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_x86_vaes512_128_msg_len_v)) == ((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_portable_128_msg_len_v)));
 			memcpy(&key_b, &key, mk_lib_crypto_alg_aes_portable_128_key_len_v);
 			mk_lib_crypto_alg_aes_x86_vaes512_128_expand_enc(&key_b, &schedule_b);
 			mk_lib_crypto_alg_aes_x86_vaes512_128_schedule_encrypt(&schedule_b, &msgs[0], &outs_b[0], 4);
@@ -162,8 +162,8 @@ mk_lang_jumbo void mk_lib_crypto_alg_aes_fuzz_accelerated(mk_lang_types_uchar_pc
 			mk_lib_crypto_alg_aes_x86_aesni_192_key_t key_b;
 			mk_lib_crypto_alg_aes_x86_aesni_192_schedule_t schedule_b;
 			mk_lang_alignas(64) mk_lib_crypto_alg_aes_x86_aesni_192_msg_t outs_b[4];
-			test(mk_lib_crypto_alg_aes_x86_aesni_192_key_len_v == mk_lib_crypto_alg_aes_portable_192_key_len_v);
-			test(mk_lib_crypto_alg_aes_x86_aesni_192_msg_len_v == mk_lib_crypto_alg_aes_portable_192_msg_len_v);
+			test(((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_x86_aesni_192_key_len_v)) == ((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_portable_192_key_len_v)));
+			test(((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_x86_aesni_192_msg_len_v)) == ((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_portable_192_msg_len_v)));
 			memcpy(&key_b, &key, mk_lib_crypto_alg_aes_portable_192_key_len_v);
 			mk_lib_crypto_alg_aes_x86_aesni_192_expand_enc(&key_b, &schedule_b);
 			mk_lib_crypto_alg_aes_x86_aesni_192_schedule_encrypt(&schedule_b, &msgs[0], &outs_b[0], 4);
@@ -177,8 +177,8 @@ mk_lang_jumbo void mk_lib_crypto_alg_aes_fuzz_accelerated(mk_lang_types_uchar_pc
 			mk_lib_crypto_alg_aes_x86_vaes256_192_key_t key_b;
 			mk_lib_crypto_alg_aes_x86_vaes256_192_schedule_t schedule_b;
 			mk_lang_alignas(64) mk_lib_crypto_alg_aes_x86_vaes256_192_msg_t outs_b[4];
-			test(mk_lib_crypto_alg_aes_x86_vaes256_192_key_len_v == mk_lib_crypto_alg_aes_portable_192_key_len_v);
-			test(mk_lib_crypto_alg_aes_x86_vaes256_192_msg_len_v == mk_lib_crypto_alg_aes_portable_192_msg_len_v);
+			test(((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_x86_vaes256_192_key_len_v)) == ((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_portable_192_key_len_v)));
+			test(((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_x86_vaes256_192_msg_len_v)) == ((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_portable_192_msg_len_v)));
 			memcpy(&key_b, &key, mk_lib_crypto_alg_aes_portable_192_key_len_v);
 			mk_lib_crypto_alg_aes_x86_vaes256_192_expand_enc(&key_b, &schedule_b);
 			mk_lib_crypto_alg_aes_x86_vaes256_192_schedule_encrypt(&schedule_b, &msgs[0], &outs_b[0], 4);
@@ -192,8 +192,8 @@ mk_lang_jumbo void mk_lib_crypto_alg_aes_fuzz_accelerated(mk_lang_types_uchar_pc
 			mk_lib_crypto_alg_aes_x86_vaes512_192_key_t key_b;
 			mk_lib_crypto_alg_aes_x86_vaes512_192_schedule_t schedule_b;
 			mk_lang_alignas(64) mk_lib_crypto_alg_aes_x86_vaes512_192_msg_t outs_b[4];
-			test(mk_lib_crypto_alg_aes_x86_vaes512_192_key_len_v == mk_lib_crypto_alg_aes_portable_192_key_len_v);
-			test(mk_lib_crypto_alg_aes_x86_vaes512_192_msg_len_v == mk_lib_crypto_alg_aes_portable_192_msg_len_v);
+			test(((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_x86_vaes512_192_key_len_v)) == ((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_portable_192_key_len_v)));
+			test(((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_x86_vaes512_192_msg_len_v)) == ((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_portable_192_msg_len_v)));
 			memcpy(&key_b, &key, mk_lib_crypto_alg_aes_portable_192_key_len_v);
 			mk_lib_crypto_alg_aes_x86_vaes512_192_expand_enc(&key_b, &schedule_b);
 			mk_lib_crypto_alg_aes_x86_vaes512_192_schedule_encrypt(&schedule_b, &msgs[0], &outs_b[0], 4);
@@ -227,8 +227,8 @@ mk_lang_jumbo void mk_lib_crypto_alg_aes_fuzz_accelerated(mk_lang_types_uchar_pc
 			mk_lib_crypto_alg_aes_x86_aesni_256_key_t key_b;
 			mk_lib_crypto_alg_aes_x86_aesni_256_schedule_t schedule_b;
 			mk_lang_alignas(64) mk_lib_crypto_alg_aes_x86_aesni_256_msg_t outs_b[4];
-			test(mk_lib_crypto_alg_aes_x86_aesni_256_key_len_v == mk_lib_crypto_alg_aes_portable_256_key_len_v);
-			test(mk_lib_crypto_alg_aes_x86_aesni_256_msg_len_v == mk_lib_crypto_alg_aes_portable_256_msg_len_v);
+			test(((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_x86_aesni_256_key_len_v)) == ((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_portable_256_key_len_v)));
+			test(((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_x86_aesni_256_msg_len_v)) == ((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_portable_256_msg_len_v)));
 			memcpy(&key_b, &key, mk_lib_crypto_alg_aes_portable_256_key_len_v);
 			mk_lib_crypto_alg_aes_x86_aesni_256_expand_enc(&key_b, &schedule_b);
 			mk_lib_crypto_alg_aes_x86_aesni_256_schedule_encrypt(&schedule_b, &msgs[0], &outs_b[0], 4);
@@ -242,8 +242,8 @@ mk_lang_jumbo void mk_lib_crypto_alg_aes_fuzz_accelerated(mk_lang_types_uchar_pc
 			mk_lib_crypto_alg_aes_x86_vaes256_256_key_t key_b;
 			mk_lib_crypto_alg_aes_x86_vaes256_256_schedule_t schedule_b;
 			mk_lang_alignas(64) mk_lib_crypto_alg_aes_x86_vaes256_256_msg_t outs_b[4];
-			test(mk_lib_crypto_alg_aes_x86_vaes256_256_key_len_v == mk_lib_crypto_alg_aes_portable_256_key_len_v);
-			test(mk_lib_crypto_alg_aes_x86_vaes256_256_msg_len_v == mk_lib_crypto_alg_aes_portable_256_msg_len_v);
+			test(((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_x86_vaes256_256_key_len_v)) == ((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_portable_256_key_len_v)));
+			test(((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_x86_vaes256_256_msg_len_v)) == ((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_portable_256_msg_len_v)));
 			memcpy(&key_b, &key, mk_lib_crypto_alg_aes_portable_256_key_len_v);
 			mk_lib_crypto_alg_aes_x86_vaes256_256_expand_enc(&key_b, &schedule_b);
 			mk_lib_crypto_alg_aes_x86_vaes256_256_schedule_encrypt(&schedule_b, &msgs[0], &outs_b[0], 4);
@@ -257,8 +257,8 @@ mk_lang_jumbo void mk_lib_crypto_alg_aes_fuzz_accelerated(mk_lang_types_uchar_pc
 			mk_lib_crypto_alg_aes_x86_vaes512_256_key_t key_b;
 			mk_lib_crypto_alg_aes_x86_vaes512_256_schedule_t schedule_b;
 			mk_lang_alignas(64) mk_lib_crypto_alg_aes_x86_vaes512_256_msg_t outs_b[4];
-			test(mk_lib_crypto_alg_aes_x86_vaes512_256_key_len_v == mk_lib_crypto_alg_aes_portable_256_key_len_v);
-			test(mk_lib_crypto_alg_aes_x86_vaes512_256_msg_len_v == mk_lib_crypto_alg_aes_portable_256_msg_len_v);
+			test(((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_x86_vaes512_256_key_len_v)) == ((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_portable_256_key_len_v)));
+			test(((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_x86_vaes512_256_msg_len_v)) == ((mk_lang_types_sint_t)(mk_lib_crypto_alg_aes_portable_256_msg_len_v)));
 			memcpy(&key_b, &key, mk_lib_crypto_alg_aes_portable_256_key_len_v);
 			mk_lib_crypto_alg_aes_x86_vaes512_256_expand_enc(&key_b, &schedule_b);
 			mk_lib_crypto_alg_aes_x86_vaes512_256_schedule_encrypt(&schedule_b, &msgs[0], &outs_b[0], 4);
