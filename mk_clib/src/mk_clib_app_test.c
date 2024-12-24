@@ -57,8 +57,11 @@ mk_lang_jumbo int mk_clib_app_test_void(void) mk_lang_noexcept
 		{
 			data[j] = ((unsigned char)(rand()));
 		}
-		t = mk_clib_app_fuzz(data, ((int)(sizeof(data))));
-		mk_lang_assert(t == 0);
+		for(j = 0; j != ((int)(sizeof(data))); ++j)
+		{
+			t = mk_clib_app_fuzz(data, j);
+			mk_lang_assert(t == 0);
+		}
 	}
 	t = printf("\nNot crashed.\n"); t = fflush(stdout); mk_lang_assert(t == 0);
 	mk_lang_assert(t >= 0);
