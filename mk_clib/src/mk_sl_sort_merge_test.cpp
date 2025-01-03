@@ -39,36 +39,28 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_sor
 
 
 #define mk_sl_sort_merge_t_name mk_sl_sort_merge_test1
-#define mk_sl_sort_merge_t_data mk_sl_sort_merge_test_sint
-#define mk_sl_sort_merge_t_counter mk_sl_sort_merge_test_usize
+#define mk_sl_sort_merge_t_data_type mk_sl_sort_merge_test_sint_t
 #define mk_sl_sort_merge_t_is_sorted mk_sl_sort_merge_test_cmp
-#define mk_sl_sort_merge_t_first_round 0
 #include "mk_sl_sort_merge_inl_fileh.h"
 #include "mk_sl_sort_merge_inl_filec.h"
 
 #define mk_sl_sort_merge_t_name mk_sl_sort_merge_test2
-#define mk_sl_sort_merge_t_data mk_sl_sort_merge_test_sint
-#define mk_sl_sort_merge_t_counter mk_sl_sort_merge_test_usize
+#define mk_sl_sort_merge_t_data_type mk_sl_sort_merge_test_sint_t
 #define mk_sl_sort_merge_t_is_sorted mk_sl_sort_merge_test_cmp
-#define mk_sl_sort_merge_t_first_round 1
 #include "mk_sl_sort_merge_inl_fileh.h"
 #include "mk_sl_sort_merge_inl_filec.h"
 
 #define mk_sl_sort_merge_t_name mk_sl_sort_merge_test3
-#define mk_sl_sort_merge_t_data mk_sl_sort_merge_test_sint
-#define mk_sl_sort_merge_t_counter mk_sl_sort_merge_test_usize
+#define mk_sl_sort_merge_t_data_type mk_sl_sort_merge_test_sint_t
 #define mk_sl_sort_merge_t_is_sorted mk_sl_sort_merge_test_cmp
-#define mk_sl_sort_merge_t_first_round 0
-#define mk_sl_sort_merge_t_proxy mk_sl_sort_merge_test_usize
+#define mk_sl_sort_merge_t_proxy_type mk_sl_sort_merge_test_usize_t
 #include "mk_sl_sort_merge_inl_fileh.h"
 #include "mk_sl_sort_merge_inl_filec.h"
 
 #define mk_sl_sort_merge_t_name mk_sl_sort_merge_test4
-#define mk_sl_sort_merge_t_data mk_sl_sort_merge_test_sint
-#define mk_sl_sort_merge_t_counter mk_sl_sort_merge_test_usize
+#define mk_sl_sort_merge_t_data_type mk_sl_sort_merge_test_sint_t
 #define mk_sl_sort_merge_t_is_sorted mk_sl_sort_merge_test_cmp
-#define mk_sl_sort_merge_t_first_round 1
-#define mk_sl_sort_merge_t_proxy mk_sl_sort_merge_test_usize
+#define mk_sl_sort_merge_t_proxy_type mk_sl_sort_merge_test_usize_t
 #include "mk_sl_sort_merge_inl_fileh.h"
 #include "mk_sl_sort_merge_inl_filec.h"
 
@@ -84,7 +76,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto sort_numbers1(int const(&
 	{
 		ret[i] = arr[i];
 	}
-	mk_sl_sort_merge_test1_plain(ret.data(), ret.size(), tmp.data());
+	mk_sl_sort_merge_test1_fn_plain(ret.data(), ret.size(), tmp.data());
 	return ret;
 }
 
@@ -99,7 +91,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto sort_numbers2(int const(&
 	{
 		ret[i] = arr[i];
 	}
-	mk_sl_sort_merge_test2_plain(ret.data(), ret.size(), tmp.data());
+	mk_sl_sort_merge_test2_fn_plain(ret.data(), ret.size(), tmp.data());
 	return ret;
 }
 
@@ -115,7 +107,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto sort_numbers3(int const(&
 	{
 		proxy[i] = i;
 	}
-	mk_sl_sort_merge_test3_proxy(arr, proxy.data(), ret.size(), tmp.data());
+	mk_sl_sort_merge_test3_fn_proxy(arr, proxy.data(), ret.size(), tmp.data());
 	for(i = 0; i != n; ++i)
 	{
 		ret[i] = arr[proxy[i]];
@@ -135,7 +127,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo auto sort_numbers4(int const(&
 	{
 		proxy[i] = i;
 	}
-	mk_sl_sort_merge_test4_proxy(arr, proxy.data(), ret.size(), tmp.data());
+	mk_sl_sort_merge_test4_fn_proxy(arr, proxy.data(), ret.size(), tmp.data());
 	for(i = 0; i != n; ++i)
 	{
 		ret[i] = arr[proxy[i]];
