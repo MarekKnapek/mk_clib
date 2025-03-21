@@ -1,0 +1,8 @@
+#ifndef mk_include_guard_mk_lang_max_h
+#define mk_include_guard_mk_lang_max_h
+
+
+#define mk_lang_max(a, b) (((b) < (a)) ? (a) : (b))
+
+
+#endif
