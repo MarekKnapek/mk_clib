@@ -27,6 +27,7 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_builtin.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_charbit.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_compiler.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_concat.h"/>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
 		<VCProjectVersion>17.0</VCProjectVersion>
