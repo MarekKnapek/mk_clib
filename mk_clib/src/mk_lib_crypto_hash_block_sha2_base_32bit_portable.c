@@ -5,6 +5,7 @@
 #include "mk_lang_alignas.h"
 #include "mk_lang_alignof.h"
 #include "mk_lang_assert.h"
+#include "mk_lang_bool.h"
 #include "mk_lang_charbit.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_countof.h"
@@ -39,13 +40,13 @@ mk_lang_typedef(mk_lib_crypto_hash_block_sha2_base_32bit_portable_block);
 
 union mk_lib_crypto_hash_block_sha2_base_32bit_portable_table_data_u
 {
-	mk_lang_alignas(256) mk_sl_cui_uint32_t m_uint32s[64];
+	mk_sl_cui_uint32_t m_uint32s[64];
 	mk_lang_types_ulllong_t m_align;
 };
 typedef union mk_lib_crypto_hash_block_sha2_base_32bit_portable_table_data_u mk_lib_crypto_hash_block_sha2_base_32bit_portable_table_data_t;
 struct mk_lib_crypto_hash_block_sha2_base_32bit_portable_table_s
 {
-	mk_lang_alignas(256) mk_lib_crypto_hash_block_sha2_base_32bit_portable_table_data_t m_data;
+	mk_lang_alignas(sizeof(mk_lib_crypto_hash_block_sha2_base_32bit_portable_table_data_t)) mk_lib_crypto_hash_block_sha2_base_32bit_portable_table_data_t m_data;
 };
 typedef struct mk_lib_crypto_hash_block_sha2_base_32bit_portable_table_s mk_lib_crypto_hash_block_sha2_base_32bit_portable_table_t;
 
@@ -213,10 +214,8 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sh
 #include "mk_lang_warning_msvc_push_c5045.h"
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sha2_base_32bit_portable_append_blocks(mk_lib_crypto_hash_block_sha2_base_32bit_portable_pt const sha2_base_32bit_portable, mk_lib_crypto_hash_block_sha2_base_32bit_portable_block_pct const pblocks, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
-	mk_sl_cui_uint64_t tt mk_lang_constexpr_init;
-	mk_sl_cui_uint32_t oldh[8] mk_lang_constexpr_init;
-	mk_sl_cui_uint32_t hh[8] mk_lang_constexpr_init;
 	mk_sl_cui_uint32_pt a mk_lang_constexpr_init;
+	mk_sl_cui_uint32_t hh[8] mk_lang_constexpr_init;
 	mk_sl_cui_uint32_pt b mk_lang_constexpr_init;
 	mk_sl_cui_uint32_pt c mk_lang_constexpr_init;
 	mk_sl_cui_uint32_pt d mk_lang_constexpr_init;
@@ -224,8 +223,10 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sh
 	mk_sl_cui_uint32_pt f mk_lang_constexpr_init;
 	mk_sl_cui_uint32_pt g mk_lang_constexpr_init;
 	mk_sl_cui_uint32_pt h mk_lang_constexpr_init;
+	mk_sl_cui_uint64_t tt mk_lang_constexpr_init;
+	mk_sl_cui_uint32_t oldh[8] mk_lang_constexpr_init;
 	mk_lang_types_usize_t iblock mk_lang_constexpr_init;
-	mk_lang_types_sint_t i mk_lang_constexpr_init;
+	mk_lang_types_sint_t iround mk_lang_constexpr_init;
 	mk_lib_crypto_hash_block_sha2_base_32bit_portable_block2_t w mk_lang_constexpr_init;
 	mk_sl_cui_uint32_t ta mk_lang_constexpr_init;
 	mk_sl_cui_uint32_t tb mk_lang_constexpr_init;
@@ -244,75 +245,68 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sh
 	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
-	mk_sl_cui_uint64_from_bi_usize(&tt, &nblocks);
-	mk_lang_assert(!mk_sl_cui_uint64_would_overflow_add_cc(&sha2_base_32bit_portable->m_len, &tt));
-	mk_sl_cui_uint64_add2_wrap_cid_cod(&sha2_base_32bit_portable->m_len, &tt);
-	mk_lib_crypto_bitops_bulk_uint32_8_memcpy(&oldh[0], &sha2_base_32bit_portable->m_state[0]);
-	a = &hh[0];
-	b = &hh[1];
-	c = &hh[2];
-	d = &hh[3];
-	e = &hh[4];
-	f = &hh[5];
-	g = &hh[6];
-	h = &hh[7];
-	for(iblock = 0; iblock != nblocks; ++iblock)
+	if(nblocks != 0)
 	{
-		mk_lib_crypto_bitops_bulk_uint32_8_memcpy(&hh[0], &oldh[0]);
-		for(i = 0; i != 16; ++i)
+		a = &hh[0];
+		b = &hh[1];
+		c = &hh[2];
+		d = &hh[3];
+		e = &hh[4];
+		f = &hh[5];
+		g = &hh[6];
+		h = &hh[7];
+		mk_sl_cui_uint64_from_bi_usize(&tt, &nblocks);
+		mk_lang_assert(!mk_sl_cui_uint64_would_overflow_add_cc(&sha2_base_32bit_portable->m_len, &tt));
+		mk_sl_cui_uint64_add2_wrap_cid_cod(&sha2_base_32bit_portable->m_len, &tt);
+		mk_lib_crypto_bitops_bulk_uint32_8_memcpy(&oldh[0], &sha2_base_32bit_portable->m_state[0]);
+		for(iblock = 0; iblock != nblocks; ++iblock)
 		{
-			mk_sl_uint_convert_32_8_be_to_big(&w.m_data.m_uint32s[(i - 0) % 16], &pblocks[iblock].m_data.m_uint8s[i * 4]);
-		}
-		for(i = 0; i != 64; ++i)
-		{
-			if(i >= 16)
+			mk_lib_crypto_bitops_bulk_uint32_8_memcpy(&hh[0], &oldh[0]);
+			for(iround = 0; iround != 64; ++iround)
 			{
-				/* w[i] = sig1(w[i - 2]) + w[i - 7] + sig0(w[i - 15]) + w[i - 16]; */
-				mk_lib_crypto_hash_block_sha2_base_32bit_portable_sig1(&w.m_data.m_uint32s[(i - 2) % 16], &ta);
-				mk_lib_crypto_hash_block_sha2_base_32bit_portable_sig0(&w.m_data.m_uint32s[(i - 15) % 16], &tb);
-				mk_sl_cui_uint32_add2_wrap_cid_cod(&ta, &w.m_data.m_uint32s[(i - 7) % 16]);
-				mk_sl_cui_uint32_add2_wrap_cid_cod(&tb, &w.m_data.m_uint32s[(i - 16) % 16]);
-				mk_sl_cui_uint32_add3_wrap_cid_cod(&ta, &tb, &w.m_data.m_uint32s[(i - 0) % 16]);
+				if(iround < 16)
+				{
+					mk_sl_uint_convert_32_8_be_to_big(&w.m_data.m_uint32s[(iround - 0) % 16], &pblocks[iblock].m_data.m_uint8s[iround * mk_sl_cui_uint32_size_bytes_v]);
+				}
+				else if(iround >= 16)
+				{
+					/* w[i] = sig1(w[i - 2]) + w[i - 7] + sig0(w[i - 15]) + w[i - 16]; */
+					mk_lib_crypto_hash_block_sha2_base_32bit_portable_sig1(&w.m_data.m_uint32s[(iround - 2) % 16], &ta);
+					mk_lib_crypto_hash_block_sha2_base_32bit_portable_sig0(&w.m_data.m_uint32s[(iround - 15) % 16], &tb);
+					mk_sl_cui_uint32_add2_wrap_cid_cod(&ta, &w.m_data.m_uint32s[(iround - 7) % 16]);
+					mk_sl_cui_uint32_add2_wrap_cid_cod(&tb, &w.m_data.m_uint32s[(iround - 16) % 16]);
+					mk_sl_cui_uint32_add3_wrap_cid_cod(&ta, &tb, &w.m_data.m_uint32s[(iround - 0) % 16]);
+				}
+				else
+				{
+					mk_lang_assert(mk_lang_false);
+				}
+				/* a = ch(e, f, g) + sum1(e) + wk + h + maj(a, b, c) + sum0(a) */
+				/* t1 = h + sum1(e) + ch(e, f, g) + table[i] + w[i]; */
+				mk_lib_crypto_hash_block_sha2_base_32bit_portable_sum1(e, &ta);
+				mk_lib_crypto_hash_block_sha2_base_32bit_portable_ch(e, f, g, &tb);
+				mk_sl_cui_uint32_add2_wrap_cid_cod(&ta, h);
+				mk_sl_cui_uint32_add2_wrap_cid_cod(&tb, &mk_lib_crypto_hash_block_sha2_base_32bit_portable_k_table.m_data.m_uint32s[iround]);
+				mk_sl_cui_uint32_add2_wrap_cid_cod(&tb, &w.m_data.m_uint32s[(iround - 0) % 16]);
+				mk_sl_cui_uint32_add3_wrap_cid_cod(&ta, &tb, &t1);
+				/* t2 = sum0(a) + maj(a, b, c); */
+				mk_lib_crypto_hash_block_sha2_base_32bit_portable_sum0(a, &ta);
+				mk_lib_crypto_hash_block_sha2_base_32bit_portable_maj(a, b, c, &tb);
+				mk_sl_cui_uint32_add3_wrap_cid_cod(&ta, &tb, &t2);
+				/* swaparoo */
+				*h = *g;
+				*g = *f;
+				*f = *e;
+				mk_sl_cui_uint32_add3_wrap_cid_cod(d, &t1, e);
+				*d = *c;
+				*c = *b;
+				*b = *a;
+				mk_sl_cui_uint32_add3_wrap_cid_cod(&t1, &t2, a);
 			}
-			/* a = ch(e, f, g) + sum1(e) + wk + h + maj(a, b, c) + sum0(a) */
-			/* t1 = h + sum1(e) + ch(e, f, g) + table[i] + w[i]; */
-			mk_lib_crypto_hash_block_sha2_base_32bit_portable_sum1(e, &ta);
-			mk_lib_crypto_hash_block_sha2_base_32bit_portable_ch(e, f, g, &tb);
-			mk_sl_cui_uint32_add2_wrap_cid_cod(&ta, h);
-			mk_sl_cui_uint32_add2_wrap_cid_cod(&tb, &mk_lib_crypto_hash_block_sha2_base_32bit_portable_k_table.m_data.m_uint32s[i]);
-			mk_sl_cui_uint32_add2_wrap_cid_cod(&tb, &w.m_data.m_uint32s[(i - 0) % 16]);
-			mk_sl_cui_uint32_add3_wrap_cid_cod(&ta, &tb, &t1);
-			/* t2 = sum0(a) + maj(a, b, c); */
-			mk_lib_crypto_hash_block_sha2_base_32bit_portable_sum0(a, &ta);
-			mk_lib_crypto_hash_block_sha2_base_32bit_portable_maj(a, b, c, &tb);
-			mk_sl_cui_uint32_add3_wrap_cid_cod(&ta, &tb, &t2);
-			/* swaparoo */
-			*h = *g;
-			*g = *f;
-			*f = *e;
-			mk_sl_cui_uint32_add3_wrap_cid_cod(d, &t1, e);
-			*d = *c;
-			*c = *b;
-			*b = *a;
-			mk_sl_cui_uint32_add3_wrap_cid_cod(&t1, &t2, a);
+			mk_lib_crypto_bitops_bulk_uint32_8_add2_wrap_cid_cod(&oldh[0], &hh[0]);
 		}
-		mk_sl_cui_uint32_add2_wrap_cid_cod(&oldh[0], &hh[0]);
-		mk_sl_cui_uint32_add2_wrap_cid_cod(&oldh[1], &hh[1]);
-		mk_sl_cui_uint32_add2_wrap_cid_cod(&oldh[2], &hh[2]);
-		mk_sl_cui_uint32_add2_wrap_cid_cod(&oldh[3], &hh[3]);
-		mk_sl_cui_uint32_add2_wrap_cid_cod(&oldh[4], &hh[4]);
-		mk_sl_cui_uint32_add2_wrap_cid_cod(&oldh[5], &hh[5]);
-		mk_sl_cui_uint32_add2_wrap_cid_cod(&oldh[6], &hh[6]);
-		mk_sl_cui_uint32_add2_wrap_cid_cod(&oldh[7], &hh[7]);
+		mk_lib_crypto_bitops_bulk_uint32_8_memcpy(&sha2_base_32bit_portable->m_state[0], &oldh[0]);
 	}
-	sha2_base_32bit_portable->m_state[0] = oldh[0];
-	sha2_base_32bit_portable->m_state[1] = oldh[1];
-	sha2_base_32bit_portable->m_state[2] = oldh[2];
-	sha2_base_32bit_portable->m_state[3] = oldh[3];
-	sha2_base_32bit_portable->m_state[4] = oldh[4];
-	sha2_base_32bit_portable->m_state[5] = oldh[5];
-	sha2_base_32bit_portable->m_state[6] = oldh[6];
-	sha2_base_32bit_portable->m_state[7] = oldh[7];
 }
 #include "mk_lang_warning_msvc_pop.h"
 
