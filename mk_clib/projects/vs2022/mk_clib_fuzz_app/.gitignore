@@ -1,0 +1,8 @@
+/ARM/
+/ARM64/
+/ARM64EC/
+/Debug/
+/Release/
+/x64/
+
+/mk_clib_fuzz_app.vcxproj.user
