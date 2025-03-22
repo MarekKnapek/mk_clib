@@ -1,0 +1,185 @@
+#ifndef mk_include_guard_mk_lang_info_platform_c
+#define mk_include_guard_mk_lang_info_platform_c
+#include "mk_lang_info_platform.h"
+
+#include "mk_lang_arch.h"
+#include "mk_lang_cpuid.h"
+#include "mk_lang_jumbo.h"
+#include "mk_lang_noexcept.h"
+#include "mk_lang_platform.h"
+#include "mk_lang_stringify.h"
+#include "mk_lang_types.h"
+#include "mk_lang_version.h"
+
+#include <stdio.h> /* printf */
+
+
+mk_lang_jumbo mk_lang_types_void_t mk_lang_info_platform_print(mk_lang_types_void_t) mk_lang_noexcept
+{
+	#if 0
+	#elif mk_lang_arch == mk_lang_arch_x8616
+	printf("Architecture: x8616\n");
+	#elif mk_lang_arch == mk_lang_arch_x8632
+	printf("Architecture: x8632\n");
+	#elif mk_lang_arch == mk_lang_arch_x8664
+	printf("Architecture: x8664\n");
+	#elif mk_lang_arch == mk_lang_arch_ia64
+	printf("Architecture: ia64\n");
+	#elif mk_lang_arch == mk_lang_arch_alpha
+	printf("Architecture: alpha\n");
+	#elif mk_lang_arch == mk_lang_arch_ppc
+	printf("Architecture: ppc\n");
+	#elif mk_lang_arch == mk_lang_arch_mips
+	printf("Architecture: mips\n");
+	#elif mk_lang_arch == mk_lang_arch_arm32
+	printf("Architecture: arm32\n");
+	#elif mk_lang_arch == mk_lang_arch_arm64
+	printf("Architecture: arm64\n");
+	#elif mk_lang_arch == mk_lang_arch_arm64ec
+	printf("Architecture: arm64ec\n");
+	#elif mk_lang_arch == mk_lang_arch_emscripten
+	printf("Architecture: emscripten\n");
+	#else
+	#error xxxxxxxxxx
+	#endif
+
+	#if 0
+	#elif mk_lang_platform == mk_lang_platform_windows
+	printf("Platform: Windows\n");
+	#elif mk_lang_platform == mk_lang_platform_linux
+	printf("Platform: Linux\n");
+	#elif mk_lang_platform == mk_lang_platform_posix
+	printf("Platform: POSIX\n");
+	#elif mk_lang_platform == mk_lang_platform_portable
+	printf("Platform: Portable\n");
+	#else
+	#error xxxxxxxxxx
+	#endif
+
+	#if 0
+	#elif mk_lang_platform_is_windows_at_least_62
+	printf("Platform version: Windows 6.2 (Windows 8 / Windows Server 2012)\n");
+	#elif mk_lang_platform_is_windows_at_least_61
+	printf("Platform version: Windows 6.1 (Windows 7 / Windows Server 2008 R2)\n");
+	#elif mk_lang_platform_is_windows_at_least_60
+	printf("Platform version: Windows 6.0 (Windows Vista / Windows Server 2008)\n");
+	#elif mk_lang_platform_is_windows_at_least_51
+	printf("Platform version: Windows 5.1 (Windows XP)\n");
+	#elif mk_lang_platform_is_windows_at_least_any
+	printf("Platform version: Windows\n");
+	#endif
+
+	#if 0
+	#elif mk_lang_platform_is_posix_at_least_2008_09
+	printf("Platform version: POSIX 2008\n");
+	#elif mk_lang_platform_is_posix_at_least_2001_12
+	printf("Platform version: POSIX 2001\n");
+	#elif mk_lang_platform_is_posix_at_least_1995_06
+	printf("Platform version: POSIX 1995\n");
+	#elif mk_lang_platform_is_posix_at_least_1993_09
+	printf("Platform version: POSIX 1993\n");
+	#elif mk_lang_platform_is_posix_at_least_2
+	printf("Platform version: POSIX 1992\n");
+	#elif mk_lang_platform_is_posix_at_least_1
+	printf("Platform version: POSIX 1990\n");
+	#endif
+
+	printf("\n");
+
+	printf("at_least_c_89       : %s\n", mk_lang_version_at_least_c_89 == 1 ? "yes" : "no");
+	printf("at_least_c_90       : %s\n", mk_lang_version_at_least_c_90 == 1 ? "yes" : "no");
+	printf("at_least_c_99       : %s\n", mk_lang_version_at_least_c_99 == 1 ? "yes" : "no");
+	printf("at_least_c_11       : %s\n", mk_lang_version_at_least_c_11 == 1 ? "yes" : "no");
+	printf("at_least_c_17       : %s\n", mk_lang_version_at_least_c_17 == 1 ? "yes" : "no");
+	printf("at_least_c_23       : %s\n", mk_lang_version_at_least_c_23 == 1 ? "yes" : "no");
+	printf("at_least_cpp_98     : %s\n", mk_lang_version_at_least_cpp_98 == 1 ? "yes" : "no");
+	printf("at_least_cpp_11     : %s\n", mk_lang_version_at_least_cpp_11 == 1 ? "yes" : "no");
+	printf("at_least_cpp_14     : %s\n", mk_lang_version_at_least_cpp_14 == 1 ? "yes" : "no");
+	printf("at_least_cpp_17     : %s\n", mk_lang_version_at_least_cpp_17 == 1 ? "yes" : "no");
+	printf("at_least_cpp_20     : %s\n", mk_lang_version_at_least_cpp_20 == 1 ? "yes" : "no");
+	printf("at_least_cpp_23     : %s\n", mk_lang_version_at_least_cpp_23 == 1 ? "yes" : "no");
+	printf("at_least_msvc_cpp_11: %s\n", mk_lang_version_at_least_msvc_cpp_11 == 1 ? "yes" : "no");
+	printf("at_least_msvc_cpp_14: %s\n", mk_lang_version_at_least_msvc_cpp_14 == 1 ? "yes" : "no");
+	printf("at_least_msvc_cpp_17: %s\n", mk_lang_version_at_least_msvc_cpp_17 == 1 ? "yes" : "no");
+	printf("at_least_msvc_cpp_20: %s\n", mk_lang_version_at_least_msvc_cpp_20 == 1 ? "yes" : "no");
+
+	printf("\n");
+
+	#if defined _MSC_VER
+	printf("_MSC_VER             " mk_lang_stringify(_MSC_VER) "\n");
+	#else
+	printf("_MSC_VER             not defined\n");
+	#endif
+
+	#if defined _MSC_FULL_VER
+	printf("_MSC_FULL_VER        " mk_lang_stringify(_MSC_FULL_VER) "\n");
+	#else
+	printf("_MSC_FULL_VER        not defined\n");
+	#endif
+
+	#if defined __GNUC__
+	printf("__GNUC__             " mk_lang_stringify(__GNUC__) "\n");
+	#else
+	printf("__GNUC__             not defined\n");
+	#endif
+
+	#if defined __GNUC_MINOR__
+	printf("__GNUC_MINOR__       " mk_lang_stringify(__GNUC_MINOR__) "\n");
+	#else
+	printf("__GNUC_MINOR__       not defined\n");
+	#endif
+
+	#if defined __clang_major__
+	printf("__clang_major__      " mk_lang_stringify(__clang_major__) "\n");
+	#else
+	printf("__clang_major__      not defined\n");
+	#endif
+
+	#if defined __clang_minor__
+	printf("__clang_minor__      " mk_lang_stringify(__clang_minor__) "\n");
+	#else
+	printf("__clang_minor__      not defined\n");
+	#endif
+
+	#if defined __WATCOMC__
+	printf("__WATCOMC__          " mk_lang_stringify(__WATCOMC__) "\n");
+	#else
+	printf("__WATCOMC__          not defined\n");
+	#endif
+
+	#if defined __WATCOM_CPLUSPLUS__
+	printf("__WATCOM_CPLUSPLUS__ " mk_lang_stringify(__WATCOM_CPLUSPLUS__) "\n");
+	#else
+	printf("__WATCOM_CPLUSPLUS__ not defined\n");
+	#endif
+
+	#if defined __TINYC__
+	printf("__TINYC__            " mk_lang_stringify(__TINYC__) "\n");
+	#else
+	printf("__TINYC__            not defined\n");
+	#endif
+
+	printf("\n");
+
+	#if mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664
+	mk_lang_cpuid_init();
+	printf("pclmulqdq: %s\n", mk_lang_cpuid_has_pclmulqdq() ? "yes" : "no");
+	printf("ssse3    : %s\n", mk_lang_cpuid_has_ssse3()     ? "yes" : "no");
+	printf("sse41    : %s\n", mk_lang_cpuid_has_sse41()     ? "yes" : "no");
+	printf("popcnt   : %s\n", mk_lang_cpuid_has_popcnt()    ? "yes" : "no");
+	printf("aesni    : %s\n", mk_lang_cpuid_has_aesni()     ? "yes" : "no");
+	printf("avx      : %s\n", mk_lang_cpuid_has_avx()       ? "yes" : "no");
+	printf("sse      : %s\n", mk_lang_cpuid_has_sse()       ? "yes" : "no");
+	printf("sse2     : %s\n", mk_lang_cpuid_has_sse2()      ? "yes" : "no");
+	printf("avx2     : %s\n", mk_lang_cpuid_has_avx2()      ? "yes" : "no");
+	printf("avx512_f : %s\n", mk_lang_cpuid_has_avx512_f()  ? "yes" : "no");
+	printf("sha      : %s\n", mk_lang_cpuid_has_sha()       ? "yes" : "no");
+	printf("avx512_vl: %s\n", mk_lang_cpuid_has_avx512_vl() ? "yes" : "no");
+	printf("vaes     : %s\n", mk_lang_cpuid_has_vaes()      ? "yes" : "no");
+	printf("sha512   : %s\n", mk_lang_cpuid_has_sha512()    ? "yes" : "no");
+	printf("\n");
+	#endif
+}
+
+
+#endif
