@@ -15,6 +15,7 @@
 #include "mk_lib_crypto_hash_stream_sha2_224_test.hpp"
 #include "mk_lib_crypto_hash_stream_sha2_256_test.hpp"
 #include "mk_lib_crypto_hash_stream_sha2_384_test.hpp"
+#include "mk_lib_crypto_hash_stream_sha2_512_test.hpp"
 
 
 mk_lang_jumbo mk_lang_types_void_t mk_clib_test(mk_lang_types_void_t) mk_lang_noexcept
@@ -28,6 +29,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_clib_test(mk_lang_types_void_t) mk_lang_no
 	mk_lib_crypto_hash_stream_sha2_224_test();
 	mk_lib_crypto_hash_stream_sha2_256_test();
 	mk_lib_crypto_hash_stream_sha2_384_test();
+	mk_lib_crypto_hash_stream_sha2_512_test();
 }
 
 
