@@ -1,0 +1,7 @@
+/Debug/
+/Release/
+/x64/
+
+/corpus/
+
+/mk_clib_fuzz.vcxproj.user
