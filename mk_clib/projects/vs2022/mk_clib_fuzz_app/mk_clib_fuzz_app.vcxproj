@@ -29,17 +29,33 @@
 			<Configuration>Debug</Configuration>
 			<Platform>ARM64</Platform>
 		</ProjectConfiguration>
-		<ProjectConfiguration Include="Release|ARM64EC">
+		<ProjectConfiguration Include="Release|ARM64">
 			<Configuration>Release</Configuration>
-			<Platform>ARM64EC</Platform>
+			<Platform>ARM64</Platform>
 		</ProjectConfiguration>
 		<ProjectConfiguration Include="Debug|ARM64EC">
 			<Configuration>Debug</Configuration>
 			<Platform>ARM64EC</Platform>
 		</ProjectConfiguration>
-		<ProjectConfiguration Include="Release|ARM64">
+		<ProjectConfiguration Include="Release|ARM64EC">
 			<Configuration>Release</Configuration>
-			<Platform>ARM64</Platform>
+			<Platform>ARM64EC</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="DebugClang|Win32">
+			<Configuration>DebugClang</Configuration>
+			<Platform>Win32</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="ReleaseClang|Win32">
+			<Configuration>ReleaseClang</Configuration>
+			<Platform>Win32</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="DebugClang|x64">
+			<Configuration>DebugClang</Configuration>
+			<Platform>x64</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="ReleaseClang|x64">
+			<Configuration>ReleaseClang</Configuration>
+			<Platform>x64</Platform>
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup>
@@ -91,6 +107,12 @@
 		<PlatformToolset>v143</PlatformToolset>
 		<PreferredToolArchitecture>x64</PreferredToolArchitecture>
 	</PropertyGroup>
+	<PropertyGroup Label="Configuration" Condition="'$(Configuration)'=='DebugClang'">
+		<PlatformToolset>ClangCL</PlatformToolset>
+	</PropertyGroup>
+	<PropertyGroup Label="Configuration" Condition="'$(Configuration)'=='ReleaseClang'">
+		<PlatformToolset>ClangCL</PlatformToolset>
+	</PropertyGroup>
 	<PropertyGroup Label="Configuration" Condition="'$(Configuration)'=='Debug'">
 		<UseDebugLibraries>true</UseDebugLibraries>
 		<WholeProgramOptimization>false</WholeProgramOptimization>
@@ -114,46 +136,30 @@
 			<CompileAsManaged>false</CompileAsManaged>
 			<CompileAsWinRT>false</CompileAsWinRT>
 			<ConformanceMode>true</ConformanceMode>
+			<DebugInformationFormat Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EditAndContinue</DebugInformationFormat>
+			<DebugInformationFormat Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">EditAndContinue</DebugInformationFormat>
 			<DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
 			<DiagnosticsFormat>Column</DiagnosticsFormat>
 			<DisableSpecificWarnings>4464</DisableSpecificWarnings>
 			<LanguageStandard>stdcpp20</LanguageStandard>
 			<LanguageStandard_C>stdc17</LanguageStandard_C>
 			<MultiProcessorCompilation>true</MultiProcessorCompilation>
+			<PreprocessorDefinitions Condition="'$(Configuration)'=='Debug'">_DEBUG;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions Condition="'$(Configuration)'=='Debug'">mk_lang_jumbo_want=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+			<SDLCheck Condition="'$(Configuration)'=='Debug'">true</SDLCheck>
 			<SuppressStartupBanner>true</SuppressStartupBanner>
 			<TranslateIncludes>false</TranslateIncludes>
 			<TreatWarningAsError>false</TreatWarningAsError>
 			<WarningLevel>EnableAllWarnings</WarningLevel>
 		</ClCompile>
 		<Link>
+			<AdditionalDependencies Condition="'$(Configuration)'=='Debug'">mk_clib.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+			<AdditionalDependencies Condition="'$(Configuration)'=='DebugClang'">mk_clib.lib;clang_rt.builtins-x86_64.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+			<AdditionalLibraryDirectories Condition="'$(Configuration)'=='Debug'">$(OutputPath)</AdditionalLibraryDirectories>
+			<AdditionalLibraryDirectories Condition="'$(Configuration)'=='DebugClang'">$(OutputPath)</AdditionalLibraryDirectories>
 			<GenerateDebugInformation>true</GenerateDebugInformation>
 			<SubSystem>Console</SubSystem>
-		</Link>
-	</ItemDefinitionGroup>
-	<ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
-		<ClCompile>
-			<SDLCheck>true</SDLCheck>
-			<PreprocessorDefinitions>_DEBUG;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			<PreprocessorDefinitions>mk_lang_jumbo_want=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-		</ClCompile>
-	</ItemDefinitionGroup>
-	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-		<ClCompile>
-			<DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-		</ClCompile>
-		<Link>
-			<AdditionalDependencies>mk_clib.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
-			<AdditionalLibraryDirectories>$(OutputPath)</AdditionalLibraryDirectories>
-		</Link>
-	</ItemDefinitionGroup>
-	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-		<ClCompile>
-			<DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-		</ClCompile>
-		<Link>
-			<AdditionalDependencies>mk_clib.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
-			<AdditionalLibraryDirectories>$(OutputPath)</AdditionalLibraryDirectories>
 		</Link>
 	</ItemDefinitionGroup>
 	<ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">

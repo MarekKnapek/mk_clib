@@ -4,5 +4,7 @@
 /ARM64/
 /ARM64EC/
 /Debug/
+/DebugClang/
 /Release/
+/ReleaseClang/
 /x64/
