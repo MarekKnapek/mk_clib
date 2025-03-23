@@ -10,5 +10,6 @@
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\license.txt"><Filter>src</Filter></None>
 	</ItemGroup>
 	<ItemGroup>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_arch.h"><Filter>src</Filter></ClInclude>
 	</ItemGroup>
 </Project>
