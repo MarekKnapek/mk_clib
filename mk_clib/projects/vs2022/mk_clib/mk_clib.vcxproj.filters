@@ -306,4 +306,6 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_inl_fileh.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_inl_fileu.h"><Filter>src</Filter></ClInclude>
 	</ItemGroup>
+	<ItemGroup>
+	</ItemGroup>
 </Project>
