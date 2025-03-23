@@ -1,7 +1,7 @@
 mkdir corpus_new
 if %errorlevel% neq 0 exit /b %errorlevel%
 
-..\x64\Debug\mk_clib_fuzz.exe -merge=1 corpus_new corpus
+..\x64\Debug\mk_clib_fuzzer.exe -merge=1 corpus_new corpus ..\..\clang\corpus
 if %errorlevel% neq 0 exit /b %errorlevel%
 
 copy corpus\.gitignore corpus_new\.gitignore
