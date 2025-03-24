@@ -102,4 +102,6 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_type_traits.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_base.h"><Filter>src</Filter></ClInclude>
 	</ItemGroup>
+	<ItemGroup>
+	</ItemGroup>
 </Project>
