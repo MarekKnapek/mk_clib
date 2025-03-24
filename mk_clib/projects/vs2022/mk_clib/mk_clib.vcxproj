@@ -297,6 +297,8 @@
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_inl_filec.h.m4"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_inl_fileh.h.m4"/>
 	</ItemGroup>
+	<ItemGroup>
+	</ItemGroup>
 	<PropertyGroup Label="Globals">
 		<VCProjectVersion>17.0</VCProjectVersion>
 		<Keyword>Win32Proj</Keyword>
