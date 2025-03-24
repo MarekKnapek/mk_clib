@@ -490,6 +490,10 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_shake_256_fuzz.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_shake_256_test.hpp"/>
 	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_fuzz.c"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_fuzz.h"/>
+	</ItemGroup>
 	<PropertyGroup Label="Globals">
 		<VCProjectVersion>17.0</VCProjectVersion>
 		<Keyword>Win32Proj</Keyword>

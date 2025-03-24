@@ -477,4 +477,8 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_shake_256_fuzz.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_shake_256_test.hpp"><Filter>src</Filter></ClInclude>
 	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_fuzz.c"><Filter>src</Filter></ClCompile>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_fuzz.h"><Filter>src</Filter></ClInclude>
+	</ItemGroup>
 </Project>
