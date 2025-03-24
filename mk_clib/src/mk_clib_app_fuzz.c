@@ -71,13 +71,15 @@ static mk_lang_inline mk_lang_types_void_t mk_clib_app_fuzz_adjust_rand(mk_lang_
 	}
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_clib_app_fuzz_one(mk_lang_types_void_t) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fuzz_one(mk_lang_types_void_t) mk_lang_noexcept
 {
-	mk_lang_types_uchar_t data[1024];
+	mk_lang_types_uchar_t data[4 * 1024];
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	mk_clib_app_fuzz_fill_rand(&data[0], mk_lang_countof(data));
 	mk_clib_app_fuzz_adjust_rand(&data[0], mk_lang_countof(data), 8);
-	mk_clib_fuzz(&data[0], mk_lang_countof(data), mk_lang_true);
+	err = mk_clib_fuzz(&data[0], mk_lang_countof(data), mk_lang_true); mk_lang_check_rereturn(err);
+	return 0;
 }
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fuzz_lot(mk_lang_types_void_t) mk_lang_noexcept
@@ -91,6 +93,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fuzz_lo
 	mk_lang_types_sint_t percent_old;
 	mk_lang_types_ulong_t attempt;
 	clock_t clk_start;
+	mk_lang_types_sint_t err;
 	clock_t clk_now;
 	clock_t clk_dif_ticks;
 
@@ -101,7 +104,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fuzz_lo
 	clk_start = clock(); mk_lang_check_return(clk_start != ((clock_t)(-1)));
 	do
 	{
-		mk_clib_app_fuzz_one();
+		err = mk_clib_app_fuzz_one(); mk_lang_check_rereturn(err);
 		clk_now = clock(); mk_lang_check_return(clk_now != ((clock_t)(-1)));
 		clk_dif_ticks = clk_now - clk_start;
 		++attempt;
