@@ -20,7 +20,9 @@
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\.editorconfig"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\.gitignore"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\license.txt"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_tool_m4.bat"/>
 	</ItemGroup>
 	<ItemGroup>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_arch.h"/>
