@@ -2,10 +2,42 @@
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35828.75
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942}") = "m4", "m4\m4.vcxproj", "{8286250d-5be4-4739-befc-05c1fef305be}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+		Debug|ARM = Debug|ARM
+		Release|ARM = Release|ARM
+		Debug|ARM64 = Debug|ARM64
+		Release|ARM64 = Release|ARM64
+		Debug|ARM64EC = Debug|ARM64EC
+		Release|ARM64EC = Release|ARM64EC
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8286250d-5be4-4739-befc-05c1fef305be}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8286250d-5be4-4739-befc-05c1fef305be}.Debug|Win32.Build.0 = Debug|Win32
+		{8286250d-5be4-4739-befc-05c1fef305be}.Release|Win32.ActiveCfg = Debug|Win32
+		{8286250d-5be4-4739-befc-05c1fef305be}.Release|Win32.Build.0 = Debug|Win32
+		{8286250d-5be4-4739-befc-05c1fef305be}.Debug|x64.ActiveCfg = Debug|Win32
+		{8286250d-5be4-4739-befc-05c1fef305be}.Debug|x64.Build.0 = Debug|Win32
+		{8286250d-5be4-4739-befc-05c1fef305be}.Release|x64.ActiveCfg = Debug|Win32
+		{8286250d-5be4-4739-befc-05c1fef305be}.Release|x64.Build.0 = Debug|Win32
+		{8286250d-5be4-4739-befc-05c1fef305be}.Debug|ARM.ActiveCfg = Debug|Win32
+		{8286250d-5be4-4739-befc-05c1fef305be}.Debug|ARM.Build.0 = Debug|Win32
+		{8286250d-5be4-4739-befc-05c1fef305be}.Release|ARM.ActiveCfg = Debug|Win32
+		{8286250d-5be4-4739-befc-05c1fef305be}.Release|ARM.Build.0 = Debug|Win32
+		{8286250d-5be4-4739-befc-05c1fef305be}.Debug|ARM64.ActiveCfg = Debug|Win32
+		{8286250d-5be4-4739-befc-05c1fef305be}.Debug|ARM64.Build.0 = Debug|Win32
+		{8286250d-5be4-4739-befc-05c1fef305be}.Release|ARM64.ActiveCfg = Debug|Win32
+		{8286250d-5be4-4739-befc-05c1fef305be}.Release|ARM64.Build.0 = Debug|Win32
+		{8286250d-5be4-4739-befc-05c1fef305be}.Debug|ARM64EC.ActiveCfg = Debug|Win32
+		{8286250d-5be4-4739-befc-05c1fef305be}.Debug|ARM64EC.Build.0 = Debug|Win32
+		{8286250d-5be4-4739-befc-05c1fef305be}.Release|ARM64EC.ActiveCfg = Debug|Win32
+		{8286250d-5be4-4739-befc-05c1fef305be}.Release|ARM64EC.Build.0 = Debug|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
