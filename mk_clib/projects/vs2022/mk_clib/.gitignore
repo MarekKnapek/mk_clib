@@ -2,7 +2,9 @@
 /ARM64/
 /ARM64EC/
 /Debug/
+/DebugClang/
 /Release/
+/ReleaseClang/
 /x64/
 
 /mk_clib.vcxproj.user
