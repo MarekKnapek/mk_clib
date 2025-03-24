@@ -208,6 +208,18 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_string.h"/>
 	</ItemGroup>
 	<ItemGroup>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui.c"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_defd.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_defu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_filec.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_fileh.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_fileu.h"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl.m"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_defd.h.m4"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_defu.h.m4"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_filec.h.m4"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_fileh.h.m4"/>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
 		<VCProjectVersion>17.0</VCProjectVersion>
