@@ -208,4 +208,6 @@
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_filec.h.m4"><Filter>src</Filter></None>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_fileh.h.m4"><Filter>src</Filter></None>
 	</ItemGroup>
+	<ItemGroup>
+	</ItemGroup>
 </Project>
