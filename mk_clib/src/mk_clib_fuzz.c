@@ -15,6 +15,8 @@
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
 
+#include "mk_sl_cui_fuzz.h"
+
 
 static mk_lang_types_bool_t mk_clib_fuzz_g_once = mk_lang_false;
 
@@ -62,6 +64,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_fuzz_fn(mk_
 	all = mk_lang_bui_uint_is_max(&line) && allow_all;
 	base = __LINE__;
 	curr = base + 2 + line;
+	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ mk_sl_cui_fuzz(d, s, allow_all); }
 	return 0;
 }
 
