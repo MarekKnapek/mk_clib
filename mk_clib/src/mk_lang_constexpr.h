@@ -18,7 +18,7 @@
 
 #define mk_lang_constexpr_has 1
 #define mk_lang_constexpr constexpr
-#define mk_lang_constexpr_init
+#define mk_lang_constexpr_init {}
 #define mk_lang_constexpr_static constexpr
 #define mk_lang_constexpr_static_inline static constexpr inline
 

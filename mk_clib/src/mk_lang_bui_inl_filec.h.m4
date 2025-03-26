@@ -54,7 +54,7 @@ include(`mk_lang_bui_inl.m')dnl
 #if mk_lang_msvc_ver >= mk_lang_msvc_ver_2008 && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
 #pragma intrinsic(__emulu)
 #endif
-#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2008 && mk_lang_arch == mk_lang_arch_x8664
+#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2008 && !mk_lang_compiler_is_at_least_clang(1, 0) && mk_lang_arch == mk_lang_arch_x8664
 #pragma intrinsic(__ull_rshift)
 #endif
 #if mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && (mk_lang_arch == mk_lang_arch_ia64 || mk_lang_arch == mk_lang_arch_x8664 || mk_lang_arch == mk_lang_arch_arm64)
@@ -1217,7 +1217,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo
 		*c = ((mk_lang_bui_inl_defd_t)(((unsigned __int64)(__umulh(((unsigned __int64)(*a)), ((unsigned __int64)(*b)))))));
 	}
 	else
-#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2008 && mk_lang_arch == mk_lang_arch_x8664 && mk_lang_bui_inl_defd_size_bits_d == 32
+#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2008 && !mk_lang_compiler_is_at_least_clang(1, 0) && mk_lang_arch == mk_lang_arch_x8664 && mk_lang_bui_inl_defd_size_bits_d == 32
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
 		mk_lang_assert(a);
@@ -1410,7 +1410,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo
 		*d = ((mk_lang_bui_inl_defd_t)(((unsigned __int64)(__umulh(aa, bb)))));
 	}
 	else
-#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2008 && mk_lang_arch == mk_lang_arch_x8664 && mk_lang_bui_inl_defd_size_bits_d == 32
+#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2008 && !mk_lang_compiler_is_at_least_clang(1, 0) && mk_lang_arch == mk_lang_arch_x8664 && mk_lang_bui_inl_defd_size_bits_d == 32
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
 		unsigned int aa mk_lang_constexpr_init;
