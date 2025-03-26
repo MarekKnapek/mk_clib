@@ -1,7 +1,9 @@
 /mkcc.exe
+/mkcfa.exe
 /mkcfct.exe
 /mkcflt.exe
 /mkch.exe
+/mkci.elf
 /mkci.exe
 /mkcppfct.exe
 /mkct.exe
