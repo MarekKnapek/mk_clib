@@ -2,6 +2,14 @@
 /mk_lang_bui_inl_defu.h
 /mk_lang_bui_inl_filec.h
 /mk_lang_bui_inl_fileh.h
+/mk_lib_crypto_hash_stream_any1.c
+/mk_lib_crypto_hash_stream_any1.h
+/mk_lib_crypto_hash_stream_any2.c
+/mk_lib_crypto_hash_stream_any2.h
+/mk_lib_crypto_xof_stream_any1.c
+/mk_lib_crypto_xof_stream_any1.h
+/mk_lib_crypto_xof_stream_any2.c
+/mk_lib_crypto_xof_stream_any2.h
 /mk_sl_cui_inl_defd.h
 /mk_sl_cui_inl_defu.h
 /mk_sl_cui_inl_filec.h
