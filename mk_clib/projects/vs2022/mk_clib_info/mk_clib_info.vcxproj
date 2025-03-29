@@ -29,17 +29,33 @@
 			<Configuration>Debug</Configuration>
 			<Platform>ARM64</Platform>
 		</ProjectConfiguration>
-		<ProjectConfiguration Include="Release|ARM64EC">
+		<ProjectConfiguration Include="Release|ARM64">
 			<Configuration>Release</Configuration>
-			<Platform>ARM64EC</Platform>
+			<Platform>ARM64</Platform>
 		</ProjectConfiguration>
 		<ProjectConfiguration Include="Debug|ARM64EC">
 			<Configuration>Debug</Configuration>
 			<Platform>ARM64EC</Platform>
 		</ProjectConfiguration>
-		<ProjectConfiguration Include="Release|ARM64">
+		<ProjectConfiguration Include="Release|ARM64EC">
 			<Configuration>Release</Configuration>
-			<Platform>ARM64</Platform>
+			<Platform>ARM64EC</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="DebugClang|Win32">
+			<Configuration>DebugClang</Configuration>
+			<Platform>Win32</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="ReleaseClang|Win32">
+			<Configuration>ReleaseClang</Configuration>
+			<Platform>Win32</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="DebugClang|x64">
+			<Configuration>DebugClang</Configuration>
+			<Platform>x64</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="ReleaseClang|x64">
+			<Configuration>ReleaseClang</Configuration>
+			<Platform>x64</Platform>
 		</ProjectConfiguration>
 	</ItemGroup>
 	<ItemGroup>
@@ -58,6 +74,12 @@
 		<ConfigurationType>Application</ConfigurationType>
 		<PlatformToolset>v143</PlatformToolset>
 		<PreferredToolArchitecture>x64</PreferredToolArchitecture>
+	</PropertyGroup>
+	<PropertyGroup Label="Configuration" Condition="'$(Configuration)'=='DebugClang'">
+		<PlatformToolset>ClangCL</PlatformToolset>
+	</PropertyGroup>
+	<PropertyGroup Label="Configuration" Condition="'$(Configuration)'=='ReleaseClang'">
+		<PlatformToolset>ClangCL</PlatformToolset>
 	</PropertyGroup>
 	<PropertyGroup Label="Configuration" Condition="'$(Configuration)'=='Debug'">
 		<UseDebugLibraries>true</UseDebugLibraries>
@@ -93,7 +115,8 @@
 			<SuppressStartupBanner>true</SuppressStartupBanner>
 			<TranslateIncludes>false</TranslateIncludes>
 			<TreatWarningAsError>false</TreatWarningAsError>
-			<WarningLevel>EnableAllWarnings</WarningLevel>
+			<WarningLevel Condition="'$(Configuration)'!='DebugClang' And '$(Configuration)'!='ReleaseClang'">EnableAllWarnings</WarningLevel>
+			<WarningLevel Condition="'$(Configuration)'=='DebugClang' Or '$(Configuration)'=='ReleaseClang'">Level4</WarningLevel>
 		</ClCompile>
 		<Link>
 			<GenerateDebugInformation>true</GenerateDebugInformation>
