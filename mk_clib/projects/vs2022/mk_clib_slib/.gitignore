@@ -4,3 +4,5 @@
 /Debug/
 /Release/
 /x64/
+
+/mk_clib_slib.vcxproj.user

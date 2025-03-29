@@ -9,6 +9,7 @@
 #include "mk_lang_check.h"
 #include "mk_lang_countof.h"
 #include "mk_lang_cpuid.h"
+#include "mk_lang_extern.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_limits.h"
 #include "mk_lang_min.h"
@@ -122,7 +123,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_fuzz_lo
 }
 
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_clib_app_fuzz_void(mk_lang_types_void_t) mk_lang_noexcept
+mk_lang_extern_c mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_clib_app_fuzz_void(mk_lang_types_void_t) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 

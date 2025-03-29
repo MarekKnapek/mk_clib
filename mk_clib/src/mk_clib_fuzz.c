@@ -9,6 +9,7 @@
 #include "mk_lang_check.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_cpuid.h"
+#include "mk_lang_extern.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
@@ -103,7 +104,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_fuzz_fn(mk_
 }
 
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_clib_fuzz(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size, mk_lang_types_bool_t const allow_all) mk_lang_noexcept
+mk_lang_extern_c mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_clib_fuzz(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size, mk_lang_types_bool_t const allow_all) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 

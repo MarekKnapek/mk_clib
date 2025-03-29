@@ -58,107 +58,92 @@
 			<Platform>x64</Platform>
 		</ProjectConfiguration>
 	</ItemGroup>
-	<ItemGroup>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\app\mkci.c"/>
-	</ItemGroup>
-	<PropertyGroup Label="Globals">
+	<PropertyGroup>
+		<mk_is_32bit Condition="'$(Platform)'=='ARM'">true</mk_is_32bit>
+		<mk_is_32bit Condition="'$(Platform)'=='ARM64'">false</mk_is_32bit>
+		<mk_is_32bit Condition="'$(Platform)'=='ARM64EC'">false</mk_is_32bit>
+		<mk_is_32bit Condition="'$(Platform)'=='Win32'">true</mk_is_32bit>
+		<mk_is_32bit Condition="'$(Platform)'=='x64'">false</mk_is_32bit>
+		<mk_is_64bit Condition="'$(Platform)'=='ARM'">false</mk_is_64bit>
+		<mk_is_64bit Condition="'$(Platform)'=='ARM64'">true</mk_is_64bit>
+		<mk_is_64bit Condition="'$(Platform)'=='ARM64EC'">true</mk_is_64bit>
+		<mk_is_64bit Condition="'$(Platform)'=='Win32'">false</mk_is_64bit>
+		<mk_is_64bit Condition="'$(Platform)'=='x64'">true</mk_is_64bit>
+		<mk_is_arm Condition="'$(Platform)'=='ARM'">true</mk_is_arm>
+		<mk_is_arm Condition="'$(Platform)'=='ARM64'">true</mk_is_arm>
+		<mk_is_arm Condition="'$(Platform)'=='ARM64EC'">true</mk_is_arm>
+		<mk_is_arm Condition="'$(Platform)'=='Win32'">false</mk_is_arm>
+		<mk_is_arm Condition="'$(Platform)'=='x64'">false</mk_is_arm>
+		<mk_is_clang Condition="'$(Configuration)'=='Debug'">false</mk_is_clang>
+		<mk_is_clang Condition="'$(Configuration)'=='DebugClang'">true</mk_is_clang>
+		<mk_is_clang Condition="'$(Configuration)'=='Release'">false</mk_is_clang>
+		<mk_is_clang Condition="'$(Configuration)'=='ReleaseClang'">true</mk_is_clang>
+		<mk_is_debug Condition="'$(Configuration)'=='Debug'">true</mk_is_debug>
+		<mk_is_debug Condition="'$(Configuration)'=='DebugClang'">true</mk_is_debug>
+		<mk_is_debug Condition="'$(Configuration)'=='Release'">false</mk_is_debug>
+		<mk_is_debug Condition="'$(Configuration)'=='ReleaseClang'">false</mk_is_debug>
+		<mk_is_intel Condition="'$(Platform)'=='ARM'">false</mk_is_intel>
+		<mk_is_intel Condition="'$(Platform)'=='ARM64'">false</mk_is_intel>
+		<mk_is_intel Condition="'$(Platform)'=='ARM64EC'">false</mk_is_intel>
+		<mk_is_intel Condition="'$(Platform)'=='Win32'">true</mk_is_intel>
+		<mk_is_intel Condition="'$(Platform)'=='x64'">true</mk_is_intel>
+		<mk_is_msvc Condition="'$(Configuration)'=='Debug'">true</mk_is_msvc>
+		<mk_is_msvc Condition="'$(Configuration)'=='DebugClang'">false</mk_is_msvc>
+		<mk_is_msvc Condition="'$(Configuration)'=='Release'">true</mk_is_msvc>
+		<mk_is_msvc Condition="'$(Configuration)'=='ReleaseClang'">false</mk_is_msvc>
+		<mk_is_release Condition="'$(Configuration)'=='Debug'">false</mk_is_release>
+		<mk_is_release Condition="'$(Configuration)'=='DebugClang'">false</mk_is_release>
+		<mk_is_release Condition="'$(Configuration)'=='Release'">true</mk_is_release>
+		<mk_is_release Condition="'$(Configuration)'=='ReleaseClang'">true</mk_is_release>
+		<mk_project>mk_clib_hasher</mk_project>
+	</PropertyGroup>
+		<PropertyGroup Label="Globals">
 		<Keyword>Win32Proj</Keyword>
 		<ProjectGuid>{bd62f8ee-75db-407a-bbaf-247d46135265}</ProjectGuid>
 		<RootNamespace>mk_clib_info</RootNamespace>
 		<VCProjectVersion>17.0</VCProjectVersion>
+		<WindowsTargetPlatformMinVersion>7.0</WindowsTargetPlatformMinVersion>
 		<WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
 	</PropertyGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
 	<PropertyGroup Label="Configuration">
 		<CharacterSet>Unicode</CharacterSet>
+		<CLRSupport>false</CLRSupport>
 		<ConfigurationType>Application</ConfigurationType>
+		<EnableASAN Condition="'$(mk_is_debug)' == 'true'">true</EnableASAN>
+		<EnableASAN Condition="'$(mk_is_release)' == 'true'">false</EnableASAN>
+		<EnableFuzzer Condition="'$(mk_is_debug)' == 'true'">true</EnableFuzzer>
+		<EnableFuzzer Condition="'$(mk_is_release)' == 'true'">false</EnableFuzzer>
+		<EnableUnitySupport>false</EnableUnitySupport>
 		<PlatformToolset>v143</PlatformToolset>
 		<PreferredToolArchitecture>x64</PreferredToolArchitecture>
-	</PropertyGroup>
-	<PropertyGroup Label="Configuration" Condition="'$(Configuration)'=='DebugClang'">
-		<PlatformToolset>ClangCL</PlatformToolset>
-	</PropertyGroup>
-	<PropertyGroup Label="Configuration" Condition="'$(Configuration)'=='ReleaseClang'">
-		<PlatformToolset>ClangCL</PlatformToolset>
-	</PropertyGroup>
-	<PropertyGroup Label="Configuration" Condition="'$(Configuration)'=='Debug'">
-		<UseDebugLibraries>true</UseDebugLibraries>
-		<WholeProgramOptimization>false</WholeProgramOptimization>
-	</PropertyGroup>
-	<PropertyGroup Label="Configuration" Condition="'$(Configuration)'=='Release'">
-		<UseDebugLibraries>false</UseDebugLibraries>
-		<WholeProgramOptimization>true</WholeProgramOptimization>
+		<UseDebugLibraries Condition="'$(mk_is_debug)' == 'true'">true</UseDebugLibraries>
+		<UseDebugLibraries Condition="'$(mk_is_release)' == 'true'">false</UseDebugLibraries>
+		<UseOfMfc>false</UseOfMfc>
+		<VCToolsVersion/>
+		<WholeProgramOptimization Condition="'$(mk_is_debug)' == 'true'">false</WholeProgramOptimization>
+		<WholeProgramOptimization Condition="'$(mk_is_release)' == 'true'">true</WholeProgramOptimization>
 	</PropertyGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.props"/>
-	<ImportGroup Label="ExtensionSettings">
-	</ImportGroup>
-	<ImportGroup Label="Shared">
-	</ImportGroup>
+	<ImportGroup Label="ExtensionSettings"/>
+	<ImportGroup Label="Shared"/>
 	<ImportGroup Label="PropertySheets">
 		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
 	</ImportGroup>
-	<PropertyGroup Label="UserMacros"/>
-	<ItemDefinitionGroup>
-		<ClCompile>
-			<AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
-			<CompileAsManaged>false</CompileAsManaged>
-			<CompileAsWinRT>false</CompileAsWinRT>
-			<ConformanceMode>true</ConformanceMode>
-			<DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-			<DiagnosticsFormat>Column</DiagnosticsFormat>
-			<DisableSpecificWarnings>4464</DisableSpecificWarnings>
-			<LanguageStandard>stdcpp20</LanguageStandard>
-			<LanguageStandard_C>stdc17</LanguageStandard_C>
-			<MultiProcessorCompilation>true</MultiProcessorCompilation>
-			<PreprocessorDefinitions>mk_lang_jumbo_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			<ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
-			<SuppressStartupBanner>true</SuppressStartupBanner>
-			<TranslateIncludes>false</TranslateIncludes>
-			<TreatWarningAsError>false</TreatWarningAsError>
-			<WarningLevel Condition="'$(Configuration)'!='DebugClang' And '$(Configuration)'!='ReleaseClang'">EnableAllWarnings</WarningLevel>
-			<WarningLevel Condition="'$(Configuration)'=='DebugClang' Or '$(Configuration)'=='ReleaseClang'">Level4</WarningLevel>
-		</ClCompile>
-		<Link>
-			<GenerateDebugInformation>true</GenerateDebugInformation>
-			<SubSystem>Console</SubSystem>
-		</Link>
-	</ItemDefinitionGroup>
-	<ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
-		<ClCompile>
-			<SDLCheck>true</SDLCheck>
-			<PreprocessorDefinitions>_DEBUG;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-		</ClCompile>
-	</ItemDefinitionGroup>
-	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-		<ClCompile>
-			<DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-		</ClCompile>
-	</ItemDefinitionGroup>
-	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-		<ClCompile>
-			<DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-		</ClCompile>
-	</ItemDefinitionGroup>
-	<ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
-		<ClCompile>
-			<DisableSpecificWarnings>4127;4710;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-			<FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
-			<FunctionLevelLinking>true</FunctionLevelLinking>
-			<InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-			<IntrinsicFunctions>true</IntrinsicFunctions>
-			<OmitFramePointers>true</OmitFramePointers>
-			<Optimization>MaxSpeed</Optimization>
-			<PreprocessorDefinitions>_NDEBUG;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			<SDLCheck>false</SDLCheck>
-			<SupportJustMyCode>false</SupportJustMyCode>
-			<WholeProgramOptimization>true</WholeProgramOptimization>
-		</ClCompile>
-		<Link>
-			<EnableCOMDATFolding>true</EnableCOMDATFolding>
-			<OptimizeReferences>true</OptimizeReferences>
-		</Link>
-	</ItemDefinitionGroup>
-	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
-	<ImportGroup Label="ExtensionTargets">
+	<ImportGroup Label="PropertySheets">
+		<Import Project="$(MSBuildThisFileDirectory)..\mk_property_sheet.props"/>
 	</ImportGroup>
+	<PropertyGroup Label="UserMacros"/>
+	<PropertyGroup>
+		<CopyCppRuntimeToOutputDir>false</CopyCppRuntimeToOutputDir>
+		<CopyLocalDebugSymbols>false</CopyLocalDebugSymbols>
+		<CopyLocalDeploymentContent>false</CopyLocalDeploymentContent>
+		<CopyLocalProjectReference>false</CopyLocalProjectReference>
+		<UseStructuredOutput>true</UseStructuredOutput>
+	</PropertyGroup>
+	<ItemGroup>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\app\mkci.c"/>
+	</ItemGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
+	<ImportGroup Label="ExtensionTargets"/>
 </Project>

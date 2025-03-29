@@ -41,920 +41,420 @@
 			<Configuration>Release</Configuration>
 			<Platform>ARM64EC</Platform>
 		</ProjectConfiguration>
+		<ProjectConfiguration Include="DebugClang|Win32">
+			<Configuration>DebugClang</Configuration>
+			<Platform>Win32</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="ReleaseClang|Win32">
+			<Configuration>ReleaseClang</Configuration>
+			<Platform>Win32</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="DebugClang|x64">
+			<Configuration>DebugClang</Configuration>
+			<Platform>x64</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="ReleaseClang|x64">
+			<Configuration>ReleaseClang</Configuration>
+			<Platform>x64</Platform>
+		</ProjectConfiguration>
 	</ItemGroup>
+	<PropertyGroup>
+		<mk_is_32bit Condition="'$(Platform)'=='ARM'">true</mk_is_32bit>
+		<mk_is_32bit Condition="'$(Platform)'=='ARM64'">false</mk_is_32bit>
+		<mk_is_32bit Condition="'$(Platform)'=='ARM64EC'">false</mk_is_32bit>
+		<mk_is_32bit Condition="'$(Platform)'=='Win32'">true</mk_is_32bit>
+		<mk_is_32bit Condition="'$(Platform)'=='x64'">false</mk_is_32bit>
+		<mk_is_64bit Condition="'$(Platform)'=='ARM'">false</mk_is_64bit>
+		<mk_is_64bit Condition="'$(Platform)'=='ARM64'">true</mk_is_64bit>
+		<mk_is_64bit Condition="'$(Platform)'=='ARM64EC'">true</mk_is_64bit>
+		<mk_is_64bit Condition="'$(Platform)'=='Win32'">false</mk_is_64bit>
+		<mk_is_64bit Condition="'$(Platform)'=='x64'">true</mk_is_64bit>
+		<mk_is_arm Condition="'$(Platform)'=='ARM'">true</mk_is_arm>
+		<mk_is_arm Condition="'$(Platform)'=='ARM64'">true</mk_is_arm>
+		<mk_is_arm Condition="'$(Platform)'=='ARM64EC'">true</mk_is_arm>
+		<mk_is_arm Condition="'$(Platform)'=='Win32'">false</mk_is_arm>
+		<mk_is_arm Condition="'$(Platform)'=='x64'">false</mk_is_arm>
+		<mk_is_clang Condition="'$(Configuration)'=='Debug'">false</mk_is_clang>
+		<mk_is_clang Condition="'$(Configuration)'=='DebugClang'">true</mk_is_clang>
+		<mk_is_clang Condition="'$(Configuration)'=='Release'">false</mk_is_clang>
+		<mk_is_clang Condition="'$(Configuration)'=='ReleaseClang'">true</mk_is_clang>
+		<mk_is_debug Condition="'$(Configuration)'=='Debug'">true</mk_is_debug>
+		<mk_is_debug Condition="'$(Configuration)'=='DebugClang'">true</mk_is_debug>
+		<mk_is_debug Condition="'$(Configuration)'=='Release'">false</mk_is_debug>
+		<mk_is_debug Condition="'$(Configuration)'=='ReleaseClang'">false</mk_is_debug>
+		<mk_is_intel Condition="'$(Platform)'=='ARM'">false</mk_is_intel>
+		<mk_is_intel Condition="'$(Platform)'=='ARM64'">false</mk_is_intel>
+		<mk_is_intel Condition="'$(Platform)'=='ARM64EC'">false</mk_is_intel>
+		<mk_is_intel Condition="'$(Platform)'=='Win32'">true</mk_is_intel>
+		<mk_is_intel Condition="'$(Platform)'=='x64'">true</mk_is_intel>
+		<mk_is_msvc Condition="'$(Configuration)'=='Debug'">true</mk_is_msvc>
+		<mk_is_msvc Condition="'$(Configuration)'=='DebugClang'">false</mk_is_msvc>
+		<mk_is_msvc Condition="'$(Configuration)'=='Release'">true</mk_is_msvc>
+		<mk_is_msvc Condition="'$(Configuration)'=='ReleaseClang'">false</mk_is_msvc>
+		<mk_is_release Condition="'$(Configuration)'=='Debug'">false</mk_is_release>
+		<mk_is_release Condition="'$(Configuration)'=='DebugClang'">false</mk_is_release>
+		<mk_is_release Condition="'$(Configuration)'=='Release'">true</mk_is_release>
+		<mk_is_release Condition="'$(Configuration)'=='ReleaseClang'">true</mk_is_release>
+		<mk_project>mk_clib_slib</mk_project>
+	</PropertyGroup>
+	<PropertyGroup Label="Globals">
+		<Keyword>Win32Proj</Keyword>
+		<ProjectGuid>{57a9987d-aa37-4864-9e5c-43b313f158cb}</ProjectGuid>
+		<RootNamespace>mk_clib_slib</RootNamespace>
+		<VCProjectVersion>17.0</VCProjectVersion>
+		<WindowsTargetPlatformMinVersion>7.0</WindowsTargetPlatformMinVersion>
+		<WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+	</PropertyGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
+	<PropertyGroup Label="Configuration">
+		<CharacterSet>Unicode</CharacterSet>
+		<CLRSupport>false</CLRSupport>
+		<ConfigurationType>StaticLibrary</ConfigurationType>
+		<EnableASAN Condition="'$(mk_is_debug)' == 'true'">true</EnableASAN>
+		<EnableASAN Condition="'$(mk_is_release)' == 'true'">false</EnableASAN>
+		<EnableFuzzer Condition="'$(mk_is_debug)' == 'true'">true</EnableFuzzer>
+		<EnableFuzzer Condition="'$(mk_is_release)' == 'true'">false</EnableFuzzer>
+		<EnableUnitySupport>false</EnableUnitySupport>
+		<PlatformToolset>v143</PlatformToolset>
+		<PreferredToolArchitecture>x64</PreferredToolArchitecture>
+		<UseDebugLibraries Condition="'$(mk_is_debug)' == 'true'">true</UseDebugLibraries>
+		<UseDebugLibraries Condition="'$(mk_is_release)' == 'true'">false</UseDebugLibraries>
+		<UseOfMfc>false</UseOfMfc>
+		<VCToolsVersion/>
+		<WholeProgramOptimization Condition="'$(mk_is_debug)' == 'true'">false</WholeProgramOptimization>
+		<WholeProgramOptimization Condition="'$(mk_is_release)' == 'true'">true</WholeProgramOptimization>
+	</PropertyGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.props"/>
+	<ImportGroup Label="ExtensionSettings"/>
+	<ImportGroup Label="Shared"/>
+	<ImportGroup Label="PropertySheets">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+	</ImportGroup>
+	<ImportGroup Label="PropertySheets">
+		<Import Project="$(MSBuildThisFileDirectory)..\mk_property_sheet.props"/>
+	</ImportGroup>
+	<PropertyGroup Label="UserMacros"/>
+	<PropertyGroup>
+		<CopyCppRuntimeToOutputDir>false</CopyCppRuntimeToOutputDir>
+		<CopyLocalDebugSymbols>false</CopyLocalDebugSymbols>
+		<CopyLocalDeploymentContent>false</CopyLocalDeploymentContent>
+		<CopyLocalProjectReference>false</CopyLocalProjectReference>
+		<UseStructuredOutput>true</UseStructuredOutput>
+	</PropertyGroup>
 	<ItemGroup>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\.editorconfig"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\.gitignore"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\license.txt"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_readme.md"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_tool_m4.bat"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_abort_win_amd64.asm"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_abort_win_i386.asm"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_example.c"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcpy_win_amd64.asm"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcpy_win_i386.asm"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memset_win_amd64.asm"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memset_win_i386.asm"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_example.c"/>
 	</ItemGroup>
 	<ItemGroup>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_arch.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_builtin.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_charbit.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_compiler.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_concat.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_encoding.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_endian.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_likely.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_max.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_min.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_msvc.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_offsetof.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_platform.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_pow.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_pow2.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_str_style.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_stringify.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_version.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_warning_clang_pop.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_warning_clang_push_float_equal.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_warning_clang_push_tautological_unsigned_zero_compare.h.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_warning_clang_push_unused_function.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_warning_gcc_pop.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_warning_gcc_push_type_limits.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_warning_gcc_push_unused_function.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_warning_msvc_pop.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_warning_msvc_push_c4127.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_warning_msvc_push_c4296.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_warning_msvc_push_c4505.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_warning_msvc_push_c4514.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_warning_msvc_push_c4702.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_warning_msvc_push_c4710.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_warning_msvc_push_c4746.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_warning_msvc_push_c4820.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_warning_msvc_push_c4826.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_warning_msvc_push_c5031.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_warning_msvc_push_c5045.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_wchar.h"/>
+	</ItemGroup>
+	<ItemGroup>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_alignas.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bitness.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bool.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_clamp.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_emscripten.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_flatten.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_forceinline.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_inline.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_llong.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_noalias.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_nodiscard.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_noexcept.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_noreturn.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_null.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_restrict.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_static_param.h"/>
+	</ItemGroup>
+	<ItemGroup>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_constexpr.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_jumbo.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_lllong.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_typedef.h"/>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_runtime_bool.c"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_countof.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_extern.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_intmaxt.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_intptrt.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_runtime_bool.h"/>
+	</ItemGroup>
+	<ItemGroup>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_alignof.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_debug_break.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_sizeof.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_sizet.h"/>
+	</ItemGroup>
+	<ItemGroup>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_types.h"/>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_clobber.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_crash.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_exe_name.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_info_types.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_base.c"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_clobber.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_crash.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_exe_name.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_info_types.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_limits.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_roundup.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_type_traits.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_base.h"/>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_info.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_check.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_dll_bcrypt.c"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_info.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_assert.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_check.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_test.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_dll_bcrypt.h"/>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_cpuid.c"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_cpuid.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memclr1_inl_defd.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memclr1_inl_defu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memclr1_inl_filec.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memclr1_inl_fileh.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memclr1_inl_fileu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memclr2_inl_defd.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memclr2_inl_defu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memclr2_inl_filec.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memclr2_inl_fileh.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memclr2_inl_fileu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcmp1_inl_defd.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcmp1_inl_defu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcmp1_inl_filec.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcmp1_inl_fileh.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcmp1_inl_fileu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcmp2_inl_defd.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcmp2_inl_defu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcmp2_inl_filec.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcmp2_inl_fileh.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcmp2_inl_fileu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memset1_inl_defd.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memset1_inl_defu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memset1_inl_filec.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memset1_inl_fileh.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memset1_inl_fileu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memset2_inl_defd.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memset2_inl_defu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memset2_inl_filec.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memset2_inl_fileh.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memset2_inl_fileu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_overlap_inl_defd.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_overlap_inl_defu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_overlap_inl_filec.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_overlap_inl_fileh.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_overlap_inl_fileu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_static_assert.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_cpp_constexpr_array.hpp"/>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_info_platform.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_sizeof_test.c"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_info_platform.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcpy1_inl_defd.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcpy1_inl_defu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcpy1_inl_filec.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcpy1_inl_fileh.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcpy1_inl_fileu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcpy2_inl_defd.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcpy2_inl_defu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcpy2_inl_filec.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcpy2_inl_fileh.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcpy2_inl_fileu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_sizeof_test.h"/>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_test.c"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_test.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memmov1_inl_defd.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memmov1_inl_defu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memmov1_inl_filec.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memmov1_inl_fileh.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memmov1_inl_fileu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memmov2_inl_defd.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memmov2_inl_defu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memmov2_inl_filec.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memmov2_inl_fileh.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memmov2_inl_fileu.h"/>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_string.c"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memall2_inl_defd.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memall2_inl_defu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memall2_inl_filec.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memall2_inl_fileh.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memall2_inl_fileu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_string.h"/>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui.c"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_defd.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_defu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_filec.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_fileh.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_fileu.h"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl.m"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_concat.m"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes.h.m"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_example.c.m"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc.h.m"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_inl_fileh.m"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb.h.m"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_inl_fileh.m"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be.h.m"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_inl_fileh.m"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb.h.m"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_inl_fileh.m"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_gcm_be.h.m"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb.h.m"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_inl_fileh.m"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_example.c.m"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_inl.m"/>
-	</ItemGroup>
-	<ItemGroup>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_readme.md.m4"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_defd.h.m4"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_defu.h.m4"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_filec.h.m4"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_fileh.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_info_platform.c.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_128.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_192.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_256.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_aes_128.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_aes_192.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_aes_256.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_des.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_serpent.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_tdes2.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_tdes3.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_twofish_128.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_twofish_192.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_twofish_256.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_128_aes_128.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_128_aes_192.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_128_aes_256.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_128_serpent.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_128_twofish_128.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_128_twofish_192.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_128_twofish_256.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_64_des.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_64_tdes2.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_64_tdes3.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_aes_128.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_aes_192.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_aes_256.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_des.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_serpent.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_tdes2.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_tdes3.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_twofish_128.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_twofish_192.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_twofish_256.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_aes_128.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_aes_192.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_aes_256.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_des.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_serpent.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_tdes2.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_tdes3.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_twofish_128.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_twofish_192.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_twofish_256.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_aes_128.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_aes_192.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_aes_256.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_des.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_serpent.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_tdes2.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_tdes3.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_twofish_128.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_twofish_192.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_twofish_256.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_gcm_be_aes_128.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_gcm_be_aes_192.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_gcm_be_aes_256.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_gcm_be_serpent.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_gcm_be_twofish_128.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_gcm_be_twofish_192.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_gcm_be_twofish_256.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_aes_128.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_aes_192.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_aes_256.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_des.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_serpent.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_tdes2.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_tdes3.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_twofish_128.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_twofish_192.h.m4"/>
-		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_twofish_256.h.m4"/>
+	</ItemGroup>
+	<ItemGroup>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_num_longdivmod_inl_defd.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_num_longdivmod_inl_defu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_num_longdivmod_inl_filec.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_num_longdivmod_inl_fileh.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_num_longdivmod_inl_fileu.h"/>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_fuzz.c"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_fuzz.h"/>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz_bui.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz_cui.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz_fromchars.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz_printf.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz_tochars.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_uint1024.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_uint128.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_uint16.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_uint256.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_uint32.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_uint512.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_uint64.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_uint8.c"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz_bui.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz_bui_inl_defd.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz_bui_inl_defu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz_bui_inl_filec.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz_bui_inl_fileh.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz_bui_inl_fileu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz_cui.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz_cui_inl_defd.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz_cui_inl_defu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz_cui_inl_filec.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz_cui_inl_fileh.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz_cui_inl_fileu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz_fromchars.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz_fromchars_inl_defd.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz_fromchars_inl_defu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz_fromchars_inl_filec.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz_fromchars_inl_fileh.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz_fromchars_inl_fileu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz_printf.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz_printf_inl_defd.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz_printf_inl_defu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz_printf_inl_filec.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz_printf_inl_fileh.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz_printf_inl_fileu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz_tochars.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz_tochars_inl_defd.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz_tochars_inl_defu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz_tochars_inl_filec.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz_tochars_inl_fileh.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_fuzz_tochars_inl_fileu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_inl_defd.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_inl_defu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_inl_filec.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_inl_fileh.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_inl_fileu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_uint1024.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_uint128.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_uint16.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_uint256.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_uint32.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_uint512.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_uint64.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_uint8.h"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_inl.m"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_inl_defd.h.m4"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_inl_defu.h.m4"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_inl_filec.h.m4"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_inl_fileh.h.m4"/>
 	</ItemGroup>
 	<ItemGroup>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_crypt.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_defrag.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_double_analyzer.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_factorial.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_float_analyzer.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_flt.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_fuzz.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_hash.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_info.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_quad_analyzer.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_test.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_vc.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_fuzz.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_test.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_abs.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_alignas.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_alignof.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_alignof_test.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_arch.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_assert.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_attribute.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bi.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bi_info.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bi_test.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bitness.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bool.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_defd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_fileh.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_builtin.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_charbit.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_check.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_clamp.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_clang.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_clobber.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_concat.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_constexpr.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_constexpr_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_countof.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_cpp.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_cpuid.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_crash.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_div_roundup.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_emscripten.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_encoding.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_endian.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_exception.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_exception_data.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_exception_out_of_memory.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_exception_test.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_exe_name.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_gnuc.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_info_platform.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_inline.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_intmaxt.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_intptrt.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_jumbo.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_likely.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_limits.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_limits_test.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_lllong.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_llong.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_log2.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_max.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcmp_inl_defd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcmp_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcmp_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcmp_inl_fileh.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcpy_inl_defd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcpy_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcpy_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcpy_inl_fileh.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memmove_inl_defd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memmove_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memmove_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memmove_inl_fileh.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memset_inl_defd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memset_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memset_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memset_inl_fileh.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_min.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_msvc.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_noalias.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_nodiscard.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_noexcept.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_noreturn.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_null.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_num_longdivmod_fuzz_bui.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_num_longdivmod_fuzz_cui.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_num_longdivmod_inl_defd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_num_longdivmod_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_num_longdivmod_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_num_longdivmod_inl_fileh.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_offsetof.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_overlap_inl_defd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_overlap_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_overlap_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_overlap_inl_fileh.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_platform.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_pow.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_pow2.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_restrict.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_roundup.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_sizeof.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_sizeof_test.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_sizet.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_static_assert.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_static_param.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_stringify.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_strlen.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_strlen_inl_defd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_strlen_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_strlen_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_strlen_inl_fileh.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_swap_inl_defd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_swap_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_swap_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_swap_inl_fileh.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_test.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_type_traits.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_types.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_version.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_wchar.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_cpp_constexpr.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_128.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_128_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_192.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_192_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_256_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_fuzz.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_portable_128.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_portable_192.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_portable_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_portable_base.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_x86_aesni_128.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_x86_aesni_192.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_x86_aesni_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_x86_inl_defd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_x86_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_x86_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_x86_inl_fileh.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_x86_vaes256_128.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_x86_vaes256_192.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_x86_vaes256_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_x86_vaes512_128.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_x86_vaes512_192.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_x86_vaes512_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_des.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_des_base.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_des_fuzz.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_des_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_fuzz.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_inl.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_inl_32.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_inl_64.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_inl_avx2.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_inl_avx512.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_inl_sse2.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_tdes2.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_tdes2_fuzz.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_tdes2_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_tdes3.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_tdes3_fuzz.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_tdes3_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_twofish_128.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_twofish_128_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_twofish_192.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_twofish_192_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_twofish_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_twofish_256_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_twofish_base_inl_defd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_twofish_base_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_twofish_base_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_twofish_base_inl_fileh.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_twofish_fuzz.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_app.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_gapp.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_blake2b_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_blake2b_384.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_blake2b_512.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_blake2b_base.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_blake2s_128.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_blake2s_160.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_blake2s_224.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_blake2s_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_blake2s_base.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_blake3.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_blake3_base.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_ghash.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_md2.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_md4.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_md5.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha0.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha1.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha1_c.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha1_x86.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha2_224.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha2_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha2_384.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha2_512.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha2_512_224.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha2_512_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha2_base_32bit.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha2_base_32bit_c.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha2_base_32bit_x86.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha2_base_64bit.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha2_base_64bit_c.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha2_base_64bit_x86.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha3_224.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha3_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha3_384.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha3_512.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha3_base.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_streebog_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_streebog_512.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_streebog_base.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_tiger2_128.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_tiger2_160.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_tiger2_192.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_tiger_128.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_tiger_160.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_tiger_192.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_tiger_base.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_whirlpool.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2_inl_defd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2_inl_fileh.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2b_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2b_256_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2b_384.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2b_384_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2b_512.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2b_512_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2b_base.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2s_128.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2s_128_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2s_160.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2s_160_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2s_224.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2s_224_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2s_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2s_256_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2s_base.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake3.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake3_test.hpp"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_bitops_bulk.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_uint_convert.c"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_cpp_constexpr_array_u8.hpp"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_bitops_bulk.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_bitops_bulk_inl_defd.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_bitops_bulk_inl_defu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_bitops_bulk_inl_filec.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_bitops_bulk_inl_fileh.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_bitops_bulk_inl_fileu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_uint_convert.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_uint_convert_inl_defd.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_uint_convert_inl_defu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_uint_convert_inl_filec.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_uint_convert_inl_fileh.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_uint_convert_inl_fileu.h"/>
+	</ItemGroup>
+	<ItemGroup>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_inl_defd.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_inl_defu.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_inl_filec.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_inl_fileh.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_lazy_inl_defd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_lazy_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_lazy_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_lazy_inl_fileh.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_md2.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_md2_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_md4.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_md4_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_md5.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_md5_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha0.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha0_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha1.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha1_c.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha1_c_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha1_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha1_x86.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_224.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_224_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_256_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_384.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_384_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_512.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_512_224.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_512_224_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_512_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_512_256_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_512_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha3_224.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha3_224_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha3_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha3_256_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha3_384.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha3_384_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha3_512.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha3_512_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_streebog_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_streebog_256_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_streebog_512.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_streebog_512_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_tiger2_128.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_tiger2_128_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_tiger2_160.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_tiger2_160_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_tiger2_192.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_tiger2_192_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_tiger_128.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_tiger_128_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_tiger_160.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_tiger_160_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_tiger_192.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_tiger_192_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_whirlpool.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_whirlpool_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf1.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf1_inl_defd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf1_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf1_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf1_inl_fileh.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf1_md2.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf1_md5.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf1_sha1.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf1_sha1_c.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf1_sha1_c_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf1_sha1_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf1_sha1_x86.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_blake2b_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_blake2b_384.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_blake2b_512.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_blake2s_128.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_blake2s_160.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_blake2s_224.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_blake2s_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_blake3.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_inl_defd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_inl_fileh.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_md2.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_md4.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_md5.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_sha0.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_sha1.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_sha1_c.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_sha1_x86.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_sha2_224.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_sha2_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_sha2_384.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_sha2_512.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_sha2_512_224.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_sha2_512_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_sha3_224.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_sha3_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_sha3_384.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_sha3_512.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_streebog_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_streebog_512.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_tiger2_128.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_tiger2_160.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_tiger2_192.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_tiger_128.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_tiger_160.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_tiger_192.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_whirlpool.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_blake2b_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_blake2b_384.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_blake2b_512.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_blake2s_128.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_blake2s_160.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_blake2s_224.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_blake2s_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_blake3.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_inl_defd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_inl_fileh.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_md2.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_md4.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_md5.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha0.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha1.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha1_c.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha1_c_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha1_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha1_x86.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha2_224.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha2_224_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha2_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha2_256_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha2_384.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha2_384_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha2_512.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha2_512_224.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha2_512_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha2_512_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha3_224.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha3_224_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha3_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha3_256_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha3_384.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha3_384_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha3_512.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha3_512_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_streebog_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_streebog_512.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_tiger2_128.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_tiger2_160.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_tiger2_192.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_tiger_128.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_tiger_160.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_tiger_192.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_whirlpool.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_base_c_inl_defd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_base_c_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_base_c_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_base_c_inl_fileh.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_base_inl_defd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_base_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_base_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_base_inl_fileh.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_base_x86_inl_defd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_base_x86_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_base_x86_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_base_x86_inl_fileh.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_aes_128.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_aes_128_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_aes_192.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_aes_192_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_aes_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_aes_256_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_des.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_inl_defd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_serpent.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_tdes2.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_tdes3.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_twofish_128.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_twofish_192.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_twofish_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_128_aes_128.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_128_aes_128_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_128_aes_192.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_128_aes_192_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_128_aes_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_128_aes_256_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_128_serpent.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_128_twofish_128.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_128_twofish_192.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_128_twofish_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_64_des.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_64_tdes2.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_64_tdes3.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_aes_128.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_aes_128_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_aes_192.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_aes_192_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_aes_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_aes_256_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_des.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_serpent.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_tdes2.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_tdes3.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_twofish_128.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_twofish_192.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_twofish_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_inl_defd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_aes_128.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_aes_128_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_aes_192.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_aes_192_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_aes_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_aes_256_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_des.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_inl_defd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_serpent.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_tdes2.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_tdes3.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_twofish_128.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_twofish_192.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_twofish_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_aes_128.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_aes_128_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_aes_192.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_aes_192_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_aes_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_aes_256_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_des.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_inl_defd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_serpent.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_tdes2.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_tdes3.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_twofish_128.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_twofish_192.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_twofish_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_gcm_be_aes_128.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_gcm_be_aes_128_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_gcm_be_aes_192.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_gcm_be_aes_192_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_gcm_be_aes_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_gcm_be_aes_256_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_gcm_be_inl_defd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_gcm_be_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_gcm_be_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_gcm_be_serpent.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_gcm_be_twofish_128.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_gcm_be_twofish_192.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_gcm_be_twofish_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_aes_128.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_aes_128_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_aes_192.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_aes_192_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_aes_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_aes_256_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_des.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_inl_defd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_serpent.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_tdes2.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_tdes3.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_twofish_128.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_twofish_192.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_twofish_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_padding_iso9797pm2.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_padding_pkcs7.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_block_blake3.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_block_shake_128.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_block_shake_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_blake3.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_blake3_fuzz.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_blake3_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_inl_defd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_inl_fileh.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_shake_128.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_shake_128_fuzz.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_shake_128_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_shake_256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_shake_256_fuzz.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_shake_256_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_flt_analyzer_double.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_flt_analyzer_float.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_flt_analyzer_inl_defd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_flt_analyzer_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_flt_analyzer_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_flt_analyzer_inl_fileh.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_flt_analyzer_quad.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_fmt.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_fmt_fuzz.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_fmt_inl_defd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_fmt_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_fmt_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_fmt_inl_fileh.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_hash_crc32.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_cv.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_cv_portable_c.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_cv_portable_cpp.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_cv_posix.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_cv_windows_cs.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_cv_windows_srwl.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_mutex.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_mutex_portable_c.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_mutex_portable_cpp.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_mutex_posix.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_mutex_windows_cs.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_mutex_windows_srwl.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_ring_inl_defd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_ring_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_ring_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_ring_inl_fileh.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_thread.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_thread_name.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_thread_portable_c.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_thread_portable_cpp.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_thread_posix.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_thread_windows_cs.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_thread_windows_pg.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_thread_windows_srwl.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_unique_lock.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_unique_lock_portable_c.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_unique_lock_portable_cpp.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_unique_lock_posix.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_unique_lock_windows_cs.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_unique_lock_windows_srwl.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_text_encoding.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_text_encoding_portable.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_text_encoding_windows.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_vc.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_array_inl_defd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_array_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_array_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_array_inl_fileh.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_buffer_inl_defd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_buffer_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_buffer_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_buffer_inl_fileh.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_buffer_lang.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_inl_defd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_inl_fileh.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_fixed_vector_inl_defd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_fixed_vector_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_fixed_vector_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_fixed_vector_inl_fileh.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_flt.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_flt_fuzz.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_flt_inl_defcd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_flt_inl_defcu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_flt_inl_defhd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_flt_inl_defhu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_flt_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_flt_inl_fileh.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_flt_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_async_iocp.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_async_iocp_portable.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_async_iocp_windows.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_async_reader_file.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_async_reader_file_portable.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_async_reader_file_windows.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_async_thread.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_async_thread_portable.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_async_writer_file.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_async_writer_file_portable.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_async_writer_file_windows.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_console.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_console_linux.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_console_portable.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_console_windows.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_reader_buffered_inl_defd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_reader_buffered_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_reader_buffered_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_reader_buffered_inl_fileh.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_reader_file.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_reader_file_linux.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_reader_file_portable.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_reader_file_windows.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_transaction.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_transaction_portable.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_transaction_windows.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_writer_buffered_inl_defd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_writer_buffered_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_writer_buffered_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_writer_buffered_inl_fileh.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_writer_file.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_writer_file_linux.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_writer_file_portable.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_writer_file_windows.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_mallocator_lang.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_ring_inl_defd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_ring_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_ring_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_ring_inl_fileh.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_sort_merge_fuzz.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_sort_merge_inl_defd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_sort_merge_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_sort_merge_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_sort_merge_inl_fileh.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_sort_merge_test.hpp"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_uint.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_uint1024.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_uint128.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_uint16.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_uint256.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_uint32.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_uint512.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_uint64.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_uint8.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_uint_strict.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_vector_inl_defd.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_vector_inl_defu.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_vector_inl_filec.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_vector_inl_fileh.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_advapi.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_advapi_security.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_advapi_types.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_base.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_bcrypt.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_communication.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_console.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_cs.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_cv.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_errors.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_files.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_handle.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_iocp.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_process.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_processor.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_srwl.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_string.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_synchronization.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_system_information.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_thread.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_thread_extra.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_time.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_ktmw32_transaction.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_tstring.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_unicode_api.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_inl_fileu.h"/>
 	</ItemGroup>
 	<ItemGroup>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_crypt.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_defrag.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_double_analyzer.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_factorial.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_float_analyzer.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_flt.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_fuzz.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_hash.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_info.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_quad_analyzer.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_test.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_vc.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_fuzz.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_test.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_alignof_test.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bi_info.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bi_test.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_check.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_clobber.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_constexpr_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_cpuid.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_crash.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_exception.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_exception_data.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_exception_out_of_memory.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_exception_test.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_exe_name.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_info_platform.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_limits_test.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_num_longdivmod_fuzz_bui.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_num_longdivmod_fuzz_cui.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_sizeof_test.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_strlen.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_128.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_128_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_192.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_192_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_256_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_fuzz.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_portable_128.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_portable_192.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_portable_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_portable_base.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_x86_aesni_128.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_x86_aesni_192.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_x86_aesni_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_x86_vaes256_128.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_x86_vaes256_192.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_x86_vaes256_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_x86_vaes512_128.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_x86_vaes512_192.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_aes_x86_vaes512_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_des.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_des_base.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_des_fuzz.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_des_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_fuzz.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_tdes2.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_tdes2_fuzz.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_tdes2_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_tdes3.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_tdes3_fuzz.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_tdes3_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_twofish_128.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_twofish_128_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_twofish_192.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_twofish_192_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_twofish_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_twofish_256_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_twofish_fuzz.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_app.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_gapp.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_blake2b_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_blake2b_384.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_blake2b_512.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_blake2b_base.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_blake2s_128.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_blake2s_160.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_blake2s_224.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_blake2s_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_blake2s_base.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_blake3.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_blake3_base.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_ghash.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_all_piecewise_fuzz.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_md2.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_md4.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_md5.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha0.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha1.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha1_c.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha1_portable.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha1_x86.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha2_224.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha2_256.c"/>
@@ -963,19 +463,16 @@
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha2_512_224.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha2_512_256.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha2_base_32bit.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha2_base_32bit_c.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha2_base_32bit_portable.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha2_base_32bit_x86.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha2_base_64bit.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha2_base_64bit_c.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha2_base_64bit_portable.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha2_base_64bit_x86.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha3_224.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha3_256.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha3_384.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha3_512.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha3_base.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_streebog_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_streebog_512.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_streebog_base.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_tiger2_128.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_tiger2_160.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_tiger2_192.c"/>
@@ -984,61 +481,52 @@
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_tiger_192.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_tiger_base.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_whirlpool.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2b_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2b_256_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2b_384.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2b_384_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2b_512.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2b_512_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2b_base.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2s_128.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2s_128_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2s_160.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2s_160_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2s_224.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2s_224_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2s_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2s_256_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2s_base.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake3.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake3_test.cpp"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_any1.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_any2.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_md2.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_md2_fuzz.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_md2_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_md4.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_md4_fuzz.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_md4_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_md5.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_md5_fuzz.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_md5_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha0.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha0_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha1.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha1_c.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha1_c_test.cpp"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha1_fuzz.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha1_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha1_x86.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_224.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_224_fuzz.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_224_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_256.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_256_fuzz.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_256_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_384.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_384_fuzz.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_384_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_512.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_512_224.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_512_224_fuzz.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_512_224_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_512_256.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_512_256_fuzz.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_512_256_test.cpp"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_512_fuzz.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_512_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha3_224.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha3_224_fuzz.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha3_224_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha3_256.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha3_256_fuzz.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha3_256_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha3_384.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha3_384_fuzz.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha3_384_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha3_512.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha3_512_fuzz.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha3_512_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_streebog_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_streebog_256_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_streebog_512.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_streebog_512_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_tiger2_128.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_tiger2_128_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_tiger2_160.c"/>
@@ -1053,643 +541,141 @@
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_tiger_192_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_whirlpool.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_whirlpool_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf1.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf1_md2.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf1_md5.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf1_sha1.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf1_sha1_c.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf1_sha1_c_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf1_sha1_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf1_sha1_x86.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_blake2b_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_blake2b_384.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_blake2b_512.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_blake2s_128.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_blake2s_160.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_blake2s_224.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_blake2s_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_blake3.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_md2.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_md4.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_md5.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_sha0.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_sha1.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_sha1_c.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_sha1_x86.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_sha2_224.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_sha2_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_sha2_384.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_sha2_512.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_sha2_512_224.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_sha2_512_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_sha3_224.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_sha3_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_sha3_384.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_sha3_512.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_streebog_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_streebog_512.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_tiger2_128.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_tiger2_160.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_tiger2_192.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_tiger_128.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_tiger_160.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_tiger_192.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_kdf_pbkdf2_whirlpool.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_blake2b_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_blake2b_384.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_blake2b_512.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_blake2s_128.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_blake2s_160.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_blake2s_224.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_blake2s_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_blake3.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_md2.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_md4.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_md5.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha0.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha1.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha1_c.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha1_c_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha1_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha1_x86.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha2_224.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha2_224_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha2_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha2_256_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha2_384.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha2_384_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha2_512.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha2_512_224.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha2_512_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha2_512_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha3_224.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha3_224_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha3_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha3_256_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha3_384.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha3_384_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha3_512.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_sha3_512_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_streebog_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_streebog_512.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_tiger2_128.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_tiger2_160.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_tiger2_192.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_tiger_128.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_tiger_160.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_tiger_192.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mac_hmac_whirlpool.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_aes_128.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_aes_128_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_aes_192.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_aes_192_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_aes_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_aes_256_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_des.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_serpent.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_tdes2.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_tdes3.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_twofish_128.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_twofish_192.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cbc_twofish_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_128_aes_128.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_128_aes_128_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_128_aes_192.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_128_aes_192_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_128_aes_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_128_aes_256_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_128_serpent.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_128_twofish_128.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_128_twofish_192.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_128_twofish_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_64_des.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_64_tdes2.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_64_tdes3.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_aes_128.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_aes_128_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_aes_192.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_aes_192_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_aes_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_aes_256_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_des.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_serpent.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_tdes2.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_tdes3.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_twofish_128.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_twofish_192.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_cfb_8_twofish_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_aes_128.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_aes_128_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_aes_192.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_aes_192_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_aes_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_aes_256_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_des.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_serpent.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_tdes2.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_tdes3.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_twofish_128.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_twofish_192.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_be_twofish_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_aes_128.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_aes_128_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_aes_192.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_aes_192_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_aes_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_aes_256_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_des.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_serpent.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_tdes2.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_tdes3.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_twofish_128.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_twofish_192.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_twofish_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_gcm_be_aes_128.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_gcm_be_aes_128_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_gcm_be_aes_192.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_gcm_be_aes_192_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_gcm_be_aes_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_gcm_be_aes_256_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_gcm_be_serpent.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_gcm_be_twofish_128.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_gcm_be_twofish_192.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_gcm_be_twofish_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_aes_128.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_aes_128_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_aes_192.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_aes_192_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_aes_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_aes_256_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_des.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_serpent.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_tdes2.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_tdes3.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_twofish_128.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_twofish_192.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ofb_twofish_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_padding_iso9797pm2.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_padding_pkcs7.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_block_blake3.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_block_shake_128.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_block_shake_256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_blake3.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_blake3_fuzz.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_blake3_test.cpp"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_any1.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_any2.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_shake_128.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_shake_128_fuzz.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_shake_128_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_shake_256.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_shake_256_fuzz.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_shake_256_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_flt_analyzer_double.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_flt_analyzer_float.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_flt_analyzer_quad.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_fmt.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_fmt_fuzz.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_hash_crc32.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_cv.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_cv_portable_c.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_cv_portable_cpp.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_cv_posix.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_cv_windows_cs.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_cv_windows_srwl.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_mutex.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_mutex_portable_c.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_mutex_portable_cpp.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_mutex_posix.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_mutex_windows_cs.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_mutex_windows_srwl.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_thread.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_thread_name.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_thread_portable_c.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_thread_portable_cpp.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_thread_posix.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_thread_windows_cs.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_thread_windows_pg.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_thread_windows_srwl.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_unique_lock.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_unique_lock_portable_c.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_unique_lock_portable_cpp.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_unique_lock_posix.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_unique_lock_windows_cs.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_mt_unique_lock_windows_srwl.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_text_encoding.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_text_encoding_portable.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_text_encoding_windows.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_vc.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_buffer_lang.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_flt.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_flt_fuzz.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_flt_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_async_iocp.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_async_iocp_portable.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_async_iocp_windows.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_async_reader_file.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_async_reader_file_portable.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_async_reader_file_windows.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_async_thread.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_async_thread_portable.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_async_writer_file.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_async_writer_file_portable.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_async_writer_file_windows.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_console.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_console_linux.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_console_portable.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_console_windows.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_reader_file.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_reader_file_linux.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_reader_file_portable.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_reader_file_windows.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_transaction.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_transaction_portable.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_transaction_windows.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_writer_file.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_writer_file_linux.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_writer_file_portable.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_writer_file_windows.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_mallocator_lang.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_sort_merge_fuzz.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_sort_merge_test.cpp"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_uint.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_uint1024.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_uint128.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_uint16.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_uint256.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_uint32.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_uint512.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_uint64.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_uint8.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_uint_strict.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_advapi.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_advapi_security.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_advapi_types.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_base.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_bcrypt.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_communication.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_console.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_cs.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_cv.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_errors.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_files.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_handle.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_iocp.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_process.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_processor.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_srwl.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_string.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_synchronization.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_system_information.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_thread.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_thread_extra.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_kernel_time.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_ktmw32_transaction.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_tstring.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_unicode_api.c"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_all_piecewise_fuzz.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_md2.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_md4.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_md5.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha0.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha1.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha1_portable.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha1_x86.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha2_224.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha2_256.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha2_384.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha2_512.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha2_512_224.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha2_512_256.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha2_base_32bit.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha2_base_32bit_portable.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha2_base_32bit_x86.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha2_base_64bit.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha2_base_64bit_portable.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha2_base_64bit_x86.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha3_224.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha3_256.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha3_384.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha3_512.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha3_base.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_tiger2_128.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_tiger2_160.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_tiger2_192.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_tiger_128.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_tiger_160.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_tiger_192.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_tiger_base.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_whirlpool.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_any1.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_any2.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_md2.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_md2_fuzz.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_md2_test.hpp"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_md4.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_md4_fuzz.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_md4_test.hpp"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_md5.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_md5_fuzz.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_md5_test.hpp"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha0.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha0_test.hpp"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha1.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha1_fuzz.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha1_test.hpp"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_224.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_224_fuzz.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_224_test.hpp"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_256.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_256_fuzz.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_256_test.hpp"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_384.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_384_fuzz.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_384_test.hpp"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_512.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_512_224.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_512_224_fuzz.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_512_224_test.hpp"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_512_256.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_512_256_fuzz.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_512_256_test.hpp"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_512_fuzz.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha2_512_test.hpp"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha3_224.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha3_224_fuzz.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha3_224_test.hpp"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha3_256.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha3_256_fuzz.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha3_256_test.hpp"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha3_384.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha3_384_fuzz.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha3_384_test.hpp"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha3_512.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha3_512_fuzz.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_sha3_512_test.hpp"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_tiger2_128.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_tiger2_128_test.hpp"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_tiger2_160.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_tiger2_160_test.hpp"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_tiger2_192.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_tiger2_192_test.hpp"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_tiger_128.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_tiger_128_test.hpp"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_tiger_160.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_tiger_160_test.hpp"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_tiger_192.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_tiger_192_test.hpp"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_whirlpool.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_whirlpool_test.hpp"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_block_shake_128.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_block_shake_256.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_any1.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_any2.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_inl_defd.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_inl_defu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_inl_filec.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_inl_fileh.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_inl_fileu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_shake_128.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_shake_128_fuzz.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_shake_128_test.hpp"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_shake_256.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_shake_256_fuzz.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_shake_256_test.hpp"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_any.m"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_any1.c.m4"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_any1.h.m4"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_any2.c.m4"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_any2.h.m4"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_any.m"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_any1.c.m4"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_any1.h.m4"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_any2.c.m4"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_any2.h.m4"/>
 	</ItemGroup>
-	<PropertyGroup Label="Globals">
-		<VCProjectVersion>16.0</VCProjectVersion>
-		<Keyword>Win32Proj</Keyword>
-		<ProjectGuid>{daee6d32-db72-46dc-9a17-b38426c518f3}</ProjectGuid>
-		<RootNamespace>mkclibslib</RootNamespace>
-		<WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-	</PropertyGroup>
-	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-		<ConfigurationType>StaticLibrary</ConfigurationType>
-		<UseDebugLibraries>true</UseDebugLibraries>
-		<PlatformToolset>v143</PlatformToolset>
-		<CharacterSet>Unicode</CharacterSet>
-		<EnableASAN>true</EnableASAN>
-		<EnableFuzzer>true</EnableFuzzer>
-		<PreferredToolArchitecture>x64</PreferredToolArchitecture>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-		<ConfigurationType>StaticLibrary</ConfigurationType>
-		<UseDebugLibraries>false</UseDebugLibraries>
-		<PlatformToolset>v143</PlatformToolset>
-		<WholeProgramOptimization>true</WholeProgramOptimization>
-		<CharacterSet>Unicode</CharacterSet>
-		<PreferredToolArchitecture>x64</PreferredToolArchitecture>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-		<ConfigurationType>StaticLibrary</ConfigurationType>
-		<UseDebugLibraries>true</UseDebugLibraries>
-		<PlatformToolset>v143</PlatformToolset>
-		<CharacterSet>Unicode</CharacterSet>
-		<EnableASAN>true</EnableASAN>
-		<EnableFuzzer>true</EnableFuzzer>
-		<PreferredToolArchitecture>x64</PreferredToolArchitecture>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-		<ConfigurationType>StaticLibrary</ConfigurationType>
-		<UseDebugLibraries>false</UseDebugLibraries>
-		<PlatformToolset>v143</PlatformToolset>
-		<WholeProgramOptimization>true</WholeProgramOptimization>
-		<CharacterSet>Unicode</CharacterSet>
-		<PreferredToolArchitecture>x64</PreferredToolArchitecture>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
-		<ConfigurationType>StaticLibrary</ConfigurationType>
-		<UseDebugLibraries>true</UseDebugLibraries>
-		<PlatformToolset>v143</PlatformToolset>
-		<CharacterSet>Unicode</CharacterSet>
-		<PreferredToolArchitecture>x64</PreferredToolArchitecture>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
-		<ConfigurationType>StaticLibrary</ConfigurationType>
-		<UseDebugLibraries>false</UseDebugLibraries>
-		<PlatformToolset>v143</PlatformToolset>
-		<WholeProgramOptimization>true</WholeProgramOptimization>
-		<CharacterSet>Unicode</CharacterSet>
-		<PreferredToolArchitecture>x64</PreferredToolArchitecture>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" Label="Configuration">
-		<ConfigurationType>StaticLibrary</ConfigurationType>
-		<UseDebugLibraries>true</UseDebugLibraries>
-		<PlatformToolset>v143</PlatformToolset>
-		<CharacterSet>Unicode</CharacterSet>
-		<PreferredToolArchitecture>x64</PreferredToolArchitecture>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" Label="Configuration">
-		<ConfigurationType>StaticLibrary</ConfigurationType>
-		<UseDebugLibraries>false</UseDebugLibraries>
-		<PlatformToolset>v143</PlatformToolset>
-		<WholeProgramOptimization>true</WholeProgramOptimization>
-		<CharacterSet>Unicode</CharacterSet>
-		<PreferredToolArchitecture>x64</PreferredToolArchitecture>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64EC'" Label="Configuration">
-		<ConfigurationType>StaticLibrary</ConfigurationType>
-		<UseDebugLibraries>true</UseDebugLibraries>
-		<PlatformToolset>v143</PlatformToolset>
-		<CharacterSet>Unicode</CharacterSet>
-		<PreferredToolArchitecture>x64</PreferredToolArchitecture>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64EC'" Label="Configuration">
-		<ConfigurationType>StaticLibrary</ConfigurationType>
-		<UseDebugLibraries>false</UseDebugLibraries>
-		<PlatformToolset>v143</PlatformToolset>
-		<WholeProgramOptimization>true</WholeProgramOptimization>
-		<CharacterSet>Unicode</CharacterSet>
-		<PreferredToolArchitecture>x64</PreferredToolArchitecture>
-	</PropertyGroup>
-	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.props"/>
-	<ImportGroup Label="ExtensionSettings">
-	</ImportGroup>
-	<ImportGroup Label="Shared">
-	</ImportGroup>
-	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
-	</ImportGroup>
-	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
-	</ImportGroup>
-	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
-	</ImportGroup>
-	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
-	</ImportGroup>
-	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
-		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
-	</ImportGroup>
-	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
-		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
-	</ImportGroup>
-	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
-		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
-	</ImportGroup>
-	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
-		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
-	</ImportGroup>
-	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64EC'">
-		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
-	</ImportGroup>
-	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|ARM64EC'">
-		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
-	</ImportGroup>
-	<PropertyGroup Label="UserMacros"/>
-	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-		<ClCompile>
-			<WarningLevel>EnableAllWarnings</WarningLevel>
-			<SDLCheck>true</SDLCheck>
-			<PreprocessorDefinitions>mk_clib_test_smol_want=1;_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			<ConformanceMode>true</ConformanceMode>
-			<MultiProcessorCompilation>true</MultiProcessorCompilation>
-			<LanguageStandard>stdcpp14</LanguageStandard>
-			<AdditionalOptions>/constexpr:steps1000000000 %(AdditionalOptions)</AdditionalOptions>
-			<LanguageStandard_C>stdc11</LanguageStandard_C>
-		</ClCompile>
-		<Link>
-			<SubSystem>
-			</SubSystem>
-			<GenerateDebugInformation>true</GenerateDebugInformation>
-		</Link>
-		<Lib>
-			<AdditionalDependencies>bcrypt.lib</AdditionalDependencies>
-		</Lib>
-	</ItemDefinitionGroup>
-	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-		<ClCompile>
-			<WarningLevel>EnableAllWarnings</WarningLevel>
-			<FunctionLevelLinking>true</FunctionLevelLinking>
-			<IntrinsicFunctions>true</IntrinsicFunctions>
-			<SDLCheck>true</SDLCheck>
-			<PreprocessorDefinitions>mk_clib_test_smol_want=1;_CRT_SECURE_NO_WARNINGS;mk_lang_jumbo_want=0;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			<ConformanceMode>true</ConformanceMode>
-			<MultiProcessorCompilation>true</MultiProcessorCompilation>
-			<LanguageStandard>stdcpp14</LanguageStandard>
-			<AdditionalOptions>/constexpr:steps1000000000 %(AdditionalOptions)</AdditionalOptions>
-			<LanguageStandard_C>stdc11</LanguageStandard_C>
-		</ClCompile>
-		<Link>
-			<SubSystem>
-			</SubSystem>
-			<EnableCOMDATFolding>true</EnableCOMDATFolding>
-			<OptimizeReferences>true</OptimizeReferences>
-			<GenerateDebugInformation>true</GenerateDebugInformation>
-		</Link>
-		<Lib>
-			<AdditionalDependencies>bcrypt.lib</AdditionalDependencies>
-		</Lib>
-	</ItemDefinitionGroup>
-	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-		<ClCompile>
-			<WarningLevel>EnableAllWarnings</WarningLevel>
-			<SDLCheck>true</SDLCheck>
-			<PreprocessorDefinitions>mk_clib_test_smol_want=1;_CRT_SECURE_NO_WARNINGS;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			<ConformanceMode>true</ConformanceMode>
-			<MultiProcessorCompilation>true</MultiProcessorCompilation>
-			<LanguageStandard>stdcpp14</LanguageStandard>
-			<AdditionalOptions>/constexpr:steps1000000000 %(AdditionalOptions)</AdditionalOptions>
-			<LanguageStandard_C>stdc11</LanguageStandard_C>
-		</ClCompile>
-		<Link>
-			<SubSystem>
-			</SubSystem>
-			<GenerateDebugInformation>true</GenerateDebugInformation>
-		</Link>
-		<Lib>
-			<AdditionalDependencies>bcrypt.lib</AdditionalDependencies>
-		</Lib>
-	</ItemDefinitionGroup>
-	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-		<ClCompile>
-			<WarningLevel>EnableAllWarnings</WarningLevel>
-			<FunctionLevelLinking>true</FunctionLevelLinking>
-			<IntrinsicFunctions>true</IntrinsicFunctions>
-			<SDLCheck>true</SDLCheck>
-			<PreprocessorDefinitions>mk_clib_test_smol_want=1;_CRT_SECURE_NO_WARNINGS;mk_lang_jumbo_want=0;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			<ConformanceMode>true</ConformanceMode>
-			<MultiProcessorCompilation>true</MultiProcessorCompilation>
-			<LanguageStandard>stdcpp14</LanguageStandard>
-			<AdditionalOptions>/constexpr:steps1000000000 %(AdditionalOptions)</AdditionalOptions>
-			<LanguageStandard_C>stdc11</LanguageStandard_C>
-		</ClCompile>
-		<Link>
-			<SubSystem>
-			</SubSystem>
-			<EnableCOMDATFolding>true</EnableCOMDATFolding>
-			<OptimizeReferences>true</OptimizeReferences>
-			<GenerateDebugInformation>true</GenerateDebugInformation>
-		</Link>
-		<Lib>
-			<AdditionalDependencies>bcrypt.lib</AdditionalDependencies>
-		</Lib>
-	</ItemDefinitionGroup>
-	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
-		<ClCompile>
-			<WarningLevel>EnableAllWarnings</WarningLevel>
-			<SDLCheck>true</SDLCheck>
-			<PreprocessorDefinitions>mk_clib_test_smol_want=1;_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			<ConformanceMode>true</ConformanceMode>
-			<MultiProcessorCompilation>true</MultiProcessorCompilation>
-			<LanguageStandard>stdcpp14</LanguageStandard>
-			<AdditionalOptions>/constexpr:steps1000000000 %(AdditionalOptions)</AdditionalOptions>
-			<LanguageStandard_C>stdc11</LanguageStandard_C>
-		</ClCompile>
-		<Link>
-			<SubSystem>
-			</SubSystem>
-			<GenerateDebugInformation>true</GenerateDebugInformation>
-		</Link>
-		<Lib>
-			<AdditionalDependencies>bcrypt.lib</AdditionalDependencies>
-		</Lib>
-	</ItemDefinitionGroup>
-	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
-		<ClCompile>
-			<WarningLevel>EnableAllWarnings</WarningLevel>
-			<FunctionLevelLinking>true</FunctionLevelLinking>
-			<IntrinsicFunctions>true</IntrinsicFunctions>
-			<SDLCheck>true</SDLCheck>
-			<PreprocessorDefinitions>mk_clib_test_smol_want=1;_CRT_SECURE_NO_WARNINGS;mk_lang_jumbo_want=0;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			<ConformanceMode>true</ConformanceMode>
-			<MultiProcessorCompilation>true</MultiProcessorCompilation>
-			<LanguageStandard>stdcpp14</LanguageStandard>
-			<AdditionalOptions>/constexpr:steps1000000000 %(AdditionalOptions)</AdditionalOptions>
-			<LanguageStandard_C>stdc11</LanguageStandard_C>
-		</ClCompile>
-		<Link>
-			<SubSystem>
-			</SubSystem>
-			<EnableCOMDATFolding>true</EnableCOMDATFolding>
-			<OptimizeReferences>true</OptimizeReferences>
-			<GenerateDebugInformation>true</GenerateDebugInformation>
-		</Link>
-		<Lib>
-			<AdditionalDependencies>bcrypt.lib</AdditionalDependencies>
-		</Lib>
-	</ItemDefinitionGroup>
-	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
-		<ClCompile>
-			<WarningLevel>EnableAllWarnings</WarningLevel>
-			<SDLCheck>true</SDLCheck>
-			<PreprocessorDefinitions>mk_clib_test_smol_want=1;_CRT_SECURE_NO_WARNINGS;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			<ConformanceMode>true</ConformanceMode>
-			<MultiProcessorCompilation>true</MultiProcessorCompilation>
-			<LanguageStandard>stdcpp14</LanguageStandard>
-			<AdditionalOptions>/constexpr:steps1000000000 %(AdditionalOptions)</AdditionalOptions>
-			<LanguageStandard_C>stdc11</LanguageStandard_C>
-		</ClCompile>
-		<Link>
-			<SubSystem>
-			</SubSystem>
-			<GenerateDebugInformation>true</GenerateDebugInformation>
-		</Link>
-		<Lib>
-			<AdditionalDependencies>bcrypt.lib</AdditionalDependencies>
-		</Lib>
-	</ItemDefinitionGroup>
-	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
-		<ClCompile>
-			<WarningLevel>EnableAllWarnings</WarningLevel>
-			<FunctionLevelLinking>true</FunctionLevelLinking>
-			<IntrinsicFunctions>true</IntrinsicFunctions>
-			<SDLCheck>true</SDLCheck>
-			<PreprocessorDefinitions>mk_clib_test_smol_want=1;_CRT_SECURE_NO_WARNINGS;mk_lang_jumbo_want=0;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			<ConformanceMode>true</ConformanceMode>
-			<MultiProcessorCompilation>true</MultiProcessorCompilation>
-			<LanguageStandard>stdcpp14</LanguageStandard>
-			<AdditionalOptions>/constexpr:steps1000000000 %(AdditionalOptions)</AdditionalOptions>
-			<LanguageStandard_C>stdc11</LanguageStandard_C>
-		</ClCompile>
-		<Link>
-			<SubSystem>
-			</SubSystem>
-			<EnableCOMDATFolding>true</EnableCOMDATFolding>
-			<OptimizeReferences>true</OptimizeReferences>
-			<GenerateDebugInformation>true</GenerateDebugInformation>
-		</Link>
-		<Lib>
-			<AdditionalDependencies>bcrypt.lib</AdditionalDependencies>
-		</Lib>
-	</ItemDefinitionGroup>
-	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64EC'">
-		<ClCompile>
-			<WarningLevel>EnableAllWarnings</WarningLevel>
-			<SDLCheck>true</SDLCheck>
-			<PreprocessorDefinitions>mk_clib_test_smol_want=1;_CRT_SECURE_NO_WARNINGS;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			<ConformanceMode>true</ConformanceMode>
-			<MultiProcessorCompilation>true</MultiProcessorCompilation>
-			<LanguageStandard>stdcpp14</LanguageStandard>
-			<AdditionalOptions>/constexpr:steps1000000000 %(AdditionalOptions)</AdditionalOptions>
-			<LanguageStandard_C>stdc11</LanguageStandard_C>
-		</ClCompile>
-		<Link>
-			<SubSystem>
-			</SubSystem>
-			<GenerateDebugInformation>true</GenerateDebugInformation>
-		</Link>
-		<Lib>
-			<AdditionalDependencies>bcrypt.lib</AdditionalDependencies>
-		</Lib>
-	</ItemDefinitionGroup>
-	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64EC'">
-		<ClCompile>
-			<WarningLevel>EnableAllWarnings</WarningLevel>
-			<FunctionLevelLinking>true</FunctionLevelLinking>
-			<IntrinsicFunctions>true</IntrinsicFunctions>
-			<SDLCheck>true</SDLCheck>
-			<PreprocessorDefinitions>mk_clib_test_smol_want=1;_CRT_SECURE_NO_WARNINGS;mk_lang_jumbo_want=0;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			<ConformanceMode>true</ConformanceMode>
-			<MultiProcessorCompilation>true</MultiProcessorCompilation>
-			<LanguageStandard>stdcpp14</LanguageStandard>
-			<AdditionalOptions>/constexpr:steps1000000000 %(AdditionalOptions)</AdditionalOptions>
-			<LanguageStandard_C>stdc11</LanguageStandard_C>
-		</ClCompile>
-		<Link>
-			<SubSystem>
-			</SubSystem>
-			<EnableCOMDATFolding>true</EnableCOMDATFolding>
-			<OptimizeReferences>true</OptimizeReferences>
-			<GenerateDebugInformation>true</GenerateDebugInformation>
-		</Link>
-		<Lib>
-			<AdditionalDependencies>bcrypt.lib</AdditionalDependencies>
-		</Lib>
-	</ItemDefinitionGroup>
+	<ItemGroup>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_fuzz.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_hash.c"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_fuzz.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_hash.h"/>
+	</ItemGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
-	<ImportGroup Label="ExtensionTargets">
-	</ImportGroup>
+	<ImportGroup Label="ExtensionTargets"/>
 </Project>
