@@ -22,10 +22,11 @@
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\app\mkcf.c"/>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<VCProjectVersion>17.0</VCProjectVersion>
 		<Keyword>Win32Proj</Keyword>
 		<ProjectGuid>{0f467b71-3819-4e3e-9ffb-4a8640d624fb}</ProjectGuid>
-		<RootNamespace>mkclibfuzz</RootNamespace>
+		<ProjectName>mk_clib_fuzzer</ProjectName>
+		<RootNamespace>mkclibfuzzer</RootNamespace>
+		<VCProjectVersion>17.0</VCProjectVersion>
 		<WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
 	</PropertyGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
