@@ -145,6 +145,7 @@
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\.editorconfig"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\.gitignore"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\license.txt"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_tool_m4.bat"/>
 	</ItemGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
 	<ImportGroup Label="ExtensionTargets"/>
