@@ -7,6 +7,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\.editorconfig"><Filter>src</Filter></None>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\.gitignore"><Filter>src</Filter></None>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\license.txt"><Filter>src</Filter></None>
 	</ItemGroup>
 </Project>
