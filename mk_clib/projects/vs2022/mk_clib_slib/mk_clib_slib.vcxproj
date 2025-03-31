@@ -198,6 +198,7 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_inline.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_llong.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_noalias.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_nodiscard.h"/>
 	</ItemGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
 	<ImportGroup Label="ExtensionTargets"/>
