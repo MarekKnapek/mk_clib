@@ -29,6 +29,12 @@
 #include "mk_lib_crypto_hash_stream_sha3_256_test.hpp"
 #include "mk_lib_crypto_hash_stream_sha3_384_test.hpp"
 #include "mk_lib_crypto_hash_stream_sha3_512_test.hpp"
+#include "mk_lib_crypto_hash_stream_tiger2_128_test.hpp"
+#include "mk_lib_crypto_hash_stream_tiger2_160_test.hpp"
+#include "mk_lib_crypto_hash_stream_tiger2_192_test.hpp"
+#include "mk_lib_crypto_hash_stream_tiger_128_test.hpp"
+#include "mk_lib_crypto_hash_stream_tiger_160_test.hpp"
+#include "mk_lib_crypto_hash_stream_tiger_192_test.hpp"
 #include "mk_lib_crypto_xof_stream_shake_128_test.hpp"
 #include "mk_lib_crypto_xof_stream_shake_256_test.hpp"
 
@@ -58,6 +64,12 @@ mk_lang_jumbo mk_lang_types_void_t mk_clib_test(mk_lang_types_void_t) mk_lang_no
 	mk_lib_crypto_hash_stream_sha3_256_test();
 	mk_lib_crypto_hash_stream_sha3_384_test();
 	mk_lib_crypto_hash_stream_sha3_512_test();
+	mk_lib_crypto_hash_stream_tiger2_128_test();
+	mk_lib_crypto_hash_stream_tiger2_160_test();
+	mk_lib_crypto_hash_stream_tiger2_192_test();
+	mk_lib_crypto_hash_stream_tiger_128_test();
+	mk_lib_crypto_hash_stream_tiger_160_test();
+	mk_lib_crypto_hash_stream_tiger_192_test();
 	mk_lib_crypto_xof_stream_shake_128_test();
 	mk_lib_crypto_xof_stream_shake_256_test();
 }
