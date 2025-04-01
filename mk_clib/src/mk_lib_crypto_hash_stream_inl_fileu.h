@@ -1,0 +1,2 @@
+#undef mk_lib_crypto_hash_stream_t_name
+#undef mk_lib_crypto_hash_stream_t_padding
