@@ -1,0 +1,15 @@
+#undef mk_sl_cui_fuzz_cui_t_name
+#undef mk_sl_cui_fuzz_cui_t_cui_a_name
+#undef mk_sl_cui_fuzz_cui_t_cui_a_base
+#undef mk_sl_cui_fuzz_cui_t_cui_a_count
+#undef mk_sl_cui_fuzz_cui_t_cui_a_endian
+#undef mk_sl_cui_fuzz_cui_t_cui_a_disable_big_div
+#undef mk_sl_cui_fuzz_cui_t_cui_a_base_size_bits_d
+#undef mk_sl_cui_fuzz_cui_t_cui_a_inline
+#undef mk_sl_cui_fuzz_cui_t_cui_b_name
+#undef mk_sl_cui_fuzz_cui_t_cui_b_base
+#undef mk_sl_cui_fuzz_cui_t_cui_b_count
+#undef mk_sl_cui_fuzz_cui_t_cui_b_endian
+#undef mk_sl_cui_fuzz_cui_t_cui_b_disable_big_div
+#undef mk_sl_cui_fuzz_cui_t_cui_b_base_size_bits_d
+#undef mk_sl_cui_fuzz_cui_t_cui_b_inline
