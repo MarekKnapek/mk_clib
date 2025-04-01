@@ -31,4 +31,5 @@ define(`mk_lib_crypto_hash_stream_any_mm_per_hash', `mk_lib_crypto_hash_stream_a
 `tiger_160',
 `tiger_192',
 `whirlpool',
+`streebog_256',
 `')')dnl
