@@ -235,6 +235,7 @@
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_crash.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_exe_name.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_info_types.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_base.c"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_clobber.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_crash.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_exe_name.h"/>
@@ -242,6 +243,7 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_limits.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_roundup.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_type_traits.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_base.h"/>
 	</ItemGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
 	<ImportGroup Label="ExtensionTargets"/>
