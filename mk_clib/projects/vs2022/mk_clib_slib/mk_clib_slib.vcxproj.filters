@@ -307,7 +307,9 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_uint_convert_inl_fileu.h"><Filter>src</Filter></ClInclude>
 	</ItemGroup>
 	<ItemGroup>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_blake2b_base.c"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_blake2s_base.c"><Filter>src</Filter></ClCompile>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_blake2b_base.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_blake2s_base.h"><Filter>src</Filter></ClInclude>
 	</ItemGroup>
 </Project>
