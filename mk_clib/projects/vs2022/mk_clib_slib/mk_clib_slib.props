@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup Label="Configuration">
+		<EnableASAN>false</EnableASAN>
+		<EnableASAN Condition="'$(mk_is_debug)' == 'true' And '$(mk_is_intel)' == 'true'">true</EnableASAN>
+		<EnableASAN Condition="'$(mk_project)' == 'mk_clib_fuzzer' And '$(mk_is_intel)' == 'true'">true</EnableASAN>
+		<EnableFuzzer>false</EnableFuzzer>
+		<EnableFuzzer Condition="'$(mk_is_debug)' == 'true' And '$(mk_is_intel)' == 'true'">true</EnableFuzzer>
+		<EnableFuzzer Condition="'$(mk_project)' == 'mk_clib_fuzzer' And '$(mk_is_intel)' == 'true'">true</EnableFuzzer>
+		<SpectreMitigation>false</SpectreMitigation>
+	</PropertyGroup>
+	<PropertyGroup>
+		<IntDir>$(SolutionDir)build\int\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+		<LinkIncremental>false</LinkIncremental>
+		<OutDir>$(SolutionDir)build\out\$(Platform)\$(Configuration)\</OutDir>
+	</PropertyGroup>
+	<ItemDefinitionGroup>
+		<ClCompile>
+			<AdditionalIncludeDirectories></AdditionalIncludeDirectories>
+			<AdditionalUsingDirectories></AdditionalUsingDirectories>
+			<AdditionalBMIDirectories></AdditionalBMIDirectories>
+			<AdditionalModuleDependencies></AdditionalModuleDependencies>
+			<AdditionalHeaderUnitDependencies></AdditionalHeaderUnitDependencies>
+			<ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+			<TranslateIncludes>false</TranslateIncludes>
+			<DebugInformationFormat Condition="'$(mk_is_debug)' == 'true'">ProgramDatabase</DebugInformationFormat>
+			<DebugInformationFormat Condition="'$(mk_is_release)' == 'true'">None</DebugInformationFormat>
+			<DebugInformationFormat Condition="'$(mk_project)' == 'mk_clib_fuzzer'">ProgramDatabase</DebugInformationFormat>
+			<SupportJustMyCode Condition="'$(mk_is_debug)' == 'true'">true</SupportJustMyCode>
+			<SupportJustMyCode Condition="'$(mk_is_release)' == 'true'">false</SupportJustMyCode>
+			<CompileAsManaged>false</CompileAsManaged>
+			<CompileAsWinRT>false</CompileAsWinRT>
+			<SuppressStartupBanner>true</SuppressStartupBanner>
+			<WarningLevel>EnableAllWarnings</WarningLevel>
+			<TreatWarningAsError>true</TreatWarningAsError>
+			<WarningVersion></WarningVersion>
+			<DiagnosticsFormat>Column</DiagnosticsFormat>
+			<SDLCheck Condition="'$(mk_is_debug)' == 'true'">true</SDLCheck>
+			<SDLCheck Condition="'$(mk_is_release)' == 'true'">false</SDLCheck>
+			<MultiProcessorCompilation>true</MultiProcessorCompilation>
+		</ClCompile>
+		<ClCompile>
+			<Optimization Condition="'$(mk_is_debug)' == 'true'">Disabled</Optimization>
+			<Optimization Condition="'$(mk_is_release)' == 'true'">MaxSpeed</Optimization>
+			<InlineFunctionExpansion Condition="'$(mk_is_debug)' == 'true'">Disabled</InlineFunctionExpansion>
+			<InlineFunctionExpansion Condition="'$(mk_is_release)' == 'true'">AnySuitable</InlineFunctionExpansion>
+			<IntrinsicFunctions Condition="'$(mk_is_debug)' == 'true'">false</IntrinsicFunctions>
+			<IntrinsicFunctions Condition="'$(mk_is_release)' == 'true'">true</IntrinsicFunctions>
+			<FavorSizeOrSpeed Condition="'$(mk_is_debug)' == 'true'">Neither</FavorSizeOrSpeed>
+			<FavorSizeOrSpeed Condition="'$(mk_is_release)' == 'true'">Speed</FavorSizeOrSpeed>
+			<OmitFramePointers Condition="'$(mk_is_debug)' == 'true'">false</OmitFramePointers>
+			<OmitFramePointers Condition="'$(mk_is_release)' == 'true'">true</OmitFramePointers>
+			<EnableFiberSafeOptimizations Condition="'$(mk_is_debug)' == 'true'">false</EnableFiberSafeOptimizations>
+			<EnableFiberSafeOptimizations Condition="'$(mk_is_release)' == 'true'">true</EnableFiberSafeOptimizations>
+			<WholeProgramOptimization Condition="'$(mk_is_debug)' == 'true'">false</WholeProgramOptimization>
+			<WholeProgramOptimization Condition="'$(mk_is_release)' == 'true'">true</WholeProgramOptimization>
+		</ClCompile>
+		<ClCompile>
+			<PreprocessorDefinitions>_ALLOW_RTCc_IN_STL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions Condition="'$(mk_is_debug)' == 'true'">mk_lang_jumbo_want=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions Condition="'$(mk_is_debug)' == 'true'">DEBUG;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions Condition="'$(mk_is_release)' == 'true'">mk_lang_jumbo_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions Condition="'$(mk_is_release)' == 'true'">NDEBUG;_NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>mk_lang_external_ltc_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<UndefinePreprocessorDefinitions></UndefinePreprocessorDefinitions>
+			<UndefineAllPreprocessorDefinitions>false</UndefineAllPreprocessorDefinitions>
+			<IgnoreStandardIncludePath>false</IgnoreStandardIncludePath>
+			<PreprocessToFile>false</PreprocessToFile>
+			<PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
+			<PreprocessKeepComments>false</PreprocessKeepComments>
+			<UseStandardPreprocessor>true</UseStandardPreprocessor>
+		</ClCompile>
+		<ClCompile>
+			<StringPooling Condition="'$(mk_is_debug)' == 'true'">false</StringPooling>
+			<StringPooling Condition="'$(mk_is_release)' == 'true'">true</StringPooling>
+			<MinimalRebuild>false</MinimalRebuild>
+			<ExceptionHandling>Sync</ExceptionHandling>
+			<SmallerTypeCheck>false</SmallerTypeCheck>
+			<BasicRuntimeChecks Condition="'$(mk_is_debug)' == 'true'">EnableFastChecks</BasicRuntimeChecks>
+			<BasicRuntimeChecks Condition="'$(mk_is_release)' == 'true'">Default</BasicRuntimeChecks>
+			<RuntimeLibrary Condition="'$(mk_is_debug)' == 'true'">MultiThreadedDebugDLL</RuntimeLibrary>
+			<RuntimeLibrary Condition="'$(mk_is_release)' == 'true'">MultiThreaded</RuntimeLibrary>
+			<StructMemberAlignment>Default</StructMemberAlignment>
+			<BufferSecurityCheck Condition="'$(mk_is_debug)' == 'true'">true</BufferSecurityCheck>
+			<BufferSecurityCheck Condition="'$(mk_is_release)' == 'true'">false</BufferSecurityCheck>
+			<ControlFlowGuard Condition="'$(mk_is_debug)' == 'true'">Guard</ControlFlowGuard>
+			<ControlFlowGuard Condition="'$(mk_is_release)' == 'true'">false</ControlFlowGuard>
+			<FunctionLevelLinking Condition="'$(mk_is_debug)' == 'true'">false</FunctionLevelLinking>
+			<FunctionLevelLinking Condition="'$(mk_is_release)' == 'true'">true</FunctionLevelLinking>
+			<FunctionLevelLinking Condition="'$(Platform)'=='ARM64EC'">true</FunctionLevelLinking>
+			<EnableParallelCodeGeneration>false</EnableParallelCodeGeneration>
+			<EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+			<EnableVectorLength>NotSet</EnableVectorLength>
+			<FloatingPointModel>Precise</FloatingPointModel>
+			<FloatingPointExceptions>false</FloatingPointExceptions>
+			<CreateHotpatchableImage>false</CreateHotpatchableImage>
+			<IntelJCCErratum>false</IntelJCCErratum>
+			<GuardEHContMetadata>false</GuardEHContMetadata>
+			<!--<GuardSignedReturns>true</GuardSignedReturns>-->
+			<GuardSignedReturns></GuardSignedReturns>
+		</ClCompile>
+		<ClCompile>
+			<DisableLanguageExtensions>false</DisableLanguageExtensions>
+			<TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+			<ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+			<RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
+			<EnforceTypeConversionRules>true</EnforceTypeConversionRules>
+			<RuntimeTypeInfo>false</RuntimeTypeInfo>
+			<OpenMPSupport>false</OpenMPSupport>
+			<LanguageStandard>stdcpp20</LanguageStandard>
+			<LanguageStandard_C>stdc17</LanguageStandard_C>
+			<ConformanceMode>true</ConformanceMode>
+			<EnableModules>false</EnableModules>
+			<BuildStlModules>false</BuildStlModules>
+		</ClCompile>
+		<ClCompile>
+			<PrecompiledHeader>NotUsing</PrecompiledHeader>
+		</ClCompile>
+		<ClCompile>
+			<CompileAs Condition="'$(mk_project)' != 'mk_clib_slib'">CompileAsCpp</CompileAs>
+			<DisableSpecificWarnings>4464;4514;4710;5045</DisableSpecificWarnings>
+			<DisableSpecificWarnings Condition="'$(mk_is_release)' == 'true'">4711;4127;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+			<ErrorReporting>None</ErrorReporting>
+		</ClCompile>
+		<ClCompile>
+			<AdditionalOptions>/bigobj /constexpr:steps1000000000 %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<Link>
+			<SuppressStartupBanner>true</SuppressStartupBanner>
+			<AdditionalLibraryDirectories>$(OutDir)</AdditionalLibraryDirectories>
+			<TreatLinkerWarningAsErrors>true</TreatLinkerWarningAsErrors>
+		</Link>
+		<Link>
+			<AdditionalDependencies Condition="'$(mk_project)' != 'mk_clib_slib' And '$(mk_is_debug)' == 'true'">mk_clib_slib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+		</Link>
+		<Link>
+			<GenerateDebugInformation Condition="'$(mk_is_debug)' == 'true'">DebugFastLink</GenerateDebugInformation>
+			<GenerateDebugInformation Condition="'$(mk_is_release)' == 'true'">false</GenerateDebugInformation>
+			<GenerateDebugInformation Condition="'$(mk_project)' == 'mk_clib_fuzzer'">DebugFastLink</GenerateDebugInformation>
+		</Link>
+		<Link>
+			<SubSystem>Console</SubSystem>
+			<LargeAddressAware>true</LargeAddressAware>
+		</Link>
+		<Link>
+			<OptimizeReferences Condition="'$(mk_is_debug)' == 'true'">false</OptimizeReferences>
+			<OptimizeReferences Condition="'$(mk_is_release)' == 'true'">true</OptimizeReferences>
+			<EnableCOMDATFolding Condition="'$(mk_is_debug)' == 'true'">false</EnableCOMDATFolding>
+			<EnableCOMDATFolding Condition="'$(mk_is_release)' == 'true'">true</EnableCOMDATFolding>
+			<LinkTimeCodeGeneration Condition="'$(mk_is_debug)' == 'true'">Default</LinkTimeCodeGeneration>
+			<LinkTimeCodeGeneration Condition="'$(mk_is_release)' == 'true'">UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+		</Link>
+		<Link>
+			<DataExecutionPrevention>true</DataExecutionPrevention>
+			<TargetMachine Condition="'$(mk_is_32bit)' == 'true' And '$(mk_is_intel)' == 'true'">MachineX86</TargetMachine>
+			<TargetMachine Condition="'$(mk_is_64bit)' == 'true' And '$(mk_is_intel)' == 'true'">MachineX64</TargetMachine>
+			<LinkErrorReporting>NoErrorReport</LinkErrorReporting>
+		</Link>
+	</ItemDefinitionGroup>
+</Project>
