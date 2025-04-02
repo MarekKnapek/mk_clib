@@ -1,8 +1,0 @@
-/ARM/
-/ARM64/
-/ARM64EC/
-/Debug/
-/Release/
-/x64/
-
-mkdefrag.vcxproj.user
