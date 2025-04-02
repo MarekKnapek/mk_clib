@@ -75,4 +75,6 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_lllong.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_typedef.h"><Filter>src</Filter></ClInclude>
 	</ItemGroup>
+	<ItemGroup>
+	</ItemGroup>
 </Project>
