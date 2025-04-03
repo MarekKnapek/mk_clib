@@ -12,4 +12,5 @@ define(`mk_lib_crypto_hash_stream_any_mm_per_hash', `mk_lib_crypto_hash_stream_a
 `sha2_384',
 `sha2_512',
 `sha2_512_224',
+`sha2_512_256',
 `')')dnl
