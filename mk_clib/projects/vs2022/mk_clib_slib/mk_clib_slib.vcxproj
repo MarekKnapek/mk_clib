@@ -496,6 +496,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_any_piecewise_fuzz.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_blake2b_256.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_blake2s_128.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_blake2s_160.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_blake2s_224.c"/>
@@ -517,6 +518,9 @@
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha3_256.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha3_384.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha3_512.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2b_256.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2b_256_fuzz.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2b_256_test.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2s_128.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2s_128_fuzz.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2s_128_test.cpp"/>
@@ -582,6 +586,7 @@
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_shake_256_fuzz.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_shake_256_test.cpp"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_any_piecewise_fuzz.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_blake2b_256.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_blake2s_128.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_blake2s_160.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_blake2s_224.h"/>
@@ -603,6 +608,9 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha3_256.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha3_384.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_block_sha3_512.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2b_256.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2b_256_fuzz.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2b_256_test.hpp"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2s_128.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2s_128_fuzz.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_stream_blake2s_128_test.hpp"/>
