@@ -9,5 +9,6 @@
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\.editorconfig"><Filter>src</Filter></None>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\.gitignore"><Filter>src</Filter></None>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\license.txt"><Filter>src</Filter></None>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_tool_m4.bat"><Filter>src</Filter></None>
 	</ItemGroup>
 </Project>
