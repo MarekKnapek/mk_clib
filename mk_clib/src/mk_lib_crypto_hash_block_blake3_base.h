@@ -1,0 +1,104 @@
+#ifndef mk_include_guard_mk_lib_crypto_hash_block_blake3_base_h
+#define mk_include_guard_mk_lib_crypto_hash_block_blake3_base_h
+
+#include "mk_lang_alignas.h"
+#include "mk_lang_constexpr.h"
+#include "mk_lang_jumbo.h"
+#include "mk_lang_noexcept.h"
+#include "mk_lang_typedef.h"
+#include "mk_lang_types.h"
+#include "mk_sl_cui_uint32.h"
+#include "mk_sl_cui_uint64.h"
+#include "mk_sl_cui_uint8.h"
+
+
+#define mk_lib_crypto_hash_block_blake3_base_block_len_d 64
+#define mk_lib_crypto_hash_block_blake3_base_digest_len_d 64
+enum mk_lib_crypto_hash_block_blake3_base_block_len_e{ mk_lib_crypto_hash_block_blake3_base_block_len_v = mk_lib_crypto_hash_block_blake3_base_block_len_d }; typedef enum mk_lib_crypto_hash_block_blake3_base_block_len_e mk_lib_crypto_hash_block_blake3_base_block_len_t;
+enum mk_lib_crypto_hash_block_blake3_base_digest_len_e{ mk_lib_crypto_hash_block_blake3_base_digest_len_v = mk_lib_crypto_hash_block_blake3_base_digest_len_d }; typedef enum mk_lib_crypto_hash_block_blake3_base_digest_len_e mk_lib_crypto_hash_block_blake3_base_digest_len_t;
+
+
+union mk_lib_crypto_hash_block_blake3_base_block_data_u
+{
+	mk_lang_alignas(mk_lib_crypto_hash_block_blake3_base_block_len_v) mk_sl_cui_uint8_t m_uint8s[mk_lib_crypto_hash_block_blake3_base_block_len_v];
+	mk_lang_types_ulllong_t m_align;
+};
+typedef union mk_lib_crypto_hash_block_blake3_base_block_data_u mk_lib_crypto_hash_block_blake3_base_block_data_t;
+struct mk_lib_crypto_hash_block_blake3_base_block_s
+{
+	mk_lib_crypto_hash_block_blake3_base_block_data_t m_data;
+};
+typedef struct mk_lib_crypto_hash_block_blake3_base_block_s mk_lib_crypto_hash_block_blake3_base_block_t;
+mk_lang_typedef(mk_lib_crypto_hash_block_blake3_base_block);
+
+union mk_lib_crypto_hash_block_blake3_base_digest_data_u
+{
+	mk_lang_alignas(mk_lib_crypto_hash_block_blake3_base_digest_len_v) mk_sl_cui_uint8_t m_uint8s[mk_lib_crypto_hash_block_blake3_base_digest_len_v];
+	mk_lang_types_ulllong_t m_align;
+};
+typedef union mk_lib_crypto_hash_block_blake3_base_digest_data_u mk_lib_crypto_hash_block_blake3_base_digest_data_t;
+struct mk_lib_crypto_hash_block_blake3_base_digest_s
+{
+	mk_lib_crypto_hash_block_blake3_base_digest_data_t m_data;
+};
+typedef struct mk_lib_crypto_hash_block_blake3_base_digest_s mk_lib_crypto_hash_block_blake3_base_digest_t;
+mk_lang_typedef(mk_lib_crypto_hash_block_blake3_base_digest);
+
+
+#define mk_lib_crypto_hash_block_blake3_base_chunk_len 1024
+#define mk_lib_crypto_hash_block_blake3_base_max_msg_len /* 2^64 */
+#define mk_lib_crypto_hash_block_blake3_base_max_depth 54 /* log2(max_msg_len) - log2(chunk_len) */
+
+union mk_lib_crypto_hash_block_blake3_base_state_data_u
+{
+	mk_sl_cui_uint32_t m_uint32s[8];
+	mk_lang_types_ulllong_t m_ulllong;
+};
+typedef union mk_lib_crypto_hash_block_blake3_base_state_data_u mk_lib_crypto_hash_block_blake3_base_state_data_t;
+struct mk_lib_crypto_hash_block_blake3_base_state_s
+{
+	mk_lang_alignas(sizeof(mk_lib_crypto_hash_block_blake3_base_state_data_t)) mk_lib_crypto_hash_block_blake3_base_state_data_t m_data;
+};
+typedef struct mk_lib_crypto_hash_block_blake3_base_state_s mk_lib_crypto_hash_block_blake3_base_state_t;
+mk_lang_typedef(mk_lib_crypto_hash_block_blake3_base_state);
+
+union mk_lib_crypto_hash_block_blake3_base_aligned_states_data_u
+{
+	mk_lib_crypto_hash_block_blake3_base_state_t m_states[mk_lib_crypto_hash_block_blake3_base_max_depth + 1];
+	mk_lang_types_ulllong_t m_ulllong;
+};
+typedef union mk_lib_crypto_hash_block_blake3_base_aligned_states_data_u mk_lib_crypto_hash_block_blake3_base_aligned_states_data_t;
+struct mk_lib_crypto_hash_block_blake3_base_aligned_states_s
+{
+	mk_lang_alignas(sizeof(mk_lib_crypto_hash_block_blake3_base_state_t)) mk_lib_crypto_hash_block_blake3_base_aligned_states_data_t m_data;
+};
+typedef struct mk_lib_crypto_hash_block_blake3_base_aligned_states_s mk_lib_crypto_hash_block_blake3_base_aligned_states_t;
+mk_lang_typedef(mk_lib_crypto_hash_block_blake3_base_aligned_states);
+
+
+#include "mk_lang_warning_msvc_push_c4820.h"
+struct mk_lib_crypto_hash_block_blake3_base_s
+{
+	mk_lib_crypto_hash_block_blake3_base_state_t m_state;
+	mk_sl_cui_uint64_t m_chunk_count;
+	mk_lang_types_uchar_t m_block_count;
+	mk_lang_types_uchar_t m_state_count;
+	mk_lang_types_uchar_t m_flags;
+	mk_lang_types_uchar_t m_idx;
+	mk_lib_crypto_hash_block_blake3_base_aligned_states_t m_states;
+};
+typedef struct mk_lib_crypto_hash_block_blake3_base_s mk_lib_crypto_hash_block_blake3_base_t;
+mk_lang_typedef(mk_lib_crypto_hash_block_blake3_base);
+#include "mk_lang_warning_msvc_pop.h"
+
+
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_blake3_base_init(mk_lib_crypto_hash_block_blake3_base_pt const blake3_base) mk_lang_noexcept;
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_blake3_base_append_blocks(mk_lib_crypto_hash_block_blake3_base_pt const blake3_base, mk_lib_crypto_hash_block_blake3_base_block_pct const pblocks, mk_lang_types_usize_t const nblocks) mk_lang_noexcept;
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_blake3_base_finish(mk_lib_crypto_hash_block_blake3_base_pt const blake3_base, mk_lib_crypto_hash_block_blake3_base_block_pt const block, mk_lang_types_sint_t const idx) mk_lang_noexcept;
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_blake3_base_squeeze_block(mk_lib_crypto_hash_block_blake3_base_pt const blake3_base, mk_lib_crypto_hash_block_blake3_base_block_pct const block, mk_sl_cui_uint64_pct const seek, mk_lib_crypto_hash_block_blake3_base_digest_pt const digest) mk_lang_noexcept;
+
+
+#if mk_lang_jumbo_have
+#include "mk_lib_crypto_hash_block_blake3_base.c"
+#endif
+#endif
