@@ -1,0 +1,2 @@
+#undef mk_lib_crypto_xof_stream_t_name
+#undef mk_lib_crypto_xof_stream_t_padding
