@@ -8,6 +8,7 @@
 
 #include "mk_lang_sizeof_test.h"
 #include "mk_lib_crypto_hash_stream_blake2b_256_test.hpp"
+#include "mk_lib_crypto_hash_stream_blake2b_384_test.hpp"
 #include "mk_lib_crypto_hash_stream_blake2s_128_test.hpp"
 #include "mk_lib_crypto_hash_stream_blake2s_160_test.hpp"
 #include "mk_lib_crypto_hash_stream_blake2s_224_test.hpp"
@@ -35,6 +36,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_clib_test(mk_lang_types_void_t) mk_lang_no
 {
 	mk_lang_sizeof_test();
 	mk_lib_crypto_hash_stream_blake2b_256_test();
+	mk_lib_crypto_hash_stream_blake2b_384_test();
 	mk_lib_crypto_hash_stream_blake2s_128_test();
 	mk_lib_crypto_hash_stream_blake2s_160_test();
 	mk_lib_crypto_hash_stream_blake2s_224_test();
