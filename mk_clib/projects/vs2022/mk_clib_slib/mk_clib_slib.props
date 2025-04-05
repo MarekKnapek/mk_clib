@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<mk_is_entry_point Condition="'$(mk_project)' != 'mk_clib_slib' And '$(mk_is_release)' == 'true' And '$(mk_is_intel)' == 'true'">true</mk_is_entry_point>
+		<mk_is_entry_point Condition="!('$(mk_project)' != 'mk_clib_slib' And '$(mk_is_release)' == 'true' And '$(mk_is_intel)' == 'true')">false</mk_is_entry_point>
+	</PropertyGroup>
 	<PropertyGroup Label="Configuration">
 		<EnableASAN>false</EnableASAN>
 		<EnableASAN Condition="'$(mk_is_debug)' == 'true' And '$(mk_is_intel)' == 'true'">true</EnableASAN>
@@ -62,6 +66,7 @@
 			<PreprocessorDefinitions Condition="'$(mk_is_debug)' == 'true'">DEBUG;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<PreprocessorDefinitions Condition="'$(mk_is_release)' == 'true'">mk_lang_jumbo_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<PreprocessorDefinitions Condition="'$(mk_is_release)' == 'true'">NDEBUG;_NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions Condition="'$(mk_is_entry_point)' == 'true'">mk_lang_entry_point_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<PreprocessorDefinitions>mk_lang_external_ltc_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<UndefinePreprocessorDefinitions></UndefinePreprocessorDefinitions>
 			<UndefineAllPreprocessorDefinitions>false</UndefineAllPreprocessorDefinitions>
@@ -75,7 +80,8 @@
 			<StringPooling Condition="'$(mk_is_debug)' == 'true'">false</StringPooling>
 			<StringPooling Condition="'$(mk_is_release)' == 'true'">true</StringPooling>
 			<MinimalRebuild>false</MinimalRebuild>
-			<ExceptionHandling>Sync</ExceptionHandling>
+			<ExceptionHandling Condition="'$(mk_is_debug)' == 'true'">Sync</ExceptionHandling>
+			<ExceptionHandling Condition="'$(mk_is_entry_point)' == 'true'">false</ExceptionHandling>
 			<SmallerTypeCheck>false</SmallerTypeCheck>
 			<BasicRuntimeChecks Condition="'$(mk_is_debug)' == 'true'">EnableFastChecks</BasicRuntimeChecks>
 			<BasicRuntimeChecks Condition="'$(mk_is_release)' == 'true'">Default</BasicRuntimeChecks>
@@ -121,10 +127,12 @@
 			<CompileAs Condition="'$(mk_project)' != 'mk_clib_slib'">CompileAsCpp</CompileAs>
 			<DisableSpecificWarnings>4464;4514;4710;5045</DisableSpecificWarnings>
 			<DisableSpecificWarnings Condition="'$(mk_is_release)' == 'true'">4711;4127;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+			<DisableSpecificWarnings Condition="'$(mk_is_entry_point)' == 'true'">4577;%(DisableSpecificWarnings)</DisableSpecificWarnings>
 			<ErrorReporting>None</ErrorReporting>
 		</ClCompile>
 		<ClCompile>
 			<AdditionalOptions>/bigobj /constexpr:steps1000000000 %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(mk_is_entry_point)' == 'true'">/Gs65536 %(AdditionalOptions)</AdditionalOptions>
 		</ClCompile>
 		<Link>
 			<SuppressStartupBanner>true</SuppressStartupBanner>
@@ -133,6 +141,7 @@
 		</Link>
 		<Link>
 			<AdditionalDependencies Condition="'$(mk_project)' != 'mk_clib_slib' And '$(mk_is_debug)' == 'true'">mk_clib_slib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+			<IgnoreAllDefaultLibraries Condition="'$(mk_is_entry_point)' == 'true'">true</IgnoreAllDefaultLibraries>
 		</Link>
 		<Link>
 			<GenerateDebugInformation Condition="'$(mk_is_debug)' == 'true'">DebugFastLink</GenerateDebugInformation>
@@ -152,6 +161,7 @@
 			<LinkTimeCodeGeneration Condition="'$(mk_is_release)' == 'true'">UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
 		</Link>
 		<Link>
+			<EntryPointSymbol Condition="'$(mk_is_entry_point)' == 'true'">mk_lang_entry_point</EntryPointSymbol>
 			<SetChecksum Condition="'$(mk_is_release)' == 'true'">true</SetChecksum>
 			<DataExecutionPrevention>true</DataExecutionPrevention>
 			<TargetMachine Condition="'$(mk_is_32bit)' == 'true' And '$(mk_is_intel)' == 'true'">MachineX86</TargetMachine>

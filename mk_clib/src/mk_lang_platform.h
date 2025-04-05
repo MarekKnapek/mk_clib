@@ -64,12 +64,16 @@
 #define mk_lang_platform_is_windows_at_least_51 (mk_lang_platform_is_windows_ver >= 51)
 #define mk_lang_platform_is_windows_at_least_any (mk_lang_platform_is_windows_ver >= 1)
 
+#define mk_lang_platform_is_linux (mk_lang_platform == mk_lang_platform_linux)
+
 #define mk_lang_platform_is_posix_at_least_2008_09 (mk_lang_platform_is_posix_ver >= 200809l)
 #define mk_lang_platform_is_posix_at_least_2001_12 (mk_lang_platform_is_posix_ver >= 200112l)
 #define mk_lang_platform_is_posix_at_least_1995_06 (mk_lang_platform_is_posix_ver >= 199506l)
 #define mk_lang_platform_is_posix_at_least_1993_09 (mk_lang_platform_is_posix_ver >= 199309l)
 #define mk_lang_platform_is_posix_at_least_2 (mk_lang_platform_is_posix_ver >= 2)
 #define mk_lang_platform_is_posix_at_least_1 (mk_lang_platform_is_posix_ver >= 1)
+
+#define mk_lang_platform_is_portable (mk_lang_platform == mk_lang_platform_portable)
 
 
 #endif

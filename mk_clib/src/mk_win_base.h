@@ -184,7 +184,7 @@ static mk_win_base_handle_t const mk_win_base_s_handle_invalid = { mk_win_base_h
 #endif
 
 
-#if mk_lang_jumbo_have == 1
+#if mk_lang_jumbo_have
 #include "mk_win_base.c"
 #endif
 #endif

@@ -2,11 +2,11 @@
 #define mk_include_guard_mk_win_dll_bcrypt_h
 
 
+#include "mk_lang_jumbo.h"
 #include "mk_lang_platform.h"
 #if mk_lang_platform_is_windows_at_least_any
 
 
-#include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_typedef.h"
@@ -158,7 +158,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_ntstatus_t mk_win_dll_bcrypt_decrypt
 #endif
 
 
-#if mk_lang_jumbo_have == 1
+#if mk_lang_jumbo_have
 #include "mk_win_dll_bcrypt.c"
 #endif
 #endif

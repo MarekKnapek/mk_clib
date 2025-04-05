@@ -2,10 +2,8 @@
 #define mk_include_guard_mk_win_dll_bcrypt_c
 #include "mk_win_dll_bcrypt.h"
 
-
 #include "mk_lang_platform.h"
 #if mk_lang_platform_is_windows_at_least_any
-
 
 #include "mk_lang_extern.h"
 #include "mk_lang_jumbo.h"
@@ -17,7 +15,7 @@
 #include "mk_win_base.h"
 
 
-#if mk_lang_msvc_ver > 0
+#if mk_lang_msvc_ver != 0
 #pragma comment(lib, "bcrypt.lib")
 #endif
 
@@ -134,6 +132,4 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_ntstatus_t mk_win_dll_bcrypt_decrypt
 
 
 #endif
-
-
 #endif
