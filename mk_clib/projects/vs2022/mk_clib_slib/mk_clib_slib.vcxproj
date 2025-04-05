@@ -496,6 +496,8 @@
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_any2.c.m4"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_any2.h.m4"/>
 	</ItemGroup>
+	<ItemGroup>
+	</ItemGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
 	<ImportGroup Label="ExtensionTargets"/>
 </Project>
