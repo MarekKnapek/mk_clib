@@ -6,5 +6,6 @@
 		</Filter>
 	</ItemGroup>
 	<ItemGroup>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\license.txt"><Filter>src</Filter></None>
 	</ItemGroup>
 </Project>
