@@ -142,6 +142,7 @@
 		<UseStructuredOutput>true</UseStructuredOutput>
 	</PropertyGroup>
 	<ItemGroup>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\.editorconfig"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\license.txt"/>
 	</ItemGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
