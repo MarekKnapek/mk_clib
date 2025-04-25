@@ -322,6 +322,8 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_dll_kernel_files.h"/>
 	</ItemGroup>
 	<ItemGroup>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_info_platform.c"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_info_platform.h"/>
 	</ItemGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
 	<ImportGroup Label="ExtensionTargets"/>
