@@ -278,6 +278,8 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_dll_kernel_process.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_dll_kernel_time.h"/>
 	</ItemGroup>
+	<ItemGroup>
+	</ItemGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
 	<ImportGroup Label="ExtensionTargets"/>
 </Project>
