@@ -77,5 +77,6 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_static_param.h"><Filter>src</Filter></ClInclude>
 	</ItemGroup>
 	<ItemGroup>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_constexpr.h"><Filter>src</Filter></ClInclude>
 	</ItemGroup>
 </Project>
