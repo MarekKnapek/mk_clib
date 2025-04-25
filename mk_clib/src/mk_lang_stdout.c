@@ -1,0 +1,96 @@
+#ifndef mk_include_guard_mk_lang_stdout_c
+#define mk_include_guard_mk_lang_stdout_c
+#include "mk_lang_stdout.h"
+
+#include "mk_lang_check.h"
+#include "mk_lang_concat.h"
+#include "mk_lang_jumbo.h"
+#include "mk_lang_nodiscard.h"
+#include "mk_lang_noexcept.h"
+#include "mk_lang_platform.h"
+#include "mk_lang_tchar.h"
+#include "mk_lang_types.h"
+
+
+#if mk_lang_platform_is_windows_at_least_any
+#include "mk_lang_stdout_windows.h"
+#define mk_lang_stdout_prefix windows
+#elif mk_lang_platform_is_linux
+#include "mk_lang_stdout_linux.h"
+#define mk_lang_stdout_prefix linux
+#elif mk_lang_platform_is_posix_at_least_any
+#include "mk_lang_stdout_posix.h"
+#define mk_lang_stdout_prefix posix
+#elif mk_lang_platform_is_portable
+#include "mk_lang_stdout_portable.h"
+#define mk_lang_stdout_prefix portable
+#else
+#error xxxxxxxxxx
+#endif
+#define mk_lang_stdout_impl_init mk_lang_concat(mk_lang_concat(mk_lang_stdout_, mk_lang_stdout_prefix), _init)
+#define mk_lang_stdout_impl_print_n mk_lang_concat(mk_lang_concat(mk_lang_stdout_, mk_lang_stdout_prefix), _print_n)
+#define mk_lang_stdout_impl_print_w mk_lang_concat(mk_lang_concat(mk_lang_stdout_, mk_lang_stdout_prefix), _print_w)
+#define mk_lang_stdout_impl_print_t mk_lang_concat(mk_lang_concat(mk_lang_stdout_, mk_lang_stdout_prefix), _print_t)
+#define mk_lang_stdout_impl_println_n mk_lang_concat(mk_lang_concat(mk_lang_stdout_, mk_lang_stdout_prefix), _println_n)
+#define mk_lang_stdout_impl_println_w mk_lang_concat(mk_lang_concat(mk_lang_stdout_, mk_lang_stdout_prefix), _println_w)
+#define mk_lang_stdout_impl_println_t mk_lang_concat(mk_lang_concat(mk_lang_stdout_, mk_lang_stdout_prefix), _println_t)
+
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_init(mk_lang_types_void_t) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	
+	err = mk_lang_stdout_impl_init(); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_print_n(mk_lang_types_pchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	
+	err = mk_lang_stdout_impl_print_n(str_buf, str_len); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_print_w(mk_lang_types_wchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	
+	err = mk_lang_stdout_impl_print_w(str_buf, str_len); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_print_t(mk_lang_tchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	
+	err = mk_lang_stdout_impl_print_t(str_buf, str_len); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_println_n(mk_lang_types_pchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	
+	err = mk_lang_stdout_impl_println_n(str_buf, str_len); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_println_w(mk_lang_types_wchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	
+	err = mk_lang_stdout_impl_println_w(str_buf, str_len); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_println_t(mk_lang_tchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	
+	err = mk_lang_stdout_impl_println_t(str_buf, str_len); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+
+#endif
