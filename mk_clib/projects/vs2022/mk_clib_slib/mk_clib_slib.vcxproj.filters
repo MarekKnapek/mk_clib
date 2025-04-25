@@ -261,5 +261,10 @@
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_fileh.h.m4"><Filter>src</Filter></None>
 	</ItemGroup>
 	<ItemGroup>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_num_longdivmod_inl_defd.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_num_longdivmod_inl_defu.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_num_longdivmod_inl_filec.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_num_longdivmod_inl_fileh.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_num_longdivmod_inl_fileu.h"><Filter>src</Filter></ClInclude>
 	</ItemGroup>
 </Project>
