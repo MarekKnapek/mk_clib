@@ -1,0 +1,36 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35828.75
+MinimumVisualStudioVersion = 10.0.40219.1
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+		Debug|ARM = Debug|ARM
+		Release|ARM = Release|ARM
+		Debug|ARM64 = Debug|ARM64
+		Release|ARM64 = Release|ARM64
+		Debug|ARM64EC = Debug|ARM64EC
+		Release|ARM64EC = Release|ARM64EC
+		DebugClang|Win32 = DebugClang|Win32
+		ReleaseClang|Win32 = ReleaseClang|Win32
+		DebugClang|x64 = DebugClang|x64
+		ReleaseClang|x64 = ReleaseClang|x64
+		DebugClang|ARM = DebugClang|ARM
+		ReleaseClang|ARM = ReleaseClang|ARM
+		DebugClang|ARM64 = DebugClang|ARM64
+		ReleaseClang|ARM64 = ReleaseClang|ARM64
+		DebugClang|ARM64EC = DebugClang|ARM64EC
+		ReleaseClang|ARM64EC = ReleaseClang|ARM64EC
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {c453dd01-69bb-4abc-bbe5-3239f277b4de}
+	EndGlobalSection
+EndGlobal
