@@ -260,6 +260,7 @@
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_dll_advapi.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_dll_bcrypt.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_dll_kernel_console.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_dll_kernel_errors.c"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_info.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_assert.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_check.h"/>
@@ -269,6 +270,7 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_dll_advapi.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_dll_bcrypt.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_dll_kernel_console.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_dll_kernel_errors.h"/>
 	</ItemGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
 	<ImportGroup Label="ExtensionTargets"/>
