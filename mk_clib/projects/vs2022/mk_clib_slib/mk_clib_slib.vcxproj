@@ -237,6 +237,8 @@
 	<ItemGroup>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_types.h"/>
 	</ItemGroup>
+	<ItemGroup>
+	</ItemGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
 	<ImportGroup Label="ExtensionTargets"/>
 </Project>
