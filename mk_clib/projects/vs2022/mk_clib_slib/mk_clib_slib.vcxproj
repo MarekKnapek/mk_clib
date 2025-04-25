@@ -148,6 +148,7 @@
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_tool_m4.bat"/>
 	</ItemGroup>
 	<ItemGroup>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_arch.h"/>
 	</ItemGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
 	<ImportGroup Label="ExtensionTargets"/>
