@@ -7,6 +7,8 @@
 
 #if mk_lang_compiler_is_at_least_gcc(11, 1)
 #define mk_lang_attribute_target(x) __attribute__((__target__(x)))
+#elif mk_lang_compiler_is_at_least_clang(11, 1)
+#define mk_lang_attribute_target(x) __attribute__((__target__(x)))
 #else
 #define mk_lang_attribute_target(x)
 #endif

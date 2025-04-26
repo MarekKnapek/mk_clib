@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<mk_is_entry_point Condition="'$(mk_project)' != 'mk_clib_slib' And '$(mk_project)' != 'mk_clib_test' And '$(mk_is_release)' == 'true' And '$(mk_is_intel)' == 'true'">true</mk_is_entry_point>
+		<mk_is_entry_point Condition="!('$(mk_project)' != 'mk_clib_slib' And '$(mk_project)' != 'mk_clib_test' And '$(mk_is_release)' == 'true' And '$(mk_is_intel)' == 'true')">false</mk_is_entry_point>
+	</PropertyGroup>
 	<PropertyGroup Label="Configuration">
 		<EnableASAN>false</EnableASAN>
-		<EnableASAN Condition="'$(mk_is_debug)' == 'true' And '$(mk_is_intel)' == 'true'">true</EnableASAN>
-		<EnableASAN Condition="'$(mk_project)' == 'mk_clib_fuzzer' And '$(mk_is_intel)' == 'true'">true</EnableASAN>
+		<EnableASAN Condition="'$(mk_is_debug)' == 'true' And '$(mk_is_intel)' == 'true' And '$(mk_is_msvc)' == 'true'">true</EnableASAN>
+		<EnableASAN Condition="'$(mk_project)' == 'mk_clib_fuzzer' And '$(mk_is_intel)' == 'true' And '$(mk_is_msvc)' == 'true'">true</EnableASAN>
 		<EnableFuzzer>false</EnableFuzzer>
 		<EnableFuzzer Condition="'$(mk_is_debug)' == 'true' And '$(mk_is_intel)' == 'true'">true</EnableFuzzer>
 		<EnableFuzzer Condition="'$(mk_project)' == 'mk_clib_fuzzer' And '$(mk_is_intel)' == 'true'">true</EnableFuzzer>
@@ -51,18 +55,18 @@
 			<OmitFramePointers Condition="'$(mk_is_debug)' == 'true'">false</OmitFramePointers>
 			<OmitFramePointers Condition="'$(mk_is_release)' == 'true'">true</OmitFramePointers>
 			<EnableFiberSafeOptimizations Condition="'$(mk_is_debug)' == 'true'">false</EnableFiberSafeOptimizations>
-			<EnableFiberSafeOptimizations Condition="'$(mk_is_release)' == 'true'">true</EnableFiberSafeOptimizations>
+			<EnableFiberSafeOptimizations Condition="'$(mk_is_release)' == 'true' And '$(mk_is_clang)' == 'false'">true</EnableFiberSafeOptimizations>
 			<WholeProgramOptimization Condition="'$(mk_is_debug)' == 'true'">false</WholeProgramOptimization>
 			<WholeProgramOptimization Condition="'$(mk_is_release)' == 'true'">true</WholeProgramOptimization>
 		</ClCompile>
 		<ClCompile>
 			<PreprocessorDefinitions>_ALLOW_RTCc_IN_STL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			<PreprocessorDefinitions Condition="'$(mk_is_debug)' == 'true'">mk_lang_jumbo_want=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<PreprocessorDefinitions Condition="'$(mk_is_debug)' == 'true'">DEBUG;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			<PreprocessorDefinitions Condition="'$(mk_is_release)' == 'true'">mk_lang_jumbo_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<PreprocessorDefinitions Condition="'$(mk_is_release)' == 'true'">NDEBUG;_NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			<PreprocessorDefinitions>mk_lang_external_ltc_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions Condition="'$(mk_is_entry_point)' == 'true'">mk_lang_entry_point_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions Condition="'$(mk_is_msvc)' == 'true'">mk_lang_external_ltc_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions Condition="'$(mk_project)' == 'mk_clib_test'">mk_lang_crash_detail_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<UndefinePreprocessorDefinitions></UndefinePreprocessorDefinitions>
 			<UndefineAllPreprocessorDefinitions>false</UndefineAllPreprocessorDefinitions>
 			<IgnoreStandardIncludePath>false</IgnoreStandardIncludePath>
@@ -75,7 +79,8 @@
 			<StringPooling Condition="'$(mk_is_debug)' == 'true'">false</StringPooling>
 			<StringPooling Condition="'$(mk_is_release)' == 'true'">true</StringPooling>
 			<MinimalRebuild>false</MinimalRebuild>
-			<ExceptionHandling>Sync</ExceptionHandling>
+			<ExceptionHandling Condition="'$(mk_is_debug)' == 'true'">Sync</ExceptionHandling>
+			<ExceptionHandling Condition="'$(mk_is_entry_point)' == 'true'">false</ExceptionHandling>
 			<SmallerTypeCheck>false</SmallerTypeCheck>
 			<BasicRuntimeChecks Condition="'$(mk_is_debug)' == 'true'">EnableFastChecks</BasicRuntimeChecks>
 			<BasicRuntimeChecks Condition="'$(mk_is_release)' == 'true'">Default</BasicRuntimeChecks>
@@ -121,10 +126,27 @@
 			<CompileAs Condition="'$(mk_project)' != 'mk_clib_slib'">CompileAsCpp</CompileAs>
 			<DisableSpecificWarnings>4464;4514;4710;5045</DisableSpecificWarnings>
 			<DisableSpecificWarnings Condition="'$(mk_is_release)' == 'true'">4711;4127;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+			<DisableSpecificWarnings Condition="'$(mk_is_entry_point)' == 'true'">4577;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+			<DisableSpecificWarnings Condition="'$(mk_is_arm)' == 'true'">4826;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+			<UseFullPaths>true</UseFullPaths>
 			<ErrorReporting>None</ErrorReporting>
 		</ClCompile>
 		<ClCompile>
-			<AdditionalOptions>/bigobj /constexpr:steps1000000000 %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(mk_is_msvc)' == 'true'">/constexpr:steps1000000000 %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(mk_is_entry_point)' == 'true'">/Gs65536 %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(mk_is_clang)' == 'true'">-Wno-assume %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(mk_is_clang)' == 'true'">-Wno-c++98-compat-pedantic %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(mk_is_clang)' == 'true'">-Wno-covered-switch-default %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(mk_is_clang)' == 'true'">-Wno-microsoft-enum-value %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(mk_is_clang)' == 'true'">-Wno-old-style-cast %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(mk_is_clang)' == 'true'">-Wno-pre-c11-compat %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(mk_is_clang)' == 'true'">-Wno-static-in-inline %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(mk_is_clang)' == 'true'">-Wno-undefined-inline %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(mk_is_clang)' == 'true'">-Wno-unreachable-code-break %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(mk_is_clang)' == 'true'">-Wno-unsafe-buffer-usage %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(mk_is_clang)' == 'true'">-Wno-unused-function %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(mk_is_clang)' == 'true'">-Wno-unused-macros %(AdditionalOptions)</AdditionalOptions>
 		</ClCompile>
 		<Link>
 			<SuppressStartupBanner>true</SuppressStartupBanner>
@@ -133,6 +155,8 @@
 		</Link>
 		<Link>
 			<AdditionalDependencies Condition="'$(mk_project)' != 'mk_clib_slib' And '$(mk_is_debug)' == 'true'">mk_clib_slib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+			<AdditionalDependencies Condition="'$(mk_is_clang)' == 'true' And '$(mk_is_64bit)' == 'true'">clang_rt.builtins-x86_64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+			<IgnoreAllDefaultLibraries Condition="'$(mk_is_entry_point)' == 'true'">true</IgnoreAllDefaultLibraries>
 		</Link>
 		<Link>
 			<GenerateDebugInformation Condition="'$(mk_is_debug)' == 'true'">DebugFastLink</GenerateDebugInformation>
@@ -152,6 +176,7 @@
 			<LinkTimeCodeGeneration Condition="'$(mk_is_release)' == 'true'">UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
 		</Link>
 		<Link>
+			<EntryPointSymbol Condition="'$(mk_is_entry_point)' == 'true'">mk_lang_entry_point</EntryPointSymbol>
 			<SetChecksum Condition="'$(mk_is_release)' == 'true'">true</SetChecksum>
 			<DataExecutionPrevention>true</DataExecutionPrevention>
 			<TargetMachine Condition="'$(mk_is_32bit)' == 'true' And '$(mk_is_intel)' == 'true'">MachineX86</TargetMachine>
@@ -161,5 +186,26 @@
 		<Link>
 			<AdditionalOptions Condition="'$(mk_is_release)' == 'true'">/Brepro %(AdditionalOptions)</AdditionalOptions>
 		</Link>
+		<Lib>
+			<AdditionalOptions>/ignore:4006 %(AdditionalOptions)</AdditionalOptions>
+		</Lib>
+		<MASM>
+			<NoLogo>true</NoLogo>
+			<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+			<GenerateDebugInformation>false</GenerateDebugInformation>
+			<EnableMASM51Compatibility>false</EnableMASM51Compatibility>
+			<PerformSyntaxCheckOnly>false</PerformSyntaxCheckOnly>
+			<PreserveIdentifierCase>1</PreserveIdentifierCase>
+			<WarningLevel>3</WarningLevel>
+		</MASM>
+		<MASM>
+			<UseSafeExceptionHandlers Condition="'$(mk_is_32bit)' == 'true'">true</UseSafeExceptionHandlers>
+			<PackAlignmentBoundary>0</PackAlignmentBoundary>
+			<CallingConvention>0</CallingConvention>
+			<ErrorReporting>3</ErrorReporting>
+		</MASM>
+		<MASM>
+			<MakeAllSymbolsPublic>false</MakeAllSymbolsPublic>
+		</MASM>
 	</ItemDefinitionGroup>
 </Project>

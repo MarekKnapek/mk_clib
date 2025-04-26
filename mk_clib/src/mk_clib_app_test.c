@@ -16,6 +16,7 @@
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_null.h"
+#include "mk_lang_stdout.h"
 #include "mk_lang_types.h"
 
 #include <stdio.h> /* putchar puts */
@@ -72,18 +73,20 @@ static mk_lang_inline mk_lang_types_void_t mk_clib_app_test_adjust_rand(mk_lang_
 	}
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_test_one(mk_lang_types_void_t) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_test_one(mk_clib_fuzz_ctx_pt const ctx) mk_lang_noexcept
 {
 	mk_lang_types_uchar_t data[4 * 1024];
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
+	mk_lang_assert(ctx);
+
 	mk_clib_app_test_fill_rand(&data[0], mk_lang_countof(data));
 	mk_clib_app_test_adjust_rand(&data[0], mk_lang_countof(data), 8);
-	err = mk_clib_fuzz(&data[0], mk_lang_countof(data), mk_lang_true); mk_lang_check_rereturn(err);
+	err = mk_clib_fuzz(&data[0], mk_lang_countof(data), mk_lang_true, ctx); mk_lang_check_rereturn(err);
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_test_lot(mk_lang_types_void_t) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_test_lot(mk_clib_fuzz_ctx_pt const ctx) mk_lang_noexcept
 {
 	enum mk_clib_fuzz_fn_ticks_e{ mk_clib_fuzz_fn_ticks_v = 10 * CLK_TCK };
 	enum mk_clib_fuzz_fn_attempts_e{ mk_clib_fuzz_fn_attempts_v = 1000 };
@@ -100,6 +103,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_test_lo
 	mk_lang_types_sint_t percent_time;
 	mk_lang_types_sint_t percent_attempt;
 
+	mk_lang_assert(ctx);
+
 	percent_new = 0;
 	percent_dif = 0;
 	percent_old = 0;
@@ -107,7 +112,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_test_lo
 	clk_start = clock(); mk_lang_check_return(clk_start != ((clock_t)(-1)));
 	do
 	{
-		err = mk_clib_app_test_one(); mk_lang_check_rereturn(err);
+		err = mk_clib_app_test_one(ctx); mk_lang_check_rereturn(err);
 		clk_now = clock(); mk_lang_check_return(clk_now != ((clock_t)(-1)));
 		clk_dif_ticks = clk_now - clk_start;
 		++attempt;
@@ -127,13 +132,26 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_test_lo
 }
 
 
-mk_lang_extern_c mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_clib_app_test_void(mk_lang_types_void_t) mk_lang_noexcept
+mk_lang_extern_c mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_clib_app_test_args(mk_lang_types_sint_t const argc, mk_lang_types_pchar_pcpct const argv) mk_lang_noexcept
 {
+	mk_lang_types_sint_t n;
+	mk_lang_types_sint_t i;
 	mk_lang_types_sint_t err;
+	mk_clib_fuzz_ctx_t ctx;
 
+	mk_lang_check_return(argc >= 1);
+	mk_lang_check_return(argv);
+	n = argc;
+	for(i = 0; i != n; ++i)
+	{
+		mk_lang_check_return(argv[i]);
+		mk_lang_check_return(argv[i][0] != '\0');
+	}
 	mk_lang_cpuid_init();
+	err = mk_lang_stdout_init(); mk_lang_check_rereturn(err);
 	err = mk_clib_app_test_init_rand(); mk_lang_check_rereturn(err);
-	err = mk_clib_app_test_lot(); mk_lang_check_rereturn(err);
+	err = mk_clib_fuzz_init_ctx(&ctx, argc, argv); mk_lang_check_rereturn(err);
+	err = mk_clib_app_test_lot(&ctx); mk_lang_check_rereturn(err);
 	return 0;
 }
 

@@ -13,6 +13,7 @@
 #include "mk_lang_assert.h"
 #include "mk_lang_bool.h"
 #include "mk_lang_countof.h"
+#include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_min.h"
 #include "mk_lang_nodiscard.h"
@@ -91,7 +92,7 @@ typedef enum mk_lang_cpuid_register_id_e mk_lang_cpuid_register_id_t;
 
 
 #include "mk_lang_warning_msvc_push_c5045.h"
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_bit_set(mk_lang_types_sint_t const leaf, mk_lang_cpuid_register_id_t const register_id, mk_lang_types_sint_t const bit) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_bool_t mk_lang_cpuid_has_bit_set(mk_lang_types_sint_t const leaf, mk_lang_cpuid_register_id_t const register_id, mk_lang_types_sint_t const bit) mk_lang_noexcept
 {
 	mk_lang_types_bool_t has;
 
@@ -109,7 +110,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_bit_set(m
 #include "mk_lang_warning_msvc_pop.h"
 
 #include "mk_lang_warning_msvc_push_c5045.h"
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_leaf_07_sub_leaf_bit_set(mk_lang_types_sint_t const sub_leaf, mk_lang_cpuid_register_id_t const register_id, mk_lang_types_sint_t const bit) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_bool_t mk_lang_cpuid_has_leaf_07_sub_leaf_bit_set(mk_lang_types_sint_t const sub_leaf, mk_lang_cpuid_register_id_t const register_id, mk_lang_types_sint_t const bit) mk_lang_noexcept
 {
 	mk_lang_types_bool_t has;
 

@@ -2,11 +2,12 @@
 #define mk_include_guard_mk_lang_flatten_h
 
 
+#include "mk_lang_compiler.h"
 #include "mk_lang_msvc.h"
 #include "mk_lang_version.h"
 
 
-#if (mk_lang_version_at_least_cpp_11 || mk_lang_version_at_least_msvc_cpp_11 || mk_lang_version_at_least_c_23) && mk_lang_msvc_ver && defined NDEBUG
+#if (mk_lang_version_at_least_cpp_11 || mk_lang_version_at_least_msvc_cpp_11 || mk_lang_version_at_least_c_23) && mk_lang_msvc_ver && !mk_lang_compiler_is_at_least_clang(1, 0) && defined NDEBUG
 #define mk_lang_flatten [[msvc::flatten]]
 #else
 #define mk_lang_flatten

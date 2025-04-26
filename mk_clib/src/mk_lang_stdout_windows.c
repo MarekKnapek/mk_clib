@@ -22,6 +22,7 @@
 
 enum mk_lang_stdout_windows_type_e
 {
+	mk_lang_stdout_windows_type_e_not_initialized,
 	mk_lang_stdout_windows_type_e_normal,
 	mk_lang_stdout_windows_type_e_redirected,
 	mk_lang_stdout_windows_type_e_missing,
@@ -80,10 +81,12 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_windows_prin
 
 	switch(mk_lang_stdout_windows_g.m_type)
 	{
+		case mk_lang_stdout_windows_type_e_not_initialized: ((mk_lang_types_void_t)(str_buf)); ((mk_lang_types_void_t)(str_len)); break;
 		case mk_lang_stdout_windows_type_e_normal: b = mk_win_dll_kernel_console_a_write(mk_lang_stdout_windows_g.m_handle, str_buf, ((mk_win_base_dword_t)(str_len)), &written, mk_win_base_null); mk_lang_check_return(b != 0); mk_lang_check_return(written == ((mk_win_base_dword_t)(str_len))); break;
 		case mk_lang_stdout_windows_type_e_redirected: b = mk_win_dll_kernel_files_write_file(mk_lang_stdout_windows_g.m_handle, str_buf, ((mk_win_base_dword_t)(str_len)), &written, mk_win_base_null); mk_lang_check_return(b != 0); mk_lang_check_return(written == ((mk_win_base_dword_t)(str_len))); break;
 		case mk_lang_stdout_windows_type_e_missing: ((mk_lang_types_void_t)(str_buf)); ((mk_lang_types_void_t)(str_len)); break;
 		case mk_lang_stdout_windows_type_e_dummy_end: mk_lang_assert(mk_lang_false); break;
+		default: mk_lang_assert(mk_lang_false); break;
 	}
 	return 0;
 }
@@ -99,10 +102,12 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_windows_prin
 
 	switch(mk_lang_stdout_windows_g.m_type)
 	{
+		case mk_lang_stdout_windows_type_e_not_initialized: ((mk_lang_types_void_t)(str_buf)); ((mk_lang_types_void_t)(str_len)); break;
 		case mk_lang_stdout_windows_type_e_normal: b = mk_win_dll_kernel_console_w_write(mk_lang_stdout_windows_g.m_handle, str_buf, ((mk_win_base_dword_t)(str_len)), &written, mk_win_base_null); mk_lang_check_return(b != 0); mk_lang_check_return(written == ((mk_win_base_dword_t)(str_len))); break;
 		case mk_lang_stdout_windows_type_e_redirected: b = mk_win_dll_kernel_files_write_file(mk_lang_stdout_windows_g.m_handle, str_buf, ((mk_win_base_dword_t)(str_len)) * mk_lang_sizeof_bi_wchar_t, &written, mk_win_base_null); mk_lang_check_return(b != 0); mk_lang_check_return(written == ((mk_win_base_dword_t)(str_len)) * mk_lang_sizeof_bi_wchar_t); break;
 		case mk_lang_stdout_windows_type_e_missing: ((mk_lang_types_void_t)(str_buf)); ((mk_lang_types_void_t)(str_len)); break;
 		case mk_lang_stdout_windows_type_e_dummy_end: mk_lang_assert(mk_lang_false); break;
+		default: mk_lang_assert(mk_lang_false); break;
 	}
 	return 0;
 }
@@ -112,9 +117,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_windows_prin
 	mk_lang_types_sint_t err;
 
 	#include "mk_lang_warning_gcc_push_type_limits.h"
+	#include "mk_lang_warning_clang_push_tautological_value_range_compare.h"
 	mk_lang_assert(str_buf || str_len == 0);
 	mk_lang_assert(str_len >= 0);
 	mk_lang_assert(((mk_win_base_dword_t)(str_len)) / sizeof(mk_lang_tchar_t) <= ((mk_win_base_dword_t)(((mk_win_base_dword_t)(0)) - ((mk_win_base_dword_t)(1)))));
+	#include "mk_lang_warning_clang_pop.h"
 	#include "mk_lang_warning_gcc_pop.h"
 
 	err = mk_lang_tchar_dispatch(mk_lang_stdout_windows_print_)(str_buf, str_len); mk_lang_check_rereturn(err);

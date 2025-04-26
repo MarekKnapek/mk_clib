@@ -54,7 +54,7 @@ include(`mk_lang_bui_inl.m')dnl
 #if mk_lang_msvc_ver >= mk_lang_msvc_ver_2008 && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
 #pragma intrinsic(__emulu)
 #endif
-#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2008 && mk_lang_arch == mk_lang_arch_x8664
+#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2008 && !mk_lang_compiler_is_at_least_clang(1, 0) && mk_lang_arch == mk_lang_arch_x8664
 #pragma intrinsic(__ull_rshift)
 #endif
 #if mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && (mk_lang_arch == mk_lang_arch_ia64 || mk_lang_arch == mk_lang_arch_x8664 || mk_lang_arch == mk_lang_arch_arm64)
@@ -340,7 +340,9 @@ mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noa
 
 		mk_lang_assert(x);
 
+		#include "mk_lang_warning_clang_push_language_extension_token.h"
 		nz = ((unsigned char)(_BitScanReverse64(&index, ((unsigned __int64)(*x)))));
+		#include "mk_lang_warning_clang_pop.h"
 		return nz != 0 ? ((mk_lang_types_sint_t)(((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_size_bits_d - 1)) - ((mk_lang_types_sint_t)(index)))) : ((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_size_bits_d));
 	}
 	else
@@ -434,7 +436,9 @@ mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noa
 
 		mk_lang_assert(x);
 
+		#include "mk_lang_warning_clang_push_language_extension_token.h"
 		nz = ((unsigned char)(_BitScanForward64(&index, ((unsigned __int64)(*x)))));
+		#include "mk_lang_warning_clang_pop.h"
 		return nz != 0 ? ((mk_lang_types_sint_t)(index)) : ((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_size_bits_d));
 	}
 	else
@@ -533,11 +537,15 @@ mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noa
 	if(!mk_lang_constexpr_is_constant_evaluated_test && mk_lang_cpuid_has_popcnt())
 	#include "mk_lang_warning_msvc_pop.h"
 	{
+		#include "mk_lang_warning_clang_push_language_extension_token.h"
 		unsigned __int64 u mk_lang_constexpr_init;
+		#include "mk_lang_warning_clang_pop.h"
 
 		mk_lang_assert(x);
 
+		#include "mk_lang_warning_clang_push_language_extension_token.h"
 		u = ((unsigned __int64)(__popcnt64(((unsigned __int64)(*x)))));
+		#include "mk_lang_warning_clang_pop.h"
 		return ((mk_lang_types_sint_t)(u));
 	}
 	else
@@ -1234,17 +1242,21 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 		mk_lang_assert(b);
 		mk_lang_assert(c);
 
+		#include "mk_lang_warning_clang_push_language_extension_token.h"
 		*c = ((mk_lang_bui_inl_defd_t)(((unsigned __int64)(__umulh(((unsigned __int64)(*a)), ((unsigned __int64)(*b)))))));
+		#include "mk_lang_warning_clang_pop.h"
 	}
 	else
-#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2008 && mk_lang_arch == mk_lang_arch_x8664 && mk_lang_bui_inl_defd_size_bits_d == 32
+#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2008 && !mk_lang_compiler_is_at_least_clang(1, 0) && mk_lang_arch == mk_lang_arch_x8664 && mk_lang_bui_inl_defd_size_bits_d == 32
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
 		mk_lang_assert(a);
 		mk_lang_assert(b);
 		mk_lang_assert(c);
 
+		#include "mk_lang_warning_clang_push_language_extension_token.h"
 		*c = ((mk_lang_bui_inl_defd_t)(((unsigned __int64)(__ull_rshift(((unsigned __int64)(__emulu(((unsigned int)(*a)), ((unsigned int)(*b))))), 32)))));
+		#include "mk_lang_warning_clang_pop.h"
 	}
 	else
 #elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2008 && mk_lang_arch == mk_lang_arch_x8632 && mk_lang_bui_inl_defd_size_bits_d == 32
@@ -1254,7 +1266,9 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 		mk_lang_assert(b);
 		mk_lang_assert(c);
 
+		#include "mk_lang_warning_clang_push_language_extension_token.h"
 		*c = ((mk_lang_bui_inl_defd_t)(((unsigned __int64)(((unsigned __int64)(__emulu(((unsigned int)(*a)), ((unsigned int)(*b))))) >> 32))));
+		#include "mk_lang_warning_clang_pop.h"
 	}
 	else
 #endif
@@ -1398,7 +1412,9 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	#include "mk_lang_warning_msvc_pop.h"
 	{
+		#include "mk_lang_warning_clang_push_language_extension_token.h"
 		unsigned __int64 cc mk_lang_constexpr_init;
+		#include "mk_lang_warning_clang_pop.h"
 
 		mk_lang_assert(a);
 		mk_lang_assert(b);
@@ -1406,7 +1422,9 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 		mk_lang_assert(d);
 		mk_lang_assert(c != d);
 
+		#include "mk_lang_warning_clang_push_language_extension_token.h"
 		*c = ((mk_lang_bui_inl_defd_t)(((unsigned __int64)(_umul128(((unsigned __int64)(*a)), ((unsigned __int64)(*b)), &cc)))));
+		#include "mk_lang_warning_clang_pop.h"
 		*d = ((mk_lang_bui_inl_defd_t)(cc));
 	}
 	else
@@ -1415,8 +1433,10 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	#include "mk_lang_warning_msvc_pop.h"
 	{
+		#include "mk_lang_warning_clang_push_language_extension_token.h"
 		unsigned __int64 aa mk_lang_constexpr_init;
 		unsigned __int64 bb mk_lang_constexpr_init;
+		#include "mk_lang_warning_clang_pop.h"
 
 		mk_lang_assert(a);
 		mk_lang_assert(b);
@@ -1424,18 +1444,22 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 		mk_lang_assert(d);
 		mk_lang_assert(c != d);
 
+		#include "mk_lang_warning_clang_push_language_extension_token.h"
 		aa = ((unsigned __int64)(*a));
 		bb = ((unsigned __int64)(*b));
 		*c = ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(*a)) * ((mk_lang_bui_inl_defd_t)(*b))));
 		*d = ((mk_lang_bui_inl_defd_t)(((unsigned __int64)(__umulh(aa, bb)))));
+		#include "mk_lang_warning_clang_pop.h"
 	}
 	else
-#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2008 && mk_lang_arch == mk_lang_arch_x8664 && mk_lang_bui_inl_defd_size_bits_d == 32
+#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2008 && !mk_lang_compiler_is_at_least_clang(1, 0) && mk_lang_arch == mk_lang_arch_x8664 && mk_lang_bui_inl_defd_size_bits_d == 32
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
+		#include "mk_lang_warning_clang_push_language_extension_token.h"
 		unsigned int aa mk_lang_constexpr_init;
 		unsigned int bb mk_lang_constexpr_init;
 		unsigned __int64 cc mk_lang_constexpr_init;
+		#include "mk_lang_warning_clang_pop.h"
 
 		mk_lang_assert(a);
 		mk_lang_assert(b);
@@ -1443,19 +1467,23 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 		mk_lang_assert(d);
 		mk_lang_assert(c != d);
 
+		#include "mk_lang_warning_clang_push_language_extension_token.h"
 		aa = ((unsigned int)(*a));
 		bb = ((unsigned int)(*b));
 		cc = ((unsigned __int64)(__emulu(aa, bb)));
 		*c = ((mk_lang_bui_inl_defd_t)(cc));
 		*d = ((mk_lang_bui_inl_defd_t)(((unsigned __int64)(__ull_rshift(cc, 32)))));
+		#include "mk_lang_warning_clang_pop.h"
 	}
 	else
 #elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2008 && mk_lang_arch == mk_lang_arch_x8632 && mk_lang_bui_inl_defd_size_bits_d == 32
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
+		#include "mk_lang_warning_clang_push_language_extension_token.h"
 		unsigned int aa mk_lang_constexpr_init;
 		unsigned int bb mk_lang_constexpr_init;
 		unsigned __int64 cc mk_lang_constexpr_init;
+		#include "mk_lang_warning_clang_pop.h"
 
 		mk_lang_assert(a);
 		mk_lang_assert(b);
@@ -1463,11 +1491,13 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 		mk_lang_assert(d);
 		mk_lang_assert(c != d);
 
+		#include "mk_lang_warning_clang_push_language_extension_token.h"
 		aa = ((unsigned int)(*a));
 		bb = ((unsigned int)(*b));
 		cc = ((unsigned __int64)(__emulu(aa, bb)));
 		*c = ((mk_lang_bui_inl_defd_t)(cc));
 		*d = ((mk_lang_bui_inl_defd_t)(cc >> 32));
+		#include "mk_lang_warning_clang_pop.h"
 	}
 	else
 #endif

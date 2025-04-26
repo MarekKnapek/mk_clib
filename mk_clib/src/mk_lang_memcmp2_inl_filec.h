@@ -16,7 +16,6 @@
 #include "mk_lang_memcmp2_inl_defd.h"
 
 
-#include "mk_lang_warning_msvc_push_c5045.h"
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lang_memcmp2_inl_defd_fn(mk_lang_memcmp2_inl_defd_type_pct const bufa, mk_lang_memcmp2_inl_defd_type_pct const bufb, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
 	#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2008
@@ -33,9 +32,9 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lang_m
 	else
 	#endif
 	{
+		mk_lang_types_sint_t cmp mk_lang_constexpr_init;
 		mk_lang_types_usize_t n mk_lang_constexpr_init;
 		mk_lang_types_usize_t i mk_lang_constexpr_init;
-		mk_lang_types_sint_t cmp mk_lang_constexpr_init;
 
 		#include "mk_lang_warning_msvc_push_c4296.h"
 		#include "mk_lang_warning_gcc_push_type_limits.h"
@@ -45,19 +44,19 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lang_m
 		#include "mk_lang_warning_gcc_pop.h"
 		#include "mk_lang_warning_msvc_pop.h"
 
+		cmp = 0;
 		n = count;
 		for(i = 0; i != n; ++i)
 		{
 			cmp = mk_lang_memcmp2_inl_defd_type_cmp(&bufa[i], &bufb[i]);
 			if(cmp != 0)
 			{
-				return cmp;
+				break;
 			}
 		}
-		return 0;
+		return cmp;
 	}
 }
-#include "mk_lang_warning_msvc_pop.h"
 
 
 #include "mk_lang_memcmp2_inl_defu.h"

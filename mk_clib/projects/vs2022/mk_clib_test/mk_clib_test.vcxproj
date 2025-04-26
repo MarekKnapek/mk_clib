@@ -97,7 +97,7 @@
 		<mk_is_release Condition="'$(Configuration)'=='ReleaseClang'">true</mk_is_release>
 		<mk_project>mk_clib_test</mk_project>
 	</PropertyGroup>
-		<PropertyGroup Label="Globals">
+	<PropertyGroup Label="Globals">
 		<Keyword>Win32Proj</Keyword>
 		<ProjectGuid>{2aeef188-955a-4415-b15e-7d7e480d6d41}</ProjectGuid>
 		<RootNamespace>mk_clib_test</RootNamespace>
@@ -115,7 +115,8 @@
 		<EnableFuzzer Condition="'$(mk_is_debug)' == 'true'">true</EnableFuzzer>
 		<EnableFuzzer Condition="'$(mk_is_release)' == 'true'">false</EnableFuzzer>
 		<EnableUnitySupport>false</EnableUnitySupport>
-		<PlatformToolset>v143</PlatformToolset>
+		<PlatformToolset Condition="'$(mk_is_clang)' == 'true'">ClangCL</PlatformToolset>
+		<PlatformToolset Condition="'$(mk_is_msvc)' == 'true'">v143</PlatformToolset>
 		<PreferredToolArchitecture>x64</PreferredToolArchitecture>
 		<UseDebugLibraries Condition="'$(mk_is_debug)' == 'true'">true</UseDebugLibraries>
 		<UseDebugLibraries Condition="'$(mk_is_release)' == 'true'">false</UseDebugLibraries>
