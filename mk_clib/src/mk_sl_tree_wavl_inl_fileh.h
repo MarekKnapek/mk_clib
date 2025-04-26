@@ -1,0 +1,46 @@
+#include "mk_lang_jumbo.h"
+#include "mk_lang_nodiscard.h"
+#include "mk_lang_noexcept.h"
+#include "mk_lang_typedef.h"
+#include "mk_lang_types.h"
+
+
+#include "mk_sl_tree_wavl_inl_defd.h"
+
+
+typedef mk_sl_tree_wavl_inl_defd_element_type mk_sl_tree_wavl_inl_defd_element_t;
+mk_lang_typedef(mk_sl_tree_wavl_inl_defd_element);
+
+struct mk_sl_tree_wavl_inl_defd_node_s;
+typedef struct mk_sl_tree_wavl_inl_defd_node_s mk_sl_tree_wavl_inl_defd_node_t;
+mk_lang_typedef(mk_sl_tree_wavl_inl_defd_node);
+
+
+struct mk_sl_tree_wavl_inl_defd_s
+{
+	mk_sl_tree_wavl_inl_defd_node_pt m_root;
+	mk_lang_types_usize_t m_nodes;
+	mk_lang_types_usize_t m_elements;
+};
+typedef struct mk_sl_tree_wavl_inl_defd_s mk_sl_tree_wavl_inl_defd_t;
+mk_lang_typedef(mk_sl_tree_wavl_inl_defd);
+
+
+mk_lang_typedef_func(mk_lang_types_sint_t, mk_sl_tree_wavl_inl_defd_callback_t, (mk_lang_types_uintptr_t const context, mk_sl_tree_wavl_inl_defd_pct const tree, mk_sl_tree_wavl_inl_defd_node_pct const node));
+
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_tree_wavl_inl_defd_rw_construct(mk_sl_tree_wavl_inl_defd_pt const tree) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_tree_wavl_inl_defd_rw_destruct(mk_sl_tree_wavl_inl_defd_pt const tree) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_tree_wavl_inl_defd_rw_insert_element_copy(mk_sl_tree_wavl_inl_defd_pt const tree, mk_sl_tree_wavl_inl_defd_element_pct const element, mk_sl_tree_wavl_inl_defd_node_ppct const node) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_tree_wavl_inl_defd_rw_insert_element_move(mk_sl_tree_wavl_inl_defd_pt const tree, mk_sl_tree_wavl_inl_defd_element_pt const element, mk_sl_tree_wavl_inl_defd_node_ppct const node) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_tree_wavl_inl_defd_rw_insert_node(mk_sl_tree_wavl_inl_defd_pt const tree, mk_sl_tree_wavl_inl_defd_node_pct const node) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_tree_wavl_inl_defd_ro_find_node(mk_sl_tree_wavl_inl_defd_pct const tree, mk_sl_tree_wavl_inl_defd_element_pct const element, mk_sl_tree_wavl_inl_defd_node_ppct const node) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_tree_wavl_inl_defd_rw_decrement_node(mk_sl_tree_wavl_inl_defd_pt const tree, mk_sl_tree_wavl_inl_defd_node_pct const node) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_tree_wavl_inl_defd_rw_remove_node(mk_sl_tree_wavl_inl_defd_pt const tree, mk_sl_tree_wavl_inl_defd_node_pct const node) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_tree_wavl_inl_defd_ro_walk(mk_sl_tree_wavl_inl_defd_pct const tree, mk_sl_tree_wavl_inl_defd_callback_t const fnc, mk_lang_types_uintptr_t const ctx) mk_lang_noexcept;
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_tree_wavl_inl_defd_ro_node_get_element(mk_sl_tree_wavl_inl_defd_node_pct const node, mk_sl_tree_wavl_inl_defd_element_ppct const element) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_tree_wavl_inl_defd_rw_node_get_element(mk_sl_tree_wavl_inl_defd_node_pt const node, mk_sl_tree_wavl_inl_defd_element_ppt const element) mk_lang_noexcept;
+
+
+#include "mk_sl_tree_wavl_inl_defu.h"
