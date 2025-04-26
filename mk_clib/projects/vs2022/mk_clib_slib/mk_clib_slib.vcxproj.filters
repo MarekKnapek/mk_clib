@@ -362,4 +362,6 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_uint_convert_inl_fileu.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_uint_more.h"><Filter>src</Filter></ClInclude>
 	</ItemGroup>
+	<ItemGroup>
+	</ItemGroup>
 </Project>
