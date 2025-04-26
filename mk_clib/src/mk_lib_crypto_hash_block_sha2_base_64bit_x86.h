@@ -1,0 +1,84 @@
+#ifndef mk_include_guard_mk_lib_crypto_hash_block_sha2_base_64bit_x86_h
+#define mk_include_guard_mk_lib_crypto_hash_block_sha2_base_64bit_x86_h
+
+
+#include "mk_lang_arch.h"
+#include "mk_lang_compiler.h"
+#include "mk_lang_msvc.h"
+#if (mk_lang_msvc_ver >= mk_lang_msvc_ver_2022_17_10 || mk_lang_compiler_is_at_least_gcc(14, 0)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
+
+
+#include "mk_lang_alignas.h"
+#include "mk_lang_jumbo.h"
+#include "mk_lang_noexcept.h"
+#include "mk_lang_pow2.h"
+#include "mk_lang_static_param.h"
+#include "mk_lang_stringify.h"
+#include "mk_lang_typedef.h"
+#include "mk_lang_types.h"
+#include "mk_sl_cui_uint128.h"
+#include "mk_sl_cui_uint64.h"
+#include "mk_sl_cui_uint8.h"
+
+
+#define mk_lib_crypto_hash_block_sha2_base_64bit_x86_block_len_d 128
+#define mk_lib_crypto_hash_block_sha2_base_64bit_x86_digest_len_d 64
+enum mk_lib_crypto_hash_block_sha2_base_64bit_x86_block_len_e{ mk_lib_crypto_hash_block_sha2_base_64bit_x86_block_len_v = mk_lib_crypto_hash_block_sha2_base_64bit_x86_block_len_d }; typedef enum mk_lib_crypto_hash_block_sha2_base_64bit_x86_block_len_e mk_lib_crypto_hash_block_sha2_base_64bit_x86_block_len_t;
+enum mk_lib_crypto_hash_block_sha2_base_64bit_x86_digest_len_e{ mk_lib_crypto_hash_block_sha2_base_64bit_x86_digest_len_v = mk_lib_crypto_hash_block_sha2_base_64bit_x86_digest_len_d }; typedef enum mk_lib_crypto_hash_block_sha2_base_64bit_x86_digest_len_e mk_lib_crypto_hash_block_sha2_base_64bit_x86_digest_len_t;
+
+
+union mk_lib_crypto_hash_block_sha2_base_64bit_x86_block_data_u
+{
+	mk_lang_alignas(mk_lib_crypto_hash_block_sha2_base_64bit_x86_block_len_v) mk_sl_cui_uint8_t m_uint8s[mk_lib_crypto_hash_block_sha2_base_64bit_x86_block_len_v];
+	mk_lang_types_ulllong_t m_align;
+};
+typedef union mk_lib_crypto_hash_block_sha2_base_64bit_x86_block_data_u mk_lib_crypto_hash_block_sha2_base_64bit_x86_block_data_t;
+struct mk_lib_crypto_hash_block_sha2_base_64bit_x86_block_s
+{
+	mk_lib_crypto_hash_block_sha2_base_64bit_x86_block_data_t m_data;
+};
+typedef struct mk_lib_crypto_hash_block_sha2_base_64bit_x86_block_s mk_lib_crypto_hash_block_sha2_base_64bit_x86_block_t;
+mk_lang_typedef(mk_lib_crypto_hash_block_sha2_base_64bit_x86_block);
+
+union mk_lib_crypto_hash_block_sha2_base_64bit_x86_digest_data_u
+{
+	mk_lang_alignas(mk_lib_crypto_hash_block_sha2_base_64bit_x86_digest_len_v) mk_sl_cui_uint8_t m_uint8s[mk_lib_crypto_hash_block_sha2_base_64bit_x86_digest_len_v];
+	mk_lang_types_ulllong_t m_align;
+};
+typedef union mk_lib_crypto_hash_block_sha2_base_64bit_x86_digest_data_u mk_lib_crypto_hash_block_sha2_base_64bit_x86_digest_data_t;
+struct mk_lib_crypto_hash_block_sha2_base_64bit_x86_digest_s
+{
+	mk_lib_crypto_hash_block_sha2_base_64bit_x86_digest_data_t m_data;
+};
+typedef struct mk_lib_crypto_hash_block_sha2_base_64bit_x86_digest_s mk_lib_crypto_hash_block_sha2_base_64bit_x86_digest_t;
+mk_lang_typedef(mk_lib_crypto_hash_block_sha2_base_64bit_x86_digest);
+
+
+#include "mk_lang_warning_msvc_push_c4820.h"
+struct mk_lib_crypto_hash_block_sha2_base_64bit_x86_data_s
+{
+	mk_sl_cui_uint64_t m_state[8];
+	mk_sl_cui_uint128_t m_len;
+};
+typedef struct mk_lib_crypto_hash_block_sha2_base_64bit_x86_data_s mk_lib_crypto_hash_block_sha2_base_64bit_x86_data_t;
+struct mk_lib_crypto_hash_block_sha2_base_64bit_x86_s
+{
+	mk_lang_alignas(mk_lang_pow2_roundup(sizeof(mk_lib_crypto_hash_block_sha2_base_64bit_x86_data_t))) mk_lib_crypto_hash_block_sha2_base_64bit_x86_data_t m_data;
+};
+typedef struct mk_lib_crypto_hash_block_sha2_base_64bit_x86_s mk_lib_crypto_hash_block_sha2_base_64bit_x86_t;
+mk_lang_typedef(mk_lib_crypto_hash_block_sha2_base_64bit_x86);
+#include "mk_lang_warning_msvc_pop.h"
+
+
+mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sha2_base_64bit_x86_init(mk_lib_crypto_hash_block_sha2_base_64bit_x86_pt const sha2_base_64bit_x86, mk_lang_static_param(mk_sl_cui_uint64_ct, iv, 8)) mk_lang_noexcept;
+mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sha2_base_64bit_x86_append_blocks(mk_lib_crypto_hash_block_sha2_base_64bit_x86_pt const sha2_base_64bit_x86, mk_lib_crypto_hash_block_sha2_base_64bit_x86_block_pct const pblocks, mk_lang_types_usize_t const nblocks) mk_lang_noexcept;
+mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sha2_base_64bit_x86_finish(mk_lib_crypto_hash_block_sha2_base_64bit_x86_pt const sha2_base_64bit_x86, mk_lib_crypto_hash_block_sha2_base_64bit_x86_block_pt const block, mk_lang_types_sint_t const idx, mk_lib_crypto_hash_block_sha2_base_64bit_x86_digest_pt const digest) mk_lang_noexcept;
+
+
+#endif
+
+
+#if mk_lang_jumbo_have
+#include "mk_lib_crypto_hash_block_sha2_base_64bit_x86.c"
+#endif
+#endif
