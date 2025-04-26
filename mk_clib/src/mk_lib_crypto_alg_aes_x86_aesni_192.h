@@ -1,0 +1,23 @@
+#ifndef mk_include_guard_mk_lib_crypto_alg_aes_x86_aesni_192_h
+#define mk_include_guard_mk_lib_crypto_alg_aes_x86_aesni_192_h
+
+
+#include "mk_lang_charbit.h"
+#include "mk_lang_jumbo.h"
+#include "mk_lib_crypto_alg_aes_x86_tech.h"
+
+
+#define mk_lib_crypto_alg_aes_x86_t_name mk_lib_crypto_alg_aes_x86_aesni_192
+#define mk_lib_crypto_alg_aes_x86_t_bits 192
+#define mk_lib_crypto_alg_aes_x86_t_tech mk_lib_crypto_alg_aes_x86_tech_aesni
+#include "mk_lib_crypto_alg_aes_x86_inl_fileh.h"
+#include "mk_lib_crypto_alg_aes_x86_inl_fileu.h"
+#define mk_lib_crypto_alg_aes_x86_aesni_192_key_len_d (198 / mk_lang_charbit)
+#define mk_lib_crypto_alg_aes_x86_aesni_192_msg_len_d (128 / mk_lang_charbit)
+#define mk_lib_crypto_alg_aes_x86_aesni_192_schedule_len_d ((12 + 1) * mk_lib_crypto_alg_aes_x86_aesni_192_msg_len_d)
+
+
+#if mk_lang_jumbo_have
+#include "mk_lib_crypto_alg_aes_x86_aesni_192.c"
+#endif
+#endif
