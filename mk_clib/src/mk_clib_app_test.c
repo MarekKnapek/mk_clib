@@ -18,6 +18,7 @@
 #include "mk_lang_null.h"
 #include "mk_lang_stdout.h"
 #include "mk_lang_types.h"
+#include "mk_sl_mallocator.h"
 
 #include <stdio.h> /* putchar puts */
 #include <stdlib.h> /* srand rand */
@@ -148,10 +149,12 @@ mk_lang_extern_c mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_clib_ap
 		mk_lang_check_return(argv[i][0] != '\0');
 	}
 	mk_lang_cpuid_init();
+	err = mk_sl_mallocator_init(); mk_lang_check_rereturn(err);
 	err = mk_lang_stdout_init(); mk_lang_check_rereturn(err);
 	err = mk_clib_app_test_init_rand(); mk_lang_check_rereturn(err);
 	err = mk_clib_fuzz_init_ctx(&ctx, argc, argv); mk_lang_check_rereturn(err);
 	err = mk_clib_app_test_lot(&ctx); mk_lang_check_rereturn(err);
+	err = mk_sl_mallocator_deinit(); mk_lang_check_rereturn(err);
 	return 0;
 }
 
