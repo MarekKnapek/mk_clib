@@ -6,4 +6,5 @@ define(`mk_lib_crypto_hash_stream_any_mm_per_hash', `mk_lib_crypto_hash_stream_a
 `md4',
 `md5',
 `sha0',
+`sha1',
 `')')dnl
