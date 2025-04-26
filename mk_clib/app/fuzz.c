@@ -2,6 +2,7 @@
 #include "../src/mk_lang_extern.h"
 #include "../src/mk_lang_nodiscard.h"
 #include "../src/mk_lang_noexcept.h"
+#include "../src/mk_lang_null.h"
 #include "../src/mk_lang_test.h"
 #include "../src/mk_lang_types.h"
 
@@ -29,6 +30,6 @@ mk_lang_extern_force_c mk_lang_nodiscard mk_lang_types_sint_t LLVMFuzzerTestOneI
 {
 	mk_lang_types_sint_t err;
 
-	err = mk_clib_fuzz(data, size, mk_lang_false); mk_lang_test(err == 0);
+	err = mk_clib_fuzz(data, size, mk_lang_false, mk_lang_null); mk_lang_test(err == 0);
 	return 0;
 }
