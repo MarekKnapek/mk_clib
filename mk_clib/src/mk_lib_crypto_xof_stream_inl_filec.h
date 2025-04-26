@@ -51,8 +51,8 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_xof_stream_in
 			mk_sl_cui_uint8_memcpy_fn(&stream->m_block.m_data.m_uint8s[stream->m_idx], &ptr[0], ((mk_lang_types_usize_t)(free)));
 			mk_lib_crypto_xof_stream_inl_defd_base_append_blocks(&stream->m_base, &stream->m_block, 1);
 			stream->m_idx = 0;
-			ptr += free;
-			rem -= free;
+			ptr += ((mk_lang_types_usize_t)(free));
+			rem -= ((mk_lang_types_usize_t)(free));
 		}
 		#if mk_lib_crypto_xof_stream_inl_defd_padding
 		nblocks = rem / mk_lib_crypto_xof_stream_inl_defd_base_block_len_v;
@@ -63,7 +63,9 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_xof_stream_in
 		if(!mk_lang_constexpr_is_constant_evaluated_test && ((mk_lang_types_uintptr_t)(ptr)) % mk_lang_alignof(mk_lib_crypto_xof_stream_inl_defd_base_block_t) == 0)
 		#include "mk_lang_warning_msvc_pop.h"
 		{
+			#include "mk_lang_warning_clang_push_cast_align.h"
 			mk_lib_crypto_xof_stream_inl_defd_base_append_blocks(&stream->m_base, ((mk_lib_crypto_xof_stream_inl_defd_base_block_pct)(ptr)), nblocks);
+			#include "mk_lang_warning_clang_pop.h"
 		}
 		else
 		{
