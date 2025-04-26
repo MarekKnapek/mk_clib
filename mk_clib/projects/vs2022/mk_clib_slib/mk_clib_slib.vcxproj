@@ -472,6 +472,8 @@
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_inl_filec.h.m4"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_cui_inl_fileh.h.m4"/>
 	</ItemGroup>
+	<ItemGroup>
+	</ItemGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
 	<ImportGroup Label="ExtensionTargets"/>
 </Project>
