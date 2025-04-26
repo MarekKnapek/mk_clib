@@ -16,6 +16,7 @@
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
 
+#include "mk_lib_crypto_any_piecewise_fuzz.h"
 #include "mk_sl_cui_fuzz.h"
 
 
@@ -65,6 +66,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_fuzz_fn(mk_
 	all = mk_lang_bui_uint_is_max(&line) && allow_all;
 	base = __LINE__;
 	curr = base + 2 + line;
+	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_any_piecewise_fuzz(d, s, allow_all); mk_lang_check_rereturn(err); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_sl_cui_fuzz(d, s, allow_all); mk_lang_check_rereturn(err); }
 	return 0;
 }
