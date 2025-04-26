@@ -1,0 +1,8 @@
+#undef mk_sl_tree_wavl_t_name
+#undef mk_sl_tree_wavl_t_element_type
+#undef mk_sl_tree_wavl_t_elements_compare
+#undef mk_sl_tree_wavl_t_mallocatorg_name
+#undef mk_sl_tree_wavl_t_validate_want
+#undef mk_sl_tree_wavl_t_element_copy_construct
+#undef mk_sl_tree_wavl_t_element_move_construct
+#undef mk_sl_tree_wavl_t_element_destruct
