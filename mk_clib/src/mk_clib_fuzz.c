@@ -40,6 +40,7 @@
 #include "mk_lib_crypto_hash_stream_sha3_512_fuzz.h"
 #include "mk_lib_crypto_hash_stream_tiger2_192_fuzz.h"
 #include "mk_lib_crypto_hash_stream_tiger_192_fuzz.h"
+#include "mk_lib_crypto_hash_stream_whirlpool_fuzz.h"
 #include "mk_lib_crypto_xof_stream_shake_128_fuzz.h"
 #include "mk_lib_crypto_xof_stream_shake_256_fuzz.h"
 #include "mk_sl_cui_fuzz.h"
@@ -115,6 +116,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_fuzz_fn(mk_
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_hash_stream_sha3_512_fuzz(d, s); mk_lang_check_rereturn(err); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_hash_stream_tiger2_192_fuzz(d, s); mk_lang_check_rereturn(err); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_hash_stream_tiger_192_fuzz(d, s); mk_lang_check_rereturn(err); }
+	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_hash_stream_whirlpool_fuzz(d, s); mk_lang_check_rereturn(err); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_xof_stream_shake_128_fuzz(d, s); mk_lang_check_rereturn(err); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_xof_stream_shake_256_fuzz(d, s); mk_lang_check_rereturn(err); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_sl_cui_fuzz(d, s, allow_all); mk_lang_check_rereturn(err); }
