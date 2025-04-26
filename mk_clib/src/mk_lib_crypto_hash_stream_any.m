@@ -25,6 +25,7 @@ define(`mk_lib_crypto_hash_stream_any_mm_per_hash', `mk_lib_crypto_hash_stream_a
 `sha3_256',
 `sha3_384',
 `sha3_512',
+`streebog_256',
 `tiger2_128',
 `tiger2_160',
 `tiger2_192',
