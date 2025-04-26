@@ -41,6 +41,13 @@
 #include "mk_lib_crypto_hash_stream_tiger2_192_fuzz.h"
 #include "mk_lib_crypto_hash_stream_tiger_192_fuzz.h"
 #include "mk_lib_crypto_hash_stream_whirlpool_fuzz.h"
+#include "mk_lib_crypto_kdf_pbkdf2_md2_fuzz.h"
+#include "mk_lib_crypto_kdf_pbkdf2_md4_fuzz.h"
+#include "mk_lib_crypto_kdf_pbkdf2_md5_fuzz.h"
+#include "mk_lib_crypto_kdf_pbkdf2_sha1_fuzz.h"
+#include "mk_lib_crypto_kdf_pbkdf2_sha2_256_fuzz.h"
+#include "mk_lib_crypto_kdf_pbkdf2_sha2_384_fuzz.h"
+#include "mk_lib_crypto_kdf_pbkdf2_sha2_512_fuzz.h"
 #include "mk_lib_crypto_mac_hmac_blake2b_256_fuzz.h"
 #include "mk_lib_crypto_mac_hmac_blake2b_384_fuzz.h"
 #include "mk_lib_crypto_mac_hmac_blake2b_512_fuzz.h"
@@ -149,6 +156,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_fuzz_fn(mk_
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_hash_stream_tiger2_192_fuzz(d, s); mk_lang_check_rereturn(err); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_hash_stream_tiger_192_fuzz(d, s); mk_lang_check_rereturn(err); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_hash_stream_whirlpool_fuzz(d, s); mk_lang_check_rereturn(err); }
+	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_kdf_pbkdf2_md2_fuzz(d, s); mk_lang_check_rereturn(err); }
+	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_kdf_pbkdf2_md4_fuzz(d, s); mk_lang_check_rereturn(err); }
+	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_kdf_pbkdf2_md5_fuzz(d, s); mk_lang_check_rereturn(err); }
+	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_kdf_pbkdf2_sha1_fuzz(d, s); mk_lang_check_rereturn(err); }
+	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_kdf_pbkdf2_sha2_256_fuzz(d, s); mk_lang_check_rereturn(err); }
+	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_kdf_pbkdf2_sha2_384_fuzz(d, s); mk_lang_check_rereturn(err); }
+	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_kdf_pbkdf2_sha2_512_fuzz(d, s); mk_lang_check_rereturn(err); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_mac_hmac_blake2b_256_fuzz(d, s); mk_lang_check_rereturn(err); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_mac_hmac_blake2b_384_fuzz(d, s); mk_lang_check_rereturn(err); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_mac_hmac_blake2b_512_fuzz(d, s); mk_lang_check_rereturn(err); }
