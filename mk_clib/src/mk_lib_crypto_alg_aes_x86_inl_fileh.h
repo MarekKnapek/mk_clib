@@ -1,0 +1,71 @@
+/* NIST FIPS PUB 197 */
+
+
+#include "mk_lang_alignas.h"
+#include "mk_lang_charbit.h"
+#include "mk_lang_jumbo.h"
+#include "mk_lang_noexcept.h"
+#include "mk_lang_pow2.h"
+#include "mk_lang_typedef.h"
+#include "mk_lang_types.h"
+#include "mk_sl_cui_uint8.h"
+
+
+#include "mk_lib_crypto_alg_aes_x86_inl_defd.h"
+
+
+enum mk_lib_crypto_alg_aes_x86_inl_defd_key_len_e { mk_lib_crypto_alg_aes_x86_inl_defd_key_len_v = mk_lib_crypto_alg_aes_x86_inl_defd_key_len_d };
+enum mk_lib_crypto_alg_aes_x86_inl_defd_msg_len_e { mk_lib_crypto_alg_aes_x86_inl_defd_msg_len_v = mk_lib_crypto_alg_aes_x86_inl_defd_msg_len_d };
+enum mk_lib_crypto_alg_aes_x86_inl_defd_schedule_len_e { mk_lib_crypto_alg_aes_x86_inl_defd_schedule_len_v = mk_lib_crypto_alg_aes_x86_inl_defd_schedule_len_d };
+
+
+union mk_lib_crypto_alg_aes_x86_inl_defd_key_data_u
+{
+	mk_lang_alignas(mk_lang_pow2_roundup(mk_lib_crypto_alg_aes_x86_inl_defd_key_len_v)) mk_sl_cui_uint8_t m_uint8s[mk_lib_crypto_alg_aes_x86_inl_defd_key_len_v];
+	mk_lang_types_ulllong_t m_align;
+};
+typedef union mk_lib_crypto_alg_aes_x86_inl_defd_key_data_u mk_lib_crypto_alg_aes_x86_inl_defd_key_data_t;
+struct mk_lib_crypto_alg_aes_x86_inl_defd_key_s
+{
+	mk_lib_crypto_alg_aes_x86_inl_defd_key_data_t m_data;
+};
+typedef struct mk_lib_crypto_alg_aes_x86_inl_defd_key_s mk_lib_crypto_alg_aes_x86_inl_defd_key_t;
+mk_lang_typedef(mk_lib_crypto_alg_aes_x86_inl_defd_key);
+
+union mk_lib_crypto_alg_aes_x86_inl_defd_msg_data_u
+{
+	mk_lang_alignas(mk_lib_crypto_alg_aes_x86_inl_defd_msg_len_v) mk_sl_cui_uint8_t m_uint8s[mk_lib_crypto_alg_aes_x86_inl_defd_msg_len_v];
+	mk_lang_types_ulllong_t m_align;
+};
+typedef union mk_lib_crypto_alg_aes_x86_inl_defd_msg_data_u mk_lib_crypto_alg_aes_x86_inl_defd_msg_data_t;
+struct mk_lib_crypto_alg_aes_x86_inl_defd_msg_s
+{
+	mk_lib_crypto_alg_aes_x86_inl_defd_msg_data_t m_data;
+};
+typedef struct mk_lib_crypto_alg_aes_x86_inl_defd_msg_s mk_lib_crypto_alg_aes_x86_inl_defd_msg_t;
+mk_lang_typedef(mk_lib_crypto_alg_aes_x86_inl_defd_msg);
+
+union mk_lib_crypto_alg_aes_x86_inl_defd_schedule_data_u
+{
+	mk_sl_cui_uint8_t m_uint8s[mk_lib_crypto_alg_aes_x86_inl_defd_schedule_len_v];
+	mk_lib_crypto_alg_aes_x86_inl_defd_msg_t m_msgs[mk_lib_crypto_alg_aes_x86_inl_defd_nr + 1];
+	mk_lang_types_ulllong_t m_align;
+};
+typedef union mk_lib_crypto_alg_aes_x86_inl_defd_schedule_data_u mk_lib_crypto_alg_aes_x86_inl_defd_schedule_data_t;
+struct mk_lib_crypto_alg_aes_x86_inl_defd_schedule_s
+{
+	mk_lib_crypto_alg_aes_x86_inl_defd_schedule_data_t m_data;
+};
+typedef struct mk_lib_crypto_alg_aes_x86_inl_defd_schedule_s mk_lib_crypto_alg_aes_x86_inl_defd_schedule_t;
+mk_lang_typedef(mk_lib_crypto_alg_aes_x86_inl_defd_schedule);
+
+
+mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_alg_aes_x86_inl_defd_schedule_encrypt(mk_lib_crypto_alg_aes_x86_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_x86_inl_defd_msg_pct const input, mk_lib_crypto_alg_aes_x86_inl_defd_msg_pt const output, mk_lang_types_usize_t const count) mk_lang_noexcept;
+mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_alg_aes_x86_inl_defd_schedule_decrypt(mk_lib_crypto_alg_aes_x86_inl_defd_schedule_pct const schedule, mk_lib_crypto_alg_aes_x86_inl_defd_msg_pct const input, mk_lib_crypto_alg_aes_x86_inl_defd_msg_pt const output, mk_lang_types_usize_t const count) mk_lang_noexcept;
+mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_alg_aes_x86_inl_defd_expand_enc(mk_lib_crypto_alg_aes_x86_inl_defd_key_pct const key, mk_lib_crypto_alg_aes_x86_inl_defd_schedule_pt const schedule) mk_lang_noexcept;
+mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_alg_aes_x86_inl_defd_expand_dec(mk_lib_crypto_alg_aes_x86_inl_defd_key_pct const key, mk_lib_crypto_alg_aes_x86_inl_defd_schedule_pt const schedule) mk_lang_noexcept;
+mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_alg_aes_x86_inl_defd_encrypt(mk_lib_crypto_alg_aes_x86_inl_defd_key_pct const key, mk_lib_crypto_alg_aes_x86_inl_defd_msg_pct const input, mk_lib_crypto_alg_aes_x86_inl_defd_msg_pt const output) mk_lang_noexcept;
+mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_alg_aes_x86_inl_defd_decrypt(mk_lib_crypto_alg_aes_x86_inl_defd_key_pct const key, mk_lib_crypto_alg_aes_x86_inl_defd_msg_pct const input, mk_lib_crypto_alg_aes_x86_inl_defd_msg_pt const output) mk_lang_noexcept;
+
+
+#include "mk_lib_crypto_alg_aes_x86_inl_defu.h"

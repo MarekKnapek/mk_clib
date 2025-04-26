@@ -1,0 +1,3 @@
+#undef mk_lib_crypto_alg_aes_x86_t_name
+#undef mk_lib_crypto_alg_aes_x86_t_bits
+#undef mk_lib_crypto_alg_aes_x86_t_tech
