@@ -9,6 +9,7 @@ define(`mk_lib_crypto_hash_stream_any_mm_per_hash', `mk_lib_crypto_hash_stream_a
 `blake2s_160',
 `blake2s_224',
 `blake2s_256',
+`blake3',
 `md2',
 `md4',
 `md5',
