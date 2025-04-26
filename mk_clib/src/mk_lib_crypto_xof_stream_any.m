@@ -3,4 +3,5 @@ define(`mk_lib_crypto_xof_stream_any_mm_per_xof_b', `mk_lib_crypto_xof_stream_an
 define(`mk_lib_crypto_xof_stream_any_mm_per_xof_a', `mk_lib_crypto_xof_stream_any_mm_per_xof_b(`$1', `$2', `$#', shift(shift($@)))')dnl
 define(`mk_lib_crypto_xof_stream_any_mm_per_xof', `mk_lib_crypto_xof_stream_any_mm_per_xof_a(`$1', `$2',
 `shake_128',
+`shake_256',
 `')')dnl
