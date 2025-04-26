@@ -18,6 +18,7 @@
 
 #include "mk_lib_crypto_any_piecewise_fuzz.h"
 #include "mk_lib_crypto_hash_stream_blake2b_256_fuzz.h"
+#include "mk_lib_crypto_hash_stream_blake2b_384_fuzz.h"
 #include "mk_lib_crypto_hash_stream_blake2s_128_fuzz.h"
 #include "mk_lib_crypto_hash_stream_blake2s_160_fuzz.h"
 #include "mk_lib_crypto_hash_stream_blake2s_224_fuzz.h"
@@ -89,6 +90,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_fuzz_fn(mk_
 	curr = base + 2 + line;
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_any_piecewise_fuzz(d, s, allow_all); mk_lang_check_rereturn(err); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_hash_stream_blake2b_256_fuzz(d, s); mk_lang_check_rereturn(err); }
+	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_hash_stream_blake2b_384_fuzz(d, s); mk_lang_check_rereturn(err); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_hash_stream_blake2s_128_fuzz(d, s); mk_lang_check_rereturn(err); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_hash_stream_blake2s_160_fuzz(d, s); mk_lang_check_rereturn(err); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_hash_stream_blake2s_224_fuzz(d, s); mk_lang_check_rereturn(err); }
