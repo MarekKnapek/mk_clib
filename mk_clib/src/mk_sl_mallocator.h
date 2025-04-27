@@ -11,7 +11,26 @@
 #include "mk_lang_version.h"
 
 
-#if mk_lang_platform_is_windows_at_least_any
+#if defined mk_sl_mallocator_constexpr_want
+#if (mk_sl_mallocator_constexpr_want) == 0
+#define mk_sl_mallocator_constexpr_have 0
+#elif (mk_sl_mallocator_constexpr_want) == 1
+#define mk_sl_mallocator_constexpr_have 1
+#else
+#error xxxxxxxxxx
+#endif
+#else
+#define mk_sl_mallocator_constexpr_have 0
+#endif
+
+
+#if mk_sl_mallocator_constexpr_have
+#include "mk_sl_mallocator_arena.h"
+typedef mk_sl_mallocator_arena_blocks_t mk_sl_mallocator_blocks_t;
+mk_lang_typedef(mk_sl_mallocator_blocks);
+typedef mk_sl_mallocator_arena_bytes_t mk_sl_mallocator_bytes_t;
+mk_lang_typedef(mk_sl_mallocator_bytes);
+#elif mk_lang_platform_is_windows_at_least_any
 #include "mk_sl_mallocator_windows.h"
 typedef mk_sl_mallocator_windows_blocks_t mk_sl_mallocator_blocks_t;
 mk_lang_typedef(mk_sl_mallocator_blocks);

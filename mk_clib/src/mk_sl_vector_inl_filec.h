@@ -87,7 +87,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_usize_t mk_sl_vector_inl_defd_ro_c
 	return ret;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_sl_vector_inl_defd_ro_size(mk_sl_vector_inl_defd_pct const vector) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_usize_t mk_sl_vector_inl_defd_ro_size(mk_sl_vector_inl_defd_pct const vector) mk_lang_noexcept
 {
 	mk_lang_types_usize_t ret mk_lang_constexpr_init;
 
