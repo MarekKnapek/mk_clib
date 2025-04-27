@@ -91,9 +91,9 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_tree_wavl_fuzz(mk_lan
 		m = ((mk_lang_types_sint_t)(mk_sl_tree_wavl_fuzz_vec_ro_size(&vec)));
 		for(j = 0; j != m; ++j)
 		{
-			err = mk_sl_tree_wavl_fuzz_test_ro_find_node(&tree, mk_sl_tree_wavl_fuzz_vec_ro_at(&vec, j), &node); mk_lang_check_rereturn(err);
+			err = mk_sl_tree_wavl_fuzz_test_ro_find_node(&tree, mk_sl_tree_wavl_fuzz_vec_ro_at(&vec, ((mk_lang_types_usize_t)(j))), &node); mk_lang_check_rereturn(err);
 			mk_lang_test(node);
-			mk_lang_test(mk_sl_tree_wavl_fuzz_test_ro_node_get_element(node, &pval) == 0 && *pval == *mk_sl_tree_wavl_fuzz_vec_ro_at(&vec, j));
+			mk_lang_test(mk_sl_tree_wavl_fuzz_test_ro_node_get_element(node, &pval) == 0 && *pval == *mk_sl_tree_wavl_fuzz_vec_ro_at(&vec, ((mk_lang_types_usize_t)(j))));
 		}
 		if(!(s >= mk_lang_bui_uint_size_bytes_v))
 		{
@@ -118,7 +118,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_tree_wavl_fuzz(mk_lan
 			m = ((mk_lang_types_sint_t)(mk_sl_tree_wavl_fuzz_vec_ro_size(&vec)));
 			for(j = 0; j != m; ++j)
 			{
-				if(val == *mk_sl_tree_wavl_fuzz_vec_ro_at(&vec, j))
+				if(val == *mk_sl_tree_wavl_fuzz_vec_ro_at(&vec, ((mk_lang_types_usize_t)(j))))
 				{
 					break;
 				}
@@ -129,7 +129,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_tree_wavl_fuzz(mk_lan
 				mk_lang_test(node);
 				mk_lang_test(mk_sl_tree_wavl_fuzz_test_ro_node_get_element(node, &pval) == 0 && *pval == val);
 				err = mk_sl_tree_wavl_fuzz_test_rw_decrement_node(&tree, node); mk_lang_check_rereturn(err);
-				*mk_sl_tree_wavl_fuzz_vec_rw_at(&vec, j) = *mk_sl_tree_wavl_fuzz_vec_ro_back(&vec);
+				*mk_sl_tree_wavl_fuzz_vec_rw_at(&vec, ((mk_lang_types_usize_t)(j))) = *mk_sl_tree_wavl_fuzz_vec_ro_back(&vec);
 				err = mk_sl_tree_wavl_fuzz_vec_rw_shrink_by(&vec, 1); mk_lang_check_rereturn(err);
 			}
 			else

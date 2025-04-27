@@ -126,6 +126,7 @@
 			<CompileAs Condition="'$(mk_project)' != 'mk_clib_slib'">CompileAsCpp</CompileAs>
 			<DisableSpecificWarnings>4464;4514;4710;5045</DisableSpecificWarnings>
 			<DisableSpecificWarnings Condition="'$(mk_is_release)' == 'true'">4711;4127;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+			<DisableSpecificWarnings Condition="'$(mk_is_release)' == 'true'">4557;%(DisableSpecificWarnings)</DisableSpecificWarnings>
 			<DisableSpecificWarnings Condition="'$(mk_is_entry_point)' == 'true'">4577;%(DisableSpecificWarnings)</DisableSpecificWarnings>
 			<DisableSpecificWarnings Condition="'$(mk_is_arm)' == 'true'">4826;%(DisableSpecificWarnings)</DisableSpecificWarnings>
 			<UseFullPaths>true</UseFullPaths>

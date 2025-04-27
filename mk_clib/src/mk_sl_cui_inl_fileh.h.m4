@@ -6,6 +6,7 @@ include(`mk_sl_cui_inl.m')dnl
 #include "mk_lang_noexcept.h"
 #include "mk_lang_restrict.h"
 #include "mk_lang_sizeof.h"
+#include "mk_lang_typedef.h"
 #include "mk_lang_types.h"
 
 
@@ -17,15 +18,7 @@ struct mk_sl_cui_inl_defd_s
 	mk_sl_cui_inl_defd_alignme mk_sl_cui_inl_defd_base_t m_elements[mk_sl_cui_inl_defd_count];
 };
 typedef struct mk_sl_cui_inl_defd_s mk_sl_cui_inl_defd_t;
-typedef mk_sl_cui_inl_defd_t const mk_sl_cui_inl_defd_ct;
-typedef mk_sl_cui_inl_defd_t* mk_sl_cui_inl_defd_pt;
-typedef mk_sl_cui_inl_defd_t const* mk_sl_cui_inl_defd_pct;
-typedef mk_sl_cui_inl_defd_t* mk_lang_restrict mk_sl_cui_inl_defd_prt;
-typedef mk_sl_cui_inl_defd_t const* mk_lang_restrict mk_sl_cui_inl_defd_prct;
-typedef mk_sl_cui_inl_defd_pt* mk_sl_cui_inl_defd_ppt;
-typedef mk_sl_cui_inl_defd_pct* mk_sl_cui_inl_defd_ppct;
-typedef mk_sl_cui_inl_defd_prt* mk_lang_restrict mk_sl_cui_inl_defd_pprt;
-typedef mk_sl_cui_inl_defd_prct* mk_lang_restrict mk_sl_cui_inl_defd_pprct;
+mk_lang_typedef(mk_sl_cui_inl_defd_name);
 
 enum mk_sl_cui_inl_defd_size_bytes_e{ mk_sl_cui_inl_defd_size_bytes_v = mk_sl_cui_inl_defd_size_bytes_d }; typedef enum mk_sl_cui_inl_defd_size_bytes_e mk_sl_cui_inl_defd_size_bytes_t;
 enum mk_sl_cui_inl_defd_size_bits_e { mk_sl_cui_inl_defd_size_bits_v  = mk_sl_cui_inl_defd_size_bits_d  }; typedef enum mk_sl_cui_inl_defd_size_bits_e  mk_sl_cui_inl_defd_size_bits_t ;

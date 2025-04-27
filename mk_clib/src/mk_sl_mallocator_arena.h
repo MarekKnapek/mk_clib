@@ -1,0 +1,72 @@
+#ifndef mk_include_guard_mk_sl_mallocator_arena_h
+#define mk_include_guard_mk_sl_mallocator_arena_h
+
+
+#include "mk_lang_jumbo.h"
+#include "mk_lang_noexcept.h"
+#include "mk_lang_static_param.h"
+#include "mk_lang_typedef.h"
+#include "mk_lang_types.h"
+
+
+#if defined mk_sl_mallocator_arena_statistics_want
+#if (mk_sl_mallocator_arena_statistics_want) == 0
+#define mk_sl_mallocator_arena_statistics_have 0
+#elif (mk_sl_mallocator_arena_statistics_want) == 1
+#define mk_sl_mallocator_arena_statistics_have 1
+#else
+#error xxxxxxxxxx
+#endif
+#else
+#if defined DEBUG || defined _DEBUG
+#define mk_sl_mallocator_arena_statistics_have 1
+#else
+#if defined NDEBUG || defined _NDEBUG
+#define mk_sl_mallocator_arena_statistics_have 0
+#else
+#define mk_sl_mallocator_arena_statistics_have 1
+#endif
+#endif
+#endif
+
+
+#define mk_sl_mallocator_arena_t_name mk_sl_mallocator_arena_ver1
+#define mk_sl_mallocator_arena_t_size 4 * 64 * 1024
+#define mk_sl_mallocator_arena_t_statistics_want mk_sl_mallocator_arena_statistics_have
+#include "mk_sl_mallocator_arena_inl_fileh.h"
+#include "mk_sl_mallocator_arena_inl_fileu.h"
+
+#define mk_sl_mallocator_arena_t_name mk_sl_mallocator_arena_ver2
+#define mk_sl_mallocator_arena_t_size 2 * 1024 * 1024
+#define mk_sl_mallocator_arena_t_statistics_want mk_sl_mallocator_arena_statistics_have
+#include "mk_sl_mallocator_arena_inl_fileh.h"
+#include "mk_sl_mallocator_arena_inl_fileu.h"
+
+
+typedef mk_sl_mallocator_arena_ver1_blocks_t mk_sl_mallocator_arena_blocks_t;
+mk_lang_typedef(mk_sl_mallocator_arena_blocks);
+typedef mk_sl_mallocator_arena_ver1_bytes_t mk_sl_mallocator_arena_bytes_t;
+mk_lang_typedef(mk_sl_mallocator_arena_bytes);
+
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_arena_init(mk_lang_types_void_t) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_arena_deinit(mk_lang_types_void_t) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_arena_allocate(mk_lang_types_usize_t const size_bytes, mk_lang_types_void_ppt const mem) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_arena_deallocate(mk_lang_types_void_pct const mem, mk_lang_types_usize_t const size_bytes) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_arena_reallocate(mk_lang_types_void_pct const old_mem, mk_lang_types_usize_t const old_size_bytes, mk_lang_types_usize_t const new_size_bytes, mk_lang_types_void_ppt const new_mem) mk_lang_noexcept;
+
+mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_statistics_get_blocks_allocated(mk_sl_mallocator_arena_blocks_pt const blocks_allocated) mk_lang_noexcept;
+mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_statistics_get_blocks_dealocated(mk_sl_mallocator_arena_blocks_pt const blocks_deallocated) mk_lang_noexcept;
+mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_statistics_get_blocks_peak(mk_sl_mallocator_arena_blocks_pt const blocks_peak) mk_lang_noexcept;
+mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_statistics_get_blocks_live(mk_sl_mallocator_arena_blocks_pt const blocks_live) mk_lang_noexcept;
+mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_statistics_get_bytes_allocated(mk_sl_mallocator_arena_bytes_pt const bytes_allocated) mk_lang_noexcept;
+mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_statistics_get_bytes_dealocated(mk_sl_mallocator_arena_bytes_pt const bytes_deallocated) mk_lang_noexcept;
+mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_statistics_get_bytes_peak(mk_sl_mallocator_arena_bytes_pt const bytes_peak) mk_lang_noexcept;
+mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_statistics_get_bytes_live(mk_sl_mallocator_arena_bytes_pt const bytes_live) mk_lang_noexcept;
+mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_statistics_get_all(mk_lang_static_param(mk_sl_mallocator_arena_blocks_t, blocks_all, 4), mk_lang_static_param(mk_sl_mallocator_arena_bytes_t, bytes_all, 4)) mk_lang_noexcept;
+
+
+#if mk_lang_jumbo_have
+#include "mk_sl_mallocator_arena.c"
+#endif
+#endif
