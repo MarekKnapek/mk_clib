@@ -1,0 +1,4 @@
+#undef mk_sl_mallocator_lokal_arena_t_name
+#undef mk_sl_mallocator_lokal_arena_t_size
+#undef mk_sl_mallocator_lokal_arena_t_statistics_want
+#undef mk_sl_mallocator_lokal_arena_t_verify_want
