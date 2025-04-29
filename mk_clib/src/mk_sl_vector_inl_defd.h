@@ -6,13 +6,20 @@
 #if(!( \
 	(defined mk_sl_vector_t_name) && \
 	(defined mk_sl_vector_t_element_type) && \
-	(defined mk_sl_vector_t_mallocatorg) && \
+	(defined mk_sl_vector_t_mallocatorg || defined mk_sl_vector_t_mallocatorl) && \
 	((defined mk_sl_vector_t_copy && ((mk_sl_vector_t_copy) == mk_sl_vector_cpy_use_bitblasting || (mk_sl_vector_t_copy) == mk_sl_vector_cpy_use_type_suffix || (mk_sl_vector_t_copy) == mk_sl_vector_cpy_use_custom)) || !defined mk_sl_vector_t_copy) && \
 	(defined mk_sl_vector_t_element_construct_void || !defined mk_sl_vector_t_element_construct_void) && \
 	(defined mk_sl_vector_t_element_destruct || !defined mk_sl_vector_t_element_destruct) && \
 	(defined mk_sl_vector_t_element_copy || !defined mk_sl_vector_t_element_copy) && \
 	(defined mk_sl_vector_t_element_move || !defined mk_sl_vector_t_element_move) && \
 1))
+#error xxxxxxxxxx
+#endif
+
+#if( \
+	defined mk_sl_vector_t_mallocatorg && \
+	defined mk_sl_vector_t_mallocatorl && \
+1)
 #error xxxxxxxxxx
 #endif
 
@@ -43,7 +50,18 @@
 
 #define mk_sl_vector_inl_defd_name mk_sl_vector_t_name
 #define mk_sl_vector_inl_defd_element_type mk_sl_vector_t_element_type
-#define mk_sl_vector_inl_defd_mallocatorg mk_sl_vector_t_mallocatorg
+
+#if defined mk_sl_vector_t_mallocatorg
+#define mk_sl_vector_inl_defd_mallocator mk_sl_vector_t_mallocatorg
+#define mk_sl_vector_inl_defd_mallocator_is_global 1
+#define mk_sl_vector_inl_defd_mallocator_is_lokal 0
+#elif defined mk_sl_vector_t_mallocatorl
+#define mk_sl_vector_inl_defd_mallocator mk_sl_vector_t_mallocatorl
+#define mk_sl_vector_inl_defd_mallocator_is_global 0
+#define mk_sl_vector_inl_defd_mallocator_is_lokal 1
+#else
+#error xxxxxxxxxx
+#endif
 
 #if defined mk_sl_vector_t_copy
 #define mk_sl_vector_inl_defd_copy mk_sl_vector_t_copy
@@ -158,20 +176,38 @@
 #error xxxxxxxxxx
 #endif
 
-#define mk_sl_vector_inl_defd_mallocatorg_init mk_lang_concat(mk_sl_vector_inl_defd_mallocatorg, _init)
-#define mk_sl_vector_inl_defd_mallocatorg_deinit mk_lang_concat(mk_sl_vector_inl_defd_mallocatorg, _deinit)
-#define mk_sl_vector_inl_defd_mallocatorg_allocate mk_lang_concat(mk_sl_vector_inl_defd_mallocatorg, _allocate)
-#define mk_sl_vector_inl_defd_mallocatorg_deallocate mk_lang_concat(mk_sl_vector_inl_defd_mallocatorg, _deallocate)
-#define mk_sl_vector_inl_defd_mallocatorg_reallocate mk_lang_concat(mk_sl_vector_inl_defd_mallocatorg, _reallocate)
-#define mk_sl_vector_inl_defd_mallocatorg_statistics_get_blocks_allocated mk_lang_concat(mk_sl_vector_inl_defd_mallocatorg, _statistics_get_blocks_allocated)
-#define mk_sl_vector_inl_defd_mallocatorg_statistics_get_blocks_dealocated mk_lang_concat(mk_sl_vector_inl_defd_mallocatorg, _statistics_get_blocks_dealocated)
-#define mk_sl_vector_inl_defd_mallocatorg_statistics_get_blocks_peak mk_lang_concat(mk_sl_vector_inl_defd_mallocatorg, _statistics_get_blocks_peak)
-#define mk_sl_vector_inl_defd_mallocatorg_statistics_get_blocks_live mk_lang_concat(mk_sl_vector_inl_defd_mallocatorg, _statistics_get_blocks_live)
-#define mk_sl_vector_inl_defd_mallocatorg_statistics_get_bytes_allocated mk_lang_concat(mk_sl_vector_inl_defd_mallocatorg, _statistics_get_bytes_allocated)
-#define mk_sl_vector_inl_defd_mallocatorg_statistics_get_bytes_dealocated mk_lang_concat(mk_sl_vector_inl_defd_mallocatorg, _statistics_get_bytes_dealocated)
-#define mk_sl_vector_inl_defd_mallocatorg_statistics_get_bytes_peak mk_lang_concat(mk_sl_vector_inl_defd_mallocatorg, _statistics_get_bytes_peak)
-#define mk_sl_vector_inl_defd_mallocatorg_statistics_get_bytes_live mk_lang_concat(mk_sl_vector_inl_defd_mallocatorg, _statistics_get_bytes_live)
-#define mk_sl_vector_inl_defd_mallocatorg_statistics_get_all mk_lang_concat(mk_sl_vector_inl_defd_mallocatorg, _statistics_get_all)
+#define mk_sl_vector_inl_defd_mallocator_pt mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _pt)
+#if mk_sl_vector_inl_defd_mallocator_is_global
+#define mk_sl_vector_inl_defd_mallocator_init mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _init)
+#define mk_sl_vector_inl_defd_mallocator_deinit mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _deinit)
+#define mk_sl_vector_inl_defd_mallocator_allocate mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _allocate)
+#define mk_sl_vector_inl_defd_mallocator_deallocate mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _deallocate)
+#define mk_sl_vector_inl_defd_mallocator_reallocate mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _reallocate)
+#define mk_sl_vector_inl_defd_mallocator_statistics_get_blocks_allocated mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _statistics_get_blocks_allocated)
+#define mk_sl_vector_inl_defd_mallocator_statistics_get_blocks_dealocated mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _statistics_get_blocks_dealocated)
+#define mk_sl_vector_inl_defd_mallocator_statistics_get_blocks_peak mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _statistics_get_blocks_peak)
+#define mk_sl_vector_inl_defd_mallocator_statistics_get_blocks_live mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _statistics_get_blocks_live)
+#define mk_sl_vector_inl_defd_mallocator_statistics_get_bytes_allocated mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _statistics_get_bytes_allocated)
+#define mk_sl_vector_inl_defd_mallocator_statistics_get_bytes_dealocated mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _statistics_get_bytes_dealocated)
+#define mk_sl_vector_inl_defd_mallocator_statistics_get_bytes_peak mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _statistics_get_bytes_peak)
+#define mk_sl_vector_inl_defd_mallocator_statistics_get_bytes_live mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _statistics_get_bytes_live)
+#define mk_sl_vector_inl_defd_mallocator_statistics_get_all mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _statistics_get_all)
+#else
+#define mk_sl_vector_inl_defd_mallocator_init mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _init)
+#define mk_sl_vector_inl_defd_mallocator_deinit mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _deinit)
+#define mk_sl_vector_inl_defd_mallocator_allocate(a, b) mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _allocate)(vector->m_mallocator, a, b)
+#define mk_sl_vector_inl_defd_mallocator_deallocate(a, b) mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _deallocate)(vector->m_mallocator, a, b)
+#define mk_sl_vector_inl_defd_mallocator_reallocate(a, b, c, d) mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _reallocate)(vector->m_mallocator, a, b, c, d)
+#define mk_sl_vector_inl_defd_mallocator_statistics_get_blocks_allocated mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _statistics_get_blocks_allocated)
+#define mk_sl_vector_inl_defd_mallocator_statistics_get_blocks_dealocated mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _statistics_get_blocks_dealocated)
+#define mk_sl_vector_inl_defd_mallocator_statistics_get_blocks_peak mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _statistics_get_blocks_peak)
+#define mk_sl_vector_inl_defd_mallocator_statistics_get_blocks_live mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _statistics_get_blocks_live)
+#define mk_sl_vector_inl_defd_mallocator_statistics_get_bytes_allocated mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _statistics_get_bytes_allocated)
+#define mk_sl_vector_inl_defd_mallocator_statistics_get_bytes_dealocated mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _statistics_get_bytes_dealocated)
+#define mk_sl_vector_inl_defd_mallocator_statistics_get_bytes_peak mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _statistics_get_bytes_peak)
+#define mk_sl_vector_inl_defd_mallocator_statistics_get_bytes_live mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _statistics_get_bytes_live)
+#define mk_sl_vector_inl_defd_mallocator_statistics_get_all mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _statistics_get_all)
+#endif
 
 #define mk_sl_vector_inl_defd_s mk_lang_concat(mk_sl_vector_inl_defd_name, _s)
 #define mk_sl_vector_inl_defd_t mk_lang_concat(mk_sl_vector_inl_defd_name, _t)
@@ -256,6 +292,18 @@
 #define mk_sl_vector_inl_defd_nprcpct mk_lang_concat(mk_sl_vector_inl_defd_name, _nprcpct)
 #define mk_sl_vector_inl_defd_nprvpct mk_lang_concat(mk_sl_vector_inl_defd_name, _nprvpct)
 #define mk_sl_vector_inl_defd_nprcvpct mk_lang_concat(mk_sl_vector_inl_defd_name, _nprcvpct)
+
+#if mk_sl_vector_inl_defd_mallocator_is_global
+#define mk_sl_vector_inl_defd_mallocator_member
+#define mk_sl_vector_inl_defd_mallocator_param
+#define mk_sl_vector_inl_defd_mallocator_assert() mk_lang_assert(mk_lang_true)
+#define mk_sl_vector_inl_defd_mallocator_assign() mk_lang_assert(mk_lang_true)
+#else
+#define mk_sl_vector_inl_defd_mallocator_member mk_sl_vector_inl_defd_mallocator_pt m_mallocator;
+#define mk_sl_vector_inl_defd_mallocator_param , mk_sl_vector_inl_defd_mallocator_pt const mallocator
+#define mk_sl_vector_inl_defd_mallocator_assert() mk_lang_assert(mallocator)
+#define mk_sl_vector_inl_defd_mallocator_assign() vector->m_mallocator = mallocator
+#endif
 
 #define mk_sl_vector_inl_defd_max_capacity_e mk_lang_concat(mk_sl_vector_inl_defd_name, _max_capacity_e)
 #define mk_sl_vector_inl_defd_max_capacity_t mk_lang_concat(mk_sl_vector_inl_defd_name, _max_capacity_t)
