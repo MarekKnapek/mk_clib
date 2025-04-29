@@ -849,15 +849,31 @@ mk_lang_constexpr mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mal
 
 mk_lang_constexpr mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_lokal_arena_inl_defd_mem_init(mk_sl_mallocator_lokal_arena_inl_defd_pt const arena) mk_lang_noexcept
 {
+	mk_sl_mallocator_lokal_arena_inl_defd_free_block_t free_block mk_lang_constexpr_init;
 	mk_sl_mallocator_lokal_arena_inl_defd_bitmap_t bitmap mk_lang_constexpr_init;
 	mk_lang_types_sint_t blocks_allocated mk_lang_constexpr_init;
 	mk_lang_types_sint_t words_allocated mk_lang_constexpr_init;
 	mk_sl_mallocator_lokal_arena_inl_defd_num_words_t full mk_lang_constexpr_init;
 	mk_lang_types_sint_t rest mk_lang_constexpr_init;
 	mk_sl_mallocator_lokal_arena_inl_defd_num_words_t num mk_lang_constexpr_init;
+	mk_lang_types_usize_t n mk_lang_constexpr_init;
+	mk_lang_types_usize_t i mk_lang_constexpr_init;
 
 	mk_lang_assert(arena);
 
+	mk_sl_cui_uint8_memclr_fn(&arena->m_mem.m_data.m_u8s[0], ((mk_lang_types_usize_t)(mk_sl_mallocator_lokal_arena_inl_defd_words_v)) * ((mk_lang_types_usize_t)(mk_sl_mallocator_lokal_arena_inl_defd_num_words_size_bytes_v)));
+	mk_sl_mallocator_lokal_arena_inl_defd_num_words_set_zero(&free_block.m_next);
+	mk_sl_mallocator_lokal_arena_inl_defd_num_words_set_zero(&free_block.m_prev);
+	mk_sl_mallocator_lokal_arena_inl_defd_num_words_set_zero(&free_block.m_blocks_allocated);
+	mk_sl_mallocator_lokal_arena_inl_defd_num_words_set_zero(&free_block.m_bytes_allocated);
+	mk_sl_mallocator_lokal_arena_inl_defd_mem_free_block_store(arena, mk_sl_mallocator_lokal_arena_ver1_blocks_wasted_v - 1, &free_block);
+	mk_sl_mallocator_lokal_arena_inl_defd_num_words_set_zero(&num);
+	n = mk_sl_mallocator_lokal_arena_inl_defd_blocks_total_v;
+	for(i = 0; i != n; ++i)
+	{
+		mk_sl_mallocator_lokal_arena_inl_defd_mem_free_block_next_store(arena, i, &num);
+		mk_sl_mallocator_lokal_arena_inl_defd_mem_free_block_prev_store(arena, i, &num);
+	}
 	mk_sl_mallocator_lokal_arena_inl_defd_mem_bitmap_load(arena, &bitmap);
 	blocks_allocated = mk_sl_mallocator_lokal_arena_inl_defd_blocks_wasted_v;
 	words_allocated = blocks_allocated / mk_sl_mallocator_lokal_arena_inl_defd_num_words_size_bits_v;
@@ -866,12 +882,8 @@ mk_lang_constexpr mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mal
 	rest = blocks_allocated - words_allocated * mk_sl_mallocator_lokal_arena_inl_defd_num_words_size_bits_v;
 	mk_sl_mallocator_lokal_arena_inl_defd_num_words_set_mask(&bitmap.m_data.m_words[words_allocated], rest);
 	mk_sl_mallocator_lokal_arena_inl_defd_mem_bitmap_store(arena, &bitmap);
-	mk_sl_mallocator_lokal_arena_inl_defd_mem_free_block_next_load(arena, mk_sl_mallocator_lokal_arena_inl_defd_blocks_total_v - 1, &num);
-	if(mk_sl_mallocator_lokal_arena_inl_defd_num_words_is_zero(&num))
-	{
-		mk_sl_mallocator_lokal_arena_inl_defd_mem_set_next_block_idx(arena, mk_sl_mallocator_lokal_arena_inl_defd_blocks_total_v - 1, mk_sl_mallocator_lokal_arena_inl_defd_blocks_wasted_v);
-		mk_sl_mallocator_lokal_arena_inl_defd_mem_set_prev_block_idx(arena, mk_sl_mallocator_lokal_arena_inl_defd_blocks_wasted_v, mk_sl_mallocator_lokal_arena_inl_defd_blocks_total_v - 1);
-	}
+	mk_sl_mallocator_lokal_arena_inl_defd_mem_set_next_block_idx(arena, mk_sl_mallocator_lokal_arena_inl_defd_blocks_total_v - 1, mk_sl_mallocator_lokal_arena_inl_defd_blocks_wasted_v);
+	mk_sl_mallocator_lokal_arena_inl_defd_mem_set_prev_block_idx(arena, mk_sl_mallocator_lokal_arena_inl_defd_blocks_wasted_v, mk_sl_mallocator_lokal_arena_inl_defd_blocks_total_v - 1);
 	mk_lang_assert(mk_sl_mallocator_lokal_arena_inl_defd_mem_verify(arena));
 }
 
