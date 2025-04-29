@@ -13,6 +13,7 @@
 #include "mk_lang_test.h"
 #include "mk_lang_types.h"
 #include "mk_sl_mallocator.h"
+#include "mk_sl_mallocator_lokal_arena.h"
 
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_sl_tree_wavl_fuzz_int_cmp(mk_lang_types_sint_pct const a, mk_lang_types_sint_pct const b, mk_lang_types_sint_pt const cmp) mk_lang_noexcept
@@ -37,7 +38,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 #define mk_sl_vector_t_name mk_sl_tree_wavl_fuzz_vec
 #define mk_sl_vector_t_element_type mk_lang_types_sint_t
-#define mk_sl_vector_t_mallocatorg mk_sl_mallocator
+#define mk_sl_vector_t_mallocatorl mk_sl_mallocator_lokal_arena_ver1
 #include "mk_sl_vector_inl_fileh.h"
 #include "mk_sl_vector_inl_filec.h"
 #include "mk_sl_vector_inl_fileu.h"
@@ -47,6 +48,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_tree_wavl_fuzz(mk_lan
 {
 	mk_lang_types_uchar_pct d;
 	mk_lang_types_usize_t s;
+	mk_sl_mallocator_lokal_arena_ver1_t mallocator;
 	mk_lang_types_uint_t tui;
 	mk_lang_types_sint_t err;
 	mk_sl_tree_wavl_fuzz_test_t tree;
@@ -61,8 +63,9 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_tree_wavl_fuzz(mk_lan
 
 	d = data;
 	s = size;
+	err = mk_sl_mallocator_lokal_arena_ver1_init(&mallocator); mk_lang_check_rereturn(err);
 	err = mk_sl_tree_wavl_fuzz_test_rw_construct(&tree); mk_lang_check_rereturn(err);
-	err = mk_sl_tree_wavl_fuzz_vec_rw_construct(&vec); mk_lang_check_rereturn(err);
+	err = mk_sl_tree_wavl_fuzz_vec_rw_construct(&vec, &mallocator); mk_lang_check_rereturn(err);
 	for(;;)
 	{
 		if(!(s >= mk_lang_bui_uint_size_bytes_v))
@@ -141,6 +144,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_tree_wavl_fuzz(mk_lan
 	}
 	err = mk_sl_tree_wavl_fuzz_vec_rw_destroy(&vec); mk_lang_check_rereturn(err);
 	err = mk_sl_tree_wavl_fuzz_test_rw_destruct(&tree); mk_lang_check_rereturn(err);
+	err = mk_sl_mallocator_lokal_arena_ver1_deinit(&mallocator); mk_lang_check_rereturn(err);
 	return 0;
 }
 
