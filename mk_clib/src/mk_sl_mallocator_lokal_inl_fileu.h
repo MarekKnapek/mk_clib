@@ -1,0 +1,3 @@
+#undef mk_sl_mallocator_lokal_t_name
+#undef mk_sl_mallocator_lokal_t_base
+#undef mk_sl_mallocator_lokal_t_constexpr_want

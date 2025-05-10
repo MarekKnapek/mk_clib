@@ -12,6 +12,7 @@
 
 #include "mk_lang_info_platform.h"
 #include "mk_lang_info_types.h"
+#include "mk_lib_fast_import.h"
 
 
 #if mk_lang_entry_point_have
@@ -41,6 +42,7 @@ mk_lang_jumbo mk_lang_types_sint_t mk_clib_app_info_void(mk_lang_types_void_t) m
 	err = mk_lang_stdout_init(); mk_lang_check_rereturn(err);
 	err = mk_lang_info_platform_print(); mk_lang_check_rereturn(err);
 	err = mk_lang_info_types_print_sizes(); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_run(); mk_lang_check_rereturn(err);
 	return 0;
 }
 

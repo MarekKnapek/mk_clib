@@ -40,6 +40,20 @@
 #include "mk_sl_uint_convert_inl_filec.h"
 #include "mk_sl_uint_convert_inl_fileu.h"
 
+#define mk_sl_uint_convert_t_name mk_sl_uint_convert_32_16_le
+#define mk_sl_uint_convert_t_big_tn mk_sl_cui_uint32
+#define mk_sl_uint_convert_t_sml_tn mk_sl_cui_uint16
+#define mk_sl_uint_convert_t_endian mk_lang_endian_little
+#include "mk_sl_uint_convert_inl_filec.h"
+#include "mk_sl_uint_convert_inl_fileu.h"
+
+#define mk_sl_uint_convert_t_name mk_sl_uint_convert_32_16_be
+#define mk_sl_uint_convert_t_big_tn mk_sl_cui_uint32
+#define mk_sl_uint_convert_t_sml_tn mk_sl_cui_uint16
+#define mk_sl_uint_convert_t_endian mk_lang_endian_big
+#include "mk_sl_uint_convert_inl_filec.h"
+#include "mk_sl_uint_convert_inl_fileu.h"
+
 #define mk_sl_uint_convert_t_name mk_sl_uint_convert_64_8_le
 #define mk_sl_uint_convert_t_big_tn mk_sl_cui_uint64
 #define mk_sl_uint_convert_t_sml_tn mk_sl_cui_uint8

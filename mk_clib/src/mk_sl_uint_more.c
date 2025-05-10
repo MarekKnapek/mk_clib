@@ -5,6 +5,7 @@
 #include "mk_lang_assert.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_jumbo.h"
+#include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
 #include "mk_sl_cui_uint8.h"
@@ -90,6 +91,74 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_uint8_from_bi_uch
 	{
 		mk_sl_cui_uint8_from_bi_uchar(&a[i], &b[i]);
 	}
+}
+
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_uint8_from_bi_pchar_many(mk_sl_cui_uint8_pt const a, mk_lang_types_pchar_pct const b, mk_lang_types_usize_t const count) mk_lang_noexcept
+{
+	mk_lang_types_usize_t n mk_lang_constexpr_init;
+	mk_lang_types_usize_t i mk_lang_constexpr_init;
+
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
+	mk_lang_assert(a || count == 0);
+	mk_lang_assert(b || count == 0);
+	mk_lang_assert(count >= 0);
+	#include "mk_lang_warning_gcc_pop.h"
+	#include "mk_lang_warning_msvc_pop.h"
+
+	n = count;
+	for(i = 0; i != n; ++i)
+	{
+		mk_sl_cui_uint8_from_bi_pchar(&a[i], &b[i]);
+	}
+}
+
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_uint8_to_bi_pchar_many(mk_sl_cui_uint8_pct const a, mk_lang_types_pchar_pt const b, mk_lang_types_usize_t const count) mk_lang_noexcept
+{
+	mk_lang_types_usize_t n mk_lang_constexpr_init;
+	mk_lang_types_usize_t i mk_lang_constexpr_init;
+
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
+	mk_lang_assert(a || count == 0);
+	mk_lang_assert(b || count == 0);
+	mk_lang_assert(count >= 0);
+	#include "mk_lang_warning_gcc_pop.h"
+	#include "mk_lang_warning_msvc_pop.h"
+
+	n = count;
+	for(i = 0; i != n; ++i)
+	{
+		mk_sl_cui_uint8_to_bi_pchar(&a[i], &b[i]);
+	}
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_uint8_eq_pchar_many(mk_sl_cui_uint8_pct const a, mk_lang_types_pchar_pct const b, mk_lang_types_usize_t const count) mk_lang_noexcept
+{
+	mk_lang_types_usize_t n mk_lang_constexpr_init;
+	mk_lang_types_usize_t i mk_lang_constexpr_init;
+	mk_sl_cui_uint8_t cui mk_lang_constexpr_init;
+	mk_lang_types_bool_t eq mk_lang_constexpr_init;
+
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
+	mk_lang_assert(a || count == 0);
+	mk_lang_assert(b || count == 0);
+	mk_lang_assert(count >= 0);
+	#include "mk_lang_warning_gcc_pop.h"
+	#include "mk_lang_warning_msvc_pop.h"
+
+	n = count;
+	for(i = 0; i != n; ++i)
+	{
+		mk_sl_cui_uint8_from_bi_pchar(&cui, &b[i]);
+		if(!mk_sl_cui_uint8_eq(&a[i], &cui))
+		{
+			break;
+		}
+	}
+	eq = i == n;
+	return eq;
 }
 
 

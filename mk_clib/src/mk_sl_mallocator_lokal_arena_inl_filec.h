@@ -1108,9 +1108,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_mal
 		m = ((mk_lang_types_void_pt)(bytes_ptr));
 		if(m)
 		{
-			#if mk_sl_mallocator_lokal_arena_inl_defd_statistics_want
 			mk_sl_mallocator_lokal_arena_inl_defd_statistics_on_allocated(arena, size_bytes);
-			#endif
 		}
 		*mem = m;
 	}
@@ -1131,9 +1129,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_mal
 	{
 		bytes_ptr = ((mk_sl_cui_uint8_pct)(mem));
 		mk_sl_mallocator_lokal_arena_inl_defd_deallocate_bytes(arena, bytes_ptr, size_bytes);
-		#if mk_sl_mallocator_lokal_arena_inl_defd_statistics_want
 		mk_sl_mallocator_lokal_arena_inl_defd_statistics_on_deallocated(arena, size_bytes);
-		#endif
 	}
 	return 0;
 }
@@ -1155,9 +1151,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_mal
 	m = ((mk_lang_types_void_pt)(bytes_ptr));
 	if(m)
 	{
-		#if mk_sl_mallocator_lokal_arena_inl_defd_statistics_want
 		mk_sl_mallocator_lokal_arena_inl_defd_statistics_on_reallocated(arena, old_size_bytes, new_size_bytes);
-		#endif
 	}
 	*new_mem = m;
 	return 0;

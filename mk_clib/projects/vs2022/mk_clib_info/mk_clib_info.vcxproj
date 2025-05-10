@@ -144,6 +144,11 @@
 		<CopyLocalProjectReference>false</CopyLocalProjectReference>
 		<UseStructuredOutput>true</UseStructuredOutput>
 	</PropertyGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+		<Link>
+			<StackReserveSize>67108864</StackReserveSize>
+		</Link>
+	</ItemDefinitionGroup>
 	<ItemGroup>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\app\info.c"/>
 		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_abort_win_amd64.asm"><ExcludedFromBuild Condition="!('$(mk_is_intel)' == 'true' And '$(mk_is_release)' == 'true' And '$(mk_is_64bit)' == 'true')">true</ExcludedFromBuild></MASM>
