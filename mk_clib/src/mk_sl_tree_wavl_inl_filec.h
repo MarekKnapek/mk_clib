@@ -555,7 +555,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_tree_wavl_inl
 
 	err = mk_sl_tree_wavl_inl_defd_mallocatorg_allocate(tree, sizeof(*target), &target); mk_lang_check_rereturn(err); mk_lang_assert(target);
 	mk_sl_tree_wavl_inl_defd_prrw_node_init(tree, target, parent);
-	err = mk_sl_tree_wavl_inl_defd_element_move_construct(element, &target->m_element); mk_lang_check_rereturn(err);
+	err = mk_sl_tree_wavl_inl_defd_element_move_construct(&target->m_element, element); mk_lang_check_rereturn(err);
 	*node = target;
 	return 0;
 }
@@ -1061,13 +1061,15 @@ static mk_lang_inline mk_lang_types_void_t mk_sl_tree_wavl_inl_defd_prrw_rebalan
 }
 
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_tree_wavl_inl_defd_rw_construct(mk_sl_tree_wavl_inl_defd_pt const tree) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_tree_wavl_inl_defd_rw_construct(mk_sl_tree_wavl_inl_defd_pt const tree mk_sl_tree_wavl_inl_defd_mallocator_param) mk_lang_noexcept
 {
 	mk_lang_assert(tree);
+	mk_sl_tree_wavl_inl_defd_mallocator_assert();
 
 	tree->m_root = mk_lang_null;
 	tree->m_nodes = 0;
 	tree->m_elements = 0;
+	mk_sl_tree_wavl_inl_defd_mallocator_assign();
 	mk_lang_assert(mk_sl_tree_wavl_inl_defd_prro_validate(tree) == 0);
 	return 0;
 }

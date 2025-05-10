@@ -98,6 +98,20 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_usize_t mk_sl_vector_inl_defd_ro_s
 	return ret;
 }
 
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_ro_sise(mk_sl_vector_inl_defd_pct const vector) mk_lang_noexcept
+{
+	mk_lang_types_sint_t ret mk_lang_constexpr_init;
+	mk_lang_types_usize_t size mk_lang_constexpr_init;
+
+	mk_lang_assert(vector);
+	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
+
+	size = vector->m_size;
+	mk_lang_assert(size <= ((mk_lang_types_usize_t)(mk_lang_limits_sint_max)));
+	ret = ((mk_lang_types_sint_t)(size));
+	return ret;
+}
+
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_usize_t mk_sl_vector_inl_defd_ro_free(mk_sl_vector_inl_defd_pct const vector) mk_lang_noexcept
 {
 	mk_lang_types_usize_t ret;
@@ -197,6 +211,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_usize_t mk_sl_vector_inl_defd_rw_c
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_usize_t mk_sl_vector_inl_defd_rw_size(mk_sl_vector_inl_defd_pt const vector) mk_lang_noexcept
 {
 	return mk_sl_vector_inl_defd_ro_size(vector);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_sise(mk_sl_vector_inl_defd_pt const vector) mk_lang_noexcept
+{
+	return mk_sl_vector_inl_defd_ro_sise(vector);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_usize_t mk_sl_vector_inl_defd_rw_free(mk_sl_vector_inl_defd_pt const vector) mk_lang_noexcept
@@ -588,6 +607,25 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_re
 	{
 		err = mk_sl_vector_inl_defd_rw_shrink_by(vector, size - count); mk_lang_check_rereturn(err);
 	}
+	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_resize_by(mk_sl_vector_inl_defd_pt const vector, mk_lang_types_usize_t const count) mk_lang_noexcept
+{
+	mk_lang_types_usize_t size;
+	mk_lang_types_sint_t err;
+
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	mk_lang_assert(vector);
+	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
+	mk_lang_assert(count >= 0);
+	mk_lang_assert(count <= mk_sl_vector_inl_defd_max_capacity_d - mk_sl_vector_inl_defd_rw_size(vector));
+	#include "mk_lang_warning_msvc_pop.h"
+
+	size = mk_sl_vector_inl_defd_rw_size(vector);
+	size = size + count;
+	err = mk_sl_vector_inl_defd_rw_resize_to(vector, size); mk_lang_check_rereturn(err);
 	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
 	return 0;
 }

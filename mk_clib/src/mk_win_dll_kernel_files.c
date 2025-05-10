@@ -15,6 +15,7 @@
 
 
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_dword_t mk_win_base_stdcall GetCurrentDirectoryA(mk_win_base_dword_t const len, mk_win_base_pchar_pt const buf) mk_lang_noexcept;
+mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall CreateDirectoryA(mk_win_base_pchar_lpct const path, mk_win_dll_advapi_security_attributes_lpct const security_attributes) mk_lang_noexcept;
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_uint_t mk_win_base_stdcall GetDriveTypeA(mk_win_base_pchar_lpct const path) mk_lang_noexcept;
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_handle_t mk_win_base_stdcall FindFirstFileA(mk_win_base_pchar_lpct const name, mk_win_dll_kernel_files_a_find_data_lpt const data) mk_lang_noexcept;
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall FindNextFileA(mk_win_base_handle_t const handle, mk_win_dll_kernel_files_a_find_data_lpt const data) mk_lang_noexcept;
@@ -25,6 +26,7 @@ mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall GetVolumeNameForVolumeMountPointA(mk_win_base_pchar_lpct const volume_mount_point, mk_win_base_pchar_lpt const volume_name, mk_win_base_dword_t const len) mk_lang_noexcept;
 
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_dword_t mk_win_base_stdcall GetCurrentDirectoryW(mk_win_base_dword_t const len, mk_win_base_wchar_pt const buf) mk_lang_noexcept;
+mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall CreateDirectoryW(mk_win_base_wchar_lpct const path, mk_win_dll_advapi_security_attributes_lpct const security_attributes) mk_lang_noexcept;
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_uint_t mk_win_base_stdcall GetDriveTypeW(mk_win_base_wchar_lpct const path) mk_lang_noexcept;
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_handle_t mk_win_base_stdcall FindFirstFileW(mk_win_base_wchar_lpct const name, mk_win_dll_kernel_files_w_find_data_lpt const data) mk_lang_noexcept;
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall FindNextFileW(mk_win_base_handle_t const handle, mk_win_dll_kernel_files_w_find_data_lpt const data) mk_lang_noexcept;
@@ -52,6 +54,14 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_dword_t mk_win_dll_kernel_files_a_ge
 	mk_win_base_dword_t ret;
 
 	ret = GetCurrentDirectoryA(len, buf);
+	return ret;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_dll_kernel_files_a_create_directory(mk_win_base_pchar_lpct const path, mk_win_dll_advapi_security_attributes_lpct const security_attributes) mk_lang_noexcept
+{
+	mk_win_base_bool_t ret;
+
+	ret = CreateDirectoryA(path, security_attributes);
 	return ret;
 }
 
@@ -125,6 +135,14 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_dword_t mk_win_dll_kernel_files_w_ge
 	mk_win_base_dword_t ret;
 
 	ret = GetCurrentDirectoryW(len, buf);
+	return ret;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_dll_kernel_files_w_create_directory(mk_win_base_wchar_lpct const path, mk_win_dll_advapi_security_attributes_lpct const security_attributes) mk_lang_noexcept
+{
+	mk_win_base_bool_t ret;
+
+	ret = CreateDirectoryW(path, security_attributes);
 	return ret;
 }
 
