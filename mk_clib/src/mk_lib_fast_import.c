@@ -2,6 +2,9 @@
 #define mk_include_guard_mk_lib_fast_import_c
 #include "mk_lib_fast_import.h"
 
+#include "mk_lib_compress_zlib.h"
+#include "mk_lib_hash_adler32.h"
+#include "mk_lib_compress_deflate.h"
 #include "mk_lang_string.h"
 #include "mk_lang_assert.h"
 #include "mk_lang_bool.h"
@@ -35,712 +38,6 @@
 #include "mk_sl_mallocator_lokal_inl_fileh.h"
 #include "mk_sl_mallocator_lokal_inl_filec.h"
 #include "mk_sl_mallocator_lokal_inl_fileu.h"
-
-
-/* adler32 */
-
-
-#include "mk_lang_assert.h"
-#include "mk_lang_constexpr.h"
-#include "mk_lang_countof.h"
-#include "mk_lang_inline.h"
-#include "mk_lang_jumbo.h"
-#include "mk_lang_nodiscard.h"
-#include "mk_lang_noexcept.h"
-#include "mk_lang_typedef.h"
-#include "mk_lang_types.h"
-#include "mk_sl_cui_uint16.h"
-#include "mk_sl_cui_uint32.h"
-#include "mk_sl_cui_uint8.h"
-#include "mk_sl_uint_convert.h"
-
-
-struct mk_lib_adler32_s
-{
-	mk_sl_cui_uint32_t m_a;
-	mk_sl_cui_uint32_t m_b;
-};
-typedef struct mk_lib_adler32_s mk_lib_adler32_t;
-mk_lang_typedef(mk_lib_adler32);
-
-
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_adler32_init(mk_lib_adler32_pt const adler32) mk_lang_noexcept;
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_adler32_append(mk_lib_adler32_pt const adler32, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len) mk_lang_noexcept;
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_adler32_finish(mk_lib_adler32_pt const adler32, mk_sl_cui_uint32_pt const digest) mk_lang_noexcept;
-
-
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_adler32_init(mk_lib_adler32_pt const adler32) mk_lang_noexcept
-{
-	mk_lang_assert(adler32);
-
-	mk_sl_cui_uint32_set_one(&adler32->m_a);
-	mk_sl_cui_uint32_set_zero(&adler32->m_b);
-}
-
-mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_adler32_block(mk_lib_adler32_pt const adler32, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len) mk_lang_noexcept
-{
-	mk_sl_cui_uint8_pct buf mk_lang_constexpr_init;
-	mk_lang_types_sint_t len mk_lang_constexpr_init;
-	mk_sl_cui_uint8_t tcui8s[32 / 8] mk_lang_constexpr_init;
-	mk_lang_types_sint_t n mk_lang_constexpr_init;
-	mk_lang_types_sint_t i mk_lang_constexpr_init;
-	mk_sl_cui_uint32_t tcui32 mk_lang_constexpr_init;
-	mk_lang_types_uint_t prime mk_lang_constexpr_init;
-
-	mk_lang_assert(adler32);
-	mk_lang_assert(data_buf || data_len == 0);
-	mk_lang_assert(data_len >= 0);
-	mk_lang_assert(data_len <= 4 * 1024);
-
-	buf = data_buf;
-	len = data_len;
-	if(len != 0)
-	{
-		mk_sl_cui_uint8_memclr_fn(&tcui8s[0], mk_lang_countof(tcui8s));
-		n = len;
-		for(i = 0; i != n; ++i)
-		{
-			tcui8s[0] = buf[i];
-			mk_sl_uint_convert_32_8_le_to_big(&tcui32, &tcui8s[0]);
-			mk_lang_assert(!mk_sl_cui_uint32_would_overflow_add_cc(&adler32->m_a, &tcui32));
-			mk_sl_cui_uint32_add2_wrap_cid_cod(&adler32->m_a, &tcui32);
-			mk_lang_assert(!mk_sl_cui_uint32_would_overflow_add_cc(&adler32->m_b, &adler32->m_a));
-			mk_sl_cui_uint32_add2_wrap_cid_cod(&adler32->m_b, &adler32->m_a);
-		}
-		prime = 65521u; mk_sl_cui_uint32_from_bi_uint(&tcui32, &prime);
-		mk_sl_cui_uint32_mod2_wrap(&adler32->m_a, &tcui32);
-		mk_sl_cui_uint32_mod2_wrap(&adler32->m_b, &tcui32);
-	}
-}
-
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_adler32_append(mk_lib_adler32_pt const adler32, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len) mk_lang_noexcept
-{
-	mk_sl_cui_uint8_pct buf mk_lang_constexpr_init;
-	mk_lang_types_sint_t len mk_lang_constexpr_init;
-	mk_lang_types_sint_t n mk_lang_constexpr_init;
-	mk_lang_types_sint_t i mk_lang_constexpr_init;
-
-	mk_lang_assert(adler32);
-	mk_lang_assert(data_buf || data_len == 0);
-	mk_lang_assert(data_len >= 0);
-
-	buf = data_buf;
-	len = data_len;
-	n = data_len / (4 * 1024);
-	for(i = 0; i != n; ++i)
-	{
-		mk_lib_adler32_block(adler32, buf, 4 * 1024);
-		buf += 4 * 1024;
-		len -= 4 * 1024;
-	}
-	mk_lang_assert(len <= 4 * 1024);
-	mk_lib_adler32_block(adler32, buf, len);
-}
-
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_adler32_finish(mk_lib_adler32_pt const adler32, mk_sl_cui_uint32_pt const digest) mk_lang_noexcept
-{
-	mk_sl_cui_uint32_t tcui32 mk_lang_constexpr_init;
-
-	mk_lang_assert(adler32);
-	mk_lang_assert(digest);
-
-	mk_sl_cui_uint32_shl3(&adler32->m_b, mk_sl_cui_uint16_size_bits_v, &tcui32);
-	mk_sl_cui_uint32_or2(&tcui32, &adler32->m_a);
-	*digest = tcui32;
-}
-
-
-/* adler32 */
-
-
-/* adler32b */
-
-
-#include "mk_lang_assert.h"
-#include "mk_lang_constexpr.h"
-#include "mk_lang_jumbo.h"
-#include "mk_lang_nodiscard.h"
-#include "mk_lang_noexcept.h"
-#include "mk_lang_typedef.h"
-#include "mk_lang_types.h"
-#include "mk_sl_cui_uint32.h"
-#include "mk_sl_cui_uint8.h"
-
-
-struct mk_lib_adler32b_s
-{
-	mk_lib_adler32_t m_adler32;
-};
-typedef struct mk_lib_adler32b_s mk_lib_adler32b_t;
-mk_lang_typedef(mk_lib_adler32b);
-
-
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_adler32b_init(mk_lib_adler32b_pt const adler32b) mk_lang_noexcept;
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_adler32b_append(mk_lib_adler32b_pt const adler32b, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len) mk_lang_noexcept;
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_adler32b_finish(mk_lib_adler32b_pt const adler32b, mk_sl_cui_uint32_pt const digest) mk_lang_noexcept;
-
-
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_adler32b_init(mk_lib_adler32b_pt const adler32b) mk_lang_noexcept
-{
-	mk_lang_assert(adler32b);
-
-	mk_lib_adler32_init(&adler32b->m_adler32);
-	return 0;
-}
-
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_adler32b_append(mk_lib_adler32b_pt const adler32b, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len) mk_lang_noexcept
-{
-	mk_lang_assert(adler32b);
-	mk_lang_assert(data_buf || data_len == 0);
-	mk_lang_assert(data_len >= 0);
-
-	mk_lib_adler32_append(&adler32b->m_adler32, data_buf, data_len);
-	return 0;
-}
-
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_adler32b_finish(mk_lib_adler32b_pt const adler32b, mk_sl_cui_uint32_pt const digest) mk_lang_noexcept
-{
-	mk_lang_assert(adler32b);
-	mk_lang_assert(digest);
-
-	mk_lib_adler32_finish(&adler32b->m_adler32, digest);
-	return 0;
-}
-
-
-/* adler32b */
-
-
-/* deflate */
-
-
-#include "mk_lang_alignas.h"
-#include "mk_lang_assert.h"
-#include "mk_lang_bool.h"
-#include "mk_lang_check.h"
-#include "mk_lang_constexpr.h"
-#include "mk_lang_countof.h"
-#include "mk_lang_inline.h"
-#include "mk_lang_jumbo.h"
-#include "mk_lang_min.h"
-#include "mk_lang_nodiscard.h"
-#include "mk_lang_noexcept.h"
-#include "mk_lang_null.h"
-#include "mk_lang_typedef.h"
-#include "mk_lang_types.h"
-#include "mk_sl_cui_uint16.h"
-#include "mk_sl_cui_uint8.h"
-#include "mk_sl_uint_convert.h"
-
-
-enum mk_lib_deflate_block_non_compressed_header_len_e{ mk_lib_deflate_block_non_compressed_header_len_v = mk_sl_cui_uint8_size_bytes_v + mk_sl_cui_uint16_size_bytes_v + mk_sl_cui_uint16_size_bytes_v }; typedef enum mk_lib_deflate_block_non_compressed_header_len_e mk_lib_deflate_block_non_compressed_header_len_t;
-enum mk_lib_deflate_uncompressed_data_len_max_e{ mk_lib_deflate_uncompressed_data_len_max_v = 16 * 1024 }; typedef enum mk_lib_deflate_uncompressed_data_len_max_e mk_lib_deflate_uncompressed_data_len_max_t;
-
-
-union mk_lib_deflate_buf_data_u
-{
-	mk_lang_alignas(1024) mk_sl_cui_uint8_t m_u8s[mk_lib_deflate_uncompressed_data_len_max_v];
-	mk_lang_types_ulllong_t m_align;
-};
-typedef union mk_lib_deflate_buf_data_u mk_lib_deflate_buf_data_t;
-struct mk_lib_deflate_buf_s
-{
-	mk_lib_deflate_buf_data_t m_data;
-};
-typedef struct mk_lib_deflate_buf_s mk_lib_deflate_buf_t;
-mk_lang_typedef(mk_lib_deflate_buf);
-
-
-#include "mk_lang_warning_msvc_push_c4820.h"
-struct mk_lib_deflate_s
-{
-	mk_lib_deflate_buf_t m_uncompressed_data_buf;
-	mk_lang_types_sint_t m_uncompressed_data_idx;
-	mk_lang_types_sint_t m_uncompressed_data_beg;
-	mk_sl_cui_uint8_t m_block_header_buf[mk_lib_deflate_block_non_compressed_header_len_v];
-	mk_lang_types_sint_t m_block_header_beg;
-	mk_lang_types_bool_t m_block_header_computed;
-	mk_lang_types_bool_t m_finish_requested;
-	mk_lang_types_bool_t m_finished;
-};
-typedef struct mk_lib_deflate_s mk_lib_deflate_t;
-mk_lang_typedef(mk_lib_deflate);
-#include "mk_lang_warning_msvc_pop.h"
-
-
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_deflate_init(mk_lib_deflate_pt const deflate) mk_lang_noexcept;
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_deflate_append(mk_lib_deflate_pt const deflate, mk_sl_cui_uint8_pct const data_in_buf, mk_lang_types_sint_t const data_in_len, mk_sl_cui_uint8_pt const data_out_buf, mk_lang_types_sint_t const data_out_len, mk_lang_types_sint_pt const data_in_consumed, mk_lang_types_sint_pt const data_out_consumed) mk_lang_noexcept;
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_deflate_finish(mk_lib_deflate_pt const deflate, mk_sl_cui_uint8_pt const data_out_buf, mk_lang_types_sint_t const data_out_len, mk_lang_types_sint_pt const data_out_consumed) mk_lang_noexcept;
-
-
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_deflate_init(mk_lib_deflate_pt const deflate) mk_lang_noexcept
-{
-	mk_lang_assert(deflate);
-
-	deflate->m_uncompressed_data_idx = 0;
-	deflate->m_uncompressed_data_beg = 0;
-	deflate->m_block_header_beg = 0;
-	deflate->m_block_header_computed = mk_lang_false;
-	deflate->m_finish_requested = mk_lang_false;
-	deflate->m_finished = mk_lang_false;
-	return 0;
-}
-
-mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_deflate_pr_copy_from_input_buffer_if_possible(mk_lib_deflate_pt const deflate, mk_sl_cui_uint8_pct const data_in_buf, mk_lang_types_sint_t const data_in_len, mk_sl_cui_uint8_pt const data_out_buf, mk_lang_types_sint_t const data_out_len, mk_lang_types_sint_pt const data_in_consumed, mk_lang_types_sint_pt const data_out_consumed) mk_lang_noexcept
-{
-	mk_sl_cui_uint8_pct in_buf mk_lang_constexpr_init;
-	mk_lang_types_sint_t in_len mk_lang_constexpr_init;
-	mk_lang_types_sint_t in_c mk_lang_constexpr_init;
-	mk_lang_types_sint_t out_c mk_lang_constexpr_init;
-	mk_lang_types_sint_t avail mk_lang_constexpr_init;
-	mk_lang_types_sint_t to_copy mk_lang_constexpr_init;
-
-	mk_lang_assert(deflate);
-	mk_lang_assert(data_in_buf || data_in_len == 0);
-	mk_lang_assert(data_in_len >= 0);
-	mk_lang_assert(data_out_buf || data_out_len == 0);
-	mk_lang_assert(data_out_len >= 0);
-	mk_lang_assert(data_in_consumed);
-	mk_lang_assert(data_out_consumed);
-	mk_lang_assert(deflate->m_uncompressed_data_idx >= 0);
-	mk_lang_assert(deflate->m_uncompressed_data_idx <= mk_lang_countof(deflate->m_uncompressed_data_buf.m_data.m_u8s));
-
-	in_buf = data_in_buf;
-	in_len = data_in_len;
-	in_c = 0;
-	out_c = 0;
-	avail = mk_lang_countof(deflate->m_uncompressed_data_buf.m_data.m_u8s) - deflate->m_uncompressed_data_idx;
-	to_copy = mk_lang_min(avail, in_len);
-	mk_sl_cui_uint8_memcpy_fn(&deflate->m_uncompressed_data_buf.m_data.m_u8s[deflate->m_uncompressed_data_idx], in_buf, to_copy);
-	deflate->m_uncompressed_data_idx += to_copy;
-	in_c += to_copy;
-	*data_in_consumed = in_c;
-	*data_out_consumed = out_c;
-	return 0;
-}
-
-mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_deflate_pr_compute_header_if_possible(mk_lib_deflate_pt const deflate, mk_sl_cui_uint8_pct const data_in_buf, mk_lang_types_sint_t const data_in_len, mk_sl_cui_uint8_pt const data_out_buf, mk_lang_types_sint_t const data_out_len, mk_lang_types_sint_pt const data_in_consumed, mk_lang_types_sint_pt const data_out_consumed) mk_lang_noexcept
-{
-	mk_lang_types_sint_t in_c mk_lang_constexpr_init;
-	mk_lang_types_sint_t out_c mk_lang_constexpr_init;
-	mk_lang_types_sint_t ptr mk_lang_constexpr_init;
-	mk_sl_cui_uint16_t len mk_lang_constexpr_init;
-	mk_sl_cui_uint16_t nlen mk_lang_constexpr_init;
-
-	mk_lang_assert(deflate);
-	mk_lang_assert(data_in_buf || data_in_len == 0);
-	mk_lang_assert(data_in_len >= 0);
-	mk_lang_assert(data_out_buf || data_out_len == 0);
-	mk_lang_assert(data_out_len >= 0);
-	mk_lang_assert(data_in_consumed);
-	mk_lang_assert(data_out_consumed);
-	mk_lang_assert(deflate->m_uncompressed_data_idx >= 0);
-	mk_lang_assert(deflate->m_uncompressed_data_idx <= mk_lang_countof(deflate->m_uncompressed_data_buf.m_data.m_u8s));
-
-	in_c = 0;
-	out_c = 0;
-	if
-	(
-		(deflate->m_uncompressed_data_idx == mk_lang_countof(deflate->m_uncompressed_data_buf.m_data.m_u8s)) ||
-		(deflate->m_finish_requested && !deflate->m_finished)
-	)
-	{
-		if(!deflate->m_block_header_computed)
-		{
-			ptr = 0;
-			if(deflate->m_finish_requested)
-			{
-				mk_sl_cui_uint8_set_one(&deflate->m_block_header_buf[ptr]); ptr += mk_sl_cui_uint8_size_bytes_v;
-			}
-			else
-			{
-				mk_sl_cui_uint8_set_zero(&deflate->m_block_header_buf[ptr]); ptr += mk_sl_cui_uint8_size_bytes_v;
-			}
-			mk_sl_cui_uint16_from_bi_sint(&len, &deflate->m_uncompressed_data_idx);
-			mk_sl_uint_convert_16_8_le_to_sml(&len, &deflate->m_block_header_buf[ptr]); ptr += mk_sl_cui_uint16_size_bytes_v;
-			mk_sl_cui_uint16_not2(&len, &nlen);
-			mk_sl_uint_convert_16_8_le_to_sml(&nlen, &deflate->m_block_header_buf[ptr]);
-			deflate->m_block_header_beg = 0;
-			deflate->m_block_header_computed = mk_lang_true;
-			if(deflate->m_finish_requested)
-			{
-				deflate->m_finished = mk_lang_true;
-			}
-		}
-	}
-	*data_in_consumed = in_c;
-	*data_out_consumed = out_c;
-	return 0;
-}
-
-mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_deflate_pr_copy_header_if_possible(mk_lib_deflate_pt const deflate, mk_sl_cui_uint8_pct const data_in_buf, mk_lang_types_sint_t const data_in_len, mk_sl_cui_uint8_pt const data_out_buf, mk_lang_types_sint_t const data_out_len, mk_lang_types_sint_pt const data_in_consumed, mk_lang_types_sint_pt const data_out_consumed) mk_lang_noexcept
-{
-	mk_sl_cui_uint8_pt out_buf mk_lang_constexpr_init;
-	mk_lang_types_sint_t out_len mk_lang_constexpr_init;
-	mk_lang_types_sint_t in_c mk_lang_constexpr_init;
-	mk_lang_types_sint_t out_c mk_lang_constexpr_init;
-	mk_lang_types_sint_t avail mk_lang_constexpr_init;
-	mk_lang_types_sint_t to_copy mk_lang_constexpr_init;
-
-	mk_lang_assert(deflate);
-	mk_lang_assert(data_in_buf || data_in_len == 0);
-	mk_lang_assert(data_in_len >= 0);
-	mk_lang_assert(data_out_buf || data_out_len == 0);
-	mk_lang_assert(data_out_len >= 0);
-	mk_lang_assert(data_in_consumed);
-	mk_lang_assert(data_out_consumed);
-	mk_lang_assert(deflate->m_uncompressed_data_idx >= 0);
-	mk_lang_assert(deflate->m_uncompressed_data_idx <= mk_lang_countof(deflate->m_uncompressed_data_buf.m_data.m_u8s));
-	mk_lang_assert(deflate->m_block_header_beg >= 0);
-	mk_lang_assert(deflate->m_block_header_beg <= mk_lang_countof(deflate->m_block_header_buf));
-
-	out_buf = data_out_buf;
-	out_len = data_out_len;
-	in_c = 0;
-	out_c = 0;
-	if
-	(
-		(deflate->m_uncompressed_data_idx == mk_lang_countof(deflate->m_uncompressed_data_buf.m_data.m_u8s)) ||
-		(deflate->m_finish_requested && deflate->m_finished)
-	)
-	{
-		if(deflate->m_block_header_computed)
-		{
-			avail = mk_lang_countof(deflate->m_block_header_buf) - deflate->m_block_header_beg;
-			to_copy = mk_lang_min(avail, out_len);
-			mk_sl_cui_uint8_memcpy_fn(out_buf, &deflate->m_block_header_buf[deflate->m_block_header_beg], to_copy);
-			deflate->m_block_header_beg += to_copy;
-			out_c += to_copy;
-		}
-	}
-	*data_in_consumed = in_c;
-	*data_out_consumed = out_c;
-	return 0;
-}
-
-mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_deflate_pr_copy_compressed_if_possible(mk_lib_deflate_pt const deflate, mk_sl_cui_uint8_pct const data_in_buf, mk_lang_types_sint_t const data_in_len, mk_sl_cui_uint8_pt const data_out_buf, mk_lang_types_sint_t const data_out_len, mk_lang_types_sint_pt const data_in_consumed, mk_lang_types_sint_pt const data_out_consumed) mk_lang_noexcept
-{
-	mk_sl_cui_uint8_pt out_buf mk_lang_constexpr_init;
-	mk_lang_types_sint_t out_len mk_lang_constexpr_init;
-	mk_lang_types_sint_t in_c mk_lang_constexpr_init;
-	mk_lang_types_sint_t out_c mk_lang_constexpr_init;
-	mk_lang_types_sint_t avail mk_lang_constexpr_init;
-	mk_lang_types_sint_t to_copy mk_lang_constexpr_init;
-
-	mk_lang_assert(deflate);
-	mk_lang_assert(data_in_buf || data_in_len == 0);
-	mk_lang_assert(data_in_len >= 0);
-	mk_lang_assert(data_out_buf || data_out_len == 0);
-	mk_lang_assert(data_out_len >= 0);
-	mk_lang_assert(data_in_consumed);
-	mk_lang_assert(data_out_consumed);
-	mk_lang_assert(deflate->m_uncompressed_data_idx >= 0);
-	mk_lang_assert(deflate->m_uncompressed_data_idx <= mk_lang_countof(deflate->m_uncompressed_data_buf.m_data.m_u8s));
-	mk_lang_assert(deflate->m_uncompressed_data_beg >= 0);
-	mk_lang_assert(deflate->m_uncompressed_data_beg <= mk_lang_countof(deflate->m_uncompressed_data_buf.m_data.m_u8s));
-	mk_lang_assert(deflate->m_uncompressed_data_beg <= deflate->m_uncompressed_data_idx);
-	mk_lang_assert(deflate->m_block_header_beg >= 0);
-	mk_lang_assert(deflate->m_block_header_beg <= mk_lang_countof(deflate->m_block_header_buf));
-
-	out_buf = data_out_buf;
-	out_len = data_out_len;
-	in_c = 0;
-	out_c = 0;
-	if
-	(
-		(deflate->m_uncompressed_data_idx == mk_lang_countof(deflate->m_uncompressed_data_buf.m_data.m_u8s)) ||
-		(deflate->m_finish_requested && deflate->m_finished)
-	)
-	{
-		if(deflate->m_block_header_computed && deflate->m_block_header_beg == mk_lang_countof(deflate->m_block_header_buf));
-		{
-			avail = deflate->m_uncompressed_data_idx - deflate->m_uncompressed_data_beg;
-			to_copy = mk_lang_min(avail, out_len);
-			mk_sl_cui_uint8_memcpy_fn(out_buf, &deflate->m_uncompressed_data_buf.m_data.m_u8s[deflate->m_uncompressed_data_beg], to_copy);
-			deflate->m_uncompressed_data_beg += to_copy;
-			out_c += to_copy;
-		}
-	}
-	*data_in_consumed = in_c;
-	*data_out_consumed = out_c;
-	return 0;
-}
-
-mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_deflate_pr_reset_if_possible(mk_lib_deflate_pt const deflate, mk_sl_cui_uint8_pct const data_in_buf, mk_lang_types_sint_t const data_in_len, mk_sl_cui_uint8_pt const data_out_buf, mk_lang_types_sint_t const data_out_len, mk_lang_types_sint_pt const data_in_consumed, mk_lang_types_sint_pt const data_out_consumed) mk_lang_noexcept
-{
-	mk_lang_types_sint_t in_c mk_lang_constexpr_init;
-	mk_lang_types_sint_t out_c mk_lang_constexpr_init;
-
-	mk_lang_assert(deflate);
-	mk_lang_assert(data_in_buf || data_in_len == 0);
-	mk_lang_assert(data_in_len >= 0);
-	mk_lang_assert(data_out_buf || data_out_len == 0);
-	mk_lang_assert(data_out_len >= 0);
-	mk_lang_assert(data_in_consumed);
-	mk_lang_assert(data_out_consumed);
-	mk_lang_assert(deflate->m_uncompressed_data_idx >= 0);
-	mk_lang_assert(deflate->m_uncompressed_data_idx <= mk_lang_countof(deflate->m_uncompressed_data_buf.m_data.m_u8s));
-	mk_lang_assert(deflate->m_uncompressed_data_beg >= 0);
-	mk_lang_assert(deflate->m_uncompressed_data_beg <= mk_lang_countof(deflate->m_uncompressed_data_buf.m_data.m_u8s));
-	mk_lang_assert(deflate->m_uncompressed_data_beg <= deflate->m_uncompressed_data_idx);
-	mk_lang_assert(deflate->m_block_header_beg >= 0);
-	mk_lang_assert(deflate->m_block_header_beg <= mk_lang_countof(deflate->m_block_header_buf));
-
-	in_c = 0;
-	out_c = 0;
-	if(deflate->m_uncompressed_data_idx == mk_lang_countof(deflate->m_uncompressed_data_buf.m_data.m_u8s))
-	{
-		if(deflate->m_block_header_computed && deflate->m_block_header_beg == mk_lang_countof(deflate->m_block_header_buf));
-		{
-			if(deflate->m_uncompressed_data_beg == deflate->m_uncompressed_data_idx)
-			{
-				deflate->m_uncompressed_data_idx = 0;
-				deflate->m_uncompressed_data_beg = 0;
-				deflate->m_block_header_beg = 0;
-				deflate->m_block_header_computed = mk_lang_false;
-				deflate->m_finish_requested = mk_lang_false;
-				deflate->m_finished = mk_lang_false;
-			}
-		}
-	}
-	*data_in_consumed = in_c;
-	*data_out_consumed = out_c;
-	return 0;
-}
-
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_deflate_append(mk_lib_deflate_pt const deflate, mk_sl_cui_uint8_pct const data_in_buf, mk_lang_types_sint_t const data_in_len, mk_sl_cui_uint8_pt const data_out_buf, mk_lang_types_sint_t const data_out_len, mk_lang_types_sint_pt const data_in_consumed, mk_lang_types_sint_pt const data_out_consumed) mk_lang_noexcept
-{
-	mk_sl_cui_uint8_pct in_buf mk_lang_constexpr_init;
-	mk_lang_types_sint_t in_len mk_lang_constexpr_init;
-	mk_sl_cui_uint8_pt out_buf mk_lang_constexpr_init;
-	mk_lang_types_sint_t out_len mk_lang_constexpr_init;
-	mk_lang_types_sint_t err mk_lang_constexpr_init;
-	mk_lang_types_sint_t in_c mk_lang_constexpr_init;
-	mk_lang_types_sint_t out_c mk_lang_constexpr_init;
-
-	mk_lang_assert(deflate);
-	mk_lang_assert(data_in_buf || data_in_len == 0);
-	mk_lang_assert(data_in_len >= 0);
-	mk_lang_assert(data_out_buf || data_out_len == 0);
-	mk_lang_assert(data_out_len >= 0);
-	mk_lang_assert(data_in_consumed);
-	mk_lang_assert(data_out_consumed);
-
-	in_buf = data_in_buf;
-	in_len = data_in_len;
-	out_buf = data_out_buf;
-	out_len = data_out_len;
-	err = mk_lib_deflate_pr_copy_from_input_buffer_if_possible(deflate, in_buf, in_len, out_buf, out_len, &in_c, &out_c); mk_lang_check_rereturn(err);
-	in_buf += in_c;
-	in_len -= in_c;
-	out_buf += out_c;
-	out_len -= out_c;
-	err = mk_lib_deflate_pr_compute_header_if_possible(deflate, in_buf, in_len, out_buf, out_len, &in_c, &out_c); mk_lang_check_rereturn(err);
-	in_buf += in_c;
-	in_len -= in_c;
-	out_buf += out_c;
-	out_len -= out_c;
-	err = mk_lib_deflate_pr_copy_header_if_possible(deflate, in_buf, in_len, out_buf, out_len, &in_c, &out_c); mk_lang_check_rereturn(err);
-	in_buf += in_c;
-	in_len -= in_c;
-	out_buf += out_c;
-	out_len -= out_c;
-	err = mk_lib_deflate_pr_copy_compressed_if_possible(deflate, in_buf, in_len, out_buf, out_len, &in_c, &out_c); mk_lang_check_rereturn(err);
-	in_buf += in_c;
-	in_len -= in_c;
-	out_buf += out_c;
-	out_len -= out_c;
-	err = mk_lib_deflate_pr_reset_if_possible(deflate, in_buf, in_len, out_buf, out_len, &in_c, &out_c); mk_lang_check_rereturn(err);
-	in_buf += in_c;
-	in_len -= in_c;
-	out_buf += out_c;
-	out_len -= out_c;
-	in_c = data_in_len - in_len;
-	out_c = data_out_len - out_len;
-	*data_in_consumed = in_c;
-	*data_out_consumed = out_c;
-	return 0;
-}
-
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_deflate_finish(mk_lib_deflate_pt const deflate, mk_sl_cui_uint8_pt const data_out_buf, mk_lang_types_sint_t const data_out_len, mk_lang_types_sint_pt const data_out_consumed) mk_lang_noexcept
-{
-	mk_lang_types_sint_t err mk_lang_constexpr_init;
-	mk_lang_types_sint_t in_c mk_lang_constexpr_init;
-
-	mk_lang_assert(deflate);
-	mk_lang_assert(data_out_buf || data_out_len == 0);
-	mk_lang_assert(data_out_len >= 0);
-	mk_lang_assert(data_out_consumed);
-
-	deflate->m_finish_requested = mk_lang_true;
-	err = mk_lib_deflate_append(deflate, mk_lang_null, 0, data_out_buf, data_out_len, &in_c, data_out_consumed); mk_lang_check_rereturn(err);
-	return 0;
-}
-
-
-/* deflate */
-
-
-/* zlib */
-
-
-#include "mk_sl_cui_uint16.h"
-#include "mk_sl_uint_convert.h"
-
-
-enum mk_lib_zlib_header_len_e{ mk_lib_zlib_header_len_v = mk_sl_cui_uint8_size_bytes_v + mk_sl_cui_uint8_size_bytes_v }; typedef enum mk_lib_zlib_header_len_e mk_lib_zlib_header_len_t;
-
-#include "mk_lang_warning_msvc_push_c4820.h"
-struct mk_lib_zlib_s
-{
-	mk_lib_deflate_t m_deflate;
-	mk_lib_adler32b_t m_adler32;
-	mk_sl_cui_uint8_t m_stream_header_buf[mk_lib_zlib_header_len_v];
-	mk_lang_types_sint_t m_stream_header_beg;
-	mk_sl_cui_uint8_t m_stream_footer_buf[mk_sl_cui_uint32_size_bytes_v];
-	mk_lang_types_sint_t m_stream_footer_beg;
-	mk_lang_types_bool_t m_finish_requested;
-	mk_lang_types_bool_t m_finished;
-};
-typedef struct mk_lib_zlib_s mk_lib_zlib_t;
-mk_lang_typedef(mk_lib_zlib);
-#include "mk_lang_warning_msvc_pop.h"
-
-
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_zlib_init(mk_lib_zlib_pt const zlib) mk_lang_noexcept;
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_zlib_append(mk_lib_zlib_pt const zlib, mk_sl_cui_uint8_pct const data_in_buf, mk_lang_types_sint_t const data_in_len, mk_sl_cui_uint8_pt const data_out_buf, mk_lang_types_sint_t const data_out_len, mk_lang_types_sint_pt const data_in_consumed, mk_lang_types_sint_pt const data_out_consumed) mk_lang_noexcept;
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_zlib_finish(mk_lib_zlib_pt const zlib, mk_sl_cui_uint8_pt const data_out_buf, mk_lang_types_sint_t const data_out_len, mk_lang_types_sint_pt const data_out_consumed) mk_lang_noexcept;
-
-
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_zlib_init(mk_lib_zlib_pt const zlib) mk_lang_noexcept
-{
-	mk_lang_types_sint_t err mk_lang_constexpr_init;
-	mk_lang_types_uchar_t cmf mk_lang_constexpr_init;
-	mk_lang_types_uchar_t flg mk_lang_constexpr_init;
-	mk_lang_types_uchar_t fcheck mk_lang_constexpr_init;
-	mk_lang_types_sint_t ptr mk_lang_constexpr_init;
-
-	mk_lang_assert(zlib);
-
-	err = mk_lib_deflate_init(&zlib->m_deflate); mk_lang_check_rereturn(err);
-	err = mk_lib_adler32b_init(&zlib->m_adler32); mk_lang_check_rereturn(err);
-	cmf = 0x78; /* 0x08 == compression method, deflate */ /* 0x70 == compression info, 32 kB */
-	flg = 0x00; /* no dictionary, no compression */
-	fcheck = ((mk_lang_types_uchar_t)(((mk_lang_types_ushort_t)(((mk_lang_types_ushort_t)(31)) - ((mk_lang_types_ushort_t)(((mk_lang_types_ushort_t)((((mk_lang_types_ushort_t)(((mk_lang_types_ushort_t)(cmf)) << 8)) + ((mk_lang_types_ushort_t)(flg))))) % ((mk_lang_types_ushort_t)(31))))))));
-	flg = flg | fcheck;
-	ptr = 0;
-	mk_sl_cui_uint8_from_bi_uchar(&zlib->m_stream_header_buf[ptr], &cmf); ptr += mk_sl_cui_uint8_size_bytes_v;
-	mk_sl_cui_uint8_from_bi_uchar(&zlib->m_stream_header_buf[ptr], &flg); ptr += mk_sl_cui_uint8_size_bytes_v;
-	zlib->m_stream_header_beg = 0;
-	zlib->m_stream_footer_beg = 0;
-	zlib->m_finish_requested = mk_lang_false;
-	zlib->m_finished = mk_lang_false;
-	return 0;
-}
-
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_zlib_append(mk_lib_zlib_pt const zlib, mk_sl_cui_uint8_pct const data_in_buf, mk_lang_types_sint_t const data_in_len, mk_sl_cui_uint8_pt const data_out_buf, mk_lang_types_sint_t const data_out_len, mk_lang_types_sint_pt const data_in_consumed, mk_lang_types_sint_pt const data_out_consumed) mk_lang_noexcept
-{
-	mk_sl_cui_uint8_pct in_buf mk_lang_constexpr_init;
-	mk_lang_types_sint_t in_len mk_lang_constexpr_init;
-	mk_sl_cui_uint8_pt out_buf mk_lang_constexpr_init;
-	mk_lang_types_sint_t out_len mk_lang_constexpr_init;
-	mk_lang_types_sint_t err mk_lang_constexpr_init;
-	mk_lang_types_sint_t in_c mk_lang_constexpr_init;
-	mk_lang_types_sint_t out_c mk_lang_constexpr_init;
-	mk_lang_types_sint_t avail mk_lang_constexpr_init;
-	mk_lang_types_sint_t to_copy mk_lang_constexpr_init;
-	mk_sl_cui_uint32_t adler32 mk_lang_constexpr_init;
-
-	mk_lang_assert(zlib);
-	mk_lang_assert(data_in_buf || data_in_len == 0);
-	mk_lang_assert(data_in_len >= 0);
-	mk_lang_assert(data_out_buf || data_out_len == 0);
-	mk_lang_assert(data_out_len >= 0);
-	mk_lang_assert(data_in_consumed);
-	mk_lang_assert(data_out_consumed);
-
-	in_buf = data_in_buf;
-	in_len = data_in_len;
-	out_buf = data_out_buf;
-	out_len = data_out_len;
-	in_c = 0;
-	out_c = 0;
-	{
-		avail = mk_lang_countof(zlib->m_stream_header_buf) - zlib->m_stream_header_beg;
-		to_copy = mk_lang_min(avail, out_len);
-		mk_sl_cui_uint8_memcpy_fn(out_buf, &zlib->m_stream_header_buf[zlib->m_stream_header_beg], to_copy);
-		zlib->m_stream_header_beg += to_copy;
-		out_buf += to_copy;
-		out_len -= to_copy;
-	}
-	{
-		if(zlib->m_stream_header_beg == mk_lang_countof(zlib->m_stream_header_buf))
-		{
-			err = mk_lib_deflate_append(&zlib->m_deflate, in_buf, in_len, out_buf, out_len, &in_c, &out_c); mk_lang_check_rereturn(err);
-			err = mk_lib_adler32b_append(&zlib->m_adler32, in_buf, in_c); mk_lang_check_rereturn(err);
-			in_buf += in_c;
-			in_len -= in_c;
-			out_buf += out_c;
-			out_len -= out_c;
-		}
-	}
-	{
-		if
-		(
-			(zlib->m_stream_header_beg == mk_lang_countof(zlib->m_stream_header_buf)) &&
-			(zlib->m_finish_requested)
-		)
-		{
-			err = mk_lib_deflate_finish(&zlib->m_deflate, out_buf, out_len, &out_c); mk_lang_check_rereturn(err);
-			out_buf += out_c;
-			out_len -= out_c;
-			if(out_len != 0 && out_c == 0)
-			{
-				if(!zlib->m_finished)
-				{
-					zlib->m_finished = mk_lang_true;
-					err = mk_lib_adler32b_finish(&zlib->m_adler32, &adler32); mk_lang_check_rereturn(err);
-					mk_sl_uint_convert_32_8_be_to_sml(&adler32, &zlib->m_stream_footer_buf[0]);
-					zlib->m_stream_footer_beg = 0;
-				}
-			}
-		}
-	}
-	{
-		if(zlib->m_finish_requested && zlib->m_finished)
-		{
-			avail = mk_lang_countof(zlib->m_stream_footer_buf) - zlib->m_stream_footer_beg;
-			to_copy = mk_lang_min(avail, out_len);
-			mk_sl_cui_uint8_memcpy_fn(out_buf, &zlib->m_stream_footer_buf[zlib->m_stream_footer_beg], to_copy);
-			zlib->m_stream_footer_beg += to_copy;
-			out_buf += to_copy;
-			out_len -= to_copy;
-		}
-	}
-	in_c = data_in_len - in_len;
-	out_c = data_out_len - out_len;
-	*data_in_consumed = in_c;
-	*data_out_consumed = out_c;
-	return 0;
-}
-
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_zlib_finish(mk_lib_zlib_pt const zlib, mk_sl_cui_uint8_pt const data_out_buf, mk_lang_types_sint_t const data_out_len, mk_lang_types_sint_pt const data_out_consumed) mk_lang_noexcept
-{
-	mk_lang_types_sint_t err mk_lang_constexpr_init;
-	mk_lang_types_sint_t in_c mk_lang_constexpr_init;
-
-	mk_lang_assert(zlib);
-	mk_lang_assert(data_out_buf || data_out_len == 0);
-	mk_lang_assert(data_out_len >= 0);
-	mk_lang_assert(data_out_consumed);
-
-	zlib->m_finish_requested = mk_lang_true;
-	err = mk_lib_zlib_append(zlib, mk_lang_null, 0, data_out_buf, data_out_len, &in_c, data_out_consumed); mk_lang_check_rereturn(err);
-	return 0;
-}
-
-
-/* zlib */
 
 
 #define mk_lib_fast_import_k_buf_len 512
@@ -1146,7 +443,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_save_blob_to_database_4(mk_sl_io_writer_file_pt const writer, mk_lib_zlib_pt const zlib) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_save_blob_to_database_4(mk_sl_io_writer_file_pt const writer, mk_lib_compress_zlib_pt const zlib) mk_lang_noexcept
 {
 	mk_lang_types_sint_t out_len;
 	mk_sl_cui_uint8_t out_buf[4 * 1024];
@@ -1160,13 +457,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	do
 	{
 		out_len = mk_lang_countof(out_buf);
-		err = mk_lib_zlib_finish(zlib, &out_buf[0], out_len, &out_c); mk_lang_check_rereturn(err);
+		mk_lib_compress_zlib_finish(zlib, &out_buf[0], out_len, &out_c);
 		err = mk_sl_io_writer_file_write(writer, &out_buf[0], out_c, &w); mk_lang_check_rereturn(err); mk_lang_check_return(w == out_c);
 	}while(out_c != 0);
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_save_blob_to_database_3(mk_sl_io_writer_file_pt const writer, mk_lib_zlib_pt const zlib, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_save_blob_to_database_3(mk_sl_io_writer_file_pt const writer, mk_lib_compress_zlib_pt const zlib, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_pct in_buf;
 	mk_lang_types_sint_t in_len;
@@ -1187,7 +484,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	while(in_len != 0)
 	{
 		out_len = mk_lang_countof(out_buf);
-		err = mk_lib_zlib_append(zlib, in_buf, in_len, &out_buf[0], out_len, &in_c, &out_c); mk_lang_check_rereturn(err);
+		mk_lib_compress_zlib_append(zlib, in_buf, in_len, &out_buf[0], out_len, &in_c, &out_c);
 		err = mk_sl_io_writer_file_write(writer, &out_buf[0], out_c, &w); mk_lang_check_rereturn(err); mk_lang_check_return(w == out_c);
 		in_buf += in_c;
 		in_len -= in_c;
@@ -1209,7 +506,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	mk_sl_cui_uint8_t str_u8[mk_lang_bui_uint_strlen_dec_v];
 	mk_sl_cui_uint8_t zero;
 	mk_lang_types_sint_t err;
-	mk_lib_zlib_t zlib;
+	mk_lib_compress_zlib_t zlib;
 
 	mk_lang_assert(fi);
 	mk_lang_assert(writer);
@@ -1223,7 +520,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	len = mk_lang_bui_uint_to_str_dec_n(&bui, &str_pc[0], mk_lang_bui_uint_strlen_dec_v);
 	mk_sl_cui_uint8_from_bi_pchar_many(&str_u8[0], &str_pc[0], mk_lang_bui_uint_strlen_dec_v);
 	mk_sl_cui_uint8_set_zero(&zero);
-	err = mk_lib_zlib_init(&zlib); mk_lang_check_rereturn(err);
+	mk_lib_compress_zlib_init(&zlib);
 	err = mk_lib_fast_import_pr_save_blob_to_database_3(writer, &zlib, &prefix[0], mk_lang_countof(prefix)); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_pr_save_blob_to_database_3(writer, &zlib, &str_u8[0], len); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_pr_save_blob_to_database_3(writer, &zlib, &zero, 1); mk_lang_check_rereturn(err);
@@ -1305,7 +602,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_tree_append_u8s(mk_lib_fast_import_pt const fi, mk_lib_zlib_pt const zlib, mk_lib_fast_import_binary_data_pt const bytes, mk_sl_cui_uint8_pct const buf, mk_lang_types_sint_t const len) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_tree_append_u8s(mk_lib_fast_import_pt const fi, mk_lib_compress_zlib_pt const zlib, mk_lib_fast_import_binary_data_pt const bytes, mk_sl_cui_uint8_pct const buf, mk_lang_types_sint_t const len) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_pct in_buf;
 	mk_lang_types_sint_t in_len;
@@ -1328,7 +625,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	out_len = mk_lang_countof(u8s);
 	do
 	{
-		err = mk_lib_zlib_append(zlib, in_buf, in_len, out_buf, out_len, &in_c, &out_c); mk_lang_check_rereturn(err);
+		mk_lib_compress_zlib_append(zlib, in_buf, in_len, out_buf, out_len, &in_c, &out_c);
 		err = mk_lib_fast_import_binary_data_rw_push_back_copy_many(bytes, out_buf, out_c); mk_lang_check_rereturn(err);
 		in_buf += in_c;
 		in_len -= in_c;
@@ -1336,7 +633,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_tree_append_pchars(mk_lib_fast_import_pt const fi, mk_lib_zlib_pt const zlib, mk_lib_fast_import_binary_data_pt const bytes, mk_lang_types_pchar_pct const buf, mk_lang_types_sint_t const len) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_tree_append_pchars(mk_lib_fast_import_pt const fi, mk_lib_compress_zlib_pt const zlib, mk_lib_fast_import_binary_data_pt const bytes, mk_lang_types_pchar_pct const buf, mk_lang_types_sint_t const len) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_t u8s[512];
 	mk_lang_types_sint_t err;
@@ -1356,7 +653,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_tree_finish(mk_lib_fast_import_pt const fi, mk_lib_zlib_pt const zlib, mk_lib_fast_import_binary_data_pt const bytes) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_tree_finish(mk_lib_fast_import_pt const fi, mk_lib_compress_zlib_pt const zlib, mk_lib_fast_import_binary_data_pt const bytes) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_pt out_buf;
 	mk_sl_cui_uint8_t u8s[512];
@@ -1372,13 +669,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	out_len = mk_lang_countof(u8s);
 	do
 	{
-		err = mk_lib_zlib_finish(zlib, out_buf, out_len, &out_c); mk_lang_check_rereturn(err);
+		mk_lib_compress_zlib_finish(zlib, out_buf, out_len, &out_c);
 		err = mk_lib_fast_import_binary_data_rw_push_back_copy_many(bytes, out_buf, out_c); mk_lang_check_rereturn(err);
 	}while(out_c != 0);
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_tree_append_file_op_mode(mk_lib_fast_import_pt const fi, mk_lib_zlib_pt const zlib, mk_lib_fast_import_binary_data_pt const bytes, mk_lib_fast_import_file_op_pct const file_op) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_tree_append_file_op_mode(mk_lib_fast_import_pt const fi, mk_lib_compress_zlib_pt const zlib, mk_lib_fast_import_binary_data_pt const bytes, mk_lib_fast_import_file_op_pct const file_op) mk_lang_noexcept
 {
 	mk_lang_types_sint_t slen;
 	mk_lang_types_pchar_t str[mk_sl_cui_uint32_strlen_dec_v];
@@ -1396,7 +693,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_tree_append_file_op_sp(mk_lib_fast_import_pt const fi, mk_lib_zlib_pt const zlib, mk_lib_fast_import_binary_data_pt const bytes, mk_lib_fast_import_file_op_pct const file_op) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_tree_append_file_op_sp(mk_lib_fast_import_pt const fi, mk_lib_compress_zlib_pt const zlib, mk_lib_fast_import_binary_data_pt const bytes, mk_lib_fast_import_file_op_pct const file_op) mk_lang_noexcept
 {
 	mk_lang_types_pchar_t tpc;
 	mk_sl_cui_uint8_t u8s;
@@ -1413,7 +710,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_tree_append_file_op_nul(mk_lib_fast_import_pt const fi, mk_lib_zlib_pt const zlib, mk_lib_fast_import_binary_data_pt const bytes, mk_lib_fast_import_file_op_pct const file_op) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_tree_append_file_op_nul(mk_lib_fast_import_pt const fi, mk_lib_compress_zlib_pt const zlib, mk_lib_fast_import_binary_data_pt const bytes, mk_lib_fast_import_file_op_pct const file_op) mk_lang_noexcept
 {
 	mk_lang_types_pchar_t tpc;
 	mk_sl_cui_uint8_t u8s;
@@ -1430,7 +727,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_tree_append_file_op_name(mk_lib_fast_import_pt const fi, mk_lib_zlib_pt const zlib, mk_lib_fast_import_binary_data_pt const bytes, mk_lib_fast_import_file_op_pct const file_op) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_tree_append_file_op_name(mk_lib_fast_import_pt const fi, mk_lib_compress_zlib_pt const zlib, mk_lib_fast_import_binary_data_pt const bytes, mk_lib_fast_import_file_op_pct const file_op) mk_lang_noexcept
 {
 	mk_lang_types_usize_t u_file_name;
 	mk_lang_types_sint_t i_file_name;
@@ -1476,7 +773,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_tree_append_file_op_digest(mk_lib_fast_import_pt const fi, mk_lib_zlib_pt const zlib, mk_lib_fast_import_binary_data_pt const bytes, mk_lib_fast_import_file_op_pct const file_op) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_tree_append_file_op_digest(mk_lib_fast_import_pt const fi, mk_lib_compress_zlib_pt const zlib, mk_lib_fast_import_binary_data_pt const bytes, mk_lib_fast_import_file_op_pct const file_op) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 	mk_lib_crypto_hash_stream_sha1_digest_pct digest;
@@ -1491,7 +788,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_tree_append_file_op(mk_lib_fast_import_pt const fi, mk_lib_zlib_pt const zlib, mk_lib_fast_import_binary_data_pt const bytes, mk_lib_fast_import_file_op_pct const file_op) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_tree_append_file_op(mk_lib_fast_import_pt const fi, mk_lib_compress_zlib_pt const zlib, mk_lib_fast_import_binary_data_pt const bytes, mk_lib_fast_import_file_op_pct const file_op) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 
@@ -1517,7 +814,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	mk_lang_types_pchar_t str[mk_lang_bui_uint_strlen_dec_v];
 	mk_lang_types_sint_t size;
 	mk_lang_types_pchar_t nul;
-	mk_lib_zlib_t zlib;
+	mk_lib_compress_zlib_t zlib;
 	mk_lang_types_usize_t n;
 	mk_lang_types_usize_t i;
 	mk_lib_fast_import_file_op_pct file_op;
@@ -1541,7 +838,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	size += ulen;
 	size += 4; /* zlib footer */
 	err = mk_lib_fast_import_binary_data_rw_reserve_at_least(bytes, size); mk_lang_check_rereturn(err);
-	err = mk_lib_zlib_init(&zlib); mk_lang_check_rereturn(err);
+	mk_lib_compress_zlib_init(&zlib);
 	err = mk_lib_fast_import_pr_tree_append_pchars(fi, &zlib, bytes, &mk_lib_fast_import_k_treesp[0], mk_lang_countstr(mk_lib_fast_import_k_treesp)); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_pr_tree_append_pchars(fi, &zlib, bytes, &str[0], slen); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_pr_tree_append_pchars(fi, &zlib, bytes, &nul, 1); mk_lang_check_rereturn(err);
@@ -2925,7 +2222,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 struct mk_lib_fast_import_zlib_and_digest_s
 {
 	mk_lib_fast_import_pt m_fi;
-	mk_lib_zlib_t m_zlib;
+	mk_lib_compress_zlib_t m_zlib;
 	mk_lib_crypto_hash_stream_sha1_t m_hasher;
 	mk_lib_fast_import_binary_data_pt m_bytes;
 	mk_lib_crypto_hash_stream_sha1_digest_pt m_digest;
@@ -2936,15 +2233,13 @@ mk_lang_typedef(mk_lib_fast_import_zlib_and_digest);
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_zlib_and_digest_init(mk_lib_fast_import_zlib_and_digest_pt const zlib_and_digest, mk_lib_fast_import_pt const fi, mk_lib_fast_import_binary_data_pt const bytes, mk_lib_crypto_hash_stream_sha1_digest_pt const digest) mk_lang_noexcept
 {
-	mk_lang_types_sint_t err;
-
 	mk_lang_assert(zlib_and_digest);
 	mk_lang_assert(fi);
 	mk_lang_assert(bytes);
 	mk_lang_assert(digest);
 
 	zlib_and_digest->m_fi = fi;
-	err = mk_lib_zlib_init(&zlib_and_digest->m_zlib); mk_lang_check_rereturn(err);
+	mk_lib_compress_zlib_init(&zlib_and_digest->m_zlib);
 	mk_lib_crypto_hash_stream_sha1_init(&zlib_and_digest->m_hasher);
 	zlib_and_digest->m_bytes = bytes;
 	zlib_and_digest->m_digest = digest;
@@ -2972,7 +2267,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	out_len = mk_lang_countof(u8s);
 	do
 	{
-		err = mk_lib_zlib_append(&zlib_and_digest->m_zlib, in_buf, in_len, out_buf, out_len, &in_c, &out_c); mk_lang_check_rereturn(err);
+		mk_lib_compress_zlib_append(&zlib_and_digest->m_zlib, in_buf, in_len, out_buf, out_len, &in_c, &out_c);
 		err = mk_lib_fast_import_binary_data_rw_push_back_copy_many(zlib_and_digest->m_bytes, out_buf, out_c); mk_lang_check_rereturn(err);
 		mk_lib_crypto_hash_stream_sha1_append_u8s(&zlib_and_digest->m_hasher, in_buf, in_c);
 		in_buf += in_c;
@@ -3013,14 +2308,14 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	out_len = mk_lang_countof(u8s);
 	do
 	{
-		err = mk_lib_zlib_finish(&zlib_and_digest->m_zlib, out_buf, out_len, &out_c); mk_lang_check_rereturn(err);
+		mk_lib_compress_zlib_finish(&zlib_and_digest->m_zlib, out_buf, out_len, &out_c);
 		err = mk_lib_fast_import_binary_data_rw_push_back_copy_many(zlib_and_digest->m_bytes, out_buf, out_c); mk_lang_check_rereturn(err);
 	}while(out_c != 0);
 	mk_lib_crypto_hash_stream_sha1_finish(&zlib_and_digest->m_hasher, zlib_and_digest->m_digest);
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_zlib_append_u32_str(mk_lib_fast_import_pt const fi, mk_lib_zlib_pt const zlib, mk_lib_fast_import_binary_data_pt const bytes, mk_sl_cui_uint32_pct const u32) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_zlib_append_u32_str(mk_lib_fast_import_pt const fi, mk_lib_compress_zlib_pt const zlib, mk_lib_fast_import_binary_data_pt const bytes, mk_sl_cui_uint32_pct const u32) mk_lang_noexcept
 {
 	mk_lang_types_sint_t slen;
 	mk_lang_types_pchar_t str[mk_sl_cui_uint32_strlen_dec_v];
