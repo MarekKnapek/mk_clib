@@ -76,6 +76,16 @@ mk_lang_nodiscard mk_lang_constexpr auto mk_lib_cpp_constexpr_array_u8_from_hex_
 	return res;
 }
 
+template<>
+mk_lang_nodiscard mk_lang_constexpr auto mk_lib_cpp_constexpr_array_u8_from_hex_lit<1>(mk_lang_types_pchar_t const(&hex_lit)[1]) mk_lang_noexcept
+{
+	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, 0> res mk_lang_constexpr_init;
+
+	((mk_lang_types_void_t)(hex_lit));
+
+	return res;
+}
+
 template<mk_lang_types_usize_t arr_len>
 mk_lang_nodiscard mk_lang_constexpr auto mk_lib_cpp_constexpr_array_u8_from_u8s(mk_sl_cui_uint8_t const(&arr)[arr_len]) mk_lang_noexcept
 {
