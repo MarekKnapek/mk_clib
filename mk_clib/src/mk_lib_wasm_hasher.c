@@ -63,6 +63,8 @@ mk_lang_constexpr_static_inline mk_lang_types_sint_t const mk_lib_wasm_hasher_k_
 	mk_lib_wasm_hasher_type_hash + mk_lib_crypto_hash_stream_any1_id_e_sha3_512,
 	mk_lib_wasm_hasher_type_xof  + mk_lib_crypto_xof_stream_any1_id_e_shake_128,
 	mk_lib_wasm_hasher_type_xof  + mk_lib_crypto_xof_stream_any1_id_e_shake_256,
+	mk_lib_wasm_hasher_type_xof  + mk_lib_crypto_xof_stream_any1_id_e_turbo_shake_128,
+	mk_lib_wasm_hasher_type_xof  + mk_lib_crypto_xof_stream_any1_id_e_turbo_shake_256,
 	mk_lib_wasm_hasher_type_hash + mk_lib_crypto_hash_stream_any1_id_e_blake2s_128,
 	mk_lib_wasm_hasher_type_hash + mk_lib_crypto_hash_stream_any1_id_e_blake2s_160,
 	mk_lib_wasm_hasher_type_hash + mk_lib_crypto_hash_stream_any1_id_e_blake2s_224,

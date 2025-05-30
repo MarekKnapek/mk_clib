@@ -173,18 +173,32 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_hash_
 	mk_sl_cui_uint64_xor2(&mk_lib_crypto_hash_block_sha3_base_get_25(sha3_base->m_data.m_uint64s, 0, 0), &mk_lib_crypto_hash_block_sha3_base_k_rc_nums.m_data.m_uint64s[rcidx]);
 }
 
-mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_hash_block_sha3_base_rnd(mk_lib_crypto_hash_block_sha3_base_pt const sha3_base, mk_lang_types_sint_t const rcidx) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_hash_block_sha3_base_rnd_24(mk_lib_crypto_hash_block_sha3_base_pt const sha3_base, mk_lang_types_sint_t const rcidx) mk_lang_noexcept
 {
 	mk_lib_crypto_hash_block_sha3_base_t tmp mk_lang_constexpr_init;
 
 	mk_lang_assert(sha3_base);
-	mk_lang_assert(rcidx >= 0 && rcidx <= 23);
+	mk_lang_assert(rcidx >= 0 && rcidx < 24);
 
 	mk_lib_crypto_hash_block_sha3_base_theta(sha3_base, &tmp);
 	mk_lib_crypto_hash_block_sha3_base_rho(&tmp, sha3_base);
 	mk_lib_crypto_hash_block_sha3_base_pi(sha3_base, &tmp);
 	mk_lib_crypto_hash_block_sha3_base_chi(&tmp, sha3_base);
 	mk_lib_crypto_hash_block_sha3_base_iota(sha3_base, rcidx);
+}
+
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_hash_block_sha3_base_rnd_12(mk_lib_crypto_hash_block_sha3_base_pt const sha3_base, mk_lang_types_sint_t const rcidx) mk_lang_noexcept
+{
+	mk_lib_crypto_hash_block_sha3_base_t tmp mk_lang_constexpr_init;
+
+	mk_lang_assert(sha3_base);
+	mk_lang_assert(rcidx >= 0 && rcidx < 12);
+
+	mk_lib_crypto_hash_block_sha3_base_theta(sha3_base, &tmp);
+	mk_lib_crypto_hash_block_sha3_base_rho(&tmp, sha3_base);
+	mk_lib_crypto_hash_block_sha3_base_pi(sha3_base, &tmp);
+	mk_lib_crypto_hash_block_sha3_base_chi(&tmp, sha3_base);
+	mk_lib_crypto_hash_block_sha3_base_iota(sha3_base, 12 + rcidx);
 }
 
 mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_hash_block_sha3_base_p(mk_lib_crypto_hash_block_sha3_base_pt const sha3_base) mk_lang_noexcept
@@ -195,7 +209,19 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_hash_
 
 	for(ir = 0; ir != 24; ++ir)
 	{
-		mk_lib_crypto_hash_block_sha3_base_rnd(sha3_base, ir);
+		mk_lib_crypto_hash_block_sha3_base_rnd_24(sha3_base, ir);
+	}
+}
+
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_hash_block_sha3_base_p_b_1600_nr_12(mk_lib_crypto_hash_block_sha3_base_pt const sha3_base) mk_lang_noexcept
+{
+	mk_lang_types_sint_t ir mk_lang_constexpr_init;
+
+	mk_lang_assert(sha3_base);
+
+	for(ir = 0; ir != 12; ++ir)
+	{
+		mk_lib_crypto_hash_block_sha3_base_rnd_12(sha3_base, ir);
 	}
 }
 
@@ -212,6 +238,13 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sh
 	mk_lang_assert(sha3_base);
 
 	mk_lib_crypto_hash_block_sha3_base_p(sha3_base);
+}
+
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sha3_base_f_turbo(mk_lib_crypto_hash_block_sha3_base_pt const sha3_base) mk_lang_noexcept
+{
+	mk_lang_assert(sha3_base);
+
+	mk_lib_crypto_hash_block_sha3_base_p_b_1600_nr_12(sha3_base);
 }
 
 

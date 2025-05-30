@@ -5,4 +5,6 @@ define(`mk_lib_crypto_xof_stream_any_mm_per_xof', `mk_lib_crypto_xof_stream_any_
 `blake3',
 `shake_128',
 `shake_256',
+`turbo_shake_128',
+`turbo_shake_256',
 `')')dnl

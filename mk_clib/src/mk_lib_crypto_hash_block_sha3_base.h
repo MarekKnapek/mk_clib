@@ -30,6 +30,7 @@ mk_lang_typedef(mk_lib_crypto_hash_block_sha3_base);
 
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sha3_base_init(mk_lib_crypto_hash_block_sha3_base_pt const sha3_base) mk_lang_noexcept;
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sha3_base_f(mk_lib_crypto_hash_block_sha3_base_pt const sha3_base) mk_lang_noexcept;
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sha3_base_f_turbo(mk_lib_crypto_hash_block_sha3_base_pt const sha3_base) mk_lang_noexcept;
 
 
 #if mk_lang_jumbo_have == 1
