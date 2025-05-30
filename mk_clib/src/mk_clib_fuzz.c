@@ -16,11 +16,9 @@
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_runtime_bool.h"
-#include "mk_lang_stdout.h"
 #include "mk_lang_str_len.h"
 #include "mk_lang_str_match.h"
 #include "mk_lang_types.h"
-#include "mk_sl_mallocator.h"
 
 #include "mk_lib_crypto_alg_aes_fuzz.h"
 #include "mk_lib_crypto_any_piecewise_fuzz.h"
@@ -353,8 +351,6 @@ mk_lang_extern_force_c mk_lang_nodiscard mk_lang_inline mk_lang_types_sint_t mk_
 	if(!mk_clib_fuzz_g_once)
 	{
 		mk_clib_fuzz_g_once = mk_lang_true;
-		err = mk_sl_mallocator_init(); mk_lang_check_rereturn(err);
-		err = mk_lang_stdout_init(); mk_lang_check_rereturn(err);
 		mk_clib_test();
 	}
 	err = mk_clib_fuzz_process_ctx(ctx); mk_lang_check_rereturn(err);
