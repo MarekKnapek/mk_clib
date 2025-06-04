@@ -50,7 +50,8 @@
 #define mk_lang_typedef(x) \
 	mk_lang_typedef_next_a(x, t); \
 	mk_lang_typedef_next_a(x, pt); \
-	mk_lang_typedef_next_a(x, pct)
+	mk_lang_typedef_next_a(x, pct); \
+	mk_lang_typedef_next_a(x, ppt)
 
 #define mk_lang_forward(x) \
 	struct x##_s; \
