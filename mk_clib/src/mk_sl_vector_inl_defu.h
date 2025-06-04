@@ -167,6 +167,33 @@
 #undef mk_sl_vector_inl_defd_element_nprcpct
 #undef mk_sl_vector_inl_defd_element_nprvpct
 #undef mk_sl_vector_inl_defd_element_nprcvpct
+#undef mk_sl_vector_inl_defd_element_cppt
+#undef mk_sl_vector_inl_defd_element_vppt
+#undef mk_sl_vector_inl_defd_element_cvppt
+#undef mk_sl_vector_inl_defd_element_pppt
+#undef mk_sl_vector_inl_defd_element_pcppt
+#undef mk_sl_vector_inl_defd_element_pvppt
+#undef mk_sl_vector_inl_defd_element_pcvppt
+#undef mk_sl_vector_inl_defd_element_prppt
+#undef mk_sl_vector_inl_defd_element_prcppt
+#undef mk_sl_vector_inl_defd_element_prvppt
+#undef mk_sl_vector_inl_defd_element_prcvppt
+#undef mk_sl_vector_inl_defd_element_lpppt
+#undef mk_sl_vector_inl_defd_element_lpcppt
+#undef mk_sl_vector_inl_defd_element_lpvppt
+#undef mk_sl_vector_inl_defd_element_lpcvppt
+#undef mk_sl_vector_inl_defd_element_lprppt
+#undef mk_sl_vector_inl_defd_element_lprcppt
+#undef mk_sl_vector_inl_defd_element_lprvppt
+#undef mk_sl_vector_inl_defd_element_lprcvppt
+#undef mk_sl_vector_inl_defd_element_npppt
+#undef mk_sl_vector_inl_defd_element_npcppt
+#undef mk_sl_vector_inl_defd_element_npvppt
+#undef mk_sl_vector_inl_defd_element_npcvppt
+#undef mk_sl_vector_inl_defd_element_nprppt
+#undef mk_sl_vector_inl_defd_element_nprcppt
+#undef mk_sl_vector_inl_defd_element_nprvppt
+#undef mk_sl_vector_inl_defd_element_nprcvppt
 
 
 
@@ -292,6 +319,33 @@
 #undef mk_sl_vector_inl_defd_nprcpct
 #undef mk_sl_vector_inl_defd_nprvpct
 #undef mk_sl_vector_inl_defd_nprcvpct
+#undef mk_sl_vector_inl_defd_cppt
+#undef mk_sl_vector_inl_defd_vppt
+#undef mk_sl_vector_inl_defd_cvppt
+#undef mk_sl_vector_inl_defd_pppt
+#undef mk_sl_vector_inl_defd_pcppt
+#undef mk_sl_vector_inl_defd_pvppt
+#undef mk_sl_vector_inl_defd_pcvppt
+#undef mk_sl_vector_inl_defd_prppt
+#undef mk_sl_vector_inl_defd_prcppt
+#undef mk_sl_vector_inl_defd_prvppt
+#undef mk_sl_vector_inl_defd_prcvppt
+#undef mk_sl_vector_inl_defd_lpppt
+#undef mk_sl_vector_inl_defd_lpcppt
+#undef mk_sl_vector_inl_defd_lpvppt
+#undef mk_sl_vector_inl_defd_lpcvppt
+#undef mk_sl_vector_inl_defd_lprppt
+#undef mk_sl_vector_inl_defd_lprcppt
+#undef mk_sl_vector_inl_defd_lprvppt
+#undef mk_sl_vector_inl_defd_lprcvppt
+#undef mk_sl_vector_inl_defd_npppt
+#undef mk_sl_vector_inl_defd_npcppt
+#undef mk_sl_vector_inl_defd_npvppt
+#undef mk_sl_vector_inl_defd_npcvppt
+#undef mk_sl_vector_inl_defd_nprppt
+#undef mk_sl_vector_inl_defd_nprcppt
+#undef mk_sl_vector_inl_defd_nprvppt
+#undef mk_sl_vector_inl_defd_nprcvppt
 
 
 #undef mk_sl_vector_inl_defd_mallocator_member
