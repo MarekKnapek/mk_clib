@@ -19,6 +19,7 @@
 #include "mk_lang_str_len.h"
 #include "mk_lang_str_match.h"
 #include "mk_lang_types.h"
+#include "mk_sl_mallocator.h"
 
 #include "mk_lib_crypto_alg_aes_fuzz.h"
 #include "mk_lib_crypto_any_piecewise_fuzz.h"
@@ -333,6 +334,14 @@ mk_lang_extern_force_c mk_lang_nodiscard mk_lang_inline mk_lang_types_sint_t mk_
 	ctx->m_argv = argv;
 	ctx->m_line = -1;
 	return 0;
+}
+
+mk_lang_extern_force_c mk_lang_nodiscard mk_lang_inline mk_lang_types_sint_t mk_clib_fuzz_init_mallocator(mk_lang_types_void_t) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	err = mk_sl_mallocator_init(); mk_lang_check_rereturn(err);
+ return 0;
 }
 
 mk_lang_extern_force_c mk_lang_nodiscard mk_lang_inline mk_lang_types_sint_t mk_clib_fuzz(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size, mk_lang_types_bool_t const allow_all, mk_clib_fuzz_ctx_pt const ctx) mk_lang_noexcept
