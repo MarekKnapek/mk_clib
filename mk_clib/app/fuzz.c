@@ -25,6 +25,15 @@ mk_lang_extern_force_c mk_lang_nodiscard mk_lang_types_usize_t LLVMFuzzerCustomM
 	return s;
 }
 
+mk_lang_extern_force_c mk_lang_nodiscard mk_lang_types_sint_t LLVMFuzzerInitialize(mk_lang_types_sint_pt const argc, mk_lang_types_pchar_pppt const argv) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	((mk_lang_types_void_t)(argc));
+	((mk_lang_types_void_t)(argv));
+	err = mk_clib_fuzz_init_mallocator(); mk_lang_test(err == 0);
+ return 0;
+}
 
 mk_lang_extern_force_c mk_lang_nodiscard mk_lang_types_sint_t LLVMFuzzerTestOneInput(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
 {
