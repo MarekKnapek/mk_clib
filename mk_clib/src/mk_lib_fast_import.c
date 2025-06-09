@@ -4,8 +4,10 @@
 
 #include "mk_lang_assert.h"
 #include "mk_lang_bool.h"
+#include "mk_lang_bui.h"
 #include "mk_lang_check.h"
 #include "mk_lang_clobber.h"
+#include "mk_lang_constexpr.h"
 #include "mk_lang_countof.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
@@ -14,24 +16,25 @@
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_null.h"
+#include "mk_lang_runtime_bool.h"
 #include "mk_lang_static_assert.h"
 #include "mk_lang_stdout.h"
 #include "mk_lang_str_len.h"
 #include "mk_lang_string.h"
+#include "mk_lang_typedef.h"
 #include "mk_lang_types.h"
-#include "mk_lib_compress_deflate.h"
 #include "mk_lib_compress_zlib.h"
 #include "mk_lib_crypto_hash_stream_sha1.h"
 #include "mk_lib_decompress_zlib.h"
 #include "mk_lib_hash_adler32.h"
 #include "mk_sl_cui_uint128.h"
-#include "mk_sl_cui_uint64.h"
+#include "mk_sl_cui_uint32.h"
 #include "mk_sl_cui_uint8.h"
 #include "mk_sl_io_reader_file.h"
 #include "mk_sl_io_writer_file.h"
-#include "mk_sl_mallocator_lokal_arena.h"
 #include "mk_sl_mallocator_lokal_windows.h" /* todo */
 #include "mk_sl_uint_more.h"
+#include "mk_win_base.h" /* todo */
 #include "mk_win_dll_kernel_errors.h" /* todo */
 #include "mk_win_dll_kernel_files.h" /* todo */
 
@@ -2039,7 +2042,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_save_blob_to_database(mk_lib_fast_import_pt const fi, mk_lib_fast_import_blob_pct const blob) mk_lang_noexcept
 {
 	mk_lang_types_pchar_t tpc;
-	mk_lang_types_pchar_t str[mk_lib_crypto_hash_block_sha1_digest_len_v * mk_sl_cui_uint8_strlen_hex_v];
+	mk_lang_types_pchar_t str[mk_lib_crypto_hash_stream_sha1_digest_len_v * mk_sl_cui_uint8_strlen_hex_v];
 	mk_lang_types_usize_t old_len;
 	mk_lang_types_sint_t err;
 	mk_lang_types_sint_t len;
@@ -2069,8 +2072,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	err = mk_lib_fast_import_string_rw_pop_back_single(&fi->m_output_dir); mk_lang_check_rereturn(err);
 	tpc = '\\';
 	err = mk_lib_fast_import_string_rw_push_back_copy_single(&fi->m_output_dir, &tpc); mk_lang_check_rereturn(err);
-	len = mk_sl_cui_uint8_to_str_hexf_many_n(&blob->m_digest.m_data.m_uint8s[1], mk_lib_crypto_hash_block_sha1_digest_len_v - 1, &str[0], mk_lang_countof(str)); mk_lang_assert(len == (mk_lib_crypto_hash_block_sha1_digest_len_v - 1) * mk_sl_cui_uint8_strlen_hex_v);
-	err = mk_lib_fast_import_string_rw_push_back_copy_many(&fi->m_output_dir, &str[0], (mk_lib_crypto_hash_block_sha1_digest_len_v - 1) * mk_sl_cui_uint8_strlen_hex_v); mk_lang_check_rereturn(err);
+	len = mk_sl_cui_uint8_to_str_hexf_many_n(&blob->m_digest.m_data.m_uint8s[1], mk_lib_crypto_hash_stream_sha1_digest_len_v - 1, &str[0], mk_lang_countof(str)); mk_lang_assert(len == (mk_lib_crypto_hash_stream_sha1_digest_len_v - 1) * mk_sl_cui_uint8_strlen_hex_v);
+	err = mk_lib_fast_import_string_rw_push_back_copy_many(&fi->m_output_dir, &str[0], (mk_lib_crypto_hash_stream_sha1_digest_len_v - 1) * mk_sl_cui_uint8_strlen_hex_v); mk_lang_check_rereturn(err);
 	tpc = '\0';
 	err = mk_lib_fast_import_string_rw_push_back_copy_single(&fi->m_output_dir, &tpc); mk_lang_check_rereturn(err);
 	err = mk_sl_io_writer_file_open_n(&writer, mk_lib_fast_import_string_ro_data(&fi->m_output_dir)); mk_lang_check_rereturn(err);
@@ -3682,7 +3685,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_load_tree(mk_lib_fast_import_pt const fi, mk_lang_types_bool_pt const did, mk_lib_crypto_hash_stream_sha1_digest_pct const digest, mk_lib_fast_import_tree_pt const tree) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_load_tree_2(mk_lib_fast_import_pt const fi, mk_lang_types_bool_pt const did, mk_lib_crypto_hash_stream_sha1_digest_pct const digest, mk_lib_fast_import_tree_pt const tree) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 	mk_lang_types_usize_t old_len;
@@ -3704,6 +3707,42 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	err = mk_lib_fast_import_binary_data_rw_destroy(&bin_tree_compressed); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_tree_rw_deserialize_from_binary_data(tree, &bin_tree_decompressed, did); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_binary_data_rw_destroy(&bin_tree_decompressed); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_load_tree_1(mk_lib_fast_import_pt const fi, mk_lang_types_bool_pt const did, mk_lib_crypto_hash_stream_sha1_digest_pct const digest, mk_lib_fast_import_tree_pt const tree) mk_lang_noexcept
+{
+	mk_lang_types_bool_t gud;
+	mk_lang_types_sint_t err;
+	mk_lib_fast_import_tree_pt sub_tree;
+	mk_lib_crypto_hash_stream_sha1_digest_t sub_digest;
+
+	mk_lang_assert(fi);
+	mk_lang_assert(did);
+	mk_lang_assert(digest);
+	mk_lang_assert(digest);
+	mk_lang_assert(fi->m_mallocator);
+
+	gud = mk_lang_true;
+	if(gud)
+	{
+		err = mk_lib_fast_import_pr_load_tree_2(fi, &gud, digest, tree); mk_lang_check_rereturn(err);
+	}
+	for(;;)
+	{
+		if(!gud)
+		{
+			break;
+		}
+		sub_tree = tree;
+		sub_tree->m_children;
+		sub_digest;
+		if(!sub_tree)
+		{
+			break;
+		}
+		err = mk_lib_fast_import_pr_load_tree_2(fi, &gud, &sub_digest, sub_tree); mk_lang_check_rereturn(err);
+	}
 	return 0;
 }
 
@@ -3730,7 +3769,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 		err = mk_lib_fast_import_map_mark_to_commit_ro_node_get_element(node, &mark_to_commit_b); mk_lang_check_rereturn(err); mk_lang_check_return(mark_to_commit_b);
 		err = mk_lib_fast_import_commit_rw_construct(&parent_commit, fi); mk_lang_check_rereturn(err);
 		err = mk_lib_fast_import_pr_load_commit(fi, &gud, &mark_to_commit_b->m_digest, &parent_commit); mk_lang_check_rereturn(err);
-		if(gud){ err = mk_lib_fast_import_pr_load_tree(fi, &gud, &parent_commit.m_tree_digest, tree); mk_lang_check_rereturn(err); }
+		if(gud){ err = mk_lib_fast_import_pr_load_tree_1(fi, &gud, &parent_commit.m_tree_digest, tree); mk_lang_check_rereturn(err); }
 		err = mk_lib_fast_import_commit_rw_destroy(&parent_commit); mk_lang_check_rereturn(err);
 	}
 	*did = gud;
@@ -3898,7 +3937,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_tree_write_to_database_1(mk_lib_fast_import_pt const fi, mk_lib_fast_import_tree_pt const tree) mk_lang_noexcept
 {
 	mk_lang_types_pchar_t tpc;
-	mk_lang_types_pchar_t str[mk_lib_crypto_hash_block_sha1_digest_len_v * mk_sl_cui_uint8_strlen_hex_v];
+	mk_lang_types_pchar_t str[mk_lib_crypto_hash_stream_sha1_digest_len_v * mk_sl_cui_uint8_strlen_hex_v];
 	mk_lang_types_usize_t old_len;
 	mk_lang_types_sint_t err;
 	mk_lang_types_sint_t len;
@@ -3928,8 +3967,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	err = mk_lib_fast_import_string_rw_pop_back_single(&fi->m_output_dir); mk_lang_check_rereturn(err);
 	tpc = '\\';
 	err = mk_lib_fast_import_string_rw_push_back_copy_single(&fi->m_output_dir, &tpc); mk_lang_check_rereturn(err);
-	len = mk_sl_cui_uint8_to_str_hexf_many_n(&tree->m_digest_value.m_data.m_uint8s[1], mk_lib_crypto_hash_block_sha1_digest_len_v - 1, &str[0], mk_lang_countof(str)); mk_lang_assert(len == (mk_lib_crypto_hash_block_sha1_digest_len_v - 1) * mk_sl_cui_uint8_strlen_hex_v);
-	err = mk_lib_fast_import_string_rw_push_back_copy_many(&fi->m_output_dir, &str[0], (mk_lib_crypto_hash_block_sha1_digest_len_v - 1) * mk_sl_cui_uint8_strlen_hex_v); mk_lang_check_rereturn(err);
+	len = mk_sl_cui_uint8_to_str_hexf_many_n(&tree->m_digest_value.m_data.m_uint8s[1], mk_lib_crypto_hash_stream_sha1_digest_len_v - 1, &str[0], mk_lang_countof(str)); mk_lang_assert(len == (mk_lib_crypto_hash_stream_sha1_digest_len_v - 1) * mk_sl_cui_uint8_strlen_hex_v);
+	err = mk_lib_fast_import_string_rw_push_back_copy_many(&fi->m_output_dir, &str[0], (mk_lib_crypto_hash_stream_sha1_digest_len_v - 1) * mk_sl_cui_uint8_strlen_hex_v); mk_lang_check_rereturn(err);
 	tpc = '\0';
 	err = mk_lib_fast_import_string_rw_push_back_copy_single(&fi->m_output_dir, &tpc); mk_lang_check_rereturn(err);
 	err = mk_sl_io_writer_file_open_n(&writer, mk_lib_fast_import_string_ro_data(&fi->m_output_dir)); mk_lang_check_rereturn(err);
@@ -4107,7 +4146,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_write_object_to_database(mk_lib_fast_import_pt const fi, mk_lib_crypto_hash_stream_sha1_digest_pct const digest, mk_lib_fast_import_binary_data_pct const data) mk_lang_noexcept
 {
 	mk_lang_types_pchar_t tpc;
-	mk_lang_types_pchar_t str[mk_lib_crypto_hash_block_sha1_digest_len_v * mk_sl_cui_uint8_strlen_hex_v];
+	mk_lang_types_pchar_t str[mk_lib_crypto_hash_stream_sha1_digest_len_v * mk_sl_cui_uint8_strlen_hex_v];
 	mk_lang_types_usize_t old_len;
 	mk_lang_types_sint_t err;
 	mk_lang_types_sint_t len;
@@ -4138,8 +4177,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	err = mk_lib_fast_import_string_rw_pop_back_single(&fi->m_output_dir); mk_lang_check_rereturn(err);
 	tpc = '\\';
 	err = mk_lib_fast_import_string_rw_push_back_copy_single(&fi->m_output_dir, &tpc); mk_lang_check_rereturn(err);
-	len = mk_sl_cui_uint8_to_str_hexf_many_n(&digest->m_data.m_uint8s[1], mk_lib_crypto_hash_block_sha1_digest_len_v - 1, &str[0], mk_lang_countof(str)); mk_lang_assert(len == (mk_lib_crypto_hash_block_sha1_digest_len_v - 1) * mk_sl_cui_uint8_strlen_hex_v);
-	err = mk_lib_fast_import_string_rw_push_back_copy_many(&fi->m_output_dir, &str[0], (mk_lib_crypto_hash_block_sha1_digest_len_v - 1) * mk_sl_cui_uint8_strlen_hex_v); mk_lang_check_rereturn(err);
+	len = mk_sl_cui_uint8_to_str_hexf_many_n(&digest->m_data.m_uint8s[1], mk_lib_crypto_hash_stream_sha1_digest_len_v - 1, &str[0], mk_lang_countof(str)); mk_lang_assert(len == (mk_lib_crypto_hash_stream_sha1_digest_len_v - 1) * mk_sl_cui_uint8_strlen_hex_v);
+	err = mk_lib_fast_import_string_rw_push_back_copy_many(&fi->m_output_dir, &str[0], (mk_lib_crypto_hash_stream_sha1_digest_len_v - 1) * mk_sl_cui_uint8_strlen_hex_v); mk_lang_check_rereturn(err);
 	tpc = '\0';
 	err = mk_lib_fast_import_string_rw_push_back_copy_single(&fi->m_output_dir, &tpc); mk_lang_check_rereturn(err);
 	err = mk_sl_io_writer_file_open_n(&writer, mk_lib_fast_import_string_ro_data(&fi->m_output_dir)); mk_lang_check_rereturn(err);
