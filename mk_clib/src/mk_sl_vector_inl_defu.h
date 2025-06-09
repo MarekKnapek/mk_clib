@@ -48,6 +48,22 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #undef mk_sl_vector_inl_defd_name
 #undef mk_sl_vector_inl_defd_element_type
 
@@ -64,21 +80,41 @@
 
 
 
-#undef mk_sl_vector_inl_defd_copy
+#undef mk_sl_vector_inl_defd_copy_style
 
 
-#undef mk_sl_vector_inl_defd_copy
-
-#undef mk_sl_vector_inl_defd_copy
+#undef mk_sl_vector_inl_defd_copy_style
 
 
+#undef mk_sl_vector_inl_defd_copy_style
+
+#undef mk_sl_vector_inl_defd_copy_style
 
 
+
+
+
+#undef mk_sl_vector_inl_defd_element_construct_destruct_has
 #undef mk_sl_vector_inl_defd_element_construct_void
 #undef mk_sl_vector_inl_defd_element_destruct
 
-#undef mk_sl_vector_inl_defd_element_construct_void
-#undef mk_sl_vector_inl_defd_element_destruct
+#undef mk_sl_vector_inl_defd_element_construct_destruct_has
+
+
+
+#undef mk_sl_vector_inl_defd_element_copy_construct
+#undef mk_sl_vector_inl_defd_element_copy_assign
+
+#undef mk_sl_vector_inl_defd_element_copy_construct
+#undef mk_sl_vector_inl_defd_element_copy_assign
+
+
+
+#undef mk_sl_vector_inl_defd_element_move_construct
+#undef mk_sl_vector_inl_defd_element_move_assign
+
+#undef mk_sl_vector_inl_defd_element_move_construct
+#undef mk_sl_vector_inl_defd_element_move_assign
 
 
 
@@ -194,14 +230,6 @@
 #undef mk_sl_vector_inl_defd_element_nprcppt
 #undef mk_sl_vector_inl_defd_element_nprvppt
 #undef mk_sl_vector_inl_defd_element_nprcvppt
-
-
-
-#undef mk_sl_vector_inl_defd_element_move_construct
-
-
-
-
 
 #undef mk_sl_vector_inl_defd_mallocator_pt
 
@@ -352,11 +380,13 @@
 #undef mk_sl_vector_inl_defd_mallocator_param
 #undef mk_sl_vector_inl_defd_mallocator_assert
 #undef mk_sl_vector_inl_defd_mallocator_assign
+#undef mk_sl_vector_inl_defd_mallocator_access
 
 #undef mk_sl_vector_inl_defd_mallocator_member
 #undef mk_sl_vector_inl_defd_mallocator_param
 #undef mk_sl_vector_inl_defd_mallocator_assert
 #undef mk_sl_vector_inl_defd_mallocator_assign
+#undef mk_sl_vector_inl_defd_mallocator_access
 
 
 #undef mk_sl_vector_inl_defd_max_capacity_e
@@ -403,12 +433,13 @@
 #undef mk_sl_vector_inl_defd_prrw_construct_last_count
 
 #undef mk_sl_vector_inl_defd_rw_construct
+#undef mk_sl_vector_inl_defd_rw_move_construct
 #undef mk_sl_vector_inl_defd_rw_destroy
 #undef mk_sl_vector_inl_defd_rw_reserve_at_least
 #undef mk_sl_vector_inl_defd_rw_reserve_additional
 #undef mk_sl_vector_inl_defd_rw_shrink_by
 #undef mk_sl_vector_inl_defd_rw_resize_to
-#undef mk_sl_vector_inl_defd_rw_resize_by
+#undef mk_sl_vector_inl_defd_rw_grow_by
 #undef mk_sl_vector_inl_defd_rw_clear
 #undef mk_sl_vector_inl_defd_rw_push_back_move_many
 #undef mk_sl_vector_inl_defd_rw_push_back_copy_many
@@ -418,3 +449,5 @@
 #undef mk_sl_vector_inl_defd_rw_pop_back_single
 #undef mk_sl_vector_inl_defd_rw_erase_at
 #undef mk_sl_vector_inl_defd_rw_erase_element
+#undef mk_sl_vector_inl_defd_rw_copy_from
+#undef mk_sl_vector_inl_defd_rw_move_from

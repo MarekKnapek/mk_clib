@@ -2,10 +2,6 @@
 #define mk_include_guard_mk_lib_fast_import_c
 #include "mk_lib_fast_import.h"
 
-#include "mk_lib_compress_zlib.h"
-#include "mk_lib_hash_adler32.h"
-#include "mk_lib_compress_deflate.h"
-#include "mk_lang_string.h"
 #include "mk_lang_assert.h"
 #include "mk_lang_bool.h"
 #include "mk_lang_check.h"
@@ -18,17 +14,24 @@
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_null.h"
+#include "mk_lang_static_assert.h"
+#include "mk_lang_stdout.h"
 #include "mk_lang_str_len.h"
+#include "mk_lang_string.h"
 #include "mk_lang_types.h"
+#include "mk_lib_compress_deflate.h"
+#include "mk_lib_compress_zlib.h"
 #include "mk_lib_crypto_hash_stream_sha1.h"
+#include "mk_lib_decompress_zlib.h"
+#include "mk_lib_hash_adler32.h"
 #include "mk_sl_cui_uint128.h"
 #include "mk_sl_cui_uint64.h"
 #include "mk_sl_cui_uint8.h"
 #include "mk_sl_io_reader_file.h"
 #include "mk_sl_io_writer_file.h"
 #include "mk_sl_mallocator_lokal_arena.h"
-#include "mk_sl_uint_more.h"
 #include "mk_sl_mallocator_lokal_windows.h" /* todo */
+#include "mk_sl_uint_more.h"
 #include "mk_win_dll_kernel_errors.h" /* todo */
 #include "mk_win_dll_kernel_files.h" /* todo */
 
@@ -39,14 +42,30 @@
 #include "mk_sl_mallocator_lokal_inl_filec.h"
 #include "mk_sl_mallocator_lokal_inl_fileu.h"
 
+#define mk_sl_cui_t_name mk_lib_fast_import_file_mode
+#define mk_sl_cui_t_base mk_sl_cui_uint32
+#define mk_sl_cui_t_count 1
+#define mk_sl_cui_t_base_size_bits_d mk_sl_cui_uint32_size_bits_d
+#include "mk_sl_cui_inl_fileh.h"
+#include "mk_sl_cui_inl_filec.h"
+#include "mk_sl_cui_inl_fileu.h"
+
+#define mk_sl_cui_t_name mk_lib_fast_import_mark
+#define mk_sl_cui_t_base mk_sl_cui_uint128
+#define mk_sl_cui_t_count 1
+#define mk_sl_cui_t_base_size_bits_d mk_sl_cui_uint128_size_bits_d
+#include "mk_sl_cui_inl_fileh.h"
+#include "mk_sl_cui_inl_filec.h"
+#include "mk_sl_cui_inl_fileu.h"
+
 
 #define mk_lib_fast_import_k_buf_len 512
-mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lib_fast_import_k_authorsp[] = "author ";
+mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lib_fast_import_k_author_sp[] = "author ";
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lib_fast_import_k_blob[] = "blob\x0a";
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lib_fast_import_k_blobsp[] = "blob ";
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lib_fast_import_k_colon[] = ":";
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lib_fast_import_k_commitsp[] = "commit ";
-mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lib_fast_import_k_committersp[] = "committer ";
+mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lib_fast_import_k_committer_sp[] = "committer ";
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lib_fast_import_k_data[] = "data ";
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lib_fast_import_k_dot_git[] = ".git";
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lib_fast_import_k_from_sp_colon[] = "from :";
@@ -56,10 +75,11 @@ mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lib_fast_import_k
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lib_fast_import_k_mark_sp_colon[] = "mark :";
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lib_fast_import_k_msp[] = "M ";
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lib_fast_import_k_objects[] = "objects";
+mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lib_fast_import_k_parent_sp[] = "parent ";
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lib_fast_import_k_resetsp[] = "reset ";
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lib_fast_import_k_sp[] = " ";
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lib_fast_import_k_splt[] = " <";
-mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lib_fast_import_k_treesp[] = "tree ";
+mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lib_fast_import_k_tree_sp[] = "tree ";
 
 
 mk_lang_forward(mk_lib_fast_import);
@@ -96,7 +116,7 @@ struct mk_lib_fast_import_blob_s
 {
 	mk_lib_fast_import_pt m_fi;
 	mk_sl_cui_uint128_t m_mark;
-	mk_lang_types_pchar_t m_mode_buf[mk_sl_cui_uint32_strlen_dec_v];
+	mk_lang_types_pchar_t m_mode_buf[mk_sl_cui_uint32_strlen_dec_v + 1];
 	mk_lang_types_sint_t m_mode_len;
 	mk_lang_types_sint_t m_binary_len;
 	mk_sl_cui_uint8_pt m_binary_buf;
@@ -128,9 +148,97 @@ typedef struct mk_lib_fast_import_file_op_s mk_lib_fast_import_file_op_t;
 mk_lang_typedef(mk_lib_fast_import_file_op);
 #include "mk_lang_warning_msvc_pop.h"
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_file_op_rw_construct_void(mk_lib_fast_import_file_op_pt const x, mk_lib_fast_import_mallocator_lokal_pt const m) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(x);
+	mk_lang_assert(m);
+
+	err = mk_lib_fast_import_string_rw_construct(&x->m_file_modify.m_path, m); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_file_op_rw_destroy(mk_lib_fast_import_file_op_pt const x) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(x);
+
+	err = mk_lib_fast_import_string_rw_destroy(&x->m_file_modify.m_path); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_file_op_rw_copy_construct(mk_lib_fast_import_file_op_pt const dst, mk_lib_fast_import_file_op_pct const src) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(dst);
+	mk_lang_assert(src);
+
+	dst->m_fi = src->m_fi;
+	dst->m_file_modify.m_fi = src->m_file_modify.m_fi;
+	dst->m_file_modify.m_mode = src->m_file_modify.m_mode;
+	dst->m_file_modify.m_data_ref = src->m_file_modify.m_data_ref;
+	err = mk_lib_fast_import_string_rw_copy_construct(&dst->m_file_modify.m_path, &src->m_file_modify.m_path); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_file_op_rw_move_construct(mk_lib_fast_import_file_op_pt const dst, mk_lib_fast_import_file_op_pt const src) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(dst);
+	mk_lang_assert(src);
+
+	dst->m_fi = src->m_fi;
+	dst->m_file_modify.m_fi = src->m_file_modify.m_fi;
+	dst->m_file_modify.m_mode = src->m_file_modify.m_mode;
+	dst->m_file_modify.m_data_ref = src->m_file_modify.m_data_ref;
+	err = mk_lib_fast_import_string_rw_move_construct(&dst->m_file_modify.m_path, &src->m_file_modify.m_path); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_file_op_rw_copy_assign(mk_lib_fast_import_file_op_pt const dst, mk_lib_fast_import_file_op_pct const src) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(dst);
+	mk_lang_assert(src);
+
+	dst->m_fi = src->m_fi;
+	dst->m_file_modify.m_fi = src->m_file_modify.m_fi;
+	dst->m_file_modify.m_mode = src->m_file_modify.m_mode;
+	dst->m_file_modify.m_data_ref = src->m_file_modify.m_data_ref;
+	err = mk_lib_fast_import_string_rw_copy_assign(&dst->m_file_modify.m_path, &src->m_file_modify.m_path); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_file_op_rw_move_assign(mk_lib_fast_import_file_op_pt const dst, mk_lib_fast_import_file_op_pt const src) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(dst);
+	mk_lang_assert(src);
+
+	dst->m_fi = src->m_fi;
+	dst->m_file_modify.m_fi = src->m_file_modify.m_fi;
+	dst->m_file_modify.m_mode = src->m_file_modify.m_mode;
+	dst->m_file_modify.m_data_ref = src->m_file_modify.m_data_ref;
+	err = mk_lib_fast_import_string_rw_move_assign(&dst->m_file_modify.m_path, &src->m_file_modify.m_path); mk_lang_check_rereturn(err);
+	return 0;
+}
+
 #define mk_sl_vector_t_name mk_lib_fast_import_file_ops
 #define mk_sl_vector_t_element_type mk_lib_fast_import_file_op_t
 #define mk_sl_vector_t_mallocatorl mk_lib_fast_import_mallocator_lokal
+#define mk_sl_vector_t_copy_style mk_sl_vector_copy_use_custom
+#define mk_sl_vector_t_element_construct_void mk_lib_fast_import_file_op_rw_construct_void
+#define mk_sl_vector_t_element_destruct mk_lib_fast_import_file_op_rw_destroy
+#define mk_sl_vector_t_element_copy_construct mk_lib_fast_import_file_op_rw_copy_construct
+#define mk_sl_vector_t_element_move_construct mk_lib_fast_import_file_op_rw_move_construct
+#define mk_sl_vector_t_element_copy_assign mk_lib_fast_import_file_op_rw_copy_assign
+#define mk_sl_vector_t_element_move_assign mk_lib_fast_import_file_op_rw_move_assign
 #include "mk_sl_vector_inl_fileh.h"
 #include "mk_sl_vector_inl_filec.h"
 #include "mk_sl_vector_inl_fileu.h"
@@ -149,9 +257,12 @@ struct mk_lib_fast_import_commit_s
 	mk_lib_fast_import_string_t m_committer_email;
 	mk_lib_fast_import_string_t m_committer_timestamp;
 	mk_lib_fast_import_binary_data_t m_message;
+	mk_lang_types_bool_t m_has_from_mark_ref;
+	mk_sl_cui_uint128_t m_from_mark_ref;
 	mk_lib_fast_import_file_ops_t m_file_ops;
 	mk_lib_fast_import_binary_data_t m_data;
 	mk_lib_crypto_hash_stream_sha1_digest_t m_digest;
+	mk_lib_crypto_hash_stream_sha1_digest_t m_tree_digest;
 };
 typedef struct mk_lib_fast_import_commit_s mk_lib_fast_import_commit_t;
 mk_lang_typedef(mk_lib_fast_import_commit);
@@ -185,8 +296,8 @@ mk_lang_forward(mk_lib_fast_import_tree);
 
 enum mk_lib_fast_import_tree_node_id_e
 {
-	mk_lib_fast_import_tree_node_id_e_tree = 1001,
-	mk_lib_fast_import_tree_node_id_e_blob = 1002,
+	mk_lib_fast_import_tree_node_id_e_tree,
+	mk_lib_fast_import_tree_node_id_e_blob,
 	mk_lib_fast_import_tree_node_id_e_dummy_end
 };
 typedef enum mk_lib_fast_import_tree_node_id_e mk_lib_fast_import_tree_node_id_t;
@@ -226,7 +337,7 @@ mk_lang_typedef(mk_lib_fast_import_tree_node);
 struct mk_lib_fast_import_tree_s
 {
 	mk_lib_fast_import_pt m_fi;
-	mk_lang_types_pchar_t m_mode_buf[mk_sl_cui_uint32_strlen_dec_v];
+	mk_lang_types_pchar_t m_mode_buf[mk_lib_fast_import_file_mode_strlen_dec_v + 1];
 	mk_lang_types_sint_t m_mode_len;
 	mk_lib_fast_import_tree_nodes_t m_children;
 	mk_lib_fast_import_binary_data_t m_data;
@@ -237,6 +348,64 @@ typedef struct mk_lib_fast_import_tree_s mk_lib_fast_import_tree_t;
 mk_lang_typedef(mk_lib_fast_import_tree);
 #include "mk_lang_warning_msvc_pop.h"
 
+#include "mk_lang_warning_msvc_push_c4820.h"
+struct mk_lib_fast_import_mark_to_commit_s
+{
+	mk_sl_cui_uint128_t m_mark;
+	mk_lib_crypto_hash_stream_sha1_digest_t m_digest;
+};
+typedef struct mk_lib_fast_import_mark_to_commit_s mk_lib_fast_import_mark_to_commit_t;
+mk_lang_typedef(mk_lib_fast_import_mark_to_commit);
+#include "mk_lang_warning_msvc_pop.h"
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_mark_to_commit_cmp(mk_lib_fast_import_mark_to_commit_pct const a, mk_lib_fast_import_mark_to_commit_pct const b, mk_lang_types_sint_pt const cmp) mk_lang_noexcept
+{
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(cmp);
+
+	*cmp = mk_sl_cui_uint128_cmp(&a->m_mark, &b->m_mark);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_mark_to_commit_copy_construct(mk_lib_fast_import_mark_to_commit_pt const dst, mk_lib_fast_import_mark_to_commit_pct const src) mk_lang_noexcept
+{
+	mk_lang_assert(dst);
+	mk_lang_assert(src);
+
+	*dst = *src;
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_mark_to_commit_move_construct(mk_lib_fast_import_mark_to_commit_pt const dst, mk_lib_fast_import_mark_to_commit_pt const src) mk_lang_noexcept
+{
+	mk_lang_assert(dst);
+	mk_lang_assert(src);
+
+	*dst = *src;
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_mark_to_commit_destruct(mk_lib_fast_import_mark_to_commit_pt const x) mk_lang_noexcept
+{
+	mk_lang_assert(x);
+
+	((mk_lang_types_void_t)(x));
+	return 0;
+}
+
+#define mk_sl_tree_wavl_t_name mk_lib_fast_import_map_mark_to_commit
+#define mk_sl_tree_wavl_t_element_type mk_lib_fast_import_mark_to_commit_t
+#define mk_sl_tree_wavl_t_elements_compare mk_lib_fast_import_mark_to_commit_cmp
+#define mk_sl_tree_wavl_t_mallocatorl_name mk_lib_fast_import_mallocator_lokal
+#define mk_sl_tree_wavl_t_validate_want 0
+#define mk_sl_tree_wavl_t_element_copy_construct mk_lib_fast_import_mark_to_commit_copy_construct
+#define mk_sl_tree_wavl_t_element_move_construct mk_lib_fast_import_mark_to_commit_move_construct
+#define mk_sl_tree_wavl_t_element_destruct mk_lib_fast_import_mark_to_commit_destruct
+#include "mk_sl_tree_wavl_inl_fileh.h"
+#include "mk_sl_tree_wavl_inl_filec.h"
+#include "mk_sl_tree_wavl_inl_fileu.h"
+
 
 #include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_lib_fast_import_s
@@ -246,6 +415,7 @@ struct mk_lib_fast_import_s
 	mk_sl_cui_uint8_pt m_buf;
 	mk_lang_types_sint_t m_len;
 	mk_lib_fast_import_tree_by_mark_t m_marks;
+	mk_lib_fast_import_map_mark_to_commit_t m_commits;
 	mk_lib_fast_import_string_t m_output_dir;
 };
 typedef struct mk_lib_fast_import_s mk_lib_fast_import_t;
@@ -315,6 +485,224 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 #include "mk_sl_tree_wavl_inl_fileu.h"
 
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_st_fancy_str(mk_lib_fast_import_string_pt const str) mk_lang_noexcept
+{
+	mk_lang_types_pchar_t nul;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(str);
+
+	nul = '\0';
+	err = mk_lib_fast_import_string_rw_push_back_copy_single(str, &nul); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_string_rw_pop_back_single(str); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_st_fancy_bin(mk_lib_fast_import_binary_data_pt const bin) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_t nul;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(bin);
+
+	mk_sl_cui_uint8_set_zero(&nul);
+	err = mk_lib_fast_import_binary_data_rw_push_back_copy_single(bin, &nul); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_binary_data_rw_pop_back_single(bin); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_generic_find(mk_lang_types_pchar_pct const haystack_buf, mk_lang_types_sint_t const haystack_len, mk_lang_types_pchar_pct const needle) mk_lang_noexcept
+{
+	mk_lang_types_pchar_t nnn mk_lang_constexpr_init;
+	mk_lang_types_sint_t n mk_lang_constexpr_init;
+	mk_lang_types_sint_t i mk_lang_constexpr_init;
+
+	mk_lang_assert(haystack_buf || haystack_len == 0);
+	mk_lang_assert(haystack_len >= 0);
+	mk_lang_assert(needle);
+
+	nnn = *needle;
+	n = haystack_len;
+	for(i = 0; i != n; ++i)
+	{
+		if(haystack_buf[i] == nnn)
+		{
+			break;
+		}
+	}
+	return i;
+}
+
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_generic_find_u8(mk_sl_cui_uint8_pct const haystack_buf, mk_lang_types_sint_t const haystack_len, mk_sl_cui_uint8_pct const needle_buf, mk_lang_types_sint_t const needle_len) mk_lang_noexcept
+{
+	mk_lang_types_sint_t found mk_lang_constexpr_init;
+	mk_lang_types_sint_t n mk_lang_constexpr_init;
+	mk_lang_types_sint_t i mk_lang_constexpr_init;
+	mk_lang_types_sint_t m mk_lang_constexpr_init;
+	mk_lang_types_sint_t j mk_lang_constexpr_init;
+
+	mk_lang_assert(haystack_buf || haystack_len == 0);
+	mk_lang_assert(haystack_len >= 0);
+	mk_lang_assert(needle_buf);
+	mk_lang_assert(needle_len >= 1);
+
+	found = haystack_len;
+	if(haystack_len >= needle_len)
+	{
+		n = haystack_len - needle_len;
+		for(i = 0; i != n; ++i)
+		{
+			m = needle_len;
+			for(j = 0; j != m; ++j)
+			{
+				if(mk_sl_cui_uint8_ne(&haystack_buf[i + j], &needle_buf[j]))
+				{
+					break;
+				}
+			}
+			if(j == m)
+			{
+				found = i;
+				break;
+			}
+		}
+	}
+	mk_lang_assert((found == haystack_len) || (found >= 0 && found <= haystack_len - needle_len));
+	return found;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_bool_t mk_string_compare(mk_lib_fast_import_string_pct const a_str, mk_lang_types_pchar_pct const b_buf, mk_lang_types_sint_t const b_len) mk_lang_noexcept
+{
+	mk_lang_types_pchar_pct a_buf;
+	mk_lang_types_sint_t a_len;
+	mk_lang_types_bool_t cmp;
+
+	mk_lang_assert(a_str);
+	mk_lang_assert(!mk_lib_fast_import_string_ro_is_empty(a_str));
+	mk_lang_assert(b_buf);
+	mk_lang_assert(b_len >= 1);
+
+	a_buf = mk_lib_fast_import_string_ro_data(a_str); mk_lang_assert(a_buf);
+	a_len = mk_lib_fast_import_string_ro_sise(a_str); mk_lang_assert(a_len >= 1);
+	cmp = a_len == b_len;
+	cmp = cmp && mk_lang_string_memcmp_pc_fn(a_buf, b_buf, a_len) == 0;
+	return cmp;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_fast_import_string_rw_push_back_copy_many_u8(mk_lib_fast_import_string_pt const string, mk_sl_cui_uint8_pct const elements, mk_lang_types_usize_t const count) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	mk_sl_cui_uint8_pct u8s;
+	mk_lang_types_usize_t rem;
+	mk_lang_types_usize_t cnt;
+	mk_lang_types_pchar_t str[64];
+
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	mk_lang_assert(string);
+	mk_lang_assert(elements || count == 0);
+	mk_lang_assert(count >= 0);
+	#include "mk_lang_warning_msvc_pop.h"
+
+	err = mk_lib_fast_import_string_rw_reserve_additional(string, count); mk_lang_check_rereturn(err);
+	u8s = elements;
+	rem = count;
+	while(rem != 0)
+	{
+		cnt = mk_lang_min(rem, mk_lang_countof(str));
+		mk_sl_cui_uint8_to_bi_pchar_many(u8s, &str[0], cnt);
+		err = mk_lib_fast_import_string_rw_push_back_copy_many(string, &str[0], cnt); mk_lang_check_rereturn(err);
+		err = mk_lib_fast_import_st_fancy_str(string); mk_lang_check_rereturn(err);
+		u8s += cnt;
+		rem -= cnt;
+	}
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_file_find_digest(mk_lib_fast_import_pt const fi, mk_sl_cui_uint128_pct const file_ref, mk_lib_crypto_hash_stream_sha1_digest_pct* const digest) mk_lang_noexcept
+{
+	mk_lib_fast_import_blob_t blob;
+	mk_lang_types_sint_t err;
+	mk_lib_fast_import_tree_by_mark_node_pct node;
+
+	mk_lang_assert(fi);
+	mk_lang_assert(file_ref);
+	mk_lang_assert(digest);
+
+	blob.m_mark = *file_ref;
+	err = mk_lib_fast_import_tree_by_mark_ro_find_node(&fi->m_marks, &blob, &node); mk_lang_check_rereturn(err);
+	if(node)
+	{
+		*digest = &node->m_element.m_digest;
+	}
+	else
+	{
+		*digest = mk_lang_null;
+	}
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_file_op_rw_construct(mk_lib_fast_import_file_op_pt const file_op, mk_lib_fast_import_pt const fi) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(file_op);
+	mk_lang_assert(fi);
+	mk_lang_assert(fi->m_mallocator);
+
+	file_op->m_fi = fi;
+	file_op->m_file_modify.m_fi = fi;
+	mk_sl_cui_uint32_set_zero(&file_op->m_file_modify.m_mode);
+	mk_sl_cui_uint128_set_zero(&file_op->m_file_modify.m_data_ref);
+	err = mk_lib_fast_import_string_rw_construct(&file_op->m_file_modify.m_path, fi->m_mallocator); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_any_rw_deserialize_pr_object_len(mk_sl_cui_uint8_pct const binary_data_buf, mk_lang_types_sint_t const binary_data_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
+{
+	mk_lang_types_bool_t gud;
+	mk_lang_types_sint_t str_len;
+	mk_lang_types_pchar_t str_buf[mk_sl_cui_uint32_strlen_dec_v + 1];
+	mk_lang_types_sint_t len;
+	mk_sl_cui_uint32_t obj_len_u32;
+	mk_lang_types_ulong_t tul;
+	mk_lang_types_sint_t obj_len_si;
+
+	mk_lang_assert(binary_data_buf);
+	mk_lang_assert(binary_data_len >= 1);
+	mk_lang_assert(success);
+	mk_lang_assert(consumed);
+
+	gud = mk_lang_true;
+	if(gud)
+	{
+		str_len = mk_lang_min(binary_data_len, mk_lang_countof(str_buf));
+		mk_sl_cui_uint8_to_bi_pchar_many(binary_data_buf, &str_buf[0], str_len);
+		len = mk_sl_cui_uint32_from_str_dec_n(&obj_len_u32, &str_buf[0], str_len); mk_lang_assert(len <= str_len);
+		gud = len >= 1;
+	}
+	if(gud)
+	{
+		mk_lang_clobber(&len);
+		gud = str_buf[len] == '\0';
+	}
+	if(gud)
+	{
+		mk_sl_cui_uint32_to_bi_ulong(&obj_len_u32, &tul);
+		gud = tul <= ((mk_lang_types_ulong_t)(mk_lang_limits_sint_max));
+	}
+	if(gud)
+	{
+		mk_lang_clobber(&tul);
+		mk_lang_clobber(&len);
+		obj_len_si = ((mk_lang_types_sint_t)(tul));
+		gud = obj_len_si == binary_data_len - len - 1;
+	}
+	mk_lang_clobber(&len);
+	*success = gud;
+	*consumed = len + 1;
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_commit_rw_construct(mk_lib_fast_import_commit_pt const commit, mk_lib_fast_import_pt const fi) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
@@ -333,6 +721,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	err = mk_lib_fast_import_string_rw_construct(&commit->m_committer_email, fi->m_mallocator); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_string_rw_construct(&commit->m_committer_timestamp, fi->m_mallocator); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_binary_data_rw_construct(&commit->m_message, fi->m_mallocator); mk_lang_check_rereturn(err);
+	commit->m_has_from_mark_ref = mk_lang_false;
+	mk_sl_cui_uint128_set_zero(&commit->m_from_mark_ref);
 	err = mk_lib_fast_import_file_ops_rw_construct(&commit->m_file_ops, fi->m_mallocator); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_binary_data_rw_construct(&commit->m_data, fi->m_mallocator); mk_lang_check_rereturn(err);
 	return 0;
@@ -354,6 +744,1121 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	err = mk_lib_fast_import_binary_data_rw_destroy(&commit->m_message); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_file_ops_rw_destroy(&commit->m_file_ops); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_binary_data_rw_destroy(&commit->m_data); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_commit_rw_clear(mk_lib_fast_import_commit_pt const commit) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(commit);
+	mk_lang_assert(commit->m_fi);
+
+	err = mk_lib_fast_import_string_rw_clear(&commit->m_ref); mk_lang_check_rereturn(err);
+	commit->m_has_mark = mk_lang_false;
+	mk_sl_cui_uint128_set_zero(&commit->m_mark);
+	err = mk_lib_fast_import_string_rw_clear(&commit->m_author_name); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_string_rw_clear(&commit->m_author_email); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_string_rw_clear(&commit->m_author_timestamp); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_string_rw_clear(&commit->m_committer_name); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_string_rw_clear(&commit->m_committer_email); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_string_rw_clear(&commit->m_committer_timestamp); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_binary_data_rw_clear(&commit->m_message); mk_lang_check_rereturn(err);
+	commit->m_has_from_mark_ref = mk_lang_false;
+	mk_sl_cui_uint128_set_zero(&commit->m_from_mark_ref);
+	err = mk_lib_fast_import_file_ops_rw_clear(&commit->m_file_ops); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_binary_data_rw_clear(&commit->m_data); mk_lang_check_rereturn(err);
+	mk_sl_cui_uint8_memclr_fn(&commit->m_digest.m_data.m_uint8s[0], mk_lang_countof(commit->m_digest.m_data.m_uint8s));
+	mk_sl_cui_uint8_memclr_fn(&commit->m_tree_digest.m_data.m_uint8s[0], mk_lang_countof(commit->m_tree_digest.m_data.m_uint8s));
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_commit_rw_deserialize_pr_object_type(mk_lib_fast_import_commit_pt const commit, mk_sl_cui_uint8_pct const binary_data_buf, mk_lang_types_sint_t const binary_data_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
+{
+	mk_lang_types_bool_t gud;
+	mk_sl_cui_uint8_t commit_sp[mk_lang_countstr(mk_lib_fast_import_k_commitsp)];
+
+	mk_lang_assert(commit);
+	mk_lang_assert(commit->m_fi);
+	mk_lang_assert(binary_data_buf);
+	mk_lang_assert(binary_data_len >= 1);
+	mk_lang_assert(success);
+	mk_lang_assert(consumed);
+
+	gud = mk_lang_true;
+	if(gud)
+	{
+		gud = binary_data_len >= mk_lang_countof(commit_sp);
+	}
+	if(gud)
+	{
+		mk_sl_cui_uint8_from_bi_pchar_many(&commit_sp[0], &mk_lib_fast_import_k_commitsp[0], mk_lang_countstr(mk_lib_fast_import_k_commitsp));
+		gud = mk_sl_cui_uint8_memcmp_fn(binary_data_buf, &commit_sp[0], mk_lang_countof(commit_sp)) == 0;
+	}
+	*success = gud;
+	*consumed = mk_lang_countof(commit_sp);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_commit_rw_deserialize_pr_object_len(mk_lib_fast_import_commit_pt const commit, mk_sl_cui_uint8_pct const binary_data_buf, mk_lang_types_sint_t const binary_data_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(commit);
+	mk_lang_assert(commit->m_fi);
+	mk_lang_assert(commit->m_fi->m_mallocator);
+	mk_lang_assert(binary_data_buf);
+	mk_lang_assert(binary_data_len >= 1);
+	mk_lang_assert(success);
+	mk_lang_assert(consumed);
+
+	err = mk_lib_fast_import_any_rw_deserialize_pr_object_len(binary_data_buf, binary_data_len, success, consumed); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_commit_rw_deserialize_pr_tree(mk_lib_fast_import_commit_pt const commit, mk_sl_cui_uint8_pct const binary_data_buf, mk_lang_types_sint_t const binary_data_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pct data_buf;
+	mk_lang_types_sint_t data_len;
+	mk_lang_types_bool_t gud;
+	mk_sl_cui_uint8_t tree_sp[mk_lang_countstr(mk_lib_fast_import_k_tree_sp)];
+	mk_lang_types_pchar_t digest_str[mk_lib_crypto_hash_stream_sha1_digest_len_v * mk_sl_cui_uint8_strlen_hex_v];
+	mk_lang_types_sint_t len;
+	mk_lang_types_sint_t tsi;
+
+	mk_lang_assert(commit);
+	mk_lang_assert(commit->m_fi);
+	mk_lang_assert(binary_data_buf);
+	mk_lang_assert(binary_data_len >= 1);
+	mk_lang_assert(success);
+	mk_lang_assert(consumed);
+
+	data_buf = binary_data_buf;
+	data_len = binary_data_len;
+	gud = mk_lang_true;
+	if(gud)
+	{
+		gud = data_len >= mk_lang_countof(tree_sp);
+	}
+	if(gud)
+	{
+		mk_sl_cui_uint8_from_bi_pchar_many(&tree_sp[0], &mk_lib_fast_import_k_tree_sp[0], mk_lang_countstr(mk_lib_fast_import_k_tree_sp));
+		gud = mk_sl_cui_uint8_memcmp_fn(data_buf, &tree_sp[0], mk_lang_countof(tree_sp)) == 0;
+	}
+	if(gud)
+	{
+		data_buf += mk_lang_countof(tree_sp);
+		data_len -= mk_lang_countof(tree_sp);
+		gud = data_len >= mk_lang_countof(digest_str);
+	}
+	if(gud)
+	{
+		mk_sl_cui_uint8_to_bi_pchar_many(data_buf, &digest_str[0], mk_lang_countof(digest_str));
+		len = mk_sl_cui_uint8_from_str_hex_many_n(&commit->m_tree_digest.m_data.m_uint8s[0], mk_lang_countof(commit->m_tree_digest.m_data.m_uint8s), &digest_str[0], mk_lang_countof(digest_str)); mk_lang_assert(len >= 0); mk_lang_assert(len <= mk_lang_countof(digest_str));
+		gud = len == mk_lang_countof(digest_str);
+	}
+	if(gud)
+	{
+		data_buf += mk_lang_countof(digest_str);
+		data_len -= mk_lang_countof(digest_str);
+		gud = data_len >= 1;
+	}
+	if(gud)
+	{
+		mk_sl_cui_uint8_to_bi_sint(&data_buf[0], &tsi);
+		gud = tsi == 0x0a;
+	}
+	if(gud)
+	{
+		data_buf += 1;
+		data_len -= 1;
+	}
+	*success = gud;
+	*consumed = binary_data_len - data_len;
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_commit_rw_deserialize_pr_author_prefix(mk_lib_fast_import_commit_pt const commit, mk_sl_cui_uint8_pct const binary_data_buf, mk_lang_types_sint_t const binary_data_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pct data_buf;
+	mk_lang_types_sint_t data_len;
+	mk_lang_types_bool_t gud;
+	mk_sl_cui_uint8_t str_u8_author_sp[mk_lang_countstr(mk_lib_fast_import_k_author_sp)];
+
+	mk_lang_assert(commit);
+	mk_lang_assert(commit->m_fi);
+	mk_lang_assert(binary_data_buf);
+	mk_lang_assert(binary_data_len >= 1);
+	mk_lang_assert(success);
+	mk_lang_assert(consumed);
+
+	data_buf = binary_data_buf;
+	data_len = binary_data_len;
+	gud = mk_lang_true;
+	if(gud)
+	{
+		gud = data_len >= mk_lang_countof(str_u8_author_sp);
+	}
+	if(gud)
+	{
+		mk_sl_cui_uint8_from_bi_pchar_many(&str_u8_author_sp[0], &mk_lib_fast_import_k_author_sp[0], mk_lang_countstr(mk_lib_fast_import_k_author_sp));
+		gud = mk_sl_cui_uint8_memcmp_fn(data_buf, &str_u8_author_sp[0], mk_lang_countof(str_u8_author_sp)) == 0;
+	}
+	if(gud)
+	{
+		data_buf += mk_lang_countof(str_u8_author_sp);
+		data_len -= mk_lang_countof(str_u8_author_sp);
+	}
+	*success = gud;
+	*consumed = binary_data_len - data_len;
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_commit_rw_deserialize_pr_committer_prefix(mk_lib_fast_import_commit_pt const commit, mk_sl_cui_uint8_pct const binary_data_buf, mk_lang_types_sint_t const binary_data_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pct data_buf;
+	mk_lang_types_sint_t data_len;
+	mk_lang_types_bool_t gud;
+	mk_sl_cui_uint8_t str_u8_committer_sp[mk_lang_countstr(mk_lib_fast_import_k_committer_sp)];
+
+	mk_lang_assert(commit);
+	mk_lang_assert(commit->m_fi);
+	mk_lang_assert(binary_data_buf);
+	mk_lang_assert(binary_data_len >= 1);
+	mk_lang_assert(success);
+	mk_lang_assert(consumed);
+
+	data_buf = binary_data_buf;
+	data_len = binary_data_len;
+	gud = mk_lang_true;
+	if(gud)
+	{
+		gud = data_len >= mk_lang_countof(str_u8_committer_sp);
+	}
+	if(gud)
+	{
+		mk_sl_cui_uint8_from_bi_pchar_many(&str_u8_committer_sp[0], &mk_lib_fast_import_k_committer_sp[0], mk_lang_countstr(mk_lib_fast_import_k_committer_sp));
+		gud = mk_sl_cui_uint8_memcmp_fn(data_buf, &str_u8_committer_sp[0], mk_lang_countof(str_u8_committer_sp)) == 0;
+	}
+	if(gud)
+	{
+		data_buf += mk_lang_countof(str_u8_committer_sp);
+		data_len -= mk_lang_countof(str_u8_committer_sp);
+	}
+	*success = gud;
+	*consumed = binary_data_len - data_len;
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_commit_rw_deserialize_pr_name(mk_lib_fast_import_commit_pt const commit, mk_lib_fast_import_string_pt const name, mk_sl_cui_uint8_pct const binary_data_buf, mk_lang_types_sint_t const binary_data_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pct data_buf;
+	mk_lang_types_sint_t data_len;
+	mk_lang_types_bool_t gud;
+	mk_sl_cui_uint8_t str_u8_splt[mk_lang_countstr(mk_lib_fast_import_k_splt)];
+	mk_lang_types_sint_t found;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(commit);
+	mk_lang_assert(commit->m_fi);
+	mk_lang_assert(name);
+	mk_lang_assert(binary_data_buf);
+	mk_lang_assert(binary_data_len >= 1);
+	mk_lang_assert(success);
+	mk_lang_assert(consumed);
+
+	data_buf = binary_data_buf;
+	data_len = binary_data_len;
+	gud = mk_lang_true;
+	if(gud)
+	{
+		gud = data_len >= 1 + mk_lang_countof(str_u8_splt);
+	}
+	if(gud)
+	{
+		mk_sl_cui_uint8_from_bi_pchar_many(&str_u8_splt[0], &mk_lib_fast_import_k_splt[0], mk_lang_countstr(mk_lib_fast_import_k_splt));
+		found = mk_generic_find_u8(data_buf, data_len, &str_u8_splt[0], mk_lang_countof(str_u8_splt)); mk_lang_assert((found == data_len) || (found >= 1 && found <= data_len - mk_lang_countof(str_u8_splt)));
+		gud = found != data_len;
+	}
+	if(gud)
+	{
+		mk_lang_clobber(&found);
+		err = mk_lib_fast_import_string_rw_clear(name); mk_lang_check_rereturn(err);
+		err = mk_lib_fast_import_string_rw_push_back_copy_many_u8(name, data_buf, found); mk_lang_check_rereturn(err);
+		data_buf += found;
+		data_len -= found;
+		data_buf += mk_lang_countof(str_u8_splt);
+		data_len -= mk_lang_countof(str_u8_splt);
+	}
+	*success = gud;
+	*consumed = binary_data_len - data_len;
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_commit_rw_deserialize_pr_email(mk_lib_fast_import_commit_pt const commit, mk_lib_fast_import_string_pt const email, mk_sl_cui_uint8_pct const binary_data_buf, mk_lang_types_sint_t const binary_data_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pct data_buf;
+	mk_lang_types_sint_t data_len;
+	mk_lang_types_bool_t gud;
+	mk_sl_cui_uint8_t str_u8_gtsp[mk_lang_countstr(mk_lib_fast_import_k_gtsp)];
+	mk_lang_types_sint_t found;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(commit);
+	mk_lang_assert(commit->m_fi);
+	mk_lang_assert(email);
+	mk_lang_assert(binary_data_buf);
+	mk_lang_assert(binary_data_len >= 1);
+	mk_lang_assert(success);
+	mk_lang_assert(consumed);
+
+	data_buf = binary_data_buf;
+	data_len = binary_data_len;
+	gud = mk_lang_true;
+	if(gud)
+	{
+		gud = data_len >= 1 + mk_lang_countof(str_u8_gtsp);
+	}
+	if(gud)
+	{
+		mk_sl_cui_uint8_from_bi_pchar_many(&str_u8_gtsp[0], &mk_lib_fast_import_k_gtsp[0], mk_lang_countstr(mk_lib_fast_import_k_gtsp));
+		found = mk_generic_find_u8(data_buf, data_len, &str_u8_gtsp[0], mk_lang_countof(str_u8_gtsp)); mk_lang_assert((found == data_len) || (found >= 1 && found <= data_len - mk_lang_countof(str_u8_gtsp)));
+		gud = found != data_len;
+	}
+	if(gud)
+	{
+		mk_lang_clobber(&found);
+		err = mk_lib_fast_import_string_rw_clear(email); mk_lang_check_rereturn(err);
+		err = mk_lib_fast_import_string_rw_push_back_copy_many_u8(email, data_buf, found); mk_lang_check_rereturn(err);
+		data_buf += found;
+		data_len -= found;
+		data_buf += mk_lang_countof(str_u8_gtsp);
+		data_len -= mk_lang_countof(str_u8_gtsp);
+	}
+	*success = gud;
+	*consumed = binary_data_len - data_len;
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_commit_rw_deserialize_pr_timestamp(mk_lib_fast_import_commit_pt const commit, mk_lib_fast_import_string_pt const timestamp, mk_sl_cui_uint8_pct const binary_data_buf, mk_lang_types_sint_t const binary_data_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pct data_buf;
+	mk_lang_types_sint_t data_len;
+	mk_lang_types_bool_t gud;
+	mk_sl_cui_uint8_t str_u8_lf[mk_lang_countstr(mk_lib_fast_import_k_lf)];
+	mk_lang_types_sint_t found;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(commit);
+	mk_lang_assert(commit->m_fi);
+	mk_lang_assert(timestamp);
+	mk_lang_assert(binary_data_buf);
+	mk_lang_assert(binary_data_len >= 1);
+	mk_lang_assert(success);
+	mk_lang_assert(consumed);
+
+	data_buf = binary_data_buf;
+	data_len = binary_data_len;
+	gud = mk_lang_true;
+	if(gud)
+	{
+		gud = data_len >= 1 + mk_lang_countof(str_u8_lf);
+	}
+	if(gud)
+	{
+		mk_sl_cui_uint8_from_bi_pchar_many(&str_u8_lf[0], &mk_lib_fast_import_k_lf[0], mk_lang_countstr(mk_lib_fast_import_k_lf));
+		found = mk_generic_find_u8(data_buf, data_len, &str_u8_lf[0], mk_lang_countof(str_u8_lf)); mk_lang_assert((found == data_len) || (found >= 1 && found <= data_len - mk_lang_countof(str_u8_lf)));
+		gud = found != data_len;
+	}
+	if(gud)
+	{
+		mk_lang_clobber(&found);
+		err = mk_lib_fast_import_string_rw_clear(timestamp); mk_lang_check_rereturn(err);
+		err = mk_lib_fast_import_string_rw_push_back_copy_many_u8(timestamp, data_buf, found); mk_lang_check_rereturn(err);
+		data_buf += found;
+		data_len -= found;
+		data_buf += mk_lang_countof(str_u8_lf);
+		data_len -= mk_lang_countof(str_u8_lf);
+	}
+	*success = gud;
+	*consumed = binary_data_len - data_len;
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_commit_rw_deserialize_pr_author(mk_lib_fast_import_commit_pt const commit, mk_sl_cui_uint8_pct const binary_data_buf, mk_lang_types_sint_t const binary_data_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pct data_buf;
+	mk_lang_types_sint_t data_len;
+	mk_lang_types_sint_t err;
+	mk_lang_types_bool_t gud;
+	mk_lang_types_sint_t used;
+
+	mk_lang_assert(commit);
+	mk_lang_assert(commit->m_fi);
+	mk_lang_assert(binary_data_buf);
+	mk_lang_assert(binary_data_len >= 1);
+
+	data_buf = binary_data_buf;
+	data_len = binary_data_len;
+	gud = mk_lang_true;
+	if(gud){ err = mk_lib_fast_import_commit_rw_deserialize_pr_author_prefix(commit,                              data_buf, data_len, &gud, &used); mk_lang_check_rereturn(err); mk_lang_assert(used >= 0); mk_lang_assert(used <= data_len); data_buf += used; data_len -= used; }
+	if(gud){ err = mk_lib_fast_import_commit_rw_deserialize_pr_name         (commit, &commit->m_author_name,      data_buf, data_len, &gud, &used); mk_lang_check_rereturn(err); mk_lang_assert(used >= 0); mk_lang_assert(used <= data_len); data_buf += used; data_len -= used; }
+	if(gud){ err = mk_lib_fast_import_commit_rw_deserialize_pr_email        (commit, &commit->m_author_email,     data_buf, data_len, &gud, &used); mk_lang_check_rereturn(err); mk_lang_assert(used >= 0); mk_lang_assert(used <= data_len); data_buf += used; data_len -= used; }
+	if(gud){ err = mk_lib_fast_import_commit_rw_deserialize_pr_timestamp    (commit, &commit->m_author_timestamp, data_buf, data_len, &gud, &used); mk_lang_check_rereturn(err); mk_lang_assert(used >= 0); mk_lang_assert(used <= data_len); data_buf += used; data_len -= used; }
+	*success = gud;
+	*consumed = binary_data_len - data_len;
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_commit_rw_deserialize_pr_committer(mk_lib_fast_import_commit_pt const commit, mk_sl_cui_uint8_pct const binary_data_buf, mk_lang_types_sint_t const binary_data_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pct data_buf;
+	mk_lang_types_sint_t data_len;
+	mk_lang_types_sint_t err;
+	mk_lang_types_bool_t gud;
+	mk_lang_types_sint_t used;
+
+	mk_lang_assert(commit);
+	mk_lang_assert(commit->m_fi);
+	mk_lang_assert(binary_data_buf);
+	mk_lang_assert(binary_data_len >= 1);
+
+	data_buf = binary_data_buf;
+	data_len = binary_data_len;
+	gud = mk_lang_true;
+	if(gud){ err = mk_lib_fast_import_commit_rw_deserialize_pr_committer_prefix(commit,                                 data_buf, data_len, &gud, &used); mk_lang_check_rereturn(err); mk_lang_assert(used >= 0); mk_lang_assert(used <= data_len); data_buf += used; data_len -= used; }
+	if(gud){ err = mk_lib_fast_import_commit_rw_deserialize_pr_name            (commit, &commit->m_committer_name,      data_buf, data_len, &gud, &used); mk_lang_check_rereturn(err); mk_lang_assert(used >= 0); mk_lang_assert(used <= data_len); data_buf += used; data_len -= used; }
+	if(gud){ err = mk_lib_fast_import_commit_rw_deserialize_pr_email           (commit, &commit->m_committer_email,     data_buf, data_len, &gud, &used); mk_lang_check_rereturn(err); mk_lang_assert(used >= 0); mk_lang_assert(used <= data_len); data_buf += used; data_len -= used; }
+	if(gud){ err = mk_lib_fast_import_commit_rw_deserialize_pr_timestamp       (commit, &commit->m_committer_timestamp, data_buf, data_len, &gud, &used); mk_lang_check_rereturn(err); mk_lang_assert(used >= 0); mk_lang_assert(used <= data_len); data_buf += used; data_len -= used; }
+	*success = gud;
+	*consumed = binary_data_len - data_len;
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_commit_rw_deserialize_pr_message(mk_lib_fast_import_commit_pt const commit, mk_sl_cui_uint8_pct const binary_data_buf, mk_lang_types_sint_t const binary_data_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pct data_buf;
+	mk_lang_types_sint_t data_len;
+	mk_lang_types_bool_t gud;
+	mk_lang_types_pchar_t tpc;
+	mk_sl_cui_uint8_t lf;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(commit);
+	mk_lang_assert(commit->m_fi);
+	mk_lang_assert(binary_data_buf);
+	mk_lang_assert(binary_data_len >= 1);
+
+	data_buf = binary_data_buf;
+	data_len = binary_data_len;
+	gud = mk_lang_true;
+	if(gud)
+	{
+		gud = data_len >= 1;
+	}
+	if(gud)
+	{
+		tpc = '\x0a'; mk_sl_cui_uint8_from_bi_pchar(&lf, &tpc);
+		gud = mk_sl_cui_uint8_eq(&data_buf[0], &lf);
+	}
+	if(gud)
+	{
+		data_buf += 1;
+		data_len -= 1;
+	}
+	if(gud)
+	{
+		err = mk_lib_fast_import_binary_data_rw_clear(&commit->m_message); mk_lang_check_rereturn(err);
+		err = mk_lib_fast_import_binary_data_rw_push_back_copy_many(&commit->m_message, data_buf, data_len); mk_lang_check_rereturn(err);
+		err = mk_lib_fast_import_st_fancy_bin(&commit->m_message); mk_lang_check_rereturn(err);
+		data_buf += data_len;
+		data_len -= data_len;
+	}
+	*success = gud;
+	*consumed = binary_data_len - data_len;
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_commit_rw_deserialize_from_buf_and_len(mk_lib_fast_import_commit_pt const commit, mk_sl_cui_uint8_pct const binary_data_buf, mk_lang_types_sint_t const binary_data_len, mk_lang_types_bool_pt const did) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pct data_buf;
+	mk_lang_types_sint_t data_len;
+	mk_lang_types_sint_t err;
+	mk_lang_types_bool_t gud;
+	mk_lang_types_sint_t consumed;
+
+	mk_lang_assert(commit);
+	mk_lang_assert(commit->m_fi);
+	mk_lang_assert(binary_data_buf);
+	mk_lang_assert(binary_data_len >= 1);
+	mk_lang_assert(did);
+
+	data_buf = binary_data_buf;
+	data_len = binary_data_len;
+	err = mk_lib_fast_import_commit_rw_clear(commit); mk_lang_check_rereturn(err);
+	gud = mk_lang_true;
+	if(gud){ err = mk_lib_fast_import_commit_rw_deserialize_pr_object_type(commit, data_buf, data_len, &gud, &consumed); mk_lang_check_rereturn(err); mk_lang_assert(consumed >= 0); mk_lang_assert(consumed <= data_len); data_buf += consumed; data_len -= consumed; }
+	if(gud){ err = mk_lib_fast_import_commit_rw_deserialize_pr_object_len (commit, data_buf, data_len, &gud, &consumed); mk_lang_check_rereturn(err); mk_lang_assert(consumed >= 0); mk_lang_assert(consumed <= data_len); data_buf += consumed; data_len -= consumed; }
+	if(gud){ err = mk_lib_fast_import_commit_rw_deserialize_pr_tree       (commit, data_buf, data_len, &gud, &consumed); mk_lang_check_rereturn(err); mk_lang_assert(consumed >= 0); mk_lang_assert(consumed <= data_len); data_buf += consumed; data_len -= consumed; }
+	if(gud){ err = mk_lib_fast_import_commit_rw_deserialize_pr_author     (commit, data_buf, data_len, &gud, &consumed); mk_lang_check_rereturn(err); mk_lang_assert(consumed >= 0); mk_lang_assert(consumed <= data_len); data_buf += consumed; data_len -= consumed; }
+	if(gud){ err = mk_lib_fast_import_commit_rw_deserialize_pr_committer  (commit, data_buf, data_len, &gud, &consumed); mk_lang_check_rereturn(err); mk_lang_assert(consumed >= 0); mk_lang_assert(consumed <= data_len); data_buf += consumed; data_len -= consumed; }
+	if(gud){ err = mk_lib_fast_import_commit_rw_deserialize_pr_message    (commit, data_buf, data_len, &gud, &consumed); mk_lang_check_rereturn(err); mk_lang_assert(consumed >= 0); mk_lang_assert(consumed <= data_len); data_buf += consumed; data_len -= consumed; }
+	*did = gud;
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_commit_rw_deserialize_from_binary_data(mk_lib_fast_import_commit_pt const commit, mk_lib_fast_import_binary_data_pct const binary_data, mk_lang_types_bool_pt const did) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pct binary_data_buf;
+	mk_lang_types_sint_t binary_data_len;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(commit);
+	mk_lang_assert(commit->m_fi);
+	mk_lang_assert(binary_data);
+	mk_lang_assert(did);
+
+	binary_data_buf = mk_lib_fast_import_binary_data_ro_data(binary_data);
+	binary_data_len = mk_lib_fast_import_binary_data_ro_sise(binary_data);
+	err = mk_lib_fast_import_commit_rw_deserialize_from_buf_and_len(commit, binary_data_buf, binary_data_len, did); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_tree_construct(mk_lib_fast_import_tree_pt const tree, mk_lib_fast_import_pt const fi) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(tree);
+	mk_lang_assert(fi);
+
+	tree->m_fi = fi;
+	err = mk_lib_fast_import_tree_nodes_rw_construct(&tree->m_children, tree->m_fi->m_mallocator); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_binary_data_rw_construct(&tree->m_data, tree->m_fi->m_mallocator); mk_lang_check_rereturn(err);
+	tree->m_digest_computed = mk_lang_false;
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_tree_destroy(mk_lib_fast_import_tree_pt const tree) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(tree);
+
+	err = mk_lib_fast_import_tree_nodes_rw_destroy(&tree->m_children); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_binary_data_rw_destroy(&tree->m_data); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_tree_rw_clear(mk_lib_fast_import_tree_pt const tree) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(tree);
+	mk_lang_assert(tree->m_fi);
+	mk_lang_assert(tree->m_fi->m_mallocator);
+
+	#if defined DEBUG || defined _DEBUG
+	mk_lang_string_memclr_pc_fn(&tree->m_mode_buf[0], mk_lang_countof(tree->m_mode_buf));
+	#endif
+	tree->m_mode_len = 0;
+	err = mk_lib_fast_import_tree_nodes_rw_clear(&tree->m_children); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_binary_data_rw_clear(&tree->m_data); mk_lang_check_rereturn(err);
+	tree->m_digest_computed = mk_lang_false;
+	#if defined DEBUG || defined _DEBUG
+	mk_sl_cui_uint8_memclr_fn(&tree->m_digest_value.m_data.m_uint8s[0], mk_lang_countof(tree->m_digest_value.m_data.m_uint8s));
+	#endif
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_tree_node_rw_construct(mk_lib_fast_import_tree_node_pt const tree_node, mk_lib_fast_import_pt const fi, mk_lib_fast_import_tree_node_id_t const type, mk_lang_types_pchar_pct const name_buf, mk_lang_types_sint_t const name_len) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	mk_lang_types_void_pt mem;
+	mk_lib_fast_import_tree_pt tree;
+	mk_lib_fast_import_blob_pt blob;
+
+	mk_lang_assert(tree_node);
+	mk_lang_assert(fi);
+	mk_lang_assert(fi->m_mallocator);
+	mk_lang_assert(type >= 0);
+	mk_lang_assert(type < mk_lib_fast_import_tree_node_id_e_dummy_end);
+	mk_lang_assert(name_buf);
+	mk_lang_assert(name_len >= 1);
+
+	tree_node->m_type = type;
+	switch(type)
+	{
+		case mk_lib_fast_import_tree_node_id_e_tree:
+		{
+			err = mk_lib_fast_import_mallocator_lokal_allocate(fi->m_mallocator, sizeof(*tree), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem);
+			tree = ((mk_lib_fast_import_tree_pt)(mem));
+			tree_node->m_val.m_data.m_tree = tree;
+			err = mk_lib_fast_import_tree_construct(tree, fi); mk_lang_check_rereturn(err);
+		}
+		break;
+		case mk_lib_fast_import_tree_node_id_e_blob:
+		{
+			err = mk_lib_fast_import_mallocator_lokal_allocate(fi->m_mallocator, sizeof(*blob), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem);
+			blob = ((mk_lib_fast_import_blob_pt)(mem));
+			tree_node->m_val.m_data.m_blob = blob;
+		}
+		break;
+		case mk_lib_fast_import_tree_node_id_e_dummy_end: mk_lang_assert_false(); break;
+		default: mk_lang_assert_false(); break;
+	}
+	err = mk_lib_fast_import_string_rw_construct(&tree_node->m_name, fi->m_mallocator); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_string_rw_push_back_copy_many(&tree_node->m_name, name_buf, name_len); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_st_fancy_str(&tree_node->m_name); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_tree_load_from_commit_3(mk_lib_fast_import_tree_pt const tree, mk_lib_fast_import_file_op_pct const file_op, mk_lang_types_pchar_pct const part_buf, mk_lang_types_sint_t const part_len, mk_lang_types_bool_t const is_last, mk_lib_fast_import_tree_ppt const curr) mk_lang_noexcept
+{
+	mk_lib_fast_import_tree_pt cr;
+	mk_lang_types_sint_t count;
+	mk_lang_types_sint_t n;
+	mk_lang_types_sint_t i;
+	mk_lib_fast_import_tree_node_pt child;
+	mk_lib_fast_import_tree_node_id_t type;
+	mk_lang_types_sint_t err;
+	mk_lib_crypto_hash_stream_sha1_digest_pct digest;
+	mk_lang_types_sint_t tsi;
+	mk_sl_cui_uint32_t tu32;
+
+	mk_lang_assert(tree);
+	mk_lang_assert(file_op);
+	mk_lang_assert(part_buf);
+	mk_lang_assert(part_len >= 1);
+	mk_lang_assert(is_last == mk_lang_false || is_last == mk_lang_true);
+	mk_lang_assert(curr);
+	mk_lang_assert(*curr);
+
+	cr = *curr;
+	count = mk_lib_fast_import_tree_nodes_rw_sise(&cr->m_children); mk_lang_assert(count >= 0);
+	n = count;
+	for(i = 0; i != n; ++i)
+	{
+		child = mk_lib_fast_import_tree_nodes_rw_at(&cr->m_children, i); mk_lang_assert(child);
+		if(!is_last && child->m_type == mk_lib_fast_import_tree_node_id_e_tree && mk_string_compare(&child->m_name, part_buf, part_len))
+		{
+			cr = child->m_val.m_data.m_tree;
+			break;
+		}
+	}
+	if(cr == *curr)
+	{
+		type = is_last ? mk_lib_fast_import_tree_node_id_e_blob : mk_lib_fast_import_tree_node_id_e_tree;
+		err = mk_lib_fast_import_tree_nodes_rw_grow_by(&cr->m_children, 1); mk_lang_check_rereturn(err);
+		child = mk_lib_fast_import_tree_nodes_rw_back(&cr->m_children); mk_lang_assert(child);
+		err = mk_lib_fast_import_tree_node_rw_construct(child, tree->m_fi, type, part_buf, part_len); mk_lang_check_rereturn(err);
+		if(is_last)
+		{
+			err = mk_lib_fast_import_pr_file_find_digest(cr->m_fi, &file_op->m_file_modify.m_data_ref, &digest); mk_lang_check_rereturn(err); mk_lang_check_return(digest);
+			child->m_val.m_data.m_blob->m_mark = file_op->m_file_modify.m_data_ref;
+			child->m_val.m_data.m_blob->m_digest = *digest;
+			child->m_val.m_data.m_blob->m_mode_len = mk_sl_cui_uint32_to_str_dec_n(&file_op->m_file_modify.m_mode, &child->m_val.m_data.m_blob->m_mode_buf[0], mk_lang_countof(child->m_val.m_data.m_blob->m_mode_buf));
+		}
+		else
+		{
+			tsi = 40000; mk_sl_cui_uint32_from_bi_sint(&tu32, &tsi); child->m_val.m_data.m_tree->m_mode_len = mk_sl_cui_uint32_to_str_dec_n(&tu32, &child->m_val.m_data.m_tree->m_mode_buf[0], mk_lang_countof(child->m_val.m_data.m_tree->m_mode_buf)); mk_lang_assert(child->m_val.m_data.m_tree->m_mode_len == 5);
+			cr = child->m_val.m_data.m_tree;
+		}
+	}
+	*curr = cr;
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_tree_load_from_commit_2(mk_lib_fast_import_tree_pt const tree, mk_lib_fast_import_file_op_pct const file_op) mk_lang_noexcept
+{
+	mk_lang_types_pchar_t sep;
+	mk_lib_fast_import_tree_pt curr;
+	mk_lang_types_pchar_pct path_buf;
+	mk_lang_types_sint_t path_len;
+	mk_lang_types_sint_t pos;
+	mk_lang_types_pchar_pct part_buf;
+	mk_lang_types_sint_t part_len;
+	mk_lang_types_bool_t is_last;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(tree);
+	mk_lang_assert(file_op);
+
+	sep = '/';
+	curr = tree;
+	path_buf = mk_lib_fast_import_string_ro_data(&file_op->m_file_modify.m_path);
+	path_len = mk_lib_fast_import_string_ro_sise(&file_op->m_file_modify.m_path);
+	do
+	{
+		pos = mk_generic_find(path_buf, path_len, &sep);
+		part_buf = path_buf;
+		part_len = pos;
+		is_last = pos == path_len;
+		err = mk_lib_fast_import_tree_load_from_commit_3(tree, file_op, part_buf, part_len, is_last, &curr); mk_lang_check_rereturn(err);
+		path_buf += part_len + 1;
+		path_len -= part_len + 1;
+	}while(!is_last);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_tree_load_from_commit(mk_lib_fast_import_tree_pt const tree, mk_lib_fast_import_commit_pct const commit) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
+	mk_lib_fast_import_file_op_pct file_op;
+
+	mk_lang_assert(tree);
+	mk_lang_assert(commit);
+
+	err = mk_lib_fast_import_tree_rw_clear(tree); mk_lang_check_rereturn(err);
+	n = mk_lib_fast_import_file_ops_ro_size(&commit->m_file_ops);
+	for(i = 0; i != n; ++i)
+	{
+		file_op = mk_lib_fast_import_file_ops_ro_at(&commit->m_file_ops, i); mk_lang_assert(file_op);
+		err = mk_lib_fast_import_tree_load_from_commit_2(tree, file_op); mk_lang_check_rereturn(err);
+	}
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_tree_debug_print_p(mk_lib_fast_import_file_ops_pct const file_ops) mk_lang_noexcept
+{
+	mk_lang_types_pchar_t sp;
+	mk_lang_types_pchar_t colon;
+	mk_lang_types_sint_t n;
+	mk_lang_types_sint_t i;
+	mk_lib_fast_import_file_op_pct file_op;
+	mk_lib_fast_import_file_modify_pct op_modify;
+	mk_lang_types_pchar_t name;
+	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t len;
+	mk_lang_types_pchar_t mode[mk_sl_cui_uint32_strlen_dec_v];
+	mk_lang_types_pchar_t ref[mk_sl_cui_uint128_strlen_dec_v];
+
+	mk_lang_assert(file_ops);
+
+	sp = ' ';
+	colon = ':';
+	n = mk_lib_fast_import_file_ops_ro_sise(file_ops);
+	for(i = 0; i != n; ++i)
+	{
+		file_op = mk_lib_fast_import_file_ops_ro_at(file_ops, i); mk_lang_assert(file_op);
+		op_modify = &file_op->m_file_modify;
+		name = 'M';
+		err = mk_lang_stdout_print_n(&name, 1); mk_lang_check_rereturn(err);
+		err = mk_lang_stdout_print_n(&sp, 1); mk_lang_check_rereturn(err);
+		len = mk_sl_cui_uint32_to_str_dec_n(&op_modify->m_mode, &mode[0], mk_lang_countof(mode)); mk_lang_assert(len >= 1); mk_lang_assert(len <= mk_lang_countof(mode));
+		err = mk_lang_stdout_print_n(&mode[0], len); mk_lang_check_rereturn(err);
+		err = mk_lang_stdout_print_n(&sp, 1); mk_lang_check_rereturn(err);
+		err = mk_lang_stdout_print_n(&colon, 1); mk_lang_check_rereturn(err);
+		len = mk_sl_cui_uint128_to_str_dec_n(&op_modify->m_data_ref, &ref[0], mk_lang_countof(ref)); mk_lang_assert(len >= 1); mk_lang_assert(len <= mk_lang_countof(ref));
+		err = mk_lang_stdout_print_n(&ref[0], len); mk_lang_check_rereturn(err);
+		err = mk_lang_stdout_print_n(&sp, 1); mk_lang_check_rereturn(err);
+		err = mk_lang_stdout_print_n(mk_lib_fast_import_string_ro_data(&op_modify->m_path), mk_lib_fast_import_string_ro_sise(&op_modify->m_path)); mk_lang_check_rereturn(err);
+		err = mk_lang_stdout_println_lit_n(""); mk_lang_check_rereturn(err);
+	}
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_tree_debug_print_r(mk_lib_fast_import_pt const fi, mk_lib_fast_import_tree_node_pct const node, mk_lib_fast_import_string_pt const path, mk_lib_fast_import_file_ops_pt const file_ops) mk_lang_noexcept
+{
+	mk_lib_fast_import_tree_pct sub_tree;
+	mk_lang_types_usize_t old_len;
+	mk_lang_types_pchar_t sep;
+	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t n;
+	mk_lang_types_sint_t i;
+	mk_lib_fast_import_tree_node_pct sub_node;
+	mk_lib_fast_import_blob_pct sub_blob;
+	mk_lib_fast_import_file_op_pt file_op;
+	mk_lib_fast_import_file_modify_pt op_modify;
+	mk_lang_types_sint_t len;
+	mk_lib_fast_import_file_op_t op;
+
+	mk_lang_assert(fi);
+	mk_lang_assert(node);
+	mk_lang_assert(path);
+	mk_lang_assert(file_ops);
+
+	switch(node->m_type)
+	{
+		case mk_lib_fast_import_tree_node_id_e_tree:
+		{
+			sub_tree = node->m_val.m_data.m_tree;
+			old_len = mk_lib_fast_import_string_rw_size(path);
+			sep = '/'; if(!mk_lib_fast_import_string_rw_is_empty(path)){ err = mk_lib_fast_import_string_rw_push_back_copy_single(path, &sep); mk_lang_check_rereturn(err); err = mk_lib_fast_import_st_fancy_str(path); mk_lang_check_rereturn(err); }
+			err = mk_lib_fast_import_string_rw_push_back_copy_many(path, mk_lib_fast_import_string_ro_data(&node->m_name), mk_lib_fast_import_string_ro_size(&node->m_name)); mk_lang_check_rereturn(err); err = mk_lib_fast_import_st_fancy_str(path); mk_lang_check_rereturn(err);
+			n = mk_lib_fast_import_tree_nodes_ro_sise(&sub_tree->m_children);
+			for(i = 0; i != n; ++i)
+			{
+				sub_node = mk_lib_fast_import_tree_nodes_ro_at(&sub_tree->m_children, i); mk_lang_assert(sub_node);
+				err = mk_lib_fast_import_tree_debug_print_r(fi, sub_node, path, file_ops); mk_lang_check_rereturn(err);
+			}
+			err = mk_lib_fast_import_string_rw_resize_to(path, old_len); mk_lang_check_rereturn(err); err = mk_lib_fast_import_st_fancy_str(path); mk_lang_check_rereturn(err);
+		}
+		break;
+		case mk_lib_fast_import_tree_node_id_e_blob:
+		{
+			sub_blob = node->m_val.m_data.m_blob;
+			err = mk_lib_fast_import_file_op_rw_construct(&op, fi); mk_lang_check_rereturn(err);
+			err = mk_lib_fast_import_file_ops_rw_push_back_move_single(file_ops, &op); mk_lang_check_rereturn(err);
+			file_op = mk_lib_fast_import_file_ops_rw_back(file_ops); mk_lang_assert(file_op);
+			op_modify = &file_op->m_file_modify;
+			len = mk_sl_cui_uint32_from_str_dec_n(&op_modify->m_mode, &sub_blob->m_mode_buf[0], sub_blob->m_mode_len); mk_lang_assert(len >= 1); mk_lang_assert(len <= sub_blob->m_mode_len);
+			op_modify->m_data_ref = sub_blob->m_mark;
+			old_len = mk_lib_fast_import_string_rw_size(path);
+			sep = '/'; if(!mk_lib_fast_import_string_rw_is_empty(path)){ err = mk_lib_fast_import_string_rw_push_back_copy_single(path, &sep); mk_lang_check_rereturn(err); err = mk_lib_fast_import_st_fancy_str(path); mk_lang_check_rereturn(err); }
+			err = mk_lib_fast_import_string_rw_push_back_copy_many(path, mk_lib_fast_import_string_ro_data(&node->m_name), mk_lib_fast_import_string_ro_size(&node->m_name)); mk_lang_check_rereturn(err); err = mk_lib_fast_import_st_fancy_str(path); mk_lang_check_rereturn(err);
+			err = mk_lib_fast_import_string_rw_push_back_copy_many(&op_modify->m_path, mk_lib_fast_import_string_ro_data(path), mk_lib_fast_import_string_ro_size(path)); mk_lang_check_rereturn(err); err = mk_lib_fast_import_st_fancy_str(&op_modify->m_path); mk_lang_check_rereturn(err);
+			err = mk_lib_fast_import_string_rw_resize_to(path, old_len); mk_lang_check_rereturn(err); err = mk_lib_fast_import_st_fancy_str(path); mk_lang_check_rereturn(err);
+		}
+		break;
+		case mk_lib_fast_import_tree_node_id_e_dummy_end: mk_lang_assert_false(); break;
+		default: mk_lang_assert_false(); break;
+	}
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_tree_debug_print(mk_lib_fast_import_tree_pct const tree) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	mk_lib_fast_import_string_t path;
+	mk_lib_fast_import_file_ops_t file_ops;
+	mk_lang_types_sint_t n;
+	mk_lang_types_sint_t i;
+	mk_lib_fast_import_tree_node_pct node;
+
+	mk_lang_assert(tree);
+	mk_lang_assert(tree->m_fi);
+	mk_lang_assert(tree->m_fi->m_mallocator);
+
+	err = mk_lib_fast_import_string_rw_construct(&path, tree->m_fi->m_mallocator); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_file_ops_rw_construct(&file_ops, tree->m_fi->m_mallocator); mk_lang_check_rereturn(err);
+	n = mk_lib_fast_import_tree_nodes_ro_sise(&tree->m_children);
+	for(i = 0; i != n; ++i)
+	{
+		node = mk_lib_fast_import_tree_nodes_ro_at(&tree->m_children, i); mk_lang_assert(node);
+		err = mk_lib_fast_import_tree_debug_print_r(tree->m_fi, node, &path, &file_ops); mk_lang_check_rereturn(err);
+	}
+	err = mk_lib_fast_import_tree_debug_print_p(&file_ops); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_file_ops_rw_destroy(&file_ops); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_string_rw_destroy(&path); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_tree_rw_deserialize_pr_object_type(mk_lib_fast_import_tree_pt const tree, mk_sl_cui_uint8_pct const binary_data_buf, mk_lang_types_sint_t const binary_data_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
+{
+	mk_lang_types_bool_t gud;
+	mk_sl_cui_uint8_t tree_sp[mk_lang_countstr(mk_lib_fast_import_k_tree_sp)];
+
+	mk_lang_assert(tree);
+	mk_lang_assert(tree->m_fi);
+	mk_lang_assert(tree->m_fi->m_mallocator);
+	mk_lang_assert(binary_data_buf);
+	mk_lang_assert(binary_data_len >= 1);
+	mk_lang_assert(success);
+	mk_lang_assert(consumed);
+
+	gud = mk_lang_true;
+	if(gud)
+	{
+		gud = binary_data_len >= mk_lang_countof(tree_sp);
+	}
+	if(gud)
+	{
+		mk_sl_cui_uint8_from_bi_pchar_many(&tree_sp[0], &mk_lib_fast_import_k_tree_sp[0], mk_lang_countstr(mk_lib_fast_import_k_tree_sp));
+		gud = mk_sl_cui_uint8_memcmp_fn(binary_data_buf, &tree_sp[0], mk_lang_countof(tree_sp)) == 0;
+	}
+	*success = gud;
+	*consumed = mk_lang_countof(tree_sp);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_tree_rw_deserialize_pr_object_len(mk_lib_fast_import_tree_pt const tree, mk_sl_cui_uint8_pct const binary_data_buf, mk_lang_types_sint_t const binary_data_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(tree);
+	mk_lang_assert(tree->m_fi);
+	mk_lang_assert(tree->m_fi->m_mallocator);
+	mk_lang_assert(binary_data_buf);
+	mk_lang_assert(binary_data_len >= 1);
+	mk_lang_assert(success);
+	mk_lang_assert(consumed);
+
+	err = mk_lib_fast_import_any_rw_deserialize_pr_object_len(binary_data_buf, binary_data_len, success, consumed); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_tree_rw_deserialize_pr_file_mode(mk_lib_fast_import_tree_pt const tree, mk_sl_cui_uint8_pct const binary_data_buf, mk_lang_types_sint_t const binary_data_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed, mk_lang_types_pchar_pt file_mode_buf, mk_lang_types_sint_pt const file_mode_len, mk_lib_fast_import_file_mode_pt const file_mode_num) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pct data_buf;
+	mk_lang_types_sint_t data_len;
+	mk_lang_types_bool_t gud;
+	mk_lang_types_sint_t str_len;
+	mk_lang_types_pchar_t str_buf[mk_lib_fast_import_file_mode_strlen_dec_v + 1];
+	mk_lang_types_sint_t len;
+	mk_lang_types_pchar_t sp;
+	mk_sl_cui_uint8_t tu8;
+
+	mk_lang_assert(tree);
+	mk_lang_assert(tree->m_fi);
+	mk_lang_assert(tree->m_fi->m_mallocator);
+	mk_lang_assert(binary_data_buf);
+	mk_lang_assert(binary_data_len >= 1);
+	mk_lang_assert(success);
+	mk_lang_assert(consumed);
+	mk_lang_assert(file_mode_buf);
+	mk_lang_assert(file_mode_len);
+	mk_lang_assert(*file_mode_len >= 1);
+	mk_lang_assert(*file_mode_len <= mk_lib_fast_import_file_mode_strlen_dec_v + 1);
+	mk_lang_assert(file_mode_num);
+
+	data_buf = binary_data_buf;
+	data_len = binary_data_len;
+	gud = mk_lang_true;
+	if(gud)
+	{
+		gud = data_len >= 1;
+	}
+	if(gud)
+	{
+		str_len = mk_lang_limits_sint_max;
+		str_len = mk_lang_min(str_len, data_len);
+		str_len = mk_lang_min(str_len, mk_lang_countof(str_buf));
+		str_len = mk_lang_min(str_len, *file_mode_len);
+		mk_sl_cui_uint8_to_bi_pchar_many(data_buf, &str_buf[0], str_len);
+		len = mk_lib_fast_import_file_mode_from_str_dec_n(file_mode_num, &str_buf[0], str_len); mk_lang_assert(len <= str_len);
+		gud = str_len >= 1;
+	}
+	if(gud)
+	{
+		mk_lang_clobber(&len);
+		mk_lang_string_memcpy_pc_fn(&file_mode_buf[0], &str_buf[0], len);
+		*file_mode_len = len;
+		data_buf += len;
+		data_len -= len;
+	}
+	if(gud)
+	{
+		gud = data_len >= 1;
+	}
+	if(gud)
+	{
+		sp = ' '; mk_sl_cui_uint8_from_bi_pchar(&tu8, &sp);
+		gud = mk_sl_cui_uint8_eq(&data_buf[0], &tu8);
+	}
+	if(gud)
+	{
+		data_buf += 1;
+		data_len -= 1;
+	}
+	*success = gud;
+	*consumed = binary_data_len - data_len;
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_tree_rw_deserialize_pr_file_name(mk_lib_fast_import_tree_pt const tree, mk_sl_cui_uint8_pct const binary_data_buf, mk_lang_types_sint_t const binary_data_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed, mk_lib_fast_import_string_pt const file_name) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pct data_buf;
+	mk_lang_types_sint_t data_len;
+	mk_lang_types_bool_t gud;
+	mk_lang_types_pchar_t nul_pc;
+	mk_sl_cui_uint8_t nul_u8;
+	mk_lang_types_sint_t found;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(tree);
+	mk_lang_assert(tree->m_fi);
+	mk_lang_assert(tree->m_fi->m_mallocator);
+	mk_lang_assert(binary_data_buf);
+	mk_lang_assert(binary_data_len >= 1);
+	mk_lang_assert(success);
+	mk_lang_assert(consumed);
+	mk_lang_assert(file_name);
+
+	data_buf = binary_data_buf;
+	data_len = binary_data_len;
+	gud = mk_lang_true;
+	if(gud)
+	{
+		gud = data_len >= 1;
+	}
+	if(gud)
+	{
+		nul_pc = '\0'; mk_sl_cui_uint8_from_bi_pchar(&nul_u8, &nul_pc);
+		found = mk_generic_find_u8(data_buf, data_len, &nul_u8, 1); mk_lang_assert(found >= 0); mk_lang_assert(found == data_len || found <= data_len - 1);
+		gud = found >= 1 && found != data_len;
+	}
+	if(gud)
+	{
+		mk_lang_clobber(&found);
+		err = mk_lib_fast_import_string_rw_clear(file_name); mk_lang_check_rereturn(err);
+		err = mk_lib_fast_import_string_rw_push_back_copy_many_u8(file_name, data_buf, found); mk_lang_check_rereturn(err);
+		data_buf += found;
+		data_len -= found;
+		mk_lang_assert(data_len >= 1 && mk_sl_cui_uint8_eq(&data_buf[0], &nul_u8));
+		data_buf += 1;
+		data_len -= 1;
+	}
+	*success = gud;
+	*consumed = binary_data_len - data_len;
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_tree_rw_deserialize_pr_file_dgst(mk_lib_fast_import_tree_pt const tree, mk_sl_cui_uint8_pct const binary_data_buf, mk_lang_types_sint_t const binary_data_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed, mk_lib_crypto_hash_stream_sha1_digest_pt const file_digest) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pct data_buf;
+	mk_lang_types_sint_t data_len;
+	mk_lang_types_bool_t gud;
+
+	mk_lang_assert(tree);
+	mk_lang_assert(tree->m_fi);
+	mk_lang_assert(tree->m_fi->m_mallocator);
+	mk_lang_assert(binary_data_buf);
+	mk_lang_assert(binary_data_len >= 1);
+	mk_lang_assert(success);
+	mk_lang_assert(consumed);
+	mk_lang_assert(file_digest);
+
+	data_buf = binary_data_buf;
+	data_len = binary_data_len;
+	gud = mk_lang_true;
+	if(gud)
+	{
+		gud = data_len >= mk_lang_countof(file_digest->m_data.m_uint8s);
+	}
+	if(gud)
+	{
+		mk_sl_cui_uint8_memcpy_fn(&file_digest->m_data.m_uint8s[0], data_buf, mk_lang_countof(file_digest->m_data.m_uint8s));
+		data_buf += mk_lang_countof(file_digest->m_data.m_uint8s);
+		data_len -= mk_lang_countof(file_digest->m_data.m_uint8s);
+	}
+	*success = gud;
+	*consumed = binary_data_len - data_len;
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_tree_rw_deserialize_pr_append_child(mk_lib_fast_import_tree_pt const tree, mk_lib_fast_import_file_mode_pct const file_mode_num, mk_lib_fast_import_string_pct const file_name, mk_lib_crypto_hash_stream_sha1_digest_pct const file_digest) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	mk_lang_types_ulong_t tul;
+	mk_lib_fast_import_tree_node_id_t type;
+	mk_lang_types_pchar_pct name_buf;
+	mk_lang_types_sint_t name_len;
+	mk_lib_fast_import_tree_node_pt child;
+
+	mk_lang_assert(tree);
+	mk_lang_assert(tree->m_fi);
+	mk_lang_assert(tree->m_fi->m_mallocator);
+	mk_lang_assert(file_mode_num);
+	mk_lang_assert(file_name);
+	mk_lang_assert(file_digest);
+
+	mk_lib_fast_import_file_mode_to_bi_ulong(file_mode_num, &tul);
+	type = tul == 40000 ? mk_lib_fast_import_tree_node_id_e_tree : mk_lib_fast_import_tree_node_id_e_blob;
+	name_buf = mk_lib_fast_import_string_ro_data(file_name); mk_lang_assert(name_buf); mk_lang_assert(name_buf[0] != '\0');
+	name_len = mk_lib_fast_import_string_ro_sise(file_name); mk_lang_assert(name_len >= 1);
+
+	err = mk_lib_fast_import_tree_nodes_rw_grow_by(&tree->m_children, 1); mk_lang_check_rereturn(err);
+	child = mk_lib_fast_import_tree_nodes_rw_back(&tree->m_children); mk_lang_assert(child);
+	err = mk_lib_fast_import_tree_node_rw_construct(child, tree->m_fi, type, name_buf, name_len); mk_lang_check_rereturn(err);
+	if(type == mk_lib_fast_import_tree_node_id_e_blob)
+	{
+		child->m_val.m_data.m_blob->m_digest = *file_digest;
+		child->m_val.m_data.m_blob->m_mode_len = mk_lib_fast_import_file_mode_to_str_dec_n(file_mode_num, &child->m_val.m_data.m_blob->m_mode_buf[0], mk_lang_countof(child->m_val.m_data.m_blob->m_mode_buf) - 1); mk_lang_assert(child->m_val.m_data.m_blob->m_mode_len >= 1); mk_lang_assert(child->m_val.m_data.m_blob->m_mode_len <= mk_lang_countof(child->m_val.m_data.m_blob->m_mode_buf) - 1); child->m_val.m_data.m_blob->m_mode_buf[child->m_val.m_data.m_blob->m_mode_len] = '\0';
+	}
+	else
+	{
+		child->m_val.m_data.m_tree->m_digest_computed = mk_lang_true;
+		child->m_val.m_data.m_tree->m_digest_value = *file_digest;
+		child->m_val.m_data.m_tree->m_mode_len = mk_lib_fast_import_file_mode_to_str_dec_n(file_mode_num, &child->m_val.m_data.m_tree->m_mode_buf[0], mk_lang_countof(child->m_val.m_data.m_tree->m_mode_buf) - 1); mk_lang_assert(child->m_val.m_data.m_tree->m_mode_len >= 1); mk_lang_assert(child->m_val.m_data.m_tree->m_mode_len <= mk_lang_countof(child->m_val.m_data.m_tree->m_mode_buf) - 1); child->m_val.m_data.m_tree->m_mode_buf[child->m_val.m_data.m_tree->m_mode_len] = '\0';
+	}
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_tree_rw_deserialize_pr_child(mk_lib_fast_import_tree_pt const tree, mk_sl_cui_uint8_pct const binary_data_buf, mk_lang_types_sint_t const binary_data_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pct data_buf;
+	mk_lang_types_sint_t data_len;
+	mk_lang_types_bool_t gud;
+	mk_lang_types_sint_t file_mode_len;
+	mk_lang_types_pchar_t file_mode_buf[mk_lib_fast_import_file_mode_strlen_dec_v + 1];
+	mk_lang_types_sint_t err;
+	mk_lib_fast_import_string_t file_name;
+	mk_lang_types_sint_t used;
+	mk_lib_fast_import_file_mode_t file_mode_num;
+	mk_lib_crypto_hash_stream_sha1_digest_t file_digest;
+
+	mk_lang_assert(tree);
+	mk_lang_assert(tree->m_fi);
+	mk_lang_assert(tree->m_fi->m_mallocator);
+	mk_lang_assert(binary_data_buf);
+	mk_lang_assert(binary_data_len >= 1);
+
+	data_buf = binary_data_buf;
+	data_len = binary_data_len;
+	gud = mk_lang_true;
+
+	file_mode_len = mk_lang_countof(file_mode_buf);
+	err = mk_lib_fast_import_string_rw_construct(&file_name, tree->m_fi->m_mallocator); mk_lang_check_rereturn(err);
+
+	if(gud){ err = mk_lib_fast_import_tree_rw_deserialize_pr_file_mode(tree, data_buf, data_len, &gud, &used, &file_mode_buf[0], &file_mode_len, &file_mode_num); mk_lang_check_rereturn(err); mk_lang_assert(used >= 0); mk_lang_assert(used <= data_len); data_buf += used; data_len -= used; }
+	if(gud){ err = mk_lib_fast_import_tree_rw_deserialize_pr_file_name(tree, data_buf, data_len, &gud, &used, &file_name                                       ); mk_lang_check_rereturn(err); mk_lang_assert(used >= 0); mk_lang_assert(used <= data_len); data_buf += used; data_len -= used; }
+	if(gud){ err = mk_lib_fast_import_tree_rw_deserialize_pr_file_dgst(tree, data_buf, data_len, &gud, &used, &file_digest                                     ); mk_lang_check_rereturn(err); mk_lang_assert(used >= 0); mk_lang_assert(used <= data_len); data_buf += used; data_len -= used; }
+
+	if(gud){ err = mk_lib_fast_import_tree_rw_deserialize_pr_append_child(tree, &file_mode_num, &file_name, &file_digest); mk_lang_check_rereturn(err); }
+	err = mk_lib_fast_import_string_rw_destroy(&file_name); mk_lang_check_rereturn(err);
+
+	*success = gud;
+	*consumed = binary_data_len - data_len;
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_tree_rw_deserialize_from_buf_and_len(mk_lib_fast_import_tree_pt const tree, mk_sl_cui_uint8_pct const binary_data_buf, mk_lang_types_sint_t const binary_data_len, mk_lang_types_bool_pt const did) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pct data_buf;
+	mk_lang_types_sint_t data_len;
+	mk_lang_types_sint_t err;
+	mk_lang_types_bool_t gud;
+	mk_lang_types_sint_t consumed;
+
+	mk_lang_assert(tree);
+	mk_lang_assert(tree->m_fi);
+	mk_lang_assert(binary_data_buf);
+	mk_lang_assert(binary_data_len >= 1);
+	mk_lang_assert(did);
+
+	data_buf = binary_data_buf;
+	data_len = binary_data_len;
+	err = mk_lib_fast_import_tree_rw_clear(tree); mk_lang_check_rereturn(err);
+	gud = mk_lang_true;
+	if(gud){ err = mk_lib_fast_import_tree_rw_deserialize_pr_object_type(tree, data_buf, data_len, &gud, &consumed); mk_lang_check_rereturn(err); mk_lang_assert(consumed >= 0); mk_lang_assert(consumed <= data_len); data_buf += consumed; data_len -= consumed; }
+	if(gud){ err = mk_lib_fast_import_tree_rw_deserialize_pr_object_len (tree, data_buf, data_len, &gud, &consumed); mk_lang_check_rereturn(err); mk_lang_assert(consumed >= 0); mk_lang_assert(consumed <= data_len); data_buf += consumed; data_len -= consumed; }
+	if(gud)
+	{
+		while(data_len != 0)
+		{
+			if(gud){ err = mk_lib_fast_import_tree_rw_deserialize_pr_child(tree, data_buf, data_len, &gud, &consumed); mk_lang_check_rereturn(err); mk_lang_assert(consumed >= 0); mk_lang_assert(consumed <= data_len); data_buf += consumed; data_len -= consumed; }
+		}
+	}
+	*did = gud;
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_tree_rw_deserialize_from_binary_data(mk_lib_fast_import_tree_pt const tree, mk_lib_fast_import_binary_data_pct const binary_data, mk_lang_types_bool_pt const did) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pct binary_data_buf;
+	mk_lang_types_sint_t binary_data_len;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(tree);
+	mk_lang_assert(tree->m_fi);
+	mk_lang_assert(binary_data);
+	mk_lang_assert(did);
+
+	binary_data_buf = mk_lib_fast_import_binary_data_ro_data(binary_data);
+	binary_data_len = mk_lib_fast_import_binary_data_ro_sise(binary_data);
+	err = mk_lib_fast_import_tree_rw_deserialize_from_buf_and_len(tree, binary_data_buf, binary_data_len, did); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -396,6 +1901,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 
 	err = mk_sl_io_reader_file_close(&fi->m_buffered_reader.m_reader); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_tree_by_mark_rw_destruct(&fi->m_marks); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_map_mark_to_commit_rw_destruct(&fi->m_commits); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -422,6 +1928,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	mk_lang_assert(file_path[0] != '\0');
 
 	err = mk_lib_fast_import_tree_by_mark_rw_construct(&fi->m_marks, fi->m_mallocator); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_map_mark_to_commit_rw_construct(&fi->m_commits, fi->m_mallocator); mk_lang_check_rereturn(err);
 	err = mk_sl_io_reader_file_open_n(&fi->m_buffered_reader.m_reader, file_path); mk_lang_check_rereturn(err);
 	err = mk_sl_io_reader_file_read(&fi->m_buffered_reader.m_reader, &fi->m_buffered_reader.m_data_buf[0], mk_lang_countof(fi->m_buffered_reader.m_data_buf), &fi->m_buffered_reader.m_data_len); mk_lang_check_rereturn(err);
 	fi->m_buf = &fi->m_buffered_reader.m_data_buf[0];
@@ -750,26 +2257,20 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_file_find_digest(mk_lib_fast_import_pt const fi, mk_sl_cui_uint128_pct const file_ref, mk_lib_crypto_hash_stream_sha1_digest_pct* const digest) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_add_to_refs_commit(mk_lib_fast_import_pt const fi, mk_lang_types_bool_pt const did, mk_lib_fast_import_commit_pct const commit) mk_lang_noexcept
 {
-	mk_lib_fast_import_blob_t blob;
+	mk_lib_fast_import_mark_to_commit_t element;
 	mk_lang_types_sint_t err;
-	mk_lib_fast_import_tree_by_mark_node_pct node;
+	mk_lib_fast_import_map_mark_to_commit_node_pct node;
 
 	mk_lang_assert(fi);
-	mk_lang_assert(file_ref);
-	mk_lang_assert(digest);
+	mk_lang_assert(did);
+	mk_lang_assert(commit);
+	mk_lang_assert(commit->m_has_mark);
 
-	blob.m_mark = *file_ref;
-	err = mk_lib_fast_import_tree_by_mark_ro_find_node(&fi->m_marks, &blob, &node); mk_lang_check_rereturn(err);
-	if(node)
-	{
-		*digest = &node->m_element.m_digest;
-	}
-	else
-	{
-		*digest = mk_lang_null;
-	}
+	element.m_mark = commit->m_mark;
+	element.m_digest = commit->m_digest;
+	err = mk_lib_fast_import_map_mark_to_commit_rw_insert_element_move(&fi->m_commits, &element, &node); mk_lang_check_rereturn(err); mk_lang_check_return(node);
 	return 0;
 }
 
@@ -832,14 +2333,14 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	size = 0;
 	size += 2; /* zlib header */
 	size += 5; /* deflate block header */
-	size += mk_lang_countstr(mk_lib_fast_import_k_treesp);
+	size += mk_lang_countstr(mk_lib_fast_import_k_tree_sp);
 	size += slen;
 	size += 1; /* nul */
 	size += ulen;
 	size += 4; /* zlib footer */
 	err = mk_lib_fast_import_binary_data_rw_reserve_at_least(bytes, size); mk_lang_check_rereturn(err);
 	mk_lib_compress_zlib_init(&zlib);
-	err = mk_lib_fast_import_pr_tree_append_pchars(fi, &zlib, bytes, &mk_lib_fast_import_k_treesp[0], mk_lang_countstr(mk_lib_fast_import_k_treesp)); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_pr_tree_append_pchars(fi, &zlib, bytes, &mk_lib_fast_import_k_tree_sp[0], mk_lang_countstr(mk_lib_fast_import_k_tree_sp)); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_pr_tree_append_pchars(fi, &zlib, bytes, &str[0], slen); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_pr_tree_append_pchars(fi, &zlib, bytes, &nul, 1); mk_lang_check_rereturn(err);
 	n = mk_lib_fast_import_file_ops_ro_size(tree);
@@ -1054,6 +2555,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 		str_len = i;
 		err = mk_lib_fast_import_string_rw_clear(string); mk_lang_check_rereturn(err);
 		err = mk_lib_fast_import_string_rw_push_back_copy_many(string, str_buf, str_len); mk_lang_check_rereturn(err);
+		err = mk_lib_fast_import_st_fancy_str(string); mk_lang_check_rereturn(err);
 		d += str_len + mk_lang_countstr(mk_lib_fast_import_k_splt);
 		l -= str_len + mk_lang_countstr(mk_lib_fast_import_k_splt);
 	}
@@ -1101,6 +2603,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 		str_len = i;
 		err = mk_lib_fast_import_string_rw_clear(string); mk_lang_check_rereturn(err);
 		err = mk_lib_fast_import_string_rw_push_back_copy_many(string, str_buf, str_len); mk_lang_check_rereturn(err);
+		err = mk_lib_fast_import_st_fancy_str(string); mk_lang_check_rereturn(err);
 		d += str_len + mk_lang_countstr(mk_lib_fast_import_k_gtsp);
 		l -= str_len + mk_lang_countstr(mk_lib_fast_import_k_gtsp);
 	}
@@ -1148,6 +2651,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 		str_len = i;
 		err = mk_lib_fast_import_string_rw_clear(string); mk_lang_check_rereturn(err);
 		err = mk_lib_fast_import_string_rw_push_back_copy_many(string, str_buf, str_len); mk_lang_check_rereturn(err);
+		err = mk_lib_fast_import_st_fancy_str(string); mk_lang_check_rereturn(err);
 		d += str_len + mk_lang_countstr(mk_lib_fast_import_k_lf);
 		l -= str_len + mk_lang_countstr(mk_lib_fast_import_k_lf);
 	}
@@ -1335,7 +2839,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 
 	d = *data_buf;
 	l = *data_len;
-	err = mk_lib_fast_import_st_do_string(&d, &l, &mk_lib_fast_import_k_authorsp[0], mk_lang_countstr(mk_lib_fast_import_k_authorsp), &b); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_st_do_string(&d, &l, &mk_lib_fast_import_k_author_sp[0], mk_lang_countstr(mk_lib_fast_import_k_author_sp), &b); mk_lang_check_rereturn(err);
 	if(b)
 	{
 		*data_buf = d;
@@ -1360,7 +2864,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 
 	d = *data_buf;
 	l = *data_len;
-	err = mk_lib_fast_import_st_do_string(&d, &l, &mk_lib_fast_import_k_committersp[0], mk_lang_countstr(mk_lib_fast_import_k_committersp), &b); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_st_do_string(&d, &l, &mk_lib_fast_import_k_committer_sp[0], mk_lang_countstr(mk_lib_fast_import_k_committer_sp), &b); mk_lang_check_rereturn(err);
 	if(b)
 	{
 		*data_buf = d;
@@ -1524,6 +3028,34 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_do_from_opt(mk_lib_fast_import_pt const fi, mk_lang_types_bool_pt const did, mk_lang_types_bool_pt const has, mk_sl_cui_uint128_pt const mark_ref) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pt d;
+	mk_lang_types_sint_t l;
+	mk_lang_types_bool_t b;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(fi);
+	mk_lang_assert(did);
+	mk_lang_assert(has);
+	mk_lang_assert(mark_ref);
+
+	d = fi->m_buf;
+	l = fi->m_len;
+	b = mk_lang_true;
+	if(b){ err = mk_lib_fast_import_st_do_from_prefix(&d, &l, &b); mk_lang_check_rereturn(err); }
+	if(b){ err = mk_lib_fast_import_st_do_data_ref(&d, &l, &b, mark_ref); mk_lang_check_rereturn(err); }
+	if(b){ err = mk_lib_fast_import_st_do_from_suffix(&d, &l, &b); mk_lang_check_rereturn(err); }
+	if(b)
+	{
+		fi->m_buf = d;
+		fi->m_len = l;
+	}
+	*has = b;
+	*did = mk_lang_true;
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_st_do_blob_whole(mk_sl_cui_uint8_ppt const data_buf, mk_lang_types_sint_pt const data_len, mk_lang_types_bool_pt const did, mk_lib_fast_import_blob_pt const blob) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_pt d;
@@ -1590,6 +3122,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 		str_len = i;
 		err = mk_lib_fast_import_string_rw_clear(ref); mk_lang_check_rereturn(err);
 		err = mk_lib_fast_import_string_rw_push_back_copy_many(ref, str_buf, str_len); mk_lang_check_rereturn(err);
+		err = mk_lib_fast_import_st_fancy_str(ref); mk_lang_check_rereturn(err);
 		d += str_len + 1;
 		l -= str_len + 1;
 	}
@@ -1782,6 +3315,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 			err = mk_lib_fast_import_pr_reread(fi); mk_lang_check_rereturn(err);
 		}while(bin_len != 0);
 		err = mk_lib_fast_import_binary_data_rw_resize_to(binary_data, binary_len); mk_lang_check_rereturn(err);
+		err = mk_lib_fast_import_st_fancy_bin(binary_data); mk_lang_check_rereturn(err);
 	}
 	return 0;
 }
@@ -1859,6 +3393,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	mk_lang_assert(file_op);
 
 	b = mk_lang_false;
+	file_op->m_fi = fi;
 	if(!b){ err = mk_lib_fast_import_pr_do_file_op_modify(fi, &b, &file_op->m_file_modify); mk_lang_check_rereturn(err); }
 	*did = b;
 	return 0;
@@ -1868,6 +3403,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 {
 	mk_lang_types_sint_t err;
 	mk_lang_types_bool_t b;
+	mk_lib_fast_import_file_op_t op;
 	mk_lib_fast_import_file_op_pt file_op;
 
 	mk_lang_assert(fi);
@@ -1878,10 +3414,14 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	b = mk_lang_true;
 	while(b)
 	{
-		err = mk_lib_fast_import_file_ops_rw_reserve_additional(file_ops, 1); mk_lang_check_rereturn(err);
-		file_op = mk_lib_fast_import_file_ops_rw_data(file_ops) + mk_lib_fast_import_file_ops_rw_size(file_ops);
+		err = mk_lib_fast_import_file_op_rw_construct(&op, fi); mk_lang_check_rereturn(err);
+		err = mk_lib_fast_import_file_ops_rw_push_back_move_single(file_ops, &op); mk_lang_check_rereturn(err);
+		file_op = mk_lib_fast_import_file_ops_rw_back(file_ops); mk_lang_assert(file_op);
 		err = mk_lib_fast_import_pr_do_file_op(fi, &b, file_op); mk_lang_check_rereturn(err);
-		if(b){ err = mk_lib_fast_import_file_ops_rw_resize_by(file_ops, 1); mk_lang_check_rereturn(err); }
+		if(!b)
+		{
+			err = mk_lib_fast_import_file_ops_rw_shrink_by(file_ops, 1); mk_lang_check_rereturn(err);
+		}
 	}
 	*did = mk_lang_true;
 	return 0;
@@ -1907,7 +3447,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	if(b){ err = mk_lib_fast_import_st_do_author(&d, &l, &b, &commit->m_author_name, &commit->m_author_email, &commit->m_author_timestamp); mk_lang_check_rereturn(err); }
 	if(b){ err = mk_lib_fast_import_st_do_committer(&d, &l, &b, &commit->m_committer_name, &commit->m_committer_email, &commit->m_committer_timestamp); mk_lang_check_rereturn(err); }
 	if(b){ fi->m_buf = d; fi->m_len = l; }
+	if(b){ err = mk_lib_fast_import_pr_reread(fi); mk_lang_check_rereturn(err); }
 	if(b){ err = mk_lib_fast_import_pr_do_data_with_binary_data(fi, &b, &commit->m_message); mk_lang_check_rereturn(err); }
+	if(b){ err = mk_lib_fast_import_pr_reread(fi); mk_lang_check_rereturn(err); }
+	if(b){ err = mk_lib_fast_import_pr_do_from_opt(fi, &b, &commit->m_has_from_mark_ref, &commit->m_from_mark_ref); mk_lang_check_rereturn(err); }
 	if(b){ err = mk_lib_fast_import_pr_do_file_ops(fi, &b, &commit->m_file_ops); mk_lang_check_rereturn(err); }
 	*did = b;
 	return 0;
@@ -1984,195 +3527,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_tree_construct(mk_lib_fast_import_tree_pt const tree, mk_lib_fast_import_pt const fi) mk_lang_noexcept
-{
-	mk_lang_types_sint_t err;
-
-	mk_lang_assert(tree);
-	mk_lang_assert(fi);
-
-	tree->m_fi = fi;
-	err = mk_lib_fast_import_tree_nodes_rw_construct(&tree->m_children, tree->m_fi->m_mallocator); mk_lang_check_rereturn(err);
-	err = mk_lib_fast_import_binary_data_rw_construct(&tree->m_data, tree->m_fi->m_mallocator); mk_lang_check_rereturn(err);
-	tree->m_digest_computed = mk_lang_false;
-	return 0;
-}
-
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_tree_destroy(mk_lib_fast_import_tree_pt const tree) mk_lang_noexcept
-{
-	mk_lang_types_sint_t err;
-
-	mk_lang_assert(tree);
-
-	err = mk_lib_fast_import_tree_nodes_rw_destroy(&tree->m_children); mk_lang_check_rereturn(err);
-	err = mk_lib_fast_import_binary_data_rw_destroy(&tree->m_data); mk_lang_check_rereturn(err);
-	return 0;
-}
-
-mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_generic_find(mk_lang_types_pchar_pct const haystack_buf, mk_lang_types_sint_t const haystack_len, mk_lang_types_pchar_pct const needle) mk_lang_noexcept
-{
-	mk_lang_types_pchar_t nnn mk_lang_constexpr_init;
-	mk_lang_types_sint_t n mk_lang_constexpr_init;
-	mk_lang_types_sint_t i mk_lang_constexpr_init;
-
-	mk_lang_assert(haystack_buf || haystack_len == 0);
-	mk_lang_assert(haystack_len >= 0);
-	mk_lang_assert(needle);
-
-	nnn = *needle;
-	n = haystack_len;
-	for(i = 0; i != n; ++i)
-	{
-		if(haystack_buf[i] == nnn)
-		{
-			break;
-		}
-	}
-	return i;
-}
-
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_bool_t mk_string_compare(mk_lib_fast_import_string_pct const a_str, mk_lang_types_pchar_pct const b_buf, mk_lang_types_sint_t const b_len) mk_lang_noexcept
-{
-	mk_lang_types_pchar_pct a_buf;
-	mk_lang_types_sint_t a_len;
-	mk_lang_types_bool_t cmp;
-
-	mk_lang_assert(a_str);
-	mk_lang_assert(!mk_lib_fast_import_string_ro_is_empty(a_str));
-	mk_lang_assert(b_buf);
-	mk_lang_assert(b_len >= 1);
-
-	a_buf = mk_lib_fast_import_string_ro_data(a_str); mk_lang_assert(a_buf);
-	a_len = mk_lib_fast_import_string_ro_sise(a_str); mk_lang_assert(a_len >= 1);
-	cmp = a_len == b_len;
-	cmp = cmp && mk_lang_string_memcmp_pc_fn(a_buf, b_buf, a_len) == 0;
-	return cmp;
-}
-
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_tree_load_from_commit_3(mk_lib_fast_import_tree_pt const tree, mk_lib_fast_import_file_op_pct const file_op, mk_lang_types_pchar_pct const part_buf, mk_lang_types_sint_t const part_len, mk_lang_types_bool_t const is_last, mk_lib_fast_import_tree_ppt const curr) mk_lang_noexcept
-{
-	mk_lib_fast_import_tree_pt cr;
-	mk_lang_types_sint_t count;
-	mk_lang_types_sint_t n;
-	mk_lang_types_sint_t i;
-	mk_lang_types_sint_t tsi;
-	mk_sl_cui_uint32_t tu32;
-	mk_lib_fast_import_tree_node_pt child;
-	mk_lang_types_sint_t err;
-	mk_lang_types_void_pt mem;
-	mk_lib_crypto_hash_stream_sha1_digest_pct digest;
-
-	mk_lang_assert(tree);
-	mk_lang_assert(file_op);
-	mk_lang_assert(part_buf);
-	mk_lang_assert(part_len >= 1);
-	mk_lang_assert(is_last == mk_lang_false || is_last == mk_lang_true);
-	mk_lang_assert(curr);
-	mk_lang_assert(*curr);
-
-	cr = *curr;
-	count = mk_lib_fast_import_tree_nodes_rw_sise(&cr->m_children); mk_lang_assert(count >= 0);
-	n = count;
-	for(i = 0; i != n; ++i)
-	{
-		child = mk_lib_fast_import_tree_nodes_rw_at(&cr->m_children, i); mk_lang_assert(child);
-		if(!is_last && child->m_type == mk_lib_fast_import_tree_node_id_e_tree)
-		{
-			if(mk_string_compare(&child->m_name, part_buf, part_len))
-			{
-				cr = child->m_val.m_data.m_tree;
-				break;
-			}
-		}
-	}
-	if(cr == *curr)
-	{
-		err = mk_lib_fast_import_tree_nodes_rw_resize_by(&cr->m_children, 1); mk_lang_check_rereturn(err);
-		if(is_last)
-		{
-			child = mk_lib_fast_import_tree_nodes_rw_back(&cr->m_children); mk_lang_assert(child);
-			child->m_type = mk_lib_fast_import_tree_node_id_e_blob;
-			err = mk_lib_fast_import_mallocator_lokal_allocate(cr->m_fi->m_mallocator, sizeof(*child->m_val.m_data.m_blob), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem); child->m_val.m_data.m_blob = ((mk_lib_fast_import_blob_pt)(mem));
-			err = mk_lib_fast_import_pr_file_find_digest(cr->m_fi, &file_op->m_file_modify.m_data_ref, &digest); mk_lang_check_rereturn(err); mk_lang_check_return(digest);
-			child->m_val.m_data.m_blob->m_digest = *digest;
-			child->m_val.m_data.m_blob->m_mode_len = mk_sl_cui_uint32_to_str_dec_n(&file_op->m_file_modify.m_mode, &child->m_val.m_data.m_blob->m_mode_buf[0], mk_lang_countof(child->m_val.m_data.m_blob->m_mode_buf));
-			err = mk_lib_fast_import_string_rw_construct(&child->m_name, tree->m_fi->m_mallocator); mk_lang_check_rereturn(err);
-			err = mk_lib_fast_import_string_rw_push_back_copy_many(&child->m_name, part_buf, part_len); mk_lang_check_rereturn(err);
-		}
-		else
-		{
-			child = mk_lib_fast_import_tree_nodes_rw_back(&cr->m_children); mk_lang_assert(child);
-			child->m_type = mk_lib_fast_import_tree_node_id_e_tree;
-			err = mk_lib_fast_import_mallocator_lokal_allocate(cr->m_fi->m_mallocator, sizeof(*child->m_val.m_data.m_tree), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem); child->m_val.m_data.m_tree = ((mk_lib_fast_import_tree_pt)(mem));
-			err = mk_lib_fast_import_tree_construct(child->m_val.m_data.m_tree, cr->m_fi); mk_lang_check_rereturn(err);
-			tsi = 40000; mk_sl_cui_uint32_from_bi_sint(&tu32, &tsi); child->m_val.m_data.m_tree->m_mode_len = mk_sl_cui_uint32_to_str_dec_n(&tu32, &child->m_val.m_data.m_tree->m_mode_buf[0], mk_lang_countof(child->m_val.m_data.m_tree->m_mode_buf));
-			err = mk_lib_fast_import_string_rw_construct(&child->m_name, tree->m_fi->m_mallocator); mk_lang_check_rereturn(err);
-			err = mk_lib_fast_import_string_rw_push_back_copy_many(&child->m_name, part_buf, part_len); mk_lang_check_rereturn(err);
-			cr = child->m_val.m_data.m_tree;
-		}
-	}
-	*curr = cr;
-	return 0;
-}
-
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_tree_load_from_commit_2(mk_lib_fast_import_tree_pt const tree, mk_lib_fast_import_file_op_pct const file_op) mk_lang_noexcept
-{
-	mk_lang_types_pchar_t sep;
-	mk_lib_fast_import_tree_pt curr;
-	mk_lang_types_pchar_pct path_buf;
-	mk_lang_types_sint_t path_len;
-	mk_lang_types_sint_t pos;
-	mk_lang_types_pchar_pct part_buf;
-	mk_lang_types_sint_t part_len;
-	mk_lang_types_bool_t is_last;
-	mk_lang_types_sint_t err;
-
-	mk_lang_assert(tree);
-	mk_lang_assert(file_op);
-
-	sep = '/';
-	curr = tree;
-	path_buf = mk_lib_fast_import_string_ro_data(&file_op->m_file_modify.m_path);
-	path_len = mk_lib_fast_import_string_ro_sise(&file_op->m_file_modify.m_path);
-	for(;;)
-	{
-		pos = mk_generic_find(path_buf, path_len, &sep);
-		part_buf = path_buf;
-		part_len = pos;
-		is_last = pos == path_len;
-		err = mk_lib_fast_import_tree_load_from_commit_3(tree, file_op, part_buf, part_len, is_last, &curr); mk_lang_check_rereturn(err);
-		if(is_last)
-		{
-			break;
-		}
-		else
-		{
-			path_buf += part_len + 1;
-			path_len -= part_len + 1;
-		}
-	}
-	return 0;
-}
-
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_tree_load_from_commit(mk_lib_fast_import_tree_pt const tree, mk_lib_fast_import_commit_pct const commit) mk_lang_noexcept
-{
-	mk_lang_types_usize_t n;
-	mk_lang_types_usize_t i;
-	mk_lib_fast_import_file_op_pct file_op;
-	mk_lang_types_sint_t err;
-
-	mk_lang_assert(tree);
-	mk_lang_assert(commit);
-
-	n = mk_lib_fast_import_file_ops_ro_size(&commit->m_file_ops);
-	for(i = 0; i != n; ++i)
-	{
-		file_op = mk_lib_fast_import_file_ops_ro_at(&commit->m_file_ops, i); mk_lang_assert(file_op);
-		err = mk_lib_fast_import_tree_load_from_commit_2(tree, file_op); mk_lang_check_rereturn(err);
-	}
-	return 0;
-}
-
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_do_blob(mk_lib_fast_import_pt const fi, mk_lang_types_bool_pt const did) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_pt d;
@@ -2202,9 +3556,165 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_extract_tree(mk_lib_fast_import_pt const fi, mk_lang_types_bool_pt const did, mk_lib_fast_import_commit_pct const commit, mk_lib_fast_import_tree_pt const tree) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_append_object_path(mk_lib_fast_import_pt const fi, mk_lib_crypto_hash_stream_sha1_digest_pct const digest, mk_lang_types_usize_pt const old_len) mk_lang_noexcept
+{
+	mk_lang_types_sint_t ptr;
+	mk_lang_types_pchar_t slash;
+	mk_lang_types_pchar_t nul;
+	mk_lang_types_pchar_t str_digest[1 + mk_lang_countstr(mk_lib_fast_import_k_dot_git) + 1 + mk_lang_countstr(mk_lib_fast_import_k_objects) + 1 + 1 * mk_sl_cui_uint8_strlen_hex_v + 1 + (mk_lib_crypto_hash_stream_sha1_digest_len_v - 1) * mk_sl_cui_uint8_strlen_hex_v + 1];
+	mk_lang_types_sint_t len;
+	mk_lang_types_sint_t err;
+
+	mk_lang_static_assert(mk_lang_countof(digest->m_data.m_uint8s) == mk_lib_crypto_hash_stream_sha1_digest_len_v);
+
+	mk_lang_assert(fi);
+	mk_lang_assert(digest);
+	mk_lang_assert(old_len);
+	mk_lang_assert(fi->m_mallocator);
+
+	ptr = 0;
+	slash = '/';
+	nul = '\0';
+	str_digest[ptr] = slash; ++ptr;
+	mk_lang_string_memcpy_pc_fn(&str_digest[ptr], &mk_lib_fast_import_k_dot_git[0], mk_lang_countstr(mk_lib_fast_import_k_dot_git)); ptr += mk_lang_countstr(mk_lib_fast_import_k_dot_git);
+	str_digest[ptr] = slash; ++ptr;
+	mk_lang_string_memcpy_pc_fn(&str_digest[ptr], &mk_lib_fast_import_k_objects[0], mk_lang_countstr(mk_lib_fast_import_k_objects)); ptr += mk_lang_countstr(mk_lib_fast_import_k_objects);
+	str_digest[ptr] = slash; ++ptr;
+	len = mk_sl_cui_uint8_to_str_hexf_many_n(&digest->m_data.m_uint8s[0], 1, &str_digest[ptr], mk_lang_countof(str_digest) - ptr); mk_lang_assert(len == 1 * mk_sl_cui_uint8_strlen_hex_v); ptr += len;
+	str_digest[ptr] = slash; ++ptr;
+	len = mk_sl_cui_uint8_to_str_hexf_many_n(&digest->m_data.m_uint8s[1], mk_lang_countof(digest->m_data.m_uint8s) - 1, &str_digest[ptr], mk_lang_countof(str_digest) - ptr); mk_lang_assert(len == (mk_lib_crypto_hash_stream_sha1_digest_len_v - 1) * mk_sl_cui_uint8_strlen_hex_v); ptr += len;
+	str_digest[ptr] = nul; ++ptr;
+	*old_len = mk_lib_fast_import_string_ro_size(&fi->m_output_dir);
+	err = mk_lib_fast_import_string_rw_push_back_copy_many(&fi->m_output_dir, &str_digest[0], ptr); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_restore_object_path(mk_lib_fast_import_pt const fi, mk_lang_types_usize_t const old_len) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
+
+	mk_lang_assert(fi);
+	mk_lang_assert(old_len != 0);
+	mk_lang_assert(fi->m_mallocator);
+
+	err = mk_lib_fast_import_string_rw_resize_to(&fi->m_output_dir, old_len); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_read_entire_file(mk_lib_fast_import_string_pct const path, mk_lib_fast_import_binary_data_pt const bin_data) mk_lang_noexcept
+{
+	mk_lang_types_pchar_pct path_buf;
+	mk_lang_types_usize_t path_len;
+	mk_lang_types_sint_t err;
+	mk_sl_io_reader_file_t reader;
+	mk_sl_cui_uint8_t file_buf[4 * 1024];
+	mk_lang_types_sint_t read;
+
+	mk_lang_assert(path);
+	mk_lang_assert(bin_data);
+
+	path_buf = mk_lib_fast_import_string_ro_data(path); mk_lang_assert(path_buf);
+	path_len = mk_lib_fast_import_string_ro_size(path); mk_lang_assert(path_len >= 1);
+	mk_lang_assert(path_buf[path_len - 1] == '\0');
+	err = mk_sl_io_reader_file_open_n(&reader, path_buf);
+	do
+	{
+		err = mk_sl_io_reader_file_read(&reader, &file_buf[0], mk_lang_countof(file_buf), &read); mk_lang_check_rereturn(err);
+		err = mk_lib_fast_import_binary_data_rw_push_back_copy_many(bin_data, &file_buf[0], read); mk_lang_check_rereturn(err);
+	}while(read != 0);
+	err = mk_sl_io_reader_file_close(&reader);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_decompress(mk_lib_fast_import_binary_data_pct const compressed, mk_lib_fast_import_binary_data_pt const decompressed) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	mk_lib_decompress_zlib_t zlib;
+	mk_sl_cui_uint8_pct deflated_buf;
+	mk_lang_types_sint_t deflated_len;
+	mk_sl_cui_uint8_t inflated[512];
+	mk_lang_types_sint_t inc;
+	mk_lang_types_sint_t outc;
+
+	mk_lang_assert(compressed);
+	mk_lang_assert(decompressed);
+
+	err = mk_lib_fast_import_binary_data_rw_clear(decompressed); mk_lang_check_rereturn(err);
+	err = mk_lib_decompress_zlib_init(&zlib);
+	deflated_buf = mk_lib_fast_import_binary_data_ro_data(compressed); mk_lang_assert(deflated_buf);
+	deflated_len = mk_lib_fast_import_binary_data_ro_sise(compressed); mk_lang_assert(deflated_len >= 1);
+	do
+	{
+		err = mk_lib_decompress_zlib_append(&zlib, deflated_buf, deflated_len, &inflated[0], mk_lang_countof(inflated), &inc, &outc); mk_lang_check_rereturn(err);
+		mk_lang_assert(inc >= 0);
+		mk_lang_assert(outc >= 0);
+		mk_lang_assert(inc <= deflated_len);
+		mk_lang_assert(outc <= mk_lang_countof(inflated));
+		deflated_buf += inc;
+		deflated_len -= inc;
+		err = mk_lib_fast_import_binary_data_rw_push_back_copy_many(decompressed, &inflated[0], outc); mk_lang_check_rereturn(err);
+	}while(deflated_len != 0);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_load_commit(mk_lib_fast_import_pt const fi, mk_lang_types_bool_pt const did, mk_lib_crypto_hash_stream_sha1_digest_pct const digest, mk_lib_fast_import_commit_pt const commit) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	mk_lang_types_usize_t old_len;
+	mk_lib_fast_import_binary_data_t bin_commit_compressed;
+	mk_lib_fast_import_binary_data_t bin_commit_decompressed;
+
+	mk_lang_assert(fi);
+	mk_lang_assert(did);
+	mk_lang_assert(digest);
+	mk_lang_assert(commit);
+	mk_lang_assert(fi->m_mallocator);
+
+	err = mk_lib_fast_import_pr_append_object_path(fi, digest, &old_len); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_binary_data_rw_construct(&bin_commit_compressed, fi->m_mallocator); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_read_entire_file(&fi->m_output_dir, &bin_commit_compressed); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_pr_restore_object_path(fi, old_len); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_binary_data_rw_construct(&bin_commit_decompressed, fi->m_mallocator); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_decompress(&bin_commit_compressed, &bin_commit_decompressed); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_binary_data_rw_destroy(&bin_commit_compressed); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_commit_rw_deserialize_from_binary_data(commit, &bin_commit_decompressed, did); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_binary_data_rw_destroy(&bin_commit_decompressed); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_load_tree(mk_lib_fast_import_pt const fi, mk_lang_types_bool_pt const did, mk_lib_crypto_hash_stream_sha1_digest_pct const digest, mk_lib_fast_import_tree_pt const tree) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	mk_lang_types_usize_t old_len;
+	mk_lib_fast_import_binary_data_t bin_tree_compressed;
+	mk_lib_fast_import_binary_data_t bin_tree_decompressed;
+
+	mk_lang_assert(fi);
+	mk_lang_assert(did);
+	mk_lang_assert(digest);
+	mk_lang_assert(digest);
+	mk_lang_assert(fi->m_mallocator);
+
+	err = mk_lib_fast_import_pr_append_object_path(fi, digest, &old_len); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_binary_data_rw_construct(&bin_tree_compressed, fi->m_mallocator); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_read_entire_file(&fi->m_output_dir, &bin_tree_compressed); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_pr_restore_object_path(fi, old_len); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_binary_data_rw_construct(&bin_tree_decompressed, fi->m_mallocator); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_decompress(&bin_tree_compressed, &bin_tree_decompressed); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_binary_data_rw_destroy(&bin_tree_compressed); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_tree_rw_deserialize_from_binary_data(tree, &bin_tree_decompressed, did); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_binary_data_rw_destroy(&bin_tree_decompressed); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_load_parent_tree(mk_lib_fast_import_pt const fi, mk_lang_types_bool_pt const did, mk_lib_fast_import_commit_pct const commit, mk_lib_fast_import_tree_pt const tree) mk_lang_noexcept
+{
+	mk_lang_types_bool_t gud;
+	mk_lib_fast_import_mark_to_commit_t mark_to_commit_a;
+	mk_lang_types_sint_t err;
+	mk_lib_fast_import_map_mark_to_commit_node_pct node;
+	mk_lib_fast_import_mark_to_commit_pct mark_to_commit_b;
+	mk_lib_fast_import_commit_t parent_commit;
 
 	mk_lang_assert(fi);
 	mk_lang_assert(did);
@@ -2212,8 +3722,43 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	mk_lang_assert(tree);
 	mk_lang_assert(fi->m_mallocator);
 
-	((mk_lang_types_void_t)(fi));
+	gud = mk_lang_false;
+	if(commit->m_has_from_mark_ref)
+	{
+		mark_to_commit_a.m_mark = commit->m_from_mark_ref;
+		err = mk_lib_fast_import_map_mark_to_commit_ro_find_node(&fi->m_commits, &mark_to_commit_a, &node); mk_lang_check_rereturn(err); mk_lang_check_return(node);
+		err = mk_lib_fast_import_map_mark_to_commit_ro_node_get_element(node, &mark_to_commit_b); mk_lang_check_rereturn(err); mk_lang_check_return(mark_to_commit_b);
+		err = mk_lib_fast_import_commit_rw_construct(&parent_commit, fi); mk_lang_check_rereturn(err);
+		err = mk_lib_fast_import_pr_load_commit(fi, &gud, &mark_to_commit_b->m_digest, &parent_commit); mk_lang_check_rereturn(err);
+		if(gud){ err = mk_lib_fast_import_pr_load_tree(fi, &gud, &parent_commit.m_tree_digest, tree); mk_lang_check_rereturn(err); }
+		err = mk_lib_fast_import_commit_rw_destroy(&parent_commit); mk_lang_check_rereturn(err);
+	}
+	*did = gud;
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_extract_tree(mk_lib_fast_import_pt const fi, mk_lang_types_bool_pt const did, mk_lib_fast_import_commit_pct const commit, mk_lib_fast_import_tree_pt const tree) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	mk_lib_fast_import_tree_t parent_tree;
+	mk_lang_types_bool_t b;
+
+	mk_lang_assert(fi);
+	mk_lang_assert(did);
+	mk_lang_assert(commit);
+	mk_lang_assert(tree);
+	mk_lang_assert(fi->m_mallocator);
+
+
+
+	err = mk_lib_fast_import_tree_construct(&parent_tree, fi); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_pr_load_parent_tree(fi, &b, commit, &parent_tree); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_tree_destroy(&parent_tree); mk_lang_check_rereturn(err);
+
+
+
 	err = mk_lib_fast_import_tree_load_from_commit(tree, commit); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_tree_debug_print(tree); mk_lang_check_rereturn(err);
 	*did = mk_lang_true;
 	return 0;
 }
@@ -2454,7 +3999,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	nul = '\0';
 	sp = ' ';
 	err = mk_lib_fast_import_zlib_and_digest_init(&zlib_and_digest, fi, &tree->m_data, &tree->m_digest_value); mk_lang_check_rereturn(err);
-	err = mk_lib_fast_import_zlib_and_digest_append_pchars(&zlib_and_digest, &mk_lib_fast_import_k_treesp[0], mk_lang_countstr(mk_lib_fast_import_k_treesp)); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_zlib_and_digest_append_pchars(&zlib_and_digest, &mk_lib_fast_import_k_tree_sp[0], mk_lang_countstr(mk_lib_fast_import_k_tree_sp)); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_zlib_and_digest_append_pchars(&zlib_and_digest, &str_buf[0], str_len); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_zlib_and_digest_append_pchars(&zlib_and_digest, &nul, 1); mk_lang_check_rereturn(err);
 	for(i = 0; i != n; ++i)
@@ -2511,17 +4056,23 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	mk_lang_assert(len);
 
 	acc = 0;
-	acc += mk_lang_countstr(mk_lib_fast_import_k_treesp);
+	acc += mk_lang_countstr(mk_lib_fast_import_k_tree_sp);
 	acc += mk_lib_crypto_hash_stream_sha1_digest_len_v * mk_sl_cui_uint8_strlen_hex_v;
 	acc += 1; /* lf */
-	acc += mk_lang_countstr(mk_lib_fast_import_k_authorsp);
+	if(commit->m_has_from_mark_ref)
+	{
+		acc += mk_lang_countstr(mk_lib_fast_import_k_parent_sp);
+		acc += mk_lib_crypto_hash_stream_sha1_digest_len_v * mk_sl_cui_uint8_strlen_hex_v;
+		acc += 1; /* lf */
+	}
+	acc += mk_lang_countstr(mk_lib_fast_import_k_author_sp);
 	acc += mk_lib_fast_import_string_ro_sise(&commit->m_author_name);
 	acc += mk_lang_countstr(mk_lib_fast_import_k_splt);
 	acc += mk_lib_fast_import_string_ro_sise(&commit->m_author_email);
 	acc += mk_lang_countstr(mk_lib_fast_import_k_gtsp);
 	acc += mk_lib_fast_import_string_ro_sise(&commit->m_author_timestamp);
 	acc += 1; /* lf */
-	acc += mk_lang_countstr(mk_lib_fast_import_k_committersp);
+	acc += mk_lang_countstr(mk_lib_fast_import_k_committer_sp);
 	acc += mk_lib_fast_import_string_ro_sise(&commit->m_committer_name);
 	acc += mk_lang_countstr(mk_lib_fast_import_k_splt);
 	acc += mk_lib_fast_import_string_ro_sise(&commit->m_committer_email);
@@ -2609,6 +4160,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	mk_lib_fast_import_zlib_and_digest_t zlib_and_digest;
 	mk_lang_types_pchar_t digest_str_buf[mk_lib_crypto_hash_stream_sha1_digest_len_v * mk_sl_cui_uint8_strlen_hex_v];
 	mk_lang_types_sint_t digest_str_len;
+	mk_lib_fast_import_mark_to_commit_t mark_to_commit_a;
+	mk_lib_fast_import_map_mark_to_commit_node_pct node;
+	mk_lib_fast_import_mark_to_commit_pct mark_to_commit_b;
+	mk_lang_types_pchar_t parent_str_buf[mk_lib_crypto_hash_stream_sha1_digest_len_v * mk_sl_cui_uint8_strlen_hex_v];
+	mk_lang_types_sint_t parent_str_len;
 
 	mk_lang_assert(fi);
 	mk_lang_assert(commit);
@@ -2619,22 +4175,32 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	str_len = mk_sl_cui_uint32_to_str_dec_n(&tu32, &str_buf[0], mk_lang_countof(str_buf));
 	nul = '\0';
 	lf = '\x0a';
-	digest_str_len = mk_sl_cui_uint8_to_str_hexf_many_n(&tree->m_digest_value.m_data.m_uint8s[0], mk_lib_crypto_hash_stream_sha1_digest_len_v, &digest_str_buf[0], mk_lang_countof(digest_str_buf));
+	digest_str_len = mk_sl_cui_uint8_to_str_hexf_many_n(&tree->m_digest_value.m_data.m_uint8s[0], mk_lib_crypto_hash_stream_sha1_digest_len_v, &digest_str_buf[0], mk_lang_countof(digest_str_buf)); mk_lang_assert(digest_str_len == mk_lib_crypto_hash_stream_sha1_digest_len_v * mk_sl_cui_uint8_strlen_hex_v);
 	err = mk_lib_fast_import_zlib_and_digest_init(&zlib_and_digest, fi, &commit->m_data, &commit->m_digest); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_zlib_and_digest_append_pchars(&zlib_and_digest, &mk_lib_fast_import_k_commitsp[0], mk_lang_countstr(mk_lib_fast_import_k_commitsp)); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_zlib_and_digest_append_pchars(&zlib_and_digest, &str_buf[0], str_len); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_zlib_and_digest_append_pchars(&zlib_and_digest, &nul, 1); mk_lang_check_rereturn(err);
-	err = mk_lib_fast_import_zlib_and_digest_append_pchars(&zlib_and_digest, &mk_lib_fast_import_k_treesp[0], mk_lang_countstr(mk_lib_fast_import_k_treesp)); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_zlib_and_digest_append_pchars(&zlib_and_digest, &mk_lib_fast_import_k_tree_sp[0], mk_lang_countstr(mk_lib_fast_import_k_tree_sp)); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_zlib_and_digest_append_pchars(&zlib_and_digest, &digest_str_buf[0], digest_str_len); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_zlib_and_digest_append_pchars(&zlib_and_digest, &lf, 1); mk_lang_check_rereturn(err);
-	err = mk_lib_fast_import_zlib_and_digest_append_pchars(&zlib_and_digest, &mk_lib_fast_import_k_authorsp[0], mk_lang_countstr(mk_lib_fast_import_k_authorsp)); mk_lang_check_rereturn(err);
+	if(commit->m_has_from_mark_ref)
+	{
+		mark_to_commit_a.m_mark = commit->m_from_mark_ref;
+		err = mk_lib_fast_import_map_mark_to_commit_ro_find_node(&fi->m_commits, &mark_to_commit_a, &node); mk_lang_check_rereturn(err); mk_lang_check_return(node);
+		err = mk_lib_fast_import_map_mark_to_commit_ro_node_get_element(node, &mark_to_commit_b); mk_lang_check_rereturn(err); mk_lang_check_return(mark_to_commit_b);
+		parent_str_len = mk_sl_cui_uint8_to_str_hexf_many_n(&mark_to_commit_b->m_digest.m_data.m_uint8s[0], mk_lib_crypto_hash_stream_sha1_digest_len_v, &parent_str_buf[0], mk_lang_countof(parent_str_buf)); mk_lang_assert(parent_str_len == mk_lib_crypto_hash_stream_sha1_digest_len_v * mk_sl_cui_uint8_strlen_hex_v);
+		err = mk_lib_fast_import_zlib_and_digest_append_pchars(&zlib_and_digest, &mk_lib_fast_import_k_parent_sp[0], mk_lang_countstr(mk_lib_fast_import_k_parent_sp)); mk_lang_check_rereturn(err);
+		err = mk_lib_fast_import_zlib_and_digest_append_pchars(&zlib_and_digest, &parent_str_buf[0], parent_str_len); mk_lang_check_rereturn(err);
+		err = mk_lib_fast_import_zlib_and_digest_append_pchars(&zlib_and_digest, &lf, 1); mk_lang_check_rereturn(err);
+	}
+	err = mk_lib_fast_import_zlib_and_digest_append_pchars(&zlib_and_digest, &mk_lib_fast_import_k_author_sp[0], mk_lang_countstr(mk_lib_fast_import_k_author_sp)); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_zlib_and_digest_append_pchars(&zlib_and_digest, mk_lib_fast_import_string_ro_data(&commit->m_author_name), mk_lib_fast_import_string_ro_sise(&commit->m_author_name)); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_zlib_and_digest_append_pchars(&zlib_and_digest, &mk_lib_fast_import_k_splt[0], mk_lang_countstr(mk_lib_fast_import_k_splt)); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_zlib_and_digest_append_pchars(&zlib_and_digest, mk_lib_fast_import_string_ro_data(&commit->m_author_email), mk_lib_fast_import_string_ro_sise(&commit->m_author_email)); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_zlib_and_digest_append_pchars(&zlib_and_digest, &mk_lib_fast_import_k_gtsp[0], mk_lang_countstr(mk_lib_fast_import_k_gtsp)); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_zlib_and_digest_append_pchars(&zlib_and_digest, mk_lib_fast_import_string_ro_data(&commit->m_author_timestamp), mk_lib_fast_import_string_ro_sise(&commit->m_author_timestamp)); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_zlib_and_digest_append_pchars(&zlib_and_digest, &lf, 1); mk_lang_check_rereturn(err);
-	err = mk_lib_fast_import_zlib_and_digest_append_pchars(&zlib_and_digest, &mk_lib_fast_import_k_committersp[0], mk_lang_countstr(mk_lib_fast_import_k_committersp)); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_zlib_and_digest_append_pchars(&zlib_and_digest, &mk_lib_fast_import_k_committer_sp[0], mk_lang_countstr(mk_lib_fast_import_k_committer_sp)); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_zlib_and_digest_append_pchars(&zlib_and_digest, mk_lib_fast_import_string_ro_data(&commit->m_committer_name), mk_lib_fast_import_string_ro_sise(&commit->m_committer_name)); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_zlib_and_digest_append_pchars(&zlib_and_digest, &mk_lib_fast_import_k_splt[0], mk_lang_countstr(mk_lib_fast_import_k_splt)); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_zlib_and_digest_append_pchars(&zlib_and_digest, mk_lib_fast_import_string_ro_data(&commit->m_committer_email), mk_lib_fast_import_string_ro_sise(&commit->m_committer_email)); mk_lang_check_rereturn(err);
@@ -2732,6 +4298,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	if(b){ err = mk_lib_fast_import_pr_extract_tree(fi, &b, &commit, &tree); mk_lang_check_rereturn(err); }
 	if(b){ err = mk_lib_fast_import_pr_hash_tree(fi, &b, &tree); mk_lang_check_rereturn(err); }
 	if(b){ err = mk_lib_fast_import_pr_commit_write_to_database_1(fi, &commit, &tree); mk_lang_check_rereturn(err); }
+	if(b){ err = mk_lib_fast_import_pr_add_to_refs_commit(fi, &b, &commit); mk_lang_check_rereturn(err); }
 	if(b){ err = mk_lib_fast_import_pr_update_branch(fi, &commit); mk_lang_check_rereturn(err); }
 	err = mk_lib_fast_import_tree_destroy(&tree); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_commit_rw_destroy(&commit); mk_lang_check_rereturn(err);

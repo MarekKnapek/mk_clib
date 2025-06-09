@@ -40,11 +40,14 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_compress_def
 	in_len = data_in_len;
 	in_c = 0;
 	out_c = 0;
-	avail = mk_lang_countof(deflate->m_uncompressed_data_buf.m_data.m_u8s) - deflate->m_uncompressed_data_idx;
-	to_copy = mk_lang_min(avail, in_len);
-	mk_sl_cui_uint8_memcpy_fn(&deflate->m_uncompressed_data_buf.m_data.m_u8s[deflate->m_uncompressed_data_idx], in_buf, to_copy);
-	deflate->m_uncompressed_data_idx += to_copy;
-	in_c += to_copy;
+	if(deflate->m_uncompressed_data_idx != mk_lang_countof(deflate->m_uncompressed_data_buf.m_data.m_u8s))
+	{
+		avail = mk_lang_countof(deflate->m_uncompressed_data_buf.m_data.m_u8s) - deflate->m_uncompressed_data_idx;
+		to_copy = mk_lang_min(avail, in_len);
+		mk_sl_cui_uint8_memcpy_fn(&deflate->m_uncompressed_data_buf.m_data.m_u8s[deflate->m_uncompressed_data_idx], in_buf, to_copy);
+		deflate->m_uncompressed_data_idx += to_copy;
+		in_c += to_copy;
+	}
 	*data_in_consumed = in_c;
 	*data_out_consumed = out_c;
 }
@@ -54,6 +57,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_compress_def
 	mk_lang_types_sint_t in_c mk_lang_constexpr_init;
 	mk_lang_types_sint_t out_c mk_lang_constexpr_init;
 	mk_lang_types_sint_t ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t val mk_lang_constexpr_init;
 	mk_sl_cui_uint16_t len mk_lang_constexpr_init;
 	mk_sl_cui_uint16_t nlen mk_lang_constexpr_init;
 
@@ -72,31 +76,18 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_compress_def
 	if
 	(
 		(deflate->m_uncompressed_data_idx == mk_lang_countof(deflate->m_uncompressed_data_buf.m_data.m_u8s)) ||
-		(deflate->m_finish_requested && !deflate->m_finished)
+		(deflate->m_finish_requested && !deflate->m_block_header_computed)
 	)
 	{
-		if(!deflate->m_block_header_computed)
-		{
-			ptr = 0;
-			if(deflate->m_finish_requested)
-			{
-				mk_sl_cui_uint8_set_one(&deflate->m_block_header_buf[ptr]); ptr += mk_sl_cui_uint8_size_bytes_v;
-			}
-			else
-			{
-				mk_sl_cui_uint8_set_zero(&deflate->m_block_header_buf[ptr]); ptr += mk_sl_cui_uint8_size_bytes_v;
-			}
-			mk_sl_cui_uint16_from_bi_sint(&len, &deflate->m_uncompressed_data_idx);
-			mk_sl_uint_convert_16_8_le_to_sml(&len, &deflate->m_block_header_buf[ptr]); ptr += mk_sl_cui_uint16_size_bytes_v;
-			mk_sl_cui_uint16_not2(&len, &nlen);
-			mk_sl_uint_convert_16_8_le_to_sml(&nlen, &deflate->m_block_header_buf[ptr]);
-			deflate->m_block_header_beg = 0;
-			deflate->m_block_header_computed = mk_lang_true;
-			if(deflate->m_finish_requested)
-			{
-				deflate->m_finished = mk_lang_true;
-			}
-		}
+		ptr = 0;
+		val = deflate->m_finish_requested ? 1 : 0;
+		mk_sl_cui_uint8_from_bi_sint(&deflate->m_block_header_buf[ptr], &val); ptr += mk_sl_cui_uint8_size_bytes_v;
+		mk_sl_cui_uint16_from_bi_sint(&len, &deflate->m_uncompressed_data_idx);
+		mk_sl_uint_convert_16_8_le_to_sml(&len, &deflate->m_block_header_buf[ptr]); ptr += mk_sl_cui_uint16_size_bytes_v;
+		mk_sl_cui_uint16_not2(&len, &nlen);
+		mk_sl_uint_convert_16_8_le_to_sml(&nlen, &deflate->m_block_header_buf[ptr]);
+		deflate->m_block_header_beg = 0;
+		deflate->m_block_header_computed = mk_lang_true;
 	}
 	*data_in_consumed = in_c;
 	*data_out_consumed = out_c;
@@ -130,10 +121,10 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_compress_def
 	if
 	(
 		(deflate->m_uncompressed_data_idx == mk_lang_countof(deflate->m_uncompressed_data_buf.m_data.m_u8s)) ||
-		(deflate->m_finish_requested && deflate->m_finished)
+		(deflate->m_finish_requested && deflate->m_block_header_computed)
 	)
 	{
-		if(deflate->m_block_header_computed)
+		if(deflate->m_block_header_beg != mk_lang_countof(deflate->m_block_header_buf))
 		{
 			avail = mk_lang_countof(deflate->m_block_header_buf) - deflate->m_block_header_beg;
 			to_copy = mk_lang_min(avail, out_len);
@@ -177,10 +168,10 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_compress_def
 	if
 	(
 		(deflate->m_uncompressed_data_idx == mk_lang_countof(deflate->m_uncompressed_data_buf.m_data.m_u8s)) ||
-		(deflate->m_finish_requested && deflate->m_finished)
+		(deflate->m_finish_requested && deflate->m_block_header_computed)
 	)
 	{
-		if(deflate->m_block_header_computed && deflate->m_block_header_beg == mk_lang_countof(deflate->m_block_header_buf));
+		if(deflate->m_block_header_beg == mk_lang_countof(deflate->m_block_header_buf))
 		{
 			avail = deflate->m_uncompressed_data_idx - deflate->m_uncompressed_data_beg;
 			to_copy = mk_lang_min(avail, out_len);
@@ -215,18 +206,21 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_compress_def
 
 	in_c = 0;
 	out_c = 0;
-	if
-	(
-		(deflate->m_block_header_computed && deflate->m_block_header_beg == mk_lang_countof(deflate->m_block_header_buf)) &&
-		(deflate->m_uncompressed_data_beg == deflate->m_uncompressed_data_idx)
-	)
+	if(deflate->m_uncompressed_data_idx == mk_lang_countof(deflate->m_uncompressed_data_buf.m_data.m_u8s))
 	{
-		deflate->m_uncompressed_data_idx = 0;
-		deflate->m_uncompressed_data_beg = 0;
-		deflate->m_block_header_beg = 0;
-		deflate->m_block_header_computed = mk_lang_false;
-		deflate->m_finish_requested = mk_lang_false;
-		deflate->m_finished = mk_lang_false;
+		if
+		(
+			(deflate->m_block_header_beg == mk_lang_countof(deflate->m_block_header_buf)) &&
+			(deflate->m_uncompressed_data_idx - deflate->m_uncompressed_data_beg == 0)
+		)
+		{
+			deflate->m_uncompressed_data_idx = 0;
+			deflate->m_uncompressed_data_beg = 0;
+			deflate->m_block_header_beg = 0;
+			deflate->m_block_header_computed = mk_lang_false;
+			deflate->m_finish_requested = mk_lang_false;
+			deflate->m_finished = mk_lang_false;
+		}
 	}
 	*data_in_consumed = in_c;
 	*data_out_consumed = out_c;

@@ -123,6 +123,12 @@
 #endif
 
 
+#include "mk_lang_bool.h"
+
+
+#define mk_lang_assert_false() mk_lang_assert(mk_lang_false)
+
+
 
 
 
