@@ -46,6 +46,7 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_warning_msvc_pop.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_warning_msvc_push_c4127.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_warning_msvc_push_c4296.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_warning_msvc_push_c4309.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_warning_msvc_push_c4505.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_warning_msvc_push_c4514.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_warning_msvc_push_c4702.h"><Filter>src</Filter></ClInclude>
@@ -1074,10 +1075,14 @@
 	<ItemGroup>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_compress_deflate.c"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_compress_zlib.c"><Filter>src</Filter></ClCompile>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_decompress_deflate.c"><Filter>src</Filter></ClCompile>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_decompress_zlib.c"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_fast_import.c"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_hash_adler32.c"><Filter>src</Filter></ClCompile>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_compress_deflate.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_compress_zlib.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_decompress_deflate.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_decompress_zlib.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_fast_import.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_hash_adler32.h"><Filter>src</Filter></ClInclude>
 	</ItemGroup>
