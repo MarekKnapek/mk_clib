@@ -9,3 +9,4 @@
 #undef mk_sl_vector_t_element_move_construct
 #undef mk_sl_vector_t_element_copy_assign
 #undef mk_sl_vector_t_element_move_assign
+#undef mk_sl_vector_t_element_eq
