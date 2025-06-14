@@ -94,20 +94,17 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_xof_block_tur
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_xof_block_turbo_shake_256_squeeze_block(mk_lib_crypto_xof_block_turbo_shake_256_pt const turbo_shake_256, mk_lib_crypto_xof_block_turbo_shake_256_digest_pt const digest) mk_lang_noexcept
 {
 	mk_lang_types_sint_t n mk_lang_constexpr_init;
-	mk_lang_types_sint_t i mk_lang_constexpr_init;
 
 	mk_lang_static_assert(((mk_lang_types_sint_t)(mk_lib_crypto_xof_block_turbo_shake_256_block_len_v)) % ((mk_lang_types_sint_t)(mk_sl_cui_uint64_size_bytes_v)) == 0);
 	mk_lang_static_assert(((mk_lang_types_sint_t)(mk_lib_crypto_xof_block_turbo_shake_256_block_len_v)) / ((mk_lang_types_sint_t)(mk_sl_cui_uint64_size_bytes_v)) <= mk_lang_countof(turbo_shake_256->m_sha3_base.m_data.m_uint64s));
+	mk_lang_static_assert(((mk_lang_types_sint_t)(mk_lib_crypto_xof_block_turbo_shake_256_block_len_v)) >= ((mk_lang_types_sint_t)(mk_lib_crypto_xof_block_turbo_shake_256_digest_len_v)));
 
 	mk_lang_assert(turbo_shake_256);
 	mk_lang_assert(digest);
 
 	mk_lib_crypto_hash_block_sha3_base_f_turbo(&turbo_shake_256->m_sha3_base);
 	n = ((mk_lang_types_sint_t)(mk_lib_crypto_xof_block_turbo_shake_256_block_len_v)) / ((mk_lang_types_sint_t)(mk_sl_cui_uint64_size_bytes_v));
-	for(i = 0; i != n; ++i)
-	{
-		mk_sl_uint_convert_64_8_le_to_sml(&turbo_shake_256->m_sha3_base.m_data.m_uint64s[i], &digest->m_data.m_uint8s[i * mk_sl_cui_uint64_size_bytes_v]);
-	}
+	mk_sl_uint_convert_64_8_le_to_sml_multi(&turbo_shake_256->m_sha3_base.m_data.m_uint64s[0], &digest->m_data.m_uint8s[0], ((mk_lang_types_usize_t)(n)));
 }
 
 
