@@ -15,6 +15,7 @@
 	(defined mk_sl_vector_t_element_move_construct || !defined mk_sl_vector_t_element_move_construct) && \
 	(defined mk_sl_vector_t_element_copy_assign || !defined mk_sl_vector_t_element_copy_assign) && \
 	(defined mk_sl_vector_t_element_move_assign || !defined mk_sl_vector_t_element_move_assign) && \
+	(defined mk_sl_vector_t_element_eq || !defined mk_sl_vector_t_element_eq) && \
 1))
 #error xxxxxxxxxx
 #endif
@@ -115,6 +116,13 @@
 #else
 #define mk_sl_vector_inl_defd_element_move_construct(a, b) mk_sl_vector_inl_defd_element_copy_construct((a), (b))
 #define mk_sl_vector_inl_defd_element_move_assign(a, b) mk_sl_vector_inl_defd_element_copy_assign((a), (b))
+#endif
+
+#if defined mk_sl_vector_t_element_eq
+#define mk_sl_vector_inl_defd_element_eq_has 1
+#define mk_sl_vector_inl_defd_element_eq mk_sl_vector_t_element_eq
+#else
+#define mk_sl_vector_inl_defd_element_eq_has 0
 #endif
 
 
@@ -406,6 +414,8 @@
 #define mk_sl_vector_inl_defd_prro_at mk_lang_concat(mk_sl_vector_inl_defd_name, _prro_at)
 #define mk_sl_vector_inl_defd_prro_front mk_lang_concat(mk_sl_vector_inl_defd_name, _prro_front)
 #define mk_sl_vector_inl_defd_prro_back mk_lang_concat(mk_sl_vector_inl_defd_name, _prro_back)
+#define mk_sl_vector_inl_defd_prro_eq mk_lang_concat(mk_sl_vector_inl_defd_name, _prro_eq)
+#define mk_sl_vector_inl_defd_prro_ne mk_lang_concat(mk_sl_vector_inl_defd_name, _prro_ne)
 #define mk_sl_vector_inl_defd_prrw_max_capacity mk_lang_concat(mk_sl_vector_inl_defd_name, _prrw_max_capacity)
 #define mk_sl_vector_inl_defd_prrw_capacity mk_lang_concat(mk_sl_vector_inl_defd_name, _prrw_capacity)
 #define mk_sl_vector_inl_defd_prrw_size mk_lang_concat(mk_sl_vector_inl_defd_name, _prrw_size)
@@ -417,6 +427,8 @@
 #define mk_sl_vector_inl_defd_prrw_at mk_lang_concat(mk_sl_vector_inl_defd_name, _prrw_at)
 #define mk_sl_vector_inl_defd_prrw_front mk_lang_concat(mk_sl_vector_inl_defd_name, _prrw_front)
 #define mk_sl_vector_inl_defd_prrw_back mk_lang_concat(mk_sl_vector_inl_defd_name, _prrw_back)
+#define mk_sl_vector_inl_defd_prrw_eq mk_lang_concat(mk_sl_vector_inl_defd_name, _prrw_eq)
+#define mk_sl_vector_inl_defd_prrw_ne mk_lang_concat(mk_sl_vector_inl_defd_name, _prrw_ne)
 #define mk_sl_vector_inl_defd_prrw_construct mk_lang_concat(mk_sl_vector_inl_defd_name, _prrw_construct)
 #define mk_sl_vector_inl_defd_prrw_construct mk_lang_concat(mk_sl_vector_inl_defd_name, _prrw_construct)
 #define mk_sl_vector_inl_defd_prrw_element_bitblt_assign mk_lang_concat(mk_sl_vector_inl_defd_name, _prrw_element_bitblt_assign)
@@ -469,6 +481,8 @@
 #define mk_sl_vector_inl_defd_ro_data mk_lang_concat(mk_sl_vector_inl_defd_name, _ro_data)
 #define mk_sl_vector_inl_defd_ro_front mk_lang_concat(mk_sl_vector_inl_defd_name, _ro_front)
 #define mk_sl_vector_inl_defd_ro_back mk_lang_concat(mk_sl_vector_inl_defd_name, _ro_back)
+#define mk_sl_vector_inl_defd_ro_eq mk_lang_concat(mk_sl_vector_inl_defd_name, _ro_eq)
+#define mk_sl_vector_inl_defd_ro_ne mk_lang_concat(mk_sl_vector_inl_defd_name, _ro_ne)
 
 #define mk_sl_vector_inl_defd_rw_max_capacity mk_lang_concat(mk_sl_vector_inl_defd_name, _rw_max_capacity)
 #define mk_sl_vector_inl_defd_rw_capacity mk_lang_concat(mk_sl_vector_inl_defd_name, _rw_capacity)
@@ -481,6 +495,8 @@
 #define mk_sl_vector_inl_defd_rw_data mk_lang_concat(mk_sl_vector_inl_defd_name, _rw_data)
 #define mk_sl_vector_inl_defd_rw_front mk_lang_concat(mk_sl_vector_inl_defd_name, _rw_front)
 #define mk_sl_vector_inl_defd_rw_back mk_lang_concat(mk_sl_vector_inl_defd_name, _rw_back)
+#define mk_sl_vector_inl_defd_rw_eq mk_lang_concat(mk_sl_vector_inl_defd_name, _rw_eq)
+#define mk_sl_vector_inl_defd_rw_ne mk_lang_concat(mk_sl_vector_inl_defd_name, _rw_ne)
 
 #define mk_sl_vector_inl_defd_rw_construct mk_lang_concat(mk_sl_vector_inl_defd_name, _rw_construct)
 #define mk_sl_vector_inl_defd_rw_copy_construct mk_lang_concat(mk_sl_vector_inl_defd_name, _rw_copy_construct)

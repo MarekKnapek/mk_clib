@@ -218,6 +218,80 @@ mk_lang_nodiscard static mk_lang_inline mk_sl_vector_inl_defd_element_pct mk_sl_
 	return ret;
 }
 
+#if mk_sl_vector_inl_defd_element_eq_has
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_bool_t mk_sl_vector_inl_defd_prro_eq(mk_sl_vector_inl_defd_pct const vector, mk_sl_vector_inl_defd_pct const other) mk_lang_noexcept
+{
+	mk_lang_types_bool_t ret;
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t m;
+	mk_lang_types_usize_t i;
+	mk_sl_vector_inl_defd_element_pct ea;
+	mk_sl_vector_inl_defd_element_pct eb;
+	mk_lang_types_bool_t eq;
+
+	mk_lang_assert(vector);
+	mk_lang_assert(other);
+	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
+	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(other));
+
+	ret = mk_lang_false;
+	n = mk_sl_vector_inl_defd_prro_size(vector);
+	m = mk_sl_vector_inl_defd_prro_size(other);
+	if(n == m)
+	{
+		ret = mk_lang_true;
+		for(i = 0; i != n; ++i)
+		{
+			ea = mk_sl_vector_inl_defd_prro_at(vector, i); mk_lang_assert(ea);
+			eb = mk_sl_vector_inl_defd_prro_at(other, i); mk_lang_assert(eb);
+			eq = mk_sl_vector_inl_defd_element_eq(ea, eb);
+			if(!eq)
+			{
+				ret = mk_lang_false;
+				break;
+			}
+		}
+	}
+
+	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
+	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(other));
+	return ret;
+}
+#else
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_bool_t mk_sl_vector_inl_defd_prro_eq(mk_sl_vector_inl_defd_pct const vector, mk_sl_vector_inl_defd_pct const other) mk_lang_noexcept
+{
+	mk_lang_types_bool_t ret;
+
+	mk_lang_assert(vector);
+	mk_lang_assert(other);
+	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
+	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(other));
+
+	ret = mk_lang_false;
+	mk_lang_assert_false();
+
+	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
+	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(other));
+	return ret;
+}
+#endif
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_bool_t mk_sl_vector_inl_defd_prro_ne(mk_sl_vector_inl_defd_pct const vector, mk_sl_vector_inl_defd_pct const other) mk_lang_noexcept
+{
+	mk_lang_types_bool_t ret;
+
+	mk_lang_assert(vector);
+	mk_lang_assert(other);
+	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
+	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(other));
+
+	ret = !mk_sl_vector_inl_defd_prro_eq(vector, other);
+
+	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
+	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(other));
+	return ret;
+}
+
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_usize_t mk_sl_vector_inl_defd_prrw_max_capacity(mk_sl_vector_inl_defd_pct const vector) mk_lang_noexcept
 {
@@ -1202,6 +1276,22 @@ mk_lang_nodiscard mk_lang_jumbo mk_sl_vector_inl_defd_element_pct mk_sl_vector_i
 	return ret;
 }
 
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_sl_vector_inl_defd_ro_eq(mk_sl_vector_inl_defd_pct const vector, mk_sl_vector_inl_defd_pct const other) mk_lang_noexcept
+{
+	mk_lang_types_bool_t ret;
+
+	ret = mk_sl_vector_inl_defd_prro_eq(vector, other);
+	return ret;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_sl_vector_inl_defd_ro_ne(mk_sl_vector_inl_defd_pct const vector, mk_sl_vector_inl_defd_pct const other) mk_lang_noexcept
+{
+	mk_lang_types_bool_t ret;
+
+	ret = mk_sl_vector_inl_defd_prro_ne(vector, other);
+	return ret;
+}
+
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_usize_t mk_sl_vector_inl_defd_rw_max_capacity(mk_sl_vector_inl_defd_pt const vector) mk_lang_noexcept
 {
@@ -1256,6 +1346,16 @@ mk_lang_nodiscard mk_lang_jumbo mk_sl_vector_inl_defd_element_pt mk_sl_vector_in
 mk_lang_nodiscard mk_lang_jumbo mk_sl_vector_inl_defd_element_pt mk_sl_vector_inl_defd_rw_back(mk_sl_vector_inl_defd_pt const vector) mk_lang_noexcept
 {
 	return ((mk_sl_vector_inl_defd_element_pt)(mk_sl_vector_inl_defd_ro_back(vector)));
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_sl_vector_inl_defd_rw_eq(mk_sl_vector_inl_defd_pt const vector, mk_sl_vector_inl_defd_pct const other) mk_lang_noexcept
+{
+	return mk_sl_vector_inl_defd_ro_eq(((mk_sl_vector_inl_defd_pct)(vector)), other);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_sl_vector_inl_defd_rw_ne(mk_sl_vector_inl_defd_pt const vector, mk_sl_vector_inl_defd_pct const other) mk_lang_noexcept
+{
+	return mk_sl_vector_inl_defd_ro_ne(((mk_sl_vector_inl_defd_pct)(vector)), other);
 }
 
 
