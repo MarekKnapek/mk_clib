@@ -88,9 +88,29 @@ mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lib_fast_import_k
 mk_lang_forward(mk_lib_fast_import);
 
 
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lang_types_pchar_eq(mk_lang_types_pchar_pct const a, mk_lang_types_pchar_pct const b) mk_lang_noexcept
+{
+	mk_lang_types_bool_t ret mk_lang_constexpr_init;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	ret = *a == *b;
+	return ret;
+}
+
 #define mk_sl_vector_t_name mk_lib_fast_import_string
 #define mk_sl_vector_t_element_type mk_lang_types_pchar_t
 #define mk_sl_vector_t_mallocatorl mk_lib_fast_import_mallocator_lokal
+#define mk_sl_vector_t_element_eq mk_lang_types_pchar_eq
+#include "mk_sl_vector_inl_fileh.h"
+#include "mk_sl_vector_inl_filec.h"
+#include "mk_sl_vector_inl_fileu.h"
+
+#define mk_sl_vector_t_name mk_lib_fast_import_strings
+#define mk_sl_vector_t_element_type mk_lib_fast_import_string_t
+#define mk_sl_vector_t_mallocatorl mk_lib_fast_import_mallocator_lokal
+#define mk_sl_vector_t_element_eq mk_lib_fast_import_string_ro_eq
 #include "mk_sl_vector_inl_fileh.h"
 #include "mk_sl_vector_inl_filec.h"
 #include "mk_sl_vector_inl_fileu.h"
@@ -118,7 +138,7 @@ mk_lang_typedef(mk_lib_fast_import_buffered_reader);
 struct mk_lib_fast_import_blob_s
 {
 	mk_lib_fast_import_pt m_fi;
-	mk_sl_cui_uint128_t m_mark;
+	mk_lib_fast_import_mark_t m_mark;
 	mk_lang_types_pchar_t m_mode_buf[mk_sl_cui_uint32_strlen_dec_v + 1];
 	mk_lang_types_sint_t m_mode_len;
 	mk_lang_types_sint_t m_binary_len;
@@ -134,7 +154,7 @@ struct mk_lib_fast_import_file_modify_s
 {
 	mk_lib_fast_import_pt m_fi;
 	mk_sl_cui_uint32_t m_mode;
-	mk_sl_cui_uint128_t m_data_ref;
+	mk_lib_fast_import_mark_t m_data_ref;
 	mk_lib_fast_import_string_t m_path;
 };
 typedef struct mk_lib_fast_import_file_modify_s mk_lib_fast_import_file_modify_t;
@@ -252,7 +272,7 @@ struct mk_lib_fast_import_commit_s
 	mk_lib_fast_import_pt m_fi;
 	mk_lib_fast_import_string_t m_ref;
 	mk_lang_types_bool_t m_has_mark;
-	mk_sl_cui_uint128_t m_mark;
+	mk_lib_fast_import_mark_t m_mark;
 	mk_lib_fast_import_string_t m_author_name;
 	mk_lib_fast_import_string_t m_author_email;
 	mk_lib_fast_import_string_t m_author_timestamp;
@@ -261,7 +281,7 @@ struct mk_lib_fast_import_commit_s
 	mk_lib_fast_import_string_t m_committer_timestamp;
 	mk_lib_fast_import_binary_data_t m_message;
 	mk_lang_types_bool_t m_has_from_mark_ref;
-	mk_sl_cui_uint128_t m_from_mark_ref;
+	mk_lib_fast_import_mark_t m_from_mark_ref;
 	mk_lib_fast_import_file_ops_t m_file_ops;
 	mk_lib_fast_import_binary_data_t m_data;
 	mk_lib_crypto_hash_stream_sha1_digest_t m_digest;
@@ -276,7 +296,7 @@ struct mk_lib_fast_import_reset_s
 {
 	mk_lib_fast_import_pt m_fi;
 	mk_lib_fast_import_string_t m_ref;
-	mk_sl_cui_uint128_t m_from;
+	mk_lib_fast_import_mark_t m_from;
 };
 typedef struct mk_lib_fast_import_reset_s mk_lib_fast_import_reset_t;
 mk_lang_typedef(mk_lib_fast_import_reset);
@@ -285,12 +305,12 @@ mk_lang_typedef(mk_lib_fast_import_reset);
 
 #define mk_sl_tree_wavl_t_name mk_lib_fast_import_tree_by_mark
 #define mk_sl_tree_wavl_t_element_type mk_lib_fast_import_blob_t
-#define mk_sl_tree_wavl_t_elements_compare mk_lib_fast_import_blob_cmp
+#define mk_sl_tree_wavl_t_elements_compare mk_lib_fast_import_blob_ro_cmp
 #define mk_sl_tree_wavl_t_mallocatorl_name mk_lib_fast_import_mallocator_lokal
 #define mk_sl_tree_wavl_t_validate_want 0
-#define mk_sl_tree_wavl_t_element_copy_construct mk_lib_fast_import_blob_copy_construct
-#define mk_sl_tree_wavl_t_element_move_construct mk_lib_fast_import_blob_move_construct
-#define mk_sl_tree_wavl_t_element_destruct mk_lib_fast_import_blob_destroy
+#define mk_sl_tree_wavl_t_element_copy_construct mk_lib_fast_import_blob_rw_copy_construct
+#define mk_sl_tree_wavl_t_element_move_construct mk_lib_fast_import_blob_rw_move_construct
+#define mk_sl_tree_wavl_t_element_destruct mk_lib_fast_import_blob_rw_destroy
 #include "mk_sl_tree_wavl_inl_fileh.h"
 #include "mk_sl_tree_wavl_inl_fileu.h"
 
@@ -324,6 +344,7 @@ struct mk_lib_fast_import_tree_node_s
 	mk_lib_fast_import_tree_node_id_t m_type;
 	mk_lib_fast_import_tree_node_val_t m_val;
 	mk_lib_fast_import_string_t m_name;
+	mk_lib_fast_import_tree_pt m_parent;
 };
 typedef struct mk_lib_fast_import_tree_node_s mk_lib_fast_import_tree_node_t;
 mk_lang_typedef(mk_lib_fast_import_tree_node);
@@ -351,10 +372,17 @@ typedef struct mk_lib_fast_import_tree_s mk_lib_fast_import_tree_t;
 mk_lang_typedef(mk_lib_fast_import_tree);
 #include "mk_lang_warning_msvc_pop.h"
 
+#define mk_sl_vector_t_name mk_lib_fast_import_trees
+#define mk_sl_vector_t_element_type mk_lib_fast_import_tree_pct
+#define mk_sl_vector_t_mallocatorl mk_lib_fast_import_mallocator_lokal
+#include "mk_sl_vector_inl_fileh.h"
+#include "mk_sl_vector_inl_filec.h"
+#include "mk_sl_vector_inl_fileu.h"
+
 #include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_lib_fast_import_mark_to_commit_s
 {
-	mk_sl_cui_uint128_t m_mark;
+	mk_lib_fast_import_mark_t m_mark;
 	mk_lib_crypto_hash_stream_sha1_digest_t m_digest;
 };
 typedef struct mk_lib_fast_import_mark_to_commit_s mk_lib_fast_import_mark_to_commit_t;
@@ -367,7 +395,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	mk_lang_assert(b);
 	mk_lang_assert(cmp);
 
-	*cmp = mk_sl_cui_uint128_cmp(&a->m_mark, &b->m_mark);
+	*cmp = mk_lib_fast_import_mark_cmp(&a->m_mark, &b->m_mark);
 	return 0;
 }
 
@@ -426,7 +454,7 @@ mk_lang_typedef(mk_lib_fast_import);
 #include "mk_lang_warning_msvc_pop.h"
 
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_blob_cmp(mk_lib_fast_import_blob_pct const a, mk_lib_fast_import_blob_pct const b, mk_lang_types_sint_pt const cmp) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_blob_ro_cmp(mk_lib_fast_import_blob_pct const a, mk_lib_fast_import_blob_pct const b, mk_lang_types_sint_pt const cmp) mk_lang_noexcept
 {
 	mk_lang_types_sint_t c;
 
@@ -434,12 +462,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	mk_lang_assert(b);
 	mk_lang_assert(cmp);
 
-	c = mk_sl_cui_uint128_cmp(&a->m_mark, &b->m_mark);
+	c = mk_lib_fast_import_mark_cmp(&a->m_mark, &b->m_mark);
 	*cmp = c;
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_blob_copy_construct(mk_lib_fast_import_blob_pt const dst, mk_lib_fast_import_blob_pct const src) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_blob_rw_copy_construct(mk_lib_fast_import_blob_pt const dst, mk_lib_fast_import_blob_pct const src) mk_lang_noexcept
 {
 	mk_lang_assert(dst);
 	mk_lang_assert(src);
@@ -452,38 +480,86 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_blob_move_construct(mk_lib_fast_import_blob_pt const dst, mk_lib_fast_import_blob_pt const src) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_blob_rw_move_construct(mk_lib_fast_import_blob_pt const dst, mk_lib_fast_import_blob_pt const src) mk_lang_noexcept
 {
 	mk_lang_assert(dst);
 	mk_lang_assert(src);
 
 	dst->m_fi = src->m_fi;
 	dst->m_mark = src->m_mark;
-	dst->m_binary_len = src->m_binary_len;
-	dst->m_binary_buf = src->m_binary_buf;
+	dst->m_binary_len = src->m_binary_len; src->m_binary_len = 0;
+	dst->m_binary_buf = src->m_binary_buf; src->m_binary_buf = mk_lang_null;
 	dst->m_digest = src->m_digest;
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_blob_destroy(mk_lib_fast_import_blob_pt const x) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_blob_rw_construct(mk_lib_fast_import_blob_pt const blob, mk_lib_fast_import_pt const fi) mk_lang_noexcept
+{
+	mk_lang_assert(blob);
+	mk_lang_assert(fi);
+	mk_lang_assert(fi->m_mallocator);
+
+	blob->m_fi = fi;
+	mk_lib_fast_import_mark_set_zero(&blob->m_mark);
+	mk_lang_string_memclr_pc_fn(&blob->m_mode_buf[0], mk_lang_countof(blob->m_mode_buf));
+	blob->m_mode_len = 0;
+	blob->m_binary_len = 0;
+	blob->m_binary_buf = mk_lang_null;
+	mk_sl_cui_uint8_memclr_fn(&blob->m_digest.m_data.m_uint8s[0], mk_lang_countof(blob->m_digest.m_data.m_uint8s));
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_blob_rw_destroy(mk_lib_fast_import_blob_pt const blob) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 
-	mk_lang_assert(x);
+	mk_lang_assert(blob);
 
-	err = mk_lib_fast_import_mallocator_lokal_deallocate(x->m_fi->m_mallocator, x->m_binary_buf, x->m_binary_len); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_mallocator_lokal_deallocate(blob->m_fi->m_mallocator, blob->m_binary_buf, blob->m_binary_len); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_blob_rw_copy_assign(mk_lib_fast_import_blob_pt const blob, mk_lib_fast_import_blob_pct const src) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	mk_lang_types_void_pt mem;
+
+	mk_lang_assert(blob);
+	mk_lang_assert(src);
+	mk_lang_assert(src->m_fi);
+	mk_lang_assert(src->m_fi->m_mallocator);
+
+	err = mk_lib_fast_import_blob_rw_destroy(blob); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_blob_rw_construct(blob, src->m_fi); mk_lang_check_rereturn(err);
+	mk_lib_fast_import_mark_assign(&blob->m_mark, &src->m_mark);
+	mk_lang_string_memcpy_pc_fn(&blob->m_mode_buf[0], &src->m_mode_buf[0], mk_lang_countof(blob->m_mode_buf));
+	blob->m_mode_len = src->m_mode_len;
+	if(src->m_binary_len != 0)
+	{
+		mk_lang_assert(src->m_binary_buf != mk_lang_null);
+		err = mk_lib_fast_import_mallocator_lokal_allocate(blob->m_fi->m_mallocator, src->m_binary_len, &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem); blob->m_binary_buf = ((mk_sl_cui_uint8_pt)(mem)); mk_lang_assert(blob->m_binary_buf);
+		blob->m_binary_len = src->m_binary_len;
+		mk_sl_cui_uint8_memcpy_fn(&blob->m_binary_buf[0], &src->m_binary_buf[0], src->m_binary_len);
+	}
+	else
+	{
+		mk_lang_assert(src->m_binary_buf == mk_lang_null);
+		blob->m_binary_len = 0;
+		blob->m_binary_buf = mk_lang_null;;
+	}
+	blob->m_digest = src->m_digest;
 	return 0;
 }
 
 
 #define mk_sl_tree_wavl_t_name mk_lib_fast_import_tree_by_mark
 #define mk_sl_tree_wavl_t_element_type mk_lib_fast_import_blob_t
-#define mk_sl_tree_wavl_t_elements_compare mk_lib_fast_import_blob_cmp
+#define mk_sl_tree_wavl_t_elements_compare mk_lib_fast_import_blob_ro_cmp
 #define mk_sl_tree_wavl_t_mallocatorl_name mk_lib_fast_import_mallocator_lokal
 #define mk_sl_tree_wavl_t_validate_want 0
-#define mk_sl_tree_wavl_t_element_copy_construct mk_lib_fast_import_blob_copy_construct
-#define mk_sl_tree_wavl_t_element_move_construct mk_lib_fast_import_blob_move_construct
-#define mk_sl_tree_wavl_t_element_destruct mk_lib_fast_import_blob_destroy
+#define mk_sl_tree_wavl_t_element_copy_construct mk_lib_fast_import_blob_rw_copy_construct
+#define mk_sl_tree_wavl_t_element_move_construct mk_lib_fast_import_blob_rw_move_construct
+#define mk_sl_tree_wavl_t_element_destruct mk_lib_fast_import_blob_rw_destroy
 #include "mk_sl_tree_wavl_inl_filec.h"
 #include "mk_sl_tree_wavl_inl_fileu.h"
 
@@ -621,7 +697,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_fast_import_string_r
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_file_find_digest(mk_lib_fast_import_pt const fi, mk_sl_cui_uint128_pct const file_ref, mk_lib_crypto_hash_stream_sha1_digest_pct* const digest) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_file_find_digest(mk_lib_fast_import_pt const fi, mk_lib_fast_import_mark_pct const file_ref, mk_lib_crypto_hash_stream_sha1_digest_pct* const digest) mk_lang_noexcept
 {
 	mk_lib_fast_import_blob_t blob;
 	mk_lang_types_sint_t err;
@@ -655,7 +731,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	file_op->m_fi = fi;
 	file_op->m_file_modify.m_fi = fi;
 	mk_sl_cui_uint32_set_zero(&file_op->m_file_modify.m_mode);
-	mk_sl_cui_uint128_set_zero(&file_op->m_file_modify.m_data_ref);
+	mk_lib_fast_import_mark_set_zero(&file_op->m_file_modify.m_data_ref);
 	err = mk_lib_fast_import_string_rw_construct(&file_op->m_file_modify.m_path, fi->m_mallocator); mk_lang_check_rereturn(err);
 	return 0;
 }
@@ -716,7 +792,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	commit->m_fi = fi;
 	err = mk_lib_fast_import_string_rw_construct(&commit->m_ref, fi->m_mallocator); mk_lang_check_rereturn(err);
 	commit->m_has_mark = mk_lang_false;
-	mk_sl_cui_uint128_set_zero(&commit->m_mark);
+	mk_lib_fast_import_mark_set_zero(&commit->m_mark);
 	err = mk_lib_fast_import_string_rw_construct(&commit->m_author_name, fi->m_mallocator); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_string_rw_construct(&commit->m_author_email, fi->m_mallocator); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_string_rw_construct(&commit->m_author_timestamp, fi->m_mallocator); mk_lang_check_rereturn(err);
@@ -725,7 +801,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	err = mk_lib_fast_import_string_rw_construct(&commit->m_committer_timestamp, fi->m_mallocator); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_binary_data_rw_construct(&commit->m_message, fi->m_mallocator); mk_lang_check_rereturn(err);
 	commit->m_has_from_mark_ref = mk_lang_false;
-	mk_sl_cui_uint128_set_zero(&commit->m_from_mark_ref);
+	mk_lib_fast_import_mark_set_zero(&commit->m_from_mark_ref);
 	err = mk_lib_fast_import_file_ops_rw_construct(&commit->m_file_ops, fi->m_mallocator); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_binary_data_rw_construct(&commit->m_data, fi->m_mallocator); mk_lang_check_rereturn(err);
 	return 0;
@@ -759,7 +835,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 
 	err = mk_lib_fast_import_string_rw_clear(&commit->m_ref); mk_lang_check_rereturn(err);
 	commit->m_has_mark = mk_lang_false;
-	mk_sl_cui_uint128_set_zero(&commit->m_mark);
+	mk_lib_fast_import_mark_set_zero(&commit->m_mark);
 	err = mk_lib_fast_import_string_rw_clear(&commit->m_author_name); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_string_rw_clear(&commit->m_author_email); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_string_rw_clear(&commit->m_author_timestamp); mk_lang_check_rereturn(err);
@@ -768,7 +844,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	err = mk_lib_fast_import_string_rw_clear(&commit->m_committer_timestamp); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_binary_data_rw_clear(&commit->m_message); mk_lang_check_rereturn(err);
 	commit->m_has_from_mark_ref = mk_lang_false;
-	mk_sl_cui_uint128_set_zero(&commit->m_from_mark_ref);
+	mk_lib_fast_import_mark_set_zero(&commit->m_from_mark_ref);
 	err = mk_lib_fast_import_file_ops_rw_clear(&commit->m_file_ops); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_binary_data_rw_clear(&commit->m_data); mk_lang_check_rereturn(err);
 	mk_sl_cui_uint8_memclr_fn(&commit->m_digest.m_data.m_uint8s[0], mk_lang_countof(commit->m_digest.m_data.m_uint8s));
@@ -1227,17 +1303,21 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_tree_construct(mk_lib_fast_import_tree_pt const tree, mk_lib_fast_import_pt const fi) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_tree_rw_construct(mk_lib_fast_import_tree_pt const tree, mk_lib_fast_import_pt const fi) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 
 	mk_lang_assert(tree);
 	mk_lang_assert(fi);
+	mk_lang_assert(fi->m_mallocator);
 
 	tree->m_fi = fi;
+	mk_lang_string_memclr_pc_fn(&tree->m_mode_buf[0], mk_lang_countof(tree->m_mode_buf));
+	tree->m_mode_len = 0;
 	err = mk_lib_fast_import_tree_nodes_rw_construct(&tree->m_children, tree->m_fi->m_mallocator); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_binary_data_rw_construct(&tree->m_data, tree->m_fi->m_mallocator); mk_lang_check_rereturn(err);
 	tree->m_digest_computed = mk_lang_false;
+	mk_sl_cui_uint8_memclr_fn(&tree->m_digest_value.m_data.m_uint8s[0], mk_lang_countof(tree->m_digest_value.m_data.m_uint8s));
 	return 0;
 }
 
@@ -1273,7 +1353,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_tree_node_rw_construct(mk_lib_fast_import_tree_node_pt const tree_node, mk_lib_fast_import_pt const fi, mk_lib_fast_import_tree_node_id_t const type, mk_lang_types_pchar_pct const name_buf, mk_lang_types_sint_t const name_len) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_tree_node_rw_construct(mk_lib_fast_import_tree_node_pt const tree_node, mk_lib_fast_import_pt const fi, mk_lib_fast_import_tree_node_id_t const type, mk_lib_fast_import_tree_pt const parent, mk_lang_types_pchar_pct const name_buf, mk_lang_types_sint_t const name_len) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 	mk_lang_types_void_pt mem;
@@ -1285,6 +1365,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	mk_lang_assert(fi->m_mallocator);
 	mk_lang_assert(type >= 0);
 	mk_lang_assert(type < mk_lib_fast_import_tree_node_id_e_dummy_end);
+	mk_lang_assert(parent || !parent);
 	mk_lang_assert(name_buf);
 	mk_lang_assert(name_len >= 1);
 
@@ -1296,7 +1377,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 			err = mk_lib_fast_import_mallocator_lokal_allocate(fi->m_mallocator, sizeof(*tree), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem);
 			tree = ((mk_lib_fast_import_tree_pt)(mem));
 			tree_node->m_val.m_data.m_tree = tree;
-			err = mk_lib_fast_import_tree_construct(tree, fi); mk_lang_check_rereturn(err);
+			err = mk_lib_fast_import_tree_rw_construct(tree, fi); mk_lang_check_rereturn(err);
 		}
 		break;
 		case mk_lib_fast_import_tree_node_id_e_blob:
@@ -1304,6 +1385,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 			err = mk_lib_fast_import_mallocator_lokal_allocate(fi->m_mallocator, sizeof(*blob), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem);
 			blob = ((mk_lib_fast_import_blob_pt)(mem));
 			tree_node->m_val.m_data.m_blob = blob;
+			err = mk_lib_fast_import_blob_rw_construct(blob, fi); mk_lang_check_rereturn(err);
 		}
 		break;
 		case mk_lib_fast_import_tree_node_id_e_dummy_end: mk_lang_assert_false(); break;
@@ -1312,6 +1394,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	err = mk_lib_fast_import_string_rw_construct(&tree_node->m_name, fi->m_mallocator); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_string_rw_push_back_copy_many(&tree_node->m_name, name_buf, name_len); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_st_fancy_str(&tree_node->m_name); mk_lang_check_rereturn(err);
+	tree_node->m_parent = parent;
 	return 0;
 }
 
@@ -1353,7 +1436,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 		type = is_last ? mk_lib_fast_import_tree_node_id_e_blob : mk_lib_fast_import_tree_node_id_e_tree;
 		err = mk_lib_fast_import_tree_nodes_rw_grow_by(&cr->m_children, 1); mk_lang_check_rereturn(err);
 		child = mk_lib_fast_import_tree_nodes_rw_back(&cr->m_children); mk_lang_assert(child);
-		err = mk_lib_fast_import_tree_node_rw_construct(child, tree->m_fi, type, part_buf, part_len); mk_lang_check_rereturn(err);
+		err = mk_lib_fast_import_tree_node_rw_construct(child, tree->m_fi, type, cr, part_buf, part_len); mk_lang_check_rereturn(err);
 		if(is_last)
 		{
 			err = mk_lib_fast_import_pr_file_find_digest(cr->m_fi, &file_op->m_file_modify.m_data_ref, &digest); mk_lang_check_rereturn(err); mk_lang_check_return(digest);
@@ -1435,7 +1518,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	mk_lang_types_sint_t err;
 	mk_lang_types_sint_t len;
 	mk_lang_types_pchar_t mode[mk_sl_cui_uint32_strlen_dec_v];
-	mk_lang_types_pchar_t ref[mk_sl_cui_uint128_strlen_dec_v];
+	mk_lang_types_pchar_t ref[mk_lib_fast_import_mark_strlen_dec_v];
 
 	mk_lang_assert(file_ops);
 
@@ -1453,7 +1536,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 		err = mk_lang_stdout_print_n(&mode[0], len); mk_lang_check_rereturn(err);
 		err = mk_lang_stdout_print_n(&sp, 1); mk_lang_check_rereturn(err);
 		err = mk_lang_stdout_print_n(&colon, 1); mk_lang_check_rereturn(err);
-		len = mk_sl_cui_uint128_to_str_dec_n(&op_modify->m_data_ref, &ref[0], mk_lang_countof(ref)); mk_lang_assert(len >= 1); mk_lang_assert(len <= mk_lang_countof(ref));
+		len = mk_lib_fast_import_mark_to_str_dec_n(&op_modify->m_data_ref, &ref[0], mk_lang_countof(ref)); mk_lang_assert(len >= 1); mk_lang_assert(len <= mk_lang_countof(ref));
 		err = mk_lang_stdout_print_n(&ref[0], len); mk_lang_check_rereturn(err);
 		err = mk_lang_stdout_print_n(&sp, 1); mk_lang_check_rereturn(err);
 		err = mk_lang_stdout_print_n(mk_lib_fast_import_string_ro_data(&op_modify->m_path), mk_lib_fast_import_string_ro_sise(&op_modify->m_path)); mk_lang_check_rereturn(err);
@@ -1534,6 +1617,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	mk_lang_assert(tree->m_fi);
 	mk_lang_assert(tree->m_fi->m_mallocator);
 
+	err = mk_lang_stdout_println_lit_n("=========="); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_string_rw_construct(&path, tree->m_fi->m_mallocator); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_file_ops_rw_construct(&file_ops, tree->m_fi->m_mallocator); mk_lang_check_rereturn(err);
 	n = mk_lib_fast_import_tree_nodes_ro_sise(&tree->m_children);
@@ -1545,6 +1629,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	err = mk_lib_fast_import_tree_debug_print_p(&file_ops); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_file_ops_rw_destroy(&file_ops); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_string_rw_destroy(&path); mk_lang_check_rereturn(err);
+	err = mk_lang_stdout_println_lit_n("=========="); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -1764,7 +1849,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 
 	err = mk_lib_fast_import_tree_nodes_rw_grow_by(&tree->m_children, 1); mk_lang_check_rereturn(err);
 	child = mk_lib_fast_import_tree_nodes_rw_back(&tree->m_children); mk_lang_assert(child);
-	err = mk_lib_fast_import_tree_node_rw_construct(child, tree->m_fi, type, name_buf, name_len); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_tree_node_rw_construct(child, tree->m_fi, type, tree, name_buf, name_len); mk_lang_check_rereturn(err);
 	if(type == mk_lib_fast_import_tree_node_id_e_blob)
 	{
 		child->m_val.m_data.m_blob->m_digest = *file_digest;
@@ -2403,13 +2488,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_st_do_number(mk_sl_cui_uint8_ppt const data_buf, mk_lang_types_sint_pt const data_len, mk_lang_types_bool_pt const did, mk_sl_cui_uint128_pt const number) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_st_do_number(mk_sl_cui_uint8_ppt const data_buf, mk_lang_types_sint_pt const data_len, mk_lang_types_bool_pt const did, mk_lib_fast_import_mark_pt const number) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_pt d;
 	mk_lang_types_sint_t l;
 	mk_lang_types_bool_t b;
 	mk_lang_types_sint_t n;
-	mk_lang_types_pchar_t str[mk_sl_cui_uint128_strlen_dec_v];
+	mk_lang_types_pchar_t str[mk_lib_fast_import_mark_strlen_dec_v];
 	mk_lang_types_sint_t len;
 
 	mk_lang_assert(data_buf);
@@ -2426,7 +2511,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	if(n >= 1)
 	{
 		mk_sl_cui_uint8_to_bi_pchar_many(&d[0], &str[0], n);
-		len = mk_sl_cui_uint128_from_str_dec_n(number, &str[0], n); mk_lang_assert(len <= n);
+		len = mk_lib_fast_import_mark_from_str_dec_n(number, &str[0], n); mk_lang_assert(len <= n);
 		if(len >= 1)
 		{
 			d += len;
@@ -2483,13 +2568,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_st_do_data_ref(mk_sl_cui_uint8_ppt const data_buf, mk_lang_types_sint_pt const data_len, mk_lang_types_bool_pt const did, mk_sl_cui_uint128_pt const u128) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_st_do_data_ref(mk_sl_cui_uint8_ppt const data_buf, mk_lang_types_sint_pt const data_len, mk_lang_types_bool_pt const did, mk_lib_fast_import_mark_pt const u128) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_pt d;
 	mk_lang_types_sint_t l;
 	mk_lang_types_bool_t b;
 	mk_lang_types_sint_t n;
-	mk_lang_types_pchar_t str[mk_sl_cui_uint128_strlen_dec_v];
+	mk_lang_types_pchar_t str[mk_lib_fast_import_mark_strlen_dec_v];
 	mk_lang_types_sint_t len;
 
 	mk_lang_assert(data_buf);
@@ -2506,7 +2591,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	if(n != 0)
 	{
 		mk_sl_cui_uint8_to_bi_pchar_many(&d[0], &str[0], n);
-		len = mk_sl_cui_uint128_from_str_dec_n(u128, &str[0], n); mk_lang_assert(len <= n);
+		len = mk_lib_fast_import_mark_from_str_dec_n(u128, &str[0], n); mk_lang_assert(len <= n);
 		if(len >= 1)
 		{
 			d += len;
@@ -2748,9 +2833,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	mk_lang_types_sint_t l;
 	mk_lang_types_bool_t b;
 	mk_lang_types_sint_t err;
-	mk_sl_cui_uint128_t number;
+	mk_lib_fast_import_mark_t number;
 	mk_lang_types_sint_t tsi;
-	mk_sl_cui_uint128_t cui;
+	mk_lib_fast_import_mark_t cui;
 
 	mk_lang_assert(data_buf);
 	mk_lang_assert(*data_buf);
@@ -2767,9 +2852,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	if(b){ err = mk_lib_fast_import_st_do_data_suffix(&d, &l, &b); mk_lang_check_rereturn(err); }
 	if(b)
 	{
-		tsi = mk_lang_limits_sint_max; mk_sl_cui_uint128_from_bi_sint(&cui, &tsi);
-		mk_lang_check_return(mk_sl_cui_uint128_le(&number, &cui));
-		mk_sl_cui_uint128_to_bi_sint(&number, binary_len);
+		tsi = mk_lang_limits_sint_max; mk_lib_fast_import_mark_from_bi_sint(&cui, &tsi);
+		mk_lang_check_return(mk_lib_fast_import_mark_le(&number, &cui));
+		mk_lib_fast_import_mark_to_bi_sint(&number, binary_len);
 		*data_buf = d;
 		*data_len = l;
 	}
@@ -2927,7 +3012,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_st_do_mark_whole(mk_sl_cui_uint8_ppt const data_buf, mk_lang_types_sint_pt const data_len, mk_lang_types_bool_pt const did, mk_sl_cui_uint128_pt const mark) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_st_do_mark_whole(mk_sl_cui_uint8_ppt const data_buf, mk_lang_types_sint_pt const data_len, mk_lang_types_bool_pt const did, mk_lib_fast_import_mark_pt const mark) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_pt d;
 	mk_lang_types_sint_t l;
@@ -3031,7 +3116,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_do_from_opt(mk_lib_fast_import_pt const fi, mk_lang_types_bool_pt const did, mk_lang_types_bool_pt const has, mk_sl_cui_uint128_pt const mark_ref) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_do_from_opt(mk_lib_fast_import_pt const fi, mk_lang_types_bool_pt const did, mk_lang_types_bool_pt const has, mk_lib_fast_import_mark_pt const mark_ref) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_pt d;
 	mk_lang_types_sint_t l;
@@ -3138,7 +3223,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_st_do_mark_opt(mk_sl_cui_uint8_ppt const data_buf, mk_lang_types_sint_pt const data_len, mk_lang_types_bool_pt const did, mk_lang_types_bool_pt const mark_has, mk_sl_cui_uint128_pt const mark_val) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_st_do_mark_opt(mk_sl_cui_uint8_ppt const data_buf, mk_lang_types_sint_pt const data_len, mk_lang_types_bool_pt const did, mk_lang_types_bool_pt const mark_has, mk_lib_fast_import_mark_pt const mark_val) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_pt d;
 	mk_lang_types_sint_t l;
@@ -3174,7 +3259,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_st_do_from_mark(mk_sl_cui_uint8_ppt const data_buf, mk_lang_types_sint_pt const data_len, mk_lang_types_bool_pt const did, mk_sl_cui_uint128_pt const mark) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_st_do_from_mark(mk_sl_cui_uint8_ppt const data_buf, mk_lang_types_sint_pt const data_len, mk_lang_types_bool_pt const did, mk_lib_fast_import_mark_pt const mark) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_pt d;
 	mk_lang_types_sint_t l;
@@ -3685,6 +3770,58 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_gather_sub_trees_2(mk_lib_fast_import_pt const fi, mk_lib_fast_import_tree_pct const tree, mk_lib_fast_import_trees_pt const sub_trees) mk_lang_noexcept
+{
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
+	mk_lib_fast_import_tree_node_pct child;
+	mk_lib_fast_import_tree_pct sub_tree;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(fi);
+	mk_lang_assert(tree);
+	mk_lang_assert(sub_trees);
+	mk_lang_assert(fi->m_mallocator);
+
+	n = mk_lib_fast_import_tree_nodes_ro_size(&tree->m_children);
+	for(i = 0; i != n; ++i)
+	{
+		child = mk_lib_fast_import_tree_nodes_ro_at(&tree->m_children, i); mk_lang_assert(child);
+		if(child->m_type == mk_lib_fast_import_tree_node_id_e_tree)
+		{
+			sub_tree = child->m_val.m_data.m_tree; mk_lang_assert(sub_tree);
+			if(mk_lib_fast_import_tree_nodes_ro_is_empty(&sub_tree->m_children))
+			{
+				err = mk_lib_fast_import_trees_rw_push_back_copy_single(sub_trees, &sub_tree); mk_lang_check_rereturn(err);
+			}
+		}
+	}
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_gather_sub_trees_1(mk_lib_fast_import_pt const fi, mk_lib_fast_import_tree_pct const tree, mk_lib_fast_import_trees_pt const sub_trees) mk_lang_noexcept
+{
+	mk_lang_types_usize_t old_len;
+	mk_lang_types_sint_t err;
+	mk_lang_types_usize_t i;
+	mk_lib_fast_import_tree_ppct ta;
+	mk_lib_fast_import_tree_pct tb;
+
+	mk_lang_assert(fi);
+	mk_lang_assert(tree);
+	mk_lang_assert(sub_trees);
+	mk_lang_assert(fi->m_mallocator);
+
+	old_len = mk_lib_fast_import_trees_rw_size(sub_trees);
+	err = mk_lib_fast_import_pr_gather_sub_trees_2(fi, tree, sub_trees); mk_lang_check_rereturn(err);
+	for(i = old_len; i != mk_lib_fast_import_trees_rw_size(sub_trees); ++i)
+	{
+		ta = mk_lib_fast_import_trees_rw_at(sub_trees, i); mk_lang_assert(ta); tb = *ta; mk_lang_assert(tb);
+		err = mk_lib_fast_import_pr_gather_sub_trees_2(fi, tb, sub_trees); mk_lang_check_rereturn(err);
+	}
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_load_tree_2(mk_lib_fast_import_pt const fi, mk_lang_types_bool_pt const did, mk_lib_crypto_hash_stream_sha1_digest_pct const digest, mk_lib_fast_import_tree_pt const tree) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
@@ -3714,8 +3851,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 {
 	mk_lang_types_bool_t gud;
 	mk_lang_types_sint_t err;
-	mk_lib_fast_import_tree_pt sub_tree;
-	mk_lib_crypto_hash_stream_sha1_digest_t sub_digest;
+	mk_lib_fast_import_trees_t sub_trees;
 
 	mk_lang_assert(fi);
 	mk_lang_assert(did);
@@ -3728,21 +3864,101 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	{
 		err = mk_lib_fast_import_pr_load_tree_2(fi, &gud, digest, tree); mk_lang_check_rereturn(err);
 	}
-	for(;;)
+	if(gud)
 	{
-		if(!gud)
+		err = mk_lib_fast_import_trees_rw_construct(&sub_trees, fi->m_mallocator); mk_lang_check_rereturn(err);
+		err = mk_lib_fast_import_pr_gather_sub_trees_1(fi, tree, &sub_trees); mk_lang_check_rereturn(err);
+		while(!mk_lib_fast_import_trees_rw_is_empty(&sub_trees))
 		{
-			break;
 		}
-		sub_tree = tree;
-		sub_tree->m_children;
-		sub_digest;
-		if(!sub_tree)
-		{
-			break;
-		}
-		err = mk_lib_fast_import_pr_load_tree_2(fi, &gud, &sub_digest, sub_tree); mk_lang_check_rereturn(err);
+		//err = mk_lib_fast_import_pr_load_tree_2(fi, &gud, &sub_digest, sub_tree); mk_lang_check_rereturn(err);
+		err = mk_lib_fast_import_trees_rw_destroy(&sub_trees); mk_lang_check_rereturn(err);
 	}
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_gather_sub_trees_3(mk_lib_fast_import_pt const fi, mk_lib_fast_import_tree_pct const tree, mk_lib_fast_import_trees_pt const sub_trees) mk_lang_noexcept
+{
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
+	mk_lib_fast_import_tree_node_pct child;
+	mk_lib_fast_import_tree_pct sub_tree;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(fi);
+	mk_lang_assert(tree);
+	mk_lang_assert(sub_trees);
+	mk_lang_assert(fi->m_mallocator);
+
+	n = mk_lib_fast_import_tree_nodes_ro_size(&tree->m_children);
+	for(i = 0; i != n; ++i)
+	{
+		child = mk_lib_fast_import_tree_nodes_ro_at(&tree->m_children, i); mk_lang_assert(child);
+		if(child->m_type == mk_lib_fast_import_tree_node_id_e_tree)
+		{
+			sub_tree = child->m_val.m_data.m_tree; mk_lang_assert(sub_tree);
+			mk_lang_assert(mk_lib_fast_import_tree_nodes_ro_is_empty(&sub_tree->m_children)); /* todo */
+			{
+				err = mk_lib_fast_import_trees_rw_push_back_copy_single(sub_trees, &sub_tree); mk_lang_check_rereturn(err);
+			}
+		}
+	}
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_load_tree_4(mk_lib_fast_import_pt const fi, mk_lang_types_bool_pt const did, mk_lib_fast_import_tree_pt const tree) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	mk_lang_types_usize_t old_len;
+	mk_lib_fast_import_binary_data_t bin_tree_compressed;
+	mk_lib_fast_import_binary_data_t bin_tree_decompressed;
+	mk_lang_types_bool_t gud;
+
+	mk_lang_assert(fi);
+	mk_lang_assert(did);
+	mk_lang_assert(tree);
+	mk_lang_assert(fi->m_mallocator);
+
+	err = mk_lib_fast_import_pr_append_object_path(fi, &tree->m_digest_value, &old_len); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_binary_data_rw_construct(&bin_tree_compressed, fi->m_mallocator); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_read_entire_file(&fi->m_output_dir, &bin_tree_compressed); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_pr_restore_object_path(fi, old_len); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_binary_data_rw_construct(&bin_tree_decompressed, fi->m_mallocator); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_decompress(&bin_tree_compressed, &bin_tree_decompressed); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_binary_data_rw_destroy(&bin_tree_compressed); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_tree_rw_deserialize_from_binary_data(tree, &bin_tree_decompressed, &gud); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_binary_data_rw_destroy(&bin_tree_decompressed); mk_lang_check_rereturn(err);
+	*did = gud;
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_load_tree_3(mk_lib_fast_import_pt const fi, mk_lang_types_bool_pt const did, mk_lib_crypto_hash_stream_sha1_digest_pct const digest, mk_lib_fast_import_tree_pt const tree) mk_lang_noexcept
+{
+	mk_lang_types_bool_t gud;
+	mk_lang_types_sint_t err;
+	mk_lib_fast_import_trees_t sub_trees;
+	mk_lib_fast_import_tree_ppt ta;
+	mk_lib_fast_import_tree_pt tb;
+
+	mk_lang_assert(fi);
+	mk_lang_assert(did);
+	mk_lang_assert(digest);
+	mk_lang_assert(tree);
+	mk_lang_assert(fi->m_mallocator);
+
+	tree->m_digest_computed = mk_lang_true;
+	tree->m_digest_value = *digest;
+	err = mk_lib_fast_import_trees_rw_construct(&sub_trees, fi->m_mallocator); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_trees_rw_push_back_copy_single(&sub_trees, &tree); mk_lang_check_rereturn(err);
+	while(!mk_lib_fast_import_trees_rw_is_empty(&sub_trees))
+	{
+		ta = mk_lib_fast_import_trees_rw_back(&sub_trees); mk_lang_assert(ta); tb = *ta; mk_lang_assert(tb);
+		err = mk_lib_fast_import_trees_rw_pop_back_single(&sub_trees); mk_lang_check_rereturn(err);
+		err = mk_lib_fast_import_pr_load_tree_4(fi, &gud, tb); mk_lang_check_rereturn(err);
+		mk_lang_check_return(gud); /* todo */
+		err = mk_lib_fast_import_pr_gather_sub_trees_3(fi, tb, &sub_trees); mk_lang_check_rereturn(err);
+	}
+	err = mk_lib_fast_import_trees_rw_destroy(&sub_trees); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -3761,7 +3977,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	mk_lang_assert(tree);
 	mk_lang_assert(fi->m_mallocator);
 
-	gud = mk_lang_false;
+	gud = mk_lang_true;
 	if(commit->m_has_from_mark_ref)
 	{
 		mark_to_commit_a.m_mark = commit->m_from_mark_ref;
@@ -3769,35 +3985,42 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 		err = mk_lib_fast_import_map_mark_to_commit_ro_node_get_element(node, &mark_to_commit_b); mk_lang_check_rereturn(err); mk_lang_check_return(mark_to_commit_b);
 		err = mk_lib_fast_import_commit_rw_construct(&parent_commit, fi); mk_lang_check_rereturn(err);
 		err = mk_lib_fast_import_pr_load_commit(fi, &gud, &mark_to_commit_b->m_digest, &parent_commit); mk_lang_check_rereturn(err);
-		if(gud){ err = mk_lib_fast_import_pr_load_tree_1(fi, &gud, &parent_commit.m_tree_digest, tree); mk_lang_check_rereturn(err); }
+		if(gud){ err = mk_lib_fast_import_pr_load_tree_3(fi, &gud, &parent_commit.m_tree_digest, tree); mk_lang_check_rereturn(err); }
 		err = mk_lib_fast_import_commit_rw_destroy(&parent_commit); mk_lang_check_rereturn(err);
 	}
 	*did = gud;
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_extract_tree(mk_lib_fast_import_pt const fi, mk_lang_types_bool_pt const did, mk_lib_fast_import_commit_pct const commit, mk_lib_fast_import_tree_pt const tree) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_extract_parent_tree(mk_lib_fast_import_pt const fi, mk_lang_types_bool_pt const did, mk_lib_fast_import_commit_pct const commit, mk_lib_fast_import_tree_pt const parent_tree) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
-	mk_lib_fast_import_tree_t parent_tree;
-	mk_lang_types_bool_t b;
+	mk_lang_types_bool_t gud;
 
 	mk_lang_assert(fi);
 	mk_lang_assert(did);
 	mk_lang_assert(commit);
-	mk_lang_assert(tree);
+	mk_lang_assert(parent_tree);
 	mk_lang_assert(fi->m_mallocator);
 
+	err = mk_lib_fast_import_pr_load_parent_tree(fi, &gud, commit, parent_tree); mk_lang_check_rereturn(err);
+	if(gud){ err = mk_lib_fast_import_tree_debug_print(parent_tree); mk_lang_check_rereturn(err); }
+	*did = gud;
+	return 0;
+}
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_extract_my_tree(mk_lib_fast_import_pt const fi, mk_lang_types_bool_pt const did, mk_lib_fast_import_commit_pct const commit, mk_lib_fast_import_tree_pt const my_tree) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
 
-	err = mk_lib_fast_import_tree_construct(&parent_tree, fi); mk_lang_check_rereturn(err);
-	err = mk_lib_fast_import_pr_load_parent_tree(fi, &b, commit, &parent_tree); mk_lang_check_rereturn(err);
-	err = mk_lib_fast_import_tree_destroy(&parent_tree); mk_lang_check_rereturn(err);
+	mk_lang_assert(fi);
+	mk_lang_assert(did);
+	mk_lang_assert(commit);
+	mk_lang_assert(my_tree);
+	mk_lang_assert(fi->m_mallocator);
 
-
-
-	err = mk_lib_fast_import_tree_load_from_commit(tree, commit); mk_lang_check_rereturn(err);
-	err = mk_lib_fast_import_tree_debug_print(tree); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_tree_load_from_commit(my_tree, commit); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_tree_debug_print(my_tree); mk_lang_check_rereturn(err);
 	*did = mk_lang_true;
 	return 0;
 }
@@ -4319,27 +4542,193 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	return 0;
 }
 
+/*mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_merge_child_3(mk_lib_fast_import_pt const fi, mk_lib_fast_import_tree_pt const merged_tree, mk_lib_fast_import_tree_node_pct const child) mk_lang_noexcept
+{
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_merge_child_2(mk_lib_fast_import_pt const fi, mk_lib_fast_import_tree_pt const merged_tree, mk_lib_fast_import_tree_node_pct const child) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	mk_lib_fast_import_tree_node_t chld;
+	mk_lib_fast_import_tree_nodes_t children;
+
+	mk_lang_assert(fi);
+	mk_lang_assert(merged_tree);
+	mk_lang_assert(child);
+	mk_lang_assert(fi->m_mallocator);
+
+	err = mk_lib_fast_import_tree_nodes_rw_construct(&children, fi->m_mallocator); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_tree_nodes_rw_destroy(&children); mk_lang_check_rereturn(err);
+	return 0;
+}*/
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_merge_blob(mk_lib_fast_import_pt const fi, mk_lib_fast_import_tree_pt const merged_tree, mk_lib_fast_import_tree_node_pct const child) mk_lang_noexcept
+{
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
+	mk_lib_fast_import_tree_node_pt node;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(fi);
+	mk_lang_assert(merged_tree);
+	mk_lang_assert(child);
+	mk_lang_assert(fi->m_mallocator);
+	mk_lang_assert(child->m_type == mk_lib_fast_import_tree_node_id_e_blob);
+
+	n = mk_lib_fast_import_tree_nodes_rw_size(&merged_tree->m_children);
+	for(i = 0; i != n; ++i)
+	{
+		node = mk_lib_fast_import_tree_nodes_rw_at(&merged_tree->m_children, i); mk_lang_assert(node);
+		if(mk_lib_fast_import_string_ro_eq(&child->m_name, &node->m_name))
+		{
+			break;
+		}
+	}
+	if(i != n)
+	{
+		mk_lang_clobber(&node);
+		mk_lang_assert(node);
+		mk_lang_assert((mk_lib_fast_import_string_ro_eq(&child->m_name, &node->m_name)));
+		if(node->m_type == mk_lib_fast_import_tree_node_id_e_tree)
+		{
+			mk_lang_check_todo();
+		}
+		else if(node->m_type == mk_lib_fast_import_tree_node_id_e_blob)
+		{
+			err = mk_lib_fast_import_blob_rw_copy_assign(node->m_val.m_data.m_blob, child->m_val.m_data.m_blob); mk_lang_check_rereturn(err);
+		}
+		else
+		{
+			mk_lang_assert_false();
+		}
+	}
+	else
+	{
+	}
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_merge_child(mk_lib_fast_import_pt const fi, mk_lib_fast_import_tree_pt const merged_tree, mk_lib_fast_import_tree_node_pct const child) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	//mk_lib_fast_import_strings_t path;
+	mk_lib_fast_import_tree_node_pct curr;
+
+	//mk_lib_fast_import_tree_node_t child;
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
+	mk_lib_fast_import_tree_node_pct node;
+
+	mk_lang_assert(fi);
+	mk_lang_assert(merged_tree);
+	mk_lang_assert(child);
+	mk_lang_assert(fi->m_mallocator);
+
+	if(child->m_type == mk_lib_fast_import_tree_node_id_e_blob)
+	{
+		err = mk_lib_fast_import_pr_merge_blob(fi, merged_tree, child); mk_lang_check_rereturn(err);
+	}
+	else if(child->m_type == mk_lib_fast_import_tree_node_id_e_blob)
+	{
+		mk_lang_check_todo();
+	}
+	else
+	{
+		mk_lang_assert_false();
+	}
+
+	//err = mk_lib_fast_import_strings_rw_construct(&path, fi->m_mallocator); mk_lang_check_rereturn(err);
+	curr = child;
+	n = mk_lib_fast_import_tree_nodes_ro_size(&merged_tree->m_children);
+	for(i = 0; i != n; ++i)
+	{
+		node = mk_lib_fast_import_tree_nodes_ro_at(&merged_tree->m_children, i); mk_lang_assert(node);
+		if
+		(
+			node->m_type == mk_lib_fast_import_tree_node_id_e_tree &&
+			curr->m_type == mk_lib_fast_import_tree_node_id_e_tree &&
+			mk_lib_fast_import_string_ro_eq(&node->m_name, &curr->m_name)
+		)
+		{
+			curr = node;
+			break;
+		}
+	}
+	if(i == n)
+	{
+		mk_lang_check_todo();
+	}
+	//err = mk_lib_fast_import_strings_rw_destroy(&path); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_merge_trees(mk_lib_fast_import_pt const fi, mk_lang_types_bool_pt const did, mk_lib_fast_import_tree_pct const parent_tree, mk_lib_fast_import_tree_pct const my_tree, mk_lib_fast_import_tree_pt const merged_tree) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	mk_lang_types_usize_t children_len;
+	mk_lib_fast_import_tree_node_pct children_buf;
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
+	mk_lib_fast_import_tree_node_pct child;
+
+	mk_lang_assert(fi);
+	mk_lang_assert(did);
+	mk_lang_assert(parent_tree);
+	mk_lang_assert(my_tree);
+	mk_lang_assert(merged_tree);
+	mk_lang_assert(fi->m_mallocator);
+
+	err = mk_lib_fast_import_tree_nodes_rw_clear(&merged_tree->m_children); mk_lang_check_rereturn(err);
+	if(mk_lib_fast_import_tree_nodes_ro_is_empty(&parent_tree->m_children))
+	{
+		children_len = mk_lib_fast_import_tree_nodes_ro_size(&my_tree->m_children);
+		children_buf = mk_lib_fast_import_tree_nodes_ro_data(&my_tree->m_children);
+		err = mk_lib_fast_import_tree_nodes_rw_push_back_copy_many(&merged_tree->m_children, children_buf, children_len); mk_lang_check_rereturn(err);
+	}
+	else
+	{
+		children_len = mk_lib_fast_import_tree_nodes_ro_size(&parent_tree->m_children);
+		children_buf = mk_lib_fast_import_tree_nodes_ro_data(&parent_tree->m_children);
+		err = mk_lib_fast_import_tree_nodes_rw_push_back_copy_many(&merged_tree->m_children, children_buf, children_len); mk_lang_check_rereturn(err);
+		n = mk_lib_fast_import_tree_nodes_ro_size(&my_tree->m_children);
+		for(i = 0; i != n; ++i)
+		{
+			child = mk_lib_fast_import_tree_nodes_ro_at(&my_tree->m_children, i); mk_lang_assert(child);
+			err = mk_lib_fast_import_pr_merge_child(fi, merged_tree, child); mk_lang_check_rereturn(err);
+		}
+	}
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_do_commit(mk_lib_fast_import_pt const fi, mk_lang_types_bool_pt const did) mk_lang_noexcept
 {
 	mk_lang_types_bool_t b;
 	mk_lang_types_sint_t err;
 	mk_lib_fast_import_commit_t commit;
-	mk_lib_fast_import_tree_t tree;
+	mk_lib_fast_import_tree_t parent_tree;
+	mk_lib_fast_import_tree_t my_tree;
+	mk_lib_fast_import_tree_t merged_tree;
 
 	mk_lang_assert(fi);
-	mk_lang_assert(fi->m_mallocator);
 	mk_lang_assert(did);
+	mk_lang_assert(fi->m_mallocator);
 
 	b = mk_lang_true;
 	err = mk_lib_fast_import_commit_rw_construct(&commit, fi); mk_lang_check_rereturn(err);
-	err = mk_lib_fast_import_tree_construct(&tree, fi); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_tree_rw_construct(&parent_tree, fi); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_tree_rw_construct(&my_tree, fi); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_tree_rw_construct(&merged_tree, fi); mk_lang_check_rereturn(err);
 	if(b){ err = mk_lib_fast_import_pr_do_commit_whole(fi, &b, &commit); mk_lang_check_rereturn(err); }
-	if(b){ err = mk_lib_fast_import_pr_extract_tree(fi, &b, &commit, &tree); mk_lang_check_rereturn(err); }
-	if(b){ err = mk_lib_fast_import_pr_hash_tree(fi, &b, &tree); mk_lang_check_rereturn(err); }
-	if(b){ err = mk_lib_fast_import_pr_commit_write_to_database_1(fi, &commit, &tree); mk_lang_check_rereturn(err); }
+	if(b){ err = mk_lib_fast_import_pr_extract_parent_tree(fi, &b, &commit, &parent_tree); mk_lang_check_rereturn(err); }
+	if(b){ err = mk_lib_fast_import_pr_extract_my_tree(fi, &b, &commit, &my_tree); mk_lang_check_rereturn(err); }
+	if(b){ err = mk_lib_fast_import_pr_merge_trees(fi, &b, &parent_tree, &my_tree, &merged_tree); mk_lang_check_rereturn(err); }
+	if(b){ err = mk_lib_fast_import_pr_hash_tree(fi, &b, &merged_tree); mk_lang_check_rereturn(err); }
+	if(b){ err = mk_lib_fast_import_pr_commit_write_to_database_1(fi, &commit, &merged_tree); mk_lang_check_rereturn(err); }
 	if(b){ err = mk_lib_fast_import_pr_add_to_refs_commit(fi, &b, &commit); mk_lang_check_rereturn(err); }
 	if(b){ err = mk_lib_fast_import_pr_update_branch(fi, &commit); mk_lang_check_rereturn(err); }
-	err = mk_lib_fast_import_tree_destroy(&tree); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_tree_destroy(&merged_tree); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_tree_destroy(&my_tree); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_tree_destroy(&parent_tree); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_commit_rw_destroy(&commit); mk_lang_check_rereturn(err);
 	*did = b;
 	return 0;
