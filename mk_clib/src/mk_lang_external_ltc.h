@@ -28,6 +28,7 @@
 
 #include "mk_lang_arch.h"
 
+
 #define LTC_BLAKE2B
 #define LTC_BLAKE2S
 #define LTC_MD2
@@ -40,7 +41,7 @@
 #define LTC_SHA512
 #define LTC_TIGER
 #define LTC_WHIRLPOOL
-#include "../external/libtomcrypt/tomcrypt.h"
+#include "../external/libtomcrypt/src/headers/tomcrypt.h"
 
 
 #if defined _MSC_VER && defined _MSC_FULL_VER
