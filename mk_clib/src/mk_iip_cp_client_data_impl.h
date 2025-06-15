@@ -1,0 +1,112 @@
+#ifndef mk_include_guard_mk_iip_cp_client_data_impl_h
+#define mk_include_guard_mk_iip_cp_client_data_impl_h
+
+
+#include "mk_iip_cp_client_data.h"
+#include "mk_iip_cp_mallocator_global.h"
+#include "mk_lang_jumbo.h"
+#include "mk_lang_nodiscard.h"
+#include "mk_lang_noexcept.h"
+#include "mk_lang_struct.h"
+#include "mk_lang_types.h"
+
+
+enum mk_iip_cp_client_data_impl_type_e
+{
+	mk_iip_cp_client_data_impl_type_e_generate_destination,
+	mk_iip_cp_client_data_impl_type_e_connect,
+	mk_iip_cp_client_data_impl_type_e_connect_v2,
+	mk_iip_cp_client_data_impl_type_e_connect_v3,
+	mk_iip_cp_client_data_impl_type_e_connect_v4,
+	mk_iip_cp_client_data_impl_type_e_connect_v5_send_protocol_byte,
+	mk_iip_cp_client_data_impl_type_e_connect_v6_wait_protocol_byte,
+	mk_iip_cp_client_data_impl_type_e_create_session,
+	mk_iip_cp_client_data_impl_type_e_get_bandwidth_limits,
+	mk_iip_cp_client_data_impl_type_e_host_lookup,
+	mk_iip_cp_client_data_impl_type_e_accept,
+	mk_iip_cp_client_data_impl_type_e_read_data,
+	mk_iip_cp_client_data_impl_type_e_send_data,
+	mk_iip_cp_client_data_impl_type_e_dummy_end
+};
+typedef enum mk_iip_cp_client_data_impl_type_e mk_iip_cp_client_data_impl_type_t;
+
+
+union mk_iip_cp_client_data_impl_request_mix_data_u
+{
+	mk_iip_cp_client_data_request_generate_destination_pct m_generate_destination;
+	mk_iip_cp_client_data_request_connect_pct m_connect;
+	mk_iip_cp_client_data_request_connect_v2_pct m_connect_v2;
+	mk_iip_cp_client_data_request_connect_v3_pct m_connect_v3;
+	mk_iip_cp_client_data_request_connect_v4_pct m_connect_v4;
+	mk_iip_cp_client_data_request_connect_v5_send_protocol_byte_pct m_connect_v5_send_protocol_byte;
+	mk_iip_cp_client_data_request_connect_v6_wait_protocol_byte_pct m_connect_v6_wait_protocol_byte;
+	mk_iip_cp_client_data_request_create_session_pct m_create_session;
+	mk_iip_cp_client_data_request_get_bandwidth_limits_pct m_get_bandwidth_limits;
+	mk_iip_cp_client_data_request_host_lookup_pct m_host_lookup;
+	mk_iip_cp_client_data_request_accept_pct m_accept;
+	mk_iip_cp_client_data_request_read_data_pct m_read_data;
+	mk_iip_cp_client_data_request_send_data_pct m_send_data;
+};
+typedef union mk_iip_cp_client_data_impl_request_mix_data_u mk_iip_cp_client_data_impl_request_mix_data_t;
+struct mk_iip_cp_client_data_impl_request_mix_s
+{
+	mk_iip_cp_client_data_impl_request_mix_data_t m_data;
+};
+typedef struct mk_iip_cp_client_data_impl_request_mix_s mk_iip_cp_client_data_impl_request_mix_t;
+struct mk_iip_cp_client_data_impl_request_s
+{
+	mk_iip_cp_client_data_impl_request_mix_t m_mix;
+};
+typedef struct mk_iip_cp_client_data_impl_request_s mk_iip_cp_client_data_impl_request_t;
+mk_lang_struct_typedef(mk_iip_cp_client_data_impl_request);
+
+union mk_iip_cp_client_data_impl_response_mix_data_u
+{
+	mk_iip_cp_client_data_response_generate_destination_pt m_generate_destination;
+	mk_iip_cp_client_data_response_connect_pt m_connect;
+	mk_iip_cp_client_data_response_connect_v2_pt m_connect_v2;
+	mk_iip_cp_client_data_response_connect_v3_pt m_connect_v3;
+	mk_iip_cp_client_data_response_connect_v4_pt m_connect_v4;
+	mk_iip_cp_client_data_response_connect_v5_send_protocol_byte_pt m_connect_v5_send_protocol_byte;
+	mk_iip_cp_client_data_response_connect_v6_wait_protocol_byte_pt m_connect_v6_wait_protocol_byte;
+	mk_iip_cp_client_data_response_create_session_pt m_create_session;
+	mk_iip_cp_client_data_response_get_bandwidth_limits_pt m_get_bandwidth_limits;
+	mk_iip_cp_client_data_response_host_lookup_pt m_host_lookup;
+	mk_iip_cp_client_data_response_accept_pt m_accept;
+	mk_iip_cp_client_data_response_read_data_pt m_read_data;
+	mk_iip_cp_client_data_response_send_data_pt m_send_data;
+};
+typedef union mk_iip_cp_client_data_impl_response_mix_data_u mk_iip_cp_client_data_impl_response_mix_data_t;
+struct mk_iip_cp_client_data_impl_response_mix_s
+{
+	mk_iip_cp_client_data_impl_response_mix_data_t m_data;
+};
+typedef struct mk_iip_cp_client_data_impl_response_mix_s mk_iip_cp_client_data_impl_response_mix_t;
+struct mk_iip_cp_client_data_impl_response_s
+{
+	mk_iip_cp_client_data_impl_response_mix_t m_mix;
+};
+typedef struct mk_iip_cp_client_data_impl_response_s mk_iip_cp_client_data_impl_response_t;
+mk_lang_struct_typedef(mk_iip_cp_client_data_impl_response);
+
+struct mk_iip_cp_client_data_impl_rr_s
+{
+	mk_iip_cp_client_data_impl_type_t m_type;
+	mk_iip_cp_client_data_impl_request_t m_request;
+	mk_iip_cp_client_data_impl_response_t m_response;
+};
+typedef struct mk_iip_cp_client_data_impl_rr_s mk_iip_cp_client_data_impl_rr_t;
+mk_lang_struct_typedef(mk_iip_cp_client_data_impl_rr);
+
+
+#define mk_sl_ring_dynamic_t_name mk_iip_cp_client_data_impl_rrs
+#define mk_sl_ring_dynamic_t_element mk_iip_cp_client_data_impl_rr_t
+#define mk_sl_ring_dynamic_t_mallocatorg mk_iip_cp_mallocator_global
+#include "mk_sl_ring_dynamic_inl_fileh.h"
+#include "mk_sl_ring_dynamic_inl_fileu.h"
+
+
+#if mk_lang_jumbo_have == 1
+#include "mk_iip_cp_client_data_impl.c"
+#endif
+#endif
