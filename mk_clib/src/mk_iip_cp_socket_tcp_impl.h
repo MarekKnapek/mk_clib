@@ -1,0 +1,60 @@
+#ifndef mk_include_guard_mk_iip_cp_socket_tcp_impl_h
+#define mk_include_guard_mk_iip_cp_socket_tcp_impl_h
+
+
+#include "mk_iip_cp_destination.h"
+#include "mk_lang_jumbo.h"
+#include "mk_lang_nodiscard.h"
+#include "mk_lang_noexcept.h"
+#include "mk_lang_struct.h"
+#include "mk_lang_types.h"
+
+
+mk_lang_struct_forward(mk_iip_cp_socket_tcp_intr);
+mk_lang_struct_forward(mk_iip_cp_sm_tcp_intr);
+
+
+enum mk_iip_cp_socket_tcp_impl_state_e
+{
+	mk_iip_cp_socket_tcp_impl_state_e_constructed,
+	mk_iip_cp_socket_tcp_impl_state_e_bound,
+	mk_iip_cp_socket_tcp_impl_state_e_listening,
+	mk_iip_cp_socket_tcp_impl_state_e_dummy_end
+};
+typedef enum mk_iip_cp_socket_tcp_impl_state_e mk_iip_cp_socket_tcp_impl_state_t;
+
+struct mk_iip_cp_socket_tcp_impl_s
+{
+	mk_iip_cp_socket_tcp_intr_pt m_socket_tcp_intr;
+	mk_lang_types_bool_t m_did_something;
+	mk_iip_cp_socket_tcp_impl_state_t m_state;
+	mk_iip_cp_destination_t m_destination;
+	mk_iip_cp_sm_tcp_intr_pt m_tcpsm;
+};
+typedef struct mk_iip_cp_socket_tcp_impl_s mk_iip_cp_socket_tcp_impl_t;
+mk_lang_struct_typedef(mk_iip_cp_socket_tcp_impl);
+
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_iip_cp_socket_tcp_impl_rw_allocate(mk_iip_cp_socket_tcp_impl_ppt const socket_tcp_impl) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_iip_cp_socket_tcp_impl_rw_deallocate(mk_iip_cp_socket_tcp_impl_pt const socket_tcp_impl) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_iip_cp_socket_tcp_impl_rw_construct(mk_iip_cp_socket_tcp_impl_pt const socket_tcp_impl, mk_iip_cp_socket_tcp_intr_pt const socket_tcp_intr) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_iip_cp_socket_tcp_impl_rw_destruct(mk_iip_cp_socket_tcp_impl_pt const socket_tcp_impl) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_iip_cp_socket_tcp_impl_rw_allocate_and_construct(mk_iip_cp_socket_tcp_impl_ppt const socket_tcp_impl, mk_iip_cp_socket_tcp_intr_pt const socket_tcp_intr) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_iip_cp_socket_tcp_impl_rw_destruct_and_deallocate(mk_iip_cp_socket_tcp_impl_pt const socket_tcp_impl) mk_lang_noexcept;
+
+mk_lang_nodiscard mk_lang_jumbo mk_iip_cp_destination_pct mk_iip_cp_socket_tcp_impl_rw_get_destination(mk_iip_cp_socket_tcp_impl_pt const socket_tcp_impl) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_iip_cp_sm_tcp_intr_pcpt mk_iip_cp_socket_tcp_impl_rw_get_tcpsm(mk_iip_cp_socket_tcp_impl_pt const socket_tcp_impl) mk_lang_noexcept;
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_iip_cp_socket_tcp_impl_rw_set_tcpsm(mk_iip_cp_socket_tcp_impl_pt const socket_tcp_impl, mk_iip_cp_sm_tcp_intr_pcpt const tcpsm) mk_lang_noexcept;
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_iip_cp_socket_tcp_impl_rw_did_something(mk_iip_cp_socket_tcp_impl_pt const socket_tcp_impl) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_iip_cp_socket_tcp_impl_rw_tick_single(mk_iip_cp_socket_tcp_impl_pt const socket_tcp_impl) mk_lang_noexcept;
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_iip_cp_socket_tcp_impl_rw_bind(mk_iip_cp_socket_tcp_impl_pt const socket_tcp_impl, mk_iip_cp_destination_pct const destination) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_iip_cp_socket_tcp_impl_rw_listen(mk_iip_cp_socket_tcp_impl_pt const socket_tcp_impl) mk_lang_noexcept;
+
+
+#if mk_lang_jumbo_have == 1
+#include "mk_iip_cp_socket_tcp_impl.c"
+#endif
+#endif

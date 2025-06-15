@@ -1,0 +1,28 @@
+#ifndef mk_include_guard_mk_iip_cp_connection_impl_cmd_accept_fileh_h
+#define mk_include_guard_mk_iip_cp_connection_impl_cmd_accept_fileh_h
+#include "mk_iip_cp_connection_impl.h"
+
+
+enum mk_iip_cp_connection_impl_cmd_accept_stage_e
+{
+	mk_iip_cp_connection_impl_cmd_accept_stage_e_accept_send,
+	mk_iip_cp_connection_impl_cmd_accept_stage_e_accept_wait,
+	mk_iip_cp_connection_impl_cmd_accept_stage_e_host_reply_recv,
+	mk_iip_cp_connection_impl_cmd_accept_stage_e_host_reply_wait,
+	mk_iip_cp_connection_impl_cmd_accept_stage_e_finish,
+	mk_iip_cp_connection_impl_cmd_accept_stage_e_dummy_end
+};
+typedef enum mk_iip_cp_connection_impl_cmd_accept_stage_e mk_iip_cp_connection_impl_cmd_accept_stage_t;
+mk_lang_struct_typedef(mk_iip_cp_connection_impl_cmd_accept_stage);
+
+struct mk_iip_cp_connection_impl_cmd_accept_s
+{
+	mk_iip_cp_connection_impl_cmd_accept_stage_t m_stage;
+	mk_iip_cp_client_data_request_accept_pct m_request;
+	mk_iip_cp_client_data_response_accept_pt m_response;
+};
+typedef struct mk_iip_cp_connection_impl_cmd_accept_s mk_iip_cp_connection_impl_cmd_accept_t;
+mk_lang_struct_typedef(mk_iip_cp_connection_impl_cmd_accept);
+
+
+#endif
