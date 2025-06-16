@@ -90,6 +90,7 @@
 #include "mk_lib_crypto_xof_stream_shake_256_fuzz.h"
 #include "mk_lib_crypto_xof_stream_turbo_shake_128_fuzz.h"
 #include "mk_lib_crypto_xof_stream_turbo_shake_256_fuzz.h"
+#include "mk_lib_iip_base32_fuzz.h"
 #include "mk_sl_cui_fuzz.h"
 #include "mk_sl_tree_wavl_fuzz.h"
 
@@ -185,6 +186,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_fuzz_proces
 		else if(line == 0 && mk_lang_str_match_n(ctx->m_argv[1], len, mk_clib_fuzz_str_lit("mk_lib_crypto_xof_stream_shake_256_fuzz"))){ line = __LINE__; }
 		else if(line == 0 && mk_lang_str_match_n(ctx->m_argv[1], len, mk_clib_fuzz_str_lit("mk_lib_crypto_xof_stream_turbo_shake_128_fuzz"))){ line = __LINE__; }
 		else if(line == 0 && mk_lang_str_match_n(ctx->m_argv[1], len, mk_clib_fuzz_str_lit("mk_lib_crypto_xof_stream_turbo_shake_256_fuzz"))){ line = __LINE__; }
+		else if(line == 0 && mk_lang_str_match_n(ctx->m_argv[1], len, mk_clib_fuzz_str_lit("mk_lib_iip_base32_fuzz"))){ line = __LINE__; }
 		else if(line == 0 && mk_lang_str_match_n(ctx->m_argv[1], len, mk_clib_fuzz_str_lit("mk_sl_cui_fuzz"))){ line = __LINE__; }
 		else if(line == 0 && mk_lang_str_match_n(ctx->m_argv[1], len, mk_clib_fuzz_str_lit("mk_sl_tree_wavl_fuzz"))){ line = __LINE__; }
 		if(line != 0)
@@ -315,6 +317,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_fuzz_fn(mk_
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_xof_stream_shake_256_fuzz(d, s); mk_lang_check_rereturn(err); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_xof_stream_turbo_shake_128_fuzz(d, s); mk_lang_check_rereturn(err); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_xof_stream_turbo_shake_256_fuzz(d, s); mk_lang_check_rereturn(err); }
+	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_iip_base32_fuzz(d, s); mk_lang_check_rereturn(err); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_sl_cui_fuzz(d, s, allow_all); mk_lang_check_rereturn(err); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_sl_tree_wavl_fuzz(d, s); mk_lang_check_rereturn(err); }
 	return 0;
