@@ -9,6 +9,7 @@
 #define mk_lib_crypto_hash_stream_t_name sha2_256
 #include "mk_lib_crypto_hash_stream_inl_fileh.h"
 #include "mk_lib_crypto_hash_stream_inl_fileu.h"
+#define mk_lib_crypto_hash_stream_sha2_256_digest_len_d mk_lib_crypto_hash_block_sha2_256_digest_len_d
 
 
 #if mk_lang_jumbo_have == 1

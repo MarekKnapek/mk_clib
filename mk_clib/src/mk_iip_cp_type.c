@@ -232,37 +232,5 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_iip_cp
 	return 0;
 }
 
-mk_lang_jumbo mk_lang_types_void_t mk_iip_cp_type_destination_elgamal_dsa_generate_random(mk_iip_cp_type_destination_elgamal_dsa_pt const destination) mk_lang_noexcept
-{
-	union mk_iip_cp_generate_random_destination_data_u
-	{
-		mk_lang_types_uchar_t m_uchars[mk_lang_max(((mk_lang_types_sint_t)(mk_iip_cp_helper_cui_elgamal_single_sizebytes_v)), ((mk_lang_types_sint_t)(mk_iip_cp_helper_cui_dsa_pri_single_sizebytes_v)))];
-		mk_iip_cp_base_elgamal_key_pri_t m_key_elgamal_pri;
-		mk_iip_cp_base_dsa_key_pri_t m_key_dsa_pri;
-	};
-	typedef union mk_iip_cp_generate_random_destination_data_u mk_iip_cp_generate_random_destination_data_t;
-	struct mk_iip_cp_generate_random_destination_s
-	{
-		mk_iip_cp_generate_random_destination_data_t m_data;
-	};
-	typedef struct mk_iip_cp_generate_random_destination_s mk_iip_cp_generate_random_destination_t;
-
-	mk_iip_cp_helper_cui_dsa_pri_single_t dsa_q;
-	mk_iip_cp_generate_random_destination_t storage;
-
-	mk_lang_assert(destination);
-
-	mk_iip_cp_helper_cui_dsa_pri_single_load_q(&dsa_q);
-	mk_iip_cp_helper_generate_random_uchars(&storage.m_data.m_uchars[0], mk_iip_cp_helper_cui_elgamal_single_sizebytes_v);
-	mk_iip_cp_helper_cui_elgamal_single_from_buis_uchar_le(&destination->m_key_elgamal_pri.m_data.m_val, &storage.m_data.m_uchars[0]);
-	mk_iip_cp_base_elgamal_key_pri_generate_public(&destination->m_key_elgamal_pri, &destination->m_key_elgamal_pub);
-	do
-	{
-		mk_iip_cp_helper_generate_random_uchars(&storage.m_data.m_uchars[0], mk_iip_cp_helper_cui_dsa_pri_single_sizebytes_v);
-		mk_iip_cp_helper_cui_dsa_pri_single_from_buis_uchar_le(&destination->m_key_dsa_pri.m_data.m_val, &storage.m_data.m_uchars[0]);
-	}while(!mk_iip_cp_base_dsa_key_pri_is_valid(&dsa_q, &destination->m_key_dsa_pri.m_data.m_val));
-	mk_iip_cp_base_dsa_key_pri_generate_public(&destination->m_key_dsa_pri, &destination->m_key_dsa_pub);
-}
-
 
 #endif
