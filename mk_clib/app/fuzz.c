@@ -39,6 +39,6 @@ mk_lang_extern_force_c mk_lang_nodiscard mk_lang_types_sint_t LLVMFuzzerTestOneI
 {
 	mk_lang_types_sint_t err;
 
-	err = mk_clib_fuzz(data, size, mk_lang_false, mk_lang_null); mk_lang_test(err == 0);
+	err = mk_clib_fuzz(data, size, mk_lang_true, mk_lang_null); mk_lang_test(err == 0);
 	return 0;
 }
