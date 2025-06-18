@@ -43,6 +43,8 @@
 
 #undef mk_lib_crypto_mac_hmac_inl_defd_prefix
 
+#undef mk_lib_crypto_mac_hmac_inl_defd_digest
+
 #undef mk_lib_crypto_mac_hmac_inl_defd_digest_len_e
 #undef mk_lib_crypto_mac_hmac_inl_defd_digest_len_t
 #undef mk_lib_crypto_mac_hmac_inl_defd_digest_len_v
@@ -131,6 +133,7 @@
 #undef mk_lib_crypto_mac_hmac_inl_defd_digest_nprvpct
 #undef mk_lib_crypto_mac_hmac_inl_defd_digest_nprcvpct
 
+#undef mk_lib_crypto_mac_hmac_inl_defd
 #undef mk_lib_crypto_mac_hmac_inl_defd_s
 #undef mk_lib_crypto_mac_hmac_inl_defd_t
 #undef mk_lib_crypto_mac_hmac_inl_defd_ct
