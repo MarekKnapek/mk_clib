@@ -1,0 +1,11 @@
+#undef mk_sl_array_t_name
+#undef mk_sl_array_t_element_type
+#undef mk_sl_array_t_capacity
+#undef mk_sl_array_t_copy_style
+#undef mk_sl_array_t_element_construct_void
+#undef mk_sl_array_t_element_destroy
+#undef mk_sl_array_t_element_construct_copy
+#undef mk_sl_array_t_element_construct_move
+#undef mk_sl_array_t_element_assign_copy
+#undef mk_sl_array_t_element_assign_move
+#undef mk_sl_array_t_element_eq
