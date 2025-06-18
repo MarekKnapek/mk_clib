@@ -243,9 +243,9 @@
 #if mk_sl_vector_inl_defd_mallocator_is_global
 #define mk_sl_vector_inl_defd_mallocator_init mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _init)
 #define mk_sl_vector_inl_defd_mallocator_deinit mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _deinit)
-#define mk_sl_vector_inl_defd_mallocator_allocate(a, b, c) ((mk_lang_types_void_t)((a))); mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _allocate)((b), (c))
-#define mk_sl_vector_inl_defd_mallocator_deallocate(a, b, c) ((mk_lang_types_void_t)((a))); mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _deallocate)((b), (c))
-#define mk_sl_vector_inl_defd_mallocator_reallocate(a, b, c, d, e) ((mk_lang_types_void_t)((a))); mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _reallocate)((b), (c), (d), (e))
+#define mk_sl_vector_inl_defd_mallocator_allocate(a, b, c) mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _allocate)((b), (c)); ((mk_lang_types_void_t)((a)))
+#define mk_sl_vector_inl_defd_mallocator_deallocate(a, b, c) mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _deallocate)((b), (c)); ((mk_lang_types_void_t)((a)))
+#define mk_sl_vector_inl_defd_mallocator_reallocate(a, b, c, d, e) mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _reallocate)((b), (c), (d), (e)); ((mk_lang_types_void_t)((a)))
 #define mk_sl_vector_inl_defd_mallocator_statistics_get_blocks_allocated mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _statistics_get_blocks_allocated)
 #define mk_sl_vector_inl_defd_mallocator_statistics_get_blocks_dealocated mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _statistics_get_blocks_dealocated)
 #define mk_sl_vector_inl_defd_mallocator_statistics_get_blocks_peak mk_lang_concat(mk_sl_vector_inl_defd_mallocator, _statistics_get_blocks_peak)
