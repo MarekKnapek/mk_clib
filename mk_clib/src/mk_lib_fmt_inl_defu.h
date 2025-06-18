@@ -42,6 +42,7 @@
 #undef mk_lib_fmt_inl_defd_vsnnprintf_x
 #undef mk_lib_fmt_inl_defd_vsnnprintf_u
 #undef mk_lib_fmt_inl_defd_vsnnprintf_d
+#undef mk_lib_fmt_inl_defd_vsnnprintf_ht
 #undef mk_lib_fmt_inl_defd_vsnnprintf_llx
 #undef mk_lib_fmt_inl_defd_vsnnprintf_llu
 #undef mk_lib_fmt_inl_defd_vsnnprintf_lld

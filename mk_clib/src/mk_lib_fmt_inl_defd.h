@@ -42,6 +42,7 @@
 #define mk_lib_fmt_inl_defd_vsnnprintf_x mk_lang_concat(mk_lib_fmt_inl_defd_name, _vsnnprintf_x)
 #define mk_lib_fmt_inl_defd_vsnnprintf_u mk_lang_concat(mk_lib_fmt_inl_defd_name, _vsnnprintf_u)
 #define mk_lib_fmt_inl_defd_vsnnprintf_d mk_lang_concat(mk_lib_fmt_inl_defd_name, _vsnnprintf_d)
+#define mk_lib_fmt_inl_defd_vsnnprintf_ht mk_lang_concat(mk_lib_fmt_inl_defd_name, _vsnnprintf_ht)
 #define mk_lib_fmt_inl_defd_vsnnprintf_llx mk_lang_concat(mk_lib_fmt_inl_defd_name, _vsnnprintf_llx)
 #define mk_lib_fmt_inl_defd_vsnnprintf_llu mk_lang_concat(mk_lib_fmt_inl_defd_name, _vsnnprintf_llu)
 #define mk_lib_fmt_inl_defd_vsnnprintf_lld mk_lang_concat(mk_lib_fmt_inl_defd_name, _vsnnprintf_lld)

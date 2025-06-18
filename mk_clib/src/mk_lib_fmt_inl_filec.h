@@ -209,6 +209,38 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_inl_defd_vsnnprintf_d(mk_l
 	*gud = !bad;
 }
 
+static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_inl_defd_vsnnprintf_ht(mk_lib_fmt_inl_defd_char_pt const dst_buf, mk_lang_types_sint_t const dst_len, va_list* const va, mk_lang_types_bool_pt const gud, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
+{
+	mk_lib_fmt_inl_defd_char_pt dst;
+	mk_lang_types_sint_t rem;
+	mk_lang_types_bool_t bad;
+	mk_lang_types_pchar_pct vas;
+	mk_lang_types_sint_t vai;
+	mk_lang_types_sint_t n;
+	mk_lang_types_sint_t i;
+
+	mk_lang_assert(dst_buf || dst_len == 0);
+	mk_lang_assert(dst_len >= 0);
+	mk_lang_assert(va);
+	mk_lang_assert(gud);
+	mk_lang_assert(consumed);
+
+	dst = dst_buf;
+	rem = dst_len;
+	bad = mk_lang_false;
+	vas = va_arg(*va, mk_lang_types_pchar_pct); mk_lang_assert(vas);
+	vai = va_arg(*va, mk_lang_types_sint_t); mk_lang_assert(vai >= 0);
+	n = vai;
+	for(i = 0; i != n; ++i)
+	{
+		if(!(rem >= 1)){ bad = mk_lang_true; break; }
+		dst[0] = ((mk_lib_fmt_inl_defd_char_t)(vas[0]));
+		++dst; --rem; ++vas;
+	}
+	*gud = !bad;
+	*consumed = dst_len - rem;
+}
+
 static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_inl_defd_vsnnprintf_llx(mk_lib_fmt_inl_defd_char_pt const dst_buf, mk_lang_types_sint_t const dst_len, va_list* const va, mk_lang_types_bool_pt const gud, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
 {
 	mk_lib_fmt_inl_defd_char_pt dst;
@@ -344,6 +376,16 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fmt_inl_defd
 			else if(ch == mk_lib_fmt_inl_defd_char_c('x')){ mk_lib_fmt_inl_defd_vsnnprintf_x(dst, rem, va, &gud, &consumed); if(!gud){ break; } mk_lang_assert(consumed >= 1 && consumed <= rem); dst += consumed; rem -= consumed; }
 			else if(ch == mk_lib_fmt_inl_defd_char_c('u')){ mk_lib_fmt_inl_defd_vsnnprintf_u(dst, rem, va, &gud, &consumed); if(!gud){ break; } mk_lang_assert(consumed >= 1 && consumed <= rem); dst += consumed; rem -= consumed; }
 			else if(ch == mk_lib_fmt_inl_defd_char_c('d')){ mk_lib_fmt_inl_defd_vsnnprintf_d(dst, rem, va, &gud, &consumed); if(!gud){ break; } mk_lang_assert(consumed >= 1 && consumed <= rem); dst += consumed; rem -= consumed; }
+			else if(ch == mk_lib_fmt_inl_defd_char_c('h'))
+			{
+				++i; mk_lang_assert(i != n);
+				ch = fmt_buf[i];
+				if(ch == mk_lib_fmt_inl_defd_char_c('t')){ mk_lib_fmt_inl_defd_vsnnprintf_ht(dst, rem, va, &gud, &consumed); if(!gud){ break; } mk_lang_assert(consumed >= 1 && consumed <= rem); dst += consumed; rem -= consumed; }
+				else
+				{
+					mk_lang_assert(mk_lang_false);
+				}
+			}
 			else if(ch == mk_lib_fmt_inl_defd_char_c('l'))
 			{
 				++i; mk_lang_assert(i != n);
