@@ -798,8 +798,8 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_mal
 	}
 	return mk_lang_true;
 #else
-	mk_lang_assert(mem);
-	((mk_lang_types_void_t)(mem));
+	mk_lang_assert(arena);
+	((mk_lang_types_void_t)(arena));
 	return mk_lang_true;
 #endif
 }
@@ -1166,7 +1166,10 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_lokal_aren
 
 	*blocks_allocated = arena->m_statistics.m_blocks_allocated;
 #else
+	mk_lang_assert(arena);
 	mk_lang_assert(blocks_allocated);
+
+	((mk_lang_types_void_t)(arena));
 	((mk_lang_types_void_t)(blocks_allocated));
 #endif
 }
@@ -1179,7 +1182,10 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_lokal_aren
 
 	*blocks_deallocated = arena->m_statistics.m_blocks_deallocated;
 #else
+	mk_lang_assert(arena);
 	mk_lang_assert(blocks_deallocated);
+
+	((mk_lang_types_void_t)(arena));
 	((mk_lang_types_void_t)(blocks_deallocated));
 #endif
 }
@@ -1192,7 +1198,10 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_lokal_aren
 
 	*blocks_peak = arena->m_statistics.m_blocks_peak;
 #else
+	mk_lang_assert(arena);
 	mk_lang_assert(blocks_peak);
+
+	((mk_lang_types_void_t)(arena));
 	((mk_lang_types_void_t)(blocks_peak));
 #endif
 }
@@ -1205,7 +1214,10 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_lokal_aren
 
 	mk_sl_mallocator_lokal_arena_inl_defd_num_blocks_sub3_wrap_cid_cod(&arena->m_statistics.m_blocks_allocated, &arena->m_statistics.m_blocks_deallocated, blocks_live);
 #else
+	mk_lang_assert(arena);
 	mk_lang_assert(blocks_live);
+
+	((mk_lang_types_void_t)(arena));
 	((mk_lang_types_void_t)(blocks_live));
 #endif
 }
@@ -1218,7 +1230,10 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_lokal_aren
 
 	*bytes_allocated = arena->m_statistics.m_bytes_allocated;
 #else
+	mk_lang_assert(arena);
 	mk_lang_assert(bytes_allocated);
+
+	((mk_lang_types_void_t)(arena));
 	((mk_lang_types_void_t)(bytes_allocated));
 #endif
 }
@@ -1231,7 +1246,10 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_lokal_aren
 
 	*bytes_deallocated = arena->m_statistics.m_bytes_deallocated;
 #else
+	mk_lang_assert(arena);
 	mk_lang_assert(bytes_deallocated);
+
+	((mk_lang_types_void_t)(arena));
 	((mk_lang_types_void_t)(bytes_deallocated));
 #endif
 }
@@ -1244,7 +1262,10 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_lokal_aren
 
 	*bytes_peak = arena->m_statistics.m_bytes_peak;
 #else
+	mk_lang_assert(arena);
 	mk_lang_assert(bytes_peak);
+
+	((mk_lang_types_void_t)(arena));
 	((mk_lang_types_void_t)(bytes_peak));
 #endif
 }
@@ -1257,7 +1278,10 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_lokal_aren
 
 	mk_sl_mallocator_lokal_arena_inl_defd_num_bytes_sub3_wrap_cid_cod(&arena->m_statistics.m_bytes_allocated, &arena->m_statistics.m_bytes_deallocated, bytes_live);
 #else
+	mk_lang_assert(arena);
 	mk_lang_assert(bytes_live);
+
+	((mk_lang_types_void_t)(arena));
 	((mk_lang_types_void_t)(bytes_live));
 #endif
 }
