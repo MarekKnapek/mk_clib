@@ -170,13 +170,13 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_time_to_text(mk_
 	{
 		mk_lib_iip_time_to_components(time, &components);
 		mk_lang_string_memcpy_pc_fn(&str_buf[0], &mk_lib_iip_time_k_text_fmt[0], mk_lang_countstr(mk_lib_iip_time_k_text_fmt));
-		mk_sl_cui_uint16_from_bi_sint(&ta, &components.m_year)        ; len = mk_sl_cui_uint16_to_str_dec_n(&ta, &buf[0], mk_lang_countof(buf)); mk_lang_assert(len >= 1); mk_lang_string_memcpy_pc_fn(&str_buf[ 0 + 4 - len], &buf[0], len);
-		mk_sl_cui_uint16_from_bi_sint(&ta, &components.m_month)       ; len = mk_sl_cui_uint16_to_str_dec_n(&ta, &buf[0], mk_lang_countof(buf)); mk_lang_assert(len >= 1); mk_lang_string_memcpy_pc_fn(&str_buf[ 5 + 2 - len], &buf[0], len);
-		mk_sl_cui_uint16_from_bi_sint(&ta, &components.m_day)         ; len = mk_sl_cui_uint16_to_str_dec_n(&ta, &buf[0], mk_lang_countof(buf)); mk_lang_assert(len >= 1); mk_lang_string_memcpy_pc_fn(&str_buf[ 8 + 2 - len], &buf[0], len);
-		mk_sl_cui_uint16_from_bi_sint(&ta, &components.m_hour)        ; len = mk_sl_cui_uint16_to_str_dec_n(&ta, &buf[0], mk_lang_countof(buf)); mk_lang_assert(len >= 1); mk_lang_string_memcpy_pc_fn(&str_buf[11 + 2 - len], &buf[0], len);
-		mk_sl_cui_uint16_from_bi_sint(&ta, &components.m_minute)      ; len = mk_sl_cui_uint16_to_str_dec_n(&ta, &buf[0], mk_lang_countof(buf)); mk_lang_assert(len >= 1); mk_lang_string_memcpy_pc_fn(&str_buf[14 + 2 - len], &buf[0], len);
-		mk_sl_cui_uint16_from_bi_sint(&ta, &components.m_second)      ; len = mk_sl_cui_uint16_to_str_dec_n(&ta, &buf[0], mk_lang_countof(buf)); mk_lang_assert(len >= 1); mk_lang_string_memcpy_pc_fn(&str_buf[17 + 2 - len], &buf[0], len);
-		mk_sl_cui_uint16_from_bi_sint(&ta, &components.m_milli_second); len = mk_sl_cui_uint16_to_str_dec_n(&ta, &buf[0], mk_lang_countof(buf)); mk_lang_assert(len >= 1); mk_lang_string_memcpy_pc_fn(&str_buf[20 + 3 - len], &buf[0], len);
+		mk_sl_cui_uint16_from_bi_sint(&ta, &components.m_year)        ; len = mk_sl_cui_uint16_to_str_dec_n(&ta, &buf[0], mk_lang_countof(buf)); mk_lang_assert(len >= 1); mk_lang_string_memcpy_pc_fn(&str_buf[ 0 + 4 - len], &buf[0], ((mk_lang_types_usize_t)(len)));
+		mk_sl_cui_uint16_from_bi_sint(&ta, &components.m_month)       ; len = mk_sl_cui_uint16_to_str_dec_n(&ta, &buf[0], mk_lang_countof(buf)); mk_lang_assert(len >= 1); mk_lang_string_memcpy_pc_fn(&str_buf[ 5 + 2 - len], &buf[0], ((mk_lang_types_usize_t)(len)));
+		mk_sl_cui_uint16_from_bi_sint(&ta, &components.m_day)         ; len = mk_sl_cui_uint16_to_str_dec_n(&ta, &buf[0], mk_lang_countof(buf)); mk_lang_assert(len >= 1); mk_lang_string_memcpy_pc_fn(&str_buf[ 8 + 2 - len], &buf[0], ((mk_lang_types_usize_t)(len)));
+		mk_sl_cui_uint16_from_bi_sint(&ta, &components.m_hour)        ; len = mk_sl_cui_uint16_to_str_dec_n(&ta, &buf[0], mk_lang_countof(buf)); mk_lang_assert(len >= 1); mk_lang_string_memcpy_pc_fn(&str_buf[11 + 2 - len], &buf[0], ((mk_lang_types_usize_t)(len)));
+		mk_sl_cui_uint16_from_bi_sint(&ta, &components.m_minute)      ; len = mk_sl_cui_uint16_to_str_dec_n(&ta, &buf[0], mk_lang_countof(buf)); mk_lang_assert(len >= 1); mk_lang_string_memcpy_pc_fn(&str_buf[14 + 2 - len], &buf[0], ((mk_lang_types_usize_t)(len)));
+		mk_sl_cui_uint16_from_bi_sint(&ta, &components.m_second)      ; len = mk_sl_cui_uint16_to_str_dec_n(&ta, &buf[0], mk_lang_countof(buf)); mk_lang_assert(len >= 1); mk_lang_string_memcpy_pc_fn(&str_buf[17 + 2 - len], &buf[0], ((mk_lang_types_usize_t)(len)));
+		mk_sl_cui_uint16_from_bi_sint(&ta, &components.m_milli_second); len = mk_sl_cui_uint16_to_str_dec_n(&ta, &buf[0], mk_lang_countof(buf)); mk_lang_assert(len >= 1); mk_lang_string_memcpy_pc_fn(&str_buf[20 + 3 - len], &buf[0], ((mk_lang_types_usize_t)(len)));
 		*out_len = mk_lang_countstr(mk_lib_iip_time_k_text_fmt);
 	}
 	else
