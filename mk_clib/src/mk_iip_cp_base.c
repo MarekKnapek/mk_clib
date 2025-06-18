@@ -14,7 +14,7 @@
 #include "mk_lib_iip_random.h"
 #include "mk_sl_cui_uint8.h"
 
-
+#if 0
 mk_lang_jumbo mk_lang_types_void_t mk_iip_cp_base_dsa_generate_k(mk_lib_iip_integer_dsa_sha1_pri_single_pct const dsa_q, mk_lib_iip_integer_dsa_sha1_pri_single_pt const outk) mk_lang_noexcept
 {
 	union mk_iip_cp_dsa_generate_k_data_u
@@ -94,6 +94,6 @@ mk_lang_jumbo mk_lang_types_void_t mk_iip_cp_base_dsa_sign_k_has_n(mk_iip_cp_bas
 	mk_iip_cp_base_dsa_generate_k(&dsa_q, &k);
 	mk_iip_cp_base_dsa_sign_k_has_y(pri, &k, databuf, datalen, signature);
 }
-
+#endif
 
 #endif
