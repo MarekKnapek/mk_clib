@@ -2,6 +2,7 @@
 #define mk_include_guard_mk_sl_mallocator_h
 
 
+#include "mk_lang_concat.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_platform.h"
@@ -9,6 +10,21 @@
 #include "mk_lang_typedef.h"
 #include "mk_lang_types.h"
 #include "mk_lang_version.h"
+
+
+
+
+
+
+#define mk_lang_concat_implx(a, b) a ## b
+#define mk_lang_concatx(a, b) mk_lang_concat_implx(a, b)
+
+
+
+
+
+
+
 
 
 #if defined mk_sl_mallocator_constexpr_want
@@ -26,29 +42,34 @@
 
 #if mk_sl_mallocator_constexpr_have
 #include "mk_sl_mallocator_arena.h"
-typedef mk_sl_mallocator_arena_blocks_t mk_sl_mallocator_blocks_t;
-mk_lang_typedef(mk_sl_mallocator_blocks);
-typedef mk_sl_mallocator_arena_bytes_t mk_sl_mallocator_bytes_t;
-mk_lang_typedef(mk_sl_mallocator_bytes);
+#define mk_sl_mallocator_base mk_sl_mallocator_arena
 #elif mk_lang_platform_is_windows_at_least_any
 #include "mk_sl_mallocator_windows.h"
-typedef mk_sl_mallocator_windows_blocks_t mk_sl_mallocator_blocks_t;
-mk_lang_typedef(mk_sl_mallocator_blocks);
-typedef mk_sl_mallocator_windows_bytes_t mk_sl_mallocator_bytes_t;
-mk_lang_typedef(mk_sl_mallocator_bytes);
+#define mk_sl_mallocator_base mk_sl_mallocator_windows
 #elif mk_lang_version_has_macro_cplusplus
 #include "mk_sl_mallocator_lang_cpp.hpp"
-typedef mk_sl_mallocator_lang_cpp_blocks_t mk_sl_mallocator_blocks_t;
-mk_lang_typedef(mk_sl_mallocator_blocks);
-typedef mk_sl_mallocator_lang_cpp_bytes_t mk_sl_mallocator_bytes_t;
-mk_lang_typedef(mk_sl_mallocator_bytes);
+#define mk_sl_mallocator_base mk_sl_mallocator_lang_cpp
 #else
 #include "mk_sl_mallocator_lang_c.h"
-typedef mk_sl_mallocator_lang_c_blocks_t mk_sl_mallocator_blocks_t;
-mk_lang_typedef(mk_sl_mallocator_blocks);
-typedef mk_sl_mallocator_lang_c_bytes_t mk_sl_mallocator_bytes_t;
-mk_lang_typedef(mk_sl_mallocator_bytes);
+#define mk_sl_mallocator_base mk_sl_mallocator_lang_c
 #endif
+
+
+#define mk_sl_mallocator_base_blocks_name mk_lang_concatx(mk_sl_mallocator_base, _blocks)
+#define mk_sl_cui_t_name mk_sl_mallocator_blocks
+#define mk_sl_cui_t_base mk_sl_mallocator_base_blocks_name
+#define mk_sl_cui_t_count 1
+#include "mk_sl_cui_inl_fileh.h"
+#include "mk_sl_cui_inl_fileu.h"
+#define mk_sl_mallocator_blocks_size_bits_d mk_lang_concatx(mk_sl_mallocator_base_blocks_name, _size_bits_d)
+
+#define mk_sl_mallocator_base_bytes_name mk_lang_concatx(mk_sl_mallocator_base, _bytes)
+#define mk_sl_cui_t_name mk_sl_mallocator_bytes
+#define mk_sl_cui_t_base mk_sl_mallocator_base_bytes_name
+#define mk_sl_cui_t_count 1
+#include "mk_sl_cui_inl_fileh.h"
+#include "mk_sl_cui_inl_fileu.h"
+#define mk_sl_mallocator_bytes_size_bits_d mk_lang_concatx(mk_sl_mallocator_base_bytes_name, _size_bits_d)
 
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_init(mk_lang_types_void_t) mk_lang_noexcept;

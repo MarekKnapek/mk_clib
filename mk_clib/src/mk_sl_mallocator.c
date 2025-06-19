@@ -78,6 +78,19 @@
 #endif
 
 
+#define mk_sl_cui_t_name mk_sl_mallocator_blocks
+#define mk_sl_cui_t_base mk_sl_mallocator_base_blocks_name
+#define mk_sl_cui_t_count 1
+#include "mk_sl_cui_inl_filec.h"
+#include "mk_sl_cui_inl_fileu.h"
+
+#define mk_sl_cui_t_name mk_sl_mallocator_bytes
+#define mk_sl_cui_t_base mk_sl_mallocator_base_bytes_name
+#define mk_sl_cui_t_count 1
+#include "mk_sl_cui_inl_filec.h"
+#include "mk_sl_cui_inl_fileu.h"
+
+
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_init(mk_lang_types_void_t) mk_lang_noexcept
 {
 	return mk_sl_mallocator_impl_init();
@@ -106,47 +119,47 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_reallocate
 
 mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_statistics_get_blocks_allocated(mk_sl_mallocator_blocks_pt const blocks_allocated) mk_lang_noexcept
 {
-	mk_sl_mallocator_impl_statistics_get_blocks_allocated(blocks_allocated);
+	mk_sl_mallocator_impl_statistics_get_blocks_allocated(&blocks_allocated->m_elements[0]);
 }
 
 mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_statistics_get_blocks_dealocated(mk_sl_mallocator_blocks_pt const blocks_deallocated) mk_lang_noexcept
 {
-	mk_sl_mallocator_impl_statistics_get_blocks_dealocated(blocks_deallocated);
+	mk_sl_mallocator_impl_statistics_get_blocks_dealocated(&blocks_deallocated->m_elements[0]);
 }
 
 mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_statistics_get_blocks_peak(mk_sl_mallocator_blocks_pt const blocks_peak) mk_lang_noexcept
 {
-	mk_sl_mallocator_impl_statistics_get_blocks_peak(blocks_peak);
+	mk_sl_mallocator_impl_statistics_get_blocks_peak(&blocks_peak->m_elements[0]);
 }
 
 mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_statistics_get_blocks_live(mk_sl_mallocator_blocks_pt const blocks_live) mk_lang_noexcept
 {
-	mk_sl_mallocator_impl_statistics_get_blocks_live(blocks_live);
+	mk_sl_mallocator_impl_statistics_get_blocks_live(&blocks_live->m_elements[0]);
 }
 
 mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_statistics_get_bytes_allocated(mk_sl_mallocator_bytes_pt const bytes_allocated) mk_lang_noexcept
 {
-	mk_sl_mallocator_impl_statistics_get_bytes_allocated(bytes_allocated);
+	mk_sl_mallocator_impl_statistics_get_bytes_allocated(&bytes_allocated->m_elements[0]);
 }
 
 mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_statistics_get_bytes_dealocated(mk_sl_mallocator_bytes_pt const bytes_deallocated) mk_lang_noexcept
 {
-	mk_sl_mallocator_impl_statistics_get_bytes_dealocated(bytes_deallocated);
+	mk_sl_mallocator_impl_statistics_get_bytes_dealocated(&bytes_deallocated->m_elements[0]);
 }
 
 mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_statistics_get_bytes_peak(mk_sl_mallocator_bytes_pt const bytes_peak) mk_lang_noexcept
 {
-	mk_sl_mallocator_impl_statistics_get_bytes_peak(bytes_peak);
+	mk_sl_mallocator_impl_statistics_get_bytes_peak(&bytes_peak->m_elements[0]);
 }
 
 mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_statistics_get_bytes_live(mk_sl_mallocator_bytes_pt const bytes_live) mk_lang_noexcept
 {
-	mk_sl_mallocator_impl_statistics_get_bytes_live(bytes_live);
+	mk_sl_mallocator_impl_statistics_get_bytes_live(&bytes_live->m_elements[0]);
 }
 
 mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_statistics_get_all(mk_lang_static_param(mk_sl_mallocator_blocks_t, blocks_all, 4), mk_lang_static_param(mk_sl_mallocator_bytes_t, bytes_all, 4)) mk_lang_noexcept
 {
-	mk_sl_mallocator_impl_statistics_get_all(blocks_all, bytes_all);
+	mk_sl_mallocator_impl_statistics_get_all(&blocks_all->m_elements[0], &bytes_all->m_elements[0]);
 }
 
 
