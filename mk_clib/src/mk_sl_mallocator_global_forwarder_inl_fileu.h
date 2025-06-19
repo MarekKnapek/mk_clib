@@ -1,0 +1,3 @@
+#undef mk_sl_mallocator_global_forwarder_t_name
+#undef mk_sl_mallocator_global_forwarder_t_base_name
+#undef mk_sl_mallocator_global_forwarder_t_statistics_want

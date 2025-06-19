@@ -20,12 +20,14 @@
 #define mk_sl_cui_t_count 1
 #include "mk_sl_cui_inl_fileh.h"
 #include "mk_sl_cui_inl_fileu.h"
+#define mk_sl_mallocator_lang_cpp_blocks_size_bits_d mk_lang_bui_usize_size_bits_d
 
 #define mk_sl_cui_t_name mk_sl_mallocator_lang_cpp_bytes
 #define mk_sl_cui_t_base mk_lang_bui_usize
 #define mk_sl_cui_t_count 1
 #include "mk_sl_cui_inl_fileh.h"
 #include "mk_sl_cui_inl_fileu.h"
+#define mk_sl_mallocator_lang_cpp_bytes_size_bits_d mk_lang_bui_usize_size_bits_d
 
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_lang_cpp_init(mk_lang_types_void_t) mk_lang_noexcept;
