@@ -156,12 +156,12 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_hash_
 	mk_sl_cui_uint64_t ta mk_lang_constexpr_init;
 	mk_sl_cui_uint64_t tb mk_lang_constexpr_init;
 
+	mk_lang_static_assert(mk_lang_countof(v.m_data.m_uint64s) == 2 * mk_lang_countof(blake2b_base->m_state));
+
 	mk_lang_assert(blake2b_base);
 	mk_lang_assert(block);
 	mk_lang_assert(last_block == mk_lang_false || last_block == mk_lang_true);
 	mk_lang_assert(last_node == mk_lang_false || last_node == mk_lang_true);
-
-	mk_lang_static_assert(mk_lang_countof(v.m_data.m_uint64s) == 2 * mk_lang_countof(blake2b_base->m_state));
 
 	mk_sl_uint_convert_128_64_le_to_sml(&blake2b_base->m_len, &len[0]);
 	mk_sl_cui_uint64_set_zero(&ta);
@@ -195,6 +195,8 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_hash_
 	mk_lang_types_sint_t i mk_lang_constexpr_init;
 	mk_sl_cui_uint64_t tb mk_lang_constexpr_init;
 
+	mk_lang_static_assert(mk_lang_countof(blake2b_base->m_state) == mk_lang_countof(state.m_data.m_uint8s) * mk_sl_cui_uint8_size_bits_v / mk_sl_cui_uint64_size_bits_v);
+
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(blake2b_base);
@@ -213,8 +215,6 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_hash_
 	mk_lang_assert(personalization_len >= 0 && personalization_len <= mk_lib_crypto_hash_block_blake2b_base_max_personalization_len_v);
 	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
-
-	mk_lang_static_assert(mk_lang_countof(blake2b_base->m_state) == mk_lang_countof(state.m_data.m_uint8s) * mk_sl_cui_uint8_size_bits_v / mk_sl_cui_uint64_size_bits_v);
 
 	mk_sl_cui_uint8_from_bi_sint(&state.m_data.m_uint8s[0], &digest_len);
 	mk_sl_cui_uint8_from_bi_sint(&state.m_data.m_uint8s[1], &key_len);
