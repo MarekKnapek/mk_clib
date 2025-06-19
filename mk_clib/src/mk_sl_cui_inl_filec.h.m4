@@ -1207,7 +1207,7 @@ mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_
 #endif
 }}
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_count_leading_zeros(mk_sl_cui_inl_defd_pct const x) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_count_leading_zeros(mk_sl_cui_inl_defd_pct const x) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -1238,7 +1238,7 @@ mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noali
 #endif
 }}
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_count_leading_ones(mk_sl_cui_inl_defd_pct const x) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_count_leading_ones(mk_sl_cui_inl_defd_pct const x) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -1269,7 +1269,7 @@ mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noali
 #endif
 }}
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_count_trailing_zeros(mk_sl_cui_inl_defd_pct const x) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_count_trailing_zeros(mk_sl_cui_inl_defd_pct const x) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -1300,7 +1300,7 @@ mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noali
 #endif
 }}
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_count_trailing_ones(mk_sl_cui_inl_defd_pct const x) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_count_trailing_ones(mk_sl_cui_inl_defd_pct const x) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -1331,7 +1331,7 @@ mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noali
 #endif
 }}
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_count_zeros(mk_sl_cui_inl_defd_pct const x) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_count_zeros(mk_sl_cui_inl_defd_pct const x) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -1354,7 +1354,7 @@ mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noali
 #endif
 }}
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_count_ones(mk_sl_cui_inl_defd_pct const x) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_count_ones(mk_sl_cui_inl_defd_pct const x) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -1377,14 +1377,14 @@ mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noali
 #endif
 }}
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_has_lsb(mk_sl_cui_inl_defd_pct const x) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_has_lsb(mk_sl_cui_inl_defd_pct const x) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 	mk_lang_assert(x);
 
 	return mk_sl_cui_inl_defd_base_has_lsb(&x->m_elements[mk_sl_cui_inl_defd_idx(0)]);
 }}
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_is_zero(mk_sl_cui_inl_defd_pct const x) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_is_zero(mk_sl_cui_inl_defd_pct const x) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -1408,7 +1408,7 @@ mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noali
 #endif
 }}
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_is_one(mk_sl_cui_inl_defd_pct const x) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_is_one(mk_sl_cui_inl_defd_pct const x) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -1436,7 +1436,7 @@ mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noali
 #endif
 }}
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_is_two(mk_sl_cui_inl_defd_pct const x) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_is_two(mk_sl_cui_inl_defd_pct const x) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -1464,7 +1464,7 @@ mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noali
 #endif
 }}
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_is_max(mk_sl_cui_inl_defd_pct const x) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_is_max(mk_sl_cui_inl_defd_pct const x) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -1488,7 +1488,7 @@ mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noali
 #endif
 }}
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_is_bit(mk_sl_cui_inl_defd_pct const x, mk_lang_types_sint_t const bit_idx) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_is_bit(mk_sl_cui_inl_defd_pct const x, mk_lang_types_sint_t const bit_idx) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -1503,7 +1503,7 @@ mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noali
 #endif
 }}
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_eq(mk_sl_cui_inl_defd_pct const a, mk_sl_cui_inl_defd_pct const b) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_eq(mk_sl_cui_inl_defd_pct const a, mk_sl_cui_inl_defd_pct const b) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(a);
@@ -1536,7 +1536,7 @@ mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noali
 #endif
 }}
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_ne(mk_sl_cui_inl_defd_pct const a, mk_sl_cui_inl_defd_pct const b) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_ne(mk_sl_cui_inl_defd_pct const a, mk_sl_cui_inl_defd_pct const b) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(a);
@@ -1569,7 +1569,7 @@ mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noali
 #endif
 }}
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_lt(mk_sl_cui_inl_defd_pct const a, mk_sl_cui_inl_defd_pct const b) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_lt(mk_sl_cui_inl_defd_pct const a, mk_sl_cui_inl_defd_pct const b) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(a);
@@ -1606,7 +1606,7 @@ mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noali
 #endif
 }}
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_le(mk_sl_cui_inl_defd_pct const a, mk_sl_cui_inl_defd_pct const b) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_le(mk_sl_cui_inl_defd_pct const a, mk_sl_cui_inl_defd_pct const b) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(a);
@@ -1643,7 +1643,7 @@ mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noali
 #endif
 }}
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_gt(mk_sl_cui_inl_defd_pct const a, mk_sl_cui_inl_defd_pct const b) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_gt(mk_sl_cui_inl_defd_pct const a, mk_sl_cui_inl_defd_pct const b) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(a);
@@ -1680,7 +1680,7 @@ mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noali
 #endif
 }}
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_ge(mk_sl_cui_inl_defd_pct const a, mk_sl_cui_inl_defd_pct const b) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_ge(mk_sl_cui_inl_defd_pct const a, mk_sl_cui_inl_defd_pct const b) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(a);
@@ -1717,7 +1717,7 @@ mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noali
 #endif
 }}
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_cmp(mk_sl_cui_inl_defd_pct const a, mk_sl_cui_inl_defd_pct const b) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_cmp(mk_sl_cui_inl_defd_pct const a, mk_sl_cui_inl_defd_pct const b) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(a);
@@ -3442,7 +3442,7 @@ mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_
 	mk_sl_cui_inl_defd_divmod4_wrap(a, b, a, b);
 }}
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_would_overflow_add_cc(mk_sl_cui_inl_defd_pct const a, mk_sl_cui_inl_defd_pct const b) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_would_overflow_add_cc(mk_sl_cui_inl_defd_pct const a, mk_sl_cui_inl_defd_pct const b) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(a);
@@ -3476,7 +3476,7 @@ mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noali
 #endif
 }}
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_would_overflow_add_cs(mk_sl_cui_inl_defd_pct const a, mk_sl_cui_inl_defd_pct const b) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_would_overflow_add_cs(mk_sl_cui_inl_defd_pct const a, mk_sl_cui_inl_defd_pct const b) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(a);
@@ -3508,27 +3508,27 @@ mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noali
 #endif
 }}
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_would_overflow_add_cp(mk_sl_cui_inl_defd_pct const a, mk_sl_cui_inl_defd_pct const b, mk_lang_types_bool_t const cf) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_would_overflow_add_cp(mk_sl_cui_inl_defd_pct const a, mk_sl_cui_inl_defd_pct const b, mk_lang_types_bool_t const cf) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 	return cf ? mk_sl_cui_inl_defd_would_overflow_add_cs(a, b) : mk_sl_cui_inl_defd_would_overflow_add_cc(a, b);
 }}
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_would_overflow_sub_cc(mk_sl_cui_inl_defd_pct const a, mk_sl_cui_inl_defd_pct const b) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_would_overflow_sub_cc(mk_sl_cui_inl_defd_pct const a, mk_sl_cui_inl_defd_pct const b) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 	return mk_sl_cui_inl_defd_lt(a, b);
 }}
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_would_overflow_sub_cs(mk_sl_cui_inl_defd_pct const a, mk_sl_cui_inl_defd_pct const b) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_would_overflow_sub_cs(mk_sl_cui_inl_defd_pct const a, mk_sl_cui_inl_defd_pct const b) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 	return mk_sl_cui_inl_defd_le(a, b);
 }}
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_would_overflow_sub_cp(mk_sl_cui_inl_defd_pct const a, mk_sl_cui_inl_defd_pct const b, mk_lang_types_bool_t const cf) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_would_overflow_sub_cp(mk_sl_cui_inl_defd_pct const a, mk_sl_cui_inl_defd_pct const b, mk_lang_types_bool_t const cf) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 	return cf ? mk_sl_cui_inl_defd_would_overflow_sub_cs(a, b) : mk_sl_cui_inl_defd_would_overflow_sub_cc(a, b);
 }}
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_would_overflow_mul(mk_sl_cui_inl_defd_pct const a, mk_sl_cui_inl_defd_pct const b) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_would_overflow_mul(mk_sl_cui_inl_defd_pct const a, mk_sl_cui_inl_defd_pct const b) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 	mk_sl_cui_inl_defd_t c mk_lang_constexpr_init;
 	mk_sl_cui_inl_defd_t d mk_lang_constexpr_init;
@@ -3540,7 +3540,7 @@ mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noali
 	return !mk_sl_cui_inl_defd_is_zero(&d);
 }}
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_would_overflow_div(mk_sl_cui_inl_defd_pct const a, mk_sl_cui_inl_defd_pct const b) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_would_overflow_div(mk_sl_cui_inl_defd_pct const a, mk_sl_cui_inl_defd_pct const b) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -3549,7 +3549,7 @@ mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noali
 	return mk_sl_cui_inl_defd_is_zero(b);
 }}
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_would_overflow_mod(mk_sl_cui_inl_defd_pct const a, mk_sl_cui_inl_defd_pct const b) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_would_overflow_mod(mk_sl_cui_inl_defd_pct const a, mk_sl_cui_inl_defd_pct const b) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -3846,7 +3846,7 @@ mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_cui_inl_defd_s
 #endif
 #endif
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_to_str_bin_n(mk_sl_cui_inl_defd_pct const x, mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_to_str_bin_n(mk_sl_cui_inl_defd_pct const x, mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -3905,7 +3905,7 @@ mk_lang_constexpr_static_inline mk_lang_types_wchar_t const mk_sl_cui_inl_defd_s
 #endif
 #endif
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_to_str_bin_w(mk_sl_cui_inl_defd_pct const x, mk_lang_types_wchar_pt const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_to_str_bin_w(mk_sl_cui_inl_defd_pct const x, mk_lang_types_wchar_pt const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -3964,7 +3964,7 @@ mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_cui_inl_defd_s
 #endif
 #endif
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_to_str_oct_n(mk_sl_cui_inl_defd_pct const x, mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_to_str_oct_n(mk_sl_cui_inl_defd_pct const x, mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -4027,7 +4027,7 @@ mk_lang_constexpr_static_inline mk_lang_types_wchar_t const mk_sl_cui_inl_defd_s
 #endif
 #endif
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_to_str_oct_w(mk_sl_cui_inl_defd_pct const x, mk_lang_types_wchar_pt const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_to_str_oct_w(mk_sl_cui_inl_defd_pct const x, mk_lang_types_wchar_pt const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -4090,7 +4090,7 @@ mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_cui_inl_defd_s
 #endif
 #endif
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_to_str_dec_n(mk_sl_cui_inl_defd_pct const x, mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_to_str_dec_n(mk_sl_cui_inl_defd_pct const x, mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -4167,7 +4167,7 @@ mk_lang_constexpr_static_inline mk_lang_types_wchar_t const mk_sl_cui_inl_defd_s
 #endif
 #endif
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_to_str_dec_w(mk_sl_cui_inl_defd_pct const x, mk_lang_types_wchar_pt const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_to_str_dec_w(mk_sl_cui_inl_defd_pct const x, mk_lang_types_wchar_pt const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -4244,7 +4244,7 @@ mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_cui_inl_defd_s
 #endif
 #endif
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_to_str_hex_n(mk_sl_cui_inl_defd_pct const x, mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_to_str_hex_n(mk_sl_cui_inl_defd_pct const x, mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -4339,7 +4339,7 @@ mk_lang_constexpr_static_inline mk_lang_types_wchar_t const mk_sl_cui_inl_defd_s
 #endif
 #endif
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_to_str_hex_w(mk_sl_cui_inl_defd_pct const x, mk_lang_types_wchar_pt const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_to_str_hex_w(mk_sl_cui_inl_defd_pct const x, mk_lang_types_wchar_pt const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -4434,7 +4434,7 @@ mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_cui_inl_defd_s
 #endif
 #endif
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_to_str_binf_n(mk_sl_cui_inl_defd_pct const x, mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_to_str_binf_n(mk_sl_cui_inl_defd_pct const x, mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -4482,7 +4482,7 @@ mk_lang_constexpr_static_inline mk_lang_types_wchar_t const mk_sl_cui_inl_defd_s
 #endif
 #endif
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_to_str_binf_w(mk_sl_cui_inl_defd_pct const x, mk_lang_types_wchar_pt const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_to_str_binf_w(mk_sl_cui_inl_defd_pct const x, mk_lang_types_wchar_pt const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -4530,7 +4530,7 @@ mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_cui_inl_defd_s
 #endif
 #endif
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_to_str_hexf_n(mk_sl_cui_inl_defd_pct const x, mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_to_str_hexf_n(mk_sl_cui_inl_defd_pct const x, mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -4594,7 +4594,7 @@ mk_lang_constexpr_static_inline mk_lang_types_wchar_t const mk_sl_cui_inl_defd_s
 #endif
 #endif
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_to_str_hexf_w(mk_sl_cui_inl_defd_pct const x, mk_lang_types_wchar_pt const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_to_str_hexf_w(mk_sl_cui_inl_defd_pct const x, mk_lang_types_wchar_pt const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -4651,7 +4651,7 @@ mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noali
 #endif
 }}
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_to_str_hexf_many_n(mk_sl_cui_inl_defd_pct const x, mk_lang_types_sint_t const count, mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_to_str_hexf_many_n(mk_sl_cui_inl_defd_pct const x, mk_lang_types_sint_t const count, mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -4683,7 +4683,7 @@ mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noali
 #endif
 }}
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_to_str_hexf_many_w(mk_sl_cui_inl_defd_pct const x, mk_lang_types_sint_t const count, mk_lang_types_wchar_pt const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_to_str_hexf_many_w(mk_sl_cui_inl_defd_pct const x, mk_lang_types_sint_t const count, mk_lang_types_wchar_pt const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -4722,7 +4722,7 @@ mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_cui_inl_defd_s
 #endif
 #endif
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_from_str_bin_n(mk_sl_cui_inl_defd_pt const x, mk_lang_types_pchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_from_str_bin_n(mk_sl_cui_inl_defd_pt const x, mk_lang_types_pchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -4845,7 +4845,7 @@ mk_lang_constexpr_static_inline mk_lang_types_wchar_t const mk_sl_cui_inl_defd_s
 #endif
 #endif
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_from_str_bin_w(mk_sl_cui_inl_defd_pt const x, mk_lang_types_wchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_from_str_bin_w(mk_sl_cui_inl_defd_pt const x, mk_lang_types_wchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -4968,7 +4968,7 @@ mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_cui_inl_defd_s
 #endif
 #endif
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_from_str_oct_n(mk_sl_cui_inl_defd_pt const x, mk_lang_types_pchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_from_str_oct_n(mk_sl_cui_inl_defd_pt const x, mk_lang_types_pchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -5088,7 +5088,7 @@ mk_lang_constexpr_static_inline mk_lang_types_wchar_t const mk_sl_cui_inl_defd_s
 #endif
 #endif
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_from_str_oct_w(mk_sl_cui_inl_defd_pt const x, mk_lang_types_wchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_from_str_oct_w(mk_sl_cui_inl_defd_pt const x, mk_lang_types_wchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -5208,7 +5208,7 @@ mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_cui_inl_defd_s
 #endif
 #endif
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_from_str_dec_n(mk_sl_cui_inl_defd_pt const x, mk_lang_types_pchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_from_str_dec_n(mk_sl_cui_inl_defd_pt const x, mk_lang_types_pchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -5340,7 +5340,7 @@ mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_cui_inl_defd_s
 #endif
 #endif
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_from_str_dec_w(mk_sl_cui_inl_defd_pt const x, mk_lang_types_wchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_from_str_dec_w(mk_sl_cui_inl_defd_pt const x, mk_lang_types_wchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -5473,7 +5473,7 @@ mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_cui_inl_defd_s
 #endif
 #endif
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_from_str_hex_n(mk_sl_cui_inl_defd_pt const x, mk_lang_types_pchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_from_str_hex_n(mk_sl_cui_inl_defd_pt const x, mk_lang_types_pchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -5623,7 +5623,7 @@ mk_lang_constexpr_static_inline mk_lang_types_wchar_t const mk_sl_cui_inl_defd_s
 #endif
 #endif
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_from_str_hex_w(mk_sl_cui_inl_defd_pt const x, mk_lang_types_wchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_from_str_hex_w(mk_sl_cui_inl_defd_pt const x, mk_lang_types_wchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -5765,7 +5765,7 @@ mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noali
 #endif
 }}
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_from_str_hex_many_n(mk_sl_cui_inl_defd_pt const x, mk_lang_types_sint_t const count, mk_lang_types_pchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_from_str_hex_many_n(mk_sl_cui_inl_defd_pt const x, mk_lang_types_sint_t const count, mk_lang_types_pchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
@@ -5795,7 +5795,7 @@ mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noali
 #endif
 }}
 
-mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_from_str_hex_many_w(mk_sl_cui_inl_defd_pt const x, mk_lang_types_sint_t const count, mk_lang_types_wchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_from_str_hex_many_w(mk_sl_cui_inl_defd_pt const x, mk_lang_types_sint_t const count, mk_lang_types_wchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
 	mk_lang_assert(x);
