@@ -13,7 +13,7 @@
 #include "mk_sl_mallocator_global_forwarder_inl_defd.h"
 
 
-/*#define mk_sl_cui_t_name mk_sl_mallocator_global_forwarder_inl_defd_blocks
+#define mk_sl_cui_t_name mk_sl_mallocator_global_forwarder_inl_defd_blocks
 #define mk_sl_cui_t_base mk_sl_mallocator_global_forwarder_inl_defd_base_blocks
 #define mk_sl_cui_t_count 1
 #include "mk_sl_cui_inl_filec.h"
@@ -23,7 +23,7 @@
 #define mk_sl_cui_t_base mk_sl_mallocator_global_forwarder_inl_defd_base_bytes
 #define mk_sl_cui_t_count 1
 #include "mk_sl_cui_inl_filec.h"
-#include "mk_sl_cui_inl_fileu.h"*/
+#include "mk_sl_cui_inl_fileu.h"
 
 
 #if defined mk_sl_mallocator_global_forwarder_inl_defd_statistics_want
@@ -118,7 +118,9 @@ static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_global_forwarder_inl
 	mk_sl_mallocator_global_forwarder_inl_defd_bytes_t bytes;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(size_bytes >= 0);
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	mk_sl_mallocator_global_forwarder_inl_defd_blocks_inc1(&mk_sl_mallocator_global_forwarder_inl_defd_statistics_g.m_blocks_allocated);
@@ -127,7 +129,9 @@ static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_global_forwarder_inl
 	mk_sl_mallocator_global_forwarder_inl_defd_statistics_update_peak();
 #else
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(size_bytes >= 0);
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	((mk_lang_types_void_t)(size_bytes));
@@ -140,7 +144,9 @@ static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_global_forwarder_inl
 	mk_sl_mallocator_global_forwarder_inl_defd_bytes_t bytes;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(size_bytes >= 0);
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	mk_sl_mallocator_global_forwarder_inl_defd_blocks_inc1(&mk_sl_mallocator_global_forwarder_inl_defd_statistics_g.m_blocks_deallocated);
@@ -148,7 +154,9 @@ static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_global_forwarder_inl
 	mk_sl_mallocator_global_forwarder_inl_defd_bytes_add2_wrap_cid_cod(&mk_sl_mallocator_global_forwarder_inl_defd_statistics_g.m_bytes_deallocated, &bytes);
 #else
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(size_bytes >= 0);
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	((mk_lang_types_void_t)(size_bytes));
@@ -180,8 +188,10 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_global_for
 	mk_lang_types_void_pt m;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(size_bytes >= 0);
 	mk_lang_assert(mem || size_bytes == 0);
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	if(size_bytes != 0)
@@ -200,9 +210,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_global_for
 {
 	mk_lang_types_sint_t err;
 
-#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(mem || size_bytes == 0);
 	mk_lang_assert(size_bytes >= 0);
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	if(size_bytes != 0)

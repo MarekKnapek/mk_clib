@@ -11,14 +11,12 @@
 #define mk_sl_cui_t_name mk_sl_mallocator_global_forwarder_inl_defd_blocks
 #define mk_sl_cui_t_base mk_sl_mallocator_global_forwarder_inl_defd_base_blocks
 #define mk_sl_cui_t_count 1
-#define mk_sl_cui_t_base_size_bits_d mk_sl_mallocator_global_forwarder_inl_defd_base_blocks_size_bits_d
 #include "mk_sl_cui_inl_fileh.h"
 #include "mk_sl_cui_inl_fileu.h"
 
 #define mk_sl_cui_t_name mk_sl_mallocator_global_forwarder_inl_defd_bytes
 #define mk_sl_cui_t_base mk_sl_mallocator_global_forwarder_inl_defd_base_bytes
 #define mk_sl_cui_t_count 1
-//#define mk_sl_cui_t_base_size_bits_d (mk_lang_concat(mk_sl_mallocator_global_forwarder_inl_defd_base_bytes, _size_bits_d))
 #include "mk_sl_cui_inl_fileh.h"
 #include "mk_sl_cui_inl_fileu.h"
 
