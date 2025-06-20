@@ -31,6 +31,7 @@ struct mk_lib_iip_base64_decoder_alphabet_s
 typedef struct mk_lib_iip_base64_decoder_alphabet_s mk_lib_iip_base64_decoder_alphabet_t;
 
 
+#include "mk_lang_warning_clang_push_reserved_macro_identifier.h"
 #define ____ 0xff
 mk_lang_constexpr_static_inline mk_lib_iip_base64_decoder_alphabet_t const mk_lib_iip_base64_decoder_k_alphabet =
 {{{
@@ -52,6 +53,7 @@ mk_lang_constexpr_static_inline mk_lib_iip_base64_decoder_alphabet_t const mk_li
 	____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____,
 }}};
 #undef ____
+#include "mk_lang_warning_clang_pop.h"
 
 
 mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_iip_base64_decoder_pr_no_check_block_24bits_middle(mk_lang_types_pchar_pct const str_buf, mk_sl_cui_uint8_pt const data_buf) mk_lang_noexcept
