@@ -146,10 +146,10 @@ static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_stati
 static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_statistics_deinit(mk_sl_mallocator_arena_inl_defd_statistics_pt const statistics) mk_lang_noexcept
 {
 #if mk_sl_mallocator_arena_inl_defd_statistics_want
-	mk_lang_assert(statistics);
-
 	mk_sl_mallocator_arena_inl_defd_num_blocks_t blocks_live;
 	mk_sl_mallocator_arena_inl_defd_num_bytes_t bytes_live;
+
+	mk_lang_assert(statistics);
 
 	((mk_lang_types_void_t)(statistics));
 	mk_sl_mallocator_arena_inl_defd_statistics_get_blocks_live(&blocks_live);
@@ -165,10 +165,10 @@ static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_stati
 static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_statistics_update_peak(mk_sl_mallocator_arena_inl_defd_statistics_pt const statistics) mk_lang_noexcept
 {
 #if mk_sl_mallocator_arena_inl_defd_statistics_want
-	mk_lang_assert(statistics);
-
 	mk_sl_mallocator_arena_inl_defd_num_blocks_t blocks_live;
 	mk_sl_mallocator_arena_inl_defd_num_bytes_t bytes_live;
+
+	mk_lang_assert(statistics);
 
 	mk_sl_mallocator_arena_inl_defd_statistics_get_blocks_live(&blocks_live);
 	if(mk_sl_mallocator_arena_inl_defd_num_blocks_gt(&blocks_live, &statistics->m_blocks_peak))
@@ -243,7 +243,7 @@ static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_stati
 }
 
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_free_block_load(mk_sl_mallocator_arena_inl_defd_mem_pct const mem, mk_lang_types_usize_t const block_idx, mk_sl_mallocator_arena_inl_defd_free_block_pt const free_block) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_free_block_load(mk_sl_mallocator_arena_inl_defd_mem_pct const mem, mk_lang_types_usize_t const block_idx, mk_sl_mallocator_arena_inl_defd_free_block_pt const free_block) mk_lang_noexcept
 {
 	mk_lang_types_usize_t byte_idx mk_lang_constexpr_init;
 	mk_sl_cui_uint8_pct ptr mk_lang_constexpr_init;
@@ -263,7 +263,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_
 	mk_sl_mallocator_arena_inl_defd_convert_to_big(&free_block->m_bytes_allocated, ptr + mk_lang_offsetof(mk_sl_mallocator_arena_inl_defd_free_block_t, m_bytes_allocated));
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_free_block_store(mk_sl_mallocator_arena_inl_defd_mem_pt const mem, mk_lang_types_usize_t const block_idx, mk_sl_mallocator_arena_inl_defd_free_block_pct const free_block) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_free_block_store(mk_sl_mallocator_arena_inl_defd_mem_pt const mem, mk_lang_types_usize_t const block_idx, mk_sl_mallocator_arena_inl_defd_free_block_pct const free_block) mk_lang_noexcept
 {
 	mk_lang_types_usize_t byte_idx mk_lang_constexpr_init;
 	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
@@ -283,7 +283,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_
 	mk_sl_mallocator_arena_inl_defd_convert_to_sml(&free_block->m_bytes_allocated, ptr + mk_lang_offsetof(mk_sl_mallocator_arena_inl_defd_free_block_t, m_bytes_allocated));
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_free_block_next_load(mk_sl_mallocator_arena_inl_defd_mem_pct const mem, mk_lang_types_usize_t const block_idx, mk_sl_mallocator_arena_inl_defd_num_words_pt const next) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_free_block_next_load(mk_sl_mallocator_arena_inl_defd_mem_pct const mem, mk_lang_types_usize_t const block_idx, mk_sl_mallocator_arena_inl_defd_num_words_pt const next) mk_lang_noexcept
 {
 	mk_lang_types_usize_t byte_idx mk_lang_constexpr_init;
 	mk_sl_cui_uint8_pct ptr mk_lang_constexpr_init;
@@ -300,7 +300,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_
 	mk_sl_mallocator_arena_inl_defd_convert_to_big(next, ptr + mk_lang_offsetof(mk_sl_mallocator_arena_inl_defd_free_block_t, m_next));
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_free_block_next_store(mk_sl_mallocator_arena_inl_defd_mem_pt const mem, mk_lang_types_usize_t const block_idx, mk_sl_mallocator_arena_inl_defd_num_words_pct const next) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_free_block_next_store(mk_sl_mallocator_arena_inl_defd_mem_pt const mem, mk_lang_types_usize_t const block_idx, mk_sl_mallocator_arena_inl_defd_num_words_pct const next) mk_lang_noexcept
 {
 	mk_lang_types_usize_t byte_idx mk_lang_constexpr_init;
 	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
@@ -317,7 +317,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_
 	mk_sl_mallocator_arena_inl_defd_convert_to_sml(next, ptr + mk_lang_offsetof(mk_sl_mallocator_arena_inl_defd_free_block_t, m_next));
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_sl_mallocator_arena_inl_defd_mem_get_next_block_idx(mk_sl_mallocator_arena_inl_defd_mem_pct const mem, mk_lang_types_usize_t const block_idx) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_usize_t mk_sl_mallocator_arena_inl_defd_mem_get_next_block_idx(mk_sl_mallocator_arena_inl_defd_mem_pct const mem, mk_lang_types_usize_t const block_idx) mk_lang_noexcept
 {
 	mk_sl_mallocator_arena_inl_defd_num_words_t next_block_idx_num mk_lang_constexpr_init;
 	mk_lang_types_usize_t next_block_idx_us mk_lang_constexpr_init;
@@ -338,7 +338,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_sl_ma
 	return next_block_idx_us;
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_set_next_block_idx(mk_sl_mallocator_arena_inl_defd_mem_pt const mem, mk_lang_types_usize_t const block_idx, mk_lang_types_usize_t const next_block_idx) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_set_next_block_idx(mk_sl_mallocator_arena_inl_defd_mem_pt const mem, mk_lang_types_usize_t const block_idx, mk_lang_types_usize_t const next_block_idx) mk_lang_noexcept
 {
 	mk_lang_types_usize_t dif_us mk_lang_constexpr_init;
 	mk_sl_mallocator_arena_inl_defd_num_words_t dif_num mk_lang_constexpr_init;
@@ -356,7 +356,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_
 	mk_sl_mallocator_arena_inl_defd_mem_free_block_next_store(mem, block_idx, &dif_num);
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_free_block_prev_load(mk_sl_mallocator_arena_inl_defd_mem_pct const mem, mk_lang_types_usize_t const block_idx, mk_sl_mallocator_arena_inl_defd_num_words_pt const prev) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_free_block_prev_load(mk_sl_mallocator_arena_inl_defd_mem_pct const mem, mk_lang_types_usize_t const block_idx, mk_sl_mallocator_arena_inl_defd_num_words_pt const prev) mk_lang_noexcept
 {
 	mk_lang_types_usize_t byte_idx mk_lang_constexpr_init;
 	mk_sl_cui_uint8_pct ptr mk_lang_constexpr_init;
@@ -373,7 +373,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_
 	mk_sl_mallocator_arena_inl_defd_convert_to_big(prev, ptr + mk_lang_offsetof(mk_sl_mallocator_arena_inl_defd_free_block_t, m_prev));
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_free_block_prev_store(mk_sl_mallocator_arena_inl_defd_mem_pt const mem, mk_lang_types_usize_t const block_idx, mk_sl_mallocator_arena_inl_defd_num_words_pct const prev) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_free_block_prev_store(mk_sl_mallocator_arena_inl_defd_mem_pt const mem, mk_lang_types_usize_t const block_idx, mk_sl_mallocator_arena_inl_defd_num_words_pct const prev) mk_lang_noexcept
 {
 	mk_lang_types_usize_t byte_idx mk_lang_constexpr_init;
 	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
@@ -390,7 +390,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_
 	mk_sl_mallocator_arena_inl_defd_convert_to_sml(prev, ptr + mk_lang_offsetof(mk_sl_mallocator_arena_inl_defd_free_block_t, m_prev));
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_sl_mallocator_arena_inl_defd_mem_get_prev_block_idx(mk_sl_mallocator_arena_inl_defd_mem_pct const mem, mk_lang_types_usize_t const block_idx) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_usize_t mk_sl_mallocator_arena_inl_defd_mem_get_prev_block_idx(mk_sl_mallocator_arena_inl_defd_mem_pct const mem, mk_lang_types_usize_t const block_idx) mk_lang_noexcept
 {
 	mk_sl_mallocator_arena_inl_defd_num_words_t prev_block_idx_num mk_lang_constexpr_init;
 	mk_lang_types_usize_t prev_block_idx_us mk_lang_constexpr_init;
@@ -411,7 +411,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_sl_ma
 	return prev_block_idx_us;
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_set_prev_block_idx(mk_sl_mallocator_arena_inl_defd_mem_pt const mem, mk_lang_types_usize_t const block_idx, mk_lang_types_usize_t const prev_block_idx) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_set_prev_block_idx(mk_sl_mallocator_arena_inl_defd_mem_pt const mem, mk_lang_types_usize_t const block_idx, mk_lang_types_usize_t const prev_block_idx) mk_lang_noexcept
 {
 	mk_lang_types_usize_t dif_us mk_lang_constexpr_init;
 	mk_sl_mallocator_arena_inl_defd_num_words_t dif_num mk_lang_constexpr_init;
@@ -429,7 +429,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_
 	mk_sl_mallocator_arena_inl_defd_mem_free_block_prev_store(mem, block_idx, &dif_num);
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_free_block_blocks_allocated_load(mk_sl_mallocator_arena_inl_defd_mem_pct const mem, mk_sl_mallocator_arena_inl_defd_num_words_pt const blocks_allocated) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_free_block_blocks_allocated_load(mk_sl_mallocator_arena_inl_defd_mem_pct const mem, mk_sl_mallocator_arena_inl_defd_num_words_pt const blocks_allocated) mk_lang_noexcept
 {
 	mk_lang_types_usize_t block_idx mk_lang_constexpr_init;
 	mk_lang_types_usize_t byte_idx mk_lang_constexpr_init;
@@ -444,7 +444,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_
 	mk_sl_mallocator_arena_inl_defd_convert_to_big(blocks_allocated, ptr + mk_lang_offsetof(mk_sl_mallocator_arena_inl_defd_free_block_t, m_blocks_allocated));
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_free_block_blocks_allocated_store(mk_sl_mallocator_arena_inl_defd_mem_pt const mem, mk_sl_mallocator_arena_inl_defd_num_words_pct const blocks_allocated) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_free_block_blocks_allocated_store(mk_sl_mallocator_arena_inl_defd_mem_pt const mem, mk_sl_mallocator_arena_inl_defd_num_words_pct const blocks_allocated) mk_lang_noexcept
 {
 	mk_lang_types_usize_t block_idx mk_lang_constexpr_init;
 	mk_lang_types_usize_t byte_idx mk_lang_constexpr_init;
@@ -459,7 +459,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_
 	mk_sl_mallocator_arena_inl_defd_convert_to_sml(blocks_allocated, ptr + mk_lang_offsetof(mk_sl_mallocator_arena_inl_defd_free_block_t, m_blocks_allocated));
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_free_block_bytes_allocated_load(mk_sl_mallocator_arena_inl_defd_mem_pct const mem, mk_sl_mallocator_arena_inl_defd_num_words_pt const bytes_allocated) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_free_block_bytes_allocated_load(mk_sl_mallocator_arena_inl_defd_mem_pct const mem, mk_sl_mallocator_arena_inl_defd_num_words_pt const bytes_allocated) mk_lang_noexcept
 {
 	mk_lang_types_usize_t block_idx mk_lang_constexpr_init;
 	mk_lang_types_usize_t byte_idx mk_lang_constexpr_init;
@@ -474,7 +474,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_
 	mk_sl_mallocator_arena_inl_defd_convert_to_big(bytes_allocated, ptr + mk_lang_offsetof(mk_sl_mallocator_arena_inl_defd_free_block_t, m_bytes_allocated));
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_free_block_bytes_allocated_store(mk_sl_mallocator_arena_inl_defd_mem_pt const mem, mk_sl_mallocator_arena_inl_defd_num_words_pct const bytes_allocated) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_free_block_bytes_allocated_store(mk_sl_mallocator_arena_inl_defd_mem_pt const mem, mk_sl_mallocator_arena_inl_defd_num_words_pct const bytes_allocated) mk_lang_noexcept
 {
 	mk_lang_types_usize_t block_idx mk_lang_constexpr_init;
 	mk_lang_types_usize_t byte_idx mk_lang_constexpr_init;
@@ -489,7 +489,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_
 	mk_sl_mallocator_arena_inl_defd_convert_to_sml(bytes_allocated, ptr + mk_lang_offsetof(mk_sl_mallocator_arena_inl_defd_free_block_t, m_bytes_allocated));
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_sl_mallocator_arena_inl_defd_mem_get_blocks_allocated(mk_sl_mallocator_arena_inl_defd_mem_pct const mem) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_usize_t mk_sl_mallocator_arena_inl_defd_mem_get_blocks_allocated(mk_sl_mallocator_arena_inl_defd_mem_pct const mem) mk_lang_noexcept
 {
 	mk_sl_mallocator_arena_inl_defd_num_words_t blocks_allocated_num mk_lang_constexpr_init;
 	mk_lang_types_usize_t blocks_allocated_us mk_lang_constexpr_init;
@@ -501,7 +501,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_sl_ma
 	return blocks_allocated_us;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_sl_mallocator_arena_inl_defd_mem_get_blocks_free(mk_sl_mallocator_arena_inl_defd_mem_pct const mem) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_usize_t mk_sl_mallocator_arena_inl_defd_mem_get_blocks_free(mk_sl_mallocator_arena_inl_defd_mem_pct const mem) mk_lang_noexcept
 {
 	mk_lang_types_usize_t blocks_total;
 	mk_lang_types_usize_t blocks_wasted;
@@ -517,7 +517,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_sl_ma
 	return blocks_free;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_sl_mallocator_arena_inl_defd_mem_get_bytes_allocated(mk_sl_mallocator_arena_inl_defd_mem_pct const mem) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_usize_t mk_sl_mallocator_arena_inl_defd_mem_get_bytes_allocated(mk_sl_mallocator_arena_inl_defd_mem_pct const mem) mk_lang_noexcept
 {
 	mk_sl_mallocator_arena_inl_defd_num_words_t bytes_allocated_num mk_lang_constexpr_init;
 	mk_lang_types_usize_t bytes_allocated_us mk_lang_constexpr_init;
@@ -529,7 +529,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_sl_ma
 	return bytes_allocated_us;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_sl_mallocator_arena_inl_defd_mem_get_bytes_free(mk_sl_mallocator_arena_inl_defd_mem_pct const mem) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_usize_t mk_sl_mallocator_arena_inl_defd_mem_get_bytes_free(mk_sl_mallocator_arena_inl_defd_mem_pct const mem) mk_lang_noexcept
 {
 	mk_lang_types_usize_t bytes_total;
 	mk_lang_types_usize_t bytes_wasted;
@@ -545,7 +545,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_sl_ma
 	return bytes_free;
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_free_block_blocks_allocated_inc_by(mk_sl_mallocator_arena_inl_defd_mem_pt const mem, mk_lang_types_usize_t const amount) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_free_block_blocks_allocated_inc_by(mk_sl_mallocator_arena_inl_defd_mem_pt const mem, mk_lang_types_usize_t const amount) mk_lang_noexcept
 {
 	mk_sl_mallocator_arena_inl_defd_num_words_t blocks_allocated mk_lang_constexpr_init;
 	mk_sl_mallocator_arena_inl_defd_num_words_t tmp mk_lang_constexpr_init;
@@ -562,7 +562,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_
 	mk_sl_mallocator_arena_inl_defd_mem_free_block_blocks_allocated_store(mem, &blocks_allocated);
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_free_block_blocks_allocated_dec_by(mk_sl_mallocator_arena_inl_defd_mem_pt const mem, mk_lang_types_usize_t const amount) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_free_block_blocks_allocated_dec_by(mk_sl_mallocator_arena_inl_defd_mem_pt const mem, mk_lang_types_usize_t const amount) mk_lang_noexcept
 {
 	mk_sl_mallocator_arena_inl_defd_num_words_t blocks_allocated mk_lang_constexpr_init;
 	mk_sl_mallocator_arena_inl_defd_num_words_t tmp mk_lang_constexpr_init;
@@ -579,7 +579,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_
 	mk_sl_mallocator_arena_inl_defd_mem_free_block_blocks_allocated_store(mem, &blocks_allocated);
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_free_block_bytes_allocated_inc_by(mk_sl_mallocator_arena_inl_defd_mem_pt const mem, mk_lang_types_usize_t const amount) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_free_block_bytes_allocated_inc_by(mk_sl_mallocator_arena_inl_defd_mem_pt const mem, mk_lang_types_usize_t const amount) mk_lang_noexcept
 {
 	mk_sl_mallocator_arena_inl_defd_num_words_t bytes_allocated mk_lang_constexpr_init;
 	mk_sl_mallocator_arena_inl_defd_num_words_t tmp mk_lang_constexpr_init;
@@ -596,7 +596,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_
 	mk_sl_mallocator_arena_inl_defd_mem_free_block_bytes_allocated_store(mem, &bytes_allocated);
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_free_block_bytes_allocated_dec_by(mk_sl_mallocator_arena_inl_defd_mem_pt const mem, mk_lang_types_usize_t const amount) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_free_block_bytes_allocated_dec_by(mk_sl_mallocator_arena_inl_defd_mem_pt const mem, mk_lang_types_usize_t const amount) mk_lang_noexcept
 {
 	mk_sl_mallocator_arena_inl_defd_num_words_t bytes_allocated mk_lang_constexpr_init;
 	mk_sl_mallocator_arena_inl_defd_num_words_t tmp mk_lang_constexpr_init;
@@ -613,7 +613,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_
 	mk_sl_mallocator_arena_inl_defd_mem_free_block_bytes_allocated_store(mem, &bytes_allocated);
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_bitmap_load(mk_sl_mallocator_arena_inl_defd_mem_pct const mem, mk_sl_mallocator_arena_inl_defd_bitmap_pt const bitmap) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_bitmap_load(mk_sl_mallocator_arena_inl_defd_mem_pct const mem, mk_sl_mallocator_arena_inl_defd_bitmap_pt const bitmap) mk_lang_noexcept
 {
 	mk_lang_assert(mem);
 	mk_lang_assert(bitmap);
@@ -621,7 +621,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_
 	mk_sl_mallocator_arena_inl_defd_convert_to_big_multi(&bitmap->m_words[0], &mem->m_data.m_u8s[0], mk_sl_mallocator_arena_inl_defd_words_v);
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_bitmap_store(mk_sl_mallocator_arena_inl_defd_mem_pt const mem, mk_sl_mallocator_arena_inl_defd_bitmap_pct const bitmap) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_bitmap_store(mk_sl_mallocator_arena_inl_defd_mem_pt const mem, mk_sl_mallocator_arena_inl_defd_bitmap_pct const bitmap) mk_lang_noexcept
 {
 	mk_lang_assert(mem);
 	mk_lang_assert(bitmap);
@@ -629,7 +629,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_
 	mk_sl_mallocator_arena_inl_defd_convert_to_sml_multi(&bitmap->m_words[0], &mem->m_data.m_u8s[0], mk_sl_mallocator_arena_inl_defd_words_v);
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_mallocator_arena_inl_defd_mem_bitmap_is_block_free(mk_sl_mallocator_arena_inl_defd_bitmap_pct const bitmap, mk_lang_types_usize_t const block_idx) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t mk_sl_mallocator_arena_inl_defd_mem_bitmap_is_block_free(mk_sl_mallocator_arena_inl_defd_bitmap_pct const bitmap, mk_lang_types_usize_t const block_idx) mk_lang_noexcept
 {
 	mk_lang_types_usize_t idx_big mk_lang_constexpr_init;
 	mk_lang_types_usize_t idx_sml mk_lang_constexpr_init;
@@ -647,7 +647,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_mal
 	return !is_allocated;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_mallocator_arena_inl_defd_mem_bitmap_is_blocks_free(mk_sl_mallocator_arena_inl_defd_bitmap_pct const bitmap, mk_lang_types_usize_t const block_idx, mk_lang_types_usize_t const blocks_count) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t mk_sl_mallocator_arena_inl_defd_mem_bitmap_is_blocks_free(mk_sl_mallocator_arena_inl_defd_bitmap_pct const bitmap, mk_lang_types_usize_t const block_idx, mk_lang_types_usize_t const blocks_count) mk_lang_noexcept
 {
 	mk_lang_types_bool_t is_free mk_lang_constexpr_init;
 	mk_lang_types_usize_t n mk_lang_constexpr_init;
@@ -681,7 +681,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_mal
 	return is_free;
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_bitmap_mark_block_free(mk_sl_mallocator_arena_inl_defd_bitmap_pt const bitmap, mk_lang_types_usize_t const block_idx) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_bitmap_mark_block_free(mk_sl_mallocator_arena_inl_defd_bitmap_pt const bitmap, mk_lang_types_usize_t const block_idx) mk_lang_noexcept
 {
 	mk_lang_types_usize_t idx_big mk_lang_constexpr_init;
 	mk_lang_types_usize_t idx_sml mk_lang_constexpr_init;
@@ -700,7 +700,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_
 	mk_sl_mallocator_arena_inl_defd_num_words_and2(&bitmap->m_words[idx_big], &tmp);
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_bitmap_mark_blocks_free(mk_sl_mallocator_arena_inl_defd_bitmap_pt const bitmap, mk_lang_types_usize_t const block_idx, mk_lang_types_usize_t const blocks_count) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_bitmap_mark_blocks_free(mk_sl_mallocator_arena_inl_defd_bitmap_pt const bitmap, mk_lang_types_usize_t const block_idx, mk_lang_types_usize_t const blocks_count) mk_lang_noexcept
 {
 	mk_lang_types_usize_t n mk_lang_constexpr_init;
 	mk_lang_types_usize_t i mk_lang_constexpr_init;
@@ -720,7 +720,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_
 	}
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_bitmap_mark_block_allocated(mk_sl_mallocator_arena_inl_defd_bitmap_pt const bitmap, mk_lang_types_usize_t const block_idx) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_bitmap_mark_block_allocated(mk_sl_mallocator_arena_inl_defd_bitmap_pt const bitmap, mk_lang_types_usize_t const block_idx) mk_lang_noexcept
 {
 	mk_lang_types_usize_t idx_big mk_lang_constexpr_init;
 	mk_lang_types_usize_t idx_sml mk_lang_constexpr_init;
@@ -738,7 +738,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_
 	mk_sl_mallocator_arena_inl_defd_num_words_or2(&bitmap->m_words[idx_big], &tmp);
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_bitmap_mark_blocks_allocated(mk_sl_mallocator_arena_inl_defd_bitmap_pt const bitmap, mk_lang_types_usize_t const block_idx, mk_lang_types_usize_t const blocks_count) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_bitmap_mark_blocks_allocated(mk_sl_mallocator_arena_inl_defd_bitmap_pt const bitmap, mk_lang_types_usize_t const block_idx, mk_lang_types_usize_t const blocks_count) mk_lang_noexcept
 {
 	mk_lang_types_usize_t n mk_lang_constexpr_init;
 	mk_lang_types_usize_t i mk_lang_constexpr_init;
@@ -758,7 +758,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_
 	}
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_mallocator_arena_inl_defd_mem_verify(mk_sl_mallocator_arena_inl_defd_mem_pt const mem) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t mk_sl_mallocator_arena_inl_defd_mem_verify(mk_sl_mallocator_arena_inl_defd_mem_pt const mem) mk_lang_noexcept
 {
 #if mk_sl_mallocator_arena_inl_defd_verify_want
 	mk_lang_types_usize_t blocks_free mk_lang_constexpr_init;
@@ -798,7 +798,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_mal
 #endif
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_block_disconnect(mk_sl_mallocator_arena_inl_defd_mem_pt const mem, mk_lang_types_usize_t const block_idx) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_block_disconnect(mk_sl_mallocator_arena_inl_defd_mem_pt const mem, mk_lang_types_usize_t const block_idx) mk_lang_noexcept
 {
 	mk_lang_types_usize_t old_next mk_lang_constexpr_init;
 	mk_lang_types_usize_t old_prev mk_lang_constexpr_init;
@@ -819,7 +819,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_
 	}
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_block_reconnect(mk_sl_mallocator_arena_inl_defd_mem_pt const mem, mk_lang_types_usize_t const block_idx) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_block_reconnect(mk_sl_mallocator_arena_inl_defd_mem_pt const mem, mk_lang_types_usize_t const block_idx) mk_lang_noexcept
 {
 	mk_lang_types_usize_t old_start mk_lang_constexpr_init;
 	mk_lang_types_usize_t old_next mk_lang_constexpr_init;
@@ -839,7 +839,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_
 	mk_sl_mallocator_arena_inl_defd_mem_set_next_block_idx(mem, mk_sl_mallocator_arena_inl_defd_blocks_wasted_v - 1, block_idx);
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_init(mk_sl_mallocator_arena_inl_defd_mem_pt const mem) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_init(mk_sl_mallocator_arena_inl_defd_mem_pt const mem) mk_lang_noexcept
 {
 	mk_sl_mallocator_arena_inl_defd_bitmap_t bitmap mk_lang_constexpr_init;
 	mk_lang_types_sint_t blocks_allocated mk_lang_constexpr_init;
@@ -867,14 +867,14 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_
 	mk_lang_assert(mk_sl_mallocator_arena_inl_defd_mem_verify(mem));
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_deinit(mk_sl_mallocator_arena_inl_defd_mem_pt const mem) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_mem_deinit(mk_sl_mallocator_arena_inl_defd_mem_pt const mem) mk_lang_noexcept
 {
 	mk_lang_assert(mem);
 	mk_lang_assert(mk_sl_mallocator_arena_inl_defd_mem_verify(mem));
 	mk_lang_assert(mk_sl_mallocator_arena_inl_defd_mem_get_blocks_free(mem) == ((mk_lang_types_usize_t)(mk_sl_mallocator_arena_inl_defd_blocks_total_v)) - ((mk_lang_types_usize_t)(mk_sl_mallocator_arena_inl_defd_blocks_wasted_v)));
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_allocate_blocks(mk_sl_mallocator_arena_inl_defd_mem_pt const mem, mk_lang_types_usize_t const blocks_count, mk_sl_cui_uint8_ppt const blocks_ptr) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_allocate_blocks(mk_sl_mallocator_arena_inl_defd_mem_pt const mem, mk_lang_types_usize_t const blocks_count, mk_sl_cui_uint8_ppt const blocks_ptr) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_pt ret mk_lang_constexpr_init;
 	mk_sl_mallocator_arena_inl_defd_bitmap_t bitmap mk_lang_constexpr_init;
@@ -927,7 +927,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_
 	*blocks_ptr = ret;
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_deallocate_blocks(mk_sl_mallocator_arena_inl_defd_mem_pt const mem, mk_sl_cui_uint8_pct const blocks_ptr, mk_lang_types_usize_t const blocks_count) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_deallocate_blocks(mk_sl_mallocator_arena_inl_defd_mem_pt const mem, mk_sl_cui_uint8_pct const blocks_ptr, mk_lang_types_usize_t const blocks_count) mk_lang_noexcept
 {
 	mk_sl_mallocator_arena_inl_defd_bitmap_t bitmap mk_lang_constexpr_init;
 	mk_lang_types_usize_t block_idx mk_lang_constexpr_init;
@@ -965,7 +965,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_
 	mk_lang_assert(mk_sl_mallocator_arena_inl_defd_mem_verify(mem));
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_allocate_bytes(mk_sl_mallocator_arena_inl_defd_mem_pt const mem, mk_lang_types_usize_t const bytes_count, mk_sl_cui_uint8_ppt const bytes_ptr) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_allocate_bytes(mk_sl_mallocator_arena_inl_defd_mem_pt const mem, mk_lang_types_usize_t const bytes_count, mk_sl_cui_uint8_ppt const bytes_ptr) mk_lang_noexcept
 {
 	mk_lang_types_usize_t blocks_count;
 	mk_sl_cui_uint8_pt blocks_ptr;
@@ -988,7 +988,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_
 	mk_lang_assert(mk_sl_mallocator_arena_inl_defd_mem_verify(mem));
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_deallocate_bytes(mk_sl_mallocator_arena_inl_defd_mem_pt const mem, mk_sl_cui_uint8_pct const bytes_ptr, mk_lang_types_usize_t const bytes_count) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_deallocate_bytes(mk_sl_mallocator_arena_inl_defd_mem_pt const mem, mk_sl_cui_uint8_pt const bytes_ptr, mk_lang_types_usize_t const bytes_count) mk_lang_noexcept
 {
 	mk_lang_types_usize_t blocks_count mk_lang_constexpr_init;
 
@@ -1009,7 +1009,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_
 	mk_lang_assert(mk_sl_mallocator_arena_inl_defd_mem_verify(mem));
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_reallocate_bytes(mk_sl_mallocator_arena_inl_defd_mem_pt const mem, mk_sl_cui_uint8_pct const old_bytes_ptr, mk_lang_types_usize_t const old_bytes_count, mk_lang_types_usize_t const new_bytes_count, mk_sl_cui_uint8_ppt const new_bytes_ptr) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_arena_inl_defd_reallocate_bytes(mk_sl_mallocator_arena_inl_defd_mem_pt const mem, mk_sl_cui_uint8_pt const old_bytes_ptr, mk_lang_types_usize_t const old_bytes_count, mk_lang_types_usize_t const new_bytes_count, mk_sl_cui_uint8_ppt const new_bytes_ptr) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_pt bytes_ptr mk_lang_constexpr_init;
 
@@ -1028,7 +1028,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_mallocator_arena_inl_
 	{
 		mk_sl_mallocator_arena_inl_defd_mem_free_block_bytes_allocated_dec_by(mem, old_bytes_count);
 		mk_sl_mallocator_arena_inl_defd_mem_free_block_bytes_allocated_inc_by(mem, new_bytes_count);
-		*new_bytes_ptr = ((mk_sl_cui_uint8_pt)(old_bytes_ptr));
+		*new_bytes_ptr = old_bytes_ptr;
 	}
 	else
 	{
@@ -1087,9 +1087,9 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_arena_inl_
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_arena_inl_defd_deallocate(mk_lang_types_void_pct const mem, mk_lang_types_usize_t const size_bytes) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_arena_inl_defd_deallocate(mk_lang_types_void_pt const mem, mk_lang_types_usize_t const size_bytes) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pct bytes_ptr;
+	mk_sl_cui_uint8_pt bytes_ptr;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(mem || size_bytes == 0);
@@ -1098,7 +1098,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_arena_inl_
 
 	if(size_bytes != 0)
 	{
-		bytes_ptr = ((mk_sl_cui_uint8_pct)(mem));
+		bytes_ptr = ((mk_sl_cui_uint8_pt)(mem));
 		mk_sl_mallocator_arena_inl_defd_deallocate_bytes(&mk_sl_mallocator_arena_inl_defd_g.m_mem, bytes_ptr, size_bytes);
 		#if mk_sl_mallocator_arena_inl_defd_statistics_want
 		mk_sl_mallocator_arena_inl_defd_statistics_deallocated(&mk_sl_mallocator_arena_inl_defd_g.m_statistics, size_bytes);
@@ -1107,9 +1107,9 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_arena_inl_
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_arena_inl_defd_reallocate(mk_lang_types_void_pct const old_mem, mk_lang_types_usize_t const old_size_bytes, mk_lang_types_usize_t const new_size_bytes, mk_lang_types_void_ppt const new_mem) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_arena_inl_defd_reallocate(mk_lang_types_void_pt const old_mem, mk_lang_types_usize_t const old_size_bytes, mk_lang_types_usize_t const new_size_bytes, mk_lang_types_void_ppt const new_mem) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pct old_bytes;
+	mk_sl_cui_uint8_pt old_bytes;
 	mk_sl_cui_uint8_pt bytes_ptr;
 	mk_lang_types_void_pt m;
 
@@ -1118,7 +1118,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_arena_inl_
 	mk_lang_assert(new_size_bytes >= 1);
 	mk_lang_assert(new_mem);
 
-	old_bytes = ((mk_sl_cui_uint8_pct)(old_mem));
+	old_bytes = ((mk_sl_cui_uint8_pt)(old_mem));
 	mk_sl_mallocator_arena_inl_defd_reallocate_bytes(&mk_sl_mallocator_arena_inl_defd_g.m_mem, old_bytes, old_size_bytes, new_size_bytes, &bytes_ptr);
 	m = ((mk_lang_types_void_pt)(bytes_ptr));
 	if(m)
