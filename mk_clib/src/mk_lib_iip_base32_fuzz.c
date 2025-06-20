@@ -58,9 +58,9 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_base32_fuzz(mk_l
 	input_u8s_len = mk_lang_min(input_u8s_len, ((mk_lang_types_sint_t)(s)));
 
 	mk_sl_cui_uint8_memset_fn(&input_u8s_buf[0], &fill_u8, mk_lang_countof(input_u8s_buf));
-	mk_sl_cui_uint8_from_bi_uchar_many(&input_u8s_buf[0], d, input_u8s_len);
-	d += input_u8s_len;
-	s -= input_u8s_len;
+	mk_sl_cui_uint8_from_bi_uchar_many(&input_u8s_buf[0], d, ((mk_lang_types_usize_t)(input_u8s_len)));
+	d += ((mk_lang_types_usize_t)(input_u8s_len));
+	s -= ((mk_lang_types_usize_t)(input_u8s_len));
 
 	mk_lang_string_memset_pc_fn(&output_pcs_buf[0], &fill_pc, mk_lang_countof(output_pcs_buf));
 	mk_lib_iip_base32_encoder_fn(&input_u8s_buf[0], input_u8s_len, &output_pcs_buf[0], mk_lang_countof(output_pcs_buf), &output_pcs_len);
@@ -73,7 +73,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_base32_fuzz(mk_l
 	mk_lang_test(output_u8s_len <= mk_lang_countof(output_u8s_buf));
 
 	mk_lang_test(output_u8s_len == input_u8s_len);
-	mk_lang_test(mk_sl_cui_uint8_memcmp_fn(&output_u8s_buf[0], &input_u8s_buf[0], input_u8s_len) == 0);
+	mk_lang_test(mk_sl_cui_uint8_memcmp_fn(&output_u8s_buf[0], &input_u8s_buf[0], ((mk_lang_types_usize_t)(input_u8s_len))) == 0);
 
 	mk_sl_cui_uint8_memset_fn(&output_u8s_buf[0], &fill_u8, mk_lang_countof(output_u8s_buf));
 	mk_lib_iip_base32_decoder_do_check(&output_pcs_buf[0], output_pcs_len, &output_u8s_buf[0], mk_lang_countof(output_u8s_buf), &output_u8s_len, &success);
@@ -82,10 +82,10 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_base32_fuzz(mk_l
 	mk_lang_test(success);
 
 	mk_lang_test(output_u8s_len == input_u8s_len);
-	mk_lang_test(mk_sl_cui_uint8_memcmp_fn(&output_u8s_buf[0], &input_u8s_buf[0], input_u8s_len) == 0);
+	mk_lang_test(mk_sl_cui_uint8_memcmp_fn(&output_u8s_buf[0], &input_u8s_buf[0], ((mk_lang_types_usize_t)(input_u8s_len))) == 0);
 
 	mk_lang_string_memset_pc_fn(&input_pcs_buf[0], &fill_pc, mk_lang_countof(input_pcs_buf));
-	mk_sl_cui_uint8_to_bi_pchar_many(&input_u8s_buf[0], &input_pcs_buf[0], input_u8s_len);
+	mk_sl_cui_uint8_to_bi_pchar_many(&input_u8s_buf[0], &input_pcs_buf[0], ((mk_lang_types_usize_t)(input_u8s_len)));
 	mk_lib_iip_base32_decoder_do_check(&input_pcs_buf[0], input_u8s_len, &output_u8s_buf[0], mk_lang_countof(output_u8s_buf), &output_u8s_len, &success);
 	if(success)
 	{
