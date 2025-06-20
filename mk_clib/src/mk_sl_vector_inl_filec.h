@@ -17,7 +17,6 @@
 #include "mk_sl_vector_inl_defd.h"
 
 
-#if mk_sl_vector_inl_defd_copy_style == mk_sl_vector_copy_use_bitblt
 #define mk_sl_vector_inl_filec_memcpy_name mk_lang_concat(mk_sl_vector_inl_defd_name, _zzz_element_memcpy)
 #define mk_sl_vector_inl_filec_memcpy_fn mk_lang_concat(mk_sl_vector_inl_filec_memcpy_name, _fn)
 #define mk_lang_memcpy1_t_name mk_sl_vector_inl_filec_memcpy_name
@@ -25,7 +24,6 @@
 #include "mk_lang_memcpy1_inl_fileh.h"
 #include "mk_lang_memcpy1_inl_filec.h"
 #include "mk_lang_memcpy1_inl_fileu.h"
-#endif
 
 #define mk_sl_vector_inl_filec_overlap_name mk_lang_concat(mk_sl_vector_inl_defd_name, _zzz_element_overlap)
 #define mk_sl_vector_inl_filec_overlap_fn mk_lang_concat(mk_sl_vector_inl_filec_overlap_name, _fn)
@@ -1712,10 +1710,8 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_er
 }
 
 
-#if mk_sl_vector_inl_defd_copy_style == mk_sl_vector_copy_use_bitblt
 #undef mk_sl_vector_inl_filec_memcpy_name
 #undef mk_sl_vector_inl_filec_memcpy_fn
-#endif
 
 #undef mk_sl_vector_inl_filec_overlap_name
 #undef mk_sl_vector_inl_filec_overlap_fn
