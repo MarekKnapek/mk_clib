@@ -169,8 +169,8 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_base32_encoder_f
 	if(n != 0)
 	{
 		mk_lang_assert(n > 0 && n < 5);
-		mk_sl_cui_uint8_memcpy_fn(&rest[0], &in[0], n);
-		mk_sl_cui_uint8_memclr_fn(&rest[n], mk_lang_countof(rest) - n);
+		mk_sl_cui_uint8_memcpy_fn(&rest[0], &in[0], ((mk_lang_types_usize_t)(n)));
+		mk_sl_cui_uint8_memclr_fn(&rest[n], mk_lang_countof(rest) - ((mk_lang_types_usize_t)(n)));
 		in = &rest[0];
 		mk_lib_iip_base32_encoder_pr_block_40bits_final(in, n, out);
 	}
