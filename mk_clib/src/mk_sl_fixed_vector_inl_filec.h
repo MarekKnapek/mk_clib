@@ -1425,22 +1425,30 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_sl_fixed_vector_inl_defd
 
 mk_lang_nodiscard mk_lang_jumbo mk_sl_fixed_vector_inl_defd_element_pt mk_sl_fixed_vector_inl_defd_rw_data(mk_sl_fixed_vector_inl_defd_pt const fixed_vector) mk_lang_noexcept
 {
+	#include "mk_lang_warning_clang_push_cast_qual.h"
 	return ((mk_sl_fixed_vector_inl_defd_element_pt)(mk_sl_fixed_vector_inl_defd_ro_data(fixed_vector)));
+	#include "mk_lang_warning_clang_pop.h"
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_sl_fixed_vector_inl_defd_element_pt mk_sl_fixed_vector_inl_defd_rw_at(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_lang_types_usize_t const idx) mk_lang_noexcept
 {
+	#include "mk_lang_warning_clang_push_cast_qual.h"
 	return ((mk_sl_fixed_vector_inl_defd_element_pt)(mk_sl_fixed_vector_inl_defd_ro_at(fixed_vector, idx)));
+	#include "mk_lang_warning_clang_pop.h"
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_sl_fixed_vector_inl_defd_element_pt mk_sl_fixed_vector_inl_defd_rw_front(mk_sl_fixed_vector_inl_defd_pt const fixed_vector) mk_lang_noexcept
 {
+	#include "mk_lang_warning_clang_push_cast_qual.h"
 	return ((mk_sl_fixed_vector_inl_defd_element_pt)(mk_sl_fixed_vector_inl_defd_ro_front(fixed_vector)));
+	#include "mk_lang_warning_clang_pop.h"
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_sl_fixed_vector_inl_defd_element_pt mk_sl_fixed_vector_inl_defd_rw_back(mk_sl_fixed_vector_inl_defd_pt const fixed_vector) mk_lang_noexcept
 {
+	#include "mk_lang_warning_clang_push_cast_qual.h"
 	return ((mk_sl_fixed_vector_inl_defd_element_pt)(mk_sl_fixed_vector_inl_defd_ro_back(fixed_vector)));
+	#include "mk_lang_warning_clang_pop.h"
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_sl_fixed_vector_inl_defd_rw_eq(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_sl_fixed_vector_inl_defd_pct const other) mk_lang_noexcept
