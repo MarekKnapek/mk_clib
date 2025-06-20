@@ -165,14 +165,14 @@ mk_lib_crypto_hash_stream_any_mm_per_hash(`	mk_lang_static_assert(((mk_lang_type
 
 	mk_lang_assert(id >= 0 && id <= mk_lib_crypto_hash_stream_any1_id_e_dummy_end);
 
-	mk_lang_clobber(&res);
 	switch(id)
 	{
 mk_lib_crypto_hash_stream_any_mm_per_hash(`		case mk_lib_crypto_hash_stream_any1_id_e_$1: res = mk_lib_crypto_hash_stream_$1_digest_len_v; break;', `
 ')
-		case mk_lib_crypto_hash_stream_any1_id_e_dummy_end: res = 0; mk_lang_assert(mk_lang_false); break;
-		default: res = 0; mk_lang_assert(mk_lang_false); break;
+		case mk_lib_crypto_hash_stream_any1_id_e_dummy_end: res = 0; mk_lang_assert_false(); break;
+		default: res = 0; mk_lang_assert_false(); break;
 	}
+	mk_lang_clobber(&res);
 	return res;
 }
 
