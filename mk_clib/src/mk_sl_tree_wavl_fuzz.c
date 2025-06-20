@@ -58,7 +58,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_tree_wavl_fuzz(mk_lan
 	mk_lang_types_sint_t m;
 	mk_lang_types_sint_t j;
 	mk_lang_types_sint_t val;
-	mk_sl_tree_wavl_fuzz_test_node_pct node;
+	mk_sl_tree_wavl_fuzz_test_node_pt node;
 	mk_lang_types_sint_pct pval;
 
 	d = data;
