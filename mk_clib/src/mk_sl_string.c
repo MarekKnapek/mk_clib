@@ -1,6 +1,6 @@
-#ifndef mk_include_guard_mk_lib_fast_import_c
-#define mk_include_guard_mk_lib_fast_import_c
-#include "mk_lib_fast_import.h"
+#ifndef mk_include_guard_mk_sl_string_c
+#define mk_include_guard_mk_sl_string_c
+#include "mk_sl_string.h"
 
 #include "mk_lang_jumbo.h"
 #include "mk_lang_types.h"

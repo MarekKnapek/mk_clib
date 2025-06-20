@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_mk_lib_fast_import_h
-#define mk_include_guard_mk_lib_fast_import_h
+#ifndef mk_include_guard_mk_sl_string_h
+#define mk_include_guard_mk_sl_string_h
 
 
 #include "mk_lang_jumbo.h"
@@ -16,6 +16,6 @@
 
 
 #if mk_lang_jumbo_have
-#include "mk_lib_fast_import.c"
+#include "mk_sl_string.c"
 #endif
 #endif
