@@ -70,7 +70,7 @@ mk_lang_typedef(mk_lang_types_double);
 mk_lang_typedef(mk_lang_types_ldouble);
 
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lang_types_pc_eq(mk_lang_types_pchar_pct const a, mk_lang_types_pchar_pct const b) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lang_types_pchar_eq(mk_lang_types_pchar_pct const a, mk_lang_types_pchar_pct const b) mk_lang_noexcept;
 
 
 #if mk_lang_jumbo_have
