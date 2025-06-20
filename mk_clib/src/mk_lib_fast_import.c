@@ -88,17 +88,6 @@ mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lib_fast_import_k
 mk_lang_forward(mk_lib_fast_import);
 
 
-mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t mk_lang_types_pchar_eq(mk_lang_types_pchar_pct const a, mk_lang_types_pchar_pct const b) mk_lang_noexcept
-{
-	mk_lang_types_bool_t ret mk_lang_constexpr_init;
-
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-
-	ret = *a == *b;
-	return ret;
-}
-
 #define mk_sl_vector_t_name mk_lib_fast_import_string
 #define mk_sl_vector_t_element_type mk_lang_types_pchar_t
 #define mk_sl_vector_t_mallocatorl mk_lib_fast_import_mallocator_lokal
