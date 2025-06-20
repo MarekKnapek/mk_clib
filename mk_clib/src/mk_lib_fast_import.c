@@ -88,7 +88,7 @@ mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lib_fast_import_k
 mk_lang_forward(mk_lib_fast_import);
 
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lang_types_pchar_eq(mk_lang_types_pchar_pct const a, mk_lang_types_pchar_pct const b) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t mk_lang_types_pchar_eq(mk_lang_types_pchar_pct const a, mk_lang_types_pchar_pct const b) mk_lang_noexcept
 {
 	mk_lang_types_bool_t ret mk_lang_constexpr_init;
 
@@ -373,7 +373,7 @@ mk_lang_typedef(mk_lib_fast_import_tree);
 #include "mk_lang_warning_msvc_pop.h"
 
 #define mk_sl_vector_t_name mk_lib_fast_import_trees
-#define mk_sl_vector_t_element_type mk_lib_fast_import_tree_pct
+#define mk_sl_vector_t_element_type mk_lib_fast_import_tree_pt
 #define mk_sl_vector_t_mallocatorl mk_lib_fast_import_mallocator_lokal
 #include "mk_sl_vector_inl_fileh.h"
 #include "mk_sl_vector_inl_filec.h"
@@ -515,7 +515,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 
 	mk_lang_assert(blob);
 
-	err = mk_lib_fast_import_mallocator_lokal_deallocate(blob->m_fi->m_mallocator, blob->m_binary_buf, blob->m_binary_len); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_mallocator_lokal_deallocate(blob->m_fi->m_mallocator, blob->m_binary_buf, ((mk_lang_types_usize_t)(blob->m_binary_len))); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -537,15 +537,15 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	if(src->m_binary_len != 0)
 	{
 		mk_lang_assert(src->m_binary_buf != mk_lang_null);
-		err = mk_lib_fast_import_mallocator_lokal_allocate(blob->m_fi->m_mallocator, src->m_binary_len, &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem); blob->m_binary_buf = ((mk_sl_cui_uint8_pt)(mem)); mk_lang_assert(blob->m_binary_buf);
+		err = mk_lib_fast_import_mallocator_lokal_allocate(blob->m_fi->m_mallocator, ((mk_lang_types_usize_t)(src->m_binary_len)), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem); blob->m_binary_buf = ((mk_sl_cui_uint8_pt)(mem)); mk_lang_assert(blob->m_binary_buf);
 		blob->m_binary_len = src->m_binary_len;
-		mk_sl_cui_uint8_memcpy_fn(&blob->m_binary_buf[0], &src->m_binary_buf[0], src->m_binary_len);
+		mk_sl_cui_uint8_memcpy_fn(&blob->m_binary_buf[0], &src->m_binary_buf[0], ((mk_lang_types_usize_t)(src->m_binary_len)));
 	}
 	else
 	{
 		mk_lang_assert(src->m_binary_buf == mk_lang_null);
 		blob->m_binary_len = 0;
-		blob->m_binary_buf = mk_lang_null;;
+		blob->m_binary_buf = mk_lang_null;
 	}
 	blob->m_digest = src->m_digest;
 	return 0;
@@ -664,11 +664,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_bool_t mk_string_compare(m
 	a_buf = mk_lib_fast_import_string_ro_data(a_str); mk_lang_assert(a_buf);
 	a_len = mk_lib_fast_import_string_ro_sise(a_str); mk_lang_assert(a_len >= 1);
 	cmp = a_len == b_len;
-	cmp = cmp && mk_lang_string_memcmp_pc_fn(a_buf, b_buf, a_len) == 0;
+	cmp = cmp && mk_lang_string_memcmp_pc_fn(a_buf, b_buf, ((mk_lang_types_usize_t)(a_len))) == 0;
 	return cmp;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_fast_import_string_rw_push_back_copy_many_u8(mk_lib_fast_import_string_pt const string, mk_sl_cui_uint8_pct const elements, mk_lang_types_usize_t const count) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_string_rw_push_back_copy_many_u8(mk_lib_fast_import_string_pt const string, mk_sl_cui_uint8_pct const elements, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 	mk_sl_cui_uint8_pct u8s;
@@ -701,7 +701,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 {
 	mk_lib_fast_import_blob_t blob;
 	mk_lang_types_sint_t err;
-	mk_lib_fast_import_tree_by_mark_node_pct node;
+	mk_lib_fast_import_tree_by_mark_node_pt node;
 
 	mk_lang_assert(fi);
 	mk_lang_assert(file_ref);
@@ -738,6 +738,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_any_rw_deserialize_pr_object_len(mk_sl_cui_uint8_pct const binary_data_buf, mk_lang_types_sint_t const binary_data_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
 {
+#include "mk_lang_warning_clang_push_sometimes_uninitialized.h"
+#include "mk_lang_warning_clang_push_conditional_uninitialized.h"
 	mk_lang_types_bool_t gud;
 	mk_lang_types_sint_t str_len;
 	mk_lang_types_pchar_t str_buf[mk_sl_cui_uint32_strlen_dec_v + 1];
@@ -755,7 +757,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	if(gud)
 	{
 		str_len = mk_lang_min(binary_data_len, mk_lang_countof(str_buf));
-		mk_sl_cui_uint8_to_bi_pchar_many(binary_data_buf, &str_buf[0], str_len);
+		mk_sl_cui_uint8_to_bi_pchar_many(binary_data_buf, &str_buf[0], ((mk_lang_types_usize_t)(str_len)));
 		len = mk_sl_cui_uint32_from_str_dec_n(&obj_len_u32, &str_buf[0], str_len); mk_lang_assert(len <= str_len);
 		gud = len >= 1;
 	}
@@ -780,6 +782,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	*success = gud;
 	*consumed = len + 1;
 	return 0;
+#include "mk_lang_warning_clang_pop.h"
+#include "mk_lang_warning_clang_pop.h"
 }
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_commit_rw_construct(mk_lib_fast_import_commit_pt const commit, mk_lib_fast_import_pt const fi) mk_lang_noexcept
@@ -901,7 +905,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	mk_lang_types_sint_t data_len;
 	mk_lang_types_bool_t gud;
 	mk_sl_cui_uint8_t tree_sp[mk_lang_countstr(mk_lib_fast_import_k_tree_sp)];
-	mk_lang_types_pchar_t digest_str[mk_lib_crypto_hash_stream_sha1_digest_len_v * mk_sl_cui_uint8_strlen_hex_v];
+	mk_lang_types_pchar_t digest_str[((mk_lang_types_sint_t)(mk_lib_crypto_hash_stream_sha1_digest_len_v)) * ((mk_lang_types_sint_t)(mk_sl_cui_uint8_strlen_hex_v))];
 	mk_lang_types_sint_t len;
 	mk_lang_types_sint_t tsi;
 
@@ -1031,6 +1035,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_commit_rw_deserialize_pr_name(mk_lib_fast_import_commit_pt const commit, mk_lib_fast_import_string_pt const name, mk_sl_cui_uint8_pct const binary_data_buf, mk_lang_types_sint_t const binary_data_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
 {
+#include "mk_lang_warning_clang_push_conditional_uninitialized.h"
 	mk_sl_cui_uint8_pct data_buf;
 	mk_lang_types_sint_t data_len;
 	mk_lang_types_bool_t gud;
@@ -1063,7 +1068,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	{
 		mk_lang_clobber(&found);
 		err = mk_lib_fast_import_string_rw_clear(name); mk_lang_check_rereturn(err);
-		err = mk_lib_fast_import_string_rw_push_back_copy_many_u8(name, data_buf, found); mk_lang_check_rereturn(err);
+		err = mk_lib_fast_import_string_rw_push_back_copy_many_u8(name, data_buf, ((mk_lang_types_usize_t)(found))); mk_lang_check_rereturn(err);
 		data_buf += found;
 		data_len -= found;
 		data_buf += mk_lang_countof(str_u8_splt);
@@ -1072,10 +1077,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	*success = gud;
 	*consumed = binary_data_len - data_len;
 	return 0;
+#include "mk_lang_warning_clang_pop.h"
 }
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_commit_rw_deserialize_pr_email(mk_lib_fast_import_commit_pt const commit, mk_lib_fast_import_string_pt const email, mk_sl_cui_uint8_pct const binary_data_buf, mk_lang_types_sint_t const binary_data_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
 {
+#include "mk_lang_warning_clang_push_conditional_uninitialized.h"
 	mk_sl_cui_uint8_pct data_buf;
 	mk_lang_types_sint_t data_len;
 	mk_lang_types_bool_t gud;
@@ -1108,7 +1115,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	{
 		mk_lang_clobber(&found);
 		err = mk_lib_fast_import_string_rw_clear(email); mk_lang_check_rereturn(err);
-		err = mk_lib_fast_import_string_rw_push_back_copy_many_u8(email, data_buf, found); mk_lang_check_rereturn(err);
+		err = mk_lib_fast_import_string_rw_push_back_copy_many_u8(email, data_buf, ((mk_lang_types_usize_t)(found))); mk_lang_check_rereturn(err);
 		data_buf += found;
 		data_len -= found;
 		data_buf += mk_lang_countof(str_u8_gtsp);
@@ -1117,10 +1124,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	*success = gud;
 	*consumed = binary_data_len - data_len;
 	return 0;
+#include "mk_lang_warning_clang_pop.h"
 }
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_commit_rw_deserialize_pr_timestamp(mk_lib_fast_import_commit_pt const commit, mk_lib_fast_import_string_pt const timestamp, mk_sl_cui_uint8_pct const binary_data_buf, mk_lang_types_sint_t const binary_data_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
 {
+#include "mk_lang_warning_clang_push_conditional_uninitialized.h"
 	mk_sl_cui_uint8_pct data_buf;
 	mk_lang_types_sint_t data_len;
 	mk_lang_types_bool_t gud;
@@ -1153,7 +1162,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	{
 		mk_lang_clobber(&found);
 		err = mk_lib_fast_import_string_rw_clear(timestamp); mk_lang_check_rereturn(err);
-		err = mk_lib_fast_import_string_rw_push_back_copy_many_u8(timestamp, data_buf, found); mk_lang_check_rereturn(err);
+		err = mk_lib_fast_import_string_rw_push_back_copy_many_u8(timestamp, data_buf, ((mk_lang_types_usize_t)(found))); mk_lang_check_rereturn(err);
 		data_buf += found;
 		data_len -= found;
 		data_buf += mk_lang_countof(str_u8_lf);
@@ -1162,6 +1171,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	*success = gud;
 	*consumed = binary_data_len - data_len;
 	return 0;
+#include "mk_lang_warning_clang_pop.h"
 }
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_commit_rw_deserialize_pr_author(mk_lib_fast_import_commit_pt const commit, mk_sl_cui_uint8_pct const binary_data_buf, mk_lang_types_sint_t const binary_data_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
@@ -1248,7 +1258,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	if(gud)
 	{
 		err = mk_lib_fast_import_binary_data_rw_clear(&commit->m_message); mk_lang_check_rereturn(err);
-		err = mk_lib_fast_import_binary_data_rw_push_back_copy_many(&commit->m_message, data_buf, data_len); mk_lang_check_rereturn(err);
+		err = mk_lib_fast_import_binary_data_rw_push_back_copy_many(&commit->m_message, data_buf, ((mk_lang_types_usize_t)(data_len))); mk_lang_check_rereturn(err);
 		err = mk_lib_fast_import_st_fancy_bin(&commit->m_message); mk_lang_check_rereturn(err);
 		data_buf += data_len;
 		data_len -= data_len;
@@ -1392,7 +1402,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 		default: mk_lang_assert_false(); break;
 	}
 	err = mk_lib_fast_import_string_rw_construct(&tree_node->m_name, fi->m_mallocator); mk_lang_check_rereturn(err);
-	err = mk_lib_fast_import_string_rw_push_back_copy_many(&tree_node->m_name, name_buf, name_len); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_string_rw_push_back_copy_many(&tree_node->m_name, name_buf, ((mk_lang_types_usize_t)(name_len))); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_st_fancy_str(&tree_node->m_name); mk_lang_check_rereturn(err);
 	tree_node->m_parent = parent;
 	return 0;
@@ -1424,7 +1434,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	n = count;
 	for(i = 0; i != n; ++i)
 	{
-		child = mk_lib_fast_import_tree_nodes_rw_at(&cr->m_children, i); mk_lang_assert(child);
+		child = mk_lib_fast_import_tree_nodes_rw_at(&cr->m_children, ((mk_lang_types_usize_t)(i))); mk_lang_assert(child);
 		if(!is_last && child->m_type == mk_lib_fast_import_tree_node_id_e_tree && mk_string_compare(&child->m_name, part_buf, part_len))
 		{
 			cr = child->m_val.m_data.m_tree;
@@ -1527,7 +1537,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	n = mk_lib_fast_import_file_ops_ro_sise(file_ops);
 	for(i = 0; i != n; ++i)
 	{
-		file_op = mk_lib_fast_import_file_ops_ro_at(file_ops, i); mk_lang_assert(file_op);
+		file_op = mk_lib_fast_import_file_ops_ro_at(file_ops, ((mk_lang_types_usize_t)(i))); mk_lang_assert(file_op);
 		op_modify = &file_op->m_file_modify;
 		name = 'M';
 		err = mk_lang_stdout_print_n(&name, 1); mk_lang_check_rereturn(err);
@@ -1576,7 +1586,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 			n = mk_lib_fast_import_tree_nodes_ro_sise(&sub_tree->m_children);
 			for(i = 0; i != n; ++i)
 			{
-				sub_node = mk_lib_fast_import_tree_nodes_ro_at(&sub_tree->m_children, i); mk_lang_assert(sub_node);
+				sub_node = mk_lib_fast_import_tree_nodes_ro_at(&sub_tree->m_children, ((mk_lang_types_usize_t)(i))); mk_lang_assert(sub_node);
 				err = mk_lib_fast_import_tree_debug_print_r(fi, sub_node, path, file_ops); mk_lang_check_rereturn(err);
 			}
 			err = mk_lib_fast_import_string_rw_resize_to(path, old_len); mk_lang_check_rereturn(err); err = mk_lib_fast_import_st_fancy_str(path); mk_lang_check_rereturn(err);
@@ -1623,7 +1633,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	n = mk_lib_fast_import_tree_nodes_ro_sise(&tree->m_children);
 	for(i = 0; i != n; ++i)
 	{
-		node = mk_lib_fast_import_tree_nodes_ro_at(&tree->m_children, i); mk_lang_assert(node);
+		node = mk_lib_fast_import_tree_nodes_ro_at(&tree->m_children, ((mk_lang_types_usize_t)(i))); mk_lang_assert(node);
 		err = mk_lib_fast_import_tree_debug_print_r(tree->m_fi, node, &path, &file_ops); mk_lang_check_rereturn(err);
 	}
 	err = mk_lib_fast_import_tree_debug_print_p(&file_ops); mk_lang_check_rereturn(err);
@@ -1679,6 +1689,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_tree_rw_deserialize_pr_file_mode(mk_lib_fast_import_tree_pt const tree, mk_sl_cui_uint8_pct const binary_data_buf, mk_lang_types_sint_t const binary_data_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed, mk_lang_types_pchar_pt file_mode_buf, mk_lang_types_sint_pt const file_mode_len, mk_lib_fast_import_file_mode_pt const file_mode_num) mk_lang_noexcept
 {
+#include "mk_lang_warning_clang_push_conditional_uninitialized.h"
 	mk_sl_cui_uint8_pct data_buf;
 	mk_lang_types_sint_t data_len;
 	mk_lang_types_bool_t gud;
@@ -1714,14 +1725,14 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 		str_len = mk_lang_min(str_len, data_len);
 		str_len = mk_lang_min(str_len, mk_lang_countof(str_buf));
 		str_len = mk_lang_min(str_len, *file_mode_len);
-		mk_sl_cui_uint8_to_bi_pchar_many(data_buf, &str_buf[0], str_len);
+		mk_sl_cui_uint8_to_bi_pchar_many(data_buf, &str_buf[0], ((mk_lang_types_usize_t)(str_len)));
 		len = mk_lib_fast_import_file_mode_from_str_dec_n(file_mode_num, &str_buf[0], str_len); mk_lang_assert(len <= str_len);
 		gud = str_len >= 1;
 	}
 	if(gud)
 	{
 		mk_lang_clobber(&len);
-		mk_lang_string_memcpy_pc_fn(&file_mode_buf[0], &str_buf[0], len);
+		mk_lang_string_memcpy_pc_fn(&file_mode_buf[0], &str_buf[0], ((mk_lang_types_usize_t)(len)));
 		*file_mode_len = len;
 		data_buf += len;
 		data_len -= len;
@@ -1743,10 +1754,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	*success = gud;
 	*consumed = binary_data_len - data_len;
 	return 0;
+#include "mk_lang_warning_clang_pop.h"
 }
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_tree_rw_deserialize_pr_file_name(mk_lib_fast_import_tree_pt const tree, mk_sl_cui_uint8_pct const binary_data_buf, mk_lang_types_sint_t const binary_data_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed, mk_lib_fast_import_string_pt const file_name) mk_lang_noexcept
 {
+#include "mk_lang_warning_clang_push_conditional_uninitialized.h"
 	mk_sl_cui_uint8_pct data_buf;
 	mk_lang_types_sint_t data_len;
 	mk_lang_types_bool_t gud;
@@ -1781,7 +1794,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	{
 		mk_lang_clobber(&found);
 		err = mk_lib_fast_import_string_rw_clear(file_name); mk_lang_check_rereturn(err);
-		err = mk_lib_fast_import_string_rw_push_back_copy_many_u8(file_name, data_buf, found); mk_lang_check_rereturn(err);
+		err = mk_lib_fast_import_string_rw_push_back_copy_many_u8(file_name, data_buf, ((mk_lang_types_usize_t)(found))); mk_lang_check_rereturn(err);
 		data_buf += found;
 		data_len -= found;
 		mk_lang_assert(data_len >= 1 && mk_sl_cui_uint8_eq(&data_buf[0], &nul_u8));
@@ -1791,6 +1804,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	*success = gud;
 	*consumed = binary_data_len - data_len;
 	return 0;
+#include "mk_lang_warning_clang_pop.h"
 }
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_tree_rw_deserialize_pr_file_dgst(mk_lib_fast_import_tree_pt const tree, mk_sl_cui_uint8_pct const binary_data_buf, mk_lang_types_sint_t const binary_data_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed, mk_lib_crypto_hash_stream_sha1_digest_pt const file_digest) mk_lang_noexcept
@@ -2034,7 +2048,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	mk_lang_assert(dir_path);
 	mk_lang_assert(dir_path[0] != '\0');
 
-	err = mk_lib_fast_import_string_rw_push_back_copy_many(&fi->m_output_dir, dir_path, mk_lang_str_len_n(dir_path)); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_string_rw_push_back_copy_many(&fi->m_output_dir, dir_path, ((mk_lang_types_usize_t)(mk_lang_str_len_n(dir_path)))); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -2127,7 +2141,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_save_blob_to_database(mk_lib_fast_import_pt const fi, mk_lib_fast_import_blob_pct const blob) mk_lang_noexcept
 {
 	mk_lang_types_pchar_t tpc;
-	mk_lang_types_pchar_t str[mk_lib_crypto_hash_stream_sha1_digest_len_v * mk_sl_cui_uint8_strlen_hex_v];
+	mk_lang_types_pchar_t str[((mk_lang_types_sint_t)(mk_lib_crypto_hash_stream_sha1_digest_len_v)) * ((mk_lang_types_sint_t)(mk_sl_cui_uint8_strlen_hex_v))];
 	mk_lang_types_usize_t old_len;
 	mk_lang_types_sint_t err;
 	mk_lang_types_sint_t len;
@@ -2221,7 +2235,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	do
 	{
 		mk_lib_compress_zlib_append(zlib, in_buf, in_len, out_buf, out_len, &in_c, &out_c);
-		err = mk_lib_fast_import_binary_data_rw_push_back_copy_many(bytes, out_buf, out_c); mk_lang_check_rereturn(err);
+		err = mk_lib_fast_import_binary_data_rw_push_back_copy_many(bytes, out_buf, ((mk_lang_types_usize_t)(out_c))); mk_lang_check_rereturn(err);
 		in_buf += in_c;
 		in_len -= in_c;
 	}while(in_len != 0);
@@ -2243,7 +2257,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	{
 		mk_lang_check_todo();
 	}
-	mk_sl_cui_uint8_from_bi_pchar_many(&u8s[0], buf, len);
+	mk_sl_cui_uint8_from_bi_pchar_many(&u8s[0], buf, ((mk_lang_types_usize_t)(len)));
 	err = mk_lib_fast_import_pr_tree_append_u8s(fi, zlib, bytes, &u8s[0], len); mk_lang_check_rereturn(err);
 	return 0;
 }
@@ -2265,7 +2279,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	do
 	{
 		mk_lib_compress_zlib_finish(zlib, out_buf, out_len, &out_c);
-		err = mk_lib_fast_import_binary_data_rw_push_back_copy_many(bytes, out_buf, out_c); mk_lang_check_rereturn(err);
+		err = mk_lib_fast_import_binary_data_rw_push_back_copy_many(bytes, out_buf, ((mk_lang_types_usize_t)(out_c))); mk_lang_check_rereturn(err);
 	}while(out_c != 0);
 	return 0;
 }
@@ -2283,7 +2297,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	mk_lang_assert(file_op);
 
 	slen = mk_sl_cui_uint32_to_str_dec_n(&file_op->m_file_modify.m_mode, &str[0], mk_lang_countof(str)); mk_lang_assert(slen >= 1); mk_lang_assert(slen <= mk_lang_countof(str));
-	mk_sl_cui_uint8_from_bi_pchar_many(&u8s[0], &str[0], slen);
+	mk_sl_cui_uint8_from_bi_pchar_many(&u8s[0], &str[0], ((mk_lang_types_usize_t)(slen)));
 	err = mk_lib_fast_import_pr_tree_append_u8s(fi, zlib, bytes, &u8s[0], slen); mk_lang_check_rereturn(err);
 	return 0;
 }
@@ -2349,7 +2363,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 {
 	mk_lib_fast_import_mark_to_commit_t element;
 	mk_lang_types_sint_t err;
-	mk_lib_fast_import_map_mark_to_commit_node_pct node;
+	mk_lib_fast_import_map_mark_to_commit_node_pt node;
 
 	mk_lang_assert(fi);
 	mk_lang_assert(did);
@@ -2426,7 +2440,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	size += 1; /* nul */
 	size += ulen;
 	size += 4; /* zlib footer */
-	err = mk_lib_fast_import_binary_data_rw_reserve_at_least(bytes, size); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_binary_data_rw_reserve_at_least(bytes, ((mk_lang_types_usize_t)(size))); mk_lang_check_rereturn(err);
 	mk_lib_compress_zlib_init(&zlib);
 	err = mk_lib_fast_import_pr_tree_append_pchars(fi, &zlib, bytes, &mk_lib_fast_import_k_tree_sp[0], mk_lang_countstr(mk_lib_fast_import_k_tree_sp)); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_pr_tree_append_pchars(fi, &zlib, bytes, &str[0], slen); mk_lang_check_rereturn(err);
@@ -2447,7 +2461,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 
 	mk_lang_assert(blob);
 
-	err = mk_lib_fast_import_mallocator_lokal_deallocate(blob->m_fi->m_mallocator, blob->m_binary_buf, blob->m_binary_len); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_mallocator_lokal_deallocate(blob->m_fi->m_mallocator, blob->m_binary_buf, ((mk_lang_types_usize_t)(blob->m_binary_len))); mk_lang_check_rereturn(err);
 	blob->m_binary_buf = mk_lang_null;
 	blob->m_binary_len = 0;
 	return 0;
@@ -2472,7 +2486,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	b = mk_lang_false;
 	if(l >= str_len)
 	{
-		b = mk_sl_cui_uint8_eq_pchar_many(&d[0], &str_buf[0], str_len);
+		b = mk_sl_cui_uint8_eq_pchar_many(&d[0], &str_buf[0], ((mk_lang_types_usize_t)(str_len)));
 	}
 	if(b)
 	{
@@ -2510,7 +2524,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	n = mk_lang_min(l, mk_lang_countof(str));
 	if(n >= 1)
 	{
-		mk_sl_cui_uint8_to_bi_pchar_many(&d[0], &str[0], n);
+		mk_sl_cui_uint8_to_bi_pchar_many(&d[0], &str[0], ((mk_lang_types_usize_t)(n)));
 		len = mk_lib_fast_import_mark_from_str_dec_n(number, &str[0], n); mk_lang_assert(len <= n);
 		if(len >= 1)
 		{
@@ -2550,7 +2564,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	n = mk_lang_min(l, mk_lang_countof(str));
 	if(n != 0)
 	{
-		mk_sl_cui_uint8_to_bi_pchar_many(&d[0], &str[0], n);
+		mk_sl_cui_uint8_to_bi_pchar_many(&d[0], &str[0], ((mk_lang_types_usize_t)(n)));
 		len = mk_sl_cui_uint32_from_str_dec_n(u32, &str[0], n); mk_lang_assert(len <= n);
 		if(len >= 1)
 		{
@@ -2590,7 +2604,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	n = mk_lang_min(l, mk_lang_countof(str));
 	if(n != 0)
 	{
-		mk_sl_cui_uint8_to_bi_pchar_many(&d[0], &str[0], n);
+		mk_sl_cui_uint8_to_bi_pchar_many(&d[0], &str[0], ((mk_lang_types_usize_t)(n)));
 		len = mk_lib_fast_import_mark_from_str_dec_n(u128, &str[0], n); mk_lang_assert(len <= n);
 		if(len >= 1)
 		{
@@ -2642,7 +2656,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 		str_buf = ((mk_lang_types_pchar_pct)(&d[0]));
 		str_len = i;
 		err = mk_lib_fast_import_string_rw_clear(string); mk_lang_check_rereturn(err);
-		err = mk_lib_fast_import_string_rw_push_back_copy_many(string, str_buf, str_len); mk_lang_check_rereturn(err);
+		err = mk_lib_fast_import_string_rw_push_back_copy_many(string, str_buf, ((mk_lang_types_usize_t)(str_len))); mk_lang_check_rereturn(err);
 		err = mk_lib_fast_import_st_fancy_str(string); mk_lang_check_rereturn(err);
 		d += str_len + mk_lang_countstr(mk_lib_fast_import_k_splt);
 		l -= str_len + mk_lang_countstr(mk_lib_fast_import_k_splt);
@@ -2690,7 +2704,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 		str_buf = ((mk_lang_types_pchar_pct)(&d[0]));
 		str_len = i;
 		err = mk_lib_fast_import_string_rw_clear(string); mk_lang_check_rereturn(err);
-		err = mk_lib_fast_import_string_rw_push_back_copy_many(string, str_buf, str_len); mk_lang_check_rereturn(err);
+		err = mk_lib_fast_import_string_rw_push_back_copy_many(string, str_buf, ((mk_lang_types_usize_t)(str_len))); mk_lang_check_rereturn(err);
 		err = mk_lib_fast_import_st_fancy_str(string); mk_lang_check_rereturn(err);
 		d += str_len + mk_lang_countstr(mk_lib_fast_import_k_gtsp);
 		l -= str_len + mk_lang_countstr(mk_lib_fast_import_k_gtsp);
@@ -2738,7 +2752,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 		str_buf = ((mk_lang_types_pchar_pct)(&d[0]));
 		str_len = i;
 		err = mk_lib_fast_import_string_rw_clear(string); mk_lang_check_rereturn(err);
-		err = mk_lib_fast_import_string_rw_push_back_copy_many(string, str_buf, str_len); mk_lang_check_rereturn(err);
+		err = mk_lib_fast_import_string_rw_push_back_copy_many(string, str_buf, ((mk_lang_types_usize_t)(str_len))); mk_lang_check_rereturn(err);
 		err = mk_lib_fast_import_st_fancy_str(string); mk_lang_check_rereturn(err);
 		d += str_len + mk_lang_countstr(mk_lib_fast_import_k_lf);
 		l -= str_len + mk_lang_countstr(mk_lib_fast_import_k_lf);
@@ -3209,7 +3223,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 		str_buf = ((mk_lang_types_pchar_pct)(&d[0]));
 		str_len = i;
 		err = mk_lib_fast_import_string_rw_clear(ref); mk_lang_check_rereturn(err);
-		err = mk_lib_fast_import_string_rw_push_back_copy_many(ref, str_buf, str_len); mk_lang_check_rereturn(err);
+		err = mk_lib_fast_import_string_rw_push_back_copy_many(ref, str_buf, ((mk_lang_types_usize_t)(str_len))); mk_lang_check_rereturn(err);
 		err = mk_lib_fast_import_st_fancy_str(ref); mk_lang_check_rereturn(err);
 		d += str_len + 1;
 		l -= str_len + 1;
@@ -3364,7 +3378,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	{
 		if(fi->m_len != 0)
 		{
-			mk_sl_cui_uint8_memmov_fn(&fi->m_buffered_reader.m_data_buf[0], fi->m_buf, fi->m_len);
+			mk_sl_cui_uint8_memmov_fn(&fi->m_buffered_reader.m_data_buf[0], fi->m_buf, ((mk_lang_types_usize_t)(fi->m_len)));
 		}
 		rem = mk_lang_countof(fi->m_buffered_reader.m_data_buf) - fi->m_len;
 		err = mk_sl_io_reader_file_read(&fi->m_buffered_reader.m_reader, &fi->m_buffered_reader.m_data_buf[fi->m_len], rem, &fi->m_buffered_reader.m_data_len); mk_lang_check_rereturn(err);
@@ -3389,20 +3403,20 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	err = mk_lib_fast_import_binary_data_rw_clear(binary_data); mk_lang_check_rereturn(err);
 	if(binary_len != 0)
 	{
-		err = mk_lib_fast_import_binary_data_rw_reserve_at_least(binary_data, binary_len); mk_lang_check_rereturn(err);
+		err = mk_lib_fast_import_binary_data_rw_reserve_at_least(binary_data, ((mk_lang_types_usize_t)(binary_len))); mk_lang_check_rereturn(err);
 		bin_buf = mk_lib_fast_import_binary_data_rw_data(binary_data); mk_lang_assert(bin_buf);
 		bin_len = binary_len;
 		do
 		{
 			to_copy = mk_lang_min(bin_len, fi->m_len);
-			mk_sl_cui_uint8_memcpy_fn(bin_buf, fi->m_buf, to_copy);
+			mk_sl_cui_uint8_memcpy_fn(bin_buf, fi->m_buf, ((mk_lang_types_usize_t)(to_copy)));
 			fi->m_buf += to_copy;
 			fi->m_len -= to_copy;
 			bin_buf += to_copy;
 			bin_len -= to_copy;
 			err = mk_lib_fast_import_pr_reread(fi); mk_lang_check_rereturn(err);
 		}while(bin_len != 0);
-		err = mk_lib_fast_import_binary_data_rw_resize_to(binary_data, binary_len); mk_lang_check_rereturn(err);
+		err = mk_lib_fast_import_binary_data_rw_resize_to(binary_data, ((mk_lang_types_usize_t)(binary_len))); mk_lang_check_rereturn(err);
 		err = mk_lib_fast_import_st_fancy_bin(binary_data); mk_lang_check_rereturn(err);
 	}
 	return 0;
@@ -3410,6 +3424,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_do_data_with_binary_data(mk_lib_fast_import_pt const fi, mk_lang_types_bool_pt const did, mk_lib_fast_import_binary_data_pt const binary_data) mk_lang_noexcept
 {
+#include "mk_lang_warning_clang_push_conditional_uninitialized.h"
 	mk_sl_cui_uint8_pt d;
 	mk_lang_types_sint_t l;
 	mk_lang_types_bool_t b;
@@ -3432,6 +3447,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	if(b){ err = mk_lib_fast_import_st_do_binary_suffix(&fi->m_buf, &fi->m_len, &b); mk_lang_check_rereturn(err); }
 	*did = b;
 	return 0;
+#include "mk_lang_warning_clang_pop.h"
 }
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_do_file_op_modify(mk_lib_fast_import_pt const fi, mk_lang_types_bool_pt const did, mk_lib_fast_import_file_modify_pt const file_op_modify) mk_lang_noexcept
@@ -3556,7 +3572,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	mk_lang_assert(fi->m_mallocator);
 	mk_lang_assert(blob);
 
-	err = mk_lib_fast_import_mallocator_lokal_allocate(fi->m_mallocator, blob->m_binary_len, &tvp); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_mallocator_lokal_allocate(fi->m_mallocator, ((mk_lang_types_usize_t)(blob->m_binary_len)), &tvp); mk_lang_check_rereturn(err);
 	mk_lang_check_return(tvp);
 	blob->m_binary_buf = ((mk_sl_cui_uint8_pt)(tvp));
 	binary_buf = blob->m_binary_buf;
@@ -3564,7 +3580,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	do
 	{
 		to_copy = mk_lang_min(binary_len, fi->m_len);
-		mk_sl_cui_uint8_memcpy_fn(binary_buf, fi->m_buf, to_copy);
+		mk_sl_cui_uint8_memcpy_fn(binary_buf, fi->m_buf, ((mk_lang_types_usize_t)(to_copy)));
 		fi->m_buf += to_copy;
 		fi->m_len -= to_copy;
 		binary_buf += to_copy;
@@ -3583,7 +3599,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	mk_lang_assert(digest);
 
 	mk_lib_crypto_hash_stream_sha1_init(&hasher);
-	mk_lib_crypto_hash_stream_sha1_append_u8s(&hasher, data_buf, data_len);
+	mk_lib_crypto_hash_stream_sha1_append_u8s(&hasher, data_buf, ((mk_lang_types_usize_t)(data_len)));
 	mk_lib_crypto_hash_stream_sha1_finish(&hasher, digest);
 	return 0;
 }
@@ -3608,8 +3624,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	mk_sl_cui_uint8_from_bi_pchar_many(&str_u8[0], &str_pc[0], mk_lang_bui_uint_strlen_dec_v);
 	mk_lib_crypto_hash_stream_sha1_init(&hasher);
 	mk_lib_crypto_hash_stream_sha1_append_u8s(&hasher, &prefix[0], mk_lang_countof(prefix));
-	mk_lib_crypto_hash_stream_sha1_append_u8s(&hasher, &str_u8[0], len);
-	mk_lib_crypto_hash_stream_sha1_append_u8s(&hasher, blob->m_binary_buf, blob->m_binary_len);
+	mk_lib_crypto_hash_stream_sha1_append_u8s(&hasher, &str_u8[0], ((mk_lang_types_usize_t)(len)));
+	mk_lib_crypto_hash_stream_sha1_append_u8s(&hasher, blob->m_binary_buf, ((mk_lang_types_usize_t)(blob->m_binary_len)));
 	mk_lib_crypto_hash_stream_sha1_append_u8s(&hasher, &zero, 1);
 	mk_lib_crypto_hash_stream_sha1_finish(&hasher, &blob->m_digest);
 	return 0;
@@ -3622,7 +3638,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	mk_lang_types_bool_t b;
 	mk_lang_types_sint_t err;
 	mk_lib_fast_import_blob_t blob;
-	mk_lib_fast_import_tree_by_mark_node_pct node;
+	mk_lib_fast_import_tree_by_mark_node_pt node;
 
 	mk_lang_assert(fi);
 	mk_lang_assert(fi->m_mallocator);
@@ -3673,7 +3689,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	len = mk_sl_cui_uint8_to_str_hexf_many_n(&digest->m_data.m_uint8s[1], mk_lang_countof(digest->m_data.m_uint8s) - 1, &str_digest[ptr], mk_lang_countof(str_digest) - ptr); mk_lang_assert(len == (mk_lib_crypto_hash_stream_sha1_digest_len_v - 1) * mk_sl_cui_uint8_strlen_hex_v); ptr += len;
 	str_digest[ptr] = nul; ++ptr;
 	*old_len = mk_lib_fast_import_string_ro_size(&fi->m_output_dir);
-	err = mk_lib_fast_import_string_rw_push_back_copy_many(&fi->m_output_dir, &str_digest[0], ptr); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_string_rw_push_back_copy_many(&fi->m_output_dir, &str_digest[0], ((mk_lang_types_usize_t)(ptr))); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -3708,7 +3724,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	do
 	{
 		err = mk_sl_io_reader_file_read(&reader, &file_buf[0], mk_lang_countof(file_buf), &read); mk_lang_check_rereturn(err);
-		err = mk_lib_fast_import_binary_data_rw_push_back_copy_many(bin_data, &file_buf[0], read); mk_lang_check_rereturn(err);
+		err = mk_lib_fast_import_binary_data_rw_push_back_copy_many(bin_data, &file_buf[0], ((mk_lang_types_usize_t)(read))); mk_lang_check_rereturn(err);
 	}while(read != 0);
 	err = mk_sl_io_reader_file_close(&reader);
 	return 0;
@@ -3740,7 +3756,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 		mk_lang_assert(outc <= mk_lang_countof(inflated));
 		deflated_buf += inc;
 		deflated_len -= inc;
-		err = mk_lib_fast_import_binary_data_rw_push_back_copy_many(decompressed, &inflated[0], outc); mk_lang_check_rereturn(err);
+		err = mk_lib_fast_import_binary_data_rw_push_back_copy_many(decompressed, &inflated[0], ((mk_lang_types_usize_t)(outc))); mk_lang_check_rereturn(err);
 	}while(deflated_len != 0);
 	return 0;
 }
@@ -3775,7 +3791,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	mk_lang_types_usize_t n;
 	mk_lang_types_usize_t i;
 	mk_lib_fast_import_tree_node_pct child;
-	mk_lib_fast_import_tree_pct sub_tree;
+	mk_lib_fast_import_tree_pt sub_tree;
 	mk_lang_types_sint_t err;
 
 	mk_lang_assert(fi);
@@ -3804,8 +3820,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	mk_lang_types_usize_t old_len;
 	mk_lang_types_sint_t err;
 	mk_lang_types_usize_t i;
-	mk_lib_fast_import_tree_ppct ta;
-	mk_lib_fast_import_tree_pct tb;
+	mk_lib_fast_import_tree_ppt ta;
+	mk_lib_fast_import_tree_pt tb;
 
 	mk_lang_assert(fi);
 	mk_lang_assert(tree);
@@ -3882,7 +3898,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	mk_lang_types_usize_t n;
 	mk_lang_types_usize_t i;
 	mk_lib_fast_import_tree_node_pct child;
-	mk_lib_fast_import_tree_pct sub_tree;
+	mk_lib_fast_import_tree_pt sub_tree;
 	mk_lang_types_sint_t err;
 
 	mk_lang_assert(fi);
@@ -3967,7 +3983,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	mk_lang_types_bool_t gud;
 	mk_lib_fast_import_mark_to_commit_t mark_to_commit_a;
 	mk_lang_types_sint_t err;
-	mk_lib_fast_import_map_mark_to_commit_node_pct node;
+	mk_lib_fast_import_map_mark_to_commit_node_pt node;
 	mk_lib_fast_import_mark_to_commit_pct mark_to_commit_b;
 	mk_lib_fast_import_commit_t parent_commit;
 
@@ -4075,8 +4091,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	do
 	{
 		mk_lib_compress_zlib_append(&zlib_and_digest->m_zlib, in_buf, in_len, out_buf, out_len, &in_c, &out_c);
-		err = mk_lib_fast_import_binary_data_rw_push_back_copy_many(zlib_and_digest->m_bytes, out_buf, out_c); mk_lang_check_rereturn(err);
-		mk_lib_crypto_hash_stream_sha1_append_u8s(&zlib_and_digest->m_hasher, in_buf, in_c);
+		err = mk_lib_fast_import_binary_data_rw_push_back_copy_many(zlib_and_digest->m_bytes, out_buf, ((mk_lang_types_usize_t)(out_c))); mk_lang_check_rereturn(err);
+		mk_lib_crypto_hash_stream_sha1_append_u8s(&zlib_and_digest->m_hasher, in_buf, ((mk_lang_types_usize_t)(in_c)));
 		in_buf += in_c;
 		in_len -= in_c;
 	}while(in_len != 0);
@@ -4096,7 +4112,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	{
 		mk_lang_check_todo();
 	}
-	mk_sl_cui_uint8_from_bi_pchar_many(&u8s[0], buf, len);
+	mk_sl_cui_uint8_from_bi_pchar_many(&u8s[0], buf, ((mk_lang_types_usize_t)(len)));
 	err = mk_lib_fast_import_zlib_and_digest_append_u8s(zlib_and_digest, &u8s[0], len); mk_lang_check_rereturn(err);
 	return 0;
 }
@@ -4116,7 +4132,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	do
 	{
 		mk_lib_compress_zlib_finish(&zlib_and_digest->m_zlib, out_buf, out_len, &out_c);
-		err = mk_lib_fast_import_binary_data_rw_push_back_copy_many(zlib_and_digest->m_bytes, out_buf, out_c); mk_lang_check_rereturn(err);
+		err = mk_lib_fast_import_binary_data_rw_push_back_copy_many(zlib_and_digest->m_bytes, out_buf, ((mk_lang_types_usize_t)(out_c))); mk_lang_check_rereturn(err);
 	}while(out_c != 0);
 	mk_lib_crypto_hash_stream_sha1_finish(&zlib_and_digest->m_hasher, zlib_and_digest->m_digest);
 	return 0;
@@ -4160,7 +4176,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_tree_write_to_database_1(mk_lib_fast_import_pt const fi, mk_lib_fast_import_tree_pt const tree) mk_lang_noexcept
 {
 	mk_lang_types_pchar_t tpc;
-	mk_lang_types_pchar_t str[mk_lib_crypto_hash_stream_sha1_digest_len_v * mk_sl_cui_uint8_strlen_hex_v];
+	mk_lang_types_pchar_t str[((mk_lang_types_sint_t)(mk_lib_crypto_hash_stream_sha1_digest_len_v)) * ((mk_lang_types_sint_t)(mk_sl_cui_uint8_strlen_hex_v))];
 	mk_lang_types_usize_t old_len;
 	mk_lang_types_sint_t err;
 	mk_lang_types_sint_t len;
@@ -4227,7 +4243,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	n = sise;
 	for(i = 0; i != n; ++i)
 	{
-		child = mk_lib_fast_import_tree_nodes_rw_at(&tree->m_children, i); mk_lang_assert(child);
+		child = mk_lib_fast_import_tree_nodes_rw_at(&tree->m_children, ((mk_lang_types_usize_t)(i))); mk_lang_assert(child);
 		if(child->m_type == mk_lib_fast_import_tree_node_id_e_tree)
 		{
 			sub_tree = child->m_val.m_data.m_tree; mk_lang_assert(sub_tree);
@@ -4266,7 +4282,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	err = mk_lib_fast_import_zlib_and_digest_append_pchars(&zlib_and_digest, &nul, 1); mk_lang_check_rereturn(err);
 	for(i = 0; i != n; ++i)
 	{
-		child = mk_lib_fast_import_tree_nodes_rw_at(&tree->m_children, i); mk_lang_assert(child);
+		child = mk_lib_fast_import_tree_nodes_rw_at(&tree->m_children, ((mk_lang_types_usize_t)(i))); mk_lang_assert(child);
 		if(child->m_type == mk_lib_fast_import_tree_node_id_e_tree)
 		{
 			sub_tree = child->m_val.m_data.m_tree;
@@ -4319,12 +4335,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 
 	acc = 0;
 	acc += mk_lang_countstr(mk_lib_fast_import_k_tree_sp);
-	acc += mk_lib_crypto_hash_stream_sha1_digest_len_v * mk_sl_cui_uint8_strlen_hex_v;
+	acc += ((mk_lang_types_sint_t)(mk_lib_crypto_hash_stream_sha1_digest_len_v)) * ((mk_lang_types_sint_t)(mk_sl_cui_uint8_strlen_hex_v));
 	acc += 1; /* lf */
 	if(commit->m_has_from_mark_ref)
 	{
 		acc += mk_lang_countstr(mk_lib_fast_import_k_parent_sp);
-		acc += mk_lib_crypto_hash_stream_sha1_digest_len_v * mk_sl_cui_uint8_strlen_hex_v;
+		acc += ((mk_lang_types_sint_t)(mk_lib_crypto_hash_stream_sha1_digest_len_v)) * ((mk_lang_types_sint_t)(mk_sl_cui_uint8_strlen_hex_v));
 		acc += 1; /* lf */
 	}
 	acc += mk_lang_countstr(mk_lib_fast_import_k_author_sp);
@@ -4369,7 +4385,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_write_object_to_database(mk_lib_fast_import_pt const fi, mk_lib_crypto_hash_stream_sha1_digest_pct const digest, mk_lib_fast_import_binary_data_pct const data) mk_lang_noexcept
 {
 	mk_lang_types_pchar_t tpc;
-	mk_lang_types_pchar_t str[mk_lib_crypto_hash_stream_sha1_digest_len_v * mk_sl_cui_uint8_strlen_hex_v];
+	mk_lang_types_pchar_t str[((mk_lang_types_sint_t)(mk_lib_crypto_hash_stream_sha1_digest_len_v)) * ((mk_lang_types_sint_t)(mk_sl_cui_uint8_strlen_hex_v))];
 	mk_lang_types_usize_t old_len;
 	mk_lang_types_sint_t err;
 	mk_lang_types_sint_t len;
@@ -4420,12 +4436,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	mk_lang_types_pchar_t nul;
 	mk_lang_types_pchar_t lf;
 	mk_lib_fast_import_zlib_and_digest_t zlib_and_digest;
-	mk_lang_types_pchar_t digest_str_buf[mk_lib_crypto_hash_stream_sha1_digest_len_v * mk_sl_cui_uint8_strlen_hex_v];
+	mk_lang_types_pchar_t digest_str_buf[((mk_lang_types_sint_t)(mk_lib_crypto_hash_stream_sha1_digest_len_v)) * ((mk_lang_types_sint_t)(mk_sl_cui_uint8_strlen_hex_v))];
 	mk_lang_types_sint_t digest_str_len;
 	mk_lib_fast_import_mark_to_commit_t mark_to_commit_a;
-	mk_lib_fast_import_map_mark_to_commit_node_pct node;
+	mk_lib_fast_import_map_mark_to_commit_node_pt node;
 	mk_lib_fast_import_mark_to_commit_pct mark_to_commit_b;
-	mk_lang_types_pchar_t parent_str_buf[mk_lib_crypto_hash_stream_sha1_digest_len_v * mk_sl_cui_uint8_strlen_hex_v];
+	mk_lang_types_pchar_t parent_str_buf[((mk_lang_types_sint_t)(mk_lib_crypto_hash_stream_sha1_digest_len_v)) * ((mk_lang_types_sint_t)(mk_sl_cui_uint8_strlen_hex_v))];
 	mk_lang_types_sint_t parent_str_len;
 
 	mk_lang_assert(fi);
@@ -4437,7 +4453,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	str_len = mk_sl_cui_uint32_to_str_dec_n(&tu32, &str_buf[0], mk_lang_countof(str_buf));
 	nul = '\0';
 	lf = '\x0a';
-	digest_str_len = mk_sl_cui_uint8_to_str_hexf_many_n(&tree->m_digest_value.m_data.m_uint8s[0], mk_lib_crypto_hash_stream_sha1_digest_len_v, &digest_str_buf[0], mk_lang_countof(digest_str_buf)); mk_lang_assert(digest_str_len == mk_lib_crypto_hash_stream_sha1_digest_len_v * mk_sl_cui_uint8_strlen_hex_v);
+	digest_str_len = mk_sl_cui_uint8_to_str_hexf_many_n(&tree->m_digest_value.m_data.m_uint8s[0], mk_lib_crypto_hash_stream_sha1_digest_len_v, &digest_str_buf[0], mk_lang_countof(digest_str_buf)); mk_lang_assert(digest_str_len == ((mk_lang_types_sint_t)(mk_lib_crypto_hash_stream_sha1_digest_len_v)) * ((mk_lang_types_sint_t)(mk_sl_cui_uint8_strlen_hex_v)));
 	err = mk_lib_fast_import_zlib_and_digest_init(&zlib_and_digest, fi, &commit->m_data, &commit->m_digest); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_zlib_and_digest_append_pchars(&zlib_and_digest, &mk_lib_fast_import_k_commitsp[0], mk_lang_countstr(mk_lib_fast_import_k_commitsp)); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_zlib_and_digest_append_pchars(&zlib_and_digest, &str_buf[0], str_len); mk_lang_check_rereturn(err);
@@ -4450,7 +4466,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 		mark_to_commit_a.m_mark = commit->m_from_mark_ref;
 		err = mk_lib_fast_import_map_mark_to_commit_ro_find_node(&fi->m_commits, &mark_to_commit_a, &node); mk_lang_check_rereturn(err); mk_lang_check_return(node);
 		err = mk_lib_fast_import_map_mark_to_commit_ro_node_get_element(node, &mark_to_commit_b); mk_lang_check_rereturn(err); mk_lang_check_return(mark_to_commit_b);
-		parent_str_len = mk_sl_cui_uint8_to_str_hexf_many_n(&mark_to_commit_b->m_digest.m_data.m_uint8s[0], mk_lib_crypto_hash_stream_sha1_digest_len_v, &parent_str_buf[0], mk_lang_countof(parent_str_buf)); mk_lang_assert(parent_str_len == mk_lib_crypto_hash_stream_sha1_digest_len_v * mk_sl_cui_uint8_strlen_hex_v);
+		parent_str_len = mk_sl_cui_uint8_to_str_hexf_many_n(&mark_to_commit_b->m_digest.m_data.m_uint8s[0], mk_lib_crypto_hash_stream_sha1_digest_len_v, &parent_str_buf[0], mk_lang_countof(parent_str_buf)); mk_lang_assert(parent_str_len == ((mk_lang_types_sint_t)(mk_lib_crypto_hash_stream_sha1_digest_len_v)) * ((mk_lang_types_sint_t)(mk_sl_cui_uint8_strlen_hex_v)));
 		err = mk_lib_fast_import_zlib_and_digest_append_pchars(&zlib_and_digest, &mk_lib_fast_import_k_parent_sp[0], mk_lang_countstr(mk_lib_fast_import_k_parent_sp)); mk_lang_check_rereturn(err);
 		err = mk_lib_fast_import_zlib_and_digest_append_pchars(&zlib_and_digest, &parent_str_buf[0], parent_str_len); mk_lang_check_rereturn(err);
 		err = mk_lib_fast_import_zlib_and_digest_append_pchars(&zlib_and_digest, &lf, 1); mk_lang_check_rereturn(err);
@@ -4504,14 +4520,14 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_bool_t mk_string_starts_wi
 	a_buf = mk_lib_fast_import_string_ro_data(a_str); mk_lang_assert(a_buf);
 	a_len = mk_lib_fast_import_string_ro_sise(a_str); mk_lang_assert(a_len >= 1);
 	cmp = a_len >= b_len;
-	cmp = cmp && mk_lang_string_memcmp_pc_fn(a_buf, b_buf, b_len) == 0;
+	cmp = cmp && mk_lang_string_memcmp_pc_fn(a_buf, b_buf, ((mk_lang_types_usize_t)(b_len))) == 0;
 	return cmp;
 }
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_update_branch(mk_lib_fast_import_pt const fi, mk_lib_fast_import_commit_pct const commit) mk_lang_noexcept
 {
-	mk_lang_types_pchar_t str_buf[mk_lib_crypto_hash_stream_sha1_digest_len_v * mk_sl_cui_uint8_strlen_hex_v];
-	mk_sl_cui_uint8_t data_buf[mk_lib_crypto_hash_stream_sha1_digest_len_v * mk_sl_cui_uint8_strlen_hex_v];
+	mk_lang_types_pchar_t str_buf[((mk_lang_types_sint_t)(mk_lib_crypto_hash_stream_sha1_digest_len_v)) * ((mk_lang_types_sint_t)(mk_sl_cui_uint8_strlen_hex_v))];
+	mk_sl_cui_uint8_t data_buf[((mk_lang_types_sint_t)(mk_lib_crypto_hash_stream_sha1_digest_len_v)) * ((mk_lang_types_sint_t)(mk_sl_cui_uint8_strlen_hex_v))];
 	mk_lang_types_pchar_t tpc;
 	mk_lang_types_sint_t err;
 	mk_lang_types_sint_t str_len;
@@ -4528,13 +4544,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	tpc = '\\'; err = mk_lib_fast_import_string_rw_push_back_copy_single(&fi->m_output_dir, &tpc); mk_lang_check_rereturn(err);
 	err = mk_lib_fast_import_string_rw_push_back_copy_many(&fi->m_output_dir, &mk_lib_fast_import_k_dot_git[0], mk_lang_countstr(mk_lib_fast_import_k_dot_git)); mk_lang_check_rereturn(err);
 	tpc = '\\'; err = mk_lib_fast_import_string_rw_push_back_copy_single(&fi->m_output_dir, &tpc); mk_lang_check_rereturn(err);
-	err = mk_lib_fast_import_string_rw_push_back_copy_many(&fi->m_output_dir, mk_lib_fast_import_string_ro_data(&commit->m_ref), mk_lib_fast_import_string_ro_sise(&commit->m_ref)); mk_lang_check_rereturn(err);
+	err = mk_lib_fast_import_string_rw_push_back_copy_many(&fi->m_output_dir, mk_lib_fast_import_string_ro_data(&commit->m_ref), mk_lib_fast_import_string_ro_size(&commit->m_ref)); mk_lang_check_rereturn(err);
 	tpc = '\0'; err = mk_lib_fast_import_string_rw_push_back_copy_single(&fi->m_output_dir, &tpc); mk_lang_check_rereturn(err);
 
 	err = mk_sl_io_writer_file_open_n(&writer, mk_lib_fast_import_string_ro_data(&fi->m_output_dir)); mk_lang_check_rereturn(err);
 
 	str_len = mk_sl_cui_uint8_to_str_hexf_many_n(&commit->m_digest.m_data.m_uint8s[0], mk_lib_crypto_hash_stream_sha1_digest_len_v, &str_buf[0], mk_lang_countof(str_buf));
-	mk_sl_cui_uint8_from_bi_pchar_many(&data_buf[0], &str_buf[0], str_len);
+	mk_sl_cui_uint8_from_bi_pchar_many(&data_buf[0], &str_buf[0], ((mk_lang_types_usize_t)(str_len)));
 	err = mk_sl_io_writer_file_write(&writer, data_buf, str_len, &w); mk_lang_check_rereturn(err); mk_lang_check_return(w == str_len);
 
 	err = mk_sl_io_writer_file_close(&writer); mk_lang_check_rereturn(err);
@@ -4564,6 +4580,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_merge_blob(mk_lib_fast_import_pt const fi, mk_lib_fast_import_tree_pt const merged_tree, mk_lib_fast_import_tree_node_pct const child) mk_lang_noexcept
 {
+#include "mk_lang_warning_clang_push_conditional_uninitialized.h"
 	mk_lang_types_usize_t n;
 	mk_lang_types_usize_t i;
 	mk_lib_fast_import_tree_node_pt node;
@@ -4606,6 +4623,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_
 	{
 	}
 	return 0;
+#include "mk_lang_warning_clang_pop.h"
 }
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_fast_import_pr_merge_child(mk_lib_fast_import_pt const fi, mk_lib_fast_import_tree_pt const merged_tree, mk_lib_fast_import_tree_node_pct const child) mk_lang_noexcept
