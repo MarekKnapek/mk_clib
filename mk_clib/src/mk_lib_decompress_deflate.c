@@ -55,7 +55,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	{
 		to_copy = mk_lang_countof(deflate->m_block_header_buf) - deflate->m_block_header_idx;
 		to_copy = mk_lang_min(to_copy, in_len);
-		mk_sl_cui_uint8_memcpy_fn(&deflate->m_block_header_buf[deflate->m_block_header_idx], in_buf, to_copy);
+		mk_sl_cui_uint8_memcpy_fn(&deflate->m_block_header_buf[deflate->m_block_header_idx], in_buf, ((mk_lang_types_usize_t)(to_copy)));
 		deflate->m_block_header_idx += to_copy;
 		in_c += to_copy;
 	}
@@ -77,6 +77,8 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	mk_sl_cui_uint16_t len mk_lang_constexpr_init;
 	mk_sl_cui_uint16_t nlen mk_lang_constexpr_init;
 	mk_sl_cui_uint16_t tu16 mk_lang_constexpr_init;
+
+	mk_lang_static_assert(sizeof(deflate->m_uncompressed_data_len) > mk_sl_cui_uint16_size_bytes_v);
 
 	mk_lang_assert(deflate);
 	mk_lang_assert(data_in_buf || data_in_len == 0);
@@ -118,7 +120,6 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 		mk_sl_uint_convert_16_8_le_to_big(&nlen, &deflate->m_block_header_buf[byte_ptr]); byte_ptr += mk_sl_cui_uint16_size_bytes_v;
 		mk_sl_cui_uint16_not2(&len, &tu16);
 		mk_lang_check_return(mk_sl_cui_uint16_eq(&nlen, &tu16));
-		mk_lang_static_assert(sizeof(deflate->m_uncompressed_data_len) > mk_sl_cui_uint16_size_bytes_v);
 		mk_sl_cui_uint16_to_bi_sint(&len, &deflate->m_uncompressed_data_len);
 		deflate->m_uncompressed_data_idx = 0;
 	}
@@ -168,7 +169,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 		to_copy = deflate->m_uncompressed_data_len - deflate->m_uncompressed_data_idx;
 		to_copy = mk_lang_min(to_copy, in_len);
 		to_copy = mk_lang_min(to_copy, out_len);
-		mk_sl_cui_uint8_memcpy_fn(out_buf, in_buf, to_copy);
+		mk_sl_cui_uint8_memcpy_fn(out_buf, in_buf, ((mk_lang_types_usize_t)(to_copy)));
 		deflate->m_uncompressed_data_idx += to_copy;
 		in_c += to_copy;
 		out_c += to_copy;

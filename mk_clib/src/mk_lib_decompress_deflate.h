@@ -13,7 +13,7 @@
 #include "mk_lang_nodiscard.h"
 
 
-enum mk_lib_decompress_deflate_block_non_compressed_header_len_e{ mk_lib_decompress_deflate_block_non_compressed_header_len_v = mk_sl_cui_uint8_size_bytes_v + mk_sl_cui_uint16_size_bytes_v + mk_sl_cui_uint16_size_bytes_v }; typedef enum mk_lib_decompress_deflate_block_non_compressed_header_len_e mk_lib_decompress_deflate_block_non_compressed_header_len_t;
+enum mk_lib_decompress_deflate_block_non_compressed_header_len_e{ mk_lib_decompress_deflate_block_non_compressed_header_len_v = ((mk_lang_types_sint_t)(mk_sl_cui_uint8_size_bytes_v)) + ((mk_lang_types_sint_t)(mk_sl_cui_uint16_size_bytes_v)) + ((mk_lang_types_sint_t)(mk_sl_cui_uint16_size_bytes_v)) }; typedef enum mk_lib_decompress_deflate_block_non_compressed_header_len_e mk_lib_decompress_deflate_block_non_compressed_header_len_t;
 /*enum mk_lib_decompress_deflate_uncompressed_data_len_max_e{ mk_lib_decompress_deflate_uncompressed_data_len_max_v = 1 * 1024 }; typedef enum mk_lib_decompress_deflate_uncompressed_data_len_max_e mk_lib_decompress_deflate_uncompressed_data_len_max_t;*/
 
 
