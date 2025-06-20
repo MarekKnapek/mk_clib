@@ -44,7 +44,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_compress_def
 	{
 		avail = mk_lang_countof(deflate->m_uncompressed_data_buf.m_data.m_u8s) - deflate->m_uncompressed_data_idx;
 		to_copy = mk_lang_min(avail, in_len);
-		mk_sl_cui_uint8_memcpy_fn(&deflate->m_uncompressed_data_buf.m_data.m_u8s[deflate->m_uncompressed_data_idx], in_buf, to_copy);
+		mk_sl_cui_uint8_memcpy_fn(&deflate->m_uncompressed_data_buf.m_data.m_u8s[deflate->m_uncompressed_data_idx], in_buf, ((mk_lang_types_usize_t)(to_copy)));
 		deflate->m_uncompressed_data_idx += to_copy;
 		in_c += to_copy;
 	}
@@ -128,7 +128,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_compress_def
 		{
 			avail = mk_lang_countof(deflate->m_block_header_buf) - deflate->m_block_header_beg;
 			to_copy = mk_lang_min(avail, out_len);
-			mk_sl_cui_uint8_memcpy_fn(out_buf, &deflate->m_block_header_buf[deflate->m_block_header_beg], to_copy);
+			mk_sl_cui_uint8_memcpy_fn(out_buf, &deflate->m_block_header_buf[deflate->m_block_header_beg], ((mk_lang_types_usize_t)(to_copy)));
 			deflate->m_block_header_beg += to_copy;
 			out_c += to_copy;
 		}
@@ -175,7 +175,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_compress_def
 		{
 			avail = deflate->m_uncompressed_data_idx - deflate->m_uncompressed_data_beg;
 			to_copy = mk_lang_min(avail, out_len);
-			mk_sl_cui_uint8_memcpy_fn(out_buf, &deflate->m_uncompressed_data_buf.m_data.m_u8s[deflate->m_uncompressed_data_beg], to_copy);
+			mk_sl_cui_uint8_memcpy_fn(out_buf, &deflate->m_uncompressed_data_buf.m_data.m_u8s[deflate->m_uncompressed_data_beg], ((mk_lang_types_usize_t)(to_copy)));
 			deflate->m_uncompressed_data_beg += to_copy;
 			out_c += to_copy;
 		}
