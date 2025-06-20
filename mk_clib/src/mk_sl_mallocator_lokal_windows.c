@@ -189,7 +189,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_lokal_wind
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_lokal_windows_deallocate(mk_sl_mallocator_lokal_windows_pt const win, mk_lang_types_void_pct const mem, mk_lang_types_usize_t const size_bytes) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_lokal_windows_deallocate(mk_sl_mallocator_lokal_windows_pt const win, mk_lang_types_void_pt const mem, mk_lang_types_usize_t const size_bytes) mk_lang_noexcept
 {
 	mk_win_base_bool_t b;
 
@@ -202,13 +202,13 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_lokal_wind
 
 	if(size_bytes != 0)
 	{
-		b = mk_win_dll_kernel_heap_free(win->m_heap, mk_win_dll_kernel_heap_options_free_e_none, ((mk_lang_types_void_pt)(mem))); mk_lang_check_return(b != 0);
+		b = mk_win_dll_kernel_heap_free(win->m_heap, mk_win_dll_kernel_heap_options_free_e_none, mem); mk_lang_check_return(b != 0);
 		mk_sl_mallocator_lokal_windows_statistics_deallocated(win, size_bytes);
 	}
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_lokal_windows_reallocate(mk_sl_mallocator_lokal_windows_pt const win, mk_lang_types_void_pct const old_mem, mk_lang_types_usize_t const old_size_bytes, mk_lang_types_usize_t const new_size_bytes, mk_lang_types_void_ppt const new_mem) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_lokal_windows_reallocate(mk_sl_mallocator_lokal_windows_pt const win, mk_lang_types_void_pt const old_mem, mk_lang_types_usize_t const old_size_bytes, mk_lang_types_usize_t const new_size_bytes, mk_lang_types_void_ppt const new_mem) mk_lang_noexcept
 {
 	mk_lang_types_void_pt m;
 
@@ -219,7 +219,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_lokal_wind
 	mk_lang_assert(new_size_bytes >= 1);
 	mk_lang_assert(new_mem);
 
-	m = mk_win_dll_kernel_heap_realloc(win->m_heap, mk_win_dll_kernel_heap_options_realloc_e_none, ((mk_lang_types_void_pt)(old_mem)), new_size_bytes);
+	m = mk_win_dll_kernel_heap_realloc(win->m_heap, mk_win_dll_kernel_heap_options_realloc_e_none, old_mem, new_size_bytes);
 	if(m)
 	{
 		mk_sl_mallocator_lokal_windows_statistics_reallocated(win, old_size_bytes, new_size_bytes);
