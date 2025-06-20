@@ -51,7 +51,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_compress_zli
 	{
 		avail = mk_lang_countof(zlib->m_stream_header_buf) - zlib->m_stream_header_beg;
 		to_copy = mk_lang_min(avail, out_len);
-		mk_sl_cui_uint8_memcpy_fn(out_buf, &zlib->m_stream_header_buf[zlib->m_stream_header_beg], to_copy);
+		mk_sl_cui_uint8_memcpy_fn(out_buf, &zlib->m_stream_header_buf[zlib->m_stream_header_beg], ((mk_lang_types_usize_t)(to_copy)));
 		zlib->m_stream_header_beg += to_copy;
 		out_c += to_copy;
 	}
@@ -176,7 +176,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_compress_zli
 	{
 		avail = mk_lang_countof(zlib->m_stream_footer_buf) - zlib->m_stream_footer_beg;
 		to_copy = mk_lang_min(avail, out_len);
-		mk_sl_cui_uint8_memcpy_fn(out_buf, &zlib->m_stream_footer_buf[zlib->m_stream_footer_beg], to_copy);
+		mk_sl_cui_uint8_memcpy_fn(out_buf, &zlib->m_stream_footer_buf[zlib->m_stream_footer_beg], ((mk_lang_types_usize_t)(to_copy)));
 		zlib->m_stream_footer_beg += to_copy;
 		out_c += to_copy;
 	}
