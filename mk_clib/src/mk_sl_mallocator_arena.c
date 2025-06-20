@@ -39,12 +39,12 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_arena_allo
 	return mk_sl_mallocator_arena_ver1_allocate(size_bytes, mem);
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_arena_deallocate(mk_lang_types_void_pct const mem, mk_lang_types_usize_t const size_bytes) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_arena_deallocate(mk_lang_types_void_pt const mem, mk_lang_types_usize_t const size_bytes) mk_lang_noexcept
 {
 	return mk_sl_mallocator_arena_ver1_deallocate(mem, size_bytes);
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_arena_reallocate(mk_lang_types_void_pct const old_mem, mk_lang_types_usize_t const old_size_bytes, mk_lang_types_usize_t const new_size_bytes, mk_lang_types_void_ppt const new_mem) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_arena_reallocate(mk_lang_types_void_pt const old_mem, mk_lang_types_usize_t const old_size_bytes, mk_lang_types_usize_t const new_size_bytes, mk_lang_types_void_ppt const new_mem) mk_lang_noexcept
 {
 	return mk_sl_mallocator_arena_ver1_reallocate(old_mem, old_size_bytes, new_size_bytes, new_mem);
 }
