@@ -1206,6 +1206,10 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_vector_inl_fileu.h"/>
 	</ItemGroup>
 	<ItemGroup>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_string.c"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_string.h"/>
+	</ItemGroup>
+	<ItemGroup>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_tree_wavl_fuzz.c"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_tree_wavl_fuzz.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_tree_wavl_inl_defd.h"/>
