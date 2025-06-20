@@ -109,8 +109,10 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 		case mk_lib_iip_cp_types_sign_key_type_e_gost_a                : res = mk_lib_iip_cp_types_signature_len_e_gost_a                ; break;
 		case mk_lib_iip_cp_types_sign_key_type_e_gost_b                : res = mk_lib_iip_cp_types_signature_len_e_gost_b                ; break;
 		case mk_lib_iip_cp_types_sign_key_type_e_reddsa_sha512_ed25519 : res = mk_lib_iip_cp_types_signature_len_e_reddsa_sha512_ed25519 ; break;
+		#include "mk_lang_warning_clang_push_sometimes_uninitialized.h"
 		case mk_lib_iip_cp_types_sign_key_type_e_dummy_end: mk_lang_assert_false(); break;
 		default: mk_lang_assert_false(); break;
+		#include "mk_lang_warning_clang_pop.h"
 	}
 	mk_lang_clobber(&res);
 	return res;
@@ -134,8 +136,10 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 		case mk_lib_iip_cp_types_sign_key_type_e_gost_a                : res = mk_lang_max(0, mk_lib_iip_cp_types_sign_key_len_e_gost_a                 - 128); break;
 		case mk_lib_iip_cp_types_sign_key_type_e_gost_b                : res = mk_lang_max(0, mk_lib_iip_cp_types_sign_key_len_e_gost_b                 - 128); break;
 		case mk_lib_iip_cp_types_sign_key_type_e_reddsa_sha512_ed25519 : res = mk_lang_max(0, mk_lib_iip_cp_types_sign_key_len_e_reddsa_sha512_ed25519  - 128); break;
+		#include "mk_lang_warning_clang_push_sometimes_uninitialized.h"
 		case mk_lib_iip_cp_types_sign_key_type_e_dummy_end: mk_lang_assert_false(); break;
 		default: mk_lang_assert_false(); break;
+		#include "mk_lang_warning_clang_pop.h"
 	}
 	mk_lang_clobber(&res);
 	return res;
@@ -152,8 +156,10 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 		case mk_lib_iip_cp_types_crpt_key_type_e_p384   : res = mk_lang_max(0, mk_lib_iip_cp_types_crpt_key_len_e_p384    - 256); break;
 		case mk_lib_iip_cp_types_crpt_key_type_e_p521   : res = mk_lang_max(0, mk_lib_iip_cp_types_crpt_key_len_e_p521    - 256); break;
 		case mk_lib_iip_cp_types_crpt_key_type_e_x25519 : res = mk_lang_max(0, mk_lib_iip_cp_types_crpt_key_len_e_x25519  - 256); break;
+		#include "mk_lang_warning_clang_push_sometimes_uninitialized.h"
 		case mk_lib_iip_cp_types_crpt_key_type_e_dummy_end: mk_lang_assert_false(); break;
 		default: mk_lang_assert_false(); break;
+		#include "mk_lang_warning_clang_pop.h"
 	}
 	mk_lang_clobber(&res);
 	return res;
@@ -249,8 +255,8 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 			((datalen == (256 + 128) + (1 + 2 + (2 + 2 + lena + lenb))) && (!outlen)) || 
 			((datalen >= (256 + 128) + (1 + 2 + (2 + 2 + lena + lenb))) && (outlen))
 		);
-		mk_sl_cui_uint8_memcpy_fn(&destination->m_cert.m_data.m_keycert.m_sign_pub_key[0], &databuf[(256 + 128) + (1 + 2 + (2 + 2 + 0 * lena))], lena);
-		mk_sl_cui_uint8_memcpy_fn(&destination->m_cert.m_data.m_keycert.m_crpt_pub_key[0], &databuf[(256 + 128) + (1 + 2 + (2 + 2 + 1 * lena))], lenb);
+		mk_sl_cui_uint8_memcpy_fn(&destination->m_cert.m_data.m_keycert.m_sign_pub_key[0], &databuf[(256 + 128) + (1 + 2 + (2 + 2 + 0 * lena))], ((mk_lang_types_usize_t)(lena)));
+		mk_sl_cui_uint8_memcpy_fn(&destination->m_cert.m_data.m_keycert.m_crpt_pub_key[0], &databuf[(256 + 128) + (1 + 2 + (2 + 2 + 1 * lena))], ((mk_lang_types_usize_t)(lenb)));
 		if(outlen)
 		{
 			*outlen = (256 + 128) + (1 + 2 + (2 + 2 + lena + lenb));
