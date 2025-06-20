@@ -198,7 +198,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_lang_cpp_a
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_lang_cpp_deallocate(mk_lang_types_void_pct const mem, mk_lang_types_usize_t const size_bytes) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_lang_cpp_deallocate(mk_lang_types_void_pt const mem, mk_lang_types_usize_t const size_bytes) mk_lang_noexcept
 {
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(mem || size_bytes == 0);
@@ -207,13 +207,13 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_lang_cpp_d
 
 	if(size_bytes != 0)
 	{
-		::std::free(((mk_lang_types_void_pt)(mem)));
+		::std::free(mem);
 		mk_sl_mallocator_lang_cpp_statistics_deallocated(size_bytes);
 	}
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_lang_cpp_reallocate(mk_lang_types_void_pct const old_mem, mk_lang_types_usize_t const old_size_bytes, mk_lang_types_usize_t const new_size_bytes, mk_lang_types_void_ppt const new_mem) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_lang_cpp_reallocate(mk_lang_types_void_pt const old_mem, mk_lang_types_usize_t const old_size_bytes, mk_lang_types_usize_t const new_size_bytes, mk_lang_types_void_ppt const new_mem) mk_lang_noexcept
 {
 	mk_lang_types_void_pt m;
 
@@ -222,7 +222,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_lang_cpp_r
 	mk_lang_assert(new_size_bytes >= 1);
 	mk_lang_assert(new_mem);
 
-	m = ::std::realloc(((mk_lang_types_void_pt)(old_mem)), new_size_bytes);
+	m = ::std::realloc(old_mem, new_size_bytes);
 	if(m)
 	{
 		mk_sl_mallocator_lang_cpp_statistics_reallocated(old_size_bytes, new_size_bytes);
