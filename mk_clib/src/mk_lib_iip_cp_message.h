@@ -46,6 +46,38 @@ enum mk_lib_iip_cp_message_message_type_id_e
 typedef enum mk_lib_iip_cp_message_message_type_id_e mk_lib_iip_cp_message_message_type_id_t;
 mk_lang_typedef(mk_lib_iip_cp_message_message_type_id);
 
+enum mk_lib_iip_cp_message_message_type_val_e
+{
+	mk_lib_iip_cp_message_message_type_val_e_create_session             =  1,
+	mk_lib_iip_cp_message_message_type_val_e_reconfigure_session        =  2,
+	mk_lib_iip_cp_message_message_type_val_e_destroy_session            =  3,
+	mk_lib_iip_cp_message_message_type_val_e_create_lease_set           =  4,
+	mk_lib_iip_cp_message_message_type_val_e_send_message               =  5,
+	mk_lib_iip_cp_message_message_type_val_e_receive_message_begin      =  6,
+	mk_lib_iip_cp_message_message_type_val_e_receive_message_end        =  7,
+	mk_lib_iip_cp_message_message_type_val_e_get_bandwidth_limits       =  8,
+	mk_lib_iip_cp_message_message_type_val_e_session_status             = 20,
+	mk_lib_iip_cp_message_message_type_val_e_request_lease_set          = 21,
+	mk_lib_iip_cp_message_message_type_val_e_message_status             = 22,
+	mk_lib_iip_cp_message_message_type_val_e_bandwidth_limits           = 23,
+	mk_lib_iip_cp_message_message_type_val_e_report_abuse               = 29,
+	mk_lib_iip_cp_message_message_type_val_e_disconnect                 = 30,
+	mk_lib_iip_cp_message_message_type_val_e_message_payload            = 31,
+	mk_lib_iip_cp_message_message_type_val_e_get_date                   = 32,
+	mk_lib_iip_cp_message_message_type_val_e_set_date                   = 33,
+	mk_lib_iip_cp_message_message_type_val_e_dest_lookup                = 34,
+	mk_lib_iip_cp_message_message_type_val_e_dest_reply                 = 35,
+	mk_lib_iip_cp_message_message_type_val_e_send_message_expires       = 36,
+	mk_lib_iip_cp_message_message_type_val_e_request_variable_lease_set = 37,
+	mk_lib_iip_cp_message_message_type_val_e_host_lookup                = 38,
+	mk_lib_iip_cp_message_message_type_val_e_host_reply                 = 39,
+	mk_lib_iip_cp_message_message_type_val_e_create_lease_set2          = 41,
+	mk_lib_iip_cp_message_message_type_val_e_blinding_info              = 42,
+	mk_lib_iip_cp_message_message_type_val_e_dummy_end
+};
+typedef enum mk_lib_iip_cp_message_message_type_val_e mk_lib_iip_cp_message_message_type_val_t;
+mk_lang_typedef(mk_lib_iip_cp_message_message_type_val);
+
 enum mk_lib_iip_cp_message_session_status_status_id_e
 {
 	mk_lib_iip_cp_message_session_status_status_id_e_destroyed,
@@ -58,40 +90,17 @@ enum mk_lib_iip_cp_message_session_status_status_id_e
 typedef enum mk_lib_iip_cp_message_session_status_status_id_e mk_lib_iip_cp_message_session_status_status_id_t;
 mk_lang_typedef(mk_lib_iip_cp_message_session_status_status_id);
 
-enum mk_lib_iip_cp_message_certificate_type_id_e
+enum mk_lib_iip_cp_message_session_status_status_val_e
 {
-	mk_lib_iip_cp_message_certificate_type_id_e_null,
-	mk_lib_iip_cp_message_certificate_type_id_e_hashcash,
-	mk_lib_iip_cp_message_certificate_type_id_e_hidden,
-	mk_lib_iip_cp_message_certificate_type_id_e_signed,
-	mk_lib_iip_cp_message_certificate_type_id_e_multiple,
-	mk_lib_iip_cp_message_certificate_type_id_e_key,
-	mk_lib_iip_cp_message_certificate_type_id_e_dummy_end
+	mk_lib_iip_cp_message_session_status_status_val_e_destroyed = 0,
+	mk_lib_iip_cp_message_session_status_status_val_e_created   = 1,
+	mk_lib_iip_cp_message_session_status_status_val_e_updated   = 2,
+	mk_lib_iip_cp_message_session_status_status_val_e_invalid   = 3,
+	mk_lib_iip_cp_message_session_status_status_val_e_refused   = 4,
+	mk_lib_iip_cp_message_session_status_status_val_e_dummy_end
 };
-typedef enum mk_lib_iip_cp_message_certificate_type_id_e mk_lib_iip_cp_message_certificate_type_id_t;
-mk_lang_typedef(mk_lib_iip_cp_message_certificate_type_id);
-
-enum mk_lib_iip_cp_message_host_lookup_request_type_id_e
-{
-	mk_lib_iip_cp_message_host_lookup_request_type_id_e_hash,
-	mk_lib_iip_cp_message_host_lookup_request_type_id_e_name,
-	mk_lib_iip_cp_message_host_lookup_request_type_id_e_dummy_end
-};
-typedef enum mk_lib_iip_cp_message_host_lookup_request_type_id_e mk_lib_iip_cp_message_host_lookup_request_type_id_t;
-mk_lang_typedef(mk_lib_iip_cp_message_host_lookup_request_type_id);
-
-enum mk_lib_iip_cp_message_host_reply_result_code_id_e
-{
-	mk_lib_iip_cp_message_host_reply_result_code_id_e_success,
-	mk_lib_iip_cp_message_host_reply_result_code_id_e_failure,
-	mk_lib_iip_cp_message_host_reply_result_code_id_e_lookup_password_required,
-	mk_lib_iip_cp_message_host_reply_result_code_id_e_private_key_required,
-	mk_lib_iip_cp_message_host_reply_result_code_id_e_lookup_password_and_private_key_required,
-	mk_lib_iip_cp_message_host_reply_result_code_id_e_leaseset_decryption_failure,
-	mk_lib_iip_cp_message_host_reply_result_code_id_e_dummy_end
-};
-typedef enum mk_lib_iip_cp_message_host_reply_result_code_id_e mk_lib_iip_cp_message_host_reply_result_code_id_t;
-mk_lang_typedef(mk_lib_iip_cp_message_host_reply_result_code_id);
+typedef enum mk_lib_iip_cp_message_session_status_status_val_e mk_lib_iip_cp_message_session_status_status_val_t;
+mk_lang_typedef(mk_lib_iip_cp_message_session_status_status_val);
 
 enum mk_lib_iip_cp_message_message_status_status_id_e
 {
@@ -123,6 +132,85 @@ enum mk_lib_iip_cp_message_message_status_status_id_e
 };
 typedef enum mk_lib_iip_cp_message_message_status_status_id_e mk_lib_iip_cp_message_message_status_status_id_t;
 mk_lang_typedef(mk_lib_iip_cp_message_message_status_status_id);
+
+enum mk_lib_iip_cp_message_message_status_status_val_e
+{
+	mk_lib_iip_cp_message_message_status_status_val_e_available              =  0,
+	mk_lib_iip_cp_message_message_status_status_val_e_accepted               =  1,
+	mk_lib_iip_cp_message_message_status_status_val_e_best_effort_success    =  2,
+	mk_lib_iip_cp_message_message_status_status_val_e_best_effort_failure    =  3,
+	mk_lib_iip_cp_message_message_status_status_val_e_guaranteed_success     =  4,
+	mk_lib_iip_cp_message_message_status_status_val_e_guaranteed_failure     =  5,
+	mk_lib_iip_cp_message_message_status_status_val_e_local_success          =  6,
+	mk_lib_iip_cp_message_message_status_status_val_e_local_failure          =  7,
+	mk_lib_iip_cp_message_message_status_status_val_e_router_failure         =  8,
+	mk_lib_iip_cp_message_message_status_status_val_e_network_failure        =  9,
+	mk_lib_iip_cp_message_message_status_status_val_e_bad_session            = 10,
+	mk_lib_iip_cp_message_message_status_status_val_e_bad_message            = 11,
+	mk_lib_iip_cp_message_message_status_status_val_e_bad_options            = 12,
+	mk_lib_iip_cp_message_message_status_status_val_e_overflow_failure       = 13,
+	mk_lib_iip_cp_message_message_status_status_val_e_message_expired        = 14,
+	mk_lib_iip_cp_message_message_status_status_val_e_bad_local_leaseset     = 15,
+	mk_lib_iip_cp_message_message_status_status_val_e_no_local_tunnels       = 16,
+	mk_lib_iip_cp_message_message_status_status_val_e_unsupported_encryption = 17,
+	mk_lib_iip_cp_message_message_status_status_val_e_bad_destination        = 18,
+	mk_lib_iip_cp_message_message_status_status_val_e_bad_leaseset           = 19,
+	mk_lib_iip_cp_message_message_status_status_val_e_expired_leaseset       = 20,
+	mk_lib_iip_cp_message_message_status_status_val_e_no_leaseset            = 21,
+	mk_lib_iip_cp_message_message_status_status_val_e_meta_leaseset          = 22,
+	mk_lib_iip_cp_message_message_status_status_val_e_loopback_denied        = 23,
+	mk_lib_iip_cp_message_message_status_status_val_e_dummy_end
+};
+typedef enum mk_lib_iip_cp_message_message_status_status_val_e mk_lib_iip_cp_message_message_status_status_val_t;
+mk_lang_typedef(mk_lib_iip_cp_message_message_status_status_val);
+
+enum mk_lib_iip_cp_message_host_reply_result_code_id_e
+{
+	mk_lib_iip_cp_message_host_reply_result_code_id_e_success,
+	mk_lib_iip_cp_message_host_reply_result_code_id_e_failure,
+	mk_lib_iip_cp_message_host_reply_result_code_id_e_lookup_password_required,
+	mk_lib_iip_cp_message_host_reply_result_code_id_e_private_key_required,
+	mk_lib_iip_cp_message_host_reply_result_code_id_e_lookup_password_and_private_key_required,
+	mk_lib_iip_cp_message_host_reply_result_code_id_e_leaseset_decryption_failure,
+	mk_lib_iip_cp_message_host_reply_result_code_id_e_dummy_end
+};
+typedef enum mk_lib_iip_cp_message_host_reply_result_code_id_e mk_lib_iip_cp_message_host_reply_result_code_id_t;
+mk_lang_typedef(mk_lib_iip_cp_message_host_reply_result_code_id);
+
+enum mk_lib_iip_cp_message_host_reply_result_code_val_e
+{
+	mk_lib_iip_cp_message_host_reply_result_code_val_e_success                                  = 0,
+	mk_lib_iip_cp_message_host_reply_result_code_val_e_failure                                  = 1,
+	mk_lib_iip_cp_message_host_reply_result_code_val_e_lookup_password_required                 = 2,
+	mk_lib_iip_cp_message_host_reply_result_code_val_e_private_key_required                     = 3,
+	mk_lib_iip_cp_message_host_reply_result_code_val_e_lookup_password_and_private_key_required = 4,
+	mk_lib_iip_cp_message_host_reply_result_code_val_e_leaseset_decryption_failure              = 5,
+	mk_lib_iip_cp_message_host_reply_result_code_val_e_dummy_end
+};
+typedef enum mk_lib_iip_cp_message_host_reply_result_code_val_e mk_lib_iip_cp_message_host_reply_result_code_val_t;
+mk_lang_typedef(mk_lib_iip_cp_message_host_reply_result_code_val);
+
+enum mk_lib_iip_cp_message_certificate_type_id_e
+{
+	mk_lib_iip_cp_message_certificate_type_id_e_null,
+	mk_lib_iip_cp_message_certificate_type_id_e_hashcash,
+	mk_lib_iip_cp_message_certificate_type_id_e_hidden,
+	mk_lib_iip_cp_message_certificate_type_id_e_signed,
+	mk_lib_iip_cp_message_certificate_type_id_e_multiple,
+	mk_lib_iip_cp_message_certificate_type_id_e_key,
+	mk_lib_iip_cp_message_certificate_type_id_e_dummy_end
+};
+typedef enum mk_lib_iip_cp_message_certificate_type_id_e mk_lib_iip_cp_message_certificate_type_id_t;
+mk_lang_typedef(mk_lib_iip_cp_message_certificate_type_id);
+
+enum mk_lib_iip_cp_message_host_lookup_request_type_id_e
+{
+	mk_lib_iip_cp_message_host_lookup_request_type_id_e_hash,
+	mk_lib_iip_cp_message_host_lookup_request_type_id_e_name,
+	mk_lib_iip_cp_message_host_lookup_request_type_id_e_dummy_end
+};
+typedef enum mk_lib_iip_cp_message_host_lookup_request_type_id_e mk_lib_iip_cp_message_host_lookup_request_type_id_t;
+mk_lang_typedef(mk_lib_iip_cp_message_host_lookup_request_type_id);
 
 
 #define mk_lib_iip_cp_message_mapping_key_get_date_username_str_buf "i2cp.username"
@@ -429,6 +517,18 @@ typedef struct mk_lib_iip_cp_message_s mk_lib_iip_cp_message_t;
 mk_lang_typedef(mk_lib_iip_cp_message);
 #include "mk_lang_warning_msvc_pop.h"
 
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lib_iip_cp_message_message_type_val_is_known(mk_lang_types_sint_t const message_type_val) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lib_iip_cp_message_message_type_id_t mk_lib_iip_cp_message_message_type_val_to_message_type_id(mk_lib_iip_cp_message_message_type_val_t const message_type_val) mk_lang_noexcept;
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lib_iip_cp_message_session_status_status_val_is_known(mk_lang_types_sint_t const session_status_status_val) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lib_iip_cp_message_session_status_status_id_t mk_lib_iip_cp_message_session_status_status_val_to_session_status_status_id(mk_lib_iip_cp_message_session_status_status_val_t const session_status_status_val) mk_lang_noexcept;
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lib_iip_cp_message_message_status_status_val_is_known(mk_lang_types_sint_t const message_status_status_val) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lib_iip_cp_message_message_status_status_id_t mk_lib_iip_cp_message_message_status_status_val_to_message_status_status_id(mk_lib_iip_cp_message_message_status_status_val_t const message_status_status_val) mk_lang_noexcept;
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lib_iip_cp_message_host_reply_result_code_val_is_known(mk_lang_types_sint_t const host_reply_result_code_val) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lib_iip_cp_message_host_reply_result_code_id_t mk_lib_iip_cp_message_host_reply_result_code_val_to_host_reply_result_code_id(mk_lib_iip_cp_message_host_reply_result_code_val_t const host_reply_result_code_val) mk_lang_noexcept;
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lib_iip_cp_message_is_server_to_client(mk_lib_iip_cp_message_message_type_id_t const message_type) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lib_iip_cp_message_is_client_to_server(mk_lib_iip_cp_message_message_type_id_t const message_type) mk_lang_noexcept;
