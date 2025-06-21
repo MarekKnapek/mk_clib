@@ -12,7 +12,7 @@
 
 union mk_lib_iip_crypt_elgamal_key_pri_data_u
 {
-	mk_lib_iip_integer_elgamal_single_t m_val;
+	mk_lib_iip_integer_elgamal_pri_single_t m_val;
 	mk_lang_types_ulllong_t m_align;
 };
 typedef union mk_lib_iip_crypt_elgamal_key_pri_data_u mk_lib_iip_crypt_elgamal_key_pri_data_t;
@@ -25,7 +25,7 @@ mk_lang_typedef(mk_lib_iip_crypt_elgamal_key_pri);
 
 union mk_lib_iip_crypt_elgamal_key_pub_data_u
 {
-	mk_lib_iip_integer_elgamal_single_t m_val;
+	mk_lib_iip_integer_elgamal_pub_single_t m_val;
 	mk_lang_types_ulllong_t m_align;
 };
 typedef union mk_lib_iip_crypt_elgamal_key_pub_data_u mk_lib_iip_crypt_elgamal_key_pub_data_t;
