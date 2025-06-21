@@ -417,7 +417,7 @@
 #define mk_sl_fixed_vector_inl_defd_capacity_e mk_lang_concat(mk_sl_fixed_vector_inl_defd_name, _capacity_e)
 #define mk_sl_fixed_vector_inl_defd_capacity_t mk_lang_concat(mk_sl_fixed_vector_inl_defd_name, _capacity_t)
 #define mk_sl_fixed_vector_inl_defd_capacity_v mk_lang_concat(mk_sl_fixed_vector_inl_defd_name, _capacity_v)
-#define mk_sl_fixed_vector_inl_defd_capacity_d ((mk_lang_types_usize_t)((((mk_lang_types_usize_t)(mk_lang_limits_usize_max)) / ((mk_lang_types_usize_t)(sizeof(mk_sl_fixed_vector_inl_defd_element_t))))))
+#define mk_sl_fixed_vector_inl_defd_capacity_d mk_sl_fixed_vector_inl_defd_capacity
 
 #define mk_sl_fixed_vector_inl_defd_st_max_capacity mk_lang_concat(mk_sl_fixed_vector_inl_defd_name, _st_max_capacity)
 
