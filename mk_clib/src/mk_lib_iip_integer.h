@@ -15,14 +15,28 @@
 mk_lang_forward(mk_sl_cui_uint8);
 
 
-#define mk_sl_cui_t_name mk_lib_iip_integer_elgamal_single
+#define mk_sl_cui_t_name mk_lib_iip_integer_elgamal_pri_single
 #define mk_sl_cui_t_base mk_lang_bui_uint
 #define mk_sl_cui_t_count (((256 * mk_lang_charbit) / mk_lang_bui_uint_size_bits_d) * 1)
 #define mk_sl_cui_t_inline 0
 #include "mk_sl_cui_inl_fileh.h"
 #include "mk_sl_cui_inl_fileu.h"
 
-#define mk_sl_cui_t_name mk_lib_iip_integer_elgamal_double
+#define mk_sl_cui_t_name mk_lib_iip_integer_elgamal_pri_double
+#define mk_sl_cui_t_base mk_lang_bui_uint
+#define mk_sl_cui_t_count (((256 * mk_lang_charbit) / mk_lang_bui_uint_size_bits_d) * 2)
+#define mk_sl_cui_t_inline 0
+#include "mk_sl_cui_inl_fileh.h"
+#include "mk_sl_cui_inl_fileu.h"
+
+#define mk_sl_cui_t_name mk_lib_iip_integer_elgamal_pub_single
+#define mk_sl_cui_t_base mk_lang_bui_uint
+#define mk_sl_cui_t_count (((256 * mk_lang_charbit) / mk_lang_bui_uint_size_bits_d) * 1)
+#define mk_sl_cui_t_inline 0
+#include "mk_sl_cui_inl_fileh.h"
+#include "mk_sl_cui_inl_fileu.h"
+
+#define mk_sl_cui_t_name mk_lib_iip_integer_elgamal_pub_double
 #define mk_sl_cui_t_base mk_lang_bui_uint
 #define mk_sl_cui_t_count (((256 * mk_lang_charbit) / mk_lang_bui_uint_size_bits_d) * 2)
 #define mk_sl_cui_t_inline 0
@@ -58,11 +72,12 @@ mk_lang_forward(mk_sl_cui_uint8);
 #include "mk_sl_cui_inl_fileu.h"
 
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_integer_elgamal_single_load_p(mk_lib_iip_integer_elgamal_single_pt const x) mk_lang_noexcept;
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_integer_elgamal_single_to_double(mk_lib_iip_integer_elgamal_single_pct const a, mk_lib_iip_integer_elgamal_double_pt const b) mk_lang_noexcept;
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_integer_elgamal_double_to_single(mk_lib_iip_integer_elgamal_double_pct const a, mk_lib_iip_integer_elgamal_single_pt const b) mk_lang_noexcept;
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_integer_elgamal_single_mod_pow(mk_lib_iip_integer_elgamal_single_prct const base, mk_lib_iip_integer_elgamal_single_prct const exponent, mk_lib_iip_integer_elgamal_single_prct const modulus, mk_lib_iip_integer_elgamal_single_prt const result) mk_lang_noexcept;
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_integer_elgamal_double_load_p(mk_lib_iip_integer_elgamal_double_pt const x) mk_lang_noexcept;
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_integer_elgamal_pri_single_to_pub_single(mk_lib_iip_integer_elgamal_pri_single_pct const a, mk_lib_iip_integer_elgamal_pub_single_pt const b) mk_lang_noexcept;
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_integer_elgamal_pub_single_to_pub_double(mk_lib_iip_integer_elgamal_pub_single_pct const a, mk_lib_iip_integer_elgamal_pub_double_pt const b) mk_lang_noexcept;
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_integer_elgamal_pub_double_to_pub_single(mk_lib_iip_integer_elgamal_pub_double_pct const a, mk_lib_iip_integer_elgamal_pub_single_pt const b) mk_lang_noexcept;
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_integer_elgamal_pub_single_load_p(mk_lib_iip_integer_elgamal_pub_single_pt const x) mk_lang_noexcept;
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_integer_elgamal_pub_single_mod_pow(mk_lib_iip_integer_elgamal_pub_single_prct const base, mk_lib_iip_integer_elgamal_pub_single_prct const exponent, mk_lib_iip_integer_elgamal_pub_single_prct const modulus, mk_lib_iip_integer_elgamal_pub_single_prt const result) mk_lang_noexcept;
+
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_integer_dsa_sha1_pri_single_load_q(mk_lib_iip_integer_dsa_sha1_pri_single_pt const x) mk_lang_noexcept;
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_integer_dsa_sha1_pri_single_from_u8s_be(mk_lib_iip_integer_dsa_sha1_pri_single_pt const x, mk_sl_cui_uint8_pct const u8s) mk_lang_noexcept;
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_integer_dsa_sha1_pri_single_to_double(mk_lib_iip_integer_dsa_sha1_pri_single_pct const a, mk_lib_iip_integer_dsa_sha1_pri_double_pt const b) mk_lang_noexcept;

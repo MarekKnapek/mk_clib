@@ -2,10 +2,9 @@
 #define mk_include_guard_mk_clib_app_iip_c
 #include "mk_clib_app_iip.h"
 
-#include "mk_lang_alignas.h"
 #include "mk_lang_assert.h"
-#include "mk_lib_iip_time.h"
 #include "mk_lang_check.h"
+#include "mk_lang_version.h"
 #include "mk_lang_command_line.h"
 #include "mk_lang_countof.h"
 #include "mk_lang_cpuid.h"
@@ -16,95 +15,82 @@
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
-#include "mk_lang_roundup.h"
 #include "mk_lang_stdout.h"
 #include "mk_lang_str_len.h"
-#include "mk_lang_str_match.h"
 #include "mk_lang_tchar.h"
-#include "mk_lang_typedef.h"
 #include "mk_lang_types.h"
-#include "mk_lib_crypto_hash_stream_any1.h"
-#include "mk_lib_crypto_hash_stream_any2.h"
 #include "mk_lib_fmt.h"
-#include "mk_sl_cui_uint8.h"
-#include "mk_sl_io_reader_file.h"
+#include "mk_lib_iip_cp_message.h"
+#include "mk_lib_iip_cp_message_str.h"
+#include "mk_lib_iip_time.h"
+#include "mk_sl_cui_uint64.h"
 
 
-#define mk_clib_app_iip_buff_size 4 * 1024
-#define mk_clib_app_iip_buff_algn 4 * 1024
-union mk_clib_app_iip_buff_data_u
+#if mk_lang_version_at_least_cpp_14 || mk_lang_version_at_least_msvc_cpp_14
+
+
+#include "mk_lang_constexpr.h"
+#include "mk_lib_cpp_constexpr_array.hpp"
+#include "mk_lib_cpp_constexpr_array_u8.hpp"
+
+
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t xxx_fn_len(mk_lang_types_void_t) mk_lang_noexcept
 {
-	mk_lang_types_uchar_t m_uchars[mk_lang_roundup_add(mk_clib_app_iip_buff_size, mk_clib_app_iip_buff_algn)];
-	mk_lang_types_ulllong_t m_ulllong;
-};
-typedef union mk_clib_app_iip_buff_data_u mk_clib_app_iip_buff_data_t;
-struct mk_clib_app_iip_buff_s
-{
-	mk_lang_alignas(mk_clib_app_iip_buff_algn) mk_clib_app_iip_buff_data_t m_data;
-};
-typedef struct mk_clib_app_iip_buff_s mk_clib_app_iip_buff_t;
-mk_lang_typedef(mk_clib_app_iip_buff);
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lib_iip_cp_message_t obj mk_lang_constexpr_init;
+	mk_lang_types_sint_t str_len mk_lang_constexpr_init;
+	mk_lang_types_pchar_t str_buf[4 * 1024] mk_lang_constexpr_init;
+	mk_lang_types_sint_t out_len mk_lang_constexpr_init;
 
-
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_print_digest(mk_lib_crypto_hash_stream_any1_id_t const id, mk_sl_cui_uint8_pct const digest) mk_lang_noexcept
-{
-	mk_lang_types_sint_t count;
-	mk_lang_types_sint_t len;
-	mk_lang_tchar_t str[((mk_lang_types_sint_t)(mk_lib_crypto_hash_stream_any1_digest_max_len_v)) * ((mk_lang_types_sint_t)(mk_sl_cui_uint8_strlen_hex_v))];
-	mk_lang_types_sint_t err;
-
-	mk_lang_assert(id >= 0 && id < mk_lib_crypto_hash_stream_any1_id_e_dummy_end);
-	mk_lang_assert(digest);
-
-	count = mk_lib_crypto_hash_stream_any1_get_digest_len(id); mk_lang_assert(count * mk_sl_cui_uint8_strlen_hex_v <= mk_lang_countof(str));
-	len = mk_lang_tchar_dispatch(mk_sl_cui_uint8_to_str_hexf_many_)(&digest[0], count, &str[0], mk_lang_countof(str)); mk_lang_assert(len == count * mk_sl_cui_uint8_strlen_hex_v);
-	err = mk_lang_stdout_println_t(&str[0], count * mk_sl_cui_uint8_strlen_hex_v); mk_lang_check_rereturn(err);
-	return 0;
+	err = mk_lib_iip_cp_message_construct(&obj, mk_lib_iip_cp_message_message_type_id_e_create_session); mk_lang_check_recrash(err);
+	str_len = mk_lang_countof(str_buf);
+	err = mk_lib_iip_cp_message_str_to_json_message(&str_buf[0], str_len, &out_len, &obj); mk_lang_check_recrash(err);
+	err = mk_lib_iip_cp_message_destroy(&obj); mk_lang_check_recrash(err);
+	return out_len;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lib_crypto_hash_stream_any1_id_t mk_clib_app_iip_find_hash(mk_lang_tchar_pct const hash_buf, mk_lang_types_sint_t const hash_len) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline auto xxx_fn_arr(mk_lang_types_void_t) mk_lang_noexcept
 {
-	mk_lang_types_sint_t n;
-	mk_lang_types_sint_t i;
-	mk_lib_crypto_hash_stream_any1_id_t id;
-	mk_lang_types_pchar_pct str;
-	mk_lang_types_sint_t len;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lib_iip_cp_message_t obj mk_lang_constexpr_init;
+	mk_lang_types_sint_t str_len mk_lang_constexpr_init;
+	mk_lib_cpp_constexpr_array_t<mk_lang_types_pchar_t, xxx_fn_len()> arr mk_lang_constexpr_init;
+	mk_lang_types_sint_t out_len mk_lang_constexpr_init;
 
-	mk_lang_assert(hash_buf || hash_len == 0);
-	mk_lang_assert(hash_len >= 0);
-	mk_lang_assert(hash_len == 0 || hash_buf[0] != mk_lang_tchar_c('\0'));
+	err = mk_lib_iip_cp_message_construct(&obj, mk_lib_iip_cp_message_message_type_id_e_create_session); mk_lang_check_recrash(err);
+	str_len = ((mk_lang_types_sint_t)(arr.size()));
+	err = mk_lib_iip_cp_message_str_to_json_message(arr.data(), str_len, &out_len, &obj); mk_lang_check_recrash(err); mk_lang_check_crash(out_len == str_len);
+	err = mk_lib_iip_cp_message_destroy(&obj); mk_lang_check_recrash(err);
 
-	n = mk_lib_crypto_hash_stream_any1_id_e_dummy_end;
-	for(i = 0; i != n; ++i)
-	{
-		id = ((mk_lib_crypto_hash_stream_any1_id_t)(i));
-		str = mk_lib_crypto_hash_stream_any1_get_str_buf(id); mk_lang_assert(str); mk_lang_assert(str[0] != '\0');
-		len = mk_lib_crypto_hash_stream_any1_get_str_len(id); mk_lang_assert(len >= 1); mk_lang_assert(len <= 0xff);
-		if(mk_lang_str_match_t(hash_buf, hash_len, str, len))
-		{
-			break;
-		}
-	}
-	id = ((mk_lib_crypto_hash_stream_any1_id_t)(i));
-	return id;
+	return arr;
 }
+
+
+mk_lang_constexpr_static_inline auto const xxx_k_arr = xxx_fn_arr();
+
+
+#else
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t xxx_fn_buf(mk_lang_types_pchar_pt const buf, mk_lang_types_sint_t const len) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lib_iip_cp_message_t obj mk_lang_constexpr_init;
+	mk_lang_types_sint_t out_len mk_lang_constexpr_init;
+
+	err = mk_lib_iip_cp_message_construct(&obj, mk_lib_iip_cp_message_message_type_id_e_create_session); mk_lang_check_recrash(err);
+	err = mk_lib_iip_cp_message_str_to_json_message(buf, len, &out_len, &obj); mk_lang_check_recrash(err);
+	err = mk_lib_iip_cp_message_destroy(&obj); mk_lang_check_recrash(err);
+
+	return out_len;
+}
+
+#endif
+
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_work(mk_lang_types_sint_t const argc, mk_lang_tchar_pcpct const argv, mk_lang_types_sint_pct const lens) mk_lang_noexcept
 {
 	mk_lang_types_sint_t n;
 	mk_lang_types_sint_t i;
-	mk_lang_tchar_pct arg_hash_buf;
-	mk_lang_tchar_pct arg_file_buf;
-	mk_lang_types_sint_t arg_hash_len;
-	mk_lang_types_sint_t arg_file_len;
-	mk_lib_crypto_hash_stream_any1_id_t id;
-	mk_lib_crypto_hash_stream_any2_t iip;
-	mk_sl_cui_uint8_pt ptr;
-	mk_clib_app_iip_buff_t buff;
-	mk_lang_types_sint_t err;
-	mk_sl_io_reader_file_t input_file;
-	mk_lang_types_sint_t read;
-	mk_sl_cui_uint8_t digest[mk_lib_crypto_hash_stream_any1_digest_max_len_v];
 
 	mk_lang_assert(argc == 3);
 	mk_lang_assert(argv);
@@ -115,51 +101,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wor
 	{
 		mk_lang_assert(argv[i]);
 		mk_lang_assert(argv[i][0] != mk_lang_tchar_c('\0'));
-		mk_lang_assert(lens[i] >= 0);
-	}
-	arg_hash_buf = argv[1];
-	arg_file_buf = argv[2];
-	arg_hash_len = lens[1];
-	arg_file_len = lens[2]; ((mk_lang_types_void_t)(arg_file_len)); /* todo file reader not zero terminated */
-	id = mk_clib_app_iip_find_hash(arg_hash_buf, arg_hash_len);
-	mk_lang_check_return(id != mk_lib_crypto_hash_stream_any1_id_e_dummy_end);
-	mk_lib_crypto_hash_stream_any2_init(&iip, id);
-	ptr = ((mk_sl_cui_uint8_pt)(mk_lang_roundup_align(&buff.m_data.m_uchars[0], mk_clib_app_iip_buff_algn)));
-	err = mk_sl_io_reader_file_open_t(&input_file, arg_file_buf); mk_lang_check_rereturn(err);
-	for(;;)
-	{
-		err = mk_sl_io_reader_file_read(&input_file, ptr, mk_clib_app_iip_buff_size, &read); mk_lang_check_rereturn(err);
-		if(read == 0)
-		{
-			break;
-		}
-		mk_lib_crypto_hash_stream_any2_append_u8s(&iip, ptr, ((mk_lang_types_usize_t)(read)));
-	}
-	err = mk_sl_io_reader_file_close(&input_file); mk_lang_check_rereturn(err);
-	mk_lib_crypto_hash_stream_any2_finish(&iip, &digest[0]);
-	err = mk_clib_app_iip_print_digest(id, &digest[0]); mk_lang_check_rereturn(err);
-	return 0;
-}
-
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_print_algs(mk_lang_types_void_t) mk_lang_noexcept
-{
-	mk_lang_types_sint_t n;
-	mk_lang_types_sint_t i;
-	mk_lib_crypto_hash_stream_any1_id_t id;
-	mk_lang_types_pchar_pct str;
-	mk_lang_types_sint_t len;
-	mk_lang_types_sint_t slen;
-	mk_lang_tchar_t buf[0xff];
-	mk_lang_types_sint_t err;
-
-	n = mk_lib_crypto_hash_stream_any1_id_e_dummy_end;
-	for(i = 0; i != n; ++i)
-	{
-		id = ((mk_lib_crypto_hash_stream_any1_id_t)(i));
-		str = mk_lib_crypto_hash_stream_any1_get_str_buf(id); mk_lang_assert(str); mk_lang_assert(str[0] != '\0');
-		len = mk_lib_crypto_hash_stream_any1_get_str_len(id); mk_lang_assert(len >= 1); mk_lang_assert(len <= 0xff);
-		slen = mk_lib_fmt_t_snnprintf(&buf[0], mk_lang_countof(buf), mk_lib_fmt_lit_and_len(mk_lang_tchar_c(" %n")), str, len); mk_lang_check_return(slen >= 1);
-		err = mk_lang_stdout_print_t(&buf[0], slen); mk_lang_check_rereturn(err);
+		mk_lang_assert(lens[i] >= 1);
 	}
 	return 0;
 }
@@ -170,7 +112,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_usa
 	mk_lang_types_sint_t exe_len;
 	mk_lang_types_sint_t err;
 	mk_lang_types_sint_t len;
-	mk_lang_tchar_t buf[512];
+	mk_lang_tchar_t buf[4 * 1024];
 	mk_sl_cui_uint64_t time_val;
 	mk_lang_types_pchar_t time_str[24];
 	mk_lang_types_sint_t time_len;
@@ -190,6 +132,18 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_usa
 	mk_lib_iip_time_get_now(&time_val);
 	mk_lib_iip_time_to_text(&time_val, &time_str[0], mk_lang_countof(time_str), &time_len);
 	len = mk_lib_fmt_t_snnprintf(&buf[0], mk_lang_countof(buf), mk_lib_fmt_lit_and_len(mk_lang_tchar_c("time: %ht")), &time_str[0], time_len); mk_lang_check_return(len >= 1); err = mk_lang_stdout_println_t(&buf[0], len); mk_lang_check_rereturn(err);
+
+	#if mk_lang_version_at_least_cpp_14 || mk_lang_version_at_least_msvc_cpp_14
+	len = mk_lib_fmt_t_snnprintf(&buf[0], mk_lang_countof(buf), mk_lib_fmt_lit_and_len(mk_lang_tchar_c("msg: %ht")), xxx_k_arr.data(), ((mk_lang_types_sint_t)(xxx_k_arr.size()))); mk_lang_check_return(len >= 1); err = mk_lang_stdout_println_t(&buf[0], len); mk_lang_check_rereturn(err);
+	#else
+	{
+		mk_lang_types_sint_t lll;
+		mk_lang_types_pchar_t buff[4*1024];
+
+		lll = xxx_fn_buf(&buff[0], mk_lang_countof(buff));
+		len = mk_lib_fmt_t_snnprintf(&buf[0], mk_lang_countof(buf), mk_lib_fmt_lit_and_len(mk_lang_tchar_c("msg: %ht")), &buff[0], lll); mk_lang_check_return(len >= 1); err = mk_lang_stdout_println_t(&buf[0], len); mk_lang_check_rereturn(err);
+	}
+	#endif
 
 	err = mk_lang_stdout_println_lit_t(mk_lang_tchar_c("")); mk_lang_check_rereturn(err);
 	return 0;

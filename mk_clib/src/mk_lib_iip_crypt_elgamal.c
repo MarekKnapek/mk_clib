@@ -16,7 +16,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_crypt_elgamal_key_pri_generate_ran
 {
 	union mk_lib_iip_crypt_elgamal_storage_data_u
 	{
-		mk_lang_types_uchar_t m_uchars[mk_lib_iip_integer_elgamal_single_size_bytes_v];
+		mk_lang_types_uchar_t m_uchars[mk_lib_iip_integer_elgamal_pri_single_size_bytes_v];
 		mk_lib_iip_crypt_elgamal_key_pri_t m_elgamal_key_pri;
 	};
 	typedef union mk_lib_iip_crypt_elgamal_storage_data_u mk_lib_iip_crypt_elgamal_storage_data_t;
@@ -31,20 +31,22 @@ mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_crypt_elgamal_key_pri_generate_ran
 	mk_lang_assert(pri);
 
 	mk_lib_iip_random_generate_uchars(&storage.m_data.m_uchars[0], mk_lang_countof(storage.m_data.m_uchars));
-	mk_lib_iip_integer_elgamal_single_from_buis_uchar_le(&pri->m_data.m_val, &storage.m_data.m_uchars[0]);
+	mk_lib_iip_integer_elgamal_pri_single_from_buis_uchar_le(&pri->m_data.m_val, &storage.m_data.m_uchars[0]);
 }
 
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_crypt_elgamal_key_pri_compute_public(mk_lib_iip_crypt_elgamal_key_pri_pct const pri, mk_lib_iip_crypt_elgamal_key_pub_pt const pub) mk_lang_noexcept
 {
-	mk_lib_iip_integer_elgamal_single_t generator mk_lang_constexpr_init;
-	mk_lib_iip_integer_elgamal_single_t prime mk_lang_constexpr_init;
+	mk_lib_iip_integer_elgamal_pub_single_t generator mk_lang_constexpr_init;
+	mk_lib_iip_integer_elgamal_pub_single_t prime mk_lang_constexpr_init;
+	mk_lib_iip_integer_elgamal_pub_single_t priv mk_lang_constexpr_init;
 
 	mk_lang_assert(pri);
 	mk_lang_assert(pub);
 
-	mk_lib_iip_integer_elgamal_single_set_two(&generator);
-	mk_lib_iip_integer_elgamal_single_load_p(&prime);
-	mk_lib_iip_integer_elgamal_single_mod_pow(&generator, &pri->m_data.m_val, &prime, &pub->m_data.m_val);
+	mk_lib_iip_integer_elgamal_pub_single_set_two(&generator);
+	mk_lib_iip_integer_elgamal_pub_single_load_p(&prime);
+	mk_lib_iip_integer_elgamal_pri_single_to_pub_single(&pri->m_data.m_val, &priv);
+	mk_lib_iip_integer_elgamal_pub_single_mod_pow(&generator, &priv, &prime, &pub->m_data.m_val);
 }
 
 

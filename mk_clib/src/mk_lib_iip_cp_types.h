@@ -53,6 +53,28 @@
 #define mk_lib_iip_cp_types_tunnelid_size_bits_d mk_sl_cui_uint32_size_bits_d
 #define mk_lib_iip_cp_types_tunnelid_size_bytes_d (mk_sl_cui_uint32_size_bits_d / mk_lang_charbit)
 
+#define mk_sl_cui_t_name mk_lib_iip_cp_types_requestid
+#define mk_sl_cui_t_base mk_sl_cui_uint32
+#define mk_sl_cui_t_count 1
+#define mk_sl_cui_t_disable_big_div 1
+#define mk_sl_cui_t_base_size_bits_d mk_sl_cui_uint32_size_bits_d
+#define mk_sl_cui_t_inline 1
+#include "mk_sl_cui_inl_fileh.h"
+#include "mk_sl_cui_inl_fileu.h"
+#define mk_lib_iip_cp_types_requestid_size_bits_d mk_sl_cui_uint32_size_bits_d
+#define mk_lib_iip_cp_types_requestid_size_bytes_d (mk_sl_cui_uint32_size_bits_d / mk_lang_charbit)
+
+#define mk_sl_cui_t_name mk_lib_iip_cp_types_nonce
+#define mk_sl_cui_t_base mk_sl_cui_uint32
+#define mk_sl_cui_t_count 1
+#define mk_sl_cui_t_disable_big_div 1
+#define mk_sl_cui_t_base_size_bits_d mk_sl_cui_uint32_size_bits_d
+#define mk_sl_cui_t_inline 1
+#include "mk_sl_cui_inl_fileh.h"
+#include "mk_sl_cui_inl_fileu.h"
+#define mk_lib_iip_cp_types_nonce_size_bits_d mk_sl_cui_uint32_size_bits_d
+#define mk_lib_iip_cp_types_nonce_size_bytes_d (mk_sl_cui_uint32_size_bits_d / mk_lang_charbit)
+
 #define mk_sl_cui_t_name mk_lib_iip_cp_types_date
 #define mk_sl_cui_t_base mk_sl_cui_uint64
 #define mk_sl_cui_t_count 1
