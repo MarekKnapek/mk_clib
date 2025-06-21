@@ -7,6 +7,7 @@
 #include "mk_lang_check.h"
 #include "mk_lang_clobber.h"
 #include "mk_lang_constexpr.h"
+#include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
@@ -53,6 +54,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lib_ii
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lib_iip_cp_message_message_type_id_t mk_lib_iip_cp_message_message_type_val_to_message_type_id(mk_lib_iip_cp_message_message_type_val_t const message_type_val) mk_lang_noexcept
 {
+#include "mk_lang_warning_clang_push_sometimes_uninitialized.h"
 	mk_lib_iip_cp_message_message_type_id_t message_type_id mk_lang_constexpr_init;
 
 	switch(message_type_val)
@@ -87,6 +89,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lib_iip_cp_message_message_
 	}
 	mk_lang_clobber(&message_type_id);
 	return message_type_id;
+#include "mk_lang_warning_clang_pop.h"
 }
 
 
@@ -109,6 +112,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lib_ii
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lib_iip_cp_message_session_status_status_id_t mk_lib_iip_cp_message_session_status_status_val_to_session_status_status_id(mk_lib_iip_cp_message_session_status_status_val_t const session_status_status_val) mk_lang_noexcept
 {
+#include "mk_lang_warning_clang_push_sometimes_uninitialized.h"
 	mk_lib_iip_cp_message_session_status_status_id_t session_status_id mk_lang_constexpr_init;
 
 	switch(session_status_status_val)
@@ -123,6 +127,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lib_iip_cp_message_session_
 	}
 	mk_lang_clobber(&session_status_id);
 	return session_status_id;
+#include "mk_lang_warning_clang_pop.h"
 }
 
 
@@ -164,6 +169,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lib_ii
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lib_iip_cp_message_message_status_status_id_t mk_lib_iip_cp_message_message_status_status_val_to_message_status_status_id(mk_lib_iip_cp_message_message_status_status_val_t const message_status_status_val) mk_lang_noexcept
 {
+#include "mk_lang_warning_clang_push_sometimes_uninitialized.h"
 	mk_lib_iip_cp_message_message_status_status_id_t message_status_id mk_lang_constexpr_init;
 
 	switch(message_status_status_val)
@@ -197,6 +203,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lib_iip_cp_message_message_
 	}
 	mk_lang_clobber(&message_status_id);
 	return message_status_id;
+#include "mk_lang_warning_clang_pop.h"
 }
 
 
@@ -220,6 +227,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lib_ii
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lib_iip_cp_message_host_reply_result_code_id_t mk_lib_iip_cp_message_host_reply_result_code_val_to_host_reply_result_code_id(mk_lib_iip_cp_message_host_reply_result_code_val_t const host_reply_result_code_val) mk_lang_noexcept
 {
+#include "mk_lang_warning_clang_push_sometimes_uninitialized.h"
 	mk_lib_iip_cp_message_host_reply_result_code_id_t session_status_id mk_lang_constexpr_init;
 
 	switch(host_reply_result_code_val)
@@ -235,11 +243,13 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lib_iip_cp_message_host_rep
 	}
 	mk_lang_clobber(&session_status_id);
 	return session_status_id;
+#include "mk_lang_warning_clang_pop.h"
 }
 
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lib_iip_cp_message_is_server_to_client(mk_lib_iip_cp_message_message_type_id_t const message_type) mk_lang_noexcept
 {
+#include "mk_lang_warning_clang_push_sometimes_uninitialized.h"
 	mk_lang_types_bool_t ret;
 
 	mk_lang_assert(message_type >= 0 && message_type < mk_lib_iip_cp_message_message_type_id_e_dummy_end);
@@ -276,10 +286,12 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lib_ii
 	}
 	mk_lang_clobber(&ret);
 	return ret;
+#include "mk_lang_warning_clang_pop.h"
 }
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lib_iip_cp_message_is_client_to_server(mk_lib_iip_cp_message_message_type_id_t const message_type) mk_lang_noexcept
 {
+#include "mk_lang_warning_clang_push_sometimes_uninitialized.h"
 	mk_lang_types_bool_t ret;
 
 	mk_lang_assert(message_type >= 0 && message_type < mk_lib_iip_cp_message_message_type_id_e_dummy_end);
@@ -316,10 +328,12 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lib_ii
 	}
 	mk_lang_clobber(&ret);
 	return ret;
+#include "mk_lang_warning_clang_pop.h"
 }
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lib_iip_cp_message_is_per_connection(mk_lib_iip_cp_message_message_type_id_t const message_type) mk_lang_noexcept
 {
+#include "mk_lang_warning_clang_push_sometimes_uninitialized.h"
 	mk_lang_types_bool_t ret;
 
 	mk_lang_assert(message_type >= 0 && message_type < mk_lib_iip_cp_message_message_type_id_e_dummy_end);
@@ -356,10 +370,12 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lib_ii
 	}
 	mk_lang_clobber(&ret);
 	return ret;
+#include "mk_lang_warning_clang_pop.h"
 }
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lib_iip_cp_message_is_per_session(mk_lib_iip_cp_message_message_type_id_t const message_type) mk_lang_noexcept
 {
+#include "mk_lang_warning_clang_push_sometimes_uninitialized.h"
 	mk_lang_types_bool_t ret;
 
 	mk_lang_assert(message_type >= 0 && message_type < mk_lib_iip_cp_message_message_type_id_e_dummy_end);
@@ -396,10 +412,11 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lib_ii
 	}
 	mk_lang_clobber(&ret);
 	return ret;
+#include "mk_lang_warning_clang_pop.h"
 }
 
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_construct_create_session(mk_lib_iip_cp_message_create_session_pt const msg_create_session) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_construct_create_session(mk_lib_iip_cp_message_create_session_pt const msg_create_session) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 
@@ -409,7 +426,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_create_session(mk_lib_iip_cp_message_create_session_pt const msg_create_session) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_create_session(mk_lib_iip_cp_message_create_session_pt const msg_create_session) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 
@@ -419,7 +436,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_construct_reconfigure_session(mk_lib_iip_cp_message_reconfigure_session_pt const msg_reconfigure_session) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_construct_reconfigure_session(mk_lib_iip_cp_message_reconfigure_session_pt const msg_reconfigure_session) mk_lang_noexcept
 {
 	mk_lang_assert(msg_reconfigure_session);
 
@@ -427,7 +444,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_reconfigure_session(mk_lib_iip_cp_message_reconfigure_session_pt const msg_reconfigure_session) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_reconfigure_session(mk_lib_iip_cp_message_reconfigure_session_pt const msg_reconfigure_session) mk_lang_noexcept
 {
 	mk_lang_assert(msg_reconfigure_session);
 
@@ -435,7 +452,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_construct_destroy_session(mk_lib_iip_cp_message_destroy_session_pt const msg_destroy_session) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_construct_destroy_session(mk_lib_iip_cp_message_destroy_session_pt const msg_destroy_session) mk_lang_noexcept
 {
 	mk_lang_assert(msg_destroy_session);
 
@@ -443,7 +460,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_destroy_session(mk_lib_iip_cp_message_destroy_session_pt const msg_destroy_session) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_destroy_session(mk_lib_iip_cp_message_destroy_session_pt const msg_destroy_session) mk_lang_noexcept
 {
 	mk_lang_assert(msg_destroy_session);
 
@@ -451,7 +468,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_construct_create_lease_set(mk_lib_iip_cp_message_create_lease_set_pt const msg_create_lease_set) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_construct_create_lease_set(mk_lib_iip_cp_message_create_lease_set_pt const msg_create_lease_set) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 
@@ -461,7 +478,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_create_lease_set(mk_lib_iip_cp_message_create_lease_set_pt const msg_create_lease_set) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_create_lease_set(mk_lib_iip_cp_message_create_lease_set_pt const msg_create_lease_set) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 
@@ -471,7 +488,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_construct_send_message(mk_lib_iip_cp_message_send_message_pt const msg_send_message) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_construct_send_message(mk_lib_iip_cp_message_send_message_pt const msg_send_message) mk_lang_noexcept
 {
 	mk_lang_assert(msg_send_message);
 
@@ -482,7 +499,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_send_message(mk_lib_iip_cp_message_send_message_pt const msg_send_message) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_send_message(mk_lib_iip_cp_message_send_message_pt const msg_send_message) mk_lang_noexcept
 {
 	mk_lang_assert(msg_send_message);
 
@@ -493,7 +510,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_construct_receive_message_begin(mk_lib_iip_cp_message_receive_message_begin_pt const msg_receive_message_begin) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_construct_receive_message_begin(mk_lib_iip_cp_message_receive_message_begin_pt const msg_receive_message_begin) mk_lang_noexcept
 {
 	mk_lang_assert(msg_receive_message_begin);
 
@@ -502,7 +519,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_receive_message_begin(mk_lib_iip_cp_message_receive_message_begin_pt const msg_receive_message_begin) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_receive_message_begin(mk_lib_iip_cp_message_receive_message_begin_pt const msg_receive_message_begin) mk_lang_noexcept
 {
 	mk_lang_assert(msg_receive_message_begin);
 
@@ -511,7 +528,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_construct_receive_message_end(mk_lib_iip_cp_message_receive_message_end_pt const msg_receive_message_end) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_construct_receive_message_end(mk_lib_iip_cp_message_receive_message_end_pt const msg_receive_message_end) mk_lang_noexcept
 {
 	mk_lang_assert(msg_receive_message_end);
 
@@ -520,7 +537,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_receive_message_end(mk_lib_iip_cp_message_receive_message_end_pt const msg_receive_message_end) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_receive_message_end(mk_lib_iip_cp_message_receive_message_end_pt const msg_receive_message_end) mk_lang_noexcept
 {
 	mk_lang_assert(msg_receive_message_end);
 
@@ -529,7 +546,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_construct_get_bandwidth_limits(mk_lib_iip_cp_message_get_bandwidth_limits_pt const msg_get_bandwidth_limits) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_construct_get_bandwidth_limits(mk_lib_iip_cp_message_get_bandwidth_limits_pt const msg_get_bandwidth_limits) mk_lang_noexcept
 {
 	mk_lang_assert(msg_get_bandwidth_limits);
 
@@ -537,7 +554,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_get_bandwidth_limits(mk_lib_iip_cp_message_get_bandwidth_limits_pt const msg_get_bandwidth_limits) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_get_bandwidth_limits(mk_lib_iip_cp_message_get_bandwidth_limits_pt const msg_get_bandwidth_limits) mk_lang_noexcept
 {
 	mk_lang_assert(msg_get_bandwidth_limits);
 
@@ -545,7 +562,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_construct_session_status(mk_lib_iip_cp_message_session_status_pt const msg_session_status) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_construct_session_status(mk_lib_iip_cp_message_session_status_pt const msg_session_status) mk_lang_noexcept
 {
 	mk_lang_assert(msg_session_status);
 
@@ -553,7 +570,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_session_status(mk_lib_iip_cp_message_session_status_pt const msg_session_status) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_session_status(mk_lib_iip_cp_message_session_status_pt const msg_session_status) mk_lang_noexcept
 {
 	mk_lang_assert(msg_session_status);
 
@@ -561,7 +578,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_construct_request_lease_set(mk_lib_iip_cp_message_request_lease_set_pt const msg_request_lease_set) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_construct_request_lease_set(mk_lib_iip_cp_message_request_lease_set_pt const msg_request_lease_set) mk_lang_noexcept
 {
 	mk_lang_assert(msg_request_lease_set);
 
@@ -569,7 +586,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_request_lease_set(mk_lib_iip_cp_message_request_lease_set_pt const msg_request_lease_set) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_request_lease_set(mk_lib_iip_cp_message_request_lease_set_pt const msg_request_lease_set) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 
@@ -579,7 +596,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_construct_message_status(mk_lib_iip_cp_message_message_status_pt const msg_message_status) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_construct_message_status(mk_lib_iip_cp_message_message_status_pt const msg_message_status) mk_lang_noexcept
 {
 	mk_lang_assert(msg_message_status);
 
@@ -591,7 +608,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_message_status(mk_lib_iip_cp_message_message_status_pt const msg_message_status) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_message_status(mk_lib_iip_cp_message_message_status_pt const msg_message_status) mk_lang_noexcept
 {
 	mk_lang_assert(msg_message_status);
 
@@ -603,7 +620,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_construct_bandwidth_limits(mk_lib_iip_cp_message_bandwidth_limits_pt const msg_bandwidth_limits) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_construct_bandwidth_limits(mk_lib_iip_cp_message_bandwidth_limits_pt const msg_bandwidth_limits) mk_lang_noexcept
 {
 	mk_lang_assert(msg_bandwidth_limits);
 
@@ -611,7 +628,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_bandwidth_limits(mk_lib_iip_cp_message_bandwidth_limits_pt const msg_bandwidth_limits) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_bandwidth_limits(mk_lib_iip_cp_message_bandwidth_limits_pt const msg_bandwidth_limits) mk_lang_noexcept
 {
 	mk_lang_assert(msg_bandwidth_limits);
 
@@ -619,7 +636,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_construct_report_abuse(mk_lib_iip_cp_message_report_abuse_pt const msg_report_abuse) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_construct_report_abuse(mk_lib_iip_cp_message_report_abuse_pt const msg_report_abuse) mk_lang_noexcept
 {
 	mk_lang_assert(msg_report_abuse);
 
@@ -627,7 +644,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_report_abuse(mk_lib_iip_cp_message_report_abuse_pt const msg_report_abuse) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_report_abuse(mk_lib_iip_cp_message_report_abuse_pt const msg_report_abuse) mk_lang_noexcept
 {
 	mk_lang_assert(msg_report_abuse);
 
@@ -635,7 +652,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_construct_disconnect(mk_lib_iip_cp_message_disconnect_pt const msg_disconnect) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_construct_disconnect(mk_lib_iip_cp_message_disconnect_pt const msg_disconnect) mk_lang_noexcept
 {
 	mk_lang_assert(msg_disconnect);
 
@@ -643,7 +660,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_disconnect(mk_lib_iip_cp_message_disconnect_pt const msg_disconnect) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_disconnect(mk_lib_iip_cp_message_disconnect_pt const msg_disconnect) mk_lang_noexcept
 {
 	mk_lang_assert(msg_disconnect);
 
@@ -651,7 +668,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_construct_message_payload(mk_lib_iip_cp_message_message_payload_pt const msg_message_payload) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_construct_message_payload(mk_lib_iip_cp_message_message_payload_pt const msg_message_payload) mk_lang_noexcept
 {
 	mk_lang_assert(msg_message_payload);
 
@@ -661,7 +678,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_message_payload(mk_lib_iip_cp_message_message_payload_pt const msg_message_payload) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_message_payload(mk_lib_iip_cp_message_message_payload_pt const msg_message_payload) mk_lang_noexcept
 {
 	mk_lang_assert(msg_message_payload);
 
@@ -671,7 +688,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_construct_get_date(mk_lib_iip_cp_message_get_date_pt const msg_get_date) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_construct_get_date(mk_lib_iip_cp_message_get_date_pt const msg_get_date) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 
@@ -681,7 +698,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_get_date(mk_lib_iip_cp_message_get_date_pt const msg_get_date) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_get_date(mk_lib_iip_cp_message_get_date_pt const msg_get_date) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 
@@ -691,7 +708,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_construct_set_date(mk_lib_iip_cp_message_set_date_pt const msg_set_date) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_construct_set_date(mk_lib_iip_cp_message_set_date_pt const msg_set_date) mk_lang_noexcept
 {
 	mk_lang_assert(msg_set_date);
 
@@ -699,7 +716,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_set_date(mk_lib_iip_cp_message_set_date_pt const msg_set_date) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_set_date(mk_lib_iip_cp_message_set_date_pt const msg_set_date) mk_lang_noexcept
 {
 	mk_lang_assert(msg_set_date);
 
@@ -707,7 +724,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_construct_dest_lookup(mk_lib_iip_cp_message_dest_lookup_pt const msg_dest_lookup) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_construct_dest_lookup(mk_lib_iip_cp_message_dest_lookup_pt const msg_dest_lookup) mk_lang_noexcept
 {
 	mk_lang_assert(msg_dest_lookup);
 
@@ -715,7 +732,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_dest_lookup(mk_lib_iip_cp_message_dest_lookup_pt const msg_dest_lookup) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_dest_lookup(mk_lib_iip_cp_message_dest_lookup_pt const msg_dest_lookup) mk_lang_noexcept
 {
 	mk_lang_assert(msg_dest_lookup);
 
@@ -723,7 +740,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_construct_dest_reply(mk_lib_iip_cp_message_dest_reply_pt const msg_dest_reply) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_construct_dest_reply(mk_lib_iip_cp_message_dest_reply_pt const msg_dest_reply) mk_lang_noexcept
 {
 	mk_lang_assert(msg_dest_reply);
 
@@ -731,7 +748,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_dest_reply(mk_lib_iip_cp_message_dest_reply_pt const msg_dest_reply) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_dest_reply(mk_lib_iip_cp_message_dest_reply_pt const msg_dest_reply) mk_lang_noexcept
 {
 	mk_lang_assert(msg_dest_reply);
 
@@ -739,7 +756,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_construct_send_message_expires(mk_lib_iip_cp_message_send_message_expires_pt const msg_send_message_expires) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_construct_send_message_expires(mk_lib_iip_cp_message_send_message_expires_pt const msg_send_message_expires) mk_lang_noexcept
 {
 	mk_lang_assert(msg_send_message_expires);
 
@@ -747,7 +764,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_send_message_expires(mk_lib_iip_cp_message_send_message_expires_pt const msg_send_message_expires) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_send_message_expires(mk_lib_iip_cp_message_send_message_expires_pt const msg_send_message_expires) mk_lang_noexcept
 {
 	mk_lang_assert(msg_send_message_expires);
 
@@ -755,7 +772,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_construct_request_variable_lease_set(mk_lib_iip_cp_message_request_variable_lease_set_pt const msg_request_variable_lease_set) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_construct_request_variable_lease_set(mk_lib_iip_cp_message_request_variable_lease_set_pt const msg_request_variable_lease_set) mk_lang_noexcept
 {
 	mk_lang_assert(msg_request_variable_lease_set);
 
@@ -763,7 +780,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_request_variable_lease_set(mk_lib_iip_cp_message_request_variable_lease_set_pt const msg_request_variable_lease_set) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_request_variable_lease_set(mk_lib_iip_cp_message_request_variable_lease_set_pt const msg_request_variable_lease_set) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 
@@ -773,7 +790,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_construct_host_lookup(mk_lib_iip_cp_message_host_lookup_pt const msg_host_lookup) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_construct_host_lookup(mk_lib_iip_cp_message_host_lookup_pt const msg_host_lookup) mk_lang_noexcept
 {
 	mk_lang_assert(msg_host_lookup);
 
@@ -781,7 +798,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_host_lookup(mk_lib_iip_cp_message_host_lookup_pt const msg_host_lookup) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_host_lookup(mk_lib_iip_cp_message_host_lookup_pt const msg_host_lookup) mk_lang_noexcept
 {
 	mk_lang_assert(msg_host_lookup);
 
@@ -789,7 +806,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_construct_host_reply(mk_lib_iip_cp_message_host_reply_pt const msg_host_reply) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_construct_host_reply(mk_lib_iip_cp_message_host_reply_pt const msg_host_reply) mk_lang_noexcept
 {
 	mk_lang_assert(msg_host_reply);
 
@@ -797,7 +814,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_host_reply(mk_lib_iip_cp_message_host_reply_pt const msg_host_reply) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_host_reply(mk_lib_iip_cp_message_host_reply_pt const msg_host_reply) mk_lang_noexcept
 {
 	mk_lang_assert(msg_host_reply);
 
@@ -805,7 +822,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_construct_create_lease_set2(mk_lib_iip_cp_message_create_lease_set2_pt const msg_create_lease_set2) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_construct_create_lease_set2(mk_lib_iip_cp_message_create_lease_set2_pt const msg_create_lease_set2) mk_lang_noexcept
 {
 	mk_lang_assert(msg_create_lease_set2);
 
@@ -813,7 +830,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_create_lease_set2(mk_lib_iip_cp_message_create_lease_set2_pt const msg_create_lease_set2) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_create_lease_set2(mk_lib_iip_cp_message_create_lease_set2_pt const msg_create_lease_set2) mk_lang_noexcept
 {
 	mk_lang_assert(msg_create_lease_set2);
 
@@ -821,7 +838,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_construct_blinding_info(mk_lib_iip_cp_message_blinding_info_pt const msg_blinding_info) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_construct_blinding_info(mk_lib_iip_cp_message_blinding_info_pt const msg_blinding_info) mk_lang_noexcept
 {
 	mk_lang_assert(msg_blinding_info);
 
@@ -829,7 +846,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_blinding_info(mk_lib_iip_cp_message_blinding_info_pt const msg_blinding_info) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_destroy_blinding_info(mk_lib_iip_cp_message_blinding_info_pt const msg_blinding_info) mk_lang_noexcept
 {
 	mk_lang_assert(msg_blinding_info);
 
