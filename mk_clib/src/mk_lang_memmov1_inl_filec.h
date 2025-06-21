@@ -45,7 +45,8 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lang_memmov1_inl_defd_fn
 	else
 	{
 		#include "mk_lang_warning_msvc_push_c4826.h"
-		if(((mk_lang_types_uintptr_t)(dst)) >= ((mk_lang_types_uintptr_t)(src)) && ((mk_lang_types_uintptr_t)(dst)) < ((mk_lang_types_uintptr_t)(src + count)))
+		/*if(((mk_lang_types_uintptr_t)(dst)) >= ((mk_lang_types_uintptr_t)(src)) && ((mk_lang_types_uintptr_t)(dst)) < ((mk_lang_types_uintptr_t)(src + count)))*/
+		if(dst >= src && dst < src + count)
 		#include "mk_lang_warning_msvc_pop.h"
 		{
 			n = count;
