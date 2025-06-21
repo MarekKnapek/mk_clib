@@ -47,7 +47,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 		*error_code = mk_lib_iip_cp_message_parse_error_code_e_not_enough_data;
 		return 0;
 	}
-	mk_sl_cui_uint8_memcpy_fn(obj_buf, ptr, obj_len);
+	mk_sl_cui_uint8_memcpy_fn(obj_buf, ptr, ((mk_lang_types_usize_t)(obj_len)));
 	ptr += tlen;
 	rem -= tlen;
 
@@ -557,7 +557,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 		*error_code = mk_lib_iip_cp_message_parse_error_code_e_not_enough_data;
 		return 0;
 	}
-	mk_sl_cui_uint8_to_bi_pchar_many(ptr, &obj->m_buf[0], tlen);
+	mk_sl_cui_uint8_to_bi_pchar_many(ptr, &obj->m_buf[0], ((mk_lang_types_usize_t)(tlen)));
 	obj->m_buf[tlen] = '\0';
 	ptr += tlen;
 	rem -= tlen;
@@ -706,7 +706,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 		*error_code = mk_lib_iip_cp_message_parse_error_code_e_too_much_data;
 		return 0;
 	}
-	mk_sl_cui_uint8_memcpy_fn(&obj->m_buf[0], ptr, tlen);
+	mk_sl_cui_uint8_memcpy_fn(&obj->m_buf[0], ptr, ((mk_lang_types_usize_t)(tlen)));
 	obj->m_len = tlen;
 	ptr += tlen;
 	rem -= tlen;
@@ -793,11 +793,11 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 		*error_code = mk_lib_iip_cp_message_parse_error_code_e_too_many_tunnels;
 		return 0;
 	}
-	err = mk_lib_iip_cp_types_hash_and_tunnelids_rw_resize_to(obj, count); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_types_hash_and_tunnelids_rw_resize_to(obj, ((mk_lang_types_usize_t)(count))); mk_lang_check_rereturn(err);
 	n = count;
 	for(i = 0; i != n; ++i)
 	{
-		hash_and_tunnelid = mk_lib_iip_cp_types_hash_and_tunnelids_rw_at(obj, i); mk_lang_assert(hash_and_tunnelid);
+		hash_and_tunnelid = mk_lib_iip_cp_types_hash_and_tunnelids_rw_at(obj, ((mk_lang_types_usize_t)(i))); mk_lang_assert(hash_and_tunnelid);
 		err = mk_lib_iip_cp_message_parse_type_hash_and_tunnelid(ptr, rem, error_code, &tlen, hash_and_tunnelid); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
 	}
 
@@ -861,11 +861,11 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 		return 0;
 	}
 	err = mk_lib_iip_cp_types_leases_rw_construct_void(obj); mk_lang_check_rereturn(err);
-	err = mk_lib_iip_cp_types_leases_rw_resize_to(obj, count); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_types_leases_rw_resize_to(obj, ((mk_lang_types_usize_t)(count))); mk_lang_check_rereturn(err);
 	n = count;
 	for(i = 0; i != n; ++i)
 	{
-		lease = mk_lib_iip_cp_types_leases_rw_at(obj, i); mk_lang_assert(lease);
+		lease = mk_lib_iip_cp_types_leases_rw_at(obj, ((mk_lang_types_usize_t)(i))); mk_lang_assert(lease);
 		err = mk_lib_iip_cp_message_parse_lease(ptr, rem, error_code, &tlen, lease); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
 	}
 
@@ -918,6 +918,8 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	rem = data_len;
 
 	mk_lang_check_todo();
+	((mk_lang_types_void_t)(ptr));
+	((mk_lang_types_void_t)(rem));
 
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -941,6 +943,8 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	rem = data_len;
 
 	mk_lang_check_todo();
+	((mk_lang_types_void_t)(ptr));
+	((mk_lang_types_void_t)(rem));
 
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -964,6 +968,8 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	rem = data_len;
 
 	mk_lang_check_todo();
+	((mk_lang_types_void_t)(ptr));
+	((mk_lang_types_void_t)(rem));
 
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -987,6 +993,8 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	rem = data_len;
 
 	mk_lang_check_todo();
+	((mk_lang_types_void_t)(ptr));
+	((mk_lang_types_void_t)(rem));
 
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -1010,6 +1018,8 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	rem = data_len;
 
 	mk_lang_check_todo();
+	((mk_lang_types_void_t)(ptr));
+	((mk_lang_types_void_t)(rem));
 
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -1033,6 +1043,8 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	rem = data_len;
 
 	mk_lang_check_todo();
+	((mk_lang_types_void_t)(ptr));
+	((mk_lang_types_void_t)(rem));
 
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -1056,6 +1068,8 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	rem = data_len;
 
 	mk_lang_check_todo();
+	((mk_lang_types_void_t)(ptr));
+	((mk_lang_types_void_t)(rem));
 
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -1079,6 +1093,8 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	rem = data_len;
 
 	mk_lang_check_todo();
+	((mk_lang_types_void_t)(ptr));
+	((mk_lang_types_void_t)(rem));
 
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -1221,6 +1237,8 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	rem = data_len;
 
 	mk_lang_check_todo();
+	((mk_lang_types_void_t)(ptr));
+	((mk_lang_types_void_t)(rem));
 
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -1294,6 +1312,8 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	rem = data_len;
 
 	mk_lang_check_todo();
+	((mk_lang_types_void_t)(ptr));
+	((mk_lang_types_void_t)(rem));
 
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -1342,6 +1362,8 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	rem = data_len;
 
 	mk_lang_check_todo();
+	((mk_lang_types_void_t)(ptr));
+	((mk_lang_types_void_t)(rem));
 
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -1365,6 +1387,8 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	rem = data_len;
 
 	mk_lang_check_todo();
+	((mk_lang_types_void_t)(ptr));
+	((mk_lang_types_void_t)(rem));
 
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -1388,6 +1412,8 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	rem = data_len;
 
 	mk_lang_check_todo();
+	((mk_lang_types_void_t)(ptr));
+	((mk_lang_types_void_t)(rem));
 
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -1436,6 +1462,8 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	rem = data_len;
 
 	mk_lang_check_todo();
+	((mk_lang_types_void_t)(ptr));
+	((mk_lang_types_void_t)(rem));
 
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -1493,6 +1521,8 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	rem = data_len;
 
 	mk_lang_check_todo();
+	((mk_lang_types_void_t)(ptr));
+	((mk_lang_types_void_t)(rem));
 
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -1516,6 +1546,8 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	rem = data_len;
 
 	mk_lang_check_todo();
+	((mk_lang_types_void_t)(ptr));
+	((mk_lang_types_void_t)(rem));
 
 	tlen = data_len - rem;
 	*consumed = tlen;

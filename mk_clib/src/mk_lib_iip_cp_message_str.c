@@ -2072,6 +2072,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lib_iip_cp_message_str_strs_t mk_lib_iip_cp_message_str_to_json_enum_message_type_id(mk_lib_iip_cp_message_message_type_id_t const obj) mk_lang_noexcept
 {
+#include "mk_lang_warning_clang_push_sometimes_uninitialized.h"
 	mk_lib_iip_cp_message_str_strs_t str_id mk_lang_constexpr_init;
 
 	mk_lang_assert(obj >= 0);
@@ -2109,10 +2110,12 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lib_iip_cp_message_
 	}
 	mk_lang_clobber(&str_id);
 	return str_id;
+#include "mk_lang_warning_clang_pop.h"
 }
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lib_iip_cp_message_str_strs_t mk_lib_iip_cp_message_str_to_json_enum_session_status_status_id(mk_lib_iip_cp_message_session_status_status_id_t const obj) mk_lang_noexcept
 {
+#include "mk_lang_warning_clang_push_sometimes_uninitialized.h"
 	mk_lib_iip_cp_message_str_strs_t str_id mk_lang_constexpr_init;
 
 	mk_lang_assert(obj >= 0);
@@ -2130,10 +2133,12 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lib_iip_cp_message_
 	}
 	mk_lang_clobber(&str_id);
 	return str_id;
+#include "mk_lang_warning_clang_pop.h"
 }
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lib_iip_cp_message_str_strs_t mk_lib_iip_cp_message_str_to_json_enum_message_status_status_id(mk_lib_iip_cp_message_message_status_status_id_t const obj) mk_lang_noexcept
 {
+#include "mk_lang_warning_clang_push_sometimes_uninitialized.h"
 	mk_lib_iip_cp_message_str_strs_t str_id mk_lang_constexpr_init;
 
 	mk_lang_assert(obj >= 0);
@@ -2170,10 +2175,12 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lib_iip_cp_message_
 	}
 	mk_lang_clobber(&str_id);
 	return str_id;
+#include "mk_lang_warning_clang_pop.h"
 }
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lib_iip_cp_message_str_strs_t mk_lib_iip_cp_message_str_to_json_enum_host_lookup_request_type_id(mk_lib_iip_cp_message_host_lookup_request_type_id_t const obj) mk_lang_noexcept
 {
+#include "mk_lang_warning_clang_push_sometimes_uninitialized.h"
 	mk_lib_iip_cp_message_str_strs_t str_id mk_lang_constexpr_init;
 
 	mk_lang_assert(obj >= 0);
@@ -2188,10 +2195,12 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lib_iip_cp_message_
 	}
 	mk_lang_clobber(&str_id);
 	return str_id;
+#include "mk_lang_warning_clang_pop.h"
 }
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lib_iip_cp_message_str_strs_t mk_lib_iip_cp_message_str_to_json_enum_host_reply_result_code_id(mk_lib_iip_cp_message_host_reply_result_code_id_t const obj) mk_lang_noexcept
 {
+#include "mk_lang_warning_clang_push_sometimes_uninitialized.h"
 	mk_lib_iip_cp_message_str_strs_t str_id mk_lang_constexpr_init;
 
 	mk_lang_assert(obj >= 0);
@@ -2210,6 +2219,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lib_iip_cp_message_
 	}
 	mk_lang_clobber(&str_id);
 	return str_id;
+#include "mk_lang_warning_clang_pop.h"
 }
 
 
@@ -4006,6 +4016,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 	ptr = str_buf;
 	rem = str_len;
+	((mk_lang_types_void_t)(ptr));
 	((mk_lang_types_void_t)(obj));
 	tlen = str_len - rem;
 	*out_len = tlen;
