@@ -125,7 +125,9 @@ static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_windows_statistics_a
 	mk_sl_mallocator_windows_bytes_t bytes;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(size_bytes >= 0);
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	mk_sl_mallocator_windows_blocks_inc1(&mk_sl_mallocator_windows_statistics_g.m_blocks_allocated);
@@ -147,7 +149,9 @@ static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_windows_statistics_d
 	mk_sl_mallocator_windows_bytes_t bytes;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(size_bytes >= 0);
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	mk_sl_mallocator_windows_blocks_inc1(&mk_sl_mallocator_windows_statistics_g.m_blocks_deallocated);
@@ -155,7 +159,9 @@ static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_windows_statistics_d
 	mk_sl_mallocator_windows_bytes_add2_wrap_cid_cod(&mk_sl_mallocator_windows_statistics_g.m_bytes_deallocated, &bytes);
 #else
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(size_bytes >= 0);
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	((mk_lang_types_void_t)(size_bytes));
@@ -194,9 +200,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_windows_al
 	mk_lang_types_void_pt m;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(!mk_win_dll_kernel_heap_is_null(mk_sl_mallocator_windows_g));
 	mk_lang_assert(size_bytes >= 0);
 	mk_lang_assert(mem || size_bytes == 0);
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	if(size_bytes != 0)
@@ -216,9 +224,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_windows_de
 	mk_win_base_bool_t b;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(!mk_win_dll_kernel_heap_is_null(mk_sl_mallocator_windows_g));
 	mk_lang_assert(mem || size_bytes == 0);
 	mk_lang_assert(size_bytes >= 0);
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	if(size_bytes != 0)
