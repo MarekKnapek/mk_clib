@@ -92,6 +92,46 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lib_iip_cp_message_message_
 #include "mk_lang_warning_clang_pop.h"
 }
 
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lib_iip_cp_message_message_type_val_t mk_lib_iip_cp_message_message_type_id_to_message_type_val(mk_lib_iip_cp_message_message_type_id_t const message_type_id) mk_lang_noexcept
+{
+#include "mk_lang_warning_clang_push_sometimes_uninitialized.h"
+	mk_lib_iip_cp_message_message_type_val_t message_type_val mk_lang_constexpr_init;
+
+	switch(message_type_id)
+	{
+		case mk_lib_iip_cp_message_message_type_id_e_create_session            : message_type_val = mk_lib_iip_cp_message_message_type_val_e_create_session            ; break;
+		case mk_lib_iip_cp_message_message_type_id_e_reconfigure_session       : message_type_val = mk_lib_iip_cp_message_message_type_val_e_reconfigure_session       ; break;
+		case mk_lib_iip_cp_message_message_type_id_e_destroy_session           : message_type_val = mk_lib_iip_cp_message_message_type_val_e_destroy_session           ; break;
+		case mk_lib_iip_cp_message_message_type_id_e_create_lease_set          : message_type_val = mk_lib_iip_cp_message_message_type_val_e_create_lease_set          ; break;
+		case mk_lib_iip_cp_message_message_type_id_e_send_message              : message_type_val = mk_lib_iip_cp_message_message_type_val_e_send_message              ; break;
+		case mk_lib_iip_cp_message_message_type_id_e_receive_message_begin     : message_type_val = mk_lib_iip_cp_message_message_type_val_e_receive_message_begin     ; break;
+		case mk_lib_iip_cp_message_message_type_id_e_receive_message_end       : message_type_val = mk_lib_iip_cp_message_message_type_val_e_receive_message_end       ; break;
+		case mk_lib_iip_cp_message_message_type_id_e_get_bandwidth_limits      : message_type_val = mk_lib_iip_cp_message_message_type_val_e_get_bandwidth_limits      ; break;
+		case mk_lib_iip_cp_message_message_type_id_e_session_status            : message_type_val = mk_lib_iip_cp_message_message_type_val_e_session_status            ; break;
+		case mk_lib_iip_cp_message_message_type_id_e_request_lease_set         : message_type_val = mk_lib_iip_cp_message_message_type_val_e_request_lease_set         ; break;
+		case mk_lib_iip_cp_message_message_type_id_e_message_status            : message_type_val = mk_lib_iip_cp_message_message_type_val_e_message_status            ; break;
+		case mk_lib_iip_cp_message_message_type_id_e_bandwidth_limits          : message_type_val = mk_lib_iip_cp_message_message_type_val_e_bandwidth_limits          ; break;
+		case mk_lib_iip_cp_message_message_type_id_e_report_abuse              : message_type_val = mk_lib_iip_cp_message_message_type_val_e_report_abuse              ; break;
+		case mk_lib_iip_cp_message_message_type_id_e_disconnect                : message_type_val = mk_lib_iip_cp_message_message_type_val_e_disconnect                ; break;
+		case mk_lib_iip_cp_message_message_type_id_e_message_payload           : message_type_val = mk_lib_iip_cp_message_message_type_val_e_message_payload           ; break;
+		case mk_lib_iip_cp_message_message_type_id_e_get_date                  : message_type_val = mk_lib_iip_cp_message_message_type_val_e_get_date                  ; break;
+		case mk_lib_iip_cp_message_message_type_id_e_set_date                  : message_type_val = mk_lib_iip_cp_message_message_type_val_e_set_date                  ; break;
+		case mk_lib_iip_cp_message_message_type_id_e_dest_lookup               : message_type_val = mk_lib_iip_cp_message_message_type_val_e_dest_lookup               ; break;
+		case mk_lib_iip_cp_message_message_type_id_e_dest_reply                : message_type_val = mk_lib_iip_cp_message_message_type_val_e_dest_reply                ; break;
+		case mk_lib_iip_cp_message_message_type_id_e_send_message_expires      : message_type_val = mk_lib_iip_cp_message_message_type_val_e_send_message_expires      ; break;
+		case mk_lib_iip_cp_message_message_type_id_e_request_variable_lease_set: message_type_val = mk_lib_iip_cp_message_message_type_val_e_request_variable_lease_set; break;
+		case mk_lib_iip_cp_message_message_type_id_e_host_lookup               : message_type_val = mk_lib_iip_cp_message_message_type_val_e_host_lookup               ; break;
+		case mk_lib_iip_cp_message_message_type_id_e_host_reply                : message_type_val = mk_lib_iip_cp_message_message_type_val_e_host_reply                ; break;
+		case mk_lib_iip_cp_message_message_type_id_e_create_lease_set2         : message_type_val = mk_lib_iip_cp_message_message_type_val_e_create_lease_set2         ; break;
+		case mk_lib_iip_cp_message_message_type_id_e_blinding_info             : message_type_val = mk_lib_iip_cp_message_message_type_val_e_blinding_info             ; break;
+		case mk_lib_iip_cp_message_message_type_id_e_dummy_end: mk_lang_assert_false(); break;
+		default: mk_lang_assert_false(); break;
+	}
+	mk_lang_clobber(&message_type_val);
+	return message_type_val;
+#include "mk_lang_warning_clang_pop.h"
+}
+
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lib_iip_cp_message_session_status_status_val_is_known(mk_lang_types_sint_t const session_status_status_val) mk_lang_noexcept
 {
@@ -207,6 +247,55 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lib_iip_cp_message_message_
 }
 
 
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lib_iip_cp_message_host_lookup_request_type_val_is_known(mk_lang_types_sint_t const host_lookup_request_type_val) mk_lang_noexcept
+{
+	mk_lang_types_bool_t is_known mk_lang_constexpr_init;
+
+	switch(host_lookup_request_type_val)
+	{
+		case mk_lib_iip_cp_message_host_lookup_request_type_val_e_hash: is_known = mk_lang_true; break;
+		case mk_lib_iip_cp_message_host_lookup_request_type_val_e_name: is_known = mk_lang_true; break;
+		case mk_lib_iip_cp_message_host_lookup_request_type_val_e_dummy_end: is_known = mk_lang_false; break;
+		default: is_known = mk_lang_false; break;
+	}
+	return is_known;
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lib_iip_cp_message_host_lookup_request_type_id_t mk_lib_iip_cp_message_host_lookup_request_type_val_to_host_lookup_request_type_id(mk_lib_iip_cp_message_host_lookup_request_type_val_t const host_lookup_request_type_val) mk_lang_noexcept
+{
+#include "mk_lang_warning_clang_push_sometimes_uninitialized.h"
+	mk_lib_iip_cp_message_host_lookup_request_type_id_t session_status_id mk_lang_constexpr_init;
+
+	switch(host_lookup_request_type_val)
+	{
+		case mk_lib_iip_cp_message_host_lookup_request_type_val_e_hash: session_status_id = mk_lib_iip_cp_message_host_lookup_request_type_id_e_hash; break;
+		case mk_lib_iip_cp_message_host_lookup_request_type_val_e_name: session_status_id = mk_lib_iip_cp_message_host_lookup_request_type_id_e_name; break;
+		case mk_lib_iip_cp_message_host_lookup_request_type_val_e_dummy_end: mk_lang_assert_false(); break;
+		default: mk_lang_assert_false(); break;
+	}
+	mk_lang_clobber(&session_status_id);
+	return session_status_id;
+#include "mk_lang_warning_clang_pop.h"
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lib_iip_cp_message_host_lookup_request_type_val_t mk_lib_iip_cp_message_host_lookup_request_type_id_to_host_lookup_request_type_val(mk_lib_iip_cp_message_host_lookup_request_type_id_t const host_lookup_request_type_id) mk_lang_noexcept
+{
+#include "mk_lang_warning_clang_push_sometimes_uninitialized.h"
+	mk_lib_iip_cp_message_host_lookup_request_type_val_t session_status_val mk_lang_constexpr_init;
+
+	switch(host_lookup_request_type_id)
+	{
+		case mk_lib_iip_cp_message_host_lookup_request_type_id_e_hash: session_status_val = mk_lib_iip_cp_message_host_lookup_request_type_val_e_hash; break;
+		case mk_lib_iip_cp_message_host_lookup_request_type_id_e_name: session_status_val = mk_lib_iip_cp_message_host_lookup_request_type_val_e_name; break;
+		case mk_lib_iip_cp_message_host_lookup_request_type_id_e_dummy_end: mk_lang_assert_false(); break;
+		default: mk_lang_assert_false(); break;
+	}
+	mk_lang_clobber(&session_status_val);
+	return session_status_val;
+#include "mk_lang_warning_clang_pop.h"
+}
+
+
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lib_iip_cp_message_host_reply_result_code_val_is_known(mk_lang_types_sint_t const host_reply_result_code_val) mk_lang_noexcept
 {
 	mk_lang_types_bool_t is_known mk_lang_constexpr_init;
@@ -243,6 +332,67 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lib_iip_cp_message_host_rep
 	}
 	mk_lang_clobber(&session_status_id);
 	return session_status_id;
+#include "mk_lang_warning_clang_pop.h"
+}
+
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lib_iip_cp_message_certificate_type_val_is_known(mk_lang_types_sint_t const certificate_type_val) mk_lang_noexcept
+{
+	mk_lang_types_bool_t is_known mk_lang_constexpr_init;
+
+	switch(certificate_type_val)
+	{
+		case mk_lib_iip_cp_message_certificate_type_val_e_null    : is_known = mk_lang_true; break;
+		case mk_lib_iip_cp_message_certificate_type_val_e_hashcash: is_known = mk_lang_true; break;
+		case mk_lib_iip_cp_message_certificate_type_val_e_hidden  : is_known = mk_lang_true; break;
+		case mk_lib_iip_cp_message_certificate_type_val_e_signed  : is_known = mk_lang_true; break;
+		case mk_lib_iip_cp_message_certificate_type_val_e_multiple: is_known = mk_lang_true; break;
+		case mk_lib_iip_cp_message_certificate_type_val_e_key     : is_known = mk_lang_true; break;
+		case mk_lib_iip_cp_message_certificate_type_val_e_dummy_end: is_known = mk_lang_false; break;
+		default: is_known = mk_lang_false; break;
+	}
+	return is_known;
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lib_iip_cp_message_certificate_type_id_t mk_lib_iip_cp_message_certificate_type_val_to_certificate_type_id(mk_lib_iip_cp_message_certificate_type_val_t const certificate_type_val) mk_lang_noexcept
+{
+#include "mk_lang_warning_clang_push_sometimes_uninitialized.h"
+	mk_lib_iip_cp_message_certificate_type_id_t session_status_id mk_lang_constexpr_init;
+
+	switch(certificate_type_val)
+	{
+		case mk_lib_iip_cp_message_certificate_type_val_e_null    : session_status_id = mk_lib_iip_cp_message_certificate_type_id_e_null    ; break;
+		case mk_lib_iip_cp_message_certificate_type_val_e_hashcash: session_status_id = mk_lib_iip_cp_message_certificate_type_id_e_hashcash; break;
+		case mk_lib_iip_cp_message_certificate_type_val_e_hidden  : session_status_id = mk_lib_iip_cp_message_certificate_type_id_e_hidden  ; break;
+		case mk_lib_iip_cp_message_certificate_type_val_e_signed  : session_status_id = mk_lib_iip_cp_message_certificate_type_id_e_signed  ; break;
+		case mk_lib_iip_cp_message_certificate_type_val_e_multiple: session_status_id = mk_lib_iip_cp_message_certificate_type_id_e_multiple; break;
+		case mk_lib_iip_cp_message_certificate_type_val_e_key     : session_status_id = mk_lib_iip_cp_message_certificate_type_id_e_key     ; break;
+		case mk_lib_iip_cp_message_certificate_type_val_e_dummy_end: mk_lang_assert_false(); break;
+		default: mk_lang_assert_false(); break;
+	}
+	mk_lang_clobber(&session_status_id);
+	return session_status_id;
+#include "mk_lang_warning_clang_pop.h"
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lib_iip_cp_message_certificate_type_val_t mk_lib_iip_cp_message_certificate_type_id_to_certificate_type_val(mk_lib_iip_cp_message_certificate_type_id_t const certificate_type_id) mk_lang_noexcept
+{
+#include "mk_lang_warning_clang_push_sometimes_uninitialized.h"
+	mk_lib_iip_cp_message_certificate_type_val_t session_status_val mk_lang_constexpr_init;
+
+	switch(certificate_type_id)
+	{
+		case mk_lib_iip_cp_message_certificate_type_id_e_null    : session_status_val = mk_lib_iip_cp_message_certificate_type_val_e_null    ; break;
+		case mk_lib_iip_cp_message_certificate_type_id_e_hashcash: session_status_val = mk_lib_iip_cp_message_certificate_type_val_e_hashcash; break;
+		case mk_lib_iip_cp_message_certificate_type_id_e_hidden  : session_status_val = mk_lib_iip_cp_message_certificate_type_val_e_hidden  ; break;
+		case mk_lib_iip_cp_message_certificate_type_id_e_signed  : session_status_val = mk_lib_iip_cp_message_certificate_type_val_e_signed  ; break;
+		case mk_lib_iip_cp_message_certificate_type_id_e_multiple: session_status_val = mk_lib_iip_cp_message_certificate_type_val_e_multiple; break;
+		case mk_lib_iip_cp_message_certificate_type_id_e_key     : session_status_val = mk_lib_iip_cp_message_certificate_type_val_e_key     ; break;
+		case mk_lib_iip_cp_message_certificate_type_id_e_dummy_end: mk_lang_assert_false(); break;
+		default: mk_lang_assert_false(); break;
+	}
+	mk_lang_clobber(&session_status_val);
+	return session_status_val;
 #include "mk_lang_warning_clang_pop.h"
 }
 
