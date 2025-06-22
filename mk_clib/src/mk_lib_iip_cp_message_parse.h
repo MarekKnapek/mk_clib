@@ -7,10 +7,10 @@
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_typedef.h"
 #include "mk_lang_types.h"
-#include "mk_sl_cui_uint8.h"
 
 
 mk_lang_forward(mk_lib_iip_cp_message);
+mk_lang_forward(mk_sl_cui_uint8);
 
 
 enum mk_lib_iip_cp_message_parse_error_code_e
@@ -21,11 +21,9 @@ enum mk_lib_iip_cp_message_parse_error_code_e
 	mk_lib_iip_cp_message_parse_error_code_e_unknown_message_type,
 	mk_lib_iip_cp_message_parse_error_code_e_unknown_session_status_status,
 	mk_lib_iip_cp_message_parse_error_code_e_unknown_message_status_status,
+	mk_lib_iip_cp_message_parse_error_code_e_unknown_host_reply_result_code,
 	mk_lib_iip_cp_message_parse_error_code_e_too_many_tunnels,
 	mk_lib_iip_cp_message_parse_error_code_e_too_many_leases,
-
-	mk_lib_iip_cp_message_parse_error_code_e_wrong_length,
-	mk_lib_iip_cp_message_parse_error_code_e_unknown_host_reply_result_code,
 	mk_lib_iip_cp_message_parse_error_code_e_dummy_end
 };
 typedef enum mk_lib_iip_cp_message_parse_error_code_e mk_lib_iip_cp_message_parse_error_code_t;

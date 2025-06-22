@@ -389,6 +389,7 @@ typedef struct mk_lib_iip_cp_types_leaseset_s mk_lib_iip_cp_types_leaseset_t;
 mk_lang_typedef(mk_lib_iip_cp_types_leaseset);
 #include "mk_lang_warning_msvc_pop.h"
 
+#include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_lib_iip_cp_types_session_config_s
 {
 	mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_t m_destination;
@@ -397,6 +398,7 @@ struct mk_lib_iip_cp_types_session_config_s
 };
 typedef struct mk_lib_iip_cp_types_session_config_s mk_lib_iip_cp_types_session_config_t;
 mk_lang_typedef(mk_lib_iip_cp_types_session_config);
+#include "mk_lang_warning_msvc_pop.h"
 
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_types_get_signature_len(mk_lib_iip_cp_types_sign_key_type_t const key_type) mk_lang_noexcept;

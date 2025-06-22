@@ -199,11 +199,11 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	ptr = data_buf;
 	rem = data_len;
 
-	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &tu32); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &tu32); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	mk_sl_cui_uint32_to_bi_ulong(&tu32, &tul);
 	if(tul >= mk_lib_iip_cp_message_parse_k_max_msg_len)
 	{
-		*error_code = mk_lib_iip_cp_message_parse_error_code_e_wrong_length;
+		*error_code = mk_lib_iip_cp_message_parse_error_code_e_too_much_data;
 		return 0;
 	}
 	*obj = ((mk_lang_types_sint_t)(tul));
@@ -231,7 +231,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	ptr = data_buf;
 	rem = data_len;
 
-	err = mk_lib_iip_cp_message_parse_u8(ptr, rem, error_code, &tlen, &tu8); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_u8(ptr, rem, error_code, &tlen, &tu8); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	mk_sl_cui_uint8_to_bi_sint(&tu8, obj);
 
 	tlen = data_len - rem;
@@ -261,7 +261,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	ptr = data_buf;
 	rem = data_len;
 
-	err = mk_lib_iip_cp_message_parse_s8(ptr, rem, error_code, &tlen, &tsi); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_s8(ptr, rem, error_code, &tlen, &tsi); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	is_known = mk_lib_iip_cp_message_message_type_val_is_known(tsi);
 	if(!is_known)
 	{
@@ -298,7 +298,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	ptr = data_buf;
 	rem = data_len;
 
-	err = mk_lib_iip_cp_message_parse_s8(ptr, rem, error_code, &tlen, &tsi); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_s8(ptr, rem, error_code, &tlen, &tsi); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	is_known = mk_lib_iip_cp_message_session_status_status_val_is_known(tsi);
 	if(!is_known)
 	{
@@ -335,7 +335,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	ptr = data_buf;
 	rem = data_len;
 
-	err = mk_lib_iip_cp_message_parse_s8(ptr, rem, error_code, &tlen, &tsi); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_s8(ptr, rem, error_code, &tlen, &tsi); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	is_known = mk_lib_iip_cp_message_message_status_status_val_is_known(tsi);
 	if(!is_known)
 	{
@@ -372,7 +372,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	ptr = data_buf;
 	rem = data_len;
 
-	err = mk_lib_iip_cp_message_parse_s8(ptr, rem, error_code, &tlen, &tsi); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_s8(ptr, rem, error_code, &tlen, &tsi); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	is_known = mk_lib_iip_cp_message_host_reply_result_code_val_is_known(tsi);
 	if(!is_known)
 	{
@@ -406,7 +406,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	ptr = data_buf;
 	rem = data_len;
 
-	err = mk_lib_iip_cp_message_parse_u16(ptr, rem, error_code, &tlen, &obj->m_elements[0]); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_u16(ptr, rem, error_code, &tlen, &obj->m_elements[0]); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -430,7 +430,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	ptr = data_buf;
 	rem = data_len;
 
-	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_elements[0]); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_elements[0]); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -454,7 +454,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	ptr = data_buf;
 	rem = data_len;
 
-	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_elements[0]); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_elements[0]); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -478,7 +478,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	ptr = data_buf;
 	rem = data_len;
 
-	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_elements[0]); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_elements[0]); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -502,7 +502,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	ptr = data_buf;
 	rem = data_len;
 
-	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_elements[0]); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_elements[0]); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -526,7 +526,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	ptr = data_buf;
 	rem = data_len;
 
-	err = mk_lib_iip_cp_message_parse_u64(ptr, rem, error_code, &tlen, &obj->m_elements[0]); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_u64(ptr, rem, error_code, &tlen, &obj->m_elements[0]); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -584,8 +584,8 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	ptr = data_buf;
 	rem = data_len;
 
-	err = mk_lib_iip_cp_message_parse_s8    (ptr, rem, error_code, &tlen, &obj->m_len); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_parse_strbuf(ptr, rem, error_code, &tlen, obj        ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_s8    (ptr, rem, error_code, &tlen, &obj->m_len); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_strbuf(ptr, rem, error_code, &tlen, obj        ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -611,7 +611,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 	if(rem != 0)
 	{
-		err = mk_lib_iip_cp_message_parse_type_string(ptr, rem, error_code, &tlen, obj); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
+		err = mk_lib_iip_cp_message_parse_type_string(ptr, rem, error_code, &tlen, obj); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	}
 	else
 	{
@@ -647,7 +647,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 		*error_code = mk_lib_iip_cp_message_parse_error_code_e_too_much_data;
 		return 0;
 	}
-	err = mk_lib_iip_cp_message_parse_u8s(ptr, rem, error_code, &tlen, &obj->m_buf[0], obj->m_len); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_u8s(ptr, rem, error_code, &tlen, &obj->m_buf[0], obj->m_len); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -671,8 +671,8 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	ptr = data_buf;
 	rem = data_len;
 
-	err = mk_lib_iip_cp_message_parse_sint   (ptr, rem, error_code, &tlen, &obj->m_len); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_parse_buf_buf(ptr, rem, error_code, &tlen, obj        ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_sint   (ptr, rem, error_code, &tlen, &obj->m_len); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_buf_buf(ptr, rem, error_code, &tlen, obj        ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -733,7 +733,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	ptr = data_buf;
 	rem = data_len;
 
-	err = mk_lib_iip_cp_message_parse_u8s(ptr, rem, error_code, &tlen, &obj->m_digest.m_data.m_uint8s[0], mk_lang_countof(obj->m_digest.m_data.m_uint8s)); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_u8s(ptr, rem, error_code, &tlen, &obj->m_digest.m_data.m_uint8s[0], mk_lang_countof(obj->m_digest.m_data.m_uint8s)); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -757,8 +757,8 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	ptr = data_buf;
 	rem = data_len;
 
-	err = mk_lib_iip_cp_message_parse_type_hash    (ptr, rem, error_code, &tlen, &obj->m_router_hash); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_parse_type_tunnelid(ptr, rem, error_code, &tlen, &obj->m_tunnel_id  ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_type_hash    (ptr, rem, error_code, &tlen, &obj->m_router_hash); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_type_tunnelid(ptr, rem, error_code, &tlen, &obj->m_tunnel_id  ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -786,7 +786,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	ptr = data_buf;
 	rem = data_len;
 
-	err = mk_lib_iip_cp_message_parse_s8(ptr, rem, error_code, &tlen, &count); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_s8(ptr, rem, error_code, &tlen, &count); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	mk_lang_assert(count >= 0);
 	if(!(count <= mk_lib_iip_cp_types_hash_and_tunnelids_capacity_v))
 	{
@@ -798,7 +798,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	for(i = 0; i != n; ++i)
 	{
 		hash_and_tunnelid = mk_lib_iip_cp_types_hash_and_tunnelids_rw_at(obj, ((mk_lang_types_usize_t)(i))); mk_lang_assert(hash_and_tunnelid);
-		err = mk_lib_iip_cp_message_parse_type_hash_and_tunnelid(ptr, rem, error_code, &tlen, hash_and_tunnelid); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
+		err = mk_lib_iip_cp_message_parse_type_hash_and_tunnelid(ptr, rem, error_code, &tlen, hash_and_tunnelid); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	}
 
 	tlen = data_len - rem;
@@ -823,9 +823,9 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	ptr = data_buf;
 	rem = data_len;
 
-	err = mk_lib_iip_cp_message_parse_type_hash    (ptr, rem, error_code, &tlen, &obj->m_router_hash); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_parse_type_tunnelid(ptr, rem, error_code, &tlen, &obj->m_tunnel_id  ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_parse_type_date    (ptr, rem, error_code, &tlen, &obj->m_end_date   ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_type_hash    (ptr, rem, error_code, &tlen, &obj->m_router_hash); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_type_tunnelid(ptr, rem, error_code, &tlen, &obj->m_tunnel_id  ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_type_date    (ptr, rem, error_code, &tlen, &obj->m_end_date   ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -853,7 +853,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	ptr = data_buf;
 	rem = data_len;
 
-	err = mk_lib_iip_cp_message_parse_s8(ptr, rem, error_code, &tlen, &count); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_s8(ptr, rem, error_code, &tlen, &count); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	mk_lang_assert(count >= 0);
 	if(!(count <= mk_lib_iip_cp_types_hash_and_tunnelids_capacity_v))
 	{
@@ -866,7 +866,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	for(i = 0; i != n; ++i)
 	{
 		lease = mk_lib_iip_cp_types_leases_rw_at(obj, ((mk_lang_types_usize_t)(i))); mk_lang_assert(lease);
-		err = mk_lib_iip_cp_message_parse_lease(ptr, rem, error_code, &tlen, lease); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
+		err = mk_lib_iip_cp_message_parse_lease(ptr, rem, error_code, &tlen, lease); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	}
 
 	tlen = data_len - rem;
@@ -892,8 +892,8 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	ptr = data_buf;
 	rem = data_len;
 
-	err = mk_lib_iip_cp_message_parse_sint             (ptr, rem, error_code, &tlen, &obj->m_len ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_parse_enum_message_type(ptr, rem, error_code, &tlen, &obj->m_type); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_sint             (ptr, rem, error_code, &tlen, &obj->m_len ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_enum_message_type(ptr, rem, error_code, &tlen, &obj->m_type); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -1118,8 +1118,8 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	ptr = data_buf;
 	rem = data_len;
 
-	err = mk_lib_iip_cp_message_parse_type_sessionid            (ptr, rem, error_code, &tlen, &obj->m_session_id); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_parse_enum_session_status_status(ptr, rem, error_code, &tlen, &obj->m_status    ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_type_sessionid            (ptr, rem, error_code, &tlen, &obj->m_session_id); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_enum_session_status_status(ptr, rem, error_code, &tlen, &obj->m_status    ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -1143,9 +1143,9 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	ptr = data_buf;
 	rem = data_len;
 
-	err = mk_lib_iip_cp_message_parse_type_sessionid         (ptr, rem, error_code, &tlen, &obj->m_session_id); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_parse_type_hash_and_tunnelids(ptr, rem, error_code, &tlen, &obj->m_tunnels   ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_parse_type_date              (ptr, rem, error_code, &tlen, &obj->m_end_date  ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_type_sessionid         (ptr, rem, error_code, &tlen, &obj->m_session_id); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_type_hash_and_tunnelids(ptr, rem, error_code, &tlen, &obj->m_tunnels   ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_type_date              (ptr, rem, error_code, &tlen, &obj->m_end_date  ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 
 	tlen = data_len - rem;
 	
@@ -1170,11 +1170,11 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	ptr = data_buf;
 	rem = data_len;
 
-	err = mk_lib_iip_cp_message_parse_type_sessionid            (ptr, rem, error_code, &tlen, &obj->m_session_id); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_parse_type_messageid            (ptr, rem, error_code, &tlen, &obj->m_message_id); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_parse_enum_message_status_status(ptr, rem, error_code, &tlen, &obj->m_status    ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_parse_sint                      (ptr, rem, error_code, &tlen, &obj->m_size      ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_parse_type_nonce                (ptr, rem, error_code, &tlen, &obj->m_nonce     ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_type_sessionid            (ptr, rem, error_code, &tlen, &obj->m_session_id); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_type_messageid            (ptr, rem, error_code, &tlen, &obj->m_message_id); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_enum_message_status_status(ptr, rem, error_code, &tlen, &obj->m_status    ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_sint                      (ptr, rem, error_code, &tlen, &obj->m_size      ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_type_nonce                (ptr, rem, error_code, &tlen, &obj->m_nonce     ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -1198,22 +1198,22 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	ptr = data_buf;
 	rem = data_len;
 
-	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_bandwidth_limits.m_client_inbound_limit_kbps       ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_bandwidth_limits.m_client_outbound_limit_kbps      ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_bandwidth_limits.m_router_inbound_limit_kbps       ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_bandwidth_limits.m_router_inbound_burst_limit_kbps ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_bandwidth_limits.m_router_outbound_limit_kbps      ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_bandwidth_limits.m_router_outbound_burst_limit_kbps); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_bandwidth_limits.m_router_burst_time_seconds       ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_bandwidth_limits.m_future_use_1                    ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_bandwidth_limits.m_future_use_2                    ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_bandwidth_limits.m_future_use_3                    ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_bandwidth_limits.m_future_use_4                    ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_bandwidth_limits.m_future_use_5                    ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_bandwidth_limits.m_future_use_6                    ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_bandwidth_limits.m_future_use_7                    ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_bandwidth_limits.m_future_use_8                    ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_bandwidth_limits.m_future_use_9                    ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_bandwidth_limits.m_client_inbound_limit_kbps       ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_bandwidth_limits.m_client_outbound_limit_kbps      ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_bandwidth_limits.m_router_inbound_limit_kbps       ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_bandwidth_limits.m_router_inbound_burst_limit_kbps ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_bandwidth_limits.m_router_outbound_limit_kbps      ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_bandwidth_limits.m_router_outbound_burst_limit_kbps); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_bandwidth_limits.m_router_burst_time_seconds       ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_bandwidth_limits.m_future_use_1                    ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_bandwidth_limits.m_future_use_2                    ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_bandwidth_limits.m_future_use_3                    ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_bandwidth_limits.m_future_use_4                    ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_bandwidth_limits.m_future_use_5                    ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_bandwidth_limits.m_future_use_6                    ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_bandwidth_limits.m_future_use_7                    ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_bandwidth_limits.m_future_use_8                    ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_u32(ptr, rem, error_code, &tlen, &obj->m_bandwidth_limits.m_future_use_9                    ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -1262,7 +1262,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	ptr = data_buf;
 	rem = data_len;
 
-	err = mk_lib_iip_cp_message_parse_type_string(ptr, rem, error_code, &tlen, &obj->m_reason); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_type_string(ptr, rem, error_code, &tlen, &obj->m_reason); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -1286,9 +1286,9 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	ptr = data_buf;
 	rem = data_len;
 
-	err = mk_lib_iip_cp_message_parse_type_sessionid (ptr, rem, error_code, &tlen, &obj->m_session_id); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_parse_type_messageid (ptr, rem, error_code, &tlen, &obj->m_message_id); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_parse_type_buffer    (ptr, rem, error_code, &tlen, &obj->m_payload   ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_type_sessionid (ptr, rem, error_code, &tlen, &obj->m_session_id); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_type_messageid (ptr, rem, error_code, &tlen, &obj->m_message_id); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_type_buffer    (ptr, rem, error_code, &tlen, &obj->m_payload   ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -1337,8 +1337,8 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	ptr = data_buf;
 	rem = data_len;
 
-	err = mk_lib_iip_cp_message_parse_type_date      (ptr, rem, error_code, &tlen, &obj->m_server_date   ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_parse_type_opt_string(ptr, rem, error_code, &tlen, &obj->m_server_version); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_type_date      (ptr, rem, error_code, &tlen, &obj->m_server_date   ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_type_opt_string(ptr, rem, error_code, &tlen, &obj->m_server_version); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -1437,8 +1437,8 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	ptr = data_buf;
 	rem = data_len;
 
-	err = mk_lib_iip_cp_message_parse_type_sessionid(ptr, rem, error_code, &tlen, &obj->m_session_id); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_parse_type_leases   (ptr, rem, error_code, &tlen, &obj->m_leases    ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_type_sessionid(ptr, rem, error_code, &tlen, &obj->m_session_id); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_type_leases   (ptr, rem, error_code, &tlen, &obj->m_leases    ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -1487,12 +1487,12 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	ptr = data_buf;
 	rem = data_len;
 
-	err = mk_lib_iip_cp_message_parse_type_sessionid             (ptr, rem, error_code, &tlen, &obj->m_session_id ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_parse_type_requestid             (ptr, rem, error_code, &tlen, &obj->m_request_id ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_parse_enum_host_reply_result_code(ptr, rem, error_code, &tlen, &obj->m_result_code); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_type_sessionid             (ptr, rem, error_code, &tlen, &obj->m_session_id ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_type_requestid             (ptr, rem, error_code, &tlen, &obj->m_request_id ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_enum_host_reply_result_code(ptr, rem, error_code, &tlen, &obj->m_result_code); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	if(obj->m_result_code == mk_lib_iip_cp_message_host_reply_result_code_id_e_success)
 	{
-		err = mk_lib_iip_cp_message_parse_type_rem_buffer(ptr, rem, error_code, &tlen, &obj->m_destination); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
+		err = mk_lib_iip_cp_message_parse_type_rem_buffer(ptr, rem, error_code, &tlen, &obj->m_destination); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	}
 	else
 	{
@@ -1572,31 +1572,31 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	rem = data_len;
 	switch(obj->m_header.m_type)
 	{
-		case mk_lib_iip_cp_message_message_type_id_e_create_session            : err = mk_lib_iip_cp_message_parse_msg_create_session            (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_create_session            ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen; break;
-		case mk_lib_iip_cp_message_message_type_id_e_reconfigure_session       : err = mk_lib_iip_cp_message_parse_msg_reconfigure_session       (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_reconfigure_session       ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen; break;
-		case mk_lib_iip_cp_message_message_type_id_e_destroy_session           : err = mk_lib_iip_cp_message_parse_msg_destroy_session           (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_destroy_session           ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen; break;
-		case mk_lib_iip_cp_message_message_type_id_e_create_lease_set          : err = mk_lib_iip_cp_message_parse_msg_create_lease_set          (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_create_lease_set          ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen; break;
-		case mk_lib_iip_cp_message_message_type_id_e_send_message              : err = mk_lib_iip_cp_message_parse_msg_send_message              (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_send_message              ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen; break;
-		case mk_lib_iip_cp_message_message_type_id_e_receive_message_begin     : err = mk_lib_iip_cp_message_parse_msg_receive_message_begin     (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_receive_message_begin     ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen; break;
-		case mk_lib_iip_cp_message_message_type_id_e_receive_message_end       : err = mk_lib_iip_cp_message_parse_msg_receive_message_end       (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_receive_message_end       ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen; break;
-		case mk_lib_iip_cp_message_message_type_id_e_get_bandwidth_limits      : err = mk_lib_iip_cp_message_parse_msg_get_bandwidth_limits      (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_get_bandwidth_limits      ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen; break;
-		case mk_lib_iip_cp_message_message_type_id_e_session_status            : err = mk_lib_iip_cp_message_parse_msg_session_status            (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_session_status            ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen; break;
-		case mk_lib_iip_cp_message_message_type_id_e_request_lease_set         : err = mk_lib_iip_cp_message_parse_msg_request_lease_set         (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_request_lease_set         ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen; break;
-		case mk_lib_iip_cp_message_message_type_id_e_message_status            : err = mk_lib_iip_cp_message_parse_msg_message_status            (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_message_status            ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen; break;
-		case mk_lib_iip_cp_message_message_type_id_e_bandwidth_limits          : err = mk_lib_iip_cp_message_parse_msg_bandwidth_limits          (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_bandwidth_limits          ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen; break;
-		case mk_lib_iip_cp_message_message_type_id_e_report_abuse              : err = mk_lib_iip_cp_message_parse_msg_report_abuse              (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_report_abuse              ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen; break;
-		case mk_lib_iip_cp_message_message_type_id_e_disconnect                : err = mk_lib_iip_cp_message_parse_msg_disconnect                (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_disconnect                ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen; break;
-		case mk_lib_iip_cp_message_message_type_id_e_message_payload           : err = mk_lib_iip_cp_message_parse_msg_message_payload           (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_message_payload           ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen; break;
-		case mk_lib_iip_cp_message_message_type_id_e_get_date                  : err = mk_lib_iip_cp_message_parse_msg_get_date                  (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_get_date                  ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen; break;
-		case mk_lib_iip_cp_message_message_type_id_e_set_date                  : err = mk_lib_iip_cp_message_parse_msg_set_date                  (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_set_date                  ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen; break;
-		case mk_lib_iip_cp_message_message_type_id_e_dest_lookup               : err = mk_lib_iip_cp_message_parse_msg_dest_lookup               (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_dest_lookup               ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen; break;
-		case mk_lib_iip_cp_message_message_type_id_e_dest_reply                : err = mk_lib_iip_cp_message_parse_msg_dest_reply                (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_dest_reply                ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen; break;
-		case mk_lib_iip_cp_message_message_type_id_e_send_message_expires      : err = mk_lib_iip_cp_message_parse_msg_send_message_expires      (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_send_message_expires      ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen; break;
-		case mk_lib_iip_cp_message_message_type_id_e_request_variable_lease_set: err = mk_lib_iip_cp_message_parse_msg_request_variable_lease_set(ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_request_variable_lease_set); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen; break;
-		case mk_lib_iip_cp_message_message_type_id_e_host_lookup               : err = mk_lib_iip_cp_message_parse_msg_host_lookup               (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_host_lookup               ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen; break;
-		case mk_lib_iip_cp_message_message_type_id_e_host_reply                : err = mk_lib_iip_cp_message_parse_msg_host_reply                (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_host_reply                ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen; break;
-		case mk_lib_iip_cp_message_message_type_id_e_create_lease_set2         : err = mk_lib_iip_cp_message_parse_msg_create_lease_set2         (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_create_lease_set2         ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen; break;
-		case mk_lib_iip_cp_message_message_type_id_e_blinding_info             : err = mk_lib_iip_cp_message_parse_msg_blinding_info             (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_blinding_info             ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen; break;
+		case mk_lib_iip_cp_message_message_type_id_e_create_session            : err = mk_lib_iip_cp_message_parse_msg_create_session            (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_create_session            ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen; break;
+		case mk_lib_iip_cp_message_message_type_id_e_reconfigure_session       : err = mk_lib_iip_cp_message_parse_msg_reconfigure_session       (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_reconfigure_session       ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen; break;
+		case mk_lib_iip_cp_message_message_type_id_e_destroy_session           : err = mk_lib_iip_cp_message_parse_msg_destroy_session           (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_destroy_session           ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen; break;
+		case mk_lib_iip_cp_message_message_type_id_e_create_lease_set          : err = mk_lib_iip_cp_message_parse_msg_create_lease_set          (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_create_lease_set          ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen; break;
+		case mk_lib_iip_cp_message_message_type_id_e_send_message              : err = mk_lib_iip_cp_message_parse_msg_send_message              (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_send_message              ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen; break;
+		case mk_lib_iip_cp_message_message_type_id_e_receive_message_begin     : err = mk_lib_iip_cp_message_parse_msg_receive_message_begin     (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_receive_message_begin     ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen; break;
+		case mk_lib_iip_cp_message_message_type_id_e_receive_message_end       : err = mk_lib_iip_cp_message_parse_msg_receive_message_end       (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_receive_message_end       ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen; break;
+		case mk_lib_iip_cp_message_message_type_id_e_get_bandwidth_limits      : err = mk_lib_iip_cp_message_parse_msg_get_bandwidth_limits      (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_get_bandwidth_limits      ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen; break;
+		case mk_lib_iip_cp_message_message_type_id_e_session_status            : err = mk_lib_iip_cp_message_parse_msg_session_status            (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_session_status            ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen; break;
+		case mk_lib_iip_cp_message_message_type_id_e_request_lease_set         : err = mk_lib_iip_cp_message_parse_msg_request_lease_set         (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_request_lease_set         ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen; break;
+		case mk_lib_iip_cp_message_message_type_id_e_message_status            : err = mk_lib_iip_cp_message_parse_msg_message_status            (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_message_status            ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen; break;
+		case mk_lib_iip_cp_message_message_type_id_e_bandwidth_limits          : err = mk_lib_iip_cp_message_parse_msg_bandwidth_limits          (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_bandwidth_limits          ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen; break;
+		case mk_lib_iip_cp_message_message_type_id_e_report_abuse              : err = mk_lib_iip_cp_message_parse_msg_report_abuse              (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_report_abuse              ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen; break;
+		case mk_lib_iip_cp_message_message_type_id_e_disconnect                : err = mk_lib_iip_cp_message_parse_msg_disconnect                (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_disconnect                ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen; break;
+		case mk_lib_iip_cp_message_message_type_id_e_message_payload           : err = mk_lib_iip_cp_message_parse_msg_message_payload           (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_message_payload           ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen; break;
+		case mk_lib_iip_cp_message_message_type_id_e_get_date                  : err = mk_lib_iip_cp_message_parse_msg_get_date                  (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_get_date                  ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen; break;
+		case mk_lib_iip_cp_message_message_type_id_e_set_date                  : err = mk_lib_iip_cp_message_parse_msg_set_date                  (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_set_date                  ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen; break;
+		case mk_lib_iip_cp_message_message_type_id_e_dest_lookup               : err = mk_lib_iip_cp_message_parse_msg_dest_lookup               (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_dest_lookup               ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen; break;
+		case mk_lib_iip_cp_message_message_type_id_e_dest_reply                : err = mk_lib_iip_cp_message_parse_msg_dest_reply                (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_dest_reply                ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen; break;
+		case mk_lib_iip_cp_message_message_type_id_e_send_message_expires      : err = mk_lib_iip_cp_message_parse_msg_send_message_expires      (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_send_message_expires      ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen; break;
+		case mk_lib_iip_cp_message_message_type_id_e_request_variable_lease_set: err = mk_lib_iip_cp_message_parse_msg_request_variable_lease_set(ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_request_variable_lease_set); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen; break;
+		case mk_lib_iip_cp_message_message_type_id_e_host_lookup               : err = mk_lib_iip_cp_message_parse_msg_host_lookup               (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_host_lookup               ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen; break;
+		case mk_lib_iip_cp_message_message_type_id_e_host_reply                : err = mk_lib_iip_cp_message_parse_msg_host_reply                (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_host_reply                ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen; break;
+		case mk_lib_iip_cp_message_message_type_id_e_create_lease_set2         : err = mk_lib_iip_cp_message_parse_msg_create_lease_set2         (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_create_lease_set2         ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen; break;
+		case mk_lib_iip_cp_message_message_type_id_e_blinding_info             : err = mk_lib_iip_cp_message_parse_msg_blinding_info             (ptr, rem, error_code, &tlen, &obj->m_mix.m_data.m_blinding_info             ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen; break;
 		case mk_lib_iip_cp_message_message_type_id_e_dummy_end: mk_lang_assert_false(); break;
 		default: mk_lang_assert_false(); break;
 	}
@@ -1622,8 +1622,8 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 
 	ptr = data_buf;
 	rem = data_len;
-	err = mk_lib_iip_cp_message_parse_header(ptr, rem, error_code, &tlen, &obj->m_header); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_parse_mix   (ptr, rem, error_code, &tlen, obj           ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_header(ptr, rem, error_code, &tlen, &obj->m_header); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_mix   (ptr, rem, error_code, &tlen, obj           ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	tlen = data_len - rem;
 	*consumed = tlen;
 	return 0;
