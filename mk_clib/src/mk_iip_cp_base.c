@@ -39,7 +39,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_iip_cp_base_dsa_generate_k(mk_lib_iip_inte
 	{
 		do
 		{
-			mk_lib_iip_random_generate_uchars(&storage.m_data.m_uchars[0], mk_lang_countof(storage.m_data.m_uchars));
+			err = mk_lib_iip_random_generate_uchars(&storage.m_data.m_uchars[0], mk_lang_countof(storage.m_data.m_uchars));
 			mk_lib_iip_integer_dsa_sha1_pri_single_from_buis_uchar_le(outk, &storage.m_data.m_uchars[0]);
 		}while(/*!mk_iip_cp_base_dsa_key_pri_is_valid(dsa_q, outk)*/1);
 		mk_lib_iip_integer_dsa_sha1_pri_single_gcd(dsa_q, outk, &gcd);
