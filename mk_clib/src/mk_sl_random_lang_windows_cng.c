@@ -32,7 +32,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_random_lang_windows_c
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
 
-	st = mk_win_dll_bcrypt_gen_random(mk_win_dll_bcrypt_provider_get_null(), data_buf, data_len, mk_win_dll_bcrypt_k_flag_use_system_preferred_rng); mk_lang_check_return(st == 0);
+	st = mk_win_dll_bcrypt_gen_random(mk_win_dll_bcrypt_provider_get_null(), data_buf, ((mk_lang_types_ulong_t)(data_len)), mk_win_dll_bcrypt_k_flag_use_system_preferred_rng); mk_lang_check_return(st == 0);
 	return 0;
 }
 

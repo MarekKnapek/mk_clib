@@ -139,7 +139,7 @@
 		<ClCompile>
 			<AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
 			<AdditionalOptions Condition="'$(mk_is_msvc)' == 'true'">/constexpr:steps1000000000 %(AdditionalOptions)</AdditionalOptions>
-			<AdditionalOptions Condition="'$(mk_is_entry_point)' == 'true'">/Gs65536 %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(mk_is_entry_point)' == 'true'">/Gs2097152 %(AdditionalOptions)</AdditionalOptions>
 			<AdditionalOptions Condition="'$(mk_is_clang)' == 'true'">/clang:-fconstexpr-steps=1000000000 %(AdditionalOptions)</AdditionalOptions>
 			<AdditionalOptions Condition="'$(mk_is_clang)' == 'true'">-Wno-assume %(AdditionalOptions)</AdditionalOptions>
 			<AdditionalOptions Condition="'$(mk_is_clang)' == 'true'">-Wno-c++98-compat-pedantic %(AdditionalOptions)</AdditionalOptions>
@@ -171,6 +171,8 @@
 		</Link>
 		<Link>
 			<SubSystem>Console</SubSystem>
+			<StackReserveSize Condition="'$(mk_is_entry_point)' == 'true'">2097152</StackReserveSize>
+			<StackCommitSize Condition="'$(mk_is_entry_point)' == 'true'">2097152</StackCommitSize>
 			<LargeAddressAware>true</LargeAddressAware>
 		</Link>
 		<Link>
