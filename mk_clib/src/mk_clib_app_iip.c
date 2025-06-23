@@ -28,6 +28,7 @@
 #include "mk_lib_iip_cp_message_str.h"
 #include "mk_lib_iip_time.h"
 #include "mk_lib_net.h"
+#include "mk_sl_random.h"
 #include "mk_sl_cui_uint16.h"
 #include "mk_sl_cui_uint32.h"
 #include "mk_sl_cui_uint64.h"
@@ -444,8 +445,10 @@ mk_lang_extern_force_c mk_lang_nodiscard mk_lang_types_sint_t mk_clib_app_iip_pe
 
 	mk_lang_cpuid_init();
 	err = mk_lang_stdout_init(); mk_lang_check_rereturn(err);
+	err = mk_sl_random_init(); mk_lang_check_rereturn(err);
 	err = mk_lang_command_line_parse(mk_win_dll_kernel_process_get_command_line(), &argv[0], &lens[0], mk_lang_countof(argv), &argc); mk_lang_check_rereturn(err);
 	err = mk_clib_app_iip_wargs(argc, &argv[0], &lens[0]);
+	err = mk_sl_random_deinit(); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -460,6 +463,7 @@ mk_lang_extern_c mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_clib_ap
 
 	mk_lang_cpuid_init();
 	err = mk_lang_stdout_init(); mk_lang_check_rereturn(err);
+	err = mk_sl_random_init(); mk_lang_check_rereturn(err);
 	if(argc == 1)
 	{
 		lens[0] = mk_lang_str_len_n(argv[0]);
@@ -473,6 +477,7 @@ mk_lang_extern_c mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_clib_ap
 		lens[2] = mk_lang_str_len_t(argv[2]);
 		err = mk_clib_app_iip_work(argc, argv, &lens[0]); mk_lang_check_rereturn(err);
 	}
+	err = mk_sl_random_deinit(); mk_lang_check_rereturn(err);
 	return 0;
 }
 
