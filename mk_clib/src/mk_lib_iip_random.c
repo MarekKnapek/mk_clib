@@ -56,11 +56,13 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_random_generate_
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_random_generate_u32_non_zero(mk_sl_cui_uint32_pt const u32) mk_lang_noexcept
 {
+	mk_lang_types_sint_t err;
+
 	mk_lang_assert(u32);
 
 	do
 	{
-		mk_lib_iip_random_generate_u32_any(u32);
+		err = mk_lib_iip_random_generate_u32_any(u32); mk_lang_check_rereturn(err);
 	}while(mk_sl_cui_uint32_is_zero(u32));
 	return 0;
 }

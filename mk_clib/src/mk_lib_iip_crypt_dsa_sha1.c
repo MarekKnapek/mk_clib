@@ -138,8 +138,9 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_crypt_dsa_sha1_k
 	signature->m_s = s;
 }
 
-mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_crypt_dsa_sha1_key_pri_sign_data(mk_lib_iip_crypt_dsa_sha1_key_pri_pct const pri, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_crypt_dsa_sha1_signature_pt const signature) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_crypt_dsa_sha1_key_pri_sign_data(mk_lib_iip_crypt_dsa_sha1_key_pri_pct const pri, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_crypt_dsa_sha1_signature_pt const signature) mk_lang_noexcept
 {
+	mk_lang_types_sint_t err;
 	mk_lib_iip_crypt_dsa_sha1_key_pri_t k;
 
 	mk_lang_assert(pri);
@@ -147,8 +148,9 @@ mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_crypt_dsa_sha1_key_pri_sign_data(m
 	mk_lang_assert(data_len >= 0);
 	mk_lang_assert(signature);
 
-	mk_lib_iip_crypt_dsa_sha1_key_pri_pr_generate_k(&k);
+	err = mk_lib_iip_crypt_dsa_sha1_key_pri_pr_generate_k(&k); mk_lang_check_rereturn(err);
 	mk_lib_iip_crypt_dsa_sha1_key_pri_sign_k(pri, &k, data_buf, data_len, signature);
+	return 0;
 }
 
 
