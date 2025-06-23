@@ -2,6 +2,7 @@
 #define mk_include_guard_mk_clib_app_iip_c
 #include "mk_clib_app_iip.h"
 
+#include "mk_lang_tchar.h"
 #include "mk_lang_assert.h"
 #include "mk_lang_check.h"
 #include "mk_lang_command_line.h"
@@ -338,6 +339,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wor
 	mk_lang_types_bool_t done;
 	mk_lang_types_sint_t consumed;
 	mk_clib_app_iip_t app;
+	mk_lang_types_pchar_t address_store[64];
+	mk_lang_types_pchar_t port_store[64];
 
 	mk_lang_assert(argc == 3);
 	mk_lang_assert(argv);
@@ -353,10 +356,15 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wor
 
 	err = mk_lib_net_init(); mk_lang_check_rereturn(err);
 
-	address_buf = argv[1];
-	port_buf = argv[2];
-	address_len = mk_lang_str_len_n(argv[1]);
-	port_len = mk_lang_str_len_n(argv[2]);
+	address_len = mk_lang_str_len_t(argv[1]);
+	address_len = mk_lang_min(address_len, mk_lang_countof(address_store));
+	mk_lang_tchar_to_bi_pchar_many(argv[0], &port_store[0], port_len);
+	address_buf = &address_store[0];
+
+	port_len = mk_lang_str_len_t(argv[2]);
+	port_len = mk_lang_min(port_len, mk_lang_countof(port_store));
+	mk_lang_tchar_to_bi_pchar_many(argv[0], &address_store[0], address_len);
+	port_buf = &port_store[0];
 
 	err = mk_lib_net_ipv4_address_parse_pc(&app.m_cp_destination.m_ipv4_address, address_buf, address_len, &gud, &consumed); mk_lang_check_rereturn(err); mk_lang_check_return(gud); mk_lang_assert(consumed >= 1 && consumed <= address_len); mk_lang_check_return(!mk_lib_net_ipv4_address_is_any(&app.m_cp_destination.m_ipv4_address)); mk_lang_check_return(!mk_lib_net_ipv4_address_is_none(&app.m_cp_destination.m_ipv4_address));
 	err = mk_lib_net_tcp_port_parse_pc(&app.m_cp_destination.m_tcp_port, port_buf, port_len, &gud, &consumed); mk_lang_check_rereturn(err); mk_lang_check_return(gud); mk_lang_assert(consumed >= 1 && consumed <= port_len);

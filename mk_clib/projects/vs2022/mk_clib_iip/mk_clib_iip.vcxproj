@@ -144,6 +144,12 @@
 		<CopyLocalProjectReference>false</CopyLocalProjectReference>
 		<UseStructuredOutput>true</UseStructuredOutput>
 	</PropertyGroup>
+	<ItemDefinitionGroup>
+		<Link>
+			<AdditionalDependencies>ntdll.lib;%(AdditionalDependencies)</AdditionalDependencies>
+			<AdditionalDependencies>ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+		</Link>
+	</ItemDefinitionGroup>
 	<ItemGroup>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\app\iip.c"/>
 		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_abort_win_amd64.asm"><ExcludedFromBuild Condition="!('$(mk_is_intel)' == 'true' And '$(mk_is_release)' == 'true' And '$(mk_is_64bit)' == 'true')">true</ExcludedFromBuild></MASM>
