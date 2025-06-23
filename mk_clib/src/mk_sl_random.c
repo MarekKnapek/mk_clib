@@ -5,6 +5,7 @@
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_platform.h"
 #include "mk_lang_types.h"
 #include "mk_lang_version.h"
 
@@ -12,7 +13,12 @@
 mk_lang_forward(mk_sl_cui_uint8);
 
 
-#if mk_lang_version_has_macro_cplusplus
+#if mk_lang_platform_is_windows_at_least_any
+#include "mk_sl_random_lang_windows_cng.h"
+#define mk_sl_random_impl_init mk_sl_random_lang_windows_cng_init
+#define mk_sl_random_impl_deinit mk_sl_random_lang_windows_cng_deinit
+#define mk_sl_random_impl_generate mk_sl_random_lang_windows_cng_generate
+#elif mk_lang_version_has_macro_cplusplus
 #include "mk_sl_random_lang_cpp.hpp"
 #define mk_sl_random_impl_init mk_sl_random_lang_cpp_init
 #define mk_sl_random_impl_deinit mk_sl_random_lang_cpp_deinit
