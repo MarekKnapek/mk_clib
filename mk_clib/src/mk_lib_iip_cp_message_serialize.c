@@ -972,7 +972,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	ptb = ptr; reb = rem; unknown_len = 0;
 	err = mk_lib_iip_cp_message_serialize_sint_16      (ptr, rem, error_code, &tlen, &unknown_len    ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen; marker = rem;
 	err = mk_lib_iip_cp_message_serialize_type_strpairs(ptr, rem, error_code, &tlen, &obj->m_strpairs); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen; unknown_len = marker - rem; reb = mk_lang_min(reb, mk_sl_cui_uint16_size_bytes_v);
-	err = mk_lib_iip_cp_message_serialize_sint_16      (ptb, reb, error_code, &tlen, &unknown_len    ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_serialize_sint_16      (ptb, reb, error_code, &tlen, &unknown_len    ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem);
 	tlen = data_len - rem;
 	*consumed = tlen;
 	return 0;
@@ -1775,12 +1775,18 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 }
 
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_message(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_message_pct const obj) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_message(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_message_pt const obj) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
 	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_sl_cui_uint8_pt ptb mk_lang_constexpr_init;
+	mk_lang_types_sint_t reb mk_lang_constexpr_init;
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
+	mk_sl_cui_uint8_pt snapshot_ptr;
+	mk_lang_types_sint_t snapshot_rem;
+	mk_lang_types_sint_t marker;
+	mk_lang_types_sint_t content_len;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -1791,8 +1797,11 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 
 	ptr = data_buf;
 	rem = data_len;
-	err = mk_lib_iip_cp_message_serialize_header(ptr, rem, error_code, &tlen, &obj->m_header); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_serialize_mix   (ptr, rem, error_code, &tlen, obj           ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	snapshot_ptr = ptr; snapshot_rem = rem;
+	err = mk_lib_iip_cp_message_serialize_header (ptr, rem, error_code, &tlen, &obj->m_header); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen; marker = rem;
+	err = mk_lib_iip_cp_message_serialize_mix    (ptr, rem, error_code, &tlen, obj           ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	ptb = snapshot_ptr; reb = snapshot_rem; content_len = marker - rem; reb = mk_lang_min(reb, mk_sl_cui_uint32_size_bytes_v); obj->m_header.m_len = content_len;
+	err = mk_lib_iip_cp_message_serialize_sint_32(ptb, reb, error_code, &tlen, &content_len  ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem);
 	tlen = data_len - rem;
 	*consumed = tlen;
 	return 0;
