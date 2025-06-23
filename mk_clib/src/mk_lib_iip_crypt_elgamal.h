@@ -4,6 +4,7 @@
 
 #include "mk_lang_constexpr.h"
 #include "mk_lang_jumbo.h"
+#include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_typedef.h"
 #include "mk_lang_types.h"
@@ -37,7 +38,7 @@ typedef struct mk_lib_iip_crypt_elgamal_key_pub_s mk_lib_iip_crypt_elgamal_key_p
 mk_lang_typedef(mk_lib_iip_crypt_elgamal_key_pub);
 
 
-mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_crypt_elgamal_key_pri_generate_random(mk_lib_iip_crypt_elgamal_key_pri_pt const pri) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_crypt_elgamal_key_pri_generate_random(mk_lib_iip_crypt_elgamal_key_pri_pt const pri) mk_lang_noexcept;
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_crypt_elgamal_key_pri_compute_public(mk_lib_iip_crypt_elgamal_key_pri_pct const pri, mk_lib_iip_crypt_elgamal_key_pub_pt const pub) mk_lang_noexcept;
 
 

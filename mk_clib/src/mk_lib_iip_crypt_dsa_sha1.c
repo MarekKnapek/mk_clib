@@ -3,6 +3,7 @@
 #include "mk_lib_iip_crypt_dsa_sha1.h"
 
 #include "mk_lang_assert.h"
+#include "mk_lang_check.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_countof.h"
 #include "mk_lang_inline.h"
@@ -27,7 +28,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t m
 	return ret;
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_iip_crypt_dsa_sha1_key_pri_pr_generate_random(mk_lib_iip_crypt_dsa_sha1_key_pri_pt const pri) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_crypt_dsa_sha1_key_pri_pr_generate_random(mk_lib_iip_crypt_dsa_sha1_key_pri_pt const pri) mk_lang_noexcept
 {
 	union mk_lib_iip_crypt_dsa_sha1_storage_data_u
 	{
@@ -41,20 +42,23 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_iip_crypt_dsa_sha1_key_pri_pr_
 	};
 	typedef struct mk_lib_iip_crypt_dsa_sha1_storage_s mk_lib_iip_crypt_dsa_sha1_storage_t;
 
+	mk_lang_types_sint_t err;
 	mk_lib_iip_crypt_dsa_sha1_storage_t storage;
 
 	mk_lang_assert(pri);
 
 	do
 	{
-		mk_lib_iip_random_generate_uchars(&storage.m_data.m_uchars[0], mk_lang_countof(storage.m_data.m_uchars));
+		err = mk_lib_iip_random_generate_uchars(&storage.m_data.m_uchars[0], mk_lang_countof(storage.m_data.m_uchars)); mk_lang_check_rereturn(err);
 		mk_lib_iip_integer_dsa_sha1_pri_single_from_buis_uchar_le(&pri->m_data.m_val, &storage.m_data.m_uchars[0]); /* todo ne */
 	}while(!mk_lib_iip_crypt_dsa_sha1_key_pri_is_valid(pri));
+	return 0;
 }
 
-static mk_lang_inline mk_lang_types_void_t mk_lib_iip_crypt_dsa_sha1_key_pri_pr_generate_k(mk_lib_iip_crypt_dsa_sha1_key_pri_pt const k) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_crypt_dsa_sha1_key_pri_pr_generate_k(mk_lib_iip_crypt_dsa_sha1_key_pri_pt const k) mk_lang_noexcept
 {
 	mk_lib_iip_integer_dsa_sha1_pri_single_t q;
+	mk_lang_types_sint_t err;
 	mk_lib_iip_integer_dsa_sha1_pri_single_t gcd;
 
 	mk_lang_assert(k);
@@ -62,15 +66,21 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_iip_crypt_dsa_sha1_key_pri_pr_
 	mk_lib_iip_integer_dsa_sha1_pri_single_load_q(&q);
 	do
 	{
-		mk_lib_iip_crypt_dsa_sha1_key_pri_pr_generate_random(k);
+		err = mk_lib_iip_crypt_dsa_sha1_key_pri_pr_generate_random(k); mk_lang_check_rereturn(err);
 		mk_lib_iip_integer_dsa_sha1_pri_single_gcd(&q, &k->m_data.m_val, &gcd);
 	}while(!mk_lib_iip_integer_dsa_sha1_pri_single_is_one(&gcd));
+	return 0;
 }
 
 
-mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_crypt_dsa_sha1_key_pri_generate_random(mk_lib_iip_crypt_dsa_sha1_key_pri_pt const pri) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_crypt_dsa_sha1_key_pri_generate_random_(mk_lib_iip_crypt_dsa_sha1_key_pri_pt const pri) mk_lang_noexcept
 {
-	mk_lib_iip_crypt_dsa_sha1_key_pri_pr_generate_random(pri);
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(pri);
+
+	err = mk_lib_iip_crypt_dsa_sha1_key_pri_pr_generate_random(pri); mk_lang_check_rereturn(err);
+	return 0;
 }
 
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_crypt_dsa_sha1_key_pri_compute_public(mk_lib_iip_crypt_dsa_sha1_key_pri_pct const pri, mk_lib_iip_crypt_dsa_sha1_key_pub_pt const pub) mk_lang_noexcept
