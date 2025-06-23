@@ -40,6 +40,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_random_generate_
 	{
 		err = mk_sl_random_generate(&storage.m_data.m_u8s[0], mk_lang_countof(storage.m_data.m_u8s)); mk_lang_check_rereturn(err);
 		mk_sl_uint_convert_32_8_le_to_big(u32, &storage.m_data.m_u8s[0]); /* todo ne */
+		#include "mk_lang_warning_clang_push_bitwise_instead_of_logical.h"
 		gud =
 			(!mk_sl_cui_uint8_is_zero(&storage.m_data.m_u8s[0])) &
 			(!mk_sl_cui_uint8_is_zero(&storage.m_data.m_u8s[1])) &
@@ -50,6 +51,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_random_generate_
 			(!mk_sl_cui_uint8_is_max(&storage.m_data.m_u8s[2])) &
 			(!mk_sl_cui_uint8_is_max(&storage.m_data.m_u8s[3])) &
 			mk_lang_true;
+		#include "mk_lang_warning_clang_pop.h"
 	}while(!gud);
 	return 0;
 }
@@ -94,7 +96,9 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_random_generate_
 		do
 		{
 			err = mk_sl_random_generate(&tu8, 1); mk_lang_check_rereturn(err);
+		#include "mk_lang_warning_clang_push_bitwise_instead_of_logical.h"
 		}while((mk_sl_cui_uint8_is_zero(&tu8)) | (mk_sl_cui_uint8_is_max(&tu8)));
+		#include "mk_lang_warning_clang_pop.h"
 		mk_sl_cui_uint8_to_bi_uchar(&tu8, &ucs[i]);
 	}
 	return 0;

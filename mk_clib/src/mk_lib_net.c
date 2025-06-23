@@ -687,6 +687,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_read_request_get
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_construct(mk_lib_net_socket_pt const socket, mk_lib_net_address_family_t const af, mk_lib_net_address_type_t const at, mk_lib_net_address_protocol_t const ap) mk_lang_noexcept
 {
+#include "mk_lang_warning_clang_push_sometimes_uninitialized.h"
 	mk_win_base_sint_t family;
 	mk_win_base_sint_t type;
 	mk_win_base_sint_t protocol;
@@ -732,6 +733,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_construct
 	flags = mk_win_dll_ws2_address_flags_e_overlapped | mk_win_dll_ws2_address_flags_e_no_handle_inherit;
 	socket->m_handle = mk_win_dll_ws2_socketw(family, type, protocol, protocol_info, group, flags); mk_lang_check_return(socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
 	return 0;
+#include "mk_lang_warning_clang_pop.h"
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_set_option_nodelay_val(mk_lib_net_socket_pt const socket, mk_lang_types_bool_t const val) mk_lang_noexcept
