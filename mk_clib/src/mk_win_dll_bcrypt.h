@@ -69,6 +69,9 @@ mk_win_base_make_handle(mk_win_dll_bcrypt_provider)
 #define mk_win_dll_bcrypt_k_flag_alg_handle_hmac 0x00000008ul
 #define mk_win_dll_bcrypt_k_flag_hash_reusable   0x00000020ul
 
+#define mk_win_dll_bcrypt_k_flag_rng_use_entropy_in_buffer 0x00000001ul
+#define mk_win_dll_bcrypt_k_flag_use_system_preferred_rng  0x00000002ul
+
 #define mk_win_dll_bcrypt_k_object_length                 L"ObjectLength"
 #define mk_win_dll_bcrypt_k_algorithm_name                L"AlgorithmName"
 #define mk_win_dll_bcrypt_k_provider_handle               L"ProviderHandle"
@@ -161,6 +164,7 @@ mk_lang_typedef(mk_win_dll_bcrypt_authenticated_cipher_mode_info);
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_ntstatus_t mk_win_dll_bcrypt_open_algorithm_provider(mk_win_dll_bcrypt_provider_pt const provider, mk_win_base_wchar_pct const alg_id, mk_win_base_wchar_pct const implementation, mk_lang_types_ulong_t const flags) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_ntstatus_t mk_win_dll_bcrypt_close_algorithm_provider(mk_win_dll_bcrypt_provider_t const provider, mk_lang_types_ulong_t const flags) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_ntstatus_t mk_win_dll_bcrypt_gen_random(mk_win_dll_bcrypt_provider_t const provider, mk_lang_types_void_pt const data_buf, mk_lang_types_ulong_t const data_len, mk_lang_types_ulong_t const flags) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_ntstatus_t mk_win_dll_bcrypt_get_property(mk_win_dll_bcrypt_handle_t const handle, mk_win_base_wchar_pct const property, mk_lang_types_void_pt const data_buf, mk_lang_types_ulong_t const data_len_provided, mk_lang_types_ulong_pt const data_len_real, mk_lang_types_ulong_t const flags) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_ntstatus_t mk_win_dll_bcrypt_set_property(mk_win_dll_bcrypt_handle_t const handle, mk_win_base_wchar_pct const property, mk_lang_types_void_pct const data_buf, mk_lang_types_ulong_t const data_len, mk_lang_types_ulong_t const flags) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_ntstatus_t mk_win_dll_bcrypt_create_hash(mk_win_dll_bcrypt_provider_t const provider, mk_win_dll_bcrypt_hash_pt const hasher, mk_lang_types_void_pt const obj_buf, mk_lang_types_ulong_t const obj_len, mk_lang_types_void_pct const secret_buf, mk_lang_types_ulong_t const secret_len, mk_lang_types_ulong_t const flags) mk_lang_noexcept;

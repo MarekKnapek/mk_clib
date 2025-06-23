@@ -22,6 +22,7 @@
 
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_ntstatus_t mk_win_base_stdcall BCryptOpenAlgorithmProvider(mk_win_dll_bcrypt_provider_pt const provider, mk_win_base_wchar_pct const alg_id, mk_win_base_wchar_pct const implementation, mk_lang_types_ulong_t const flags) mk_lang_noexcept;
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_ntstatus_t mk_win_base_stdcall BCryptCloseAlgorithmProvider(mk_win_dll_bcrypt_provider_t const provider, mk_lang_types_ulong_t const flags) mk_lang_noexcept;
+mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_ntstatus_t mk_win_base_stdcall BCryptGenRandom(mk_win_dll_bcrypt_provider_t const provider, mk_lang_types_void_pt const data_buf, mk_lang_types_ulong_t const data_len, mk_lang_types_ulong_t const flags) mk_lang_noexcept;
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_ntstatus_t mk_win_base_stdcall BCryptGetProperty(mk_win_dll_bcrypt_handle_t const handle, mk_win_base_wchar_pct const property, mk_lang_types_void_pt const data_buf, mk_lang_types_ulong_t const data_len_provided, mk_lang_types_ulong_pt const data_len_real, mk_lang_types_ulong_t const flags) mk_lang_noexcept;
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_ntstatus_t mk_win_base_stdcall BCryptSetProperty(mk_win_dll_bcrypt_handle_t const handle, mk_win_base_wchar_pct const property, mk_lang_types_void_pct const data_buf, mk_lang_types_ulong_t const data_len, mk_lang_types_ulong_t const flags) mk_lang_noexcept;
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_ntstatus_t mk_win_base_stdcall BCryptCreateHash(mk_win_dll_bcrypt_provider_t const provider, mk_win_dll_bcrypt_hash_pt const hasher, mk_lang_types_void_pt const obj_buf, mk_lang_types_ulong_t const obj_len, mk_lang_types_void_pct const secret_buf, mk_lang_types_ulong_t const secret_len, mk_lang_types_ulong_t const flags) mk_lang_noexcept;
@@ -49,6 +50,14 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_ntstatus_t mk_win_dll_bcrypt_close_a
 	mk_win_base_ntstatus_t res;
 
 	res = BCryptCloseAlgorithmProvider(provider, flags);
+	return res;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_ntstatus_t mk_win_dll_bcrypt_gen_random(mk_win_dll_bcrypt_provider_t const provider, mk_lang_types_void_pt const data_buf, mk_lang_types_ulong_t const data_len, mk_lang_types_ulong_t const flags) mk_lang_noexcept
+{
+	mk_win_base_ntstatus_t res;
+
+	res = BCryptGenRandom(provider, data_buf, data_len, flags);
 	return res;
 }
 
