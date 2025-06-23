@@ -48,6 +48,7 @@ static mk_lang_stdout_windows_t mk_lang_stdout_windows_g;
 
 mk_lang_nodiscard static mk_lang_inline mk_win_dll_kernel_console_attribute_t mk_lang_stdout_windows_pr_color_to_attribute(mk_lang_stdout_windows_color_text_t const color) mk_lang_noexcept
 {
+#include "mk_lang_warning_clang_push_sometimes_uninitialized.h"
 	mk_win_dll_kernel_console_attribute_t attribute;
 
 	mk_lang_assert(color >= 0);
@@ -76,6 +77,7 @@ mk_lang_nodiscard static mk_lang_inline mk_win_dll_kernel_console_attribute_t mk
 	}
 	mk_lang_clobber(&attribute);
 	return attribute;
+#include "mk_lang_warning_clang_pop.h"
 }
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lang_stdout_windows_pr_color_change(mk_lang_stdout_windows_color_text_t const color, mk_win_base_word_pt const restore) mk_lang_noexcept
