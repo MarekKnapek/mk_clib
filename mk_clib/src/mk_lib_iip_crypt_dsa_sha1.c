@@ -73,7 +73,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_crypt_ds
 }
 
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_crypt_dsa_sha1_key_pri_generate_random_(mk_lib_iip_crypt_dsa_sha1_key_pri_pt const pri) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_crypt_dsa_sha1_key_pri_generate_random(mk_lib_iip_crypt_dsa_sha1_key_pri_pt const pri) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 

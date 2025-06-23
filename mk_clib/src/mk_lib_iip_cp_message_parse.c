@@ -788,7 +788,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 	err = mk_lib_iip_cp_message_parse_s8(ptr, rem, error_code, &tlen, &count); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	mk_lang_assert(count >= 0);
-	if(!(count <= mk_lib_iip_cp_types_hash_and_tunnelids_capacity_v))
+	if(!(((mk_lang_types_usize_t)(count)) <= mk_lib_iip_cp_types_hash_and_tunnelids_capacity_v))
 	{
 		*error_code = mk_lib_iip_cp_message_parse_error_code_e_too_many_tunnels;
 		return 0;
@@ -855,7 +855,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 	err = mk_lib_iip_cp_message_parse_s8(ptr, rem, error_code, &tlen, &count); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	mk_lang_assert(count >= 0);
-	if(!(count <= mk_lib_iip_cp_types_hash_and_tunnelids_capacity_v))
+	if(!(((mk_lang_types_usize_t)(count)) <= mk_lib_iip_cp_types_hash_and_tunnelids_capacity_v))
 	{
 		*error_code = mk_lib_iip_cp_message_parse_error_code_e_too_many_leases;
 		return 0;
