@@ -140,6 +140,24 @@ struct mk_win_base_rect_s
 typedef struct mk_win_base_rect_s mk_win_base_rect_t;
 mk_lang_typedef(mk_win_base_rect);
 
+struct mk_win_base_coord_s
+{
+	mk_win_base_sshort_t m_x;
+	mk_win_base_sshort_t m_y;
+};
+typedef struct mk_win_base_coord_s mk_win_base_coord_t;
+mk_lang_typedef(mk_win_base_coord);
+
+struct mk_win_base_smallrect_s
+{
+	mk_win_base_sshort_t m_left;
+	mk_win_base_sshort_t m_top;
+	mk_win_base_sshort_t m_right;
+	mk_win_base_sshort_t m_bottom;
+};
+typedef struct mk_win_base_smallrect_s mk_win_base_smallrect_t;
+mk_lang_typedef(mk_win_base_smallrect);
+
 struct mk_win_base_guid_s
 {
 	mk_win_base_ulong_t m_data_1;

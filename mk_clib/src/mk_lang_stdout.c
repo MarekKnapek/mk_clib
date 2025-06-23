@@ -27,6 +27,7 @@
 #else
 #error xxxxxxxxxx
 #endif
+#define mk_lang_stdout_impl_color_text_t mk_lang_concat(mk_lang_concat(mk_lang_stdout_, mk_lang_stdout_prefix), _color_text_t)
 #define mk_lang_stdout_impl_init mk_lang_concat(mk_lang_concat(mk_lang_stdout_, mk_lang_stdout_prefix), _init)
 #define mk_lang_stdout_impl_print_n mk_lang_concat(mk_lang_concat(mk_lang_stdout_, mk_lang_stdout_prefix), _print_n)
 #define mk_lang_stdout_impl_print_w mk_lang_concat(mk_lang_concat(mk_lang_stdout_, mk_lang_stdout_prefix), _print_w)
@@ -34,6 +35,12 @@
 #define mk_lang_stdout_impl_println_n mk_lang_concat(mk_lang_concat(mk_lang_stdout_, mk_lang_stdout_prefix), _println_n)
 #define mk_lang_stdout_impl_println_w mk_lang_concat(mk_lang_concat(mk_lang_stdout_, mk_lang_stdout_prefix), _println_w)
 #define mk_lang_stdout_impl_println_t mk_lang_concat(mk_lang_concat(mk_lang_stdout_, mk_lang_stdout_prefix), _println_t)
+#define mk_lang_stdout_impl_print_color_n mk_lang_concat(mk_lang_concat(mk_lang_stdout_, mk_lang_stdout_prefix), _print_color_n)
+#define mk_lang_stdout_impl_print_color_w mk_lang_concat(mk_lang_concat(mk_lang_stdout_, mk_lang_stdout_prefix), _print_color_w)
+#define mk_lang_stdout_impl_print_color_t mk_lang_concat(mk_lang_concat(mk_lang_stdout_, mk_lang_stdout_prefix), _print_color_t)
+#define mk_lang_stdout_impl_println_color_n mk_lang_concat(mk_lang_concat(mk_lang_stdout_, mk_lang_stdout_prefix), _println_color_n)
+#define mk_lang_stdout_impl_println_color_w mk_lang_concat(mk_lang_concat(mk_lang_stdout_, mk_lang_stdout_prefix), _println_color_w)
+#define mk_lang_stdout_impl_println_color_t mk_lang_concat(mk_lang_concat(mk_lang_stdout_, mk_lang_stdout_prefix), _println_color_t)
 
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_init(mk_lang_types_void_t) mk_lang_noexcept
@@ -89,6 +96,54 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_println_t(mk
 	mk_lang_types_sint_t err;
 	
 	err = mk_lang_stdout_impl_println_t(str_buf, str_len); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_print_color_n(mk_lang_stdout_color_text_t const color, mk_lang_types_pchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	err = mk_lang_stdout_impl_print_color_n(((mk_lang_stdout_impl_color_text_t)(color)), str_buf, str_len); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_print_color_w(mk_lang_stdout_color_text_t const color, mk_lang_types_wchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	err = mk_lang_stdout_impl_print_color_w(((mk_lang_stdout_impl_color_text_t)(color)), str_buf, str_len); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_print_color_t(mk_lang_stdout_color_text_t const color, mk_lang_tchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	err = mk_lang_stdout_impl_print_color_t(((mk_lang_stdout_impl_color_text_t)(color)), str_buf, str_len); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_println_color_n(mk_lang_stdout_color_text_t const color, mk_lang_types_pchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	err = mk_lang_stdout_impl_println_color_n(((mk_lang_stdout_impl_color_text_t)(color)), str_buf, str_len); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_println_color_w(mk_lang_stdout_color_text_t const color, mk_lang_types_wchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	err = mk_lang_stdout_impl_println_color_w(((mk_lang_stdout_impl_color_text_t)(color)), str_buf, str_len); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_println_color_t(mk_lang_stdout_color_text_t const color, mk_lang_tchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	err = mk_lang_stdout_impl_println_color_t(((mk_lang_stdout_impl_color_text_t)(color)), str_buf, str_len); mk_lang_check_rereturn(err);
 	return 0;
 }
 

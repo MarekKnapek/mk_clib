@@ -25,6 +25,8 @@ mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_hand
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall GetConsoleMode(mk_win_base_handle_t const handle, mk_win_base_dword_lpt const mode) mk_lang_noexcept;
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall WriteConsoleA(mk_win_base_handle_t const handle, mk_win_base_pchar_lpct const buff, mk_win_base_dword_t const len, mk_win_base_dword_lpt const nwritten, mk_win_base_void_lpt const reserved) mk_lang_noexcept;
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall WriteConsoleW(mk_win_base_handle_t const handle, mk_win_base_wchar_lpct const buff, mk_win_base_dword_t const len, mk_win_base_dword_lpt const nwritten, mk_win_base_void_lpt const reserved) mk_lang_noexcept;
+mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall GetConsoleScreenBufferInfo(mk_win_base_handle_t const handle, mk_win_dll_kernel_console_console_screen_buffer_info_lpt const console_screen_buffer_info) mk_lang_noexcept;
+mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall SetConsoleTextAttribute(mk_win_base_handle_t const handle, mk_win_base_word_t const attributes) mk_lang_noexcept;
 
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_dll_kernel_console_set_ctrl_handler(mk_win_dll_kernel_console_handler_t const handler, mk_win_base_bool_t const add) mk_lang_noexcept
@@ -64,6 +66,22 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_dll_kernel_console_w_w
 	mk_win_base_bool_t ret;
 
 	ret = WriteConsoleW(handle, buff, len, nwritten, reserved);
+	return ret;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_dll_kernel_console_get_console_screen_buffer_info(mk_win_base_handle_t const handle, mk_win_dll_kernel_console_console_screen_buffer_info_pt const console_screen_buffer_info) mk_lang_noexcept
+{
+	mk_win_base_bool_t ret;
+
+	ret = GetConsoleScreenBufferInfo(handle, console_screen_buffer_info);
+	return ret;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_dll_kernel_console_set_console_text_attribute(mk_win_base_handle_t const handle, mk_win_base_word_t const attributes) mk_lang_noexcept
+{
+	mk_win_base_bool_t ret;
+
+	ret = SetConsoleTextAttribute(handle, attributes);
 	return ret;
 }
 
