@@ -27,15 +27,6 @@
 #include "mk_lib_iip_time.h"
 #include "mk_sl_cui_uint64.h"
 
-#pragma warning(push, 0)
-#pragma warning(disable:4005)
-#pragma warning(disable:4668)
-#pragma warning(disable:4820)
-#define WIN32_LEAN_AND_MEAN
-#define _WINSOCK_DEPRECATED_NO_WARNINGS
-//#include <winsock2.h>
-//#include <windows.h>
-#pragma warning(pop)
 
 #pragma comment(lib, "ws2_32.lib")
 
@@ -347,7 +338,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wor
 	err = mk_clib_app_iip_destroy(&app); mk_lang_check_rereturn(err);
 
 	err = mk_lib_net_deinit(); mk_lang_check_rereturn(err);
-
 	return 0;
 }
 

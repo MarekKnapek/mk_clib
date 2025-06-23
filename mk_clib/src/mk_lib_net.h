@@ -69,8 +69,8 @@ mk_lang_typedef(mk_lib_net_address_protocol);
 union mk_lib_net_ipv4_address_data_u
 {
 	mk_sl_cui_uint32_t m_u32;
-	mk_sl_cui_uint16_t m_u16s[mk_sl_cui_uint32_size_bytes_v / mk_sl_cui_uint16_size_bytes_v];
-	mk_sl_cui_uint8_t m_u8s[mk_sl_cui_uint32_size_bytes_v / mk_sl_cui_uint8_size_bytes_v];
+	mk_sl_cui_uint16_t m_u16s[((mk_lang_types_sint_t)(mk_sl_cui_uint32_size_bytes_v)) / ((mk_lang_types_sint_t)(mk_sl_cui_uint16_size_bytes_v))];
+	mk_sl_cui_uint8_t m_u8s[((mk_lang_types_sint_t)(mk_sl_cui_uint32_size_bytes_v)) / ((mk_lang_types_sint_t)(mk_sl_cui_uint8_size_bytes_v))];
 };
 typedef union mk_lib_net_ipv4_address_data_u mk_lib_net_ipv4_address_data_t;
 struct mk_lib_net_ipv4_address_s
