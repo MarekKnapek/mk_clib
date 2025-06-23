@@ -5,6 +5,7 @@
 #include "mk_lang_bui.h"
 #include "mk_lang_extern.h"
 #include "mk_lang_jumbo.h"
+#include "mk_lang_msvc.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
@@ -20,7 +21,9 @@
 #include "mk_sl_cui_inl_fileu.h"
 
 
+#if mk_lang_msvc_ver != 0
 #pragma comment(lib, "ws2_32.lib")
+#endif
 
 
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_sint_t mk_win_base_stdcall WSAStartup(mk_win_base_word_t const version_required, mk_win_dll_ws2_data_pt const data) mk_lang_noexcept;

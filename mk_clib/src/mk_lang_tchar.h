@@ -5,6 +5,7 @@
 #include "mk_lang_concat.h"
 #include "mk_lang_entry_point.h"
 #include "mk_lang_jumbo.h"
+#include "mk_lang_noexcept.h"
 #include "mk_lang_typedef.h"
 #include "mk_lang_types.h"
 
@@ -47,6 +48,9 @@ mk_lang_typedef(mk_lang_tchar);
 
 
 #endif
+
+
+mk_lang_jumbo mk_lang_types_void_t mk_lang_tchar_to_bi_pchar_many(mk_lang_tchar_prct const tchars, mk_lang_types_pchar_prt const pchars, mk_lang_types_sint_t const count) mk_lang_noexcept;
 
 
 #if mk_lang_jumbo_have
