@@ -51,8 +51,8 @@ enum mk_win_dll_ws2_address_family_e
 	mk_win_dll_ws2_address_family_e_bth        = 32,
 	mk_win_dll_ws2_address_family_e_link       = 33,
 	mk_win_dll_ws2_address_family_e_hyperv     = 34,
-	mk_win_dll_ws2_address_family_e_ipx        = mk_win_dll_ws2_address_family_e_ns,
-	mk_win_dll_ws2_address_family_e_osi        = mk_win_dll_ws2_address_family_e_iso,
+	/*mk_win_dll_ws2_address_family_e_ipx        = mk_win_dll_ws2_address_family_e_ns,
+	mk_win_dll_ws2_address_family_e_osi        = mk_win_dll_ws2_address_family_e_iso,*/
 	mk_win_dll_ws2_address_family_e_dummy_end
 };
 typedef enum mk_win_dll_ws2_address_family_e mk_win_dll_ws2_address_family_t;
@@ -200,8 +200,8 @@ enum mk_win_dll_ws2_sck_opt_ipv6_e
 	mk_win_dll_ws2_sck_opt_ipv6_e_nrt_interface        = 74,
 	mk_win_dll_ws2_sck_opt_ipv6_e_recverr              = 75,
 	mk_win_dll_ws2_sck_opt_ipv6_e_user_mtu             = 76,
-	mk_win_dll_ws2_sck_opt_ipv6_e_join_group           = mk_win_dll_ws2_sck_opt_ipv6_e_add_membership,
-	mk_win_dll_ws2_sck_opt_ipv6_e_leave_group          = mk_win_dll_ws2_sck_opt_ipv6_e_drop_membership,
+	/*mk_win_dll_ws2_sck_opt_ipv6_e_join_group           = mk_win_dll_ws2_sck_opt_ipv6_e_add_membership,
+	mk_win_dll_ws2_sck_opt_ipv6_e_leave_group          = mk_win_dll_ws2_sck_opt_ipv6_e_drop_membership,*/
 	mk_win_dll_ws2_sck_opt_ipv6_e_dummy_end
 };
 typedef enum mk_win_dll_ws2_sck_opt_ipv6_e mk_win_dll_ws2_sck_opt_ipv6_t;

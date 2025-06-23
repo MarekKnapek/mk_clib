@@ -75,7 +75,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_pr_port_
 	mk_lang_assert(consumed);
 
 	str_len = mk_lang_min(bin_len, mk_lang_countof(str_buf));
-	mk_sl_cui_uint8_to_bi_pchar_many(bin_buf, &str_buf[0], str_len);
+	mk_sl_cui_uint8_to_bi_pchar_many(bin_buf, &str_buf[0], ((mk_lang_types_usize_t)(str_len)));
 	err = mk_lib_net_pr_port_parse_pc(port, &str_buf[0], str_len, success, consumed); mk_lang_check_rereturn(err);
 	return 0;
 }
@@ -174,7 +174,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_ipv4_address_par
 	mk_lang_assert(consumed);
 
 	str_len = mk_lang_min(bin_len, mk_lang_countof(str_buf));
-	mk_sl_cui_uint8_to_bi_pchar_many(bin_buf, &str_buf[0], str_len);
+	mk_sl_cui_uint8_to_bi_pchar_many(bin_buf, &str_buf[0], ((mk_lang_types_usize_t)(str_len)));
 	err = mk_lib_net_ipv4_address_parse_pc(ipv4_address, &str_buf[0], str_len, success, consumed); mk_lang_check_rereturn(err);
 	return 0;
 }
@@ -263,7 +263,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_async_connect_wa
 	mk_lang_assert(is_ready);
 	mk_lang_assert(async_connect->m_event.m_data != mk_win_dll_ws2_event_invalid_val);
 
-	waited = mk_win_dll_ws2_wait_for_multiple_events(1, &async_connect->m_event, mk_win_base_false, ms, mk_win_base_false); mk_lang_check_return(waited == 0 || waited == mk_win_dll_ws2_timeout);
+	waited = mk_win_dll_ws2_wait_for_multiple_events(1, &async_connect->m_event, mk_win_base_false, ((mk_win_base_dword_t)(ms)), mk_win_base_false); mk_lang_check_return(waited == 0 || waited == mk_win_dll_ws2_timeout);
 	is = waited == 0;
 	*is_ready = is;
 	return 0;
@@ -355,7 +355,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_async_rwc_wait_t
 	mk_lang_assert(is_ready);
 	mk_lang_assert(async_rwc->m_event.m_data != mk_win_dll_ws2_event_invalid_val);
 
-	waited = mk_win_dll_ws2_wait_for_multiple_events(1, &async_rwc->m_event, mk_win_base_false, ms, mk_win_base_false); mk_lang_check_return(waited == 0 || waited == mk_win_dll_ws2_timeout);
+	waited = mk_win_dll_ws2_wait_for_multiple_events(1, &async_rwc->m_event, mk_win_base_false, ((mk_win_base_dword_t)(ms)), mk_win_base_false); mk_lang_check_return(waited == 0 || waited == mk_win_dll_ws2_timeout);
 	is = waited == 0;
 	*is_ready = is;
 	return 0;
@@ -526,7 +526,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_write_request_wa
 	mk_lang_assert(write_request->m_overlapped.m_event.m_data != mk_win_dll_ws2_event_invalid_val);
 	mk_lang_assert(write_request->m_socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
 
-	waited = mk_win_dll_ws2_wait_for_multiple_events(1, &write_request->m_overlapped.m_event, mk_win_base_false, ms, mk_win_base_false); mk_lang_check_return(waited == 0 || waited == mk_win_dll_ws2_timeout);
+	waited = mk_win_dll_ws2_wait_for_multiple_events(1, &write_request->m_overlapped.m_event, mk_win_base_false, ((mk_win_base_dword_t)(ms)), mk_win_base_false); mk_lang_check_return(waited == 0 || waited == mk_win_dll_ws2_timeout);
 	is = waited == 0;
 	*is_ready = is;
 	return 0;
@@ -648,7 +648,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_read_request_wai
 	mk_lang_assert(read_request->m_overlapped.m_event.m_data != mk_win_dll_ws2_event_invalid_val);
 	mk_lang_assert(read_request->m_socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
 
-	waited = mk_win_dll_ws2_wait_for_multiple_events(1, &read_request->m_overlapped.m_event, mk_win_base_false, ms, mk_win_base_false); mk_lang_check_return(waited == 0 || waited == mk_win_dll_ws2_timeout);
+	waited = mk_win_dll_ws2_wait_for_multiple_events(1, &read_request->m_overlapped.m_event, mk_win_base_false, ((mk_win_base_dword_t)(ms)), mk_win_base_false); mk_lang_check_return(waited == 0 || waited == mk_win_dll_ws2_timeout);
 	is = waited == 0;
 	*is_ready = is;
 	return 0;
@@ -860,8 +860,10 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_send(mk_l
 	mk_lang_assert(write_request->m_data_len >= 0);
 	mk_lang_assert(write_request->m_overlapped.m_event.m_data != mk_win_dll_ws2_event_invalid_val);
 
+	#include "mk_lang_warning_clang_push_cast_qual.h"
 	buf.m_len = ((mk_win_base_ulong_t)(write_request->m_data_len));
 	buf.m_buf = ((mk_win_base_void_pt)(write_request->m_data_buf));
+	#include "mk_lang_warning_clang_pop.h"
 	st = mk_win_dll_ws2_send2(socket->m_handle, &buf, 1, mk_lang_null, write_request->m_flags, &write_request->m_overlapped, mk_lang_null); mk_lang_check_return((st == 0) || (st != 0 && (gle = mk_win_dll_ws2_get_last_error()) == mk_win_dll_kernel_errors_id_e_io_pending));
 	return 0;
 }
