@@ -370,6 +370,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wor
 	err = mk_lib_net_ipv4_address_parse_pc(&app.m_cp_destination.m_ipv4_address, address_buf, address_len, &gud, &consumed); mk_lang_check_rereturn(err); mk_lang_check_return(gud); mk_lang_assert(consumed >= 1 && consumed <= address_len); mk_lang_check_return(!mk_lib_net_ipv4_address_is_any(&app.m_cp_destination.m_ipv4_address)); mk_lang_check_return(!mk_lib_net_ipv4_address_is_none(&app.m_cp_destination.m_ipv4_address));
 	err = mk_lib_net_tcp_port_parse_pc(&app.m_cp_destination.m_tcp_port, port_buf, port_len, &gud, &consumed); mk_lang_check_rereturn(err); mk_lang_check_return(gud); mk_lang_assert(consumed >= 1 && consumed <= port_len);
 
+	app.m_step = ((mk_clib_app_iip_step_t)(0));
 	done = mk_lang_false;
 	do
 	{
