@@ -358,12 +358,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wor
 
 	address_len = mk_lang_str_len_t(argv[1]);
 	address_len = mk_lang_min(address_len, mk_lang_countof(address_store));
-	mk_lang_tchar_to_bi_pchar_many(argv[0], &port_store[0], port_len);
+	mk_lang_tchar_to_bi_pchar_many(argv[1], &address_store[0], address_len);
 	address_buf = &address_store[0];
 
 	port_len = mk_lang_str_len_t(argv[2]);
 	port_len = mk_lang_min(port_len, mk_lang_countof(port_store));
-	mk_lang_tchar_to_bi_pchar_many(argv[0], &address_store[0], address_len);
+	mk_lang_tchar_to_bi_pchar_many(argv[2], &port_store[0], port_len);
 	port_buf = &port_store[0];
 
 	err = mk_lib_net_ipv4_address_parse_pc(&app.m_cp_destination.m_ipv4_address, address_buf, address_len, &gud, &consumed); mk_lang_check_rereturn(err); mk_lang_check_return(gud); mk_lang_assert(consumed >= 1 && consumed <= address_len); mk_lang_check_return(!mk_lib_net_ipv4_address_is_any(&app.m_cp_destination.m_ipv4_address)); mk_lang_check_return(!mk_lib_net_ipv4_address_is_none(&app.m_cp_destination.m_ipv4_address));
