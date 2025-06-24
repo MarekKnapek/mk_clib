@@ -36,9 +36,6 @@
 #include "mk_sl_uint_more.h"
 
 
-#pragma comment(lib, "ws2_32.lib")
-
-
 enum mk_clib_app_iip_step_e
 {
 	mk_clib_app_iip_step_e_connect_request,
@@ -390,7 +387,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_pr_
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_pr_save_destination(mk_clib_app_iip_pt const app) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_pr_save_destination_pri_only(mk_clib_app_iip_pt const app) mk_lang_noexcept
 {
 	mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_pt destination;
 	mk_lang_types_sint_t err;
@@ -421,18 +418,80 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_pr_
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_pr_generate_and_save_destination(mk_clib_app_iip_pt const app) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_pr_save_destination_pri_pub(mk_clib_app_iip_pt const app) mk_lang_noexcept
+{
+	mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_pt destination;
+	mk_lang_types_sint_t err;
+	mk_sl_io_writer_file_t writer;
+	mk_lang_types_sint_t str_len;
+	mk_lang_types_pchar_t str_buf[mk_lang_max(mk_lang_max(mk_lang_max(((mk_lang_types_sint_t)(mk_lib_iip_integer_elgamal_pri_single_strlen_hex_v)), ((mk_lang_types_sint_t)(mk_lib_iip_integer_dsa_sha1_pri_single_strlen_hex_v))), ((mk_lang_types_sint_t)(mk_lib_iip_integer_elgamal_pub_single_strlen_hex_v))), ((mk_lang_types_sint_t)(mk_lib_iip_integer_dsa_sha1_pub_single_strlen_hex_v)))];
+	mk_sl_cui_uint8_t bin_buf[mk_lang_countof(str_buf)];
+	mk_lang_types_sint_t written;
+
+	mk_lang_assert(app);
+
+	destination = &app->m_iip_destination;
+	err = mk_sl_io_writer_file_open_n(&writer, "destination.txt"); mk_lang_check_rereturn(err);
+
+	str_len = mk_lib_iip_integer_elgamal_pri_single_to_str_hexf_n(&destination->m_key_elgamal_pri.m_data.m_val, &str_buf[0], mk_lang_countof(str_buf)); mk_lang_assert(str_len == mk_lib_iip_integer_elgamal_pri_single_strlen_hex_v);
+	mk_sl_cui_uint8_from_bi_pchar_many(&bin_buf[0], &str_buf[0], ((mk_lang_types_usize_t)(str_len)));
+	err = mk_sl_io_writer_file_write(&writer, &bin_buf[0], str_len, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == str_len);
+
+	str_buf[0] = '\x0a'; str_len = 1;
+	mk_sl_cui_uint8_from_bi_pchar_many(&bin_buf[0], &str_buf[0], ((mk_lang_types_usize_t)(str_len)));
+	err = mk_sl_io_writer_file_write(&writer, &bin_buf[0], str_len, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == str_len);
+
+	str_len = mk_lib_iip_integer_dsa_sha1_pri_single_to_str_hexf_n(&destination->m_key_dsa_sha1_pri.m_data.m_val, &str_buf[0], mk_lang_countof(str_buf)); mk_lang_assert(str_len == mk_lib_iip_integer_dsa_sha1_pri_single_strlen_hex_v);
+	mk_sl_cui_uint8_from_bi_pchar_many(&bin_buf[0], &str_buf[0], ((mk_lang_types_usize_t)(str_len)));
+	err = mk_sl_io_writer_file_write(&writer, &bin_buf[0], str_len, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == str_len);
+
+	str_buf[0] = '\x0a'; str_len = 1;
+	mk_sl_cui_uint8_from_bi_pchar_many(&bin_buf[0], &str_buf[0], ((mk_lang_types_usize_t)(str_len)));
+	err = mk_sl_io_writer_file_write(&writer, &bin_buf[0], str_len, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == str_len);
+
+	str_len = mk_lib_iip_integer_elgamal_pub_single_to_str_hexf_n(&destination->m_key_elgamal_pub.m_data.m_val, &str_buf[0], mk_lang_countof(str_buf)); mk_lang_assert(str_len == mk_lib_iip_integer_elgamal_pub_single_strlen_hex_v);
+	mk_sl_cui_uint8_from_bi_pchar_many(&bin_buf[0], &str_buf[0], ((mk_lang_types_usize_t)(str_len)));
+	err = mk_sl_io_writer_file_write(&writer, &bin_buf[0], str_len, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == str_len);
+
+	str_buf[0] = '\x0a'; str_len = 1;
+	mk_sl_cui_uint8_from_bi_pchar_many(&bin_buf[0], &str_buf[0], ((mk_lang_types_usize_t)(str_len)));
+	err = mk_sl_io_writer_file_write(&writer, &bin_buf[0], str_len, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == str_len);
+
+	str_len = mk_lib_iip_integer_dsa_sha1_pub_single_to_str_hexf_n(&destination->m_key_dsa_sha1_pub.m_data.m_val, &str_buf[0], mk_lang_countof(str_buf)); mk_lang_assert(str_len == mk_lib_iip_integer_dsa_sha1_pub_single_strlen_hex_v);
+	mk_sl_cui_uint8_from_bi_pchar_many(&bin_buf[0], &str_buf[0], ((mk_lang_types_usize_t)(str_len)));
+	err = mk_sl_io_writer_file_write(&writer, &bin_buf[0], str_len, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == str_len);
+
+	str_buf[0] = '\x0a'; str_len = 1;
+	mk_sl_cui_uint8_from_bi_pchar_many(&bin_buf[0], &str_buf[0], ((mk_lang_types_usize_t)(str_len)));
+	err = mk_sl_io_writer_file_write(&writer, &bin_buf[0], str_len, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == str_len);
+
+	err = mk_sl_io_writer_file_close(&writer); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_pr_generate_and_save_destination_pri_only(mk_clib_app_iip_pt const app) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 
 	mk_lang_assert(app);
 
 	err = mk_clib_app_iip_pr_generate_new_destination(app); mk_lang_check_rereturn(err);
-	err = mk_clib_app_iip_pr_save_destination(app); mk_lang_check_rereturn(err);
+	err = mk_clib_app_iip_pr_save_destination_pri_only(app); mk_lang_check_rereturn(err);
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_pr_load_destination(mk_clib_app_iip_pt const app) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_pr_generate_and_save_destination_pri_pub(mk_clib_app_iip_pt const app) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(app);
+
+	err = mk_clib_app_iip_pr_generate_new_destination(app); mk_lang_check_rereturn(err);
+	err = mk_clib_app_iip_pr_save_destination_pri_pub(app); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_pr_load_destination_pri_only(mk_clib_app_iip_pt const app) mk_lang_noexcept
 {
 	mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_pt destination;
 	mk_lang_types_sint_t err;
@@ -468,6 +527,60 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_pr_
 	is_valid = mk_lib_iip_crypt_dsa_sha1_key_pri_is_valid(&destination->m_key_dsa_sha1_pri); mk_lang_check_return(is_valid);
 	mk_lib_iip_crypt_elgamal_key_pri_compute_public(&destination->m_key_elgamal_pri, &destination->m_key_elgamal_pub);
 	mk_lib_iip_crypt_dsa_sha1_key_pri_compute_public(&destination->m_key_dsa_sha1_pri, &destination->m_key_dsa_sha1_pub);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_pr_load_destination_pri_pub(mk_clib_app_iip_pt const app) mk_lang_noexcept
+{
+	mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_pt destination;
+	mk_lang_types_sint_t err;
+	mk_sl_io_reader_file_t reader;
+	mk_lang_types_sint_t str_len;
+	mk_sl_cui_uint8_t bin_buf[mk_lang_max(mk_lang_max(mk_lang_max(((mk_lang_types_sint_t)(mk_lib_iip_integer_elgamal_pri_single_strlen_hex_v)), ((mk_lang_types_sint_t)(mk_lib_iip_integer_dsa_sha1_pri_single_strlen_hex_v))), ((mk_lang_types_sint_t)(mk_lib_iip_integer_elgamal_pub_single_strlen_hex_v))), ((mk_lang_types_sint_t)(mk_lib_iip_integer_dsa_sha1_pub_single_strlen_hex_v)))];
+	mk_lang_types_sint_t read;
+	mk_lang_types_pchar_t str_buf[mk_lang_countof(bin_buf)];
+
+	mk_lang_assert(app);
+
+	destination = &app->m_iip_destination;
+	err = mk_sl_io_reader_file_open_n(&reader, "destination.txt"); mk_lang_check_rereturn(err);
+
+	str_len = mk_lib_iip_integer_elgamal_pri_single_strlen_hex_v;
+	err = mk_sl_io_reader_file_read(&reader, &bin_buf[0], str_len, &read); mk_lang_check_rereturn(err); mk_lang_check_return(read == str_len);
+	mk_sl_cui_uint8_to_bi_pchar_many(&bin_buf[0], &str_buf[0], ((mk_lang_types_usize_t)(str_len)));
+	str_len = mk_lib_iip_integer_elgamal_pri_single_from_str_hex_n(&destination->m_key_elgamal_pri.m_data.m_val, &str_buf[0], str_len); mk_lang_assert(str_len == mk_lib_iip_integer_elgamal_pri_single_strlen_hex_v);
+
+	str_len = 1;
+	err = mk_sl_io_reader_file_read(&reader, &bin_buf[0], str_len, &read); mk_lang_check_rereturn(err); mk_lang_check_return(read == str_len);
+	mk_sl_cui_uint8_to_bi_pchar_many(&bin_buf[0], &str_buf[0], ((mk_lang_types_usize_t)(str_len)));
+	mk_lang_check_return(str_buf[0] == '\x0a');
+
+	str_len = mk_lib_iip_integer_dsa_sha1_pri_single_strlen_hex_v;
+	err = mk_sl_io_reader_file_read(&reader, &bin_buf[0], str_len, &read); mk_lang_check_rereturn(err); mk_lang_check_return(read == str_len);
+	mk_sl_cui_uint8_to_bi_pchar_many(&bin_buf[0], &str_buf[0], ((mk_lang_types_usize_t)(str_len)));
+	str_len = mk_lib_iip_integer_dsa_sha1_pri_single_from_str_hex_n(&destination->m_key_dsa_sha1_pri.m_data.m_val, &str_buf[0], str_len); mk_lang_assert(str_len == mk_lib_iip_integer_dsa_sha1_pri_single_strlen_hex_v);
+
+	str_len = 1;
+	err = mk_sl_io_reader_file_read(&reader, &bin_buf[0], str_len, &read); mk_lang_check_rereturn(err); mk_lang_check_return(read == str_len);
+	mk_sl_cui_uint8_to_bi_pchar_many(&bin_buf[0], &str_buf[0], ((mk_lang_types_usize_t)(str_len)));
+	mk_lang_check_return(str_buf[0] == '\x0a');
+
+	str_len = mk_lib_iip_integer_elgamal_pub_single_strlen_hex_v;
+	err = mk_sl_io_reader_file_read(&reader, &bin_buf[0], str_len, &read); mk_lang_check_rereturn(err); mk_lang_check_return(read == str_len);
+	mk_sl_cui_uint8_to_bi_pchar_many(&bin_buf[0], &str_buf[0], ((mk_lang_types_usize_t)(str_len)));
+	str_len = mk_lib_iip_integer_elgamal_pub_single_from_str_hex_n(&destination->m_key_elgamal_pub.m_data.m_val, &str_buf[0], str_len); mk_lang_assert(str_len == mk_lib_iip_integer_elgamal_pub_single_strlen_hex_v);
+
+	str_len = 1;
+	err = mk_sl_io_reader_file_read(&reader, &bin_buf[0], str_len, &read); mk_lang_check_rereturn(err); mk_lang_check_return(read == str_len);
+	mk_sl_cui_uint8_to_bi_pchar_many(&bin_buf[0], &str_buf[0], ((mk_lang_types_usize_t)(str_len)));
+	mk_lang_check_return(str_buf[0] == '\x0a');
+
+	str_len = mk_lib_iip_integer_dsa_sha1_pub_single_strlen_hex_v;
+	err = mk_sl_io_reader_file_read(&reader, &bin_buf[0], str_len, &read); mk_lang_check_rereturn(err); mk_lang_check_return(read == str_len);
+	mk_sl_cui_uint8_to_bi_pchar_many(&bin_buf[0], &str_buf[0], ((mk_lang_types_usize_t)(str_len)));
+	str_len = mk_lib_iip_integer_dsa_sha1_pub_single_from_str_hex_n(&destination->m_key_dsa_sha1_pub.m_data.m_val, &str_buf[0], str_len); mk_lang_assert(str_len == mk_lib_iip_integer_dsa_sha1_pub_single_strlen_hex_v);
+
+	err = mk_sl_io_reader_file_close(&reader); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -577,8 +690,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wor
 
 	err = mk_lib_net_ipv4_address_parse_pc(&app.m_iip_cp_server_destination.m_ipv4_address, address_buf, address_len, &gud, &consumed); mk_lang_check_rereturn(err); mk_lang_check_return(gud); mk_lang_assert(consumed >= 1 && consumed <= address_len); mk_lang_check_return(!mk_lib_net_ipv4_address_is_any(&app.m_iip_cp_server_destination.m_ipv4_address)); mk_lang_check_return(!mk_lib_net_ipv4_address_is_none(&app.m_iip_cp_server_destination.m_ipv4_address));
 	err = mk_lib_net_tcp_port_parse_pc(&app.m_iip_cp_server_destination.m_tcp_port, port_buf, port_len, &gud, &consumed); mk_lang_check_rereturn(err); mk_lang_check_return(gud); mk_lang_assert(consumed >= 1 && consumed <= port_len);
-	/*err = mk_clib_app_iip_pr_generate_and_save_destination(&app); mk_lang_check_rereturn(err);*/
-	err = mk_clib_app_iip_pr_load_destination(&app); mk_lang_check_rereturn(err);
+	/*err = mk_clib_app_iip_pr_generate_and_save_destination_pri_only(&app); mk_lang_check_rereturn(err);*/
+	/*err = mk_clib_app_iip_pr_generate_and_save_destination_pri_pub(&app); mk_lang_check_rereturn(err);*/
+	err = mk_clib_app_iip_pr_load_destination_pri_pub(&app); mk_lang_check_rereturn(err);
+	/*err = mk_clib_app_iip_pr_load_destination_pri_only(&app); mk_lang_check_rereturn(err);*/
+	/*err = mk_clib_app_iip_pr_save_destination_pri_pub(&app); mk_lang_check_rereturn(err);*/
 
 	err = mk_clib_app_iip_run(&app); mk_lang_check_rereturn(err);
 	err = mk_clib_app_iip_destroy(&app); mk_lang_check_rereturn(err);
