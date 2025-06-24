@@ -98,6 +98,15 @@ enum mk_win_dll_ws2_address_flags_e
 };
 typedef enum mk_win_dll_ws2_address_flags_e mk_win_dll_ws2_address_flags_t;
 
+enum mk_win_dll_ws2_shutdown_how_e
+{
+	mk_win_dll_ws2_shutdown_how_e_receive = 0,
+	mk_win_dll_ws2_shutdown_how_e_send    = 1,
+	mk_win_dll_ws2_shutdown_how_e_both    = 2,
+	mk_win_dll_ws2_shutdown_how_e_dummy_end
+};
+typedef enum mk_win_dll_ws2_shutdown_how_e mk_win_dll_ws2_shutdown_how_t;
+
 enum mk_win_dll_ws2_sck_evt_bit_e
 {
 	mk_win_dll_ws2_sck_evt_bit_e_read                     = 0,
@@ -523,6 +532,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_dll_ws2_send2(mk_win_d
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_dll_ws2_recv2(mk_win_dll_ws2_socket_t const sck, mk_win_dll_ws2_user_data_pt const bufs, mk_win_base_dword_t const count, mk_win_base_dword_lpt const read, mk_win_base_dword_lpt const flags, mk_win_dll_ws2_overlapped_pt const overlapped, mk_win_dll_ws2_completion_routine_t const callback) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_ulong_t mk_win_dll_ws2_inet_addr(mk_win_base_pchar_pct const address) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_dll_ws2_socket_t mk_win_dll_ws2_socket(mk_win_base_sint_t const family, mk_win_base_sint_t const type, mk_win_base_sint_t const protocol) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_dll_ws2_shutdown(mk_win_dll_ws2_socket_t const sck, mk_lang_types_sint_t const how) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_dll_ws2_closesocket(mk_win_dll_ws2_socket_t const sck) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_dll_ws2_setsockopt(mk_win_dll_ws2_socket_t const sck, mk_win_base_sint_t const level, mk_win_base_sint_t const opt_name, mk_win_base_void_pct const opt_val_buf, mk_win_base_sint_t const opt_val_len) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_dll_ws2_connect(mk_win_dll_ws2_socket_t const sck, mk_win_dll_ws2_sock_addr_pct const addr_buf, mk_win_base_sint_t const addr_len) mk_lang_noexcept;
