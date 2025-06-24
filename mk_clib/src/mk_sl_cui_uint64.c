@@ -17,7 +17,7 @@
 #include "mk_lang_bui_inl_fileu.h"
 
 #define mk_sl_cui_t_name mk_sl_cui_uint64
-#define mk_sl_cui_t_base mk_sl_cui_uint64_zzz_base
+#define mk_sl_cui_t_base_type_name mk_sl_cui_uint64_zzz_base
 #define mk_sl_cui_t_count (64 / mk_sl_cui_uint64_zzz_base_size_bits_d)
 #define mk_sl_cui_t_endian mk_lang_endian_native
 #define mk_sl_cui_t_disable_big_div 0
@@ -35,7 +35,7 @@
 #include "mk_lang_bui_inl_fileu.h"
 
 #define mk_sl_cui_t_name mk_sl_cui_uint64
-#define mk_sl_cui_t_base mk_sl_cui_uint64_zzz_base
+#define mk_sl_cui_t_base_type_name mk_sl_cui_uint64_zzz_base
 #define mk_sl_cui_t_count (64 / mk_sl_cui_uint64_zzz_base_size_bits_d)
 #define mk_sl_cui_t_endian mk_lang_endian_native
 #define mk_sl_cui_t_disable_big_div 0
@@ -53,7 +53,7 @@
 #include "mk_lang_bui_inl_fileu.h"
 
 #define mk_sl_cui_t_name mk_sl_cui_uint64
-#define mk_sl_cui_t_base mk_sl_cui_uint64_zzz_base
+#define mk_sl_cui_t_base_type_name mk_sl_cui_uint64_zzz_base
 #define mk_sl_cui_t_count (64 / mk_sl_cui_uint64_zzz_base_size_bits_d)
 #define mk_sl_cui_t_endian mk_lang_endian_native
 #define mk_sl_cui_t_disable_big_div 0
@@ -71,7 +71,7 @@
 #include "mk_lang_bui_inl_fileu.h"
 
 #define mk_sl_cui_t_name mk_sl_cui_uint64
-#define mk_sl_cui_t_base mk_sl_cui_uint64_zzz_base
+#define mk_sl_cui_t_base_type_name mk_sl_cui_uint64_zzz_base
 #define mk_sl_cui_t_count (64 / mk_sl_cui_uint64_zzz_base_size_bits_d)
 #define mk_sl_cui_t_endian mk_lang_endian_native
 #define mk_sl_cui_t_disable_big_div 0

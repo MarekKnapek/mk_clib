@@ -15,13 +15,13 @@
 #include "mk_lang_types.h"
 
 #define mk_sl_cui_t_name mk_sl_mallocator_lang_c23_blocks
-#define mk_sl_cui_t_base mk_lang_bui_usize
+#define mk_sl_cui_t_base_type_name mk_lang_bui_usize
 #define mk_sl_cui_t_count 1
 #include "mk_sl_cui_inl_filec.h"
 #include "mk_sl_cui_inl_fileu.h"
 
 #define mk_sl_cui_t_name mk_sl_mallocator_lang_c23_bytes
-#define mk_sl_cui_t_base mk_lang_bui_usize
+#define mk_sl_cui_t_base_type_name mk_lang_bui_usize
 #define mk_sl_cui_t_count 1
 #include "mk_sl_cui_inl_filec.h"
 #include "mk_sl_cui_inl_fileu.h"

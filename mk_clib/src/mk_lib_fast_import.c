@@ -46,7 +46,7 @@
 #include "mk_sl_mallocator_lokal_inl_fileu.h"
 
 #define mk_sl_cui_t_name mk_lib_fast_import_file_mode
-#define mk_sl_cui_t_base mk_sl_cui_uint32
+#define mk_sl_cui_t_base_type_name mk_sl_cui_uint32
 #define mk_sl_cui_t_count 1
 #define mk_sl_cui_t_base_size_bits_d mk_sl_cui_uint32_size_bits_d
 #include "mk_sl_cui_inl_fileh.h"
@@ -54,7 +54,7 @@
 #include "mk_sl_cui_inl_fileu.h"
 
 #define mk_sl_cui_t_name mk_lib_fast_import_mark
-#define mk_sl_cui_t_base mk_sl_cui_uint128
+#define mk_sl_cui_t_base_type_name mk_sl_cui_uint128
 #define mk_sl_cui_t_count 1
 #define mk_sl_cui_t_base_size_bits_d mk_sl_cui_uint128_size_bits_d
 #include "mk_sl_cui_inl_fileh.h"

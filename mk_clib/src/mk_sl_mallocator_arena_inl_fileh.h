@@ -11,13 +11,13 @@
 
 
 #define mk_sl_cui_t_name mk_sl_mallocator_arena_inl_defd_num_blocks_name
-#define mk_sl_cui_t_base mk_lang_bui_usize
+#define mk_sl_cui_t_base_type_name mk_lang_bui_usize
 #define mk_sl_cui_t_count 1
 #include "mk_sl_cui_inl_fileh.h"
 #include "mk_sl_cui_inl_fileu.h"
 
 #define mk_sl_cui_t_name mk_sl_mallocator_arena_inl_defd_num_bytes_name
-#define mk_sl_cui_t_base mk_lang_bui_usize
+#define mk_sl_cui_t_base_type_name mk_lang_bui_usize
 #define mk_sl_cui_t_count 1
 #include "mk_sl_cui_inl_fileh.h"
 #include "mk_sl_cui_inl_fileu.h"

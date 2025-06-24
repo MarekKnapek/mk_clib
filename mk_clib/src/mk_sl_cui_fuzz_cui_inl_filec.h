@@ -20,7 +20,7 @@
 
 
 #define mk_sl_cui_t_name mk_sl_cui_fuzz_cui_inl_defd_cui_a_name
-#define mk_sl_cui_t_base mk_sl_cui_fuzz_cui_inl_defd_cui_a_base
+#define mk_sl_cui_t_base_type_name mk_sl_cui_fuzz_cui_inl_defd_cui_a_base
 #define mk_sl_cui_t_count mk_sl_cui_fuzz_cui_inl_defd_cui_a_count
 #define mk_sl_cui_t_endian mk_sl_cui_fuzz_cui_inl_defd_cui_a_endian
 #define mk_sl_cui_t_disable_big_div mk_sl_cui_fuzz_cui_inl_defd_cui_a_disable_big_div
@@ -31,7 +31,7 @@
 #include "mk_sl_cui_inl_fileu.h"
 
 #define mk_sl_cui_t_name mk_sl_cui_fuzz_cui_inl_defd_cui_b_name
-#define mk_sl_cui_t_base mk_sl_cui_fuzz_cui_inl_defd_cui_b_base
+#define mk_sl_cui_t_base_type_name mk_sl_cui_fuzz_cui_inl_defd_cui_b_base
 #define mk_sl_cui_t_count mk_sl_cui_fuzz_cui_inl_defd_cui_b_count
 #define mk_sl_cui_t_endian mk_sl_cui_fuzz_cui_inl_defd_cui_b_endian
 #define mk_sl_cui_t_disable_big_div mk_sl_cui_fuzz_cui_inl_defd_cui_b_disable_big_div

@@ -12,7 +12,7 @@
 #include "mk_win_base.h"
 
 #define mk_sl_cui_t_name mk_win_dll_ws2_socket
-#define mk_sl_cui_t_base mk_lang_bui_uintptr
+#define mk_sl_cui_t_base_type_name mk_lang_bui_uintptr
 #define mk_sl_cui_t_count 1
 #define mk_sl_cui_t_disable_big_div 1
 #define mk_sl_cui_t_base_size_bits_d mk_lang_bui_uintptr_size_bits_d

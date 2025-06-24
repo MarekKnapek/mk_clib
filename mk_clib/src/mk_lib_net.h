@@ -44,7 +44,7 @@ mk_lang_typedef(mk_lib_net_address_protocol);
 
 
 #define mk_sl_cui_t_name mk_lib_net_tcp_port
-#define mk_sl_cui_t_base mk_sl_cui_uint16
+#define mk_sl_cui_t_base_type_name mk_sl_cui_uint16
 #define mk_sl_cui_t_count 1
 #define mk_sl_cui_t_disable_big_div 1
 #define mk_sl_cui_t_base_size_bits_d mk_sl_cui_uint16_size_bits_d
@@ -55,7 +55,7 @@ mk_lang_typedef(mk_lib_net_address_protocol);
 #define mk_lib_net_tcp_port_size_bytes_d (mk_sl_cui_uint16_size_bits_d / mk_lang_charbit)
 
 #define mk_sl_cui_t_name mk_lib_net_udp_port
-#define mk_sl_cui_t_base mk_sl_cui_uint16
+#define mk_sl_cui_t_base_type_name mk_sl_cui_uint16
 #define mk_sl_cui_t_count 1
 #define mk_sl_cui_t_disable_big_div 1
 #define mk_sl_cui_t_base_size_bits_d mk_sl_cui_uint16_size_bits_d

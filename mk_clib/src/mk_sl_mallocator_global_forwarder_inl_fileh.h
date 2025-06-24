@@ -9,13 +9,13 @@
 
 
 #define mk_sl_cui_t_name mk_sl_mallocator_global_forwarder_inl_defd_blocks
-#define mk_sl_cui_t_base mk_sl_mallocator_global_forwarder_inl_defd_base_blocks
+#define mk_sl_cui_t_base_type_name mk_sl_mallocator_global_forwarder_inl_defd_base_blocks
 #define mk_sl_cui_t_count 1
 #include "mk_sl_cui_inl_fileh.h"
 #include "mk_sl_cui_inl_fileu.h"
 
 #define mk_sl_cui_t_name mk_sl_mallocator_global_forwarder_inl_defd_bytes
-#define mk_sl_cui_t_base mk_sl_mallocator_global_forwarder_inl_defd_base_bytes
+#define mk_sl_cui_t_base_type_name mk_sl_mallocator_global_forwarder_inl_defd_base_bytes
 #define mk_sl_cui_t_count 1
 #include "mk_sl_cui_inl_fileh.h"
 #include "mk_sl_cui_inl_fileu.h"

@@ -20,56 +20,56 @@
 
 
 #define mk_sl_cui_t_name mk_lib_iip_integer_elgamal_pri_single
-#define mk_sl_cui_t_base mk_lang_bui_uint
+#define mk_sl_cui_t_base_type_name mk_lang_bui_uint
 #define mk_sl_cui_t_count (((256 * mk_lang_charbit) / mk_lang_bui_uint_size_bits_d) * 1)
 #define mk_sl_cui_t_inline 0
 #include "mk_sl_cui_inl_filec.h"
 #include "mk_sl_cui_inl_fileu.h"
 
 #define mk_sl_cui_t_name mk_lib_iip_integer_elgamal_pri_double
-#define mk_sl_cui_t_base mk_lang_bui_uint
+#define mk_sl_cui_t_base_type_name mk_lang_bui_uint
 #define mk_sl_cui_t_count (((256 * mk_lang_charbit) / mk_lang_bui_uint_size_bits_d) * 2)
 #define mk_sl_cui_t_inline 0
 #include "mk_sl_cui_inl_filec.h"
 #include "mk_sl_cui_inl_fileu.h"
 
 #define mk_sl_cui_t_name mk_lib_iip_integer_elgamal_pub_single
-#define mk_sl_cui_t_base mk_lang_bui_uint
+#define mk_sl_cui_t_base_type_name mk_lang_bui_uint
 #define mk_sl_cui_t_count (((256 * mk_lang_charbit) / mk_lang_bui_uint_size_bits_d) * 1)
 #define mk_sl_cui_t_inline 0
 #include "mk_sl_cui_inl_filec.h"
 #include "mk_sl_cui_inl_fileu.h"
 
 #define mk_sl_cui_t_name mk_lib_iip_integer_elgamal_pub_double
-#define mk_sl_cui_t_base mk_lang_bui_uint
+#define mk_sl_cui_t_base_type_name mk_lang_bui_uint
 #define mk_sl_cui_t_count (((256 * mk_lang_charbit) / mk_lang_bui_uint_size_bits_d) * 2)
 #define mk_sl_cui_t_inline 0
 #include "mk_sl_cui_inl_filec.h"
 #include "mk_sl_cui_inl_fileu.h"
 
 #define mk_sl_cui_t_name mk_lib_iip_integer_dsa_sha1_pri_single
-#define mk_sl_cui_t_base mk_lang_bui_uint
+#define mk_sl_cui_t_base_type_name mk_lang_bui_uint
 #define mk_sl_cui_t_count (((20 * mk_lang_charbit) / mk_lang_bui_uint_size_bits_d) * 1)
 #define mk_sl_cui_t_inline 0
 #include "mk_sl_cui_inl_filec.h"
 #include "mk_sl_cui_inl_fileu.h"
 
 #define mk_sl_cui_t_name mk_lib_iip_integer_dsa_sha1_pri_double
-#define mk_sl_cui_t_base mk_lang_bui_uint
+#define mk_sl_cui_t_base_type_name mk_lang_bui_uint
 #define mk_sl_cui_t_count (((20 * mk_lang_charbit) / mk_lang_bui_uint_size_bits_d) * 2)
 #define mk_sl_cui_t_inline 0
 #include "mk_sl_cui_inl_filec.h"
 #include "mk_sl_cui_inl_fileu.h"
 
 #define mk_sl_cui_t_name mk_lib_iip_integer_dsa_sha1_pub_single
-#define mk_sl_cui_t_base mk_lang_bui_uint
+#define mk_sl_cui_t_base_type_name mk_lang_bui_uint
 #define mk_sl_cui_t_count (((128 * mk_lang_charbit) / mk_lang_bui_uint_size_bits_d) * 1)
 #define mk_sl_cui_t_inline 0
 #include "mk_sl_cui_inl_filec.h"
 #include "mk_sl_cui_inl_fileu.h"
 
 #define mk_sl_cui_t_name mk_lib_iip_integer_dsa_sha1_pub_double
-#define mk_sl_cui_t_base mk_lang_bui_uint
+#define mk_sl_cui_t_base_type_name mk_lang_bui_uint
 #define mk_sl_cui_t_count (((128 * mk_lang_charbit) / mk_lang_bui_uint_size_bits_d) * 2)
 #define mk_sl_cui_t_inline 0
 #include "mk_sl_cui_inl_filec.h"

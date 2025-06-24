@@ -23,7 +23,7 @@
 
 
 #define mk_sl_cui_t_name mk_lib_iip_cp_types_sessionid
-#define mk_sl_cui_t_base mk_sl_cui_uint16
+#define mk_sl_cui_t_base_type_name mk_sl_cui_uint16
 #define mk_sl_cui_t_count 1
 #define mk_sl_cui_t_disable_big_div 1
 #define mk_sl_cui_t_base_size_bits_d mk_sl_cui_uint16_size_bits_d
@@ -34,7 +34,7 @@
 #define mk_lib_iip_cp_types_sessionid_size_bytes_d (mk_sl_cui_uint16_size_bits_d / mk_lang_charbit)
 
 #define mk_sl_cui_t_name mk_lib_iip_cp_types_messageid
-#define mk_sl_cui_t_base mk_sl_cui_uint32
+#define mk_sl_cui_t_base_type_name mk_sl_cui_uint32
 #define mk_sl_cui_t_count 1
 #define mk_sl_cui_t_disable_big_div 1
 #define mk_sl_cui_t_base_size_bits_d mk_sl_cui_uint32_size_bits_d
@@ -45,7 +45,7 @@
 #define mk_lib_iip_cp_types_messageid_size_bytes_d (mk_sl_cui_uint32_size_bits_d / mk_lang_charbit)
 
 #define mk_sl_cui_t_name mk_lib_iip_cp_types_tunnelid
-#define mk_sl_cui_t_base mk_sl_cui_uint32
+#define mk_sl_cui_t_base_type_name mk_sl_cui_uint32
 #define mk_sl_cui_t_count 1
 #define mk_sl_cui_t_disable_big_div 1
 #define mk_sl_cui_t_base_size_bits_d mk_sl_cui_uint32_size_bits_d
@@ -56,7 +56,7 @@
 #define mk_lib_iip_cp_types_tunnelid_size_bytes_d (mk_sl_cui_uint32_size_bits_d / mk_lang_charbit)
 
 #define mk_sl_cui_t_name mk_lib_iip_cp_types_date
-#define mk_sl_cui_t_base mk_sl_cui_uint64
+#define mk_sl_cui_t_base_type_name mk_sl_cui_uint64
 #define mk_sl_cui_t_count 1
 #define mk_sl_cui_t_disable_big_div 1
 #define mk_sl_cui_t_base_size_bits_d mk_sl_cui_uint64_size_bits_d
