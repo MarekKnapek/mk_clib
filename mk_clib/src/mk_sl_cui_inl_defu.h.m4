@@ -23,8 +23,9 @@ include(`mk_sl_cui_inl.m')dnl
 
 
 
+
 `#'undef mk_sl_cui_inl_defd_name
-`#'undef mk_sl_cui_inl_defd_base
+`#'undef mk_sl_cui_inl_defd_base_type_name
 `#'undef mk_sl_cui_inl_defd_count
 
 
@@ -79,6 +80,10 @@ include(`mk_sl_cui_inl.m')dnl
 `#'undef mk_sl_cui_inl_defd_alignme
 
 
+
+`#'undef mk_sl_cui_inl_defd_base_type_t
+
+`#'undef mk_sl_cui_inl_defd_base
 
 `#'undef mk_sl_cui_inl_defd_base_t
 `#'undef mk_sl_cui_inl_defd_base_ct

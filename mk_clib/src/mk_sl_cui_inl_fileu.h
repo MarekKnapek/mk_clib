@@ -1,5 +1,5 @@
 #undef mk_sl_cui_t_name
-#undef mk_sl_cui_t_base
+#undef mk_sl_cui_t_base_type_name
 #undef mk_sl_cui_t_count
 #undef mk_sl_cui_t_endian
 #undef mk_sl_cui_t_str_style
