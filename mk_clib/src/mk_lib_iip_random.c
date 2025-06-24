@@ -101,14 +101,14 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_random_generate_
 	for(i = 0; i != n; ++i)
 	{
 		err = mk_lib_iip_random_generate_u8s(&tu8s[0], batch); mk_lang_check_rereturn(err);
-		mk_sl_cui_uint8_to_bi_uchar_many(&tu8s[0], &dst[0], batch);
+		mk_sl_cui_uint8_to_bi_uchar_many(&tu8s[0], &dst[0], ((mk_lang_types_usize_t)(batch)));
 		dst += batch;
 	}
 	rem = rem - n * batch;
 	if(rem != 0)
 	{
 		err = mk_lib_iip_random_generate_u8s(&tu8s[0], rem); mk_lang_check_rereturn(err);
-		mk_sl_cui_uint8_to_bi_uchar_many(&tu8s[0], &dst[0], rem);
+		mk_sl_cui_uint8_to_bi_uchar_many(&tu8s[0], &dst[0], ((mk_lang_types_usize_t)(rem)));
 	}
 	return 0;
 }
