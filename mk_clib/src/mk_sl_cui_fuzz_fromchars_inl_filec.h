@@ -40,7 +40,7 @@
 #include "mk_lang_bui_inl_fileu.h"
 
 #define mk_sl_cui_t_name mk_sl_cui_fuzz_fromchars_inl_defd_c_prefix
-#define mk_sl_cui_t_base mk_sl_cui_fuzz_fromchars_inl_defd_b_prefix
+#define mk_sl_cui_t_base_type_name mk_sl_cui_fuzz_fromchars_inl_defd_b_prefix
 #define mk_sl_cui_t_count (mk_sl_cui_fuzz_fromchars_inl_defd_a_size_bits_d / mk_sl_cui_fuzz_fromchars_inl_defd_b_size_bits_d)
 #define mk_sl_cui_t_endian mk_sl_cui_fuzz_fromchars_inl_defd_endian
 #define mk_sl_cui_t_str_style mk_sl_cui_fuzz_fromchars_inl_defd_str_style

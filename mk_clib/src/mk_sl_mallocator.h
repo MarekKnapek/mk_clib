@@ -46,7 +46,7 @@
 
 #define mk_sl_mallocator_base_blocks_name mk_lang_concatx(mk_sl_mallocator_base_name, _blocks)
 #define mk_sl_cui_t_name mk_sl_mallocator_blocks
-#define mk_sl_cui_t_base mk_sl_mallocator_base_blocks_name
+#define mk_sl_cui_t_base_type_name mk_sl_mallocator_base_blocks_name
 #define mk_sl_cui_t_count 1
 #include "mk_sl_cui_inl_fileh.h"
 #include "mk_sl_cui_inl_fileu.h"
@@ -54,7 +54,7 @@
 
 #define mk_sl_mallocator_base_bytes_name mk_lang_concatx(mk_sl_mallocator_base_name, _bytes)
 #define mk_sl_cui_t_name mk_sl_mallocator_bytes
-#define mk_sl_cui_t_base mk_sl_mallocator_base_bytes_name
+#define mk_sl_cui_t_base_type_name mk_sl_mallocator_base_bytes_name
 #define mk_sl_cui_t_count 1
 #include "mk_sl_cui_inl_fileh.h"
 #include "mk_sl_cui_inl_fileu.h"

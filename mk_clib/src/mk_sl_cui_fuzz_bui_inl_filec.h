@@ -25,7 +25,7 @@
 
 
 #define mk_sl_cui_t_name mk_sl_cui_fuzz_bui_inl_defd_cui_name
-#define mk_sl_cui_t_base mk_sl_cui_fuzz_bui_inl_defd_sml_bui_tn
+#define mk_sl_cui_t_base_type_name mk_sl_cui_fuzz_bui_inl_defd_sml_bui_tn
 #define mk_sl_cui_t_count mk_sl_cui_fuzz_bui_inl_defd_big_size_bytes_d / mk_sl_cui_fuzz_bui_inl_defd_sml_size_bytes_d
 #define mk_sl_cui_t_endian mk_sl_cui_fuzz_bui_inl_defd_endian
 #define mk_sl_cui_t_disable_big_div 0

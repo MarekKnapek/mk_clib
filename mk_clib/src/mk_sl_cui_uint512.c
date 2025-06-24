@@ -18,7 +18,7 @@
 #define mk_sl_cui_uint512_zzz_base_size_bits_d (mk_lang_sizeof_bi_ulllong_t * mk_lang_charbit)
 
 #define mk_sl_cui_t_name mk_sl_cui_uint512
-#define mk_sl_cui_t_base mk_sl_cui_uint512_zzz_base
+#define mk_sl_cui_t_base_type_name mk_sl_cui_uint512_zzz_base
 #define mk_sl_cui_t_count (512 / mk_sl_cui_uint512_zzz_base_size_bits_d)
 #define mk_sl_cui_t_endian mk_lang_endian_native
 #define mk_sl_cui_t_disable_big_div 0
@@ -39,7 +39,7 @@
 #define mk_sl_cui_uint512_zzz_base_size_bits_d (mk_lang_sizeof_bi_ulong_t * mk_lang_charbit)
 
 #define mk_sl_cui_t_name mk_sl_cui_uint512
-#define mk_sl_cui_t_base mk_sl_cui_uint512_zzz_base
+#define mk_sl_cui_t_base_type_name mk_sl_cui_uint512_zzz_base
 #define mk_sl_cui_t_count (512 / mk_sl_cui_uint512_zzz_base_size_bits_d)
 #define mk_sl_cui_t_endian mk_lang_endian_native
 #define mk_sl_cui_t_disable_big_div 0
@@ -60,7 +60,7 @@
 #define mk_sl_cui_uint512_zzz_base_size_bits_d (mk_lang_sizeof_bi_ullong_t * mk_lang_charbit)
 
 #define mk_sl_cui_t_name mk_sl_cui_uint512
-#define mk_sl_cui_t_base mk_sl_cui_uint512_zzz_base
+#define mk_sl_cui_t_base_type_name mk_sl_cui_uint512_zzz_base
 #define mk_sl_cui_t_count (512 / mk_sl_cui_uint512_zzz_base_size_bits_d)
 #define mk_sl_cui_t_endian mk_lang_endian_native
 #define mk_sl_cui_t_disable_big_div 0
@@ -81,7 +81,7 @@
 #define mk_sl_cui_uint512_zzz_base_size_bits_d (mk_lang_sizeof_bi_uint_t * mk_lang_charbit)
 
 #define mk_sl_cui_t_name mk_sl_cui_uint512
-#define mk_sl_cui_t_base mk_sl_cui_uint512_zzz_base
+#define mk_sl_cui_t_base_type_name mk_sl_cui_uint512_zzz_base
 #define mk_sl_cui_t_count (512 / mk_sl_cui_uint512_zzz_base_size_bits_d)
 #define mk_sl_cui_t_endian mk_lang_endian_native
 #define mk_sl_cui_t_disable_big_div 0
@@ -102,7 +102,7 @@
 #define mk_sl_cui_uint512_zzz_base_size_bits_d (mk_lang_sizeof_bi_ulong_t * mk_lang_charbit)
 
 #define mk_sl_cui_t_name mk_sl_cui_uint512
-#define mk_sl_cui_t_base mk_sl_cui_uint512_zzz_base
+#define mk_sl_cui_t_base_type_name mk_sl_cui_uint512_zzz_base
 #define mk_sl_cui_t_count (512 / mk_sl_cui_uint512_zzz_base_size_bits_d)
 #define mk_sl_cui_t_endian mk_lang_endian_native
 #define mk_sl_cui_t_disable_big_div 0

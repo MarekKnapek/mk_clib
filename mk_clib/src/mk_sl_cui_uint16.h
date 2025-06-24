@@ -18,7 +18,7 @@
 #define mk_sl_cui_uint16_zzz_base_size_bits_d (mk_lang_sizeof_bi_ushort_t * mk_lang_charbit)
 
 #define mk_sl_cui_t_name mk_sl_cui_uint16
-#define mk_sl_cui_t_base mk_sl_cui_uint16_zzz_base
+#define mk_sl_cui_t_base_type_name mk_sl_cui_uint16_zzz_base
 #define mk_sl_cui_t_count (16 / mk_sl_cui_uint16_zzz_base_size_bits_d)
 #define mk_sl_cui_t_endian mk_lang_endian_native
 #define mk_sl_cui_t_disable_big_div 0
