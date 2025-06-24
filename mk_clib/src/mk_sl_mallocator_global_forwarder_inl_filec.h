@@ -172,13 +172,19 @@ static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_global_forwarder_inl
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_global_forwarder_inl_defd_init(mk_lang_types_void_t) mk_lang_noexcept
 {
+	mk_lang_types_sint_t err;
+
+	err = mk_sl_mallocator_global_forwarder_inl_defd_base_init(); mk_lang_check_rereturn(err);
 	mk_sl_mallocator_global_forwarder_inl_defd_statistics_init();
 	return 0;
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_mallocator_global_forwarder_inl_defd_deinit(mk_lang_types_void_t) mk_lang_noexcept
 {
+	mk_lang_types_sint_t err;
+
 	mk_sl_mallocator_global_forwarder_inl_defd_statistics_deinit();
+	err = mk_sl_mallocator_global_forwarder_inl_defd_base_deinit(); mk_lang_check_rereturn(err);
 	return 0;
 }
 
