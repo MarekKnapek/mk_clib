@@ -44,6 +44,7 @@ mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_sint
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_sint_t mk_win_base_stdcall WSARecv(mk_win_dll_ws2_socket_t const sck, mk_win_dll_ws2_user_data_pt const bufs, mk_win_base_dword_t const count, mk_win_base_dword_lpt const read, mk_win_base_dword_lpt const flags, mk_win_dll_ws2_overlapped_pt const overlapped, mk_win_dll_ws2_completion_routine_t const callback) mk_lang_noexcept;
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_ulong_t mk_win_base_stdcall inet_addr(mk_win_base_pchar_lpct const address) mk_lang_noexcept;
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_dll_ws2_socket_t mk_win_base_stdcall socket(mk_win_base_sint_t const family, mk_win_base_sint_t const type, mk_win_base_sint_t const protocol) mk_lang_noexcept;
+mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_sint_t mk_win_base_stdcall shutdown(mk_win_dll_ws2_socket_t const sck, mk_lang_types_sint_t const how) mk_lang_noexcept;
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_sint_t mk_win_base_stdcall closesocket(mk_win_dll_ws2_socket_t const sck) mk_lang_noexcept;
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_sint_t mk_win_base_stdcall setsockopt(mk_win_dll_ws2_socket_t const sck, mk_win_base_sint_t const level, mk_win_base_sint_t const opt_name, mk_win_base_void_pct const opt_val_buf, mk_win_base_sint_t const opt_val_len) mk_lang_noexcept;
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_sint_t mk_win_base_stdcall connect(mk_win_dll_ws2_socket_t const sck, mk_win_dll_ws2_sock_addr_pct const addr_buf, mk_win_base_sint_t const addr_len) mk_lang_noexcept;
@@ -195,6 +196,14 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_dll_ws2_socket_t mk_win_dll_ws2_socket(mk
 	mk_win_dll_ws2_socket_t ret;
 
 	ret = socket(family, type, protocol);
+	return ret;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_dll_ws2_shutdown(mk_win_dll_ws2_socket_t const sck, mk_lang_types_sint_t const how) mk_lang_noexcept
+{
+	mk_win_base_sint_t ret;
+
+	ret = shutdown(sck, how);
 	return ret;
 }
 

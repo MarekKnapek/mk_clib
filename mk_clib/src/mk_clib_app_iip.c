@@ -133,9 +133,9 @@ mk_lang_typedef(mk_clib_app_iip_connection_iip_cp_settings);
 struct mk_clib_app_iip_connection_iip_cp_state_s
 {
 	mk_lib_net_socket_t m_socket;
+	mk_lib_net_async_connect_t m_async_connect;
 	mk_lib_net_write_request_t m_write_request;
 	mk_lib_net_read_request_t m_read_request;
-	mk_lib_net_async_connect_t m_async_connect;
 	mk_clib_app_iip_buffer_4k_t m_store;
 };
 typedef struct mk_clib_app_iip_connection_iip_cp_state_s mk_clib_app_iip_connection_iip_cp_state_t;
@@ -182,6 +182,8 @@ mk_lang_typedef(mk_clib_app_iip_task_connection_iip_cp);
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_task_connection_iip_cp_rw_construct(mk_clib_app_iip_task_connection_iip_cp_pt const task, mk_clib_app_iip_connection_iip_cp_settings_pct const settings) mk_lang_noexcept
 {
+	mk_lang_types_sint_t err;
+
 	mk_lang_assert(task);
 	mk_lang_assert(settings);
 	mk_lang_assert(!mk_lib_net_ipv4_address_is_any(&settings->m_destination.m_ipv4_address));
@@ -194,14 +196,23 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_tas
 	task->m_connection.m_settings.m_destination.m_tcp_port = settings->m_destination.m_tcp_port;
 	task->m_connection.m_settings.m_authentication.m_user_name = settings->m_authentication.m_user_name;
 	task->m_connection.m_settings.m_authentication.m_password = settings->m_authentication.m_password;
+	err = mk_lib_net_socket_construct_void(&task->m_connection.m_state.m_socket); mk_lang_check_rereturn(err);
+	err = mk_lib_net_async_connect_construct_void(&task->m_connection.m_state.m_async_connect); mk_lang_check_rereturn(err);
+	err = mk_lib_net_write_request_construct_void(&task->m_connection.m_state.m_write_request); mk_lang_check_rereturn(err);
+	err = mk_lib_net_read_request_construct_void(&task->m_connection.m_state.m_read_request); mk_lang_check_rereturn(err);
 	return 0;
 }
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_task_connection_iip_cp_rw_destroy(mk_clib_app_iip_task_connection_iip_cp_pt const task) mk_lang_noexcept
 {
+	mk_lang_types_sint_t err;
+
 	mk_lang_assert(task);
 
-	((mk_lang_types_void_t)(task));
+	err = mk_lib_net_socket_destroy(&task->m_connection.m_state.m_socket); mk_lang_check_rereturn(err);
+	err = mk_lib_net_async_connect_destroy(&task->m_connection.m_state.m_async_connect); mk_lang_check_rereturn(err);
+	err = mk_lib_net_write_request_destroy(&task->m_connection.m_state.m_write_request); mk_lang_check_rereturn(err);
+	err = mk_lib_net_read_request_destroy(&task->m_connection.m_state.m_read_request); mk_lang_check_rereturn(err);
 	return 0;
 }
 
