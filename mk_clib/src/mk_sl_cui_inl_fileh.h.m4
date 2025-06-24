@@ -13,6 +13,10 @@ include(`mk_sl_cui_inl.m')dnl
 #include "mk_sl_cui_inl_defd.h"
 
 
+typedef mk_sl_cui_inl_defd_base_type_t mk_sl_cui_inl_defd_base_t;
+mk_lang_typedef(mk_sl_cui_inl_defd_base);
+
+
 struct mk_sl_cui_inl_defd_s
 {
 	mk_sl_cui_inl_defd_alignme mk_sl_cui_inl_defd_base_t m_elements[mk_sl_cui_inl_defd_count];

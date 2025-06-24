@@ -158,7 +158,7 @@
 #define mk_sl_cui_t_count 2
 #define mk_sl_cui_t_endian mk_lang_endian_native
 #define mk_sl_cui_t_disable_big_div 0
-#define mk_sl_cui_t_base_size_bits_d mk_sl_cui_uint32_size_bits_d
+#define mk_sl_cui_t_base_type_size_bits_d mk_sl_cui_uint32_size_bits_d
 #define mk_sl_cui_t_inline 0
 #include "mk_sl_cui_inl_fileh.h"
 #include "mk_sl_cui_inl_filec.h"
@@ -170,7 +170,7 @@
 #define mk_sl_cui_t_count 2
 #define mk_sl_cui_t_endian mk_lang_endian_native
 #define mk_sl_cui_t_disable_big_div 0
-#define mk_sl_cui_t_base_size_bits_d mk_sl_cui_fuzz_cui_2x32_size_bits_d
+#define mk_sl_cui_t_base_type_size_bits_d mk_sl_cui_fuzz_cui_2x32_size_bits_d
 #define mk_sl_cui_t_inline 0
 #include "mk_sl_cui_inl_fileh.h"
 #include "mk_sl_cui_inl_filec.h"
@@ -182,7 +182,7 @@
 #define mk_sl_cui_t_count 2
 #define mk_sl_cui_t_endian mk_lang_endian_native
 #define mk_sl_cui_t_disable_big_div 0
-#define mk_sl_cui_t_base_size_bits_d mk_sl_cui_fuzz_cui_2x2x32_size_bits_d
+#define mk_sl_cui_t_base_type_size_bits_d mk_sl_cui_fuzz_cui_2x2x32_size_bits_d
 #define mk_sl_cui_t_inline 0
 #include "mk_sl_cui_inl_fileh.h"
 #include "mk_sl_cui_inl_filec.h"
@@ -194,7 +194,7 @@
 #define mk_sl_cui_t_count 2
 #define mk_sl_cui_t_endian mk_lang_endian_native
 #define mk_sl_cui_t_disable_big_div 0
-#define mk_sl_cui_t_base_size_bits_d mk_sl_cui_fuzz_cui_2x2x2x32_size_bits_d
+#define mk_sl_cui_t_base_type_size_bits_d mk_sl_cui_fuzz_cui_2x2x2x32_size_bits_d
 #define mk_sl_cui_t_inline 0
 #include "mk_sl_cui_inl_fileh.h"
 #include "mk_sl_cui_inl_filec.h"
