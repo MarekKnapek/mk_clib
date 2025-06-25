@@ -1063,6 +1063,10 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_mallocator_lokal_inl_fileu.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_mallocator_lokal_windows.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_mallocator_windows.h"><Filter>src</Filter></ClInclude>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_mallocator_lang_c23.natvis"><Filter>src</Filter></Natvis>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_mallocator_lang_c89.natvis"><Filter>src</Filter></Natvis>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_mallocator_lang_cpp.natvis"><Filter>src</Filter></Natvis>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_mallocator_windows.natvis"><Filter>src</Filter></Natvis>
 	</ItemGroup>
 	<ItemGroup>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_vector.h"><Filter>src</Filter></ClInclude>
@@ -1179,5 +1183,6 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_integer.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_random.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_time.h"><Filter>src</Filter></ClInclude>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_mallocator_global.natvis"><Filter>src</Filter></Natvis>
 	</ItemGroup>
 </Project>

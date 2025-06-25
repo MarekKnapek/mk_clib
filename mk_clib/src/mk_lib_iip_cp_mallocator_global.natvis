@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+	<Type Name="mk_lib_iip_cp_mallocator_global_statistics_s">
+		<DisplayString Optional="true">{{ blocks live = { m_blocks_allocated.m_elements[0].m_elements[0].m_elements[0] - m_blocks_deallocated.m_elements[0].m_elements[0].m_elements[0] } bytes live = { m_bytes_allocated.m_elements[0].m_elements[0].m_elements[0] - m_bytes_deallocated.m_elements[0].m_elements[0].m_elements[0] } }}</DisplayString>
+		<DisplayString Optional="true">{{ blocks live = { m_blocks_allocated.m_elements[0].m_elements[0] - m_blocks_deallocated.m_elements[0].m_elements[0] } bytes live = { m_bytes_allocated.m_elements[0].m_elements[0] - m_bytes_deallocated.m_elements[0].m_elements[0] } }}</DisplayString>
+		<Expand>
+			<Item Name="[ blocks allocated ]" Optional="true">m_blocks_allocated.m_elements[0].m_elements[0].m_elements[0]</Item>
+			<Item Name="[ blocks dealocated ]" Optional="true">m_blocks_deallocated.m_elements[0].m_elements[0].m_elements[0]</Item>
+			<Item Name="[ blocks peak ]" Optional="true">m_blocks_peak.m_elements[0].m_elements[0].m_elements[0]</Item>
+			<Item Name="[ blocks live ]" Optional="true">m_blocks_allocated.m_elements[0].m_elements[0].m_elements[0] - m_blocks_deallocated.m_elements[0].m_elements[0].m_elements[0]</Item>
+			<Item Name="[ bytes allocated ]" Optional="true">m_bytes_allocated.m_elements[0].m_elements[0].m_elements[0]</Item>
+			<Item Name="[ bytes dealocated ]" Optional="true">m_bytes_deallocated.m_elements[0].m_elements[0].m_elements[0]</Item>
+			<Item Name="[ bytes peak ]" Optional="true">m_bytes_peak.m_elements[0].m_elements[0].m_elements[0]</Item>
+			<Item Name="[ bytes live ]" Optional="true">m_bytes_allocated.m_elements[0].m_elements[0].m_elements[0] - m_bytes_deallocated.m_elements[0].m_elements[0].m_elements[0]</Item>
+			<!-- -->
+			<Item Name="[ blocks allocated ]" Optional="true">m_blocks_allocated.m_elements[0].m_elements[0]</Item>
+			<Item Name="[ blocks dealocated ]" Optional="true">m_blocks_deallocated.m_elements[0].m_elements[0]</Item>
+			<Item Name="[ blocks peak ]" Optional="true">m_blocks_peak.m_elements[0].m_elements[0]</Item>
+			<Item Name="[ blocks live ]" Optional="true">m_blocks_allocated.m_elements[elements[0].m_elements[0] - m_blocks_deallocated.m_elements[0].m_elements[0].m_elements[0]</Item>
+			<Item Name="[ bytes allocated ]" Optional="true">m_bytes_allocated.m_elements[0].m_elements[0]</Item>
+			<Item Name="[ bytes dealocated ]" Optional="true">m_bytes_deallocated.m_elements[0].m_elements[0]</Item>
+			<Item Name="[ bytes peak ]" Optional="true">m_bytes_peak.m_elements[0].m_elements[0]</Item>
+			<Item Name="[ bytes live ]" Optional="true">m_bytes_allocated.m_elements[0].m_elements[0] - m_bytes_deallocated.m_elements[0].m_elements[0].m_elements[0]</Item>
+		</Expand>
+	</Type>
+</AutoVisualizer>

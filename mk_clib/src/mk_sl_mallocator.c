@@ -76,7 +76,7 @@
 #define mk_sl_mallocator_impl_statistics_get_bytes_live mk_sl_mallocator_lang_c23_statistics_get_bytes_live
 #define mk_sl_mallocator_impl_statistics_get_all mk_sl_mallocator_lang_c23_statistics_get_all
 #else
-#include "mk_sl_mallocator_lang_c.h"
+#include "mk_sl_mallocator_lang_c89.h"
 #define mk_sl_mallocator_impl_init mk_sl_mallocator_lang_c89_init
 #define mk_sl_mallocator_impl_deinit mk_sl_mallocator_lang_c89_deinit
 #define mk_sl_mallocator_impl_allocate mk_sl_mallocator_lang_c89_allocate

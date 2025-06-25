@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+	<Type Name="mk_sl_mallocator_lang_cpp_statistics_s">
+		<DisplayString>{{ blocks live = { m_blocks_allocated.m_elements[0] - m_blocks_deallocated.m_elements[0] } bytes live = { m_bytes_allocated.m_elements[0] - m_bytes_deallocated.m_elements[0] } }}</DisplayString>
+		<Expand>
+			<Item Name="[ blocks allocated ]">m_blocks_allocated.m_elements[0]</Item>
+			<Item Name="[ blocks dealocated ]">m_blocks_deallocated.m_elements[0]</Item>
+			<Item Name="[ blocks peak ]">m_blocks_peak.m_elements[0]</Item>
+			<Item Name="[ blocks live ]">m_blocks_allocated.m_elements[0] - m_blocks_deallocated.m_elements[0]</Item>
+			<Item Name="[ bytes allocated ]">m_bytes_allocated.m_elements[0]</Item>
+			<Item Name="[ bytes dealocated ]">m_bytes_deallocated.m_elements[0]</Item>
+			<Item Name="[ bytes peak ]">m_bytes_peak.m_elements[0]</Item>
+			<Item Name="[ bytes live ]">m_bytes_allocated.m_elements[0] - m_bytes_deallocated.m_elements[0]</Item>
+		</Expand>
+	</Type>
+</AutoVisualizer>
