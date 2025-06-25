@@ -47,7 +47,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_prrw_element_construct_void(mk_sl_fixed_vector_inl_defd_element_pt const element) mk_lang_noexcept
 {
 #if mk_sl_fixed_vector_inl_defd_element_construct_destroy_has
-	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	mk_lang_assert(element);
 
@@ -66,7 +66,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_prrw_element_destroy(mk_sl_fixed_vector_inl_defd_element_pt const element) mk_lang_noexcept
 {
 #if mk_sl_fixed_vector_inl_defd_element_construct_destroy_has
-	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	mk_lang_assert(element);
 
@@ -85,7 +85,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_prrw_element_construct_copy(mk_sl_fixed_vector_inl_defd_element_pt const dst, mk_sl_fixed_vector_inl_defd_element_pct const src) mk_lang_noexcept
 {
 #if mk_sl_fixed_vector_inl_defd_copy_style == mk_sl_fixed_vector_copy_use_bitblt
-	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(dst);
@@ -97,7 +97,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 	return 0;
 #elif mk_sl_fixed_vector_inl_defd_copy_style == mk_sl_fixed_vector_copy_use_custom
-	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(dst);
@@ -116,7 +116,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_prrw_element_construct_move(mk_sl_fixed_vector_inl_defd_element_pt const dst, mk_sl_fixed_vector_inl_defd_element_pt const src) mk_lang_noexcept
 {
 #if mk_sl_fixed_vector_inl_defd_copy_style == mk_sl_fixed_vector_copy_use_bitblt
-	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(dst);
@@ -128,7 +128,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 	return 0;
 #elif mk_sl_fixed_vector_inl_defd_copy_style == mk_sl_fixed_vector_copy_use_custom
-	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(dst);
@@ -147,7 +147,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_prrw_element_assign_copy(mk_sl_fixed_vector_inl_defd_element_pt const dst, mk_sl_fixed_vector_inl_defd_element_pct const src) mk_lang_noexcept
 {
 #if mk_sl_fixed_vector_inl_defd_copy_style == mk_sl_fixed_vector_copy_use_bitblt
-	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(dst);
@@ -159,7 +159,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 	return 0;
 #elif mk_sl_fixed_vector_inl_defd_copy_style == mk_sl_fixed_vector_copy_use_custom
-	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(dst);
@@ -178,7 +178,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_prrw_element_assign_move(mk_sl_fixed_vector_inl_defd_element_pt const dst, mk_sl_fixed_vector_inl_defd_element_pt const src) mk_lang_noexcept
 {
 #if mk_sl_fixed_vector_inl_defd_copy_style == mk_sl_fixed_vector_copy_use_bitblt
-	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(dst);
@@ -190,7 +190,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 	return 0;
 #elif mk_sl_fixed_vector_inl_defd_copy_style == mk_sl_fixed_vector_copy_use_custom
-	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(dst);
@@ -209,7 +209,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t mk_sl_fixed_vector_inl_defd_prrw_element_eq(mk_sl_fixed_vector_inl_defd_element_pct const a, mk_sl_fixed_vector_inl_defd_element_pct const b) mk_lang_noexcept
 {
 #if mk_sl_fixed_vector_inl_defd_element_eq_has
-	mk_lang_types_bool_t ret;
+	mk_lang_types_bool_t ret mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -217,7 +217,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t m
 	ret = mk_sl_fixed_vector_inl_defd_element_eq_fn(a, b);
 	return ret;
 #else
-	mk_lang_types_bool_t ret;
+	mk_lang_types_bool_t ret mk_lang_constexpr_init;
 
 	mk_lang_assert(a);
 	mk_lang_assert(b);
@@ -230,7 +230,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t m
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t mk_sl_fixed_vector_inl_defd_prro_verify_invariants(mk_sl_fixed_vector_inl_defd_pct const fixed_vector) mk_lang_noexcept
 {
-	mk_lang_types_bool_t gud;
+	mk_lang_types_bool_t gud mk_lang_constexpr_init;
 
 	mk_lang_static_assert(((mk_lang_types_usize_t)(mk_sl_fixed_vector_inl_defd_capacity_d)) <= ((mk_lang_types_usize_t)(mk_lang_limits_usize_max)) / ((mk_lang_types_usize_t)(sizeof(mk_sl_fixed_vector_inl_defd_element_t))));
 
@@ -244,7 +244,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t m
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_usize_t mk_sl_fixed_vector_inl_defd_prst_max_capacity(mk_lang_types_void_t) mk_lang_noexcept
 {
-	mk_lang_types_usize_t ret;
+	mk_lang_types_usize_t ret mk_lang_constexpr_init;
 
 	ret = mk_sl_fixed_vector_inl_defd_capacity_d;
 	return ret;
@@ -253,7 +253,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_usize_t 
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_usize_t mk_sl_fixed_vector_inl_defd_prro_max_capacity(mk_sl_fixed_vector_inl_defd_pct const fixed_vector) mk_lang_noexcept
 {
-	mk_lang_types_usize_t ret;
+	mk_lang_types_usize_t ret mk_lang_constexpr_init;
 
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
@@ -267,7 +267,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_usize_t 
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_usize_t mk_sl_fixed_vector_inl_defd_prro_capacity(mk_sl_fixed_vector_inl_defd_pct const fixed_vector) mk_lang_noexcept
 {
-	mk_lang_types_usize_t ret;
+	mk_lang_types_usize_t ret mk_lang_constexpr_init;
 
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
@@ -309,7 +309,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_usize_t mk_sl_fixed_vector_inl_defd_prro_free(mk_sl_fixed_vector_inl_defd_pct const fixed_vector) mk_lang_noexcept
 {
-	mk_lang_types_usize_t ret;
+	mk_lang_types_usize_t ret mk_lang_constexpr_init;
 
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
@@ -322,7 +322,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_usize_t 
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t mk_sl_fixed_vector_inl_defd_prro_is_empty(mk_sl_fixed_vector_inl_defd_pct const fixed_vector) mk_lang_noexcept
 {
-	mk_lang_types_bool_t ret;
+	mk_lang_types_bool_t ret mk_lang_constexpr_init;
 
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
@@ -335,7 +335,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t m
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t mk_sl_fixed_vector_inl_defd_prro_is_full(mk_sl_fixed_vector_inl_defd_pct const fixed_vector) mk_lang_noexcept
 {
-	mk_lang_types_bool_t ret;
+	mk_lang_types_bool_t ret mk_lang_constexpr_init;
 
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
@@ -348,7 +348,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t m
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_sl_fixed_vector_inl_defd_element_pct mk_sl_fixed_vector_inl_defd_prro_data(mk_sl_fixed_vector_inl_defd_pct const fixed_vector) mk_lang_noexcept
 {
-	mk_sl_fixed_vector_inl_defd_element_pct ret;
+	mk_sl_fixed_vector_inl_defd_element_pct ret mk_lang_constexpr_init;
 
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
@@ -361,14 +361,16 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_sl_fixed_vector_inl
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_sl_fixed_vector_inl_defd_element_pct mk_sl_fixed_vector_inl_defd_prro_at(mk_sl_fixed_vector_inl_defd_pct const fixed_vector, mk_lang_types_usize_t const idx) mk_lang_noexcept
 {
-	mk_sl_fixed_vector_inl_defd_element_pct ret;
+	mk_sl_fixed_vector_inl_defd_element_pct ret mk_lang_constexpr_init;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
 	mk_lang_assert(!mk_sl_fixed_vector_inl_defd_prro_is_empty(fixed_vector));
 	mk_lang_assert(idx >= 0);
 	mk_lang_assert(idx < mk_sl_fixed_vector_inl_defd_prro_size(fixed_vector));
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	ret = &mk_sl_fixed_vector_inl_defd_prro_data(fixed_vector)[idx];
@@ -379,7 +381,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_sl_fixed_vector_inl
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_sl_fixed_vector_inl_defd_element_pct mk_sl_fixed_vector_inl_defd_prro_front(mk_sl_fixed_vector_inl_defd_pct const fixed_vector) mk_lang_noexcept
 {
-	mk_sl_fixed_vector_inl_defd_element_pct ret;
+	mk_sl_fixed_vector_inl_defd_element_pct ret mk_lang_constexpr_init;
 
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
@@ -393,7 +395,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_sl_fixed_vector_inl
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_sl_fixed_vector_inl_defd_element_pct mk_sl_fixed_vector_inl_defd_prro_back(mk_sl_fixed_vector_inl_defd_pct const fixed_vector) mk_lang_noexcept
 {
-	mk_sl_fixed_vector_inl_defd_element_pct ret;
+	mk_sl_fixed_vector_inl_defd_element_pct ret mk_lang_constexpr_init;
 
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
@@ -407,13 +409,13 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_sl_fixed_vector_inl
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t mk_sl_fixed_vector_inl_defd_prro_eq(mk_sl_fixed_vector_inl_defd_pct const fixed_vector, mk_sl_fixed_vector_inl_defd_pct const other) mk_lang_noexcept
 {
-	mk_lang_types_bool_t ret;
-	mk_lang_types_usize_t n;
-	mk_lang_types_usize_t m;
-	mk_lang_types_usize_t i;
-	mk_sl_fixed_vector_inl_defd_element_pct ea;
-	mk_sl_fixed_vector_inl_defd_element_pct eb;
-	mk_lang_types_bool_t eq;
+	mk_lang_types_bool_t ret mk_lang_constexpr_init;
+	mk_lang_types_usize_t n mk_lang_constexpr_init;
+	mk_lang_types_usize_t m mk_lang_constexpr_init;
+	mk_lang_types_usize_t i mk_lang_constexpr_init;
+	mk_sl_fixed_vector_inl_defd_element_pct ea mk_lang_constexpr_init;
+	mk_sl_fixed_vector_inl_defd_element_pct eb mk_lang_constexpr_init;
+	mk_lang_types_bool_t eq mk_lang_constexpr_init;
 
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(other);
@@ -446,7 +448,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t m
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t mk_sl_fixed_vector_inl_defd_prro_ne(mk_sl_fixed_vector_inl_defd_pct const fixed_vector, mk_sl_fixed_vector_inl_defd_pct const other) mk_lang_noexcept
 {
-	mk_lang_types_bool_t ret;
+	mk_lang_types_bool_t ret mk_lang_constexpr_init;
 
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(other);
@@ -463,7 +465,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t m
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_usize_t mk_sl_fixed_vector_inl_defd_prrw_max_capacity(mk_sl_fixed_vector_inl_defd_pt const fixed_vector) mk_lang_noexcept
 {
-	mk_lang_types_usize_t ret;
+	mk_lang_types_usize_t ret mk_lang_constexpr_init;
 
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
@@ -476,7 +478,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_usize_t 
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_usize_t mk_sl_fixed_vector_inl_defd_prrw_capacity(mk_sl_fixed_vector_inl_defd_pt const fixed_vector) mk_lang_noexcept
 {
-	mk_lang_types_usize_t ret;
+	mk_lang_types_usize_t ret mk_lang_constexpr_init;
 
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
@@ -554,7 +556,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t m
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_sl_fixed_vector_inl_defd_element_pt mk_sl_fixed_vector_inl_defd_prrw_data(mk_sl_fixed_vector_inl_defd_pt const fixed_vector) mk_lang_noexcept
 {
-	mk_sl_fixed_vector_inl_defd_element_pt ret;
+	mk_sl_fixed_vector_inl_defd_element_pt ret mk_lang_constexpr_init;
 
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
@@ -567,14 +569,16 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_sl_fixed_vector_inl
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_sl_fixed_vector_inl_defd_element_pt mk_sl_fixed_vector_inl_defd_prrw_at(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_lang_types_usize_t const idx) mk_lang_noexcept
 {
-	mk_sl_fixed_vector_inl_defd_element_pt ret;
+	mk_sl_fixed_vector_inl_defd_element_pt ret mk_lang_constexpr_init;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
 	mk_lang_assert(!mk_sl_fixed_vector_inl_defd_prro_is_empty(fixed_vector));
 	mk_lang_assert(idx >= 0);
 	mk_lang_assert(idx < mk_sl_fixed_vector_inl_defd_prro_size(fixed_vector));
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	ret = &mk_sl_fixed_vector_inl_defd_prrw_data(fixed_vector)[idx];
@@ -585,7 +589,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_sl_fixed_vector_inl
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_sl_fixed_vector_inl_defd_element_pt mk_sl_fixed_vector_inl_defd_prrw_front(mk_sl_fixed_vector_inl_defd_pt const fixed_vector) mk_lang_noexcept
 {
-	mk_sl_fixed_vector_inl_defd_element_pt ret;
+	mk_sl_fixed_vector_inl_defd_element_pt ret mk_lang_constexpr_init;
 
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
@@ -599,7 +603,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_sl_fixed_vector_inl
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_sl_fixed_vector_inl_defd_element_pt mk_sl_fixed_vector_inl_defd_prrw_back(mk_sl_fixed_vector_inl_defd_pt const fixed_vector) mk_lang_noexcept
 {
-	mk_sl_fixed_vector_inl_defd_element_pt ret;
+	mk_sl_fixed_vector_inl_defd_element_pt ret mk_lang_constexpr_init;
 
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
@@ -626,7 +630,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t m
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t mk_sl_fixed_vector_inl_defd_prrw_ne(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_sl_fixed_vector_inl_defd_pct const other) mk_lang_noexcept
 {
-	mk_lang_types_bool_t ret;
+	mk_lang_types_bool_t ret mk_lang_constexpr_init;
 
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(other);
@@ -644,11 +648,11 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t m
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_prrw_elements_construct_void_from_to(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_lang_types_usize_t const idx_from, mk_lang_types_usize_t const idx_to) mk_lang_noexcept
 {
 #if mk_sl_fixed_vector_inl_defd_element_construct_destroy_has
-	mk_lang_types_usize_t n;
-	mk_lang_types_usize_t i;
+	mk_lang_types_usize_t n mk_lang_constexpr_init;
+	mk_lang_types_usize_t i mk_lang_constexpr_init;
 	mk_lang_types_usize_t idx;
 	mk_sl_fixed_vector_inl_defd_element_pt e;
-	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(fixed_vector);
@@ -672,6 +676,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	return 0;
 #else
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
 	mk_lang_assert(idx_from >= 0);
@@ -679,6 +684,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	mk_lang_assert(idx_to >= 0);
 	mk_lang_assert(idx_to < mk_sl_fixed_vector_inl_defd_prro_size(fixed_vector));
 	mk_lang_assert(idx_from <= idx_to);
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	((mk_lang_types_void_t)(fixed_vector));
@@ -693,13 +699,14 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_prrw_elements_destroy_from_to(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_lang_types_usize_t const idx_from, mk_lang_types_usize_t const idx_to) mk_lang_noexcept
 {
 #if mk_sl_fixed_vector_inl_defd_element_construct_destroy_has
-	mk_lang_types_usize_t n;
-	mk_lang_types_usize_t i;
+	mk_lang_types_usize_t n mk_lang_constexpr_init;
+	mk_lang_types_usize_t i mk_lang_constexpr_init;
 	mk_lang_types_usize_t idx;
 	mk_sl_fixed_vector_inl_defd_element_pt e;
-	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
 	mk_lang_assert(idx_from >= 0);
@@ -707,6 +714,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	mk_lang_assert(idx_to >= 0);
 	mk_lang_assert(idx_to < mk_sl_fixed_vector_inl_defd_prro_size(fixed_vector));
 	mk_lang_assert(idx_from <= idx_to);
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	n = idx_to - idx_from + 1;
@@ -721,6 +729,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	return 0;
 #else
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
 	mk_lang_assert(idx_from >= 0);
@@ -728,6 +737,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	mk_lang_assert(idx_to >= 0);
 	mk_lang_assert(idx_to < mk_sl_fixed_vector_inl_defd_prro_size(fixed_vector));
 	mk_lang_assert(idx_from <= idx_to);
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	((mk_lang_types_void_t)(fixed_vector));
@@ -741,15 +751,17 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_prrw_elements_construct_void_last(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
-	mk_lang_types_usize_t idx_from;
-	mk_lang_types_usize_t idx_to;
-	mk_lang_types_sint_t err;
+	mk_lang_types_usize_t idx_from mk_lang_constexpr_init;
+	mk_lang_types_usize_t idx_to mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(count <= mk_sl_fixed_vector_inl_defd_prro_size(fixed_vector));
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	if(count != 0)
@@ -765,15 +777,17 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_prrw_elements_destroy_last(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
-	mk_lang_types_usize_t idx_from;
-	mk_lang_types_usize_t idx_to;
-	mk_lang_types_sint_t err;
+	mk_lang_types_usize_t idx_from mk_lang_constexpr_init;
+	mk_lang_types_usize_t idx_to mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(count <= mk_sl_fixed_vector_inl_defd_prro_size(fixed_vector));
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	if(count != 0)
@@ -789,8 +803,8 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_prrw_elements_destroy_all(mk_sl_fixed_vector_inl_defd_pt const fixed_vector) mk_lang_noexcept
 {
-	mk_lang_types_usize_t count;
-	mk_lang_types_sint_t err;
+	mk_lang_types_usize_t count mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
@@ -806,29 +820,33 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 {
 #if mk_sl_fixed_vector_inl_defd_copy_style == mk_sl_fixed_vector_copy_use_bitblt
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(dst || count == 0);
 	mk_lang_assert(src || count == 0);
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(count <= mk_sl_fixed_vector_inl_defd_capacity_d);
 	mk_lang_assert(dst != src);
 	mk_lang_assert(!mk_sl_fixed_vector_inl_filec_overlap_fn(dst, count, src, count));
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	mk_sl_fixed_vector_inl_filec_memcpy_fn(dst, src, count);
 
 	return 0;
 #elif mk_sl_fixed_vector_inl_defd_copy_style == mk_sl_fixed_vector_copy_use_custom
-	mk_lang_types_usize_t n;
-	mk_lang_types_usize_t i;
-	mk_lang_types_sint_t err;
+	mk_lang_types_usize_t n mk_lang_constexpr_init;
+	mk_lang_types_usize_t i mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(dst || count == 0);
 	mk_lang_assert(src || count == 0);
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(count <= mk_sl_fixed_vector_inl_defd_capacity_d);
 	mk_lang_assert(dst != src);
 	mk_lang_assert(!mk_sl_fixed_vector_inl_filec_overlap_fn(dst, count, src, count));
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	n = count;
@@ -847,29 +865,33 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 {
 #if mk_sl_fixed_vector_inl_defd_copy_style == mk_sl_fixed_vector_copy_use_bitblt
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(dst || count == 0);
 	mk_lang_assert(src || count == 0);
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(count <= mk_sl_fixed_vector_inl_defd_capacity_d);
 	mk_lang_assert(dst != src);
 	mk_lang_assert(!mk_sl_fixed_vector_inl_filec_overlap_fn(dst, count, src, count));
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	mk_sl_fixed_vector_inl_filec_memcpy_fn(dst, src, count);
 
 	return 0;
 #elif mk_sl_fixed_vector_inl_defd_copy_style == mk_sl_fixed_vector_copy_use_custom
-	mk_lang_types_usize_t n;
-	mk_lang_types_usize_t i;
-	mk_lang_types_sint_t err;
+	mk_lang_types_usize_t n mk_lang_constexpr_init;
+	mk_lang_types_usize_t i mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(dst || count == 0);
 	mk_lang_assert(src || count == 0);
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(count <= mk_sl_fixed_vector_inl_defd_capacity_d);
 	mk_lang_assert(dst != src);
 	mk_lang_assert(!mk_sl_fixed_vector_inl_filec_overlap_fn(dst, count, src, count));
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	n = count;
@@ -888,29 +910,33 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 {
 #if mk_sl_fixed_vector_inl_defd_copy_style == mk_sl_fixed_vector_copy_use_bitblt
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(dst || count == 0);
 	mk_lang_assert(src || count == 0);
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(count <= mk_sl_fixed_vector_inl_defd_capacity_d);
 	mk_lang_assert(dst != src);
 	mk_lang_assert(!mk_sl_fixed_vector_inl_filec_overlap_fn(dst, count, src, count));
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	mk_sl_fixed_vector_inl_filec_memcpy_fn(dst, src, count);
 
 	return 0;
 #elif mk_sl_fixed_vector_inl_defd_copy_style == mk_sl_fixed_vector_copy_use_custom
-	mk_lang_types_usize_t n;
-	mk_lang_types_usize_t i;
-	mk_lang_types_sint_t err;
+	mk_lang_types_usize_t n mk_lang_constexpr_init;
+	mk_lang_types_usize_t i mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(dst || count == 0);
 	mk_lang_assert(src || count == 0);
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(count <= mk_sl_fixed_vector_inl_defd_capacity_d);
 	mk_lang_assert(dst != src);
 	mk_lang_assert(!mk_sl_fixed_vector_inl_filec_overlap_fn(dst, count, src, count));
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	n = count;
@@ -929,29 +955,33 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 {
 #if mk_sl_fixed_vector_inl_defd_copy_style == mk_sl_fixed_vector_copy_use_bitblt
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(dst || count == 0);
 	mk_lang_assert(src || count == 0);
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(count <= mk_sl_fixed_vector_inl_defd_capacity_d);
 	mk_lang_assert(dst != src);
 	mk_lang_assert(!mk_sl_fixed_vector_inl_filec_overlap_fn(dst, count, src, count));
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	mk_sl_fixed_vector_inl_filec_memcpy_fn(dst, src, count);
 
 	return 0;
 #elif mk_sl_fixed_vector_inl_defd_copy_style == mk_sl_fixed_vector_copy_use_custom
-	mk_lang_types_usize_t n;
-	mk_lang_types_usize_t i;
-	mk_lang_types_sint_t err;
+	mk_lang_types_usize_t n mk_lang_constexpr_init;
+	mk_lang_types_usize_t i mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(dst || count == 0);
 	mk_lang_assert(src || count == 0);
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(count <= mk_sl_fixed_vector_inl_defd_capacity_d);
 	mk_lang_assert(dst != src);
 	mk_lang_assert(!mk_sl_fixed_vector_inl_filec_overlap_fn(dst, count, src, count));
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	n = count;
@@ -979,7 +1009,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_prrw_destroy(mk_sl_fixed_vector_inl_defd_pt const fixed_vector) mk_lang_noexcept
 {
-	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
@@ -991,10 +1021,10 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_prrw_construct_copy(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_sl_fixed_vector_inl_defd_pct const src) mk_lang_noexcept
 {
-	mk_sl_fixed_vector_inl_defd_element_pt d;
-	mk_sl_fixed_vector_inl_defd_element_pct s;
-	mk_lang_types_usize_t c;
-	mk_lang_types_sint_t err;
+	mk_sl_fixed_vector_inl_defd_element_pt d mk_lang_constexpr_init;
+	mk_sl_fixed_vector_inl_defd_element_pct s mk_lang_constexpr_init;
+	mk_lang_types_usize_t c mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(src);
@@ -1012,10 +1042,10 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_prrw_construct_move(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_sl_fixed_vector_inl_defd_pt const src) mk_lang_noexcept
 {
-	mk_sl_fixed_vector_inl_defd_element_pt d;
-	mk_sl_fixed_vector_inl_defd_element_pt s;
-	mk_lang_types_usize_t c;
-	mk_lang_types_sint_t err;
+	mk_sl_fixed_vector_inl_defd_element_pt d mk_lang_constexpr_init;
+	mk_sl_fixed_vector_inl_defd_element_pt s mk_lang_constexpr_init;
+	mk_lang_types_usize_t c mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(src);
@@ -1033,10 +1063,10 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_prrw_assign_copy(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_sl_fixed_vector_inl_defd_pct const src) mk_lang_noexcept
 {
-	mk_sl_fixed_vector_inl_defd_element_pt d;
-	mk_sl_fixed_vector_inl_defd_element_pct s;
-	mk_lang_types_usize_t c;
-	mk_lang_types_sint_t err;
+	mk_sl_fixed_vector_inl_defd_element_pt d mk_lang_constexpr_init;
+	mk_sl_fixed_vector_inl_defd_element_pct s mk_lang_constexpr_init;
+	mk_lang_types_usize_t c mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
@@ -1055,10 +1085,10 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_prrw_assign_move(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_sl_fixed_vector_inl_defd_pt const src) mk_lang_noexcept
 {
-	mk_sl_fixed_vector_inl_defd_element_pt d;
-	mk_sl_fixed_vector_inl_defd_element_pt s;
-	mk_lang_types_usize_t c;
-	mk_lang_types_sint_t err;
+	mk_sl_fixed_vector_inl_defd_element_pt d mk_lang_constexpr_init;
+	mk_sl_fixed_vector_inl_defd_element_pt s mk_lang_constexpr_init;
+	mk_lang_types_usize_t c mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
@@ -1078,9 +1108,11 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_prrw_reserve_at_least(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
 	mk_lang_assert(count == mk_sl_fixed_vector_inl_defd_capacity_d);
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	((mk_lang_types_void_t)(fixed_vector));
@@ -1092,9 +1124,11 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_prrw_reserve_additional(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
 	mk_lang_assert(count == 0);
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	((mk_lang_types_void_t)(fixed_vector));
@@ -1106,9 +1140,11 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_prrw_shrink_by(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
 	mk_lang_assert(count == 0);
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	((mk_lang_types_void_t)(fixed_vector));
@@ -1120,9 +1156,11 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_prrw_resize_to(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
 	mk_lang_assert(count == mk_sl_fixed_vector_inl_defd_capacity_d);
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	((mk_lang_types_void_t)(fixed_vector));
@@ -1134,9 +1172,11 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_prrw_grow_by(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
 	mk_lang_assert(count == 0);
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	((mk_lang_types_void_t)(fixed_vector));
@@ -1160,10 +1200,12 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_prrw_push_back_copy_many(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_sl_fixed_vector_inl_defd_element_pct const elements, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
 	mk_lang_assert(elements || count == 0);
 	mk_lang_assert(count == 0);
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	((mk_lang_types_void_t)(fixed_vector));
@@ -1176,10 +1218,12 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_prrw_push_back_move_many(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_sl_fixed_vector_inl_defd_element_pt const elements, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
 	mk_lang_assert(elements || count == 0);
 	mk_lang_assert(count == 0);
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	((mk_lang_types_void_t)(fixed_vector));
@@ -1205,9 +1249,11 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_prrw_push_back_move_single(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_sl_fixed_vector_inl_defd_element_pt const element) mk_lang_noexcept
 {
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
 	mk_lang_assert(element);
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	((mk_lang_types_void_t)(fixed_vector));
@@ -1220,10 +1266,12 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_prrw_pop_back_many(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(count <= mk_sl_fixed_vector_inl_defd_prrw_size(fixed_vector));
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	((mk_lang_types_void_t)(fixed_vector));
@@ -1236,9 +1284,11 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_prrw_pop_back_single(mk_sl_fixed_vector_inl_defd_pt const fixed_vector) mk_lang_noexcept
 {
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
 	mk_lang_assert(!mk_sl_fixed_vector_inl_defd_prrw_is_empty(fixed_vector));
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	((mk_lang_types_void_t)(fixed_vector));
@@ -1251,11 +1301,13 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_prrw_erase_at(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_lang_types_usize_t const idx) mk_lang_noexcept
 {
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
 	mk_lang_assert(!mk_sl_fixed_vector_inl_defd_prrw_is_empty(fixed_vector));
 	mk_lang_assert(idx >= 0);
 	mk_lang_assert(idx < mk_sl_fixed_vector_inl_defd_prrw_size(fixed_vector));
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	((mk_lang_types_void_t)(fixed_vector));
@@ -1287,7 +1339,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_sl_fixed_vector_inl_defd_st_max_capacity(mk_lang_types_void_t) mk_lang_noexcept
 {
-	mk_lang_types_usize_t ret;
+	mk_lang_types_usize_t ret mk_lang_constexpr_init;
 
 	ret = mk_sl_fixed_vector_inl_defd_prst_max_capacity();
 	return ret;
@@ -1296,7 +1348,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_sl_fi
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_sl_fixed_vector_inl_defd_ro_max_capacity(mk_sl_fixed_vector_inl_defd_pct const fixed_vector) mk_lang_noexcept
 {
-	mk_lang_types_usize_t ret;
+	mk_lang_types_usize_t ret mk_lang_constexpr_init;
 
 	ret = mk_sl_fixed_vector_inl_defd_prro_max_capacity(fixed_vector);
 	return ret;
@@ -1304,7 +1356,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_sl_fi
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_sl_fixed_vector_inl_defd_ro_capacity(mk_sl_fixed_vector_inl_defd_pct const fixed_vector) mk_lang_noexcept
 {
-	mk_lang_types_usize_t ret;
+	mk_lang_types_usize_t ret mk_lang_constexpr_init;
 
 	ret = mk_sl_fixed_vector_inl_defd_prro_capacity(fixed_vector);
 	return ret;
@@ -1312,7 +1364,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_sl_fi
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_sl_fixed_vector_inl_defd_ro_size(mk_sl_fixed_vector_inl_defd_pct const fixed_vector) mk_lang_noexcept
 {
-	mk_lang_types_usize_t ret;
+	mk_lang_types_usize_t ret mk_lang_constexpr_init;
 
 	ret = mk_sl_fixed_vector_inl_defd_prro_size(fixed_vector);
 	return ret;
@@ -1320,7 +1372,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_sl_fi
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_ro_sise(mk_sl_fixed_vector_inl_defd_pct const fixed_vector) mk_lang_noexcept
 {
-	mk_lang_types_sint_t ret;
+	mk_lang_types_sint_t ret mk_lang_constexpr_init;
 
 	ret = mk_sl_fixed_vector_inl_defd_prro_sise(fixed_vector);
 	return ret;
@@ -1328,7 +1380,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fix
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_sl_fixed_vector_inl_defd_ro_free(mk_sl_fixed_vector_inl_defd_pct const fixed_vector) mk_lang_noexcept
 {
-	mk_lang_types_usize_t ret;
+	mk_lang_types_usize_t ret mk_lang_constexpr_init;
 
 	ret = mk_sl_fixed_vector_inl_defd_prro_free(fixed_vector);
 	return ret;
@@ -1336,7 +1388,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_usize_t mk_sl_fi
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_fixed_vector_inl_defd_ro_is_empty(mk_sl_fixed_vector_inl_defd_pct const fixed_vector) mk_lang_noexcept
 {
-	mk_lang_types_bool_t ret;
+	mk_lang_types_bool_t ret mk_lang_constexpr_init;
 
 	ret = mk_sl_fixed_vector_inl_defd_prro_is_empty(fixed_vector);
 	return ret;
@@ -1344,7 +1396,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_fix
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_fixed_vector_inl_defd_ro_is_full(mk_sl_fixed_vector_inl_defd_pct const fixed_vector) mk_lang_noexcept
 {
-	mk_lang_types_bool_t ret;
+	mk_lang_types_bool_t ret mk_lang_constexpr_init;
 
 	ret = mk_sl_fixed_vector_inl_defd_prro_is_full(fixed_vector);
 	return ret;
@@ -1352,7 +1404,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_fix
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_sl_fixed_vector_inl_defd_element_pct mk_sl_fixed_vector_inl_defd_ro_data(mk_sl_fixed_vector_inl_defd_pct const fixed_vector) mk_lang_noexcept
 {
-	mk_sl_fixed_vector_inl_defd_element_pct ret;
+	mk_sl_fixed_vector_inl_defd_element_pct ret mk_lang_constexpr_init;
 
 	ret = mk_sl_fixed_vector_inl_defd_prro_data(fixed_vector);
 	return ret;
@@ -1360,7 +1412,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_sl_fixed_vector_inl_defd_el
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_sl_fixed_vector_inl_defd_element_pct mk_sl_fixed_vector_inl_defd_ro_at(mk_sl_fixed_vector_inl_defd_pct const fixed_vector, mk_lang_types_usize_t const idx) mk_lang_noexcept
 {
-	mk_sl_fixed_vector_inl_defd_element_pct ret;
+	mk_sl_fixed_vector_inl_defd_element_pct ret mk_lang_constexpr_init;
 
 	ret = mk_sl_fixed_vector_inl_defd_prro_at(fixed_vector, idx);
 	return ret;
@@ -1368,7 +1420,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_sl_fixed_vector_inl_defd_el
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_sl_fixed_vector_inl_defd_element_pct mk_sl_fixed_vector_inl_defd_ro_front(mk_sl_fixed_vector_inl_defd_pct const fixed_vector) mk_lang_noexcept
 {
-	mk_sl_fixed_vector_inl_defd_element_pct ret;
+	mk_sl_fixed_vector_inl_defd_element_pct ret mk_lang_constexpr_init;
 
 	ret = mk_sl_fixed_vector_inl_defd_prro_front(fixed_vector);
 	return ret;
@@ -1376,7 +1428,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_sl_fixed_vector_inl_defd_el
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_sl_fixed_vector_inl_defd_element_pct mk_sl_fixed_vector_inl_defd_ro_back(mk_sl_fixed_vector_inl_defd_pct const fixed_vector) mk_lang_noexcept
 {
-	mk_sl_fixed_vector_inl_defd_element_pct ret;
+	mk_sl_fixed_vector_inl_defd_element_pct ret mk_lang_constexpr_init;
 
 	ret = mk_sl_fixed_vector_inl_defd_prro_back(fixed_vector);
 	return ret;
@@ -1384,7 +1436,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_sl_fixed_vector_inl_defd_el
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_fixed_vector_inl_defd_ro_eq(mk_sl_fixed_vector_inl_defd_pct const fixed_vector, mk_sl_fixed_vector_inl_defd_pct const other) mk_lang_noexcept
 {
-	mk_lang_types_bool_t ret;
+	mk_lang_types_bool_t ret mk_lang_constexpr_init;
 
 	ret = mk_sl_fixed_vector_inl_defd_prro_eq(fixed_vector, other);
 	return ret;
@@ -1392,7 +1444,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_fix
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_fixed_vector_inl_defd_ro_ne(mk_sl_fixed_vector_inl_defd_pct const fixed_vector, mk_sl_fixed_vector_inl_defd_pct const other) mk_lang_noexcept
 {
-	mk_lang_types_bool_t ret;
+	mk_lang_types_bool_t ret mk_lang_constexpr_init;
 
 	ret = mk_sl_fixed_vector_inl_defd_prro_ne(fixed_vector, other);
 	return ret;
@@ -1475,7 +1527,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_fix
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_rw_construct_void(mk_sl_fixed_vector_inl_defd_pt const fixed_vector) mk_lang_noexcept
 {
-	mk_lang_types_sint_t ret;
+	mk_lang_types_sint_t ret mk_lang_constexpr_init;
 
 	ret = mk_sl_fixed_vector_inl_defd_prrw_construct_void(fixed_vector);
 	return ret;
@@ -1483,7 +1535,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fix
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_rw_destroy(mk_sl_fixed_vector_inl_defd_pt const fixed_vector) mk_lang_noexcept
 {
-	mk_lang_types_sint_t ret;
+	mk_lang_types_sint_t ret mk_lang_constexpr_init;
 
 	ret = mk_sl_fixed_vector_inl_defd_prrw_destroy(fixed_vector);
 	return ret;
@@ -1491,7 +1543,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fix
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_rw_construct_copy(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_sl_fixed_vector_inl_defd_pct const src) mk_lang_noexcept
 {
-	mk_lang_types_sint_t ret;
+	mk_lang_types_sint_t ret mk_lang_constexpr_init;
 
 	ret = mk_sl_fixed_vector_inl_defd_prrw_construct_copy(fixed_vector, src);
 	return ret;
@@ -1499,7 +1551,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fix
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_rw_construct_move(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_sl_fixed_vector_inl_defd_pt const src) mk_lang_noexcept
 {
-	mk_lang_types_sint_t ret;
+	mk_lang_types_sint_t ret mk_lang_constexpr_init;
 
 	ret = mk_sl_fixed_vector_inl_defd_prrw_construct_move(fixed_vector, src);
 	return ret;
@@ -1507,7 +1559,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fix
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_rw_assign_copy(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_sl_fixed_vector_inl_defd_pct const src) mk_lang_noexcept
 {
-	mk_lang_types_sint_t ret;
+	mk_lang_types_sint_t ret mk_lang_constexpr_init;
 
 	ret = mk_sl_fixed_vector_inl_defd_prrw_assign_copy(fixed_vector, src);
 	return ret;
@@ -1515,7 +1567,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fix
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_rw_assign_move(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_sl_fixed_vector_inl_defd_pt const src) mk_lang_noexcept
 {
-	mk_lang_types_sint_t ret;
+	mk_lang_types_sint_t ret mk_lang_constexpr_init;
 
 	ret = mk_sl_fixed_vector_inl_defd_prrw_assign_move(fixed_vector, src);
 	return ret;
@@ -1523,7 +1575,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fix
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_rw_reserve_at_least(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
-	mk_lang_types_sint_t ret;
+	mk_lang_types_sint_t ret mk_lang_constexpr_init;
 
 	ret = mk_sl_fixed_vector_inl_defd_prrw_reserve_at_least(fixed_vector, count);
 	return ret;
@@ -1531,7 +1583,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fix
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_rw_reserve_additional(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
-	mk_lang_types_sint_t ret;
+	mk_lang_types_sint_t ret mk_lang_constexpr_init;
 
 	ret = mk_sl_fixed_vector_inl_defd_prrw_reserve_additional(fixed_vector, count);
 	return ret;
@@ -1539,7 +1591,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fix
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_rw_shrink_by(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
-	mk_lang_types_sint_t ret;
+	mk_lang_types_sint_t ret mk_lang_constexpr_init;
 
 	ret = mk_sl_fixed_vector_inl_defd_prrw_shrink_by(fixed_vector, count);
 	return ret;
@@ -1547,7 +1599,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fix
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_rw_resize_to(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
-	mk_lang_types_sint_t ret;
+	mk_lang_types_sint_t ret mk_lang_constexpr_init;
 
 	ret = mk_sl_fixed_vector_inl_defd_prrw_resize_to(fixed_vector, count);
 	return ret;
@@ -1555,7 +1607,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fix
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_rw_grow_by(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
-	mk_lang_types_sint_t ret;
+	mk_lang_types_sint_t ret mk_lang_constexpr_init;
 
 	ret = mk_sl_fixed_vector_inl_defd_prrw_grow_by(fixed_vector, count);
 	return ret;
@@ -1563,7 +1615,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fix
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_rw_clear(mk_sl_fixed_vector_inl_defd_pt const fixed_vector) mk_lang_noexcept
 {
-	mk_lang_types_sint_t ret;
+	mk_lang_types_sint_t ret mk_lang_constexpr_init;
 
 	ret = mk_sl_fixed_vector_inl_defd_prrw_clear(fixed_vector);
 	return ret;
@@ -1571,7 +1623,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fix
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_rw_push_back_copy_many(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_sl_fixed_vector_inl_defd_element_pct const elements, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
-	mk_lang_types_sint_t ret;
+	mk_lang_types_sint_t ret mk_lang_constexpr_init;
 
 	ret = mk_sl_fixed_vector_inl_defd_prrw_push_back_copy_many(fixed_vector, elements, count);
 	return ret;
@@ -1579,7 +1631,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fix
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_rw_push_back_move_many(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_sl_fixed_vector_inl_defd_element_pt const elements, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
-	mk_lang_types_sint_t ret;
+	mk_lang_types_sint_t ret mk_lang_constexpr_init;
 
 	ret = mk_sl_fixed_vector_inl_defd_prrw_push_back_move_many(fixed_vector, elements, count);
 	return ret;
@@ -1587,7 +1639,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fix
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_rw_push_back_copy_single(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_sl_fixed_vector_inl_defd_element_pct const element) mk_lang_noexcept
 {
-	mk_lang_types_sint_t ret;
+	mk_lang_types_sint_t ret mk_lang_constexpr_init;
 
 	ret = mk_sl_fixed_vector_inl_defd_prrw_push_back_copy_single(fixed_vector, element);
 	return ret;
@@ -1595,7 +1647,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fix
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_rw_push_back_move_single(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_sl_fixed_vector_inl_defd_element_pt const element) mk_lang_noexcept
 {
-	mk_lang_types_sint_t ret;
+	mk_lang_types_sint_t ret mk_lang_constexpr_init;
 
 	ret = mk_sl_fixed_vector_inl_defd_prrw_push_back_move_single(fixed_vector, element);
 	return ret;
@@ -1603,7 +1655,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fix
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_rw_pop_back_many(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
-	mk_lang_types_sint_t ret;
+	mk_lang_types_sint_t ret mk_lang_constexpr_init;
 
 	ret = mk_sl_fixed_vector_inl_defd_prrw_pop_back_many(fixed_vector, count);
 	return ret;
@@ -1611,7 +1663,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fix
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_rw_pop_back_single(mk_sl_fixed_vector_inl_defd_pt const fixed_vector) mk_lang_noexcept
 {
-	mk_lang_types_sint_t ret;
+	mk_lang_types_sint_t ret mk_lang_constexpr_init;
 
 	ret = mk_sl_fixed_vector_inl_defd_prrw_pop_back_single(fixed_vector);
 	return ret;
@@ -1619,7 +1671,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fix
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_rw_erase_at(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_lang_types_usize_t const idx) mk_lang_noexcept
 {
-	mk_lang_types_sint_t ret;
+	mk_lang_types_sint_t ret mk_lang_constexpr_init;
 
 	ret = mk_sl_fixed_vector_inl_defd_prrw_erase_at(fixed_vector, idx);
 	return ret;
@@ -1627,7 +1679,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fix
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_rw_erase_element(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_sl_fixed_vector_inl_defd_element_pct const element) mk_lang_noexcept
 {
-	mk_lang_types_sint_t ret;
+	mk_lang_types_sint_t ret mk_lang_constexpr_init;
 
 	ret = mk_sl_fixed_vector_inl_defd_prrw_erase_element(fixed_vector, element);
 	return ret;

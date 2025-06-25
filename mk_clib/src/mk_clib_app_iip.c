@@ -565,6 +565,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_tas
 	ptr = 0;
 	tuc = 0x2a; mk_sl_cui_uint8_from_bi_uchar(&task->m_connection.m_state.m_store.m_data.m_u8s[ptr], &tuc); ptr += 1;
 	err = mk_lib_iip_cp_message_construct(&msg, mk_lib_iip_cp_message_message_type_id_e_get_date); mk_lang_check_rereturn(err);
+	serialize_error_code = mk_lib_iip_cp_message_serialize_error_code_e_ok;
 	err = mk_lib_iip_cp_message_serialize_message(&task->m_connection.m_state.m_store.m_data.m_u8s[ptr], mk_lang_countof(task->m_connection.m_state.m_store.m_data.m_u8s) - ptr, &serialize_error_code, &consumed, &msg); mk_lang_check_rereturn(err); mk_lang_check_return(serialize_error_code == mk_lib_iip_cp_message_serialize_error_code_e_ok); mk_lang_check_return(consumed >= 1); mk_lang_assert(consumed <= mk_lang_countof(task->m_connection.m_state.m_store.m_data.m_u8s) - ptr); ptr += consumed;
 	err = mk_clib_app_iip_task_connection_iip_cp_prrw_debug_print_msg(task, &msg, mk_clib_app_iip_debug_msg_direction_e_outgoing); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_cp_message_destroy(&msg); mk_lang_check_rereturn(err);

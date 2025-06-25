@@ -37,9 +37,9 @@
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_uchars(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lang_types_uchar_pct const obj_buf, mk_lang_types_sint_t const obj_len) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -68,9 +68,9 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_u8s(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_sl_cui_uint8_pct const obj_buf, mk_lang_types_sint_t const obj_len) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -422,10 +422,10 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_type_sessionid(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_types_sessionid_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t err;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -444,10 +444,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_type_messageid(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_types_messageid_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t err;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -466,10 +466,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_type_tunnelid(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_types_tunnelid_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t err;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -488,10 +488,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_type_requestid(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_types_requestid_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t err;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -510,10 +510,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_type_nonce(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_types_nonce_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t err;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -532,10 +532,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_type_date(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_types_date_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t err;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -566,11 +566,11 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	};
 	typedef struct mk_lib_iip_cp_message_serialize_elgamal_key_pri_s mk_lib_iip_cp_message_serialize_elgamal_key_pri_t;
 
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lib_iip_cp_message_serialize_elgamal_key_pri_t storage;
-	mk_lang_types_sint_t err;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lib_iip_cp_message_serialize_elgamal_key_pri_t storage mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -602,11 +602,11 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	};
 	typedef struct mk_lib_iip_cp_message_serialize_elgamal_key_pub_s mk_lib_iip_cp_message_serialize_elgamal_key_pub_t;
 
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lib_iip_cp_message_serialize_elgamal_key_pub_t storage;
-	mk_lang_types_sint_t err;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lib_iip_cp_message_serialize_elgamal_key_pub_t storage mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -638,11 +638,11 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	};
 	typedef struct mk_lib_iip_cp_message_serialize_dsa_sha1_key_pri_s mk_lib_iip_cp_message_serialize_dsa_sha1_key_pri_t;
 
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lib_iip_cp_message_serialize_dsa_sha1_key_pri_t storage;
-	mk_lang_types_sint_t err;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lib_iip_cp_message_serialize_dsa_sha1_key_pri_t storage mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -674,11 +674,11 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	};
 	typedef struct mk_lib_iip_cp_message_serialize_dsa_sha1_key_pub_s mk_lib_iip_cp_message_serialize_dsa_sha1_key_pub_t;
 
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lib_iip_cp_message_serialize_dsa_sha1_key_pub_t storage;
-	mk_lang_types_sint_t err;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lib_iip_cp_message_serialize_dsa_sha1_key_pub_t storage mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -710,11 +710,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 	};
 	typedef struct mk_lib_iip_cp_message_serialize_dsa_sha1_signature_s mk_lib_iip_cp_message_serialize_dsa_sha1_signature_t;
 
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lib_iip_cp_message_serialize_dsa_sha1_signature_t storage;
-	mk_lang_types_sint_t err;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lib_iip_cp_message_serialize_dsa_sha1_signature_t storage mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -734,12 +734,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_certificate_empty(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lib_iip_cp_message_certificate_type_id_t certificate_type_id;
-	mk_lang_types_sint_t certificate_data_len;
-	mk_lang_types_sint_t err;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lib_iip_cp_message_certificate_type_id_t certificate_type_id mk_lang_constexpr_init;
+	mk_lang_types_sint_t certificate_data_len mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -760,14 +760,14 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_type_destination_elgamal_dsa_sha1(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t key_enc_first_half_len;
-	mk_lang_types_sint_t key_sgn_first_half_len;
-	mk_lang_types_sint_t padding_len;
-	mk_sl_cui_uint8_t padding_buf[mk_lang_max(1, mk_lib_iip_cp_message_serialize_destination_blob_padding_len_max)];
-	mk_lang_types_sint_t err;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t key_enc_first_half_len mk_lang_constexpr_init;
+	mk_lang_types_sint_t key_sgn_first_half_len mk_lang_constexpr_init;
+	mk_lang_types_sint_t padding_len mk_lang_constexpr_init;
+	mk_sl_cui_uint8_t padding_buf[mk_lang_max(1, mk_lib_iip_cp_message_serialize_destination_blob_padding_len_max)] mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -793,10 +793,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_type_buf_buf(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_types_buffer_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t err;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -815,10 +815,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_type_buffer(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_types_buffer_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t err;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -840,9 +840,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_str_buf(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_types_string_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -869,10 +869,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_type_string(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_types_string_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t err;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -892,12 +892,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_type_strpair(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_types_strpair_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_pchar_t sep_key_val;
-	mk_lang_types_pchar_t sep_pairs;
-	mk_lang_types_sint_t err;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_pchar_t sep_key_val mk_lang_constexpr_init;
+	mk_lang_types_pchar_t sep_pairs mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -921,13 +921,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_type_strpairs(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_types_strpairs_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_usize_t n;
-	mk_lang_types_usize_t i;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_usize_t n mk_lang_constexpr_init;
+	mk_lang_types_usize_t i mk_lang_constexpr_init;
 	mk_lib_iip_cp_types_strpair_pct strpair;
-	mk_lang_types_sint_t err;
-	mk_lang_types_sint_t tlen;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -951,14 +951,14 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_type_mapping(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_types_mapping_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_sl_cui_uint8_pt ptb;
-	mk_lang_types_sint_t reb;
-	mk_lang_types_sint_t unknown_len;
-	mk_lang_types_sint_t err;
-	mk_lang_types_sint_t tlen;
-	mk_lang_types_sint_t marker;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_sl_cui_uint8_pt ptb mk_lang_constexpr_init;
+	mk_lang_types_sint_t reb mk_lang_constexpr_init;
+	mk_lang_types_sint_t unknown_len mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
+	mk_lang_types_sint_t marker mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -980,10 +980,10 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_type_hash(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_types_hash_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t err;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -1002,10 +1002,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_type_lease(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_types_lease_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t err;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -1026,13 +1026,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_type_leases_buf(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_types_leases_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_usize_t n;
-	mk_lang_types_usize_t i;
-	mk_lib_iip_cp_types_lease_pct lease;
-	mk_lang_types_sint_t err;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_usize_t n mk_lang_constexpr_init;
+	mk_lang_types_usize_t i mk_lang_constexpr_init;
+	mk_lib_iip_cp_types_lease_pct lease mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -1056,11 +1056,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_type_leases(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_types_leases_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
 	mk_lang_types_sint_t count;
-	mk_lang_types_sint_t err;
-	mk_lang_types_sint_t tlen;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -1081,12 +1081,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_type_leaseset(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_types_leaseset_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_sl_cui_uint8_pt snapshot_ptr;
-	mk_lang_types_sint_t snapshot_rem;
-	mk_lang_types_sint_t err;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_sl_cui_uint8_pt snapshot_ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t snapshot_rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 	mk_lang_types_sint_t to_sign_len;
 	mk_lib_iip_crypt_dsa_sha1_signature_t signature;
 
@@ -1113,12 +1113,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_type_session_config(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_types_session_config_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
 	mk_sl_cui_uint8_pct snapshot_ptr;
-	mk_lang_types_sint_t snapshot_rem;
-	mk_lang_types_sint_t err;
-	mk_lang_types_sint_t tlen;
+	mk_lang_types_sint_t snapshot_rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 	mk_lang_types_sint_t to_sign_len;
 	mk_lib_iip_crypt_dsa_sha1_signature_t signature;
 
@@ -1190,9 +1190,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_msg_reconfigure_session(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_message_reconfigure_session_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -1212,10 +1212,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_msg_destroy_session(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_message_destroy_session_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t err;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -1234,10 +1234,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_msg_create_lease_set(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_message_create_lease_set_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t err;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -1259,10 +1259,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_msg_send_message(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_message_send_message_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t err;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -1284,10 +1284,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_msg_receive_message_begin(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_message_receive_message_begin_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t err;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -1307,10 +1307,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_msg_receive_message_end(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_message_receive_message_end_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t err;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -1330,8 +1330,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_msg_get_bandwidth_limits(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_message_get_bandwidth_limits_pct const obj) mk_lang_noexcept
 {
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t tlen;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -1349,9 +1349,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_msg_session_status(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_message_session_status_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -1371,9 +1371,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_msg_request_lease_set(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_message_request_lease_set_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -1393,9 +1393,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_msg_message_status(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_message_message_status_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -1415,8 +1415,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_msg_bandwidth_limits(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_message_bandwidth_limits_pct const obj) mk_lang_noexcept
 {
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t tlen;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -1434,9 +1434,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_msg_report_abuse(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_message_report_abuse_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -1456,10 +1456,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_msg_disconnect(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_message_disconnect_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t err;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -1478,9 +1478,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_msg_message_payload(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_message_message_payload_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -1500,10 +1500,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_msg_get_date(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_message_get_date_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t err;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -1523,9 +1523,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_msg_set_date(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_message_set_date_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -1545,9 +1545,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_msg_dest_lookup(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_message_dest_lookup_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -1567,9 +1567,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_msg_dest_reply(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_message_dest_reply_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -1589,9 +1589,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_msg_send_message_expires(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_message_send_message_expires_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -1611,9 +1611,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_msg_request_variable_lease_set(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_message_request_variable_lease_set_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -1633,10 +1633,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_msg_host_lookup(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_message_host_lookup_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t err;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -1659,9 +1659,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_msg_host_reply(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_message_host_reply_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -1681,9 +1681,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_msg_create_lease_set2(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_message_create_lease_set2_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -1703,9 +1703,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_msg_blinding_info(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_message_blinding_info_pct const obj) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
-	mk_lang_types_sint_t rem;
-	mk_lang_types_sint_t tlen;
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -1783,10 +1783,10 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	mk_lang_types_sint_t reb mk_lang_constexpr_init;
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
-	mk_sl_cui_uint8_pt snapshot_ptr;
-	mk_lang_types_sint_t snapshot_rem;
-	mk_lang_types_sint_t marker;
-	mk_lang_types_sint_t content_len;
+	mk_sl_cui_uint8_pt snapshot_ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t snapshot_rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t marker mk_lang_constexpr_init;
+	mk_lang_types_sint_t content_len mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);

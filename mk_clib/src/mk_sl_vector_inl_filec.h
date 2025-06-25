@@ -42,6 +42,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_bool_t mk_sl_vector_inl_de
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	#include "mk_lang_warning_clang_push_tautological_unsigned_zero_compare.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	gud = mk_lang_true;
 	gud &= vector->m_buffer || vector->m_capacity == 0;
 	gud &= vector->m_capacity == 0 || vector->m_buffer;
@@ -50,6 +51,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_bool_t mk_sl_vector_inl_de
 	gud &= vector->m_capacity <= mk_sl_vector_inl_defd_max_capacity_d;
 	gud &= vector->m_size <= mk_sl_vector_inl_defd_max_capacity_d;
 	gud &= vector->m_size <= vector->m_capacity;
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_clang_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 	return gud;
@@ -177,11 +179,13 @@ mk_lang_nodiscard static mk_lang_inline mk_sl_vector_inl_defd_element_pct mk_sl_
 	mk_sl_vector_inl_defd_element_pct ret;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(vector);
 	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
 	mk_lang_assert(!mk_sl_vector_inl_defd_ro_is_empty(vector));
 	mk_lang_assert(idx >= 0);
 	mk_lang_assert(idx < mk_sl_vector_inl_defd_ro_size(vector));
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	ret = &vector->m_buffer[idx];
@@ -406,11 +410,13 @@ mk_lang_nodiscard static mk_lang_inline mk_sl_vector_inl_defd_element_pt mk_sl_v
 	mk_sl_vector_inl_defd_element_pt ret;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(vector);
 	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
 	mk_lang_assert(!mk_sl_vector_inl_defd_ro_is_empty(vector));
 	mk_lang_assert(idx >= 0);
 	mk_lang_assert(idx < mk_sl_vector_inl_defd_ro_size(vector));
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	ret = &vector->m_buffer[idx];
@@ -490,10 +496,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_de
 	mk_lang_types_sint_t err;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(vector);
 	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(count <= mk_sl_vector_inl_defd_prro_size(vector));
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	size = mk_sl_vector_inl_defd_prrw_size(vector);
@@ -513,10 +521,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_de
 	return 0;
 #else
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(vector);
 	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(count <= mk_sl_vector_inl_defd_prro_size(vector));
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	((mk_lang_types_void_t)(vector));
@@ -531,6 +541,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_de
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_defd_prrw_elements_move_construct_many(mk_sl_vector_inl_defd_pt const vector, mk_sl_vector_inl_defd_element_pt const dst, mk_sl_vector_inl_defd_element_pt const src, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(vector);
 	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
 	mk_lang_assert(dst || count == 0);
@@ -538,6 +549,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_de
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(count <= mk_sl_vector_inl_defd_max_capacity_d);
 	mk_lang_assert(!mk_sl_vector_inl_filec_overlap_fn(dst, count, src, count));
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	((mk_lang_types_void_t)(vector));
@@ -554,6 +566,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_de
 	mk_lang_types_sint_t err;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(vector);
 	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
 	mk_lang_assert(dst || count == 0);
@@ -561,6 +574,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_de
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(count <= mk_sl_vector_inl_defd_max_capacity_d);
 	mk_lang_assert(!mk_sl_vector_inl_filec_overlap_fn(dst, count, src, count));
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	((mk_lang_types_void_t)(vector));
@@ -581,6 +595,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_de
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_defd_prrw_elements_copy_construct_many(mk_sl_vector_inl_defd_pt const vector, mk_sl_vector_inl_defd_element_pt const dst, mk_sl_vector_inl_defd_element_pct const src, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(vector);
 	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
 	mk_lang_assert(dst || count == 0);
@@ -588,6 +603,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_de
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(count <= mk_sl_vector_inl_defd_max_capacity_d);
 	mk_lang_assert(!mk_sl_vector_inl_filec_overlap_fn(dst, count, src, count));
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	((mk_lang_types_void_t)(vector));
@@ -604,6 +620,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_de
 	mk_lang_types_sint_t err;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(vector);
 	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
 	mk_lang_assert(dst || count == 0);
@@ -611,6 +628,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_de
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(count <= mk_sl_vector_inl_defd_max_capacity_d);
 	mk_lang_assert(!mk_sl_vector_inl_filec_overlap_fn(dst, count, src, count));
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	((mk_lang_types_void_t)(vector));
@@ -638,10 +656,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_de
 	mk_lang_types_sint_t err;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(vector);
 	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(count <= mk_sl_vector_inl_defd_prro_size(vector));
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	size = mk_sl_vector_inl_defd_prrw_size(vector);
@@ -660,10 +680,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_de
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_defd_prrw_elements_destroy_last(mk_sl_vector_inl_defd_pt const vector, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(vector);
 	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(count <= mk_sl_vector_inl_defd_prro_size(vector));
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	((mk_lang_types_void_t)(vector));
@@ -711,10 +733,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_de
 	mk_lang_types_void_pt new_mem;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(vector);
 	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(count <= mk_sl_vector_inl_defd_max_capacity_d);
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	old_buffer = vector->m_buffer;
@@ -760,10 +784,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_de
 	mk_lang_types_sint_t err;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(vector);
 	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(count <= mk_sl_vector_inl_defd_max_capacity_d - mk_sl_vector_inl_defd_prro_capacity(vector));
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	err = mk_sl_vector_inl_defd_prrw_reserve_at_least(vector, mk_sl_vector_inl_defd_prrw_size(vector) + count); mk_lang_check_rereturn(err);
@@ -777,10 +803,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_de
 	mk_lang_types_sint_t err;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(vector);
 	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(count <= mk_sl_vector_inl_defd_prrw_size(vector));
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	err = mk_sl_vector_inl_defd_prrw_elements_destroy_last(vector, count); mk_lang_check_rereturn(err);
@@ -796,10 +824,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_de
 	mk_lang_types_sint_t err;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(vector);
 	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(count <= mk_sl_vector_inl_defd_max_capacity_d);
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	size = mk_sl_vector_inl_defd_prrw_size(vector);
@@ -824,10 +854,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_de
 	mk_lang_types_sint_t err;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(vector);
 	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(count <= mk_sl_vector_inl_defd_max_capacity_d - mk_sl_vector_inl_defd_prrw_size(vector));
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	size = mk_sl_vector_inl_defd_prrw_size(vector);
@@ -854,11 +886,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_de
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_defd_prrw_push_back_move_many(mk_sl_vector_inl_defd_pt const vector, mk_sl_vector_inl_defd_element_pt const elements, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(vector);
 	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
 	mk_lang_assert(elements || count == 0);
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(count <= mk_sl_vector_inl_defd_max_capacity_d - mk_sl_vector_inl_defd_rw_size(vector));
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	if(count != 0)
@@ -923,11 +957,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_de
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_defd_prrw_push_back_copy_many(mk_sl_vector_inl_defd_pt const vector, mk_sl_vector_inl_defd_element_pct const elements, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(vector);
 	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
 	mk_lang_assert(elements || count == 0);
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(count <= mk_sl_vector_inl_defd_max_capacity_d - mk_sl_vector_inl_defd_rw_size(vector));
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	if(count != 0)
@@ -994,9 +1030,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_de
 	mk_lang_types_sint_t err;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(vector);
 	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
 	mk_lang_assert(element);
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	err = mk_sl_vector_inl_defd_rw_push_back_move_many(vector, element, 1); mk_lang_check_rereturn(err);
@@ -1024,10 +1062,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_de
 	mk_lang_types_sint_t err;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(vector);
 	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(count <= mk_sl_vector_inl_defd_rw_size(vector));
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	err = mk_sl_vector_inl_defd_rw_shrink_by(vector, count); mk_lang_check_rereturn(err);
@@ -1041,9 +1081,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_de
 	mk_lang_types_sint_t err;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(vector);
 	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
 	mk_lang_assert(!mk_sl_vector_inl_defd_rw_is_empty(vector));
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	err = mk_sl_vector_inl_defd_rw_shrink_by(vector, 1); mk_lang_check_rereturn(err);
@@ -1057,11 +1099,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_de
 	mk_lang_types_sint_t err;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(vector);
 	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
 	mk_lang_assert(!mk_sl_vector_inl_defd_rw_is_empty(vector));
 	mk_lang_assert(idx >= 0);
 	mk_lang_assert(idx < mk_sl_vector_inl_defd_rw_size(vector));
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	if(idx != mk_sl_vector_inl_defd_rw_size(vector) - 1)
@@ -1473,11 +1517,13 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_cl
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_push_back_move_many(mk_sl_vector_inl_defd_pt const vector, mk_sl_vector_inl_defd_element_pt const elements, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(vector);
 	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
 	mk_lang_assert(elements || count == 0);
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(count <= mk_sl_vector_inl_defd_max_capacity_d - mk_sl_vector_inl_defd_rw_size(vector));
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	if(count != 0)
@@ -1542,11 +1588,13 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_pu
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_push_back_copy_many(mk_sl_vector_inl_defd_pt const vector, mk_sl_vector_inl_defd_element_pct const elements, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(vector);
 	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
 	mk_lang_assert(elements || count == 0);
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(count <= mk_sl_vector_inl_defd_max_capacity_d - mk_sl_vector_inl_defd_rw_size(vector));
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	if(count != 0)
@@ -1612,9 +1660,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_pu
 	mk_lang_types_sint_t err;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(vector);
 	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
 	mk_lang_assert(element);
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	err = mk_sl_vector_inl_defd_rw_push_back_move_many(vector, element, 1); mk_lang_check_rereturn(err);
@@ -1641,10 +1691,12 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_po
 	mk_lang_types_sint_t err;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(vector);
 	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(count <= mk_sl_vector_inl_defd_rw_size(vector));
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	err = mk_sl_vector_inl_defd_rw_shrink_by(vector, count); mk_lang_check_rereturn(err);
@@ -1657,9 +1709,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_po
 	mk_lang_types_sint_t err;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(vector);
 	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
 	mk_lang_assert(!mk_sl_vector_inl_defd_rw_is_empty(vector));
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	err = mk_sl_vector_inl_defd_rw_shrink_by(vector, 1); mk_lang_check_rereturn(err);
@@ -1672,11 +1726,13 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_er
 	mk_lang_types_sint_t err;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(vector);
 	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
 	mk_lang_assert(!mk_sl_vector_inl_defd_rw_is_empty(vector));
 	mk_lang_assert(idx >= 0);
 	mk_lang_assert(idx < mk_sl_vector_inl_defd_rw_size(vector));
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	if(idx != mk_sl_vector_inl_defd_rw_size(vector) - 1)

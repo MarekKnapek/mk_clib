@@ -1486,7 +1486,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 	tlen = mk_lib_iip_integer_elgamal_pri_single_strlen_hex_v;
 	mk_lang_check_return(rem >= tlen);
-	len = mk_lib_iip_integer_elgamal_pri_single_to_str_hexf_n(obj, ptr, rem); mk_lang_assert(len == tlen);
+	/*len = mk_lib_iip_integer_elgamal_pri_single_to_str_hexf_n(obj, ptr, rem); mk_lang_assert(len == tlen);*/ /* tdoo */len=0;
 	ptr += len;
 	rem -= len;
 
@@ -1512,7 +1512,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 	tlen = mk_lib_iip_integer_elgamal_pub_single_strlen_hex_v;
 	mk_lang_check_return(rem >= tlen);
-	len = mk_lib_iip_integer_elgamal_pub_single_to_str_hexf_n(obj, ptr, rem); mk_lang_assert(len == tlen);
+	/*len = mk_lib_iip_integer_elgamal_pub_single_to_str_hexf_n(obj, ptr, rem); mk_lang_assert(len == tlen);*/ /* todo */len=0;
 	ptr += len;
 	rem -= len;
 
@@ -1538,7 +1538,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 	tlen = mk_lib_iip_integer_dsa_sha1_pri_single_strlen_hex_v;
 	mk_lang_check_return(rem >= tlen);
-	len = mk_lib_iip_integer_dsa_sha1_pri_single_to_str_hexf_n(obj, ptr, rem); mk_lang_assert(len == tlen);
+	/*len = mk_lib_iip_integer_dsa_sha1_pri_single_to_str_hexf_n(obj, ptr, rem); mk_lang_assert(len == tlen);*//*todo*/len=0;
 	ptr += len;
 	rem -= len;
 
@@ -1564,7 +1564,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 	tlen = mk_lib_iip_integer_dsa_sha1_pub_single_strlen_hex_v;
 	mk_lang_check_return(rem >= tlen);
-	len = mk_lib_iip_integer_dsa_sha1_pub_single_to_str_hexf_n(obj, ptr, rem); mk_lang_assert(len == tlen);
+	/*len = mk_lib_iip_integer_dsa_sha1_pub_single_to_str_hexf_n(obj, ptr, rem); mk_lang_assert(len == tlen);*/ /*tdoo*/len=0;
 	ptr += len;
 	rem -= len;
 
