@@ -454,25 +454,41 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_tas
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_task_connection_iip_cp_prrw_debug_print_time_now(mk_lang_types_void_t) mk_lang_noexcept
+{
+	mk_sl_cui_uint64_t time_val;
+	mk_lang_types_pchar_t time_str[24];
+	mk_lang_types_sint_t time_len;
+	mk_lang_types_sint_t err;
+
+	mk_lib_iip_time_get_now(&time_val);
+	mk_lib_iip_time_to_text(&time_val, &time_str[0], mk_lang_countof(time_str), &time_len); mk_lang_assert(time_len == mk_lang_countof(time_str));
+	err = mk_lang_stdout_print_color_n(mk_lang_stdout_color_text_e_dark_magenta, &time_str[0], time_len); mk_lang_check_rereturn(err);
+	err = mk_lang_stdout_print_lit_n(" "); mk_lang_check_rereturn(err);
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_task_connection_iip_cp_prrw_debug_print_msg(mk_clib_app_iip_task_connection_iip_cp_pt const task, mk_lib_iip_cp_message_pct const msg, mk_clib_app_iip_debug_msg_direction_t const direction) mk_lang_noexcept
 {
-	mk_lang_stdout_color_text_t color;
 	mk_lang_types_sint_t err;
 	mk_lang_types_pchar_pt target_buf;
 	mk_lang_types_pchar_t str_buf[4 * 1024];
-	mk_lang_types_sint_t str_len;
 	mk_lang_types_sint_t target_len;
+	mk_lang_types_sint_t str_len;
+	mk_lang_stdout_color_text_t color;
 
 	mk_lang_assert(task);
 	mk_lang_assert(msg);
 	mk_lang_assert(direction >= 0);
 	mk_lang_assert(direction < mk_clib_app_iip_debug_msg_direction_e_dummy_end);
 
+	err = mk_clib_app_iip_task_connection_iip_cp_prrw_debug_print_time_now(); mk_lang_check_rereturn(err);
+
 	target_buf = &str_buf[0];
-	target_len = mk_lang_countof(str_buf) - 1;
+	target_len = mk_lang_countof(str_buf);
 	err = mk_lib_net_socket_to_text(&task->m_connection.m_state.m_socket, target_buf, target_len, &str_len); mk_lang_check_rereturn(err); mk_lang_assert(str_len >= 1); mk_lang_assert(str_len <= target_len);
-	str_buf[str_len] = ' '; str_len += 1;
 	err = mk_lang_stdout_print_color_n(mk_lang_stdout_color_text_e_dark_cyan, target_buf, str_len); mk_lang_check_rereturn(err);
+	err = mk_lang_stdout_print_lit_n(" "); mk_lang_check_rereturn(err);
 
 	target_buf = &str_buf[0];
 	target_len = mk_lang_countof(str_buf);
@@ -549,8 +565,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_tas
 	ptr = 0;
 	tuc = 0x2a; mk_sl_cui_uint8_from_bi_uchar(&task->m_connection.m_state.m_store.m_data.m_u8s[ptr], &tuc); ptr += 1;
 	err = mk_lib_iip_cp_message_construct(&msg, mk_lib_iip_cp_message_message_type_id_e_get_date); mk_lang_check_rereturn(err);
-	err = mk_clib_app_iip_task_connection_iip_cp_prrw_debug_print_msg(task, &msg, mk_clib_app_iip_debug_msg_direction_e_outgoing); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_cp_message_serialize_message(&task->m_connection.m_state.m_store.m_data.m_u8s[ptr], mk_lang_countof(task->m_connection.m_state.m_store.m_data.m_u8s) - ptr, &serialize_error_code, &consumed, &msg); mk_lang_check_rereturn(err); mk_lang_check_return(serialize_error_code == mk_lib_iip_cp_message_serialize_error_code_e_ok); mk_lang_check_return(consumed >= 1); mk_lang_assert(consumed <= mk_lang_countof(task->m_connection.m_state.m_store.m_data.m_u8s) - ptr); ptr += consumed;
+	err = mk_clib_app_iip_task_connection_iip_cp_prrw_debug_print_msg(task, &msg, mk_clib_app_iip_debug_msg_direction_e_outgoing); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_cp_message_destroy(&msg); mk_lang_check_rereturn(err);
 
 	err = mk_lib_net_write_request_construct(&task->m_connection.m_state.m_write_request, &task->m_connection.m_state.m_socket, &task->m_connection.m_state.m_store.m_data.m_u8s[0], ptr); mk_lang_check_rereturn(err);
@@ -649,9 +665,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_tas
 	mk_lang_assert(task->m_step == mk_clib_app_iip_task_connection_iip_cp_step_e_send_bandwidth_request);
 
 	err = mk_lib_iip_cp_message_construct(&msg, mk_lib_iip_cp_message_message_type_id_e_get_bandwidth_limits); mk_lang_check_rereturn(err);
-	err = mk_clib_app_iip_task_connection_iip_cp_prrw_debug_print_msg(task, &msg, mk_clib_app_iip_debug_msg_direction_e_outgoing); mk_lang_check_rereturn(err);
 	serialize_error_code = mk_lib_iip_cp_message_serialize_error_code_e_ok;
 	err = mk_lib_iip_cp_message_serialize_message(&task->m_connection.m_state.m_store.m_data.m_u8s[0], mk_lang_countof(task->m_connection.m_state.m_store.m_data.m_u8s), &serialize_error_code, &consumed, &msg); mk_lang_check_rereturn(err); mk_lang_check_return(serialize_error_code == mk_lib_iip_cp_message_serialize_error_code_e_ok); mk_lang_check_return(consumed >= 1); mk_lang_assert(consumed <= mk_lang_countof(task->m_connection.m_state.m_store.m_data.m_u8s));
+	err = mk_clib_app_iip_task_connection_iip_cp_prrw_debug_print_msg(task, &msg, mk_clib_app_iip_debug_msg_direction_e_outgoing); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_cp_message_destroy(&msg); mk_lang_check_rereturn(err);
 
 	err = mk_lib_net_write_request_construct(&task->m_connection.m_state.m_write_request, &task->m_connection.m_state.m_socket, &task->m_connection.m_state.m_store.m_data.m_u8s[0], consumed); mk_lang_check_rereturn(err);
@@ -901,8 +917,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_pr_
 	create_session->m_session_config.m_destination = app->m_iip_destination;
 	mk_lib_iip_time_get_now(&create_session->m_session_config.m_creation_date.m_elements[0]);
 
-	err = mk_clib_app_iip_task_connection_iip_cp_prrw_debug_print_msg(&msg, mk_clib_app_iip_debug_msg_direction_e_outgoing); mk_lang_check_rereturn(err);
 	serialize_error_code = mk_lib_iip_cp_message_serialize_error_code_e_ok;
+	err = mk_clib_app_iip_task_connection_iip_cp_prrw_debug_print_msg(&msg, mk_clib_app_iip_debug_msg_direction_e_outgoing); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_cp_message_serialize_message(&app->m_connection.m_state.m_store.m_data.m_u8s[0], mk_lang_countof(app->m_connection.m_state.m_store.m_data.m_u8s), &serialize_error_code, &consumed, &msg); mk_lang_check_rereturn(err); mk_lang_check_return(serialize_error_code == mk_lib_iip_cp_message_serialize_error_code_e_ok); mk_lang_check_return(consumed >= 1);
 	err = mk_lib_iip_cp_message_destroy(&msg); mk_lang_check_rereturn(err);
 
