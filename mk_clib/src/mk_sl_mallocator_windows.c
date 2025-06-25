@@ -136,7 +136,9 @@ static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_windows_statistics_a
 	mk_sl_mallocator_windows_statistics_update_peak();
 #else
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(size_bytes >= 0);
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	((mk_lang_types_void_t)(size_bytes));
