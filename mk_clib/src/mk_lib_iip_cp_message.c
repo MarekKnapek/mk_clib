@@ -844,6 +844,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 	mk_lang_assert(msg_get_date);
 
+	msg_get_date->m_client_version.m_len = 0;
 	err = mk_lib_iip_cp_types_strpairs_rw_construct_void(&msg_get_date->m_authentication.m_strpairs); mk_lang_check_rereturn(err);
 	return 0;
 }
