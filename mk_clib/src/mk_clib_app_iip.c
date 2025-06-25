@@ -1249,29 +1249,23 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wor
 {
 	mk_lang_types_sint_t err;
 	mk_clib_app_iip_connection_iip_cp_settings_t settings;
+	mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_t destination;
 	mk_clib_app_iip_t app;
 	mk_clib_app_iip_connection_iip_cp_handle_t connection;
-	mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_t destination;
 
 	err = mk_clib_app_iip_parse_settings_from_cmd_line(&settings, argc, argv, lens); mk_lang_check_rereturn(err);
+	err = mk_clib_app_iip_destination_elgamal_dsa_sha1_load_pri_pub(&destination, "destination.txt"); mk_lang_check_rereturn(err);
+
 	err = mk_clib_app_iip_construct(&app); mk_lang_check_rereturn(err);
-	err = mk_clib_app_iip_rw_run_non_blocking_void(&app); mk_lang_check_rereturn(err);
 	err = mk_clib_app_iip_rw_new_connection(&app, &settings, &connection); mk_lang_check_rereturn(err);
-	err = mk_clib_app_iip_rw_run_force(&app); mk_lang_check_rereturn(err);
-	err = mk_clib_app_iip_parse_settings_from_hardcoded(&settings); mk_lang_check_rereturn(err);
-	err = mk_clib_app_iip_rw_new_connection(&app, &settings, &connection); mk_lang_check_rereturn(err);
-	err = mk_clib_app_iip_rw_new_connection(&app, &settings, &connection); mk_lang_check_rereturn(err);
-	err = mk_clib_app_iip_rw_new_connection(&app, &settings, &connection); mk_lang_check_rereturn(err);
-	err = mk_clib_app_iip_rw_new_connection(&app, &settings, &connection); mk_lang_check_rereturn(err);
-	err = mk_clib_app_iip_rw_run_force(&app); mk_lang_check_rereturn(err);
 
 	/*err = mk_clib_app_iip_destination_elgamal_dsa_sha1_generate_new_random_and_save_pri_only(&destination, "destination.txt"); mk_lang_check_rereturn(err);*/
 	/*err = mk_clib_app_iip_destination_elgamal_dsa_sha1_generate_new_random_and_save_pri_pub(&destination, "destination.txt"); mk_lang_check_rereturn(err);*/
 	/*err = mk_clib_app_iip_destination_elgamal_dsa_sha1_load_pri_only(&destination, "destination.txt"); mk_lang_check_rereturn(err);*/
-	err = mk_clib_app_iip_destination_elgamal_dsa_sha1_load_pri_pub(&destination, "destination.txt"); mk_lang_check_rereturn(err);
 	/*err = mk_clib_app_iip_destination_elgamal_dsa_sha1_save_pri_only(&destination, "destination.txt"); mk_lang_check_rereturn(err);*/
 	/*err = mk_clib_app_iip_destination_elgamal_dsa_sha1_save_pri_pub(&destination, "destination.txt"); mk_lang_check_rereturn(err);*/
 
+	err = mk_clib_app_iip_rw_run_force(&app); mk_lang_check_rereturn(err);
 	err = mk_clib_app_iip_destroy(&app); mk_lang_check_rereturn(err);
 	return 0;
 }
@@ -1305,14 +1299,29 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_usa
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_global_init(mk_lang_types_void_t) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
 
-#if mk_lang_entry_point_have
+	mk_lang_cpuid_init();
+	err = mk_lang_stdout_init(); mk_lang_check_rereturn(err);
+	err = mk_sl_random_init(); mk_lang_check_rereturn(err);
+	err = mk_lib_net_init(); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_mallocator_global_init(); mk_lang_check_rereturn(err);
+	return 0;
+}
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_global_deinit(mk_lang_types_void_t) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
 
-#include "mk_win_dll_kernel_process.h"
+	err = mk_lib_iip_cp_mallocator_global_deinit(); mk_lang_check_rereturn(err);
+	err = mk_lib_net_deinit(); mk_lang_check_rereturn(err);
+	err = mk_sl_random_deinit(); mk_lang_check_rereturn(err);
+	return 0;
+}
 
-
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wargs(mk_lang_types_sint_t const argc, mk_lang_types_wchar_pcpct const argv, mk_lang_types_sint_pct const lens) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_global_main(mk_lang_types_sint_t const argc, mk_lang_tchar_pcpct const argv, mk_lang_types_sint_pct const lens) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 
@@ -1328,6 +1337,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_war
 	return 0;
 }
 
+#if mk_lang_entry_point_have
+
+
+#include "mk_win_dll_kernel_process.h"
+
 
 mk_lang_extern_force_c mk_lang_nodiscard mk_lang_types_sint_t mk_clib_app_iip_peb(mk_lang_types_void_pt const peb) mk_lang_noexcept
 {
@@ -1338,16 +1352,10 @@ mk_lang_extern_force_c mk_lang_nodiscard mk_lang_types_sint_t mk_clib_app_iip_pe
 
 	mk_lang_assert(peb);
 
-	mk_lang_cpuid_init();
-	err = mk_lang_stdout_init(); mk_lang_check_rereturn(err);
-	err = mk_sl_random_init(); mk_lang_check_rereturn(err);
-	err = mk_lib_net_init(); mk_lang_check_rereturn(err);
-	err = mk_lib_iip_cp_mallocator_global_init(); mk_lang_check_rereturn(err);
-	err = mk_lang_command_line_parse(mk_win_dll_kernel_process_get_command_line(), &argv[0], &lens[0], mk_lang_countof(argv), &argc); mk_lang_check_rereturn(err);
-	err = mk_clib_app_iip_wargs(argc, &argv[0], &lens[0]);
-	err = mk_lib_iip_cp_mallocator_global_deinit(); mk_lang_check_rereturn(err);
-	err = mk_lib_net_deinit(); mk_lang_check_rereturn(err);
-	err = mk_sl_random_deinit(); mk_lang_check_rereturn(err);
+	err = mk_clib_app_iip_global_init(); mk_lang_check_rereturn(err);
+	err = mk_lang_command_line_parse_win(mk_win_dll_kernel_process_get_command_line(), &argv[0], &lens[0], mk_lang_countof(argv), &argc); mk_lang_check_rereturn(err);
+	err = mk_clib_app_iip_global_main(argc, &argv[0], &lens[0]);
+	err = mk_clib_app_iip_global_deinit(); mk_lang_check_rereturn(err);
 	err = mk_lang_stdout_println_lit_n("Gud.");
 	return 0;
 }
@@ -1356,32 +1364,17 @@ mk_lang_extern_force_c mk_lang_nodiscard mk_lang_types_sint_t mk_clib_app_iip_pe
 #else
 
 
-mk_lang_extern_c mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_clib_app_iip_args(mk_lang_types_sint_t const argc, mk_lang_types_pchar_pcpct const argv) mk_lang_noexcept
+mk_lang_extern_c mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_clib_app_iip_args(mk_lang_types_sint_t const std_argc, mk_lang_types_pchar_pcpct const std_argv) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
-	mk_lang_types_sint_t lens[3];
+	mk_lang_types_pchar_pct argv[16];
+	mk_lang_types_sint_t lens[mk_lang_countof(argv)];
+	mk_lang_types_sint_t argc;
 
-	mk_lang_cpuid_init();
-	err = mk_lang_stdout_init(); mk_lang_check_rereturn(err);
-	err = mk_sl_random_init(); mk_lang_check_rereturn(err);
-	err = mk_lib_net_init(); mk_lang_check_rereturn(err);
-	err = mk_lib_iip_cp_mallocator_global_init(); mk_lang_check_rereturn(err);
-	if(argc == 1)
-	{
-		lens[0] = mk_lang_str_len_n(argv[0]);
-		err = mk_clib_app_iip_usage(argc, argv, &lens[0]); mk_lang_check_rereturn(err);
-	}
-	else
-	{
-		mk_lang_check_return(argc == 3);
-		lens[0] = mk_lang_str_len_t(argv[0]);
-		lens[1] = mk_lang_str_len_t(argv[1]);
-		lens[2] = mk_lang_str_len_t(argv[2]);
-		err = mk_clib_app_iip_work(argc, argv, &lens[0]); mk_lang_check_rereturn(err);
-	}
-	err = mk_lib_iip_cp_mallocator_global_deinit(); mk_lang_check_rereturn(err);
-	err = mk_lib_net_deinit(); mk_lang_check_rereturn(err);
-	err = mk_sl_random_deinit(); mk_lang_check_rereturn(err);
+	err = mk_clib_app_iip_global_init(); mk_lang_check_rereturn(err);
+	err = mk_lang_command_line_parse_std(std_argc, std_argv, &argv[0], &lens[0], mk_lang_countof(argv), &argc); mk_lang_check_rereturn(err);
+	err = mk_clib_app_iip_global_main(argc, &argv[0], &lens[0]);
+	err = mk_clib_app_iip_global_deinit(); mk_lang_check_rereturn(err);
 	err = mk_lang_stdout_println_lit_n("Gud.");
 	return 0;
 }
