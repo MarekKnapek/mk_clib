@@ -733,6 +733,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_de
 			#elif mk_sl_vector_inl_defd_copy_style == mk_sl_vector_copy_use_custom
 			err = mk_sl_vector_inl_defd_mallocator_allocate(vector, new_capacity * sizeof(mk_sl_vector_inl_defd_element_t), &new_mem); mk_lang_check_rereturn(err); mk_lang_assert(new_mem); new_buffer = ((mk_sl_vector_inl_defd_element_pt)(new_mem));
 			err = mk_sl_vector_inl_defd_prrw_elements_move_construct_many(vector, new_buffer, old_buffer, vector->m_size);
+			err = mk_sl_vector_inl_defd_mallocator_deallocate(vector, old_buffer, old_capacity * sizeof(mk_sl_vector_inl_defd_element_t)); mk_lang_check_rereturn(err);
 			vector->m_buffer = new_buffer;
 			vector->m_capacity = new_capacity;
 			#else
