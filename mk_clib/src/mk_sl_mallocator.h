@@ -38,9 +38,12 @@
 #elif mk_lang_version_has_macro_cplusplus
 #include "mk_sl_mallocator_lang_cpp.hpp"
 #define mk_sl_mallocator_base_name mk_sl_mallocator_lang_cpp
+#elif mk_lang_version_at_least_c_23
+#include "mk_sl_mallocator_lang_c23.h"
+#define mk_sl_mallocator_base_name mk_sl_mallocator_lang_c23
 #else
-#include "mk_sl_mallocator_lang_c.h"
-#define mk_sl_mallocator_base_name mk_sl_mallocator_lang_c
+#include "mk_sl_mallocator_lang_c89.h"
+#define mk_sl_mallocator_base_name mk_sl_mallocator_lang_c89
 #endif
 
 
