@@ -787,6 +787,33 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_destroy(m
 	return 0;
 }
 
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_to_text(mk_lib_net_socket_pt const socket, mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_sint_pt const out_len) mk_lang_noexcept
+{
+	mk_lang_types_pchar_pt ptr;
+	mk_lang_types_sint_t rem;
+	mk_lang_types_sint_t len;
+
+	mk_lang_assert(socket);
+	mk_lang_assert(str_buf || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+	mk_lang_assert(out_len);
+	mk_lang_assert(socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+
+	ptr = str_buf;
+	rem = str_len;
+	if(rem >= 2)
+	{
+		ptr[0] = '0';
+		ptr[1] = 'x';
+	}
+	ptr += 2;
+	rem -= 2;
+	len = mk_win_dll_ws2_socket_to_str_hex_n(&socket->m_handle, ptr, rem); mk_lang_assert((!(len >= 1)) || (len >= 1 && len <= str_len)); ptr += len; rem -= len;
+	len = str_len - rem;
+	*out_len = len;
+	return 0;
+}
+
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_set_option_nodelay_val(mk_lib_net_socket_pt const socket, mk_lang_types_bool_t const val) mk_lang_noexcept
 {
 	mk_win_base_dword_t vvv;
