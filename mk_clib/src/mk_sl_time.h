@@ -31,7 +31,7 @@ struct mk_sl_time_components_s
 	mk_lang_types_sint_t m_hour;
 	mk_lang_types_sint_t m_minute;
 	mk_lang_types_sint_t m_second;
-	mk_lang_types_slong_t m_hundred_nano_second;
+	mk_lang_types_slong_t m_ticks;
 };
 typedef struct mk_sl_time_components_s mk_sl_time_components_t;
 mk_lang_typedef(mk_sl_time_components);

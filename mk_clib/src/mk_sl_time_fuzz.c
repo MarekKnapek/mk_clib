@@ -58,7 +58,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_time_fuzz(mk_lang_typ
 		(components.m_hour == 0) &&
 		(components.m_minute == 0) &&
 		(components.m_second == 0) &&
-		(components.m_hundred_nano_second == 0l) &&
+		(components.m_ticks == 0l) &&
 		mk_lang_true
 	))
 	{
@@ -72,7 +72,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_time_fuzz(mk_lang_typ
 		mk_lang_test(components.m_hour == ((mk_lang_types_sint_t)(system_time.m_hour)));
 		mk_lang_test(components.m_minute == ((mk_lang_types_sint_t)(system_time.m_minute)));
 		mk_lang_test(components.m_second == ((mk_lang_types_sint_t)(system_time.m_second)));
-		mk_lang_test(components.m_hundred_nano_second / (10l * 1000l) == ((mk_lang_types_sint_t)(system_time.m_millisecond)));
+		mk_lang_test(components.m_ticks / (10l * 1000l) == ((mk_lang_types_sint_t)(system_time.m_millisecond)));
 	}
 	return 0;
 }
