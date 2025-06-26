@@ -139,9 +139,14 @@ struct mk_lib_iip_cp_types_strpair_s
 typedef struct mk_lib_iip_cp_types_strpair_s mk_lib_iip_cp_types_strpair_t;
 mk_lang_typedef(mk_lib_iip_cp_types_strpair);
 
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_types_strpair_rw_construct_void(mk_lib_iip_cp_types_strpair_pt const strpair) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_types_strpair_rw_destroy(mk_lib_iip_cp_types_strpair_pt const strpair) mk_lang_noexcept;
+
 #define mk_sl_fixed_vector_t_name mk_lib_iip_cp_types_strpairs
 #define mk_sl_fixed_vector_t_element_type mk_lib_iip_cp_types_strpair_t
 #define mk_sl_fixed_vector_t_capacity 16 /* todo */
+#define mk_sl_fixed_vector_t_element_construct_void mk_lib_iip_cp_types_strpair_rw_construct_void
+#define mk_sl_fixed_vector_t_element_destroy mk_lib_iip_cp_types_strpair_rw_destroy
 #include "mk_sl_fixed_vector_inl_fileh.h"
 #include "mk_sl_fixed_vector_inl_fileu.h"
 

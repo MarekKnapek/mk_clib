@@ -66,9 +66,32 @@
 #define mk_lib_iip_cp_types_date_size_bits_d mk_sl_cui_uint64_size_bits_d
 #define mk_lib_iip_cp_types_date_size_bytes_d (mk_sl_cui_uint64_size_bits_d / mk_lang_charbit)
 
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_types_strpair_rw_construct_void(mk_lib_iip_cp_types_strpair_pt const strpair) mk_lang_noexcept
+{
+	mk_lang_assert(strpair);
+
+	strpair->m_key.m_len = 0;
+	strpair->m_val.m_len = 0;
+	#if defined DEBUG || defined _DEBUG
+	strpair->m_key.m_buf[0] = '\0';
+	strpair->m_val.m_buf[0] = '\0';
+	#endif
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_types_strpair_rw_destroy(mk_lib_iip_cp_types_strpair_pt const strpair) mk_lang_noexcept
+{
+	mk_lang_assert(strpair);
+
+	((mk_lang_types_void_t)(strpair));
+	return 0;
+}
+
 #define mk_sl_fixed_vector_t_name mk_lib_iip_cp_types_strpairs
 #define mk_sl_fixed_vector_t_element_type mk_lib_iip_cp_types_strpair_t
 #define mk_sl_fixed_vector_t_capacity 16 /* todo */
+#define mk_sl_fixed_vector_t_element_construct_void mk_lib_iip_cp_types_strpair_rw_construct_void
+#define mk_sl_fixed_vector_t_element_destroy mk_lib_iip_cp_types_strpair_rw_destroy
 #include "mk_sl_fixed_vector_inl_filec.h"
 #include "mk_sl_fixed_vector_inl_fileu.h"
 
