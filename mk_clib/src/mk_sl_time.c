@@ -35,117 +35,138 @@ mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_time_k_fmt[] =
 
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_time_to_components(mk_sl_time_timestamp_pct const timestamp, mk_sl_time_components_pt const components) mk_lang_noexcept
 {
-	mk_sl_cui_uint64_pct time_u64 mk_lang_constexpr_init;
+	mk_sl_cui_uint64_pct ticks_since_nt mk_lang_constexpr_init;
 	mk_lang_types_slong_t tsl mk_lang_constexpr_init;
 	mk_sl_cui_uint64_t ta mk_lang_constexpr_init;
-	mk_sl_cui_uint64_t s_since_nt mk_lang_constexpr_init;
+	mk_sl_cui_uint64_t seconds_since_nt mk_lang_constexpr_init;
+	mk_sl_cui_uint64_t tb mk_lang_constexpr_init;
+	mk_lang_types_slong_t ticks_in_second mk_lang_constexpr_init;
 	mk_sl_cui_uint64_t tc mk_lang_constexpr_init;
-	mk_lang_types_slong_t hns_in_s mk_lang_constexpr_init;
-	mk_lang_types_sint_t tsi mk_lang_constexpr_init;
-	mk_sl_cui_uint64_t d_since_nt_big mk_lang_constexpr_init;
-	mk_lang_types_slong_t d_since_nt mk_lang_constexpr_init;
-	mk_lang_types_slong_t s_in_d mk_lang_constexpr_init;
-	mk_lang_types_slong_t m_in_d mk_lang_constexpr_init;
-	mk_lang_types_slong_t s_in_m mk_lang_constexpr_init;
-	mk_lang_types_slong_t h_in_d mk_lang_constexpr_init;
-	mk_lang_types_slong_t m_in_h mk_lang_constexpr_init;
-	mk_lang_types_slong_t c400 mk_lang_constexpr_init;
-	mk_lang_types_slong_t d_in_c400 mk_lang_constexpr_init;
-	mk_lang_types_slong_t c100 mk_lang_constexpr_init;
-	mk_lang_types_slong_t d_in_c100 mk_lang_constexpr_init;
-	mk_lang_types_slong_t c4 mk_lang_constexpr_init;
-	mk_lang_types_slong_t d_in_c4 mk_lang_constexpr_init;
-	mk_lang_types_slong_t c1 mk_lang_constexpr_init;
-	mk_lang_types_slong_t d_in_c4r mk_lang_constexpr_init;
-	mk_lang_types_slong_t d_in_c1 mk_lang_constexpr_init;
-	mk_lang_types_slong_t d_in_y mk_lang_constexpr_init;
-	mk_lang_types_slong_t m_in_y mk_lang_constexpr_init;
-	mk_lang_types_slong_t d_in_m mk_lang_constexpr_init;
-	mk_lang_types_slong_t y mk_lang_constexpr_init;
-	mk_lang_types_bool_t leap mk_lang_constexpr_init;
+	mk_lang_types_slong_t days_since_nt mk_lang_constexpr_init;
+	mk_lang_types_slong_t seconds_in_day mk_lang_constexpr_init;
+	mk_lang_types_slong_t minutes_in_day mk_lang_constexpr_init;
+	mk_lang_types_slong_t seconds_in_minute mk_lang_constexpr_init;
+	mk_lang_types_slong_t hours_in_day mk_lang_constexpr_init;
+	mk_lang_types_slong_t minutes_in_hour mk_lang_constexpr_init;
+	mk_lang_types_slong_t cycles_400_years mk_lang_constexpr_init;
+	mk_lang_types_slong_t days_in_cycle_400_years mk_lang_constexpr_init;
+	mk_lang_types_slong_t cycles_100_years mk_lang_constexpr_init;
+	mk_lang_types_slong_t days_in_cycle_100_years mk_lang_constexpr_init;
+	mk_lang_types_slong_t cycles_4_years mk_lang_constexpr_init;
+	mk_lang_types_slong_t days_in_cycle_4_years mk_lang_constexpr_init;
+	mk_lang_types_slong_t cycles_1_year mk_lang_constexpr_init;
+	mk_lang_types_slong_t days_in_cycle_1_year mk_lang_constexpr_init;
+	mk_lang_types_slong_t year mk_lang_constexpr_init;
+	mk_lang_types_bool_t is_leap mk_lang_constexpr_init;
+	mk_lang_types_sint_pct days_per_months mk_lang_constexpr_init;
+	mk_lang_types_slong_t months_in_year mk_lang_constexpr_init;
+	mk_lang_types_slong_t days_in_month mk_lang_constexpr_init;
 
-	mk_lang_types_slong_t const k_d_in_c1 = 1l * 365l;
-	mk_lang_types_slong_t const k_d_in_c4 = (4l * k_d_in_c1) + 1l;
-	mk_lang_types_slong_t const k_d_in_c100 = (100l * k_d_in_c1) + ((100l / 4l) * 1l) - ((100l / 100l) * 1l);
-	mk_lang_types_slong_t const k_d_in_c400 = (400l * k_d_in_c1) + ((400l / 4l) * 1l) - ((400l / 100l) * 1l) + ((400l / 400l) * 1l);
-	mk_lang_types_sint_t const k_lens_a[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-	mk_lang_types_sint_t const k_lens_b[] = { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+	mk_lang_types_slong_t const k_ticks_per_micro_second = 10l;
+	mk_lang_types_slong_t const k_micro_seconds_per_milli_second = 1000l;
+	mk_lang_types_slong_t const k_milli_seconds_per_second = 1000l;
+	mk_lang_types_slong_t const k_seconds_per_minute = 60l;
+	mk_lang_types_slong_t const k_minutes_per_hour = 60l;
+	mk_lang_types_slong_t const k_hours_per_day = 24l;
+	mk_lang_types_slong_t const k_days_per_cycle_1_year = 365l;
+
+	mk_lang_types_slong_t const k_ticks_per_second = k_ticks_per_micro_second * k_micro_seconds_per_milli_second * k_milli_seconds_per_second;
+	mk_lang_types_slong_t const k_seconds_per_day = k_seconds_per_minute * k_minutes_per_hour * k_hours_per_day;
+	mk_lang_types_slong_t const k_minutes_per_day = k_minutes_per_hour * k_hours_per_day;
+
+	mk_lang_types_slong_t const k_days_per_cycle_4_years = (4l * k_days_per_cycle_1_year) + 1l;
+	mk_lang_types_slong_t const k_days_per_cycle_100_years = (100l * k_days_per_cycle_1_year) + ((100l / 4l) * 1l) - ((100l / 100l) * 1l);
+	mk_lang_types_slong_t const k_days_per_cycle_400_years = (400l * k_days_per_cycle_1_year) + ((400l / 4l) * 1l) - ((400l / 100l) * 1l) + ((400l / 400l) * 1l);
+
+	mk_lang_types_sint_t const k_days_per_months_normal[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+	mk_lang_types_sint_t const k_days_per_months_leap[] = { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
 	mk_lang_assert(timestamp);
 	mk_lang_assert(components);
 
-	time_u64 = &timestamp->m_elements[0];
-	if(mk_sl_cui_uint64_le(time_u64, &mk_sl_time_k_max))
+	ticks_since_nt = &timestamp->m_elements[0];
+	if(mk_sl_cui_uint64_le(ticks_since_nt, &mk_sl_time_k_max))
 	{
-		tsl = 10l * 1000l * 1000l; mk_sl_cui_uint64_from_bi_slong(&ta, &tsl);
-		mk_sl_cui_uint64_divmod4_wrap(time_u64, &ta, &s_since_nt, &tc);
-		mk_sl_cui_uint64_to_bi_slong(&tc, &hns_in_s);
+		tsl = k_ticks_per_second; mk_sl_cui_uint64_from_bi_slong(&ta, &tsl);
+		mk_sl_cui_uint64_divmod4_wrap(ticks_since_nt, &ta, &seconds_since_nt, &tb);
+		mk_sl_cui_uint64_to_bi_slong(&tb, &ticks_in_second);
+		mk_lang_assert(ticks_in_second >= 0l);
+		mk_lang_assert(ticks_in_second < k_ticks_per_second);
 
-		tsi = 1 * 24 * 60 * 60; mk_sl_cui_uint64_from_bi_sint(&ta, &tsi);
-		mk_sl_cui_uint64_divmod4_wrap(&s_since_nt, &ta, &d_since_nt_big, &tc);
-		mk_sl_cui_uint64_to_bi_slong(&d_since_nt_big, &d_since_nt);
-		mk_sl_cui_uint64_to_bi_slong(&tc, &s_in_d);
+		tsl = k_seconds_per_day; mk_sl_cui_uint64_from_bi_slong(&ta, &tsl);
+		mk_sl_cui_uint64_divmod4_wrap(&seconds_since_nt, &ta, &tc, &tb);
+		mk_sl_cui_uint64_to_bi_slong(&tc, &days_since_nt);
+		mk_sl_cui_uint64_to_bi_slong(&tb, &seconds_in_day);
+		mk_lang_assert(seconds_in_day >= 0l);
+		mk_lang_assert(seconds_in_day < k_seconds_per_day);
 
-		m_in_d = s_in_d / 60;
-		s_in_m = s_in_d - m_in_d * 60;
+		minutes_in_day = seconds_in_day / k_seconds_per_minute;
+		seconds_in_minute = seconds_in_day - minutes_in_day * k_seconds_per_minute;
+		mk_lang_assert(minutes_in_day >= 0l);
+		mk_lang_assert(minutes_in_day < k_minutes_per_day);
+		mk_lang_assert(seconds_in_minute >= 0l);
+		mk_lang_assert(seconds_in_minute < k_seconds_per_minute);
 
-		h_in_d = m_in_d / 60;
-		m_in_h = m_in_d - h_in_d * 60;
+		hours_in_day = minutes_in_day / k_minutes_per_hour;
+		minutes_in_hour = minutes_in_day - hours_in_day * k_minutes_per_hour;
+		mk_lang_assert(hours_in_day >= 0l);
+		mk_lang_assert(hours_in_day < k_hours_per_day);
+		mk_lang_assert(minutes_in_hour >= 0l);
+		mk_lang_assert(minutes_in_hour < k_minutes_per_hour);
 
-		c400 = d_since_nt / k_d_in_c400;
-		d_in_c400 = d_since_nt - c400 * k_d_in_c400;
+		cycles_400_years = days_since_nt / k_days_per_cycle_400_years;
+		days_in_cycle_400_years = days_since_nt - cycles_400_years * k_days_per_cycle_400_years;
+		mk_lang_assert(days_in_cycle_400_years >= 0l);
+		mk_lang_assert(days_in_cycle_400_years < k_days_per_cycle_400_years);
 
-		c100 = d_in_c400 / k_d_in_c100;
-		c100 = mk_lang_min(c100, 3);
-		d_in_c100 = d_in_c400 - c100 * k_d_in_c100;
+		cycles_100_years = days_in_cycle_400_years / k_days_per_cycle_100_years;
+		cycles_100_years = mk_lang_min(cycles_100_years, 3);
+		days_in_cycle_100_years = days_in_cycle_400_years - cycles_100_years * k_days_per_cycle_100_years;
+		mk_lang_assert(days_in_cycle_100_years >= 0l);
+		mk_lang_assert(days_in_cycle_100_years <= k_days_per_cycle_100_years);
 
-		c4 = d_in_c100 / k_d_in_c4;
-		d_in_c4 = d_in_c100 % k_d_in_c4;
+		cycles_4_years = days_in_cycle_100_years / k_days_per_cycle_4_years;
+		days_in_cycle_4_years = days_in_cycle_100_years - cycles_4_years * k_days_per_cycle_4_years;
+		mk_lang_assert(days_in_cycle_4_years >= 0l);
+		mk_lang_assert(days_in_cycle_4_years < k_days_per_cycle_4_years);
 
-		c1 = 0;
-		d_in_c4r = d_in_c4;
-		if(d_in_c4r >= k_d_in_c1)
+		cycles_1_year = days_in_cycle_4_years / k_days_per_cycle_1_year;
+		cycles_1_year = mk_lang_min(cycles_1_year, 3);
+		days_in_cycle_1_year = days_in_cycle_4_years - cycles_1_year * k_days_per_cycle_1_year;
+		mk_lang_assert(days_in_cycle_1_year >= 0l);
+		mk_lang_assert(days_in_cycle_1_year <= k_days_per_cycle_1_year);
+
+		year = 1601 + cycles_400_years * 400 + cycles_100_years * 100 + cycles_4_years * 4 + cycles_1_year * 1;
+		mk_lang_assert(year >= 1601);
+		mk_lang_assert(year <= 4001);
+		is_leap = ((((year % 4) == 0) && ((year % 100) != 0)) || ((year % 400) == 0));
+		days_per_months = is_leap ? &k_days_per_months_leap[0] : &k_days_per_months_normal[0];
+
+		months_in_year = 0;
+		while(days_in_cycle_1_year >= days_per_months[months_in_year])
 		{
-			++c1;
-			d_in_c4r -= k_d_in_c1;
-			if(d_in_c4r >= k_d_in_c1)
-			{
-				++c1;
-				d_in_c4r -= k_d_in_c1;
-				if(d_in_c4r >= k_d_in_c1)
-				{
-					++c1;
-					d_in_c4r -= k_d_in_c1;
-				}
-			}
+			days_in_cycle_1_year -= days_per_months[months_in_year];
+			++months_in_year;
 		}
-		mk_lang_assert(d_in_c4r >= 0 && d_in_c4r <= k_d_in_c1);
-		y = 1601 + c400 * 400 + c100 * 100 + c4 * 4 + c1 * 1;
-		leap = ((((y % 4) == 0) && ((y % 100) != 0)) || ((y % 400) == 0));
-		d_in_c1 = d_in_c4r;
-		d_in_y = d_in_c1;
-		m_in_y = 0;
-		while(d_in_y >= ((!leap) ? (k_lens_a[m_in_y]) : (k_lens_b[m_in_y])))
-		{
-			d_in_y -= ((!leap) ? (k_lens_a[m_in_y]) : (k_lens_b[m_in_y]));
-			++m_in_y;
-		}
-		d_in_m = d_in_y + 1;
-		++m_in_y;
-		mk_lang_assert(y >= 1600 && y <= 4001);
-		mk_lang_assert(m_in_y >= 1 && m_in_y <= 12);
-		mk_lang_assert(d_in_m >= 1 && d_in_m <= 31); mk_lang_assert(d_in_m >= 1 && d_in_m <= ((!leap) ? (k_lens_a[m_in_y - 1]) : (k_lens_b[m_in_y - 1])));
-		mk_lang_assert(h_in_d >= 0 && h_in_d < 24);
-		mk_lang_assert(m_in_h >= 0 && m_in_h < 60);
-		mk_lang_assert(s_in_m >= 0 && s_in_m < 60);
-		mk_lang_assert(hns_in_s >= 0l && hns_in_s < 10l * 1000l * 1000l);
-		components->m_year = y;
-		components->m_month = m_in_y;
-		components->m_day = d_in_m;
-		components->m_hour = h_in_d;
-		components->m_minute = m_in_h;
-		components->m_second = s_in_m;
-		components->m_hundred_nano_second = hns_in_s;
+		mk_lang_assert(months_in_year >= 0);
+		mk_lang_assert(months_in_year <= 11);
+
+		days_in_month = days_in_cycle_1_year + 1;
+		mk_lang_assert(days_in_month >= 1);
+		mk_lang_assert(days_in_month <= 31);
+		mk_lang_assert(days_in_month <= days_per_months[months_in_year]);
+
+		++months_in_year;
+		mk_lang_assert(months_in_year >= 1);
+		mk_lang_assert(months_in_year <= 12);
+
+		components->m_year = year;
+		components->m_month = months_in_year;
+		components->m_day = days_in_month;
+		components->m_hour = hours_in_day;
+		components->m_minute = minutes_in_hour;
+		components->m_second = seconds_in_minute;
+		components->m_ticks = ticks_in_second;
 	}
 	else
 	{
@@ -155,7 +176,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_time_to_components(mk
 		components->m_hour = 0;
 		components->m_minute = 0;
 		components->m_second = 0;
-		components->m_hundred_nano_second = 0l;
+		components->m_ticks = 0l;
 	}
 }
 
@@ -179,13 +200,13 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_tim
 		ptr = 0;
 		mk_sl_time_to_components(timestamp, &components);
 		mk_lang_string_memcpy_pc_fn(&str_buf[0], &mk_sl_time_k_fmt[0], mk_lang_countstr(mk_sl_time_k_fmt));
-		mk_sl_cui_uint16_from_bi_sint (&ta, &components.m_year)               ; len = mk_sl_cui_uint16_to_str_dec_n(&ta, &buf[0], mk_lang_countof(buf)); mk_lang_assert(len >= 1); mk_lang_assert(len <= mk_lang_countof(buf)); mk_lang_string_memcpy_pc_fn(&str_buf[ptr + 4 - len], &buf[0], len); ptr += 4; ptr += 1;
-		mk_sl_cui_uint16_from_bi_sint (&ta, &components.m_month)              ; len = mk_sl_cui_uint16_to_str_dec_n(&ta, &buf[0], mk_lang_countof(buf)); mk_lang_assert(len >= 1); mk_lang_assert(len <= mk_lang_countof(buf)); mk_lang_string_memcpy_pc_fn(&str_buf[ptr + 2 - len], &buf[0], len); ptr += 2; ptr += 1;
-		mk_sl_cui_uint16_from_bi_sint (&ta, &components.m_day)                ; len = mk_sl_cui_uint16_to_str_dec_n(&ta, &buf[0], mk_lang_countof(buf)); mk_lang_assert(len >= 1); mk_lang_assert(len <= mk_lang_countof(buf)); mk_lang_string_memcpy_pc_fn(&str_buf[ptr + 2 - len], &buf[0], len); ptr += 2; ptr += 1;
-		mk_sl_cui_uint16_from_bi_sint (&ta, &components.m_hour)               ; len = mk_sl_cui_uint16_to_str_dec_n(&ta, &buf[0], mk_lang_countof(buf)); mk_lang_assert(len >= 1); mk_lang_assert(len <= mk_lang_countof(buf)); mk_lang_string_memcpy_pc_fn(&str_buf[ptr + 2 - len], &buf[0], len); ptr += 2; ptr += 1;
-		mk_sl_cui_uint16_from_bi_sint (&ta, &components.m_minute)             ; len = mk_sl_cui_uint16_to_str_dec_n(&ta, &buf[0], mk_lang_countof(buf)); mk_lang_assert(len >= 1); mk_lang_assert(len <= mk_lang_countof(buf)); mk_lang_string_memcpy_pc_fn(&str_buf[ptr + 2 - len], &buf[0], len); ptr += 2; ptr += 1;
-		mk_sl_cui_uint16_from_bi_sint (&ta, &components.m_second)             ; len = mk_sl_cui_uint16_to_str_dec_n(&ta, &buf[0], mk_lang_countof(buf)); mk_lang_assert(len >= 1); mk_lang_assert(len <= mk_lang_countof(buf)); mk_lang_string_memcpy_pc_fn(&str_buf[ptr + 2 - len], &buf[0], len); ptr += 2; ptr += 1;
-		mk_sl_cui_uint32_from_bi_slong(&tb, &components.m_hundred_nano_second); len = mk_sl_cui_uint32_to_str_dec_n(&tb, &buf[0], mk_lang_countof(buf)); mk_lang_assert(len >= 1); mk_lang_assert(len <= mk_lang_countof(buf)); mk_lang_string_memcpy_pc_fn(&str_buf[ptr + 7 - len], &buf[0], len); ptr += 7; ptr += 1;
+		mk_sl_cui_uint16_from_bi_sint (&ta, &components.m_year)  ; len = mk_sl_cui_uint16_to_str_dec_n(&ta, &buf[0], mk_lang_countof(buf)); mk_lang_assert(len >= 1); mk_lang_assert(len <= mk_lang_countof(buf)); mk_lang_string_memcpy_pc_fn(&str_buf[ptr + 4 - len], &buf[0], ((mk_lang_types_usize_t)(len))); ptr += 4; ptr += 1;
+		mk_sl_cui_uint16_from_bi_sint (&ta, &components.m_month) ; len = mk_sl_cui_uint16_to_str_dec_n(&ta, &buf[0], mk_lang_countof(buf)); mk_lang_assert(len >= 1); mk_lang_assert(len <= mk_lang_countof(buf)); mk_lang_string_memcpy_pc_fn(&str_buf[ptr + 2 - len], &buf[0], ((mk_lang_types_usize_t)(len))); ptr += 2; ptr += 1;
+		mk_sl_cui_uint16_from_bi_sint (&ta, &components.m_day)   ; len = mk_sl_cui_uint16_to_str_dec_n(&ta, &buf[0], mk_lang_countof(buf)); mk_lang_assert(len >= 1); mk_lang_assert(len <= mk_lang_countof(buf)); mk_lang_string_memcpy_pc_fn(&str_buf[ptr + 2 - len], &buf[0], ((mk_lang_types_usize_t)(len))); ptr += 2; ptr += 1;
+		mk_sl_cui_uint16_from_bi_sint (&ta, &components.m_hour)  ; len = mk_sl_cui_uint16_to_str_dec_n(&ta, &buf[0], mk_lang_countof(buf)); mk_lang_assert(len >= 1); mk_lang_assert(len <= mk_lang_countof(buf)); mk_lang_string_memcpy_pc_fn(&str_buf[ptr + 2 - len], &buf[0], ((mk_lang_types_usize_t)(len))); ptr += 2; ptr += 1;
+		mk_sl_cui_uint16_from_bi_sint (&ta, &components.m_minute); len = mk_sl_cui_uint16_to_str_dec_n(&ta, &buf[0], mk_lang_countof(buf)); mk_lang_assert(len >= 1); mk_lang_assert(len <= mk_lang_countof(buf)); mk_lang_string_memcpy_pc_fn(&str_buf[ptr + 2 - len], &buf[0], ((mk_lang_types_usize_t)(len))); ptr += 2; ptr += 1;
+		mk_sl_cui_uint16_from_bi_sint (&ta, &components.m_second); len = mk_sl_cui_uint16_to_str_dec_n(&ta, &buf[0], mk_lang_countof(buf)); mk_lang_assert(len >= 1); mk_lang_assert(len <= mk_lang_countof(buf)); mk_lang_string_memcpy_pc_fn(&str_buf[ptr + 2 - len], &buf[0], ((mk_lang_types_usize_t)(len))); ptr += 2; ptr += 1;
+		mk_sl_cui_uint32_from_bi_slong(&tb, &components.m_ticks) ; len = mk_sl_cui_uint32_to_str_dec_n(&tb, &buf[0], mk_lang_countof(buf)); mk_lang_assert(len >= 1); mk_lang_assert(len <= mk_lang_countof(buf)); mk_lang_string_memcpy_pc_fn(&str_buf[ptr + 7 - len], &buf[0], ((mk_lang_types_usize_t)(len))); ptr += 7; ptr += 1;
 		mk_lang_assert(ptr == mk_lang_countstr(mk_sl_time_k_fmt));
 		len = mk_lang_countstr(mk_sl_time_k_fmt);
 	}
