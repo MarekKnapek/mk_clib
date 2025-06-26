@@ -42,6 +42,7 @@ enum mk_lib_iip_cp_message_str_strs_e
 	mk_lib_iip_cp_message_str_strs_e_best_effort_failure,
 	mk_lib_iip_cp_message_str_strs_e_best_effort_success,
 	mk_lib_iip_cp_message_str_strs_e_blinding_info,
+	mk_lib_iip_cp_message_str_strs_e_body,
 	mk_lib_iip_cp_message_str_strs_e_client_inbound_limit_kbps,
 	mk_lib_iip_cp_message_str_strs_e_client_outbound_limit_kbps,
 	mk_lib_iip_cp_message_str_strs_e_client_version,
@@ -98,7 +99,6 @@ enum mk_lib_iip_cp_message_str_strs_e
 	mk_lib_iip_cp_message_str_strs_e_message_payload,
 	mk_lib_iip_cp_message_str_strs_e_message_status,
 	mk_lib_iip_cp_message_str_strs_e_meta_leaseset,
-	mk_lib_iip_cp_message_str_strs_e_mix,
 	mk_lib_iip_cp_message_str_strs_e_name,
 	mk_lib_iip_cp_message_str_strs_e_network_failure,
 	mk_lib_iip_cp_message_str_strs_e_no_leaseset,
@@ -163,6 +163,7 @@ typedef mk_lib_iip_cp_message_str_strs_t const* mk_lib_iip_cp_message_str_strs_p
 #define mk_lib_iip_cp_message_str_strs_buf_best_effort_failure "best_effort_failure"
 #define mk_lib_iip_cp_message_str_strs_buf_best_effort_success "best_effort_success"
 #define mk_lib_iip_cp_message_str_strs_buf_blinding_info "blinding_info"
+#define mk_lib_iip_cp_message_str_strs_buf_body "body"
 #define mk_lib_iip_cp_message_str_strs_buf_client_inbound_limit_kbps "client_inbound_limit_kbps"
 #define mk_lib_iip_cp_message_str_strs_buf_client_outbound_limit_kbps "client_outbound_limit_kbps"
 #define mk_lib_iip_cp_message_str_strs_buf_client_version "client_version"
@@ -219,7 +220,6 @@ typedef mk_lib_iip_cp_message_str_strs_t const* mk_lib_iip_cp_message_str_strs_p
 #define mk_lib_iip_cp_message_str_strs_buf_message_payload "message_payload"
 #define mk_lib_iip_cp_message_str_strs_buf_message_status "message_status"
 #define mk_lib_iip_cp_message_str_strs_buf_meta_leaseset "meta_leaseset"
-#define mk_lib_iip_cp_message_str_strs_buf_mix "mix"
 #define mk_lib_iip_cp_message_str_strs_buf_name "name"
 #define mk_lib_iip_cp_message_str_strs_buf_network_failure "network_failure"
 #define mk_lib_iip_cp_message_str_strs_buf_no_leaseset "no_leaseset"
@@ -279,6 +279,7 @@ typedef mk_lib_iip_cp_message_str_strs_t const* mk_lib_iip_cp_message_str_strs_p
 #define mk_lib_iip_cp_message_str_strs_len_best_effort_failure mk_lang_countstr(mk_lib_iip_cp_message_str_strs_buf_best_effort_failure)
 #define mk_lib_iip_cp_message_str_strs_len_best_effort_success mk_lang_countstr(mk_lib_iip_cp_message_str_strs_buf_best_effort_success)
 #define mk_lib_iip_cp_message_str_strs_len_blinding_info mk_lang_countstr(mk_lib_iip_cp_message_str_strs_buf_blinding_info)
+#define mk_lib_iip_cp_message_str_strs_len_body mk_lang_countstr(mk_lib_iip_cp_message_str_strs_buf_body)
 #define mk_lib_iip_cp_message_str_strs_len_client_inbound_limit_kbps mk_lang_countstr(mk_lib_iip_cp_message_str_strs_buf_client_inbound_limit_kbps)
 #define mk_lib_iip_cp_message_str_strs_len_client_outbound_limit_kbps mk_lang_countstr(mk_lib_iip_cp_message_str_strs_buf_client_outbound_limit_kbps)
 #define mk_lib_iip_cp_message_str_strs_len_client_version mk_lang_countstr(mk_lib_iip_cp_message_str_strs_buf_client_version)
@@ -335,7 +336,6 @@ typedef mk_lib_iip_cp_message_str_strs_t const* mk_lib_iip_cp_message_str_strs_p
 #define mk_lib_iip_cp_message_str_strs_len_message_payload mk_lang_countstr(mk_lib_iip_cp_message_str_strs_buf_message_payload)
 #define mk_lib_iip_cp_message_str_strs_len_message_status mk_lang_countstr(mk_lib_iip_cp_message_str_strs_buf_message_status)
 #define mk_lib_iip_cp_message_str_strs_len_meta_leaseset mk_lang_countstr(mk_lib_iip_cp_message_str_strs_buf_meta_leaseset)
-#define mk_lib_iip_cp_message_str_strs_len_mix mk_lang_countstr(mk_lib_iip_cp_message_str_strs_buf_mix)
 #define mk_lib_iip_cp_message_str_strs_len_name mk_lang_countstr(mk_lib_iip_cp_message_str_strs_buf_name)
 #define mk_lib_iip_cp_message_str_strs_len_network_failure mk_lang_countstr(mk_lib_iip_cp_message_str_strs_buf_network_failure)
 #define mk_lib_iip_cp_message_str_strs_len_no_leaseset mk_lang_countstr(mk_lib_iip_cp_message_str_strs_buf_no_leaseset)
@@ -396,6 +396,7 @@ typedef mk_lib_iip_cp_message_str_strs_t const* mk_lib_iip_cp_message_str_strs_p
 	mk_lib_iip_cp_message_str_strs_buf_best_effort_failure \
 	mk_lib_iip_cp_message_str_strs_buf_best_effort_success \
 	mk_lib_iip_cp_message_str_strs_buf_blinding_info \
+	mk_lib_iip_cp_message_str_strs_buf_body \
 	mk_lib_iip_cp_message_str_strs_buf_client_inbound_limit_kbps \
 	mk_lib_iip_cp_message_str_strs_buf_client_outbound_limit_kbps \
 	mk_lib_iip_cp_message_str_strs_buf_client_version \
@@ -452,7 +453,6 @@ typedef mk_lib_iip_cp_message_str_strs_t const* mk_lib_iip_cp_message_str_strs_p
 	mk_lib_iip_cp_message_str_strs_buf_message_payload \
 	mk_lib_iip_cp_message_str_strs_buf_message_status \
 	mk_lib_iip_cp_message_str_strs_buf_meta_leaseset \
-	mk_lib_iip_cp_message_str_strs_buf_mix \
 	mk_lib_iip_cp_message_str_strs_buf_name \
 	mk_lib_iip_cp_message_str_strs_buf_network_failure \
 	mk_lib_iip_cp_message_str_strs_buf_no_leaseset \
@@ -515,6 +515,7 @@ typedef mk_lib_iip_cp_message_str_strs_t const* mk_lib_iip_cp_message_str_strs_p
 	mk_lib_iip_cp_message_str_strs_len_best_effort_failure, \
 	mk_lib_iip_cp_message_str_strs_len_best_effort_success, \
 	mk_lib_iip_cp_message_str_strs_len_blinding_info, \
+	mk_lib_iip_cp_message_str_strs_len_body, \
 	mk_lib_iip_cp_message_str_strs_len_client_inbound_limit_kbps, \
 	mk_lib_iip_cp_message_str_strs_len_client_outbound_limit_kbps, \
 	mk_lib_iip_cp_message_str_strs_len_client_version, \
@@ -571,7 +572,6 @@ typedef mk_lib_iip_cp_message_str_strs_t const* mk_lib_iip_cp_message_str_strs_p
 	mk_lib_iip_cp_message_str_strs_len_message_payload, \
 	mk_lib_iip_cp_message_str_strs_len_message_status, \
 	mk_lib_iip_cp_message_str_strs_len_meta_leaseset, \
-	mk_lib_iip_cp_message_str_strs_len_mix, \
 	mk_lib_iip_cp_message_str_strs_len_name, \
 	mk_lib_iip_cp_message_str_strs_len_network_failure, \
 	mk_lib_iip_cp_message_str_strs_len_no_leaseset, \
@@ -633,63 +633,63 @@ typedef mk_lib_iip_cp_message_str_strs_t const* mk_lib_iip_cp_message_str_strs_p
 	(mk_lib_iip_cp_message_str_strs_len_best_effort_failure                      * (((x) >=  10) ? (1) : (0))) + \
 	(mk_lib_iip_cp_message_str_strs_len_best_effort_success                      * (((x) >=  11) ? (1) : (0))) + \
 	(mk_lib_iip_cp_message_str_strs_len_blinding_info                            * (((x) >=  12) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_client_inbound_limit_kbps                * (((x) >=  13) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_client_outbound_limit_kbps               * (((x) >=  14) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_client_version                           * (((x) >=  15) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_create_lease_set                         * (((x) >=  16) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_create_lease_set2                        * (((x) >=  17) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_create_session                           * (((x) >=  18) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_created                                  * (((x) >=  19) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_creation_date                            * (((x) >=  20) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_date                                     * (((x) >=  21) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_dest_lookup                              * (((x) >=  22) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_dest_reply                               * (((x) >=  23) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_destination                              * (((x) >=  24) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_destroy_session                          * (((x) >=  25) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_destroyed                                * (((x) >=  26) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_disconnect                               * (((x) >=  27) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_end_date                                 * (((x) >=  28) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_expired_leaseset                         * (((x) >=  29) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_failure                                  * (((x) >=  30) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_future_use_1                             * (((x) >=  31) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_future_use_2                             * (((x) >=  32) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_future_use_3                             * (((x) >=  33) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_future_use_4                             * (((x) >=  34) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_future_use_5                             * (((x) >=  35) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_future_use_6                             * (((x) >=  36) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_future_use_7                             * (((x) >=  37) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_future_use_8                             * (((x) >=  38) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_future_use_9                             * (((x) >=  39) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_get_bandwidth_limits                     * (((x) >=  40) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_get_date                                 * (((x) >=  41) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_guaranteed_failure                       * (((x) >=  42) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_guaranteed_success                       * (((x) >=  43) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_hash                                     * (((x) >=  44) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_header                                   * (((x) >=  45) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_host_lookup                              * (((x) >=  46) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_host_reply                               * (((x) >=  47) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_hostname                                 * (((x) >=  48) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_invalid                                  * (((x) >=  49) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_key_enc_pri                              * (((x) >=  50) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_key_enc_pub                              * (((x) >=  51) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_key_sgn_pri                              * (((x) >=  52) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_key_sgn_pub                              * (((x) >=  53) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_leases                                   * (((x) >=  54) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_leaseset                                 * (((x) >=  55) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_leaseset_decryption_failure              * (((x) >=  56) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_len                                      * (((x) >=  57) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_local_failure                            * (((x) >=  58) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_local_success                            * (((x) >=  59) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_lookup_password_and_private_key_required * (((x) >=  60) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_lookup_password_required                 * (((x) >=  61) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_loopback_denied                          * (((x) >=  62) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_message                                  * (((x) >=  63) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_message_expired                          * (((x) >=  64) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_message_id                               * (((x) >=  65) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_message_payload                          * (((x) >=  66) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_message_status                           * (((x) >=  67) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_meta_leaseset                            * (((x) >=  68) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_mix                                      * (((x) >=  69) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_body                                     * (((x) >=  13) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_client_inbound_limit_kbps                * (((x) >=  14) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_client_outbound_limit_kbps               * (((x) >=  15) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_client_version                           * (((x) >=  16) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_create_lease_set                         * (((x) >=  17) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_create_lease_set2                        * (((x) >=  18) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_create_session                           * (((x) >=  19) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_created                                  * (((x) >=  20) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_creation_date                            * (((x) >=  21) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_date                                     * (((x) >=  22) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_dest_lookup                              * (((x) >=  23) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_dest_reply                               * (((x) >=  24) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_destination                              * (((x) >=  25) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_destroy_session                          * (((x) >=  26) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_destroyed                                * (((x) >=  27) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_disconnect                               * (((x) >=  28) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_end_date                                 * (((x) >=  29) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_expired_leaseset                         * (((x) >=  30) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_failure                                  * (((x) >=  31) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_future_use_1                             * (((x) >=  32) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_future_use_2                             * (((x) >=  33) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_future_use_3                             * (((x) >=  34) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_future_use_4                             * (((x) >=  35) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_future_use_5                             * (((x) >=  36) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_future_use_6                             * (((x) >=  37) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_future_use_7                             * (((x) >=  38) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_future_use_8                             * (((x) >=  39) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_future_use_9                             * (((x) >=  40) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_get_bandwidth_limits                     * (((x) >=  41) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_get_date                                 * (((x) >=  42) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_guaranteed_failure                       * (((x) >=  43) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_guaranteed_success                       * (((x) >=  44) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_hash                                     * (((x) >=  45) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_header                                   * (((x) >=  46) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_host_lookup                              * (((x) >=  47) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_host_reply                               * (((x) >=  48) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_hostname                                 * (((x) >=  49) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_invalid                                  * (((x) >=  50) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_key_enc_pri                              * (((x) >=  51) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_key_enc_pub                              * (((x) >=  52) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_key_sgn_pri                              * (((x) >=  53) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_key_sgn_pub                              * (((x) >=  54) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_leases                                   * (((x) >=  55) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_leaseset                                 * (((x) >=  56) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_leaseset_decryption_failure              * (((x) >=  57) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_len                                      * (((x) >=  58) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_local_failure                            * (((x) >=  59) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_local_success                            * (((x) >=  60) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_lookup_password_and_private_key_required * (((x) >=  61) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_lookup_password_required                 * (((x) >=  62) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_loopback_denied                          * (((x) >=  63) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_message                                  * (((x) >=  64) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_message_expired                          * (((x) >=  65) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_message_id                               * (((x) >=  66) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_message_payload                          * (((x) >=  67) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_message_status                           * (((x) >=  68) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_meta_leaseset                            * (((x) >=  69) ? (1) : (0))) + \
 	(mk_lib_iip_cp_message_str_strs_len_name                                     * (((x) >=  70) ? (1) : (0))) + \
 	(mk_lib_iip_cp_message_str_strs_len_network_failure                          * (((x) >=  71) ? (1) : (0))) + \
 	(mk_lib_iip_cp_message_str_strs_len_no_leaseset                              * (((x) >=  72) ? (1) : (0))) + \
