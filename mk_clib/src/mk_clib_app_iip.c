@@ -35,6 +35,7 @@
 #include "mk_sl_io_reader_file.h"
 #include "mk_sl_io_writer_file.h"
 #include "mk_sl_random.h"
+#include "mk_sl_time.h"
 #include "mk_sl_uint_more.h"
 
 
@@ -456,13 +457,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_tas
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_task_connection_iip_cp_prrw_debug_print_time_now(mk_lang_types_void_t) mk_lang_noexcept
 {
-	mk_sl_cui_uint64_t time_val;
-	mk_lang_types_pchar_t time_str[24];
+	mk_sl_time_timestamp_t time_val;
 	mk_lang_types_sint_t time_len;
+	mk_lang_types_pchar_t time_str[mk_sl_time_k_str_len];
 	mk_lang_types_sint_t err;
 
-	mk_lib_iip_time_get_now(&time_val);
-	mk_lib_iip_time_to_text(&time_val, &time_str[0], mk_lang_countof(time_str), &time_len); mk_lang_assert(time_len == mk_lang_countof(time_str));
+	mk_sl_time_timestamp_get_now(&time_val);
+	time_len = mk_sl_time_timestamp_to_text(&time_val, &time_str[0], mk_lang_countof(time_str)); mk_lang_assert(time_len == mk_lang_countof(time_str));
 	err = mk_lang_stdout_print_color_n(mk_lang_stdout_color_text_e_dark_magenta, &time_str[0], time_len); mk_lang_check_rereturn(err);
 	err = mk_lang_stdout_print_lit_n(" "); mk_lang_check_rereturn(err);
 	return 0;
