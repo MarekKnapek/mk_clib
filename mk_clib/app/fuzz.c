@@ -31,7 +31,7 @@ mk_lang_extern_force_c mk_lang_nodiscard mk_lang_types_sint_t LLVMFuzzerInitiali
 
 	((mk_lang_types_void_t)(argc));
 	((mk_lang_types_void_t)(argv));
-	err = mk_clib_fuzz_init_mallocator(); mk_lang_test(err == 0);
+	err = mk_clib_fuzz_init_global(); mk_lang_test(err == 0);
  return 0;
 }
 
