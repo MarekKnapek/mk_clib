@@ -16,6 +16,7 @@
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_runtime_bool.h"
+#include "mk_lang_stdout.h"
 #include "mk_lang_str_len.h"
 #include "mk_lang_str_match.h"
 #include "mk_lang_types.h"
@@ -355,12 +356,13 @@ mk_lang_extern_force_c mk_lang_nodiscard mk_lang_inline mk_lang_types_sint_t mk_
 	return 0;
 }
 
-mk_lang_extern_force_c mk_lang_nodiscard mk_lang_inline mk_lang_types_sint_t mk_clib_fuzz_init_mallocator(mk_lang_types_void_t) mk_lang_noexcept
+mk_lang_extern_force_c mk_lang_nodiscard mk_lang_inline mk_lang_types_sint_t mk_clib_fuzz_init_global(mk_lang_types_void_t) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 
+	err = mk_lang_stdout_init(); mk_lang_check_rereturn(err);
 	err = mk_sl_mallocator_init(); mk_lang_check_rereturn(err);
- return 0;
+	return 0;
 }
 
 mk_lang_extern_force_c mk_lang_nodiscard mk_lang_inline mk_lang_types_sint_t mk_clib_fuzz(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size, mk_lang_types_bool_t const allow_all, mk_clib_fuzz_ctx_pt const ctx) mk_lang_noexcept
