@@ -11,6 +11,7 @@
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_null.h"
 #include "mk_lang_runtime_bool.h"
 #include "mk_lang_string.h"
 #include "mk_lang_types.h"
@@ -41,14 +42,23 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_sessio
 	mk_lang_assert(x);
 
 	((mk_lang_types_void_t)(x));
+	mk_lang_check_todo();
 	return 0;
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_ptr_rw_destroy(mk_lib_iip_cp_client_session_task_ppt const x) mk_lang_noexcept
 {
+	mk_lib_iip_cp_client_session_task_pt obj;
+	mk_lang_types_sint_t err;
+
 	mk_lang_assert(x);
 
-	((mk_lang_types_void_t)(x));
+	obj = *x;
+	if(obj)
+	{
+		err = mk_lib_iip_cp_client_session_task_rw_destroy(obj); mk_lang_check_rereturn(err);
+		err = mk_lib_iip_cp_mallocator_global_deallocate(obj, sizeof(*obj)); mk_lang_check_rereturn(err);
+	}
 	return 0;
 }
 
@@ -57,6 +67,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_sessio
 	mk_lang_assert(dst);
 	mk_lang_assert(src);
 
+	mk_lang_check_todo();
 	*dst = *src;
 	return 0;
 }
@@ -67,6 +78,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_sessio
 	mk_lang_assert(src);
 
 	*dst = *src;
+	*src = mk_lang_null;
 	return 0;
 }
 
@@ -75,6 +87,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_sessio
 	mk_lang_assert(dst);
 	mk_lang_assert(src);
 
+	mk_lang_check_todo();
 	*dst = *src;
 	return 0;
 }
@@ -85,6 +98,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_sessio
 	mk_lang_assert(src);
 
 	*dst = *src;
+	*src = mk_lang_null;
 	return 0;
 }
 
