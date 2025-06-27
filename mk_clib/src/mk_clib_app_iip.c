@@ -2,7 +2,6 @@
 #define mk_include_guard_mk_clib_app_iip_c
 #include "mk_clib_app_iip.h"
 
-#include "mk_lib_iip_cp_client_session.h"
 #include "mk_lang_alignas.h"
 #include "mk_lang_assert.h"
 #include "mk_lang_check.h"
@@ -25,6 +24,7 @@
 #include "mk_lang_types.h"
 #include "mk_lang_version.h"
 #include "mk_lib_fmt.h"
+#include "mk_lib_iip_cp_client_session.h"
 #include "mk_lib_iip_cp_mallocator_global.h"
 #include "mk_lib_iip_cp_message.h"
 #include "mk_lib_iip_cp_message_parse.h"
