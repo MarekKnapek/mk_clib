@@ -305,8 +305,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	{
 		err = mk_lib_net_async_connect_wait_infinite(&task->m_connection.m_state.m_async_connect); mk_lang_check_rereturn(err);
 		err = mk_lib_net_async_connect_get_result(&task->m_connection.m_state.m_async_connect, &st); mk_lang_check_rereturn(err); mk_lang_check_return(st == 0);
-		err = mk_lib_net_async_connect_destroy(&task->m_connection.m_state.m_async_connect); mk_lang_check_rereturn(err);
-		err = mk_lib_net_async_connect_construct_void(&task->m_connection.m_state.m_async_connect); mk_lang_check_rereturn(err);
+		err = mk_lib_net_async_connect_reset(&task->m_connection.m_state.m_async_connect); mk_lang_check_rereturn(err);
 		task->m_step = mk_lib_iip_cp_client_connection_task_step_e_send_get_date_request;
 		*step_result = mk_lib_iip_cp_client_connection_task_result_e_did_something;
 	}
