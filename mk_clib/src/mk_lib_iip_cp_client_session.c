@@ -37,85 +37,6 @@
 #include "mk_sl_list_dbl_inl_fileu.h"
 
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_ptr_rw_construct_void(mk_lib_iip_cp_client_session_task_ppt const x) mk_lang_noexcept
-{
-	mk_lang_assert(x);
-
-	((mk_lang_types_void_t)(x));
-	mk_lang_check_todo();
-	return 0;
-}
-
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_ptr_rw_destroy(mk_lib_iip_cp_client_session_task_ppt const x) mk_lang_noexcept
-{
-	mk_lib_iip_cp_client_session_task_pt obj;
-	mk_lang_types_sint_t err;
-
-	mk_lang_assert(x);
-
-	obj = *x;
-	if(obj)
-	{
-		err = mk_lib_iip_cp_client_session_task_rw_destroy(obj); mk_lang_check_rereturn(err);
-		err = mk_lib_iip_cp_mallocator_global_deallocate(obj, sizeof(*obj)); mk_lang_check_rereturn(err);
-	}
-	return 0;
-}
-
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_ptr_rw_construct_copy(mk_lib_iip_cp_client_session_task_ppt const dst, mk_lib_iip_cp_client_session_task_pcpt const src) mk_lang_noexcept
-{
-	mk_lang_assert(dst);
-	mk_lang_assert(src);
-
-	mk_lang_check_todo();
-	*dst = *src;
-	return 0;
-}
-
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_ptr_rw_construct_move(mk_lib_iip_cp_client_session_task_ppt const dst, mk_lib_iip_cp_client_session_task_ppt const src) mk_lang_noexcept
-{
-	mk_lang_assert(dst);
-	mk_lang_assert(src);
-
-	*dst = *src;
-	*src = mk_lang_null;
-	return 0;
-}
-
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_ptr_rw_assign_copy(mk_lib_iip_cp_client_session_task_ppt const dst, mk_lib_iip_cp_client_session_task_pcpt const src) mk_lang_noexcept
-{
-	mk_lang_assert(dst);
-	mk_lang_assert(src);
-
-	mk_lang_check_todo();
-	*dst = *src;
-	return 0;
-}
-
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_ptr_rw_assign_move(mk_lib_iip_cp_client_session_task_ppt const dst, mk_lib_iip_cp_client_session_task_ppt const src) mk_lang_noexcept
-{
-	mk_lang_assert(dst);
-	mk_lang_assert(src);
-
-	*dst = *src;
-	*src = mk_lang_null;
-	return 0;
-}
-
-
-#define mk_sl_vector_t_name mk_lib_iip_cp_client_session_tasks
-#define mk_sl_vector_t_element_type mk_lib_iip_cp_client_session_task_pt
-#define mk_sl_vector_t_mallocatorg mk_lib_iip_cp_mallocator_global
-#define mk_sl_vector_t_element_construct_void mk_lib_iip_cp_client_session_task_ptr_rw_construct_void
-#define mk_sl_vector_t_element_destruct mk_lib_iip_cp_client_session_task_ptr_rw_destroy
-#define mk_sl_vector_t_element_copy_construct mk_lib_iip_cp_client_session_task_ptr_rw_construct_copy
-#define mk_sl_vector_t_element_move_construct mk_lib_iip_cp_client_session_task_ptr_rw_construct_move
-#define mk_sl_vector_t_element_copy_assign mk_lib_iip_cp_client_session_task_ptr_rw_assign_copy
-#define mk_sl_vector_t_element_move_assign mk_lib_iip_cp_client_session_task_ptr_rw_assign_move
-#include "mk_sl_vector_inl_filec.h"
-#include "mk_sl_vector_inl_fileu.h"
-
-
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_prrw_construct(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_pct const destination) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
@@ -412,6 +333,85 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_sessio
 	err = mk_lib_iip_cp_client_session_task_prrw_step(task, step_result); mk_lang_check_rereturn(err);
 	return 0;
 }
+
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_ptr_rw_construct_void(mk_lib_iip_cp_client_session_task_ppt const x) mk_lang_noexcept
+{
+	mk_lang_assert(x);
+
+	((mk_lang_types_void_t)(x));
+	mk_lang_check_todo();
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_ptr_rw_destroy(mk_lib_iip_cp_client_session_task_ppt const x) mk_lang_noexcept
+{
+	mk_lib_iip_cp_client_session_task_pt obj;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(x);
+
+	obj = *x;
+	if(obj)
+	{
+		err = mk_lib_iip_cp_client_session_task_rw_destroy(obj); mk_lang_check_rereturn(err);
+		err = mk_lib_iip_cp_mallocator_global_deallocate(obj, sizeof(*obj)); mk_lang_check_rereturn(err);
+	}
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_ptr_rw_construct_copy(mk_lib_iip_cp_client_session_task_ppt const dst, mk_lib_iip_cp_client_session_task_pcpt const src) mk_lang_noexcept
+{
+	mk_lang_assert(dst);
+	mk_lang_assert(src);
+
+	mk_lang_check_todo();
+	*dst = *src;
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_ptr_rw_construct_move(mk_lib_iip_cp_client_session_task_ppt const dst, mk_lib_iip_cp_client_session_task_ppt const src) mk_lang_noexcept
+{
+	mk_lang_assert(dst);
+	mk_lang_assert(src);
+
+	*dst = *src;
+	*src = mk_lang_null;
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_ptr_rw_assign_copy(mk_lib_iip_cp_client_session_task_ppt const dst, mk_lib_iip_cp_client_session_task_pcpt const src) mk_lang_noexcept
+{
+	mk_lang_assert(dst);
+	mk_lang_assert(src);
+
+	mk_lang_check_todo();
+	*dst = *src;
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_ptr_rw_assign_move(mk_lib_iip_cp_client_session_task_ppt const dst, mk_lib_iip_cp_client_session_task_ppt const src) mk_lang_noexcept
+{
+	mk_lang_assert(dst);
+	mk_lang_assert(src);
+
+	*dst = *src;
+	*src = mk_lang_null;
+	return 0;
+}
+
+
+#define mk_sl_vector_t_name mk_lib_iip_cp_client_session_tasks
+#define mk_sl_vector_t_element_type mk_lib_iip_cp_client_session_task_pt
+#define mk_sl_vector_t_mallocatorg mk_lib_iip_cp_mallocator_global
+#define mk_sl_vector_t_element_construct_void mk_lib_iip_cp_client_session_task_ptr_rw_construct_void
+#define mk_sl_vector_t_element_destruct mk_lib_iip_cp_client_session_task_ptr_rw_destroy
+#define mk_sl_vector_t_element_copy_construct mk_lib_iip_cp_client_session_task_ptr_rw_construct_copy
+#define mk_sl_vector_t_element_move_construct mk_lib_iip_cp_client_session_task_ptr_rw_construct_move
+#define mk_sl_vector_t_element_copy_assign mk_lib_iip_cp_client_session_task_ptr_rw_assign_copy
+#define mk_sl_vector_t_element_move_assign mk_lib_iip_cp_client_session_task_ptr_rw_assign_move
+#include "mk_sl_vector_inl_filec.h"
+#include "mk_sl_vector_inl_fileu.h"
 
 
 #endif
