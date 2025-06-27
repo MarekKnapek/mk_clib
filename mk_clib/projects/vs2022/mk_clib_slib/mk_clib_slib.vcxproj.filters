@@ -1149,6 +1149,13 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_dll_ws2.h"><Filter>src</Filter></ClInclude>
 	</ItemGroup>
 	<ItemGroup>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_list_dbl_inl_defd.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_list_dbl_inl_defu.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_list_dbl_inl_filec.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_list_dbl_inl_fileh.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_list_dbl_inl_fileu.h"><Filter>src</Filter></ClInclude>
+	</ItemGroup>
+	<ItemGroup>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_iip.c"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_iip_cp_base.c"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_base32_decoder.c"><Filter>src</Filter></ClCompile>

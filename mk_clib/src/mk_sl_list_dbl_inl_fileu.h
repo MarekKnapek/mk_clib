@@ -1,0 +1,6 @@
+#undef mk_sl_list_dbl_t_name
+#undef mk_sl_list_dbl_t_element_type
+#undef mk_sl_list_dbl_t_mallocator_global
+#undef mk_sl_list_dbl_t_element_construct_copy
+#undef mk_sl_list_dbl_t_element_construct_move
+#undef mk_sl_list_dbl_t_element_destroy
