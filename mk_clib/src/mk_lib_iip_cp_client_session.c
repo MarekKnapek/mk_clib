@@ -85,6 +85,55 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_prrw_on_msg_request_lease_set(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_message_pt const msg) mk_lang_noexcept
+{
+	mk_lib_iip_cp_message_request_lease_set_pt msg_request_lease_set;
+	mk_lib_iip_cp_types_hash_and_tunnelid_pt data;
+	mk_lang_types_usize_t size;
+	mk_lang_types_sint_t err;
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
+	mk_lib_iip_cp_types_lease_t lease;
+	mk_lib_iip_cp_types_lease_pt leases;
+	mk_lib_iip_cp_message_create_lease_set_pt msg_create_lease_set;
+
+	mk_lang_assert(task);
+	mk_lang_assert(msg);
+	mk_lang_assert(task->m_session.m_state.m_has_id);
+	mk_lang_assert(!task->m_session.m_state.m_has_msg_pending);
+
+	mk_lang_check_return(task->m_step == mk_lib_iip_cp_client_session_task_step_e_wait_msg_request_leaseset);
+	msg_request_lease_set = &msg->m_mix.m_data.m_request_lease_set;
+	mk_lang_assert(mk_lib_iip_cp_types_sessionid_eq(&msg_request_lease_set->m_session_id, &task->m_session.m_state.m_id));
+
+	data = mk_lib_iip_cp_types_hash_and_tunnelids_rw_data(&msg_request_lease_set->m_tunnels);
+	size = mk_lib_iip_cp_types_hash_and_tunnelids_rw_size(&msg_request_lease_set->m_tunnels);
+	mk_lang_check_return(size != 0);
+	err = mk_lib_iip_cp_types_leasez_rw_reserve_additional(&task->m_session.m_state.m_leases, size); mk_lang_check_rereturn(err);
+	n = size;
+	for(i = 0; i != n; ++i)
+	{
+		lease.m_router_hash = data[i].m_router_hash;
+		lease.m_tunnel_id = data[i].m_tunnel_id;
+		lease.m_end_date = msg_request_lease_set->m_end_date;
+		err = mk_lib_iip_cp_types_leasez_rw_push_back_move_single(&task->m_session.m_state.m_leases, &lease); mk_lang_check_rereturn(err);
+	}
+	leases = mk_lib_iip_cp_types_leasez_rw_back(&task->m_session.m_state.m_leases); mk_lang_assert(leases);
+	leases -= (size - 1);
+
+	err = mk_lib_iip_cp_message_reconstruct(&task->m_session.m_state.m_msg, mk_lib_iip_cp_message_message_type_id_e_create_lease_set); mk_lang_check_rereturn(err);
+	msg_create_lease_set = &task->m_session.m_state.m_msg.m_mix.m_data.m_create_lease_set;
+	msg_create_lease_set->m_session_id = task->m_session.m_state.m_id;
+	msg_create_lease_set->m_key_sgn_pri = task->m_session.m_settings.m_destination.m_key_dsa_sha1_pri;
+	msg_create_lease_set->m_key_enc_pri = task->m_session.m_settings.m_destination.m_key_elgamal_pri;
+	msg_create_lease_set->m_leaseset.m_destination = task->m_session.m_settings.m_destination;
+	err = mk_lib_iip_cp_types_leases_rw_push_back_copy_many(&msg_create_lease_set->m_leaseset.m_leases, leases, size); mk_lang_check_rereturn(err);
+	task->m_session.m_state.m_has_msg_pending = mk_lang_true;
+
+	task->m_step = mk_lib_iip_cp_client_session_task_step_e_pickup_msg_create_lease_set;
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_prrw_on_msg_request_variable_lease_set(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_message_pt const msg) mk_lang_noexcept
 {
 	mk_lib_iip_cp_message_request_variable_lease_set_pt msg_request_variable_lease_set;
@@ -104,6 +153,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 	data = mk_lib_iip_cp_types_leases_rw_data(&msg_request_variable_lease_set->m_leases);
 	size = mk_lib_iip_cp_types_leases_rw_size(&msg_request_variable_lease_set->m_leases);
+	mk_lang_check_return(size != 0);
 	err = mk_lib_iip_cp_types_leasez_rw_push_back_move_many(&task->m_session.m_state.m_leases, data, size); mk_lang_check_rereturn(err);
 
 	err = mk_lib_iip_cp_message_reconstruct(&task->m_session.m_state.m_msg, mk_lib_iip_cp_message_message_type_id_e_create_lease_set); mk_lang_check_rereturn(err);
@@ -137,7 +187,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 		case mk_lib_iip_cp_message_message_type_id_e_receive_message_end       : mk_lang_check_todo(); break;
 		case mk_lib_iip_cp_message_message_type_id_e_get_bandwidth_limits      : mk_lang_check_todo(); break;
 		case mk_lib_iip_cp_message_message_type_id_e_session_status            : mk_lang_check_todo(); break;
-		case mk_lib_iip_cp_message_message_type_id_e_request_lease_set         : mk_lang_check_todo(); break;
+		case mk_lib_iip_cp_message_message_type_id_e_request_lease_set         : err = mk_lib_iip_cp_client_session_task_prrw_on_msg_request_lease_set(task, msg); mk_lang_check_rereturn(err); break;
 		case mk_lib_iip_cp_message_message_type_id_e_message_status            : mk_lang_check_todo(); break;
 		case mk_lib_iip_cp_message_message_type_id_e_bandwidth_limits          : mk_lang_check_todo(); break;
 		case mk_lib_iip_cp_message_message_type_id_e_report_abuse              : mk_lang_check_todo(); break;
@@ -161,7 +211,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_prrw_step_make_msg_create_session(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_client_session_task_result_pt const step_result) mk_lang_noexcept
 {
-	#define mk_lib_iip_cp_client_session_task_prrw_step_make_msg_create_session_my_name "mk_clib_app_iip"
+	#define mk_lib_iip_cp_client_session_task_prrw_step_make_msg_create_session_my_name "iip"
 
 	mk_lib_iip_cp_message_pt msg;
 	mk_lang_types_sint_t err;
