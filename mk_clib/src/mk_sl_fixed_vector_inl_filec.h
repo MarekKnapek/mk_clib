@@ -1111,7 +1111,8 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
-	mk_lang_assert(count == mk_sl_fixed_vector_inl_defd_capacity_d);
+	mk_lang_assert(count >= 0);
+	mk_lang_assert(count <= mk_sl_fixed_vector_inl_defd_capacity_d);
 	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
@@ -1217,17 +1218,25 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_prrw_push_back_copy_many(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_sl_fixed_vector_inl_defd_element_pct const elements, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
+	mk_sl_fixed_vector_inl_defd_element_pt d mk_lang_constexpr_init;
+	mk_sl_fixed_vector_inl_defd_element_pct s mk_lang_constexpr_init;
+	mk_lang_types_usize_t c mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
 	mk_lang_assert(elements || count == 0);
-	mk_lang_assert(count == 0);
+	mk_lang_assert(count <= mk_sl_fixed_vector_inl_defd_prrw_free(fixed_vector));
 	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
-	((mk_lang_types_void_t)(fixed_vector));
-	mk_lang_assert_false();
+	d = &fixed_vector->m_arr[fixed_vector->m_size]; mk_lang_assert(d);
+	s = elements;
+	c = count;
+	err = mk_sl_fixed_vector_inl_defd_prrw_elements_construct_copy_many(d, s, c); mk_lang_check_rereturn(err);
+	fixed_vector->m_size += c;
 
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
 	return 0;

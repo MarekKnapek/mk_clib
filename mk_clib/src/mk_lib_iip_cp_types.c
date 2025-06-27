@@ -107,7 +107,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 #include "mk_sl_fixed_vector_inl_filec.h"
 #include "mk_sl_fixed_vector_inl_fileu.h"
 
-#define mk_sl_vector_t_name mk_lib_iip_cp_types_leasess
+#define mk_sl_vector_t_name mk_lib_iip_cp_types_leasez
 #define mk_sl_vector_t_element_type mk_lib_iip_cp_types_lease_t
 #define mk_sl_vector_t_mallocatorg mk_lib_iip_cp_mallocator_global
 #include "mk_sl_vector_inl_filec.h"
