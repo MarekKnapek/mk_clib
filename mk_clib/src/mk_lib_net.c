@@ -261,6 +261,17 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_async_connect_de
 	return 0;
 }
 
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_async_connect_reset(mk_lib_net_async_connect_pt const async_connect) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(async_connect);
+
+	err = mk_lib_net_async_connect_destroy(async_connect); mk_lang_check_rereturn(err);
+	err = mk_lib_net_async_connect_construct_void(async_connect); mk_lang_check_rereturn(err);
+	return 0;
+}
+
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_async_connect_is_ready(mk_lib_net_async_connect_pt const async_connect, mk_lang_types_bool_pt const is_ready) mk_lang_noexcept
 {
 	mk_win_base_dword_t waited;
