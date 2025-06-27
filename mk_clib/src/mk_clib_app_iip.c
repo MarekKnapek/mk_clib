@@ -983,12 +983,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_tas
 	mk_lang_assert(task->m_step == mk_clib_app_iip_task_connection_iip_cp_step_e_dispatch_msg);
 	mk_lang_assert(task->m_connection.m_state.m_msg.m_header.m_type == mk_lib_iip_cp_message_message_type_id_e_session_status);
 	mk_lang_assert(task->m_connection.m_state.m_msg.m_mix.m_data.m_session_status.m_status == mk_lib_iip_cp_message_session_status_status_id_e_created);
-	mk_lang_assert(session->m_step == mk_lib_iip_cp_client_session_task_step_e_waiting_for_session_status);
+	mk_lang_assert(session->m_step == mk_lib_iip_cp_client_session_task_step_e_wait_msg_session_status);
 
 	msg_session_status = &task->m_connection.m_state.m_msg.m_mix.m_data.m_session_status;
 	session->m_session.m_state.m_id = msg_session_status->m_session_id;
 	session->m_session.m_state.m_has_id = mk_lang_true;
-	session->m_step = mk_lib_iip_cp_client_session_task_step_e_waiting_for_request_leaseset;
+	session->m_step = mk_lib_iip_cp_client_session_task_step_e_wait_msg_request_leaseset;
 	task->m_step = mk_clib_app_iip_task_connection_iip_cp_step_e_ready;
 	*step_result = mk_clib_app_iip_step_result_e_did_something;
 	return 0;
