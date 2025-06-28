@@ -144,9 +144,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_list_dbl_inl_
 
 	err = mk_sl_list_dbl_inl_defd_mallocator_allocate(sizeof(*node), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem); node = ((mk_sl_list_dbl_inl_defd_node_pt)(mem)); mk_lang_assert(node);
 	err = mk_sl_list_dbl_inl_defd_prrw_element_construct_copy(&node->m_element, element); mk_lang_check_rereturn(err);
-	node->m_prev = list->m_back;
+	if(list->m_back){ mk_lang_assert(!list->m_back->m_next); list->m_back->m_next = node; } node->m_prev = list->m_back;
 	node->m_next = mk_lang_null;
-	if(list->m_back){ mk_lang_assert(!list->m_back->m_next); list->m_back->m_next = node; }
 	if(!list->m_front){ list->m_front = node; }
 	list->m_back = node;
 
@@ -165,9 +164,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_list_dbl_inl_
 
 	err = mk_sl_list_dbl_inl_defd_mallocator_allocate(sizeof(*node), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem); node = ((mk_sl_list_dbl_inl_defd_node_pt)(mem)); mk_lang_assert(node);
 	err = mk_sl_list_dbl_inl_defd_prrw_element_construct_move(&node->m_element, element); mk_lang_check_rereturn(err);
-	node->m_prev = list->m_back;
+	if(list->m_back){ mk_lang_assert(!list->m_back->m_next); list->m_back->m_next = node; } node->m_prev = list->m_back;
 	node->m_next = mk_lang_null;
-	if(list->m_back){ mk_lang_assert(!list->m_back->m_next); list->m_back->m_next = node; }
 	if(!list->m_front){ list->m_front = node; }
 	list->m_back = node;
 
@@ -184,9 +182,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_list_dbl_inl_
 	mk_lang_assert(mk_sl_list_dbl_inl_defd_prrw_check_invariants(list));
 	mk_lang_assert(!mk_sl_list_dbl_inl_defd_prrw_is_empty(list));
 
-	node = list->m_front;
-	mk_lang_assert(list->m_front); list->m_front = list->m_front->m_next;
-	if(list->m_front){ mk_lang_assert(!list->m_front->m_prev); list->m_front->m_prev = mk_lang_null; }
+	node = list->m_front; mk_lang_assert(node);
+	if(node->m_next)
+	{
+		mk_lang_assert(node->m_next->m_prev == node);
+		node->m_next->m_prev = mk_lang_null;
+	}
+	list->m_front = node->m_next;
 	if(!list->m_front){ list->m_back = mk_lang_null; }
 
 	err = mk_sl_list_dbl_inl_defd_prrw_element_construct_copy(element, &node->m_element); mk_lang_check_rereturn(err);
@@ -206,9 +208,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_list_dbl_inl_
 	mk_lang_assert(mk_sl_list_dbl_inl_defd_prrw_check_invariants(list));
 	mk_lang_assert(!mk_sl_list_dbl_inl_defd_prrw_is_empty(list));
 
-	node = list->m_front;
-	mk_lang_assert(list->m_front); list->m_front = list->m_front->m_next;
-	if(list->m_front){ mk_lang_assert(!list->m_front->m_prev); list->m_front->m_prev = mk_lang_null; }
+	node = list->m_front; mk_lang_assert(node);
+	if(node->m_next)
+	{
+		mk_lang_assert(node->m_next->m_prev == node);
+		node->m_next->m_prev = mk_lang_null;
+	}
+	list->m_front = node->m_next;
 	if(!list->m_front){ list->m_back = mk_lang_null; }
 
 	err = mk_sl_list_dbl_inl_defd_prrw_element_construct_move(element, &node->m_element); mk_lang_check_rereturn(err);
