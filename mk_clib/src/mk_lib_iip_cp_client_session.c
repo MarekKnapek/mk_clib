@@ -85,12 +85,39 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_prrw_on_prune_old_leases(mk_lib_iip_cp_client_session_task_pt const task) mk_lang_noexcept
+{
+	mk_lib_iip_cp_types_date_t curr_time;
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
+	mk_lang_types_usize_t idx;
+	mk_lib_iip_cp_types_lease_pt lease;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(task);
+
+	mk_lib_iip_time_get_now(&curr_time.m_elements[0]);
+	n = mk_lib_iip_cp_types_leasez_rw_size(&task->m_session.m_state.m_leases);
+	for(i = 0; i != n; ++i)
+	{
+		idx = (n - 1) - i;
+		lease = mk_lib_iip_cp_types_leasez_rw_at(&task->m_session.m_state.m_leases, idx); mk_lang_assert(lease);
+		if(mk_lib_iip_cp_types_date_lt(&lease->m_end_date, &curr_time))
+		{
+			err = mk_lib_iip_cp_types_leasez_rw_erase_at(&task->m_session.m_state.m_leases, idx); mk_lang_check_rereturn(err);
+			--i;
+			--n;
+		}
+	}
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_prrw_on_msg_request_lease_set(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_message_pt const msg) mk_lang_noexcept
 {
 	mk_lib_iip_cp_message_request_lease_set_pt msg_request_lease_set;
+	mk_lang_types_sint_t err;
 	mk_lib_iip_cp_types_hash_and_tunnelid_pt data;
 	mk_lang_types_usize_t size;
-	mk_lang_types_sint_t err;
 	mk_lang_types_usize_t n;
 	mk_lang_types_usize_t i;
 	mk_lib_iip_cp_types_lease_t lease;
@@ -111,6 +138,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	msg_request_lease_set = &msg->m_mix.m_data.m_request_lease_set;
 	mk_lang_assert(mk_lib_iip_cp_types_sessionid_eq(&msg_request_lease_set->m_session_id, &task->m_session.m_state.m_id));
 
+	err = mk_lib_iip_cp_client_session_task_prrw_on_prune_old_leases(task); mk_lang_check_rereturn(err);
 	data = mk_lib_iip_cp_types_hash_and_tunnelids_rw_data(&msg_request_lease_set->m_tunnels);
 	size = mk_lib_iip_cp_types_hash_and_tunnelids_rw_size(&msg_request_lease_set->m_tunnels);
 	mk_lang_check_return(size != 0);
