@@ -1106,11 +1106,8 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	mk_lang_assert(message);
 	mk_lang_assert(message_type >= 0 && message_type < mk_lib_iip_cp_message_message_type_id_e_dummy_end);
 
-	if(message->m_header.m_type != message_type)
-	{
-		err = mk_lib_iip_cp_message_destroy(message); mk_lang_check_rereturn(err);
-		err = mk_lib_iip_cp_message_construct(message, message_type); mk_lang_check_rereturn(err);
-	}
+	err = mk_lib_iip_cp_message_destroy(message); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_message_construct(message, message_type); mk_lang_check_rereturn(err);
 	return 0;
 }
 
