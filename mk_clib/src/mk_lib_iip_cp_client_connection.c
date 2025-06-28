@@ -906,6 +906,24 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_connection_task_prrw_step_dispatch_msg_set_date(mk_lib_iip_cp_client_connection_task_pt const task, mk_lang_types_bool_t const allow_to_block, mk_lib_iip_cp_client_connection_task_result_pt const step_result) mk_lang_noexcept
+{
+	mk_lib_iip_cp_message_set_date_pt msg_set_date;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(task);
+	mk_lang_assert(allow_to_block == mk_lang_true || allow_to_block == mk_lang_false);
+	mk_lang_assert(step_result);
+	mk_lang_assert(*step_result == mk_lib_iip_cp_client_connection_task_result_e_dummy_end);
+	mk_lang_assert(task->m_step == mk_lib_iip_cp_client_connection_task_step_e_dispatch_msg); /* todo */
+	mk_lang_assert(task->m_connection.m_state.m_msg.m_header.m_type == mk_lib_iip_cp_message_message_type_id_e_set_date);
+
+	msg_set_date = &task->m_connection.m_state.m_msg.m_mix.m_data.m_set_date;
+	err = mk_lib_iip_cp_client_connection_debug_print_compute_and_print_time_offset(&msg_set_date->m_server_date); mk_lang_check_rereturn(err);
+	*step_result = mk_lib_iip_cp_client_connection_task_result_e_did_something;
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_connection_task_prrw_step_dispatch_msg_request_variable_lease_set(mk_lib_iip_cp_client_connection_task_pt const task, mk_lang_types_bool_t const allow_to_block, mk_lib_iip_cp_client_connection_task_result_pt const step_result) mk_lang_noexcept
 {
 	mk_lib_iip_cp_message_request_variable_lease_set_pt msg_request_variable_lease_set;
@@ -955,7 +973,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 		case mk_lib_iip_cp_message_message_type_id_e_disconnect                : mk_lang_check_todo(); break;
 		case mk_lib_iip_cp_message_message_type_id_e_message_payload           : mk_lang_check_todo(); break;
 		case mk_lib_iip_cp_message_message_type_id_e_get_date                  : mk_lang_check_todo(); break;
-		case mk_lib_iip_cp_message_message_type_id_e_set_date                  : mk_lang_check_todo(); break;
+		case mk_lib_iip_cp_message_message_type_id_e_set_date                  : err = mk_lib_iip_cp_client_connection_task_prrw_step_dispatch_msg_set_date(task, allow_to_block, step_result); mk_lang_check_rereturn(err); mk_lang_assert(*step_result != mk_lib_iip_cp_client_connection_task_result_e_dummy_end); break;
 		case mk_lib_iip_cp_message_message_type_id_e_dest_lookup               : mk_lang_check_todo(); break;
 		case mk_lib_iip_cp_message_message_type_id_e_dest_reply                : mk_lang_check_todo(); break;
 		case mk_lib_iip_cp_message_message_type_id_e_send_message_expires      : mk_lang_check_todo(); break;
