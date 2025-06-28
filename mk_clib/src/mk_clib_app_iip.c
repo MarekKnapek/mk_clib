@@ -262,7 +262,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_des
 struct mk_clib_app_iip_s
 {
 	mk_lib_iip_cp_client_connection_tasks_t m_connections;
-	mk_lang_types_uint_t m_last_connection_idx;
+	mk_lang_types_usize_t m_last_connection_idx;
 	//mk_lib_net_waitables_vrt_t m_waitables;
 	//mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_t m_iip_destination;
 	//mk_lib_iip_cp_types_sessionid_t m_session_id;
@@ -297,12 +297,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_rw_
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_rw_step(mk_clib_app_iip_pt const app, mk_lang_types_bool_t const allow_to_block, mk_lib_iip_cp_client_connection_task_result_pt const step_result) mk_lang_noexcept
 {
-	mk_lang_types_sint_t count;
-	mk_lang_types_uint_t modulo;
+	mk_lang_types_usize_t count;
 	mk_lang_types_bool_t would_block;
-	mk_lang_types_sint_t n;
-	mk_lang_types_sint_t i;
-	mk_lang_types_uint_t idx;
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
+	mk_lang_types_usize_t idx;
 	mk_lib_iip_cp_client_connection_task_ppt connection_ptr;
 	mk_lib_iip_cp_client_connection_task_pt connection_obj;
 	mk_lib_iip_cp_client_connection_task_result_t stp_res;
@@ -313,16 +312,14 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_rw_
 	mk_lang_assert(step_result);
 	mk_lang_assert(*step_result == mk_lib_iip_cp_client_connection_task_result_e_dummy_end);
 
-	//err = mk_lib_net_waitables_vrt_rw_clear(&app->m_waitables); mk_lang_check_rereturn(err);
-	count = mk_lib_iip_cp_client_connection_tasks_rw_sise(&app->m_connections);
+	count = mk_lib_iip_cp_client_connection_tasks_rw_size(&app->m_connections);
 	if(count != 0)
 	{
-		modulo = ((mk_lang_types_uint_t)(count));
 		would_block = mk_lang_false;
 		n = count;
 		for(i = 0; i != n; ++i)
 		{
-			idx = app->m_last_connection_idx % modulo;
+			idx = app->m_last_connection_idx % count;
 			++app->m_last_connection_idx;
 			connection_ptr = mk_lib_iip_cp_client_connection_tasks_rw_at(&app->m_connections, idx); mk_lang_assert(connection_ptr); connection_obj = *connection_ptr; mk_lang_assert(connection_obj);
 			stp_res = mk_lib_iip_cp_client_connection_task_result_e_dummy_end;
