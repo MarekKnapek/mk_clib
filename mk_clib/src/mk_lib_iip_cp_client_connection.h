@@ -29,13 +29,16 @@ typedef struct mk_lib_iip_cp_client_connection_authentication_s mk_lib_iip_cp_cl
 mk_lang_typedef(mk_lib_iip_cp_client_connection_authentication);
 #include "mk_lang_warning_msvc_pop.h"
 
+#include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_lib_iip_cp_client_connection_buffer_s
 {
 	mk_sl_cui_uint8_pt m_data;
-	mk_lang_types_void_pt m_allocation;
+	mk_lang_types_void_pt m_mallocation;
+	mk_lang_types_sint_t m_used;
 };
 typedef struct mk_lib_iip_cp_client_connection_buffer_s mk_lib_iip_cp_client_connection_buffer_t;
 mk_lang_typedef(mk_lib_iip_cp_client_connection_buffer);
+#include "mk_lang_warning_msvc_pop.h"
 
 #include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_lib_iip_cp_client_connection_settings_s
