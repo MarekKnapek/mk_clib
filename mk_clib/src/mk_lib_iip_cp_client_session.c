@@ -147,7 +147,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_assert(task->m_session.m_state.m_has_id);
 	mk_lang_assert(!task->m_session.m_state.m_has_msg_pending);
 
-	mk_lang_check_return(task->m_step == mk_lib_iip_cp_client_session_task_step_e_wait_msg_request_leaseset);
+	mk_lang_check_return
+	(
+		(task->m_step == mk_lib_iip_cp_client_session_task_step_e_wait_msg_request_leaseset) ||
+		(task->m_step == mk_lib_iip_cp_client_session_task_step_e_idle) ||
+		mk_lang_false
+	);
 	msg_request_variable_lease_set = &msg->m_mix.m_data.m_request_variable_lease_set;
 	mk_lang_assert(mk_lib_iip_cp_types_sessionid_eq(&msg_request_variable_lease_set->m_session_id, &task->m_session.m_state.m_id));
 
