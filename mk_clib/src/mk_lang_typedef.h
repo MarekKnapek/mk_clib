@@ -73,7 +73,8 @@
 #define mk_lang_typedef_3(a, b) \
 	mk_lang_typedef_2(a, b); \
 	mk_lang_typedef_2(a, p##b); \
-	mk_lang_typedef_2(a, pc##b)
+	mk_lang_typedef_2(a, pc##b); \
+	mk_lang_typedef_2(a, lp##b)
 
 #define mk_lang_typedef(x) \
 	mk_lang_typedef_3(x, t); \
