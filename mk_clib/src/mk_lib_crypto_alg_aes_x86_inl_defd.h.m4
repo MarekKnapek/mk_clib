@@ -1,0 +1,78 @@
+include(`mk_lang_typedef.m')dnl
+#include "mk_lang_charbit.h"
+#include "mk_lang_concat.h"
+#include "mk_lib_crypto_alg_aes_x86_tech.h"
+
+
+#if(!( \
+	(defined mk_lib_crypto_alg_aes_x86_t_name) && \
+	(defined mk_lib_crypto_alg_aes_x86_t_bits && ((mk_lib_crypto_alg_aes_x86_t_bits) == 128 || (mk_lib_crypto_alg_aes_x86_t_bits) == 192 || (mk_lib_crypto_alg_aes_x86_t_bits) == 256)) && \
+	(defined mk_lib_crypto_alg_aes_x86_t_tech && ((mk_lib_crypto_alg_aes_x86_t_tech) == mk_lib_crypto_alg_aes_x86_t_tech || (mk_lib_crypto_alg_aes_x86_t_tech) == mk_lib_crypto_alg_aes_x86_t_tech || (mk_lib_crypto_alg_aes_x86_t_tech) == mk_lib_crypto_alg_aes_x86_t_tech)) && \
+1))
+#error xxxxxxxxxx
+#endif
+
+
+#define mk_lib_crypto_alg_aes_x86_inl_defd_name mk_lib_crypto_alg_aes_x86_t_name
+#define mk_lib_crypto_alg_aes_x86_inl_defd_bits (mk_lib_crypto_alg_aes_x86_t_bits)
+#define mk_lib_crypto_alg_aes_x86_inl_defd_tech (mk_lib_crypto_alg_aes_x86_t_tech)
+
+
+#if mk_lib_crypto_alg_aes_x86_inl_defd_bits == 128
+#define mk_lib_crypto_alg_aes_x86_inl_defd_nr 10
+#elif mk_lib_crypto_alg_aes_x86_inl_defd_bits == 192
+#define mk_lib_crypto_alg_aes_x86_inl_defd_nr 12
+#elif mk_lib_crypto_alg_aes_x86_inl_defd_bits == 256
+#define mk_lib_crypto_alg_aes_x86_inl_defd_nr 14
+#else
+#error xxxxxxxxxx
+#endif
+
+
+#define mk_lib_crypto_alg_aes_x86_inl_defd_key_bits_d mk_lib_crypto_alg_aes_x86_inl_defd_bits
+#define mk_lib_crypto_alg_aes_x86_inl_defd_msg_bits_d 128
+#define mk_lib_crypto_alg_aes_x86_inl_defd_schedule_bits_d ((mk_lib_crypto_alg_aes_x86_inl_defd_nr + 1) * mk_lib_crypto_alg_aes_x86_inl_defd_msg_bits_d)
+
+#define mk_lib_crypto_alg_aes_x86_inl_defd_key_len_d (mk_lib_crypto_alg_aes_x86_inl_defd_key_bits_d / mk_lang_charbit)
+#define mk_lib_crypto_alg_aes_x86_inl_defd_msg_len_d (mk_lib_crypto_alg_aes_x86_inl_defd_msg_bits_d / mk_lang_charbit)
+#define mk_lib_crypto_alg_aes_x86_inl_defd_schedule_len_d (mk_lib_crypto_alg_aes_x86_inl_defd_schedule_bits_d / mk_lang_charbit)
+
+#define mk_lib_crypto_alg_aes_x86_inl_defd_key_len_e mk_lang_concat(mk_lib_crypto_alg_aes_x86_inl_defd_name, _key_len_e)
+#define mk_lib_crypto_alg_aes_x86_inl_defd_key_len_v mk_lang_concat(mk_lib_crypto_alg_aes_x86_inl_defd_name, _key_len_v)
+#define mk_lib_crypto_alg_aes_x86_inl_defd_key_len_t mk_lang_concat(mk_lib_crypto_alg_aes_x86_inl_defd_name, _key_len_t)
+#define mk_lib_crypto_alg_aes_x86_inl_defd_msg_len_e mk_lang_concat(mk_lib_crypto_alg_aes_x86_inl_defd_name, _msg_len_e)
+#define mk_lib_crypto_alg_aes_x86_inl_defd_msg_len_v mk_lang_concat(mk_lib_crypto_alg_aes_x86_inl_defd_name, _msg_len_v)
+#define mk_lib_crypto_alg_aes_x86_inl_defd_msg_len_t mk_lang_concat(mk_lib_crypto_alg_aes_x86_inl_defd_name, _msg_len_t)
+#define mk_lib_crypto_alg_aes_x86_inl_defd_schedule_len_e mk_lang_concat(mk_lib_crypto_alg_aes_x86_inl_defd_name, _schedule_len_e)
+#define mk_lib_crypto_alg_aes_x86_inl_defd_schedule_len_v mk_lang_concat(mk_lib_crypto_alg_aes_x86_inl_defd_name, _schedule_len_v)
+#define mk_lib_crypto_alg_aes_x86_inl_defd_schedule_len_t mk_lang_concat(mk_lib_crypto_alg_aes_x86_inl_defd_name, _schedule_len_t)
+
+#define mk_lib_crypto_alg_aes_x86_inl_defd_key_data_u mk_lang_concat(mk_lib_crypto_alg_aes_x86_inl_defd_name, _key_data_u)
+#define mk_lib_crypto_alg_aes_x86_inl_defd_key_data_t mk_lang_concat(mk_lib_crypto_alg_aes_x86_inl_defd_name, _key_data_t)
+#define mk_lib_crypto_alg_aes_x86_inl_defd_key_s mk_lang_concat(mk_lib_crypto_alg_aes_x86_inl_defd_name, _key_s)
+#define mk_lib_crypto_alg_aes_x86_inl_defd_key_t mk_lang_concat(mk_lib_crypto_alg_aes_x86_inl_defd_name, _key_t)
+mm_per_typedef(`#define mk_lib_crypto_alg_aes_x86_inl_defd_key_$1 mk_lang_concat(mk_lib_crypto_alg_aes_x86_inl_defd_name, _key_$1)')
+
+#define mk_lib_crypto_alg_aes_x86_inl_defd_msg_data_u mk_lang_concat(mk_lib_crypto_alg_aes_x86_inl_defd_name, _msg_data_u)
+#define mk_lib_crypto_alg_aes_x86_inl_defd_msg_data_t mk_lang_concat(mk_lib_crypto_alg_aes_x86_inl_defd_name, _msg_data_t)
+#define mk_lib_crypto_alg_aes_x86_inl_defd_msg_s mk_lang_concat(mk_lib_crypto_alg_aes_x86_inl_defd_name, _msg_s)
+#define mk_lib_crypto_alg_aes_x86_inl_defd_msg_t mk_lang_concat(mk_lib_crypto_alg_aes_x86_inl_defd_name, _msg_t)
+mm_per_typedef(`#define mk_lib_crypto_alg_aes_x86_inl_defd_msg_$1 mk_lang_concat(mk_lib_crypto_alg_aes_x86_inl_defd_name, _msg_$1)')
+
+#define mk_lib_crypto_alg_aes_x86_inl_defd_schedule_data_u mk_lang_concat(mk_lib_crypto_alg_aes_x86_inl_defd_name, _schedule_data_u)
+#define mk_lib_crypto_alg_aes_x86_inl_defd_schedule_data_t mk_lang_concat(mk_lib_crypto_alg_aes_x86_inl_defd_name, _schedule_data_t)
+#define mk_lib_crypto_alg_aes_x86_inl_defd_schedule_s mk_lang_concat(mk_lib_crypto_alg_aes_x86_inl_defd_name, _schedule_s)
+#define mk_lib_crypto_alg_aes_x86_inl_defd_schedule_t mk_lang_concat(mk_lib_crypto_alg_aes_x86_inl_defd_name, _schedule_t)
+mm_per_typedef(`#define mk_lib_crypto_alg_aes_x86_inl_defd_schedule_$1 mk_lang_concat(mk_lib_crypto_alg_aes_x86_inl_defd_name, _schedule_$1)')
+
+#define mk_lib_crypto_alg_aes_x86_inl_defd_schedule_encrypt mk_lang_concat(mk_lib_crypto_alg_aes_x86_inl_defd_name, _schedule_encrypt)
+#define mk_lib_crypto_alg_aes_x86_inl_defd_schedule_decrypt mk_lang_concat(mk_lib_crypto_alg_aes_x86_inl_defd_name, _schedule_decrypt)
+#define mk_lib_crypto_alg_aes_x86_inl_defd_expand_enc mk_lang_concat(mk_lib_crypto_alg_aes_x86_inl_defd_name, _expand_enc)
+#define mk_lib_crypto_alg_aes_x86_inl_defd_expand_dec mk_lang_concat(mk_lib_crypto_alg_aes_x86_inl_defd_name, _expand_dec)
+#define mk_lib_crypto_alg_aes_x86_inl_defd_encrypt mk_lang_concat(mk_lib_crypto_alg_aes_x86_inl_defd_name, _encrypt)
+#define mk_lib_crypto_alg_aes_x86_inl_defd_decrypt mk_lang_concat(mk_lib_crypto_alg_aes_x86_inl_defd_name, _decrypt)
+
+#define mk_lib_crypto_alg_aes_x86_inl_defd_assist_128 mk_lang_concat(mk_lib_crypto_alg_aes_x86_inl_defd_name, _assist_128)
+#define mk_lib_crypto_alg_aes_x86_inl_defd_assist_192 mk_lang_concat(mk_lib_crypto_alg_aes_x86_inl_defd_name, _assist_192)
+#define mk_lib_crypto_alg_aes_x86_inl_defd_assist_256_a mk_lang_concat(mk_lib_crypto_alg_aes_x86_inl_defd_name, _assist_256_a)
+#define mk_lib_crypto_alg_aes_x86_inl_defd_assist_256_b mk_lang_concat(mk_lib_crypto_alg_aes_x86_inl_defd_name, _assist_256_b)

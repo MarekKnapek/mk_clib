@@ -18,40 +18,67 @@
 #endif
 
 
-#define mk_lang_typedef_next_a(a, b) \
-	typedef a##_##b const a##_c##b; \
-	typedef a##_##b volatile a##_v##b; \
-	typedef a##_##b const volatile a##_cv##b; \
-	typedef a##_##b* a##_p##b; \
-	typedef a##_##b const* a##_pc##b; \
-	typedef a##_##b volatile* a##_pv##b; \
-	typedef a##_##b const volatile* a##_pcv##b; \
-	typedef a##_##b* mk_lang_restrict a##_pr##b; \
-	typedef a##_##b const* mk_lang_restrict a##_prc##b; \
-	typedef a##_##b volatile* mk_lang_restrict a##_prv##b; \
-	typedef a##_##b const volatile* mk_lang_restrict a##_prcv##b; \
-	typedef a##_##b mk_lang_typedef_far* a##_lp##b; \
-	typedef a##_##b const mk_lang_typedef_far* a##_lpc##b; \
-	typedef a##_##b volatile mk_lang_typedef_far* a##_lpv##b; \
-	typedef a##_##b const volatile mk_lang_typedef_far* a##_lpcv##b; \
-	typedef a##_##b mk_lang_typedef_far* mk_lang_restrict a##_lpr##b; \
-	typedef a##_##b const mk_lang_typedef_far* mk_lang_restrict a##_lprc##b; \
-	typedef a##_##b volatile mk_lang_typedef_far* mk_lang_restrict a##_lprv##b; \
-	typedef a##_##b const volatile mk_lang_typedef_far* mk_lang_restrict a##_lprcv##b; \
-	typedef a##_##b mk_lang_typedef_near* a##_np##b; \
-	typedef a##_##b const mk_lang_typedef_near* a##_npc##b; \
-	typedef a##_##b volatile mk_lang_typedef_near* a##_npv##b; \
-	typedef a##_##b const volatile mk_lang_typedef_near* a##_npcv##b; \
-	typedef a##_##b mk_lang_typedef_near* mk_lang_restrict a##_npr##b; \
-	typedef a##_##b const mk_lang_typedef_near* mk_lang_restrict a##_nprc##b; \
-	typedef a##_##b volatile mk_lang_typedef_near* mk_lang_restrict a##_nprv##b; \
-	typedef a##_##b const volatile mk_lang_typedef_near* mk_lang_restrict a##_nprcv##b \
+#define mk_lang_typedef_add_const(a, b) typedef a##b const a##c##b
+#define mk_lang_typedef_add_volatile(a, b) typedef a##b volatile a##v##b
+#define mk_lang_typedef_add_cv(a, b) typedef a##b const volatile a##cv##b
+#define mk_lang_typedef_add_pointer(a, b) typedef a##b* a##p##b
+#define mk_lang_typedef_add_restrict(a, b) typedef a##b mk_lang_restrict a##r##b
+#define mk_lang_typedef_add_far(a, b) typedef a##b mk_lang_typedef_far* a##lp##b
+#define mk_lang_typedef_add_near(a, b) typedef a##b mk_lang_typedef_near* a##np##b
+
+#define mk_lang_typedef_add_top_level_cv(a, b) \
+	mk_lang_typedef_add_const(a, b); \
+	mk_lang_typedef_add_volatile(a, b); \
+	mk_lang_typedef_add_cv(a, b)
+
+#define mk_lang_typedef_add_pointers(a, b) \
+	mk_lang_typedef_add_pointer(a, b); \
+	mk_lang_typedef_add_pointer(a, c##b); \
+	mk_lang_typedef_add_pointer(a, v##b); \
+	mk_lang_typedef_add_pointer(a, cv##b)
+
+#define mk_lang_typedef_add_restricts(a, b) \
+	mk_lang_typedef_add_restrict(a, b); \
+	mk_lang_typedef_add_restrict(a, c##b); \
+	mk_lang_typedef_add_restrict(a, v##b); \
+	mk_lang_typedef_add_restrict(a, cv##b)
+
+#define mk_lang_typedef_add_fars_2(a, b) \
+	mk_lang_typedef_add_far(a, b); \
+	mk_lang_typedef_add_far(a, c##b); \
+	mk_lang_typedef_add_far(a, v##b); \
+	mk_lang_typedef_add_far(a, cv##b)
+
+#define mk_lang_typedef_add_nears_2(a, b) \
+	mk_lang_typedef_add_near(a, b); \
+	mk_lang_typedef_add_near(a, c##b); \
+	mk_lang_typedef_add_near(a, v##b); \
+	mk_lang_typedef_add_near(a, cv##b)
+
+#define mk_lang_typedef_add_fars(a, b) \
+	mk_lang_typedef_add_fars_2(a, b); \
+	mk_lang_typedef_add_restricts(mk_lang_concat(a, lp), b)
+
+#define mk_lang_typedef_add_nears(a, b) \
+	mk_lang_typedef_add_nears_2(a, b); \
+	mk_lang_typedef_add_restricts(mk_lang_concat(a, np), b)
+
+#define mk_lang_typedef_2(a, b) \
+	mk_lang_typedef_add_top_level_cv(mk_lang_concat(a, _), b); \
+	mk_lang_typedef_add_pointers(mk_lang_concat(a, _), b); \
+	mk_lang_typedef_add_restricts(mk_lang_concat(a, _p), b); \
+	mk_lang_typedef_add_fars(mk_lang_concat(a, _), b); \
+	mk_lang_typedef_add_nears(mk_lang_concat(a, _), b) \
+
+#define mk_lang_typedef_3(a, b) \
+	mk_lang_typedef_2(a, b); \
+	mk_lang_typedef_2(a, p##b); \
+	mk_lang_typedef_2(a, pc##b)
 
 #define mk_lang_typedef(x) \
-	mk_lang_typedef_next_a(x, t); \
-	mk_lang_typedef_next_a(x, pt); \
-	mk_lang_typedef_next_a(x, pct); \
-	mk_lang_typedef_next_a(x, ppt)
+	mk_lang_typedef_3(x, t); \
+	mk_lang_typedef_3(x, p##t); \
+	mk_lang_typedef_3(x, pc##t)
 
 #define mk_lang_forward(x) \
 	struct x##_s; \
