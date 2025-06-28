@@ -240,6 +240,32 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_connection_task_prrw_new_session(mk_lib_iip_cp_client_connection_task_pt const task, mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_pct const destination, mk_lib_iip_cp_client_session_task_ppt const session) mk_lang_noexcept
+{
+	mk_lib_iip_cp_client_session_task_ppt primary_ptr;
+	mk_lib_iip_cp_client_session_task_pt primary_obj;
+	mk_lang_types_sint_t err;
+	mk_lib_iip_cp_client_session_task_pt ses;
+	mk_lib_iip_cp_client_session_task_pt sss;
+	mk_lang_types_void_pt mem;
+
+	mk_lang_assert(task);
+	mk_lang_assert(destination);
+	mk_lang_assert(session);
+
+	if(!mk_lib_iip_cp_client_session_tasks_rw_is_empty(&task->m_connection.m_state.m_sessions))
+	{
+		primary_ptr = mk_lib_iip_cp_client_session_tasks_rw_front(&task->m_connection.m_state.m_sessions); mk_lang_assert(primary_ptr); primary_obj = *primary_ptr; mk_lang_assert(primary_obj);
+		mk_lang_assert(mk_lib_iip_integer_elgamal_pri_single_eq(&destination->m_key_elgamal_pri.m_data.m_val, &primary_obj->m_session.m_settings.m_destination.m_key_elgamal_pri.m_data.m_val));
+		mk_lang_assert(mk_lib_iip_integer_elgamal_pub_single_eq(&destination->m_key_elgamal_pub.m_data.m_val, &primary_obj->m_session.m_settings.m_destination.m_key_elgamal_pub.m_data.m_val));
+	}
+	err = mk_lib_iip_cp_mallocator_global_allocate(sizeof(*ses), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem); ses = ((mk_lib_iip_cp_client_session_task_pt)(mem)); mk_lang_assert(ses); sss = ses; mk_lang_assert(sss);
+	err = mk_lib_iip_cp_client_session_task_rw_construct(ses, destination); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_client_session_tasks_rw_push_back_move_single(&task->m_connection.m_state.m_sessions, &ses); mk_lang_check_rereturn(err);
+	*session = sss;
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_connection_prrw_session_id_to_session_obj(mk_lib_iip_cp_client_connection_task_pt const task, mk_lib_iip_cp_types_sessionid_pct const session_id, mk_lib_iip_cp_client_session_task_ppt const session_obj) mk_lang_noexcept
 {
 	mk_lib_iip_cp_client_session_task_pt res;
@@ -895,35 +921,22 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_connection_task_rw_construct(mk_lib_iip_cp_client_connection_task_pt const task, mk_lib_iip_cp_client_connection_settings_pct const settings) mk_lang_noexcept
 {
-	mk_lang_types_sint_t err;
-
-	mk_lang_assert(task);
-	mk_lang_assert(settings);
-
-	err = mk_lib_iip_cp_client_connection_task_prrw_construct(task, settings); mk_lang_check_rereturn(err);
-	return 0;
+	return mk_lib_iip_cp_client_connection_task_prrw_construct(task, settings);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_connection_task_rw_destroy(mk_lib_iip_cp_client_connection_task_pt const task) mk_lang_noexcept
 {
-	mk_lang_types_sint_t err;
+	return mk_lib_iip_cp_client_connection_task_prrw_destroy(task);
+}
 
-	mk_lang_assert(task);
-
-	err = mk_lib_iip_cp_client_connection_task_prrw_destroy(task); mk_lang_check_rereturn(err);
-	return 0;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_connection_task_rw_new_session(mk_lib_iip_cp_client_connection_task_pt const task, mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_pct const destination, mk_lib_iip_cp_client_session_task_ppt const session) mk_lang_noexcept
+{
+	return mk_lib_iip_cp_client_connection_task_prrw_new_session(task, destination, session);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_connection_task_rw_step(mk_lib_iip_cp_client_connection_task_pt const task, mk_lang_types_bool_t const allow_to_block, mk_lib_iip_cp_client_connection_task_result_pt const step_result) mk_lang_noexcept
 {
-	mk_lang_types_sint_t err;
-
-	mk_lang_assert(task);
-	mk_lang_assert(step_result);
-	mk_lang_assert(*step_result == mk_lib_iip_cp_client_connection_task_result_e_dummy_end);
-
-	err = mk_lib_iip_cp_client_connection_task_prrw_step(task, allow_to_block, step_result); mk_lang_check_rereturn(err);
-	return 0;
+	return mk_lib_iip_cp_client_connection_task_prrw_step(task, allow_to_block, step_result);
 }
 
 
