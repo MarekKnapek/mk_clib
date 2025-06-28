@@ -19,6 +19,17 @@
 mk_lang_forward(mk_sl_cui_uint8);
 
 
+#define mk_sl_cui_t_name mk_lib_iip_cp_client_connection_handle
+#define mk_sl_cui_t_base_type_name mk_lang_bui_uintptr
+#define mk_sl_cui_t_count 1
+#define mk_sl_cui_t_disable_big_div 1
+#define mk_sl_cui_t_base_type_size_bits_d mk_lang_bui_uintptr_size_bits_d
+#define mk_sl_cui_t_inline 1
+#include "mk_sl_cui_inl_fileh.h"
+#include "mk_sl_cui_inl_fileu.h"
+#define mk_lib_iip_cp_client_connection_handle_size_bits_d mk_lang_bui_uintptr_size_bits_d
+#define mk_lib_iip_cp_client_connection_handle_size_bytes_d (mk_lang_bui_uintptr_size_bits_d / mk_lang_charbit)
+
 #include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_lib_iip_cp_client_connection_authentication_s
 {
@@ -80,17 +91,6 @@ typedef struct mk_lib_iip_cp_client_connection_s mk_lib_iip_cp_client_connection
 mk_lang_typedef(mk_lib_iip_cp_client_connection);
 #include "mk_lang_warning_msvc_pop.h"
 
-#define mk_sl_cui_t_name mk_lib_iip_cp_client_connection_handle
-#define mk_sl_cui_t_base_type_name mk_lang_bui_uintptr
-#define mk_sl_cui_t_count 1
-#define mk_sl_cui_t_disable_big_div 1
-#define mk_sl_cui_t_base_type_size_bits_d mk_lang_bui_uintptr_size_bits_d
-#define mk_sl_cui_t_inline 1
-#include "mk_sl_cui_inl_fileh.h"
-#include "mk_sl_cui_inl_fileu.h"
-#define mk_lib_iip_cp_client_connection_handle_size_bits_d mk_lang_bui_uintptr_size_bits_d
-#define mk_lib_iip_cp_client_connection_handle_size_bytes_d (mk_lang_bui_uintptr_size_bits_d / mk_lang_charbit)
-
 enum mk_lib_iip_cp_client_connection_task_result_e
 {
 	mk_lib_iip_cp_client_connection_task_result_e_did_something,
@@ -140,7 +140,7 @@ mk_lang_typedef(mk_lib_iip_cp_client_connection_task);
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_connection_task_rw_construct(mk_lib_iip_cp_client_connection_task_pt const task, mk_lib_iip_cp_client_connection_settings_pct const settings) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_connection_task_rw_destroy(mk_lib_iip_cp_client_connection_task_pt const task) mk_lang_noexcept;
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_connection_task_rw_new_session(mk_lib_iip_cp_client_connection_task_pt const task, mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_pct const destination, mk_lib_iip_cp_client_session_task_ppt const session) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_connection_task_rw_new_session(mk_lib_iip_cp_client_connection_task_pt const task, mk_lib_iip_cp_client_session_settings_pct const settings, mk_lib_iip_cp_client_session_task_ppt const session) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_connection_task_rw_step(mk_lib_iip_cp_client_connection_task_pt const task, mk_lang_types_bool_t const allow_to_block, mk_lib_iip_cp_client_connection_task_result_pt const step_result) mk_lang_noexcept;
 
 

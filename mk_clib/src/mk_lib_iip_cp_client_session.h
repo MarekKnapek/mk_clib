@@ -14,10 +14,22 @@
 #include "mk_lib_iip_cp_types.h"
 
 
+#define mk_sl_cui_t_name mk_lib_iip_cp_client_session_handle
+#define mk_sl_cui_t_base_type_name mk_lang_bui_uintptr
+#define mk_sl_cui_t_count 1
+#define mk_sl_cui_t_disable_big_div 1
+#define mk_sl_cui_t_base_type_size_bits_d mk_lang_bui_uintptr_size_bits_d
+#define mk_sl_cui_t_inline 1
+#include "mk_sl_cui_inl_fileh.h"
+#include "mk_sl_cui_inl_fileu.h"
+#define mk_lib_iip_cp_client_session_handle_size_bits_d mk_lang_bui_uintptr_size_bits_d
+#define mk_lib_iip_cp_client_session_handle_size_bytes_d (mk_lang_bui_uintptr_size_bits_d / mk_lang_charbit)
+
 #include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_lib_iip_cp_client_session_settings_s
 {
 	mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_t m_destination;
+	mk_lib_iip_cp_client_session_handle_t m_master_session;
 };
 typedef struct mk_lib_iip_cp_client_session_settings_s mk_lib_iip_cp_client_session_settings_t;
 mk_lang_typedef(mk_lib_iip_cp_client_session_settings);
@@ -45,17 +57,6 @@ struct mk_lib_iip_cp_client_session_s
 typedef struct mk_lib_iip_cp_client_session_s mk_lib_iip_cp_client_session_t;
 mk_lang_typedef(mk_lib_iip_cp_client_session);
 #include "mk_lang_warning_msvc_pop.h"
-
-#define mk_sl_cui_t_name mk_lib_iip_cp_client_session_handle
-#define mk_sl_cui_t_base_type_name mk_lang_bui_uintptr
-#define mk_sl_cui_t_count 1
-#define mk_sl_cui_t_disable_big_div 1
-#define mk_sl_cui_t_base_type_size_bits_d mk_lang_bui_uintptr_size_bits_d
-#define mk_sl_cui_t_inline 1
-#include "mk_sl_cui_inl_fileh.h"
-#include "mk_sl_cui_inl_fileu.h"
-#define mk_lib_iip_cp_client_session_handle_size_bits_d mk_lang_bui_uintptr_size_bits_d
-#define mk_lib_iip_cp_client_session_handle_size_bytes_d (mk_lang_bui_uintptr_size_bits_d / mk_lang_charbit)
 
 enum mk_lib_iip_cp_client_session_task_result_e
 {
@@ -98,7 +99,7 @@ mk_lang_typedef(mk_lib_iip_cp_client_session_task);
 #include "mk_sl_list_dbl_inl_fileu.h"
 
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_rw_construct(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_pct const destination) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_rw_construct(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_client_session_settings_pct const settings) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_rw_destroy(mk_lib_iip_cp_client_session_task_pt const task) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_rw_gimme_msg(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_message_ppt const msg) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_rw_on_msg(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_message_pt const msg) mk_lang_noexcept;
