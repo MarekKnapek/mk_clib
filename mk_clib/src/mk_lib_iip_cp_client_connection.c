@@ -240,8 +240,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_connection_task_prrw_new_session(mk_lib_iip_cp_client_connection_task_pt const task, mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_pct const destination, mk_lib_iip_cp_client_session_task_ppt const session) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_connection_task_prrw_new_session(mk_lib_iip_cp_client_connection_task_pt const task, mk_lib_iip_cp_client_session_settings_pct const settings, mk_lib_iip_cp_client_session_task_ppt const session) mk_lang_noexcept
 {
+	mk_lib_iip_cp_client_session_task_pt primary_ses;
 	mk_lib_iip_cp_client_session_task_ppt primary_ptr;
 	mk_lib_iip_cp_client_session_task_pt primary_obj;
 	mk_lang_types_sint_t err;
@@ -250,17 +251,24 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_types_void_pt mem;
 
 	mk_lang_assert(task);
-	mk_lang_assert(destination);
+	mk_lang_assert(settings);
 	mk_lang_assert(session);
 
-	if(!mk_lib_iip_cp_client_session_tasks_rw_is_empty(&task->m_connection.m_state.m_sessions))
+	if(mk_lib_iip_cp_client_session_tasks_rw_is_empty(&task->m_connection.m_state.m_sessions))
 	{
+		mk_lang_assert(mk_lib_iip_cp_client_session_handle_is_zero(&settings->m_master_session));
+	}
+	else
+	{
+		mk_lang_assert(!mk_lib_iip_cp_client_session_handle_is_zero(&settings->m_master_session));
+		primary_ses = ((mk_lib_iip_cp_client_session_task_pt)(settings->m_master_session.m_elements[0]));
 		primary_ptr = mk_lib_iip_cp_client_session_tasks_rw_front(&task->m_connection.m_state.m_sessions); mk_lang_assert(primary_ptr); primary_obj = *primary_ptr; mk_lang_assert(primary_obj);
-		mk_lang_assert(mk_lib_iip_integer_elgamal_pri_single_eq(&destination->m_key_elgamal_pri.m_data.m_val, &primary_obj->m_session.m_settings.m_destination.m_key_elgamal_pri.m_data.m_val));
-		mk_lang_assert(mk_lib_iip_integer_elgamal_pub_single_eq(&destination->m_key_elgamal_pub.m_data.m_val, &primary_obj->m_session.m_settings.m_destination.m_key_elgamal_pub.m_data.m_val));
+		mk_lang_assert(primary_ses == primary_obj);
+		mk_lang_assert(mk_lib_iip_integer_elgamal_pri_single_eq(&settings->m_destination.m_key_elgamal_pri.m_data.m_val, &primary_obj->m_session.m_settings.m_destination.m_key_elgamal_pri.m_data.m_val));
+		mk_lang_assert(mk_lib_iip_integer_elgamal_pub_single_eq(&settings->m_destination.m_key_elgamal_pub.m_data.m_val, &primary_obj->m_session.m_settings.m_destination.m_key_elgamal_pub.m_data.m_val));
 	}
 	err = mk_lib_iip_cp_mallocator_global_allocate(sizeof(*ses), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem); ses = ((mk_lib_iip_cp_client_session_task_pt)(mem)); mk_lang_assert(ses); sss = ses; mk_lang_assert(sss);
-	err = mk_lib_iip_cp_client_session_task_rw_construct(ses, destination); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_client_session_task_rw_construct(ses, settings); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_cp_client_session_tasks_rw_push_back_move_single(&task->m_connection.m_state.m_sessions, &ses); mk_lang_check_rereturn(err);
 	*session = sss;
 	return 0;
