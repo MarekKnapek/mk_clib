@@ -31,7 +31,6 @@ mk_lang_forward(mk_lib_iip_cp_client_shared);
 #define mk_lib_iip_cp_client_connection_handle_size_bits_d mk_lang_bui_uintptr_size_bits_d
 #define mk_lib_iip_cp_client_connection_handle_size_bytes_d (mk_lang_bui_uintptr_size_bits_d / mk_lang_charbit)
 
-#include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_lib_iip_cp_client_connection_authentication_s
 {
 	mk_lib_iip_cp_types_string_t m_user_name;
@@ -39,7 +38,6 @@ struct mk_lib_iip_cp_client_connection_authentication_s
 };
 typedef struct mk_lib_iip_cp_client_connection_authentication_s mk_lib_iip_cp_client_connection_authentication_t;
 mk_lang_typedef(mk_lib_iip_cp_client_connection_authentication);
-#include "mk_lang_warning_msvc_pop.h"
 
 #include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_lib_iip_cp_client_connection_buffer_s
@@ -52,7 +50,6 @@ typedef struct mk_lib_iip_cp_client_connection_buffer_s mk_lib_iip_cp_client_con
 mk_lang_typedef(mk_lib_iip_cp_client_connection_buffer);
 #include "mk_lang_warning_msvc_pop.h"
 
-#include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_lib_iip_cp_client_connection_settings_s
 {
 	mk_lib_net_destination_t m_destination;
@@ -60,7 +57,6 @@ struct mk_lib_iip_cp_client_connection_settings_s
 };
 typedef struct mk_lib_iip_cp_client_connection_settings_s mk_lib_iip_cp_client_connection_settings_t;
 mk_lang_typedef(mk_lib_iip_cp_client_connection_settings);
-#include "mk_lang_warning_msvc_pop.h"
 
 #include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_lib_iip_cp_client_connection_state_s
