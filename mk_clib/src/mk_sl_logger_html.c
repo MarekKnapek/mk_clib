@@ -31,16 +31,20 @@ mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_logger_html_k_
 	mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab "<meta charset=\"UTF-8\">" mk_sl_logger_html_k_crlf
 	mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab "<title>log</title>" mk_sl_logger_html_k_crlf
 	mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab "<style>" mk_sl_logger_html_k_crlf
+	"div.sessions" mk_sl_logger_html_k_crlf
+	"{" mk_sl_logger_html_k_crlf
+	mk_sl_logger_html_k_tab "background-color: #0c0c0c;" mk_sl_logger_html_k_crlf
+	mk_sl_logger_html_k_tab "color: #cccccc;" mk_sl_logger_html_k_crlf
+	mk_sl_logger_html_k_tab "display: inline-block;" mk_sl_logger_html_k_crlf
+	mk_sl_logger_html_k_tab "font-family: monospace;" mk_sl_logger_html_k_crlf
+	"}" mk_sl_logger_html_k_crlf
 	"div.session" mk_sl_logger_html_k_crlf
 	"{" mk_sl_logger_html_k_crlf
-	"	background-color: #0c0c0c;" mk_sl_logger_html_k_crlf
-	"	color: #cccccc;" mk_sl_logger_html_k_crlf
-	"	display: inline-block;" mk_sl_logger_html_k_crlf
-	"	font-family: monospace;" mk_sl_logger_html_k_crlf
+	mk_sl_logger_html_k_tab "border-bottom: 1px solid red;" mk_sl_logger_html_k_crlf
 	"}" mk_sl_logger_html_k_crlf
 	"span.line" mk_sl_logger_html_k_crlf
 	"{" mk_sl_logger_html_k_crlf
-	"	white-space: pre;" mk_sl_logger_html_k_crlf
+	mk_sl_logger_html_k_tab "white-space: pre;" mk_sl_logger_html_k_crlf
 	"}" mk_sl_logger_html_k_crlf
 	"span.color_dark_black    { color: #0c0c0c; }" mk_sl_logger_html_k_crlf
 	"span.color_dark_red      { color: #c50f1f; }" mk_sl_logger_html_k_crlf
@@ -61,17 +65,19 @@ mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_logger_html_k_
 	mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab "</style>" mk_sl_logger_html_k_crlf
 	mk_sl_logger_html_k_tab "</head>" mk_sl_logger_html_k_crlf
 	mk_sl_logger_html_k_tab "<body>" mk_sl_logger_html_k_crlf
+	mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab "<div class=\"sessions\">" mk_sl_logger_html_k_crlf
 	"";
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_logger_html_k_document_footer[] =
+	mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab "</div>" mk_sl_logger_html_k_crlf
 	mk_sl_logger_html_k_tab "</body>" mk_sl_logger_html_k_crlf
 	"</html>" mk_sl_logger_html_k_crlf
 	"";
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_logger_html_k_session_header[] =
-	mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab "<div class=\"session\">" mk_sl_logger_html_k_crlf;
+	mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab "<div class=\"session\">" mk_sl_logger_html_k_crlf;
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_logger_html_k_session_footer[] =
-	mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab "</div>" mk_sl_logger_html_k_crlf;
+	mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab "</div>" mk_sl_logger_html_k_crlf;
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_logger_html_k_line_header[] =
-	mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab "<span class=\"line\">";
+	mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab "<span class=\"line\">";
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_logger_html_k_line_footer[] =
 	"</span><br>" mk_sl_logger_html_k_crlf
 	"";
