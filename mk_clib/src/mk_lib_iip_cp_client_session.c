@@ -31,13 +31,15 @@
 #include "mk_sl_cui_inl_fileu.h"
 
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_prrw_construct(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_client_session_settings_pct const settings) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_prrw_construct(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_client_shared_pt const shared, mk_lib_iip_cp_client_session_settings_pct const settings) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 
 	mk_lang_assert(task);
+	mk_lang_assert(shared);
 	mk_lang_assert(settings);
 
+	task->m_shared = shared;
 	task->m_step = ((mk_lib_iip_cp_client_session_task_step_t)(0));
 	task->m_session.m_settings = *settings;
 	task->m_session.m_state.m_has_id = mk_lang_false;
@@ -380,9 +382,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 }
 
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_rw_construct(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_client_session_settings_pct const settings) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_rw_construct(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_client_shared_pt const shared, mk_lib_iip_cp_client_session_settings_pct const settings) mk_lang_noexcept
 {
-	return mk_lib_iip_cp_client_session_task_prrw_construct(task, settings);
+	return mk_lib_iip_cp_client_session_task_prrw_construct(task, shared, settings);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_rw_destroy(mk_lib_iip_cp_client_session_task_pt const task) mk_lang_noexcept
