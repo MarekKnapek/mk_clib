@@ -30,12 +30,6 @@
 #include "mk_sl_cui_inl_filec.h"
 #include "mk_sl_cui_inl_fileu.h"
 
-#define mk_sl_list_dbl_t_name mk_lib_iip_cp_client_session_task_list
-#define mk_sl_list_dbl_t_element_type mk_lib_iip_cp_client_session_task_pt
-#define mk_sl_list_dbl_t_mallocator_global mk_lib_iip_cp_mallocator_global
-#include "mk_sl_list_dbl_inl_filec.h"
-#include "mk_sl_list_dbl_inl_fileu.h"
-
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_prrw_construct(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_client_session_settings_pct const settings) mk_lang_noexcept
 {

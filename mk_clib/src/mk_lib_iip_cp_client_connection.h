@@ -73,7 +73,7 @@ struct mk_lib_iip_cp_client_connection_state_s
 	mk_lang_types_bool_t m_pending_send;
 	mk_lang_types_bool_t m_pending_recv;
 	mk_lib_iip_cp_message_t m_msg;
-	mk_lib_iip_cp_client_session_task_list_t m_pending_sessions_to_create;
+	mk_lib_iip_cp_client_session_task_pt m_pending_sessions_to_create;
 	mk_lib_iip_cp_client_connection_buffer_t m_buf_rcv;
 	mk_lib_iip_cp_client_connection_buffer_t m_buf_snd;
 };
@@ -129,13 +129,6 @@ struct mk_lib_iip_cp_client_connection_task_s
 typedef struct mk_lib_iip_cp_client_connection_task_s mk_lib_iip_cp_client_connection_task_t;
 mk_lang_typedef(mk_lib_iip_cp_client_connection_task);
 #include "mk_lang_warning_msvc_pop.h"
-
-
-#define mk_sl_list_dbl_t_name mk_lib_iip_cp_client_connection_task_list
-#define mk_sl_list_dbl_t_element_type mk_lib_iip_cp_client_connection_task_pt
-#define mk_sl_list_dbl_t_mallocator_global mk_lib_iip_cp_mallocator_global
-#include "mk_sl_list_dbl_inl_fileh.h"
-#include "mk_sl_list_dbl_inl_fileu.h"
 
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_connection_task_rw_construct(mk_lib_iip_cp_client_connection_task_pt const task, mk_lib_iip_cp_client_connection_settings_pct const settings) mk_lang_noexcept;
