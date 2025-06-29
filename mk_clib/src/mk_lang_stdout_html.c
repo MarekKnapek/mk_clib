@@ -29,7 +29,7 @@ typedef struct mk_lang_stdout_html_lokal_s mk_lang_stdout_html_lokal_t;
 mk_lang_typedef(mk_lang_stdout_html_lokal);
 
 
-mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lang_stdout_html_lokal_k_file_begin[] = "<body style=\"background-color:black\">\x0d\x0a";
+mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lang_stdout_html_lokal_k_file_begin[] = "<body style=\"background-color:#0c0c0c\">\x0d\x0a";
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lang_stdout_html_lokal_k_file_end[] = "</body >\x0d\x0a";
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lang_stdout_html_lokal_k_line_begin[] = "<span style=\"white-space:pre; font-family:monospace; background-color:#0c0c0c; color:#cccccc\">";
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lang_stdout_html_lokal_k_line_end[] = "</span><br>\x0d\x0a";
