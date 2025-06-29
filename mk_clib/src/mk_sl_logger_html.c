@@ -34,7 +34,9 @@ mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_logger_html_k_
 	"div.sessions" mk_sl_logger_html_k_crlf
 	"{" mk_sl_logger_html_k_crlf
 	mk_sl_logger_html_k_tab "background-color: #0c0c0c;" mk_sl_logger_html_k_crlf
+	mk_sl_logger_html_k_tab "background-color: black;" mk_sl_logger_html_k_crlf
 	mk_sl_logger_html_k_tab "color: #cccccc;" mk_sl_logger_html_k_crlf
+	mk_sl_logger_html_k_tab "color: white;" mk_sl_logger_html_k_crlf
 	mk_sl_logger_html_k_tab "display: inline-block;" mk_sl_logger_html_k_crlf
 	mk_sl_logger_html_k_tab "font-family: monospace;" mk_sl_logger_html_k_crlf
 	"}" mk_sl_logger_html_k_crlf
@@ -62,9 +64,13 @@ mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_logger_html_k_
 	"span.color_light_magenta { color: #b4009e; }" mk_sl_logger_html_k_crlf
 	"span.color_light_cyan    { color: #61d6d6; }" mk_sl_logger_html_k_crlf
 	"span.color_light_white   { color: #f2f2f2; }" mk_sl_logger_html_k_crlf
+	"span.color_dark_cyan     { color: deepskyblue; }" mk_sl_logger_html_k_crlf
+	"span.color_dark_green    { color: lime; }" mk_sl_logger_html_k_crlf
+	"span.color_dark_magenta  { color: fuchsia; }" mk_sl_logger_html_k_crlf
+	"span.color_dark_yellow   { color: yellow; }" mk_sl_logger_html_k_crlf
 	mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab "</style>" mk_sl_logger_html_k_crlf
 	mk_sl_logger_html_k_tab "</head>" mk_sl_logger_html_k_crlf
-	mk_sl_logger_html_k_tab "<body>" mk_sl_logger_html_k_crlf
+	mk_sl_logger_html_k_tab "<body style=\"background-color:black;color:white\">" mk_sl_logger_html_k_crlf
 	mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab "<div class=\"sessions\">" mk_sl_logger_html_k_crlf
 	"";
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_logger_html_k_document_footer[] =
@@ -79,7 +85,7 @@ mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_logger_html_k_
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_logger_html_k_line_header[] =
 	mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab "<span class=\"line\">";
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_logger_html_k_line_footer[] =
-	"</span><br>" mk_sl_logger_html_k_crlf
+	"<br></span>" mk_sl_logger_html_k_crlf
 	"";
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_logger_html_k_color_header_a[] = "<span class=\"";
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_logger_html_k_color_header_b[] = "\">";
