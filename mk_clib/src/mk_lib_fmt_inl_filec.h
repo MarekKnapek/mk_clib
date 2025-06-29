@@ -204,7 +204,8 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_inl_defd_vsnnprintf_d(mk_l
 		lim = mk_lang_min(mk_sl_cui_uint32_strlen_dec_v, rem);
 		tsi = mk_sl_cui_uint32_to_str_dec_u(vau, dst, lim);
 		if(!(tsi >= 1 && tsi <= lim)){ bad = mk_lang_true; break; }
-		*consumed = tsi;
+		dst += tsi; rem -= tsi;
+		*consumed = dst_len - rem;
 	}while(mk_lang_runtime_bool_fn_false);
 	*gud = !bad;
 }
@@ -327,7 +328,8 @@ static mk_lang_inline mk_lang_types_void_t mk_lib_fmt_inl_defd_vsnnprintf_lld(mk
 		lim = mk_lang_min(mk_sl_cui_uint64_strlen_dec_v, rem);
 		tsi = mk_sl_cui_uint64_to_str_dec_u(vau, dst, lim);
 		if(!(tsi >= 1 && tsi <= lim)){ bad = mk_lang_true; break; }
-		*consumed = tsi;
+		dst += tsi; rem -= tsi;
+		*consumed = dst_len - rem;
 	}while(mk_lang_runtime_bool_fn_false);
 	*gud = !bad;
 }
