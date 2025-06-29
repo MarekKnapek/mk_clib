@@ -14,6 +14,9 @@
 #include "mk_lib_iip_cp_types.h"
 
 
+mk_lang_forward(mk_lib_iip_cp_client_shared);
+
+
 #define mk_sl_cui_t_name mk_lib_iip_cp_client_session_handle
 #define mk_sl_cui_t_base_type_name mk_lang_bui_uintptr
 #define mk_sl_cui_t_count 1
@@ -84,6 +87,7 @@ typedef enum mk_lib_iip_cp_client_session_task_step_e mk_lib_iip_cp_client_sessi
 #include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_lib_iip_cp_client_session_task_s
 {
+	mk_lib_iip_cp_client_shared_pt m_shared;
 	mk_lib_iip_cp_client_session_task_step_t m_step;
 	mk_lib_iip_cp_client_session_t m_session;
 };
@@ -92,7 +96,7 @@ mk_lang_typedef(mk_lib_iip_cp_client_session_task);
 #include "mk_lang_warning_msvc_pop.h"
 
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_rw_construct(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_client_session_settings_pct const settings) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_rw_construct(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_client_shared_pt const shared, mk_lib_iip_cp_client_session_settings_pct const settings) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_rw_destroy(mk_lib_iip_cp_client_session_task_pt const task) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_rw_gimme_msg(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_message_ppt const msg) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_rw_on_msg(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_message_pt const msg) mk_lang_noexcept;

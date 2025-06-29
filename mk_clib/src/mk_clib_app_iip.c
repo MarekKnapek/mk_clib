@@ -18,7 +18,6 @@
 #include "mk_lang_noexcept.h"
 #include "mk_lang_runtime_bool.h"
 #include "mk_lang_stdout.h"
-#include "mk_lang_stdout_html.h"
 #include "mk_lang_str_len.h"
 #include "mk_lang_tchar.h"
 #include "mk_lang_typedef.h"
@@ -27,6 +26,7 @@
 #include "mk_lib_fmt.h"
 #include "mk_lib_iip_cp_client_connection.h"
 #include "mk_lib_iip_cp_client_session.h"
+#include "mk_lib_iip_cp_client_shared.h"
 #include "mk_lib_iip_cp_mallocator_global.h"
 #include "mk_lib_iip_cp_message.h"
 #include "mk_lib_iip_cp_message_parse.h"
@@ -262,6 +262,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_des
 #include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_clib_app_iip_s
 {
+	mk_lib_iip_cp_client_shared_t m_shared;
 	mk_lib_iip_cp_client_connection_tasks_t m_connections;
 	mk_lang_types_usize_t m_last_connection_idx;
 	//mk_lib_net_waitables_vrt_t m_waitables;
@@ -279,6 +280,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_rw_
 
 	mk_lang_assert(app);
 
+	err = mk_lib_iip_cp_client_shared_rw_construct(&app->m_shared); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_cp_client_connection_tasks_rw_construct(&app->m_connections); mk_lang_check_rereturn(err);
 	app->m_last_connection_idx = 0;
 	//err = mk_lib_net_waitables_vrt_rw_construct_void(&app->m_waitables); mk_lang_check_rereturn(err);
@@ -292,6 +294,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_rw_
 	mk_lang_assert(app);
 
 	err = mk_lib_iip_cp_client_connection_tasks_rw_destroy(&app->m_connections); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_client_shared_rw_destroy(&app->m_shared); mk_lang_check_rereturn(err);
 	//err = mk_lib_net_waitables_vrt_rw_destroy(&app->m_waitables); mk_lang_check_rereturn(err);
 	return 0;
 }
@@ -441,7 +444,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_rw_
 
 	err = mk_lib_iip_cp_mallocator_global_allocate(sizeof(*connection), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem); connection = ((mk_lib_iip_cp_client_connection_task_pt)(mem)); mk_lang_assert(connection);
 	handle.m_elements[0] = ((mk_lib_iip_cp_client_connection_handle_base_t)(connection));
-	err = mk_lib_iip_cp_client_connection_task_rw_construct(connection, settings); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_client_connection_task_rw_construct(connection, &app->m_shared, settings); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_cp_client_connection_tasks_rw_push_back_move_single(&app->m_connections, &connection); mk_lang_check_rereturn(err);
 	*connection_handle = handle;
 	return 0;
@@ -656,7 +659,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_glo
 
 	mk_lang_cpuid_init();
 	err = mk_lang_stdout_init(); mk_lang_check_rereturn(err);
-	err = mk_lang_stdout_html_init(); mk_lang_check_rereturn(err);
 	err = mk_sl_random_init(); mk_lang_check_rereturn(err);
 	err = mk_lib_net_init(); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_cp_mallocator_global_init(); mk_lang_check_rereturn(err);
@@ -670,7 +672,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_glo
 	err = mk_lib_iip_cp_mallocator_global_deinit(); mk_lang_check_rereturn(err);
 	err = mk_lib_net_deinit(); mk_lang_check_rereturn(err);
 	err = mk_sl_random_deinit(); mk_lang_check_rereturn(err);
-	err = mk_lang_stdout_html_deinit(); mk_lang_check_rereturn(err);
 	return 0;
 }
 
