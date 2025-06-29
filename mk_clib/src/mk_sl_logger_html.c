@@ -27,9 +27,10 @@
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_logger_html_k_document_header[] =
 	"<!DOCTYPE html>" mk_sl_logger_html_k_crlf
 	"<html lang=\"en\">" mk_sl_logger_html_k_crlf
-	mk_sl_logger_html_k_tab "<meta charset=\"UTF-8\">" mk_sl_logger_html_k_crlf
-	mk_sl_logger_html_k_tab "<title>log</title>" mk_sl_logger_html_k_crlf
-	mk_sl_logger_html_k_tab "<style>" mk_sl_logger_html_k_crlf
+	mk_sl_logger_html_k_tab "<head>" mk_sl_logger_html_k_crlf
+	mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab "<meta charset=\"UTF-8\">" mk_sl_logger_html_k_crlf
+	mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab "<title>log</title>" mk_sl_logger_html_k_crlf
+	mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab "<style>" mk_sl_logger_html_k_crlf
 	"div.session" mk_sl_logger_html_k_crlf
 	"{" mk_sl_logger_html_k_crlf
 	"	background-color: #0c0c0c;" mk_sl_logger_html_k_crlf
@@ -41,11 +42,24 @@ mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_logger_html_k_
 	"{" mk_sl_logger_html_k_crlf
 	"	white-space: pre;" mk_sl_logger_html_k_crlf
 	"}" mk_sl_logger_html_k_crlf
-	"span.color_dark_cyan    { color: #3a96dd; }" mk_sl_logger_html_k_crlf
-	"span.color_dark_green   { color: #13a10e; }" mk_sl_logger_html_k_crlf
-	"span.color_dark_magenta { color: #881798; }" mk_sl_logger_html_k_crlf
-	"span.color_dark_yellow  { color: #c19c00; }" mk_sl_logger_html_k_crlf
-	mk_sl_logger_html_k_tab "</style>" mk_sl_logger_html_k_crlf
+	"span.color_dark_black    { color: #0c0c0c; }" mk_sl_logger_html_k_crlf
+	"span.color_dark_red      { color: #c50f1f; }" mk_sl_logger_html_k_crlf
+	"span.color_dark_green    { color: #13a10e; }" mk_sl_logger_html_k_crlf
+	"span.color_dark_blue     { color: #0037da; }" mk_sl_logger_html_k_crlf
+	"span.color_dark_yellow   { color: #c19c00; }" mk_sl_logger_html_k_crlf
+	"span.color_dark_magenta  { color: #881798; }" mk_sl_logger_html_k_crlf
+	"span.color_dark_cyan     { color: #3a96dd; }" mk_sl_logger_html_k_crlf
+	"span.color_dark_white    { color: #cccccc; }" mk_sl_logger_html_k_crlf
+	"span.color_light_black   { color: #767676; }" mk_sl_logger_html_k_crlf
+	"span.color_light_red     { color: #e74856; }" mk_sl_logger_html_k_crlf
+	"span.color_light_green   { color: #16c60c; }" mk_sl_logger_html_k_crlf
+	"span.color_light_blue    { color: #3b78ff; }" mk_sl_logger_html_k_crlf
+	"span.color_light_yellow  { color: #f9f1a5; }" mk_sl_logger_html_k_crlf
+	"span.color_light_magenta { color: #b4009e; }" mk_sl_logger_html_k_crlf
+	"span.color_light_cyan    { color: #61d6d6; }" mk_sl_logger_html_k_crlf
+	"span.color_light_white   { color: #f2f2f2; }" mk_sl_logger_html_k_crlf
+	mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab "</style>" mk_sl_logger_html_k_crlf
+	mk_sl_logger_html_k_tab "</head>" mk_sl_logger_html_k_crlf
 	mk_sl_logger_html_k_tab "<body>" mk_sl_logger_html_k_crlf
 	"";
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_logger_html_k_document_footer[] =
@@ -54,6 +68,8 @@ mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_logger_html_k_
 	"";
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_logger_html_k_session_header[] =
 	mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab "<div class=\"session\">" mk_sl_logger_html_k_crlf;
+mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_logger_html_k_session_footer[] =
+	mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab "</div>" mk_sl_logger_html_k_crlf;
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_logger_html_k_line_header[] =
 	mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab "<span class=\"line\">";
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_logger_html_k_line_footer[] =
@@ -154,6 +170,17 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_logger_html_p
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_logger_html_prrw_write_document_footer(mk_sl_logger_html_pt const logger) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(logger);
+	mk_lang_assert(!mk_win_base_handle_is_invalid(logger->m_file_handle));
+
+	err = mk_sl_logger_html_prrw_write_str(logger, &mk_sl_logger_html_k_document_footer[0], mk_lang_countstr(mk_sl_logger_html_k_document_footer)); mk_lang_check_rereturn(err);
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_logger_html_prrw_write_session_header(mk_sl_logger_html_pt const logger) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
@@ -162,6 +189,17 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_logger_html_p
 	mk_lang_assert(!mk_win_base_handle_is_invalid(logger->m_file_handle));
 
 	err = mk_sl_logger_html_prrw_write_str(logger, &mk_sl_logger_html_k_session_header[0], mk_lang_countstr(mk_sl_logger_html_k_session_header)); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_logger_html_prrw_write_session_footer(mk_sl_logger_html_pt const logger) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(logger);
+	mk_lang_assert(!mk_win_base_handle_is_invalid(logger->m_file_handle));
+
+	err = mk_sl_logger_html_prrw_write_str(logger, &mk_sl_logger_html_k_session_footer[0], mk_lang_countstr(mk_sl_logger_html_k_session_footer)); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -220,6 +258,46 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_logger_html_p
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_logger_html_prrw_move_in_front_of_document_footer(mk_sl_logger_html_pt const logger) mk_lang_noexcept
+{
+	mk_win_base_handle_t handle;
+	mk_win_base_slong_t distance_lo;
+	mk_win_base_slong_lpt distance_hi;
+	mk_win_base_dword_t move_method;
+	mk_win_base_dword_t new_lo;
+	mk_win_base_dword_t gle;
+
+	mk_lang_assert(logger);
+	mk_lang_assert(!mk_win_base_handle_is_invalid(logger->m_file_handle));
+
+	handle = logger->m_file_handle;
+	distance_lo = -mk_lang_countstr(mk_sl_logger_html_k_document_footer);
+	distance_hi = mk_win_base_null;
+	move_method = mk_win_dll_kernel_files_file_pos_e_end;
+	new_lo = mk_win_dll_kernel_files_set_file_pointer(handle, distance_lo, distance_hi, move_method); mk_lang_check_return(new_lo != s_mk_win_dll_kernel_files_invalid_set_file_pointer || (gle = mk_win_dll_kernel_errors_get_last()) == mk_win_dll_kernel_errors_id_e_success);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_logger_html_prrw_move_in_front_of_session_footer(mk_sl_logger_html_pt const logger) mk_lang_noexcept
+{
+	mk_win_base_handle_t handle;
+	mk_win_base_slong_t distance_lo;
+	mk_win_base_slong_lpt distance_hi;
+	mk_win_base_dword_t move_method;
+	mk_win_base_dword_t new_lo;
+	mk_win_base_dword_t gle;
+
+	mk_lang_assert(logger);
+	mk_lang_assert(!mk_win_base_handle_is_invalid(logger->m_file_handle));
+
+	handle = logger->m_file_handle;
+	distance_lo = -mk_lang_countstr(mk_sl_logger_html_k_session_footer);
+	distance_hi = mk_win_base_null;
+	move_method = mk_win_dll_kernel_files_file_pos_e_current;
+	new_lo = mk_win_dll_kernel_files_set_file_pointer(handle, distance_lo, distance_hi, move_method); mk_lang_check_return(new_lo != s_mk_win_dll_kernel_files_invalid_set_file_pointer || (gle = mk_win_dll_kernel_errors_get_last()) == mk_win_dll_kernel_errors_id_e_success);
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_logger_html_prrw_construct(mk_sl_logger_html_pt const logger, mk_lang_types_pchar_pct const name) mk_lang_noexcept
 {
 	mk_win_base_pchar_lpct file_name;
@@ -252,8 +330,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_logger_html_p
 	if(!already_existed)
 	{
 		err = mk_sl_logger_html_prrw_write_document_header(logger); mk_lang_check_rereturn(err);
+		err = mk_sl_logger_html_prrw_write_document_footer(logger); mk_lang_check_rereturn(err);
 	}
+	err = mk_sl_logger_html_prrw_move_in_front_of_document_footer(logger); mk_lang_check_rereturn(err);
 	err = mk_sl_logger_html_prrw_write_session_header(logger); mk_lang_check_rereturn(err);
+	err = mk_sl_logger_html_prrw_write_session_footer(logger); mk_lang_check_rereturn(err);
+	err = mk_sl_logger_html_prrw_write_document_footer(logger); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -275,6 +357,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_logger_html_p
 	mk_lang_assert(logger);
 	mk_lang_assert(!mk_win_base_handle_is_invalid(logger->m_file_handle));
 
+	err = mk_sl_logger_html_prrw_move_in_front_of_document_footer(logger); mk_lang_check_rereturn(err);
+	err = mk_sl_logger_html_prrw_move_in_front_of_session_footer(logger); mk_lang_check_rereturn(err);
 	err = mk_sl_logger_html_prrw_write_line_header(logger); mk_lang_check_rereturn(err);
 	return 0;
 }
@@ -287,6 +371,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_logger_html_p
 	mk_lang_assert(!mk_win_base_handle_is_invalid(logger->m_file_handle));
 
 	err = mk_sl_logger_html_prrw_write_line_footer(logger); mk_lang_check_rereturn(err);
+	err = mk_sl_logger_html_prrw_write_session_footer(logger); mk_lang_check_rereturn(err);
+	err = mk_sl_logger_html_prrw_write_document_footer(logger); mk_lang_check_rereturn(err);
 	return 0;
 }
 
