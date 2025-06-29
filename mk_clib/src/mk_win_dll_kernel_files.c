@@ -47,6 +47,8 @@ mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_dwor
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall SetEndOfFile(mk_win_base_handle_t const handle) mk_lang_noexcept;
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_dword_t mk_win_base_stdcall GetFileType(mk_win_base_handle_t const handle) mk_lang_noexcept;
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall GetFileInformationByHandle(mk_win_base_handle_t const handle, mk_win_dll_kernel_files_info_by_handle_lpt const info) mk_lang_noexcept;
+mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall LockFile(mk_win_base_handle_t const file, mk_win_base_dword_t const file_offset_lo, mk_win_base_dword_t const file_offset_hi, mk_win_base_dword_t const number_of_bytes_to_lock_lo, mk_win_base_dword_t const number_of_bytes_to_lock_hi) mk_lang_noexcept;
+mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall UnlockFile(mk_win_base_handle_t const file, mk_win_base_dword_t const file_offset_lo, mk_win_base_dword_t const file_offset_hi, mk_win_base_dword_t const number_of_bytes_to_unlock_lo, mk_win_base_dword_t const number_of_bytes_to_unlock_hi) mk_lang_noexcept;
 
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_dword_t mk_win_dll_kernel_files_a_get_current_directory(mk_win_base_dword_t const len, mk_win_base_pchar_pt const buf) mk_lang_noexcept
@@ -296,6 +298,22 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_dll_kernel_files_get_f
 	mk_win_base_bool_t ret;
 
 	ret = GetFileInformationByHandle(handle, info);
+	return ret;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_dll_kernel_files_lock_file(mk_win_base_handle_t const file, mk_win_base_dword_t const file_offset_lo, mk_win_base_dword_t const file_offset_hi, mk_win_base_dword_t const number_of_bytes_to_lock_lo, mk_win_base_dword_t const number_of_bytes_to_lock_hi) mk_lang_noexcept
+{
+	mk_win_base_bool_t ret;
+
+	ret = LockFile(file, file_offset_lo, file_offset_hi, number_of_bytes_to_lock_lo, number_of_bytes_to_lock_hi);
+	return ret;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_dll_kernel_files_unlock_file(mk_win_base_handle_t const file, mk_win_base_dword_t const file_offset_lo, mk_win_base_dword_t const file_offset_hi, mk_win_base_dword_t const number_of_bytes_to_unlock_lo, mk_win_base_dword_t const number_of_bytes_to_unlock_hi) mk_lang_noexcept
+{
+	mk_win_base_bool_t ret;
+
+	ret = UnlockFile(file, file_offset_lo, file_offset_hi, number_of_bytes_to_unlock_lo, number_of_bytes_to_unlock_hi);
 	return ret;
 }
 
