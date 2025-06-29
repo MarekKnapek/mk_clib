@@ -1324,6 +1324,10 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_appender_file_windows.h"/>
 	</ItemGroup>
 	<ItemGroup>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_logger_html.c"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_logger_html.h"/>
+	</ItemGroup>
+	<ItemGroup>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_iip.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_iip_cp_base.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_base32_decoder.c"/>
