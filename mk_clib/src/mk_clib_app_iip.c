@@ -18,6 +18,7 @@
 #include "mk_lang_noexcept.h"
 #include "mk_lang_runtime_bool.h"
 #include "mk_lang_stdout.h"
+#include "mk_lang_stdout_html.h"
 #include "mk_lang_str_len.h"
 #include "mk_lang_tchar.h"
 #include "mk_lang_typedef.h"
@@ -655,6 +656,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_glo
 
 	mk_lang_cpuid_init();
 	err = mk_lang_stdout_init(); mk_lang_check_rereturn(err);
+	err = mk_lang_stdout_html_init(); mk_lang_check_rereturn(err);
 	err = mk_sl_random_init(); mk_lang_check_rereturn(err);
 	err = mk_lib_net_init(); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_cp_mallocator_global_init(); mk_lang_check_rereturn(err);
@@ -668,6 +670,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_glo
 	err = mk_lib_iip_cp_mallocator_global_deinit(); mk_lang_check_rereturn(err);
 	err = mk_lib_net_deinit(); mk_lang_check_rereturn(err);
 	err = mk_sl_random_deinit(); mk_lang_check_rereturn(err);
+	err = mk_lang_stdout_html_deinit(); mk_lang_check_rereturn(err);
 	return 0;
 }
 
