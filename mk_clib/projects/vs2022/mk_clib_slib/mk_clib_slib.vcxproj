@@ -1312,6 +1312,10 @@
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_list_dbl_inl_defu.h.m4"/>
 	</ItemGroup>
 	<ItemGroup>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_stdout_html.c"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_stdout_html.h"/>
+	</ItemGroup>
+	<ItemGroup>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_appender_file.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_appender_file_portable.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_appender_file_windows.c"/>
