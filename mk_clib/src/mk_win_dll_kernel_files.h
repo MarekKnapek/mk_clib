@@ -165,6 +165,15 @@ enum mk_win_dll_kernel_files_volume_name_e
 };
 typedef enum mk_win_dll_kernel_files_volume_name_e mk_win_dll_kernel_files_volume_name_t;
 
+enum mk_win_dll_kernel_files_file_pos_e
+{
+	mk_win_dll_kernel_files_file_pos_e_begin   = 0,
+	mk_win_dll_kernel_files_file_pos_e_current = 1,
+	mk_win_dll_kernel_files_file_pos_e_end     = 2,
+	mk_win_dll_kernel_files_file_pos_e_dummy_end
+};
+typedef enum mk_win_dll_kernel_files_file_pos_e mk_win_dll_kernel_files_file_pos_t;
+
 
 #define s_mk_win_dll_kernel_files_max_path 260
 #define s_mk_win_dll_kernel_files_invalid_file_size ((mk_win_base_dword_t)(0xfffffffful))
@@ -276,6 +285,8 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_dword_t mk_win_dll_kernel_files_set_
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_dll_kernel_files_set_end_of_file(mk_win_base_handle_t const handle) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_dword_t mk_win_dll_kernel_files_get_file_type(mk_win_base_handle_t const handle) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_dll_kernel_files_get_file_information_by_handle(mk_win_base_handle_t const handle, mk_win_dll_kernel_files_info_by_handle_lpt const info) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_dll_kernel_files_lock_file(mk_win_base_handle_t const file, mk_win_base_dword_t const file_offset_lo, mk_win_base_dword_t const file_offset_hi, mk_win_base_dword_t const number_of_bytes_to_lock_lo, mk_win_base_dword_t const number_of_bytes_to_lock_hi) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_dll_kernel_files_unlock_file(mk_win_base_handle_t const file, mk_win_base_dword_t const file_offset_lo, mk_win_base_dword_t const file_offset_hi, mk_win_base_dword_t const number_of_bytes_to_unlock_lo, mk_win_base_dword_t const number_of_bytes_to_unlock_hi) mk_lang_noexcept;
 
 
 #endif
