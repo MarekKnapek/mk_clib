@@ -291,14 +291,14 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_logger_html_p
 	mk_lang_assert(!mk_win_base_handle_is_invalid(logger->m_file_handle));
 
 	handle = logger->m_file_handle;
-	distance_lo = -mk_lang_countstr(mk_sl_logger_html_k_session_footer);
+	distance_lo = -(mk_lang_countstr(mk_sl_logger_html_k_document_footer) + mk_lang_countstr(mk_sl_logger_html_k_session_footer));
 	distance_hi = mk_win_base_null;
-	move_method = mk_win_dll_kernel_files_file_pos_e_current;
+	move_method = mk_win_dll_kernel_files_file_pos_e_end;
 	new_lo = mk_win_dll_kernel_files_set_file_pointer(handle, distance_lo, distance_hi, move_method); mk_lang_check_return(new_lo != s_mk_win_dll_kernel_files_invalid_set_file_pointer || (gle = mk_win_dll_kernel_errors_get_last()) == mk_win_dll_kernel_errors_id_e_success);
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_logger_html_prrw_construct(mk_sl_logger_html_pt const logger, mk_lang_types_pchar_pct const name) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_logger_html_prrw_open_file(mk_sl_logger_html_pt const logger, mk_lang_types_pchar_pct const name, mk_lang_types_bool_pt const already_existed) mk_lang_noexcept
 {
 	mk_win_base_pchar_lpct file_name;
 	mk_win_base_dword_t desired_access;
@@ -309,12 +309,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_logger_html_p
 	mk_win_base_handle_t template_file;
 	mk_win_base_handle_t file_handle;
 	mk_win_base_dword_t gle;
-	mk_lang_types_bool_t already_existed;
-	mk_lang_types_sint_t err;
 
 	mk_lang_assert(logger);
 	mk_lang_assert(name);
 	mk_lang_assert(name[0] != '\0');
+	mk_lang_assert(already_existed);
 
 	file_name = name;
 	desired_access = ((mk_win_base_dword_t)(mk_win_dll_advapi_right_generic_e_read)) | ((mk_win_base_dword_t)(mk_win_dll_advapi_right_generic_e_write));
@@ -326,7 +325,20 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_logger_html_p
 	file_handle = mk_win_dll_kernel_files_a_create_file(file_name, desired_access, share_mode, security_attributes, creation_disposition, flags_and_attributes, template_file); mk_lang_check_return(!mk_win_base_handle_is_invalid(file_handle));
 	logger->m_file_handle = file_handle;
 	gle = mk_win_dll_kernel_errors_get_last();
-	already_existed = gle == mk_win_dll_kernel_errors_id_e_already_exists;
+	*already_existed = gle == mk_win_dll_kernel_errors_id_e_already_exists;
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_logger_html_prrw_construct(mk_sl_logger_html_pt const logger, mk_lang_types_pchar_pct const file_name) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	mk_lang_types_bool_t already_existed;
+
+	mk_lang_assert(logger);
+	mk_lang_assert(file_name);
+	mk_lang_assert(file_name[0] != '\0');
+
+	err = mk_sl_logger_html_prrw_open_file(logger, file_name, &already_existed); mk_lang_check_rereturn(err);
 	if(!already_existed)
 	{
 		err = mk_sl_logger_html_prrw_write_document_header(logger); mk_lang_check_rereturn(err);
@@ -357,7 +369,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_logger_html_p
 	mk_lang_assert(logger);
 	mk_lang_assert(!mk_win_base_handle_is_invalid(logger->m_file_handle));
 
-	err = mk_sl_logger_html_prrw_move_in_front_of_document_footer(logger); mk_lang_check_rereturn(err);
 	err = mk_sl_logger_html_prrw_move_in_front_of_session_footer(logger); mk_lang_check_rereturn(err);
 	err = mk_sl_logger_html_prrw_write_line_header(logger); mk_lang_check_rereturn(err);
 	return 0;
