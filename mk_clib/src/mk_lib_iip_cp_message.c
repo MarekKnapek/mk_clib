@@ -731,7 +731,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_construct_request_lease_set(mk_lib_iip_cp_message_request_lease_set_pt const msg_request_lease_set) mk_lang_noexcept
 {
-	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	mk_lang_assert(msg_request_lease_set);
 
@@ -934,7 +934,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_construct_request_variable_lease_set(mk_lib_iip_cp_message_request_variable_lease_set_pt const msg_request_variable_lease_set) mk_lang_noexcept
 {
-	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	mk_lang_assert(msg_request_variable_lease_set);
 

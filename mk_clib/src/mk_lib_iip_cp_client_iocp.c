@@ -169,6 +169,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_iocp_task_prrw_step_ready(mk_lib_iip_cp_client_iocp_task_pt const task, mk_lang_types_bool_t const allow_to_block, mk_lib_iip_cp_client_iocp_task_result_pt const step_result) mk_lang_noexcept
 {
+#include "mk_lang_warning_clang_push_conditional_uninitialized.h"
 	mk_lang_types_usize_t count;
 	mk_lang_types_bool_t break2;
 	mk_lang_types_bool_t at_least_one_would_block;
@@ -242,6 +243,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 		*step_result = mk_lib_iip_cp_client_iocp_task_result_e_did_nothing;
 	}
 	return 0;
+#include "mk_lang_warning_clang_pop.h"
 }
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_iocp_task_prrw_step(mk_lib_iip_cp_client_iocp_task_pt const task, mk_lang_types_bool_t const allow_to_block, mk_lib_iip_cp_client_iocp_task_result_pt const step_result) mk_lang_noexcept

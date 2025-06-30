@@ -650,11 +650,12 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 #if mk_sl_fixed_vector_inl_defd_element_construct_destroy_has
 	mk_lang_types_usize_t n mk_lang_constexpr_init;
 	mk_lang_types_usize_t i mk_lang_constexpr_init;
-	mk_lang_types_usize_t idx;
-	mk_sl_fixed_vector_inl_defd_element_pt e;
+	mk_lang_types_usize_t idx mk_lang_constexpr_init;
+	mk_sl_fixed_vector_inl_defd_element_pt e mk_lang_constexpr_init;
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
 	mk_lang_assert(idx_from >= 0);
@@ -662,6 +663,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	mk_lang_assert(idx_to >= 0);
 	mk_lang_assert(idx_to < mk_sl_fixed_vector_inl_defd_prro_size(fixed_vector));
 	mk_lang_assert(idx_from <= idx_to);
+	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	n = idx_to - idx_from + 1;
@@ -701,8 +703,8 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 #if mk_sl_fixed_vector_inl_defd_element_construct_destroy_has
 	mk_lang_types_usize_t n mk_lang_constexpr_init;
 	mk_lang_types_usize_t i mk_lang_constexpr_init;
-	mk_lang_types_usize_t idx;
-	mk_sl_fixed_vector_inl_defd_element_pt e;
+	mk_lang_types_usize_t idx mk_lang_constexpr_init;
+	mk_sl_fixed_vector_inl_defd_element_pt e mk_lang_constexpr_init;
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"

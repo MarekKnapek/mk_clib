@@ -9,7 +9,7 @@
 #include "mk_win_base.h"
 
 
-mk_win_base_make_handle(mk_win_dll_kernel_iocp);
+mk_win_base_make_handle(mk_win_dll_kernel_iocp)
 
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_dll_kernel_iocp_t mk_win_dll_kernel_iocp_create(mk_win_base_handle_t const file, mk_win_dll_kernel_iocp_t const existing_iocp, mk_win_base_uintptr_t const key, mk_win_base_dword_t const concurrency) mk_lang_noexcept;

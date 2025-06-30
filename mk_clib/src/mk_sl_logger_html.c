@@ -164,7 +164,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_logger_html_p
 
 	handle = logger->m_file_handle;
 	buffer = str_buf;
-	bytes_to_write = str_len;
+	bytes_to_write = ((mk_win_base_dword_t)(str_len));
 	bytes_written = 0;
 	overlapped = mk_win_base_null;
 	b = mk_win_dll_kernel_files_write_file(handle, buffer, bytes_to_write, &bytes_written, overlapped); mk_lang_check_return(b != mk_win_base_false); mk_lang_check_return(bytes_written == bytes_to_write);
@@ -332,7 +332,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_logger_html_p
 	share_mode = mk_win_dll_kernel_files_share_e_read | mk_win_dll_kernel_files_share_e_delete;
 	security_attributes = mk_win_base_null;
 	creation_disposition = mk_win_dll_kernel_files_create_e_open_always;
-	flags_and_attributes = mk_win_dll_kernel_files_flag_e_none | mk_win_dll_kernel_files_attribute_e_normal;
+	flags_and_attributes = ((mk_win_base_dword_t)(mk_win_dll_kernel_files_flag_e_none)) | ((mk_win_base_dword_t)(mk_win_dll_kernel_files_attribute_e_normal));
 	template_file = mk_win_base_handle_get_null();
 	file_handle = mk_win_dll_kernel_files_a_create_file(file_name, desired_access, share_mode, security_attributes, creation_disposition, flags_and_attributes, template_file); mk_lang_check_return(!mk_win_base_handle_is_invalid(file_handle));
 	logger->m_file_handle = file_handle;

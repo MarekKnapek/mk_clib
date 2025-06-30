@@ -79,7 +79,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_logger_stdout
 	}
 	else
 	{
-		err = mk_lang_stdout_print_color_n(logger->m_color, str_buf, str_len); mk_lang_check_rereturn(err);
+		err = mk_lang_stdout_print_color_n(((mk_lang_stdout_color_text_t)(logger->m_color)), str_buf, str_len); mk_lang_check_rereturn(err);
 	}
 	return 0;
 }

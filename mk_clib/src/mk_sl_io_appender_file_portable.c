@@ -61,7 +61,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_appender_file_port
 	mk_lang_assert(written);
 	mk_lang_assert(mk_sl_io_appender_file_portable_is_valid(appender->m_file_handle));
 
-	w = fwrite(buf, 1, len, appender->m_file_handle);
+	w = fwrite(buf, 1, ((mk_lang_types_usize_t)(len)), appender->m_file_handle);
 	*written = ((mk_lang_types_sint_t)(w));
 	return 0;
 }
