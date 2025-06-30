@@ -9,6 +9,7 @@
 #include "mk_lang_types.h"
 #include "mk_lib_iip_cp_client_connection.h"
 #include "mk_lib_iip_cp_mallocator_global.h"
+#include "mk_lib_net_iocp.h"
 
 
 mk_lang_forward(mk_lib_iip_cp_client_shared);
@@ -27,6 +28,7 @@ mk_lang_typedef(mk_lib_iip_cp_client_iocp_settings);
 struct mk_lib_iip_cp_client_iocp_state_s
 {
 	mk_lib_iip_cp_client_shared_pt m_shared;
+	mk_lib_net_iocp_t m_iocp;
 	mk_lib_iip_cp_client_connection_tasks_t m_connections;
 	mk_lang_types_usize_t m_connection_idx;
 };
