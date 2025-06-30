@@ -2,39 +2,24 @@
 #define mk_include_guard_mk_lib_iip_cp_client_application_h
 
 
-#include "mk_lang_bui.h"
-#include "mk_lang_charbit.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_typedef.h"
 #include "mk_lang_types.h"
-#include "mk_lib_iip_cp_client_connection.h"
+#include "mk_lib_iip_cp_client_iocp.h"
 #include "mk_lib_iip_cp_client_shared.h"
 #include "mk_lib_iip_cp_mallocator_global.h"
-#include "mk_lib_iip_cp_message.h"
-#include "mk_lib_iip_cp_types.h"
-#include "mk_lib_net.h"
 
 
-mk_lang_forward(mk_sl_cui_uint8);
+mk_lang_forward(mk_lib_iip_cp_client_connection_settings);
+mk_lang_forward(mk_lib_iip_cp_client_connection_task);
 
-
-#define mk_sl_cui_t_name mk_lib_iip_cp_client_application_handle
-#define mk_sl_cui_t_base_type_name mk_lang_bui_uintptr
-#define mk_sl_cui_t_count 1
-#define mk_sl_cui_t_disable_big_div 1
-#define mk_sl_cui_t_base_type_size_bits_d mk_lang_bui_uintptr_size_bits_d
-#define mk_sl_cui_t_inline 1
-#include "mk_sl_cui_inl_fileh.h"
-#include "mk_sl_cui_inl_fileu.h"
-#define mk_lib_iip_cp_client_application_handle_size_bits_d mk_lang_bui_uintptr_size_bits_d
-#define mk_lib_iip_cp_client_application_handle_size_bytes_d (mk_lang_bui_uintptr_size_bits_d / mk_lang_charbit)
 
 #include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_lib_iip_cp_client_application_settings_s
 {
-	int m_dummy;
+	mk_lib_iip_cp_client_iocp_settings_t m_iocp_settings;
 };
 typedef struct mk_lib_iip_cp_client_application_settings_s mk_lib_iip_cp_client_application_settings_t;
 mk_lang_typedef(mk_lib_iip_cp_client_application_settings);
@@ -44,8 +29,7 @@ mk_lang_typedef(mk_lib_iip_cp_client_application_settings);
 struct mk_lib_iip_cp_client_application_state_s
 {
 	mk_lib_iip_cp_client_shared_t m_shared;
-	mk_lib_iip_cp_client_connection_tasks_t m_connections;
-	mk_lang_types_usize_t m_connection_idx;
+	mk_lib_iip_cp_client_iocp_task_t m_iocp;
 };
 typedef struct mk_lib_iip_cp_client_application_state_s mk_lib_iip_cp_client_application_state_t;
 mk_lang_typedef(mk_lib_iip_cp_client_application_state);
@@ -73,6 +57,7 @@ mk_lang_typedef(mk_lib_iip_cp_client_application_task_result);
 
 enum mk_lib_iip_cp_client_application_task_step_e
 {
+	mk_lib_iip_cp_client_application_task_step_e_ready,
 	mk_lib_iip_cp_client_application_task_step_e_dummy_end
 };
 typedef enum mk_lib_iip_cp_client_application_task_step_e mk_lib_iip_cp_client_application_task_step_t;
