@@ -43,9 +43,17 @@
 #define mk_lib_iip_cp_client_types_handle_session_size_bytes_d (mk_lang_bui_uintptr_size_bits_d / mk_lang_charbit)
 
 
-struct mk_lib_iip_cp_client_types_application_settings_s
+struct mk_lib_iip_cp_client_types_iocp_settings_s
 {
 	int m_dummy;
+};
+typedef struct mk_lib_iip_cp_client_types_iocp_settings_s mk_lib_iip_cp_client_types_iocp_settings_t;
+mk_lang_typedef(mk_lib_iip_cp_client_types_iocp_settings);
+
+
+struct mk_lib_iip_cp_client_types_application_settings_s
+{
+	mk_lib_iip_cp_client_types_iocp_settings_t m_iocp_settings;
 };
 typedef struct mk_lib_iip_cp_client_types_application_settings_s mk_lib_iip_cp_client_types_application_settings_t;
 mk_lang_typedef(mk_lib_iip_cp_client_types_application_settings);
