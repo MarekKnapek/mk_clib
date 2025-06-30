@@ -39,7 +39,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_appender_file_wind
 	mk_lang_assert(name && name[0] != '\0');
 
 	file_name = name;
-	desired_access = ((mk_win_base_dword_t)(mk_win_dll_advapi_right_generic_e_read | mk_win_dll_advapi_right_specific_file_e_append_data));
+	desired_access = ((mk_win_base_dword_t)(mk_win_dll_advapi_right_generic_e_read)) | ((mk_win_base_dword_t)(mk_win_dll_advapi_right_specific_file_e_append_data));
 	share_mode = ((mk_win_base_dword_t)(mk_win_dll_kernel_files_share_e_read | mk_win_dll_kernel_files_share_e_delete));
 	security_attributes = mk_win_base_null;
 	creation_disposition = mk_win_dll_kernel_files_create_e_open_always;
@@ -66,7 +66,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_appender_file_wind
 	mk_lang_assert(name && name[0] != L'\0');
 
 	file_name = name;
-	desired_access = ((mk_win_base_dword_t)(mk_win_dll_advapi_right_generic_e_read | mk_win_dll_advapi_right_specific_file_e_append_data));
+	desired_access = ((mk_win_base_dword_t)(mk_win_dll_advapi_right_generic_e_read)) | ((mk_win_base_dword_t)(mk_win_dll_advapi_right_specific_file_e_append_data));
 	share_mode = ((mk_win_base_dword_t)(mk_win_dll_kernel_files_share_e_read | mk_win_dll_kernel_files_share_e_delete));
 	security_attributes = mk_win_base_null;
 	creation_disposition = mk_win_dll_kernel_files_create_e_open_always;
@@ -104,7 +104,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_appender_file_wind
 
 	distance_sl_lo = 0;
 	distance_sl_hi = 0;
-	distance_dw_lo = mk_win_dll_kernel_files_set_file_pointer(appender->m_file_handle, distance_sl_lo, &distance_sl_hi, mk_win_dll_kernel_files_file_pos_e_end); mk_lang_check_return(distance_dw_lo != s_mk_win_dll_kernel_files_invalid_set_file_pointer);
+	distance_dw_lo = mk_win_dll_kernel_files_set_file_pointer(appender->m_file_handle, ((mk_win_base_slong_t)(distance_sl_lo)), &distance_sl_hi, mk_win_dll_kernel_files_file_pos_e_end); mk_lang_check_return(distance_dw_lo != s_mk_win_dll_kernel_files_invalid_set_file_pointer);
 	tuis[0] = ((mk_lang_types_uint_t)(distance_dw_lo));
 	tuis[1] = ((mk_lang_types_uint_t)(distance_sl_hi));
 	mk_sl_cui_uint64_from_buis_uint_le(&cui_a, &tuis[0]);
@@ -113,9 +113,9 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_appender_file_wind
 	mk_sl_cui_uint64_to_buis_uint_le(&cui_a, &tuis[0]);
 	distance_dw_lo = ((mk_win_base_dword_t)(tuis[0]));
 	distance_dw_hi = ((mk_win_base_dword_t)(tuis[1]));
-	b = mk_win_dll_kernel_files_lock_file(appender->m_file_handle, distance_dw_lo, distance_dw_hi, len, 0); mk_lang_check_return(b != mk_win_base_false);
+	b = mk_win_dll_kernel_files_lock_file(appender->m_file_handle, distance_dw_lo, distance_dw_hi, ((mk_win_base_dword_t)(len)), 0); mk_lang_check_return(b != mk_win_base_false);
 	b = mk_win_dll_kernel_files_write_file(appender->m_file_handle, buf, ((mk_win_base_dword_t)(len)), &wrtn, mk_win_base_null); mk_lang_check_return(b != mk_win_base_false);
-	b = mk_win_dll_kernel_files_unlock_file(appender->m_file_handle, distance_dw_lo, distance_dw_hi, len, 0); mk_lang_check_return(b != mk_win_base_false);
+	b = mk_win_dll_kernel_files_unlock_file(appender->m_file_handle, distance_dw_lo, distance_dw_hi, ((mk_win_base_dword_t)(len)), 0); mk_lang_check_return(b != mk_win_base_false);
 	*written = ((mk_lang_types_sint_t)(wrtn));
 	return 0;
 }

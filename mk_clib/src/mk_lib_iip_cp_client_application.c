@@ -92,7 +92,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 	switch(task->m_step)
 	{
-		case mk_lib_iip_cp_client_application_task_step_e_ready: err = mk_lib_iip_cp_client_application_task_prrw_step_ready(task, allow_to_block, step_result); mk_lang_check_rereturn(err); mk_lang_assert(*step_result != mk_lib_iip_cp_client_iocp_task_result_e_dummy_end); break;
+		case mk_lib_iip_cp_client_application_task_step_e_ready: err = mk_lib_iip_cp_client_application_task_prrw_step_ready(task, allow_to_block, step_result); mk_lang_check_rereturn(err); mk_lang_assert(*step_result != mk_lib_iip_cp_client_application_task_result_e_dummy_end); break;
 		case mk_lib_iip_cp_client_application_task_step_e_dummy_end: mk_lang_assert_false(); break;
 		default: mk_lang_assert_false(); break;
 	}

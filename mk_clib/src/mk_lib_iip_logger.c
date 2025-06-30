@@ -67,8 +67,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_logger_p
 	mk_lang_assert(color >= 0);
 	mk_lang_assert(color < mk_lib_iip_logger_color_text_e_dummy_end);
 
-	err = mk_sl_logger_stdout_rw_begin_color(&logger->m_logger_stdout, color); mk_lang_check_rereturn(err);
-	err = mk_sl_logger_html_rw_begin_color(&logger->m_logger_html, color); mk_lang_check_rereturn(err);
+	err = mk_sl_logger_stdout_rw_begin_color(&logger->m_logger_stdout, ((mk_sl_logger_stdout_color_text_t)(color))); mk_lang_check_rereturn(err);
+	err = mk_sl_logger_html_rw_begin_color(&logger->m_logger_html, ((mk_sl_logger_html_color_text_t)(color))); mk_lang_check_rereturn(err);
 	return 0;
 }
 

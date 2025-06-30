@@ -115,8 +115,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	}
 	return 0;
 #else
+	mk_lang_assert(task);
 	mk_lang_assert(time_server);
 
+	((mk_lang_types_void_t)(task));
 	((mk_lang_types_void_t)(time_server));
 	return 0;
 #endif
@@ -152,6 +154,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	}
 	return 0;
 #else
+	mk_lang_assert(task);
+	((mk_lang_types_void_t)(task));
 	return 0;
 #endif
 }
@@ -749,6 +753,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_connection_task_prrw_step_ready(mk_lib_iip_cp_client_connection_task_pt const task, mk_lang_types_bool_t const allow_to_block, mk_lib_iip_cp_client_connection_task_result_pt const step_result) mk_lang_noexcept
 {
+#include "mk_lang_warning_clang_push_conditional_uninitialized.h"
 	mk_lang_types_usize_t count;
 	mk_lib_iip_cp_client_session_task_pt session_want_send;
 	mk_lib_iip_cp_client_session_task_pt session_want_recv;
@@ -887,6 +892,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 		*step_result = mk_lib_iip_cp_client_connection_task_result_e_did_nothing;
 	}
 	return 0;
+#include "mk_lang_warning_clang_pop.h"
 }
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_connection_task_prrw_step_parse_incoming_msg(mk_lib_iip_cp_client_connection_task_pt const task, mk_lang_types_bool_t const allow_to_block, mk_lib_iip_cp_client_connection_task_result_pt const step_result) mk_lang_noexcept
