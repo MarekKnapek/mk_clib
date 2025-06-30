@@ -1,0 +1,104 @@
+#ifndef mk_include_guard_mk_lib_iip_cp_client_iocp_h
+#define mk_include_guard_mk_lib_iip_cp_client_iocp_h
+
+
+#include "mk_lang_jumbo.h"
+#include "mk_lang_nodiscard.h"
+#include "mk_lang_noexcept.h"
+#include "mk_lang_typedef.h"
+#include "mk_lang_types.h"
+#include "mk_lib_iip_cp_client_connection.h"
+#include "mk_lib_iip_cp_mallocator_global.h"
+
+
+mk_lang_forward(mk_lib_iip_cp_client_shared);
+
+
+#include "mk_lang_warning_msvc_push_c4820.h"
+struct mk_lib_iip_cp_client_iocp_settings_s
+{
+	int m_dummy;
+};
+typedef struct mk_lib_iip_cp_client_iocp_settings_s mk_lib_iip_cp_client_iocp_settings_t;
+mk_lang_typedef(mk_lib_iip_cp_client_iocp_settings);
+#include "mk_lang_warning_msvc_pop.h"
+
+#include "mk_lang_warning_msvc_push_c4820.h"
+struct mk_lib_iip_cp_client_iocp_state_s
+{
+	mk_lib_iip_cp_client_shared_pt m_shared;
+	mk_lib_iip_cp_client_connection_tasks_t m_connections;
+	mk_lang_types_usize_t m_connection_idx;
+};
+typedef struct mk_lib_iip_cp_client_iocp_state_s mk_lib_iip_cp_client_iocp_state_t;
+mk_lang_typedef(mk_lib_iip_cp_client_iocp_state);
+#include "mk_lang_warning_msvc_pop.h"
+
+#include "mk_lang_warning_msvc_push_c4820.h"
+struct mk_lib_iip_cp_client_iocp_s
+{
+	mk_lib_iip_cp_client_iocp_settings_t m_settings;
+	mk_lib_iip_cp_client_iocp_state_t m_state;
+};
+typedef struct mk_lib_iip_cp_client_iocp_s mk_lib_iip_cp_client_iocp_t;
+mk_lang_typedef(mk_lib_iip_cp_client_iocp);
+#include "mk_lang_warning_msvc_pop.h"
+
+enum mk_lib_iip_cp_client_iocp_task_result_e
+{
+	mk_lib_iip_cp_client_iocp_task_result_e_did_something,
+	mk_lib_iip_cp_client_iocp_task_result_e_would_block,
+	mk_lib_iip_cp_client_iocp_task_result_e_did_nothing,
+	mk_lib_iip_cp_client_iocp_task_result_e_dummy_end
+};
+typedef enum mk_lib_iip_cp_client_iocp_task_result_e mk_lib_iip_cp_client_iocp_task_result_t;
+mk_lang_typedef(mk_lib_iip_cp_client_iocp_task_result);
+
+enum mk_lib_iip_cp_client_iocp_task_step_e
+{
+	mk_lib_iip_cp_client_iocp_task_step_e_ready,
+	mk_lib_iip_cp_client_iocp_task_step_e_dummy_end
+};
+typedef enum mk_lib_iip_cp_client_iocp_task_step_e mk_lib_iip_cp_client_iocp_task_step_t;
+
+#include "mk_lang_warning_msvc_push_c4820.h"
+struct mk_lib_iip_cp_client_iocp_task_s
+{
+	mk_lib_iip_cp_client_iocp_task_step_t m_step;
+	mk_lib_iip_cp_client_iocp_t m_iocp;
+};
+typedef struct mk_lib_iip_cp_client_iocp_task_s mk_lib_iip_cp_client_iocp_task_t;
+mk_lang_typedef(mk_lib_iip_cp_client_iocp_task);
+#include "mk_lang_warning_msvc_pop.h"
+
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_iocp_task_rw_construct(mk_lib_iip_cp_client_iocp_task_pt const task, mk_lib_iip_cp_client_shared_pt const shared, mk_lib_iip_cp_client_iocp_settings_pct const settings) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_iocp_task_rw_destroy(mk_lib_iip_cp_client_iocp_task_pt const task) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_iocp_task_rw_new_connection(mk_lib_iip_cp_client_iocp_task_pt const task, mk_lib_iip_cp_client_connection_settings_pct const settings, mk_lib_iip_cp_client_connection_task_ppt const connection) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_iocp_task_rw_step(mk_lib_iip_cp_client_iocp_task_pt const task, mk_lang_types_bool_t const allow_to_block, mk_lib_iip_cp_client_iocp_task_result_pt const step_result) mk_lang_noexcept;
+
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_iocp_task_ptr_rw_construct_void(mk_lib_iip_cp_client_iocp_task_ppt const x) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_iocp_task_ptr_rw_destroy(mk_lib_iip_cp_client_iocp_task_ppt const x) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_iocp_task_ptr_rw_construct_copy(mk_lib_iip_cp_client_iocp_task_ppt const dst, mk_lib_iip_cp_client_iocp_task_pcpt const src) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_iocp_task_ptr_rw_construct_move(mk_lib_iip_cp_client_iocp_task_ppt const dst, mk_lib_iip_cp_client_iocp_task_ppt const src) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_iocp_task_ptr_rw_assign_copy(mk_lib_iip_cp_client_iocp_task_ppt const dst, mk_lib_iip_cp_client_iocp_task_pcpt const src) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_iocp_task_ptr_rw_assign_move(mk_lib_iip_cp_client_iocp_task_ppt const dst, mk_lib_iip_cp_client_iocp_task_ppt const src) mk_lang_noexcept;
+
+#define mk_sl_vector_t_name mk_lib_iip_cp_client_iocp_tasks
+#define mk_sl_vector_t_element_type mk_lib_iip_cp_client_iocp_task_pt
+#define mk_sl_vector_t_mallocatorg mk_lib_iip_cp_mallocator_global
+#define mk_sl_vector_t_element_construct_void mk_lib_iip_cp_client_iocp_task_ptr_rw_construct_void
+#define mk_sl_vector_t_element_destruct mk_lib_iip_cp_client_iocp_task_ptr_rw_destroy
+#define mk_sl_vector_t_element_copy_construct mk_lib_iip_cp_client_iocp_task_ptr_rw_construct_copy
+#define mk_sl_vector_t_element_move_construct mk_lib_iip_cp_client_iocp_task_ptr_rw_construct_move
+#define mk_sl_vector_t_element_copy_assign mk_lib_iip_cp_client_iocp_task_ptr_rw_assign_copy
+#define mk_sl_vector_t_element_move_assign mk_lib_iip_cp_client_iocp_task_ptr_rw_assign_move
+#include "mk_sl_vector_inl_fileh.h"
+#include "mk_sl_vector_inl_fileu.h"
+
+
+#if mk_lang_jumbo_have
+#include "mk_lib_iip_cp_client_iocp.c"
+#endif
+#endif
