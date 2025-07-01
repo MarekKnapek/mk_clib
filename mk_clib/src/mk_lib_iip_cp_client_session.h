@@ -46,6 +46,10 @@ struct mk_lib_iip_cp_client_session_state_s
 	mk_lib_iip_cp_message_t m_msg;
 	mk_lang_types_bool_t m_has_msg_pending;
 	mk_lib_iip_cp_types_leasez_t m_leases;
+	mk_lang_types_bool_t m_expecting_msg_b;
+	mk_lang_types_bool_t m_expecting_msg_end;
+	mk_lib_iip_cp_types_messageid_t m_expecting_msg_id;
+	mk_lang_types_sint_t m_expecting_msg_size;
 };
 typedef struct mk_lib_iip_cp_client_session_state_s mk_lib_iip_cp_client_session_state_t;
 mk_lang_typedef(mk_lib_iip_cp_client_session_state);
@@ -79,6 +83,7 @@ enum mk_lib_iip_cp_client_session_task_step_e
 	mk_lib_iip_cp_client_session_task_step_e_wait_msg_session_status,
 	mk_lib_iip_cp_client_session_task_step_e_wait_msg_request_leaseset,
 	mk_lib_iip_cp_client_session_task_step_e_pickup_msg_create_lease_set,
+	mk_lib_iip_cp_client_session_task_step_e_pickup_msg_receive_message_begin,
 	mk_lib_iip_cp_client_session_task_step_e_idle,
 	mk_lib_iip_cp_client_session_task_step_e_dummy_end
 };
