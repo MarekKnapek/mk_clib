@@ -92,10 +92,12 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_external_ltc.c"><Filter>src</Filter></ClCompile>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_external_zlib.c"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_runtime_bool.c"><Filter>src</Filter></ClCompile>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_countof.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_extern.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_external_ltc.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_external_zlib.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_intmaxt.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_intptrt.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_runtime_bool.h"><Filter>src</Filter></ClInclude>
@@ -1189,6 +1191,10 @@
 	<ItemGroup>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_logger_html.c"><Filter>src</Filter></ClCompile>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_logger_html.h"><Filter>src</Filter></ClInclude>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_zlib.c"><Filter>src</Filter></ClCompile>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_zlib.h"><Filter>src</Filter></ClInclude>
 	</ItemGroup>
 	<ItemGroup>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_iip.c"><Filter>src</Filter></ClCompile>

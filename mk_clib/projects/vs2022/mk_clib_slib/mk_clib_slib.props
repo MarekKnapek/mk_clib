@@ -67,6 +67,7 @@
 			<PreprocessorDefinitions Condition="'$(mk_is_entry_point)' == 'true'">mk_lang_entry_point_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<PreprocessorDefinitions Condition="'$(mk_is_msvc)' == 'true'">mk_lang_external_ltc_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<PreprocessorDefinitions Condition="'$(mk_project)' == 'mk_clib_test'">mk_lang_crash_detail_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions Condition="'$(mk_project)' == 'mk_clib_iip'">mk_lang_external_zlib_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<UndefinePreprocessorDefinitions></UndefinePreprocessorDefinitions>
 			<UndefineAllPreprocessorDefinitions>false</UndefineAllPreprocessorDefinitions>
 			<IgnoreStandardIncludePath>false</IgnoreStandardIncludePath>
