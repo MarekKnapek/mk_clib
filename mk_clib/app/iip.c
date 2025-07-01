@@ -1,4 +1,5 @@
 #include "../src/mk_clib_app_iip.h"
+#include "../src/mk_lang_external_zlib.h"
 
 
 #if mk_lang_entry_point_have
