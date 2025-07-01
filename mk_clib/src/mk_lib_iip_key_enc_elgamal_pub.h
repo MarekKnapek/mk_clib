@@ -7,8 +7,12 @@
 #include "mk_lang_constexpr.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_static_param.h"
 #include "mk_lang_typedef.h"
 #include "mk_lang_types.h"
+
+
+mk_lang_forward(mk_sl_cui_uint8);
 
 
 #define mk_sl_cui_t_name mk_lib_iip_key_enc_elgamal_pub_integer_single
@@ -32,6 +36,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_key_enc_elgamal_
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_key_enc_elgamal_pub_integer_single_load_g(mk_lib_iip_key_enc_elgamal_pub_integer_single_pt const x) mk_lang_noexcept;
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_key_enc_elgamal_pub_integer_single_load_p(mk_lib_iip_key_enc_elgamal_pub_integer_single_pt const x) mk_lang_noexcept;
 
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_key_enc_elgamal_pub_integer_single_from_u8s_be(mk_lib_iip_key_enc_elgamal_pub_integer_single_pt const a, mk_lang_static_param(mk_sl_cui_uint8_ct, b, mk_lib_iip_key_enc_elgamal_pub_integer_single_size_bytes_v)) mk_lang_noexcept;
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_key_enc_elgamal_pub_integer_single_mod_pow(mk_lib_iip_key_enc_elgamal_pub_integer_single_prct const base, mk_lib_iip_key_enc_elgamal_pub_integer_single_prct const exponent, mk_lib_iip_key_enc_elgamal_pub_integer_single_prct const modulus, mk_lib_iip_key_enc_elgamal_pub_integer_single_prt const result) mk_lang_noexcept;
 
 

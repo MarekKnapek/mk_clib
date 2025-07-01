@@ -18,6 +18,7 @@
 #include "mk_lib_crypto_hash_stream_sha1.h"
 #include "mk_lib_iip_key_sgn_dsa_sha1_pub.h"
 #include "mk_lib_iip_random.h"
+#include "mk_sl_cui_uint8.h"
 #include "mk_sl_uint_more.h"
 
 
