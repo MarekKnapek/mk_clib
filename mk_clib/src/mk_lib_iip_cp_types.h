@@ -12,8 +12,10 @@
 #include "mk_lang_types.h"
 #include "mk_lib_crypto_hash_stream_sha2_256.h"
 #include "mk_lib_iip_cp_mallocator_global.h"
-#include "mk_lib_iip_crypt_dsa_sha1.h"
-#include "mk_lib_iip_crypt_elgamal.h"
+#include "mk_lib_iip_key_enc_elgamal_pri.h"
+#include "mk_lib_iip_key_enc_elgamal_pub.h"
+#include "mk_lib_iip_key_sgn_dsa_sha1_pri.h"
+#include "mk_lib_iip_key_sgn_dsa_sha1_pub.h"
 #include "mk_sl_cui_uint16.h"
 #include "mk_sl_cui_uint32.h"
 #include "mk_sl_cui_uint64.h"
@@ -376,10 +378,10 @@ mk_lang_typedef(mk_lib_iip_cp_types_destination_with_cert);
 
 struct mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_s
 {
-	mk_lib_iip_crypt_elgamal_key_pri_t m_key_elgamal_pri;
-	mk_lib_iip_crypt_elgamal_key_pub_t m_key_elgamal_pub;
-	mk_lib_iip_crypt_dsa_sha1_key_pri_t m_key_dsa_sha1_pri;
-	mk_lib_iip_crypt_dsa_sha1_key_pub_t m_key_dsa_sha1_pub;
+	mk_lib_iip_key_enc_elgamal_pri_t m_key_elgamal_pri;
+	mk_lib_iip_key_enc_elgamal_pub_t m_key_elgamal_pub;
+	mk_lib_iip_key_sgn_dsa_sha1_pri_t m_key_dsa_sha1_pri;
+	mk_lib_iip_key_sgn_dsa_sha1_pub_t m_key_dsa_sha1_pub;
 };
 typedef struct mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_s mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_t;
 mk_lang_typedef(mk_lib_iip_cp_types_destination_elgamal_dsa_sha1);

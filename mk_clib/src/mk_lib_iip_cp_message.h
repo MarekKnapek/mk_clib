@@ -10,8 +10,8 @@
 #include "mk_lang_typedef.h"
 #include "mk_lang_types.h"
 #include "mk_lib_iip_cp_types.h"
-#include "mk_lib_iip_crypt_dsa_sha1.h"
-#include "mk_lib_iip_crypt_elgamal.h"
+#include "mk_lib_iip_key_enc_elgamal_pri.h"
+#include "mk_lib_iip_key_sgn_dsa_sha1_pri.h"
 
 
 enum mk_lib_iip_cp_message_message_type_id_e
@@ -277,8 +277,8 @@ mk_lang_typedef(mk_lib_iip_cp_message_destroy_session);
 struct mk_lib_iip_cp_message_create_lease_set_s
 {
 	mk_lib_iip_cp_types_sessionid_t m_session_id;
-	mk_lib_iip_crypt_dsa_sha1_key_pri_t m_key_sgn_pri;
-	mk_lib_iip_crypt_elgamal_key_pri_t m_key_enc_pri;
+	mk_lib_iip_key_sgn_dsa_sha1_pri_t m_key_sgn_pri;
+	mk_lib_iip_key_enc_elgamal_pri_t m_key_enc_pri;
 	mk_lib_iip_cp_types_leaseset_t m_leaseset;
 };
 typedef struct mk_lib_iip_cp_message_create_lease_set_s mk_lib_iip_cp_message_create_lease_set_t;
