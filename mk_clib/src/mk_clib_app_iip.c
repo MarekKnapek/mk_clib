@@ -344,13 +344,15 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_par
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_work(mk_lang_types_sint_t const argc, mk_lang_tchar_pcpct const argv, mk_lang_types_sint_pct const lens) mk_lang_noexcept
 {
-	mk_lib_iip_cp_client_types_application_settings_t app_settings;
 	mk_lang_types_sint_t err;
+
+	mk_lib_iip_cp_client_types_application_settings_t app_settings;
 	mk_lib_iip_cp_client_types_connection_settings_t connection_settings_1;
 	mk_lib_iip_cp_client_types_session_settings_t session_settings_1;
 	mk_lib_iip_cp_client_types_connection_settings_t connection_settings_2;
 	mk_lib_iip_cp_client_types_session_settings_t session_settings_2;
 	mk_lib_iip_cp_client_types_session_settings_t session_settings_3;
+
 	mk_lib_iip_cp_client_wrapper_task_t wrp;
 	mk_lib_iip_cp_client_types_handle_connection_t connection_1;
 	mk_lib_iip_cp_client_types_handle_session_t session_1;
@@ -358,7 +360,14 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wor
 	mk_lib_iip_cp_client_types_handle_session_t session_2;
 	mk_lib_iip_cp_client_types_handle_session_t session_3;
 
-	app_settings.m_iocp_settings.m_dummy = 0;
+	/*err = mk_clib_app_iip_destination_elgamal_dsa_sha1_generate_new_random_and_save_pri_only(&destination, "destination.txt"); mk_lang_check_rereturn(err);*/
+	/*err = mk_clib_app_iip_destination_elgamal_dsa_sha1_generate_new_random_and_save_pri_pub(&destination_1, "destination3.txt"); mk_lang_check_rereturn(err);*/
+	/*err = mk_clib_app_iip_destination_elgamal_dsa_sha1_load_pri_only(&destination, "destination.txt"); mk_lang_check_rereturn(err);*/
+	/*err = mk_clib_app_iip_destination_elgamal_dsa_sha1_save_pri_only(&destination, "destination.txt"); mk_lang_check_rereturn(err);*/
+	/*err = mk_clib_app_iip_destination_elgamal_dsa_sha1_save_pri_pub(&destination, "destination.txt"); mk_lang_check_rereturn(err);*/
+
+	app_settings.m_dummy = 0;
+	app_settings.m_iocp_settings.m_dummy = 0;;
 	err = mk_clib_app_iip_parse_settings_from_cmd_line(&connection_settings_1, argc, argv, lens); mk_lang_check_rereturn(err);
 	err = mk_clib_app_iip_destination_elgamal_dsa_sha1_load_pri_pub(&session_settings_1.m_destination, "destination1.txt"); mk_lang_check_rereturn(err);
 	err = mk_clib_app_iip_parse_settings_from_hardcoded(&connection_settings_2); mk_lang_check_rereturn(err);
@@ -366,24 +375,27 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wor
 	err = mk_clib_app_iip_destination_elgamal_dsa_sha1_load_pri_pub(&session_settings_3.m_destination, "destination3.txt"); mk_lang_check_rereturn(err);
 	session_settings_3.m_destination.m_key_elgamal_pri = session_settings_2.m_destination.m_key_elgamal_pri;
 	session_settings_3.m_destination.m_key_elgamal_pub = session_settings_2.m_destination.m_key_elgamal_pub;
+
 	err = mk_lib_iip_cp_client_wrapper_task_rw_construct(&wrp, &app_settings); mk_lang_check_rereturn(err);
+
 	err = mk_lib_iip_cp_client_wrapper_task_rw_new_connection(&wrp, &connection_settings_1, &connection_1); mk_lang_check_rereturn(err);
+
 	mk_lib_iip_cp_client_types_handle_session_set_zero(&session_settings_1.m_master_session);
 	session_settings_1.m_connection = connection_1;
 	err = mk_lib_iip_cp_client_wrapper_task_rw_new_session(&wrp, &session_settings_1, &session_1); mk_lang_check_rereturn(err);
+
 	err = mk_lib_iip_cp_client_wrapper_task_rw_new_connection(&wrp, &connection_settings_2, &connection_2); mk_lang_check_rereturn(err);
+
 	mk_lib_iip_cp_client_types_handle_session_set_zero(&session_settings_2.m_master_session);
 	session_settings_2.m_connection = connection_2;
 	err = mk_lib_iip_cp_client_wrapper_task_rw_new_session(&wrp, &session_settings_2, &session_2); mk_lang_check_rereturn(err);
+
 	session_settings_3.m_master_session = session_2;
 	session_settings_3.m_connection = connection_2;
 	err = mk_lib_iip_cp_client_wrapper_task_rw_new_session(&wrp, &session_settings_3, &session_3); mk_lang_check_rereturn(err);
-	/*err = mk_clib_app_iip_destination_elgamal_dsa_sha1_generate_new_random_and_save_pri_only(&destination, "destination.txt"); mk_lang_check_rereturn(err);*/
-	/*err = mk_clib_app_iip_destination_elgamal_dsa_sha1_generate_new_random_and_save_pri_pub(&destination_1, "destination3.txt"); mk_lang_check_rereturn(err);*/
-	/*err = mk_clib_app_iip_destination_elgamal_dsa_sha1_load_pri_only(&destination, "destination.txt"); mk_lang_check_rereturn(err);*/
-	/*err = mk_clib_app_iip_destination_elgamal_dsa_sha1_save_pri_only(&destination, "destination.txt"); mk_lang_check_rereturn(err);*/
-	/*err = mk_clib_app_iip_destination_elgamal_dsa_sha1_save_pri_pub(&destination, "destination.txt"); mk_lang_check_rereturn(err);*/
+
 	err = mk_lib_iip_cp_client_wrapper_task_rw_run_block(&wrp); mk_lang_check_rereturn(err);
+
 	err = mk_lib_iip_cp_client_wrapper_task_rw_destroy(&wrp); mk_lang_check_rereturn(err);
 	return 0;
 }
