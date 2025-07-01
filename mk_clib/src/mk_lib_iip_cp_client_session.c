@@ -81,7 +81,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_prrw_on_prune_old_leases(mk_lib_iip_cp_client_session_task_pt const task) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_prrw_prune_old_leases(mk_lib_iip_cp_client_session_task_pt const task) mk_lang_noexcept
 {
 	mk_lib_iip_cp_types_date_t curr_time;
 	mk_lang_types_usize_t n;
@@ -134,7 +134,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	msg_request_lease_set = &msg->m_mix.m_data.m_request_lease_set;
 	mk_lang_assert(mk_lib_iip_cp_types_sessionid_eq(&msg_request_lease_set->m_session_id, &task->m_session.m_state.m_id));
 
-	err = mk_lib_iip_cp_client_session_task_prrw_on_prune_old_leases(task); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_client_session_task_prrw_prune_old_leases(task); mk_lang_check_rereturn(err);
 	data = mk_lib_iip_cp_types_hash_and_tunnelids_rw_data(&msg_request_lease_set->m_tunnels);
 	size = mk_lib_iip_cp_types_hash_and_tunnelids_rw_size(&msg_request_lease_set->m_tunnels);
 	mk_lang_check_return(size != 0);
@@ -185,6 +185,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	msg_request_variable_lease_set = &msg->m_mix.m_data.m_request_variable_lease_set;
 	mk_lang_assert(mk_lib_iip_cp_types_sessionid_eq(&msg_request_variable_lease_set->m_session_id, &task->m_session.m_state.m_id));
 
+	err = mk_lib_iip_cp_client_session_task_prrw_prune_old_leases(task); mk_lang_check_rereturn(err);
 	data = mk_lib_iip_cp_types_leases_rw_data(&msg_request_variable_lease_set->m_leases);
 	size = mk_lib_iip_cp_types_leases_rw_size(&msg_request_variable_lease_set->m_leases);
 	mk_lang_check_return(size != 0);
