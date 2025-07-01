@@ -1,7 +1,7 @@
-#include "mk_lang_concat.h"
 #include "mk_lang_assert.h"
 #include "mk_lang_bool.h"
 #include "mk_lang_check.h"
+#include "mk_lang_concat.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
@@ -11,6 +11,7 @@
 #include "mk_lang_noexcept.h"
 #include "mk_lang_null.h"
 #include "mk_lang_pow2.h"
+#include "mk_lang_static_assert.h"
 #include "mk_lang_types.h"
 
 
@@ -1208,11 +1209,13 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_prrw_clear(mk_sl_fixed_vector_inl_defd_pt const fixed_vector) mk_lang_noexcept
 {
+	mk_lang_types_sint_t err;
+
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
 
-	((mk_lang_types_void_t)(fixed_vector));
-	mk_lang_assert_false();
+	err = mk_sl_fixed_vector_inl_defd_prrw_elements_destroy_last(fixed_vector, mk_sl_fixed_vector_inl_defd_prrw_size(fixed_vector)); mk_lang_check_rereturn(err);
+	fixed_vector->m_size = 0;
 
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
 	return 0;
@@ -1264,12 +1267,15 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_prrw_push_back_copy_single(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_sl_fixed_vector_inl_defd_element_pct const element) mk_lang_noexcept
 {
-	mk_lang_assert(fixed_vector);
-	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
-	mk_lang_assert(element);
+	mk_lang_types_sint_t err;
 
-	((mk_lang_types_void_t)(fixed_vector));
-	mk_lang_assert_false();
+	mk_lang_assert(fixed_vector);
+	mk_lang_assert(element);
+	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
+	mk_lang_assert(!mk_sl_fixed_vector_inl_defd_prrw_is_full(fixed_vector));
+
+	err = mk_sl_fixed_vector_inl_defd_prrw_element_construct_copy(&fixed_vector->m_arr[fixed_vector->m_size], element); mk_lang_check_rereturn(err);
+	++fixed_vector->m_size;
 
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
 	return 0;
