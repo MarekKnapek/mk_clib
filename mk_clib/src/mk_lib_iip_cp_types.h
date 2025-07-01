@@ -16,6 +16,7 @@
 #include "mk_lib_iip_key_enc_elgamal_pub.h"
 #include "mk_lib_iip_key_sgn_dsa_sha1_pri.h"
 #include "mk_lib_iip_key_sgn_dsa_sha1_pub.h"
+#include "mk_lib_iip_key_sgn_eddsa_sha512_ed25519_pub.h"
 #include "mk_sl_cui_uint16.h"
 #include "mk_sl_cui_uint32.h"
 #include "mk_sl_cui_uint64.h"
@@ -385,6 +386,64 @@ struct mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_s
 };
 typedef struct mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_s mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_t;
 mk_lang_typedef(mk_lib_iip_cp_types_destination_elgamal_dsa_sha1);
+
+#include "mk_lang_warning_msvc_push_c4820.h"
+enum mk_lib_iip_cp_types_destination_type_e
+{
+	mk_lib_iip_cp_types_destination_type_e_elgamal_dsa_sha1,
+	mk_lib_iip_cp_types_destination_type_e_dummy_end
+};
+typedef enum mk_lib_iip_cp_types_destination_type_e mk_lib_iip_cp_types_destination_type_t;
+union mk_lib_iip_cp_types_destination_data_u
+{
+	mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_t m_elgamal_dsa_sha1;
+};
+typedef union mk_lib_iip_cp_types_destination_data_u mk_lib_iip_cp_types_destination_data_t;
+struct mk_lib_iip_cp_types_destination_s
+{
+	mk_lib_iip_cp_types_destination_type_t m_type;
+	mk_lib_iip_cp_types_destination_data_t m_data;
+};
+typedef struct mk_lib_iip_cp_types_destination_s mk_lib_iip_cp_types_destination_t;
+mk_lang_typedef(mk_lib_iip_cp_types_destination);
+#include "mk_lang_warning_msvc_pop.h"
+
+#include "mk_lang_warning_msvc_push_c4820.h"
+struct mk_lib_iip_cp_types_remote_destination_elgamal_dsa_sha1_s
+{
+	mk_lib_iip_key_enc_elgamal_pub_t m_enc_pub;
+	mk_lib_iip_key_sgn_dsa_sha1_pub_t m_sgn_pub;
+};
+typedef struct mk_lib_iip_cp_types_remote_destination_elgamal_dsa_sha1_s mk_lib_iip_cp_types_remote_destination_elgamal_dsa_sha1_t;
+mk_lang_typedef(mk_lib_iip_cp_types_remote_destination_elgamal_dsa_sha1);
+struct mk_lib_iip_cp_types_remote_destination_elgamal_eddsa_sha512_ed25519_s
+{
+	mk_lib_iip_key_enc_elgamal_pub_t m_enc_pub;
+	mk_lib_iip_key_sgn_eddsa_sha512_ed25519_pub_t m_sgn_pub;
+};
+typedef struct mk_lib_iip_cp_types_remote_destination_elgamal_eddsa_sha512_ed25519_s mk_lib_iip_cp_types_remote_destination_elgamal_eddsa_sha512_ed25519_t;
+mk_lang_typedef(mk_lib_iip_cp_types_remote_destination_elgamal_eddsa_sha512_ed25519);
+enum mk_lib_iip_cp_types_remote_destination_type_e
+{
+	mk_lib_iip_cp_types_remote_destination_type_e_elgamal_dsa_sha1,
+	mk_lib_iip_cp_types_remote_destination_type_e_elgamal_eddsa_sha512_ed25519,
+	mk_lib_iip_cp_types_remote_destination_type_e_dummy_end
+};
+typedef enum mk_lib_iip_cp_types_remote_destination_type_e mk_lib_iip_cp_types_remote_destination_type_t;
+union mk_lib_iip_cp_types_remote_destination_data_u
+{
+	mk_lib_iip_cp_types_remote_destination_elgamal_dsa_sha1_t m_elgamal_dsa_sha1;
+	mk_lib_iip_cp_types_remote_destination_elgamal_eddsa_sha512_ed25519_t m_elgamal_eddsa_sha512_ed25519;
+};
+typedef union mk_lib_iip_cp_types_remote_destination_data_u mk_lib_iip_cp_types_remote_destination_data_t;
+struct mk_lib_iip_cp_types_remote_destination_s
+{
+	mk_lib_iip_cp_types_remote_destination_type_t m_type;
+	mk_lib_iip_cp_types_remote_destination_data_t m_data;
+};
+typedef struct mk_lib_iip_cp_types_remote_destination_s mk_lib_iip_cp_types_remote_destination_t;
+mk_lang_typedef(mk_lib_iip_cp_types_remote_destination);
+#include "mk_lang_warning_msvc_pop.h"
 
 #include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_lib_iip_cp_types_leaseset_s
