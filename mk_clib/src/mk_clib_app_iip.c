@@ -534,7 +534,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_glo
 #include "mk_win_dll_kernel_process.h"
 
 
-mk_lang_extern_force_c mk_lang_nodiscard mk_lang_types_sint_t mk_clib_app_iip_peb(mk_lang_types_void_pt const peb) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_peb_2(mk_lang_types_void_pt const peb) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 	mk_lang_types_wchar_pct argv[16];
@@ -547,7 +547,24 @@ mk_lang_extern_force_c mk_lang_nodiscard mk_lang_types_sint_t mk_clib_app_iip_pe
 	err = mk_lang_command_line_parse_win(mk_win_dll_kernel_process_get_command_line(), &argv[0], &lens[0], mk_lang_countof(argv), &argc); mk_lang_check_rereturn(err);
 	err = mk_clib_app_iip_global_main(argc, &argv[0], &lens[0]);
 	err = mk_clib_app_iip_global_deinit(); mk_lang_check_rereturn(err);
-	err = mk_lang_stdout_println_lit_n("Gud.");
+	return 0;
+}
+
+mk_lang_extern_force_c mk_lang_nodiscard mk_lang_types_sint_t mk_clib_app_iip_peb(mk_lang_types_void_pt const peb) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err_b;
+	mk_lang_types_sint_t err;
+
+	err_b = mk_clib_app_iip_peb_2(peb);
+	if(err_b == 0)
+	{
+		err = mk_lang_stdout_println_lit_n("Gud."); mk_lang_check_rereturn(err);
+	}
+	else
+	{
+		err = mk_lang_stdout_println_lit_n("Bad."); mk_lang_check_rereturn(err);
+	}
+	mk_lang_check_rereturn(err_b);
 	return 0;
 }
 
@@ -555,7 +572,7 @@ mk_lang_extern_force_c mk_lang_nodiscard mk_lang_types_sint_t mk_clib_app_iip_pe
 #else
 
 
-mk_lang_extern_c mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_clib_app_iip_args(mk_lang_types_sint_t const std_argc, mk_lang_types_pchar_pcpct const std_argv) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_args_2(mk_lang_types_sint_t const std_argc, mk_lang_types_pchar_pcpct const std_argv) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 	mk_lang_types_pchar_pct argv[16];
@@ -566,7 +583,24 @@ mk_lang_extern_c mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_clib_ap
 	err = mk_lang_command_line_parse_std(std_argc, std_argv, &argv[0], &lens[0], mk_lang_countof(argv), &argc); mk_lang_check_rereturn(err);
 	err = mk_clib_app_iip_global_main(argc, &argv[0], &lens[0]);
 	err = mk_clib_app_iip_global_deinit(); mk_lang_check_rereturn(err);
-	err = mk_lang_stdout_println_lit_n("Gud.");
+	return 0;
+}
+
+mk_lang_extern_c mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_clib_app_iip_args(mk_lang_types_sint_t const std_argc, mk_lang_types_pchar_pcpct const std_argv) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err_b;
+	mk_lang_types_sint_t err;
+
+	err_b = mk_clib_app_iip_args_2(std_argc, std_argv);
+	if(err_b == 0)
+	{
+		err = mk_lang_stdout_println_lit_n("Gud."); mk_lang_check_rereturn(err);
+	}
+	else
+	{
+		err = mk_lang_stdout_println_lit_n("Bad."); mk_lang_check_rereturn(err);
+	}
+	mk_lang_check_rereturn(err_b);
 	return 0;
 }
 
