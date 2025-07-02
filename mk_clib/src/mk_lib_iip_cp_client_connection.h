@@ -65,6 +65,7 @@ struct mk_lib_iip_cp_client_connection_state_s
 	mk_lib_net_async_connect_t m_async_connect;
 	mk_lib_net_write_request_t m_write_request;
 	mk_lib_net_read_request_t m_read_request;
+	mk_lang_types_bool_t m_disconnected;
 	mk_lib_iip_cp_client_session_tasks_t m_sessions;
 	mk_lang_types_usize_t m_session_idx;
 	mk_lang_types_bool_t m_pending_send;
