@@ -387,8 +387,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wor
 	mk_lib_iip_cp_client_wrapper_task_t wrp;
 	mk_lib_iip_cp_client_types_handle_connection_t connection_1;
 	mk_lib_iip_cp_client_types_handle_session_t session_1;
-	//mk_lib_iip_cp_client_types_handle_connection_t connection_2;
-	//mk_lib_iip_cp_client_types_handle_session_t session_2;
+	mk_lib_iip_cp_client_types_handle_connection_t connection_2;
+	mk_lib_iip_cp_client_types_handle_session_t session_2;
 	//mk_lib_iip_cp_client_types_handle_session_t session_3;
 
 	/*
@@ -418,11 +418,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wor
 	session_settings_1.m_connection = connection_1;
 	err = mk_lib_iip_cp_client_wrapper_task_rw_new_session(&wrp, &session_settings_1, &session_1); mk_lang_check_rereturn(err);
 
-	//err = mk_lib_iip_cp_client_wrapper_task_rw_new_connection(&wrp, &connection_settings_2, &connection_2); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_client_wrapper_task_rw_new_connection(&wrp, &connection_settings_2, &connection_2); mk_lang_check_rereturn(err);
 
-	//mk_lib_iip_cp_client_types_handle_session_set_zero(&session_settings_2.m_master_session);
-	//session_settings_2.m_connection = connection_2;
-	//err = mk_lib_iip_cp_client_wrapper_task_rw_new_session(&wrp, &session_settings_2, &session_2); mk_lang_check_rereturn(err);
+	mk_lib_iip_cp_client_types_handle_session_set_zero(&session_settings_2.m_master_session);
+	session_settings_2.m_connection = connection_2;
+	err = mk_lib_iip_cp_client_wrapper_task_rw_new_session(&wrp, &session_settings_2, &session_2); mk_lang_check_rereturn(err);
 
 	//session_settings_3.m_master_session = session_2;
 	//session_settings_3.m_connection = connection_2;
