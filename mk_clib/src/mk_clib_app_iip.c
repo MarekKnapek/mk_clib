@@ -396,10 +396,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wor
 	/*err = mk_clib_app_iip_destination_elgamal_dsa_sha1_save_pri_only(&destination, "destination.txt"); mk_lang_check_rereturn(err);*/
 	/*err = mk_clib_app_iip_destination_elgamal_dsa_sha1_save_pri_pub(&destination, "destination.txt"); mk_lang_check_rereturn(err);*/
 
-	mk_clib_app_iip_g_ctrl_c_event = mk_win_dll_ws2_create_event(); mk_lang_check_return(mk_clib_app_iip_g_ctrl_c_event.m_data != mk_win_dll_ws2_event_invalid_val);
-	b = mk_win_dll_ws2_reset_event(mk_clib_app_iip_g_ctrl_c_event); mk_lang_check_return(b != mk_win_base_false);
-	b = mk_win_dll_kernel_console_set_ctrl_handler(&mk_clib_app_iip_pr_ctrl_c_handler, mk_win_base_true); mk_lang_check_return(b != mk_win_base_false);
-
 	app_settings.m_dummy = 0;
 	app_settings.m_iocp_settings.m_dummy = 0;;
 	err = mk_clib_app_iip_parse_settings_from_cmd_line(&connection_settings_1, argc, argv, lens); mk_lang_check_rereturn(err);
@@ -428,6 +424,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wor
 	session_settings_3.m_connection = connection_2;
 	err = mk_lib_iip_cp_client_wrapper_task_rw_new_session(&wrp, &session_settings_3, &session_3); mk_lang_check_rereturn(err);
 
+	mk_clib_app_iip_g_ctrl_c_event = mk_win_dll_ws2_create_event(); mk_lang_check_return(mk_clib_app_iip_g_ctrl_c_event.m_data != mk_win_dll_ws2_event_invalid_val);
+	b = mk_win_dll_ws2_reset_event(mk_clib_app_iip_g_ctrl_c_event); mk_lang_check_return(b != mk_win_base_false);
+	b = mk_win_dll_kernel_console_set_ctrl_handler(&mk_clib_app_iip_pr_ctrl_c_handler, mk_win_base_true); mk_lang_check_return(b != mk_win_base_false);
+
 	for(;;)
 	{
 		step_result = mk_lib_iip_cp_client_wrapper_task_result_e_dummy_end;
@@ -451,6 +451,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wor
 
 	b = mk_win_dll_kernel_console_set_ctrl_handler(&mk_clib_app_iip_pr_ctrl_c_handler, mk_win_base_false); mk_lang_check_return(b != mk_win_base_false);
 	b = mk_win_dll_ws2_close_event(mk_clib_app_iip_g_ctrl_c_event); mk_lang_check_return(b != mk_win_base_false);
+
+	err = mk_lib_iip_cp_client_wrapper_task_rw_request_close(&wrp); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_client_wrapper_task_rw_run_do_block(&wrp); mk_lang_check_rereturn(err);
+
 	err = mk_lib_iip_cp_client_wrapper_task_rw_destroy(&wrp); mk_lang_check_rereturn(err);
 	return 0;
 }

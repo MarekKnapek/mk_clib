@@ -48,6 +48,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	task->m_step = ((mk_lib_iip_cp_client_session_task_step_t)(0));
 	task->m_session.m_settings = *settings;
 	task->m_session.m_state.m_has_id = mk_lang_false;
+	task->m_session.m_state.m_close_requested = mk_lang_false;
 	err = mk_lib_iip_cp_message_construct(&task->m_session.m_state.m_msg, mk_lib_iip_cp_message_message_type_id_e_bandwidth_limits); mk_lang_check_rereturn(err);
 	task->m_session.m_state.m_has_msg_pending = mk_lang_false;
 	err = mk_lib_iip_cp_types_leasez_rw_construct(&task->m_session.m_state.m_leases); mk_lang_check_rereturn(err);
@@ -600,6 +601,14 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_prrw_request_close(mk_lib_iip_cp_client_session_task_pt const task) mk_lang_noexcept
+{
+	mk_lang_assert(task);
+
+	task->m_session.m_state.m_close_requested = mk_lang_true;
+	return 0;
+}
+
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_rw_construct(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_client_shared_pt const shared, mk_lib_iip_cp_client_session_settings_pct const settings) mk_lang_noexcept
 {
@@ -624,6 +633,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_sessio
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_rw_step(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_client_session_task_result_pt const step_result) mk_lang_noexcept
 {
 	return mk_lib_iip_cp_client_session_task_prrw_step(task, step_result);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_rw_request_close(mk_lib_iip_cp_client_session_task_pt const task) mk_lang_noexcept
+{
+	return mk_lib_iip_cp_client_session_task_prrw_request_close(task);
 }
 
 

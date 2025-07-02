@@ -218,6 +218,19 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_wrapper_task_prrw_request_close(mk_lib_iip_cp_client_wrapper_task_pt const task) mk_lang_noexcept
+{
+	mk_lib_iip_cp_client_application_task_pt app;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(task);
+	mk_lang_assert(!mk_lib_iip_cp_client_types_handle_wrapper_is_zero(&task->m_wrapper));
+
+	app = ((mk_lib_iip_cp_client_application_task_pt)(task->m_wrapper.m_elements[0])); mk_lang_assert(app);
+	err = mk_lib_iip_cp_client_application_task_rw_request_close(app); mk_lang_check_rereturn(err);
+	return 0;
+}
+
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_wrapper_task_rw_construct(mk_lib_iip_cp_client_wrapper_task_pt const task, mk_lib_iip_cp_client_types_application_settings_pct const settings) mk_lang_noexcept
 {
@@ -257,6 +270,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_wrappe
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_wrapper_task_rw_run_block_tm(mk_lib_iip_cp_client_wrapper_task_pt const task, mk_lang_types_sint_t const tm, mk_lib_iip_cp_client_wrapper_task_result_pt const result) mk_lang_noexcept
 {
 	return mk_lib_iip_cp_client_wrapper_task_prrw_run_block_tm(task, tm, result);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_wrapper_task_rw_request_close(mk_lib_iip_cp_client_wrapper_task_pt const task) mk_lang_noexcept
+{
+	return mk_lib_iip_cp_client_wrapper_task_prrw_request_close(task);
 }
 
 
