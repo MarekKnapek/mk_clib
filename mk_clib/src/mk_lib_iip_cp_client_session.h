@@ -41,6 +41,7 @@ mk_lang_typedef(mk_lib_iip_cp_client_session_settings);
 #include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_lib_iip_cp_client_session_state_s
 {
+	mk_lib_iip_cp_client_shared_pt m_shared;
 	mk_lib_iip_cp_types_sessionid_t m_id;
 	mk_lang_types_bool_t m_has_id;
 	mk_lang_types_sint_t m_child_sessions;
@@ -97,7 +98,6 @@ typedef enum mk_lib_iip_cp_client_session_task_step_e mk_lib_iip_cp_client_sessi
 #include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_lib_iip_cp_client_session_task_s
 {
-	mk_lib_iip_cp_client_shared_pt m_shared;
 	mk_lib_iip_cp_client_session_task_step_t m_step;
 	mk_lib_iip_cp_client_session_t m_session;
 };

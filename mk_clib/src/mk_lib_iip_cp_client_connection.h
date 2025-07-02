@@ -61,6 +61,7 @@ mk_lang_typedef(mk_lib_iip_cp_client_connection_settings);
 #include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_lib_iip_cp_client_connection_state_s
 {
+	mk_lib_iip_cp_client_shared_pt m_shared;
 	mk_lib_net_socket_t m_socket;
 	mk_lib_net_async_connect_t m_async_connect;
 	mk_lib_net_write_request_t m_write_request;
@@ -124,7 +125,6 @@ typedef enum mk_lib_iip_cp_client_connection_task_step_e mk_lib_iip_cp_client_co
 #include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_lib_iip_cp_client_connection_task_s
 {
-	mk_lib_iip_cp_client_shared_pt m_shared;
 	mk_lib_iip_cp_client_connection_task_step_t m_step;
 	mk_lib_iip_cp_client_connection_t m_connection;
 };

@@ -44,9 +44,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_assert(shared);
 	mk_lang_assert(settings);
 
-	task->m_shared = shared;
 	task->m_step = ((mk_lib_iip_cp_client_session_task_step_t)(0));
 	task->m_session.m_settings = *settings;
+	task->m_session.m_state.m_shared = shared;
 	task->m_session.m_state.m_has_id = mk_lang_false;
 	task->m_session.m_state.m_child_sessions = 0;
 	task->m_session.m_state.m_close_requested = mk_lang_false;
