@@ -12,6 +12,8 @@
 #include "mk_lang_static_assert.h"
 #include "mk_lang_typedef.h"
 #include "mk_lang_types.h"
+#include "mk_lib_crypto_hash_stream_sha2_256.h"
+#include "mk_lib_iip_base32_encoder.h"
 #include "mk_sl_cui_uint16.h"
 #include "mk_sl_cui_uint32.h"
 #include "mk_sl_cui_uint8.h"
@@ -325,6 +327,26 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_stre
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_streaming_packet_prrw_parse_options_from_b32(mk_lib_iip_net_streaming_packet_b32_pt const obj, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len) mk_lang_noexcept
+{
+	mk_lib_crypto_hash_stream_sha2_256_t hasher;
+	mk_lib_crypto_hash_stream_sha2_256_digest_t digest;
+	mk_lang_types_sint_t len;
+
+	mk_lang_assert(obj);
+	mk_lang_assert(data_buf || data_len == 0);
+	mk_lang_assert(data_len >= 0);
+
+	mk_lib_crypto_hash_stream_sha2_256_init(&hasher);
+	mk_lib_crypto_hash_stream_sha2_256_append_u8s(&hasher, data_buf, data_len);
+	mk_lib_crypto_hash_stream_sha2_256_finish(&hasher, &digest);
+	mk_lib_iip_base32_encoder_fn(&digest.m_data.m_uint8s[0], mk_lang_countof(digest.m_data.m_uint8s), &obj->m_pchars[0], mk_lang_countof(obj->m_pchars), &len); mk_lang_assert(len == 52);
+	#if mk_lib_iip_net_streaming_packet_b32_has_extra_zero
+	obj->m_pchars[52] = '\0';
+	#endif
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_streaming_packet_prrw_parse_options_from(mk_lib_iip_net_streaming_packet_options_pt const obj, mk_lib_iip_net_streaming_packet_flag_t const flags, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_pct ptr;
@@ -358,6 +380,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_stre
 			return 0;
 		}
 		err = mk_lib_iip_net_streaming_packet_prrw_parse_destination(&obj->m_from, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *success = mk_lang_false; return 0; } mk_lang_assert(tlen >= 1); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+		err = mk_lib_iip_net_streaming_packet_prrw_parse_options_from_b32(&obj->m_b32, ptr - tlen, tlen); mk_lang_check_rereturn(err);
 	}
 	else
 	{

@@ -46,6 +46,18 @@ mk_lang_typedef(mk_lib_iip_net_streaming_packet_flag);
 #include "mk_sl_fixed_vector_inl_fileu.h"
 
 
+#if defined DEBUG || defined _DEBUG
+#define mk_lib_iip_net_streaming_packet_b32_has_extra_zero (1)
+#else
+#define mk_lib_iip_net_streaming_packet_b32_has_extra_zero (0)
+#endif
+struct mk_lib_iip_net_streaming_packet_b32_s
+{
+	mk_lang_types_pchar_t m_pchars[52 + mk_lib_iip_net_streaming_packet_b32_has_extra_zero];
+};
+typedef struct mk_lib_iip_net_streaming_packet_b32_s mk_lib_iip_net_streaming_packet_b32_t;
+mk_lang_typedef(mk_lib_iip_net_streaming_packet_b32);
+
 #include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_lib_iip_net_streaming_packet_options_s
 {
@@ -53,14 +65,15 @@ struct mk_lib_iip_net_streaming_packet_options_s
 	mk_lang_types_sint_t m_len;
 	mk_lang_types_sint_t m_delay;
 	mk_lib_iip_cp_types_remote_destination_t m_from;
+	mk_lib_iip_net_streaming_packet_b32_t m_b32;
 	mk_lang_types_sint_t m_max_packet_size;
 	mk_lang_types_sint_t m_offline_signature;
 };
 typedef struct mk_lib_iip_net_streaming_packet_options_s mk_lib_iip_net_streaming_packet_options_t;
 mk_lang_typedef(mk_lib_iip_net_streaming_packet_options);
-
-
 #include "mk_lang_warning_msvc_pop.h"
+
+
 #include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_lib_iip_net_streaming_packet_s
 {
