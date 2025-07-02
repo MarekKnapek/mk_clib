@@ -154,10 +154,10 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_key_sgn_dsa_sha1
 
 	mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_to_pri_single_t storage mk_lang_constexpr_init;
 
+	mk_lang_static_assert(((mk_lang_types_sint_t)(mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_size_bytes_v)) >= ((mk_lang_types_sint_t)(mk_lib_iip_key_sgn_dsa_sha1_pri_integer_single_size_bytes_v)));
+
 	mk_lang_assert(a);
 	mk_lang_assert(b);
-
-	mk_lang_static_assert(((mk_lang_types_sint_t)(mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_size_bytes_v)) >= ((mk_lang_types_sint_t)(mk_lib_iip_key_sgn_dsa_sha1_pri_integer_single_size_bytes_v)));
 
 	mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_to_buis_uchar_le(a, &storage.m_data.m_uchars[0]);
 	mk_lib_iip_key_sgn_dsa_sha1_pri_integer_single_from_buis_uchar_le(b, &storage.m_data.m_uchars[0]);

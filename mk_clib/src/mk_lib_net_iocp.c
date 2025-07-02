@@ -141,7 +141,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_iocp_dequeue_pac
 	mk_lang_assert(fail_reason);
 	mk_lang_assert(!mk_win_dll_kernel_iocp_is_null(iocp->m_handle));
 
-	b = mk_win_dll_kernel_iocp_get_status(iocp->m_handle, &transferred, &kkk, &ovr, ms);
+	b = mk_win_dll_kernel_iocp_get_status(iocp->m_handle, &transferred, &kkk, &ovr, ((mk_win_base_dword_t)(ms)));
 	if(b)
 	{
 		*is_ready = mk_lang_true;

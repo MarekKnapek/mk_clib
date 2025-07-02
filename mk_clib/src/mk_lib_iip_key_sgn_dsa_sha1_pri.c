@@ -421,7 +421,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_key_sgn_dsa_sha1
 	return 0;
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_key_sgn_dsa_sha1_pri_sign_k(mk_lib_iip_key_sgn_dsa_sha1_pri_pct const pri, mk_lib_iip_key_sgn_dsa_sha1_pri_pct const k, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_key_sgn_dsa_sha1_pri_signature_pt const signature) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_iip_key_sgn_dsa_sha1_pri_sign_k(mk_lib_iip_key_sgn_dsa_sha1_pri_pct const pri, mk_lib_iip_key_sgn_dsa_sha1_pri_pct const k, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_key_sgn_dsa_sha1_pri_signature_pt const signature) mk_lang_noexcept
 {
 	mk_lib_crypto_hash_stream_sha1_t hasher mk_lang_constexpr_init;
 	mk_lib_crypto_hash_block_sha1_digest_t digest mk_lang_constexpr_init;
@@ -459,6 +459,21 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_key_sgn_dsa_sha1
 	mk_lib_iip_key_sgn_dsa_sha1_pri_integer_single_mod_mul2_wrap_lo(&q, &s, &ki);
 	signature->m_r = r;
 	signature->m_s = s;
+}
+
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_key_sgn_dsa_sha1_pri_compute_public(mk_lib_iip_key_sgn_dsa_sha1_pri_pct const pri, mk_lib_iip_key_sgn_dsa_sha1_pub_pt const pub) mk_lang_noexcept
+{
+	mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_t generator mk_lang_constexpr_init;
+	mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_t prime mk_lang_constexpr_init;
+	mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_t priv mk_lang_constexpr_init;
+
+	mk_lang_assert(pri);
+	mk_lang_assert(pub);
+
+	mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_load_g(&generator);
+	mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_load_p(&prime);
+	mk_lib_iip_key_sgn_dsa_sha1_pri_integer_single_to_pub_single(&pri->m_data.m_integer, &priv);
+	mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_mod_pow_a(&generator, &priv, &prime, &pub->m_data.m_integer);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_key_sgn_dsa_sha1_pri_sign_data(mk_lib_iip_key_sgn_dsa_sha1_pri_pct const pri, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_key_sgn_dsa_sha1_pri_signature_pt const signature) mk_lang_noexcept

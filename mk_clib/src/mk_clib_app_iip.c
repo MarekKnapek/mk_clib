@@ -398,7 +398,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wor
 	/*err = mk_clib_app_iip_destination_elgamal_dsa_sha1_save_pri_pub(&destination, "destination.txt"); mk_lang_check_rereturn(err);*/
 
 	app_settings.m_dummy = 0;
-	app_settings.m_iocp_settings.m_dummy = 0;;
+	app_settings.m_iocp_settings.m_dummy = 0;
 	err = mk_clib_app_iip_parse_settings_from_cmd_line(&connection_settings_1, argc, argv, lens); mk_lang_check_rereturn(err);
 	err = mk_clib_app_iip_destination_elgamal_dsa_sha1_load_pri_pub(&session_settings_1.m_destination, "destination1.txt"); mk_lang_check_rereturn(err);
 	err = mk_clib_app_iip_parse_settings_from_hardcoded(&connection_settings_2); mk_lang_check_rereturn(err);
