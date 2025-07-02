@@ -21,15 +21,16 @@
 #if mk_lang_external_zlib_have
 
 
-#if defined _MSC_VER && defined _MSC_FULL_VER
-#pragma warning(push, 0)
-#endif
-
-
 #include "mk_lang_arch.h"
 
 
+#if defined _MSC_VER && defined _MSC_FULL_VER
+#pragma warning(push, 0)
+#endif
 /*#include "../external/zlib/zlib.h"*/
+#if defined _MSC_VER && defined _MSC_FULL_VER
+#pragma warning(pop)
+#endif
 
 
 #if defined _MSC_VER && defined _MSC_FULL_VER
@@ -37,7 +38,7 @@
 #if defined DEBUG || defined _DEBUG
 #pragma comment(lib, "../../../external/build/out/amd64/debug/zlib.lib")
 #elif defined NDEBUG || defined _NDEBUG
-#pragma comment(lib, "../../../external/build/out/amd64/release/zlib.lib")
+/*#pragma comment(lib, "../../../external/build/out/amd64/release/zlib.lib")*/
 #else
 #error xxxxxxxxxx
 #endif
@@ -45,18 +46,13 @@
 #if defined DEBUG || defined _DEBUG
 #pragma comment(lib, "../../../external/build/out/i386/debug/zlib.lib")
 #elif defined NDEBUG || defined _NDEBUG
-#pragma comment(lib, "../../../external/build/out/i386/release/zlib.lib")
+/*#pragma comment(lib, "../../../external/build/out/i386/release/zlib.lib")*/
 #else
 #error xxxxxxxxxx
 #endif
 #else
 #error xxxxxxxxxx
 #endif
-#endif
-
-
-#if defined _MSC_VER && defined _MSC_FULL_VER
-#pragma warning(pop)
 #endif
 
 
