@@ -606,7 +606,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 {
 	mk_lang_assert(msg_destroy_session);
 
-	mk_lang_check_todo();
+	((mk_lang_types_void_t)(msg_destroy_session));
 	return 0;
 }
 
@@ -614,7 +614,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 {
 	mk_lang_assert(msg_destroy_session);
 
-	mk_lang_check_todo();
+	((mk_lang_types_void_t)(msg_destroy_session));
 	return 0;
 }
 

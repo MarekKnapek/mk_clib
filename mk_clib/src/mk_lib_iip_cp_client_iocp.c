@@ -167,7 +167,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 					*step_result = mk_lib_iip_cp_client_iocp_task_result_e_timed_out;
 				}
 				break;
-				case mk_lib_iip_cp_client_connection_task_result_e_did_nothing: mk_lang_assert_false(); break;
+				case mk_lib_iip_cp_client_connection_task_result_e_did_nothing: /* this is intentionally left blank */ break;
 				case mk_lib_iip_cp_client_connection_task_result_e_dummy_end: mk_lang_assert_false(); break;
 				default: mk_lang_assert_false(); break;
 			}
@@ -194,6 +194,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	if(!did_something && !allow_to_block)
 	{
 		*step_result = mk_lib_iip_cp_client_iocp_task_result_e_would_block;
+		did_something = mk_lang_true;
+	}
+	if(!did_something && at_least_one_did_nothing && allow_to_block)
+	{
+		*step_result = mk_lib_iip_cp_client_iocp_task_result_e_did_nothing;
 		did_something = mk_lang_true;
 	}
 	mk_lang_assert(did_something);
