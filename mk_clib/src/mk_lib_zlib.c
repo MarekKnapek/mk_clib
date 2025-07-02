@@ -5,6 +5,7 @@
 #include "mk_lang_assert.h"
 #include "mk_lang_check.h"
 #include "mk_lang_extern.h"
+#include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
@@ -115,7 +116,7 @@ mk_lang_extern_force_c mk_lang_nodiscard mk_lang_types_sint_t deflateEnd(mk_lib_
 
 
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_void_pt mk_lib_zlib_allocate(mk_lang_types_void_pt const context, mk_lang_types_uint_t const elements_count, mk_lang_types_uint_t const element_size) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_void_pt mk_lib_zlib_allocate(mk_lang_types_void_pt const context, mk_lang_types_uint_t const elements_count, mk_lang_types_uint_t const element_size) mk_lang_noexcept
 {
 	mk_lang_types_usize_t size_real;
 	mk_lang_types_sint_t err;
@@ -132,7 +133,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_void_pt mk_lib_zlib_allocate(mk_la
 	return user_block;
 }
 
-mk_lang_jumbo mk_lang_types_void_t mk_lib_zlib_deallocate(mk_lang_types_void_pt const context, mk_lang_types_void_pt const memory) mk_lang_noexcept
+static mk_lang_inline mk_lang_types_void_t mk_lib_zlib_deallocate(mk_lang_types_void_pt const context, mk_lang_types_void_pt const memory) mk_lang_noexcept
 {
 	mk_lang_types_void_pt mem;
 	mk_lang_types_usize_pt header;
@@ -169,14 +170,14 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_zlib_compress(mk_sl_
 	stream.m_context = mk_lang_null;
 	st = deflateInit2_(&stream, level, mk_lib_zlib_method_e_deflated, 15 + 16, 9, mk_lib_zlib_strategy_e_default, mk_lib_zlib_version, ((mk_lang_types_sint_t)(sizeof(stream)))); mk_lang_check_return(st == mk_lib_zlib_err_e_ok);
 	stream.m_next_input_buf = src_buf;
-	stream.m_next_input_len = src_len;
+	stream.m_next_input_len = ((mk_lang_types_uint_t)(src_len));
 	stream.m_next_output_buf = dst_buf;
-	stream.m_next_output_len = dst_len;
+	stream.m_next_output_len = ((mk_lang_types_uint_t)(dst_len));
 	st = deflate(&stream, mk_lib_zlib_flush_e_finish); mk_lang_check_return(st == mk_lib_zlib_err_e_stream_end);
 	mk_lang_check_return(stream.m_next_input_len == 0);
 	mk_lang_check_return(stream.m_input_total_len == ((mk_lang_types_ulong_t)(src_len)));
 	mk_lang_check_return(stream.m_output_total_len <= ((mk_lang_types_ulong_t)(dst_len)));
-	mk_lang_check_return(dst_len - stream.m_output_total_len == stream.m_next_output_len);
+	mk_lang_check_return(((mk_lang_types_uint_t)(dst_len)) - stream.m_output_total_len == stream.m_next_output_len);
 	mk_lang_check_return(stream.m_err_msg == mk_lang_null);
 	st = deflateEnd(&stream); mk_lang_check_return(st == mk_lib_zlib_err_e_ok);
 	*out_len = ((mk_lang_types_sint_t)(stream.m_output_total_len));
@@ -199,14 +200,14 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_zlib_decompress(mk_s
 	stream.m_context = mk_lang_null;
 	st = inflateInit2_(&stream, 15 + 32, mk_lib_zlib_version, ((mk_lang_types_sint_t)(sizeof(stream)))); mk_lang_check_return(st == mk_lib_zlib_err_e_ok);
 	stream.m_next_input_buf = src_buf;
-	stream.m_next_input_len = src_len;
+	stream.m_next_input_len = ((mk_lang_types_uint_t)(src_len));
 	stream.m_next_output_buf = dst_buf;
-	stream.m_next_output_len = dst_len;
+	stream.m_next_output_len = ((mk_lang_types_uint_t)(dst_len));
 	st = inflate(&stream, mk_lib_zlib_flush_e_finish); mk_lang_check_return(st == mk_lib_zlib_err_e_stream_end);
 	mk_lang_check_return(stream.m_next_input_len == 0);
 	mk_lang_check_return(stream.m_input_total_len == ((mk_lang_types_ulong_t)(src_len)));
 	mk_lang_check_return(stream.m_output_total_len <= ((mk_lang_types_ulong_t)(dst_len)));
-	mk_lang_check_return(dst_len - stream.m_output_total_len == stream.m_next_output_len);
+	mk_lang_check_return(((mk_lang_types_uint_t)(dst_len)) - stream.m_output_total_len == stream.m_next_output_len);
 	mk_lang_check_return(stream.m_err_msg == mk_lang_null);
 	st = inflateEnd(&stream); mk_lang_check_return(st == mk_lib_zlib_err_e_ok);
 	*out_len = ((mk_lang_types_sint_t)(stream.m_output_total_len));

@@ -1209,7 +1209,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_prrw_clear(mk_sl_fixed_vector_inl_defd_pt const fixed_vector) mk_lang_noexcept
 {
-	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(mk_sl_fixed_vector_inl_defd_prro_verify_invariants(fixed_vector));
@@ -1267,7 +1267,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_sl_fixed_vector_inl_defd_prrw_push_back_copy_single(mk_sl_fixed_vector_inl_defd_pt const fixed_vector, mk_sl_fixed_vector_inl_defd_element_pct const element) mk_lang_noexcept
 {
-	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	mk_lang_assert(fixed_vector);
 	mk_lang_assert(element);
