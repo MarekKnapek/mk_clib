@@ -28,6 +28,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_iocp_destroy(mk_
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_iocp_associate_with_socket(mk_lib_net_iocp_pt const iocp, mk_lang_types_uintptr_t const key, mk_lib_net_socket_pt const socket) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_iocp_dequeue_packet_infinite(mk_lib_net_iocp_pt const iocp, mk_lang_types_bool_pt const dequeued, mk_lang_types_bool_pt const successful_io_operation, mk_lang_types_sint_pt const bytes_transferred, mk_lang_types_uintptr_pt const key, mk_lang_types_void_ppt const overlapped, mk_lang_types_uint_pt const fail_reason) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_iocp_dequeue_packet_tm(mk_lib_net_iocp_pt const iocp, mk_lang_types_sint_t const ms, mk_lang_types_bool_pt const is_ready, mk_lang_types_bool_pt const dequeued, mk_lang_types_bool_pt const successful_io_operation, mk_lang_types_sint_pt const bytes_transferred, mk_lang_types_uintptr_pt const key, mk_lang_types_void_ppt const overlapped, mk_lang_types_uint_pt const fail_reason) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_iocp_post(mk_lib_net_iocp_pt const iocp, mk_lang_types_sint_t const bytes_transferred, mk_lang_types_uintptr_t const key, mk_lang_types_void_pt const overlapped) mk_lang_noexcept;
 
 
 #if mk_lang_jumbo_have

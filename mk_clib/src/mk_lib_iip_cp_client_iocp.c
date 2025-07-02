@@ -8,6 +8,7 @@
 #include "mk_lang_clobber.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
+#include "mk_lang_limits.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_null.h"
@@ -42,6 +43,16 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 	err = mk_lib_iip_cp_client_connection_tasks_rw_destroy(&task->m_iocp.m_state.m_connections); mk_lang_check_rereturn(err);
 	err = mk_lib_net_iocp_destroy(&task->m_iocp.m_state.m_iocp); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_iocp_task_prrw_poke(mk_lib_iip_cp_client_iocp_task_pt const task) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(task);
+
+	err = mk_lib_net_iocp_post(&task->m_iocp.m_state.m_iocp, 0, mk_lang_limits_uintptr_max, mk_lang_null); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -92,8 +103,15 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	{
 		mk_lang_check_return(dequeued);
 		mk_lang_check_return(successful_io_operation); /* todo */
-		mk_lang_assert(key != 0); connection = ((mk_lib_iip_cp_client_connection_task_pt)(key)); mk_lang_assert(connection);
-		err = mk_lib_iip_cp_client_connection_task_rw_on_iorp_done(connection, bytes_transferred, overlapped); mk_lang_check_rereturn(err);
+		if(key != mk_lang_limits_uintptr_max)
+		{
+			mk_lang_assert(key != 0); connection = ((mk_lib_iip_cp_client_connection_task_pt)(key)); mk_lang_assert(connection);
+			err = mk_lib_iip_cp_client_connection_task_rw_on_iorp_done(connection, bytes_transferred, overlapped); mk_lang_check_rereturn(err);
+		}
+		else
+		{
+			/* poke */
+		}
 	}
 	*is_ready = rdy;
 	return 0;
@@ -336,6 +354,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_iocp_t
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_iocp_task_rw_destroy(mk_lib_iip_cp_client_iocp_task_pt const task) mk_lang_noexcept
 {
 	return mk_lib_iip_cp_client_iocp_task_prrw_destroy(task);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_iocp_task_rw_poke(mk_lib_iip_cp_client_iocp_task_pt const task) mk_lang_noexcept
+{
+	return mk_lib_iip_cp_client_iocp_task_prrw_poke(task);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_iocp_task_rw_new_connection(mk_lib_iip_cp_client_iocp_task_pt const task, mk_lib_iip_cp_client_connection_settings_pct const settings, mk_lib_iip_cp_client_connection_task_ppt const connection) mk_lang_noexcept
