@@ -172,5 +172,18 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_iocp_dequeue_pac
 	return 0;
 }
 
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_iocp_post(mk_lib_net_iocp_pt const iocp, mk_lang_types_sint_t const bytes_transferred, mk_lang_types_uintptr_t const key, mk_lang_types_void_pt const overlapped) mk_lang_noexcept
+{
+	mk_win_base_bool_t b;
+
+	mk_lang_assert(iocp);
+	mk_lang_assert(bytes_transferred || !bytes_transferred);
+	mk_lang_assert(key || !key);
+	mk_lang_assert(overlapped || !overlapped);
+
+	b = mk_win_dll_kernel_iocp_post(iocp->m_handle, ((mk_win_base_dword_t)(bytes_transferred)), ((mk_win_base_uintptr_t)(key)), ((mk_win_base_void_lpt)(overlapped))); mk_lang_check_return(b != mk_win_base_false);
+	return 0;
+}
+
 
 #endif
