@@ -36,6 +36,11 @@
 #include "mk_sl_random.h"
 #include "mk_sl_time.h"
 #include "mk_sl_uint_more.h"
+#include "mk_win_dll_kernel_console.h"
+#include "mk_win_dll_ws2.h"
+
+
+static mk_win_dll_ws2_event_t mk_clib_app_iip_g_ctrl_c_event;
 
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_destination_elgamal_dsa_sha1_generate_new_random(mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_pt const destination) mk_lang_noexcept
@@ -342,9 +347,33 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_par
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_win_base_bool_t mk_win_base_stdcall mk_clib_app_iip_pr_ctrl_c_handler(mk_win_base_dword_t const type) mk_lang_noexcept
+{
+	mk_lang_types_bool_t interesting;
+	mk_win_base_bool_t b;
+
+	switch(type)
+	{
+		case mk_win_dll_kernel_console_ctrl_event_id_e_c:
+		case mk_win_dll_kernel_console_ctrl_event_id_e_break:
+			interesting = mk_lang_true;
+			break;
+		default:
+			interesting = mk_lang_false;
+			break;
+	}
+	if(interesting)
+	{
+		b = mk_win_dll_ws2_set_event(mk_clib_app_iip_g_ctrl_c_event); mk_lang_check_return(b != mk_win_base_false);
+	}
+	return interesting ? mk_win_base_true : mk_win_base_false;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_work(mk_lang_types_sint_t const argc, mk_lang_tchar_pcpct const argv, mk_lang_types_sint_pct const lens) mk_lang_noexcept
 {
+	mk_win_base_bool_t b;
 	mk_lang_types_sint_t err;
+	mk_win_base_dword_t waited;
 	mk_lib_iip_cp_client_wrapper_task_result_t step_result;
 
 	mk_lib_iip_cp_client_types_application_settings_t app_settings;
@@ -366,6 +395,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wor
 	/*err = mk_clib_app_iip_destination_elgamal_dsa_sha1_load_pri_only(&destination, "destination.txt"); mk_lang_check_rereturn(err);*/
 	/*err = mk_clib_app_iip_destination_elgamal_dsa_sha1_save_pri_only(&destination, "destination.txt"); mk_lang_check_rereturn(err);*/
 	/*err = mk_clib_app_iip_destination_elgamal_dsa_sha1_save_pri_pub(&destination, "destination.txt"); mk_lang_check_rereturn(err);*/
+
+	mk_clib_app_iip_g_ctrl_c_event = mk_win_dll_ws2_create_event(); mk_lang_check_return(mk_clib_app_iip_g_ctrl_c_event.m_data != mk_win_dll_ws2_event_invalid_val);
+	b = mk_win_dll_ws2_reset_event(mk_clib_app_iip_g_ctrl_c_event); mk_lang_check_return(b != mk_win_base_false);
+	b = mk_win_dll_kernel_console_set_ctrl_handler(&mk_clib_app_iip_pr_ctrl_c_handler, mk_win_base_true); mk_lang_check_return(b != mk_win_base_false);
 
 	app_settings.m_dummy = 0;
 	app_settings.m_iocp_settings.m_dummy = 0;;
@@ -409,8 +442,15 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wor
 		{
 			break;
 		}
+		waited = mk_win_dll_ws2_wait_for_multiple_events(1, &mk_clib_app_iip_g_ctrl_c_event, mk_win_base_true, 0, mk_win_base_false); mk_lang_check_return(waited == 0 || waited == mk_win_dll_ws2_timeout);
+		if(waited == 0)
+		{
+			break;
+		}
 	}
 
+	b = mk_win_dll_kernel_console_set_ctrl_handler(&mk_clib_app_iip_pr_ctrl_c_handler, mk_win_base_false); mk_lang_check_return(b != mk_win_base_false);
+	b = mk_win_dll_ws2_close_event(mk_clib_app_iip_g_ctrl_c_event); mk_lang_check_return(b != mk_win_base_false);
 	err = mk_lib_iip_cp_client_wrapper_task_rw_destroy(&wrp); mk_lang_check_rereturn(err);
 	return 0;
 }
