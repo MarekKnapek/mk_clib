@@ -163,7 +163,6 @@
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_external_zlib_inffast.c"><ExcludedFromBuild Condition="('$(mk_is_debug)' == 'true')">true</ExcludedFromBuild></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_external_zlib_inflate.c"><ExcludedFromBuild Condition="('$(mk_is_debug)' == 'true')">true</ExcludedFromBuild></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_external_zlib_inftrees.c"><ExcludedFromBuild Condition="('$(mk_is_debug)' == 'true')">true</ExcludedFromBuild></ClCompile>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_external_zlib_zutil.c"><ExcludedFromBuild Condition="('$(mk_is_debug)' == 'true')">true</ExcludedFromBuild></ClCompile>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_external_zlib.h"><ExcludedFromBuild Condition="('$(mk_is_debug)' == 'true')">true</ExcludedFromBuild></ClInclude>
 		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_abort_win_amd64.asm"><ExcludedFromBuild Condition="!('$(mk_is_intel)' == 'true' And '$(mk_is_release)' == 'true' And '$(mk_is_64bit)' == 'true')">true</ExcludedFromBuild></MASM>
 		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_abort_win_i386.asm"><ExcludedFromBuild Condition="!('$(mk_is_intel)' == 'true' And '$(mk_is_release)' == 'true' And '$(mk_is_32bit)' == 'true')">true</ExcludedFromBuild></MASM>

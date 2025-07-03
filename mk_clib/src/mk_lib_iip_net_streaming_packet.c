@@ -338,7 +338,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_stre
 	mk_lang_assert(data_len >= 0);
 
 	mk_lib_crypto_hash_stream_sha2_256_init(&hasher);
-	mk_lib_crypto_hash_stream_sha2_256_append_u8s(&hasher, data_buf, data_len);
+	mk_lib_crypto_hash_stream_sha2_256_append_u8s(&hasher, data_buf, ((mk_lang_types_usize_t)(data_len)));
 	mk_lib_crypto_hash_stream_sha2_256_finish(&hasher, &digest);
 	mk_lib_iip_base32_encoder_fn(&digest.m_data.m_uint8s[0], mk_lang_countof(digest.m_data.m_uint8s), &obj->m_pchars[0], mk_lang_countof(obj->m_pchars), &len); mk_lang_assert(len == 52);
 	#if mk_lib_iip_net_streaming_packet_b32_has_extra_zero
