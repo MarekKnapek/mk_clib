@@ -8,7 +8,6 @@
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_external_zlib_inffast.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_external_zlib_inflate.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_external_zlib_inftrees.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_external_zlib_zutil.c"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_external_zlib.h"/>
 		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_abort_win_amd64.asm"/>
 		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_abort_win_i386.asm"/>
