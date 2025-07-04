@@ -1,0 +1,105 @@
+#ifndef mk_include_guard_mk_lib_iip_http_h
+#define mk_include_guard_mk_lib_iip_http_h
+
+
+#include "mk_lang_constexpr.h"
+#include "mk_lang_jumbo.h"
+#include "mk_lang_nodiscard.h"
+#include "mk_lang_noexcept.h"
+#include "mk_lang_typedef.h"
+#include "mk_lang_types.h"
+#include "mk_lib_iip_cp_mallocator_global.h"
+#include "mk_lib_iip_http_buffer.h"
+
+
+mk_lang_forward(mk_sl_cui_uint8);
+
+
+enum mk_lib_iip_http_parse_error_code_e
+{
+	mk_lib_iip_http_parse_error_code_e_ok,
+	mk_lib_iip_http_parse_error_code_e_bad_method,
+	mk_lib_iip_http_parse_error_code_e_bad_header,
+	mk_lib_iip_http_parse_error_code_e_dummy_end
+};
+typedef enum mk_lib_iip_http_parse_error_code_e mk_lib_iip_http_parse_error_code_t;
+mk_lang_typedef(mk_lib_iip_http_parse_error_code);
+
+enum mk_lib_iip_http_method_id_e
+{
+	mk_lib_iip_http_method_id_e_get,
+	mk_lib_iip_http_method_id_e_head,
+	mk_lib_iip_http_method_id_e_post,
+	mk_lib_iip_http_method_id_e_put,
+	mk_lib_iip_http_method_id_e_delete,
+	mk_lib_iip_http_method_id_e_connect,
+	mk_lib_iip_http_method_id_e_options,
+	mk_lib_iip_http_method_id_e_trace,
+	mk_lib_iip_http_method_id_e_dummy_end
+};
+typedef enum mk_lib_iip_http_method_id_e mk_lib_iip_http_method_id_t;
+mk_lang_typedef(mk_lib_iip_http_method_id);
+
+enum mk_lib_iip_http_version_id_e
+{
+	mk_lib_iip_http_version_id_e_1_1,
+	mk_lib_iip_http_version_id_e_dummy_end
+};
+typedef enum mk_lib_iip_http_version_id_e mk_lib_iip_http_version_id_t;
+mk_lang_typedef(mk_lib_iip_http_version_id);
+
+
+#include "mk_lang_warning_msvc_push_c4820.h"
+struct mk_lib_iip_http_header_s
+{
+	mk_lib_iip_http_buffer_t m_key;
+	mk_lib_iip_http_buffer_t m_val;
+};
+typedef struct mk_lib_iip_http_header_s mk_lib_iip_http_header_t;
+mk_lang_typedef(mk_lib_iip_http_header);
+#include "mk_lang_warning_msvc_pop.h"
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_http_header_rw_construct(mk_lib_iip_http_header_pt const header) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_http_header_rw_destroy(mk_lib_iip_http_header_pt const header) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_http_header_rw_copy_construct(mk_lib_iip_http_header_pt const header, mk_lib_iip_http_header_pct const src) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_http_header_rw_move_construct(mk_lib_iip_http_header_pt const header, mk_lib_iip_http_header_pt const src) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_http_header_rw_copy_assign(mk_lib_iip_http_header_pt const header, mk_lib_iip_http_header_pct const src) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_http_header_rw_move_assign(mk_lib_iip_http_header_pt const header, mk_lib_iip_http_header_pt const src) mk_lang_noexcept;
+
+#define mk_sl_vector_t_name mk_lib_iip_http_headers
+#define mk_sl_vector_t_element_type mk_lib_iip_http_header_t
+#define mk_sl_vector_t_mallocatorg mk_lib_iip_cp_mallocator_global
+#define mk_sl_vector_t_element_construct_void mk_lib_iip_http_header_rw_construct
+#define mk_sl_vector_t_element_destruct mk_lib_iip_http_header_rw_destroy
+#define mk_sl_vector_t_element_copy_construct mk_lib_iip_http_header_rw_copy_construct
+#define mk_sl_vector_t_element_move_construct mk_lib_iip_http_header_rw_move_construct
+#define mk_sl_vector_t_element_copy_assign mk_lib_iip_http_header_rw_copy_assign
+#define mk_sl_vector_t_element_move_assign mk_lib_iip_http_header_rw_move_assign
+#include "mk_sl_vector_inl_fileh.h"
+#include "mk_sl_vector_inl_fileu.h"
+
+
+#include "mk_lang_warning_msvc_push_c4820.h"
+struct mk_lib_iip_http_s
+{
+	mk_lib_iip_http_method_id_t m_method;
+	mk_lib_iip_http_buffer_t m_uri;
+	mk_lib_iip_http_version_id_t m_version;
+	mk_lib_iip_http_headers_t m_headers;
+	mk_lang_types_bool_t m_hdrs_done;
+	mk_lib_iip_http_buffer_t m_buffer;
+};
+typedef struct mk_lib_iip_http_s mk_lib_iip_http_t;
+mk_lang_typedef(mk_lib_iip_http);
+#include "mk_lang_warning_msvc_pop.h"
+
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_http_rw_construct(mk_lib_iip_http_pt const http) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_http_rw_destroy(mk_lib_iip_http_pt const http) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_http_rw_on_incoming_data(mk_lib_iip_http_pt const http, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_http_parse_error_code_pt const error_code, mk_lang_types_sint_pt const consumed) mk_lang_noexcept;
+
+
+#if mk_lang_jumbo_have
+#include "mk_lib_iip_http.c"
+#endif
+#endif
