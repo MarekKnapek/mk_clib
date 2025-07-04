@@ -18,6 +18,7 @@
 #include "mk_lib_iip_cp_mallocator_global.h"
 #include "mk_lib_iip_cp_message.h"
 #include "mk_lib_iip_cp_types.h"
+#include "mk_lib_iip_http.h"
 #include "mk_lib_iip_net_streaming_packet.h"
 #include "mk_lib_iip_time.h"
 #include "mk_lib_zlib.h"
@@ -244,6 +245,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_types_sint_t out_len;
 	mk_lib_iip_net_streaming_packet_t packet;
 	mk_lang_types_bool_t gud;
+	mk_lib_iip_http_parse_error_code_t code;
+	mk_lib_iip_http_t http;
+	mk_lang_types_sint_t consumed;
 
 	mk_lang_assert(task);
 	mk_lang_assert(src_port);
@@ -260,6 +264,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	gud = mk_lang_true;
 	err = mk_lib_iip_net_streaming_packet_rw_construct(&packet); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_net_streaming_packet_rw_parse(&packet, &decompressed.m_buf[0], decompressed.m_len, &gud); mk_lang_check_rereturn(err); mk_lang_check_return(gud);
+	err = mk_lib_iip_http_rw_construct(&http); mk_lang_check_rereturn(err);
+	code = mk_lib_iip_http_parse_error_code_e_ok;
+	err = mk_lib_iip_http_rw_on_incoming_data(&http, packet.m_payload_buf, packet.m_payload_len, &code, &consumed); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_http_rw_destroy(&http); mk_lang_check_rereturn(err);
 	mk_lang_check_todo();
 	return 0;
 }
