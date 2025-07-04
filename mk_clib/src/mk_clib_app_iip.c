@@ -40,7 +40,7 @@
 #include "mk_win_dll_ws2.h"
 
 
-static mk_lang_types_bool_t mk_clib_app_iip_g_end_requested;
+static mk_lang_types_bool_t mk_clib_app_iip_g_stop_requested;
 static mk_lib_iip_cp_client_wrapper_task_pt mk_clib_app_iip_g_wrp;
 
 
@@ -365,7 +365,7 @@ mk_lang_nodiscard static mk_lang_inline mk_win_base_bool_t mk_win_base_stdcall m
 	}
 	if(interesting)
 	{
-		mk_clib_app_iip_g_end_requested = mk_lang_true;
+		mk_clib_app_iip_g_stop_requested = mk_lang_true;
 		err = mk_lib_iip_cp_client_wrapper_task_rw_poke(mk_clib_app_iip_g_wrp); mk_lang_check_recrash(err);
 	}
 	return interesting ? mk_win_base_true : mk_win_base_false;
@@ -429,11 +429,15 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wor
 	err = mk_lib_iip_cp_client_wrapper_task_rw_new_session(&wrp, &session_settings_3, &session_3); mk_lang_check_rereturn(err);
 
 	mk_clib_app_iip_g_wrp = &wrp;
-	mk_clib_app_iip_g_end_requested = mk_lang_false;
+	mk_clib_app_iip_g_stop_requested = mk_lang_false;
 	b = mk_win_dll_kernel_console_set_ctrl_handler(&mk_clib_app_iip_pr_ctrl_c_handler, mk_win_base_true); mk_lang_check_return(b != mk_win_base_false);
 
 	for(;;)
 	{
+		if(mk_clib_app_iip_g_stop_requested)
+		{
+			break;
+		}
 		step_result = mk_lib_iip_cp_client_wrapper_task_result_e_dummy_end;
 		err = mk_lib_iip_cp_client_wrapper_task_rw_run_no_block(&wrp, &step_result); mk_lang_check_rereturn(err);
 		if(step_result == mk_lib_iip_cp_client_wrapper_task_result_e_did_nothing)
@@ -443,10 +447,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wor
 		step_result = mk_lib_iip_cp_client_wrapper_task_result_e_dummy_end;
 		err = mk_lib_iip_cp_client_wrapper_task_rw_step(&wrp, mk_lang_true, 10 * 1000, &step_result); mk_lang_check_rereturn(err);
 		if(step_result == mk_lib_iip_cp_client_wrapper_task_result_e_did_nothing)
-		{
-			break;
-		}
-		if(mk_clib_app_iip_g_end_requested)
 		{
 			break;
 		}
