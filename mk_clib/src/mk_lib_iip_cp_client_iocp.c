@@ -150,7 +150,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	config = *settings;
 	config.m_shared = task->m_iocp.m_state.m_shared;
 	err = mk_lib_iip_cp_mallocator_global_allocate(sizeof(*con), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem); con = ((mk_lib_iip_cp_client_connection_task_pt)(mem)); mk_lang_assert(con); kon = con; mk_lang_assert(kon);
-	err = mk_lib_iip_cp_client_connection_task_rw_construct(con, settings); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_client_connection_task_rw_construct(con, &config); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_cp_client_iocp_connections_rw_push_back_move_single(&task->m_iocp.m_state.m_connections, &con); mk_lang_check_rereturn(err);
 	*connection = kon;
 	return 0;
