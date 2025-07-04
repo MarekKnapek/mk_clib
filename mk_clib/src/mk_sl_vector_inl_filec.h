@@ -25,6 +25,14 @@
 #include "mk_lang_memcpy1_inl_filec.h"
 #include "mk_lang_memcpy1_inl_fileu.h"
 
+#define mk_sl_vector_inl_filec_memmov_name mk_lang_concat(mk_sl_vector_inl_defd_name, _zzz_element_memmov)
+#define mk_sl_vector_inl_filec_memmov_fn mk_lang_concat(mk_sl_vector_inl_filec_memmov_name, _fn)
+#define mk_lang_memmov1_t_name mk_sl_vector_inl_filec_memmov_name
+#define mk_lang_memmov1_t_type mk_sl_vector_inl_defd_element_t
+#include "mk_lang_memmov1_inl_fileh.h"
+#include "mk_lang_memmov1_inl_filec.h"
+#include "mk_lang_memmov1_inl_fileu.h"
+
 #define mk_sl_vector_inl_filec_overlap_name mk_lang_concat(mk_sl_vector_inl_defd_name, _zzz_element_overlap)
 #define mk_sl_vector_inl_filec_overlap_fn mk_lang_concat(mk_sl_vector_inl_filec_overlap_name, _fn)
 #define mk_lang_overlap_t_name mk_sl_vector_inl_filec_overlap_name
@@ -591,6 +599,56 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_de
 #error xxxxxxxxxx
 #endif
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_defd_prrw_elements_move_assign_many(mk_sl_vector_inl_defd_pt const vector, mk_sl_vector_inl_defd_element_pt const dst, mk_sl_vector_inl_defd_element_pt const src, mk_lang_types_usize_t const count) mk_lang_noexcept
+{
+#if mk_sl_vector_inl_defd_copy_style == mk_sl_vector_copy_use_bitblt
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
+	mk_lang_assert(vector);
+	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
+	mk_lang_assert(dst || count == 0);
+	mk_lang_assert(src || count == 0);
+	mk_lang_assert(count >= 0);
+	mk_lang_assert(count <= mk_sl_vector_inl_defd_max_capacity_d);
+	#include "mk_lang_warning_gcc_pop.h"
+	#include "mk_lang_warning_msvc_pop.h"
+
+	((mk_lang_types_void_t)(vector));
+	mk_sl_vector_inl_filec_memmov_fn(dst, src, count);
+
+	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
+	return 0;
+#elif mk_sl_vector_inl_defd_copy_style == mk_sl_vector_copy_use_custom
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
+	mk_lang_types_sint_t err;
+
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
+	mk_lang_assert(vector);
+	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
+	mk_lang_assert(dst || count == 0);
+	mk_lang_assert(src || count == 0);
+	mk_lang_assert(count >= 0);
+	mk_lang_assert(count <= mk_sl_vector_inl_defd_max_capacity_d);
+	mk_lang_assert(!mk_sl_vector_inl_filec_overlap_fn(dst, count, src, count));
+	#include "mk_lang_warning_gcc_pop.h"
+	#include "mk_lang_warning_msvc_pop.h"
+
+	((mk_lang_types_void_t)(vector));
+	n = count;
+	for(i = 0; i != n; ++i)
+	{
+		err = mk_sl_vector_inl_defd_element_move_assign(&dst[i], &src[i]); mk_lang_check_rereturn(err);
+	}
+
+	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
+	return 0;
+#else
+#error xxxxxxxxxx
+#endif
+}
+
 #if mk_sl_vector_inl_defd_copy_style == mk_sl_vector_copy_use_bitblt
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_defd_prrw_elements_copy_construct_many(mk_sl_vector_inl_defd_pt const vector, mk_sl_vector_inl_defd_element_pt const dst, mk_sl_vector_inl_defd_element_pct const src, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
@@ -1052,6 +1110,50 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_de
 	mk_lang_assert(element);
 
 	err = mk_sl_vector_inl_defd_rw_push_back_copy_many(vector, element, 1); mk_lang_check_rereturn(err);
+
+	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_defd_prrw_pop_front_many(mk_sl_vector_inl_defd_pt const vector, mk_lang_types_usize_t const count) mk_lang_noexcept
+{
+	mk_sl_vector_inl_defd_element_pt dst;
+	mk_sl_vector_inl_defd_element_pt src;
+	mk_lang_types_usize_t cnt;
+	mk_lang_types_sint_t err;
+
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
+	mk_lang_assert(vector);
+	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
+	mk_lang_assert(count >= 0);
+	mk_lang_assert(count <= mk_sl_vector_inl_defd_rw_size(vector));
+	#include "mk_lang_warning_gcc_pop.h"
+	#include "mk_lang_warning_msvc_pop.h"
+
+	dst = &vector->m_buffer[0];
+	src = &vector->m_buffer[count];
+	cnt = vector->m_size - count;
+	err = mk_sl_vector_inl_defd_prrw_elements_move_assign_many(vector, dst, src, cnt); mk_lang_check_rereturn(err);
+	err = mk_sl_vector_inl_defd_prrw_shrink_by(vector, count); mk_lang_check_rereturn(err);
+
+	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_defd_prrw_pop_front_single(mk_sl_vector_inl_defd_pt const vector) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
+	mk_lang_assert(vector);
+	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
+	mk_lang_assert(!mk_sl_vector_inl_defd_rw_is_empty(vector));
+	#include "mk_lang_warning_gcc_pop.h"
+	#include "mk_lang_warning_msvc_pop.h"
+
+	err = mk_sl_vector_inl_defd_prrw_pop_front_many(vector, 1); mk_lang_check_rereturn(err);
 
 	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
 	return 0;
@@ -1686,6 +1788,16 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_pu
 	return 0;
 }
 
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_pop_front_many(mk_sl_vector_inl_defd_pt const vector, mk_lang_types_usize_t const count) mk_lang_noexcept
+{
+	return mk_sl_vector_inl_defd_prrw_pop_front_many(vector, count);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_pop_front_single(mk_sl_vector_inl_defd_pt const vector) mk_lang_noexcept
+{
+	return mk_sl_vector_inl_defd_prrw_pop_front_single(vector);
+}
+
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_pop_back_many(mk_sl_vector_inl_defd_pt const vector, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
@@ -1769,6 +1881,9 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_er
 
 #undef mk_sl_vector_inl_filec_memcpy_name
 #undef mk_sl_vector_inl_filec_memcpy_fn
+
+#undef mk_sl_vector_inl_filec_memmov_name
+#undef mk_sl_vector_inl_filec_memmov_fn
 
 #undef mk_sl_vector_inl_filec_overlap_name
 #undef mk_sl_vector_inl_filec_overlap_fn
