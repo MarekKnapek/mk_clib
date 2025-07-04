@@ -72,7 +72,7 @@ struct mk_lib_iip_cp_client_connection_state_s
 	mk_lang_types_bool_t m_pending_send;
 	mk_lang_types_bool_t m_pending_recv;
 	mk_lib_iip_cp_message_t m_msg;
-	mk_lib_iip_cp_client_session_task_pt m_pending_sessions_to_create;
+	mk_lib_iip_cp_client_session_task_pt m_pending_session_to_create;
 	mk_lib_iip_cp_client_connection_buffer_t m_buf_rcv;
 	mk_lib_iip_cp_client_connection_buffer_t m_buf_snd;
 };
