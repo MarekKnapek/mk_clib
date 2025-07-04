@@ -13,7 +13,7 @@
 #include "mk_lang_noexcept.h"
 #include "mk_lang_null.h"
 #include "mk_lang_types.h"
-#include "mk_lib_iip_cp_client_connection.h"
+#include "mk_lib_iip_cp_client_connection_task.h"
 #include "mk_lib_iip_cp_mallocator_global.h"
 #include "mk_lib_net_iocp.h"
 
@@ -58,6 +58,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_iocp_task_prrw_new_connection(mk_lib_iip_cp_client_iocp_task_pt const task, mk_lib_iip_cp_client_connection_settings_pct const settings, mk_lib_iip_cp_client_connection_task_ppt const connection) mk_lang_noexcept
 {
+	mk_lib_iip_cp_client_connection_settings_t config;
 	mk_lang_types_sint_t err;
 	mk_lib_iip_cp_client_connection_task_pt con;
 	mk_lang_types_void_pt mem;
@@ -67,8 +68,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_assert(settings);
 	mk_lang_assert(connection);
 
+	config = *settings;
+	config.m_shared = task->m_iocp.m_state.m_shared;
 	err = mk_lib_iip_cp_mallocator_global_allocate(sizeof(*con), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem); con = ((mk_lib_iip_cp_client_connection_task_pt)(mem)); mk_lang_assert(con); kon = con; mk_lang_assert(kon);
-	err = mk_lib_iip_cp_client_connection_task_rw_construct(con, task->m_iocp.m_state.m_shared, settings); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_client_connection_task_rw_construct(con, settings); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_cp_client_connection_tasks_rw_push_back_move_single(&task->m_iocp.m_state.m_connections, &con); mk_lang_check_rereturn(err);
 	*connection = kon;
 	return 0;

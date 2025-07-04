@@ -52,6 +52,7 @@ mk_lang_typedef(mk_lib_iip_cp_client_connection_buffer);
 
 struct mk_lib_iip_cp_client_connection_settings_s
 {
+	mk_lib_iip_cp_client_shared_pt m_shared;
 	mk_lib_net_destination_t m_destination;
 	mk_lib_iip_cp_client_connection_authentication_t m_authentication;
 };
@@ -61,7 +62,6 @@ mk_lang_typedef(mk_lib_iip_cp_client_connection_settings);
 #include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_lib_iip_cp_client_connection_state_s
 {
-	mk_lib_iip_cp_client_shared_pt m_shared;
 	mk_lib_net_socket_t m_socket;
 	mk_lib_net_async_connect_t m_async_connect;
 	mk_lib_net_write_request_t m_write_request;
@@ -133,7 +133,7 @@ mk_lang_typedef(mk_lib_iip_cp_client_connection_task);
 #include "mk_lang_warning_msvc_pop.h"
 
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_connection_task_rw_construct(mk_lib_iip_cp_client_connection_task_pt const task, mk_lib_iip_cp_client_shared_pt const shared, mk_lib_iip_cp_client_connection_settings_pct const settings) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_connection_task_rw_construct(mk_lib_iip_cp_client_connection_task_pt const task, mk_lib_iip_cp_client_connection_settings_pct const settings) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_connection_task_rw_destroy(mk_lib_iip_cp_client_connection_task_pt const task) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lib_iip_cp_client_connection_task_rw_want_associate_socket(mk_lib_iip_cp_client_connection_task_pt const task) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lib_net_socket_pt mk_lib_iip_cp_client_connection_task_rw_gimme_socket(mk_lib_iip_cp_client_connection_task_pt const task) mk_lang_noexcept;
@@ -164,6 +164,6 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_connec
 
 
 #if mk_lang_jumbo_have
-#include "mk_lib_iip_cp_client_connection.c"
+#include "mk_lib_iip_cp_client_connection_task.c"
 #endif
 #endif
