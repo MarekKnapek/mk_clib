@@ -63,7 +63,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lib_iip_cp_client_connection_settings_t config;
 	mk_lib_iip_cp_client_application_task_pt app;
 	mk_lang_types_sint_t err;
-	mk_lib_iip_cp_client_connection_task_pt konnection;
+	mk_lib_net_connection_any2_pt konnection;
 
 	mk_lang_assert(task);
 	mk_lang_assert(settings);
@@ -82,7 +82,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_wrapper_task_prrw_new_session(mk_lib_iip_cp_client_wrapper_task_pt const task, mk_lib_iip_cp_client_types_session_settings_pct const settings, mk_lib_iip_cp_client_types_handle_session_pt const session) mk_lang_noexcept
 {
 	mk_lib_iip_cp_client_session_settings_t config;
-	mk_lib_iip_cp_client_connection_task_pt connection;
+	mk_lib_net_connection_any2_pt connection;
 	mk_lang_types_sint_t err;
 	mk_lib_iip_cp_client_session_task_pt zession;
 
@@ -93,8 +93,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 	config.m_destination = settings->m_destination;
 	config.m_master_session.m_elements[0] = settings->m_master_session.m_elements[0];
-	connection = ((mk_lib_iip_cp_client_connection_task_pt)(settings->m_connection.m_elements[0])); mk_lang_assert(connection);
-	err = mk_lib_iip_cp_client_connection_task_rw_new_session(connection, &config, &zession); mk_lang_check_rereturn(err); mk_lang_assert(zession);
+	connection = ((mk_lib_net_connection_any2_pt)(settings->m_connection.m_elements[0])); mk_lang_assert(connection);
+	mk_lang_assert(connection->m_data.m_id == mk_lib_net_connection_any1_id_e_mk_lib_iip_cp_client_connection_task);
+	err = mk_lib_iip_cp_client_connection_task_rw_new_session(&connection->m_data.m_mk_lib_iip_cp_client_connection_task.m_mk_lib_iip_cp_client_connection_task, &config, &zession); mk_lang_check_rereturn(err); mk_lang_assert(zession);
 	session->m_elements[0] = ((mk_lib_iip_cp_client_types_handle_session_base_t)(zession));
 	return 0;
 }
