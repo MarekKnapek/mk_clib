@@ -14,6 +14,7 @@
 #include "mk_lang_null.h"
 #include "mk_lang_types.h"
 #include "mk_lib_iip_cp_client_connection_task.h"
+#include "mk_lib_iip_cp_client_local_task.h"
 #include "mk_lib_iip_cp_mallocator_global.h"
 #include "mk_lib_net_connection_any1.h"
 #include "mk_lib_net_iocp.h"
@@ -133,6 +134,27 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_assert(task);
 
 	err = mk_lib_net_iocp_post(&task->m_iocp.m_state.m_iocp, 0, mk_lang_limits_uintptr_max, mk_lang_null); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_iocp_task_prrw_new_local(mk_lib_iip_cp_client_iocp_task_pt const task, mk_lib_iip_cp_client_local_settings_pct const settings, mk_lib_net_connection_any2_ppt const local) mk_lang_noexcept
+{
+	mk_lib_iip_cp_client_local_settings_t config;
+	mk_lang_types_sint_t err;
+	mk_lib_net_connection_any2_pt con;
+	mk_lang_types_void_pt mem;
+	mk_lib_net_connection_any2_pt kon;
+
+	mk_lang_assert(task);
+	mk_lang_assert(settings);
+	mk_lang_assert(local);
+
+	config = *settings;
+	config.m_shared = task->m_iocp.m_state.m_shared;
+	err = mk_lib_iip_cp_mallocator_global_allocate(sizeof(*con), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem); con = ((mk_lib_net_connection_any2_pt)(mem)); mk_lang_assert(con); kon = con; mk_lang_assert(kon);
+	err = mk_lib_net_connection_any2_rw_construct(con, mk_lib_net_connection_any1_id_e_mk_lib_iip_cp_client_local_task, &config); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_client_iocp_connections_rw_push_back_move_single(&task->m_iocp.m_state.m_connections, &con); mk_lang_check_rereturn(err);
+	*local = kon;
 	return 0;
 }
 
@@ -442,6 +464,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_iocp_t
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_iocp_task_rw_poke(mk_lib_iip_cp_client_iocp_task_pt const task) mk_lang_noexcept
 {
 	return mk_lib_iip_cp_client_iocp_task_prrw_poke(task);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_iocp_task_rw_new_local(mk_lib_iip_cp_client_iocp_task_pt const task, mk_lib_iip_cp_client_local_settings_pct const settings, mk_lib_net_connection_any2_ppt const local) mk_lang_noexcept
+{
+	return mk_lib_iip_cp_client_iocp_task_prrw_new_local(task, settings, local);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_iocp_task_rw_new_connection(mk_lib_iip_cp_client_iocp_task_pt const task, mk_lib_iip_cp_client_connection_settings_pct const settings, mk_lib_net_connection_any2_ppt const connection) mk_lang_noexcept

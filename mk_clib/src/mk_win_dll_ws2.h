@@ -215,6 +215,40 @@ enum mk_win_dll_ws2_sck_opt_ipv6_e
 };
 typedef enum mk_win_dll_ws2_sck_opt_ipv6_e mk_win_dll_ws2_sck_opt_ipv6_t;
 
+#define mk_win_dll_ws2_ioctl_dir_vo (0x20000000ul)
+#define mk_win_dll_ws2_ioctl_dir_wo (0x40000000ul)
+#define mk_win_dll_ws2_ioctl_dir_ro (0x80000000ul)
+#define mk_win_dll_ws2_ioctl_dir_rw (0xc0000000ul)
+
+enum mk_win_dll_ws2_ioctl_control_code_e
+{
+	mk_win_dll_ws2_ioctl_control_code_e_associate_handle                        = ((mk_win_base_dword_t)(mk_win_dll_ws2_ioctl_dir_ro | 0x08000000 |  1)),
+	mk_win_dll_ws2_ioctl_control_code_e_enable_circular_queueing                = ((mk_win_base_dword_t)(mk_win_dll_ws2_ioctl_dir_vo | 0x08000000 |  2)),
+	mk_win_dll_ws2_ioctl_control_code_e_find_route                              = ((mk_win_base_dword_t)(mk_win_dll_ws2_ioctl_dir_wo | 0x08000000 |  3)),
+	mk_win_dll_ws2_ioctl_control_code_e_flush                                   = ((mk_win_base_dword_t)(mk_win_dll_ws2_ioctl_dir_vo | 0x08000000 |  4)),
+	mk_win_dll_ws2_ioctl_control_code_e_get_broadcast_address                   = ((mk_win_base_dword_t)(mk_win_dll_ws2_ioctl_dir_wo | 0x08000000 |  5)),
+	mk_win_dll_ws2_ioctl_control_code_e_get_extension_function_pointer          = ((mk_win_base_dword_t)(mk_win_dll_ws2_ioctl_dir_rw | 0x08000000 |  6)),
+	mk_win_dll_ws2_ioctl_control_code_e_get_qos                                 = ((mk_win_base_dword_t)(mk_win_dll_ws2_ioctl_dir_rw | 0x08000000 |  7)),
+	mk_win_dll_ws2_ioctl_control_code_e_get_group_qos                           = ((mk_win_base_dword_t)(mk_win_dll_ws2_ioctl_dir_rw | 0x08000000 |  8)),
+	mk_win_dll_ws2_ioctl_control_code_e_multipoint_loopback                     = ((mk_win_base_dword_t)(mk_win_dll_ws2_ioctl_dir_rw | 0x08000000 |  9)),
+	mk_win_dll_ws2_ioctl_control_code_e_multicast_scope                         = ((mk_win_base_dword_t)(mk_win_dll_ws2_ioctl_dir_ro | 0x08000000 | 10)),
+	mk_win_dll_ws2_ioctl_control_code_e_set_qos                                 = ((mk_win_base_dword_t)(mk_win_dll_ws2_ioctl_dir_ro | 0x08000000 | 11)),
+	mk_win_dll_ws2_ioctl_control_code_e_set_group_qos                           = ((mk_win_base_dword_t)(mk_win_dll_ws2_ioctl_dir_ro | 0x08000000 | 12)),
+	mk_win_dll_ws2_ioctl_control_code_e_translate_handle                        = ((mk_win_base_dword_t)(mk_win_dll_ws2_ioctl_dir_rw | 0x08000000 | 13)),
+	mk_win_dll_ws2_ioctl_control_code_e_routing_interface_query                 = ((mk_win_base_dword_t)(mk_win_dll_ws2_ioctl_dir_rw | 0x08000000 | 20)),
+	mk_win_dll_ws2_ioctl_control_code_e_routing_interface_change                = ((mk_win_base_dword_t)(mk_win_dll_ws2_ioctl_dir_ro | 0x08000000 | 21)),
+	mk_win_dll_ws2_ioctl_control_code_e_address_list_query                      = ((mk_win_base_dword_t)(mk_win_dll_ws2_ioctl_dir_wo | 0x08000000 | 22)),
+	mk_win_dll_ws2_ioctl_control_code_e_address_list_change                     = ((mk_win_base_dword_t)(mk_win_dll_ws2_ioctl_dir_vo | 0x08000000 | 23)),
+	mk_win_dll_ws2_ioctl_control_code_e_query_target_pnp_handle                 = ((mk_win_base_dword_t)(mk_win_dll_ws2_ioctl_dir_wo | 0x08000000 | 24)),
+	mk_win_dll_ws2_ioctl_control_code_e_address_list_sort                       = ((mk_win_base_dword_t)(mk_win_dll_ws2_ioctl_dir_rw | 0x08000000 | 25)), /* _WIN32_WINNT >= 0x0501 */
+	mk_win_dll_ws2_ioctl_control_code_e_reserved_1                              = ((mk_win_base_dword_t)(mk_win_dll_ws2_ioctl_dir_ro | 0x08000000 | 26)), /* _WIN32_WINNT >= 0x0600 */
+	mk_win_dll_ws2_ioctl_control_code_e_reserved_2                              = ((mk_win_base_dword_t)(mk_win_dll_ws2_ioctl_dir_ro | 0x08000000 | 33)), /* _WIN32_WINNT >= 0x0600 */
+	mk_win_dll_ws2_ioctl_control_code_e_get_multiple_extension_function_pointer = ((mk_win_base_dword_t)(mk_win_dll_ws2_ioctl_dir_rw | 0x08000000 | 36)),
+	mk_win_dll_ws2_ioctl_control_code_e_query_rss_processor_info                = ((mk_win_base_dword_t)(mk_win_dll_ws2_ioctl_dir_wo | 0x08000000 | 37)),
+	mk_win_dll_ws2_ioctl_control_code_e_dummy_end
+};
+typedef enum mk_win_dll_ws2_ioctl_control_code_e mk_win_dll_ws2_ioctl_control_code_t;
+
 
 mk_win_base_make_handle(mk_win_dll_ws2_event)
 
@@ -528,6 +562,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_dll_ws2_connect2(mk_wi
 mk_lang_nodiscard mk_lang_jumbo mk_win_dll_ws2_socket_t mk_win_dll_ws2_accept2(mk_win_dll_ws2_socket_t const sck, mk_win_dll_ws2_sock_addr_pt const addr_buf, mk_win_base_sint_pt const addr_len, mk_win_dll_ws2_accept_condition_func_inner_t const condition_fnc, mk_win_base_uintptr_t const condition_ctx) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_dword_t mk_win_dll_ws2_wait_for_multiple_events(mk_win_base_dword_t const count, mk_win_dll_ws2_event_pct const evts, mk_win_base_bool_t const all, mk_win_base_dword_t const timeout, mk_win_base_bool_t const alertable) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_dll_ws2_get_overlapped_result(mk_win_dll_ws2_socket_t const sck, mk_win_dll_ws2_overlapped_pt const overlapped, mk_win_base_dword_lpt const transferred, mk_win_base_bool_t const wait, mk_win_base_dword_lpt const flags) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_dll_ws2_send2_ioctl(mk_win_dll_ws2_socket_t const sck, mk_win_base_dword_t const control_code, mk_win_base_void_lpct const in_data_buf, mk_win_base_dword_t const in_data_len, mk_win_base_void_lpt const out_data_buf, mk_win_base_dword_t const out_data_len, mk_win_base_dword_lpt const transferred, mk_win_dll_ws2_overlapped_lpt const overlapped, mk_win_base_void_lpt /* todo */ const callback) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_dll_ws2_send2(mk_win_dll_ws2_socket_t const sck, mk_win_dll_ws2_user_data_pt const bufs, mk_win_base_dword_t const count, mk_win_base_dword_pt const sent, mk_win_base_dword_t const flags, mk_win_dll_ws2_overlapped_pt const overlapped, mk_win_dll_ws2_completion_routine_t const callback) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_dll_ws2_recv2(mk_win_dll_ws2_socket_t const sck, mk_win_dll_ws2_user_data_pt const bufs, mk_win_base_dword_t const count, mk_win_base_dword_lpt const read, mk_win_base_dword_lpt const flags, mk_win_dll_ws2_overlapped_pt const overlapped, mk_win_dll_ws2_completion_routine_t const callback) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_ulong_t mk_win_dll_ws2_inet_addr(mk_win_base_pchar_pct const address) mk_lang_noexcept;

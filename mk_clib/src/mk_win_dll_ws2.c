@@ -40,6 +40,7 @@ mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_sint
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_dll_ws2_socket_t mk_win_base_stdcall WSAAccept(mk_win_dll_ws2_socket_t const sck, mk_win_dll_ws2_sock_addr_pt const addr_buf, mk_win_base_sint_pt const addr_len, mk_win_dll_ws2_accept_condition_func_inner_t const condition_fnc, mk_win_base_uintptr_t const condition_ctx) mk_lang_noexcept;
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_dword_t mk_win_base_stdcall WSAWaitForMultipleEvents(mk_win_base_dword_t const count, mk_win_dll_ws2_event_pct const evts, mk_win_base_bool_t const all, mk_win_base_dword_t const timeout, mk_win_base_bool_t const alertable) mk_lang_noexcept;
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall WSAGetOverlappedResult(mk_win_dll_ws2_socket_t const sck, mk_win_dll_ws2_overlapped_pt const overlapped, mk_win_base_dword_lpt const transferred, mk_win_base_bool_t const wait, mk_win_base_dword_lpt const flags) mk_lang_noexcept;
+mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_sint_t mk_win_base_stdcall WSAIoctl(mk_win_dll_ws2_socket_t const sck, mk_win_base_dword_t const control_code, mk_win_base_void_lpct const in_data_buf, mk_win_base_dword_t const in_data_len, mk_win_base_void_lpt const out_data_buf, mk_win_base_dword_t const out_data_len, mk_win_base_dword_lpt const transferred, mk_win_dll_ws2_overlapped_lpt const overlapped, mk_win_base_void_lpt /* todo */ const callback) mk_lang_noexcept;
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_sint_t mk_win_base_stdcall WSASend(mk_win_dll_ws2_socket_t const sck, mk_win_dll_ws2_user_data_pt const bufs, mk_win_base_dword_t const count, mk_win_base_dword_pt const sent, mk_win_base_dword_t const flags, mk_win_dll_ws2_overlapped_pt const overlapped, mk_win_dll_ws2_completion_routine_t const callback) mk_lang_noexcept;
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_sint_t mk_win_base_stdcall WSARecv(mk_win_dll_ws2_socket_t const sck, mk_win_dll_ws2_user_data_pt const bufs, mk_win_base_dword_t const count, mk_win_base_dword_lpt const read, mk_win_base_dword_lpt const flags, mk_win_dll_ws2_overlapped_pt const overlapped, mk_win_dll_ws2_completion_routine_t const callback) mk_lang_noexcept;
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_ulong_t mk_win_base_stdcall inet_addr(mk_win_base_pchar_lpct const address) mk_lang_noexcept;
@@ -167,6 +168,14 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_dll_ws2_get_overlapped
 	return ret;
 }
 
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_dll_ws2_send2_ioctl(mk_win_dll_ws2_socket_t const sck, mk_win_base_dword_t const control_code, mk_win_base_void_lpct const in_data_buf, mk_win_base_dword_t const in_data_len, mk_win_base_void_lpt const out_data_buf, mk_win_base_dword_t const out_data_len, mk_win_base_dword_lpt const transferred, mk_win_dll_ws2_overlapped_lpt const overlapped, mk_win_base_void_lpt /* todo */ const callback) mk_lang_noexcept
+{
+	mk_win_base_sint_t ret;
+
+	ret = WSAIoctl(sck, control_code, in_data_buf, in_data_len, out_data_buf, out_data_len, transferred, overlapped, callback);
+	return ret;
+}
+
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_dll_ws2_send2(mk_win_dll_ws2_socket_t const sck, mk_win_dll_ws2_user_data_pt const bufs, mk_win_base_dword_t const count, mk_win_base_dword_pt const sent, mk_win_base_dword_t const flags, mk_win_dll_ws2_overlapped_pt const overlapped, mk_win_dll_ws2_completion_routine_t const callback) mk_lang_noexcept
 {
 	mk_win_base_sint_t ret;
@@ -243,7 +252,6 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_dll_ws2_bind(mk_win_dl
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_dll_ws2_listen(mk_win_dll_ws2_socket_t const sck, mk_win_base_sint_t const backlog) mk_lang_noexcept
 {
 	mk_win_base_sint_t  ret;
-
 
 	ret = listen(sck, backlog);
 	return ret;

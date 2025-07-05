@@ -258,7 +258,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_des
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_parse_settings_from_cmd_line(mk_lib_iip_cp_client_types_connection_settings_pt settings, mk_lang_types_sint_t const argc, mk_lang_tchar_pcpct const argv, mk_lang_types_sint_pct const lens) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_parse_settings_from_cmd_line(mk_lib_iip_cp_client_types_connection_settings_pt const settings, mk_lang_types_sint_t const argc, mk_lang_tchar_pcpct const argv, mk_lang_types_sint_pct const lens) mk_lang_noexcept
 {
 	mk_lang_types_sint_t n;
 	mk_lang_types_sint_t i;
@@ -317,7 +317,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_par
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_clib_app_iip_parse_settings_from_hardcoded_k_ip[] = "127.0.0.1";
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_clib_app_iip_parse_settings_from_hardcoded_k_port[] = "7654";
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_parse_settings_from_hardcoded(mk_lib_iip_cp_client_types_connection_settings_pt settings) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_parse_settings_from_hardcoded(mk_lib_iip_cp_client_types_connection_settings_pt const settings) mk_lang_noexcept
 {
 	mk_lang_types_pchar_pct param_ptr;
 	mk_lang_types_sint_t param_len;
@@ -345,6 +345,52 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_par
 
 	settings->m_authentication.m_password.m_len = 0;
 
+	return 0;
+}
+
+mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_clib_app_iip_parse_settings_local_from_hardcoded_1_k_addr[] = "0.0.0.0";
+mk_lang_constexpr_static_inline mk_lang_types_sint_t const mk_clib_app_iip_parse_settings_local_from_hardcoded_1_k_port = 6969;
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_parse_settings_local_from_hardcoded_1(mk_lib_iip_cp_client_types_local_settings_pt const settings) mk_lang_noexcept
+{
+	mk_lang_types_pchar_pct addr_str_buf;
+	mk_lang_types_sint_t addr_str_len;
+	mk_lang_types_sint_t err;
+	mk_lang_types_bool_t gud;
+	mk_lang_types_sint_t consumed;
+	mk_lang_types_sint_t port;
+
+	mk_lang_assert(settings);
+
+	addr_str_buf = &mk_clib_app_iip_parse_settings_local_from_hardcoded_1_k_addr[0];
+	addr_str_len = mk_lang_countstr(mk_clib_app_iip_parse_settings_local_from_hardcoded_1_k_addr);
+	err = mk_lib_net_ipv4_address_parse_pc(&settings->m_destination.m_ipv4_address, addr_str_buf, addr_str_len, &gud, &consumed); mk_lang_check_rereturn(err); mk_lang_check_return(gud); mk_lang_assert(consumed >= 1); mk_lang_assert(consumed <= addr_str_len);
+	mk_lang_check_return(!mk_lib_net_ipv4_address_is_none(&settings->m_destination.m_ipv4_address));
+	port = mk_clib_app_iip_parse_settings_local_from_hardcoded_1_k_port;
+	mk_lib_net_tcp_port_from_bi_sint(&settings->m_destination.m_tcp_port, &port);
+	return 0;
+}
+
+mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_clib_app_iip_parse_settings_local_from_hardcoded_2_k_addr[] = "0.0.0.0";
+mk_lang_constexpr_static_inline mk_lang_types_sint_t const mk_clib_app_iip_parse_settings_local_from_hardcoded_2_k_port = 8080;
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_parse_settings_local_from_hardcoded_2(mk_lib_iip_cp_client_types_local_settings_pt const settings) mk_lang_noexcept
+{
+	mk_lang_types_pchar_pct addr_str_buf;
+	mk_lang_types_sint_t addr_str_len;
+	mk_lang_types_sint_t err;
+	mk_lang_types_bool_t gud;
+	mk_lang_types_sint_t consumed;
+	mk_lang_types_sint_t port;
+
+	mk_lang_assert(settings);
+
+	addr_str_buf = &mk_clib_app_iip_parse_settings_local_from_hardcoded_2_k_addr[0];
+	addr_str_len = mk_lang_countstr(mk_clib_app_iip_parse_settings_local_from_hardcoded_2_k_addr);
+	err = mk_lib_net_ipv4_address_parse_pc(&settings->m_destination.m_ipv4_address, addr_str_buf, addr_str_len, &gud, &consumed); mk_lang_check_rereturn(err); mk_lang_check_return(gud); mk_lang_assert(consumed >= 1); mk_lang_assert(consumed <= addr_str_len);
+	mk_lang_check_return(!mk_lib_net_ipv4_address_is_none(&settings->m_destination.m_ipv4_address));
+	port = mk_clib_app_iip_parse_settings_local_from_hardcoded_2_k_port;
+	mk_lib_net_tcp_port_from_bi_sint(&settings->m_destination.m_tcp_port, &port);
 	return 0;
 }
 
@@ -384,7 +430,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wor
 	mk_lib_iip_cp_client_types_session_settings_t session_settings_2;
 	mk_lib_iip_cp_client_types_session_settings_t session_settings_3;
 
+	mk_lib_iip_cp_client_types_local_settings_t local_settings_1;
+	mk_lib_iip_cp_client_types_local_settings_t local_settings_2;
+
 	mk_lib_iip_cp_client_wrapper_task_t wrp;
+	mk_lib_iip_cp_client_types_handle_local_t local_1;
+	mk_lib_iip_cp_client_types_handle_local_t local_2;
 	mk_lib_iip_cp_client_types_handle_connection_t connection_1;
 	mk_lib_iip_cp_client_types_handle_session_t session_1;
 	mk_lib_iip_cp_client_types_handle_connection_t connection_2;
@@ -409,8 +460,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wor
 	err = mk_clib_app_iip_destination_elgamal_dsa_sha1_load_pri_pub(&session_settings_3.m_destination, "destination3.txt"); mk_lang_check_rereturn(err);
 	session_settings_3.m_destination.m_key_elgamal_pri = session_settings_2.m_destination.m_key_elgamal_pri;
 	session_settings_3.m_destination.m_key_elgamal_pub = session_settings_2.m_destination.m_key_elgamal_pub;
+	err = mk_clib_app_iip_parse_settings_local_from_hardcoded_1(&local_settings_1); mk_lang_check_rereturn(err);
+	err = mk_clib_app_iip_parse_settings_local_from_hardcoded_2(&local_settings_2); mk_lang_check_rereturn(err);
 
 	err = mk_lib_iip_cp_client_wrapper_task_rw_construct(&wrp, &app_settings); mk_lang_check_rereturn(err);
+
+	err = mk_lib_iip_cp_client_wrapper_task_rw_new_local(&wrp, &local_settings_1, &local_1); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_client_wrapper_task_rw_new_local(&wrp, &local_settings_2, &local_2); mk_lang_check_rereturn(err);
 
 	err = mk_lib_iip_cp_client_wrapper_task_rw_new_connection(&wrp, &connection_settings_1, &connection_1); mk_lang_check_rereturn(err);
 
@@ -434,10 +490,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wor
 
 	for(;;)
 	{
-		if(mk_clib_app_iip_g_stop_requested)
-		{
-			break;
-		}
 		step_result = mk_lib_iip_cp_client_wrapper_task_result_e_dummy_end;
 		err = mk_lib_iip_cp_client_wrapper_task_rw_run_no_block(&wrp, &step_result); mk_lang_check_rereturn(err);
 		if(step_result == mk_lib_iip_cp_client_wrapper_task_result_e_did_nothing)
@@ -447,6 +499,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wor
 		step_result = mk_lib_iip_cp_client_wrapper_task_result_e_dummy_end;
 		err = mk_lib_iip_cp_client_wrapper_task_rw_step(&wrp, mk_lang_true, 10 * 1000, &step_result); mk_lang_check_rereturn(err);
 		if(step_result == mk_lib_iip_cp_client_wrapper_task_result_e_did_nothing)
+		{
+			break;
+		}
+		if(mk_clib_app_iip_g_stop_requested)
 		{
 			break;
 		}

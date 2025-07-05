@@ -153,12 +153,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_iocp_dequeue_pac
 	}
 	else
 	{
-		if(!ovr)
-		{
-			*is_ready = mk_lang_false;
-			*dequeued = mk_lang_false;
-		}
-		else
+		if(ovr)
 		{
 			*is_ready = mk_lang_true;
 			*dequeued = mk_lang_true;
@@ -167,6 +162,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_iocp_dequeue_pac
 			*key = ((mk_lang_types_uintptr_t)(kkk));
 			*overlapped = ((mk_lang_types_void_pt)(ovr));
 			*fail_reason = ((mk_lang_types_uint_t)(mk_win_dll_kernel_errors_get_last()));
+		}
+		else
+		{
+			*is_ready = mk_lang_false;
+			*dequeued = mk_lang_false;
 		}
 	}
 	return 0;
