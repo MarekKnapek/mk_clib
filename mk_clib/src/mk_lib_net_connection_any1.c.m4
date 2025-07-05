@@ -87,7 +87,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_connection_any1_
 
 	switch(id)
 	{
-mk_lib_net_connection_any_mm_per_type(`		case mk_lib_net_connection_any1_id_e_$1: err = $1_rw_construct(hash_stream_any1_bare->m_data.m_$1, settings); mk_lang_check_rereturn(err); break;', `
+mk_lib_net_connection_any_mm_per_type(`		case mk_lib_net_connection_any1_id_e_$1: err = $1_rw_construct(hash_stream_any1_bare->m_data.m_$1, (($1_settings_pct)(settings))); mk_lang_check_rereturn(err); break;', `
 ')
 		case mk_lib_net_connection_any1_id_e_dummy_end: mk_lang_assert(mk_lang_false); break;
 		default: mk_lang_assert(mk_lang_false); break;
