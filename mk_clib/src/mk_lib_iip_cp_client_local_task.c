@@ -61,7 +61,7 @@
 #endif
 
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_local_task_prrw_construct(mk_lib_iip_cp_client_local_task_pt const task, mk_lib_iip_cp_client_local_settings_pct const settings) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_local_task_prrw_construct(mk_lib_iip_cp_client_local_task_pt const task, mk_lib_iip_cp_client_local_task_settings_pct const settings) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 
@@ -288,7 +288,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 {
 	mk_lang_types_sint_t ptr;
 	mk_lang_types_uchar_pt guid;
-	mk_lang_types_sint_t control_code;
+	mk_lang_types_uint_t control_code;
 	mk_sl_cui_uint8_pct in_data_buf;
 	mk_lang_types_sint_t in_data_len;
 	mk_sl_cui_uint8_pt out_data_buf;
@@ -308,7 +308,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	guid[ptr++] = 0xac; guid[ptr++] = 0xcb; guid[ptr++] = 0xcf; guid[ptr++] = 0x11;
 	guid[ptr++] = 0x95; guid[ptr++] = 0xca; guid[ptr++] = 0x00; guid[ptr++] = 0x80;
 	guid[ptr++] = 0x5f; guid[ptr++] = 0x48; guid[ptr++] = 0xa1; guid[ptr++] = 0x92;
-	control_code = mk_win_dll_ws2_ioctl_control_code_e_get_extension_function_pointer;
+	control_code = ((mk_lang_types_uint_t)(mk_win_dll_ws2_ioctl_control_code_e_get_extension_function_pointer));
 	in_data_buf = ((mk_sl_cui_uint8_pct)(&task->m_local.m_state.m_ioctl_request_input));
 	in_data_len = ((mk_lang_types_sint_t)(sizeof(task->m_local.m_state.m_ioctl_request_input)));
 	out_data_buf = ((mk_sl_cui_uint8_pt)(&task->m_local.m_state.m_fn_ptr_accept_ex));
@@ -337,7 +337,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 {
 	mk_lang_types_sint_t ptr;
 	mk_lang_types_uchar_pt guid;
-	mk_lang_types_sint_t control_code;
+	mk_lang_types_uint_t control_code;
 	mk_sl_cui_uint8_pct in_data_buf;
 	mk_lang_types_sint_t in_data_len;
 	mk_sl_cui_uint8_pt out_data_buf;
@@ -357,7 +357,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	guid[ptr++] = 0xac; guid[ptr++] = 0xcb; guid[ptr++] = 0xcf; guid[ptr++] = 0x11;
 	guid[ptr++] = 0x95; guid[ptr++] = 0xca; guid[ptr++] = 0x00; guid[ptr++] = 0x80;
 	guid[ptr++] = 0x5f; guid[ptr++] = 0x48; guid[ptr++] = 0xa1; guid[ptr++] = 0x92;
-	control_code = mk_win_dll_ws2_ioctl_control_code_e_get_extension_function_pointer;
+	control_code = ((mk_lang_types_uint_t)(mk_win_dll_ws2_ioctl_control_code_e_get_extension_function_pointer));
 	in_data_buf = ((mk_sl_cui_uint8_pct)(&task->m_local.m_state.m_ioctl_request_input));
 	in_data_len = ((mk_lang_types_sint_t)(sizeof(task->m_local.m_state.m_ioctl_request_input)));
 	out_data_buf = ((mk_sl_cui_uint8_pt)(&task->m_local.m_state.m_fn_ptr_get_accept_ex_sock_addrs));
@@ -481,7 +481,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 }
 
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_local_task_rw_construct(mk_lib_iip_cp_client_local_task_pt const task, mk_lib_iip_cp_client_local_settings_pct const settings) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_local_task_rw_construct(mk_lib_iip_cp_client_local_task_pt const task, mk_lib_iip_cp_client_local_task_settings_pct const settings) mk_lang_noexcept
 {
 	return mk_lib_iip_cp_client_local_task_prrw_construct(task, settings);
 }

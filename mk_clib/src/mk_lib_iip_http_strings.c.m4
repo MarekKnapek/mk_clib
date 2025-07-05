@@ -84,8 +84,8 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	mk_lang_assert(id >= 0);
 	mk_lang_assert(id < mk_lib_iip_http_strings_id_e_dummy_end);
 
-	off_a = mk_lib_iip_http_strings_get_str_off(id + 0);
-	off_b = mk_lib_iip_http_strings_get_str_off(id + 1);
+	off_a = mk_lib_iip_http_strings_get_str_off(((mk_lib_iip_http_strings_id_t)(id + 0)));
+	off_b = mk_lib_iip_http_strings_get_str_off(((mk_lib_iip_http_strings_id_t)(id + 1)));
 	mk_lang_assert(off_a < off_b);
 	len = off_b - off_a;
 	mk_lang_assert(len >= 1);

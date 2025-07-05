@@ -190,7 +190,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 }
 
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_connection_task_prrw_construct(mk_lib_iip_cp_client_connection_task_pt const task, mk_lib_iip_cp_client_connection_settings_pct const settings) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_connection_task_prrw_construct(mk_lib_iip_cp_client_connection_task_pt const task, mk_lib_iip_cp_client_connection_task_settings_pct const settings) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 	mk_lang_types_void_pt mem;
@@ -1222,7 +1222,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 }
 
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_connection_task_rw_construct(mk_lib_iip_cp_client_connection_task_pt const task, mk_lib_iip_cp_client_connection_settings_pct const settings) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_connection_task_rw_construct(mk_lib_iip_cp_client_connection_task_pt const task, mk_lib_iip_cp_client_connection_task_settings_pct const settings) mk_lang_noexcept
 {
 	return mk_lib_iip_cp_client_connection_task_prrw_construct(task, settings);
 }

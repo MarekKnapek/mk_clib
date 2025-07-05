@@ -31,13 +31,13 @@ mk_lang_forward(mk_lib_iip_cp_client_shared);
 #define mk_lib_iip_cp_client_local_handle_size_bits_d mk_lang_bui_uintptr_size_bits_d
 #define mk_lib_iip_cp_client_local_handle_size_bytes_d (mk_lang_bui_uintptr_size_bits_d / mk_lang_charbit)
 
-struct mk_lib_iip_cp_client_local_settings_s
+struct mk_lib_iip_cp_client_local_task_settings_s
 {
 	mk_lib_iip_cp_client_shared_pt m_shared;
 	mk_lib_net_destination_t m_destination;
 };
-typedef struct mk_lib_iip_cp_client_local_settings_s mk_lib_iip_cp_client_local_settings_t;
-mk_lang_typedef(mk_lib_iip_cp_client_local_settings);
+typedef struct mk_lib_iip_cp_client_local_task_settings_s mk_lib_iip_cp_client_local_task_settings_t;
+mk_lang_typedef(mk_lib_iip_cp_client_local_task_settings);
 
 #include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_lib_iip_cp_client_local_state_s
@@ -63,7 +63,7 @@ mk_lang_typedef(mk_lib_iip_cp_client_local_state);
 #include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_lib_iip_cp_client_local_s
 {
-	mk_lib_iip_cp_client_local_settings_t m_settings;
+	mk_lib_iip_cp_client_local_task_settings_t m_settings;
 	mk_lib_iip_cp_client_local_state_t m_state;
 };
 typedef struct mk_lib_iip_cp_client_local_s mk_lib_iip_cp_client_local_t;
@@ -110,7 +110,7 @@ mk_lang_typedef(mk_lib_iip_cp_client_local_task);
 #include "mk_lang_warning_msvc_pop.h"
 
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_local_task_rw_construct(mk_lib_iip_cp_client_local_task_pt const task, mk_lib_iip_cp_client_local_settings_pct const settings) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_local_task_rw_construct(mk_lib_iip_cp_client_local_task_pt const task, mk_lib_iip_cp_client_local_task_settings_pct const settings) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_local_task_rw_destroy(mk_lib_iip_cp_client_local_task_pt const task) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_local_task_rw_request_close(mk_lib_iip_cp_client_local_task_pt const task) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lib_iip_cp_client_local_task_rw_want_associate_socket(mk_lib_iip_cp_client_local_task_pt const task) mk_lang_noexcept;

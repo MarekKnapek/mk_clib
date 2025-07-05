@@ -31,7 +31,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_connection_any2_
 
 	switch(id)
 	{
-mk_lib_net_connection_any_mm_per_type(`		case mk_lib_net_connection_any1_id_e_$1: any2->m_data.m_$1.m_id = id; err = $1_rw_construct(&any2->m_data.m_$1.m_$1, settings); mk_lang_check_rereturn(err); break;', `
+mk_lib_net_connection_any_mm_per_type(`		case mk_lib_net_connection_any1_id_e_$1: any2->m_data.m_$1.m_id = id; err = $1_rw_construct(&any2->m_data.m_$1.m_$1, (($1_settings_pct)(settings))); mk_lang_check_rereturn(err); break;', `
 ')
 		case mk_lib_net_connection_any1_id_e_dummy_end: mk_lang_assert(mk_lang_false); break;
 		default: mk_lang_assert(mk_lang_false); break;
@@ -131,11 +131,12 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_connection_any2_
 	mk_lang_types_sint_t err;
 
 	mk_lang_assert(any2);
+	mk_lang_assert(step_result);
 	mk_lang_assert(any2->m_data.m_id >= 0 && any2->m_data.m_id <= mk_lib_net_connection_any1_id_e_dummy_end);
 
 	switch(any2->m_data.m_id)
 	{
-mk_lib_net_connection_any_mm_per_type(`		case mk_lib_net_connection_any1_id_e_$1: err = $1_rw_step(&any2->m_data.m_$1.m_$1, allow_to_block, tm, step_result); mk_lang_check_rereturn(err); break;', `
+mk_lib_net_connection_any_mm_per_type(`		case mk_lib_net_connection_any1_id_e_$1: { $1_result_t stp_res; stp_res = $1_result_e_dummy_end; err = $1_rw_step(&any2->m_data.m_$1.m_$1, allow_to_block, tm, &stp_res); mk_lang_check_rereturn(err); *step_result = ((mk_lib_net_connection_any2_result_t)(stp_res)); } break;', `
 ')
 		case mk_lib_net_connection_any1_id_e_dummy_end: mk_lang_assert(mk_lang_false); break;
 		default: mk_lang_assert(mk_lang_false); break;

@@ -759,7 +759,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_ioctl_request_co
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_ioctl_request_construct(mk_lib_net_ioctl_request_pt const ioctl_request, mk_lib_net_socket_pt const socket, mk_lang_types_sint_t const control_code, mk_sl_cui_uint8_pct const in_data_buf, mk_lang_types_sint_t const in_data_len, mk_sl_cui_uint8_pt const out_data_buf, mk_lang_types_sint_t const out_data_len) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_ioctl_request_construct(mk_lib_net_ioctl_request_pt const ioctl_request, mk_lib_net_socket_pt const socket, mk_lang_types_uint_t const control_code, mk_sl_cui_uint8_pct const in_data_buf, mk_lang_types_sint_t const in_data_len, mk_sl_cui_uint8_pt const out_data_buf, mk_lang_types_sint_t const out_data_len) mk_lang_noexcept
 {
 	mk_win_dll_ws2_event_t event;
 
@@ -790,7 +790,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_ioctl_request_co
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_ioctl_request_reconstruct(mk_lib_net_ioctl_request_pt const ioctl_request, mk_lib_net_socket_pt const socket, mk_lang_types_sint_t const control_code, mk_sl_cui_uint8_pct const in_data_buf, mk_lang_types_sint_t const in_data_len, mk_sl_cui_uint8_pt const out_data_buf, mk_lang_types_sint_t const out_data_len) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_ioctl_request_reconstruct(mk_lib_net_ioctl_request_pt const ioctl_request, mk_lib_net_socket_pt const socket, mk_lang_types_uint_t const control_code, mk_sl_cui_uint8_pct const in_data_buf, mk_lang_types_sint_t const in_data_len, mk_sl_cui_uint8_pt const out_data_buf, mk_lang_types_sint_t const out_data_len) mk_lang_noexcept
 {
 	mk_win_dll_ws2_event_t event;
 
@@ -1208,7 +1208,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_accept_request_g
 	mk_lang_assert(accept_request->m_socket_accept->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
 	mk_lang_assert(accept_request->m_overlapped.m_event.m_data != mk_win_dll_ws2_event_invalid_val);
 
-	mk_win_dll_ws2_get_accept_ex_sock_addrs(accept_request->m_fn_ptr_get_accept_ex_sock_addrs, accept_request->m_out_data_buf, accept_request->m_out_data_len, ((mk_win_base_sint_t)(sizeof(*addr_local_obj))), ((mk_win_base_sint_t)(sizeof(*addr_remote_obj))), &addr_local_obj, &addr_local_real, &addr_remote_obj, &addr_remote_real);
+	mk_win_dll_ws2_get_accept_ex_sock_addrs(accept_request->m_fn_ptr_get_accept_ex_sock_addrs, accept_request->m_out_data_buf, ((mk_win_base_dword_t)(accept_request->m_out_data_len)), ((mk_win_base_sint_t)(sizeof(*addr_local_obj))), ((mk_win_base_sint_t)(sizeof(*addr_remote_obj))), &addr_local_obj, &addr_local_real, &addr_remote_obj, &addr_remote_real);
 	mk_lang_assert(addr_local_real >= 1);
 	mk_lang_assert(addr_local_real <= ((mk_win_base_sint_t)(sizeof(*addr_local_obj))));
 	mk_lang_assert(addr_remote_real >= 1);
@@ -1545,7 +1545,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_accept(mk
 	mk_lang_assert(socket_listen->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
 	mk_lang_assert(socket_accept->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
 
-	b = mk_win_dll_ws2_accept_ex(fn_ptr, socket_listen->m_handle, socket_accept->m_handle, out_data_buf, out_data_len, local_address_len, remote_address_len, &trans, overlapped); mk_lang_check_return((b != mk_win_base_false) || ((gle = mk_win_dll_ws2_get_last_error()) == mk_win_dll_kernel_errors_id_e_io_pending));
+	b = mk_win_dll_ws2_accept_ex(fn_ptr, socket_listen->m_handle, socket_accept->m_handle, out_data_buf, ((mk_win_base_dword_t)(out_data_len)), ((mk_win_base_dword_t)(local_address_len)), ((mk_win_base_dword_t)(remote_address_len)), &trans, ((mk_win_dll_ws2_overlapped_pt)(overlapped))); mk_lang_check_return((b != mk_win_base_false) || ((gle = mk_win_dll_ws2_get_last_error()) == mk_win_dll_kernel_errors_id_e_io_pending));
 	if(b != mk_win_base_false)
 	{
 		mk_lang_assert(trans <= ((mk_win_base_dword_t)(out_data_len)));
@@ -1628,9 +1628,9 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_ioctl(mk_
 	s = socket->m_handle;
 	control_code = ioctl_request->m_control_code;
 	in_data_buf = ioctl_request->m_in_data_buf;
-	in_data_len = ioctl_request->m_in_data_len;
+	in_data_len = ((mk_win_base_dword_t)(ioctl_request->m_in_data_len));
 	out_data_buf = ioctl_request->m_out_data_buf;
-	out_data_len = ioctl_request->m_out_data_len;
+	out_data_len = ((mk_win_base_dword_t)(ioctl_request->m_out_data_len));
 	transferred = &trns;
 	overlapped = &ioctl_request->m_overlapped;
 	callback = mk_win_base_null;

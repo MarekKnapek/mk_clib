@@ -204,7 +204,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_compress_zlib_init(m
 	cmf = 0x78; /* 0x08 == compression method, deflate */ /* 0x70 == compression info, 32 kB */
 	flg = 0x00; /* no dictionary, no compression */
 	fcheck = ((mk_lang_types_uchar_t)(((mk_lang_types_ushort_t)(((mk_lang_types_ushort_t)(31)) - ((mk_lang_types_ushort_t)(((mk_lang_types_ushort_t)((((mk_lang_types_ushort_t)(((mk_lang_types_ushort_t)(cmf)) << 8)) + ((mk_lang_types_ushort_t)(flg))))) % ((mk_lang_types_ushort_t)(31))))))));
-	flg = flg | fcheck;
+	flg = ((mk_lang_types_uchar_t)(flg | fcheck));
 	ptr = 0;
 	mk_sl_cui_uint8_from_bi_uchar(&zlib->m_stream_header_buf[ptr], &cmf); ptr += mk_sl_cui_uint8_size_bytes_v;
 	mk_sl_cui_uint8_from_bi_uchar(&zlib->m_stream_header_buf[ptr], &flg); ptr += mk_sl_cui_uint8_size_bytes_v;

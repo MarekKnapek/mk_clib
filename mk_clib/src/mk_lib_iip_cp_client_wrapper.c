@@ -60,7 +60,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_wrapper_task_prrw_new_local(mk_lib_iip_cp_client_wrapper_task_pt const task, mk_lib_iip_cp_client_types_local_settings_pct const settings, mk_lib_iip_cp_client_types_handle_local_pt const local) mk_lang_noexcept
 {
-	mk_lib_iip_cp_client_local_settings_t config;
+	mk_lib_iip_cp_client_local_task_settings_t config;
 	mk_lib_iip_cp_client_application_task_pt app;
 	mk_lang_types_sint_t err;
 	mk_lib_net_connection_any2_pt lokal;
@@ -79,7 +79,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_wrapper_task_prrw_new_connection(mk_lib_iip_cp_client_wrapper_task_pt const task, mk_lib_iip_cp_client_types_connection_settings_pct const settings, mk_lib_iip_cp_client_types_handle_connection_pt const connection) mk_lang_noexcept
 {
-	mk_lib_iip_cp_client_connection_settings_t config;
+	mk_lib_iip_cp_client_connection_task_settings_t config;
 	mk_lib_iip_cp_client_application_task_pt app;
 	mk_lang_types_sint_t err;
 	mk_lib_net_connection_any2_pt konnection;
