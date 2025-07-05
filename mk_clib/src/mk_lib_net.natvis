@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+	<Type Name="mk_lib_net_ipv4_address_s">
+		<DisplayString>{((int)(m_data.m_u8s[0].m_elements[0]))}.{((int)(m_data.m_u8s[0].m_elements[1]))}.{((int)(m_data.m_u8s[0].m_elements[2]))}.{((int)(m_data.m_u8s[0].m_elements[3]))}</DisplayString>
+	</Type>
+	<Type Name="mk_lib_net_destination_s">
+		<DisplayString>{((int)(m_ipv4_address.m_data.m_u8s[0].m_elements[0]))}.{((int)(m_ipv4_address.m_data.m_u8s[0].m_elements[1]))}.{((int)(m_ipv4_address.m_data.m_u8s[0].m_elements[2]))}.{((int)(m_ipv4_address.m_data.m_u8s[0].m_elements[3]))}:{m_tcp_port.m_elements[0].m_elements[0]}</DisplayString>
+	</Type>
+</AutoVisualizer>

@@ -143,6 +143,7 @@ enum mk_win_dll_ws2_sck_level_e
 {
 	mk_win_dll_ws2_sck_level_tcp  =  6,
 	mk_win_dll_ws2_sck_level_ipv6 = 41,
+	mk_win_dll_ws2_sck_level_socket = 0xffff,
 	mk_win_dll_ws2_sck_level_e_dummy_end
 };
 typedef enum mk_win_dll_ws2_sck_level_e mk_win_dll_ws2_sck_level_t;
@@ -214,6 +215,13 @@ enum mk_win_dll_ws2_sck_opt_ipv6_e
 	mk_win_dll_ws2_sck_opt_ipv6_e_dummy_end
 };
 typedef enum mk_win_dll_ws2_sck_opt_ipv6_e mk_win_dll_ws2_sck_opt_ipv6_t;
+
+enum mk_win_dll_ws2_sck_opt_socket_e
+{
+	mk_win_dll_ws2_sck_opt_socket_e_connect_time = 0x700c,
+	mk_win_dll_ws2_sck_opt_socket_e_dummy_end
+};
+typedef enum mk_win_dll_ws2_sck_opt_socket_e mk_win_dll_ws2_sck_opt_socket_t;
 
 #define mk_win_dll_ws2_ioctl_dir_vo (0x20000000ul)
 #define mk_win_dll_ws2_ioctl_dir_wo (0x40000000ul)
@@ -560,6 +568,8 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_dll_ws2_socket_t mk_win_dll_ws2_socketw(m
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_dll_ws2_event_select(mk_win_dll_ws2_socket_t const sck, mk_win_dll_ws2_event_t const evt, mk_win_base_ulong_t const evts) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_dll_ws2_connect2(mk_win_dll_ws2_socket_t const sck, mk_win_dll_ws2_sock_addr_pct const addr_buf, mk_win_base_sint_t const addr_len, mk_win_dll_ws2_user_data_pt const caller_data, mk_win_dll_ws2_user_data_pt const callee_data, mk_win_dll_ws2_qos_pt const qos_socket, mk_win_dll_ws2_qos_pt const qos_group) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_dll_ws2_socket_t mk_win_dll_ws2_accept2(mk_win_dll_ws2_socket_t const sck, mk_win_dll_ws2_sock_addr_pt const addr_buf, mk_win_base_sint_pt const addr_len, mk_win_dll_ws2_accept_condition_func_inner_t const condition_fnc, mk_win_base_uintptr_t const condition_ctx) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_dll_ws2_accept_ex(mk_lang_types_void_pct const fn_ptr, mk_win_dll_ws2_socket_t const socket_listen, mk_win_dll_ws2_socket_t const socket_accept, mk_win_base_void_lpt const out_data_buf, mk_win_base_dword_t const out_data_len, mk_win_base_dword_t const local_address_len, mk_win_base_dword_t const remote_address_len, mk_win_base_dword_lpt const transferred, mk_win_dll_ws2_overlapped_lpt const overlapped) mk_lang_noexcept;
+mk_lang_jumbo mk_lang_types_void_t mk_win_dll_ws2_get_accept_ex_sock_addrs(mk_lang_types_void_pct const fn_ptr, mk_win_base_void_lpct const in_data_buf, mk_win_base_dword_t const in_data_len, mk_win_base_dword_t const local_address_len, mk_win_base_dword_t const remote_address_len, mk_win_dll_ws2_sock_addr_lplpt const local_address_obj, mk_win_base_sint_lpt const local_address_real, mk_win_dll_ws2_sock_addr_lplpt const remote_address_obj, mk_win_base_sint_lpt const remote_address_real) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_dword_t mk_win_dll_ws2_wait_for_multiple_events(mk_win_base_dword_t const count, mk_win_dll_ws2_event_pct const evts, mk_win_base_bool_t const all, mk_win_base_dword_t const timeout, mk_win_base_bool_t const alertable) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_dll_ws2_get_overlapped_result(mk_win_dll_ws2_socket_t const sck, mk_win_dll_ws2_overlapped_pt const overlapped, mk_win_base_dword_lpt const transferred, mk_win_base_bool_t const wait, mk_win_base_dword_lpt const flags) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_dll_ws2_send2_ioctl(mk_win_dll_ws2_socket_t const sck, mk_win_base_dword_t const control_code, mk_win_base_void_lpct const in_data_buf, mk_win_base_dword_t const in_data_len, mk_win_base_void_lpt const out_data_buf, mk_win_base_dword_t const out_data_len, mk_win_base_dword_lpt const transferred, mk_win_dll_ws2_overlapped_lpt const overlapped, mk_win_base_void_lpt /* todo */ const callback) mk_lang_noexcept;
@@ -569,6 +579,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_ulong_t mk_win_dll_ws2_inet_addr(mk_
 mk_lang_nodiscard mk_lang_jumbo mk_win_dll_ws2_socket_t mk_win_dll_ws2_socket(mk_win_base_sint_t const family, mk_win_base_sint_t const type, mk_win_base_sint_t const protocol) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_dll_ws2_shutdown(mk_win_dll_ws2_socket_t const sck, mk_lang_types_sint_t const how) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_dll_ws2_closesocket(mk_win_dll_ws2_socket_t const sck) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_dll_ws2_getsockopt(mk_win_dll_ws2_socket_t const sck, mk_win_base_sint_t const level, mk_win_base_sint_t const opt_name, mk_win_base_void_pt const opt_val_buf, mk_win_base_sint_pt const opt_val_len) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_dll_ws2_setsockopt(mk_win_dll_ws2_socket_t const sck, mk_win_base_sint_t const level, mk_win_base_sint_t const opt_name, mk_win_base_void_pct const opt_val_buf, mk_win_base_sint_t const opt_val_len) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_dll_ws2_connect(mk_win_dll_ws2_socket_t const sck, mk_win_dll_ws2_sock_addr_pct const addr_buf, mk_win_base_sint_t const addr_len) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_dll_ws2_bind(mk_win_dll_ws2_socket_t const sck, mk_win_dll_ws2_sock_addr_pct const addr_buf, mk_win_base_sint_t const addr_len) mk_lang_noexcept;

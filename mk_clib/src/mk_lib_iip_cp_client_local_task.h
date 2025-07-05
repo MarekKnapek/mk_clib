@@ -57,7 +57,12 @@ struct mk_lib_iip_cp_client_local_state_s
 	mk_lib_net_socket_t m_child;
 	mk_lib_net_ioctl_request_t m_ioctl_request;
 	mk_lang_types_ulllong_t m_ioctl_request_input[128 / 8 / sizeof(mk_lang_types_ulllong_t)];
-	mk_lang_types_sint_t(*m_ioctl_request_output)(mk_lang_types_sint_t);
+	mk_lang_types_sint_t(*m_fn_ptr_accept_ex)(mk_lang_types_sint_t);
+	mk_lang_types_sint_t(*m_fn_ptr_get_accept_ex_sock_addrs)(mk_lang_types_sint_t);
+	mk_lib_net_accept_request_t m_accept_request;
+	mk_sl_cui_uint8_t m_accept_buf[512];
+	mk_lib_net_destination_t m_client_address_local;
+	mk_lib_net_destination_t m_client_address_remote;
 	int accpeted_connections;
 	mk_lang_types_usize_t m_session_idx;
 };
@@ -92,11 +97,14 @@ enum mk_lib_iip_cp_client_local_task_step_e
 	mk_lib_iip_cp_client_local_task_step_e_want_associate_socket,
 	mk_lib_iip_cp_client_local_task_step_e_bind_socket,
 	mk_lib_iip_cp_client_local_task_step_e_listen_socket,
-	mk_lib_iip_cp_client_local_task_step_e_socket_obtain_accept_ex,
-	mk_lib_iip_cp_client_local_task_step_e_socket_wait_accept_ex,
+	mk_lib_iip_cp_client_local_task_step_e_reqv_accept_ex,
+	mk_lib_iip_cp_client_local_task_step_e_wait_accept_ex,
+	mk_lib_iip_cp_client_local_task_step_e_reqv_get_accept_ex_sock_addrs,
+	mk_lib_iip_cp_client_local_task_step_e_wait_get_accept_ex_sock_addrs,
 	mk_lib_iip_cp_client_local_task_step_e_create_child_socket,
 	mk_lib_iip_cp_client_local_task_step_e_want_associate_child,
-	mk_lib_iip_cp_client_local_task_step_e_accept_ex,
+	mk_lib_iip_cp_client_local_task_step_e_accept_client,
+	mk_lib_iip_cp_client_local_task_step_e_idle,
 	mk_lib_iip_cp_client_local_task_step_e_dummy_end
 };
 typedef enum mk_lib_iip_cp_client_local_task_step_e mk_lib_iip_cp_client_local_task_step_t;
