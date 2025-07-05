@@ -2,6 +2,7 @@
 #define mk_include_guard_mk_win_dll_ws2_c
 #include "mk_win_dll_ws2.h"
 
+#include "mk_lang_assert.h"
 #include "mk_lang_bui.h"
 #include "mk_lang_extern.h"
 #include "mk_lang_jumbo.h"
@@ -9,6 +10,7 @@
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
+#include "mk_lang_version.h"
 #include "mk_win_base.h"
 
 #define mk_sl_cui_t_name mk_win_dll_ws2_socket
@@ -23,6 +25,25 @@
 
 #if mk_lang_msvc_ver != 0
 #pragma comment(lib, "ws2_32.lib")
+#endif
+
+
+#if mk_lang_version_at_least_cpp_17
+typedef mk_win_base_bool_t(mk_win_base_stdcall*AcceptEx_pt)(mk_win_dll_ws2_socket_t const socket_listen, mk_win_dll_ws2_socket_t const socket_accept, mk_win_base_void_lpt const out_data_buf, mk_win_base_dword_t const out_data_len, mk_win_base_dword_t const local_address_len, mk_win_base_dword_t const remote_address_len, mk_win_base_dword_lpt const transferred, mk_win_dll_ws2_overlapped_lpt const overlapped) mk_lang_noexcept;
+#elif mk_lang_version_at_least_cpp_11 || mk_lang_version_at_least_msvc_cpp_11
+mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall AcceptEx_dummy(mk_win_dll_ws2_socket_t const socket_listen, mk_win_dll_ws2_socket_t const socket_accept, mk_win_base_void_lpt const out_data_buf, mk_win_base_dword_t const out_data_len, mk_win_base_dword_t const local_address_len, mk_win_base_dword_t const remote_address_len, mk_win_base_dword_lpt const transferred, mk_win_dll_ws2_overlapped_lpt const overlapped) mk_lang_noexcept;
+typedef decltype(&AcceptEx_dummy) AcceptEx_pt;
+#else
+typedef mk_win_base_bool_t(mk_win_base_stdcall*AcceptEx_pt)(mk_win_dll_ws2_socket_t const socket_listen, mk_win_dll_ws2_socket_t const socket_accept, mk_win_base_void_lpt const out_data_buf, mk_win_base_dword_t const out_data_len, mk_win_base_dword_t const local_address_len, mk_win_base_dword_t const remote_address_len, mk_win_base_dword_lpt const transferred, mk_win_dll_ws2_overlapped_lpt const overlapped) mk_lang_noexcept;
+#endif
+
+#if mk_lang_version_at_least_cpp_17
+typedef mk_lang_types_void_t(mk_win_base_stdcall*GetAcceptExSockaddrs_pt)(mk_win_base_void_lpct const in_data_buf, mk_win_base_dword_t const in_data_len, mk_win_base_dword_t const local_address_len, mk_win_base_dword_t const remote_address_len, mk_win_dll_ws2_sock_addr_lplpt const local_address_obj, mk_win_base_sint_lpt const local_address_real, mk_win_dll_ws2_sock_addr_lplpt const remote_address_obj, mk_win_base_sint_lpt const remote_address_real) mk_lang_noexcept;
+#elif mk_lang_version_at_least_cpp_11 || mk_lang_version_at_least_msvc_cpp_11
+mk_lang_extern_force_c mk_win_base_dll_import mk_lang_types_void_t mk_win_base_stdcall GetAcceptExSockaddrs_dummy(mk_win_base_void_lpct const in_data_buf, mk_win_base_dword_t const in_data_len, mk_win_base_dword_t const local_address_len, mk_win_base_dword_t const remote_address_len, mk_win_dll_ws2_sock_addr_lplpt const local_address_obj, mk_win_base_sint_lpt const local_address_real, mk_win_dll_ws2_sock_addr_lplpt const remote_address_obj, mk_win_base_sint_lpt const remote_address_real) mk_lang_noexcept;
+typedef decltype(&GetAcceptExSockaddrs_dummy) GetAcceptExSockaddrs_pt;
+#else
+typedef mk_lang_types_void_t(mk_win_base_stdcall*GetAcceptExSockaddrs_pt)(mk_win_base_void_lpct const in_data_buf, mk_win_base_dword_t const in_data_len, mk_win_base_dword_t const local_address_len, mk_win_base_dword_t const remote_address_len, mk_win_dll_ws2_sock_addr_lplpt const local_address_obj, mk_win_base_sint_lpt const local_address_real, mk_win_dll_ws2_sock_addr_lplpt const remote_address_obj, mk_win_base_sint_lpt const remote_address_real) mk_lang_noexcept;
 #endif
 
 
@@ -47,7 +68,8 @@ mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_ulon
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_dll_ws2_socket_t mk_win_base_stdcall socket(mk_win_base_sint_t const family, mk_win_base_sint_t const type, mk_win_base_sint_t const protocol) mk_lang_noexcept;
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_sint_t mk_win_base_stdcall shutdown(mk_win_dll_ws2_socket_t const sck, mk_lang_types_sint_t const how) mk_lang_noexcept;
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_sint_t mk_win_base_stdcall closesocket(mk_win_dll_ws2_socket_t const sck) mk_lang_noexcept;
-mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_sint_t mk_win_base_stdcall setsockopt(mk_win_dll_ws2_socket_t const sck, mk_win_base_sint_t const level, mk_win_base_sint_t const opt_name, mk_win_base_void_pct const opt_val_buf, mk_win_base_sint_t const opt_val_len) mk_lang_noexcept;
+mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_sint_t mk_win_base_stdcall getsockopt(mk_win_dll_ws2_socket_t const sck, mk_win_base_sint_t const level, mk_win_base_sint_t const opt_name, mk_win_base_void_lpt const opt_val_buf, mk_win_base_sint_lpt const opt_val_len) mk_lang_noexcept;
+mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_sint_t mk_win_base_stdcall setsockopt(mk_win_dll_ws2_socket_t const sck, mk_win_base_sint_t const level, mk_win_base_sint_t const opt_name, mk_win_base_void_lpct const opt_val_buf, mk_win_base_sint_t const opt_val_len) mk_lang_noexcept;
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_sint_t mk_win_base_stdcall connect(mk_win_dll_ws2_socket_t const sck, mk_win_dll_ws2_sock_addr_pct const addr_buf, mk_win_base_sint_t const addr_len) mk_lang_noexcept;
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_sint_t mk_win_base_stdcall bind(mk_win_dll_ws2_socket_t const sck, mk_win_dll_ws2_sock_addr_pct const addr_buf, mk_win_base_sint_t const addr_len) mk_lang_noexcept;
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_sint_t mk_win_base_stdcall listen(mk_win_dll_ws2_socket_t const sck, mk_win_base_sint_t const backlog) mk_lang_noexcept;
@@ -152,6 +174,28 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_dll_ws2_socket_t mk_win_dll_ws2_accept2(m
 	return ret;
 }
 
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_dll_ws2_accept_ex(mk_lang_types_void_pct const fn_ptr, mk_win_dll_ws2_socket_t const socket_listen, mk_win_dll_ws2_socket_t const socket_accept, mk_win_base_void_lpt const out_data_buf, mk_win_base_dword_t const out_data_len, mk_win_base_dword_t const local_address_len, mk_win_base_dword_t const remote_address_len, mk_win_base_dword_lpt const transferred, mk_win_dll_ws2_overlapped_lpt const overlapped) mk_lang_noexcept
+{
+	AcceptEx_pt fn;
+	mk_win_base_bool_t ret;
+
+	mk_lang_assert(fn_ptr);
+
+	fn = *((AcceptEx_pt*)(fn_ptr));
+	ret = fn(socket_listen, socket_accept, out_data_buf, out_data_len, local_address_len, remote_address_len, transferred, overlapped);
+	return ret;
+}
+
+mk_lang_jumbo mk_lang_types_void_t mk_win_dll_ws2_get_accept_ex_sock_addrs(mk_lang_types_void_pct const fn_ptr, mk_win_base_void_lpct const in_data_buf, mk_win_base_dword_t const in_data_len, mk_win_base_dword_t const local_address_len, mk_win_base_dword_t const remote_address_len, mk_win_dll_ws2_sock_addr_lplpt const local_address_obj, mk_win_base_sint_lpt const local_address_real, mk_win_dll_ws2_sock_addr_lplpt const remote_address_obj, mk_win_base_sint_lpt const remote_address_real) mk_lang_noexcept
+{
+	GetAcceptExSockaddrs_pt fn;
+
+	mk_lang_assert(fn_ptr);
+
+	fn = *((GetAcceptExSockaddrs_pt*)(fn_ptr));
+	fn(in_data_buf, in_data_len, local_address_len, remote_address_len, local_address_obj, local_address_real, remote_address_obj, remote_address_real);
+}
+
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_dword_t mk_win_dll_ws2_wait_for_multiple_events(mk_win_base_dword_t const count, mk_win_dll_ws2_event_pct const evts, mk_win_base_bool_t const all, mk_win_base_dword_t const timeout, mk_win_base_bool_t const alertable) mk_lang_noexcept
 {
 	mk_win_base_dword_t ret;
@@ -221,6 +265,14 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_dll_ws2_closesocket(mk
 	mk_win_base_sint_t ret;
 
 	ret = closesocket(sck);
+	return ret;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_dll_ws2_getsockopt(mk_win_dll_ws2_socket_t const sck, mk_win_base_sint_t const level, mk_win_base_sint_t const opt_name, mk_win_base_void_pt const opt_val_buf, mk_win_base_sint_pt const opt_val_len) mk_lang_noexcept
+{
+	mk_win_base_sint_t ret;
+
+	ret = getsockopt(sck, level, opt_name, opt_val_buf, opt_val_len);
 	return ret;
 }
 
