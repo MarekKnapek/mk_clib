@@ -14,9 +14,9 @@
 #include "mk_lib_iip_cp_message.h"
 #include "mk_lib_iip_cp_types.h"
 #include "mk_lib_net.h"
+#include "mk_sl_cui_uint8.h"
 
 
-mk_lang_forward(mk_sl_cui_uint8);
 mk_lang_forward(mk_lib_iip_cp_client_shared);
 
 
@@ -31,17 +31,6 @@ mk_lang_forward(mk_lib_iip_cp_client_shared);
 #define mk_lib_iip_cp_client_local_handle_size_bits_d mk_lang_bui_uintptr_size_bits_d
 #define mk_lib_iip_cp_client_local_handle_size_bytes_d (mk_lang_bui_uintptr_size_bits_d / mk_lang_charbit)
 
-#include "mk_lang_warning_msvc_push_c4820.h"
-struct mk_lib_iip_cp_client_local_buffer_s
-{
-	mk_sl_cui_uint8_pt m_data;
-	mk_lang_types_void_pt m_mallocation;
-	mk_lang_types_sint_t m_used;
-};
-typedef struct mk_lib_iip_cp_client_local_buffer_s mk_lib_iip_cp_client_local_buffer_t;
-mk_lang_typedef(mk_lib_iip_cp_client_local_buffer);
-#include "mk_lang_warning_msvc_pop.h"
-
 struct mk_lib_iip_cp_client_local_settings_s
 {
 	mk_lib_iip_cp_client_shared_pt m_shared;
@@ -53,8 +42,8 @@ mk_lang_typedef(mk_lib_iip_cp_client_local_settings);
 #include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_lib_iip_cp_client_local_state_s
 {
-	mk_lib_net_socket_t m_socket;
-	mk_lib_net_socket_t m_child;
+	mk_lib_net_socket_t m_listening_socket;
+	mk_lib_net_socket_t m_client_socket;
 	mk_lib_net_ioctl_request_t m_ioctl_request;
 	mk_lang_types_ulllong_t m_ioctl_request_input[128 / 8 / sizeof(mk_lang_types_ulllong_t)];
 	mk_lang_types_sint_t(*m_fn_ptr_accept_ex)(mk_lang_types_sint_t);
@@ -63,8 +52,9 @@ struct mk_lib_iip_cp_client_local_state_s
 	mk_sl_cui_uint8_t m_accept_buf[512];
 	mk_lib_net_destination_t m_client_address_local;
 	mk_lib_net_destination_t m_client_address_remote;
-	int accpeted_connections;
-	mk_lang_types_usize_t m_session_idx;
+	mk_lang_types_bool_t m_close_requested;
+	int m_clients;
+	mk_lang_types_usize_t m_client_idx;
 };
 typedef struct mk_lib_iip_cp_client_local_state_s mk_lib_iip_cp_client_local_state_t;
 mk_lang_typedef(mk_lib_iip_cp_client_local_state);
@@ -97,12 +87,12 @@ enum mk_lib_iip_cp_client_local_task_step_e
 	mk_lib_iip_cp_client_local_task_step_e_want_associate_socket,
 	mk_lib_iip_cp_client_local_task_step_e_bind_socket,
 	mk_lib_iip_cp_client_local_task_step_e_listen_socket,
-	mk_lib_iip_cp_client_local_task_step_e_reqv_accept_ex,
+	mk_lib_iip_cp_client_local_task_step_e_rqst_accept_ex,
 	mk_lib_iip_cp_client_local_task_step_e_wait_accept_ex,
-	mk_lib_iip_cp_client_local_task_step_e_reqv_get_accept_ex_sock_addrs,
+	mk_lib_iip_cp_client_local_task_step_e_rqst_get_accept_ex_sock_addrs,
 	mk_lib_iip_cp_client_local_task_step_e_wait_get_accept_ex_sock_addrs,
-	mk_lib_iip_cp_client_local_task_step_e_create_child_socket,
-	mk_lib_iip_cp_client_local_task_step_e_want_associate_child,
+	mk_lib_iip_cp_client_local_task_step_e_create_client_socket,
+	mk_lib_iip_cp_client_local_task_step_e_want_associate_client,
 	mk_lib_iip_cp_client_local_task_step_e_accept_client,
 	mk_lib_iip_cp_client_local_task_step_e_idle,
 	mk_lib_iip_cp_client_local_task_step_e_dummy_end
