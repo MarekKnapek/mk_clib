@@ -58,6 +58,25 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_wrapper_task_prrw_new_local(mk_lib_iip_cp_client_wrapper_task_pt const task, mk_lib_iip_cp_client_types_local_settings_pct const settings, mk_lib_iip_cp_client_types_handle_local_pt const local) mk_lang_noexcept
+{
+	mk_lib_iip_cp_client_local_settings_t config;
+	mk_lib_iip_cp_client_application_task_pt app;
+	mk_lang_types_sint_t err;
+	mk_lib_net_connection_any2_pt lokal;
+
+	mk_lang_assert(task);
+	mk_lang_assert(settings);
+	mk_lang_assert(local);
+	mk_lang_assert(!mk_lib_iip_cp_client_types_handle_wrapper_is_zero(&task->m_wrapper));
+
+	config.m_destination = settings->m_destination;
+	app = ((mk_lib_iip_cp_client_application_task_pt)(task->m_wrapper.m_elements[0])); mk_lang_assert(app);
+	err = mk_lib_iip_cp_client_application_task_rw_new_local(app, &config, &lokal); mk_lang_check_rereturn(err); mk_lang_assert(lokal);
+	local->m_elements[0] = ((mk_lib_iip_cp_client_types_handle_local_base_t)(lokal));
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_wrapper_task_prrw_new_connection(mk_lib_iip_cp_client_wrapper_task_pt const task, mk_lib_iip_cp_client_types_connection_settings_pct const settings, mk_lib_iip_cp_client_types_handle_connection_pt const connection) mk_lang_noexcept
 {
 	mk_lib_iip_cp_client_connection_settings_t config;
@@ -258,6 +277,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_wrappe
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_wrapper_task_rw_poke(mk_lib_iip_cp_client_wrapper_task_pt const task) mk_lang_noexcept
 {
 	return mk_lib_iip_cp_client_wrapper_task_prrw_poke(task);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_wrapper_task_rw_new_local(mk_lib_iip_cp_client_wrapper_task_pt const task, mk_lib_iip_cp_client_types_local_settings_pct const settings, mk_lib_iip_cp_client_types_handle_local_pt const local) mk_lang_noexcept
+{
+	return mk_lib_iip_cp_client_wrapper_task_prrw_new_local(task, settings, local);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_wrapper_task_rw_new_connection(mk_lib_iip_cp_client_wrapper_task_pt const task, mk_lib_iip_cp_client_types_connection_settings_pct const settings, mk_lib_iip_cp_client_types_handle_connection_pt const connection) mk_lang_noexcept
