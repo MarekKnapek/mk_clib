@@ -1,8 +1,8 @@
 include(`mk_lib_iip_http_strings.m')dnl
 dnl
 dnl
-#ifndef mk_include_guard_mk_lib_iip_http_c
-#define mk_include_guard_mk_lib_iip_http_c
+#ifndef mk_include_guard_mk_lib_iip_http_strings_c
+#define mk_include_guard_mk_lib_iip_http_strings_c
 #include "mk_lib_iip_http_strings.h"
 
 #include "mk_lang_assert.h"
@@ -58,6 +58,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	mk_lang_assert(off <= mk_lang_countstr(mk_lib_iip_http_strings_k_buf));
 	return off;
 }
+
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_pchar_pct mk_lib_iip_http_strings_get_str_buf(mk_lib_iip_http_strings_id_t const id) mk_lang_noexcept
 {
