@@ -27,6 +27,6 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 
 
 #if mk_lang_jumbo_have
-#inlcude "mk_lib_iip_http_strings.c"
+#include "mk_lib_iip_http_strings.c"
 #endif
 #endif
