@@ -12,7 +12,12 @@
 #include "mk_win_base.h"
 
 
+#define mk_win_dll_kernel_handle_duplicate_close_source 0x00000001
+#define mk_win_dll_kernel_handle_duplicate_same_access  0x00000002
+
+
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_dll_kernel_handle_close(mk_win_base_handle_t const handle) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_dll_kernel_handle_duplicate(mk_win_base_handle_t const src_process, mk_win_base_handle_t const src_handle, mk_win_base_handle_t const dst_process, mk_win_base_handle_lpt const dst_handle, mk_win_base_dword_t const desired_access, mk_win_base_bool_t const inheritable, mk_win_base_dword_t const flags) mk_lang_noexcept;
 
 
 #endif
