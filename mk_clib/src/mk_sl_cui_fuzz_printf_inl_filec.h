@@ -153,8 +153,12 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_cui_fuzz_prin
 #include "mk_lang_warning_msvc_pop.h"
 
 
+#endif
+
+
 mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_fuzz_printf_inl_defd_fn(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size, mk_lang_types_bool_t const allow_all) mk_lang_noexcept
 {
+#if (mk_lang_version_at_least_c_99 || mk_lang_version_at_least_cpp_11 || mk_lang_version_at_least_msvc_cpp_11) && mk_lang_llong_has
 	mk_lang_types_uchar_pct d mk_lang_constexpr_init;
 	mk_lang_types_usize_t s mk_lang_constexpr_init;
 	mk_lang_types_uint_t line mk_lang_constexpr_init;
@@ -185,10 +189,20 @@ mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_fuzz_printf_inl_defd_fn(mk_lang_typ
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ mk_sl_cui_fuzz_printf_inl_defd_pr_statics(d, s); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ mk_sl_cui_fuzz_printf_inl_defd_pr_printf_u(d, s); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ mk_sl_cui_fuzz_printf_inl_defd_pr_printf_x(d, s); }
+#else
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
+	mk_lang_assert(data || size == 0);
+	mk_lang_assert(size >= 0);
+	mk_lang_assert(allow_all == mk_lang_true || allow_all == mk_lang_false);
+	#include "mk_lang_warning_gcc_pop.h"
+	#include "mk_lang_warning_msvc_pop.h"
+
+	((mk_lang_types_void_t)(data));
+	((mk_lang_types_void_t)(size));
+	((mk_lang_types_void_t)(allow_all));
+#endif
 }
 
 
 #include "mk_sl_cui_fuzz_printf_inl_defu.h"
-
-
-#endif
