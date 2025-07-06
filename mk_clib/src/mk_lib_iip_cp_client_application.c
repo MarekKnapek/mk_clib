@@ -43,6 +43,91 @@ mk_lang_forward(mk_lib_iip_cp_client_connection_task);
 #endif
 
 
+#if mk_lib_iip_cp_client_application_debug_print_have
+mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lib_iip_cp_client_application_task_prrw_log_request_close_k_msg[] = "Stop request received.";
+mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lib_iip_cp_client_application_task_prrw_log_start_k_msg[] = "Start.";
+mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lib_iip_cp_client_application_task_prrw_log_stop_k_msg[] = "Stop.";
+#endif
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_application_task_prrw_log_start(mk_lib_iip_cp_client_application_task_pt const task) mk_lang_noexcept
+{
+#if mk_lib_iip_cp_client_application_debug_print_have
+	mk_lang_types_pchar_pct msg_buf;
+	mk_lang_types_sint_t msg_len;
+	mk_lib_iip_logger_pt logger;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(task);
+
+	msg_buf = &mk_lib_iip_cp_client_application_task_prrw_log_start_k_msg[0];
+	msg_len = mk_lang_countstr(mk_lib_iip_cp_client_application_task_prrw_log_start_k_msg);
+	logger = &task->m_application.m_state.m_shared.m_logger;
+	err = mk_lib_iip_logger_rw_begin_line(logger); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_append_current_time(logger); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_print(logger, msg_buf, msg_len); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_end_line(logger); mk_lang_check_rereturn(err);
+	return 0;
+#else
+	mk_lang_assert(task);
+
+	((mk_lang_types_void_t)(task));
+	return 0;
+#endif
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_application_task_prrw_log_stop(mk_lib_iip_cp_client_application_task_pt const task) mk_lang_noexcept
+{
+#if mk_lib_iip_cp_client_application_debug_print_have
+	mk_lang_types_pchar_pct msg_buf;
+	mk_lang_types_sint_t msg_len;
+	mk_lib_iip_logger_pt logger;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(task);
+
+	msg_buf = &mk_lib_iip_cp_client_application_task_prrw_log_stop_k_msg[0];
+	msg_len = mk_lang_countstr(mk_lib_iip_cp_client_application_task_prrw_log_stop_k_msg);
+	logger = &task->m_application.m_state.m_shared.m_logger;
+	err = mk_lib_iip_logger_rw_begin_line(logger); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_append_current_time(logger); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_print(logger, msg_buf, msg_len); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_end_line(logger); mk_lang_check_rereturn(err);
+	return 0;
+#else
+	mk_lang_assert(task);
+
+	((mk_lang_types_void_t)(task));
+	return 0;
+#endif
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_application_task_prrw_log_request_close(mk_lib_iip_cp_client_application_task_pt const task) mk_lang_noexcept
+{
+#if mk_lib_iip_cp_client_application_debug_print_have
+	mk_lang_types_pchar_pct msg_buf;
+	mk_lang_types_sint_t msg_len;
+	mk_lib_iip_logger_pt logger;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(task);
+
+	msg_buf = &mk_lib_iip_cp_client_application_task_prrw_log_request_close_k_msg[0];
+	msg_len = mk_lang_countstr(mk_lib_iip_cp_client_application_task_prrw_log_request_close_k_msg);
+	logger = &task->m_application.m_state.m_shared.m_logger;
+	err = mk_lib_iip_logger_rw_begin_line(logger); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_append_current_time(logger); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_print(logger, msg_buf, msg_len); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_end_line(logger); mk_lang_check_rereturn(err);
+	return 0;
+#else
+	mk_lang_assert(task);
+
+	((mk_lang_types_void_t)(task));
+	return 0;
+#endif
+}
+
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_application_task_prrw_construct(mk_lib_iip_cp_client_application_task_pt const task, mk_lib_iip_cp_client_application_settings_pct const settings) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
@@ -53,6 +138,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	task->m_step = ((mk_lib_iip_cp_client_application_task_step_t)(0));
 	task->m_application.m_settings = *settings;
 	err = mk_lib_iip_cp_client_shared_rw_construct(&task->m_application.m_state.m_shared); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_client_application_task_prrw_log_start(task); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_cp_client_iocp_task_rw_construct(&task->m_application.m_state.m_iocp, &task->m_application.m_state.m_shared, &task->m_application.m_settings.m_iocp_settings); mk_lang_check_rereturn(err);
 	return 0;
 }
@@ -63,6 +149,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 	mk_lang_assert(task);
 
+	err = mk_lib_iip_cp_client_application_task_prrw_log_stop(task); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_cp_client_shared_rw_destroy(&task->m_application.m_state.m_shared); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_cp_client_iocp_task_rw_destroy(&task->m_application.m_state.m_iocp); mk_lang_check_rereturn(err);
 	return 0;
@@ -145,36 +232,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 		default: mk_lang_assert_false(); break;
 	}
 	return 0;
-}
-
-#if mk_lib_iip_cp_client_application_debug_print_have
-mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lib_iip_cp_client_application_task_prrw_log_request_close_k_msg[] = "Stop request received.";
-#endif
-
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_application_task_prrw_log_request_close(mk_lib_iip_cp_client_application_task_pt const task) mk_lang_noexcept
-{
-#if mk_lib_iip_cp_client_application_debug_print_have
-	mk_lang_types_pchar_pct msg_buf;
-	mk_lang_types_sint_t msg_len;
-	mk_lib_iip_logger_pt logger;
-	mk_lang_types_sint_t err;
-
-	mk_lang_assert(task);
-
-	msg_buf = &mk_lib_iip_cp_client_application_task_prrw_log_request_close_k_msg[0];
-	msg_len = mk_lang_countstr(mk_lib_iip_cp_client_application_task_prrw_log_request_close_k_msg);
-	logger = &task->m_application.m_state.m_shared.m_logger;
-	err = mk_lib_iip_logger_rw_begin_line(logger); mk_lang_check_rereturn(err);
-	err = mk_lib_iip_logger_rw_append_current_time(logger); mk_lang_check_rereturn(err);
-	err = mk_lib_iip_logger_rw_print(logger, msg_buf, msg_len); mk_lang_check_rereturn(err);
-	err = mk_lib_iip_logger_rw_end_line(logger); mk_lang_check_rereturn(err);
-	return 0;
-#else
-	mk_lang_assert(task);
-
-	((mk_lang_types_void_t)(task));
-	return 0;
-#endif
 }
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_application_task_prrw_request_close(mk_lib_iip_cp_client_application_task_pt const task) mk_lang_noexcept
