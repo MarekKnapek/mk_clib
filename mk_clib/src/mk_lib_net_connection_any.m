@@ -3,5 +3,5 @@ define(`mk_lib_net_connection_any_mm_per_type_b', `mk_lib_net_connection_any_mm_
 define(`mk_lib_net_connection_any_mm_per_type_a', `mk_lib_net_connection_any_mm_per_type_b(`$1', `$2', `$#', shift(shift($@)))')dnl
 define(`mk_lib_net_connection_any_mm_per_type', `mk_lib_net_connection_any_mm_per_type_a(`$1', `$2',
 `mk_lib_iip_cp_client_connection_task',
-`mk_lib_iip_cp_client_local_task',
+`mk_lib_iip_cp_client_local_listener_task',
 `')')dnl
