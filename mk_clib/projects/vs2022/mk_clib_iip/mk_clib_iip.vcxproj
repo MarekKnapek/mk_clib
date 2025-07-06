@@ -151,8 +151,8 @@
 			<AdditionalDependencies>ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
 		</Link>
 		<ClCompile>
-			<PreprocessorDefinitions Condition="'$(Configuration)'=='Release'">mk_lib_iip_cp_client_connection_debug_print_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			<PreprocessorDefinitions Condition="'$(Configuration)'=='ReleaseClang'">mk_lib_iip_cp_client_connection_debug_print_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions Condition="'$(Configuration)'=='Release' Or '$(Configuration)'=='ReleaseClang'">mk_lib_iip_cp_client_application_debug_print_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions Condition="'$(Configuration)'=='Release' Or '$(Configuration)'=='ReleaseClang'">mk_lib_iip_cp_client_connection_debug_print_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 		</ClCompile>
 	</ItemDefinitionGroup>
 	<ItemGroup>
