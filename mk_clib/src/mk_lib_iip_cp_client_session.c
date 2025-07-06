@@ -50,7 +50,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	task->m_session.m_state.m_shared = shared;
 	task->m_session.m_state.m_has_id = mk_lang_false;
 	task->m_session.m_state.m_child_sessions = 0;
-	task->m_session.m_state.m_close_requested = mk_lang_false;
+	task->m_session.m_state.m_stop_requested = mk_lang_false;
 	err = mk_lib_iip_cp_message_construct(&task->m_session.m_state.m_msg, mk_lib_iip_cp_message_message_type_id_e_bandwidth_limits); mk_lang_check_rereturn(err);
 	task->m_session.m_state.m_has_msg_pending = mk_lang_false;
 	err = mk_lib_iip_cp_types_leasez_rw_construct(&task->m_session.m_state.m_leases); mk_lang_check_rereturn(err);
@@ -596,7 +596,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_assert(*step_result == mk_lib_iip_cp_client_session_task_result_e_dummy_end);
 	mk_lang_assert(task->m_step == mk_lib_iip_cp_client_session_task_step_e_wait_msg_request_leaseset);
 
-	if(!task->m_session.m_state.m_close_requested)
+	if(!task->m_session.m_state.m_stop_requested)
 	{
 		*step_result = mk_lib_iip_cp_client_session_task_result_e_want_recv;
 	}
@@ -660,8 +660,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 	if
 	(
-		(task->m_session.m_state.m_close_requested && !task->m_session.m_state.m_has_msg_pending && !mk_lib_iip_cp_client_session_handle_is_zero(&task->m_session.m_settings.m_master_session)) ||
-		(task->m_session.m_state.m_close_requested && !task->m_session.m_state.m_has_msg_pending && mk_lib_iip_cp_client_session_handle_is_zero(&task->m_session.m_settings.m_master_session) && task->m_session.m_state.m_child_sessions == 0) ||
+		(task->m_session.m_state.m_stop_requested && !task->m_session.m_state.m_has_msg_pending && !mk_lib_iip_cp_client_session_handle_is_zero(&task->m_session.m_settings.m_master_session)) ||
+		(task->m_session.m_state.m_stop_requested && !task->m_session.m_state.m_has_msg_pending && mk_lib_iip_cp_client_session_handle_is_zero(&task->m_session.m_settings.m_master_session) && task->m_session.m_state.m_child_sessions == 0) ||
 		mk_lang_false
 	)
 	{
@@ -739,7 +739,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 {
 	mk_lang_assert(task);
 
-	task->m_session.m_state.m_close_requested = mk_lang_true;
+	task->m_session.m_state.m_stop_requested = mk_lang_true;
 	return 0;
 }
 

@@ -230,6 +230,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_types_usize_t idx;
 	mk_lib_net_connection_any2_ppt connection_ptr;
 	mk_lib_net_connection_any2_pt connection_val;
+	//mk_lib_net_connection_any2_pt associatee;
 	mk_lang_types_uintptr_t key;
 	mk_lib_net_socket_pt socket;
 	mk_lang_types_sint_t err;
@@ -256,8 +257,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 			connection_ptr = mk_lib_iip_cp_client_iocp_connections_rw_at(&task->m_iocp.m_state.m_connections, idx); mk_lang_assert(connection_ptr); connection_val = *connection_ptr; mk_lang_assert(connection_val);
 			if(mk_lib_net_connection_any2_rw_want_associate_socket(connection_val))
 			{
-				key = ((mk_lang_types_uintptr_t)(connection_val));
+				//err = mk_lib_net_connection_any2_rw_gimme_socket(connection_val, &socket, &associatee); mk_lang_check_rereturn(err); mk_lang_assert(socket); mk_lang_assert(associatee);
+				//key = ((mk_lang_types_uintptr_t)(associatee));
 				socket = mk_lib_net_connection_any2_rw_gimme_socket(connection_val); mk_lang_assert(socket);
+				key = ((mk_lang_types_uintptr_t)(connection_val));
 				err = mk_lib_net_iocp_associate_with_socket(&task->m_iocp.m_state.m_iocp, key, socket); mk_lang_check_rereturn(err);
 				did_something = mk_lang_true;
 				*step_result = mk_lib_iip_cp_client_iocp_task_result_e_did_something;
