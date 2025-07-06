@@ -9,7 +9,7 @@
 #include "mk_lang_noexcept.h"
 #include "mk_lang_typedef.h"
 #include "mk_lang_types.h"
-#include "mk_lib_iip_cp_client_session.h"
+#include "mk_lib_iip_cp_client_local_client_task.h"
 #include "mk_lib_iip_cp_mallocator_global.h"
 #include "mk_lib_iip_cp_message.h"
 #include "mk_lib_iip_cp_types.h"
@@ -43,17 +43,16 @@ mk_lang_typedef(mk_lib_iip_cp_client_local_task_settings);
 struct mk_lib_iip_cp_client_local_state_s
 {
 	mk_lib_net_socket_t m_listening_socket;
-	mk_lib_net_socket_t m_client_socket;
+	mk_lib_iip_cp_client_local_client_task_pt m_new_client;
 	mk_lib_net_ioctl_request_t m_ioctl_request;
 	mk_lang_types_ulllong_t m_ioctl_request_input[128 / 8 / sizeof(mk_lang_types_ulllong_t)];
 	mk_lang_types_sint_t(*m_fn_ptr_accept_ex)(mk_lang_types_sint_t);
 	mk_lang_types_sint_t(*m_fn_ptr_get_accept_ex_sock_addrs)(mk_lang_types_sint_t);
 	mk_lib_net_accept_request_t m_accept_request;
-	mk_sl_cui_uint8_t m_accept_buf[512];
 	mk_lib_net_destination_t m_client_address_local;
 	mk_lib_net_destination_t m_client_address_remote;
 	mk_lang_types_bool_t m_close_requested;
-	int m_clients;
+	mk_lib_iip_cp_client_local_client_tasks_t m_clients;
 	mk_lang_types_usize_t m_client_idx;
 };
 typedef struct mk_lib_iip_cp_client_local_state_s mk_lib_iip_cp_client_local_state_t;
@@ -91,7 +90,7 @@ enum mk_lib_iip_cp_client_local_task_step_e
 	mk_lib_iip_cp_client_local_task_step_e_wait_accept_ex,
 	mk_lib_iip_cp_client_local_task_step_e_rqst_get_accept_ex_sock_addrs,
 	mk_lib_iip_cp_client_local_task_step_e_wait_get_accept_ex_sock_addrs,
-	mk_lib_iip_cp_client_local_task_step_e_create_client_socket,
+	mk_lib_iip_cp_client_local_task_step_e_create_client,
 	mk_lib_iip_cp_client_local_task_step_e_want_associate_client,
 	mk_lib_iip_cp_client_local_task_step_e_accept_client,
 	mk_lib_iip_cp_client_local_task_step_e_idle,
