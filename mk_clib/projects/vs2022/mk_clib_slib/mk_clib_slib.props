@@ -172,8 +172,8 @@
 		</Link>
 		<Link>
 			<SubSystem>Console</SubSystem>
-			<StackReserveSize Condition="'$(mk_is_entry_point)' == 'true'">2097152</StackReserveSize>
-			<StackCommitSize Condition="'$(mk_is_entry_point)' == 'true'">2097152</StackCommitSize>
+			<StackReserveSize Condition="'$(mk_is_entry_point)' == 'true'">1048576</StackReserveSize>
+			<StackCommitSize Condition="'$(mk_is_entry_point)' == 'true'">1048576</StackCommitSize>
 			<LargeAddressAware>true</LargeAddressAware>
 		</Link>
 		<Link>
