@@ -28,6 +28,7 @@
 #include "mk_lib_iip_logger_more.h"
 #include "mk_lib_net.h"
 #include "mk_sl_cui_uint8.h"
+#include "mk_win_dll_kernel_time.h" /* todo */
 
 
 #define mk_sl_cui_t_name mk_lib_iip_cp_client_local_client_handle
@@ -63,16 +64,20 @@
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_local_client_task_prrw_construct(mk_lib_iip_cp_client_local_client_task_pt const task, mk_lib_iip_cp_client_local_client_task_settings_pct const settings) mk_lang_noexcept
 {
+	mk_lang_types_sint_t err;
+
 	mk_lang_assert(task);
 	mk_lang_assert(settings);
 	mk_lang_assert(settings->m_shared);
 
 	task->m_step = ((mk_lib_iip_cp_client_local_client_task_step_t)(0));
 	task->m_local.m_settings.m_shared = settings->m_shared;
-	task->m_local.m_settings.m_socket = settings->m_socket;
-	task->m_local.m_settings.m_destination_local = settings->m_destination_local;
-	task->m_local.m_settings.m_destination_remote = settings->m_destination_remote;
+	err = mk_lib_net_socket_construct(&task->m_local.m_state.m_socket, mk_lib_net_address_family_e_ipv4, mk_lib_net_address_type_e_stream, mk_lib_net_address_protocol_e_tcp); mk_lang_check_rereturn(err);
+	err = mk_lib_net_socket_set_option_nodelay_true(&task->m_local.m_state.m_socket); mk_lang_check_rereturn(err);
 	task->m_local.m_state.m_close_requested = mk_lang_false;
+	task->m_local.m_state.m_last_action_timestamp = ((mk_lang_types_uint_t)(mk_win_dll_kernel_time_get_tick_count()));
+	task->m_local.m_state.m_is_connected = mk_lang_false;
+	task->m_local.m_state.m_buffer.m_ptr = ((mk_sl_cui_uint8_pt)(mk_lang_roundup_align(&task->m_local.m_state.m_buffer.m_data.m_u8s[0], mk_lib_iip_cp_client_local_client_buffer_algn)));
 	return 0;
 }
 
@@ -82,7 +87,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 	mk_lang_assert(task);
 
-	err = mk_lib_net_socket_destroy(&task->m_local.m_settings.m_socket); mk_lang_check_rereturn(err);
+	err = mk_lib_net_socket_destroy(&task->m_local.m_state.m_socket); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -106,6 +111,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_local_client_task_prrw_step_idle(mk_lib_iip_cp_client_local_client_task_pt const task, mk_lang_types_bool_t const allow_to_block, mk_lang_types_sint_t const tm, mk_lib_iip_cp_client_local_client_task_result_pt const step_result) mk_lang_noexcept
 {
+	mk_lang_types_uint_t current_timestamp;
+	mk_lang_types_bool_t did_something;
+	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t connect_time;
+	mk_lang_types_bool_t is_connected;
+
 	mk_lang_assert(task);
 	mk_lang_assert(allow_to_block == mk_lang_true || allow_to_block == mk_lang_false);
 	mk_lang_assert((tm >= 0 && tm <= 10 * 60 * 1000) || tm == -1);
@@ -113,7 +124,36 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_assert(*step_result == mk_lib_iip_cp_client_local_client_task_result_e_dummy_end);
 	mk_lang_assert(task->m_step == mk_lib_iip_cp_client_local_client_task_step_e_idle);
 
-	*step_result = mk_lib_iip_cp_client_local_client_task_result_e_did_nothing;
+	current_timestamp = ((mk_lang_types_uint_t)(mk_win_dll_kernel_time_get_tick_count()));
+	did_something = mk_lang_false;
+	if(!did_something)
+	{
+		if(current_timestamp - task->m_local.m_state.m_last_action_timestamp >= 1 * 60 * 1000)
+		{
+			err = mk_lib_iip_cp_client_local_client_task_prrw_request_close(task); mk_lang_check_rereturn(err);
+			*step_result = mk_lib_iip_cp_client_local_client_task_result_e_did_something;
+			did_something = mk_lang_true;
+		}
+	}
+	if(!did_something)
+	{
+		if(!task->m_local.m_state.m_is_connected)
+		{
+			err = mk_lib_net_socket_get_option_connect_time(&task->m_local.m_state.m_socket, &connect_time); mk_lang_check_rereturn(err);
+			is_connected = connect_time != -1;
+			if(is_connected)
+			{
+				task->m_local.m_state.m_is_connected = mk_lang_true;
+				task->m_local.m_state.m_last_action_timestamp = current_timestamp;
+				*step_result = mk_lib_iip_cp_client_local_client_task_result_e_did_something;
+				did_something = mk_lang_true;
+			}
+		}
+	}
+	if(!did_something)
+	{
+		*step_result = mk_lib_iip_cp_client_local_client_task_result_e_did_nothing;
+	}
 	return 0;
 }
 

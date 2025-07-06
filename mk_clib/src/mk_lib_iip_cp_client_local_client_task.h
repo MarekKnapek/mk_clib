@@ -2,6 +2,7 @@
 #define mk_include_guard_mk_lib_iip_cp_client_local_client_h
 
 
+#include "mk_lang_roundup.h"
 #include "mk_lang_bui.h"
 #include "mk_lang_charbit.h"
 #include "mk_lang_jumbo.h"
@@ -31,12 +32,25 @@ mk_lang_forward(mk_lib_iip_cp_client_shared);
 #define mk_lib_iip_cp_client_local_client_handle_size_bits_d mk_lang_bui_uintptr_size_bits_d
 #define mk_lib_iip_cp_client_local_client_handle_size_bytes_d (mk_lang_bui_uintptr_size_bits_d / mk_lang_charbit)
 
+#define mk_lib_iip_cp_client_local_client_buffer_size (4 * 1024)
+#define mk_lib_iip_cp_client_local_client_buffer_algn (4 * 1024)
+union mk_lib_iip_cp_client_local_client_buffer_data_u
+{
+	mk_sl_cui_uint8_t m_u8s[mk_lang_roundup_add(mk_lib_iip_cp_client_local_client_buffer_size, mk_lib_iip_cp_client_local_client_buffer_algn)];
+	mk_lang_types_ulllong_t m_align;
+};
+typedef union mk_lib_iip_cp_client_local_client_buffer_data_u mk_lib_iip_cp_client_local_client_buffer_data_t;
+struct mk_lib_iip_cp_client_local_client_buffer_s
+{
+	mk_sl_cui_uint8_pt m_ptr;
+	mk_lib_iip_cp_client_local_client_buffer_data_t m_data;
+};
+typedef struct mk_lib_iip_cp_client_local_client_buffer_s mk_lib_iip_cp_client_local_client_buffer_t;
+mk_lang_typedef(mk_lib_iip_cp_client_local_client_buffer);
+
 struct mk_lib_iip_cp_client_local_client_task_settings_s
 {
 	mk_lib_iip_cp_client_shared_pt m_shared;
-	mk_lib_net_socket_t m_socket;
-	mk_lib_net_destination_t m_destination_local;
-	mk_lib_net_destination_t m_destination_remote;
 };
 typedef struct mk_lib_iip_cp_client_local_client_task_settings_s mk_lib_iip_cp_client_local_client_task_settings_t;
 mk_lang_typedef(mk_lib_iip_cp_client_local_client_task_settings);
@@ -44,7 +58,13 @@ mk_lang_typedef(mk_lib_iip_cp_client_local_client_task_settings);
 #include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_lib_iip_cp_client_local_client_state_s
 {
+	mk_lib_net_socket_t m_socket;
+	mk_lib_net_destination_t m_destination_local;
+	mk_lib_net_destination_t m_destination_remote;
 	mk_lang_types_bool_t m_close_requested;
+	mk_lang_types_uint_t m_last_action_timestamp;
+	mk_lang_types_bool_t m_is_connected;
+	mk_lib_iip_cp_client_local_client_buffer_t m_buffer;
 };
 typedef struct mk_lib_iip_cp_client_local_client_state_s mk_lib_iip_cp_client_local_client_state_t;
 mk_lang_typedef(mk_lib_iip_cp_client_local_client_state);
