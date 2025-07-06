@@ -42,6 +42,8 @@
 
 static mk_lang_types_bool_t mk_clib_app_iip_g_stop_requested;
 static mk_lib_iip_cp_client_wrapper_task_pt mk_clib_app_iip_g_wrp;
+static mk_win_dll_ws2_event_t mk_clib_app_iip_g_stop_event;
+static mk_lang_types_bool_t mk_clib_app_iip_g_ctrl_c_handler_is_stuck;
 
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_destination_elgamal_dsa_sha1_generate_new_random(mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_pt const destination) mk_lang_noexcept
@@ -397,22 +399,47 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_par
 mk_lang_nodiscard static mk_lang_inline mk_win_base_bool_t mk_win_base_stdcall mk_clib_app_iip_pr_ctrl_c_handler(mk_win_base_dword_t const type) mk_lang_noexcept
 {
 	mk_lang_types_bool_t interesting;
+	mk_lang_types_bool_t wait;
 	mk_lang_types_sint_t err;
+	mk_win_base_dword_t waited;
 
 	switch(type)
 	{
 		case mk_win_dll_kernel_console_ctrl_event_id_e_c:
 		case mk_win_dll_kernel_console_ctrl_event_id_e_break:
+		case mk_win_dll_kernel_console_ctrl_event_id_e_close:
+		case mk_win_dll_kernel_console_ctrl_event_id_e_logoff:
+		case mk_win_dll_kernel_console_ctrl_event_id_e_shutdown:
 			interesting = mk_lang_true;
 			break;
 		default:
 			interesting = mk_lang_false;
 			break;
 	}
+	switch(type)
+	{
+		case mk_win_dll_kernel_console_ctrl_event_id_e_close:
+		case mk_win_dll_kernel_console_ctrl_event_id_e_logoff:
+		case mk_win_dll_kernel_console_ctrl_event_id_e_shutdown:
+			wait = mk_lang_true;
+			break;
+		default:
+			wait = mk_lang_false;
+			break;
+	}
 	if(interesting)
 	{
+		if(wait)
+		{
+			mk_clib_app_iip_g_ctrl_c_handler_is_stuck = mk_lang_true;
+		}
 		mk_clib_app_iip_g_stop_requested = mk_lang_true;
 		err = mk_lib_iip_cp_client_wrapper_task_rw_poke(mk_clib_app_iip_g_wrp); mk_lang_check_recrash(err);
+		if(wait)
+		{
+			waited = mk_win_dll_ws2_wait_for_multiple_events(1, &mk_clib_app_iip_g_stop_event, mk_win_base_true, mk_win_dll_ws2_infinite, mk_win_base_false); mk_lang_check_recrash(waited == 0 || waited != 0);
+			/* this wait never finishes, that is by design */
+		}
 	}
 	return interesting ? mk_win_base_true : mk_win_base_false;
 }
@@ -486,6 +513,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wor
 
 	mk_clib_app_iip_g_wrp = &wrp;
 	mk_clib_app_iip_g_stop_requested = mk_lang_false;
+	mk_clib_app_iip_g_stop_event = mk_win_dll_ws2_create_event(); mk_lang_check_return(mk_clib_app_iip_g_stop_event.m_data != mk_win_dll_ws2_event_invalid_val);
+	b = mk_win_dll_ws2_reset_event(mk_clib_app_iip_g_stop_event); mk_lang_check_return(b != mk_win_base_false);
+	mk_clib_app_iip_g_ctrl_c_handler_is_stuck = mk_lang_false;
 	b = mk_win_dll_kernel_console_set_ctrl_handler(&mk_clib_app_iip_pr_ctrl_c_handler, mk_win_base_true); mk_lang_check_return(b != mk_win_base_false);
 
 	for(;;)
@@ -508,7 +538,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wor
 		}
 	}
 
-	b = mk_win_dll_kernel_console_set_ctrl_handler(&mk_clib_app_iip_pr_ctrl_c_handler, mk_win_base_false); mk_lang_check_return(b != mk_win_base_false);
+	if(!mk_clib_app_iip_g_ctrl_c_handler_is_stuck)
+	{
+		b = mk_win_dll_kernel_console_set_ctrl_handler(&mk_clib_app_iip_pr_ctrl_c_handler, mk_win_base_false); mk_lang_check_return(b != mk_win_base_false);
+		b = mk_win_dll_ws2_close_event(mk_clib_app_iip_g_stop_event); mk_lang_check_return(b != mk_win_base_false);
+	}
 
 	err = mk_lib_iip_cp_client_wrapper_task_rw_request_close(&wrp); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_cp_client_wrapper_task_rw_run_do_block(&wrp); mk_lang_check_rereturn(err);
