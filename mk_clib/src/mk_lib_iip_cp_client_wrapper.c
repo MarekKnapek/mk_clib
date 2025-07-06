@@ -60,7 +60,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_wrapper_task_prrw_new_local(mk_lib_iip_cp_client_wrapper_task_pt const task, mk_lib_iip_cp_client_types_local_settings_pct const settings, mk_lib_iip_cp_client_types_handle_local_pt const local) mk_lang_noexcept
 {
-	mk_lib_iip_cp_client_local_task_settings_t config;
+	mk_lib_iip_cp_client_local_listener_task_settings_t config;
 	mk_lib_iip_cp_client_application_task_pt app;
 	mk_lang_types_sint_t err;
 	mk_lib_net_connection_any2_pt lokal;
@@ -72,7 +72,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 	config.m_destination = settings->m_destination;
 	app = ((mk_lib_iip_cp_client_application_task_pt)(task->m_wrapper.m_elements[0])); mk_lang_assert(app);
-	err = mk_lib_iip_cp_client_application_task_rw_new_local(app, &config, &lokal); mk_lang_check_rereturn(err); mk_lang_assert(lokal);
+	err = mk_lib_iip_cp_client_application_task_rw_new_local_listener(app, &config, &lokal); mk_lang_check_rereturn(err); mk_lang_assert(lokal);
 	local->m_elements[0] = ((mk_lib_iip_cp_client_types_handle_local_base_t)(lokal));
 	return 0;
 }
@@ -279,7 +279,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_wrappe
 	return mk_lib_iip_cp_client_wrapper_task_prrw_poke(task);
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_wrapper_task_rw_new_local(mk_lib_iip_cp_client_wrapper_task_pt const task, mk_lib_iip_cp_client_types_local_settings_pct const settings, mk_lib_iip_cp_client_types_handle_local_pt const local) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_wrapper_task_rw_new_local_listener(mk_lib_iip_cp_client_wrapper_task_pt const task, mk_lib_iip_cp_client_types_local_settings_pct const settings, mk_lib_iip_cp_client_types_handle_local_pt const local) mk_lang_noexcept
 {
 	return mk_lib_iip_cp_client_wrapper_task_prrw_new_local(task, settings, local);
 }

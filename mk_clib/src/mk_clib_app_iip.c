@@ -465,8 +465,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wor
 
 	err = mk_lib_iip_cp_client_wrapper_task_rw_construct(&wrp, &app_settings); mk_lang_check_rereturn(err);
 
-	err = mk_lib_iip_cp_client_wrapper_task_rw_new_local(&wrp, &local_settings_1, &local_1); mk_lang_check_rereturn(err);
-	err = mk_lib_iip_cp_client_wrapper_task_rw_new_local(&wrp, &local_settings_2, &local_2); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_client_wrapper_task_rw_new_local_listener(&wrp, &local_settings_1, &local_1); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_client_wrapper_task_rw_new_local_listener(&wrp, &local_settings_2, &local_2); mk_lang_check_rereturn(err);
 
 	err = mk_lib_iip_cp_client_wrapper_task_rw_new_connection(&wrp, &connection_settings_1, &connection_1); mk_lang_check_rereturn(err);
 
