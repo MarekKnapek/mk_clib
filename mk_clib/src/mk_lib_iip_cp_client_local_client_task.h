@@ -32,6 +32,7 @@ mk_lang_forward(mk_lib_iip_cp_client_shared);
 #define mk_lib_iip_cp_client_local_client_handle_size_bits_d mk_lang_bui_uintptr_size_bits_d
 #define mk_lib_iip_cp_client_local_client_handle_size_bytes_d (mk_lang_bui_uintptr_size_bits_d / mk_lang_charbit)
 
+#include "mk_lang_warning_msvc_push_c4820.h"
 #define mk_lib_iip_cp_client_local_client_buffer_size (4 * 1024)
 #define mk_lib_iip_cp_client_local_client_buffer_algn (4 * 1024)
 union mk_lib_iip_cp_client_local_client_buffer_data_u
@@ -47,6 +48,7 @@ struct mk_lib_iip_cp_client_local_client_buffer_s
 };
 typedef struct mk_lib_iip_cp_client_local_client_buffer_s mk_lib_iip_cp_client_local_client_buffer_t;
 mk_lang_typedef(mk_lib_iip_cp_client_local_client_buffer);
+#include "mk_lang_warning_msvc_pop.h"
 
 struct mk_lib_iip_cp_client_local_client_task_settings_s
 {
