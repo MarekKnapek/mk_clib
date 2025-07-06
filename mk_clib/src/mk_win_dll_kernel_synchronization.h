@@ -1,0 +1,22 @@
+#ifndef mk_include_guard_mk_win_dll_kernel_synchronization_h
+#define mk_include_guard_mk_win_dll_kernel_synchronization_h
+
+
+#include "mk_lang_jumbo.h"
+#include "mk_lang_nodiscard.h"
+#include "mk_lang_noexcept.h"
+#include "mk_win_base.h"
+
+
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_dword_t mk_win_dll_kernel_synchronization_wait_one(mk_win_base_handle_t const object, mk_win_base_dword_t const timeout) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_dll_kernel_synchronization_set_event(mk_win_base_handle_t const object) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_slong_t mk_win_dll_kernel_synchronization_interlocked_increment(mk_win_base_slong_lpt const addend) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_slong_t mk_win_dll_kernel_synchronization_interlocked_decrement(mk_win_base_slong_lpt const addend) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_slong_t mk_win_dll_kernel_synchronization_interlocked_exchange(mk_win_base_slong_lpt const target, mk_win_base_slong_t const value) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_slong_t mk_win_dll_kernel_synchronization_interlocked_compare_exchange(mk_win_base_slong_lpt const target, mk_win_base_slong_t const exchange, mk_win_base_slong_t const comparand) mk_lang_noexcept;
+
+
+#if mk_lang_jumbo_have
+#include "mk_win_dll_kernel_synchronization.c"
+#endif
+#endif
