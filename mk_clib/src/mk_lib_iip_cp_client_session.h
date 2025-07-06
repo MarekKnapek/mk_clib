@@ -45,7 +45,7 @@ struct mk_lib_iip_cp_client_session_state_s
 	mk_lib_iip_cp_types_sessionid_t m_id;
 	mk_lang_types_bool_t m_has_id;
 	mk_lang_types_sint_t m_child_sessions;
-	mk_lang_types_bool_t m_close_requested;
+	mk_lang_types_bool_t m_stop_requested;
 	mk_lib_iip_cp_message_t m_msg;
 	mk_lang_types_bool_t m_has_msg_pending;
 	mk_lib_iip_cp_types_leasez_t m_leases;
