@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+	<Type Name="mk_lib_iip_any_data_connection_s">
+		<DisplayString Condition="m_data.m_id == 0">{((mk_lib_iip_cp_client_connection_task_s*)(((unsigned char*)(&amp;m_data)) - 32))}</DisplayString>
+		<DisplayString Condition="m_data.m_id == 1">{((mk_lib_iip_cp_client_local_client_task_s*)(((unsigned char*)(&amp;m_data)) - 8))}</DisplayString>
+		<DisplayString Condition="m_data.m_id == 2">{((mk_lib_iip_cp_client_local_listener_task_s*)(((unsigned char*)(&amp;m_data)) - 8))}</DisplayString>
+		<Expand>
+			<Item Condition="m_data.m_id == 0" Name="[ connection ]">((mk_lib_iip_cp_client_connection_task_s*)(((unsigned char*)(&amp;m_data)) - 32))</Item>
+			<Item Condition="m_data.m_id == 1" Name="[ local_client ]">((mk_lib_iip_cp_client_local_client_task_s*)(((unsigned char*)(&amp;m_data)) - 8))</Item>
+			<Item Condition="m_data.m_id == 2" Name="[ local_listener ]">((mk_lib_iip_cp_client_local_listener_task_s*)(((unsigned char*)(&amp;m_data)) - 8))</Item>
+		</Expand>
+	</Type>
+</AutoVisualizer>

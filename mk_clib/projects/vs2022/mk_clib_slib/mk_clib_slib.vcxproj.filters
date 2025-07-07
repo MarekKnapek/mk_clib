@@ -1202,6 +1202,10 @@
 	<ItemGroup>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_iip.c"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_iip_cp_base.c"><Filter>src</Filter></ClCompile>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_any_data.c"><Filter>src</Filter></ClCompile>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_any_data_connection.c"><Filter>src</Filter></ClCompile>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_any_data_connections.c"><Filter>src</Filter></ClCompile>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_any_func_connection.c"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_base32_decoder.c"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_base32_encoder.c"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_base32_fuzz.c"><Filter>src</Filter></ClCompile>
@@ -1242,6 +1246,10 @@
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_logger_stdout.c"><Filter>src</Filter></ClCompile>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_iip.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_iip_cp_base.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_any_data.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_any_data_connection.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_any_data_connections.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_any_func_connection.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_base32_decoder.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_base32_encoder.h"><Filter>src</Filter></ClInclude>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_base32_fuzz.h"><Filter>src</Filter></ClInclude>
