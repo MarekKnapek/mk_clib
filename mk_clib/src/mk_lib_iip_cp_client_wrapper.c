@@ -2,18 +2,21 @@
 #define mk_include_guard_mk_lib_iip_cp_client_wrapper_c
 #include "mk_lib_iip_cp_client_wrapper.h"
 
-#include "mk_lang_check.h"
 #include "mk_lang_assert.h"
 #include "mk_lang_bui.h"
 #include "mk_lang_charbit.h"
+#include "mk_lang_check.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_typedef.h"
 #include "mk_lang_types.h"
+#include "mk_lib_iip_any_func_connection.h"
+#include "mk_lib_iip_cp_client_application.h"
+#include "mk_lib_iip_cp_client_connection_task.h"
+#include "mk_lib_iip_cp_client_local_listener_task.h"
 #include "mk_lib_iip_cp_client_types.h"
 #include "mk_lib_iip_cp_mallocator_global.h"
-#include "mk_lib_iip_cp_client_application.h"
 
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_wrapper_task_prrw_construct(mk_lib_iip_cp_client_wrapper_task_pt const task, mk_lib_iip_cp_client_types_application_settings_pct const settings) mk_lang_noexcept
@@ -63,7 +66,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lib_iip_cp_client_local_listener_task_settings_t config;
 	mk_lib_iip_cp_client_application_task_pt app;
 	mk_lang_types_sint_t err;
-	mk_lib_iip_cp_client_connection_any2_pt lokal;
+	mk_lib_iip_any_data_connection_pt lokal;
 
 	mk_lang_assert(task);
 	mk_lang_assert(settings);
@@ -82,7 +85,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lib_iip_cp_client_connection_task_settings_t config;
 	mk_lib_iip_cp_client_application_task_pt app;
 	mk_lang_types_sint_t err;
-	mk_lib_iip_cp_client_connection_any2_pt konnection;
+	mk_lib_iip_any_data_connection_pt konnection;
 
 	mk_lang_assert(task);
 	mk_lang_assert(settings);
@@ -101,10 +104,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_wrapper_task_prrw_new_session(mk_lib_iip_cp_client_wrapper_task_pt const task, mk_lib_iip_cp_client_types_session_settings_pct const settings, mk_lib_iip_cp_client_types_handle_session_pt const session) mk_lang_noexcept
 {
 	mk_lib_iip_cp_client_session_settings_t config;
-	mk_lib_iip_cp_client_connection_any2_pt connection;
+	mk_lib_iip_any_data_connection_pt connection;
 	mk_lang_types_sint_t err;
 	mk_lib_iip_cp_client_session_task_pt zession;
-
+	
 	mk_lang_assert(task);
 	mk_lang_assert(settings);
 	mk_lang_assert(session);
@@ -112,9 +115,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 	config.m_destination = settings->m_destination;
 	config.m_master_session.m_elements[0] = settings->m_master_session.m_elements[0];
-	connection = ((mk_lib_iip_cp_client_connection_any2_pt)(settings->m_connection.m_elements[0])); mk_lang_assert(connection);
-	mk_lang_assert(connection->m_data.m_id == mk_lib_iip_cp_client_connection_any1_id_e_mk_lib_iip_cp_client_connection_task);
-	err = mk_lib_iip_cp_client_connection_task_rw_new_session(&connection->m_data.m_mk_lib_iip_cp_client_connection_task.m_mk_lib_iip_cp_client_connection_task, &config, &zession); mk_lang_check_rereturn(err); mk_lang_assert(zession);
+	connection = ((mk_lib_iip_any_data_connection_pt)(settings->m_connection.m_elements[0])); mk_lang_assert(connection);
+	mk_lang_assert(connection->m_data.m_id == mk_lib_iip_any_func_connection_type_e_mk_lib_iip_cp_client_connection_task);
+	err = mk_lib_iip_cp_client_connection_task_any_rw_new_session(connection, &config, &zession); mk_lang_check_rereturn(err); mk_lang_assert(zession);
 	session->m_elements[0] = ((mk_lib_iip_cp_client_types_handle_session_base_t)(zession));
 	return 0;
 }
