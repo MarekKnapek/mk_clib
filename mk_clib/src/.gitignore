@@ -12,10 +12,6 @@
 /mk_lib_crypto_xof_stream_any1.h
 /mk_lib_crypto_xof_stream_any2.c
 /mk_lib_crypto_xof_stream_any2.h
-/mk_lib_iip_cp_client_connection_any1.c
-/mk_lib_iip_cp_client_connection_any1.h
-/mk_lib_iip_cp_client_connection_any2.c
-/mk_lib_iip_cp_client_connection_any2.h
 /mk_lib_iip_http_strings.c
 /mk_lib_iip_http_strings.h
 /mk_sl_cui_inl_defd.h
