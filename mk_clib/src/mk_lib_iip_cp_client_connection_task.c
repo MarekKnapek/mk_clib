@@ -466,11 +466,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_connection_task_prrw_on_iorp_done(mk_lib_iip_cp_client_connection_task_pt const task, mk_lang_types_sint_t const bytes_transferred, mk_lang_types_void_pt const overlapped) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_connection_task_prrw_on_iorp_done(mk_lib_iip_cp_client_connection_task_pt const task, mk_lang_types_bool_t const successful_io_operation, mk_lang_types_sint_t const bytes_transferred, mk_lang_types_void_pt const overlapped) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 
 	mk_lang_assert(task);
+	mk_lang_assert(successful_io_operation == mk_lang_false || successful_io_operation == mk_lang_true);
 	mk_lang_assert(bytes_transferred >= 0);
 	mk_lang_assert(overlapped);
 	mk_lang_assert
@@ -1329,7 +1330,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_connection_task_any_prrw_on_iorp_done(mk_lib_iip_any_data_connection_pt const connection, mk_lang_types_sint_t const bytes_transferred, mk_lang_types_void_pt const overlapped) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_connection_task_any_prrw_on_iorp_done(mk_lib_iip_any_data_connection_pt const connection, mk_lang_types_bool_t const successful_io_operation, mk_lang_types_sint_t const bytes_transferred, mk_lang_types_void_pt const overlapped) mk_lang_noexcept
 {
 	mk_lib_iip_cp_client_connection_task_pt self;
 	mk_lang_types_sint_t err;
@@ -1337,7 +1338,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_assert(connection);
 
 	self = mk_lib_iip_cp_client_connection_task_prrw_type_to_self(connection); mk_lang_assert(self);
-	err = mk_lib_iip_cp_client_connection_task_prrw_on_iorp_done(self, bytes_transferred, overlapped); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_client_connection_task_prrw_on_iorp_done(self, successful_io_operation, bytes_transferred, overlapped); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -1391,9 +1392,9 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_connec
 	return mk_lib_iip_cp_client_connection_task_prrw_gimme_socket(task, socket, associatee);
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_connection_task_rw_on_iorp_done(mk_lib_iip_cp_client_connection_task_pt const task, mk_lang_types_sint_t const bytes_transferred, mk_lang_types_void_pt const overlapped) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_connection_task_rw_on_iorp_done(mk_lib_iip_cp_client_connection_task_pt const task, mk_lang_types_bool_t const successful_io_operation, mk_lang_types_sint_t const bytes_transferred, mk_lang_types_void_pt const overlapped) mk_lang_noexcept
 {
-	return mk_lib_iip_cp_client_connection_task_prrw_on_iorp_done(task, bytes_transferred, overlapped);
+	return mk_lib_iip_cp_client_connection_task_prrw_on_iorp_done(task, successful_io_operation, bytes_transferred, overlapped);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_connection_task_rw_step(mk_lib_iip_cp_client_connection_task_pt const task, mk_lang_types_bool_t const allow_to_block, mk_lang_types_sint_t const tm, mk_lib_iip_cp_client_connection_task_result_pt const step_result) mk_lang_noexcept
@@ -1442,9 +1443,9 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_connec
 	return mk_lib_iip_cp_client_connection_task_any_prrw_gimme_socket(connection, socket, associatee);
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_connection_task_any_rw_on_iorp_done(mk_lib_iip_any_data_connection_pt const connection, mk_lang_types_sint_t const bytes_transferred, mk_lang_types_void_pt const overlapped) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_connection_task_any_rw_on_iorp_done(mk_lib_iip_any_data_connection_pt const connection, mk_lang_types_bool_t const successful_io_operation, mk_lang_types_sint_t const bytes_transferred, mk_lang_types_void_pt const overlapped) mk_lang_noexcept
 {
-	return mk_lib_iip_cp_client_connection_task_any_prrw_on_iorp_done(connection, bytes_transferred, overlapped);
+	return mk_lib_iip_cp_client_connection_task_any_prrw_on_iorp_done(connection, successful_io_operation, bytes_transferred, overlapped);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_connection_task_any_rw_step(mk_lib_iip_any_data_connection_pt const connection, mk_lang_types_bool_t const allow_to_block, mk_lang_types_sint_t const tm, mk_lib_iip_any_data_connection_result_pt const step_result) mk_lang_noexcept

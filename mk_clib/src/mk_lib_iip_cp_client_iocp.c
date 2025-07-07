@@ -128,11 +128,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	if(rdy)
 	{
 		mk_lang_check_return(dequeued);
-		mk_lang_check_return(successful_io_operation); /* todo */
 		if(key != mk_lang_limits_uintptr_max)
 		{
 			mk_lang_assert(key != 0); associatee = ((mk_lib_iip_any_data_connection_pt)(key)); mk_lang_assert(associatee);
-			err = mk_lib_iip_any_func_connection_rw_on_iorp_done(associatee, bytes_transferred, overlapped); mk_lang_check_rereturn(err);
+			err = mk_lib_iip_any_func_connection_rw_on_iorp_done(associatee, successful_io_operation, bytes_transferred, overlapped); mk_lang_check_rereturn(err);
 		}
 		else
 		{

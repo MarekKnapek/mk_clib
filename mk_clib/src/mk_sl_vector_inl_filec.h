@@ -1241,6 +1241,47 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_de
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_defd_prrw_erase_value(mk_sl_vector_inl_defd_pt const vector, mk_sl_vector_inl_defd_element_pct const element) mk_lang_noexcept
+{
+#if mk_sl_vector_inl_defd_element_eq_has
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
+	mk_sl_vector_inl_defd_element_pt e;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(vector);
+	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
+	mk_lang_assert(element);
+	mk_lang_assert(!mk_sl_vector_inl_defd_rw_is_empty(vector));
+	mk_lang_assert(!(element >= &vector->m_buffer[0] && element <= &vector->m_buffer[vector->m_size - 1]));
+	mk_lang_assert(!(mk_sl_vector_inl_filec_overlap_fn(element, 1, vector->m_buffer, 1)));
+
+	n = vector->m_size;
+	for(i = 0; i != n; ++i)
+	{
+		e = &vector->m_buffer[i]; mk_lang_assert(e);
+		if(mk_sl_vector_inl_defd_element_eq(e, element))
+		{
+			err = mk_sl_vector_inl_defd_prrw_erase_element(vector, e); mk_lang_check_rereturn(err);
+			break;
+		}
+	}
+
+	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
+	return 0;
+#else
+	mk_lang_assert(vector);
+	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
+	mk_lang_assert(element);
+	mk_lang_assert(!mk_sl_vector_inl_defd_rw_is_empty(vector));
+	mk_lang_assert(!(element >= &vector->m_buffer[0] && element <= &vector->m_buffer[vector->m_size - 1]));
+	mk_lang_assert(!(mk_sl_vector_inl_filec_overlap_fn(element, 1, vector->m_buffer, 1)));
+
+	mk_lang_assert_false();
+	return 0;
+#endif
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_defd_prrw_copy_construct(mk_sl_vector_inl_defd_pt const vector, mk_sl_vector_inl_defd_pct const src) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
@@ -1876,6 +1917,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_er
 	err = mk_sl_vector_inl_defd_rw_pop_back_single(vector); mk_lang_check_rereturn(err);
 	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
 	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_erase_value(mk_sl_vector_inl_defd_pt const vector, mk_sl_vector_inl_defd_element_pct const element) mk_lang_noexcept
+{
+	return mk_sl_vector_inl_defd_prrw_erase_value(vector, element);
 }
 
 

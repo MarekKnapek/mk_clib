@@ -218,7 +218,8 @@ typedef enum mk_win_dll_ws2_sck_opt_ipv6_e mk_win_dll_ws2_sck_opt_ipv6_t;
 
 enum mk_win_dll_ws2_sck_opt_socket_e
 {
-	mk_win_dll_ws2_sck_opt_socket_e_connect_time = 0x700c,
+	mk_win_dll_ws2_sck_opt_socket_e_connect_time          = 0x700c,
+	mk_win_dll_ws2_sck_opt_socket_e_update_accept_context = 0x700b,
 	mk_win_dll_ws2_sck_opt_socket_e_dummy_end
 };
 typedef enum mk_win_dll_ws2_sck_opt_socket_e mk_win_dll_ws2_sck_opt_socket_t;
@@ -581,6 +582,8 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_dll_ws2_shutdown(mk_wi
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_dll_ws2_closesocket(mk_win_dll_ws2_socket_t const sck) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_dll_ws2_getsockopt(mk_win_dll_ws2_socket_t const sck, mk_win_base_sint_t const level, mk_win_base_sint_t const opt_name, mk_win_base_void_pt const opt_val_buf, mk_win_base_sint_pt const opt_val_len) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_dll_ws2_setsockopt(mk_win_dll_ws2_socket_t const sck, mk_win_base_sint_t const level, mk_win_base_sint_t const opt_name, mk_win_base_void_pct const opt_val_buf, mk_win_base_sint_t const opt_val_len) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_dll_ws2_getsockname(mk_win_dll_ws2_socket_t const sck, mk_win_dll_ws2_sock_addr_pt const addr_buf, mk_win_base_sint_pt const addr_len) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_dll_ws2_getpeername(mk_win_dll_ws2_socket_t const sck, mk_win_dll_ws2_sock_addr_pt const addr_buf, mk_win_base_sint_pt const addr_len) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_dll_ws2_connect(mk_win_dll_ws2_socket_t const sck, mk_win_dll_ws2_sock_addr_pct const addr_buf, mk_win_base_sint_t const addr_len) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_dll_ws2_bind(mk_win_dll_ws2_socket_t const sck, mk_win_dll_ws2_sock_addr_pct const addr_buf, mk_win_base_sint_t const addr_len) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_dll_ws2_listen(mk_win_dll_ws2_socket_t const sck, mk_win_base_sint_t const backlog) mk_lang_noexcept;

@@ -151,7 +151,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_any_func_connect
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_any_func_connection_rw_on_iorp_done(mk_lib_iip_any_data_connection_pt const connection, mk_lang_types_sint_t const bytes_transferred, mk_lang_types_void_pt const overlapped) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_any_func_connection_rw_on_iorp_done(mk_lib_iip_any_data_connection_pt const connection, mk_lang_types_bool_t const successful_io_operation, mk_lang_types_sint_t const bytes_transferred, mk_lang_types_void_pt const overlapped) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 
@@ -161,9 +161,9 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_any_func_connect
 
 	switch(connection->m_data.m_id)
 	{
-		case mk_lib_iip_any_func_connection_type_e_mk_lib_iip_cp_client_connection_task    : err = mk_lib_iip_cp_client_connection_task_any_rw_on_iorp_done    (connection, bytes_transferred, overlapped); mk_lang_check_rereturn(err); break;
-		case mk_lib_iip_any_func_connection_type_e_mk_lib_iip_cp_client_local_client_task  : err = mk_lib_iip_cp_client_local_client_task_any_rw_on_iorp_done  (connection, bytes_transferred, overlapped); mk_lang_check_rereturn(err); break;
-		case mk_lib_iip_any_func_connection_type_e_mk_lib_iip_cp_client_local_listener_task: err = mk_lib_iip_cp_client_local_listener_task_any_rw_on_iorp_done(connection, bytes_transferred, overlapped); mk_lang_check_rereturn(err); break;
+		case mk_lib_iip_any_func_connection_type_e_mk_lib_iip_cp_client_connection_task    : err = mk_lib_iip_cp_client_connection_task_any_rw_on_iorp_done    (connection, successful_io_operation, bytes_transferred, overlapped); mk_lang_check_rereturn(err); break;
+		case mk_lib_iip_any_func_connection_type_e_mk_lib_iip_cp_client_local_client_task  : err = mk_lib_iip_cp_client_local_client_task_any_rw_on_iorp_done  (connection, successful_io_operation, bytes_transferred, overlapped); mk_lang_check_rereturn(err); break;
+		case mk_lib_iip_any_func_connection_type_e_mk_lib_iip_cp_client_local_listener_task: err = mk_lib_iip_cp_client_local_listener_task_any_rw_on_iorp_done(connection, successful_io_operation, bytes_transferred, overlapped); mk_lang_check_rereturn(err); break;
 		case mk_lib_iip_any_func_connection_type_e_dummy_end: mk_lang_assert_false(); break;
 		default: mk_lang_assert_false(); break;
 	}
