@@ -79,6 +79,17 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_any_data_connect
 	return 0;
 }
 
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lib_iip_any_data_connections_elem_ro_eq(mk_lib_iip_any_data_connection_pcpt const a, mk_lib_iip_any_data_connection_pcpt const b) mk_lang_noexcept
+{
+	mk_lang_types_bool_t eq;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	eq = *a == *b;
+	return eq;
+}
+
 
 #define mk_sl_vector_t_name mk_lib_iip_any_data_connections
 #define mk_sl_vector_t_element_type mk_lib_iip_any_data_connection_pt
@@ -89,6 +100,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_any_data_connect
 #define mk_sl_vector_t_element_move_construct mk_lib_iip_any_data_connections_elem_rw_construct_move
 #define mk_sl_vector_t_element_copy_assign mk_lib_iip_any_data_connections_elem_rw_assign_copy
 #define mk_sl_vector_t_element_move_assign mk_lib_iip_any_data_connections_elem_rw_assign_move
+#define mk_sl_vector_t_element_eq mk_lib_iip_any_data_connections_elem_ro_eq
 #include "mk_sl_vector_inl_filec.h"
 #include "mk_sl_vector_inl_fileu.h"
 

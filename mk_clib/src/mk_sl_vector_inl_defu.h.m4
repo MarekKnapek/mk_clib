@@ -242,6 +242,7 @@ mm_per_typedef(`#undef mk_sl_vector_inl_defd_$1')
 #undef mk_sl_vector_inl_defd_prrw_pop_back_single
 #undef mk_sl_vector_inl_defd_prrw_erase_at
 #undef mk_sl_vector_inl_defd_prrw_erase_element
+#undef mk_sl_vector_inl_defd_prrw_erase_value
 #undef mk_sl_vector_inl_defd_prrw_copy_construct
 #undef mk_sl_vector_inl_defd_prrw_move_construct
 #undef mk_sl_vector_inl_defd_prrw_copy_assign
@@ -308,3 +309,4 @@ mm_per_typedef(`#undef mk_sl_vector_inl_defd_$1')
 #undef mk_sl_vector_inl_defd_rw_pop_back_single
 #undef mk_sl_vector_inl_defd_rw_erase_at
 #undef mk_sl_vector_inl_defd_rw_erase_element
+#undef mk_sl_vector_inl_defd_rw_erase_value
