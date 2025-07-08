@@ -4,6 +4,6 @@
 		<DisplayString>{((int)(m_data.m_u8s[0].m_elements[0]))}.{((int)(m_data.m_u8s[0].m_elements[1]))}.{((int)(m_data.m_u8s[0].m_elements[2]))}.{((int)(m_data.m_u8s[0].m_elements[3]))}</DisplayString>
 	</Type>
 	<Type Name="mk_lib_net_destination_s">
-		<DisplayString>{((int)(m_ipv4_address.m_data.m_u8s[0].m_elements[0]))}.{((int)(m_ipv4_address.m_data.m_u8s[0].m_elements[1]))}.{((int)(m_ipv4_address.m_data.m_u8s[0].m_elements[2]))}.{((int)(m_ipv4_address.m_data.m_u8s[0].m_elements[3]))}:{m_tcp_port.m_elements[0].m_elements[0]}</DisplayString>
+		<DisplayString>{((int)(m_ipv4_address.m_data.m_u8s[0].m_elements[0])),d}.{((int)(m_ipv4_address.m_data.m_u8s[0].m_elements[1])),d}.{((int)(m_ipv4_address.m_data.m_u8s[0].m_elements[2])),d}.{((int)(m_ipv4_address.m_data.m_u8s[0].m_elements[3])),d}:{m_tcp_port.m_elements[0].m_elements[0],d}</DisplayString>
 	</Type>
 </AutoVisualizer>

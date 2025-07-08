@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
 	<Type Name="mk_lib_iip_cp_client_session_task_s">
-		<DisplayString>{{ session id {m_session.m_state.m_id.m_elements[0].m_elements[0]} }}</DisplayString>
+		<DisplayString>{{ session id 0x{m_session.m_state.m_id.m_elements[0].m_elements[0],xb} }}</DisplayString>
 	</Type>
 	<Type Name="mk_lib_iip_cp_client_session_tasks_s">
 		<DisplayString>{{ size = {m_size} capacity = {m_capacity} }}</DisplayString>
