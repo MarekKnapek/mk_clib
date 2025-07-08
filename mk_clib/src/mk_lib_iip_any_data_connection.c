@@ -1,6 +1,6 @@
-#ifndef mk_include_guard_mk_lib_iip_any_func_connection_c
-#define mk_include_guard_mk_lib_iip_any_func_connection_c
-#include "mk_lib_iip_any_func_connection.h"
+#ifndef mk_include_guard_mk_lib_iip_any_data_connection_c
+#define mk_include_guard_mk_lib_iip_any_data_connection_c
+#include "mk_lib_iip_any_data_connection.h"
 
 #include "mk_lang_inline.h"
 #include "mk_lang_noexcept.h"

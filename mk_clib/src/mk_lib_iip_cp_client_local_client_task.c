@@ -17,7 +17,6 @@
 #include "mk_lang_runtime_bool.h"
 #include "mk_lang_types.h"
 #include "mk_lib_iip_any_data_connection.h"
-#include "mk_lib_iip_any_func_connection.h"
 #include "mk_lib_iip_cp_client_session.h"
 #include "mk_lib_iip_cp_client_shared.h"
 #include "mk_lib_iip_cp_mallocator_global.h"
@@ -578,7 +577,22 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 }
 
 
-mk_lang_nodiscard static mk_lang_inline mk_lib_iip_cp_client_local_client_task_pt mk_lib_iip_cp_client_local_client_task_prrw_type_to_self(mk_lib_iip_any_data_connection_pt const connection) mk_lang_noexcept
+
+mk_lang_nodiscard static mk_lang_inline mk_lib_iip_any_data_connection_pt mk_lib_iip_cp_client_local_client_task_prrw_to_any(mk_lib_iip_cp_client_local_client_task_pt const task) mk_lang_noexcept
+{
+	mk_lib_iip_cp_client_local_client_task_settings_pt settings;
+	mk_lib_iip_cp_client_local_client_pt local_listener;
+	mk_lib_iip_any_data_connection_pt any;
+
+	mk_lang_assert(task);
+
+	settings = ((mk_lib_iip_cp_client_local_client_task_settings_pt)(((mk_lang_types_uchar_pt)(task)) + mk_lang_offsetof(mk_lib_iip_cp_client_local_client_task_settings_t, m_type)));
+	local_listener = ((mk_lib_iip_cp_client_local_client_pt)(((mk_lang_types_uchar_pt)(settings)) + mk_lang_offsetof(mk_lib_iip_cp_client_local_client_t, m_settings)));
+	any = ((mk_lib_iip_any_data_connection_pt)(((mk_lang_types_uchar_pt)(local_listener)) + mk_lang_offsetof(mk_lib_iip_cp_client_local_client_task_t, m_local)));
+	return any;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lib_iip_cp_client_local_client_task_pt mk_lib_iip_cp_client_local_client_task_any_prrw_to_normal(mk_lib_iip_any_data_connection_pt const connection) mk_lang_noexcept
 {
 	mk_lib_iip_cp_client_local_client_task_settings_pt settings;
 	mk_lib_iip_cp_client_local_client_pt local_listener;
@@ -592,6 +606,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lib_iip_cp_client_local_client_task_p
 	return self;
 }
 
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_local_client_task_any_prrw_allocate(mk_lib_iip_any_data_connection_ppt const connection) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
@@ -601,9 +616,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_assert(connection);
 
 	err = mk_lib_iip_cp_mallocator_global_allocate(sizeof(*self), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem); self = ((mk_lib_iip_cp_client_local_client_task_pt)(mem)); mk_lang_assert(self);
-	self->m_local.m_settings.m_type.m_data.m_id = mk_lib_iip_any_func_connection_type_e_mk_lib_iip_cp_client_local_client_task;
+	self->m_local.m_settings.m_type.m_data.m_id = mk_lib_iip_any_data_connection_type_e_mk_lib_iip_cp_client_local_client_task;
 	*connection = &self->m_local.m_settings.m_type;
-	mk_lang_assert(mk_lib_iip_cp_client_local_client_task_prrw_type_to_self(*connection) == self);
+	mk_lang_assert(mk_lib_iip_cp_client_local_client_task_any_prrw_to_normal(*connection) == self);
 	return 0;
 }
 
@@ -614,7 +629,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 	mk_lang_assert(connection);
 
-	self = mk_lib_iip_cp_client_local_client_task_prrw_type_to_self(connection); mk_lang_assert(self);
+	self = mk_lib_iip_cp_client_local_client_task_any_prrw_to_normal(connection); mk_lang_assert(self);
 	err = mk_lib_iip_cp_mallocator_global_deallocate(self, sizeof(*self)); mk_lang_check_rereturn(err);
 	return 0;
 }
@@ -626,7 +641,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 	mk_lang_assert(connection);
 
-	self = mk_lib_iip_cp_client_local_client_task_prrw_type_to_self(connection); mk_lang_assert(self);
+	self = mk_lib_iip_cp_client_local_client_task_any_prrw_to_normal(connection); mk_lang_assert(self);
 	err = mk_lib_iip_cp_client_local_client_task_prrw_construct(self, ((mk_lib_iip_cp_client_local_client_task_settings_pct)(settings))); mk_lang_check_rereturn(err);
 	return 0;
 }
@@ -638,7 +653,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 	mk_lang_assert(connection);
 
-	self = mk_lib_iip_cp_client_local_client_task_prrw_type_to_self(connection); mk_lang_assert(self);
+	self = mk_lib_iip_cp_client_local_client_task_any_prrw_to_normal(connection); mk_lang_assert(self);
 	err = mk_lib_iip_cp_client_local_client_task_prrw_destroy(self); mk_lang_check_rereturn(err);
 	return 0;
 }
@@ -650,7 +665,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 	mk_lang_assert(connection);
 
-	self = mk_lib_iip_cp_client_local_client_task_prrw_type_to_self(connection); mk_lang_assert(self);
+	self = mk_lib_iip_cp_client_local_client_task_any_prrw_to_normal(connection); mk_lang_assert(self);
 	err = mk_lib_iip_cp_client_local_client_task_prrw_request_close(self); mk_lang_check_rereturn(err);
 	return 0;
 }
@@ -662,7 +677,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 	mk_lang_assert(connection);
 
-	self = mk_lib_iip_cp_client_local_client_task_prrw_type_to_self(connection); mk_lang_assert(self);
+	self = mk_lib_iip_cp_client_local_client_task_any_prrw_to_normal(connection); mk_lang_assert(self);
 	err = mk_lib_iip_cp_client_local_client_task_prrw_want_associate_socket(self, want); mk_lang_check_rereturn(err);
 	return 0;
 }
@@ -674,7 +689,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 	mk_lang_assert(connection);
 
-	self = mk_lib_iip_cp_client_local_client_task_prrw_type_to_self(connection); mk_lang_assert(self);
+	self = mk_lib_iip_cp_client_local_client_task_any_prrw_to_normal(connection); mk_lang_assert(self);
 	err = mk_lib_iip_cp_client_local_client_task_prrw_gimme_socket(self, socket, associatee); mk_lang_check_rereturn(err);
 	return 0;
 }
@@ -686,7 +701,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 	mk_lang_assert(connection);
 
-	self = mk_lib_iip_cp_client_local_client_task_prrw_type_to_self(connection); mk_lang_assert(self);
+	self = mk_lib_iip_cp_client_local_client_task_any_prrw_to_normal(connection); mk_lang_assert(self);
 	err = mk_lib_iip_cp_client_local_client_task_prrw_on_iorp_done(self, successful_io_operation, bytes_transferred, overlapped); mk_lang_check_rereturn(err);
 	return 0;
 }
@@ -698,7 +713,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 	mk_lang_assert(connection);
 
-	self = mk_lib_iip_cp_client_local_client_task_prrw_type_to_self(connection); mk_lang_assert(self);
+	self = mk_lib_iip_cp_client_local_client_task_any_prrw_to_normal(connection); mk_lang_assert(self);
 	err = mk_lib_iip_cp_client_local_client_task_prrw_step(self, allow_to_block, tm, ((mk_lib_iip_cp_client_local_client_task_result_pt)(step_result))); mk_lang_check_rereturn(err);
 	return 0;
 }
@@ -710,7 +725,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 	mk_lang_assert(connection);
 
-	self = mk_lib_iip_cp_client_local_client_task_prrw_type_to_self(connection); mk_lang_assert(self);
+	self = mk_lib_iip_cp_client_local_client_task_any_prrw_to_normal(connection); mk_lang_assert(self);
 	err = mk_lib_iip_cp_client_local_client_task_prrw_want_die(self, want); mk_lang_check_rereturn(err);
 	return 0;
 }
@@ -722,7 +737,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 	mk_lang_assert(connection);
 
-	self = mk_lib_iip_cp_client_local_client_task_prrw_type_to_self(connection); mk_lang_assert(self);
+	self = mk_lib_iip_cp_client_local_client_task_any_prrw_to_normal(connection); mk_lang_assert(self);
 	err = mk_lib_iip_cp_client_local_client_task_prrw_want_irp(self, overlapped, want); mk_lang_check_rereturn(err);
 	return 0;
 }
@@ -771,6 +786,17 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_local_
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_local_client_task_rw_want_irp(mk_lib_iip_cp_client_local_client_task_pt const task, mk_lang_types_void_pt const overlapped, mk_lang_types_bool_pt const want) mk_lang_noexcept
 {
 	return mk_lib_iip_cp_client_local_client_task_prrw_want_irp(task, overlapped, want);
+}
+
+
+mk_lang_nodiscard mk_lang_jumbo mk_lib_iip_any_data_connection_pt mk_lib_iip_cp_client_local_client_task_rw_to_any(mk_lib_iip_cp_client_local_client_task_pt const task) mk_lang_noexcept
+{
+	return mk_lib_iip_cp_client_local_client_task_prrw_to_any(task);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lib_iip_cp_client_local_client_task_pt mk_lib_iip_cp_client_local_client_task_any_rw_to_normal(mk_lib_iip_any_data_connection_pt const connection) mk_lang_noexcept
+{
+	return mk_lib_iip_cp_client_local_client_task_any_prrw_to_normal(connection);
 }
 
 
@@ -895,6 +921,17 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_local_
 	return 0;
 }
 
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lib_iip_cp_client_local_client_task_ptr_ro_eq(mk_lib_iip_cp_client_local_client_task_pcpt const a, mk_lib_iip_cp_client_local_client_task_pcpt const b) mk_lang_noexcept
+{
+	mk_lang_types_bool_t eq;
+
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	eq = *a == *b;
+	return eq;
+}
+
 
 #define mk_sl_vector_t_name mk_lib_iip_cp_client_local_client_tasks
 #define mk_sl_vector_t_element_type mk_lib_iip_cp_client_local_client_task_pt
@@ -905,6 +942,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_local_
 #define mk_sl_vector_t_element_move_construct mk_lib_iip_cp_client_local_client_task_ptr_rw_construct_move
 #define mk_sl_vector_t_element_copy_assign mk_lib_iip_cp_client_local_client_task_ptr_rw_assign_copy
 #define mk_sl_vector_t_element_move_assign mk_lib_iip_cp_client_local_client_task_ptr_rw_assign_move
+#define mk_sl_vector_t_element_eq mk_lib_iip_cp_client_local_client_task_ptr_ro_eq
 #include "mk_sl_vector_inl_filec.h"
 #include "mk_sl_vector_inl_fileu.h"
 

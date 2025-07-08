@@ -16,7 +16,6 @@
 #include "mk_lang_roundup.h"
 #include "mk_lang_types.h"
 #include "mk_lib_iip_any_data_connection.h"
-#include "mk_lib_iip_any_func_connection.h"
 #include "mk_lib_iip_cp_client_session.h"
 #include "mk_lib_iip_cp_client_shared.h"
 #include "mk_lib_iip_cp_mallocator_global.h"
@@ -1252,7 +1251,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_assert(connection);
 
 	err = mk_lib_iip_cp_mallocator_global_allocate(sizeof(*self), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem); self = ((mk_lib_iip_cp_client_connection_task_pt)(mem)); mk_lang_assert(self);
-	self->m_connection.m_settings.m_type.m_data.m_id = mk_lib_iip_any_func_connection_type_e_mk_lib_iip_cp_client_connection_task;
+	self->m_connection.m_settings.m_type.m_data.m_id = mk_lib_iip_any_data_connection_type_e_mk_lib_iip_cp_client_connection_task;
 	*connection = &self->m_connection.m_settings.m_type;
 	mk_lang_assert(mk_lib_iip_cp_client_connection_task_prrw_type_to_self(*connection) == self);
 	return 0;

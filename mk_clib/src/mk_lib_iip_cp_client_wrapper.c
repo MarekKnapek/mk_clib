@@ -11,7 +11,7 @@
 #include "mk_lang_noexcept.h"
 #include "mk_lang_typedef.h"
 #include "mk_lang_types.h"
-#include "mk_lib_iip_any_func_connection.h"
+#include "mk_lib_iip_any_data_connection.h"
 #include "mk_lib_iip_cp_client_application.h"
 #include "mk_lib_iip_cp_client_connection_task.h"
 #include "mk_lib_iip_cp_client_local_listener_task.h"
@@ -116,7 +116,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	config.m_destination = settings->m_destination;
 	config.m_master_session.m_elements[0] = settings->m_master_session.m_elements[0];
 	connection = ((mk_lib_iip_any_data_connection_pt)(settings->m_connection.m_elements[0])); mk_lang_assert(connection);
-	mk_lang_assert(connection->m_data.m_id == mk_lib_iip_any_func_connection_type_e_mk_lib_iip_cp_client_connection_task);
+	mk_lang_assert(connection->m_data.m_id == mk_lib_iip_any_data_connection_type_e_mk_lib_iip_cp_client_connection_task);
 	err = mk_lib_iip_cp_client_connection_task_any_rw_new_session(connection, &config, &zession); mk_lang_check_rereturn(err); mk_lang_assert(zession);
 	session->m_elements[0] = ((mk_lib_iip_cp_client_types_handle_session_base_t)(zession));
 	return 0;

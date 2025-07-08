@@ -20,6 +20,17 @@ typedef enum mk_lib_iip_any_data_connection_result_e mk_lib_iip_any_data_connect
 mk_lang_typedef(mk_lib_iip_any_data_connection_result);
 
 
+enum mk_lib_iip_any_data_connection_type_e
+{
+	mk_lib_iip_any_data_connection_type_e_mk_lib_iip_cp_client_connection_task,
+	mk_lib_iip_any_data_connection_type_e_mk_lib_iip_cp_client_local_client_task,
+	mk_lib_iip_any_data_connection_type_e_mk_lib_iip_cp_client_local_listener_task,
+	mk_lib_iip_any_data_connection_type_e_dummy_end
+};
+typedef enum mk_lib_iip_any_data_connection_type_e mk_lib_iip_any_data_connection_type_t;
+mk_lang_typedef(mk_lib_iip_any_data_connection_type);
+
+
 struct mk_lib_iip_any_data_connection_s
 {
 	mk_lib_iip_any_data_t m_data;
