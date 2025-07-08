@@ -508,7 +508,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_assert(connection);
 
 	self = mk_lib_iip_cp_client_local_listener_task_prrw_type_to_self(connection); mk_lang_assert(self);
-	err = mk_lib_iip_cp_client_local_listener_task_prrw_construct(self, settings); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_client_local_listener_task_prrw_construct(self, ((mk_lib_iip_cp_client_local_listener_task_settings_pct)(settings))); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -580,7 +580,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_assert(connection);
 
 	self = mk_lib_iip_cp_client_local_listener_task_prrw_type_to_self(connection); mk_lang_assert(self);
-	err = mk_lib_iip_cp_client_local_listener_task_prrw_step(self, allow_to_block, tm, step_result); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_client_local_listener_task_prrw_step(self, allow_to_block, tm, ((mk_lib_iip_cp_client_local_listener_task_result_pt)(step_result))); mk_lang_check_rereturn(err);
 	return 0;
 }
 
