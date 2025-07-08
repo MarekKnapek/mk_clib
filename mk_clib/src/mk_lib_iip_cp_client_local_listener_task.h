@@ -10,7 +10,6 @@
 #include "mk_lang_typedef.h"
 #include "mk_lang_types.h"
 #include "mk_lib_iip_any_data_connection.h"
-#include "mk_lib_iip_any_data_connections.h"
 #include "mk_lib_iip_cp_client_local_client_task.h"
 #include "mk_lib_iip_cp_mallocator_global.h"
 #include "mk_lib_iip_cp_message.h"
@@ -50,9 +49,9 @@ struct mk_lib_iip_cp_client_local_listener_state_s
 	mk_lib_net_socket_t m_listening_socket;
 	mk_lang_types_bool_t m_stop_requested;
 	mk_lang_types_bool_t m_stop_acknowledged;
-	mk_lib_iip_any_data_connections_t m_clients;
+	mk_lib_iip_cp_client_local_client_tasks_t m_clients;
 	mk_lang_types_usize_t m_client_idx;
-	mk_lib_iip_any_data_connection_pt m_client_want_associate;
+	mk_lib_iip_cp_client_local_client_task_pt m_client_want_associate;
 };
 typedef struct mk_lib_iip_cp_client_local_listener_state_s mk_lib_iip_cp_client_local_listener_state_t;
 mk_lang_typedef(mk_lib_iip_cp_client_local_listener_state);
