@@ -526,7 +526,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	ptr = data_buf;
 	rem = data_len;
 
-	err = mk_lib_iip_cp_message_parse_u64(ptr, rem, error_code, &tlen, &obj->m_elements[0]); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_u64(ptr, rem, error_code, &tlen, &obj->m_elements[0].m_elements[0]); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 
 	tlen = data_len - rem;
 	*consumed = tlen;
