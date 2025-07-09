@@ -1447,7 +1447,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_str_to_json_u64_time_raw(mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_sint_pt const out_len, mk_sl_cui_uint64_pct const obj) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_str_to_json_time_raw(mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_sint_pt const out_len, mk_lib_iip_time_timestamp_pct const obj) mk_lang_noexcept
 {
 	mk_lang_types_pchar_pt ptr mk_lang_constexpr_init;
 	mk_lang_types_sint_t rem mk_lang_constexpr_init;
@@ -1943,9 +1943,9 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	ptr = str_buf;
 	rem = str_len;
 
-	err = mk_lib_iip_cp_message_str_to_json_val_str_beg (ptr, rem, &tlen                     ); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_str_to_json_u64_time_raw(ptr, rem, &tlen, &obj->m_elements[0]); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
- 	err = mk_lib_iip_cp_message_str_to_json_val_str_end (ptr, rem, &tlen                     ); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_str_to_json_val_str_beg(ptr, rem, &tlen                     ); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_str_to_json_time_raw   (ptr, rem, &tlen, &obj->m_elements[0]); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+ 	err = mk_lib_iip_cp_message_str_to_json_val_str_end(ptr, rem, &tlen                     ); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 
 	tlen = str_len - rem;
 	*out_len = tlen;

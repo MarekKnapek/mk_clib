@@ -12,21 +12,70 @@
 #include "mk_lang_types.h"
 #include "mk_sl_cui_uint16.h"
 #include "mk_sl_cui_uint64.h"
+#include "mk_sl_time.h"
 #include "mk_win_dll_kernel_time.h"
 
 
-mk_lang_constexpr_static_inline mk_sl_cui_uint64_t const mk_lib_iip_time_k_components_max = mk_sl_cui_uint64_c(0x000017d2ul, 0x5b8ae400ul);
+#define mk_sl_cui_t_name mk_lib_iip_time_timestamp
+#define mk_sl_cui_t_base_type_name mk_sl_cui_uint64
+#define mk_sl_cui_t_count 1
+#define mk_sl_cui_t_base_type_size_bits_d mk_sl_cui_uint64_size_bits_d
+#define mk_sl_cui_t_inline 1
+#include "mk_sl_cui_inl_filec.h"
+#include "mk_sl_cui_inl_fileu.h"
+
+
+mk_lang_constexpr_static_inline mk_lib_iip_time_timestamp_t const mk_lib_iip_time_k_components_max = { mk_sl_cui_uint64_c(0x000017d2ul, 0x5b8ae400ul) };
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lib_iip_time_k_text_fmt[] = "0000-00-00T00:00:00.000Z";
 
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_time_to_components(mk_sl_cui_uint64_pct const time, mk_lib_iip_time_components_pt const components) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_time_from_nt_timestamp(mk_lib_iip_time_timestamp_pt const iip_timestamp, mk_win_dll_kernel_time_file_time_pct const nt_timestamp) mk_lang_noexcept
+{
+	mk_lang_types_ulong_t tul;
+	mk_lib_iip_time_timestamp_t ta;
+	mk_lib_iip_time_timestamp_t tb;
+	mk_lang_types_uint_t tuis[2];
+
+	mk_lang_assert(iip_timestamp);
+	mk_lang_assert(nt_timestamp);
+
+	tul = 116444736ul; mk_lib_iip_time_timestamp_from_bi_ulong(&ta, &tul);
+	tul = 1000000000ul; mk_lib_iip_time_timestamp_from_bi_ulong(&tb, &tul);
+	mk_lib_iip_time_timestamp_mul2_wrap_lo(&ta, &tb);
+	tuis[0] = ((mk_lang_types_uint_t)(nt_timestamp->m_lo));
+	tuis[1] = ((mk_lang_types_uint_t)(nt_timestamp->m_hi));
+	mk_lib_iip_time_timestamp_from_buis_uint_le(&tb, &tuis[0]);
+	mk_lib_iip_time_timestamp_sub2_wrap_cid_cod(&tb, &ta);
+	tul = 10000ul; mk_lib_iip_time_timestamp_from_bi_ulong(&ta, &tul);
+	mk_lib_iip_time_timestamp_div3_wrap(&tb, &ta, iip_timestamp);
+}
+
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_time_from_sl_timestamp(mk_lib_iip_time_timestamp_pt const iip_timestamp, mk_sl_time_timestamp_pct const sl_timestamp) mk_lang_noexcept
+{
+	mk_lang_types_ulong_t tul;
+	mk_lib_iip_time_timestamp_t ta;
+	mk_lib_iip_time_timestamp_t tb;
+
+	mk_lang_assert(iip_timestamp);
+	mk_lang_assert(sl_timestamp);
+
+	tul = 116444736ul; mk_lib_iip_time_timestamp_from_bi_ulong(&ta, &tul);
+	tul = 1000000000ul; mk_lib_iip_time_timestamp_from_bi_ulong(&tb, &tul);
+	mk_lib_iip_time_timestamp_mul2_wrap_lo(&ta, &tb);
+	tb.m_elements[0] = sl_timestamp->m_elements[0];
+	mk_lib_iip_time_timestamp_sub2_wrap_cid_cod(&tb, &ta);
+	tul = 10000ul; mk_lib_iip_time_timestamp_from_bi_ulong(&ta, &tul);
+	mk_lib_iip_time_timestamp_div3_wrap(&tb, &ta, iip_timestamp);
+}
+
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_time_to_components(mk_lib_iip_time_timestamp_pct const timestamp, mk_lib_iip_time_components_pt const components) mk_lang_noexcept
 {
 	mk_lang_types_sint_t tsi mk_lang_constexpr_init;
-	mk_sl_cui_uint64_t ta mk_lang_constexpr_init;
-	mk_sl_cui_uint64_t s_since_unix mk_lang_constexpr_init;
-	mk_sl_cui_uint64_t tc mk_lang_constexpr_init;
+	mk_lib_iip_time_timestamp_t ta mk_lang_constexpr_init;
+	mk_lib_iip_time_timestamp_t s_since_unix mk_lang_constexpr_init;
+	mk_lib_iip_time_timestamp_t tc mk_lang_constexpr_init;
 	mk_lang_types_sint_t ms_in_s mk_lang_constexpr_init;
-	mk_sl_cui_uint64_t d_since_unix_big mk_lang_constexpr_init;
+	mk_lib_iip_time_timestamp_t d_since_unix_big mk_lang_constexpr_init;
 	mk_lang_types_slong_t d_since_unix mk_lang_constexpr_init;
 	mk_lang_types_slong_t s_in_d mk_lang_constexpr_init;
 	mk_lang_types_slong_t m_in_d mk_lang_constexpr_init;
@@ -55,19 +104,19 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_time_to_componen
 	mk_lang_types_slong_t const k_d_in_c1 = 1l * 365l + 0l;
 	mk_lang_types_sint_t const k_lens[] = {31, 30, 31, 30, 31, 31, 30, 31, 30, 31, 31, 29};
 
-	mk_lang_assert(time);
+	mk_lang_assert(timestamp);
 	mk_lang_assert(components);
 
-	if(mk_sl_cui_uint64_le(time, &mk_lib_iip_time_k_components_max))
+	if(mk_lib_iip_time_timestamp_le(timestamp, &mk_lib_iip_time_k_components_max))
 	{
-		tsi = 1 * 1000; mk_sl_cui_uint64_from_bi_sint(&ta, &tsi);
-		mk_sl_cui_uint64_divmod4_wrap(time, &ta, &s_since_unix, &tc);
-		mk_sl_cui_uint64_to_bi_sint(&tc, &ms_in_s);
+		tsi = 1 * 1000; mk_lib_iip_time_timestamp_from_bi_sint(&ta, &tsi);
+		mk_lib_iip_time_timestamp_divmod4_wrap(timestamp, &ta, &s_since_unix, &tc);
+		mk_lib_iip_time_timestamp_to_bi_sint(&tc, &ms_in_s);
 
-		tsi = 1 * 24 * 60 * 60; mk_sl_cui_uint64_from_bi_sint(&ta, &tsi);
-		mk_sl_cui_uint64_divmod4_wrap(&s_since_unix, &ta, &d_since_unix_big, &tc);
-		mk_sl_cui_uint64_to_bi_slong(&d_since_unix_big, &d_since_unix);
-		mk_sl_cui_uint64_to_bi_slong(&tc, &s_in_d);
+		tsi = 1 * 24 * 60 * 60; mk_lib_iip_time_timestamp_from_bi_sint(&ta, &tsi);
+		mk_lib_iip_time_timestamp_divmod4_wrap(&s_since_unix, &ta, &d_since_unix_big, &tc);
+		mk_lib_iip_time_timestamp_to_bi_slong(&d_since_unix_big, &d_since_unix);
+		mk_lib_iip_time_timestamp_to_bi_slong(&tc, &s_in_d);
 
 		m_in_d = s_in_d / (1 * 60);
 		s_in_m = s_in_d % (1 * 60);
@@ -152,7 +201,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_time_to_componen
 	}
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_time_to_text(mk_sl_cui_uint64_pct const time, mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_sint_pt const out_len) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_time_to_text(mk_lib_iip_time_timestamp_pct const timestamp, mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_sint_pt const out_len) mk_lang_noexcept
 {
 	mk_lib_iip_time_components_t components mk_lang_constexpr_init;
 	mk_sl_cui_uint16_t ta mk_lang_constexpr_init;
@@ -161,14 +210,14 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_time_to_text(mk_
 
 	mk_lang_static_assert(mk_lang_countstr(mk_lib_iip_time_k_text_fmt) == 24);
 
-	mk_lang_assert(time);
+	mk_lang_assert(timestamp);
 	mk_lang_assert(str_buf || str_len == 0);
 	mk_lang_assert(str_len >= 0);
 	mk_lang_assert(out_len);
 
 	if(str_len >= mk_lang_countstr(mk_lib_iip_time_k_text_fmt))
 	{
-		mk_lib_iip_time_to_components(time, &components);
+		mk_lib_iip_time_to_components(timestamp, &components);
 		mk_lang_string_memcpy_pc_fn(&str_buf[0], &mk_lib_iip_time_k_text_fmt[0], mk_lang_countstr(mk_lib_iip_time_k_text_fmt));
 		mk_sl_cui_uint16_from_bi_sint(&ta, &components.m_year)        ; len = mk_sl_cui_uint16_to_str_dec_n(&ta, &buf[0], mk_lang_countof(buf)); mk_lang_assert(len >= 1); mk_lang_string_memcpy_pc_fn(&str_buf[ 0 + 4 - len], &buf[0], ((mk_lang_types_usize_t)(len)));
 		mk_sl_cui_uint16_from_bi_sint(&ta, &components.m_month)       ; len = mk_sl_cui_uint16_to_str_dec_n(&ta, &buf[0], mk_lang_countof(buf)); mk_lang_assert(len >= 1); mk_lang_string_memcpy_pc_fn(&str_buf[ 5 + 2 - len], &buf[0], ((mk_lang_types_usize_t)(len)));
@@ -185,26 +234,14 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_time_to_text(mk_
 	}
 }
 
-mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_time_get_now(mk_sl_cui_uint64_pt const time) mk_lang_noexcept
+mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_time_get_now(mk_lib_iip_time_timestamp_pt const timestamp) mk_lang_noexcept
 {
-	mk_lang_types_ulong_t tul;
-	mk_sl_cui_uint64_t tu64a;
-	mk_sl_cui_uint64_t tu64b;
 	mk_win_dll_kernel_time_file_time_t file_time;
-	mk_lang_types_uint_t tuis[2];
 
-	mk_lang_assert(time);
+	mk_lang_assert(timestamp);
 
-	tul = 116444736ul; mk_sl_cui_uint64_from_bi_ulong(&tu64a, &tul);
-	tul = 1000000000ul; mk_sl_cui_uint64_from_bi_ulong(&tu64b, &tul);
-	mk_sl_cui_uint64_mul2_wrap_lo(&tu64a, &tu64b);
 	mk_win_dll_kernel_time_get_system_time_precise_as_file_time(&file_time);
-	tuis[0] = ((mk_lang_types_uint_t)(file_time.m_lo));
-	tuis[1] = ((mk_lang_types_uint_t)(file_time.m_hi));
-	mk_sl_cui_uint64_from_buis_uint_le(&tu64b, &tuis[0]);
-	mk_sl_cui_uint64_sub2_wrap_cid_cod(&tu64b, &tu64a);
-	tul = 10000ul; mk_sl_cui_uint64_from_bi_ulong(&tu64a, &tul);
-	mk_sl_cui_uint64_div3_wrap(&tu64b, &tu64a, time);
+	mk_lib_iip_time_from_nt_timestamp(timestamp, &file_time);
 }
 
 
