@@ -3,7 +3,6 @@
 
 
 #include "mk_lang_bitness.h"
-#include "mk_lang_bui.h"
 #include "mk_lang_charbit.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_jumbo.h"
@@ -502,16 +501,7 @@ struct mk_win_dll_ws2_network_events_s
 typedef struct mk_win_dll_ws2_network_events_s mk_win_dll_ws2_network_events_t;
 mk_lang_typedef(mk_win_dll_ws2_network_events);
 
-#define mk_sl_cui_t_name mk_win_dll_ws2_socket
-#define mk_sl_cui_t_base_type_name mk_lang_bui_uintptr
-#define mk_sl_cui_t_count 1
-#define mk_sl_cui_t_disable_big_div 1
-#define mk_sl_cui_t_base_type_size_bits_d mk_lang_bui_uintptr_size_bits_d
-#define mk_sl_cui_t_inline 1
-#include "mk_sl_cui_inl_fileh.h"
-#include "mk_sl_cui_inl_fileu.h"
-#define mk_win_dll_ws2_socket_size_bits_d mk_lang_bui_uintptr_size_bits_d
-#define mk_win_dll_ws2_socket_size_bytes_d (mk_lang_bui_uintptr_size_bits_d / mk_lang_charbit)
+mk_win_base_make_handle(mk_win_dll_ws2_socket);
 
 #if mk_lang_version_at_least_cpp_17
 typedef mk_lang_types_void_t(mk_win_base_stdcall*mk_win_dll_ws2_completion_routine_t)(mk_win_base_dword_t const error, mk_win_base_dword_t const transfered, mk_win_dll_ws2_overlapped_pt const overlapped, mk_win_base_dword_t const flags) mk_lang_noexcept;
@@ -524,7 +514,7 @@ typedef mk_lang_types_void_t(mk_win_base_stdcall*mk_win_dll_ws2_completion_routi
 
 
 #define mk_win_dll_ws2_event_invalid_val mk_win_base_null
-#define mk_win_dll_ws2_invalid_socket ((mk_lang_bui_uintptr_t)(~((mk_lang_bui_uintptr_t)(0))))
+#define mk_win_dll_ws2_invalid_socket ((mk_lang_types_uintptr_t)(~((mk_lang_types_uintptr_t)(0))))
 #define mk_win_dll_ws2_socket_error ((mk_win_base_sint_t)(-1))
 #define mk_win_dll_ws2_infinite ((mk_win_base_dword_t)(0xfffffffful))
 #define mk_win_dll_ws2_timeout ((mk_win_base_dword_t)(258ul))
@@ -535,16 +525,15 @@ typedef mk_lang_types_void_t(mk_win_base_stdcall*mk_win_dll_ws2_completion_routi
 #define mk_win_dll_ws2_accept_defer 0x0002
 #define mk_win_dll_ws2_max_conn ((mk_win_base_sint_t)(0x7ffffffful))
 #define mk_win_dll_ws2_htons(x) \
-	((mk_win_base_ushort_t)( \
-		((mk_win_base_ushort_t)(((mk_win_base_ushort_t)(((mk_win_base_ushort_t)(((mk_win_base_ushort_t)(x)) >> (0 * 8))) & ((mk_win_base_ushort_t)(0xff)))) << (1 * 8))) | \
-		((mk_win_base_ushort_t)(((mk_win_base_ushort_t)(((mk_win_base_ushort_t)(((mk_win_base_ushort_t)(x)) >> (1 * 8))) & ((mk_win_base_ushort_t)(0xff)))) << (0 * 8))) \
-	))
+((mk_win_base_ushort_t)( \
+	((mk_win_base_ushort_t)(((mk_win_base_ushort_t)(((mk_win_base_ushort_t)(((mk_win_base_ushort_t)(x)) >> (0 * 8))) & ((mk_win_base_ushort_t)(0xff)))) << (1 * 8))) | \
+	((mk_win_base_ushort_t)(((mk_win_base_ushort_t)(((mk_win_base_ushort_t)(((mk_win_base_ushort_t)(x)) >> (1 * 8))) & ((mk_win_base_ushort_t)(0xff)))) << (0 * 8))) \
+))
 #define mk_win_dll_ws2_ntohs(x) \
-	((mk_win_base_ushort_t)( \
-		((mk_win_base_ushort_t)(((mk_win_base_ushort_t)(((mk_win_base_ushort_t)(((mk_win_base_ushort_t)(x)) >> (0 * 8))) & ((mk_win_base_ushort_t)(0xff)))) << (1 * 8))) | \
-		((mk_win_base_ushort_t)(((mk_win_base_ushort_t)(((mk_win_base_ushort_t)(((mk_win_base_ushort_t)(x)) >> (1 * 8))) & ((mk_win_base_ushort_t)(0xff)))) << (0 * 8))) \
-	))
-mk_lang_constexpr_static_inline mk_win_dll_ws2_event_t const mk_win_dll_ws2_event_invalid = {mk_win_dll_ws2_event_invalid_val};
+((mk_win_base_ushort_t)( \
+	((mk_win_base_ushort_t)(((mk_win_base_ushort_t)(((mk_win_base_ushort_t)(((mk_win_base_ushort_t)(x)) >> (0 * 8))) & ((mk_win_base_ushort_t)(0xff)))) << (1 * 8))) | \
+	((mk_win_base_ushort_t)(((mk_win_base_ushort_t)(((mk_win_base_ushort_t)(((mk_win_base_ushort_t)(x)) >> (1 * 8))) & ((mk_win_base_ushort_t)(0xff)))) << (0 * 8))) \
+))
 
 
 #if mk_lang_version_at_least_cpp_17

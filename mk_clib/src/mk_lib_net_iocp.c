@@ -73,9 +73,9 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_iocp_associate_w
 	mk_lang_assert(key || !key);
 	mk_lang_assert(socket);
 	mk_lang_assert(!mk_win_dll_kernel_iocp_is_null(iocp->m_handle));
-	mk_lang_assert(socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(socket->m_handle));
 
-	handle = mk_win_dll_kernel_iocp_create(mk_win_base_handle_from(((mk_win_base_void_pt)(socket->m_handle.m_elements[0]))), iocp->m_handle, ((mk_win_base_uintptr_t)(key)), ((mk_win_base_dword_t)(0))); mk_lang_check_return(handle.m_handle.m_ptr == iocp->m_handle.m_handle.m_ptr);
+	handle = mk_win_dll_kernel_iocp_create(socket->m_handle.m_handle, iocp->m_handle, ((mk_win_base_uintptr_t)(key)), ((mk_win_base_dword_t)(0))); mk_lang_check_return(handle.m_handle.m_ptr == iocp->m_handle.m_handle.m_ptr);
 	return 0;
 }
 

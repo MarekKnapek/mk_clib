@@ -2,9 +2,9 @@
 #define mk_include_guard_mk_lib_net_c
 #include "mk_lib_net.h"
 
-#include "mk_lang_null.h"
-#include "mk_lang_bool.h"
 #include "mk_lang_assert.h"
+#include "mk_lang_bool.h"
+#include "mk_lang_bui.h"
 #include "mk_lang_charbit.h"
 #include "mk_lang_check.h"
 #include "mk_lang_clobber.h"
@@ -14,14 +14,15 @@
 #include "mk_lang_min.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_null.h"
 #include "mk_lang_types.h"
 #include "mk_sl_cui_uint16.h"
 #include "mk_sl_cui_uint8.h"
 #include "mk_sl_uint_more.h"
 #include "mk_win_base.h"
-#include "mk_win_dll_ws2.h"
-#include "mk_win_dll_ntdll.h"
 #include "mk_win_dll_kernel_errors.h"
+#include "mk_win_dll_ntdll.h"
+#include "mk_win_dll_ws2.h"
 
 
 #define mk_sl_cui_t_name mk_lib_net_tcp_port
@@ -324,7 +325,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_async_connect_ge
 	mk_lang_assert(result);
 	mk_lang_assert(!mk_win_dll_ws2_event_is_null(async_connect->m_event));
 	mk_lang_assert(async_connect->m_socket);
-	mk_lang_assert(async_connect->m_socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(async_connect->m_socket->m_handle));
 
 	st = mk_win_dll_ws2_enum_network_events(async_connect->m_socket->m_handle, async_connect->m_event, &events); mk_lang_check_return(st == 0);
 	mk_lang_check_return(events.m_event_ids == mk_win_dll_ws2_sck_evt_id_e_fd_connect);
@@ -418,7 +419,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_async_rwc_get_re
 	mk_lang_assert(result);
 	mk_lang_assert(!mk_win_dll_ws2_event_is_null(async_rwc->m_event));
 	mk_lang_assert(async_rwc->m_socket);
-	mk_lang_assert(async_rwc->m_socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(async_rwc->m_socket->m_handle));
 
 	st = mk_win_dll_ws2_enum_network_events(async_rwc->m_socket->m_handle, async_rwc->m_event, &events); mk_lang_check_return(st == 0);
 	mk_lang_check_return
@@ -491,7 +492,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_write_request_co
 	mk_lang_assert(socket);
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
-	mk_lang_assert(socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(socket->m_handle));
 
 	event = mk_win_dll_ws2_create_event(); mk_lang_check_return(!mk_win_dll_ws2_event_is_null(event));
 	write_request->m_socket = socket;
@@ -516,7 +517,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_write_request_re
 	mk_lang_assert(socket);
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
-	mk_lang_assert(socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(socket->m_handle));
 
 	write_request->m_socket = socket;
 	write_request->m_data_buf = data_buf;
@@ -557,7 +558,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_write_request_is
 	mk_lang_assert(write_request);
 	mk_lang_assert(is_ready);
 	mk_lang_assert(!mk_win_dll_ws2_event_is_null(write_request->m_overlapped.m_event));
-	mk_lang_assert(write_request->m_socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(write_request->m_socket->m_handle));
 
 	waited = mk_win_dll_ws2_wait_for_multiple_events(1, &write_request->m_overlapped.m_event, mk_win_base_false, 0, mk_win_base_false); mk_lang_check_return(waited == 0 || waited == mk_win_dll_ws2_timeout);
 	is = waited == 0;
@@ -574,7 +575,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_write_request_wa
 	mk_lang_assert(ms);
 	mk_lang_assert(is_ready);
 	mk_lang_assert(!mk_win_dll_ws2_event_is_null(write_request->m_overlapped.m_event));
-	mk_lang_assert(write_request->m_socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(write_request->m_socket->m_handle));
 
 	waited = mk_win_dll_ws2_wait_for_multiple_events(1, &write_request->m_overlapped.m_event, mk_win_base_false, ((mk_win_base_dword_t)(ms)), mk_win_base_false); mk_lang_check_return(waited == 0 || waited == mk_win_dll_ws2_timeout);
 	is = waited == 0;
@@ -588,7 +589,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_write_request_wa
 
 	mk_lang_assert(write_request);
 	mk_lang_assert(!mk_win_dll_ws2_event_is_null(write_request->m_overlapped.m_event));
-	mk_lang_assert(write_request->m_socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(write_request->m_socket->m_handle));
 
 	waited = mk_win_dll_ws2_wait_for_multiple_events(1, &write_request->m_overlapped.m_event, mk_win_base_false, mk_win_dll_ws2_infinite, mk_win_base_false); mk_lang_check_return(waited == 0);
 	return 0;
@@ -602,7 +603,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_write_request_ge
 
 	mk_lang_assert(write_request);
 	mk_lang_assert(!mk_win_dll_ws2_event_is_null(write_request->m_overlapped.m_event));
-	mk_lang_assert(write_request->m_socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(write_request->m_socket->m_handle));
 
 	b = mk_win_dll_ws2_get_overlapped_result(write_request->m_socket->m_handle, &write_request->m_overlapped, &transferred, mk_win_base_true, &flags);
 	write_request->m_b = b != mk_win_base_false;
@@ -629,7 +630,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_read_request_con
 	mk_lang_assert(socket);
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
-	mk_lang_assert(socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(socket->m_handle));
 
 	event = mk_win_dll_ws2_create_event(); mk_lang_check_return(!mk_win_dll_ws2_event_is_null(event));
 	read_request->m_socket = socket;
@@ -654,7 +655,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_read_request_rec
 	mk_lang_assert(socket);
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
-	mk_lang_assert(socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(socket->m_handle));
 
 	read_request->m_socket = socket;
 	read_request->m_data_buf = data_buf;
@@ -695,7 +696,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_read_request_is_
 	mk_lang_assert(read_request);
 	mk_lang_assert(is_ready);
 	mk_lang_assert(!mk_win_dll_ws2_event_is_null(read_request->m_overlapped.m_event));
-	mk_lang_assert(read_request->m_socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(read_request->m_socket->m_handle));
 
 	waited = mk_win_dll_ws2_wait_for_multiple_events(1, &read_request->m_overlapped.m_event, mk_win_base_false, 0, mk_win_base_false); mk_lang_check_return(waited == 0 || waited == mk_win_dll_ws2_timeout);
 	is = waited == 0;
@@ -712,7 +713,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_read_request_wai
 	mk_lang_assert(ms);
 	mk_lang_assert(is_ready);
 	mk_lang_assert(!mk_win_dll_ws2_event_is_null(read_request->m_overlapped.m_event));
-	mk_lang_assert(read_request->m_socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(read_request->m_socket->m_handle));
 
 	waited = mk_win_dll_ws2_wait_for_multiple_events(1, &read_request->m_overlapped.m_event, mk_win_base_false, ((mk_win_base_dword_t)(ms)), mk_win_base_false); mk_lang_check_return(waited == 0 || waited == mk_win_dll_ws2_timeout);
 	is = waited == 0;
@@ -726,7 +727,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_read_request_wai
 
 	mk_lang_assert(read_request);
 	mk_lang_assert(!mk_win_dll_ws2_event_is_null(read_request->m_overlapped.m_event));
-	mk_lang_assert(read_request->m_socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(read_request->m_socket->m_handle));
 
 	waited = mk_win_dll_ws2_wait_for_multiple_events(1, &read_request->m_overlapped.m_event, mk_win_base_false, mk_win_dll_ws2_infinite, mk_win_base_false); mk_lang_check_return(waited == 0);
 	return 0;
@@ -740,7 +741,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_read_request_get
 
 	mk_lang_assert(read_request);
 	mk_lang_assert(!mk_win_dll_ws2_event_is_null(read_request->m_overlapped.m_event));
-	mk_lang_assert(read_request->m_socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(read_request->m_socket->m_handle));
 
 	b = mk_win_dll_ws2_get_overlapped_result(read_request->m_socket->m_handle, &read_request->m_overlapped, &transferred, mk_win_base_true, &flags);
 	mk_lang_assert(read_request->m_transferred == -1 || read_request->m_transferred == ((mk_lang_types_sint_t)(transferred)));
@@ -771,7 +772,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_ioctl_request_co
 	mk_lang_assert(in_data_len >= 0);
 	mk_lang_assert(out_data_buf || out_data_len == 0);
 	mk_lang_assert(out_data_len >= 0);
-	mk_lang_assert(socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(socket->m_handle));
 
 	event = mk_win_dll_ws2_create_event(); mk_lang_check_return(!mk_win_dll_ws2_event_is_null(event));
 	ioctl_request->m_socket = socket;
@@ -802,7 +803,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_ioctl_request_re
 	mk_lang_assert(in_data_len >= 0);
 	mk_lang_assert(out_data_buf || out_data_len == 0);
 	mk_lang_assert(out_data_len >= 0);
-	mk_lang_assert(socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(socket->m_handle));
 
 	ioctl_request->m_socket = socket;
 	ioctl_request->m_control_code = control_code;
@@ -834,7 +835,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_ioctl_request_de
 	if(!mk_win_dll_ws2_event_is_null(ioctl_request->m_overlapped.m_event))
 	{
 		mk_lang_assert(ioctl_request);
-		mk_lang_assert(ioctl_request->m_socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+		mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(ioctl_request->m_socket->m_handle));
 		mk_lang_assert(!mk_win_dll_ws2_event_is_null(ioctl_request->m_overlapped.m_event));
 		b = mk_win_dll_ws2_close_event(ioctl_request->m_overlapped.m_event); mk_lang_check_return(b != mk_win_base_false);
 	}
@@ -847,7 +848,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_ioctl_request_re
 
 	mk_lang_assert(ioctl_request);
 	mk_lang_assert(ioctl_request->m_socket);
-	mk_lang_assert(ioctl_request->m_socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(ioctl_request->m_socket->m_handle));
 	mk_lang_assert(!mk_win_dll_ws2_event_is_null(ioctl_request->m_overlapped.m_event));
 
 	b = mk_win_dll_ws2_close_event(ioctl_request->m_overlapped.m_event); mk_lang_check_return(b != mk_win_base_false);
@@ -861,7 +862,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_ioctl_request_is
 
 	mk_lang_assert(ioctl_request);
 	mk_lang_assert(ioctl_request->m_socket);
-	mk_lang_assert(ioctl_request->m_socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(ioctl_request->m_socket->m_handle));
 	mk_lang_assert(!mk_win_dll_ws2_event_is_null(ioctl_request->m_overlapped.m_event));
 
 	err = mk_lib_net_socket_ioctl(ioctl_request->m_socket, ioctl_request); mk_lang_check_rereturn(err);
@@ -875,7 +876,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_ioctl_request_is
 
 	mk_lang_assert(ioctl_request);
 	mk_lang_assert(is_ready);
-	mk_lang_assert(ioctl_request->m_socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(ioctl_request->m_socket->m_handle));
 	mk_lang_assert(!mk_win_dll_ws2_event_is_null(ioctl_request->m_overlapped.m_event));
 
 	waited = mk_win_dll_ws2_wait_for_multiple_events(1, &ioctl_request->m_overlapped.m_event, mk_win_base_false, 0, mk_win_base_false); mk_lang_check_return(waited == 0 || waited == mk_win_dll_ws2_timeout);
@@ -892,7 +893,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_ioctl_request_wa
 	mk_lang_assert(ioctl_request);
 	mk_lang_assert(ms);
 	mk_lang_assert(is_ready);
-	mk_lang_assert(ioctl_request->m_socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(ioctl_request->m_socket->m_handle));
 	mk_lang_assert(!mk_win_dll_ws2_event_is_null(ioctl_request->m_overlapped.m_event));
 
 	waited = mk_win_dll_ws2_wait_for_multiple_events(1, &ioctl_request->m_overlapped.m_event, mk_win_base_false, ((mk_win_base_dword_t)(ms)), mk_win_base_false); mk_lang_check_return(waited == 0 || waited == mk_win_dll_ws2_timeout);
@@ -907,7 +908,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_ioctl_request_wa
 
 	mk_lang_assert(ioctl_request);
 	mk_lang_assert(ioctl_request->m_socket);
-	mk_lang_assert(ioctl_request->m_socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(ioctl_request->m_socket->m_handle));
 	mk_lang_assert(!mk_win_dll_ws2_event_is_null(ioctl_request->m_overlapped.m_event));
 
 	waited = mk_win_dll_ws2_wait_for_multiple_events(1, &ioctl_request->m_overlapped.m_event, mk_win_base_false, mk_win_dll_ws2_infinite, mk_win_base_false); mk_lang_check_return(waited == 0);
@@ -922,7 +923,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_ioctl_request_ge
 
 	mk_lang_assert(ioctl_request);
 	mk_lang_assert(ioctl_request->m_socket);
-	mk_lang_assert(ioctl_request->m_socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(ioctl_request->m_socket->m_handle));
 	mk_lang_assert(!mk_win_dll_ws2_event_is_null(ioctl_request->m_overlapped.m_event));
 
 	b = mk_win_dll_ws2_get_overlapped_result(ioctl_request->m_socket->m_handle, &ioctl_request->m_overlapped, &transferred, mk_win_base_true, &flags);
@@ -954,8 +955,8 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_accept_request_c
 	mk_lang_assert(socket_accept);
 	mk_lang_assert(out_data_buf);
 	mk_lang_assert(out_data_len >= 2 * ((mk_lang_types_sint_t)(sizeof(mk_win_dll_ws2_sock_addr_t))));
-	mk_lang_assert(socket_listen->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
-	mk_lang_assert(socket_accept->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(socket_listen->m_handle));
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(socket_accept->m_handle));
 
 	event = mk_win_dll_ws2_create_event(); mk_lang_check_return(!mk_win_dll_ws2_event_is_null(event));
 	accept_request->m_fn_ptr_accept_ex = fn_ptr_accept_ex;
@@ -986,8 +987,8 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_accept_request_r
 	mk_lang_assert(socket_accept);
 	mk_lang_assert(out_data_buf);
 	mk_lang_assert(out_data_len >= 2 * ((mk_lang_types_sint_t)(sizeof(mk_win_dll_ws2_sock_addr_t))));
-	mk_lang_assert(socket_listen->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
-	mk_lang_assert(socket_accept->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(socket_listen->m_handle));
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(socket_accept->m_handle));
 
 	accept_request->m_fn_ptr_accept_ex = fn_ptr_accept_ex;
 	accept_request->m_fn_ptr_get_accept_ex_sock_addrs = fn_ptr_get_accept_ex_sock_addrs;
@@ -1024,7 +1025,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_accept_request_d
 		mk_lang_assert(accept_request->m_socket_accept);
 		mk_lang_assert(accept_request->m_out_data_buf);
 		mk_lang_assert(accept_request->m_out_data_len >= 2 * ((mk_lang_types_sint_t)(sizeof(mk_win_dll_ws2_sock_addr_t))));
-		mk_lang_assert(accept_request->m_socket_listen->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+		mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(accept_request->m_socket_listen->m_handle));
 		mk_lang_assert(!mk_win_dll_ws2_event_is_null(accept_request->m_overlapped.m_event));
 		b = mk_win_dll_ws2_close_event(accept_request->m_overlapped.m_event); mk_lang_check_return(b != mk_win_base_false);
 	}
@@ -1042,7 +1043,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_accept_request_r
 	mk_lang_assert(accept_request->m_socket_accept);
 	mk_lang_assert(accept_request->m_out_data_buf);
 	mk_lang_assert(accept_request->m_out_data_len >= 2 * ((mk_lang_types_sint_t)(sizeof(mk_win_dll_ws2_sock_addr_t))));
-	mk_lang_assert(accept_request->m_socket_listen->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(accept_request->m_socket_listen->m_handle));
 	mk_lang_assert(!mk_win_dll_ws2_event_is_null(accept_request->m_overlapped.m_event));
 
 	b = mk_win_dll_ws2_close_event(accept_request->m_overlapped.m_event); mk_lang_check_return(b != mk_win_base_false);
@@ -1061,8 +1062,8 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_accept_request_i
 	mk_lang_assert(accept_request->m_socket_accept);
 	mk_lang_assert(accept_request->m_out_data_buf);
 	mk_lang_assert(accept_request->m_out_data_len >= 2 * ((mk_lang_types_sint_t)(sizeof(mk_win_dll_ws2_sock_addr_t))));
-	mk_lang_assert(accept_request->m_socket_listen->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
-	mk_lang_assert(accept_request->m_socket_accept->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(accept_request->m_socket_listen->m_handle));
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(accept_request->m_socket_accept->m_handle));
 	mk_lang_assert(!mk_win_dll_ws2_event_is_null(accept_request->m_overlapped.m_event));
 
 	err = mk_lib_net_socket_accept(accept_request->m_fn_ptr_accept_ex, accept_request->m_socket_listen, accept_request->m_socket_accept, accept_request->m_out_data_buf, accept_request->m_out_data_len, ((mk_lang_types_sint_t)(sizeof(mk_win_dll_ws2_sock_addr_t))), ((mk_lang_types_sint_t)(sizeof(mk_win_dll_ws2_sock_addr_t))), &accept_request->m_transferred, &accept_request->m_overlapped); mk_lang_check_rereturn(err);
@@ -1081,8 +1082,8 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_accept_request_i
 	mk_lang_assert(accept_request->m_socket_accept);
 	mk_lang_assert(accept_request->m_out_data_buf);
 	mk_lang_assert(accept_request->m_out_data_len >= 2 * ((mk_lang_types_sint_t)(sizeof(mk_win_dll_ws2_sock_addr_t))));
-	mk_lang_assert(accept_request->m_socket_listen->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
-	mk_lang_assert(accept_request->m_socket_accept->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(accept_request->m_socket_listen->m_handle));
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(accept_request->m_socket_accept->m_handle));
 	mk_lang_assert(!mk_win_dll_ws2_event_is_null(accept_request->m_overlapped.m_event));
 
 	waited = mk_win_dll_ws2_wait_for_multiple_events(1, &accept_request->m_overlapped.m_event, mk_win_base_false, 0, mk_win_base_false); mk_lang_check_return(waited == 0 || waited == mk_win_dll_ws2_timeout);
@@ -1103,8 +1104,8 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_accept_request_w
 	mk_lang_assert(accept_request->m_socket_accept);
 	mk_lang_assert(accept_request->m_out_data_buf);
 	mk_lang_assert(accept_request->m_out_data_len >= 2 * ((mk_lang_types_sint_t)(sizeof(mk_win_dll_ws2_sock_addr_t))));
-	mk_lang_assert(accept_request->m_socket_listen->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
-	mk_lang_assert(accept_request->m_socket_accept->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(accept_request->m_socket_listen->m_handle));
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(accept_request->m_socket_accept->m_handle));
 	mk_lang_assert(!mk_win_dll_ws2_event_is_null(accept_request->m_overlapped.m_event));
 
 	waited = mk_win_dll_ws2_wait_for_multiple_events(1, &accept_request->m_overlapped.m_event, mk_win_base_false, ((mk_win_base_dword_t)(ms)), mk_win_base_false); mk_lang_check_return(waited == 0 || waited == mk_win_dll_ws2_timeout);
@@ -1124,7 +1125,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_accept_request_w
 	mk_lang_assert(accept_request->m_socket_accept);
 	mk_lang_assert(accept_request->m_out_data_buf);
 	mk_lang_assert(accept_request->m_out_data_len >= 2 * ((mk_lang_types_sint_t)(sizeof(mk_win_dll_ws2_sock_addr_t))));
-	mk_lang_assert(accept_request->m_socket_listen->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(accept_request->m_socket_listen->m_handle));
 	mk_lang_assert(!mk_win_dll_ws2_event_is_null(accept_request->m_overlapped.m_event));
 
 	waited = mk_win_dll_ws2_wait_for_multiple_events(1, &accept_request->m_overlapped.m_event, mk_win_base_false, mk_win_dll_ws2_infinite, mk_win_base_false); mk_lang_check_return(waited == 0);
@@ -1144,7 +1145,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_accept_request_g
 	mk_lang_assert(accept_request->m_socket_accept);
 	mk_lang_assert(accept_request->m_out_data_buf);
 	mk_lang_assert(accept_request->m_out_data_len >= 2 * ((mk_lang_types_sint_t)(sizeof(mk_win_dll_ws2_sock_addr_t))));
-	mk_lang_assert(accept_request->m_socket_listen->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(accept_request->m_socket_listen->m_handle));
 	mk_lang_assert(!mk_win_dll_ws2_event_is_null(accept_request->m_overlapped.m_event));
 
 	b = mk_win_dll_ws2_get_overlapped_result(accept_request->m_socket_listen->m_handle, &accept_request->m_overlapped, &transferred, mk_win_base_true, &flags);
@@ -1210,8 +1211,8 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_accept_request_g
 	mk_lang_assert(accept_request->m_socket_accept);
 	mk_lang_assert(accept_request->m_out_data_buf);
 	mk_lang_assert(accept_request->m_out_data_len >= 2 * ((mk_lang_types_sint_t)(sizeof(mk_win_dll_ws2_sock_addr_t))));
-	mk_lang_assert(accept_request->m_socket_listen->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
-	mk_lang_assert(accept_request->m_socket_accept->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(accept_request->m_socket_listen->m_handle));
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(accept_request->m_socket_accept->m_handle));
 	mk_lang_assert(!mk_win_dll_ws2_event_is_null(accept_request->m_overlapped.m_event));
 
 	mk_win_dll_ws2_get_accept_ex_sock_addrs(accept_request->m_fn_ptr_get_accept_ex_sock_addrs, accept_request->m_out_data_buf, ((mk_win_base_dword_t)(accept_request->m_out_data_len)), ((mk_win_base_sint_t)(sizeof(*addr_local_obj))), ((mk_win_base_sint_t)(sizeof(*addr_remote_obj))), &addr_local_obj, &addr_local_real, &addr_remote_obj, &addr_remote_real);
@@ -1229,7 +1230,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_construct
 {
 	mk_lang_assert(socket);
 
-	socket->m_handle.m_elements[0] = mk_win_dll_ws2_invalid_socket;
+	socket->m_handle = mk_win_dll_ws2_socket_get_invalid();
 	return 0;
 }
 
@@ -1279,7 +1280,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_construct
 	protocol_info = mk_lang_null;
 	group = 0;
 	flags = mk_win_dll_ws2_address_flags_e_overlapped | mk_win_dll_ws2_address_flags_e_no_handle_inherit;
-	socket->m_handle = mk_win_dll_ws2_socketw(family, type, protocol, protocol_info, group, flags); mk_lang_check_return(socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	socket->m_handle = mk_win_dll_ws2_socketw(family, type, protocol, protocol_info, group, flags); mk_lang_check_return(!mk_win_dll_ws2_socket_is_invalid(socket->m_handle));
 	return 0;
 #include "mk_lang_warning_clang_pop.h"
 }
@@ -1296,7 +1297,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_reconstru
 	mk_lang_assert(ap >= 0);
 	mk_lang_assert(ap < mk_lib_net_address_protocol_e_dummy_end);
 
-	if(socket->m_handle.m_elements[0] == mk_win_dll_ws2_invalid_socket)
+	if(mk_win_dll_ws2_socket_is_invalid(socket->m_handle))
 	{
 		err = mk_lib_net_socket_construct(socket, af, at, ap); mk_lang_check_rereturn(err);
 	}
@@ -1309,7 +1310,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_destroy(m
 
 	mk_lang_assert(socket);
 
-	if(socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket)
+	if(!mk_win_dll_ws2_socket_is_invalid(socket->m_handle))
 	{
 		//st = mk_win_dll_ws2_shutdown(socket->m_handle, mk_win_dll_ws2_shutdown_how_e_both); mk_lang_check_return(st == 0);
 		st = mk_win_dll_ws2_closesocket(socket->m_handle); mk_lang_check_return(st == 0);
@@ -1322,7 +1323,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_reset(mk_
 	mk_lang_types_sint_t err;
 
 	mk_lang_assert(socket);
-	mk_lang_assert(socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(socket->m_handle));
 
 	err = mk_lib_net_socket_destroy(socket); mk_lang_check_rereturn(err);
 	err = mk_lib_net_socket_construct_void(socket); mk_lang_check_rereturn(err);
@@ -1333,13 +1334,14 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_to_text(m
 {
 	mk_lang_types_pchar_pt ptr;
 	mk_lang_types_sint_t rem;
+	mk_lang_bui_uintptr_t uint;
 	mk_lang_types_sint_t len;
 
 	mk_lang_assert(socket);
 	mk_lang_assert(str_buf || str_len == 0);
 	mk_lang_assert(str_len >= 0);
 	mk_lang_assert(out_len);
-	mk_lang_assert(socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(socket->m_handle));
 
 	ptr = str_buf;
 	rem = str_len;
@@ -1350,7 +1352,8 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_to_text(m
 	}
 	ptr += 2;
 	rem -= 2;
-	len = mk_win_dll_ws2_socket_to_str_hex_n(&socket->m_handle, ptr, rem); mk_lang_assert((!(len >= 1)) || (len >= 1 && len <= str_len)); ptr += len; rem -= len;
+	uint = ((mk_lang_bui_uintptr_t)(socket->m_handle.m_handle.m_ptr));
+	len = mk_lang_bui_uintptr_to_str_hex_n(&uint, ptr, rem); mk_lang_assert((!(len >= 1)) || (len >= 1 && len <= str_len)); ptr += len; rem -= len;
 	len = str_len - rem;
 	*out_len = len;
 	return 0;
@@ -1368,7 +1371,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_set_optio
 
 	mk_lang_assert(socket);
 	mk_lang_assert(val == mk_lang_false || val == mk_lang_true);
-	mk_lang_assert(socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(socket->m_handle));
 
 	vvv = val ? 1 : 0;
 	s = socket->m_handle;
@@ -1385,7 +1388,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_set_optio
 	mk_lang_types_sint_t err;
 
 	mk_lang_assert(socket);
-	mk_lang_assert(socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(socket->m_handle));
 
 	err = mk_lib_net_socket_set_option_nodelay_val(socket, mk_lang_true); mk_lang_check_rereturn(err);
 	return 0;
@@ -1396,7 +1399,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_set_optio
 	mk_lang_types_sint_t err;
 
 	mk_lang_assert(socket);
-	mk_lang_assert(socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(socket->m_handle));
 
 	err = mk_lib_net_socket_set_option_nodelay_val(socket, mk_lang_false); mk_lang_check_rereturn(err);
 	return 0;
@@ -1414,10 +1417,10 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_set_optio
 
 	mk_lang_assert(socket);
 	mk_lang_assert(src);
-	mk_lang_assert(socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
-	mk_lang_assert(src->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(socket->m_handle));
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(src->m_handle));
 
-	vvv = ((mk_win_base_uintptr_t)(src->m_handle.m_elements[0]));
+	vvv = ((mk_win_base_uintptr_t)(src->m_handle.m_handle.m_ptr));
 	s = socket->m_handle;
 	level = mk_win_dll_ws2_sck_level_socket;
 	opt_name = mk_win_dll_ws2_sck_opt_socket_e_update_accept_context;
@@ -1441,7 +1444,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_get_optio
 
 	mk_lang_assert(socket);
 	mk_lang_assert(connect_time);
-	mk_lang_assert(socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(socket->m_handle));
 
 	s = socket->m_handle;
 	level = mk_win_dll_ws2_sck_level_socket;
@@ -1469,7 +1472,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_associate
 
 	mk_lang_assert(socket);
 	mk_lang_assert(async_connect);
-	mk_lang_assert(socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(socket->m_handle));
 	mk_lang_assert(!mk_win_dll_ws2_event_is_null(async_connect->m_event));
 	mk_lang_assert(!async_connect->m_socket);
 
@@ -1484,7 +1487,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_associate
 
 	mk_lang_assert(socket);
 	mk_lang_assert(async_rwc);
-	mk_lang_assert(socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(socket->m_handle));
 	mk_lang_assert(!mk_win_dll_ws2_event_is_null(async_rwc->m_event));
 	mk_lang_assert(!async_rwc->m_socket);
 
@@ -1505,7 +1508,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_get_addre
 	mk_lang_assert(socket);
 	mk_lang_assert(destination_local);
 	mk_lang_assert(destination_remote);
-	mk_lang_assert(socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(socket->m_handle));
 
 	addr_local_real = ((mk_win_base_sint_t)(sizeof(addr_local_obj)));
 	addr_remote_real = ((mk_win_base_sint_t)(sizeof(addr_remote_obj)));
@@ -1532,7 +1535,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_connect(m
 
 	mk_lang_assert(socket);
 	mk_lang_assert(destination);
-	mk_lang_assert(socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(socket->m_handle));
 	mk_lang_assert(!mk_lib_net_ipv4_address_is_any(&destination->m_ipv4_address));
 	mk_lang_assert(!mk_lib_net_ipv4_address_is_none(&destination->m_ipv4_address));
 	mk_lang_assert(!mk_lib_net_tcp_port_is_zero(&destination->m_tcp_port));
@@ -1564,7 +1567,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_bind(mk_l
 
 	mk_lang_assert(socket);
 	mk_lang_assert(destination);
-	mk_lang_assert(socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(socket->m_handle));
 	mk_lang_assert(!mk_lib_net_ipv4_address_is_none(&destination->m_ipv4_address));
 	mk_lang_assert(!mk_lib_net_tcp_port_is_zero(&destination->m_tcp_port));
 
@@ -1586,7 +1589,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_listen(mk
 	mk_lang_types_sint_t st;
 
 	mk_lang_assert(socket);
-	mk_lang_assert(socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(socket->m_handle));
 
 	s = socket->m_handle;
 	st = mk_win_dll_ws2_listen(s, mk_win_dll_ws2_max_conn); mk_lang_check_return(st == 0);
@@ -1608,8 +1611,8 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_accept(mk
 	mk_lang_assert(remote_address_len >= ((mk_lang_types_sint_t)(sizeof(mk_win_dll_ws2_sock_addr_t))));
 	mk_lang_assert(transferred);
 	mk_lang_assert(overlapped);
-	mk_lang_assert(socket_listen->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
-	mk_lang_assert(socket_accept->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(socket_listen->m_handle));
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(socket_accept->m_handle));
 
 	b = mk_win_dll_ws2_accept_ex(fn_ptr, socket_listen->m_handle, socket_accept->m_handle, out_data_buf, ((mk_win_base_dword_t)(out_data_len)), ((mk_win_base_dword_t)(local_address_len)), ((mk_win_base_dword_t)(remote_address_len)), &trans, ((mk_win_dll_ws2_overlapped_pt)(overlapped))); mk_lang_check_return((b != mk_win_base_false) || ((gle = mk_win_dll_ws2_get_last_error()) == mk_win_dll_kernel_errors_id_e_io_pending));
 	if(b != mk_win_base_false)
@@ -1632,7 +1635,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_send(mk_l
 
 	mk_lang_assert(socket);
 	mk_lang_assert(write_request);
-	mk_lang_assert(socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(socket->m_handle));
 	mk_lang_assert(write_request->m_data_buf || write_request->m_data_len == 0);
 	mk_lang_assert(write_request->m_data_len >= 0);
 	mk_lang_assert(!mk_win_dll_ws2_event_is_null(write_request->m_overlapped.m_event));
@@ -1655,7 +1658,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_recv(mk_l
 
 	mk_lang_assert(socket);
 	mk_lang_assert(read_request);
-	mk_lang_assert(socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(socket->m_handle));
 	mk_lang_assert(read_request->m_data_buf || read_request->m_data_len == 0);
 	mk_lang_assert(read_request->m_data_len >= 0);
 	mk_lang_assert(!mk_win_dll_ws2_event_is_null(read_request->m_overlapped.m_event));
@@ -1689,7 +1692,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_ioctl(mk_
 
 	mk_lang_assert(socket);
 	mk_lang_assert(ioctl_request);
-	mk_lang_assert(socket->m_handle.m_elements[0] != mk_win_dll_ws2_invalid_socket);
+	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(socket->m_handle));
 	mk_lang_assert(ioctl_request->m_in_data_buf || ioctl_request->m_in_data_len == 0);
 	mk_lang_assert(ioctl_request->m_in_data_len >= 0);
 	mk_lang_assert(ioctl_request->m_out_data_buf || ioctl_request->m_out_data_len == 0);
