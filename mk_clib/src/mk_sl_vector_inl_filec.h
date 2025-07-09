@@ -1229,7 +1229,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_de
 	mk_lang_assert(element);
 	mk_lang_assert(!mk_sl_vector_inl_defd_rw_is_empty(vector));
 	mk_lang_assert(element >= &vector->m_buffer[0] && element <= &vector->m_buffer[vector->m_size - 1]);
-	mk_lang_assert(mk_sl_vector_inl_filec_overlap_fn(element, 1, vector->m_buffer, 1));
+	mk_lang_assert(mk_sl_vector_inl_filec_overlap_fn(element, 1, vector->m_buffer, vector->m_size));
 
 	if(element != &vector->m_buffer[vector->m_size - 1])
 	{
@@ -1254,7 +1254,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_de
 	mk_lang_assert(element);
 	mk_lang_assert(!mk_sl_vector_inl_defd_rw_is_empty(vector));
 	mk_lang_assert(!(element >= &vector->m_buffer[0] && element <= &vector->m_buffer[vector->m_size - 1]));
-	mk_lang_assert(!(mk_sl_vector_inl_filec_overlap_fn(element, 1, vector->m_buffer, 1)));
+	mk_lang_assert(!(mk_sl_vector_inl_filec_overlap_fn(element, 1, vector->m_buffer, vector->m_size)));
 
 	n = vector->m_size;
 	for(i = 0; i != n; ++i)
@@ -1275,7 +1275,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_de
 	mk_lang_assert(element);
 	mk_lang_assert(!mk_sl_vector_inl_defd_rw_is_empty(vector));
 	mk_lang_assert(!(element >= &vector->m_buffer[0] && element <= &vector->m_buffer[vector->m_size - 1]));
-	mk_lang_assert(!(mk_sl_vector_inl_filec_overlap_fn(element, 1, vector->m_buffer, 1)));
+	mk_lang_assert(!(mk_sl_vector_inl_filec_overlap_fn(element, 1, vector->m_buffer, vector->m_size)));
 
 	mk_lang_assert_false();
 	return 0;
@@ -1906,7 +1906,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_er
 	mk_lang_assert(element);
 	mk_lang_assert(!mk_sl_vector_inl_defd_rw_is_empty(vector));
 	mk_lang_assert(element >= &vector->m_buffer[0] && element <= &vector->m_buffer[vector->m_size - 1]);
-	mk_lang_assert(mk_sl_vector_inl_filec_overlap_fn(element, 1, vector->m_buffer, 1));
+	mk_lang_assert(mk_sl_vector_inl_filec_overlap_fn(element, 1, vector->m_buffer, vector->m_size));
 
 	if(element != &vector->m_buffer[vector->m_size - 1])
 	{

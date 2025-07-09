@@ -11,6 +11,7 @@
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lang_overlap_inl_defd_fn(mk_lang_overlap_inl_defd_type_pct const arr1, mk_lang_types_usize_t const len1, mk_lang_overlap_inl_defd_type_pct const arr2, mk_lang_types_usize_t const len2) mk_lang_noexcept
 {
+	mk_lang_types_bool_t overlap mk_lang_constexpr_init;
 	mk_lang_types_usize_t it1 mk_lang_constexpr_init;
 	mk_lang_types_usize_t it2 mk_lang_constexpr_init;
 
@@ -28,9 +29,10 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lang_o
 	#include "mk_lang_warning_msvc_pop.h"
 	{
 		#include "mk_lang_warning_msvc_push_c4826.h"
-		return
+		overlap =
 			(((mk_lang_types_uintptr_t)(arr1)) >= ((mk_lang_types_uintptr_t)(arr2)) && ((mk_lang_types_uintptr_t)(((mk_lang_types_sintptr_t)(arr1)))) < ((mk_lang_types_uintptr_t)(arr2 + len2))) ||
 			(((mk_lang_types_uintptr_t)(arr2)) >= ((mk_lang_types_uintptr_t)(arr1)) && ((mk_lang_types_uintptr_t)(((mk_lang_types_sintptr_t)(arr2)))) < ((mk_lang_types_uintptr_t)(arr1 + len1)));
+		return overlap;
 		#include "mk_lang_warning_msvc_pop.h"
 	}
 	else

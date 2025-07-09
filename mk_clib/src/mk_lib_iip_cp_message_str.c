@@ -1945,7 +1945,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 	err = mk_lib_iip_cp_message_str_to_json_val_str_beg(ptr, rem, &tlen                     ); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	err = mk_lib_iip_cp_message_str_to_json_time_raw   (ptr, rem, &tlen, &obj->m_elements[0]); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
- 	err = mk_lib_iip_cp_message_str_to_json_val_str_end(ptr, rem, &tlen                     ); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_str_to_json_val_str_end(ptr, rem, &tlen                     ); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 
 	tlen = str_len - rem;
 	*out_len = tlen;

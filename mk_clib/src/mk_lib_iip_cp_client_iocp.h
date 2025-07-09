@@ -33,6 +33,8 @@ struct mk_lib_iip_cp_client_iocp_state_s
 {
 	mk_lib_iip_cp_client_shared_pt m_shared;
 	mk_lib_net_iocp_t m_iocp;
+	mk_lang_types_bool_t m_stop_requested;
+	mk_lang_types_bool_t m_stop_acknowledged;
 	mk_lib_iip_any_data_connections_t m_connections;
 	mk_lang_types_usize_t m_connection_idx;
 };
@@ -64,6 +66,7 @@ mk_lang_typedef(mk_lib_iip_cp_client_iocp_task_result);
 enum mk_lib_iip_cp_client_iocp_task_step_e
 {
 	mk_lib_iip_cp_client_iocp_task_step_e_ready,
+	mk_lib_iip_cp_client_iocp_task_step_e_want_die,
 	mk_lib_iip_cp_client_iocp_task_step_e_dummy_end
 };
 typedef enum mk_lib_iip_cp_client_iocp_task_step_e mk_lib_iip_cp_client_iocp_task_step_t;

@@ -71,11 +71,14 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_any_data_connect
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_any_data_connections_elem_rw_assign_move(mk_lib_iip_any_data_connection_ppt const dst, mk_lib_iip_any_data_connection_ppt const src) mk_lang_noexcept
 {
+	mk_lib_iip_any_data_connection_pt tmp;
+
 	mk_lang_assert(dst);
 	mk_lang_assert(src);
 
+	tmp = *dst;
 	*dst = *src;
-	*src = mk_lang_null;
+	*src = tmp;
 	return 0;
 }
 
