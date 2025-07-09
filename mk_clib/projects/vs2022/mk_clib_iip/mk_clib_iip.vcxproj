@@ -179,6 +179,7 @@
 		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_mallocator_lang_c89.natvis"/>
 		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_mallocator_lang_cpp.natvis"/>
 		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_mallocator_windows.natvis"/>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win.natvis"/>
 	</ItemGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
 	<ImportGroup Label="ExtensionTargets">

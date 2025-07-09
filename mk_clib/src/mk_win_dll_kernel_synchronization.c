@@ -40,8 +40,6 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_dword_t mk_win_dll_kernel_synchroniz
 {
 	mk_win_base_dword_t ret;
 
-	mk_lang_assert(object.m_data);
-
 	ret = WaitForSingleObject(object, timeout);
 	return ret;
 }

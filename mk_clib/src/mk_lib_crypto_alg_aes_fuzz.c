@@ -186,7 +186,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_crypto_alg_a
 	#include "mk_lang_warning_msvc_pop.h"
 
 	st = mk_win_dll_bcrypt_open_algorithm_provider(&provider, mk_win_dll_bcrypt_k_algorithm_aes, mk_win_dll_bcrypt_k_provider_ms_primitive, mk_win_dll_bcrypt_k_flag_none); mk_lang_check_return(st == 0);
-	st = mk_win_dll_bcrypt_set_property(mk_win_dll_bcrypt_handle_from(provider.m_data), mk_win_dll_bcrypt_k_chaining_mode, mk_win_dll_bcrypt_k_chain_mode_ecb, sizeof(mk_win_dll_bcrypt_k_chain_mode_ecb), mk_win_dll_bcrypt_k_flag_none); mk_lang_check_return(st == 0);
+	st = mk_win_dll_bcrypt_set_property(mk_win_dll_bcrypt_handle_from(provider.m_handle), mk_win_dll_bcrypt_k_chaining_mode, mk_win_dll_bcrypt_k_chain_mode_ecb, sizeof(mk_win_dll_bcrypt_k_chain_mode_ecb), mk_win_dll_bcrypt_k_flag_none); mk_lang_check_return(st == 0);
 	st = mk_win_dll_bcrypt_generate_symmetric_key(provider, &key, mk_lang_null, 0, key_buf, ((mk_lang_types_ulong_t)(key_len)), mk_win_dll_bcrypt_k_flag_none); mk_lang_check_return(st == 0);
 	st = mk_win_dll_bcrypt_encrypt(key, msg_buf, ((mk_lang_types_ulong_t)(block_count * (128 / mk_lang_charbit))), mk_lang_null, mk_lang_null, 0, out_buf, ((mk_lang_types_ulong_t)(block_count * (128 / mk_lang_charbit))), &tul, mk_win_dll_bcrypt_k_flag_none); mk_lang_check_return(st == 0); mk_lang_check_return(tul == ((mk_lang_types_ulong_t)(block_count * (128 / mk_lang_charbit))));
 	st = mk_win_dll_bcrypt_destroy_key(key); mk_lang_check_return(st == 0);
