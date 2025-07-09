@@ -31,7 +31,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_handle_t mk_win_dll_kernel_process_g
 #if defined NDEBUG
 	mk_win_base_handle_t ret;
 
-	ret.m_data = ((mk_win_base_void_pct)(((mk_lang_types_uintptr_t)(((mk_lang_types_sintptr_t)(((mk_lang_types_sint_t)(-1))))))));
+	ret.m_ptr = ((mk_win_base_void_pct)(((mk_lang_types_uintptr_t)(((mk_lang_types_sintptr_t)(((mk_lang_types_sint_t)(-1))))))));
 	return ret;
 #else
 	mk_win_base_handle_t ret;
@@ -46,7 +46,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_handle_t mk_win_dll_kernel_process_g
 #if defined NDEBUG
 	mk_win_base_handle_t ret;
 
-	ret.m_data = ((mk_win_base_void_pct)(((mk_lang_types_uintptr_t)(((mk_lang_types_sintptr_t)(((mk_lang_types_sint_t)(-2))))))));
+	ret.m_ptr = ((mk_win_base_void_pct)(((mk_lang_types_uintptr_t)(((mk_lang_types_sintptr_t)(((mk_lang_types_sint_t)(-2))))))));
 	return ret;
 #else
 	mk_win_base_handle_t ret;
