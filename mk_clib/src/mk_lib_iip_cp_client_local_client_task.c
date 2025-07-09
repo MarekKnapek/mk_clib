@@ -109,13 +109,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_local_client_task_prrw_want_associate_socket(mk_lib_iip_cp_client_local_client_task_pt const task, mk_lang_types_bool_pt const want) mk_lang_noexcept
 {
-	mk_lang_types_bool_t www;
+	mk_lang_types_bool_t wand;
 
 	mk_lang_assert(task);
 	mk_lang_assert(want);
 
-	www = task->m_step == mk_lib_iip_cp_client_local_client_task_step_e_want_associate_socket;
-	*want = www;
+	wand = task->m_step == mk_lib_iip_cp_client_local_client_task_step_e_want_associate_socket;
+	*want = wand;
 	return 0;
 }
 
@@ -550,29 +550,29 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_local_client_task_prrw_want_die(mk_lib_iip_cp_client_local_client_task_pt const task, mk_lang_types_bool_pt const want) mk_lang_noexcept
 {
-	mk_lang_types_bool_t www;
+	mk_lang_types_bool_t wand;
 
 	mk_lang_assert(task);
 	mk_lang_assert(want);
 
-	www = task->m_step == mk_lib_iip_cp_client_local_client_task_step_e_want_die;
-	*want = www;
+	wand = task->m_step == mk_lib_iip_cp_client_local_client_task_step_e_want_die;
+	*want = wand;
 	return 0;
 }
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_local_client_task_prrw_want_irp(mk_lib_iip_cp_client_local_client_task_pt const task, mk_lang_types_void_pt const overlapped, mk_lang_types_bool_pt const want) mk_lang_noexcept
 {
-	mk_lang_types_bool_t www;
+	mk_lang_types_bool_t wand;
 
 	mk_lang_assert(task);
 	mk_lang_assert(overlapped);
 	mk_lang_assert(want);
 
-	www =
+	wand =
 		overlapped == &task->m_local.m_state.m_ioctl_request.m_overlapped ||
 		overlapped == &task->m_local.m_state.m_accept_request.m_overlapped ||
 		(mk_lang_false);
-	*want = www;
+	*want = wand;
 	return 0;
 }
 
