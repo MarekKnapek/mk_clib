@@ -92,17 +92,28 @@ struct mk_win_base_large_integer_s
 typedef struct mk_win_base_large_integer_s mk_win_base_large_integer_t;
 mk_lang_typedef(mk_win_base_large_integer);
 
+struct mk_win_base_handle_s
+{
+	mk_win_base_void_pct m_ptr;
+};
+typedef struct mk_win_base_handle_s mk_win_base_handle_t;
+mk_lang_typedef(mk_win_base_handle);
+mk_lang_nodiscard static mk_lang_inline mk_win_base_handle_t mk_win_base_handle_get_null(mk_lang_types_void_t) mk_lang_noexcept { mk_win_base_handle_t r; r.m_ptr = mk_win_base_null; return r; }
+mk_lang_nodiscard static mk_lang_inline mk_win_base_handle_t mk_win_base_handle_get_invalid(mk_lang_types_void_t) mk_lang_noexcept { mk_win_base_handle_t r; r.m_ptr = mk_win_base_handle_invalid; return r; }
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_bool_t mk_win_base_handle_is_null(mk_win_base_handle_t const handle) mk_lang_noexcept { mk_lang_types_bool_t r; r = handle.m_ptr == mk_win_base_null; return r; }
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_bool_t mk_win_base_handle_is_invalid(mk_win_base_handle_t const handle) mk_lang_noexcept { mk_lang_types_bool_t r; r = handle.m_ptr == mk_win_base_handle_invalid; return r; }
+mk_lang_nodiscard static mk_lang_inline mk_win_base_handle_t mk_win_base_handle_from(mk_win_base_void_pct const handle) mk_lang_noexcept { mk_win_base_handle_t r; r.m_ptr = handle; return r; }
+
 #define mk_win_base_make_handle(x) \
-	struct mk_lang_concat(x, _s){ mk_win_base_void_pct m_data; }; \
+	struct mk_lang_concat(x, _s){ mk_win_base_handle_t m_handle; }; \
 	typedef struct mk_lang_concat(x, _s) mk_lang_concat(x, _t); \
 	mk_lang_typedef(x); \
-	mk_lang_nodiscard static mk_lang_inline mk_lang_concat(x, _t) mk_lang_concat(x, _get_null)(mk_lang_types_void_t) mk_lang_noexcept { mk_lang_concat(x, _t) r; r.m_data = mk_win_base_null; return r; } \
-	mk_lang_nodiscard static mk_lang_inline mk_lang_concat(x, _t) mk_lang_concat(x, _get_invalid)(mk_lang_types_void_t) mk_lang_noexcept { mk_lang_concat(x, _t) r; r.m_data = mk_win_base_handle_invalid; return r; } \
-	mk_lang_nodiscard static mk_lang_inline mk_lang_types_bool_t mk_lang_concat(x, _is_null)(mk_lang_concat(x, _t) const handle) mk_lang_noexcept { mk_lang_types_bool_t r; r = handle.m_data == mk_win_base_null; return r; } \
-	mk_lang_nodiscard static mk_lang_inline mk_lang_types_bool_t mk_lang_concat(x, _is_invalid)(mk_lang_concat(x, _t) const handle) mk_lang_noexcept { mk_lang_types_bool_t r; r = handle.m_data == mk_win_base_handle_invalid; return r; } \
-	mk_lang_nodiscard static mk_lang_inline mk_lang_concat(x, _t) mk_lang_concat(x, _from)(mk_win_base_void_pct const handle) mk_lang_noexcept { mk_lang_concat(x, _t) r; r.m_data = handle; return r; } \
+	mk_lang_nodiscard static mk_lang_inline mk_lang_concat(x, _t) mk_lang_concat(x, _get_null)(mk_lang_types_void_t) mk_lang_noexcept { mk_lang_concat(x, _t) r; r.m_handle = mk_win_base_handle_get_null(); return r; } \
+	mk_lang_nodiscard static mk_lang_inline mk_lang_concat(x, _t) mk_lang_concat(x, _get_invalid)(mk_lang_types_void_t) mk_lang_noexcept { mk_lang_concat(x, _t) r; r.m_handle = mk_win_base_handle_get_invalid(); return r; } \
+	mk_lang_nodiscard static mk_lang_inline mk_lang_types_bool_t mk_lang_concat(x, _is_null)(mk_lang_concat(x, _t) const handle) mk_lang_noexcept { mk_lang_types_bool_t r; r = mk_win_base_handle_is_null(handle.m_handle); return r; } \
+	mk_lang_nodiscard static mk_lang_inline mk_lang_types_bool_t mk_lang_concat(x, _is_invalid)(mk_lang_concat(x, _t) const handle) mk_lang_noexcept { mk_lang_types_bool_t r; r = mk_win_base_handle_is_invalid(handle.m_handle); return r; } \
+	mk_lang_nodiscard static mk_lang_inline mk_lang_concat(x, _t) mk_lang_concat(x, _from)(mk_win_base_handle_t const handle) mk_lang_noexcept { mk_lang_concat(x, _t) r; r.m_handle = handle; return r; } \
 
-mk_win_base_make_handle(mk_win_base_handle)
 mk_win_base_make_handle(mk_win_base_instance)
 mk_win_base_make_handle(mk_win_base_module)
 
@@ -194,9 +205,9 @@ struct mk_win_base_list_entry_s
 	((mk_win_base_word_t)(((mk_win_base_uchar_t)(((mk_win_base_ullong_t)(hi)) & ((mk_win_base_ullong_t)(0xff)))))) \
 ))
 
-static mk_win_base_instance_t const mk_win_base_s_instance_null = { mk_win_base_null };
-static mk_win_base_handle_t const mk_win_base_s_handle_null = { mk_win_base_handle_null };
-static mk_win_base_handle_t const mk_win_base_s_handle_invalid = { mk_win_base_handle_invalid };
+static mk_win_base_instance_t const mk_win_base_s_instance_null = {{ mk_win_base_null }};
+static mk_win_base_handle_t const mk_win_base_s_handle_null = {{ mk_win_base_handle_null }};
+static mk_win_base_handle_t const mk_win_base_s_handle_invalid = {{ mk_win_base_handle_invalid }};
 
 
 #endif
