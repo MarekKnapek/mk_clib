@@ -276,7 +276,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	settings.m_listening_socket = task->m_local.m_state.m_listening_socket;
 	err = mk_lib_iip_cp_client_local_client_task_any_rw_allocate(&client_any); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_cp_client_local_client_task_any_rw_construct(client_any, &settings); mk_lang_check_rereturn(err);
-	client_normal = mk_lib_iip_cp_client_local_client_task_any_rw_to_normal(client_any); mk_lang_assert(client_normal);
+	client_normal = mk_lib_iip_cp_client_local_client_task_any_rw_to_self(client_any); mk_lang_assert(client_normal);
 	err = mk_lib_iip_cp_client_local_client_tasks_rw_push_back_move_single(&task->m_local.m_state.m_clients, &client_normal); mk_lang_check_rereturn(err);
 	task->m_step = mk_lib_iip_cp_client_local_listener_task_step_e_idle;
 	*step_result = mk_lib_iip_cp_client_local_listener_task_result_e_did_something;
