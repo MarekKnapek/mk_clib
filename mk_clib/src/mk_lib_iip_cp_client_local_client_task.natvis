@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+	<Type Name="mk_lib_iip_cp_client_local_client_task_s">
+		<DisplayString Condition="m_local.m_state.m_is_connected == 0">"not connected"</DisplayString>
+		<DisplayString Condition="m_local.m_state.m_is_connected == 1">"connected from ??? to {m_local.m_state.m_destination_local}"</DisplayString>
+		<DisplayString Condition="m_local.m_state.m_is_connected == 2">"connected from {m_local.m_state.m_destination_remote} to {m_local.m_state.m_destination_local}"</DisplayString>
+	</Type>
+	<Type Name="mk_lib_iip_cp_client_local_client_tasks_s">
+		<DisplayString>{{ size = {m_size} capacity = {m_capacity} }}</DisplayString>
+		<Expand>
+			<ArrayItems>
+				<Size>m_size</Size>
+				<ValuePointer>m_buffer</ValuePointer>
+			</ArrayItems>
+		</Expand>
+	</Type>
+</AutoVisualizer>

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+	<Type Name="mk_lib_net_tcp_port_s">
+		<DisplayString>{m_elements[0].m_elements[0],d}</DisplayString>
+	</Type>
 	<Type Name="mk_lib_net_ipv4_address_s">
-		<DisplayString>{((int)(m_data.m_u8s[0].m_elements[0]))}.{((int)(m_data.m_u8s[0].m_elements[1]))}.{((int)(m_data.m_u8s[0].m_elements[2]))}.{((int)(m_data.m_u8s[0].m_elements[3]))}</DisplayString>
+		<DisplayString>{((int)(m_data.m_u8s[0].m_elements[0])),d}.{((int)(m_data.m_u8s[0].m_elements[1])),d}.{((int)(m_data.m_u8s[0].m_elements[2])),d}.{((int)(m_data.m_u8s[0].m_elements[3])),d}</DisplayString>
 	</Type>
 	<Type Name="mk_lib_net_destination_s">
-		<DisplayString>{((int)(m_ipv4_address.m_data.m_u8s[0].m_elements[0])),d}.{((int)(m_ipv4_address.m_data.m_u8s[0].m_elements[1])),d}.{((int)(m_ipv4_address.m_data.m_u8s[0].m_elements[2])),d}.{((int)(m_ipv4_address.m_data.m_u8s[0].m_elements[3])),d}:{m_tcp_port.m_elements[0].m_elements[0],d}</DisplayString>
+		<DisplayString>{m_ipv4_address}:{m_tcp_port}</DisplayString>
 	</Type>
 </AutoVisualizer>
