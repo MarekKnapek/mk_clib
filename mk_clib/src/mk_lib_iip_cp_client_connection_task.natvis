@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+	<Type Name="mk_lib_iip_cp_client_connection_task_s">
+		<DisplayString>"connected to {m_connection.m_settings.m_destination}"</DisplayString>
+	</Type>
+</AutoVisualizer>
