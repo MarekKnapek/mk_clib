@@ -29,7 +29,7 @@
 #include "mk_sl_cui_inl_fileu.h"
 
 
-mk_lang_constexpr_static_inline mk_sl_cui_uint64_t const mk_sl_time_k_max = mk_sl_cui_uint64_c(0x0a82b522ul, 0xb3b28000ul);
+mk_lang_constexpr_static_inline mk_sl_cui_uint64_t const mk_sl_time_k_max = mk_sl_cui_uint64_c(0x0a82b522ul, 0xb3b28000ul); /* 4001-01-01 */
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_time_k_fmt[] = "0000-00-00T00:00:00.0000000Z";
 
 
