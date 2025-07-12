@@ -568,7 +568,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_usa
 	err = mk_lang_stdout_println_lit_t(mk_lang_tchar_c("iip")); mk_lang_check_rereturn(err);
 	len = mk_lib_fmt_t_snnprintf(&buf[0], mk_lang_countof(buf), mk_lib_fmt_lit_and_len(mk_lang_tchar_c("exe name: %t")), exe_name, exe_len); mk_lang_check_return(len >= 1); mk_lang_check_return(len <= mk_lang_countof(buf)); err = mk_lang_stdout_println_t(&buf[0], len); mk_lang_check_rereturn(err);
 	mk_sl_time_timestamp_get_now(&time_val);
-	time_len = mk_sl_time_timestamp_to_text(&time_val, &time_str[0], mk_lang_countof(time_str)); mk_lang_assert(time_len == mk_lang_countof(time_str));
+	time_len = mk_sl_time_to_text(&time_val, &time_str[0], mk_lang_countof(time_str)); mk_lang_assert(time_len == mk_lang_countof(time_str));
 	len = mk_lib_fmt_t_snnprintf(&buf[0], mk_lang_countof(buf), mk_lib_fmt_lit_and_len(mk_lang_tchar_c("time: %ht")), &time_str[0], time_len); mk_lang_check_return(len >= 1); mk_lang_check_return(len <= mk_lang_countof(buf)); err = mk_lang_stdout_println_t(&buf[0], len); mk_lang_check_rereturn(err);
 	return 0;
 }

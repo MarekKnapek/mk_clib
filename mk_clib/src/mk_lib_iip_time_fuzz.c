@@ -40,21 +40,21 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_time_fuzz(mk_lan
 	d += mk_sl_time_timestamp_size_bytes_v;
 	s -= mk_sl_time_timestamp_size_bytes_v;
 
-	mk_lib_iip_time_from_sl_timestamp(&iip_timestamp, &sl_timestamp);
-	mk_lib_iip_time_to_components(&iip_timestamp, &iip_components);
+	mk_sl_time_to_components(&sl_timestamp, &sl_components);
 	if
 	(!(
-		(iip_components.m_year == 0) &&
-		(iip_components.m_month == 0) &&
-		(iip_components.m_day == 0) &&
-		(iip_components.m_hour == 0) &&
-		(iip_components.m_minute == 0) &&
-		(iip_components.m_second == 0) &&
-		(iip_components.m_milli_second == 0) &&
+		(sl_components.m_year == 0) &&
+		(sl_components.m_month == 0) &&
+		(sl_components.m_day == 0) &&
+		(sl_components.m_hour == 0) &&
+		(sl_components.m_minute == 0) &&
+		(sl_components.m_second == 0) &&
+		(sl_components.m_ticks == 0l) &&
 		(mk_lang_true)
 	))
 	{
-		mk_sl_time_to_components(&sl_timestamp, &sl_components);
+		mk_lib_iip_time_from_sl_timestamp(&iip_timestamp, &sl_timestamp);
+		mk_lib_iip_time_to_components(&iip_timestamp, &iip_components);
 		mk_lang_test(iip_components.m_year == sl_components.m_year);
 		mk_lang_test(iip_components.m_month == sl_components.m_month);
 		mk_lang_test(iip_components.m_day == sl_components.m_day);

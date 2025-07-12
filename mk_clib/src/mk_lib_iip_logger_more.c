@@ -23,7 +23,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_logger_p
 	mk_lang_assert(logger);
 
 	mk_sl_time_timestamp_get_now(&time_val);
-	time_len = mk_sl_time_timestamp_to_text(&time_val, &time_str[0], mk_lang_countof(time_str)); mk_lang_assert(time_len == mk_lang_countof(time_str));
+	time_len = mk_sl_time_to_text(&time_val, &time_str[0], mk_lang_countof(time_str)); mk_lang_assert(time_len == mk_lang_countof(time_str));
 	{
 		err = mk_lib_iip_logger_rw_begin_color(logger, mk_lib_iip_logger_color_text_e_dark_magenta); mk_lang_check_rereturn(err);
 		err = mk_lib_iip_logger_rw_print(logger, &time_str[0], time_len); mk_lang_check_rereturn(err);
