@@ -7,15 +7,10 @@
 		<Intrinsic Name="k_seconds_per_minute" Expression="60"/>
 		<Intrinsic Name="k_minutes_per_hour" Expression="60"/>
 		<Intrinsic Name="k_hours_per_day" Expression="24"/>
-		<Intrinsic Name="k_days_per_year_1_no_leap" Expression="365"/>
 		<!-- ========== -->
 		<Intrinsic Name="k_ticks_per_second" Expression="k_ticks_per_micro_second() * k_micro_seconds_per_milli_second() * k_milli_seconds_per_second()"/>
 		<Intrinsic Name="k_seconds_per_day" Expression="k_seconds_per_minute() * k_minutes_per_hour() * k_hours_per_day()"/>
 		<Intrinsic Name="k_minutes_per_day" Expression="k_minutes_per_hour() * k_hours_per_day()"/>
-		<Intrinsic Name="k_days_per_cycle_1_year" Expression="k_days_per_year_1_no_leap()"/>
-		<Intrinsic Name="k_days_per_cycle_4_years" Expression="(4 * k_days_per_cycle_1_year()) + 1"/>
-		<Intrinsic Name="k_days_per_cycle_100_years" Expression="(25 * k_days_per_cycle_4_years()) - 1"/>
-		<Intrinsic Name="k_days_per_cycle_400_years" Expression="(4 * k_days_per_cycle_100_years()) + 1"/>
 			<!-- ========== -->
 		<Intrinsic Name="ticks_since_nt" Expression="m_elements[0].m_elements[0]"/>
 		<Intrinsic Name="seconds_since_nt" Expression="ticks_since_nt() / k_ticks_per_second()"/>
@@ -26,55 +21,28 @@
 		<Intrinsic Name="seconds_in_minute" Expression="seconds_in_day() - minutes_in_day() * k_seconds_per_minute()"/>
 		<Intrinsic Name="hours_in_day" Expression="minutes_in_day() / k_minutes_per_hour()"/>
 		<Intrinsic Name="minutes_in_hour" Expression="minutes_in_day() - hours_in_day() * k_minutes_per_hour()"/>
-		<Intrinsic Name="cycles_400_years" Expression="days_since_nt() / k_days_per_cycle_400_years()"/>
-		<Intrinsic Name="days_in_cycle_400_years" Expression="days_since_nt() - cycles_400_years() * k_days_per_cycle_400_years()"/>
-		<Intrinsic Name="cycles_100_years_tmp" Expression="days_in_cycle_400_years() / k_days_per_cycle_100_years()"/>
-		<Intrinsic Name="cycles_100_years" Expression="3 &lt; cycles_100_years_tmp() ? 3 : cycles_100_years_tmp()"/>
-		<Intrinsic Name="days_in_cycle_100_years" Expression="days_in_cycle_400_years() - cycles_100_years() * k_days_per_cycle_100_years()"/>
-		<Intrinsic Name="cycles_4_years" Expression="days_in_cycle_100_years() / k_days_per_cycle_4_years()"/>
-		<Intrinsic Name="days_in_cycle_4_years" Expression="days_in_cycle_100_years() - cycles_4_years() * k_days_per_cycle_4_years()"/>
-		<Intrinsic Name="cycles_1_year_tmp" Expression="days_in_cycle_4_years() / k_days_per_cycle_1_year()"/>
-		<Intrinsic Name="cycles_1_year" Expression="3 &lt; cycles_1_year_tmp() ? 3 : cycles_1_year_tmp()"/>
-		<Intrinsic Name="days_in_cycle_1_year" Expression="days_in_cycle_4_years() - cycles_1_year() * k_days_per_cycle_1_year()"/>
+			<!-- ========== -->
+		<Intrinsic Name="days_since_jd" Expression="2305814 + days_since_nt()"/>
+		<Intrinsic Name="a" Expression="days_since_jd() + 32044"/>
+		<Intrinsic Name="b" Expression="(4 * a() + 3) / 146097"/>
+		<Intrinsic Name="c" Expression="a() - (146097 * b()) / 4"/>
+		<Intrinsic Name="d" Expression="(4 * c() + 3) / 1461"/>
+		<Intrinsic Name="e" Expression="c() - (1461 * d()) / 4"/>
+		<Intrinsic Name="m" Expression="(5 * e() + 2) / 153"/>
+		<Intrinsic Name="day" Expression="e() - (153 * m() + 2) / 5 + 1"/>
+		<Intrinsic Name="month" Expression="m() + 3 - 12 * (m() / 10)"/>
+		<Intrinsic Name="year" Expression="100 * b() + d() - 4800 + (m() / 10)"/>
 		<!-- ========== -->
-		<Intrinsic Name="y" Expression="1601 + cycles_400_years() * 400 + cycles_100_years() * 100 + cycles_4_years() * 4 + cycles_1_year() * 1"/>
-		<Intrinsic Name="is_leap" Expression="(((y() % 4) == 0) &amp;&amp; ((y() % 100) != 0)) || ((y() % 400) == 0)"/>
+		<Intrinsic Name="digit_2_1" Expression="(value / 10) % 10"><Parameter Name="value" Type="int"/></Intrinsic>
+		<Intrinsic Name="digit_2_2" Expression="(value / 1) % 10"><Parameter Name="value" Type="int"/></Intrinsic>
+		<Intrinsic Name="digit_7_1" Expression="(value / 1000000) % 10"><Parameter Name="value" Type="int"/></Intrinsic>
+		<Intrinsic Name="digit_7_2" Expression="(value / 100000) % 10"><Parameter Name="value" Type="int"/></Intrinsic>
+		<Intrinsic Name="digit_7_3" Expression="(value / 10000) % 10"><Parameter Name="value" Type="int"/></Intrinsic>
+		<Intrinsic Name="digit_7_4" Expression="(value / 1000) % 10"><Parameter Name="value" Type="int"/></Intrinsic>
+		<Intrinsic Name="digit_7_5" Expression="(value / 100) % 10"><Parameter Name="value" Type="int"/></Intrinsic>
+		<Intrinsic Name="digit_7_6" Expression="(value / 10) % 10"><Parameter Name="value" Type="int"/></Intrinsic>
+		<Intrinsic Name="digit_7_7" Expression="(value / 1) % 10"><Parameter Name="value" Type="int"/></Intrinsic>
 		<!-- ========== -->
-		<Intrinsic Name="ma_0" Expression="days_in_cycle_1_year() + 1"/>
-		<Intrinsic Name="ma_1" Expression="((ma_0() - 1) >= 31 ? ((ma_0() - 1) - 31) : 0) + 1"/>
-		<Intrinsic Name="ma_2" Expression="((ma_1() - 1) >= (is_leap() ? 29 : 28) ? ((ma_1() - 1) - (is_leap() ? 29 : 28)) : 0) + 1"/>
-		<Intrinsic Name="ma_3" Expression="((ma_2() - 1) >= 31 ? ((ma_2() - 1) - 31) : 0) + 1"/>
-		<Intrinsic Name="ma_4" Expression="((ma_3() - 1) >= 30 ? ((ma_3() - 1) - 30) : 0) + 1"/>
-		<Intrinsic Name="ma_5" Expression="((ma_4() - 1) >= 31 ? ((ma_4() - 1) - 31) : 0) + 1"/>
-		<Intrinsic Name="ma_6" Expression="((ma_5() - 1) >= 30 ? ((ma_5() - 1) - 30) : 0) + 1"/>
-		<Intrinsic Name="ma_7" Expression="((ma_6() - 1) >= 31 ? ((ma_6() - 1) - 31) : 0) + 1"/>
-		<Intrinsic Name="ma_8" Expression="((ma_7() - 1) >= 31 ? ((ma_7() - 1) - 31) : 0) + 1"/>
-		<Intrinsic Name="ma_9" Expression="((ma_8() - 1) >= 30 ? ((ma_8() - 1) - 30) : 0) + 1"/>
-		<Intrinsic Name="ma_a" Expression="((ma_9() - 1) >= 31 ? ((ma_9() - 1) - 31) : 0) + 1"/>
-		<Intrinsic Name="ma_b" Expression="((ma_a() - 1) >= 30 ? ((ma_a() - 1) - 30) : 0) + 1"/>
-		<Intrinsic Name="ma_c" Expression="((ma_b() - 1) >= 31 ? ((ma_b() - 1) - 31) : 0) + 1"/>
-		<!-- ========== -->
-		<Intrinsic Name="mb_1" Expression="1"/>
-		<Intrinsic Name="mb_2" Expression="mb_1() + (ma_2() != 0 ? 1 : 0)"/>
-		<Intrinsic Name="mb_3" Expression="mb_2() + (ma_3() != 0 ? 1 : 0)"/>
-		<Intrinsic Name="mb_4" Expression="mb_3() + (ma_4() != 0 ? 1 : 0)"/>
-		<Intrinsic Name="mb_5" Expression="mb_4() + (ma_5() != 0 ? 1 : 0)"/>
-		<Intrinsic Name="mb_6" Expression="mb_5() + (ma_6() != 0 ? 1 : 0)"/>
-		<Intrinsic Name="mb_7" Expression="mb_6() + (ma_7() != 0 ? 1 : 0)"/>
-		<Intrinsic Name="mb_8" Expression="mb_7() + (ma_8() != 0 ? 1 : 0)"/>
-		<Intrinsic Name="mb_9" Expression="mb_8() + (ma_9() != 0 ? 1 : 0)"/>
-		<Intrinsic Name="mb_a" Expression="mb_9() + (ma_a() != 0 ? 1 : 0)"/>
-		<Intrinsic Name="mb_b" Expression="mb_a() + (ma_b() != 0 ? 1 : 0)"/>
-		<Intrinsic Name="mb_c" Expression="mb_b() + (ma_c() != 0 ? 1 : 0)"/>
-		<!-- ========== -->
-		<Intrinsic Name="m" Expression="mb_c()"/>
-		<!-- ========== -->
-		<Intrinsic Name="digit_10_1" Expression="(value / 10) % 10"><Parameter Name="value" Type="int"/></Intrinsic>
-		<Intrinsic Name="digit_10_2" Expression="(value / 1) % 10"><Parameter Name="value" Type="int"/></Intrinsic>
-		<Intrinsic Name="digit_100_1" Expression="(value / 100) % 10"><Parameter Name="value" Type="int"/></Intrinsic>
-		<Intrinsic Name="digit_100_2" Expression="(value / 10) % 10"><Parameter Name="value" Type="int"/></Intrinsic>
-		<Intrinsic Name="digit_100_3" Expression="(value / 1) % 10"><Parameter Name="value" Type="int"/></Intrinsic>
-		<!-- ========== -->
-		<DisplayString>{y()}-{digit_10_1(m())}{digit_10_2(m())}-xxT{digit_10_1(hours_in_day())}{digit_10_2(hours_in_day())}:{digit_10_1(minutes_in_hour())}{digit_10_2(minutes_in_hour())}:{digit_10_1(seconds_in_minute())}{digit_10_2(seconds_in_minute())}.xxxxxxxZ</DisplayString>
+		<DisplayString>{year()}-{digit_2_1(month())}{digit_2_2(month())}-{digit_2_1(day())}{digit_2_2(day())}T{digit_2_1(hours_in_day())}{digit_2_2(hours_in_day())}:{digit_2_1(minutes_in_hour())}{digit_2_2(minutes_in_hour())}:{digit_2_1(seconds_in_minute())}{digit_2_2(seconds_in_minute())}.{digit_7_1(ticks_in_second())}{digit_7_2(ticks_in_second())}{digit_7_3(ticks_in_second())}{digit_7_4(ticks_in_second())}{digit_7_5(ticks_in_second())}{digit_7_6(ticks_in_second())}{digit_7_7(ticks_in_second())}Z</DisplayString>
 	</Type>
 </AutoVisualizer>

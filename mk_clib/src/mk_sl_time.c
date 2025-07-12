@@ -7,7 +7,6 @@
 #include "mk_lang_constexpr.h"
 #include "mk_lang_countof.h"
 #include "mk_lang_jumbo.h"
-#include "mk_lang_min.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_static_assert.h"
@@ -22,14 +21,13 @@
 #define mk_sl_cui_t_name mk_sl_time_timestamp
 #define mk_sl_cui_t_base_type_name mk_sl_cui_uint64
 #define mk_sl_cui_t_count 1
-#define mk_sl_cui_t_disable_big_div 1
 #define mk_sl_cui_t_base_type_size_bits_d mk_sl_cui_uint64_size_bits_d
 #define mk_sl_cui_t_inline 1
 #include "mk_sl_cui_inl_filec.h"
 #include "mk_sl_cui_inl_fileu.h"
 
 
-mk_lang_constexpr_static_inline mk_sl_cui_uint64_t const mk_sl_time_k_max = mk_sl_cui_uint64_c(0x0a82b522ul, 0xb3b28000ul); /* 4001-01-01 */
+mk_lang_constexpr_static_inline mk_sl_time_timestamp_t const mk_sl_time_k_max = { mk_sl_cui_uint64_c(0x0a82b522ul, 0xb3b28000ul) }; /* 4001-01-01 */
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_time_k_fmt[] = "0000-00-00T00:00:00.0000000Z";
 
 
@@ -48,19 +46,16 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_time_to_components(mk
 	mk_lang_types_slong_t seconds_in_minute mk_lang_constexpr_init;
 	mk_lang_types_slong_t hours_in_day mk_lang_constexpr_init;
 	mk_lang_types_slong_t minutes_in_hour mk_lang_constexpr_init;
-	mk_lang_types_slong_t cycles_400_years mk_lang_constexpr_init;
-	mk_lang_types_slong_t days_in_cycle_400_years mk_lang_constexpr_init;
-	mk_lang_types_slong_t cycles_100_years mk_lang_constexpr_init;
-	mk_lang_types_slong_t days_in_cycle_100_years mk_lang_constexpr_init;
-	mk_lang_types_slong_t cycles_4_years mk_lang_constexpr_init;
-	mk_lang_types_slong_t days_in_cycle_4_years mk_lang_constexpr_init;
-	mk_lang_types_slong_t cycles_1_year mk_lang_constexpr_init;
-	mk_lang_types_slong_t days_in_cycle_1_year mk_lang_constexpr_init;
+	mk_lang_types_slong_t days_since_jd mk_lang_constexpr_init;
+	mk_lang_types_slong_t a mk_lang_constexpr_init;
+	mk_lang_types_slong_t b mk_lang_constexpr_init;
+	mk_lang_types_slong_t c mk_lang_constexpr_init;
+	mk_lang_types_slong_t d mk_lang_constexpr_init;
+	mk_lang_types_slong_t e mk_lang_constexpr_init;
+	mk_lang_types_slong_t m mk_lang_constexpr_init;
+	mk_lang_types_slong_t day mk_lang_constexpr_init;
+	mk_lang_types_slong_t month mk_lang_constexpr_init;
 	mk_lang_types_slong_t year mk_lang_constexpr_init;
-	mk_lang_types_bool_t is_leap mk_lang_constexpr_init;
-	mk_lang_types_sint_pct days_per_months mk_lang_constexpr_init;
-	mk_lang_types_slong_t months_in_year mk_lang_constexpr_init;
-	mk_lang_types_slong_t days_in_month mk_lang_constexpr_init;
 
 	mk_lang_types_slong_t const k_ticks_per_micro_second = 10l;
 	mk_lang_types_slong_t const k_micro_seconds_per_milli_second = 1000l;
@@ -68,25 +63,16 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_time_to_components(mk
 	mk_lang_types_slong_t const k_seconds_per_minute = 60l;
 	mk_lang_types_slong_t const k_minutes_per_hour = 60l;
 	mk_lang_types_slong_t const k_hours_per_day = 24l;
-	mk_lang_types_slong_t const k_days_per_cycle_1_year = 365l;
-
 	mk_lang_types_slong_t const k_ticks_per_second = k_ticks_per_micro_second * k_micro_seconds_per_milli_second * k_milli_seconds_per_second;
 	mk_lang_types_slong_t const k_seconds_per_day = k_seconds_per_minute * k_minutes_per_hour * k_hours_per_day;
 	mk_lang_types_slong_t const k_minutes_per_day = k_minutes_per_hour * k_hours_per_day;
 
-	mk_lang_types_slong_t const k_days_per_cycle_4_years = (4l * k_days_per_cycle_1_year) + 1l;
-	mk_lang_types_slong_t const k_days_per_cycle_100_years = (25l * k_days_per_cycle_4_years) - 1l;
-	mk_lang_types_slong_t const k_days_per_cycle_400_years = (4l * k_days_per_cycle_100_years) + 1l;
-
-	mk_lang_types_sint_t const k_days_per_months_normal[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-	mk_lang_types_sint_t const k_days_per_months_leap[] = { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-
 	mk_lang_assert(timestamp);
 	mk_lang_assert(components);
 
-	ticks_since_nt = &timestamp->m_elements[0];
-	if(mk_sl_cui_uint64_le(ticks_since_nt, &mk_sl_time_k_max))
+	if(mk_sl_time_timestamp_le(timestamp, &mk_sl_time_k_max))
 	{
+		ticks_since_nt = &timestamp->m_elements[0];
 		tsl = k_ticks_per_second; mk_sl_cui_uint64_from_bi_slong(&ta, &tsl);
 		mk_sl_cui_uint64_divmod4_wrap(ticks_since_nt, &ta, &seconds_since_nt, &tb);
 		mk_sl_cui_uint64_to_bi_slong(&tb, &ticks_in_second);
@@ -114,55 +100,20 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_time_to_components(mk
 		mk_lang_assert(minutes_in_hour >= 0l);
 		mk_lang_assert(minutes_in_hour < k_minutes_per_hour);
 
-		cycles_400_years = days_since_nt / k_days_per_cycle_400_years;
-		days_in_cycle_400_years = days_since_nt - cycles_400_years * k_days_per_cycle_400_years;
-		mk_lang_assert(days_in_cycle_400_years >= 0l);
-		mk_lang_assert(days_in_cycle_400_years < k_days_per_cycle_400_years);
-
-		cycles_100_years = days_in_cycle_400_years / k_days_per_cycle_100_years;
-		cycles_100_years = mk_lang_min(cycles_100_years, 3);
-		days_in_cycle_100_years = days_in_cycle_400_years - cycles_100_years * k_days_per_cycle_100_years;
-		mk_lang_assert(days_in_cycle_100_years >= 0l);
-		mk_lang_assert(days_in_cycle_100_years <= k_days_per_cycle_100_years);
-
-		cycles_4_years = days_in_cycle_100_years / k_days_per_cycle_4_years;
-		days_in_cycle_4_years = days_in_cycle_100_years - cycles_4_years * k_days_per_cycle_4_years;
-		mk_lang_assert(days_in_cycle_4_years >= 0l);
-		mk_lang_assert(days_in_cycle_4_years < k_days_per_cycle_4_years);
-
-		cycles_1_year = days_in_cycle_4_years / k_days_per_cycle_1_year;
-		cycles_1_year = mk_lang_min(cycles_1_year, 3);
-		days_in_cycle_1_year = days_in_cycle_4_years - cycles_1_year * k_days_per_cycle_1_year;
-		mk_lang_assert(days_in_cycle_1_year >= 0l);
-		mk_lang_assert(days_in_cycle_1_year <= k_days_per_cycle_1_year);
-
-		year = 1601 + cycles_400_years * 400 + cycles_100_years * 100 + cycles_4_years * 4 + cycles_1_year * 1;
-		mk_lang_assert(year >= 1601);
-		mk_lang_assert(year <= 4001);
-		is_leap = ((((year % 4) == 0) && ((year % 100) != 0)) || ((year % 400) == 0));
-		days_per_months = is_leap ? &k_days_per_months_leap[0] : &k_days_per_months_normal[0];
-
-		months_in_year = 0;
-		while(days_in_cycle_1_year >= days_per_months[months_in_year])
-		{
-			days_in_cycle_1_year -= days_per_months[months_in_year];
-			++months_in_year;
-		}
-		mk_lang_assert(months_in_year >= 0);
-		mk_lang_assert(months_in_year <= 11);
-
-		days_in_month = days_in_cycle_1_year + 1;
-		mk_lang_assert(days_in_month >= 1);
-		mk_lang_assert(days_in_month <= 31);
-		mk_lang_assert(days_in_month <= days_per_months[months_in_year]);
-
-		++months_in_year;
-		mk_lang_assert(months_in_year >= 1);
-		mk_lang_assert(months_in_year <= 12);
+		days_since_jd = 2305814l + days_since_nt;
+		a = days_since_jd + 32044l;
+		b = (4l * a + 3l) / 146097l;
+		c = a - (146097l * b) / 4l;
+		d = (4l * c + 3l) / 1461l;
+		e = c - (1461l * d) / 4l;
+		m = (5l * e + 2l) / 153l;
+		day = e - (153l * m + 2l) / 5l + 1l;
+		month = m + 3l - 12l * (m / 10l);
+		year = 100l * b + d - 4800l + (m / 10l);
 
 		components->m_year = year;
-		components->m_month = months_in_year;
-		components->m_day = days_in_month;
+		components->m_month = month;
+		components->m_day = day;
 		components->m_hour = hours_in_day;
 		components->m_minute = minutes_in_hour;
 		components->m_second = seconds_in_minute;
@@ -180,7 +131,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_time_to_components(mk
 	}
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_time_timestamp_to_text(mk_sl_time_timestamp_pct const timestamp, mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_time_to_text(mk_sl_time_timestamp_pct const timestamp, mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
 {
 	mk_sl_time_components_t components mk_lang_constexpr_init;
 	mk_lang_types_pchar_t buf[7] mk_lang_constexpr_init;

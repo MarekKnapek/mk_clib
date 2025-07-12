@@ -4,6 +4,7 @@
 
 #include "mk_lang_constexpr.h"
 #include "mk_lang_jumbo.h"
+#include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_typedef.h"
 #include "mk_lang_types.h"
@@ -39,10 +40,13 @@ typedef struct mk_lib_iip_time_components_s mk_lib_iip_time_components_t;
 mk_lang_typedef(mk_lib_iip_time_components);
 
 
+#define mk_lib_iip_time_k_str_len (24)
+
+
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_time_from_nt_timestamp(mk_lib_iip_time_timestamp_pt const iip_timestamp, mk_win_dll_kernel_time_file_time_pct const nt_timestamp) mk_lang_noexcept;
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_time_from_sl_timestamp(mk_lib_iip_time_timestamp_pt const iip_timestamp, mk_sl_time_timestamp_pct const sl_timestamp) mk_lang_noexcept;
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_time_to_components(mk_lib_iip_time_timestamp_pct const timestamp, mk_lib_iip_time_components_pt const components) mk_lang_noexcept;
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_time_to_text(mk_lib_iip_time_timestamp_pct const timestamp, mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_sint_pt const out_len) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_time_to_text(mk_lib_iip_time_timestamp_pct const timestamp, mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept;
 mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_time_get_now(mk_lib_iip_time_timestamp_pt const timestamp) mk_lang_noexcept;
 
 

@@ -5,68 +5,37 @@
 		<Intrinsic Name="k_seconds_per_minute" Expression="60"/>
 		<Intrinsic Name="k_minutes_per_hour" Expression="60"/>
 		<Intrinsic Name="k_hours_per_day" Expression="24"/>
-		<Intrinsic Name="k_days_per_year_1_n" Expression="365"/>
-		<Intrinsic Name="k_days_per_year_1_l" Expression="366"/>
 		<!-- ========== -->
-		<Intrinsic Name="k_seconds_per_day" Expression="1 * k_hours_per_day() * k_minutes_per_hour() * k_seconds_per_minute()"/>
-		<Intrinsic Name="k_days_per_year_4" Expression="3 * k_days_per_year_1_n() + 1 * k_days_per_year_1_l()"/>
-		<Intrinsic Name="k_days_per_year_100" Expression="(100 * k_days_per_year_1_n()) + (100 / 4) - (100 / 100)"/>
-		<Intrinsic Name="k_days_per_year_400" Expression="(400 * k_days_per_year_1_n()) + (400 / 4) - (400 / 100) + (400 / 400)"/>
-		<Intrinsic Name="k_days_from_unix_to_c400_march" Expression="7 * k_days_per_year_4() + 2 * k_days_per_year_1_n()"/>
+		<Intrinsic Name="k_seconds_per_day" Expression="k_seconds_per_minute() * k_minutes_per_hour() * k_hours_per_day()"/>
+		<Intrinsic Name="k_minutes_per_day" Expression="k_minutes_per_hour() * k_hours_per_day()"/>
 		<!-- ========== -->
-		<Intrinsic Name="ms_since_unix" Expression="m_elements[0].m_elements[0]"/>
-		<Intrinsic Name="s_since_unix" Expression="ms_since_unix() / k_milli_seconds_per_second()"/>
-		<Intrinsic Name="ms_in_s" Expression="ms_since_unix() % k_milli_seconds_per_second()"/>
-		<Intrinsic Name="d_since_unix" Expression="s_since_unix() / k_seconds_per_day()"/>
-		<Intrinsic Name="s_in_d" Expression="s_since_unix() % k_seconds_per_day()"/>
-		<Intrinsic Name="m_in_d" Expression="s_in_d() / k_seconds_per_minute()"/>
-		<Intrinsic Name="s_in_m" Expression="s_in_d() % k_seconds_per_minute()"/>
-		<Intrinsic Name="h_in_d" Expression="m_in_d() / k_minutes_per_hour()"/>
-		<Intrinsic Name="m_in_h" Expression="m_in_d() % k_minutes_per_hour()"/>
-		<Intrinsic Name="d_since_c400_march" Expression="d_since_unix() + (k_days_per_year_400() - k_days_from_unix_to_c400_march())"/>
-		<Intrinsic Name="c400" Expression="d_since_c400_march() / k_days_per_year_400()"/>
-		<Intrinsic Name="d_in_c400" Expression="d_since_c400_march() % k_days_per_year_400()"/>
-		<Intrinsic Name="c100" Expression="d_in_c400() / k_days_per_year_100()"/>
-		<Intrinsic Name="d_in_c100" Expression="d_in_c400() % k_days_per_year_100()"/>
-		<Intrinsic Name="c4" Expression="d_in_c100() / k_days_per_year_4()"/>
-		<Intrinsic Name="d_in_c4" Expression="d_in_c100() % k_days_per_year_4()"/>
-		<Intrinsic Name="c1" Expression="d_in_c4() &gt;= 3 * k_days_per_year_1_n() ? 3 : (d_in_c4() &gt;= 2 * k_days_per_year_1_n() ? 2 : (d_in_c4() &gt;= 1 * k_days_per_year_1_n() ? 1 : 0))"/>
-		<Intrinsic Name="d_in_y" Expression="d_in_c4() - c1() * k_days_per_year_1_n()"/>
+		<Intrinsic Name="milli_seconds_since_unix" Expression="m_elements[0].m_elements[0]"/>
+		<Intrinsic Name="seconds_since_unix" Expression="milli_seconds_since_unix() / k_milli_seconds_per_second()"/>
+		<Intrinsic Name="milli_seconds_in_second" Expression="milli_seconds_since_unix() % k_milli_seconds_per_second()"/>
+		<Intrinsic Name="days_since_unix" Expression="seconds_since_unix() / k_seconds_per_day()"/>
+		<Intrinsic Name="seconds_in_day" Expression="seconds_since_unix() % k_seconds_per_day()"/>
+		<Intrinsic Name="minutes_in_day" Expression="seconds_in_day() / k_seconds_per_minute()"/>
+		<Intrinsic Name="seconds_in_minute" Expression="seconds_in_day() - minutes_in_day() * k_seconds_per_minute()"/>
+		<Intrinsic Name="hours_in_day" Expression="minutes_in_day() / k_minutes_per_hour()"/>
+		<Intrinsic Name="minutes_in_hour" Expression="minutes_in_day() - hours_in_day() * k_minutes_per_hour()"/>
 		<!-- ========== -->
-		<Intrinsic Name="y" Expression="1600 + c400() * 400 + c100() * 100 + c4() * 4 + c1() * 1"/>
+		<Intrinsic Name="days_since_jd" Expression="2440588 + days_since_unix()"/>
+		<Intrinsic Name="a" Expression="days_since_jd() + 32044"/>
+		<Intrinsic Name="b" Expression="(4 * a() + 3) / 146097"/>
+		<Intrinsic Name="c" Expression="a() - (146097 * b()) / 4"/>
+		<Intrinsic Name="d" Expression="(4 * c() + 3) / 1461"/>
+		<Intrinsic Name="e" Expression="c() - (1461 * d()) / 4"/>
+		<Intrinsic Name="m" Expression="(5 * e() + 2) / 153"/>
+		<Intrinsic Name="day" Expression="e() - (153 * m() + 2) / 5 + 1"/>
+		<Intrinsic Name="month" Expression="m() + 3 - 12 * (m() / 10)"/>
+		<Intrinsic Name="year" Expression="100 * b() + d() - 4800 + (m() / 10)"/>
 		<!-- ========== -->
-		<Intrinsic Name="ma_0" Expression="d_in_y()"/>
-		<Intrinsic Name="ma_1" Expression="ma_0() >= 31 ? (ma_0() - 31) : 0"/>
-		<Intrinsic Name="ma_2" Expression="ma_1() >= 30 ? (ma_1() - 30) : 0"/>
-		<Intrinsic Name="ma_3" Expression="ma_2() >= 31 ? (ma_2() - 31) : 0"/>
-		<Intrinsic Name="ma_4" Expression="ma_3() >= 30 ? (ma_3() - 30) : 0"/>
-		<Intrinsic Name="ma_5" Expression="ma_4() >= 31 ? (ma_4() - 31) : 0"/>
-		<Intrinsic Name="ma_6" Expression="ma_5() >= 31 ? (ma_5() - 31) : 0"/>
-		<Intrinsic Name="ma_7" Expression="ma_6() >= 30 ? (ma_6() - 30) : 0"/>
-		<Intrinsic Name="ma_8" Expression="ma_7() >= 31 ? (ma_7() - 31) : 0"/>
-		<Intrinsic Name="ma_9" Expression="ma_8() >= 30 ? (ma_8() - 30) : 0"/>
-		<Intrinsic Name="ma_a" Expression="ma_9() >= 31 ? (ma_9() - 31) : 0"/>
-		<Intrinsic Name="ma_b" Expression="ma_a() >= 31 ? (ma_a() - 31) : 0"/>
-		<Intrinsic Name="ma_c" Expression="ma_b() >= 29 ? (ma_b() - 29) : 0"/>
+		<Intrinsic Name="digit_2_1" Expression="(value / 10) % 10"><Parameter Name="value" Type="int"/></Intrinsic>
+		<Intrinsic Name="digit_2_2" Expression="(value / 1) % 10"><Parameter Name="value" Type="int"/></Intrinsic>
+		<Intrinsic Name="digit_3_1" Expression="(value / 100) % 10"><Parameter Name="value" Type="int"/></Intrinsic>
+		<Intrinsic Name="digit_3_2" Expression="(value / 10) % 10"><Parameter Name="value" Type="int"/></Intrinsic>
+		<Intrinsic Name="digit_3_3" Expression="(value / 1) % 10"><Parameter Name="value" Type="int"/></Intrinsic>
 		<!-- ========== -->
-		<Intrinsic Name="mb_1" Expression="ma_1() == -1 ? 0 : 1"/>
-		<Intrinsic Name="mb_2" Expression="mb_1() + (ma_2() == 0 ? 0 : 1)"/>
-		<Intrinsic Name="mb_3" Expression="mb_2() + (ma_3() == 0 ? 0 : 1)"/>
-		<Intrinsic Name="mb_4" Expression="mb_3() + (ma_4() == 0 ? 0 : 1)"/>
-		<Intrinsic Name="mb_5" Expression="mb_4() + (ma_5() == 0 ? 0 : 1)"/>
-		<Intrinsic Name="mb_6" Expression="mb_5() + (ma_6() == 0 ? 0 : 1)"/>
-		<Intrinsic Name="mb_7" Expression="mb_6() + (ma_7() == 0 ? 0 : 1)"/>
-		<Intrinsic Name="mb_8" Expression="mb_7() + (ma_8() == 0 ? 0 : 1)"/>
-		<Intrinsic Name="mb_9" Expression="mb_8() + (ma_9() == 0 ? 0 : 1)"/>
-		<!-- ========== -->
-		<Intrinsic Name="m" Expression="mb_9()"/>
-		<!-- ========== -->
-		<Intrinsic Name="digit_10_1" Expression="(value / 10) % 10"><Parameter Name="value" Type="int"/></Intrinsic>
-		<Intrinsic Name="digit_10_2" Expression="(value / 1) % 10"><Parameter Name="value" Type="int"/></Intrinsic>
-		<Intrinsic Name="digit_100_1" Expression="(value / 100) % 10"><Parameter Name="value" Type="int"/></Intrinsic>
-		<Intrinsic Name="digit_100_2" Expression="(value / 10) % 10"><Parameter Name="value" Type="int"/></Intrinsic>
-		<Intrinsic Name="digit_100_3" Expression="(value / 1) % 10"><Parameter Name="value" Type="int"/></Intrinsic>
-		<!-- ========== -->
-		<DisplayString>{y()}-{digit_10_1(m())}{digit_10_2(m())}-xxT{digit_10_1(h_in_d())}{digit_10_2(h_in_d())}:{digit_10_1(m_in_h())}{digit_10_2(m_in_h())}:{digit_10_1(s_in_m())}{digit_10_2(s_in_m())}.{digit_100_1(ms_in_s())}{digit_100_2(ms_in_s())}{digit_100_3(ms_in_s())}Z</DisplayString>
+		<DisplayString>{year()}-{digit_2_1(month())}{digit_2_2(month())}-{digit_2_1(day())}{digit_2_2(day())}T{digit_2_1(hours_in_day())}{digit_2_2(hours_in_day())}:{digit_2_1(minutes_in_hour())}{digit_2_2(minutes_in_hour())}:{digit_2_1(seconds_in_minute())}{digit_2_2(seconds_in_minute())}.{digit_3_1(milli_seconds_in_second())}{digit_3_2(milli_seconds_in_second())}{digit_3_3(milli_seconds_in_second())}Z</DisplayString>
 	</Type>
 </AutoVisualizer>

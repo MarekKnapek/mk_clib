@@ -1464,7 +1464,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 	tlen = 24;
 	mk_lang_check_return(rem >= tlen);
-	mk_lib_iip_time_to_text(obj, ptr, rem, &len); mk_lang_assert(len == tlen);
+	len = mk_lib_iip_time_to_text(obj, ptr, rem); mk_lang_assert(len == tlen);
 	ptr += len;
 	rem -= len;
 
