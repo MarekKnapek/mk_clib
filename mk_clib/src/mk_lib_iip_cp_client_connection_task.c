@@ -191,6 +191,138 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 #endif
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_connection_debug_print_requesting_read(mk_lib_iip_cp_client_connection_task_pt const task) mk_lang_noexcept
+{
+#if mk_lib_iip_cp_client_connection_debug_print_have
+	mk_lang_types_sint_t err;
+	mk_lang_types_pchar_pt target_buf;
+	mk_lang_types_pchar_t str_buf[4 * 1024];
+	mk_lang_types_sint_t target_len;
+	mk_lang_types_sint_t str_len;
+
+	mk_lang_assert(task);
+
+	err = mk_lib_iip_logger_rw_begin_line(&task->m_connection.m_settings.m_shared->m_logger); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_append_current_time(&task->m_connection.m_settings.m_shared->m_logger); mk_lang_check_rereturn(err);
+	target_buf = &str_buf[0];
+	target_len = mk_lang_countof(str_buf);
+	err = mk_lib_net_socket_to_text(&task->m_connection.m_state.m_socket, target_buf, target_len, &str_len); mk_lang_check_rereturn(err); mk_lang_assert(str_len >= 1); mk_lang_assert(str_len <= target_len);
+	err = mk_lib_iip_logger_rw_begin_color(&task->m_connection.m_settings.m_shared->m_logger, mk_lib_iip_logger_color_text_e_dark_cyan); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_print(&task->m_connection.m_settings.m_shared->m_logger, target_buf, str_len); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_end_color(&task->m_connection.m_settings.m_shared->m_logger); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_print_str_lit(&task->m_connection.m_settings.m_shared->m_logger, " "); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_begin_color(&task->m_connection.m_settings.m_shared->m_logger, mk_lib_iip_logger_color_text_e_dark_green); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_print_str_lit(&task->m_connection.m_settings.m_shared->m_logger, "Requesting read."); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_end_color(&task->m_connection.m_settings.m_shared->m_logger); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_end_line(&task->m_connection.m_settings.m_shared->m_logger); mk_lang_check_rereturn(err);
+	return 0;
+#else
+	mk_lang_assert(task);
+
+	((mk_lang_types_void_t)(task));
+	return 0;
+#endif
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_connection_debug_print_read_finished(mk_lib_iip_cp_client_connection_task_pt const task) mk_lang_noexcept
+{
+#if mk_lib_iip_cp_client_connection_debug_print_have
+	mk_lang_types_sint_t err;
+	mk_lang_types_pchar_pt target_buf;
+	mk_lang_types_pchar_t str_buf[4 * 1024];
+	mk_lang_types_sint_t target_len;
+	mk_lang_types_sint_t str_len;
+
+	mk_lang_assert(task);
+
+	err = mk_lib_iip_logger_rw_begin_line(&task->m_connection.m_settings.m_shared->m_logger); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_append_current_time(&task->m_connection.m_settings.m_shared->m_logger); mk_lang_check_rereturn(err);
+	target_buf = &str_buf[0];
+	target_len = mk_lang_countof(str_buf);
+	err = mk_lib_net_socket_to_text(&task->m_connection.m_state.m_socket, target_buf, target_len, &str_len); mk_lang_check_rereturn(err); mk_lang_assert(str_len >= 1); mk_lang_assert(str_len <= target_len);
+	err = mk_lib_iip_logger_rw_begin_color(&task->m_connection.m_settings.m_shared->m_logger, mk_lib_iip_logger_color_text_e_dark_cyan); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_print(&task->m_connection.m_settings.m_shared->m_logger, target_buf, str_len); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_end_color(&task->m_connection.m_settings.m_shared->m_logger); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_print_str_lit(&task->m_connection.m_settings.m_shared->m_logger, " "); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_begin_color(&task->m_connection.m_settings.m_shared->m_logger, mk_lib_iip_logger_color_text_e_dark_green); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_print_str_lit(&task->m_connection.m_settings.m_shared->m_logger, "Read finished."); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_end_color(&task->m_connection.m_settings.m_shared->m_logger); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_end_line(&task->m_connection.m_settings.m_shared->m_logger); mk_lang_check_rereturn(err);
+	return 0;
+#else
+	mk_lang_assert(task);
+
+	((mk_lang_types_void_t)(task));
+	return 0;
+#endif
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_connection_debug_print_requesting_write(mk_lib_iip_cp_client_connection_task_pt const task) mk_lang_noexcept
+{
+#if mk_lib_iip_cp_client_connection_debug_print_have
+	mk_lang_types_sint_t err;
+	mk_lang_types_pchar_pt target_buf;
+	mk_lang_types_pchar_t str_buf[4 * 1024];
+	mk_lang_types_sint_t target_len;
+	mk_lang_types_sint_t str_len;
+
+	mk_lang_assert(task);
+
+	err = mk_lib_iip_logger_rw_begin_line(&task->m_connection.m_settings.m_shared->m_logger); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_append_current_time(&task->m_connection.m_settings.m_shared->m_logger); mk_lang_check_rereturn(err);
+	target_buf = &str_buf[0];
+	target_len = mk_lang_countof(str_buf);
+	err = mk_lib_net_socket_to_text(&task->m_connection.m_state.m_socket, target_buf, target_len, &str_len); mk_lang_check_rereturn(err); mk_lang_assert(str_len >= 1); mk_lang_assert(str_len <= target_len);
+	err = mk_lib_iip_logger_rw_begin_color(&task->m_connection.m_settings.m_shared->m_logger, mk_lib_iip_logger_color_text_e_dark_cyan); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_print(&task->m_connection.m_settings.m_shared->m_logger, target_buf, str_len); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_end_color(&task->m_connection.m_settings.m_shared->m_logger); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_print_str_lit(&task->m_connection.m_settings.m_shared->m_logger, " "); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_begin_color(&task->m_connection.m_settings.m_shared->m_logger, mk_lib_iip_logger_color_text_e_dark_yellow); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_print_str_lit(&task->m_connection.m_settings.m_shared->m_logger, "Requesting write."); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_end_color(&task->m_connection.m_settings.m_shared->m_logger); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_end_line(&task->m_connection.m_settings.m_shared->m_logger); mk_lang_check_rereturn(err);
+	return 0;
+#else
+	mk_lang_assert(task);
+
+	((mk_lang_types_void_t)(task));
+	return 0;
+#endif
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_connection_debug_print_write_finished(mk_lib_iip_cp_client_connection_task_pt const task) mk_lang_noexcept
+{
+#if mk_lib_iip_cp_client_connection_debug_print_have
+	mk_lang_types_sint_t err;
+	mk_lang_types_pchar_pt target_buf;
+	mk_lang_types_pchar_t str_buf[4 * 1024];
+	mk_lang_types_sint_t target_len;
+	mk_lang_types_sint_t str_len;
+
+	mk_lang_assert(task);
+
+	err = mk_lib_iip_logger_rw_begin_line(&task->m_connection.m_settings.m_shared->m_logger); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_append_current_time(&task->m_connection.m_settings.m_shared->m_logger); mk_lang_check_rereturn(err);
+	target_buf = &str_buf[0];
+	target_len = mk_lang_countof(str_buf);
+	err = mk_lib_net_socket_to_text(&task->m_connection.m_state.m_socket, target_buf, target_len, &str_len); mk_lang_check_rereturn(err); mk_lang_assert(str_len >= 1); mk_lang_assert(str_len <= target_len);
+	err = mk_lib_iip_logger_rw_begin_color(&task->m_connection.m_settings.m_shared->m_logger, mk_lib_iip_logger_color_text_e_dark_cyan); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_print(&task->m_connection.m_settings.m_shared->m_logger, target_buf, str_len); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_end_color(&task->m_connection.m_settings.m_shared->m_logger); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_print_str_lit(&task->m_connection.m_settings.m_shared->m_logger, " "); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_begin_color(&task->m_connection.m_settings.m_shared->m_logger, mk_lib_iip_logger_color_text_e_dark_yellow); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_print_str_lit(&task->m_connection.m_settings.m_shared->m_logger, "Write finished."); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_end_color(&task->m_connection.m_settings.m_shared->m_logger); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_end_line(&task->m_connection.m_settings.m_shared->m_logger); mk_lang_check_rereturn(err);
+	return 0;
+#else
+	mk_lang_assert(task);
+
+	((mk_lang_types_void_t)(task));
+	return 0;
+#endif
+}
+
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_connection_task_prrw_issue_read(mk_lib_iip_cp_client_connection_task_pt const task) mk_lang_noexcept
 {
@@ -201,6 +333,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_assert(task->m_connection.m_state.m_buf_rcv.m_used >= 0);
 	mk_lang_assert(task->m_connection.m_state.m_buf_rcv.m_used < mk_lib_iip_cp_client_connection_k_buffer_size);
 
+	err = mk_lib_iip_cp_client_connection_debug_print_requesting_read(task); mk_lang_check_rereturn(err);
 	err = mk_lib_net_read_request_reconstruct(&task->m_connection.m_state.m_read_request, &task->m_connection.m_state.m_socket, &task->m_connection.m_state.m_buf_rcv.m_data[task->m_connection.m_state.m_buf_rcv.m_used], mk_lib_iip_cp_client_connection_k_buffer_size - task->m_connection.m_state.m_buf_rcv.m_used); mk_lang_check_rereturn(err);
 	err = mk_lib_net_socket_recv(&task->m_connection.m_state.m_socket, &task->m_connection.m_state.m_read_request); mk_lang_check_rereturn(err);
 	task->m_connection.m_state.m_pending_recv = mk_lang_true;
@@ -216,6 +349,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_assert(task->m_connection.m_state.m_buf_snd.m_used > 0);
 	mk_lang_assert(task->m_connection.m_state.m_buf_snd.m_used <= mk_lib_iip_cp_client_connection_k_buffer_size);
 
+	err = mk_lib_iip_cp_client_connection_debug_print_requesting_write(task); mk_lang_check_rereturn(err);
 	err = mk_lib_net_write_request_reconstruct(&task->m_connection.m_state.m_write_request, &task->m_connection.m_state.m_socket, &task->m_connection.m_state.m_buf_snd.m_data[0], task->m_connection.m_state.m_buf_snd.m_used); mk_lang_check_rereturn(err);
 	err = mk_lib_net_socket_send(&task->m_connection.m_state.m_socket, &task->m_connection.m_state.m_write_request); mk_lang_check_rereturn(err);
 	task->m_connection.m_state.m_pending_send = mk_lang_true;
@@ -239,6 +373,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_assert(task->m_connection.m_state.m_buf_rcv.m_used >= 0);
 	mk_lang_assert(task->m_connection.m_state.m_buf_rcv.m_used <= mk_lib_iip_cp_client_connection_k_buffer_size);
 	task->m_connection.m_state.m_pending_recv = mk_lang_false;
+	err = mk_lib_iip_cp_client_connection_debug_print_read_finished(task); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -268,6 +403,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_assert(task->m_connection.m_state.m_buf_snd.m_used >= 0);
 	mk_lang_assert(task->m_connection.m_state.m_buf_snd.m_used <= mk_lib_iip_cp_client_connection_k_buffer_size);
 	task->m_connection.m_state.m_pending_send = mk_lang_false;
+	err = mk_lib_iip_cp_client_connection_debug_print_write_finished(task); mk_lang_check_rereturn(err);
 	return 0;
 }
 
