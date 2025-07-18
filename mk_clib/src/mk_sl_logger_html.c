@@ -44,7 +44,7 @@ mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_logger_html_k_
 	"{" mk_sl_logger_html_k_crlf
 	mk_sl_logger_html_k_tab "border-bottom: 1px solid red;" mk_sl_logger_html_k_crlf
 	"}" mk_sl_logger_html_k_crlf
-	"span.line" mk_sl_logger_html_k_crlf
+	"div.line" mk_sl_logger_html_k_crlf
 	"{" mk_sl_logger_html_k_crlf
 	mk_sl_logger_html_k_tab "white-space: pre;" mk_sl_logger_html_k_crlf
 	"}" mk_sl_logger_html_k_crlf
@@ -83,9 +83,9 @@ mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_logger_html_k_
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_logger_html_k_session_footer[] =
 	mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab "</div>" mk_sl_logger_html_k_crlf;
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_logger_html_k_line_header[] =
-	mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab "<span class=\"line\">";
+	mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab "<div class=\"line\"><span class=\"line\">";
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_logger_html_k_line_footer[] =
-	"<br></span>" mk_sl_logger_html_k_crlf
+	"</span><br></div>" mk_sl_logger_html_k_crlf
 	"";
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_logger_html_k_color_header_a[] = "<span class=\"";
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_logger_html_k_color_header_b[] = "\">";
