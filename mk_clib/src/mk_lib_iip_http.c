@@ -156,11 +156,11 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	return method_str_max;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_bool_t mk_lib_iip_http_prrw_fancy_buf(mk_lib_iip_http_buffer_pt const buf) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_http_prrw_fancy_buf(mk_lib_iip_http_buffer_pt const buf) mk_lang_noexcept
 {
 #if defined DEBUG || defined _DEBUG
 	mk_sl_cui_uint8_t zero;
-	mk_lang_types_bool_t err;
+	mk_lang_types_sint_t err;
 
 	mk_lang_assert(buf);
 

@@ -32,6 +32,7 @@
 
 #if mk_lang_msvc_ver >= mk_lang_msvc_ver_6
 
+#pragma intrinsic(__debugbreak)
 #define mk_lang_debug_break_have 1
 #define mk_lang_debug_break() do{ __debugbreak(); }while(mk_lang_runtime_bool_fn_false)
 
