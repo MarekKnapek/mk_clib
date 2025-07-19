@@ -15,6 +15,7 @@
 #include "mk_lib_iip_cp_message.h"
 #include "mk_lib_iip_cp_types.h"
 #include "mk_lib_net.h"
+#include "mk_sl_time.h"
 
 
 mk_lang_forward(mk_sl_cui_uint8);
@@ -77,6 +78,8 @@ struct mk_lib_iip_cp_client_connection_state_s
 	mk_lang_types_usize_t m_session_idx;
 	mk_lang_types_bool_t m_pending_send;
 	mk_lang_types_bool_t m_pending_recv;
+	mk_sl_time_timestamp_t m_time_req_send;
+	mk_sl_time_timestamp_t m_time_req_recv;
 	mk_lib_iip_cp_message_t m_msg;
 	mk_lib_iip_cp_client_session_task_pt m_pending_session_to_create;
 	mk_lib_iip_cp_client_connection_buffer_t m_buf_rcv;
