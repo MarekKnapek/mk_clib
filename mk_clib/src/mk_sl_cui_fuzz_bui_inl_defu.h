@@ -133,6 +133,7 @@
 #undef mk_sl_cui_fuzz_bui_inl_defd_bui_count_trailing_ones
 #undef mk_sl_cui_fuzz_bui_inl_defd_bui_count_ones
 #undef mk_sl_cui_fuzz_bui_inl_defd_bui_count_zeros
+#undef mk_sl_cui_fuzz_bui_inl_defd_bui_has_msb
 #undef mk_sl_cui_fuzz_bui_inl_defd_bui_has_lsb
 #undef mk_sl_cui_fuzz_bui_inl_defd_bui_is_zero
 #undef mk_sl_cui_fuzz_bui_inl_defd_bui_is_one
@@ -333,6 +334,7 @@
 #undef mk_sl_cui_fuzz_bui_inl_defd_cui_count_trailing_ones
 #undef mk_sl_cui_fuzz_bui_inl_defd_cui_count_ones
 #undef mk_sl_cui_fuzz_bui_inl_defd_cui_count_zeros
+#undef mk_sl_cui_fuzz_bui_inl_defd_cui_has_msb
 #undef mk_sl_cui_fuzz_bui_inl_defd_cui_has_lsb
 #undef mk_sl_cui_fuzz_bui_inl_defd_cui_is_zero
 #undef mk_sl_cui_fuzz_bui_inl_defd_cui_is_one
@@ -486,6 +488,7 @@
 #undef mk_sl_cui_fuzz_bui_inl_defd_pr_count_trailing_ones
 #undef mk_sl_cui_fuzz_bui_inl_defd_pr_count_zeros
 #undef mk_sl_cui_fuzz_bui_inl_defd_pr_count_ones
+#undef mk_sl_cui_fuzz_bui_inl_defd_pr_has_msb
 #undef mk_sl_cui_fuzz_bui_inl_defd_pr_has_lsb
 #undef mk_sl_cui_fuzz_bui_inl_defd_pr_is_zero
 #undef mk_sl_cui_fuzz_bui_inl_defd_pr_is_one

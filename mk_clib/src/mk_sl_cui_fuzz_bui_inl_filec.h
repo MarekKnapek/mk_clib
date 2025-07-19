@@ -1633,6 +1633,32 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_cui_fuzz_bui_
 	}
 }
 
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_cui_fuzz_bui_inl_defd_pr_has_msb(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
+{
+	mk_sl_cui_fuzz_bui_inl_defd_bui_t bui mk_lang_constexpr_init;
+	mk_sl_cui_fuzz_bui_inl_defd_cui_t cui mk_lang_constexpr_init;
+	mk_lang_types_bool_t ra mk_lang_constexpr_init;
+	mk_lang_types_bool_t rb mk_lang_constexpr_init;
+
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
+	mk_lang_assert(data || size == 0);
+	mk_lang_assert(size >= 0);
+	#include "mk_lang_warning_gcc_pop.h"
+	#include "mk_lang_warning_msvc_pop.h"
+
+	if(size >= mk_sl_cui_fuzz_bui_inl_defd_cui_size_bytes_v)
+	{
+		mk_sl_cui_fuzz_bui_inl_defd_bui_from_buis_uchar_le(&bui, &data[0]);
+		mk_sl_cui_fuzz_bui_inl_defd_cui_from_buis_uchar_le(&cui, &data[0]);
+
+		ra = mk_sl_cui_fuzz_bui_inl_defd_bui_has_msb(&bui);
+		rb = mk_sl_cui_fuzz_bui_inl_defd_cui_has_msb(&cui);
+
+		mk_lang_test(ra == rb);
+	}
+}
+
 mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_cui_fuzz_bui_inl_defd_pr_has_lsb(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
 {
 	mk_sl_cui_fuzz_bui_inl_defd_bui_t bui mk_lang_constexpr_init;
@@ -10526,6 +10552,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_fuzz_bui_inl_defd_fn(mk_lang_types_
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ mk_sl_cui_fuzz_bui_inl_defd_pr_count_trailing_ones(d, s); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ mk_sl_cui_fuzz_bui_inl_defd_pr_count_zeros(d, s); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ mk_sl_cui_fuzz_bui_inl_defd_pr_count_ones(d, s); }
+	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ mk_sl_cui_fuzz_bui_inl_defd_pr_has_msb(d, s); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ mk_sl_cui_fuzz_bui_inl_defd_pr_has_lsb(d, s); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ mk_sl_cui_fuzz_bui_inl_defd_pr_is_zero(d, s); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ mk_sl_cui_fuzz_bui_inl_defd_pr_is_one(d, s); }
