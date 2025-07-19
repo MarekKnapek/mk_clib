@@ -1377,6 +1377,13 @@ mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noali
 #endif
 }}
 
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_has_msb(mk_sl_cui_inl_defd_pct const x) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+{
+	mk_lang_assert(x);
+
+	return mk_sl_cui_inl_defd_base_has_msb(&x->m_elements[mk_sl_cui_inl_defd_idx(mk_sl_cui_inl_defd_count - 1)]);
+}}
+
 mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_bool_t mk_sl_cui_inl_defd_pr_has_lsb(mk_sl_cui_inl_defd_pct const x) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 	mk_lang_assert(x);
@@ -6003,6 +6010,13 @@ mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noali
 {
 	mk_lang_types_sint_t r mk_lang_constexpr_init;
 	r = mk_sl_cui_inl_defd_pr_count_ones(x);
+	return r;
+}}
+
+mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_inl_defd_has_msb(mk_sl_cui_inl_defd_pct const x) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
+{
+	mk_lang_types_bool_t r mk_lang_constexpr_init;
+	r = mk_sl_cui_inl_defd_pr_has_msb(x);
 	return r;
 }}
 

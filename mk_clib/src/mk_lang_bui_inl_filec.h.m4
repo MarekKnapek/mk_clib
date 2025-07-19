@@ -637,6 +637,13 @@ mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noa
 	}
 }}
 
+mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_bool_t mk_lang_bui_inl_defd_pr_has_msb(mk_lang_bui_inl_defd_pct const x) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
+{
+	mk_lang_assert(x);
+
+	return (((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(*x)) >> (mk_lang_bui_inl_defd_size_bits_d - 1))) & ((mk_lang_bui_inl_defd_t)(1))) != ((mk_lang_bui_inl_defd_t)(0));
+}}
+
 mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_bool_t mk_lang_bui_inl_defd_pr_has_lsb(mk_lang_bui_inl_defd_pct const x) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
 {
 	mk_lang_assert(x);
@@ -3519,6 +3526,13 @@ mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noa
 {
 	mk_lang_types_sint_t r mk_lang_constexpr_init;
 	r = mk_lang_bui_inl_defd_pr_count_zeros(x);
+	return r;
+}}
+
+mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_bool_t mk_lang_bui_inl_defd_has_msb(mk_lang_bui_inl_defd_pct const x) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
+{
+	mk_lang_types_bool_t r mk_lang_constexpr_init;
+	r = mk_lang_bui_inl_defd_pr_has_msb(x);
 	return r;
 }}
 

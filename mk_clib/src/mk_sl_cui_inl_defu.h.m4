@@ -23,7 +23,6 @@ include(`mk_sl_cui_inl.m')dnl
 
 
 
-
 `#'undef mk_sl_cui_inl_defd_name
 `#'undef mk_sl_cui_inl_defd_base_type_name
 `#'undef mk_sl_cui_inl_defd_count
@@ -189,6 +188,7 @@ mm_per_bui(`#undef mk_sl_cui_inl_defd_base_to_buis_$1_be')
 `#'undef mk_sl_cui_inl_defd_base_count_trailing_ones
 `#'undef mk_sl_cui_inl_defd_base_count_ones
 `#'undef mk_sl_cui_inl_defd_base_count_zeros
+`#'undef mk_sl_cui_inl_defd_base_has_msb
 `#'undef mk_sl_cui_inl_defd_base_has_lsb
 `#'undef mk_sl_cui_inl_defd_base_is_zero
 `#'undef mk_sl_cui_inl_defd_base_is_one
@@ -451,6 +451,7 @@ mm_per_bui(`#undef mk_sl_cui_inl_defd_pr_to_buis_$1_be')
 `#'undef mk_sl_cui_inl_defd_pr_count_trailing_ones
 `#'undef mk_sl_cui_inl_defd_pr_count_ones
 `#'undef mk_sl_cui_inl_defd_pr_count_zeros
+`#'undef mk_sl_cui_inl_defd_pr_has_msb
 `#'undef mk_sl_cui_inl_defd_pr_has_lsb
 `#'undef mk_sl_cui_inl_defd_pr_is_zero
 `#'undef mk_sl_cui_inl_defd_pr_is_one
@@ -589,6 +590,7 @@ mm_per_bui(`#undef mk_sl_cui_inl_defd_to_buis_$1_be')
 `#'undef mk_sl_cui_inl_defd_count_trailing_ones
 `#'undef mk_sl_cui_inl_defd_count_ones
 `#'undef mk_sl_cui_inl_defd_count_zeros
+`#'undef mk_sl_cui_inl_defd_has_msb
 `#'undef mk_sl_cui_inl_defd_has_lsb
 `#'undef mk_sl_cui_inl_defd_is_zero
 `#'undef mk_sl_cui_inl_defd_is_one

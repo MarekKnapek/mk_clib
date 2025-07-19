@@ -138,6 +138,7 @@ mm_per_bui(`#undef mk_lang_bui_inl_defd_pr_to_buis_$1_be')
 `#'undef mk_lang_bui_inl_defd_pr_count_trailing_ones
 `#'undef mk_lang_bui_inl_defd_pr_count_ones
 `#'undef mk_lang_bui_inl_defd_pr_count_zeros
+`#'undef mk_lang_bui_inl_defd_pr_has_msb
 `#'undef mk_lang_bui_inl_defd_pr_has_lsb
 `#'undef mk_lang_bui_inl_defd_pr_is_zero
 `#'undef mk_lang_bui_inl_defd_pr_is_one
@@ -254,6 +255,7 @@ mm_per_bui(`#undef mk_lang_bui_inl_defd_to_buis_$1_be')
 `#'undef mk_lang_bui_inl_defd_count_trailing_ones
 `#'undef mk_lang_bui_inl_defd_count_ones
 `#'undef mk_lang_bui_inl_defd_count_zeros
+`#'undef mk_lang_bui_inl_defd_has_msb
 `#'undef mk_lang_bui_inl_defd_has_lsb
 `#'undef mk_lang_bui_inl_defd_is_zero
 `#'undef mk_lang_bui_inl_defd_is_one
