@@ -1,6 +1,6 @@
-#ifndef mk_include_guard_mk_sl_random_lang_cpp_cpp
-#define mk_include_guard_mk_sl_random_lang_cpp_cpp
-#include "mk_sl_random_lang_cpp.hpp"
+#ifndef mk_include_guard_mk_sl_random_lang_cpp98_cpp
+#define mk_include_guard_mk_sl_random_lang_cpp98_cpp
+#include "mk_sl_random_lang_cpp98.hpp"
 
 #include "mk_lang_version.h"
 #if mk_lang_version_has_macro_cplusplus
@@ -18,7 +18,7 @@
 #include <ctime> /* std::time_t std::time */
 
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_random_lang_cpp_init(mk_lang_types_void_t) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_random_lang_cpp98_init(mk_lang_types_void_t) mk_lang_noexcept
 {
 	std::time_t t;
 	mk_lang_types_uint_t r;
@@ -29,12 +29,12 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_random_lang_cpp_init(
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_random_lang_cpp_deinit(mk_lang_types_void_t) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_random_lang_cpp98_deinit(mk_lang_types_void_t) mk_lang_noexcept
 {
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_random_lang_cpp_generate(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_random_lang_cpp98_generate(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len) mk_lang_noexcept
 {
 	mk_lang_types_sint_t n;
 	mk_lang_types_sint_t i;
@@ -56,6 +56,6 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_random_lang_cpp_gener
 
 
 #else
-static void mk_sl_random_lang_cpp_dummy(void){}
+static void mk_sl_random_lang_cpp98_dummy(void){}
 #endif
 #endif
