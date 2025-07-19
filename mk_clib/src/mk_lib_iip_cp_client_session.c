@@ -15,10 +15,14 @@
 #include "mk_lang_runtime_bool.h"
 #include "mk_lang_string.h"
 #include "mk_lang_types.h"
+#include "mk_lib_fmt.h"
+#include "mk_lib_iip_cp_client_shared.h"
 #include "mk_lib_iip_cp_mallocator_global.h"
 #include "mk_lib_iip_cp_message.h"
 #include "mk_lib_iip_cp_types.h"
 #include "mk_lib_iip_http.h"
+#include "mk_lib_iip_logger.h"
+#include "mk_lib_iip_logger_more.h"
 #include "mk_lib_iip_net_streaming_packet.h"
 #include "mk_lib_iip_time.h"
 #include "mk_lib_zlib.h"
@@ -35,6 +39,62 @@
 #define mk_sl_cui_t_inline 1
 #include "mk_sl_cui_inl_filec.h"
 #include "mk_sl_cui_inl_fileu.h"
+
+
+#if defined mk_lib_iip_cp_client_session_debug_print_want
+#if (mk_lib_iip_cp_client_session_debug_print_want) == 0
+#define mk_lib_iip_cp_client_session_debug_print_have 0
+#elif (mk_lib_iip_cp_client_session_debug_print_want) == 1
+#define mk_lib_iip_cp_client_session_debug_print_have 1
+#else
+#error xxxxxxxxxx
+#endif
+#else
+#if defined DEBUG || defined _DEBUG
+#define mk_lib_iip_cp_client_session_debug_print_have 1
+#else
+#if defined NDEBUG || defined _NDEBUG
+#define mk_lib_iip_cp_client_session_debug_print_have 0
+#else
+#define mk_lib_iip_cp_client_session_debug_print_have 1
+#endif
+#endif
+#endif
+
+
+#if mk_lib_iip_cp_client_session_debug_print_have
+mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lib_iip_cp_client_session_debug_print_got_packet_k_fmt[] = "Got packet from %t.";
+#endif
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_session_debug_print_got_packet(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_net_streaming_packet_pct const packet) mk_lang_noexcept
+{
+#if mk_lib_iip_cp_client_session_debug_print_have
+	mk_lang_types_pchar_pct b32;
+	mk_lib_iip_logger_pt logger;
+	mk_lang_types_sint_t str_len;
+	mk_lang_types_pchar_t str_buf[512];
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(task);
+	mk_lang_assert(packet);
+
+	b32 = &packet->m_options.m_b32.m_pchars[0];
+	logger = &task->m_session.m_state.m_shared->m_logger;
+	str_len = mk_lib_fmt_n_snnprintf(&str_buf[0], mk_lang_countof(str_buf), &mk_lib_iip_cp_client_session_debug_print_got_packet_k_fmt[0], mk_lang_countstr(mk_lib_iip_cp_client_session_debug_print_got_packet_k_fmt), b32, 52); mk_lang_assert(str_len >= 1); mk_lang_assert(str_len <= mk_lang_countof(str_buf));
+	err = mk_lib_iip_logger_rw_begin_line(logger); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_append_current_time(logger); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_print(logger, &str_buf[0], str_len); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_end_line(logger); mk_lang_check_rereturn(err);
+	return 0;
+#else
+	mk_lang_assert(task);
+	mk_lang_assert(packet);
+
+	((mk_lang_types_void_t)(task));
+	((mk_lang_types_void_t)(packet));
+	return 0;
+#endif
+}
 
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_prrw_construct(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_client_shared_pt const shared, mk_lib_iip_cp_client_session_settings_pct const settings) mk_lang_noexcept
@@ -264,11 +324,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	gud = mk_lang_true;
 	err = mk_lib_iip_net_streaming_packet_rw_construct(&packet); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_net_streaming_packet_rw_parse(&packet, &decompressed.m_buf[0], decompressed.m_len, &gud); mk_lang_check_rereturn(err); mk_lang_check_return(gud);
+	err = mk_lib_iip_cp_client_session_debug_print_got_packet(task, &packet); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_http_rw_construct(&http); mk_lang_check_rereturn(err);
 	code = mk_lib_iip_http_parse_error_code_e_ok;
 	err = mk_lib_iip_http_rw_on_incoming_data(&http, packet.m_payload_buf, packet.m_payload_len, &code, &consumed); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_http_rw_destroy(&http); mk_lang_check_rereturn(err);
-	mk_lang_check_todo();
+	/*mk_lang_check_todo();*/
+	/* drop */
 	return 0;
 }
 
