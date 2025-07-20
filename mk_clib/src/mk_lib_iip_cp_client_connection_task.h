@@ -11,6 +11,7 @@
 #include "mk_lang_types.h"
 #include "mk_lib_iip_any_data_connection.h"
 #include "mk_lib_iip_cp_client_session.h"
+#include "mk_lib_iip_cp_dynamic_ring.h"
 #include "mk_lib_iip_cp_mallocator_global.h"
 #include "mk_lib_iip_cp_message.h"
 #include "mk_lib_iip_cp_types.h"
@@ -42,17 +43,6 @@ typedef struct mk_lib_iip_cp_client_connection_authentication_s mk_lib_iip_cp_cl
 mk_lang_typedef(mk_lib_iip_cp_client_connection_authentication);
 
 #include "mk_lang_warning_msvc_push_c4820.h"
-struct mk_lib_iip_cp_client_connection_buffer_s
-{
-	mk_sl_cui_uint8_pt m_data;
-	mk_lang_types_void_pt m_mallocation;
-	mk_lang_types_sint_t m_used;
-};
-typedef struct mk_lib_iip_cp_client_connection_buffer_s mk_lib_iip_cp_client_connection_buffer_t;
-mk_lang_typedef(mk_lib_iip_cp_client_connection_buffer);
-#include "mk_lang_warning_msvc_pop.h"
-
-#include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_lib_iip_cp_client_connection_task_settings_s
 {
 	mk_lib_iip_any_data_connection_t m_type;
@@ -82,8 +72,8 @@ struct mk_lib_iip_cp_client_connection_state_s
 	mk_sl_time_timestamp_t m_time_req_recv;
 	mk_lib_iip_cp_message_t m_msg;
 	mk_lib_iip_cp_client_session_task_pt m_pending_session_to_create;
-	mk_lib_iip_cp_client_connection_buffer_t m_buf_rcv;
-	mk_lib_iip_cp_client_connection_buffer_t m_buf_snd;
+	mk_lib_iip_cp_dynamic_ring_u8_t m_buf_rcv;
+	mk_lib_iip_cp_dynamic_ring_u8_t m_buf_snd;
 };
 typedef struct mk_lib_iip_cp_client_connection_state_s mk_lib_iip_cp_client_connection_state_t;
 mk_lang_typedef(mk_lib_iip_cp_client_connection_state);
