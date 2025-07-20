@@ -18,6 +18,8 @@
 /mk_sl_cui_inl_defu.h
 /mk_sl_cui_inl_filec.h
 /mk_sl_cui_inl_fileh.h
+/mk_sl_dynamic_ring_inl_defd.h
+/mk_sl_dynamic_ring_inl_defu.h
 /mk_sl_fixed_vector_inl_defd.h
 /mk_sl_fixed_vector_inl_defu.h
 /mk_sl_list_dbl_inl_defd.h
