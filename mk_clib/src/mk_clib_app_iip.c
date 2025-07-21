@@ -25,6 +25,7 @@
 #include "mk_lib_iip_cp_client_wrapper.h"
 #include "mk_lib_iip_cp_mallocator_global.h"
 #include "mk_lib_iip_cp_types.h"
+#include "mk_lib_iip_http.h"
 #include "mk_lib_iip_key_enc_elgamal_pri.h"
 #include "mk_lib_iip_key_enc_elgamal_pub.h"
 #include "mk_lib_iip_key_sgn_dsa_sha1_pri.h"
@@ -444,6 +445,67 @@ mk_lang_nodiscard static mk_lang_inline mk_win_base_bool_t mk_win_base_stdcall m
 	return interesting ? mk_win_base_true : mk_win_base_false;
 }
 
+struct web_servers_s
+{
+	mk_lib_iip_cp_client_wrapper_task_pt m_wrp;
+	mk_lib_iip_cp_client_types_handle_session_t m_session_1;
+	mk_lib_iip_cp_client_types_handle_session_t m_session_2;
+	mk_lib_iip_cp_client_types_handle_session_t m_session_3;
+	mk_lib_iip_cp_client_types_handle_socket_listener_t m_socket_1;
+	mk_lib_iip_cp_client_types_handle_socket_listener_t m_socket_2;
+	mk_lib_iip_cp_client_types_handle_socket_listener_t m_socket_3;
+	mk_lib_iip_http_t m_http_1;
+	mk_lib_iip_http_t m_http_2;
+	mk_lib_iip_http_t m_http_3;
+};
+typedef struct web_servers_s web_servers_t;
+mk_lang_typedef(web_servers);
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_web_servers_init(web_servers_pt const web_servers) mk_lang_noexcept
+{
+	mk_lib_iip_cp_client_types_socket_listener_settings_t settings;
+	mk_lang_types_sint_t tsi;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(web_servers);
+
+	settings.m_session = web_servers->m_session_1;
+	tsi = 80; mk_sl_cui_uint16_from_bi_sint(&settings.m_port, &tsi);
+	err = mk_lib_iip_cp_client_wrapper_task_rw_new_socket_listener(web_servers->m_wrp, &settings, &web_servers->m_socket_1); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_http_rw_construct(&web_servers->m_http_1); mk_lang_check_rereturn(err);
+
+	settings.m_session = web_servers->m_session_2;
+	tsi = 80; mk_sl_cui_uint16_from_bi_sint(&settings.m_port, &tsi);
+	err = mk_lib_iip_cp_client_wrapper_task_rw_new_socket_listener(web_servers->m_wrp, &settings, &web_servers->m_socket_2); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_http_rw_construct(&web_servers->m_http_2); mk_lang_check_rereturn(err);
+
+	settings.m_session = web_servers->m_session_3;
+	tsi = 80; mk_sl_cui_uint16_from_bi_sint(&settings.m_port, &tsi);
+	err = mk_lib_iip_cp_client_wrapper_task_rw_new_socket_listener(web_servers->m_wrp, &settings, &web_servers->m_socket_3); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_http_rw_construct(&web_servers->m_http_3); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_web_servers_check(web_servers_pt const web_servers) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pct data_buf;
+	mk_lang_types_sint_t data_len;
+	mk_lang_types_sint_t err;
+	mk_lib_iip_http_t http;
+	mk_lib_iip_http_parse_error_code_t code;
+	mk_lang_types_sint_t consumed;
+
+	mk_lang_assert(web_servers);
+
+	data_buf = mk_lang_null;
+	data_len = 0;
+	err = mk_lib_iip_http_rw_construct(&http); mk_lang_check_rereturn(err);
+	code = mk_lib_iip_http_parse_error_code_e_ok;
+	err = mk_lib_iip_http_rw_on_incoming_data(&http, data_buf, data_len, &code, &consumed); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_http_rw_destroy(&http); mk_lang_check_rereturn(err);
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_work(mk_lang_types_sint_t const argc, mk_lang_tchar_pcpct const argv, mk_lang_types_sint_pct const lens) mk_lang_noexcept
 {
 	mk_win_base_bool_t b;
@@ -468,6 +530,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wor
 	mk_lib_iip_cp_client_types_handle_connection_t connection_2;
 	mk_lib_iip_cp_client_types_handle_session_t session_2;
 	mk_lib_iip_cp_client_types_handle_session_t session_3;
+
+	web_servers_t web_servers;
 
 	/*
 	mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_t destination;
@@ -510,6 +574,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wor
 	session_settings_3.m_master_session = session_2;
 	session_settings_3.m_connection = connection_2;
 	err = mk_lib_iip_cp_client_wrapper_task_rw_new_session(&wrp, &session_settings_3, &session_3); mk_lang_check_rereturn(err);
+
+	web_servers.m_wrp = &wrp;
+	web_servers.m_session_1 = session_1;
+	web_servers.m_session_2 = session_2;
+	web_servers.m_session_3 = session_3;
+	err = mk_clib_app_iip_web_servers_init(&web_servers); mk_lang_check_rereturn(err);
 
 	mk_clib_app_iip_g_wrp = &wrp;
 	mk_clib_app_iip_g_stop_requested = mk_lang_false;
