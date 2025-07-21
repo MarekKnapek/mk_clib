@@ -4,6 +4,7 @@
 
 #include "mk_lang_assert.h"
 #include "mk_lang_constexpr.h"
+#include "mk_lang_debug_break.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
@@ -17,6 +18,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_dyn
 {
 	mk_lang_assert(x);
 
+	mk_lang_debug_break();
 	return 0;
 }
 
@@ -24,6 +26,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_dyn
 {
 	mk_lang_assert(x);
 
+	((mk_lang_types_void_t)(x));
 	return 0;
 }
 
@@ -32,6 +35,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_dyn
 	mk_lang_assert(dst);
 	mk_lang_assert(src);
 
+	mk_lang_debug_break();
 	return 0;
 }
 
@@ -40,6 +44,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_dyn
 	mk_lang_assert(dst);
 	mk_lang_assert(src);
 
+	mk_sl_cui_uint8_assign(dst, src);
 	return 0;
 }
 
@@ -48,6 +53,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_dyn
 	mk_lang_assert(dst);
 	mk_lang_assert(src);
 
+	mk_lang_debug_break();
 	return 0;
 }
 
@@ -56,6 +62,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_dyn
 	mk_lang_assert(dst);
 	mk_lang_assert(src);
 
+	mk_lang_debug_break();
 	return 0;
 }
 
@@ -64,6 +71,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_dyn
 	mk_lang_assert(a);
 	mk_lang_assert(b);
 
+	mk_lang_debug_break();
 	return 0==1;
 }
 
