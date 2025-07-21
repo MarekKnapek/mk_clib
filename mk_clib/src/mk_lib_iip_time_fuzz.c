@@ -42,16 +42,22 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_time_fuzz(mk_lan
 
 	mk_sl_time_to_components(&sl_timestamp, &sl_components);
 	if
-	(!(
-		(sl_components.m_year == 0) &&
-		(sl_components.m_month == 0) &&
-		(sl_components.m_day == 0) &&
-		(sl_components.m_hour == 0) &&
-		(sl_components.m_minute == 0) &&
-		(sl_components.m_second == 0) &&
-		(sl_components.m_ticks == 0l) &&
-		(mk_lang_true)
-	))
+	(
+		(!(
+			(sl_components.m_year == 0) &&
+			(sl_components.m_month == 0) &&
+			(sl_components.m_day == 0) &&
+			(sl_components.m_hour == 0) &&
+			(sl_components.m_minute == 0) &&
+			(sl_components.m_second == 0) &&
+			(sl_components.m_ticks == 0l) &&
+			(mk_lang_true)
+		)) &&
+		(
+			(sl_components.m_year >= 1970) &&
+			(mk_lang_true)
+		)
+	)
 	{
 		mk_lib_iip_time_from_sl_timestamp(&iip_timestamp, &sl_timestamp);
 		mk_lib_iip_time_to_components(&iip_timestamp, &iip_components);
