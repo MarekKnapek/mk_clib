@@ -15,6 +15,7 @@
 #include "mk_lib_iip_cp_client_application.h"
 #include "mk_lib_iip_cp_client_connection_task.h"
 #include "mk_lib_iip_cp_client_local_listener_task.h"
+#include "mk_lib_iip_cp_client_socket.h"
 #include "mk_lib_iip_cp_client_types.h"
 #include "mk_lib_iip_cp_mallocator_global.h"
 
@@ -132,6 +133,25 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_assert(connection->m_data.m_id == mk_lib_iip_any_data_connection_type_e_mk_lib_iip_cp_client_connection_task);
 	err = mk_lib_iip_cp_client_connection_task_any_rw_new_session(connection, &config, &zession); mk_lang_check_rereturn(err); mk_lang_assert(zession);
 	session->m_elements[0] = ((mk_lib_iip_cp_client_types_handle_session_base_t)(zession));
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_wrapper_task_prrw_new_socket_listener(mk_lib_iip_cp_client_wrapper_task_pt const task, mk_lib_iip_cp_client_types_socket_listener_settings_pct const settings, mk_lib_iip_cp_client_types_handle_socket_listener_pt const socket_listener) mk_lang_noexcept
+{
+	mk_lang_bui_uintptr_t uptr;
+	mk_lib_iip_cp_client_session_task_pt session;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(task);
+	mk_lang_assert(settings);
+	mk_lang_assert(socket_listener);
+	mk_lang_assert(!mk_lib_iip_cp_client_types_handle_session_is_zero(&settings->m_session));
+
+	((mk_lang_types_void_t)(task));
+	mk_lib_iip_cp_client_types_handle_session_to_base(&settings->m_session, &uptr); mk_lang_assert(uptr != 0);
+	session = ((mk_lib_iip_cp_client_session_task_pt)(uptr)); mk_lang_assert(session);
+	err = mk_lib_iip_cp_client_session_task_rw_new_socket_listener(session, settings, socket_listener); mk_lang_check_rereturn(err);
+	mk_lang_assert(!mk_lib_iip_cp_client_types_handle_socket_listener_is_zero(socket_listener));
 	return 0;
 }
 
@@ -300,6 +320,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_wrappe
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_wrapper_task_rw_new_session(mk_lib_iip_cp_client_wrapper_task_pt const task, mk_lib_iip_cp_client_types_session_settings_pct const settings, mk_lib_iip_cp_client_types_handle_session_pt const session) mk_lang_noexcept
 {
 	return mk_lib_iip_cp_client_wrapper_task_prrw_new_session(task, settings, session);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_wrapper_task_rw_new_socket_listener(mk_lib_iip_cp_client_wrapper_task_pt const task, mk_lib_iip_cp_client_types_socket_listener_settings_pct const settings, mk_lib_iip_cp_client_types_handle_socket_listener_pt const socket_listener) mk_lang_noexcept
+{
+	return mk_lib_iip_cp_client_wrapper_task_prrw_new_socket_listener(task, settings, socket_listener);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_wrapper_task_rw_step(mk_lib_iip_cp_client_wrapper_task_pt const task, mk_lang_types_bool_t const allow_to_block, mk_lang_types_sint_t const tm, mk_lib_iip_cp_client_wrapper_task_result_pt const step_result) mk_lang_noexcept

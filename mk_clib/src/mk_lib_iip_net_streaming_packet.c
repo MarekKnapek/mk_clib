@@ -684,5 +684,21 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_net_streaming_pa
 	return 0;
 }
 
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_net_streaming_packet_ro_is_initial_in_stream(mk_lib_iip_net_streaming_packet_pct const packet, mk_lang_types_bool_pt const is) mk_lang_noexcept
+{
+	mk_lang_types_bool_t b;
+
+	mk_lang_assert(packet);
+	mk_lang_assert(is);
+
+	b =
+		((packet->m_flags & mk_lib_iip_net_streaming_packet_flag_e_synchronize) != 0) &&
+		((packet->m_flags & mk_lib_iip_net_streaming_packet_flag_e_signature_included) != 0) &&
+		((packet->m_flags & mk_lib_iip_net_streaming_packet_flag_e_from_included) != 0) &&
+		(mk_lang_true);
+	*is = b;
+	return 0;
+}
+
 
 #endif
