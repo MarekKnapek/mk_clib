@@ -10561,16 +10561,16 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_cui_fuzz_cui_
 		len_b = mk_sl_cui_fuzz_cui_inl_defd_cui_b_from_str_hex_many_w(&cui_bb[0], count, &str_buf[0], str_len);
 		mk_lang_test(len_b == len_a);
 		mk_lang_test(len_b == count * mk_sl_cui_fuzz_cui_inl_defd_cui_b_strlen_hex_v);
-	}
 
-	n = count;
-	for(i = 0; i != n; ++i)
-	{
-		mk_lang_test(mk_sl_cui_fuzz_cui_inl_defd_cui_a_eq(&cui_ab[i], &cui_aa[i]));
-		mk_lang_test(mk_sl_cui_fuzz_cui_inl_defd_cui_b_eq(&cui_bb[i], &cui_ba[i]));
-		mk_sl_cui_fuzz_cui_inl_defd_cui_a_to_buis_uint_le(&cui_ab[i], &ra.m_uints[0]);
-		mk_sl_cui_fuzz_cui_inl_defd_cui_b_to_buis_uint_le(&cui_bb[i], &rb.m_uints[0]);
-		mk_lang_test(mk_lang_string_memcmp_ui_fn(&ra.m_uints[0], &rb.m_uints[0], mk_lang_countof(ra.m_uints)) == 0);
+		n = count;
+		for(i = 0; i != n; ++i)
+		{
+			mk_lang_test(mk_sl_cui_fuzz_cui_inl_defd_cui_a_eq(&cui_ab[i], &cui_aa[i]));
+			mk_lang_test(mk_sl_cui_fuzz_cui_inl_defd_cui_b_eq(&cui_bb[i], &cui_ba[i]));
+			mk_sl_cui_fuzz_cui_inl_defd_cui_a_to_buis_uint_le(&cui_ab[i], &ra.m_uints[0]);
+			mk_sl_cui_fuzz_cui_inl_defd_cui_b_to_buis_uint_le(&cui_bb[i], &rb.m_uints[0]);
+			mk_lang_test(mk_lang_string_memcmp_ui_fn(&ra.m_uints[0], &rb.m_uints[0], mk_lang_countof(ra.m_uints)) == 0);
+		}
 	}
 }
 #include "mk_lang_warning_msvc_pop.h"
