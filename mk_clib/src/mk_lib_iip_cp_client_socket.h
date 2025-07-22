@@ -68,6 +68,7 @@ struct mk_lib_iip_cp_client_socket_settings_s
 {
 	mk_lib_iip_cp_client_shared_pt m_shared;
 	mk_lib_iip_cp_types_sessionid_t m_session_id;
+	mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_t m_local_destination;
 	mk_sl_cui_uint16_t m_port;
 };
 typedef struct mk_lib_iip_cp_client_socket_settings_s mk_lib_iip_cp_client_socket_settings_t;
@@ -85,6 +86,9 @@ struct mk_lib_iip_cp_client_socket_state_s
 	mk_lang_types_bool_t m_our_syn_sent;
 	mk_sl_cui_uint16_t m_local_port;
 	mk_sl_cui_uint16_t m_remote_port;
+	mk_sl_cui_uint32_t m_local_stream_id;
+	mk_sl_cui_uint32_t m_remote_stream_id;
+	mk_sl_cui_uint32_t m_sequence_number;
 	mk_lib_iip_cp_types_remote_destination_t m_remote_destination;
 	mk_lib_iip_cp_dynamic_ring_u8_t m_data_to_sent;
 	mk_lib_iip_cp_message_t m_msg;
