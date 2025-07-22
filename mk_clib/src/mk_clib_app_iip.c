@@ -486,23 +486,75 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_web
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_web_servers_check(web_servers_pt const web_servers) mk_lang_noexcept
+mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_clib_app_iip_web_servers_k_uri_root[] = "/";
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_bool_t mk_clib_app_iip_web_servers_compare(mk_lib_iip_http_buffer_pct const buf, mk_lang_types_pchar_pct const str) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pct data_buf;
-	mk_lang_types_sint_t data_len;
+	mk_lang_types_bool_t eq;
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
+	mk_sl_cui_uint8_t u8;
+
+	mk_lang_assert(buf);
+	mk_lang_assert(str);
+
+	eq = mk_lang_true;
+	n = mk_lib_iip_http_buffer_ro_size(buf);
+	for(i = 0; i != n; ++i)
+	{
+		mk_sl_cui_uint8_from_bi_pchar(&u8, &str[i]);
+		if(!mk_sl_cui_uint8_eq(&u8, mk_lib_iip_http_buffer_ro_at(buf, i)))
+		{
+			eq = mk_lang_false;
+			break;
+		}
+	}
+	return eq;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_web_servers_check_one(web_servers_pt const web_servers, mk_lib_iip_cp_client_types_handle_socket_listener_pt const socket, mk_lib_iip_http_pt const http) mk_lang_noexcept
+{
 	mk_lang_types_sint_t err;
-	mk_lib_iip_http_t http;
+	mk_sl_cui_uint8_t data_buf[4 * 1024];
+	mk_lang_types_sint_t data_len;
 	mk_lib_iip_http_parse_error_code_t code;
 	mk_lang_types_sint_t consumed;
+	mk_lang_types_sint_t data_transferred;
+
+	mk_lang_assert(web_servers);
+	mk_lang_assert(socket);
+	mk_lang_assert(http);
+
+	err = mk_lib_iip_cp_client_wrapper_task_rw_socket_recv(web_servers->m_wrp, socket, &data_buf[0], mk_lang_countof(data_buf), &data_len); mk_lang_check_rereturn(err);
+	code = mk_lib_iip_http_parse_error_code_e_ok;
+	err = mk_lib_iip_http_rw_on_incoming_data(http, &data_buf[0], data_len, &code, &consumed); mk_lang_check_rereturn(err); mk_lang_check_return(consumed == data_len);
+	if
+	(
+		(http->m_hdrs_done) &&
+		(http->m_method == mk_lib_iip_http_method_id_e_get) &&
+		(mk_lib_iip_http_buffer_ro_size(&http->m_uri) == mk_lang_countstr(mk_clib_app_iip_web_servers_k_uri_root)) &&
+		(mk_clib_app_iip_web_servers_compare(&http->m_uri, &mk_clib_app_iip_web_servers_k_uri_root[0])) &&
+		(mk_lang_true)
+	)
+	{
+		err = mk_lib_iip_http_rw_destroy(http); mk_lang_check_rereturn(err);
+		err = mk_lib_iip_http_rw_construct(http); mk_lang_check_rereturn(err);
+		/*response*/
+		err = mk_lib_iip_cp_client_wrapper_task_rw_socket_send(web_servers->m_wrp, socket, &data_buf[0], data_len, &data_transferred); mk_lang_check_rereturn(err);
+		mk_lang_check_return(data_transferred == data_len);
+	}
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_web_servers_check(web_servers_pt const web_servers) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
 
 	mk_lang_assert(web_servers);
 
-	data_buf = mk_lang_null;
-	data_len = 0;
-	err = mk_lib_iip_http_rw_construct(&http); mk_lang_check_rereturn(err);
-	code = mk_lib_iip_http_parse_error_code_e_ok;
-	err = mk_lib_iip_http_rw_on_incoming_data(&http, data_buf, data_len, &code, &consumed); mk_lang_check_rereturn(err);
-	err = mk_lib_iip_http_rw_destroy(&http); mk_lang_check_rereturn(err);
+	err = mk_clib_app_iip_web_servers_check_one(web_servers, &web_servers->m_socket_1, &web_servers->m_http_1); mk_lang_check_rereturn(err);
+	err = mk_clib_app_iip_web_servers_check_one(web_servers, &web_servers->m_socket_2, &web_servers->m_http_2); mk_lang_check_rereturn(err);
+	err = mk_clib_app_iip_web_servers_check_one(web_servers, &web_servers->m_socket_3, &web_servers->m_http_3); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -594,6 +646,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wor
 		{
 			break;
 		}
+		err = mk_clib_app_iip_web_servers_check(&web_servers); mk_lang_check_rereturn(err);
 		step_result = mk_lib_iip_cp_client_wrapper_task_result_e_dummy_end;
 		err = mk_lib_iip_cp_client_wrapper_task_rw_step(&wrp, mk_lang_true, 10 * 1000, &step_result); mk_lang_check_rereturn(err);
 		if(step_result == mk_lib_iip_cp_client_wrapper_task_result_e_did_nothing)

@@ -950,7 +950,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 			for(i = 0; i != n; ++i)
 			{
 				break2 = mk_lang_false;
-				idx = task->m_connection.m_state.m_session_idx % count;
+				idx = (i + task->m_connection.m_state.m_session_idx) % count;
 				session_ptr = mk_lib_iip_cp_client_session_tasks_rw_at(&task->m_connection.m_state.m_sessions, idx); mk_lang_assert(session_ptr); session_obj = *session_ptr; mk_lang_assert(session_obj);
 				stp_res = mk_lib_iip_cp_client_session_task_result_e_dummy_end;
 				err = mk_lib_iip_cp_client_session_task_rw_step(session_obj, &stp_res); mk_lang_check_rereturn(err); mk_lang_assert(stp_res != mk_lib_iip_cp_client_session_task_result_e_dummy_end);
