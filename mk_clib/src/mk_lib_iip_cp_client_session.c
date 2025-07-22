@@ -121,6 +121,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	task->m_session.m_state.m_expecting_msg_b = mk_lang_false;
 	task->m_session.m_state.m_expecting_msg_end = mk_lang_false;
 	err = mk_lib_iip_cp_client_socket_tasks_rw_construct(&task->m_session.m_state.m_listening_sockets); mk_lang_check_rereturn(err);
+	task->m_session.m_state.m_idx_listening_sockets = 0;
+	task->m_session.m_state.m_msg_from_socket = mk_lang_null;
 	return 0;
 }
 
@@ -174,7 +176,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_assert(session == task);
 
 	config.m_shared = task->m_session.m_state.m_shared;
-	config.m_session = task;
+	config.m_session_id = task->m_session.m_state.m_id;
 	config.m_port = settings->m_port;
 	err = mk_lib_iip_cp_mallocator_global_allocate(sizeof(*sock_list), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem); sock_list = ((mk_lib_iip_cp_client_socket_task_pt)(mem)); mk_lang_assert(sock_list);
 	err = mk_lib_iip_cp_client_socket_task_rw_construct(sock_list, &config); mk_lang_check_rereturn(err);
@@ -816,10 +818,66 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_prrw_step_pickup_msg_from_socket(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_client_session_task_result_pt const step_result) mk_lang_noexcept
+{
+	mk_lang_assert(task);
+	mk_lang_assert(step_result);
+	mk_lang_assert(*step_result == mk_lib_iip_cp_client_session_task_result_e_dummy_end);
+	mk_lang_assert(task->m_step == mk_lib_iip_cp_client_session_task_step_e_pickup_msg_from_socket);
+	mk_lang_assert(task->m_session.m_state.m_has_msg_pending);
+	mk_lang_assert(task->m_session.m_state.m_msg_from_socket);
+
+	((mk_lang_types_void_t)(task));
+	*step_result = mk_lib_iip_cp_client_session_task_result_e_want_send;
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_prrw_step_listening_sockets(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_client_session_task_result_pt const step_result) mk_lang_noexcept
+{
+	mk_lang_types_bool_t did_something;
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
+	mk_lang_types_usize_t idx;
+	mk_lib_iip_cp_client_socket_task_ppt socket_ptr;
+	mk_lib_iip_cp_client_socket_task_pt socket_val;
+	mk_lang_types_sint_t err;
+	mk_lib_iip_cp_message_pt msg;
+
+	mk_lang_assert(task);
+	mk_lang_assert(step_result);
+	mk_lang_assert(*step_result == mk_lib_iip_cp_client_session_task_result_e_dummy_end);
+	mk_lang_assert(task->m_step == mk_lib_iip_cp_client_session_task_step_e_idle);
+
+	did_something = mk_lang_false;
+	++task->m_session.m_state.m_idx_listening_sockets;
+	n = mk_lib_iip_cp_client_socket_tasks_rw_size(&task->m_session.m_state.m_listening_sockets);
+	for(i = 0; i != n; ++i)
+	{
+		idx = (i + task->m_session.m_state.m_idx_listening_sockets) % n;
+		socket_ptr = mk_lib_iip_cp_client_socket_tasks_rw_at(&task->m_session.m_state.m_listening_sockets, idx); mk_lang_assert(socket_ptr); socket_val = *socket_ptr; mk_lang_assert(socket_val);
+		err = mk_lib_iip_cp_client_socket_task_rw_gimme_msg(socket_val, &msg); mk_lang_check_rereturn(err);
+		if(msg)
+		{
+			task->m_session.m_state.m_has_msg_pending = mk_lang_true;
+			task->m_session.m_state.m_msg_from_socket = msg;
+			task->m_step = mk_lib_iip_cp_client_session_task_step_e_pickup_msg_from_socket;
+			*step_result = mk_lib_iip_cp_client_session_task_result_e_did_something;
+			did_something = mk_lang_true;
+			break;
+		}
+	}
+	if(!did_something)
+	{
+		*step_result = mk_lib_iip_cp_client_session_task_result_e_idling;
+	}
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_prrw_step_idle(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_client_session_task_result_pt const step_result) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 	mk_lib_iip_cp_message_destroy_session_pt msg_destroy_session;
+	mk_lib_iip_cp_client_session_task_result_t stp_res;
 
 	mk_lang_assert(task);
 	mk_lang_assert(step_result);
@@ -830,7 +888,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	(
 		(task->m_session.m_state.m_stop_requested && !task->m_session.m_state.m_has_msg_pending && !mk_lib_iip_cp_client_session_handle_is_zero(&task->m_session.m_settings.m_master_session)) ||
 		(task->m_session.m_state.m_stop_requested && !task->m_session.m_state.m_has_msg_pending && mk_lib_iip_cp_client_session_handle_is_zero(&task->m_session.m_settings.m_master_session) && task->m_session.m_state.m_child_sessions == 0) ||
-		mk_lang_false
+		(mk_lang_false)
 	)
 	{
 		err = mk_lib_iip_cp_message_reconstruct(&task->m_session.m_state.m_msg, mk_lib_iip_cp_message_message_type_id_e_destroy_session); mk_lang_check_rereturn(err);
@@ -842,7 +900,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	}
 	else
 	{
-		*step_result = mk_lib_iip_cp_client_session_task_result_e_idling;
+		stp_res = mk_lib_iip_cp_client_session_task_result_e_dummy_end;
+		err = mk_lib_iip_cp_client_session_task_prrw_step_listening_sockets(task, &stp_res); mk_lang_check_rereturn(err); mk_lang_assert(stp_res != mk_lib_iip_cp_client_session_task_result_e_dummy_end);
+		*step_result = stp_res;
 	}
 	return 0;
 }
@@ -889,6 +949,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 		case mk_lib_iip_cp_client_session_task_step_e_pickup_msg_receive_message_begin: err = mk_lib_iip_cp_client_session_task_prrw_step_pickup_msg_receive_message_begin(task, step_result); mk_lang_check_rereturn(err); mk_lang_assert(*step_result != mk_lib_iip_cp_client_session_task_result_e_dummy_end); break;
 		case mk_lib_iip_cp_client_session_task_step_e_pickup_msg_receive_message_end  : err = mk_lib_iip_cp_client_session_task_prrw_step_pickup_msg_receive_message_end  (task, step_result); mk_lang_check_rereturn(err); mk_lang_assert(*step_result != mk_lib_iip_cp_client_session_task_result_e_dummy_end); break;
 		case mk_lib_iip_cp_client_session_task_step_e_pickup_msg_destroy_session      : err = mk_lib_iip_cp_client_session_task_prrw_step_pickup_msg_destroy_session      (task, step_result); mk_lang_check_rereturn(err); mk_lang_assert(*step_result != mk_lib_iip_cp_client_session_task_result_e_dummy_end); break;
+		case mk_lib_iip_cp_client_session_task_step_e_pickup_msg_from_socket          : err = mk_lib_iip_cp_client_session_task_prrw_step_pickup_msg_from_socket          (task, step_result); mk_lang_check_rereturn(err); mk_lang_assert(*step_result != mk_lib_iip_cp_client_session_task_result_e_dummy_end); break;
 		case mk_lib_iip_cp_client_session_task_step_e_idle                            : err = mk_lib_iip_cp_client_session_task_prrw_step_idle                            (task, step_result); mk_lang_check_rereturn(err); mk_lang_assert(*step_result != mk_lib_iip_cp_client_session_task_result_e_dummy_end); break;
 		case mk_lib_iip_cp_client_session_task_step_e_destroy_sent                    : err = mk_lib_iip_cp_client_session_task_prrw_step_destroy_sent                    (task, step_result); mk_lang_check_rereturn(err); mk_lang_assert(*step_result != mk_lib_iip_cp_client_session_task_result_e_dummy_end); break;
 		case mk_lib_iip_cp_client_session_task_step_e_destroyed_total                 : err = mk_lib_iip_cp_client_session_task_prrw_step_destroyed_total                 (task, step_result); mk_lang_check_rereturn(err); mk_lang_assert(*step_result != mk_lib_iip_cp_client_session_task_result_e_dummy_end); break;

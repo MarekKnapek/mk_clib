@@ -50,6 +50,24 @@
 #include "mk_sl_cui_inl_filec.h"
 #include "mk_sl_cui_inl_fileu.h"
 
+#define mk_sl_cui_t_name mk_lib_iip_cp_types_requestid
+#define mk_sl_cui_t_base_type_name mk_sl_cui_uint32
+#define mk_sl_cui_t_count 1
+#define mk_sl_cui_t_disable_big_div 1
+#define mk_sl_cui_t_base_type_size_bits_d mk_sl_cui_uint32_size_bits_d
+#define mk_sl_cui_t_inline 1
+#include "mk_sl_cui_inl_filec.h"
+#include "mk_sl_cui_inl_fileu.h"
+
+#define mk_sl_cui_t_name mk_lib_iip_cp_types_nonce
+#define mk_sl_cui_t_base_type_name mk_sl_cui_uint32
+#define mk_sl_cui_t_count 1
+#define mk_sl_cui_t_disable_big_div 1
+#define mk_sl_cui_t_base_type_size_bits_d mk_sl_cui_uint32_size_bits_d
+#define mk_sl_cui_t_inline 1
+#include "mk_sl_cui_inl_filec.h"
+#include "mk_sl_cui_inl_fileu.h"
+
 #define mk_sl_cui_t_name mk_lib_iip_cp_types_date
 #define mk_sl_cui_t_base_type_name mk_lib_iip_time_timestamp
 #define mk_sl_cui_t_count 1
@@ -58,6 +76,7 @@
 #define mk_sl_cui_t_inline 1
 #include "mk_sl_cui_inl_filec.h"
 #include "mk_sl_cui_inl_fileu.h"
+
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_types_strpair_rw_construct_void(mk_lib_iip_cp_types_strpair_pt const strpair) mk_lang_noexcept
 {
