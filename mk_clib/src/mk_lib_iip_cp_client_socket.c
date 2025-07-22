@@ -15,6 +15,7 @@
 #include "mk_lang_runtime_bool.h"
 #include "mk_lang_string.h"
 #include "mk_lang_types.h"
+#include "mk_lib_compress_zlib.h"
 #include "mk_lib_fmt.h"
 #include "mk_lib_iip_buffer.h"
 #include "mk_lib_iip_cp_client_shared.h"
@@ -22,6 +23,7 @@
 #include "mk_lib_iip_cp_message.h"
 #include "mk_lib_iip_cp_types.h"
 #include "mk_lib_iip_http.h"
+#include "mk_lib_iip_key_sgn_dsa_sha1_pri.h"
 #include "mk_lib_iip_logger.h"
 #include "mk_lib_iip_logger_more.h"
 #include "mk_lib_iip_net_streaming_packet.h"
@@ -270,6 +272,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	{
 		task->m_socket.m_state.m_local_port = *dst_port;
 		task->m_socket.m_state.m_remote_port = *dst_port;
+		err = mk_lib_iip_random_generate_u32_non_zero(&task->m_socket.m_state.m_local_stream_id); mk_lang_check_rereturn(err);
+		task->m_socket.m_state.m_remote_stream_id = packet->m_recv_stream_id;
+		mk_sl_cui_uint32_set_zero(&task->m_socket.m_state.m_sequence_number);
 		task->m_socket.m_state.m_remote_destination = packet->m_options.m_from;
 		task->m_socket.m_state.m_waiting_for_syn = mk_lang_false;
 		err = mk_lib_iip_cp_mallocator_global_allocate(sizeof(*packet_with_payload), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem); packet_with_payload = ((mk_lib_iip_cp_client_socket_packet_with_payload_pt)(mem)); mk_lang_assert(packet_with_payload);
@@ -379,11 +384,40 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_socket_task_prrw_compress(mk_sl_cui_uint8_pct const decompressed_buf, mk_lang_types_sint_t const decompressed_len, mk_sl_cui_uint8_pt const compressed_buf, mk_lang_types_sint_t const compressed_cap, mk_lang_types_sint_pt const compressed_len) mk_lang_noexcept
+{
+	mk_lib_compress_zlib_t compressor;
+	mk_lang_types_sint_t in;
+	mk_lang_types_sint_t out;
+	mk_lang_types_sint_t out_2;
+
+	mk_lang_assert(decompressed_buf || decompressed_len == 0);
+	mk_lang_assert(decompressed_len >= 0);
+	mk_lang_assert(compressed_buf || compressed_cap == 0);
+	mk_lang_assert(compressed_cap >= 0);
+	mk_lang_assert(compressed_len);
+
+	mk_lib_compress_zlib_init(&compressor);
+	mk_lib_compress_zlib_append(&compressor, decompressed_buf, decompressed_len, compressed_buf, compressed_cap, &in, &out);
+	mk_lib_compress_zlib_finish(&compressor, compressed_buf + out, compressed_cap - out, &out_2);
+	mk_lang_check_return(in == decompressed_len);
+	mk_lang_check_return(out <= compressed_cap);
+	mk_lang_check_return(out_2 <= compressed_cap);
+	mk_lang_check_return(out + out_2 <= compressed_cap);
+	*compressed_len = out + out_2;
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_socket_task_prrw_gimme_msg(mk_lib_iip_cp_client_socket_task_pt const task, mk_lib_iip_cp_message_ppt const msg) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 	mk_lib_iip_cp_message_send_message_pt send_message;
 	mk_sl_cui_uint32_t u32;
+	mk_lib_iip_net_streaming_packet_t packet;
+	mk_lang_types_bool_t gud;
+	mk_sl_cui_uint8_t decompressed_buf[4 * 1024];
+	mk_lang_types_sint_t decompressed_len;
+	mk_lib_iip_key_sgn_dsa_sha1_pri_signature_t signature;
 
 	mk_lang_assert(task);
 	mk_lang_assert(msg);
@@ -395,7 +429,39 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 		send_message = &task->m_socket.m_state.m_msg.m_mix.m_data.m_send_message;
 		send_message->m_session_id = task->m_socket.m_settings.m_session_id;
 		err = mk_lib_iip_cp_client_socket_task_prrw_destination_to_bytes(&send_message->m_destination, &task->m_socket.m_state.m_remote_destination); mk_lang_check_rereturn(err);
-		/***/
+
+		err = mk_lib_iip_net_streaming_packet_rw_construct(&packet); mk_lang_check_rereturn(err);
+		packet.m_send_stream_id = task->m_socket.m_state.m_remote_stream_id;
+		packet.m_recv_stream_id = task->m_socket.m_state.m_local_stream_id;
+		packet.m_sequence_number = task->m_socket.m_state.m_sequence_number;
+		mk_sl_cui_uint32_set_zero(&packet.m_ack_through);
+		packet.m_nacks.m_size = 0;
+		packet.m_resend_delay = 0;
+		packet.m_flags =
+			mk_lib_iip_net_streaming_packet_flag_e_synchronize |
+			mk_lib_iip_net_streaming_packet_flag_e_signature_included |
+			mk_lib_iip_net_streaming_packet_flag_e_from_included |
+			mk_lib_iip_net_streaming_packet_flag_e_no_ack;
+		packet.m_options.m_from.m_type = mk_lib_iip_cp_types_remote_destination_type_e_elgamal_dsa_sha1;
+		packet.m_options.m_from.m_data.m_elgamal_dsa_sha1.m_enc_pub = task->m_socket.m_settings.m_local_destination.m_key_elgamal_pub;
+		packet.m_options.m_from.m_data.m_elgamal_dsa_sha1.m_sgn_pub = task->m_socket.m_settings.m_local_destination.m_key_dsa_sha1_pub;
+		char const reply[] =
+			"HTTP/1.1 200 OK" "\x0d\x0a"
+			"Content-Length: 3" "\x0d\x0a"
+			"Content-Type: text/html; charset=utf-8" "\x0d\x0a"
+			"" "\x0d\x0a"
+			"gud";
+		packet.m_payload_buf = mk_lang_null;
+		packet.m_payload_len = 0;
+		packet.m_payload_buf = ((mk_sl_cui_uint8_pt)(reply));
+		packet.m_payload_len = mk_lang_countstr(reply);
+		gud = mk_lang_true;
+		err = mk_lib_iip_net_streaming_packet_ro_serialize(&packet, &decompressed_buf[0], mk_lang_countof(decompressed_buf), &gud, &decompressed_len); mk_lang_check_rereturn(err); mk_lang_check_return(gud); mk_lang_assert(decompressed_len >= 1); mk_lang_assert(decompressed_len <= mk_lang_countof(decompressed_buf));
+		err = mk_lib_iip_key_sgn_dsa_sha1_pri_sign_data(&task->m_socket.m_settings.m_local_destination.m_key_dsa_sha1_pri, &decompressed_buf[0], decompressed_len, &signature); mk_lang_check_rereturn(err);
+		mk_lang_assert(packet.m_signature_len == mk_lib_iip_key_sgn_dsa_sha1_pri_signature_len_v);
+		mk_lib_iip_key_sgn_dsa_sha1_pri_signature_to_u8s(&signature, packet.m_signature_buf);
+		err = mk_lib_iip_cp_client_socket_task_prrw_compress(&decompressed_buf[0], decompressed_len, &send_message->m_payload.m_buf[0], mk_lang_countof(send_message->m_payload.m_buf), &send_message->m_payload.m_len); mk_lang_check_rereturn(err);
+
 		err = mk_lib_iip_random_generate_u32_non_zero(&u32); mk_lang_check_rereturn(err);
 		mk_lib_iip_cp_types_nonce_from_base(&send_message->m_nonce, &u32);
 		*msg = &task->m_socket.m_state.m_msg;

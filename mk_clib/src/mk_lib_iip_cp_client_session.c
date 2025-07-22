@@ -177,6 +177,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 	config.m_shared = task->m_session.m_state.m_shared;
 	config.m_session_id = task->m_session.m_state.m_id;
+	config.m_local_destination = task->m_session.m_settings.m_destination;
 	config.m_port = settings->m_port;
 	err = mk_lib_iip_cp_mallocator_global_allocate(sizeof(*sock_list), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem); sock_list = ((mk_lib_iip_cp_client_socket_task_pt)(mem)); mk_lang_assert(sock_list);
 	err = mk_lib_iip_cp_client_socket_task_rw_construct(sock_list, &config); mk_lang_check_rereturn(err);
@@ -201,6 +202,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 		task->m_step == mk_lib_iip_cp_client_session_task_step_e_pickup_msg_receive_message_begin ||
 		task->m_step == mk_lib_iip_cp_client_session_task_step_e_pickup_msg_receive_message_end ||
 		task->m_step == mk_lib_iip_cp_client_session_task_step_e_pickup_msg_destroy_session ||
+		task->m_step == mk_lib_iip_cp_client_session_task_step_e_pickup_msg_from_socket ||
 		mk_lang_false
 	);
 
@@ -213,14 +215,26 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 		}
 	}
 
-	*msg = &task->m_session.m_state.m_msg;
+	if(task->m_step != mk_lib_iip_cp_client_session_task_step_e_pickup_msg_from_socket)
+	{
+		*msg = &task->m_session.m_state.m_msg;
+	}
+	else
+	{
+		mk_lang_assert(task->m_session.m_state.m_msg_from_socket);
+		*msg = task->m_session.m_state.m_msg_from_socket;
+		task->m_session.m_state.m_msg_from_socket = mk_lang_null;
+	}
 	task->m_session.m_state.m_has_msg_pending = mk_lang_false;
-	if(mk_lang_runtime_bool_fn_false){}
+	#include "mk_lang_warning_msvc_push_c4127.h"
+	if(mk_lang_false){}
+	#include "mk_lang_warning_msvc_pop.h"
 	else if(task->m_step == mk_lib_iip_cp_client_session_task_step_e_pickup_msg_create_session       ){ task->m_step = mk_lib_iip_cp_client_session_task_step_e_wait_msg_session_status; }
 	else if(task->m_step == mk_lib_iip_cp_client_session_task_step_e_pickup_msg_create_lease_set     ){ task->m_step = mk_lib_iip_cp_client_session_task_step_e_idle                   ; }
 	else if(task->m_step == mk_lib_iip_cp_client_session_task_step_e_pickup_msg_receive_message_begin){ task->m_step = mk_lib_iip_cp_client_session_task_step_e_idle                   ; }
 	else if(task->m_step == mk_lib_iip_cp_client_session_task_step_e_pickup_msg_receive_message_end  ){ task->m_step = mk_lib_iip_cp_client_session_task_step_e_idle                   ; }
 	else if(task->m_step == mk_lib_iip_cp_client_session_task_step_e_pickup_msg_destroy_session      ){ task->m_step = mk_lib_iip_cp_client_session_task_step_e_destroy_sent           ; }
+	else if(task->m_step == mk_lib_iip_cp_client_session_task_step_e_pickup_msg_from_socket          ){ task->m_step = mk_lib_iip_cp_client_session_task_step_e_idle                   ; }
 	else{ mk_lang_assert_false(); }
 	return 0;
 }

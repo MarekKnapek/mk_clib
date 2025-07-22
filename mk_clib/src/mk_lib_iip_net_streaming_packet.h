@@ -85,6 +85,8 @@ struct mk_lib_iip_net_streaming_packet_s
 	mk_lang_types_sint_t m_resend_delay;
 	mk_lib_iip_net_streaming_packet_flag_t m_flags;
 	mk_lib_iip_net_streaming_packet_options_t m_options;
+	mk_sl_cui_uint8_pt m_signature_buf;
+	mk_lang_types_sint_t m_signature_len;
 	mk_sl_cui_uint8_pt m_payload_buf;
 	mk_lang_types_sint_t m_payload_len;
 };
@@ -95,6 +97,7 @@ mk_lang_typedef(mk_lib_iip_net_streaming_packet);
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_net_streaming_packet_rw_construct(mk_lib_iip_net_streaming_packet_pt const packet) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_net_streaming_packet_rw_parse(mk_lib_iip_net_streaming_packet_pt const packet, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lang_types_bool_pt const success) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_net_streaming_packet_ro_serialize(mk_lib_iip_net_streaming_packet_pt const packet, mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_net_streaming_packet_ro_is_initial_in_stream(mk_lib_iip_net_streaming_packet_pct const packet, mk_lang_types_bool_pt const is) mk_lang_noexcept;
 
 
