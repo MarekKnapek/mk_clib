@@ -11,9 +11,12 @@
 #include "mk_lang_max.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_static_assert.h"
+#include "mk_lang_static_param.h"
 #include "mk_lang_string.h"
 #include "mk_lang_types.h"
 #include "mk_lib_iip_key_sgn_dsa_sha1_pri.h"
+#include "mk_sl_cui_uint8.h"
+#include "mk_sl_uint_more.h"
 
 
 #define mk_sl_cui_t_name mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single
@@ -67,6 +70,30 @@ mk_lang_constexpr_static_inline mk_lib_iip_key_sgn_dsa_sha1_pub_uchars_t const m
 	0xe2, 0x47, 0x9c, 0x3b, 0x9d, 0x54, 0x01, 0xde, 0x04, 0xe0, 0x72, 0x7f, 0xb3, 0x3d, 0x65, 0x11,
 	0x28, 0x5d, 0x4c, 0xf2, 0x95, 0x38, 0xd9, 0xe3, 0xb6, 0x05, 0x1f, 0x5b, 0x22, 0xcc, 0x1c, 0x93,
 }}};
+
+
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_to_u8s(mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_pct const a, mk_lang_static_param(mk_sl_cui_uint8_t, u8s, mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_size_bytes_v)) mk_lang_noexcept
+{
+	union mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_to_u8s_storage_data_u
+	{
+		mk_lang_types_uchar_t m_uchars[mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_size_bytes_v];
+		mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_t m_integer;
+	};
+	typedef union mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_to_u8s_storage_data_u mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_to_u8s_storage_data_t;
+	struct mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_to_u8s_storage_s
+	{
+		mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_to_u8s_storage_data_t m_data;
+	};
+	typedef struct mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_to_u8s_storage_s mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_to_u8s_storage_t;
+
+	mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_to_u8s_storage_t storage;
+
+	mk_lang_assert(a);
+	mk_lang_assert(u8s);
+
+	mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_to_buis_uchar_be(a, &storage.m_data.m_uchars[0]);
+	mk_sl_cui_uint8_from_bi_uchar_many(&u8s[0], &storage.m_data.m_uchars[0], mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_size_bytes_v);
+}
 
 
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_load_g(mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_pt const x) mk_lang_noexcept

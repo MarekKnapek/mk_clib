@@ -176,8 +176,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_assert(session == task);
 
 	config.m_shared = task->m_session.m_state.m_shared;
-	config.m_session_id = task->m_session.m_state.m_id;
-	config.m_local_destination = task->m_session.m_settings.m_destination;
+	config.m_session_id = &task->m_session.m_state.m_id;
+	config.m_local_destination = &task->m_session.m_settings.m_destination;
 	config.m_port = settings->m_port;
 	err = mk_lib_iip_cp_mallocator_global_allocate(sizeof(*sock_list), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem); sock_list = ((mk_lib_iip_cp_client_socket_task_pt)(mem)); mk_lang_assert(sock_list);
 	err = mk_lib_iip_cp_client_socket_task_rw_construct(sock_list, &config); mk_lang_check_rereturn(err);

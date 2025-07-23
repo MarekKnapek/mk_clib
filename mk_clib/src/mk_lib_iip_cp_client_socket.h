@@ -67,8 +67,8 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket
 struct mk_lib_iip_cp_client_socket_settings_s
 {
 	mk_lib_iip_cp_client_shared_pt m_shared;
-	mk_lib_iip_cp_types_sessionid_t m_session_id;
-	mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_t m_local_destination;
+	mk_lib_iip_cp_types_sessionid_pt m_session_id;
+	mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_pt m_local_destination;
 	mk_sl_cui_uint16_t m_port;
 };
 typedef struct mk_lib_iip_cp_client_socket_settings_s mk_lib_iip_cp_client_socket_settings_t;

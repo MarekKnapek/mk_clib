@@ -8,6 +8,7 @@
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
+#include "mk_sl_cui_uint32.h"
 #include "mk_sl_cui_uint8.h"
 
 
@@ -179,6 +180,14 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui
 	}
 	eq = i == n;
 	return eq;
+}
+
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_uint8_to_u32(mk_sl_cui_uint8_pct const a, mk_sl_cui_uint32_pt const b) mk_lang_noexcept
+{
+	mk_lang_types_uint_t tui mk_lang_constexpr_init;
+
+	mk_sl_cui_uint8_to_bi_uint(a, &tui);
+	mk_sl_cui_uint32_from_bi_uint(b, &tui);
 }
 
 

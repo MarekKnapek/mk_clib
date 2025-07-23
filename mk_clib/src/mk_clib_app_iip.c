@@ -17,10 +17,12 @@
 #include "mk_lang_min.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_roundup.h"
 #include "mk_lang_stdout.h"
 #include "mk_lang_tchar.h"
 #include "mk_lang_types.h"
 #include "mk_lib_fmt.h"
+#include "mk_lib_iip_base64_encoder.h"
 #include "mk_lib_iip_cp_client_types.h"
 #include "mk_lib_iip_cp_client_wrapper.h"
 #include "mk_lib_iip_cp_mallocator_global.h"
@@ -36,6 +38,7 @@
 #include "mk_sl_io_writer_file.h"
 #include "mk_sl_random.h"
 #include "mk_sl_time.h"
+#include "mk_sl_uint_convert.h"
 #include "mk_sl_uint_more.h"
 #include "mk_win_dll_kernel_console.h"
 #include "mk_win_dll_kernel_handle.h"
@@ -263,6 +266,34 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_des
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_destination_elgamal_dsa_sha1_save_base64(mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_pt const destination, mk_lang_types_pchar_pct const file_name) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	mk_sl_io_writer_file_t writer;
+	mk_lang_types_sint_t ptr;
+	mk_sl_cui_uint8_t bin_buf[256 + 128 + 1 + 2];
+	mk_lang_types_sint_t tsi;
+	mk_sl_cui_uint16_t u16;
+	mk_lang_types_pchar_t str_b64_buf[mk_lang_roundup_div(mk_lang_countof(bin_buf), 3) * 4];
+	mk_lang_types_sint_t str_len;
+	mk_lang_types_sint_t written;
+
+	mk_lang_assert(destination);
+	mk_lang_assert(file_name);
+	mk_lang_assert(file_name[0] != '\0');
+
+	err = mk_sl_io_writer_file_open_n(&writer, file_name); mk_lang_check_rereturn(err);
+	ptr = 0;
+	mk_lib_iip_key_enc_elgamal_pub_integer_single_to_u8s(&destination->m_key_elgamal_pub.m_data.m_integer, &bin_buf[ptr]); ptr += 256;
+	mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_to_u8s(&destination->m_key_dsa_sha1_pub.m_data.m_integer, &bin_buf[ptr]); ptr += 128;
+	tsi = mk_lib_iip_cp_types_certificate_type_e_null; mk_sl_cui_uint8_from_bi_sint(&bin_buf[ptr], &tsi); ptr += 1;
+	tsi = 0; mk_sl_cui_uint16_from_bi_sint(&u16, &tsi); mk_sl_uint_convert_16_8_be_to_sml(&u16, &bin_buf[ptr]); ptr += 2;
+	mk_lib_iip_base64_encoder_fn(&bin_buf[0], mk_lang_countof(bin_buf), &str_b64_buf[0], mk_lang_countof(str_b64_buf), &str_len); mk_lang_check_return(str_len == mk_lang_countof(str_b64_buf));
+	err = mk_sl_io_writer_file_write(&writer, ((mk_sl_cui_uint8_pct)(&str_b64_buf[0])), str_len, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == str_len);
+	err = mk_sl_io_writer_file_close(&writer); mk_lang_check_rereturn(err);
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_parse_settings_from_cmd_line(mk_lib_iip_cp_client_types_connection_settings_pt const settings, mk_lang_types_sint_t const argc, mk_lang_tchar_pcpct const argv, mk_lang_types_sint_pct const lens) mk_lang_noexcept
 {
 	mk_lang_types_sint_t n;
@@ -293,8 +324,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_par
 	param_idx = 1;
 	param_buf = argv[param_idx];
 	param_len = lens[param_idx];
-	param_len = mk_lang_min(param_len, mk_lang_countof(param_store));
+	param_len = mk_lang_min(param_len, mk_lang_countof(param_store) - 1);
 	mk_lang_tchar_to_bi_pchar_many(&param_buf[0], &param_store[0], param_len);
+	param_store[param_len] = '\0';
 	param_ptr = &param_store[0];
 
 	err = mk_lib_net_ipv4_address_parse_pc(&settings->m_destination.m_ipv4_address, param_ptr, param_len, &gud, &consumed); mk_lang_check_rereturn(err); mk_lang_check_return(gud); mk_lang_assert(consumed >= 1); mk_lang_assert(consumed <= param_len);
@@ -585,14 +617,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wor
 
 	web_servers_t web_servers;
 
-	/*
-	mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_t destination;
-	err = mk_clib_app_iip_destination_elgamal_dsa_sha1_generate_new_random_and_save_pri_only(&destination, "destination.txt"); mk_lang_check_rereturn(err);
-	err = mk_clib_app_iip_destination_elgamal_dsa_sha1_generate_new_random_and_save_pri_pub(&destination, "destination3.txt"); mk_lang_check_rereturn(err);
-	err = mk_clib_app_iip_destination_elgamal_dsa_sha1_load_pri_only(&destination, "destination.txt"); mk_lang_check_rereturn(err);
-	err = mk_clib_app_iip_destination_elgamal_dsa_sha1_save_pri_only(&destination, "destination.txt"); mk_lang_check_rereturn(err);
-	err = mk_clib_app_iip_destination_elgamal_dsa_sha1_save_pri_pub(&destination, "destination.txt"); mk_lang_check_rereturn(err);
-	*/
+	/*mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_t destination;*/
+	/*err = mk_clib_app_iip_destination_elgamal_dsa_sha1_generate_new_random_and_save_pri_only(&destination, "destination.txt"); mk_lang_check_rereturn(err);*/
+	/*err = mk_clib_app_iip_destination_elgamal_dsa_sha1_generate_new_random_and_save_pri_pub(&destination, "destination3.txt"); mk_lang_check_rereturn(err);*/
+	/*err = mk_clib_app_iip_destination_elgamal_dsa_sha1_load_pri_only(&destination, "destination2.txt"); mk_lang_check_rereturn(err);*/
+	/*err = mk_clib_app_iip_destination_elgamal_dsa_sha1_save_base64(&destination, "destination2b64.txt"); mk_lang_check_rereturn(err);*/
+	/*err = mk_clib_app_iip_destination_elgamal_dsa_sha1_save_pri_only(&destination, "destination.txt"); mk_lang_check_rereturn(err);*/
+	/*err = mk_clib_app_iip_destination_elgamal_dsa_sha1_save_pri_pub(&destination, "destination.txt"); mk_lang_check_rereturn(err);*/
 
 	app_settings.m_dummy = 0;
 	app_settings.m_iocp_settings.m_dummy = 0;
