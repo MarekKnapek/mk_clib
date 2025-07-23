@@ -1,3 +1,9 @@
+@if "%1"=="inner" goto mk_inner
+@cmd.exe /c "%~f0" inner %*
+@exit /b %errorlevel%
+@goto mk_end
+
+:mk_inner
 @if exist "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" goto mk_enterprise
 @if exist "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvarsall.bat" goto mk_community
 @exit /b 1
