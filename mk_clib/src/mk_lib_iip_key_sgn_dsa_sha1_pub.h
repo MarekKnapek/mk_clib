@@ -7,11 +7,13 @@
 #include "mk_lang_constexpr.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_static_param.h"
 #include "mk_lang_typedef.h"
 #include "mk_lang_types.h"
 
 
 mk_lang_forward(mk_lib_iip_key_sgn_dsa_sha1_pri_integer_single);
+mk_lang_forward(mk_sl_cui_uint8);
 
 
 #define mk_sl_cui_t_name mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single
@@ -28,6 +30,8 @@ mk_lang_forward(mk_lib_iip_key_sgn_dsa_sha1_pri_integer_single);
 #include "mk_sl_cui_inl_fileh.h"
 #include "mk_sl_cui_inl_fileu.h"
 
+
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_to_u8s(mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_pct const a, mk_lang_static_param(mk_sl_cui_uint8_t, u8s, mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_size_bytes_v)) mk_lang_noexcept;
 
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_load_g(mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_pt const x) mk_lang_noexcept;
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_load_p(mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_pt const x) mk_lang_noexcept;
