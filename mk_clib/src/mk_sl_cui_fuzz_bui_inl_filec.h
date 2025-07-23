@@ -10355,7 +10355,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_cui_fuzz_bui_
 	n = count;
 	for(i = 0; i != n; ++i)
 	{
-		len_b = mk_sl_cui_fuzz_bui_inl_defd_bui_from_str_hex_n(&bui[i], &str_buf[i * mk_sl_cui_fuzz_bui_inl_defd_bui_strlen_bin_v], mk_sl_cui_fuzz_bui_inl_defd_bui_strlen_bin_v);
+		len_b = mk_sl_cui_fuzz_bui_inl_defd_bui_from_str_hex_n(&bui[i], &str_buf[i * mk_sl_cui_fuzz_bui_inl_defd_bui_strlen_hex_v], mk_sl_cui_fuzz_bui_inl_defd_bui_strlen_hex_v);
 		len_c = mk_sl_cui_fuzz_bui_inl_defd_cui_from_str_hex_n(&cui[i], &str_buf[i * mk_sl_cui_fuzz_bui_inl_defd_cui_strlen_hex_v], mk_sl_cui_fuzz_bui_inl_defd_cui_strlen_hex_v);
 		mk_lang_assert(len_c == len_b);
 		if(len_b != mk_sl_cui_fuzz_bui_inl_defd_cui_strlen_hex_v)
@@ -10438,7 +10438,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_cui_fuzz_bui_
 	n = count;
 	for(i = 0; i != n; ++i)
 	{
-		len_b = mk_sl_cui_fuzz_bui_inl_defd_bui_from_str_hex_w(&bui[i], &str_buf[i * mk_sl_cui_fuzz_bui_inl_defd_bui_strlen_bin_v], mk_sl_cui_fuzz_bui_inl_defd_bui_strlen_bin_v);
+		len_b = mk_sl_cui_fuzz_bui_inl_defd_bui_from_str_hex_w(&bui[i], &str_buf[i * mk_sl_cui_fuzz_bui_inl_defd_bui_strlen_hex_v], mk_sl_cui_fuzz_bui_inl_defd_bui_strlen_hex_v);
 		len_c = mk_sl_cui_fuzz_bui_inl_defd_cui_from_str_hex_w(&cui[i], &str_buf[i * mk_sl_cui_fuzz_bui_inl_defd_cui_strlen_hex_v], mk_sl_cui_fuzz_bui_inl_defd_cui_strlen_hex_v);
 		mk_lang_assert(len_c == len_b);
 		if(len_b != mk_sl_cui_fuzz_bui_inl_defd_cui_strlen_hex_v)
