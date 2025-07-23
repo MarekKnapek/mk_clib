@@ -1096,7 +1096,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	mk_lang_assert(message);
-	mk_lang_assert(message_type >= 0 && message_type < mk_lib_iip_cp_message_message_type_id_e_dummy_end);
+	mk_lang_assert(message_type >= 0 && message_type <= mk_lib_iip_cp_message_message_type_id_e_dummy_end);
 
 	message->m_header.m_len = 0;
 	message->m_header.m_type = message_type;
@@ -1127,7 +1127,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 		case mk_lib_iip_cp_message_message_type_id_e_host_reply                : err = mk_lib_iip_cp_message_construct_host_reply                (&message->m_mix.m_data.m_host_reply                ); mk_lang_check_rereturn(err); break;
 		case mk_lib_iip_cp_message_message_type_id_e_create_lease_set2         : err = mk_lib_iip_cp_message_construct_create_lease_set2         (&message->m_mix.m_data.m_create_lease_set2         ); mk_lang_check_rereturn(err); break;
 		case mk_lib_iip_cp_message_message_type_id_e_blinding_info             : err = mk_lib_iip_cp_message_construct_blinding_info             (&message->m_mix.m_data.m_blinding_info             ); mk_lang_check_rereturn(err); break;
-		case mk_lib_iip_cp_message_message_type_id_e_dummy_end: mk_lang_assert_false(); break;
+		case mk_lib_iip_cp_message_message_type_id_e_dummy_end: /* nothing */ break;
 		default: mk_lang_assert_false(); break;
 	}
 	return 0;
@@ -1166,7 +1166,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 		case mk_lib_iip_cp_message_message_type_id_e_host_reply                : err = mk_lib_iip_cp_message_destroy_host_reply                (&message->m_mix.m_data.m_host_reply                ); mk_lang_check_rereturn(err); break;
 		case mk_lib_iip_cp_message_message_type_id_e_create_lease_set2         : err = mk_lib_iip_cp_message_destroy_create_lease_set2         (&message->m_mix.m_data.m_create_lease_set2         ); mk_lang_check_rereturn(err); break;
 		case mk_lib_iip_cp_message_message_type_id_e_blinding_info             : err = mk_lib_iip_cp_message_destroy_blinding_info             (&message->m_mix.m_data.m_blinding_info             ); mk_lang_check_rereturn(err); break;
-		case mk_lib_iip_cp_message_message_type_id_e_dummy_end: mk_lang_assert_false(); break;
+		case mk_lib_iip_cp_message_message_type_id_e_dummy_end: /* nothing */ break;
 		default: mk_lang_assert_false(); break;
 	}
 	return 0;
@@ -1177,7 +1177,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	mk_lang_assert(message);
-	mk_lang_assert(message_type >= 0 && message_type < mk_lib_iip_cp_message_message_type_id_e_dummy_end);
+	mk_lang_assert(message_type >= 0 && message_type <= mk_lib_iip_cp_message_message_type_id_e_dummy_end);
 
 	err = mk_lib_iip_cp_message_destroy(message); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_cp_message_construct(message, message_type); mk_lang_check_rereturn(err);
