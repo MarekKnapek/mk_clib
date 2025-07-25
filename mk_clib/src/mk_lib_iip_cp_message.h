@@ -289,7 +289,7 @@ mk_lang_typedef(mk_lib_iip_cp_message_create_lease_set);
 struct mk_lib_iip_cp_message_send_message_s
 {
 	mk_lib_iip_cp_types_sessionid_t m_session_id;
-	mk_lib_iip_cp_types_buffer_t m_destination;
+	mk_lib_iip_cp_types_remote_destination_t m_destination;
 	mk_lib_iip_cp_types_buffer_t m_payload;
 	mk_lib_iip_cp_types_nonce_t m_nonce;
 };

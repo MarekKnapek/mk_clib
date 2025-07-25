@@ -884,9 +884,9 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	mk_lang_types_sint_t len mk_lang_constexpr_init;
 
 	mk_lang_assert(id >= 0 && id < mk_lib_iip_cp_message_str_strs_e_dummyend);
+	mk_lang_assert(mk_lib_iip_cp_message_str_k_strs_sums[id + 0] >= 0);
 	mk_lang_assert(mk_lib_iip_cp_message_str_k_strs_sums[id + 1] > 0);
-	mk_lang_assert(mk_lib_iip_cp_message_str_k_strs_sums[id + 0] > 0);
-	mk_lang_assert(mk_lib_iip_cp_message_str_k_strs_sums[id + 0] < mk_lib_iip_cp_message_str_k_strs_sums[id + 1]);
+	mk_lang_assert(mk_lib_iip_cp_message_str_k_strs_sums[id + 1] > mk_lib_iip_cp_message_str_k_strs_sums[id + 0]);
 
 	len =
 		mk_lib_iip_cp_message_str_k_strs_sums[id + 1] -
@@ -1569,6 +1569,32 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	tlen = mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_strlen_hex_v;
 	mk_lang_check_return(rem >= tlen);
 	len = mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_to_str_hexf_n(obj, ptr, rem); mk_lang_assert(len == tlen);
+	ptr += len;
+	rem -= len;
+
+	tlen = str_len - rem;
+	*out_len = tlen;
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_str_to_json_int_eddsa_sha512_ed25519_pub_single_raw(mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_sint_pt const out_len, mk_lib_iip_key_sgn_eddsa_sha512_ed25519_pub_integer_single_pct const obj) mk_lang_noexcept
+{
+	mk_lang_types_pchar_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
+	mk_lang_types_sint_t len mk_lang_constexpr_init;
+
+	mk_lang_assert(str_buf || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+	mk_lang_assert(out_len);
+	mk_lang_assert(obj);
+
+	ptr = str_buf;
+	rem = str_len;
+
+	tlen = mk_lib_iip_key_sgn_eddsa_sha512_ed25519_pub_integer_single_strlen_hex_v;
+	mk_lang_check_return(rem >= tlen);
+	len = mk_lib_iip_key_sgn_eddsa_sha512_ed25519_pub_integer_single_to_str_hexf_n(obj, ptr, rem); mk_lang_assert(len == tlen);
 	ptr += len;
 	rem -= len;
 
@@ -2831,6 +2857,54 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	return 0;
 }
 
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_str_to_json_key_eddsa_sha512_ed25519_pub_raw(mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_sint_pt const out_len, mk_lib_iip_key_sgn_eddsa_sha512_ed25519_pub_pct const obj) mk_lang_noexcept
+{
+	mk_lang_types_pchar_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
+
+	mk_lang_assert(str_buf || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+	mk_lang_assert(out_len);
+	mk_lang_assert(obj);
+
+	ptr = str_buf;
+	rem = str_len;
+	err = mk_lib_iip_cp_message_str_to_json_val_str_beg                            (ptr, rem, &tlen                        ); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_str_to_json_val_hex_beg                            (ptr, rem, &tlen                        ); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_str_to_json_int_eddsa_sha512_ed25519_pub_single_raw(ptr, rem, &tlen, &obj->m_data.m_integer); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_str_to_json_val_str_end                            (ptr, rem, &tlen                        ); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+
+	tlen = str_len - rem;
+	*out_len = tlen;
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_str_to_json_key_eddsa_sha512_ed25519_pub_sid_nsp(mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_sint_pt const out_len, mk_lib_iip_cp_message_str_strs_t const str_id, mk_lib_iip_key_sgn_eddsa_sha512_ed25519_pub_pct const obj) mk_lang_noexcept
+{
+	mk_lang_types_pchar_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
+
+	mk_lang_assert(str_buf || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+	mk_lang_assert(out_len);
+	mk_lang_assert(str_id >= 0 && str_id < mk_lib_iip_cp_message_str_strs_e_dummyend);
+	mk_lang_assert(obj);
+
+	ptr = str_buf;
+	rem = str_len;
+
+	err = mk_lib_iip_cp_message_str_to_json_key_sid                         (ptr, rem, &tlen, str_id); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_str_to_json_key_eddsa_sha512_ed25519_pub_raw(ptr, rem, &tlen, obj   ); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+
+	tlen = str_len - rem;
+	*out_len = tlen;
+	return 0;
+}
+
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_str_to_json_type_hash_raw(mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_sint_pt const out_len, mk_lib_iip_cp_types_hash_pct const obj) mk_lang_noexcept
 {
@@ -3691,6 +3765,180 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	return 0;
 }
 
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_str_to_json_type_remote_destination_elgamal_dsa_sha1_raw(mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_sint_pt const out_len, mk_lib_iip_cp_types_remote_destination_elgamal_dsa_sha1_pct const obj) mk_lang_noexcept
+{
+	mk_lang_types_pchar_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
+
+	mk_lang_assert(str_buf || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+	mk_lang_assert(out_len);
+	mk_lang_assert(obj);
+
+	ptr = str_buf;
+	rem = str_len;
+
+	err = mk_lib_iip_cp_message_str_to_json_key_elgamal_pub_sid_sep (ptr, rem, &tlen, mk_lib_iip_cp_message_str_strs_e_key_enc_pri, &obj->m_enc_pub); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_str_to_json_key_dsa_sha1_pub_sid_nsp(ptr, rem, &tlen, mk_lib_iip_cp_message_str_strs_e_key_enc_pub, &obj->m_sgn_pub); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+
+	tlen = str_len - rem;
+	*out_len = tlen;
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_str_to_json_type_remote_destination_elgamal_dsa_sha1_sid_nsp(mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_sint_pt const out_len, mk_lib_iip_cp_message_str_strs_t const str_id, mk_lib_iip_cp_types_remote_destination_elgamal_dsa_sha1_pct const obj) mk_lang_noexcept
+{
+	mk_lang_types_pchar_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
+
+	mk_lang_assert(str_buf || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+	mk_lang_assert(out_len);
+	mk_lang_assert(str_id >= 0 && str_id < mk_lib_iip_cp_message_str_strs_e_dummyend);
+	mk_lang_assert(obj);
+
+	ptr = str_buf;
+	rem = str_len;
+
+ 	err = mk_lib_iip_cp_message_str_to_json_key_sid                                     (ptr, rem, &tlen, str_id); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_str_to_json_val_obj_beg                                 (ptr, rem, &tlen        ); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+ 	err = mk_lib_iip_cp_message_str_to_json_type_remote_destination_elgamal_dsa_sha1_raw(ptr, rem, &tlen, obj   ); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_str_to_json_val_obj_end                                 (ptr, rem, &tlen        ); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+
+	tlen = str_len - rem;
+	*out_len = tlen;
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_str_to_json_type_remote_destination_elgamal_dsa_sha1_sid_sep(mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_sint_pt const out_len, mk_lib_iip_cp_message_str_strs_t const str_id, mk_lib_iip_cp_types_remote_destination_elgamal_dsa_sha1_pct const obj) mk_lang_noexcept
+{
+	mk_lang_types_pchar_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
+
+	mk_lang_assert(str_buf || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+	mk_lang_assert(out_len);
+	mk_lang_assert(str_id >= 0 && str_id < mk_lib_iip_cp_message_str_strs_e_dummyend);
+	mk_lang_assert(obj);
+
+	ptr = str_buf;
+	rem = str_len;
+
+	err = mk_lib_iip_cp_message_str_to_json_type_remote_destination_elgamal_dsa_sha1_sid_nsp(ptr, rem, &tlen, str_id, obj); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_str_to_json_val_sep                                         (ptr, rem, &tlen             ); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+
+	tlen = str_len - rem;
+	*out_len = tlen;
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_str_to_json_type_remote_destination_elgamal_eddsa_sha512_ed25519_raw(mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_sint_pt const out_len, mk_lib_iip_cp_types_remote_destination_elgamal_eddsa_sha512_ed25519_pct const obj) mk_lang_noexcept
+{
+	mk_lang_types_pchar_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
+
+	mk_lang_assert(str_buf || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+	mk_lang_assert(out_len);
+	mk_lang_assert(obj);
+
+	ptr = str_buf;
+	rem = str_len;
+
+	err = mk_lib_iip_cp_message_str_to_json_key_elgamal_pub_sid_sep             (ptr, rem, &tlen, mk_lib_iip_cp_message_str_strs_e_key_enc_pri, &obj->m_enc_pub); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_str_to_json_key_eddsa_sha512_ed25519_pub_sid_nsp(ptr, rem, &tlen, mk_lib_iip_cp_message_str_strs_e_key_enc_pub, &obj->m_sgn_pub); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+
+	tlen = str_len - rem;
+	*out_len = tlen;
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_str_to_json_type_remote_destination_raw(mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_sint_pt const out_len, mk_lib_iip_cp_types_remote_destination_pct const obj) mk_lang_noexcept
+{
+	mk_lang_types_pchar_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
+
+	mk_lang_assert(str_buf || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+	mk_lang_assert(out_len);
+	mk_lang_assert(obj);
+
+	ptr = str_buf;
+	rem = str_len;
+
+	switch(obj->m_type)
+	{
+		case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_dsa_sha1            : err = mk_lib_iip_cp_message_str_to_json_type_remote_destination_elgamal_dsa_sha1_raw            (ptr, rem, &tlen, &obj->m_data.m_elgamal_dsa_sha1            ); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen; break;
+		case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_eddsa_sha512_ed25519: err = mk_lib_iip_cp_message_str_to_json_type_remote_destination_elgamal_eddsa_sha512_ed25519_raw(ptr, rem, &tlen, &obj->m_data.m_elgamal_eddsa_sha512_ed25519); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen; break;
+		case mk_lib_iip_cp_types_remote_destination_type_e_dummy_end: mk_lang_assert_false(); break;
+		default: mk_lang_assert_false(); break;
+	}
+
+	tlen = str_len - rem;
+	*out_len = tlen;
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_str_to_json_type_remote_destination_sid_nsp(mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_sint_pt const out_len, mk_lib_iip_cp_message_str_strs_t const str_id, mk_lib_iip_cp_types_remote_destination_pct const obj) mk_lang_noexcept
+{
+	mk_lang_types_pchar_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
+
+	mk_lang_assert(str_buf || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+	mk_lang_assert(out_len);
+	mk_lang_assert(str_id >= 0 && str_id < mk_lib_iip_cp_message_str_strs_e_dummyend);
+	mk_lang_assert(obj);
+
+	ptr = str_buf;
+	rem = str_len;
+
+ 	err = mk_lib_iip_cp_message_str_to_json_key_sid                    (ptr, rem, &tlen, str_id); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_str_to_json_val_obj_beg                (ptr, rem, &tlen        ); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+ 	err = mk_lib_iip_cp_message_str_to_json_type_remote_destination_raw(ptr, rem, &tlen, obj   ); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_str_to_json_val_obj_end                (ptr, rem, &tlen        ); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+
+	tlen = str_len - rem;
+	*out_len = tlen;
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_str_to_json_type_remote_destination_sid_sep(mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_sint_pt const out_len, mk_lib_iip_cp_message_str_strs_t const str_id, mk_lib_iip_cp_types_remote_destination_pct const obj) mk_lang_noexcept
+{
+	mk_lang_types_pchar_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
+
+	mk_lang_assert(str_buf || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+	mk_lang_assert(out_len);
+	mk_lang_assert(str_id >= 0 && str_id < mk_lib_iip_cp_message_str_strs_e_dummyend);
+	mk_lang_assert(obj);
+
+	ptr = str_buf;
+	rem = str_len;
+
+	err = mk_lib_iip_cp_message_str_to_json_type_remote_destination_sid_nsp(ptr, rem, &tlen, str_id, obj); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_str_to_json_val_sep                        (ptr, rem, &tlen             ); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+
+	tlen = str_len - rem;
+	*out_len = tlen;
+	return 0;
+}
+
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_str_to_json_type_leaseset_raw(mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_sint_pt const out_len, mk_lib_iip_cp_types_leaseset_pct const obj) mk_lang_noexcept
 {
 	mk_lang_types_pchar_pt ptr mk_lang_constexpr_init;
@@ -3958,10 +4206,10 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 	ptr = str_buf;
 	rem = str_len;
-	err = mk_lib_iip_cp_message_str_to_json_type_sessionid_sid_sep(ptr, rem, &tlen, mk_lib_iip_cp_message_str_strs_e_session_id , &obj->m_session_id ); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_str_to_json_type_buffer_sid_sep   (ptr, rem, &tlen, mk_lib_iip_cp_message_str_strs_e_destination, &obj->m_destination); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_str_to_json_type_buffer_sid_sep   (ptr, rem, &tlen, mk_lib_iip_cp_message_str_strs_e_payload    , &obj->m_payload    ); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_str_to_json_type_nonce_sid_nsp    (ptr, rem, &tlen, mk_lib_iip_cp_message_str_strs_e_nonce      , &obj->m_nonce      ); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_str_to_json_type_sessionid_sid_sep         (ptr, rem, &tlen, mk_lib_iip_cp_message_str_strs_e_session_id , &obj->m_session_id ); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_str_to_json_type_remote_destination_sid_sep(ptr, rem, &tlen, mk_lib_iip_cp_message_str_strs_e_destination, &obj->m_destination); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_str_to_json_type_buffer_sid_sep            (ptr, rem, &tlen, mk_lib_iip_cp_message_str_strs_e_payload    , &obj->m_payload    ); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_str_to_json_type_nonce_sid_nsp             (ptr, rem, &tlen, mk_lib_iip_cp_message_str_strs_e_nonce      , &obj->m_nonce      ); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	tlen = str_len - rem;
 	*out_len = tlen;
 	return 0;

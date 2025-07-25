@@ -15,7 +15,7 @@
 #include "mk_lang_runtime_bool.h"
 #include "mk_lang_string.h"
 #include "mk_lang_types.h"
-#include "mk_lib_compress_zlib.h"
+#include "mk_lib_compress_deflate.h"
 #include "mk_lib_fmt.h"
 #include "mk_lib_hash_crc32.h"
 #include "mk_lib_iip_buffer.h"
@@ -394,7 +394,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_types_sint_t rem;
 	mk_lang_types_uchar_t tuc;
 	mk_sl_cui_uint8_t tu8;
-	mk_lib_compress_zlib_t compressor;
+	mk_lib_compress_deflate_t compressor;
 	mk_lang_types_sint_t in;
 	mk_lang_types_sint_t out;
 	mk_lang_types_sint_t out_2;
@@ -412,18 +412,18 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	ptr = compressed_buf;
 	rem = compressed_cap;
 
-	tuc = 0x1f; mk_sl_cui_uint8_from_bi_uchar(&tu8, &tuc); ptr[0] = tu8; ++ptr; /* magic */
-	tuc = 0x8b; mk_sl_cui_uint8_from_bi_uchar(&tu8, &tuc); ptr[0] = tu8; ++ptr; /* magic */
-	tuc = 0x08; mk_sl_cui_uint8_from_bi_uchar(&tu8, &tuc); ptr[0] = tu8; ++ptr; /* alg = deflate */
-	tuc = 0x00; mk_sl_cui_uint8_from_bi_uchar(&tu8, &tuc); ptr[0] = tu8; ++ptr; /* flags */
-	mk_sl_uint_convert_16_8_be_to_sml(&task->m_socket.m_state.m_local_port, &ptr[0]); ptr += mk_sl_cui_uint16_size_bytes_v;
-	mk_sl_uint_convert_16_8_be_to_sml(&task->m_socket.m_state.m_remote_port, &ptr[0]); ptr += mk_sl_cui_uint16_size_bytes_v;
-	tuc = 0x02; mk_sl_cui_uint8_from_bi_uchar(&tu8, &tuc); ptr[0] = tu8; ++ptr; /* xflags = max compression */
-	tuc = 6; mk_sl_cui_uint8_from_bi_uchar(&tu8, &tuc); ptr[0] = tu8; ++ptr; /* os = i2p protocol */
+	tuc = 0x1f; mk_sl_cui_uint8_from_bi_uchar(&tu8, &tuc); ptr[0] = tu8; ++ptr; --rem; /* magic */
+	tuc = 0x8b; mk_sl_cui_uint8_from_bi_uchar(&tu8, &tuc); ptr[0] = tu8; ++ptr; --rem; /* magic */
+	tuc = 0x08; mk_sl_cui_uint8_from_bi_uchar(&tu8, &tuc); ptr[0] = tu8; ++ptr; --rem; /* alg = deflate */
+	tuc = 0x00; mk_sl_cui_uint8_from_bi_uchar(&tu8, &tuc); ptr[0] = tu8; ++ptr; --rem; /* flags */
+	mk_sl_uint_convert_16_8_be_to_sml(&task->m_socket.m_state.m_local_port, &ptr[0]); ptr += mk_sl_cui_uint16_size_bytes_v; rem -= mk_sl_cui_uint16_size_bytes_v;
+	mk_sl_uint_convert_16_8_be_to_sml(&task->m_socket.m_state.m_remote_port, &ptr[0]); ptr += mk_sl_cui_uint16_size_bytes_v; rem -= mk_sl_cui_uint16_size_bytes_v;
+	tuc = 0x02; mk_sl_cui_uint8_from_bi_uchar(&tu8, &tuc); ptr[0] = tu8; ++ptr; --rem; /* xflags = max compression */
+	tuc = 6; mk_sl_cui_uint8_from_bi_uchar(&tu8, &tuc); ptr[0] = tu8; ++ptr; --rem; /* os = i2p protocol */
 
-	mk_lib_compress_zlib_init(&compressor);
-	mk_lib_compress_zlib_append(&compressor, decompressed_buf, decompressed_len, ptr, rem, &in, &out); mk_lang_check_return(in == decompressed_len); mk_lang_check_return(out <= rem);
-	mk_lib_compress_zlib_finish(&compressor, ptr + out, rem - out, &out_2);
+	mk_lib_compress_deflate_init(&compressor);
+	mk_lib_compress_deflate_append(&compressor, decompressed_buf, decompressed_len, ptr, rem, &in, &out); mk_lang_check_return(in == decompressed_len); mk_lang_check_return(out <= rem);
+	mk_lib_compress_deflate_finish(&compressor, ptr + out, rem - out, &out_2);
 	mk_lang_check_return(out_2 <= rem);
 	mk_lang_check_return(out + out_2 <= rem);
 	ptr += out + out_2;
@@ -465,12 +465,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 		err = mk_lib_iip_cp_message_reconstruct(&task->m_socket.m_state.m_msg, mk_lib_iip_cp_message_message_type_id_e_send_message); mk_lang_check_rereturn(err);
 		send_message = &task->m_socket.m_state.m_msg.m_mix.m_data.m_send_message;
 		send_message->m_session_id = *task->m_socket.m_settings.m_session_id;
-		err = mk_lib_iip_cp_client_socket_task_prrw_destination_to_bytes(&send_message->m_destination, &task->m_socket.m_state.m_remote_destination); mk_lang_check_rereturn(err);
-		mk_lang_assert
-		(
-			(send_message->m_destination.m_len == task->m_socket.m_state.m_packets_to_ack.m_buffer[task->m_socket.m_state.m_packets_to_ack.m_read]->m_packet.m_options.m_from_len) &&
-			(mk_sl_cui_uint8_memcmp_fn(&send_message->m_destination.m_buf[0], task->m_socket.m_state.m_packets_to_ack.m_buffer[task->m_socket.m_state.m_packets_to_ack.m_read]->m_packet.m_options.m_from_buf, send_message->m_destination.m_len) == 0)
-		);
+		send_message->m_destination = task->m_socket.m_state.m_remote_destination;
 
 		err = mk_lib_iip_net_streaming_packet_rw_construct(&packet); mk_lang_check_rereturn(err);
 		packet.m_send_stream_id = task->m_socket.m_state.m_remote_stream_id;
@@ -481,7 +476,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 		packet.m_resend_delay = 0;
 		packet.m_flags =
 			mk_lib_iip_net_streaming_packet_flag_e_synchronize |
-			mk_lib_iip_net_streaming_packet_flag_e_close |
 			mk_lib_iip_net_streaming_packet_flag_e_signature_included |
 			mk_lib_iip_net_streaming_packet_flag_e_from_included |
 			mk_lib_iip_net_streaming_packet_flag_e_no_ack;

@@ -454,6 +454,36 @@ mk_lang_typedef(mk_lib_iip_cp_types_remote_destination);
 #include "mk_lang_warning_msvc_pop.h"
 
 #include "mk_lang_warning_msvc_push_c4820.h"
+struct mk_lib_iip_cp_types_signature_any_s
+{
+	mk_sl_cui_uint8_t m_signature_buffer[64];
+};
+typedef struct mk_lib_iip_cp_types_signature_any_s mk_lib_iip_cp_types_signature_any_t;
+mk_lang_typedef(mk_lib_iip_cp_types_signature_any);
+enum mk_lib_iip_cp_types_signature_type_e
+{
+	mk_lib_iip_cp_types_signature_type_e_dsa_sha1,
+	mk_lib_iip_cp_types_signature_type_e_eddsa_sha512_ed25519,
+	mk_lib_iip_cp_types_signature_type_e_dummy_end
+};
+typedef enum mk_lib_iip_cp_types_signature_type_e mk_lib_iip_cp_types_signature_type_t;
+union mk_lib_iip_cp_types_signature_data_u
+{
+	mk_lib_iip_cp_types_signature_any_t m_any;
+	mk_lib_iip_key_sgn_dsa_sha1_pri_signature_t m_dsa_sha1;
+	mk_lib_iip_key_sgn_eddsa_sha512_ed25519_pub_signature_t m_eddsa_sha512_ed25519;
+};
+typedef union mk_lib_iip_cp_types_signature_data_u mk_lib_iip_cp_types_signature_data_t;
+struct mk_lib_iip_cp_types_signature_s
+{
+	mk_lib_iip_cp_types_signature_type_t m_type;
+	mk_lib_iip_cp_types_signature_data_t m_data;
+};
+typedef struct mk_lib_iip_cp_types_signature_s mk_lib_iip_cp_types_signature_t;
+mk_lang_typedef(mk_lib_iip_cp_types_signature);
+#include "mk_lang_warning_msvc_pop.h"
+
+#include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_lib_iip_cp_types_leaseset_s
 {
 	mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_t m_destination;
