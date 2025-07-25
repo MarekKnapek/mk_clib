@@ -231,7 +231,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_stre
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_streaming_packet_prrw_parse_destination(mk_lib_iip_cp_types_remote_destination_pt const obj, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_streaming_packet_prrw_parse_destination(mk_lib_iip_net_streaming_packet_options_pt const obj, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_pct ptr;
 	mk_lang_types_sint_t rem;
@@ -243,7 +243,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_stre
 	mk_lang_types_sint_t sgn_key_type;
 	mk_lang_types_sint_t enc_key_type;
 
-	mk_lang_static_assert((mk_lang_countof(obj->m_data.m_any_any.m_destination_buffer.m_crpt_pub_key) + mk_lang_countof(obj->m_data.m_any_any.m_destination_buffer.m_sign_pub_key)) + (((mk_lang_types_sint_t)(mk_sl_cui_uint8_size_bytes_v)) + ((mk_lang_types_sint_t)(mk_sl_cui_uint16_size_bytes_v))) == 387);
+	mk_lang_static_assert((mk_lang_countof(obj->m_from.m_data.m_any_any.m_destination_buffer.m_crpt_pub_key) + mk_lang_countof(obj->m_from.m_data.m_any_any.m_destination_buffer.m_sign_pub_key)) + (((mk_lang_types_sint_t)(mk_sl_cui_uint8_size_bytes_v)) + ((mk_lang_types_sint_t)(mk_sl_cui_uint16_size_bytes_v))) == 387);
 
 	mk_lang_assert(obj);
 	mk_lang_assert(data_buf || data_len == 0);
@@ -261,8 +261,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_stre
 		*success = mk_lang_false;
 		return 0;
 	}
-	mk_sl_cui_uint8_memcpy_fn(&obj->m_data.m_any_any.m_destination_buffer.m_crpt_pub_key[0], &ptr[0], mk_lang_countof(obj->m_data.m_any_any.m_destination_buffer.m_crpt_pub_key)); ptr += mk_lang_countof(obj->m_data.m_any_any.m_destination_buffer.m_crpt_pub_key); rem -= mk_lang_countof(obj->m_data.m_any_any.m_destination_buffer.m_crpt_pub_key);
-	mk_sl_cui_uint8_memcpy_fn(&obj->m_data.m_any_any.m_destination_buffer.m_sign_pub_key[0], &ptr[0], mk_lang_countof(obj->m_data.m_any_any.m_destination_buffer.m_sign_pub_key)); ptr += mk_lang_countof(obj->m_data.m_any_any.m_destination_buffer.m_sign_pub_key); rem -= mk_lang_countof(obj->m_data.m_any_any.m_destination_buffer.m_sign_pub_key);
+	obj->m_from_buf = ((mk_sl_cui_uint8_pt)(ptr));
+	mk_sl_cui_uint8_memcpy_fn(&obj->m_from.m_data.m_any_any.m_destination_buffer.m_crpt_pub_key[0], &ptr[0], mk_lang_countof(obj->m_from.m_data.m_any_any.m_destination_buffer.m_crpt_pub_key)); ptr += mk_lang_countof(obj->m_from.m_data.m_any_any.m_destination_buffer.m_crpt_pub_key); rem -= mk_lang_countof(obj->m_from.m_data.m_any_any.m_destination_buffer.m_crpt_pub_key);
+	mk_sl_cui_uint8_memcpy_fn(&obj->m_from.m_data.m_any_any.m_destination_buffer.m_sign_pub_key[0], &ptr[0], mk_lang_countof(obj->m_from.m_data.m_any_any.m_destination_buffer.m_sign_pub_key)); ptr += mk_lang_countof(obj->m_from.m_data.m_any_any.m_destination_buffer.m_sign_pub_key); rem -= mk_lang_countof(obj->m_from.m_data.m_any_any.m_destination_buffer.m_sign_pub_key);
 	err = mk_lib_iip_net_streaming_packet_prrw_parse_s8(&cert_type, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *success = mk_lang_false; return 0; } mk_lang_assert(tlen >= 1); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	switch(cert_type)
 	{
@@ -281,13 +282,14 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_stre
 	err = mk_lib_iip_net_streaming_packet_prrw_parse_s16(&enc_key_type, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *success = mk_lang_false; return 0; } mk_lang_assert(tlen >= 1); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	if(enc_key_type == mk_lib_iip_cp_types_crpt_key_type_e_elgamal && sgn_key_type == mk_lib_iip_cp_types_sign_key_type_e_eddsa_sha512_ed25519)
 	{
-		obj->m_type = mk_lib_iip_cp_types_remote_destination_type_e_elgamal_eddsa_sha512_ed25519;
+		obj->m_from.m_type = mk_lib_iip_cp_types_remote_destination_type_e_elgamal_eddsa_sha512_ed25519;
 	}
 	else
 	{
 		mk_lang_check_todo();
 	}
 	tlen = data_len - rem;
+	obj->m_from_len = tlen;
 	*consumed = tlen;
 	return 0;
 }
@@ -376,7 +378,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_stre
 			*success = mk_lang_false;
 			return 0;
 		}
-		err = mk_lib_iip_net_streaming_packet_prrw_parse_destination(&obj->m_from, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *success = mk_lang_false; return 0; } mk_lang_assert(tlen >= 1); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+		err = mk_lib_iip_net_streaming_packet_prrw_parse_destination(obj, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *success = mk_lang_false; return 0; } mk_lang_assert(tlen >= 1); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 		err = mk_lib_iip_net_streaming_packet_prrw_parse_options_from_b32(&obj->m_b32, ptr - tlen, tlen); mk_lang_check_rereturn(err);
 	}
 	else
