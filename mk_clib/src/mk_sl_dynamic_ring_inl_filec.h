@@ -756,10 +756,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 	mk_lang_assert(ring);
 	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
 
-	data_a = mk_sl_dynamic_ring_inl_defd_prrw_get_free_data_a(ring);
-	size_a = mk_sl_dynamic_ring_inl_defd_prrw_get_free_size_a(ring);
-	data_b = mk_sl_dynamic_ring_inl_defd_prrw_get_free_data_b(ring);
-	size_b = mk_sl_dynamic_ring_inl_defd_prrw_get_free_size_b(ring);
+	data_a = mk_sl_dynamic_ring_inl_defd_prrw_get_data_a(ring);
+	size_a = mk_sl_dynamic_ring_inl_defd_prrw_get_size_a(ring);
+	data_b = mk_sl_dynamic_ring_inl_defd_prrw_get_data_b(ring);
+	size_b = mk_sl_dynamic_ring_inl_defd_prrw_get_size_b(ring);
 	if(size_a != 0 && size_b != 0)
 	{
 		old_buffer = ring->m_buffer;
