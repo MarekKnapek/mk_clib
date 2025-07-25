@@ -123,6 +123,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	err = mk_lib_iip_cp_client_socket_tasks_rw_construct(&task->m_session.m_state.m_listening_sockets); mk_lang_check_rereturn(err);
 	task->m_session.m_state.m_idx_listening_sockets = 0;
 	task->m_session.m_state.m_msg_from_socket = mk_lang_null;
+	task->m_session.m_state.m_msg_to_be_accepted = mk_lang_null;
 	return 0;
 }
 
@@ -223,6 +224,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	{
 		mk_lang_assert(task->m_session.m_state.m_msg_from_socket);
 		*msg = task->m_session.m_state.m_msg_from_socket;
+		task->m_session.m_state.m_msg_to_be_accepted = task->m_session.m_state.m_msg_from_socket;
 		task->m_session.m_state.m_msg_from_socket = mk_lang_null;
 	}
 	task->m_session.m_state.m_has_msg_pending = mk_lang_false;
@@ -513,6 +515,32 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_prrw_on_msg_message_status_accepted(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_message_pt const msg) mk_lang_noexcept
+{
+	mk_lib_iip_cp_message_message_status_pt msg_message_status;
+
+	mk_lang_assert(task);
+	mk_lang_assert(msg);
+	mk_lang_assert(task->m_session.m_state.m_has_id);
+	mk_lang_assert(task->m_step == mk_lib_iip_cp_client_session_task_step_e_idle);
+
+	msg_message_status = &msg->m_mix.m_data.m_message_status;
+	mk_lang_assert(mk_lib_iip_cp_types_sessionid_eq(&msg_message_status->m_session_id, &task->m_session.m_state.m_id));
+	mk_lang_assert(msg_message_status->m_status == mk_lib_iip_cp_message_message_status_status_id_e_accepted);
+
+	if(task->m_session.m_state.m_msg_to_be_accepted)
+	{
+		mk_lang_assert(task->m_session.m_state.m_msg_to_be_accepted->m_header.m_type == mk_lib_iip_cp_message_message_type_id_e_send_message);
+		/*mk_lang_check_return(mk_lib_iip_cp_types_nonce_eq(&msg_message_status->m_nonce, &task->m_session.m_state.m_msg_to_be_accepted->m_mix.m_data.m_send_message.m_nonce));*/
+		task->m_session.m_state.m_msg_to_be_accepted = mk_lang_null;
+	}
+	else
+	{
+		mk_lang_check_todo();
+	}
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_prrw_on_msg_message_status(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_message_pt const msg) mk_lang_noexcept
 {
 	mk_lib_iip_cp_message_message_status_pt msg_message_status;
@@ -529,7 +557,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	switch(msg_message_status->m_status)
 	{
 		case mk_lib_iip_cp_message_message_status_status_id_e_available             : err = mk_lib_iip_cp_client_session_task_prrw_on_msg_message_status_available(task, msg); mk_lang_check_rereturn(err); break;
-		case mk_lib_iip_cp_message_message_status_status_id_e_accepted              : mk_lang_check_todo(); break;
+		case mk_lib_iip_cp_message_message_status_status_id_e_accepted              : err = mk_lib_iip_cp_client_session_task_prrw_on_msg_message_status_accepted (task, msg); mk_lang_check_rereturn(err); break;
 		case mk_lib_iip_cp_message_message_status_status_id_e_best_effort_success   : mk_lang_check_todo(); break;
 		case mk_lib_iip_cp_message_message_status_status_id_e_best_effort_failure   : mk_lang_check_todo(); break;
 		case mk_lib_iip_cp_message_message_status_status_id_e_guaranteed_success    : mk_lang_check_todo(); break;
