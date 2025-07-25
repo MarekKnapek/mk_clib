@@ -743,7 +743,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 	mk_lang_types_usize_t size_a;
 	mk_sl_dynamic_ring_inl_defd_element_pt data_b;
 	mk_lang_types_usize_t size_b;
-	mk_lang_types_usize_t bytes_count;
+	mk_sl_dynamic_ring_inl_defd_element_pt old_buffer;
+	mk_lang_types_usize_t old_capacity;
+	mk_lang_types_usize_t old_bytes_count;
+	mk_lang_types_usize_t elements_count;
+	mk_lang_types_usize_t elements_capacity;
+	mk_lang_types_usize_t bytes_capacity;
 	mk_lang_types_void_pt mem;
 	mk_sl_dynamic_ring_inl_defd_element_pt new_buffer;
 	mk_lang_types_sint_t err;
@@ -757,14 +762,22 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 	size_b = mk_sl_dynamic_ring_inl_defd_prrw_get_free_size_b(ring);
 	if(size_a != 0 && size_b != 0)
 	{
-		bytes_count = (size_a + size_b) * sizeof(mk_sl_dynamic_ring_inl_defd_element_t);
-		err = mk_sl_dynamic_ring_inl_defd_mallocator_allocate(ring, bytes_count, &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem); new_buffer = ((mk_sl_dynamic_ring_inl_defd_element_pt)(mem)); mk_lang_assert(new_buffer);
+		old_buffer = ring->m_buffer;
+		old_capacity = ring->m_capacity;
+		old_bytes_count = old_capacity * sizeof(mk_sl_dynamic_ring_inl_defd_element_t);
+		elements_count = size_a + size_b;
+		elements_capacity = mk_lang_pow2_roundup(elements_count);
+		bytes_capacity = elements_capacity * sizeof(mk_sl_dynamic_ring_inl_defd_element_t);
+		err = mk_sl_dynamic_ring_inl_defd_mallocator_allocate(ring, bytes_capacity, &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem); new_buffer = ((mk_sl_dynamic_ring_inl_defd_element_pt)(mem)); mk_lang_assert(new_buffer);
 		err = mk_sl_dynamic_ring_inl_defd_prrw_elements_construct_move_many(new_buffer + 0 * size_a, data_a, size_a); mk_lang_check_rereturn(err);
 		err = mk_sl_dynamic_ring_inl_defd_prrw_elements_construct_move_many(new_buffer + 1 * size_a, data_b, size_b); mk_lang_check_rereturn(err);
+		ring->m_buffer = new_buffer;
+		ring->m_capacity = elements_capacity;
+		ring->m_read = 0;
+		ring->m_write = elements_count;
 		err = mk_sl_dynamic_ring_inl_defd_prrw_elements_destroy_many(data_a, size_a); mk_lang_check_rereturn(err);
 		err = mk_sl_dynamic_ring_inl_defd_prrw_elements_destroy_many(data_b, size_b); mk_lang_check_rereturn(err);
-		err = mk_sl_dynamic_ring_inl_defd_mallocator_deallocate(ring, ring->m_buffer, bytes_count); mk_lang_check_rereturn(err);
-		ring->m_buffer = new_buffer;
+		err = mk_sl_dynamic_ring_inl_defd_mallocator_deallocate(ring, old_buffer, old_bytes_count); mk_lang_check_rereturn(err);
 	}
 
 	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
