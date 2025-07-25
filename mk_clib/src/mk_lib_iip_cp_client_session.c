@@ -541,6 +541,30 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_prrw_on_msg_message_status_no_leaseset(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_message_pt const msg) mk_lang_noexcept
+{
+	mk_lib_iip_cp_message_message_status_pt msg_message_status;
+	mk_lib_iip_cp_client_socket_task_ppt socket_ptr;
+	mk_lib_iip_cp_client_socket_task_pt socket_obj;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(task);
+	mk_lang_assert(msg);
+	mk_lang_assert(task->m_session.m_state.m_has_id);
+	mk_lang_assert(task->m_step == mk_lib_iip_cp_client_session_task_step_e_idle);
+
+	msg_message_status = &msg->m_mix.m_data.m_message_status;
+	mk_lang_assert(mk_lib_iip_cp_types_sessionid_eq(&msg_message_status->m_session_id, &task->m_session.m_state.m_id));
+	mk_lang_assert(msg_message_status->m_status == mk_lib_iip_cp_message_message_status_status_id_e_no_leaseset);
+
+	socket_ptr = mk_lib_iip_cp_client_socket_tasks_rw_at(&task->m_session.m_state.m_listening_sockets, 0); mk_lang_assert(socket_ptr); socket_obj = *socket_ptr; mk_lang_assert(socket_obj);
+	socket_obj->m_socket.m_state.m_waiting_for_syn = mk_lang_true;
+	socket_obj->m_socket.m_state.m_our_syn_sent = mk_lang_false;
+	err = mk_lib_iip_cp_client_socket_packets_with_payload_rw_clear(&socket_obj->m_socket.m_state.m_packets_to_ack); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_client_socket_packets_with_payload_rw_clear(&socket_obj->m_socket.m_state.m_incoming_packets); mk_lang_check_rereturn(err);
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_prrw_on_msg_message_status(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_message_pt const msg) mk_lang_noexcept
 {
 	mk_lib_iip_cp_message_message_status_pt msg_message_status;
@@ -577,7 +601,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 		case mk_lib_iip_cp_message_message_status_status_id_e_bad_destination       : mk_lang_check_todo(); break;
 		case mk_lib_iip_cp_message_message_status_status_id_e_bad_leaseset          : mk_lang_check_todo(); break;
 		case mk_lib_iip_cp_message_message_status_status_id_e_expired_leaseset      : mk_lang_check_todo(); break;
-		case mk_lib_iip_cp_message_message_status_status_id_e_no_leaseset           : mk_lang_check_todo(); break;
+		case mk_lib_iip_cp_message_message_status_status_id_e_no_leaseset           : err = mk_lib_iip_cp_client_session_task_prrw_on_msg_message_status_no_leaseset(task, msg); mk_lang_check_rereturn(err); break;
 		case mk_lib_iip_cp_message_message_status_status_id_e_meta_leaseset         : mk_lang_check_todo(); break;
 		case mk_lib_iip_cp_message_message_status_status_id_e_loopback_denied       : mk_lang_check_todo(); break;
 		case mk_lib_iip_cp_message_message_status_status_id_e_dummy_end: mk_lang_assert_false(); break;
