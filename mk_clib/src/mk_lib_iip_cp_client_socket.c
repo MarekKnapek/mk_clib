@@ -466,6 +466,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 		send_message = &task->m_socket.m_state.m_msg.m_mix.m_data.m_send_message;
 		send_message->m_session_id = *task->m_socket.m_settings.m_session_id;
 		err = mk_lib_iip_cp_client_socket_task_prrw_destination_to_bytes(&send_message->m_destination, &task->m_socket.m_state.m_remote_destination); mk_lang_check_rereturn(err);
+		mk_lang_assert
+		(
+			(send_message->m_destination.m_len == task->m_socket.m_state.m_packets_to_ack.m_buffer[task->m_socket.m_state.m_packets_to_ack.m_read]->m_packet.m_options.m_from_len) &&
+			(mk_sl_cui_uint8_memcmp_fn(&send_message->m_destination.m_buf[0], task->m_socket.m_state.m_packets_to_ack.m_buffer[task->m_socket.m_state.m_packets_to_ack.m_read]->m_packet.m_options.m_from_buf, send_message->m_destination.m_len) == 0)
+		);
 
 		err = mk_lib_iip_net_streaming_packet_rw_construct(&packet); mk_lang_check_rereturn(err);
 		packet.m_send_stream_id = task->m_socket.m_state.m_remote_stream_id;
@@ -476,6 +481,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 		packet.m_resend_delay = 0;
 		packet.m_flags =
 			mk_lib_iip_net_streaming_packet_flag_e_synchronize |
+			mk_lib_iip_net_streaming_packet_flag_e_close |
 			mk_lib_iip_net_streaming_packet_flag_e_signature_included |
 			mk_lib_iip_net_streaming_packet_flag_e_from_included |
 			mk_lib_iip_net_streaming_packet_flag_e_no_ack;

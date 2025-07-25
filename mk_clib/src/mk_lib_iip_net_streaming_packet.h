@@ -64,6 +64,8 @@ struct mk_lib_iip_net_streaming_packet_options_s
 	mk_sl_cui_uint8_pt m_buf;
 	mk_lang_types_sint_t m_len;
 	mk_lang_types_sint_t m_delay;
+	mk_sl_cui_uint8_pt m_from_buf;
+	mk_lang_types_sint_t m_from_len;
 	mk_lib_iip_cp_types_remote_destination_t m_from;
 	mk_lib_iip_net_streaming_packet_b32_t m_b32;
 	mk_lang_types_sint_t m_max_packet_size;
