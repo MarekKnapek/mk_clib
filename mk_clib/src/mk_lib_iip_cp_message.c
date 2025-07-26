@@ -1020,13 +1020,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 {
 	mk_lang_assert(msg_host_reply);
 
-
-	#include "mk_lang_warning_msvc_push_c4127.h"
-	if(!mk_lang_constexpr_is_constant_evaluated_test)
-	#include "mk_lang_warning_msvc_pop.h"
-	{
-		mk_lang_check_todo();
-	}
+	((mk_lang_types_void_t)(msg_host_reply));
 	return 0;
 }
 
