@@ -136,6 +136,28 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_wrapper_task_prrw_lookup_host_name(mk_lib_iip_cp_client_wrapper_task_pt const task, mk_lib_iip_cp_client_types_lookup_host_name_pt const request) mk_lang_noexcept
+{
+	mk_lang_bui_uintptr_t uptr;
+	mk_lib_iip_cp_client_session_task_pt session;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(task);
+	mk_lang_assert(request);
+	mk_lang_assert(!mk_lib_iip_cp_client_types_handle_session_is_zero(&request->m_session));
+	mk_lang_assert(request->m_host_name_buf);
+	mk_lang_assert(request->m_host_name_buf[0] != '\0');
+	mk_lang_assert(request->m_host_name_len >= 0x01);
+	mk_lang_assert(request->m_host_name_len <= 0xff);
+
+	mk_lib_iip_cp_client_types_handle_session_to_base(&request->m_session, &uptr); mk_lang_assert(uptr != 0);
+	session = ((mk_lib_iip_cp_client_session_task_pt)(uptr)); mk_lang_assert(session);
+	err = mk_lib_iip_cp_client_session_task_rw_lookup_host_name(session, request); mk_lang_check_rereturn(err);
+	mk_lang_assert(!request->m_done);
+	mk_lang_assert(!mk_lib_iip_cp_client_types_handle_lookup_host_name_is_zero(&request->m_internal));
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_wrapper_task_prrw_new_socket_listener(mk_lib_iip_cp_client_wrapper_task_pt const task, mk_lib_iip_cp_client_types_socket_listener_settings_pct const settings, mk_lib_iip_cp_client_types_handle_socket_listener_pt const socket_listener) mk_lang_noexcept
 {
 	mk_lang_bui_uintptr_t uptr;
@@ -360,6 +382,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_wrappe
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_wrapper_task_rw_new_session(mk_lib_iip_cp_client_wrapper_task_pt const task, mk_lib_iip_cp_client_types_session_settings_pct const settings, mk_lib_iip_cp_client_types_handle_session_pt const session) mk_lang_noexcept
 {
 	return mk_lib_iip_cp_client_wrapper_task_prrw_new_session(task, settings, session);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_wrapper_task_rw_lookup_host_name(mk_lib_iip_cp_client_wrapper_task_pt const task, mk_lib_iip_cp_client_types_lookup_host_name_pt const request) mk_lang_noexcept
+{
+	return mk_lib_iip_cp_client_wrapper_task_prrw_lookup_host_name(task, request);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_wrapper_task_rw_new_socket_listener(mk_lib_iip_cp_client_wrapper_task_pt const task, mk_lib_iip_cp_client_types_socket_listener_settings_pct const settings, mk_lib_iip_cp_client_types_handle_socket_listener_pt const socket_listener) mk_lang_noexcept

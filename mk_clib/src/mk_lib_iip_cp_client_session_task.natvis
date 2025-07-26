@@ -12,4 +12,13 @@
 			</ArrayItems>
 		</Expand>
 	</Type>
+	<Type Name="mk_lib_iip_cp_client_session_lookups_host_name_s">
+		<DisplayString>{{ size = {m_size} capacity = {m_capacity} }}</DisplayString>
+		<Expand>
+			<ArrayItems>
+				<Size>m_size</Size>
+				<ValuePointer>m_buffer</ValuePointer>
+			</ArrayItems>
+		</Expand>
+	</Type>
 </AutoVisualizer>
