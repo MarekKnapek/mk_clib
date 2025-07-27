@@ -74,18 +74,20 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_hash_crc32_init(mk_l
 	mk_sl_cui_uint32_set_max(&crc32->m_state);
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_hash_crc32_append(mk_lib_hash_crc32_pt const crc32, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_hash_crc32_append(mk_lib_hash_crc32_pt const crc32, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_usize_t const data_len) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_pct buf mk_lang_constexpr_init;
-	mk_lang_types_sint_t len mk_lang_constexpr_init;
-	mk_lang_types_sint_t n mk_lang_constexpr_init;
-	mk_lang_types_sint_t i mk_lang_constexpr_init;
+	mk_lang_types_usize_t len mk_lang_constexpr_init;
+	mk_lang_types_usize_t n mk_lang_constexpr_init;
+	mk_lang_types_usize_t i mk_lang_constexpr_init;
 	mk_sl_cui_uint32_t u32 mk_lang_constexpr_init;
 	mk_lang_types_sint_t idx mk_lang_constexpr_init;
 
+	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(crc32);
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
+	#include "mk_lang_warning_msvc_pop.h"
 
 	buf = data_buf;
 	len = data_len;

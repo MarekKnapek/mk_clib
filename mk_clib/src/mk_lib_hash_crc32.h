@@ -39,7 +39,7 @@ mk_lang_typedef(mk_lib_hash_crc32);
 
 
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_hash_crc32_init(mk_lib_hash_crc32_pt const crc32) mk_lang_noexcept;
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_hash_crc32_append(mk_lib_hash_crc32_pt const crc32, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len) mk_lang_noexcept;
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_hash_crc32_append(mk_lib_hash_crc32_pt const crc32, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_usize_t const data_len) mk_lang_noexcept;
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_hash_crc32_finish(mk_lib_hash_crc32_pt const crc32, mk_lib_hash_crc32_digest_pt const digest) mk_lang_noexcept;
 
 
