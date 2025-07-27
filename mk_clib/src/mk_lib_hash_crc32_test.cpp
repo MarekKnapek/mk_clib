@@ -291,6 +291,7 @@ mk_lang_extern_force_c mk_lang_types_void_t mk_lib_hash_crc32_test(mk_lang_types
 	mk_lib_hash_crc32_digest_t digest mk_lang_constexpr_init;
 	mk_lang_types_sint_t j mk_lang_constexpr_init;
 	mk_sl_cui_uint8_t ta mk_lang_constexpr_init;
+	mk_lang_types_sint_t half mk_lang_constexpr_init;
 
 	mk_lang_static_assert(mk_lang_countof(messages) == mk_lang_countof(message_lens));
 	mk_lang_static_assert(mk_lang_countof(messages) == mk_lang_countof(digests));
@@ -321,6 +322,23 @@ mk_lang_extern_force_c mk_lang_types_void_t mk_lib_hash_crc32_test(mk_lang_types
 		mk_sl_cui_uint8_from_bi_pchar_many(&buf[0], &messages_2[i][0], ((mk_lang_types_usize_t)(message_lens_2[i])));
 		mk_lib_hash_crc32_init(&crc32);
 		mk_lib_hash_crc32_append(&crc32, &buf[0], ((mk_lang_types_usize_t)(message_lens_2[i])));
+		mk_lib_hash_crc32_finish(&crc32, &digest);
+		for(j = 0; j != mk_lib_hash_crc32_digest_len_v; ++j)
+		{
+			len = mk_sl_cui_uint8_from_str_hex_n(&ta, &digests_2[i][j * 2], 2); mk_lang_assert(len == 2);
+			mk_lang_test(mk_sl_cui_uint8_eq(&digest.m_data.m_uint8s[j], &ta));
+		}
+	}
+	n = mk_lang_countof(messages_2);
+	for(i = 0; i != n; ++i)
+	{
+		mk_lang_assert(message_lens_2[i] >= 0);
+		mk_lang_assert(mk_lang_countof(buf) >= message_lens_2[i]);
+		mk_sl_cui_uint8_from_bi_pchar_many(&buf[0], &messages_2[i][0], ((mk_lang_types_usize_t)(message_lens_2[i])));
+		half = message_lens_2[i] / 2;
+		mk_lib_hash_crc32_init(&crc32);
+		mk_lib_hash_crc32_append(&crc32, &buf[0 * half], ((mk_lang_types_usize_t)(half)));
+		mk_lib_hash_crc32_append(&crc32, &buf[1 * half], ((mk_lang_types_usize_t)(message_lens_2[i] - half)));
 		mk_lib_hash_crc32_finish(&crc32, &digest);
 		for(j = 0; j != mk_lib_hash_crc32_digest_len_v; ++j)
 		{
