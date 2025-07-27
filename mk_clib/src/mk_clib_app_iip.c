@@ -629,12 +629,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_exa
 {
 	mk_lang_types_sint_t err;
 	mk_lang_types_pchar_pt b32_ptr;
-	mk_lang_types_pchar_t b32_buf[mk_lang_roundup_div(mk_lib_crypto_hash_block_sha2_256_digest_len_v * 8, 5) + 8];
+	mk_lang_types_pchar_t b32_buf[mk_lang_roundup_div(mk_lib_crypto_hash_block_sha2_256_digest_len_v * 8, 5) + mk_lang_countstr(mk_clib_app_iip_example1_k_b32_suffix)];
 	mk_lang_types_sint_t b32_cap;
 	mk_lang_types_pchar_pt b64_ptr;
 	mk_lang_types_pchar_t b64_buf[4 * 1024];
 	mk_lang_types_sint_t b64_cap;
-	mk_lang_types_pchar_pt str_ptr;
+	mk_lang_tchar_pt str_ptr;
 	mk_lang_tchar_t str_buf[4 * 1024];
 	mk_lang_types_sint_t str_cap;
 	mk_lang_types_sint_t b32_len;
@@ -666,7 +666,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_exa
 			str_ptr = &str_buf[0];
 			str_cap = mk_lang_countof(str_buf);
 			mk_lib_crypto_hash_stream_sha2_256_init(&hasher);
-			mk_lib_crypto_hash_stream_sha2_256_append_u8s(&hasher, mk_lib_iip_buffer_ro_data(&example1->m_request.m_destination), mk_lib_iip_buffer_ro_sise(&example1->m_request.m_destination));
+			mk_lib_crypto_hash_stream_sha2_256_append_u8s(&hasher, mk_lib_iip_buffer_ro_data(&example1->m_request.m_destination), mk_lib_iip_buffer_ro_size(&example1->m_request.m_destination));
 			mk_lib_crypto_hash_stream_sha2_256_finish(&hasher, &digest);
 			mk_lib_iip_base32_encoder_fn(&digest.m_data.m_uint8s[0], mk_lib_crypto_hash_block_sha2_256_digest_len_v, b32_ptr, b32_cap, &b32_len); mk_lang_assert(b32_len == mk_lang_roundup_div(mk_lib_crypto_hash_block_sha2_256_digest_len_v * 8, 5));
 			mk_lang_string_memcpy_pc_fn(&b32_ptr[b32_len], &mk_clib_app_iip_example1_k_b32_suffix[0], mk_lang_countstr(mk_clib_app_iip_example1_k_b32_suffix)); b32_len += mk_lang_countstr(mk_clib_app_iip_example1_k_b32_suffix);

@@ -12,7 +12,7 @@
 #include "mk_sl_cui_uint8.h"
 
 
-#define mk_lib_hash_crc32_digest_len_d 4
+#define mk_lib_hash_crc32_digest_len_d mk_sl_cui_uint32_size_bytes_d
 enum mk_lib_hash_crc32_digest_len_e{ mk_lib_hash_crc32_digest_len_v = mk_lib_hash_crc32_digest_len_d }; typedef enum mk_lib_hash_crc32_digest_len_e mk_lib_hash_crc32_digest_len_t;
 
 
