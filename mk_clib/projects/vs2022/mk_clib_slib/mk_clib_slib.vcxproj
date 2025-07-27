@@ -1378,6 +1378,7 @@
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_dynamic_ring.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_mallocator_global.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_message.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_message_create_session_strings.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_message_parse.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_message_serialize.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_message_str.c"/>
@@ -1425,6 +1426,7 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_dynamic_ring.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_mallocator_global.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_message.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_message_create_session_strings.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_message_parse.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_message_serialize.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_message_str.h"/>
@@ -1446,6 +1448,9 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_time_fuzz.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_logger_stdout.h"/>
 		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_mallocator_global.natvis"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_message_create_session_strings.c.m4"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_message_create_session_strings.h.m4"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_message_create_session_strings.m"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_http_strings.c.m4"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_http_strings.h.m4"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_http_strings.m"/>
