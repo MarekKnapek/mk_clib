@@ -524,7 +524,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_stre
 			*success = mk_lang_false;
 			return 0;
 		}
-		mk_sl_cui_uint8_memcpy_fn(&signature.m_data.m_any.m_signature_buffer[0], &ptr[0], tlen);
+		mk_sl_cui_uint8_memcpy_fn(&signature.m_data.m_any.m_signature_buffer[0], &ptr[0], ((mk_lang_types_usize_t)(tlen)));
 		ptr += tlen;
 		rem -= tlen;
 		/* todo validate signature */
@@ -1055,7 +1055,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_stre
 		*success = mk_lang_false;
 		return 0;
 	}
-	mk_sl_cui_uint8_memcpy_fn(ptr, payload_buf, tlen);
+	mk_sl_cui_uint8_memcpy_fn(ptr, payload_buf, ((mk_lang_types_usize_t)(tlen)));
 	ptr += tlen;
 	rem -= tlen;
 	tlen = data_len - rem;

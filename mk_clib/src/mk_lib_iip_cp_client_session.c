@@ -820,7 +820,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	lookup_host_name_obj->m_request->m_result_code = ((mk_lang_types_sint_t)(msg_host_reply->m_result_code));
 	if(msg_host_reply->m_result_code == mk_lib_iip_cp_message_host_reply_result_code_id_e_success)
 	{
-		err = mk_lib_iip_buffer_rw_push_back_copy_many(&lookup_host_name_obj->m_request->m_destination, &msg_host_reply->m_destination.m_buf[0], msg_host_reply->m_destination.m_len); mk_lang_check_rereturn(err);
+		err = mk_lib_iip_buffer_rw_push_back_copy_many(&lookup_host_name_obj->m_request->m_destination, &msg_host_reply->m_destination.m_buf[0], ((mk_lang_types_usize_t)(msg_host_reply->m_destination.m_len))); mk_lang_check_rereturn(err);
 	}
 	lookup_host_name_obj->m_request->m_done = mk_lang_true;
 	err = mk_lib_iip_cp_client_session_lookups_host_name_rw_erase_element(&task->m_session.m_state.m_lookups_host_name_b, lookup_host_name_ptr); mk_lang_check_rereturn(err);
@@ -1131,7 +1131,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 		msg_host_lookup->m_timeout_ms = 10 * 1000;
 		msg_host_lookup->m_request_type = mk_lib_iip_cp_message_host_lookup_request_type_id_e_name;
 		msg_host_lookup->m_hostname.m_len = lookup_obj->m_request->m_host_name_len;
-		mk_lang_string_memcpy_pc_fn(&msg_host_lookup->m_hostname.m_buf[0], lookup_obj->m_request->m_host_name_buf, lookup_obj->m_request->m_host_name_len);
+		mk_lang_string_memcpy_pc_fn(&msg_host_lookup->m_hostname.m_buf[0], lookup_obj->m_request->m_host_name_buf, ((mk_lang_types_usize_t)(lookup_obj->m_request->m_host_name_len)));
 
 		err = mk_lib_iip_cp_client_session_lookups_host_name_rw_push_back_move_single(&task->m_session.m_state.m_lookups_host_name_b, lookup_ptr); mk_lang_check_rereturn(err);
 		err = mk_lib_iip_cp_client_session_lookups_host_name_rw_pop_front_single(&task->m_session.m_state.m_lookups_host_name_a); mk_lang_check_rereturn(err);
@@ -1283,7 +1283,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 	err = mk_lib_iip_cp_mallocator_global_allocate(sizeof(*req), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem); req = ((mk_lib_iip_cp_client_session_lookup_host_name_pt)(mem)); mk_lang_assert(req); rrr = req;
 	err = mk_lib_iip_cp_client_session_lookups_host_name_rw_push_back_move_single(&task->m_session.m_state.m_lookups_host_name_a, &req); mk_lang_check_rereturn(err); req = rrr;
-	mk_lib_iip_random_generate_u32_non_zero(&req->m_request_id.m_elements[0]);
+	err = mk_lib_iip_random_generate_u32_non_zero(&req->m_request_id.m_elements[0]); mk_lang_check_rereturn(err);
 	req->m_request = request;
 	uptr = ((mk_lang_bui_uintptr_t)(req)); mk_lib_iip_cp_client_types_handle_lookup_host_name_from_base(&request->m_internal, &uptr);
 	request->m_done = mk_lang_false;

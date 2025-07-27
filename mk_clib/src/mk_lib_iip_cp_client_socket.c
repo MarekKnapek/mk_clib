@@ -284,7 +284,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 		err = mk_lib_iip_cp_mallocator_global_allocate(sizeof(*packet_with_payload), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem); packet_with_payload = ((mk_lib_iip_cp_client_socket_packet_with_payload_pt)(mem)); mk_lang_assert(packet_with_payload);
 		packet_with_payload->m_packet = *packet;
 		err = mk_lib_iip_buffer_rw_construct(&packet_with_payload->m_payload); mk_lang_check_rereturn(err);
-		err = mk_lib_iip_buffer_rw_push_back_move_many(&packet_with_payload->m_payload, packet->m_payload_buf, packet->m_payload_len); mk_lang_check_rereturn(err);
+		err = mk_lib_iip_buffer_rw_push_back_move_many(&packet_with_payload->m_payload, packet->m_payload_buf, ((mk_lang_types_usize_t)(packet->m_payload_len))); mk_lang_check_rereturn(err);
 		err = mk_lib_iip_cp_client_socket_packets_with_payload_rw_push_back_move_single(&task->m_socket.m_state.m_incoming_packets, &packet_with_payload); mk_lang_check_rereturn(err);
 		eaten = mk_lang_true;
 	}
@@ -343,7 +343,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_assert(data_len >= 0);
 	mk_lang_assert(sent);
 
-	err = mk_lib_iip_cp_dynamic_ring_u8_rw_push_back_copy_many(&task->m_socket.m_state.m_data_to_sent, data_buf, data_len); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_dynamic_ring_u8_rw_push_back_copy_many(&task->m_socket.m_state.m_data_to_sent, data_buf, ((mk_lang_types_usize_t)(data_len))); mk_lang_check_rereturn(err);
 	*sent = data_len;
 	return 0;
 }
@@ -377,7 +377,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 			tsi = mk_lib_iip_cp_types_crpt_key_type_e_elgamal; mk_sl_cui_uint16_from_bi_sint(&u16, &tsi); mk_sl_uint_convert_16_8_be_to_sml(&u16, &u8s[0]); err = mk_lib_iip_buffer_rw_push_back_copy_many(&bbb, &u8s[0], 2); mk_lang_check_rereturn(err);
 			data = mk_lib_iip_buffer_rw_data(&bbb);
 			sise = mk_lib_iip_buffer_rw_sise(&bbb);
-			mk_sl_cui_uint8_memcpy_fn(&buf->m_buf[0], data, sise);
+			mk_sl_cui_uint8_memcpy_fn(&buf->m_buf[0], data, ((mk_lang_types_usize_t)(sise)));
 			buf->m_len = sise;
 			err = mk_lib_iip_buffer_rw_destroy(&bbb); mk_lang_check_rereturn(err);
 		}
@@ -430,7 +430,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	rem -= out + out_2;
 
 	mk_lib_hash_crc32_init(&hasher);
-	mk_lib_hash_crc32_append(&hasher, decompressed_buf, decompressed_len);
+	mk_lib_hash_crc32_append(&hasher, decompressed_buf, ((mk_lang_types_usize_t)(decompressed_len)));
 	mk_lib_hash_crc32_finish(&hasher, &digest);
 	mk_sl_cui_uint8_memcpy_fn(ptr, &digest.m_data.m_uint8s[0], mk_lib_hash_crc32_digest_len_v);
 	ptr += mk_lib_hash_crc32_digest_len_v;
@@ -475,10 +475,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 		packet.m_nacks.m_size = 0;
 		packet.m_resend_delay = 0;
 		packet.m_flags =
+			((mk_lib_iip_net_streaming_packet_flag_t)(
 			mk_lib_iip_net_streaming_packet_flag_e_synchronize |
 			mk_lib_iip_net_streaming_packet_flag_e_signature_included |
 			mk_lib_iip_net_streaming_packet_flag_e_from_included |
-			mk_lib_iip_net_streaming_packet_flag_e_no_ack;
+			mk_lib_iip_net_streaming_packet_flag_e_no_ack |
+			mk_lib_iip_net_streaming_packet_flag_e_none
+			));
 		packet.m_options.m_from.m_type = mk_lib_iip_cp_types_remote_destination_type_e_elgamal_dsa_sha1;
 		packet.m_options.m_from.m_data.m_elgamal_dsa_sha1.m_enc_pub = task->m_socket.m_settings.m_local_destination->m_key_elgamal_pub;
 		packet.m_options.m_from.m_data.m_elgamal_dsa_sha1.m_sgn_pub = task->m_socket.m_settings.m_local_destination->m_key_dsa_sha1_pub;

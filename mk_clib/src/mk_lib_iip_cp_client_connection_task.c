@@ -410,7 +410,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	err = mk_lib_net_read_request_wait_infinite(&task->m_connection.m_state.m_read_request); mk_lang_check_rereturn(err);
 	err = mk_lib_net_read_request_get_result(&task->m_connection.m_state.m_read_request); mk_lang_check_rereturn(err);
 	mk_lang_assert(task->m_connection.m_state.m_read_request.m_transferred == bytes_transferred);
-	err = mk_lib_iip_cp_dynamic_ring_u8_rw_push_back_void(&task->m_connection.m_state.m_buf_rcv, bytes_transferred); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_dynamic_ring_u8_rw_push_back_void(&task->m_connection.m_state.m_buf_rcv, ((mk_lang_types_usize_t)(bytes_transferred))); mk_lang_check_rereturn(err);
 	task->m_connection.m_state.m_pending_recv = mk_lang_false;
 	err = mk_lib_iip_cp_client_connection_debug_print_read_finished(task); mk_lang_check_rereturn(err);
 	return 0;
@@ -427,7 +427,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	err = mk_lib_net_write_request_wait_infinite(&task->m_connection.m_state.m_write_request); mk_lang_check_rereturn(err);
 	err = mk_lib_net_write_request_get_result(&task->m_connection.m_state.m_write_request); mk_lang_check_rereturn(err);
 	mk_lang_assert(task->m_connection.m_state.m_write_request.m_transferred == bytes_transferred);
-	err = mk_lib_iip_cp_dynamic_ring_u8_rw_pop_front_many(&task->m_connection.m_state.m_buf_snd, bytes_transferred); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_dynamic_ring_u8_rw_pop_front_many(&task->m_connection.m_state.m_buf_snd, ((mk_lang_types_usize_t)(bytes_transferred))); mk_lang_check_rereturn(err);
 	task->m_connection.m_state.m_pending_send = mk_lang_false;
 	err = mk_lib_iip_cp_client_connection_debug_print_write_finished(task); mk_lang_check_rereturn(err);
 	return 0;
@@ -466,7 +466,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	{
 		mk_lang_assert(consumed >= 0);
 		mk_lang_assert(consumed <= ((mk_lang_types_sint_t)(size)));
-		err = mk_lib_iip_cp_dynamic_ring_u8_rw_pop_front_many(&task->m_connection.m_state.m_buf_rcv, consumed); mk_lang_check_rereturn(err);
+		err = mk_lib_iip_cp_dynamic_ring_u8_rw_pop_front_many(&task->m_connection.m_state.m_buf_rcv, ((mk_lang_types_usize_t)(consumed))); mk_lang_check_rereturn(err);
 		err = mk_lib_iip_cp_client_connection_debug_print_msg(task, &task->m_connection.m_state.m_msg, mk_lib_iip_cp_client_connection_debug_print_direction_e_incomming); mk_lang_check_rereturn(err);
 	}
 	else if(parse_error_code == mk_lib_iip_cp_message_parse_error_code_e_not_enough_data)
@@ -506,7 +506,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	size = mk_lib_iip_cp_dynamic_ring_u8_rw_get_free_size_a(&task->m_connection.m_state.m_buf_snd); mk_lang_assert(size >= mk_lib_iip_cp_client_connection_k_buffer_size - 1);
 	serialize_error_code = mk_lib_iip_cp_message_serialize_error_code_e_ok;
 	err = mk_lib_iip_cp_message_serialize_message(data, ((mk_lang_types_sint_t)(size)), &serialize_error_code, &consumed, msg); mk_lang_check_rereturn(err); mk_lang_check_return(serialize_error_code == mk_lib_iip_cp_message_serialize_error_code_e_ok); mk_lang_check_return(consumed >= 1); mk_lang_assert(consumed <= ((mk_lang_types_sint_t)(size)));
-	err = mk_lib_iip_cp_dynamic_ring_u8_rw_push_back_void(&task->m_connection.m_state.m_buf_snd, consumed); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_dynamic_ring_u8_rw_push_back_void(&task->m_connection.m_state.m_buf_snd, ((mk_lang_types_usize_t)(consumed))); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_cp_client_connection_debug_print_msg(task, msg, mk_lib_iip_cp_client_connection_debug_print_direction_e_outgoing); mk_lang_check_rereturn(err);
 	return 0;
 }
