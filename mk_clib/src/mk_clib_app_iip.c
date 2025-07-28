@@ -653,6 +653,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_exa
 		example1->m_request.m_host_name_len = mk_lang_countstr(mk_clib_app_iip_example1_k_domain);
 		err = mk_lib_iip_buffer_rw_construct(&example1->m_request.m_destination); mk_lang_check_rereturn(err);
 		err = mk_lib_iip_cp_client_wrapper_task_rw_lookup_host_name(example1->m_wrp, &example1->m_request); mk_lang_check_rereturn(err);
+		mk_lang_assert(!example1->m_request.m_done);
 	}
 	if(!example1->m_resolve_request_finished)
 	{
