@@ -19,6 +19,7 @@
 #include "mk_lib_iip_any_data_connection.h"
 #include "mk_lib_iip_cp_client_session.h"
 #include "mk_lib_iip_cp_client_shared.h"
+#include "mk_lib_iip_cp_client_types.h"
 #include "mk_lib_iip_cp_dynamic_ring.h"
 #include "mk_lib_iip_cp_mallocator_global.h"
 #include "mk_lib_iip_cp_message.h"
@@ -807,6 +808,16 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	err = mk_lib_iip_cp_client_connection_task_prrw_serialize_introducer(task); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_cp_message_reconstruct(msg, mk_lib_iip_cp_message_message_type_id_e_get_date); mk_lang_check_rereturn(err);
 	mk_lang_string_memcpy_pc_fn(&msg_get_date->m_client_version.m_buf[0], &mk_lib_iip_cp_client_connection_k_api_ver[0], mk_lang_countstr(mk_lib_iip_cp_client_connection_k_api_ver)); msg_get_date->m_client_version.m_len = mk_lang_countstr(mk_lib_iip_cp_client_connection_k_api_ver);
+	if
+	(
+		(task->m_connection.m_settings.m_authentication.m_user_name.m_len != 0) &&
+		(task->m_connection.m_settings.m_authentication.m_password.m_len != 0) &&
+		(mk_lang_true)
+	)
+	{
+		err = mk_lib_iip_cp_client_types_session_settings_options_rw_set_i2cp_username(&msg_get_date->m_authentication.m_strpairs, &task->m_connection.m_settings.m_authentication.m_user_name.m_buf[0], task->m_connection.m_settings.m_authentication.m_user_name.m_len); mk_lang_check_rereturn(err);
+		err = mk_lib_iip_cp_client_types_session_settings_options_rw_set_i2cp_password(&msg_get_date->m_authentication.m_strpairs, &task->m_connection.m_settings.m_authentication.m_password.m_buf[0], task->m_connection.m_settings.m_authentication.m_password.m_len); mk_lang_check_rereturn(err);
+	}
 	err = mk_lib_iip_cp_client_connection_task_prrw_serialize_message_implicit(task); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_cp_client_connection_task_prrw_issue_write(task); mk_lang_check_rereturn(err);
 	task->m_step = mk_lib_iip_cp_client_connection_task_step_e_send_get_date_finish;
