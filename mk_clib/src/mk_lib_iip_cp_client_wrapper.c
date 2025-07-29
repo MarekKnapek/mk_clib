@@ -107,7 +107,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_assert(!mk_lib_iip_cp_client_types_handle_wrapper_is_zero(&task->m_wrapper));
 
 	config.m_destination = settings->m_destination;
-	config.m_authentication.m_user_name = settings->m_authentication.m_user_name;
+	config.m_authentication.m_username = settings->m_authentication.m_username;
 	config.m_authentication.m_password = settings->m_authentication.m_password;
 	app = ((mk_lib_iip_cp_client_application_task_pt)(task->m_wrapper.m_elements[0])); mk_lang_assert(app);
 	err = mk_lib_iip_cp_client_application_task_rw_new_connection(app, &config, &konnection); mk_lang_check_rereturn(err); mk_lang_assert(konnection);

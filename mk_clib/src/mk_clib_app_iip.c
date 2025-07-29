@@ -348,7 +348,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_par
 	mk_lang_check_return(!mk_lib_net_tcp_port_is_zero(&settings->m_destination.m_tcp_port));
 	mk_lang_check_return(!mk_lib_net_tcp_port_is_max(&settings->m_destination.m_tcp_port));
 
-	settings->m_authentication.m_user_name.m_len = 0;
+	settings->m_authentication.m_username.m_len = 0;
 
 	settings->m_authentication.m_password.m_len = 0;
 
@@ -382,7 +382,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_par
 	mk_lang_check_return(!mk_lib_net_tcp_port_is_zero(&settings->m_destination.m_tcp_port));
 	mk_lang_check_return(!mk_lib_net_tcp_port_is_max(&settings->m_destination.m_tcp_port));
 
-	settings->m_authentication.m_user_name.m_len = 0;
+	settings->m_authentication.m_username.m_len = 0;
 
 	settings->m_authentication.m_password.m_len = 0;
 

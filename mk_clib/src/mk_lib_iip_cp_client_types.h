@@ -98,7 +98,7 @@ mk_lang_typedef(mk_lib_iip_cp_client_types_local_settings);
 
 struct mk_lib_iip_cp_client_types_connection_authentication_s
 {
-	mk_lib_iip_cp_types_string_t m_user_name;
+	mk_lib_iip_cp_types_string_t m_username;
 	mk_lib_iip_cp_types_string_t m_password;
 };
 typedef struct mk_lib_iip_cp_client_types_connection_authentication_s mk_lib_iip_cp_client_types_connection_authentication_t;
