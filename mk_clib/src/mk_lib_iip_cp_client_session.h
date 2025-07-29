@@ -56,6 +56,7 @@ struct mk_lib_iip_cp_client_session_settings_s
 {
 	mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_t m_destination;
 	mk_lib_iip_cp_client_session_handle_t m_master_session;
+	mk_lib_iip_cp_types_strpairs_t m_options;
 };
 typedef struct mk_lib_iip_cp_client_session_settings_s mk_lib_iip_cp_client_session_settings_t;
 mk_lang_typedef(mk_lib_iip_cp_client_session_settings);

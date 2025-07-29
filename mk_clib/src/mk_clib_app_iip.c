@@ -680,6 +680,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_exa
 	return 0;
 }
 
+mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_clib_app_iip_k_session_nickname[] = "iip";
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_work(mk_lang_types_sint_t const argc, mk_lang_tchar_pcpct const argv, mk_lang_types_sint_pct const lens) mk_lang_noexcept
 {
 	mk_win_base_bool_t b;
@@ -737,16 +739,22 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wor
 
 	mk_lib_iip_cp_client_types_handle_session_set_zero(&session_settings_1.m_master_session);
 	session_settings_1.m_connection = connection_1;
+	err = mk_lib_iip_cp_client_types_session_settings_options_rw_construct(&session_settings_1.m_options); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_client_types_session_settings_options_rw_set_inbound_nickname(&session_settings_1.m_options, &mk_clib_app_iip_k_session_nickname[0], mk_lang_countstr(mk_clib_app_iip_k_session_nickname)); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_cp_client_wrapper_task_rw_new_session(&wrp, &session_settings_1, &session_1); mk_lang_check_rereturn(err);
 
 	err = mk_lib_iip_cp_client_wrapper_task_rw_new_connection(&wrp, &connection_settings_2, &connection_2); mk_lang_check_rereturn(err);
 
 	mk_lib_iip_cp_client_types_handle_session_set_zero(&session_settings_2.m_master_session);
 	session_settings_2.m_connection = connection_2;
+	err = mk_lib_iip_cp_client_types_session_settings_options_rw_construct(&session_settings_2.m_options); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_client_types_session_settings_options_rw_set_inbound_nickname(&session_settings_2.m_options, &mk_clib_app_iip_k_session_nickname[0], mk_lang_countstr(mk_clib_app_iip_k_session_nickname)); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_cp_client_wrapper_task_rw_new_session(&wrp, &session_settings_2, &session_2); mk_lang_check_rereturn(err);
 
 	session_settings_3.m_master_session = session_2;
 	session_settings_3.m_connection = connection_2;
+	err = mk_lib_iip_cp_client_types_session_settings_options_rw_construct(&session_settings_3.m_options); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_client_types_session_settings_options_rw_set_inbound_nickname(&session_settings_3.m_options, &mk_clib_app_iip_k_session_nickname[0], mk_lang_countstr(mk_clib_app_iip_k_session_nickname)); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_cp_client_wrapper_task_rw_new_session(&wrp, &session_settings_3, &session_3); mk_lang_check_rereturn(err);
 
 	web_servers.m_wrp = &wrp;
