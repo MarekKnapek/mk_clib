@@ -94,7 +94,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	{
 		err = mk_lib_iip_cp_types_strpairs_rw_grow_by(options, 1); mk_lang_check_rereturn(err);
 		fnd = mk_lib_iip_cp_types_strpairs_rw_back(options); mk_lang_assert(fnd);
-		mk_lang_string_memcpy_pc_fn(&fnd->m_key.m_buf[0], str_buf, str_len);
+		mk_lang_string_memcpy_pc_fn(&fnd->m_key.m_buf[0], str_buf, ((mk_lang_types_usize_t)(str_len)));
 		fnd->m_key.m_len = str_len;
 	}
 	mk_lang_clobber(&fnd);
