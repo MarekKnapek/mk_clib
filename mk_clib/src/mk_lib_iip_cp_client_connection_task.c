@@ -566,7 +566,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	task->m_connection.m_settings.m_shared = settings->m_shared;
 	task->m_connection.m_settings.m_destination.m_ipv4_address = settings->m_destination.m_ipv4_address;
 	task->m_connection.m_settings.m_destination.m_tcp_port = settings->m_destination.m_tcp_port;
-	task->m_connection.m_settings.m_authentication.m_user_name = settings->m_authentication.m_user_name;
+	task->m_connection.m_settings.m_authentication.m_username = settings->m_authentication.m_username;
 	task->m_connection.m_settings.m_authentication.m_password = settings->m_authentication.m_password;
 	err = mk_lib_net_socket_construct_void(&task->m_connection.m_state.m_socket); mk_lang_check_rereturn(err);
 	err = mk_lib_net_async_connect_construct_void(&task->m_connection.m_state.m_async_connect); mk_lang_check_rereturn(err);
@@ -810,12 +810,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_string_memcpy_pc_fn(&msg_get_date->m_client_version.m_buf[0], &mk_lib_iip_cp_client_connection_k_api_ver[0], mk_lang_countstr(mk_lib_iip_cp_client_connection_k_api_ver)); msg_get_date->m_client_version.m_len = mk_lang_countstr(mk_lib_iip_cp_client_connection_k_api_ver);
 	if
 	(
-		(task->m_connection.m_settings.m_authentication.m_user_name.m_len != 0) &&
+		(task->m_connection.m_settings.m_authentication.m_username.m_len != 0) &&
 		(task->m_connection.m_settings.m_authentication.m_password.m_len != 0) &&
 		(mk_lang_true)
 	)
 	{
-		err = mk_lib_iip_cp_client_types_session_settings_options_rw_set_i2cp_username(&msg_get_date->m_authentication.m_strpairs, &task->m_connection.m_settings.m_authentication.m_user_name.m_buf[0], task->m_connection.m_settings.m_authentication.m_user_name.m_len); mk_lang_check_rereturn(err);
+		err = mk_lib_iip_cp_client_types_session_settings_options_rw_set_i2cp_username(&msg_get_date->m_authentication.m_strpairs, &task->m_connection.m_settings.m_authentication.m_username.m_buf[0], task->m_connection.m_settings.m_authentication.m_username.m_len); mk_lang_check_rereturn(err);
 		err = mk_lib_iip_cp_client_types_session_settings_options_rw_set_i2cp_password(&msg_get_date->m_authentication.m_strpairs, &task->m_connection.m_settings.m_authentication.m_password.m_buf[0], task->m_connection.m_settings.m_authentication.m_password.m_len); mk_lang_check_rereturn(err);
 	}
 	err = mk_lib_iip_cp_client_connection_task_prrw_serialize_message_implicit(task); mk_lang_check_rereturn(err);
