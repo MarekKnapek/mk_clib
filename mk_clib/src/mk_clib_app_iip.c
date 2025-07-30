@@ -622,26 +622,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_exa
 	example1->m_session = session;
 	example1->m_resolve_request_sent = mk_lang_false;
 	example1->m_resolve_request_finished = mk_lang_false;
+	example1->m_request.m_done = mk_lang_false;
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_example1_rw_on_idle(mk_clib_app_iip_example1_pt const example1) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_example1_rw_on_idle_send_request(mk_clib_app_iip_example1_pt const example1) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
-	mk_lang_types_pchar_pt b32_ptr;
-	mk_lang_types_pchar_t b32_buf[mk_lang_roundup_div(mk_lib_crypto_hash_block_sha2_256_digest_len_v * 8, 5) + mk_lang_countstr(mk_clib_app_iip_example1_k_b32_suffix)];
-	mk_lang_types_sint_t b32_cap;
-	mk_lang_types_pchar_pt b64_ptr;
-	mk_lang_types_pchar_t b64_buf[4 * 1024];
-	mk_lang_types_sint_t b64_cap;
-	mk_lang_tchar_pt str_ptr;
-	mk_lang_tchar_t str_buf[4 * 1024];
-	mk_lang_types_sint_t str_cap;
-	mk_lang_types_sint_t b32_len;
-	mk_lang_types_sint_t b64_len;
-	mk_lang_types_sint_t str_len;
-	mk_lib_crypto_hash_stream_sha2_256_t hasher;
-	mk_lib_crypto_hash_stream_sha2_256_digest_t digest;
 
 	mk_lang_assert(example1);
 
@@ -653,8 +640,30 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_exa
 		example1->m_request.m_host_name_len = mk_lang_countstr(mk_clib_app_iip_example1_k_domain);
 		err = mk_lib_iip_buffer_rw_construct(&example1->m_request.m_destination); mk_lang_check_rereturn(err);
 		err = mk_lib_iip_cp_client_wrapper_task_rw_lookup_host_name(example1->m_wrp, &example1->m_request); mk_lang_check_rereturn(err);
-		mk_lang_assert(!example1->m_request.m_done);
 	}
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_example1_rw_on_idle_print_address(mk_clib_app_iip_example1_pt const example1) mk_lang_noexcept
+{
+	mk_lang_types_pchar_pt b32_ptr;
+	mk_lang_types_pchar_t b32_buf[mk_lang_roundup_div(mk_lib_crypto_hash_block_sha2_256_digest_len_v * 8, 5) + mk_lang_countstr(mk_clib_app_iip_example1_k_b32_suffix)];
+	mk_lang_types_sint_t b32_cap;
+	mk_lang_types_pchar_pt b64_ptr;
+	mk_lang_types_pchar_t b64_buf[4 * 1024];
+	mk_lang_types_sint_t b64_cap;
+	mk_lang_tchar_pt str_ptr;
+	mk_lang_tchar_t str_buf[4 * 1024];
+	mk_lang_types_sint_t str_cap;
+	mk_lib_crypto_hash_stream_sha2_256_t hasher;
+	mk_lib_crypto_hash_stream_sha2_256_digest_t digest;
+	mk_lang_types_sint_t b32_len;
+	mk_lang_types_sint_t b64_len;
+	mk_lang_types_sint_t str_len;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(example1);
+
 	if(!example1->m_resolve_request_finished)
 	{
 		if(example1->m_request.m_done)
@@ -684,6 +693,17 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_exa
 			}
 		}
 	}
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_example1_rw_on_idle(mk_clib_app_iip_example1_pt const example1) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(example1);
+
+	err = mk_clib_app_iip_example1_rw_on_idle_send_request(example1); mk_lang_check_rereturn(err);
+	err = mk_clib_app_iip_example1_rw_on_idle_print_address(example1); mk_lang_check_rereturn(err);
 	return 0;
 }
 
