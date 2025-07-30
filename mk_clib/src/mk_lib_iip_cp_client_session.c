@@ -1270,6 +1270,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_assert(request->m_host_name_buf[0] != '\0');
 	mk_lang_assert(request->m_host_name_len >= 0x01);
 	mk_lang_assert(request->m_host_name_len <= 0xff);
+	mk_lang_assert(request->m_done == mk_lang_false);
 
 	mk_lib_iip_cp_client_types_handle_session_to_base(&request->m_session, &uptr); mk_lang_assert(uptr != 0);
 	session = ((mk_lib_iip_cp_client_session_task_pt)(uptr)); mk_lang_assert(session);
@@ -1280,7 +1281,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	err = mk_lib_iip_random_generate_u32_non_zero(&req->m_request_id.m_elements[0]); mk_lang_check_rereturn(err);
 	req->m_request = request;
 	uptr = ((mk_lang_bui_uintptr_t)(req)); mk_lib_iip_cp_client_types_handle_lookup_host_name_from_base(&request->m_internal, &uptr);
-	request->m_done = mk_lang_false;
 	return 0;
 }
 
