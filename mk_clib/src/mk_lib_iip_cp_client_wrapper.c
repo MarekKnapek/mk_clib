@@ -220,20 +220,20 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_wrapper_task_prrw_connect_to(mk_lib_iip_cp_client_wrapper_task_pt const task, mk_lib_iip_cp_client_types_socket_connect_settings_pct const settings, mk_lib_iip_cp_client_types_handle_socket_connect_pt const socket) mk_lang_noexcept
 {
-	/*mk_lang_bui_uintptr_t uptr;
+	mk_lang_bui_uintptr_t uptr;
 	mk_lib_iip_cp_client_session_task_pt session;
-	mk_lang_types_sint_t err;*/
+	mk_lang_types_sint_t err;
 
 	mk_lang_assert(task);
 	mk_lang_assert(settings);
 	mk_lang_assert(socket);
 	mk_lang_assert(!mk_lib_iip_cp_client_types_handle_session_is_zero(&settings->m_session));
 
-	/*((mk_lang_types_void_t)(task));
+	((mk_lang_types_void_t)(task));
 	mk_lib_iip_cp_client_types_handle_session_to_base(&settings->m_session, &uptr); mk_lang_assert(uptr != 0);
 	session = ((mk_lib_iip_cp_client_session_task_pt)(uptr)); mk_lang_assert(session);
-	err = mk_lib_iip_cp_client_session_task_rw_new_socket_listener(session, settings, socket_listener); mk_lang_check_rereturn(err);
-	mk_lang_assert(!mk_lib_iip_cp_client_types_handle_socket_listener_is_zero(socket_listener));*/
+	err = mk_lib_iip_cp_client_session_task_rw_connect_to(session, settings, socket); mk_lang_check_rereturn(err);
+	mk_lang_assert(!mk_lib_iip_cp_client_types_handle_socket_connect_is_zero(socket));
 	return 0;
 }
 
