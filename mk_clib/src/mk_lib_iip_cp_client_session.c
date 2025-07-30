@@ -1284,6 +1284,15 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_prrw_connect_to(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_client_types_socket_connect_settings_pct const settings, mk_lib_iip_cp_client_types_handle_socket_connect_pt const socket) mk_lang_noexcept
+{
+	mk_lang_assert(task);
+	mk_lang_assert(settings);
+	mk_lang_assert(socket);
+
+	return 0;
+}
+
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_rw_construct(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_client_shared_pt const shared, mk_lib_iip_cp_client_session_settings_pct const settings) mk_lang_noexcept
 {
@@ -1338,6 +1347,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_sessio
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_rw_lookup_host_name(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_client_types_lookup_host_name_pt const request) mk_lang_noexcept
 {
 	return mk_lib_iip_cp_client_session_task_prrw_lookup_host_name(task, request);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_rw_connect_to(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_client_types_socket_connect_settings_pct const settings, mk_lib_iip_cp_client_types_handle_socket_connect_pt const socket) mk_lang_noexcept
+{
+	return mk_lib_iip_cp_client_session_task_prrw_connect_to(task, settings, socket);
 }
 
 
