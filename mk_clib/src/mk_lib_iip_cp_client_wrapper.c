@@ -218,6 +218,25 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_wrapper_task_prrw_connect_to(mk_lib_iip_cp_client_wrapper_task_pt const task, mk_lib_iip_cp_client_types_socket_connect_settings_pct const settings, mk_lib_iip_cp_client_types_handle_socket_connect_pt const socket) mk_lang_noexcept
+{
+	/*mk_lang_bui_uintptr_t uptr;
+	mk_lib_iip_cp_client_session_task_pt session;
+	mk_lang_types_sint_t err;*/
+
+	mk_lang_assert(task);
+	mk_lang_assert(settings);
+	mk_lang_assert(socket);
+	mk_lang_assert(!mk_lib_iip_cp_client_types_handle_session_is_zero(&settings->m_session));
+
+	/*((mk_lang_types_void_t)(task));
+	mk_lib_iip_cp_client_types_handle_session_to_base(&settings->m_session, &uptr); mk_lang_assert(uptr != 0);
+	session = ((mk_lib_iip_cp_client_session_task_pt)(uptr)); mk_lang_assert(session);
+	err = mk_lib_iip_cp_client_session_task_rw_new_socket_listener(session, settings, socket_listener); mk_lang_check_rereturn(err);
+	mk_lang_assert(!mk_lib_iip_cp_client_types_handle_socket_listener_is_zero(socket_listener));*/
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_wrapper_task_prrw_step(mk_lib_iip_cp_client_wrapper_task_pt const task, mk_lang_types_bool_t const allow_to_block, mk_lang_types_sint_t const tm, mk_lib_iip_cp_client_wrapper_task_result_pt const step_result) mk_lang_noexcept
 {
 	mk_lib_iip_cp_client_application_task_pt app;
@@ -403,6 +422,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_wrappe
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_wrapper_task_rw_socket_send(mk_lib_iip_cp_client_wrapper_task_pt const task, mk_lib_iip_cp_client_types_handle_socket_listener_pt const socket_listener, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lang_types_sint_pt const sent) mk_lang_noexcept
 {
 	return mk_lib_iip_cp_client_wrapper_task_prrw_socket_send(task, socket_listener, data_buf, data_len, sent);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_wrapper_task_rw_connect_to(mk_lib_iip_cp_client_wrapper_task_pt const task, mk_lib_iip_cp_client_types_socket_connect_settings_pct const settings, mk_lib_iip_cp_client_types_handle_socket_connect_pt const socket) mk_lang_noexcept
+{
+	return mk_lib_iip_cp_client_wrapper_task_prrw_connect_to(task, settings, socket);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_wrapper_task_rw_step(mk_lib_iip_cp_client_wrapper_task_pt const task, mk_lang_types_bool_t const allow_to_block, mk_lang_types_sint_t const tm, mk_lib_iip_cp_client_wrapper_task_result_pt const step_result) mk_lang_noexcept

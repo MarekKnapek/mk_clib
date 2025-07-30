@@ -62,6 +62,15 @@
 #include "mk_sl_cui_inl_filec.h"
 #include "mk_sl_cui_inl_fileu.h"
 
+#define mk_sl_cui_t_name mk_lib_iip_cp_client_types_handle_socket_connect
+#define mk_sl_cui_t_base_type_name mk_lang_bui_uintptr
+#define mk_sl_cui_t_count 1
+#define mk_sl_cui_t_disable_big_div 1
+#define mk_sl_cui_t_base_type_size_bits_d mk_lang_bui_uintptr_size_bits_d
+#define mk_sl_cui_t_inline 1
+#include "mk_sl_cui_inl_filec.h"
+#include "mk_sl_cui_inl_fileu.h"
+
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_types_session_settings_options_prrw_find_or_append(mk_lib_iip_cp_types_strpairs_pt const options, mk_lib_iip_cp_message_create_session_strings_id_t const str_id, mk_lib_iip_cp_types_strpair_ppt const found) mk_lang_noexcept
 {

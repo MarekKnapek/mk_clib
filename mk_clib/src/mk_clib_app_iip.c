@@ -601,7 +601,10 @@ struct mk_clib_app_iip_example1_s
 	mk_lib_iip_cp_client_types_handle_session_pt m_session;
 	mk_lang_types_bool_t m_resolve_request_sent;
 	mk_lang_types_bool_t m_resolve_request_finished;
+	mk_lang_types_bool_t m_remote_address_has;
+	mk_lang_types_bool_t m_connect_sent;
 	mk_lib_iip_cp_client_types_lookup_host_name_t m_request;
+	mk_lib_iip_cp_types_remote_destination_t m_destination;
 };
 typedef struct mk_clib_app_iip_example1_s mk_clib_app_iip_example1_t;
 mk_lang_typedef(mk_clib_app_iip_example1);
@@ -612,7 +615,7 @@ static mk_clib_app_iip_example1_t mk_clib_app_iip_example1_g;
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_clib_app_iip_example1_k_domain[] = "reg.i2p";
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_clib_app_iip_example1_k_b32_suffix[] = ".b32.i2p";
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_example1_rw_init(mk_clib_app_iip_example1_pt const example1, mk_lib_iip_cp_client_wrapper_task_pt const wrp, mk_lib_iip_cp_client_types_handle_session_pt const session) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_example1_rw_construct(mk_clib_app_iip_example1_pt const example1, mk_lib_iip_cp_client_wrapper_task_pt const wrp, mk_lib_iip_cp_client_types_handle_session_pt const session) mk_lang_noexcept
 {
 	mk_lang_assert(example1);
 	mk_lang_assert(wrp);
@@ -622,7 +625,19 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_exa
 	example1->m_session = session;
 	example1->m_resolve_request_sent = mk_lang_false;
 	example1->m_resolve_request_finished = mk_lang_false;
+	example1->m_remote_address_has = mk_lang_false;
+	example1->m_connect_sent = mk_lang_false;
 	example1->m_request.m_done = mk_lang_false;
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_example1_rw_destroy(mk_clib_app_iip_example1_pt const example1) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(example1);
+
+	err = mk_lib_iip_buffer_rw_destroy(&example1->m_request.m_destination); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -663,35 +678,81 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_exa
 	mk_lang_types_sint_t err;
 
 	mk_lang_assert(example1);
+	mk_lang_assert(example1->m_resolve_request_finished);
+	mk_lang_assert(example1->m_request.m_done);
+
+	if(example1->m_request.m_result_code == 0)
+	{
+		b32_ptr = &b32_buf[0];
+		b32_cap = mk_lang_countof(b32_buf);
+		b64_ptr = &b64_buf[0];
+		b64_cap = mk_lang_countof(b64_buf);
+		str_ptr = &str_buf[0];
+		str_cap = mk_lang_countof(str_buf);
+		mk_lib_crypto_hash_stream_sha2_256_init(&hasher);
+		mk_lib_crypto_hash_stream_sha2_256_append_u8s(&hasher, mk_lib_iip_buffer_ro_data(&example1->m_request.m_destination), mk_lib_iip_buffer_ro_size(&example1->m_request.m_destination));
+		mk_lib_crypto_hash_stream_sha2_256_finish(&hasher, &digest);
+		mk_lib_iip_base32_encoder_fn(&digest.m_data.m_uint8s[0], mk_lib_crypto_hash_block_sha2_256_digest_len_v, b32_ptr, b32_cap, &b32_len); mk_lang_assert(b32_len == mk_lang_roundup_div(mk_lib_crypto_hash_block_sha2_256_digest_len_v * 8, 5));
+		mk_lang_string_memcpy_pc_fn(&b32_ptr[b32_len], &mk_clib_app_iip_example1_k_b32_suffix[0], mk_lang_countstr(mk_clib_app_iip_example1_k_b32_suffix)); b32_len += mk_lang_countstr(mk_clib_app_iip_example1_k_b32_suffix);
+		mk_lib_iip_base64_encoder_fn(mk_lib_iip_buffer_ro_data(&example1->m_request.m_destination), mk_lib_iip_buffer_ro_sise(&example1->m_request.m_destination), b64_ptr, b64_cap, &b64_len);
+		str_len = mk_lib_fmt_t_snnprintf(str_ptr, str_cap, mk_lib_fmt_lit_and_len(mk_lang_tchar_c("Resolved domain name %ht to b32: %ht and to b64: %ht.")), &mk_clib_app_iip_example1_k_domain[0], mk_lang_countstr(mk_clib_app_iip_example1_k_domain), b32_ptr, b32_len, b64_ptr, b64_len); mk_lang_check_return(str_len >= 1); mk_lang_check_return(str_len <= str_cap);
+		err = mk_lang_stdout_println_t(str_ptr, str_len); mk_lang_check_rereturn(err);
+	}
+	else
+	{
+		err = mk_lang_stdout_println_lit_t("Failed to resolve domain name."); mk_lang_check_rereturn(err);
+	}
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_example1_rw_on_idle_process_address(mk_clib_app_iip_example1_pt const example1) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pt dst_data;
+	mk_lang_types_sint_t dst_sise;
+	mk_lang_types_bool_t gud;
+	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t consumed;
+
+	mk_lang_assert(example1);
 
 	if(!example1->m_resolve_request_finished)
 	{
 		if(example1->m_request.m_done)
 		{
 			example1->m_resolve_request_finished = mk_lang_true;
+			err = mk_clib_app_iip_example1_rw_on_idle_print_address(example1); mk_lang_check_rereturn(err);
 			if(example1->m_request.m_result_code == 0)
 			{
-				b32_ptr = &b32_buf[0];
-				b32_cap = mk_lang_countof(b32_buf);
-				b64_ptr = &b64_buf[0];
-				b64_cap = mk_lang_countof(b64_buf);
-				str_ptr = &str_buf[0];
-				str_cap = mk_lang_countof(str_buf);
-				mk_lib_crypto_hash_stream_sha2_256_init(&hasher);
-				mk_lib_crypto_hash_stream_sha2_256_append_u8s(&hasher, mk_lib_iip_buffer_ro_data(&example1->m_request.m_destination), mk_lib_iip_buffer_ro_size(&example1->m_request.m_destination));
-				mk_lib_crypto_hash_stream_sha2_256_finish(&hasher, &digest);
-				mk_lib_iip_base32_encoder_fn(&digest.m_data.m_uint8s[0], mk_lib_crypto_hash_block_sha2_256_digest_len_v, b32_ptr, b32_cap, &b32_len); mk_lang_assert(b32_len == mk_lang_roundup_div(mk_lib_crypto_hash_block_sha2_256_digest_len_v * 8, 5));
-				mk_lang_string_memcpy_pc_fn(&b32_ptr[b32_len], &mk_clib_app_iip_example1_k_b32_suffix[0], mk_lang_countstr(mk_clib_app_iip_example1_k_b32_suffix)); b32_len += mk_lang_countstr(mk_clib_app_iip_example1_k_b32_suffix);
-				mk_lib_iip_base64_encoder_fn(mk_lib_iip_buffer_ro_data(&example1->m_request.m_destination), mk_lib_iip_buffer_ro_sise(&example1->m_request.m_destination), b64_ptr, b64_cap, &b64_len);
-				str_len = mk_lib_fmt_t_snnprintf(str_ptr, str_cap, mk_lib_fmt_lit_and_len(mk_lang_tchar_c("Resolved domain name %ht to b32: %ht and to b64: %ht.")), &mk_clib_app_iip_example1_k_domain[0], mk_lang_countstr(mk_clib_app_iip_example1_k_domain), b32_ptr, b32_len, b64_ptr, b64_len); mk_lang_check_return(str_len >= 1); mk_lang_check_return(str_len <= str_cap);
-				err = mk_lang_stdout_println_t(str_ptr, str_len); mk_lang_check_rereturn(err);
-				err = mk_lib_iip_buffer_rw_destroy(&example1->m_request.m_destination); mk_lang_check_rereturn(err);
+				example1->m_remote_address_has = mk_lang_true;
+				dst_data = mk_lib_iip_buffer_rw_data(&example1->m_request.m_destination); mk_lang_assert(dst_data);
+				dst_sise = mk_lib_iip_buffer_rw_sise(&example1->m_request.m_destination); mk_lang_assert(dst_sise >= 1);
+				gud = mk_lang_true;
+				err = mk_lib_iip_cp_types_remote_destination_rw_from_bytes(&example1->m_destination, dst_data, dst_sise, &gud, &consumed); mk_lang_check_rereturn(err); mk_lang_check_return(gud); mk_lang_check_return(consumed == dst_sise);
 			}
 			else
 			{
-				err = mk_lang_stdout_println_lit_t("Failed to resolve domain name."); mk_lang_check_rereturn(err);
+				example1->m_remote_address_has = mk_lang_false;
 			}
 		}
+	}
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_example1_rw_on_idle_connect(mk_clib_app_iip_example1_pt const example1) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(example1);
+
+	if(example1->m_resolve_request_finished && !example1->m_connect_sent)
+	{
+		example1->m_connect_sent = mk_lang_true;
+
+		example1->m_request.m_session = *example1->m_session;
+		example1->m_request.m_host_name_buf = &mk_clib_app_iip_example1_k_domain[0];
+		example1->m_request.m_host_name_len = mk_lang_countstr(mk_clib_app_iip_example1_k_domain);
+		err = mk_lib_iip_buffer_rw_construct(&example1->m_request.m_destination); mk_lang_check_rereturn(err);
+		err = mk_lib_iip_cp_client_wrapper_task_rw_lookup_host_name(example1->m_wrp, &example1->m_request); mk_lang_check_rereturn(err);
 	}
 	return 0;
 }
@@ -703,7 +764,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_exa
 	mk_lang_assert(example1);
 
 	err = mk_clib_app_iip_example1_rw_on_idle_send_request(example1); mk_lang_check_rereturn(err);
-	err = mk_clib_app_iip_example1_rw_on_idle_print_address(example1); mk_lang_check_rereturn(err);
+	err = mk_clib_app_iip_example1_rw_on_idle_process_address(example1); mk_lang_check_rereturn(err);
+	err = mk_clib_app_iip_example1_rw_on_idle_connect(example1); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -793,7 +855,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wor
 	web_servers.m_session_3 = session_3;
 	err = mk_clib_app_iip_web_servers_init(&web_servers); mk_lang_check_rereturn(err);
 
-	err = mk_clib_app_iip_example1_rw_init(&example1, &wrp, &session_1); mk_lang_check_rereturn(err);
+	err = mk_clib_app_iip_example1_rw_construct(&example1, &wrp, &session_1); mk_lang_check_rereturn(err);
 
 	mk_clib_app_iip_g_wrp = &wrp;
 	mk_clib_app_iip_g_stop_requested = mk_lang_false;
@@ -826,6 +888,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wor
 
 	err = mk_lib_iip_cp_client_wrapper_task_rw_request_close(&wrp); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_cp_client_wrapper_task_rw_run_do_block(&wrp); mk_lang_check_rereturn(err);
+
+	err = mk_clib_app_iip_example1_rw_destroy(&example1); mk_lang_check_rereturn(err);
 
 	err = mk_lib_iip_cp_client_wrapper_task_rw_destroy(&wrp); mk_lang_check_rereturn(err);
 	return 0;
