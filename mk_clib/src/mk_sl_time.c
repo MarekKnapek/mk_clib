@@ -213,7 +213,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 		ptr[0] = '.'; ptr += 1; rem -= 1;
 		len = mk_sl_time_duration_to_str_dec_n(&tb, ptr, rem); mk_lang_assert(len >= 1); mk_lang_assert(len <= rem); ptr += len; rem -= len;
 		mk_lang_assert(len >= 1); mk_lang_assert(len <= 4);
-		n = len - 1;
+		n = 4 - len;
 		for(i = 0; i != n; ++i)
 		{
 			if(ptr[-1] == '0')
@@ -272,7 +272,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 		ptr[0] = '.'; ptr += 1; rem -= 1;
 		len = mk_sl_time_duration_to_str_dec_n(&tb, ptr, rem); mk_lang_assert(len >= 1); mk_lang_assert(len <= rem); ptr += len; rem -= len;
 		mk_lang_assert(len >= 1); mk_lang_assert(len <= 7);
-		n = len - 1;
+		n = 7 - len;
 		for(i = 0; i != n; ++i)
 		{
 			if(ptr[-1] == '0')
@@ -345,7 +345,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 		ptr[0] = '.'; ptr += 1; rem -= 1;
 		len = mk_sl_time_duration_to_str_dec_n(&tb, ptr, rem); mk_lang_assert(len >= 1); mk_lang_assert(len <= rem); ptr += len; rem -= len;
 		mk_lang_assert(len >= 1); mk_lang_assert(len <= 7);
-		n = len - 1;
+		n = 7 - len;
 		for(i = 0; i != n; ++i)
 		{
 			if(ptr[-1] == '0')
@@ -361,6 +361,93 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 		ptr[0] = 'm'; ptr += 1; rem -= 1;
 	}
 	len = str_len - rem; mk_lang_assert(len >= 8); mk_lang_assert(len <= 15);
+	return len;
+}
+
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_sl_time_duration_pr_to_text_h(mk_sl_time_duration_pct const duration, mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_lang_types_pchar_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_sl_time_duration_t ta mk_lang_constexpr_init;
+	mk_sl_time_duration_t tb mk_lang_constexpr_init;
+	mk_lang_types_sint_t len mk_lang_constexpr_init;
+	mk_lang_types_sint_t n mk_lang_constexpr_init;
+	mk_lang_types_sint_t i mk_lang_constexpr_init;
+	mk_sl_time_duration_t dur mk_lang_constexpr_init;
+	mk_sl_time_duration_t k_micro_second mk_lang_constexpr_init;
+	mk_sl_time_duration_t k_milli_second mk_lang_constexpr_init;
+	mk_sl_time_duration_t k_second mk_lang_constexpr_init;
+	mk_sl_time_duration_t k_minute mk_lang_constexpr_init;
+	mk_sl_time_duration_t k_hour mk_lang_constexpr_init;
+	mk_sl_time_duration_t k_day mk_lang_constexpr_init;
+
+	mk_lang_assert(duration);
+	mk_lang_assert(str_buf || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	{
+		mk_sl_time_duration_t k_tick mk_lang_constexpr_init;
+		mk_lang_types_sint_t tsi mk_lang_constexpr_init;
+		mk_sl_time_duration_t tt mk_lang_constexpr_init;
+		mk_sl_time_duration_set_one(&k_tick);
+		tsi = 10; mk_sl_time_duration_from_bi_sint(&tt, &tsi); mk_sl_time_duration_mul3_wrap_lo(&tt, &k_tick, &k_micro_second);
+		tsi = 1000; mk_sl_time_duration_from_bi_sint(&tt, &tsi); mk_sl_time_duration_mul3_wrap_lo(&tt, &k_micro_second, &k_milli_second);
+		tsi = 1000; mk_sl_time_duration_from_bi_sint(&tt, &tsi); mk_sl_time_duration_mul3_wrap_lo(&tt, &k_milli_second, &k_second);
+		tsi = 60; mk_sl_time_duration_from_bi_sint(&tt, &tsi); mk_sl_time_duration_mul3_wrap_lo(&tt, &k_second, &k_minute);
+		tsi = 60; mk_sl_time_duration_from_bi_sint(&tt, &tsi); mk_sl_time_duration_mul3_wrap_lo(&tt, &k_minute, &k_hour);
+		tsi = 24; mk_sl_time_duration_from_bi_sint(&tt, &tsi); mk_sl_time_duration_mul3_wrap_lo(&tt, &k_hour, &k_day);
+	}
+	ptr = str_buf; rem = str_len;
+	if(rem >= 18)
+	{
+		mk_lang_assert(mk_sl_time_duration_ge(duration, &k_hour));
+		mk_lang_assert(mk_sl_time_duration_lt(duration, &k_day));
+		mk_sl_time_duration_divmod4_wrap(duration, &k_hour, &ta, &tb);
+		len = mk_sl_time_duration_to_str_dec_n(&ta, ptr, rem); mk_lang_assert(len >= 1); mk_lang_assert(len <= rem); ptr += len; rem -= len;
+		mk_lang_assert(len >= 1); mk_lang_assert(len <= 2);
+		ptr[0] = ':'; ptr += 1; rem -= 1;
+		mk_sl_time_duration_mul2_wrap_lo(&ta, &k_hour);
+		mk_sl_time_duration_sub3_wrap_cid_cod(duration, &ta, &dur);
+		mk_sl_time_duration_divmod4_wrap(&dur, &k_minute, &ta, &tb);
+		len = mk_sl_time_duration_to_str_dec_n(&ta, ptr, rem); mk_lang_assert(len >= 1); mk_lang_assert(len <= rem); ptr += len; rem -= len;
+		mk_lang_assert(len >= 1); mk_lang_assert(len <= 2);
+		if(len == 1)
+		{
+			ptr[0] = ptr[-1];
+			ptr[-1] = '0';
+			ptr += 1; rem -= 1;
+		}
+		ptr[0] = ':'; ptr += 1; rem -= 1;
+		mk_sl_time_duration_mul2_wrap_lo(&ta, &k_minute);
+		mk_sl_time_duration_sub3_wrap_cid_cod(&dur, &ta, &dur);
+		mk_sl_time_duration_divmod4_wrap(&dur, &k_second, &ta, &tb);
+		len = mk_sl_time_duration_to_str_dec_n(&ta, ptr, rem); mk_lang_assert(len >= 1); mk_lang_assert(len <= rem); ptr += len; rem -= len;
+		mk_lang_assert(len >= 1); mk_lang_assert(len <= 2);
+		if(len == 1)
+		{
+			ptr[0] = ptr[-1];
+			ptr[-1] = '0';
+			ptr += 1; rem -= 1;
+		}
+		ptr[0] = '.'; ptr += 1; rem -= 1;
+		len = mk_sl_time_duration_to_str_dec_n(&tb, ptr, rem); mk_lang_assert(len >= 1); mk_lang_assert(len <= rem); ptr += len; rem -= len;
+		mk_lang_assert(len >= 1); mk_lang_assert(len <= 7);
+		n = 7 - len;
+		for(i = 0; i != n; ++i)
+		{
+			if(ptr[-1] == '0')
+			{
+				ptr -= 1; rem += 1;
+			}
+			else
+			{
+				break;
+			}
+		}
+		ptr[0] = ' '; ptr += 1; rem -= 1;
+		ptr[0] = 'h'; ptr += 1; rem -= 1;
+	}
+	len = str_len - rem; mk_lang_assert(len >= 8); mk_lang_assert(len <= 18);
 	return len;
 }
 
@@ -411,7 +498,8 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_tim
 		if     (mk_sl_time_duration_lt(&dur, &k_second)){ len = mk_sl_time_duration_pr_to_text_ms(&dur, ptr, rem); mk_lang_assert(len >= 1); mk_lang_assert(len <= rem); ptr += len; rem -= len; }
 		else if(mk_sl_time_duration_lt(&dur, &k_minute)){ len = mk_sl_time_duration_pr_to_text_s (&dur, ptr, rem); mk_lang_assert(len >= 1); mk_lang_assert(len <= rem); ptr += len; rem -= len; }
 		else if(mk_sl_time_duration_lt(&dur, &k_hour  )){ len = mk_sl_time_duration_pr_to_text_m (&dur, ptr, rem); mk_lang_assert(len >= 1); mk_lang_assert(len <= rem); ptr += len; rem -= len; }
-		else{ mk_lang_assert_false(); /* todo hours, days */ }
+		else if(mk_sl_time_duration_lt(&dur, &k_day   )){ len = mk_sl_time_duration_pr_to_text_h (&dur, ptr, rem); mk_lang_assert(len >= 1); mk_lang_assert(len <= rem); ptr += len; rem -= len; }
+		else{ mk_lang_assert_false(); /* todo days */ }
 	}
 	len = str_len - rem;
 	return len;
