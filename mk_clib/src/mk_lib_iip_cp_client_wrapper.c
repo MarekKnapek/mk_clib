@@ -150,11 +150,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_assert(request->m_host_name_buf[0] != '\0');
 	mk_lang_assert(request->m_host_name_len >= 0x01);
 	mk_lang_assert(request->m_host_name_len <= 0xff);
+	mk_lang_assert(request->m_done == mk_lang_false);
 
 	mk_lib_iip_cp_client_types_handle_session_to_base(&request->m_session, &uptr); mk_lang_assert(uptr != 0);
 	session = ((mk_lib_iip_cp_client_session_task_pt)(uptr)); mk_lang_assert(session);
 	err = mk_lib_iip_cp_client_session_task_rw_lookup_host_name(session, request); mk_lang_check_rereturn(err);
-	mk_lang_assert(!request->m_done);
 	mk_lang_assert(!mk_lib_iip_cp_client_types_handle_lookup_host_name_is_zero(&request->m_internal));
 	return 0;
 }
