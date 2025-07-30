@@ -781,6 +781,30 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_de
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_defd_prrw_reconstruct(mk_sl_vector_inl_defd_pt const vector) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	#if mk_sl_vector_inl_defd_mallocator_is_lokal
+	mk_sl_vector_inl_defd_mallocator_pt mallocator;
+	#endif
+
+	mk_lang_assert(vector);
+	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
+
+	#if mk_sl_vector_inl_defd_mallocator_is_lokal
+	mallocator = vector->m_mallocator;
+	#endif
+	err = mk_sl_vector_inl_defd_prrw_destroy(vector); mk_lang_check_rereturn(err);
+	#if mk_sl_vector_inl_defd_mallocator_is_lokal
+	err = mk_sl_vector_inl_defd_prrw_construct(vector, mallocator); mk_lang_check_rereturn(err);
+	#else
+	err = mk_sl_vector_inl_defd_prrw_construct(vector); mk_lang_check_rereturn(err);
+	#endif
+
+	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_defd_prrw_reserve_at_least(mk_sl_vector_inl_defd_pt const vector, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
 	mk_sl_vector_inl_defd_element_pt old_buffer;
@@ -1606,6 +1630,14 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_mo
 	mk_lang_types_sint_t ret;
 
 	ret = mk_sl_vector_inl_defd_prrw_move_assign(vector, src);
+	return ret;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_reconstruct(mk_sl_vector_inl_defd_pt const vector) mk_lang_noexcept
+{
+	mk_lang_types_sint_t ret;
+
+	ret = mk_sl_vector_inl_defd_prrw_reconstruct(vector);
 	return ret;
 }
 

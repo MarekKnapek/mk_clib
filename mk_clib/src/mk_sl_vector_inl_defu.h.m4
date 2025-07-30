@@ -216,7 +216,6 @@ mm_per_typedef(`#undef mk_sl_vector_inl_defd_$1')
 #undef mk_sl_vector_inl_defd_prrw_eq
 #undef mk_sl_vector_inl_defd_prrw_ne
 #undef mk_sl_vector_inl_defd_prrw_construct
-#undef mk_sl_vector_inl_defd_prrw_construct
 #undef mk_sl_vector_inl_defd_prrw_element_bitblt_assign
 #undef mk_sl_vector_inl_defd_prrw_elements_construct_void_last
 #undef mk_sl_vector_inl_defd_prrw_elements_move_construct_many
@@ -226,6 +225,7 @@ mm_per_typedef(`#undef mk_sl_vector_inl_defd_$1')
 #undef mk_sl_vector_inl_defd_prrw_elements_destroy_last
 #undef mk_sl_vector_inl_defd_prrw_elements_destroy_all
 #undef mk_sl_vector_inl_defd_prrw_destroy
+#undef mk_sl_vector_inl_defd_prrw_reconstruct
 #undef mk_sl_vector_inl_defd_prrw_reserve_at_least
 #undef mk_sl_vector_inl_defd_prrw_reserve_additional
 #undef mk_sl_vector_inl_defd_prrw_shrink_by
@@ -293,6 +293,7 @@ mm_per_typedef(`#undef mk_sl_vector_inl_defd_$1')
 #undef mk_sl_vector_inl_defd_rw_destroy
 #undef mk_sl_vector_inl_defd_rw_copy_assign
 #undef mk_sl_vector_inl_defd_rw_move_assign
+#undef mk_sl_vector_inl_defd_rw_reconstruct
 #undef mk_sl_vector_inl_defd_rw_reserve_at_least
 #undef mk_sl_vector_inl_defd_rw_reserve_additional
 #undef mk_sl_vector_inl_defd_rw_shrink_by
