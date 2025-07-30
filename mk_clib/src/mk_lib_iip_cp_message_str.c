@@ -3879,6 +3879,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	switch(obj->m_type)
 	{
 		case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_dsa_sha1            : err = mk_lib_iip_cp_message_str_to_json_type_remote_destination_elgamal_dsa_sha1_raw            (ptr, rem, &tlen, &obj->m_data.m_elgamal_dsa_sha1            ); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen; break;
+		case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_ecdsa_sha256_p256   : mk_lang_check_todo(); break;
 		case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_eddsa_sha512_ed25519: err = mk_lib_iip_cp_message_str_to_json_type_remote_destination_elgamal_eddsa_sha512_ed25519_raw(ptr, rem, &tlen, &obj->m_data.m_elgamal_eddsa_sha512_ed25519); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen; break;
 		case mk_lib_iip_cp_types_remote_destination_type_e_dummy_end: mk_lang_assert_false(); break;
 		default: mk_lang_assert_false(); break;

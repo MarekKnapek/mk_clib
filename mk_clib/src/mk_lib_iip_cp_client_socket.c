@@ -365,6 +365,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	switch(destination->m_type)
 	{
 		case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_dsa_sha1: mk_lang_check_todo(); break;
+		case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_ecdsa_sha256_p256: mk_lang_check_todo(); break;
 		case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_eddsa_sha512_ed25519:
 		{
 			err = mk_lib_iip_buffer_rw_construct(&bbb); mk_lang_check_rereturn(err);
