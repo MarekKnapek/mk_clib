@@ -80,7 +80,9 @@ struct mk_lib_iip_cp_client_session_state_s
 	mk_lib_iip_cp_types_messageid_t m_expecting_msg_id;
 	mk_lang_types_sint_t m_expecting_msg_size;
 	mk_lib_iip_cp_client_socket_tasks_t m_listening_sockets;
+	mk_lib_iip_cp_client_socket_tasks_t m_connecting_sockets;
 	mk_lang_types_usize_t m_idx_listening_sockets;
+	mk_lang_types_usize_t m_idx_connecting_sockets;
 	mk_lib_iip_cp_message_pt m_msg_from_socket;
 	mk_lib_iip_cp_message_pt m_msg_to_be_accepted;
 	mk_lib_iip_cp_client_session_lookups_host_name_t m_lookups_host_name_a;
