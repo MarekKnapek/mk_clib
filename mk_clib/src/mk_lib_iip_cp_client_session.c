@@ -192,6 +192,72 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_sessio
 #include "mk_sl_vector_inl_fileu.h"
 
 
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_message_status_rw_construct_void(mk_lib_iip_cp_client_session_message_status_pt const x) mk_lang_noexcept
+{
+	mk_lang_assert(x);
+
+	mk_lang_check_todo();
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_message_status_rw_destroy(mk_lib_iip_cp_client_session_message_status_pt const x) mk_lang_noexcept
+{
+	mk_lang_assert(x);
+
+	((mk_lang_types_void_t)(x));
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_message_status_rw_construct_copy(mk_lib_iip_cp_client_session_message_status_pt const dst, mk_lib_iip_cp_client_session_message_status_pct const src) mk_lang_noexcept
+{
+	mk_lang_assert(dst);
+	mk_lang_assert(src);
+
+	*dst = *src;
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_message_status_rw_construct_move(mk_lib_iip_cp_client_session_message_status_pt const dst, mk_lib_iip_cp_client_session_message_status_pt const src) mk_lang_noexcept
+{
+	mk_lang_assert(dst);
+	mk_lang_assert(src);
+
+	*dst = *src;
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_message_status_rw_assign_copy(mk_lib_iip_cp_client_session_message_status_pt const dst, mk_lib_iip_cp_client_session_message_status_pct const src) mk_lang_noexcept
+{
+	mk_lang_assert(dst);
+	mk_lang_assert(src);
+
+	*dst = *src;
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_message_status_rw_assign_move(mk_lib_iip_cp_client_session_message_status_pt const dst, mk_lib_iip_cp_client_session_message_status_pt const src) mk_lang_noexcept
+{
+	mk_lang_assert(dst);
+	mk_lang_assert(src);
+
+	*dst = *src;
+	return 0;
+}
+
+
+#define mk_sl_dynamic_ring_t_name mk_lib_iip_cp_client_session_message_statuses
+#define mk_sl_dynamic_ring_t_element_type mk_lib_iip_cp_client_session_message_status_t
+#define mk_sl_dynamic_ring_t_mallocatorg mk_lib_iip_cp_mallocator_global
+#define mk_sl_dynamic_ring_t_element_construct_void mk_lib_iip_cp_client_session_message_status_rw_construct_void
+#define mk_sl_dynamic_ring_t_element_destruct mk_lib_iip_cp_client_session_message_status_rw_destroy
+#define mk_sl_dynamic_ring_t_element_construct_copy mk_lib_iip_cp_client_session_message_status_rw_construct_copy
+#define mk_sl_dynamic_ring_t_element_construct_move mk_lib_iip_cp_client_session_message_status_rw_construct_move
+#define mk_sl_dynamic_ring_t_element_assign_copy mk_lib_iip_cp_client_session_message_status_rw_assign_copy
+#define mk_sl_dynamic_ring_t_element_assign_move mk_lib_iip_cp_client_session_message_status_rw_assign_move
+#include "mk_sl_dynamic_ring_inl_filec.h"
+#include "mk_sl_dynamic_ring_inl_fileu.h"
+
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_prrw_construct(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_client_shared_pt const shared, mk_lib_iip_cp_client_session_settings_pct const settings) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
@@ -277,7 +343,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	config.m_shared = task->m_session.m_state.m_shared;
 	config.m_session_id = &task->m_session.m_state.m_id;
 	config.m_listener = mk_lang_true;
-	config.m_local_destination = &task->m_session.m_settings.m_destination;
+	config.m_local_destination = &task->m_session.m_settings.m_local_destination;
 	config.m_local_port = settings->m_port;
 	err = mk_lib_iip_cp_mallocator_global_allocate(sizeof(*sock_list), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem); sock_list = ((mk_lib_iip_cp_client_socket_task_pt)(mem)); mk_lang_assert(sock_list);
 	err = mk_lib_iip_cp_client_socket_task_rw_construct(sock_list, &config); mk_lang_check_rereturn(err);
@@ -439,9 +505,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	err = mk_lib_iip_cp_message_reconstruct(&task->m_session.m_state.m_msg, mk_lib_iip_cp_message_message_type_id_e_create_lease_set); mk_lang_check_rereturn(err);
 	msg_create_lease_set = &task->m_session.m_state.m_msg.m_mix.m_data.m_create_lease_set;
 	msg_create_lease_set->m_session_id = task->m_session.m_state.m_id;
-	msg_create_lease_set->m_key_sgn_pri = task->m_session.m_settings.m_destination.m_key_dsa_sha1_pri;
-	msg_create_lease_set->m_key_enc_pri = task->m_session.m_settings.m_destination.m_key_elgamal_pri;
-	msg_create_lease_set->m_leaseset.m_destination = task->m_session.m_settings.m_destination;
+	msg_create_lease_set->m_key_sgn_pri = task->m_session.m_settings.m_local_destination.m_private_data.m_key_dsa_sha1_pri;
+	msg_create_lease_set->m_key_enc_pri = task->m_session.m_settings.m_local_destination.m_private_data.m_key_elgamal_pri;
+	msg_create_lease_set->m_leaseset.m_destination = task->m_session.m_settings.m_local_destination;
 	err = mk_lib_iip_cp_types_leases_rw_push_back_copy_many(&msg_create_lease_set->m_leaseset.m_leases, leases, size); mk_lang_check_rereturn(err);
 	task->m_session.m_state.m_has_msg_pending = mk_lang_true;
 
@@ -642,6 +708,23 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_prrw_on_msg_message_status_best_effort_failure(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_message_pt const msg) mk_lang_noexcept
+{
+	mk_lib_iip_cp_message_message_status_pt msg_message_status;
+
+	mk_lang_assert(task);
+	mk_lang_assert(msg);
+	mk_lang_assert(task->m_session.m_state.m_has_id);
+	mk_lang_assert(task->m_step == mk_lib_iip_cp_client_session_task_step_e_idle);
+
+	msg_message_status = &msg->m_mix.m_data.m_message_status;
+	mk_lang_assert(mk_lib_iip_cp_types_sessionid_eq(&msg_message_status->m_session_id, &task->m_session.m_state.m_id));
+	mk_lang_assert(msg_message_status->m_status == mk_lib_iip_cp_message_message_status_status_id_e_best_effort_failure);
+
+	/* todo nonce */
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_prrw_on_msg_message_status_guaranteed_success(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_message_pt const msg) mk_lang_noexcept
 {
 	mk_lib_iip_cp_message_message_status_pt msg_message_status;
@@ -701,8 +784,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 		case mk_lib_iip_cp_message_message_status_status_id_e_available             : err = mk_lib_iip_cp_client_session_task_prrw_on_msg_message_status_available(task, msg); mk_lang_check_rereturn(err); break;
 		case mk_lib_iip_cp_message_message_status_status_id_e_accepted              : err = mk_lib_iip_cp_client_session_task_prrw_on_msg_message_status_accepted (task, msg); mk_lang_check_rereturn(err); break;
 		case mk_lib_iip_cp_message_message_status_status_id_e_best_effort_success   : mk_lang_check_todo(); break;
-		case mk_lib_iip_cp_message_message_status_status_id_e_best_effort_failure   : mk_lang_check_todo(); break;
-		case mk_lib_iip_cp_message_message_status_status_id_e_guaranteed_success    : err = mk_lib_iip_cp_client_session_task_prrw_on_msg_message_status_guaranteed_success(task, msg); mk_lang_check_rereturn(err); break;
+		case mk_lib_iip_cp_message_message_status_status_id_e_best_effort_failure   : err = mk_lib_iip_cp_client_session_task_prrw_on_msg_message_status_best_effort_failure(task, msg); mk_lang_check_rereturn(err); break;
+		case mk_lib_iip_cp_message_message_status_status_id_e_guaranteed_success    : err = mk_lib_iip_cp_client_session_task_prrw_on_msg_message_status_guaranteed_success (task, msg); mk_lang_check_rereturn(err); break;
 		case mk_lib_iip_cp_message_message_status_status_id_e_guaranteed_failure    : mk_lang_check_todo(); break;
 		case mk_lib_iip_cp_message_message_status_status_id_e_local_success         : mk_lang_check_todo(); break;
 		case mk_lib_iip_cp_message_message_status_status_id_e_local_failure         : mk_lang_check_todo(); break;
@@ -791,9 +874,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	err = mk_lib_iip_cp_message_reconstruct(&task->m_session.m_state.m_msg, mk_lib_iip_cp_message_message_type_id_e_create_lease_set); mk_lang_check_rereturn(err);
 	msg_create_lease_set = &task->m_session.m_state.m_msg.m_mix.m_data.m_create_lease_set;
 	msg_create_lease_set->m_session_id = task->m_session.m_state.m_id;
-	msg_create_lease_set->m_key_sgn_pri = task->m_session.m_settings.m_destination.m_key_dsa_sha1_pri;
-	msg_create_lease_set->m_key_enc_pri = task->m_session.m_settings.m_destination.m_key_elgamal_pri;
-	msg_create_lease_set->m_leaseset.m_destination = task->m_session.m_settings.m_destination;
+	msg_create_lease_set->m_key_sgn_pri = task->m_session.m_settings.m_local_destination.m_private_data.m_key_dsa_sha1_pri;
+	msg_create_lease_set->m_key_enc_pri = task->m_session.m_settings.m_local_destination.m_private_data.m_key_elgamal_pri;
+	msg_create_lease_set->m_leaseset.m_destination = task->m_session.m_settings.m_local_destination;
 	err = mk_lib_iip_cp_types_leases_rw_push_back_copy_many(&msg_create_lease_set->m_leaseset.m_leases, data, size); mk_lang_check_rereturn(err);
 	task->m_session.m_state.m_has_msg_pending = mk_lang_true;
 
@@ -931,7 +1014,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 		msg = &task->m_session.m_state.m_msg;
 		err = mk_lib_iip_cp_message_reconstruct(msg, mk_lib_iip_cp_message_message_type_id_e_create_session); mk_lang_check_rereturn(err);
 		msg_create_session = &msg->m_mix.m_data.m_create_session;
-		msg_create_session->m_session_config.m_destination = task->m_session.m_settings.m_destination;
+		msg_create_session->m_session_config.m_destination = task->m_session.m_settings.m_local_destination;
 		msg_create_session->m_session_config.m_options.m_strpairs = task->m_session.m_settings.m_options;
 		mk_lib_iip_time_get_now(&msg_create_session->m_session_config.m_creation_date.m_elements[0]);
 		task->m_session.m_state.m_has_msg_pending = mk_lang_true;
@@ -1402,7 +1485,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	config.m_shared = task->m_session.m_state.m_shared;
 	config.m_session_id = &task->m_session.m_state.m_id;
 	config.m_listener = mk_lang_false;
-	config.m_local_destination = &task->m_session.m_settings.m_destination;
+	config.m_local_destination = &task->m_session.m_settings.m_local_destination;
 	err = mk_lib_iip_cp_client_session_task_prrw_get_new_local_port(task, &config.m_local_port); mk_lang_check_rereturn(err);
 	config.m_remote_destination = settings->m_destination;
 	config.m_remote_port = settings->m_port;

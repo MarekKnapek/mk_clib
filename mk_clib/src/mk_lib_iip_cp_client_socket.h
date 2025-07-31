@@ -69,7 +69,7 @@ struct mk_lib_iip_cp_client_socket_settings_s
 	mk_lib_iip_cp_client_shared_pt m_shared;
 	mk_lib_iip_cp_types_sessionid_pt m_session_id;
 	mk_lang_types_bool_t m_listener;
-	mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_pt m_local_destination;
+	mk_lib_iip_cp_types_destination2_pt m_local_destination;
 	mk_sl_cui_uint16_t m_local_port;
 	mk_lib_iip_cp_types_remote_destination_t m_remote_destination;
 	mk_sl_cui_uint16_t m_remote_port;
@@ -93,6 +93,7 @@ struct mk_lib_iip_cp_client_socket_state_s
 	mk_sl_cui_uint32_t m_remote_stream_id;
 	mk_sl_cui_uint32_t m_sequence_number;
 	mk_lib_iip_cp_types_remote_destination_t m_remote_destination;
+	mk_lang_types_pchar_t m_remote_b32[mk_lang_roundup_div(mk_lib_crypto_hash_block_sha2_256_digest_len_v * 8, 5)];
 	mk_lib_iip_cp_dynamic_ring_u8_t m_data_to_sent;
 	mk_lib_iip_cp_message_t m_msg;
 };

@@ -72,7 +72,7 @@ mk_lang_constexpr_static_inline mk_lib_iip_key_sgn_dsa_sha1_pub_uchars_t const m
 }}};
 
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_to_u8s(mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_pct const a, mk_lang_static_param(mk_sl_cui_uint8_t, u8s, mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_size_bytes_v)) mk_lang_noexcept
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_to_u8s_be(mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_pct const a, mk_lang_static_param(mk_sl_cui_uint8_t, u8s, mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_size_bytes_v)) mk_lang_noexcept
 {
 	union mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_to_u8s_storage_data_u
 	{
@@ -93,6 +93,29 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_key_sgn_dsa_sha1
 
 	mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_to_buis_uchar_be(a, &storage.m_data.m_uchars[0]);
 	mk_sl_cui_uint8_from_bi_uchar_many(&u8s[0], &storage.m_data.m_uchars[0], mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_size_bytes_v);
+}
+
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_from_u8s_be(mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_pt const a, mk_lang_static_param(mk_sl_cui_uint8_ct, u8s, mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_size_bytes_v)) mk_lang_noexcept
+{
+	union mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_from_u8s_storage_data_u
+	{
+		mk_lang_types_uchar_t m_uchars[mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_size_bytes_v];
+		mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_t m_integer;
+	};
+	typedef union mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_from_u8s_storage_data_u mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_from_u8s_storage_data_t;
+	struct mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_from_u8s_storage_s
+	{
+		mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_from_u8s_storage_data_t m_data;
+	};
+	typedef struct mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_from_u8s_storage_s mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_from_u8s_storage_t;
+
+	mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_from_u8s_storage_t storage;
+
+	mk_lang_assert(a);
+	mk_lang_assert(u8s);
+
+	mk_sl_cui_uint8_to_bi_uchar_many(&u8s[0], &storage.m_data.m_uchars[0], mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_size_bytes_v);
+	mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_from_buis_uchar_be(a, &storage.m_data.m_uchars[0]);
 }
 
 
