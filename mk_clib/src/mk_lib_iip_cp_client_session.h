@@ -56,7 +56,6 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_sessio
 struct mk_lib_iip_cp_client_session_message_status_s
 {
 	mk_lib_iip_cp_types_messageid_t m_message_id;
-	mk_lib_iip_cp_message_message_status_status_id_t m_status;
 	mk_lang_types_sint_t m_size;
 	mk_lib_iip_cp_types_nonce_t m_nonce;
 };
@@ -102,10 +101,8 @@ struct mk_lib_iip_cp_client_session_state_s
 	mk_lib_iip_cp_message_t m_msg;
 	mk_lang_types_bool_t m_has_msg_pending;
 	mk_lib_iip_cp_types_leasez_t m_leases;
-	mk_lang_types_bool_t m_expecting_msg_b;
-	mk_lang_types_bool_t m_expecting_msg_end;
-	mk_lib_iip_cp_types_messageid_t m_expecting_msg_id;
-	mk_lang_types_sint_t m_expecting_msg_size;
+	mk_lib_iip_cp_client_session_message_statuses_t m_msgs_available;
+	mk_lang_types_bool_t m_msg_expecting;
 	mk_lib_iip_cp_client_socket_tasks_t m_listening_sockets;
 	mk_lib_iip_cp_client_socket_tasks_t m_connecting_sockets;
 	mk_lang_types_usize_t m_idx_listening_sockets;
