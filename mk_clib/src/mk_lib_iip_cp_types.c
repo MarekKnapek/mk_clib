@@ -16,7 +16,9 @@
 #include "mk_lang_types.h"
 #include "mk_lib_iip_cp_mallocator_global.h"
 #include "mk_lib_iip_key_enc_elgamal_pub.h"
+#include "mk_lib_iip_key_sgn_dsa_sha1_pub.h"
 #include "mk_lib_iip_key_sgn_ecdsa_sha256_p256_pub.h"
+#include "mk_lib_iip_key_sgn_eddsa_sha512_ed25519_pub.h"
 #include "mk_lib_iip_time.h"
 #include "mk_sl_cui_uint16.h"
 #include "mk_sl_cui_uint32.h"
@@ -328,7 +330,8 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 	mk_sl_cui_uint8_pct enc_data_buf mk_lang_constexpr_init;
 	mk_sl_cui_uint8_pct sgn_data_buf mk_lang_constexpr_init;
-	mk_lang_types_sint_t cert_type mk_lang_constexpr_init;
+	mk_lang_types_sint_t cert_type_num mk_lang_constexpr_init;
+	mk_lib_iip_cp_types_certificate_type_t cert_type_id mk_lang_constexpr_init;
 	mk_sl_cui_uint16_t tu16 mk_lang_constexpr_init;
 	mk_lang_types_sint_t cert_len mk_lang_constexpr_init;
 	mk_lang_types_sint_t sgn_type_num mk_lang_constexpr_init;
@@ -376,11 +379,28 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 		*succeeded = mk_lang_false;
 		return 0;
 	}
-	mk_sl_cui_uint8_to_bi_sint(ptr, &cert_type);
+	mk_sl_cui_uint8_to_bi_sint(ptr, &cert_type_num);
 	ptr += tlen;
 	rem -= tlen;
 
-	if(!(cert_type == mk_lib_iip_cp_types_certificate_type_e_key))
+	switch(cert_type_num)
+	{
+		case mk_lib_iip_cp_types_certificate_type_e_null    : cert_type_id = mk_lib_iip_cp_types_certificate_type_e_null    ; break;
+		case mk_lib_iip_cp_types_certificate_type_e_hashcash: cert_type_id = mk_lib_iip_cp_types_certificate_type_e_hashcash; break;
+		case mk_lib_iip_cp_types_certificate_type_e_hidden  : cert_type_id = mk_lib_iip_cp_types_certificate_type_e_hidden  ; break;
+		case mk_lib_iip_cp_types_certificate_type_e_signed  : cert_type_id = mk_lib_iip_cp_types_certificate_type_e_signed  ; break;
+		case mk_lib_iip_cp_types_certificate_type_e_multiple: cert_type_id = mk_lib_iip_cp_types_certificate_type_e_multiple; break;
+		case mk_lib_iip_cp_types_certificate_type_e_key     : cert_type_id = mk_lib_iip_cp_types_certificate_type_e_key     ; break;
+		case mk_lib_iip_cp_types_certificate_type_e_dummy_end: *succeeded = mk_lang_false; return 0; break;
+		default: *succeeded = mk_lang_false; return 0; break;
+	}
+
+	if
+	(!(
+		(cert_type_id == mk_lib_iip_cp_types_certificate_type_e_null) ||
+		(cert_type_id == mk_lib_iip_cp_types_certificate_type_e_key) ||
+		(mk_lang_false)
+	))
 	{
 		*succeeded = mk_lang_false;
 		return 0;
@@ -397,96 +417,104 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	ptr += tlen;
 	rem -= tlen;
 
-	if(!(cert_len == 2 * mk_sl_cui_uint16_size_bytes_v))
+	if
+	(!(
+		(cert_type_id == mk_lib_iip_cp_types_certificate_type_e_null && cert_len == 0) ||
+		(cert_type_id == mk_lib_iip_cp_types_certificate_type_e_key && cert_len == 2 * mk_sl_cui_uint16_size_bytes_v) ||
+		(mk_lang_false)
+	))
 	{
 		*succeeded = mk_lang_false;
 		return 0;
 	}
 
-	tlen = mk_sl_cui_uint16_size_bytes_v;
-	if(!(rem >= tlen))
+	if(cert_type_id == mk_lib_iip_cp_types_certificate_type_e_key)
 	{
-		*succeeded = mk_lang_false;
-		return 0;
-	}
-	mk_sl_uint_convert_16_8_be_to_big(&tu16, ptr);
-	mk_sl_cui_uint16_to_bi_sint(&tu16, &sgn_type_num);
-	ptr += tlen;
-	rem -= tlen;
 
-	switch(sgn_type_num)
-	{
-		case mk_lib_iip_cp_types_sign_key_type_e_dsa_sha1              : sgn_type_id = mk_lib_iip_cp_types_sign_key_type_e_dsa_sha1              ; break;
-		case mk_lib_iip_cp_types_sign_key_type_e_ecdsa_sha256_p256     : sgn_type_id = mk_lib_iip_cp_types_sign_key_type_e_ecdsa_sha256_p256     ; break;
-		case mk_lib_iip_cp_types_sign_key_type_e_ecdsa_sha384_p384     : sgn_type_id = mk_lib_iip_cp_types_sign_key_type_e_ecdsa_sha384_p384     ; break;
-		case mk_lib_iip_cp_types_sign_key_type_e_ecdsa_sha512_p521     : sgn_type_id = mk_lib_iip_cp_types_sign_key_type_e_ecdsa_sha512_p521     ; break;
-		case mk_lib_iip_cp_types_sign_key_type_e_rsa_sha256_2048       : sgn_type_id = mk_lib_iip_cp_types_sign_key_type_e_rsa_sha256_2048       ; break;
-		case mk_lib_iip_cp_types_sign_key_type_e_rsa_sha384_3072       : sgn_type_id = mk_lib_iip_cp_types_sign_key_type_e_rsa_sha384_3072       ; break;
-		case mk_lib_iip_cp_types_sign_key_type_e_rsa_sha512_4096       : sgn_type_id = mk_lib_iip_cp_types_sign_key_type_e_rsa_sha512_4096       ; break;
-		case mk_lib_iip_cp_types_sign_key_type_e_eddsa_sha512_ed25519  : sgn_type_id = mk_lib_iip_cp_types_sign_key_type_e_eddsa_sha512_ed25519  ; break;
-		case mk_lib_iip_cp_types_sign_key_type_e_eddsa_sha512_ed25519ph: sgn_type_id = mk_lib_iip_cp_types_sign_key_type_e_eddsa_sha512_ed25519ph; break;
-		case mk_lib_iip_cp_types_sign_key_type_e_gost_a                : sgn_type_id = mk_lib_iip_cp_types_sign_key_type_e_gost_a                ; break;
-		case mk_lib_iip_cp_types_sign_key_type_e_gost_b                : sgn_type_id = mk_lib_iip_cp_types_sign_key_type_e_gost_b                ; break;
-		case mk_lib_iip_cp_types_sign_key_type_e_reddsa_sha512_ed25519 : sgn_type_id = mk_lib_iip_cp_types_sign_key_type_e_reddsa_sha512_ed25519 ; break;
-		case mk_lib_iip_cp_types_sign_key_type_e_dummy_end: *succeeded = mk_lang_false; return 0; break;
-		default: *succeeded = mk_lang_false; return 0; break;
-	}
+		tlen = mk_sl_cui_uint16_size_bytes_v;
+		if(!(rem >= tlen))
+		{
+			*succeeded = mk_lang_false;
+			return 0;
+		}
+		mk_sl_uint_convert_16_8_be_to_big(&tu16, ptr);
+		mk_sl_cui_uint16_to_bi_sint(&tu16, &sgn_type_num);
+		ptr += tlen;
+		rem -= tlen;
 
-	tlen = mk_sl_cui_uint16_size_bytes_v;
-	if(!(rem >= tlen))
-	{
-		*succeeded = mk_lang_false;
-		return 0;
-	}
-	mk_sl_uint_convert_16_8_be_to_big(&tu16, ptr);
-	mk_sl_cui_uint16_to_bi_sint(&tu16, &enc_type_num);
-	ptr += tlen;
-	rem -= tlen;
+		switch(sgn_type_num)
+		{
+			case mk_lib_iip_cp_types_sign_key_type_e_dsa_sha1              : sgn_type_id = mk_lib_iip_cp_types_sign_key_type_e_dsa_sha1              ; break;
+			case mk_lib_iip_cp_types_sign_key_type_e_ecdsa_sha256_p256     : sgn_type_id = mk_lib_iip_cp_types_sign_key_type_e_ecdsa_sha256_p256     ; break;
+			case mk_lib_iip_cp_types_sign_key_type_e_ecdsa_sha384_p384     : sgn_type_id = mk_lib_iip_cp_types_sign_key_type_e_ecdsa_sha384_p384     ; break;
+			case mk_lib_iip_cp_types_sign_key_type_e_ecdsa_sha512_p521     : sgn_type_id = mk_lib_iip_cp_types_sign_key_type_e_ecdsa_sha512_p521     ; break;
+			case mk_lib_iip_cp_types_sign_key_type_e_rsa_sha256_2048       : sgn_type_id = mk_lib_iip_cp_types_sign_key_type_e_rsa_sha256_2048       ; break;
+			case mk_lib_iip_cp_types_sign_key_type_e_rsa_sha384_3072       : sgn_type_id = mk_lib_iip_cp_types_sign_key_type_e_rsa_sha384_3072       ; break;
+			case mk_lib_iip_cp_types_sign_key_type_e_rsa_sha512_4096       : sgn_type_id = mk_lib_iip_cp_types_sign_key_type_e_rsa_sha512_4096       ; break;
+			case mk_lib_iip_cp_types_sign_key_type_e_eddsa_sha512_ed25519  : sgn_type_id = mk_lib_iip_cp_types_sign_key_type_e_eddsa_sha512_ed25519  ; break;
+			case mk_lib_iip_cp_types_sign_key_type_e_eddsa_sha512_ed25519ph: sgn_type_id = mk_lib_iip_cp_types_sign_key_type_e_eddsa_sha512_ed25519ph; break;
+			case mk_lib_iip_cp_types_sign_key_type_e_gost_a                : sgn_type_id = mk_lib_iip_cp_types_sign_key_type_e_gost_a                ; break;
+			case mk_lib_iip_cp_types_sign_key_type_e_gost_b                : sgn_type_id = mk_lib_iip_cp_types_sign_key_type_e_gost_b                ; break;
+			case mk_lib_iip_cp_types_sign_key_type_e_reddsa_sha512_ed25519 : sgn_type_id = mk_lib_iip_cp_types_sign_key_type_e_reddsa_sha512_ed25519 ; break;
+			case mk_lib_iip_cp_types_sign_key_type_e_dummy_end: *succeeded = mk_lang_false; return 0; break;
+			default: *succeeded = mk_lang_false; return 0; break;
+		}
 
-	switch(sgn_type_num)
-	{
-		case mk_lib_iip_cp_types_crpt_key_type_e_elgamal: enc_type_id = mk_lib_iip_cp_types_crpt_key_type_e_elgamal; break;
-		case mk_lib_iip_cp_types_crpt_key_type_e_p256   : enc_type_id = mk_lib_iip_cp_types_crpt_key_type_e_p256   ; break;
-		case mk_lib_iip_cp_types_crpt_key_type_e_p384   : enc_type_id = mk_lib_iip_cp_types_crpt_key_type_e_p384   ; break;
-		case mk_lib_iip_cp_types_crpt_key_type_e_p521   : enc_type_id = mk_lib_iip_cp_types_crpt_key_type_e_p521   ; break;
-		case mk_lib_iip_cp_types_crpt_key_type_e_x25519 : enc_type_id = mk_lib_iip_cp_types_crpt_key_type_e_x25519 ; break;
-		case mk_lib_iip_cp_types_crpt_key_type_e_dummy_end: *succeeded = mk_lang_false; return 0; break;
-		default: *succeeded = mk_lang_false; return 0; break;
-	}
+		tlen = mk_sl_cui_uint16_size_bytes_v;
+		if(!(rem >= tlen))
+		{
+			*succeeded = mk_lang_false;
+			return 0;
+		}
+		mk_sl_uint_convert_16_8_be_to_big(&tu16, ptr);
+		mk_sl_cui_uint16_to_bi_sint(&tu16, &enc_type_num);
+		ptr += tlen;
+		rem -= tlen;
 
-	sgn_additional_data_len = mk_lib_iip_cp_types_get_key_additional_len_sign(sgn_type_id);
-	tlen = sgn_additional_data_len;
-	if(!(rem >= tlen))
-	{
-		*succeeded = mk_lang_false;
-		return 0;
-	}
-	sgn_additional_data_buf = ptr;
-	ptr += tlen;
-	rem -= tlen;
+		switch(enc_type_num)
+		{
+			case mk_lib_iip_cp_types_crpt_key_type_e_elgamal: enc_type_id = mk_lib_iip_cp_types_crpt_key_type_e_elgamal; break;
+			case mk_lib_iip_cp_types_crpt_key_type_e_p256   : enc_type_id = mk_lib_iip_cp_types_crpt_key_type_e_p256   ; break;
+			case mk_lib_iip_cp_types_crpt_key_type_e_p384   : enc_type_id = mk_lib_iip_cp_types_crpt_key_type_e_p384   ; break;
+			case mk_lib_iip_cp_types_crpt_key_type_e_p521   : enc_type_id = mk_lib_iip_cp_types_crpt_key_type_e_p521   ; break;
+			case mk_lib_iip_cp_types_crpt_key_type_e_x25519 : enc_type_id = mk_lib_iip_cp_types_crpt_key_type_e_x25519 ; break;
+			case mk_lib_iip_cp_types_crpt_key_type_e_dummy_end: *succeeded = mk_lang_false; return 0; break;
+			default: *succeeded = mk_lang_false; return 0; break;
+		}
 
-	enc_additional_data_len = mk_lib_iip_cp_types_get_key_additional_len_crpt(enc_type_id);
-	tlen = enc_additional_data_len;
-	if(!(rem >= tlen))
-	{
-		*succeeded = mk_lang_false;
-		return 0;
-	}
-	enc_additional_data_buf = ptr;
-	ptr += tlen;
-	rem -= tlen;
+		sgn_additional_data_len = mk_lib_iip_cp_types_get_key_additional_len_sign(sgn_type_id);
+		tlen = sgn_additional_data_len;
+		if(!(rem >= tlen))
+		{
+			*succeeded = mk_lang_false;
+			return 0;
+		}
+		sgn_additional_data_buf = ptr;
+		ptr += tlen;
+		rem -= tlen;
 
-	if(!(rem == 0))
-	{
-		*succeeded = mk_lang_false;
-		return 0;
+		enc_additional_data_len = mk_lib_iip_cp_types_get_key_additional_len_crpt(enc_type_id);
+		tlen = enc_additional_data_len;
+		if(!(rem >= tlen))
+		{
+			*succeeded = mk_lang_false;
+			return 0;
+		}
+		enc_additional_data_buf = ptr;
+		ptr += tlen;
+		rem -= tlen;
+
 	}
+	mk_lang_clobber(&enc_type_id);
+	mk_lang_clobber(&sgn_type_id);
 
 	#include "mk_lang_warning_msvc_push_c4127.h"
 	if(mk_lang_false){}
 	#include "mk_lang_warning_msvc_pop.h"
-	else if(enc_type_num == mk_lib_iip_cp_types_crpt_key_type_e_elgamal && sgn_type_num == mk_lib_iip_cp_types_sign_key_type_e_dsa_sha1         ){ mk_lang_check_todo(); }
-	else if(enc_type_num == mk_lib_iip_cp_types_crpt_key_type_e_elgamal && sgn_type_num == mk_lib_iip_cp_types_sign_key_type_e_ecdsa_sha256_p256){ obj->m_type = mk_lib_iip_cp_types_remote_destination_type_e_elgamal_ecdsa_sha256_p256; mk_lib_iip_key_enc_elgamal_pub_integer_single_from_u8s_be(&obj->m_data.m_elgamal_ecdsa_sha256_p256.m_enc_pub.m_data.m_integer, enc_data_buf); mk_lib_iip_key_sgn_ecdsa_sha256_p256_pub_integer_single_from_u8s_be(&obj->m_data.m_elgamal_ecdsa_sha256_p256.m_sgn_pub.m_data.m_integer, sgn_data_buf); mk_sl_cui_uint8_memcpy_fn(&obj->m_data.m_elgamal_ecdsa_sha256_p256.m_padding_2[0], sgn_data_buf + 128 - mk_lang_countof(obj->m_data.m_elgamal_ecdsa_sha256_p256.m_padding_2), ((mk_lang_types_usize_t)(mk_lang_countof(obj->m_data.m_elgamal_ecdsa_sha256_p256.m_padding_2)))); }
+	else if(cert_type_id == mk_lib_iip_cp_types_certificate_type_e_null                                                                          ){ obj->m_type = mk_lib_iip_cp_types_remote_destination_type_e_legacy                      ; mk_lib_iip_key_enc_elgamal_pub_integer_single_from_u8s_be(&obj->m_data.m_legacy                      .m_enc_pub.m_data.m_integer, enc_data_buf); mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_from_u8s_be            (&obj->m_data.m_legacy                      .m_sgn_pub.m_data.m_integer, sgn_data_buf); }
+	else if(enc_type_id == mk_lib_iip_cp_types_crpt_key_type_e_elgamal && sgn_type_id == mk_lib_iip_cp_types_sign_key_type_e_dsa_sha1            ){ obj->m_type = mk_lib_iip_cp_types_remote_destination_type_e_elgamal_dsa_sha1            ; mk_lib_iip_key_enc_elgamal_pub_integer_single_from_u8s_be(&obj->m_data.m_elgamal_dsa_sha1            .m_enc_pub.m_data.m_integer, enc_data_buf); mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_from_u8s_be            (&obj->m_data.m_elgamal_dsa_sha1            .m_sgn_pub.m_data.m_integer, sgn_data_buf); }
+	else if(enc_type_id == mk_lib_iip_cp_types_crpt_key_type_e_elgamal && sgn_type_id == mk_lib_iip_cp_types_sign_key_type_e_ecdsa_sha256_p256   ){ obj->m_type = mk_lib_iip_cp_types_remote_destination_type_e_elgamal_ecdsa_sha256_p256   ; mk_lib_iip_key_enc_elgamal_pub_integer_single_from_u8s_be(&obj->m_data.m_elgamal_ecdsa_sha256_p256   .m_enc_pub.m_data.m_integer, enc_data_buf); mk_lib_iip_key_sgn_ecdsa_sha256_p256_pub_integer_single_from_u8s_be   (&obj->m_data.m_elgamal_ecdsa_sha256_p256   .m_sgn_pub.m_data.m_integer, sgn_data_buf); mk_sl_cui_uint8_memcpy_fn(&obj->m_data.m_elgamal_ecdsa_sha256_p256.m_padding_2[0], sgn_data_buf + 128 - mk_lang_countof(obj->m_data.m_elgamal_ecdsa_sha256_p256   .m_padding_2), ((mk_lang_types_usize_t)(mk_lang_countof(obj->m_data.m_elgamal_ecdsa_sha256_p256   .m_padding_2)))); }
+	else if(enc_type_id == mk_lib_iip_cp_types_crpt_key_type_e_elgamal && sgn_type_id == mk_lib_iip_cp_types_sign_key_type_e_eddsa_sha512_ed25519){ obj->m_type = mk_lib_iip_cp_types_remote_destination_type_e_elgamal_eddsa_sha512_ed25519; mk_lib_iip_key_enc_elgamal_pub_integer_single_from_u8s_be(&obj->m_data.m_elgamal_eddsa_sha512_ed25519.m_enc_pub.m_data.m_integer, enc_data_buf); mk_lib_iip_key_sgn_eddsa_sha512_ed25519_pub_integer_single_from_u8s_be(&obj->m_data.m_elgamal_eddsa_sha512_ed25519.m_sgn_pub.m_data.m_integer, sgn_data_buf); mk_sl_cui_uint8_memcpy_fn(&obj->m_data.m_elgamal_ecdsa_sha256_p256.m_padding_2[0], sgn_data_buf + 128 - mk_lang_countof(obj->m_data.m_elgamal_eddsa_sha512_ed25519.m_padding_2), ((mk_lang_types_usize_t)(mk_lang_countof(obj->m_data.m_elgamal_eddsa_sha512_ed25519.m_padding_2)))); }
 	else{ mk_lang_check_todo(); }
 
 	tlen = data_len - rem;
@@ -543,120 +571,157 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	ptr += tlen;
 	rem -= tlen;
 
-	cert_type = mk_lib_iip_cp_types_certificate_type_e_key;
-	tlen = mk_sl_cui_uint8_size_bytes_v;
-	if(!(rem >= tlen))
+	if(obj->m_type != mk_lib_iip_cp_types_remote_destination_type_e_legacy)
 	{
-		*succeeded = mk_lang_false;
-		return 0;
-	}
-	mk_sl_cui_uint8_from_bi_sint(ptr, &cert_type);
-	ptr += tlen;
-	rem -= tlen;
 
-	cert_len = 2 * mk_sl_cui_uint16_size_bytes_v;
-	tlen = mk_sl_cui_uint16_size_bytes_v;
-	if(!(rem >= tlen))
-	{
-		*succeeded = mk_lang_false;
-		return 0;
-	}
-	mk_sl_cui_uint16_from_bi_sint(&tu16, &cert_len);
-	mk_sl_uint_convert_16_8_be_to_sml(&tu16, ptr);
-	ptr += tlen;
-	rem -= tlen;
+		cert_type = mk_lib_iip_cp_types_certificate_type_e_key;
+		tlen = mk_sl_cui_uint8_size_bytes_v;
+		if(!(rem >= tlen))
+		{
+			*succeeded = mk_lang_false;
+			return 0;
+		}
+		mk_sl_cui_uint8_from_bi_sint(ptr, &cert_type);
+		ptr += tlen;
+		rem -= tlen;
 
-	switch(obj->m_type)
-	{
-		case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_dsa_sha1            : mk_lang_check_todo(); break;
-		case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_ecdsa_sha256_p256   : sgn_type_id = mk_lib_iip_cp_types_sign_key_type_e_ecdsa_sha256_p256   ; break;
-		case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_eddsa_sha512_ed25519: sgn_type_id = mk_lib_iip_cp_types_sign_key_type_e_eddsa_sha512_ed25519; break;
-		case mk_lib_iip_cp_types_remote_destination_type_e_dummy_end: mk_lang_assert_false(); break;
-		default: mk_lang_assert_false(); break;
-	}
-	mk_lang_clobber(&sgn_type_id);
-	sgn_type_num = sgn_type_id;
-	tlen = mk_sl_cui_uint16_size_bytes_v;
-	if(!(rem >= tlen))
-	{
-		*succeeded = mk_lang_false;
-		return 0;
-	}
-	mk_sl_cui_uint16_from_bi_sint(&tu16, &sgn_type_num);
-	mk_sl_uint_convert_16_8_be_to_sml(&tu16, ptr);
-	ptr += tlen;
-	rem -= tlen;
+		cert_len = 2 * mk_sl_cui_uint16_size_bytes_v;
+		tlen = mk_sl_cui_uint16_size_bytes_v;
+		if(!(rem >= tlen))
+		{
+			*succeeded = mk_lang_false;
+			return 0;
+		}
+		mk_sl_cui_uint16_from_bi_sint(&tu16, &cert_len);
+		mk_sl_uint_convert_16_8_be_to_sml(&tu16, ptr);
+		ptr += tlen;
+		rem -= tlen;
 
-	switch(obj->m_type)
-	{
-		case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_dsa_sha1            : mk_lang_check_todo(); break;
-		case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_ecdsa_sha256_p256   : enc_type_id = mk_lib_iip_cp_types_crpt_key_type_e_elgamal; break;
-		case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_eddsa_sha512_ed25519: enc_type_id = mk_lib_iip_cp_types_crpt_key_type_e_elgamal; break;
-		case mk_lib_iip_cp_types_remote_destination_type_e_dummy_end: mk_lang_assert_false(); break;
-		default: mk_lang_assert_false(); break;
-	}
-	mk_lang_clobber(&enc_type_id);
-	enc_type_num = enc_type_id;
-	tlen = mk_sl_cui_uint16_size_bytes_v;
-	if(!(rem >= tlen))
-	{
-		*succeeded = mk_lang_false;
-		return 0;
-	}
-	mk_sl_cui_uint16_from_bi_sint(&tu16, &enc_type_num);
-	mk_sl_uint_convert_16_8_be_to_sml(&tu16, ptr);
-	ptr += tlen;
-	rem -= tlen;
+		switch(obj->m_type)
+		{
+			case mk_lib_iip_cp_types_remote_destination_type_e_legacy: mk_lang_assert_false(); break;
+			case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_dsa_sha1            : sgn_type_id = mk_lib_iip_cp_types_sign_key_type_e_dsa_sha1            ; break;
+			case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_ecdsa_sha256_p256   : sgn_type_id = mk_lib_iip_cp_types_sign_key_type_e_ecdsa_sha256_p256   ; break;
+			case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_eddsa_sha512_ed25519: sgn_type_id = mk_lib_iip_cp_types_sign_key_type_e_eddsa_sha512_ed25519; break;
+			case mk_lib_iip_cp_types_remote_destination_type_e_dummy_end: mk_lang_assert_false(); break;
+			default: mk_lang_assert_false(); break;
+		}
+		mk_lang_clobber(&sgn_type_id);
+		sgn_type_num = sgn_type_id;
+		tlen = mk_sl_cui_uint16_size_bytes_v;
+		if(!(rem >= tlen))
+		{
+			*succeeded = mk_lang_false;
+			return 0;
+		}
+		mk_sl_cui_uint16_from_bi_sint(&tu16, &sgn_type_num);
+		mk_sl_uint_convert_16_8_be_to_sml(&tu16, ptr);
+		ptr += tlen;
+		rem -= tlen;
 
-	sgn_additional_data_buf = ptr;
-	sgn_additional_data_len = mk_lib_iip_cp_types_get_key_additional_len_sign(sgn_type_id);
-	tlen = sgn_additional_data_len;
-	if(!(rem >= tlen))
-	{
-		*succeeded = mk_lang_false;
-		return 0;
-	}
-	ptr += tlen;
-	rem -= tlen;
+		switch(obj->m_type)
+		{
+			case mk_lib_iip_cp_types_remote_destination_type_e_legacy: mk_lang_assert_false(); break;
+			case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_dsa_sha1            : enc_type_id = mk_lib_iip_cp_types_crpt_key_type_e_elgamal; break;
+			case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_ecdsa_sha256_p256   : enc_type_id = mk_lib_iip_cp_types_crpt_key_type_e_elgamal; break;
+			case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_eddsa_sha512_ed25519: enc_type_id = mk_lib_iip_cp_types_crpt_key_type_e_elgamal; break;
+			case mk_lib_iip_cp_types_remote_destination_type_e_dummy_end: mk_lang_assert_false(); break;
+			default: mk_lang_assert_false(); break;
+		}
+		mk_lang_clobber(&enc_type_id);
+		enc_type_num = enc_type_id;
+		tlen = mk_sl_cui_uint16_size_bytes_v;
+		if(!(rem >= tlen))
+		{
+			*succeeded = mk_lang_false;
+			return 0;
+		}
+		mk_sl_cui_uint16_from_bi_sint(&tu16, &enc_type_num);
+		mk_sl_uint_convert_16_8_be_to_sml(&tu16, ptr);
+		ptr += tlen;
+		rem -= tlen;
 
-	enc_additional_data_buf = ptr;
-	enc_additional_data_len = mk_lib_iip_cp_types_get_key_additional_len_crpt(enc_type_id);
-	tlen = enc_additional_data_len;
-	if(!(rem >= tlen))
-	{
-		*succeeded = mk_lang_false;
-		return 0;
-	}
-	ptr += tlen;
-	rem -= tlen;
+		sgn_additional_data_buf = ptr;
+		sgn_additional_data_len = mk_lib_iip_cp_types_get_key_additional_len_sign(sgn_type_id);
+		tlen = sgn_additional_data_len;
+		if(!(rem >= tlen))
+		{
+			*succeeded = mk_lang_false;
+			return 0;
+		}
+		ptr += tlen;
+		rem -= tlen;
 
-	switch(enc_type_id)
-	{
-		case mk_lib_iip_cp_types_crpt_key_type_e_elgamal: mk_lib_iip_key_enc_elgamal_pub_integer_single_to_u8s_be(&obj->m_data.m_elgamal_ecdsa_sha256_p256.m_enc_pub.m_data.m_integer, enc_data_buf); break;
-		case mk_lib_iip_cp_types_crpt_key_type_e_p256   : mk_lang_check_todo(); break;
-		case mk_lib_iip_cp_types_crpt_key_type_e_p384   : mk_lang_check_todo(); break;
-		case mk_lib_iip_cp_types_crpt_key_type_e_p521   : mk_lang_check_todo(); break;
-		case mk_lib_iip_cp_types_crpt_key_type_e_x25519 : mk_lang_check_todo(); break;
-		case mk_lib_iip_cp_types_crpt_key_type_e_dummy_end: mk_lang_assert_false(); break;
-		default: mk_lang_assert_false(); break;
-	}
+		enc_additional_data_buf = ptr;
+		enc_additional_data_len = mk_lib_iip_cp_types_get_key_additional_len_crpt(enc_type_id);
+		tlen = enc_additional_data_len;
+		if(!(rem >= tlen))
+		{
+			*succeeded = mk_lang_false;
+			return 0;
+		}
+		ptr += tlen;
+		rem -= tlen;
 
-	switch(sgn_type_id)
+		switch(enc_type_id)
+		{
+			case mk_lib_iip_cp_types_crpt_key_type_e_elgamal: mk_lib_iip_key_enc_elgamal_pub_integer_single_to_u8s_be(&obj->m_data.m_elgamal_ecdsa_sha256_p256.m_enc_pub.m_data.m_integer, enc_data_buf); break;
+			case mk_lib_iip_cp_types_crpt_key_type_e_p256   : mk_lang_check_todo(); break;
+			case mk_lib_iip_cp_types_crpt_key_type_e_p384   : mk_lang_check_todo(); break;
+			case mk_lib_iip_cp_types_crpt_key_type_e_p521   : mk_lang_check_todo(); break;
+			case mk_lib_iip_cp_types_crpt_key_type_e_x25519 : mk_lang_check_todo(); break;
+			case mk_lib_iip_cp_types_crpt_key_type_e_dummy_end: mk_lang_assert_false(); break;
+			default: mk_lang_assert_false(); break;
+		}
+
+		switch(sgn_type_id)
+		{
+			case mk_lib_iip_cp_types_sign_key_type_e_dsa_sha1              : mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_to_u8s_be(&obj->m_data.m_elgamal_dsa_sha1.m_sgn_pub.m_data.m_integer, sgn_data_buf); break;
+			case mk_lib_iip_cp_types_sign_key_type_e_ecdsa_sha256_p256     : mk_lib_iip_key_sgn_ecdsa_sha256_p256_pub_integer_single_to_u8s_be(&obj->m_data.m_elgamal_ecdsa_sha256_p256.m_sgn_pub.m_data.m_integer, sgn_data_buf); mk_sl_cui_uint8_memcpy_fn(sgn_data_buf + 128 - mk_lang_countof(obj->m_data.m_elgamal_ecdsa_sha256_p256.m_padding_2), &obj->m_data.m_elgamal_ecdsa_sha256_p256.m_padding_2[0], ((mk_lang_types_usize_t)(mk_lang_countof(obj->m_data.m_elgamal_ecdsa_sha256_p256.m_padding_2)))); break;
+			case mk_lib_iip_cp_types_sign_key_type_e_ecdsa_sha384_p384     : mk_lang_check_todo(); break;
+			case mk_lib_iip_cp_types_sign_key_type_e_ecdsa_sha512_p521     : mk_lang_check_todo(); break;
+			case mk_lib_iip_cp_types_sign_key_type_e_rsa_sha256_2048       : mk_lang_check_todo(); break;
+			case mk_lib_iip_cp_types_sign_key_type_e_rsa_sha384_3072       : mk_lang_check_todo(); break;
+			case mk_lib_iip_cp_types_sign_key_type_e_rsa_sha512_4096       : mk_lang_check_todo(); break;
+			case mk_lib_iip_cp_types_sign_key_type_e_eddsa_sha512_ed25519  : mk_lang_check_todo(); break;
+			case mk_lib_iip_cp_types_sign_key_type_e_eddsa_sha512_ed25519ph: mk_lang_check_todo(); break;
+			case mk_lib_iip_cp_types_sign_key_type_e_gost_a                : mk_lang_check_todo(); break;
+			case mk_lib_iip_cp_types_sign_key_type_e_gost_b                : mk_lang_check_todo(); break;
+			case mk_lib_iip_cp_types_sign_key_type_e_reddsa_sha512_ed25519 : mk_lang_check_todo(); break;
+			case mk_lib_iip_cp_types_sign_key_type_e_dummy_end: mk_lang_assert_false(); break;
+			default: mk_lang_assert_false(); break;
+		}
+
+	}
+	else
 	{
-		case mk_lib_iip_cp_types_sign_key_type_e_dsa_sha1              : mk_lang_check_todo(); break;
-		case mk_lib_iip_cp_types_sign_key_type_e_ecdsa_sha256_p256     : mk_lib_iip_key_sgn_ecdsa_sha256_p256_pub_integer_single_to_u8s_be(&obj->m_data.m_elgamal_ecdsa_sha256_p256.m_sgn_pub.m_data.m_integer, sgn_data_buf); mk_sl_cui_uint8_memcpy_fn(sgn_data_buf + 128 - mk_lang_countof(obj->m_data.m_elgamal_ecdsa_sha256_p256.m_padding_2), &obj->m_data.m_elgamal_ecdsa_sha256_p256.m_padding_2[0], ((mk_lang_types_usize_t)(mk_lang_countof(obj->m_data.m_elgamal_ecdsa_sha256_p256.m_padding_2)))); break;
-		case mk_lib_iip_cp_types_sign_key_type_e_ecdsa_sha384_p384     : mk_lang_check_todo(); break;
-		case mk_lib_iip_cp_types_sign_key_type_e_ecdsa_sha512_p521     : mk_lang_check_todo(); break;
-		case mk_lib_iip_cp_types_sign_key_type_e_rsa_sha256_2048       : mk_lang_check_todo(); break;
-		case mk_lib_iip_cp_types_sign_key_type_e_rsa_sha384_3072       : mk_lang_check_todo(); break;
-		case mk_lib_iip_cp_types_sign_key_type_e_rsa_sha512_4096       : mk_lang_check_todo(); break;
-		case mk_lib_iip_cp_types_sign_key_type_e_eddsa_sha512_ed25519  : mk_lang_check_todo(); break;
-		case mk_lib_iip_cp_types_sign_key_type_e_eddsa_sha512_ed25519ph: mk_lang_check_todo(); break;
-		case mk_lib_iip_cp_types_sign_key_type_e_gost_a                : mk_lang_check_todo(); break;
-		case mk_lib_iip_cp_types_sign_key_type_e_gost_b                : mk_lang_check_todo(); break;
-		case mk_lib_iip_cp_types_sign_key_type_e_reddsa_sha512_ed25519 : mk_lang_check_todo(); break;
-		case mk_lib_iip_cp_types_sign_key_type_e_dummy_end: mk_lang_assert_false(); break;
-		default: mk_lang_assert_false(); break;
+
+		cert_type = mk_lib_iip_cp_types_certificate_type_e_null;
+		tlen = mk_sl_cui_uint8_size_bytes_v;
+		if(!(rem >= tlen))
+		{
+			*succeeded = mk_lang_false;
+			return 0;
+		}
+		mk_sl_cui_uint8_from_bi_sint(ptr, &cert_type);
+		ptr += tlen;
+		rem -= tlen;
+
+		cert_len = 0;
+		tlen = mk_sl_cui_uint16_size_bytes_v;
+		if(!(rem >= tlen))
+		{
+			*succeeded = mk_lang_false;
+			return 0;
+		}
+		mk_sl_cui_uint16_from_bi_sint(&tu16, &cert_len);
+		mk_sl_uint_convert_16_8_be_to_sml(&tu16, ptr);
+		ptr += tlen;
+		rem -= tlen;
+
+		mk_lib_iip_key_enc_elgamal_pub_integer_single_to_u8s_be(&obj->m_data.m_legacy.m_enc_pub.m_data.m_integer, enc_data_buf);
+		mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_to_u8s_be(&obj->m_data.m_legacy.m_sgn_pub.m_data.m_integer, sgn_data_buf);
+
 	}
 
 	tlen = data_len - rem;

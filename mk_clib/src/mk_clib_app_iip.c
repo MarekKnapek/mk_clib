@@ -56,20 +56,21 @@ static mk_lang_types_bool_t mk_clib_app_iip_g_stop_requested;
 static mk_win_base_handle_t mk_clib_app_iip_g_main_thread;
 
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_destination_elgamal_dsa_sha1_generate_new_random(mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_pt const destination) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_destination_elgamal_dsa_sha1_generate_new_random(mk_lib_iip_cp_types_destination2_pt const destination) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 
 	mk_lang_assert(destination);
+	mk_lang_assert(destination->m_type == mk_lib_iip_cp_types_remote_destination_type_e_legacy); /*todo*/
 
-	err = mk_lib_iip_key_enc_elgamal_pri_generate_random(&destination->m_key_elgamal_pri); mk_lang_check_rereturn(err);
-	err = mk_lib_iip_key_sgn_dsa_sha1_pri_generate_random(&destination->m_key_dsa_sha1_pri); mk_lang_check_rereturn(err);
-	mk_lib_iip_key_enc_elgamal_pri_compute_public(&destination->m_key_elgamal_pri, &destination->m_key_elgamal_pub);
-	mk_lib_iip_key_sgn_dsa_sha1_pri_compute_public(&destination->m_key_dsa_sha1_pri, &destination->m_key_dsa_sha1_pub);
+	err = mk_lib_iip_key_enc_elgamal_pri_generate_random(&destination->m_private_data.m_key_elgamal_pri); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_key_sgn_dsa_sha1_pri_generate_random(&destination->m_private_data.m_key_dsa_sha1_pri); mk_lang_check_rereturn(err);
+	mk_lib_iip_key_enc_elgamal_pri_compute_public(&destination->m_private_data.m_key_elgamal_pri, &destination->m_public_data.m_legacy.m_enc_pub);
+	mk_lib_iip_key_sgn_dsa_sha1_pri_compute_public(&destination->m_private_data.m_key_dsa_sha1_pri, &destination->m_public_data.m_legacy.m_sgn_pub);
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_destination_elgamal_dsa_sha1_save_pri_only(mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_pct const destination, mk_lang_types_pchar_pct const file_name) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_destination_elgamal_dsa_sha1_save_pri_only(mk_lib_iip_cp_types_destination2_pct const destination, mk_lang_types_pchar_pct const file_name) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 	mk_sl_io_writer_file_t writer;
@@ -84,7 +85,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_des
 
 	err = mk_sl_io_writer_file_open_n(&writer, file_name); mk_lang_check_rereturn(err);
 
-	str_len = mk_lib_iip_key_enc_elgamal_pri_integer_single_to_str_hexf_n(&destination->m_key_elgamal_pri.m_data.m_integer, &str_buf[0], mk_lang_countof(str_buf)); mk_lang_assert(str_len == mk_lib_iip_key_enc_elgamal_pri_integer_single_strlen_hex_v);
+	str_len = mk_lib_iip_key_enc_elgamal_pri_integer_single_to_str_hexf_n(&destination->m_private_data.m_key_elgamal_pri.m_data.m_integer, &str_buf[0], mk_lang_countof(str_buf)); mk_lang_assert(str_len == mk_lib_iip_key_enc_elgamal_pri_integer_single_strlen_hex_v);
 	mk_sl_cui_uint8_from_bi_pchar_many(&bin_buf[0], &str_buf[0], ((mk_lang_types_usize_t)(str_len)));
 	err = mk_sl_io_writer_file_write(&writer, &bin_buf[0], str_len, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == str_len);
 
@@ -92,7 +93,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_des
 	mk_sl_cui_uint8_from_bi_pchar_many(&bin_buf[0], &str_buf[0], ((mk_lang_types_usize_t)(str_len)));
 	err = mk_sl_io_writer_file_write(&writer, &bin_buf[0], str_len, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == str_len);
 
-	str_len = mk_lib_iip_key_sgn_dsa_sha1_pri_integer_single_to_str_hexf_n(&destination->m_key_dsa_sha1_pri.m_data.m_integer, &str_buf[0], mk_lang_countof(str_buf)); mk_lang_assert(str_len == mk_lib_iip_key_sgn_dsa_sha1_pri_integer_single_strlen_hex_v);
+	str_len = mk_lib_iip_key_sgn_dsa_sha1_pri_integer_single_to_str_hexf_n(&destination->m_private_data.m_key_dsa_sha1_pri.m_data.m_integer, &str_buf[0], mk_lang_countof(str_buf)); mk_lang_assert(str_len == mk_lib_iip_key_sgn_dsa_sha1_pri_integer_single_strlen_hex_v);
 	mk_sl_cui_uint8_from_bi_pchar_many(&bin_buf[0], &str_buf[0], ((mk_lang_types_usize_t)(str_len)));
 	err = mk_sl_io_writer_file_write(&writer, &bin_buf[0], str_len, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == str_len);
 
@@ -100,7 +101,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_des
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_destination_elgamal_dsa_sha1_save_pri_pub(mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_pct const destination, mk_lang_types_pchar_pct const file_name) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_destination_elgamal_dsa_sha1_save_pri_pub(mk_lib_iip_cp_types_destination2_pct const destination, mk_lang_types_pchar_pct const file_name) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 	mk_sl_io_writer_file_t writer;
@@ -112,10 +113,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_des
 	mk_lang_assert(destination);
 	mk_lang_assert(file_name);
 	mk_lang_assert(file_name[0] != '\0');
+	mk_lang_assert(destination->m_type == mk_lib_iip_cp_types_remote_destination_type_e_legacy); /*todo*/
 
 	err = mk_sl_io_writer_file_open_n(&writer, file_name); mk_lang_check_rereturn(err);
 
-	str_len = mk_lib_iip_key_enc_elgamal_pri_integer_single_to_str_hexf_n(&destination->m_key_elgamal_pri.m_data.m_integer, &str_buf[0], mk_lang_countof(str_buf)); mk_lang_assert(str_len == mk_lib_iip_key_enc_elgamal_pri_integer_single_strlen_hex_v);
+	str_len = mk_lib_iip_key_enc_elgamal_pri_integer_single_to_str_hexf_n(&destination->m_private_data.m_key_elgamal_pri.m_data.m_integer, &str_buf[0], mk_lang_countof(str_buf)); mk_lang_assert(str_len == mk_lib_iip_key_enc_elgamal_pri_integer_single_strlen_hex_v);
 	mk_sl_cui_uint8_from_bi_pchar_many(&bin_buf[0], &str_buf[0], ((mk_lang_types_usize_t)(str_len)));
 	err = mk_sl_io_writer_file_write(&writer, &bin_buf[0], str_len, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == str_len);
 
@@ -123,7 +125,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_des
 	mk_sl_cui_uint8_from_bi_pchar_many(&bin_buf[0], &str_buf[0], ((mk_lang_types_usize_t)(str_len)));
 	err = mk_sl_io_writer_file_write(&writer, &bin_buf[0], str_len, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == str_len);
 
-	str_len = mk_lib_iip_key_sgn_dsa_sha1_pri_integer_single_to_str_hexf_n(&destination->m_key_dsa_sha1_pri.m_data.m_integer, &str_buf[0], mk_lang_countof(str_buf)); mk_lang_assert(str_len == mk_lib_iip_key_sgn_dsa_sha1_pri_integer_single_strlen_hex_v);
+	str_len = mk_lib_iip_key_sgn_dsa_sha1_pri_integer_single_to_str_hexf_n(&destination->m_private_data.m_key_dsa_sha1_pri.m_data.m_integer, &str_buf[0], mk_lang_countof(str_buf)); mk_lang_assert(str_len == mk_lib_iip_key_sgn_dsa_sha1_pri_integer_single_strlen_hex_v);
 	mk_sl_cui_uint8_from_bi_pchar_many(&bin_buf[0], &str_buf[0], ((mk_lang_types_usize_t)(str_len)));
 	err = mk_sl_io_writer_file_write(&writer, &bin_buf[0], str_len, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == str_len);
 
@@ -131,7 +133,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_des
 	mk_sl_cui_uint8_from_bi_pchar_many(&bin_buf[0], &str_buf[0], ((mk_lang_types_usize_t)(str_len)));
 	err = mk_sl_io_writer_file_write(&writer, &bin_buf[0], str_len, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == str_len);
 
-	str_len = mk_lib_iip_key_enc_elgamal_pub_integer_single_to_str_hexf_n(&destination->m_key_elgamal_pub.m_data.m_integer, &str_buf[0], mk_lang_countof(str_buf)); mk_lang_assert(str_len == mk_lib_iip_key_enc_elgamal_pub_integer_single_strlen_hex_v);
+	str_len = mk_lib_iip_key_enc_elgamal_pub_integer_single_to_str_hexf_n(&destination->m_public_data.m_legacy.m_enc_pub.m_data.m_integer, &str_buf[0], mk_lang_countof(str_buf)); mk_lang_assert(str_len == mk_lib_iip_key_enc_elgamal_pub_integer_single_strlen_hex_v);
 	mk_sl_cui_uint8_from_bi_pchar_many(&bin_buf[0], &str_buf[0], ((mk_lang_types_usize_t)(str_len)));
 	err = mk_sl_io_writer_file_write(&writer, &bin_buf[0], str_len, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == str_len);
 
@@ -139,7 +141,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_des
 	mk_sl_cui_uint8_from_bi_pchar_many(&bin_buf[0], &str_buf[0], ((mk_lang_types_usize_t)(str_len)));
 	err = mk_sl_io_writer_file_write(&writer, &bin_buf[0], str_len, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == str_len);
 
-	str_len = mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_to_str_hexf_n(&destination->m_key_dsa_sha1_pub.m_data.m_integer, &str_buf[0], mk_lang_countof(str_buf)); mk_lang_assert(str_len == mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_strlen_hex_v);
+	str_len = mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_to_str_hexf_n(&destination->m_public_data.m_legacy.m_sgn_pub.m_data.m_integer, &str_buf[0], mk_lang_countof(str_buf)); mk_lang_assert(str_len == mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_strlen_hex_v);
 	mk_sl_cui_uint8_from_bi_pchar_many(&bin_buf[0], &str_buf[0], ((mk_lang_types_usize_t)(str_len)));
 	err = mk_sl_io_writer_file_write(&writer, &bin_buf[0], str_len, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == str_len);
 
@@ -151,7 +153,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_des
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_destination_elgamal_dsa_sha1_generate_new_random_and_save_pri_only(mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_pt const destination, mk_lang_types_pchar_pct const file_name) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_destination_elgamal_dsa_sha1_generate_new_random_and_save_pri_only(mk_lib_iip_cp_types_destination2_pt const destination, mk_lang_types_pchar_pct const file_name) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 
@@ -164,7 +166,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_des
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_destination_elgamal_dsa_sha1_generate_new_random_and_save_pri_pub(mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_pt const destination, mk_lang_types_pchar_pct const file_name) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_destination_elgamal_dsa_sha1_generate_new_random_and_save_pri_pub(mk_lib_iip_cp_types_destination2_pt const destination, mk_lang_types_pchar_pct const file_name) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 
@@ -177,7 +179,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_des
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_destination_elgamal_dsa_sha1_load_pri_only(mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_pt const destination, mk_lang_types_pchar_pct const file_name) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_destination_elgamal_dsa_sha1_load_pri_only(mk_lib_iip_cp_types_destination2_pt const destination, mk_lang_types_pchar_pct const file_name) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 	mk_sl_io_reader_file_t reader;
@@ -190,13 +192,14 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_des
 	mk_lang_assert(destination);
 	mk_lang_assert(file_name);
 	mk_lang_assert(file_name[0] != '\0');
+	mk_lang_assert(destination->m_type == mk_lib_iip_cp_types_remote_destination_type_e_legacy); /*todo*/
 
 	err = mk_sl_io_reader_file_open_n(&reader, file_name); mk_lang_check_rereturn(err);
 
 	str_len = mk_lib_iip_key_enc_elgamal_pri_integer_single_strlen_hex_v;
 	err = mk_sl_io_reader_file_read(&reader, &bin_buf[0], str_len, &read); mk_lang_check_rereturn(err); mk_lang_check_return(read == str_len);
 	mk_sl_cui_uint8_to_bi_pchar_many(&bin_buf[0], &str_buf[0], ((mk_lang_types_usize_t)(str_len)));
-	str_len = mk_lib_iip_key_enc_elgamal_pri_integer_single_from_str_hex_n(&destination->m_key_elgamal_pri.m_data.m_integer, &str_buf[0], str_len); mk_lang_assert(str_len == mk_lib_iip_key_enc_elgamal_pri_integer_single_strlen_hex_v);
+	str_len = mk_lib_iip_key_enc_elgamal_pri_integer_single_from_str_hex_n(&destination->m_private_data.m_key_elgamal_pri.m_data.m_integer, &str_buf[0], str_len); mk_lang_assert(str_len == mk_lib_iip_key_enc_elgamal_pri_integer_single_strlen_hex_v);
 
 	str_len = 1;
 	err = mk_sl_io_reader_file_read(&reader, &bin_buf[0], str_len, &read); mk_lang_check_rereturn(err); mk_lang_check_return(read == str_len);
@@ -206,17 +209,17 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_des
 	str_len = mk_lib_iip_key_sgn_dsa_sha1_pri_integer_single_strlen_hex_v;
 	err = mk_sl_io_reader_file_read(&reader, &bin_buf[0], str_len, &read); mk_lang_check_rereturn(err); mk_lang_check_return(read == str_len);
 	mk_sl_cui_uint8_to_bi_pchar_many(&bin_buf[0], &str_buf[0], ((mk_lang_types_usize_t)(str_len)));
-	str_len = mk_lib_iip_key_sgn_dsa_sha1_pri_integer_single_from_str_hex_n(&destination->m_key_dsa_sha1_pri.m_data.m_integer, &str_buf[0], str_len); mk_lang_assert(str_len == mk_lib_iip_key_sgn_dsa_sha1_pri_integer_single_strlen_hex_v);
+	str_len = mk_lib_iip_key_sgn_dsa_sha1_pri_integer_single_from_str_hex_n(&destination->m_private_data.m_key_dsa_sha1_pri.m_data.m_integer, &str_buf[0], str_len); mk_lang_assert(str_len == mk_lib_iip_key_sgn_dsa_sha1_pri_integer_single_strlen_hex_v);
 
 	err = mk_sl_io_reader_file_close(&reader); mk_lang_check_rereturn(err);
 
-	is_valid = mk_lib_iip_key_sgn_dsa_sha1_pri_is_valid(&destination->m_key_dsa_sha1_pri); mk_lang_check_return(is_valid);
-	mk_lib_iip_key_enc_elgamal_pri_compute_public(&destination->m_key_elgamal_pri, &destination->m_key_elgamal_pub);
-	mk_lib_iip_key_sgn_dsa_sha1_pri_compute_public(&destination->m_key_dsa_sha1_pri, &destination->m_key_dsa_sha1_pub);
+	is_valid = mk_lib_iip_key_sgn_dsa_sha1_pri_is_valid(&destination->m_private_data.m_key_dsa_sha1_pri); mk_lang_check_return(is_valid);
+	mk_lib_iip_key_enc_elgamal_pri_compute_public(&destination->m_private_data.m_key_elgamal_pri, &destination->m_public_data.m_legacy.m_enc_pub);
+	mk_lib_iip_key_sgn_dsa_sha1_pri_compute_public(&destination->m_private_data.m_key_dsa_sha1_pri, &destination->m_public_data.m_legacy.m_sgn_pub);
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_destination_elgamal_dsa_sha1_load_pri_pub(mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_pt const destination, mk_lang_types_pchar_pct const file_name) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_destination_elgamal_dsa_sha1_load_pri_pub(mk_lib_iip_cp_types_destination2_pt const destination, mk_lang_types_pchar_pct const file_name) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 	mk_sl_io_reader_file_t reader;
@@ -228,13 +231,14 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_des
 	mk_lang_assert(destination);
 	mk_lang_assert(file_name);
 	mk_lang_assert(file_name[0] != '\0');
+	mk_lang_assert(destination->m_type == mk_lib_iip_cp_types_remote_destination_type_e_legacy); /*todo*/
 
 	err = mk_sl_io_reader_file_open_n(&reader, file_name); mk_lang_check_rereturn(err);
 
 	str_len = mk_lib_iip_key_enc_elgamal_pri_integer_single_strlen_hex_v;
 	err = mk_sl_io_reader_file_read(&reader, &bin_buf[0], str_len, &read); mk_lang_check_rereturn(err); mk_lang_check_return(read == str_len);
 	mk_sl_cui_uint8_to_bi_pchar_many(&bin_buf[0], &str_buf[0], ((mk_lang_types_usize_t)(str_len)));
-	str_len = mk_lib_iip_key_enc_elgamal_pri_integer_single_from_str_hex_n(&destination->m_key_elgamal_pri.m_data.m_integer, &str_buf[0], str_len); mk_lang_assert(str_len == mk_lib_iip_key_enc_elgamal_pri_integer_single_strlen_hex_v);
+	str_len = mk_lib_iip_key_enc_elgamal_pri_integer_single_from_str_hex_n(&destination->m_private_data.m_key_elgamal_pri.m_data.m_integer, &str_buf[0], str_len); mk_lang_assert(str_len == mk_lib_iip_key_enc_elgamal_pri_integer_single_strlen_hex_v);
 
 	str_len = 1;
 	err = mk_sl_io_reader_file_read(&reader, &bin_buf[0], str_len, &read); mk_lang_check_rereturn(err); mk_lang_check_return(read == str_len);
@@ -244,7 +248,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_des
 	str_len = mk_lib_iip_key_sgn_dsa_sha1_pri_integer_single_strlen_hex_v;
 	err = mk_sl_io_reader_file_read(&reader, &bin_buf[0], str_len, &read); mk_lang_check_rereturn(err); mk_lang_check_return(read == str_len);
 	mk_sl_cui_uint8_to_bi_pchar_many(&bin_buf[0], &str_buf[0], ((mk_lang_types_usize_t)(str_len)));
-	str_len = mk_lib_iip_key_sgn_dsa_sha1_pri_integer_single_from_str_hex_n(&destination->m_key_dsa_sha1_pri.m_data.m_integer, &str_buf[0], str_len); mk_lang_assert(str_len == mk_lib_iip_key_sgn_dsa_sha1_pri_integer_single_strlen_hex_v);
+	str_len = mk_lib_iip_key_sgn_dsa_sha1_pri_integer_single_from_str_hex_n(&destination->m_private_data.m_key_dsa_sha1_pri.m_data.m_integer, &str_buf[0], str_len); mk_lang_assert(str_len == mk_lib_iip_key_sgn_dsa_sha1_pri_integer_single_strlen_hex_v);
 
 	str_len = 1;
 	err = mk_sl_io_reader_file_read(&reader, &bin_buf[0], str_len, &read); mk_lang_check_rereturn(err); mk_lang_check_return(read == str_len);
@@ -254,7 +258,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_des
 	str_len = mk_lib_iip_key_enc_elgamal_pub_integer_single_strlen_hex_v;
 	err = mk_sl_io_reader_file_read(&reader, &bin_buf[0], str_len, &read); mk_lang_check_rereturn(err); mk_lang_check_return(read == str_len);
 	mk_sl_cui_uint8_to_bi_pchar_many(&bin_buf[0], &str_buf[0], ((mk_lang_types_usize_t)(str_len)));
-	str_len = mk_lib_iip_key_enc_elgamal_pub_integer_single_from_str_hex_n(&destination->m_key_elgamal_pub.m_data.m_integer, &str_buf[0], str_len); mk_lang_assert(str_len == mk_lib_iip_key_enc_elgamal_pub_integer_single_strlen_hex_v);
+	str_len = mk_lib_iip_key_enc_elgamal_pub_integer_single_from_str_hex_n(&destination->m_public_data.m_legacy.m_enc_pub.m_data.m_integer, &str_buf[0], str_len); mk_lang_assert(str_len == mk_lib_iip_key_enc_elgamal_pub_integer_single_strlen_hex_v);
 
 	str_len = 1;
 	err = mk_sl_io_reader_file_read(&reader, &bin_buf[0], str_len, &read); mk_lang_check_rereturn(err); mk_lang_check_return(read == str_len);
@@ -264,13 +268,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_des
 	str_len = mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_strlen_hex_v;
 	err = mk_sl_io_reader_file_read(&reader, &bin_buf[0], str_len, &read); mk_lang_check_rereturn(err); mk_lang_check_return(read == str_len);
 	mk_sl_cui_uint8_to_bi_pchar_many(&bin_buf[0], &str_buf[0], ((mk_lang_types_usize_t)(str_len)));
-	str_len = mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_from_str_hex_n(&destination->m_key_dsa_sha1_pub.m_data.m_integer, &str_buf[0], str_len); mk_lang_assert(str_len == mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_strlen_hex_v);
+	str_len = mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_from_str_hex_n(&destination->m_public_data.m_legacy.m_sgn_pub.m_data.m_integer, &str_buf[0], str_len); mk_lang_assert(str_len == mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_strlen_hex_v);
 
 	err = mk_sl_io_reader_file_close(&reader); mk_lang_check_rereturn(err);
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_destination_elgamal_dsa_sha1_save_base64(mk_lib_iip_cp_types_destination_elgamal_dsa_sha1_pt const destination, mk_lang_types_pchar_pct const file_name) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_destination_elgamal_dsa_sha1_save_base64(mk_lib_iip_cp_types_destination2_pt const destination, mk_lang_types_pchar_pct const file_name) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 	mk_sl_io_writer_file_t writer;
@@ -285,11 +289,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_des
 	mk_lang_assert(destination);
 	mk_lang_assert(file_name);
 	mk_lang_assert(file_name[0] != '\0');
+	mk_lang_assert(destination->m_type == mk_lib_iip_cp_types_remote_destination_type_e_legacy); /*todo*/
 
 	err = mk_sl_io_writer_file_open_n(&writer, file_name); mk_lang_check_rereturn(err);
 	ptr = 0;
-	mk_lib_iip_key_enc_elgamal_pub_integer_single_to_u8s(&destination->m_key_elgamal_pub.m_data.m_integer, &bin_buf[ptr]); ptr += 256;
-	mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_to_u8s(&destination->m_key_dsa_sha1_pub.m_data.m_integer, &bin_buf[ptr]); ptr += 128;
+	mk_lib_iip_key_enc_elgamal_pub_integer_single_to_u8s(&destination->m_public_data.m_legacy.m_enc_pub.m_data.m_integer, &bin_buf[ptr]); ptr += 256;
+	mk_lib_iip_key_sgn_dsa_sha1_pub_integer_single_to_u8s_be(&destination->m_public_data.m_legacy.m_sgn_pub.m_data.m_integer, &bin_buf[ptr]); ptr += 128;
 	tsi = mk_lib_iip_cp_types_certificate_type_e_null; mk_sl_cui_uint8_from_bi_sint(&bin_buf[ptr], &tsi); ptr += 1;
 	tsi = 0; mk_sl_cui_uint16_from_bi_sint(&u16, &tsi); mk_sl_uint_convert_16_8_be_to_sml(&u16, &bin_buf[ptr]); ptr += 2;
 	mk_lib_iip_base64_encoder_fn(&bin_buf[0], mk_lang_countof(bin_buf), &str_b64_buf[0], mk_lang_countof(str_b64_buf), &str_len); mk_lang_check_return(str_len == mk_lang_countof(str_b64_buf));
@@ -599,6 +604,7 @@ struct mk_clib_app_iip_example1_s
 {
 	mk_lib_iip_cp_client_wrapper_task_pt m_wrp;
 	mk_lib_iip_cp_client_types_handle_session_pt m_session;
+	mk_lib_iip_time_timestamp_t m_time;
 	mk_lang_types_bool_t m_resolve_request_sent;
 	mk_lang_types_bool_t m_resolve_request_finished;
 	mk_lang_types_bool_t m_remote_address_has;
@@ -614,7 +620,8 @@ mk_lang_typedef(mk_clib_app_iip_example1);
 
 static mk_clib_app_iip_example1_t mk_clib_app_iip_example1_g;
 
-mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_clib_app_iip_example1_k_domain[] = "reg.i2p";
+//mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_clib_app_iip_example1_k_domain[] = "reg.i2p";
+mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_clib_app_iip_example1_k_domain[] = "w4uq2irrcxx7seqtpvof7eckmy7jgs64vvmholsccdth37ht5qmq.b32.i2p";
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_clib_app_iip_example1_k_b32_suffix[] = ".b32.i2p";
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_example1_rw_construct(mk_clib_app_iip_example1_pt const example1, mk_lib_iip_cp_client_wrapper_task_pt const wrp, mk_lib_iip_cp_client_types_handle_session_pt const session) mk_lang_noexcept
@@ -627,6 +634,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_exa
 
 	example1->m_wrp = wrp;
 	example1->m_session = session;
+	mk_lib_iip_time_get_now(&example1->m_time);
 	example1->m_resolve_request_sent = mk_lang_false;
 	example1->m_resolve_request_finished = mk_lang_false;
 	example1->m_remote_address_has = mk_lang_false;
@@ -648,11 +656,17 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_exa
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_example1_rw_on_idle_send_request(mk_clib_app_iip_example1_pt const example1) mk_lang_noexcept
 {
+	mk_lib_iip_time_timestamp_t now;
+	mk_lib_iip_time_timestamp_t dif;
+	mk_lang_types_slong_t elapsed;
 	mk_lang_types_sint_t err;
 
 	mk_lang_assert(example1);
 
-	if(!example1->m_resolve_request_sent)
+	mk_lib_iip_time_get_now(&now);
+	mk_lib_iip_time_timestamp_sub3_wrap_cid_cod(&now, &example1->m_time, &dif);
+	mk_lib_iip_time_timestamp_to_bi_slong(&dif, &elapsed);
+	if(!example1->m_resolve_request_sent && elapsed >= 1l * 60l * 1000l)
 	{
 		example1->m_resolve_request_sent = mk_lang_true;
 		example1->m_request.m_session = *example1->m_session;
@@ -750,7 +764,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_exa
 
 	mk_lang_assert(example1);
 
-	if(example1->m_resolve_request_finished && !example1->m_connect_sent)
+	if(example1->m_resolve_request_finished && example1->m_remote_address_has && !example1->m_connect_sent)
 	{
 		example1->m_connect_sent = mk_lang_true;
 		example1->m_connect_settings.m_session = *example1->m_session;
@@ -818,8 +832,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wor
 	err = mk_clib_app_iip_parse_settings_from_hardcoded(&connection_settings_2); mk_lang_check_rereturn(err);
 	err = mk_clib_app_iip_destination_elgamal_dsa_sha1_load_pri_pub(&session_settings_2.m_destination, "destination2.txt"); mk_lang_check_rereturn(err);
 	err = mk_clib_app_iip_destination_elgamal_dsa_sha1_load_pri_pub(&session_settings_3.m_destination, "destination3.txt"); mk_lang_check_rereturn(err);
-	session_settings_3.m_destination.m_key_elgamal_pri = session_settings_2.m_destination.m_key_elgamal_pri;
-	session_settings_3.m_destination.m_key_elgamal_pub = session_settings_2.m_destination.m_key_elgamal_pub;
+	session_settings_3.m_destination.m_private_data.m_key_elgamal_pri = session_settings_2.m_destination.m_private_data.m_key_elgamal_pri;
+	session_settings_3.m_destination.m_public_data.m_legacy.m_enc_pub = session_settings_2.m_destination.m_public_data.m_legacy.m_enc_pub;
 	err = mk_clib_app_iip_parse_settings_local_from_hardcoded_1(&local_settings_1); mk_lang_check_rereturn(err);
 	err = mk_clib_app_iip_parse_settings_local_from_hardcoded_2(&local_settings_2); mk_lang_check_rereturn(err);
 
@@ -859,7 +873,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wor
 	web_servers.m_session_3 = session_3;
 	err = mk_clib_app_iip_web_servers_init(&web_servers); mk_lang_check_rereturn(err);
 
-	err = mk_clib_app_iip_example1_rw_construct(&example1, &wrp, &session_1); mk_lang_check_rereturn(err);
+	err = mk_clib_app_iip_example1_rw_construct(&example1, &wrp, &session_2); mk_lang_check_rereturn(err);
 
 	mk_clib_app_iip_g_wrp = &wrp;
 	mk_clib_app_iip_g_stop_requested = mk_lang_false;

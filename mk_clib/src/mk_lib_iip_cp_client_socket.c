@@ -18,6 +18,7 @@
 #include "mk_lib_compress_deflate.h"
 #include "mk_lib_fmt.h"
 #include "mk_lib_hash_crc32.h"
+#include "mk_lib_iip_base32_encoder.h"
 #include "mk_lib_iip_buffer.h"
 #include "mk_lib_iip_cp_client_shared.h"
 #include "mk_lib_iip_cp_mallocator_global.h"
@@ -365,6 +366,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 	switch(destination->m_type)
 	{
+		case mk_lib_iip_cp_types_remote_destination_type_e_legacy: mk_lang_check_todo(); break;
 		case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_dsa_sha1: mk_lang_check_todo(); break;
 		case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_ecdsa_sha256_p256: mk_lang_check_todo(); break;
 		case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_eddsa_sha512_ed25519:
@@ -449,6 +451,52 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_socket_task_prrw_compute_remote_b32(mk_lib_iip_cp_client_socket_task_pt const task) mk_lang_noexcept
+{
+	mk_lang_types_bool_t gud;
+	mk_lang_types_sint_t err;
+	mk_sl_cui_uint8_t dst_buf[4 * 1024];
+	mk_lang_types_sint_t consumed;
+	mk_lib_crypto_hash_stream_sha2_256_t hasher;
+	mk_lib_crypto_hash_stream_sha2_256_digest_t digest;
+	mk_lang_types_pchar_pt b32_ptr;
+	mk_lang_types_sint_t b32_cap;
+	mk_lang_types_sint_t b32_len;
+
+	mk_lang_assert(task);
+
+	gud = mk_lang_true;
+	err = mk_lib_iip_cp_types_remote_destination_rw_to_bytes(&task->m_socket.m_settings.m_remote_destination, &dst_buf[0], mk_lang_countof(dst_buf), &gud, &consumed); mk_lang_check_rereturn(err); mk_lang_check_return(gud); mk_lang_assert(consumed >= 256 + 128 + 1 + 2); mk_lang_assert(consumed <= mk_lang_countof(dst_buf));
+	mk_lib_crypto_hash_stream_sha2_256_init(&hasher);
+	mk_lib_crypto_hash_stream_sha2_256_append_u8s(&hasher, &dst_buf[0], consumed);
+	mk_lib_crypto_hash_stream_sha2_256_finish(&hasher, &digest);
+	b32_ptr = &task->m_socket.m_state.m_remote_b32[0];
+	b32_cap = mk_lang_countof(task->m_socket.m_state.m_remote_b32);
+	mk_lib_iip_base32_encoder_fn(&digest.m_data.m_uint8s[0], mk_lib_crypto_hash_block_sha2_256_digest_len_v, b32_ptr, b32_cap, &b32_len); mk_lang_assert(b32_len == b32_cap);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_socket_task_prrw_compute_remote_sha256(mk_lib_iip_cp_client_socket_task_pt const task, mk_sl_cui_uint32_pt const acks) mk_lang_noexcept
+{
+	mk_lang_types_bool_t gud;
+	mk_lang_types_sint_t err;
+	mk_sl_cui_uint8_t dst_buf[4 * 1024];
+	mk_lang_types_sint_t consumed;
+	mk_lib_crypto_hash_stream_sha2_256_t hasher;
+	mk_lib_crypto_hash_stream_sha2_256_digest_pt digest;
+
+	mk_lang_assert(task);
+	mk_lang_assert(acks);
+
+	gud = mk_lang_true;
+	err = mk_lib_iip_cp_types_remote_destination_rw_to_bytes(&task->m_socket.m_settings.m_remote_destination, &dst_buf[0], mk_lang_countof(dst_buf), &gud, &consumed); mk_lang_check_rereturn(err); mk_lang_check_return(gud); mk_lang_assert(consumed >= 256 + 128 + 1 + 2); mk_lang_assert(consumed <= mk_lang_countof(dst_buf));
+	mk_lib_crypto_hash_stream_sha2_256_init(&hasher);
+	mk_lib_crypto_hash_stream_sha2_256_append_u8s(&hasher, &dst_buf[0], consumed);
+	digest = ((mk_lib_crypto_hash_stream_sha2_256_digest_pt)(acks));
+	mk_lib_crypto_hash_stream_sha2_256_finish(&hasher, digest);
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_socket_task_prrw_gimme_msg(mk_lib_iip_cp_client_socket_task_pt const task, mk_lib_iip_cp_message_ppt const msg) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
@@ -486,22 +534,22 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 			mk_lib_iip_net_streaming_packet_flag_e_no_ack |
 			mk_lib_iip_net_streaming_packet_flag_e_none
 			));
-		packet.m_options.m_from.m_type = mk_lib_iip_cp_types_remote_destination_type_e_elgamal_dsa_sha1;
-		packet.m_options.m_from.m_data.m_elgamal_dsa_sha1.m_enc_pub = task->m_socket.m_settings.m_local_destination->m_key_elgamal_pub;
-		packet.m_options.m_from.m_data.m_elgamal_dsa_sha1.m_sgn_pub = task->m_socket.m_settings.m_local_destination->m_key_dsa_sha1_pub;
-		char const reply[] =
+		packet.m_options.m_from.m_type = task->m_socket.m_settings.m_local_destination->m_type;
+		packet.m_options.m_from.m_data = task->m_socket.m_settings.m_local_destination->m_public_data;
+		/*char const reply[] =
 			"HTTP/1.1 200 OK" "\x0d\x0a"
 			"Content-Length: 3" "\x0d\x0a"
 			"Content-Type: text/html; charset=utf-8" "\x0d\x0a"
 			"" "\x0d\x0a"
 			"gud";
+		packet.m_payload_buf = ((mk_sl_cui_uint8_pt)(reply));
+		packet.m_payload_len = mk_lang_countstr(reply);*/
 		packet.m_payload_buf = mk_lang_null;
 		packet.m_payload_len = 0;
-		packet.m_payload_buf = ((mk_sl_cui_uint8_pt)(reply));
-		packet.m_payload_len = mk_lang_countstr(reply);
 		gud = mk_lang_true;
 		err = mk_lib_iip_net_streaming_packet_ro_serialize(&packet, &decompressed_buf[0], mk_lang_countof(decompressed_buf), &gud, &decompressed_len); mk_lang_check_rereturn(err); mk_lang_check_return(gud); mk_lang_assert(decompressed_len >= 1); mk_lang_assert(decompressed_len <= mk_lang_countof(decompressed_buf));
-		err = mk_lib_iip_key_sgn_dsa_sha1_pri_sign_data(&task->m_socket.m_settings.m_local_destination->m_key_dsa_sha1_pri, &decompressed_buf[0], decompressed_len, &signature); mk_lang_check_rereturn(err);
+		mk_lang_assert(task->m_socket.m_settings.m_local_destination->m_type == mk_lib_iip_cp_types_remote_destination_type_e_legacy); /*todo*/
+		err = mk_lib_iip_key_sgn_dsa_sha1_pri_sign_data(&task->m_socket.m_settings.m_local_destination->m_private_data.m_key_dsa_sha1_pri, &decompressed_buf[0], decompressed_len, &signature); mk_lang_check_rereturn(err);
 		mk_lang_assert(packet.m_signature_len == mk_lib_iip_key_sgn_dsa_sha1_pri_signature_len_v);
 		mk_lib_iip_key_sgn_dsa_sha1_pri_signature_to_u8s(&signature, packet.m_signature_buf);
 		err = mk_lib_iip_cp_client_socket_task_prrw_compress(task, &task->m_socket.m_state.m_local_port, &task->m_socket.m_state.m_remote_port, &decompressed_buf[0], decompressed_len, &send_message->m_payload.m_buf[0], mk_lang_countof(send_message->m_payload.m_buf), &send_message->m_payload.m_len); mk_lang_check_rereturn(err);
@@ -520,6 +568,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 		mk_sl_cui_uint32_set_zero(&task->m_socket.m_state.m_remote_stream_id);
 		err = mk_lib_iip_random_generate_u32_non_zero(&task->m_socket.m_state.m_local_stream_id); mk_lang_check_rereturn(err);
 		mk_sl_cui_uint32_set_zero(&task->m_socket.m_state.m_sequence_number);
+		err = mk_lib_iip_cp_client_socket_task_prrw_compute_remote_b32(task); mk_lang_check_rereturn(err);
 
 		err = mk_lib_iip_cp_message_reconstruct(&task->m_socket.m_state.m_msg, mk_lib_iip_cp_message_message_type_id_e_send_message); mk_lang_check_rereturn(err);
 		send_message = &task->m_socket.m_state.m_msg.m_mix.m_data.m_send_message;
@@ -531,7 +580,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 		packet.m_recv_stream_id = task->m_socket.m_state.m_local_stream_id;
 		packet.m_sequence_number = task->m_socket.m_state.m_sequence_number;
 		mk_sl_cui_uint32_set_zero(&packet.m_ack_through);
-		packet.m_nacks.m_size = 0;
+		packet.m_nacks.m_size = 8;
+		err = mk_lib_iip_cp_client_socket_task_prrw_compute_remote_sha256(task, &packet.m_nacks.m_arr[0]); mk_lang_check_rereturn(err);
 		packet.m_resend_delay = 0;
 		packet.m_flags =
 			((mk_lib_iip_net_streaming_packet_flag_t)(
@@ -541,20 +591,21 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 			mk_lib_iip_net_streaming_packet_flag_e_no_ack |
 			mk_lib_iip_net_streaming_packet_flag_e_none
 			));
-		packet.m_options.m_from.m_type = mk_lib_iip_cp_types_remote_destination_type_e_elgamal_dsa_sha1;
-		packet.m_options.m_from.m_data.m_elgamal_dsa_sha1.m_enc_pub = task->m_socket.m_settings.m_local_destination->m_key_elgamal_pub;
-		packet.m_options.m_from.m_data.m_elgamal_dsa_sha1.m_sgn_pub = task->m_socket.m_settings.m_local_destination->m_key_dsa_sha1_pub;
-		char const req[] =
-			"GET / HTTP/1.1" "\x0d\x0a"
-			"User-Agent: MYOB/6.66 (AN/ON)" "\x0d\x0a"
-			"" "\x0d\x0a";
+		packet.m_options.m_from.m_type = task->m_socket.m_settings.m_local_destination->m_type;
+		packet.m_options.m_from.m_data = task->m_socket.m_settings.m_local_destination->m_public_data;
 		packet.m_payload_buf = mk_lang_null;
 		packet.m_payload_len = 0;
-		packet.m_payload_buf = ((mk_sl_cui_uint8_pt)(req));
-		packet.m_payload_len = mk_lang_countstr(req);
+		/*char const req[] =
+			"GET / HTTP/1.1" "\x0d\x0a"
+			"Host: reg.i2p" "\x0d\x0a"
+			"User-Agent: MYOB/6.66 (AN/ON)" "\x0d\x0a"
+			"" "\x0d\x0a";*/
+		/*packet.m_payload_buf = ((mk_sl_cui_uint8_pt)(req));
+		packet.m_payload_len = mk_lang_countstr(req);*/
 		gud = mk_lang_true;
 		err = mk_lib_iip_net_streaming_packet_ro_serialize(&packet, &decompressed_buf[0], mk_lang_countof(decompressed_buf), &gud, &decompressed_len); mk_lang_check_rereturn(err); mk_lang_check_return(gud); mk_lang_assert(decompressed_len >= 1); mk_lang_assert(decompressed_len <= mk_lang_countof(decompressed_buf));
-		err = mk_lib_iip_key_sgn_dsa_sha1_pri_sign_data(&task->m_socket.m_settings.m_local_destination->m_key_dsa_sha1_pri, &decompressed_buf[0], decompressed_len, &signature); mk_lang_check_rereturn(err);
+		mk_lang_assert(task->m_socket.m_settings.m_local_destination->m_type == mk_lib_iip_cp_types_remote_destination_type_e_legacy); /*todo*/
+		err = mk_lib_iip_key_sgn_dsa_sha1_pri_sign_data(&task->m_socket.m_settings.m_local_destination->m_private_data.m_key_dsa_sha1_pri, &decompressed_buf[0], decompressed_len, &signature); mk_lang_check_rereturn(err);
 		mk_lang_assert(packet.m_signature_len == mk_lib_iip_key_sgn_dsa_sha1_pri_signature_len_v);
 		mk_lib_iip_key_sgn_dsa_sha1_pri_signature_to_u8s(&signature, packet.m_signature_buf);
 		err = mk_lib_iip_cp_client_socket_task_prrw_compress(task, &task->m_socket.m_state.m_local_port, &task->m_socket.m_settings.m_remote_port, &decompressed_buf[0], decompressed_len, &send_message->m_payload.m_buf[0], mk_lang_countof(send_message->m_payload.m_buf), &send_message->m_payload.m_len); mk_lang_check_rereturn(err);
