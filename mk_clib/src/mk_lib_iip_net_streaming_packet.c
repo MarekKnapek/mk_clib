@@ -964,7 +964,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_stre
 	mk_lang_assert(success);
 	mk_lang_assert(consumed);
 	mk_lang_assert(*success == mk_lang_true);
-	mk_lang_assert(obj->m_from.m_type == mk_lib_iip_cp_types_remote_destination_type_e_legacy); /* todo */
 
 	ptr = data_buf;
 	rem = data_len;
@@ -982,6 +981,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_stre
 			*success = mk_lang_false;
 			return 0;
 		}
+		mk_lang_assert(obj->m_from.m_type == mk_lib_iip_cp_types_remote_destination_type_e_legacy); /* todo */
 		tlen = mk_lib_iip_key_sgn_dsa_sha1_pri_signature_len_v;
 		if(!(rem >= tlen))
 		{

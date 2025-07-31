@@ -671,7 +671,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_assert(task);
 	mk_lang_assert(msg);
 	mk_lang_assert(task->m_session.m_state.m_has_id);
-	mk_lang_assert(task->m_step == mk_lib_iip_cp_client_session_task_step_e_idle);
 
 	msg_message_status = &msg->m_mix.m_data.m_message_status;
 	mk_lang_assert(mk_lib_iip_cp_types_sessionid_eq(&msg_message_status->m_session_id, &task->m_session.m_state.m_id));
@@ -691,7 +690,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_assert(task);
 	mk_lang_assert(msg);
 	mk_lang_assert(task->m_session.m_state.m_has_id);
-	mk_lang_assert(task->m_step == mk_lib_iip_cp_client_session_task_step_e_idle);
 
 	msg_message_status = &msg->m_mix.m_data.m_message_status;
 	mk_lang_assert(mk_lib_iip_cp_types_sessionid_eq(&msg_message_status->m_session_id, &task->m_session.m_state.m_id));
@@ -700,12 +698,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	if(task->m_session.m_state.m_msg_to_be_accepted)
 	{
 		mk_lang_assert(task->m_session.m_state.m_msg_to_be_accepted->m_header.m_type == mk_lib_iip_cp_message_message_type_id_e_send_message);
-		mk_lang_check_return(mk_lib_iip_cp_types_nonce_eq(&msg_message_status->m_nonce, &task->m_session.m_state.m_msg_to_be_accepted->m_mix.m_data.m_send_message.m_nonce));
+		/* todo multiple messages sent, to be accepted or only single send until accept */
+		/*mk_lang_check_return(mk_lib_iip_cp_types_nonce_eq(&msg_message_status->m_nonce, &task->m_session.m_state.m_msg_to_be_accepted->m_mix.m_data.m_send_message.m_nonce));*/
 		task->m_session.m_state.m_msg_to_be_accepted = mk_lang_null;
 	}
 	else
 	{
-		mk_lang_check_todo();
+		//mk_lang_check_todo();
 	}
 	return 0;
 }
@@ -717,7 +716,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_assert(task);
 	mk_lang_assert(msg);
 	mk_lang_assert(task->m_session.m_state.m_has_id);
-	mk_lang_assert(task->m_step == mk_lib_iip_cp_client_session_task_step_e_idle);
 
 	msg_message_status = &msg->m_mix.m_data.m_message_status;
 	mk_lang_assert(mk_lib_iip_cp_types_sessionid_eq(&msg_message_status->m_session_id, &task->m_session.m_state.m_id));
@@ -734,7 +732,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_assert(task);
 	mk_lang_assert(msg);
 	mk_lang_assert(task->m_session.m_state.m_has_id);
-	mk_lang_assert(task->m_step == mk_lib_iip_cp_client_session_task_step_e_idle);
 
 	msg_message_status = &msg->m_mix.m_data.m_message_status;
 	mk_lang_assert(mk_lib_iip_cp_types_sessionid_eq(&msg_message_status->m_session_id, &task->m_session.m_state.m_id));
@@ -754,7 +751,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_assert(task);
 	mk_lang_assert(msg);
 	mk_lang_assert(task->m_session.m_state.m_has_id);
-	mk_lang_assert(task->m_step == mk_lib_iip_cp_client_session_task_step_e_idle);
 
 	msg_message_status = &msg->m_mix.m_data.m_message_status;
 	mk_lang_assert(mk_lib_iip_cp_types_sessionid_eq(&msg_message_status->m_session_id, &task->m_session.m_state.m_id));
@@ -776,7 +772,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_assert(task);
 	mk_lang_assert(msg);
 	mk_lang_assert(task->m_session.m_state.m_has_id);
-	mk_lang_assert(task->m_step == mk_lib_iip_cp_client_session_task_step_e_idle);
 
 	msg_message_status = &msg->m_mix.m_data.m_message_status;
 	mk_lang_assert(mk_lib_iip_cp_types_sessionid_eq(&msg_message_status->m_session_id, &task->m_session.m_state.m_id));

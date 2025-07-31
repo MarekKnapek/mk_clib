@@ -507,6 +507,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_sl_cui_uint8_t decompressed_buf[4 * 1024];
 	mk_lang_types_sint_t decompressed_len;
 	mk_lib_iip_key_sgn_dsa_sha1_pri_signature_t signature;
+	mk_sl_cui_uint8_pt data_buf;
+	mk_lang_types_usize_t data_len;
 
 	mk_lang_assert(task);
 	mk_lang_assert(msg);
@@ -558,9 +560,41 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 		mk_lib_iip_cp_types_nonce_from_base(&send_message->m_nonce, &u32);
 		*msg = &task->m_socket.m_state.m_msg;
 	}
-	else if(!mk_lib_iip_cp_client_socket_packets_with_payload_rw_is_empty(&task->m_socket.m_state.m_packets_to_ack))
+	/*else if(!mk_lib_iip_cp_client_socket_packets_with_payload_rw_is_empty(&task->m_socket.m_state.m_packets_to_ack))
 	{
 		*msg = mk_lang_null;
+	}*/
+	else if(task->m_socket.m_settings.m_listener && !task->m_socket.m_state.m_waiting_for_syn && task->m_socket.m_state.m_our_syn_sent && !mk_lib_iip_cp_dynamic_ring_u8_rw_is_empty(&task->m_socket.m_state.m_data_to_sent))
+	{
+		err = mk_lib_iip_cp_message_reconstruct(&task->m_socket.m_state.m_msg, mk_lib_iip_cp_message_message_type_id_e_send_message); mk_lang_check_rereturn(err);
+		send_message = &task->m_socket.m_state.m_msg.m_mix.m_data.m_send_message;
+		send_message->m_session_id = *task->m_socket.m_settings.m_session_id;
+		send_message->m_destination = task->m_socket.m_state.m_remote_destination;
+
+		err = mk_lib_iip_net_streaming_packet_rw_construct(&packet); mk_lang_check_rereturn(err);
+		packet.m_send_stream_id = task->m_socket.m_state.m_remote_stream_id;
+		packet.m_recv_stream_id = task->m_socket.m_state.m_local_stream_id;
+		packet.m_sequence_number = task->m_socket.m_state.m_sequence_number; /* todo increment? */
+		mk_sl_cui_uint32_set_zero(&packet.m_ack_through);
+		packet.m_nacks.m_size = 0;
+		packet.m_resend_delay = 0;
+		packet.m_flags =
+			((mk_lib_iip_net_streaming_packet_flag_t)(
+			mk_lib_iip_net_streaming_packet_flag_e_none
+			));
+		err = mk_lib_iip_cp_dynamic_ring_u8_rw_consolidate(&task->m_socket.m_state.m_data_to_sent); mk_lang_check_rereturn(err);
+		data_buf = mk_lib_iip_cp_dynamic_ring_u8_rw_get_data_a(&task->m_socket.m_state.m_data_to_sent); mk_lang_assert(data_buf);
+		data_len = mk_lib_iip_cp_dynamic_ring_u8_rw_get_size_a(&task->m_socket.m_state.m_data_to_sent); mk_lang_assert(data_len >= 1);
+		packet.m_payload_buf = data_buf;
+		packet.m_payload_len = ((mk_lang_types_sint_t)(data_len));
+		gud = mk_lang_true;
+		err = mk_lib_iip_net_streaming_packet_ro_serialize(&packet, &decompressed_buf[0], mk_lang_countof(decompressed_buf), &gud, &decompressed_len); mk_lang_check_rereturn(err); mk_lang_check_return(gud); mk_lang_assert(decompressed_len >= 1); mk_lang_assert(decompressed_len <= mk_lang_countof(decompressed_buf));
+		err = mk_lib_iip_cp_client_socket_task_prrw_compress(task, &task->m_socket.m_state.m_local_port, &task->m_socket.m_state.m_remote_port, &decompressed_buf[0], decompressed_len, &send_message->m_payload.m_buf[0], mk_lang_countof(send_message->m_payload.m_buf), &send_message->m_payload.m_len); mk_lang_check_rereturn(err);
+		err = mk_lib_iip_cp_dynamic_ring_u8_rw_pop_front_many(&task->m_socket.m_state.m_data_to_sent, data_len); mk_lang_check_rereturn(err);
+
+		err = mk_lib_iip_random_generate_u32_non_zero(&u32); mk_lang_check_rereturn(err);
+		mk_lib_iip_cp_types_nonce_from_base(&send_message->m_nonce, &u32);
+		*msg = &task->m_socket.m_state.m_msg;
 	}
 	else if(!task->m_socket.m_settings.m_listener && !task->m_socket.m_state.m_our_syn_sent)
 	{

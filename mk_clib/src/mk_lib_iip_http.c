@@ -625,6 +625,17 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_http_rw_destroy(
 	return 0;
 }
 
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_http_rw_reconstruct(mk_lib_iip_http_pt const http) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(http);
+
+	err = mk_lib_iip_http_rw_destroy(http); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_http_rw_construct(http); mk_lang_check_rereturn(err);
+	return 0;
+}
+
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_http_rw_on_incoming_data(mk_lib_iip_http_pt const http, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_http_parse_error_code_pt const error_code, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
 {
 	return mk_lib_iip_http_prrw_on_incoming_data(http, data_buf, data_len, error_code, consumed);

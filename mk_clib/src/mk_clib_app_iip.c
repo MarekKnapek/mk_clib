@@ -578,11 +578,17 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_web
 		(mk_lang_true)
 	)
 	{
-		err = mk_lib_iip_http_rw_destroy(http); mk_lang_check_rereturn(err);
-		err = mk_lib_iip_http_rw_construct(http); mk_lang_check_rereturn(err);
+		err = mk_lib_iip_http_rw_reconstruct(http); mk_lang_check_rereturn(err);
 		/*response*/
-		err = mk_lib_iip_cp_client_wrapper_task_rw_socket_send(web_servers->m_wrp, socket, &data_buf[0], data_len, &data_transferred); mk_lang_check_rereturn(err);
-		mk_lang_check_return(data_transferred == data_len);
+		char const reply[] =
+			"HTTP/1.1 200 OK" "\x0d\x0a"
+			"Content-Length: 3" "\x0d\x0a"
+			"Content-Type: text/html; charset=utf-8" "\x0d\x0a"
+			"" "\x0d\x0a"
+			"gud";
+		mk_lang_string_memcpy_pc_fn(((char*)(&data_buf[0])), &reply[0], mk_lang_countstr(reply));
+		data_len = mk_lang_countstr(reply);
+		err = mk_lib_iip_cp_client_wrapper_task_rw_socket_send(web_servers->m_wrp, socket, &data_buf[0], data_len, &data_transferred); mk_lang_check_rereturn(err); mk_lang_check_return(data_transferred == data_len);
 	}
 	return 0;
 }
