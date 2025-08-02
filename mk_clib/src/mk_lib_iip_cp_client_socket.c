@@ -468,7 +468,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	gud = mk_lang_true;
 	err = mk_lib_iip_cp_types_remote_destination_rw_to_bytes(&task->m_socket.m_settings.m_remote_destination, &dst_buf[0], mk_lang_countof(dst_buf), &gud, &consumed); mk_lang_check_rereturn(err); mk_lang_check_return(gud); mk_lang_assert(consumed >= 256 + 128 + 1 + 2); mk_lang_assert(consumed <= mk_lang_countof(dst_buf));
 	mk_lib_crypto_hash_stream_sha2_256_init(&hasher);
-	mk_lib_crypto_hash_stream_sha2_256_append_u8s(&hasher, &dst_buf[0], consumed);
+	mk_lib_crypto_hash_stream_sha2_256_append_u8s(&hasher, &dst_buf[0], ((mk_lang_types_usize_t)(consumed)));
 	mk_lib_crypto_hash_stream_sha2_256_finish(&hasher, &digest);
 	b32_ptr = &task->m_socket.m_state.m_remote_b32[0];
 	b32_cap = mk_lang_countof(task->m_socket.m_state.m_remote_b32);
@@ -491,7 +491,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	gud = mk_lang_true;
 	err = mk_lib_iip_cp_types_remote_destination_rw_to_bytes(&task->m_socket.m_settings.m_remote_destination, &dst_buf[0], mk_lang_countof(dst_buf), &gud, &consumed); mk_lang_check_rereturn(err); mk_lang_check_return(gud); mk_lang_assert(consumed >= 256 + 128 + 1 + 2); mk_lang_assert(consumed <= mk_lang_countof(dst_buf));
 	mk_lib_crypto_hash_stream_sha2_256_init(&hasher);
-	mk_lib_crypto_hash_stream_sha2_256_append_u8s(&hasher, &dst_buf[0], consumed);
+	mk_lib_crypto_hash_stream_sha2_256_append_u8s(&hasher, &dst_buf[0], ((mk_lang_types_usize_t)(consumed)));
 	digest = ((mk_lib_crypto_hash_stream_sha2_256_digest_pt)(acks));
 	mk_lib_crypto_hash_stream_sha2_256_finish(&hasher, digest);
 	return 0;
