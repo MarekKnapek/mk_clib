@@ -101,6 +101,7 @@ mk_win_base_make_handle(mk_win_dll_bcrypt_provider)
 #define mk_win_dll_bcrypt_k_hkdf_prk_and_finalize         L"HkdfPrkAndFinalize"  /* NTDDI_VERSION >= NTDDI_WIN10_RS4 */
 #define mk_win_dll_bcrypt_k_pcp_platform_type_property    L"PCP_PLATFORM_TYPE"
 #define mk_win_dll_bcrypt_k_pcp_provider_version_property L"PCP_PROVIDER_VERSION"
+#define mk_win_dll_bcrypt_k_dsa_parameters                L"DSAParameters"
 
 #define mk_win_dll_bcrypt_k_chain_mode_na  L"ChainingModeN/A"
 #define mk_win_dll_bcrypt_k_chain_mode_cbc L"ChainingModeCBC"
@@ -108,6 +109,13 @@ mk_win_base_make_handle(mk_win_dll_bcrypt_provider)
 #define mk_win_dll_bcrypt_k_chain_mode_cfb L"ChainingModeCFB"
 #define mk_win_dll_bcrypt_k_chain_mode_ccm L"ChainingModeCCM"
 #define mk_win_dll_bcrypt_k_chain_mode_gcm L"ChainingModeGCM"
+
+#define mk_win_dll_bcrypt_k_blob_type_dsa_private           L"DSAPRIVATEBLOB"
+#define mk_win_dll_bcrypt_k_blob_type_dsa_public            L"DSAPUBLICBLOB"
+#define mk_win_dll_bcrypt_k_blob_type_legacy_dsa_private    L"CAPIDSAPRIVATEBLOB"
+#define mk_win_dll_bcrypt_k_blob_type_legacy_dsa_public     L"CAPIDSAPUBLICBLOB"
+#define mk_win_dll_bcrypt_k_blob_type_legacy_dsa_v2_private L"V2CAPIDSAPRIVATEBLOB"
+#define mk_win_dll_bcrypt_k_blob_type_legacy_dsa_v2_public  L"V2CAPIDSAPUBLICBLOB"
 
 #define mk_win_dll_bcrypt_k_block_padding 0x00000001ul
 
@@ -161,6 +169,54 @@ typedef struct mk_win_dll_bcrypt_authenticated_cipher_mode_info_s mk_win_dll_bcr
 mk_lang_typedef(mk_win_dll_bcrypt_authenticated_cipher_mode_info);
 #include "mk_lang_warning_msvc_pop.h"
 
+#define mk_win_dll_bcrypt_blob_key_dsa_v1_k_magic_pub 0x42505344ul
+#define mk_win_dll_bcrypt_blob_key_dsa_v1_k_magic_pri 0x56505344ul
+
+struct mk_win_dll_bcrypt_blob_key_dsa_v1_s
+{
+	mk_win_base_ulong_t m_magic;
+	mk_win_base_ulong_t m_key_len;
+	mk_win_base_uchar_t m_count[4];
+	mk_win_base_uchar_t m_seed[20];
+	mk_win_base_uchar_t m_q[20];
+};
+typedef struct mk_win_dll_bcrypt_blob_key_dsa_v1_s mk_win_dll_bcrypt_blob_key_dsa_v1_t;
+mk_lang_typedef(mk_win_dll_bcrypt_blob_key_dsa_v1);
+
+#define mk_win_dll_bcrypt_blob_key_dsa_v2_k_hash_alg_sha1   0
+#define mk_win_dll_bcrypt_blob_key_dsa_v2_k_hash_alg_sha256 1
+#define mk_win_dll_bcrypt_blob_key_dsa_v2_k_hash_alg_sha512 2
+
+#define mk_win_dll_bcrypt_blob_key_dsa_v2_k_standard_ver_fips186_2 0
+#define mk_win_dll_bcrypt_blob_key_dsa_v2_k_standard_ver_fips186_3 1
+
+struct mk_win_dll_bcrypt_blob_key_dsa_v2_s
+{
+	mk_win_base_ulong_t m_magic;
+	mk_win_base_ulong_t m_key_len;
+	mk_win_base_uint_t m_hash_alg;
+	mk_win_base_uint_t m_standard_ver;
+	mk_win_base_ulong_t m_seed_len;
+	mk_win_base_ulong_t m_group_size;
+	mk_win_base_uchar_t m_count[4];
+};
+typedef struct mk_win_dll_bcrypt_blob_key_dsa_v2_s mk_win_dll_bcrypt_blob_key_dsa_v2_t;
+mk_lang_typedef(mk_win_dll_bcrypt_blob_key_dsa_v2);
+
+#define mk_win_dll_bcrypt_dsa_parameter_header_k_magic 0x4d505344ul
+
+struct mk_win_dll_bcrypt_dsa_parameter_header_s
+{
+	mk_win_base_ulong_t m_structure_size;
+	mk_win_base_ulong_t m_magic;
+	mk_win_base_ulong_t m_key_len;
+	mk_win_base_uchar_t m_count[4];
+	mk_win_base_uchar_t m_seed[20];
+	mk_win_base_uchar_t m_q[20];
+};
+typedef struct mk_win_dll_bcrypt_dsa_parameter_header_s mk_win_dll_bcrypt_dsa_parameter_header_t;
+mk_lang_typedef(mk_win_dll_bcrypt_dsa_parameter_header);
+
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_ntstatus_t mk_win_dll_bcrypt_open_algorithm_provider(mk_win_dll_bcrypt_provider_pt const provider, mk_win_base_wchar_pct const alg_id, mk_win_base_wchar_pct const implementation, mk_lang_types_ulong_t const flags) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_ntstatus_t mk_win_dll_bcrypt_close_algorithm_provider(mk_win_dll_bcrypt_provider_t const provider, mk_lang_types_ulong_t const flags) mk_lang_noexcept;
@@ -173,6 +229,12 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_ntstatus_t mk_win_dll_bcrypt_hash_da
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_ntstatus_t mk_win_dll_bcrypt_finish_hash(mk_win_dll_bcrypt_hash_t const hasher, mk_lang_types_void_pt const digest_buf, mk_lang_types_ulong_t const digest_len, mk_lang_types_ulong_t const flags) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_ntstatus_t mk_win_dll_bcrypt_generate_symmetric_key(mk_win_dll_bcrypt_provider_t const provider, mk_win_dll_bcrypt_key_pt const key_obj, mk_lang_types_void_pt const key_buf, mk_lang_types_ulong_t const key_len, mk_lang_types_void_pct const secret_buf, mk_lang_types_ulong_t const secret_len, mk_lang_types_ulong_t const flags) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_ntstatus_t mk_win_dll_bcrypt_destroy_key(mk_win_dll_bcrypt_key_t const key) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_ntstatus_t mk_win_dll_bcrypt_generate_key_pair(mk_win_dll_bcrypt_provider_t const provider, mk_win_dll_bcrypt_key_pt const key, mk_lang_types_ulong_t const length, mk_lang_types_ulong_t const flags) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_ntstatus_t mk_win_dll_bcrypt_finalize_key_pair(mk_win_dll_bcrypt_key_t const key, mk_lang_types_ulong_t const flags) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_ntstatus_t mk_win_dll_bcrypt_import_key_pair(mk_win_dll_bcrypt_provider_t const provider, mk_win_dll_bcrypt_key_t const import_key, mk_win_base_wchar_pct const blob_type, mk_win_dll_bcrypt_key_pt const key, mk_lang_types_void_pct const blob_buf, mk_lang_types_ulong_t const blob_len, mk_lang_types_ulong_t const flags) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_ntstatus_t mk_win_dll_bcrypt_export_key(mk_win_dll_bcrypt_key_t const key, mk_win_dll_bcrypt_key_t const export_key, mk_win_base_wchar_pct const blob_type, mk_lang_types_void_pt const blob_buf, mk_lang_types_ulong_t const blob_len, mk_lang_types_ulong_pt const actual_len, mk_lang_types_ulong_t const flags) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_ntstatus_t mk_win_dll_bcrypt_sign_hash(mk_win_dll_bcrypt_key_t const key, mk_lang_types_void_pct const padding_info, mk_lang_types_void_pct const hash_buf, mk_lang_types_ulong_t const hash_len, mk_lang_types_void_pt const signature_buf, mk_lang_types_ulong_t const signature_len, mk_lang_types_ulong_pt const actual_len, mk_lang_types_ulong_t const flags) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_ntstatus_t mk_win_dll_bcrypt_verify_signature(mk_win_dll_bcrypt_key_t const key, mk_lang_types_void_pct const padding_info, mk_lang_types_void_pct const hash_buf, mk_lang_types_ulong_t const hash_len, mk_lang_types_void_pct const signature_buf, mk_lang_types_ulong_t const signature_len, mk_lang_types_ulong_t const flags) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_ntstatus_t mk_win_dll_bcrypt_key_derivation(mk_win_dll_bcrypt_key_t const key, mk_win_dll_bcrypt_buffers_descriptions_pt const parameter_list, mk_lang_types_void_pt const key_buf, mk_lang_types_ulong_t const key_len, mk_lang_types_ulong_pt const out_len, mk_lang_types_ulong_t const flags) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_ntstatus_t mk_win_dll_bcrypt_pbkdf2(mk_win_dll_bcrypt_provider_t const prf, mk_win_base_void_pct const password_buf, mk_win_base_ulong_t const password_len, mk_win_base_void_pct const salt_buf, mk_win_base_ulong_t const salt_len, mk_win_base_ullong_t const iterations, mk_win_base_void_pt const key_buf, mk_win_base_ulong_t const key_len, mk_lang_types_ulong_t const flags) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_ntstatus_t mk_win_dll_bcrypt_encrypt(mk_win_dll_bcrypt_key_t const key, mk_lang_types_void_pct const msg_buf, mk_lang_types_ulong_t const msg_len, mk_lang_types_void_pct const padding, mk_lang_types_void_pt const iv_buf, mk_lang_types_ulong_t const iv_len, mk_lang_types_void_pt const out_buf, mk_lang_types_ulong_t const out_len_provided, mk_lang_types_ulong_pt const out_len_real, mk_lang_types_ulong_t const flags) mk_lang_noexcept;
