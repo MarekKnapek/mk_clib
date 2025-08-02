@@ -395,7 +395,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_par
 }
 
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_clib_app_iip_parse_settings_local_from_hardcoded_1_k_addr[] = "0.0.0.0";
-mk_lang_constexpr_static_inline mk_lang_types_sint_t const mk_clib_app_iip_parse_settings_local_from_hardcoded_1_k_port = 6969;
+mk_lang_constexpr_static_inline mk_lang_types_sint_t const mk_clib_app_iip_parse_settings_local_from_hardcoded_1_k_port = 8081;
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_parse_settings_local_from_hardcoded_1(mk_lib_iip_cp_client_types_local_settings_pt const settings) mk_lang_noexcept
 {
