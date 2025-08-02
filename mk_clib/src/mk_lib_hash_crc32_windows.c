@@ -32,7 +32,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_lib_hash_crc32_windows_append(mk_lib_hash_
 	mk_lang_assert(crc32);
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
-	mk_lang_assert(data_len <= ((mk_lang_types_usize_t)(mk_lang_limits_sintmax_max)));
+	mk_lang_assert(data_len <= ((mk_lang_types_usize_t)(mk_lang_limits_sint_max)));
 	#include "mk_lang_warning_msvc_pop.h"
 
 	crc32->m_state = mk_win_dll_ntdll_rtl_compute_crc32(crc32->m_state, data_buf, ((mk_lang_types_sint_t)(data_len)));
