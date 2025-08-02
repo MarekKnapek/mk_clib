@@ -6,25 +6,49 @@
 #include "mk_lang_types.h"
 
 
+#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2008
+#include <memory.h> /* memset */
+#pragma intrinsic(memset)
+#endif
+
+
 #include "mk_lang_memclr1_inl_defd.h"
 
 
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lang_memclr1_inl_defd_fn(mk_lang_memclr1_inl_defd_type_pt const dst, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
-	mk_lang_types_usize_t n mk_lang_constexpr_init;
-	mk_lang_types_usize_t i mk_lang_constexpr_init;
-
-	#include "mk_lang_warning_msvc_push_c4296.h"
-	#include "mk_lang_warning_gcc_push_type_limits.h"
-	mk_lang_assert(dst);
-	mk_lang_assert(count >= 0);
-	#include "mk_lang_warning_gcc_pop.h"
+	#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2008
+	#include "mk_lang_warning_msvc_push_c4127.h"
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	#include "mk_lang_warning_msvc_pop.h"
-
-	n = count;
-	for(i = 0; i != n; ++i)
 	{
-		dst[i] = ((mk_lang_memclr1_inl_defd_type_t)(0));
+		#include "mk_lang_warning_msvc_push_c4296.h"
+		#include "mk_lang_warning_gcc_push_type_limits.h"
+		mk_lang_assert(dst || count == 0);
+		mk_lang_assert(count >= 0);
+		#include "mk_lang_warning_gcc_pop.h"
+		#include "mk_lang_warning_msvc_pop.h"
+
+		memset(((mk_lang_types_void_pt)(dst)), ((mk_lang_types_sint_t)(0)), count * sizeof(mk_lang_memclr1_inl_defd_type_t));
+	}
+	else
+	#endif
+	{
+		mk_lang_types_usize_t n mk_lang_constexpr_init;
+		mk_lang_types_usize_t i mk_lang_constexpr_init;
+
+		#include "mk_lang_warning_msvc_push_c4296.h"
+		#include "mk_lang_warning_gcc_push_type_limits.h"
+		mk_lang_assert(dst || count == 0);
+		mk_lang_assert(count >= 0);
+		#include "mk_lang_warning_gcc_pop.h"
+		#include "mk_lang_warning_msvc_pop.h"
+
+		n = count;
+		for(i = 0; i != n; ++i)
+		{
+			dst[i] = ((mk_lang_memclr1_inl_defd_type_t)(0));
+		}
 	}
 }
 

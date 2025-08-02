@@ -5,11 +5,19 @@
 #include "mk_lang_assert.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_jumbo.h"
+#include "mk_lang_msvc.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
 #include "mk_sl_cui_uint32.h"
 #include "mk_sl_cui_uint8.h"
+
+
+#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2008
+#include <memory.h> /* memcmp memcpy */
+#pragma intrinsic(memcmp)
+#pragma intrinsic(memcpy)
+#endif
 
 
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_uint8_xor2_many(mk_sl_cui_uint8_pt const a, mk_sl_cui_uint8_pct const b, mk_lang_types_usize_t const count) mk_lang_noexcept
@@ -76,110 +84,210 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_uint8_xor3_many_n
 
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_uint8_from_bi_uchar_many(mk_sl_cui_uint8_pt const a, mk_lang_types_uchar_pct const b, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
-	mk_lang_types_usize_t n mk_lang_constexpr_init;
-	mk_lang_types_usize_t i mk_lang_constexpr_init;
-
-	#include "mk_lang_warning_msvc_push_c4296.h"
-	#include "mk_lang_warning_gcc_push_type_limits.h"
-	mk_lang_assert(a || count == 0);
-	mk_lang_assert(b || count == 0);
-	mk_lang_assert(count >= 0);
-	#include "mk_lang_warning_gcc_pop.h"
+	#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2008
+	#include "mk_lang_warning_msvc_push_c4127.h"
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	#include "mk_lang_warning_msvc_pop.h"
-
-	n = count;
-	for(i = 0; i != n; ++i)
 	{
-		mk_sl_cui_uint8_from_bi_uchar(&a[i], &b[i]);
+		#include "mk_lang_warning_msvc_push_c4296.h"
+		#include "mk_lang_warning_gcc_push_type_limits.h"
+		mk_lang_assert(a || count == 0);
+		mk_lang_assert(b || count == 0);
+		mk_lang_assert(count >= 0);
+		#include "mk_lang_warning_gcc_pop.h"
+		#include "mk_lang_warning_msvc_pop.h"
+
+		memcpy(((mk_lang_types_void_pt)(a)), ((mk_lang_types_void_pct)(b)), count);
+	}
+	else
+	#endif
+	{
+		mk_lang_types_usize_t n mk_lang_constexpr_init;
+		mk_lang_types_usize_t i mk_lang_constexpr_init;
+
+		#include "mk_lang_warning_msvc_push_c4296.h"
+		#include "mk_lang_warning_gcc_push_type_limits.h"
+		mk_lang_assert(a || count == 0);
+		mk_lang_assert(b || count == 0);
+		mk_lang_assert(count >= 0);
+		#include "mk_lang_warning_gcc_pop.h"
+		#include "mk_lang_warning_msvc_pop.h"
+
+		n = count;
+		for(i = 0; i != n; ++i)
+		{
+			mk_sl_cui_uint8_from_bi_uchar(&a[i], &b[i]);
+		}
 	}
 }
 
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_uint8_from_bi_pchar_many(mk_sl_cui_uint8_pt const a, mk_lang_types_pchar_pct const b, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
-	mk_lang_types_usize_t n mk_lang_constexpr_init;
-	mk_lang_types_usize_t i mk_lang_constexpr_init;
-
-	#include "mk_lang_warning_msvc_push_c4296.h"
-	#include "mk_lang_warning_gcc_push_type_limits.h"
-	mk_lang_assert(a || count == 0);
-	mk_lang_assert(b || count == 0);
-	mk_lang_assert(count >= 0);
-	#include "mk_lang_warning_gcc_pop.h"
+	#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2008
+	#include "mk_lang_warning_msvc_push_c4127.h"
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	#include "mk_lang_warning_msvc_pop.h"
-
-	n = count;
-	for(i = 0; i != n; ++i)
 	{
-		mk_sl_cui_uint8_from_bi_pchar(&a[i], &b[i]);
+		#include "mk_lang_warning_msvc_push_c4296.h"
+		#include "mk_lang_warning_gcc_push_type_limits.h"
+		mk_lang_assert(a || count == 0);
+		mk_lang_assert(b || count == 0);
+		mk_lang_assert(count >= 0);
+		#include "mk_lang_warning_gcc_pop.h"
+		#include "mk_lang_warning_msvc_pop.h"
+
+		memcpy(((mk_lang_types_void_pt)(a)), ((mk_lang_types_void_pct)(b)), count);
+	}
+	else
+	#endif
+	{
+		mk_lang_types_usize_t n mk_lang_constexpr_init;
+		mk_lang_types_usize_t i mk_lang_constexpr_init;
+
+		#include "mk_lang_warning_msvc_push_c4296.h"
+		#include "mk_lang_warning_gcc_push_type_limits.h"
+		mk_lang_assert(a || count == 0);
+		mk_lang_assert(b || count == 0);
+		mk_lang_assert(count >= 0);
+		#include "mk_lang_warning_gcc_pop.h"
+		#include "mk_lang_warning_msvc_pop.h"
+
+		n = count;
+		for(i = 0; i != n; ++i)
+		{
+			mk_sl_cui_uint8_from_bi_pchar(&a[i], &b[i]);
+		}
 	}
 }
 
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_uint8_to_bi_pchar_many(mk_sl_cui_uint8_pct const a, mk_lang_types_pchar_pt const b, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
-	mk_lang_types_usize_t n mk_lang_constexpr_init;
-	mk_lang_types_usize_t i mk_lang_constexpr_init;
-
-	#include "mk_lang_warning_msvc_push_c4296.h"
-	#include "mk_lang_warning_gcc_push_type_limits.h"
-	mk_lang_assert(a || count == 0);
-	mk_lang_assert(b || count == 0);
-	mk_lang_assert(count >= 0);
-	#include "mk_lang_warning_gcc_pop.h"
+	#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2008
+	#include "mk_lang_warning_msvc_push_c4127.h"
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	#include "mk_lang_warning_msvc_pop.h"
-
-	n = count;
-	for(i = 0; i != n; ++i)
 	{
-		mk_sl_cui_uint8_to_bi_pchar(&a[i], &b[i]);
+		#include "mk_lang_warning_msvc_push_c4296.h"
+		#include "mk_lang_warning_gcc_push_type_limits.h"
+		mk_lang_assert(a || count == 0);
+		mk_lang_assert(b || count == 0);
+		mk_lang_assert(count >= 0);
+		#include "mk_lang_warning_gcc_pop.h"
+		#include "mk_lang_warning_msvc_pop.h"
+
+		memcpy(((mk_lang_types_void_pt)(b)), ((mk_lang_types_void_pct)(a)), count);
+	}
+	else
+	#endif
+	{
+		mk_lang_types_usize_t n mk_lang_constexpr_init;
+		mk_lang_types_usize_t i mk_lang_constexpr_init;
+
+		#include "mk_lang_warning_msvc_push_c4296.h"
+		#include "mk_lang_warning_gcc_push_type_limits.h"
+		mk_lang_assert(a || count == 0);
+		mk_lang_assert(b || count == 0);
+		mk_lang_assert(count >= 0);
+		#include "mk_lang_warning_gcc_pop.h"
+		#include "mk_lang_warning_msvc_pop.h"
+
+		n = count;
+		for(i = 0; i != n; ++i)
+		{
+			mk_sl_cui_uint8_to_bi_pchar(&a[i], &b[i]);
+		}
 	}
 }
 
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_uint8_to_bi_uchar_many(mk_sl_cui_uint8_pct const a, mk_lang_types_uchar_pt const b, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
-	mk_lang_types_usize_t n mk_lang_constexpr_init;
-	mk_lang_types_usize_t i mk_lang_constexpr_init;
-
-	#include "mk_lang_warning_msvc_push_c4296.h"
-	#include "mk_lang_warning_gcc_push_type_limits.h"
-	mk_lang_assert(a || count == 0);
-	mk_lang_assert(b || count == 0);
-	mk_lang_assert(count >= 0);
-	#include "mk_lang_warning_gcc_pop.h"
+	#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2008
+	#include "mk_lang_warning_msvc_push_c4127.h"
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	#include "mk_lang_warning_msvc_pop.h"
-
-	n = count;
-	for(i = 0; i != n; ++i)
 	{
-		mk_sl_cui_uint8_to_bi_uchar(&a[i], &b[i]);
+		#include "mk_lang_warning_msvc_push_c4296.h"
+		#include "mk_lang_warning_gcc_push_type_limits.h"
+		mk_lang_assert(a || count == 0);
+		mk_lang_assert(b || count == 0);
+		mk_lang_assert(count >= 0);
+		#include "mk_lang_warning_gcc_pop.h"
+		#include "mk_lang_warning_msvc_pop.h"
+
+		memcpy(((mk_lang_types_void_pt)(b)), ((mk_lang_types_void_pct)(a)), count);
+	}
+	else
+	#endif
+	{
+		mk_lang_types_usize_t n mk_lang_constexpr_init;
+		mk_lang_types_usize_t i mk_lang_constexpr_init;
+
+		#include "mk_lang_warning_msvc_push_c4296.h"
+		#include "mk_lang_warning_gcc_push_type_limits.h"
+		mk_lang_assert(a || count == 0);
+		mk_lang_assert(b || count == 0);
+		mk_lang_assert(count >= 0);
+		#include "mk_lang_warning_gcc_pop.h"
+		#include "mk_lang_warning_msvc_pop.h"
+
+		n = count;
+		for(i = 0; i != n; ++i)
+		{
+			mk_sl_cui_uint8_to_bi_uchar(&a[i], &b[i]);
+		}
 	}
 }
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_uint8_eq_pchar_many(mk_sl_cui_uint8_pct const a, mk_lang_types_pchar_pct const b, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
-	mk_lang_types_usize_t n mk_lang_constexpr_init;
-	mk_lang_types_usize_t i mk_lang_constexpr_init;
-	mk_sl_cui_uint8_t cui mk_lang_constexpr_init;
-	mk_lang_types_bool_t eq mk_lang_constexpr_init;
-
-	#include "mk_lang_warning_msvc_push_c4296.h"
-	#include "mk_lang_warning_gcc_push_type_limits.h"
-	mk_lang_assert(a || count == 0);
-	mk_lang_assert(b || count == 0);
-	mk_lang_assert(count >= 0);
-	#include "mk_lang_warning_gcc_pop.h"
+	#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2008
+	#include "mk_lang_warning_msvc_push_c4127.h"
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	#include "mk_lang_warning_msvc_pop.h"
-
-	n = count;
-	for(i = 0; i != n; ++i)
 	{
-		mk_sl_cui_uint8_from_bi_pchar(&cui, &b[i]);
-		if(!mk_sl_cui_uint8_eq(&a[i], &cui))
-		{
-			break;
-		}
+		mk_lang_types_sint_t res mk_lang_constexpr_init;
+		mk_lang_types_bool_t eq mk_lang_constexpr_init;
+
+		#include "mk_lang_warning_msvc_push_c4296.h"
+		#include "mk_lang_warning_gcc_push_type_limits.h"
+		mk_lang_assert(a || count == 0);
+		mk_lang_assert(b || count == 0);
+		mk_lang_assert(count >= 0);
+		#include "mk_lang_warning_gcc_pop.h"
+		#include "mk_lang_warning_msvc_pop.h"
+
+		res = memcmp(((mk_lang_types_void_pt)(a)), ((mk_lang_types_void_pct)(b)), count);
+		eq = res == 0;
+		return eq;
 	}
-	eq = i == n;
-	return eq;
+	else
+	#endif
+	{
+		mk_lang_types_usize_t n mk_lang_constexpr_init;
+		mk_lang_types_usize_t i mk_lang_constexpr_init;
+		mk_sl_cui_uint8_t cui mk_lang_constexpr_init;
+		mk_lang_types_bool_t eq mk_lang_constexpr_init;
+
+		#include "mk_lang_warning_msvc_push_c4296.h"
+		#include "mk_lang_warning_gcc_push_type_limits.h"
+		mk_lang_assert(a || count == 0);
+		mk_lang_assert(b || count == 0);
+		mk_lang_assert(count >= 0);
+		#include "mk_lang_warning_gcc_pop.h"
+		#include "mk_lang_warning_msvc_pop.h"
+
+		n = count;
+		for(i = 0; i != n; ++i)
+		{
+			mk_sl_cui_uint8_from_bi_pchar(&cui, &b[i]);
+			if(!mk_sl_cui_uint8_eq(&a[i], &cui))
+			{
+				break;
+			}
+		}
+		eq = i == n;
+		return eq;
+	}
 }
 
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_uint8_to_u32(mk_sl_cui_uint8_pct const a, mk_sl_cui_uint32_pt const b) mk_lang_noexcept
