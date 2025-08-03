@@ -1045,7 +1045,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_arg
 
 	err = mk_clib_app_iip_global_init(); mk_lang_check_rereturn(err);
 	err = mk_lang_command_line_parse_std(std_argc, std_argv, &argv[0], &lens[0], mk_lang_countof(argv), &argc); mk_lang_check_rereturn(err);
-	err = mk_clib_app_iip_global_main(argc, &argv[0], &lens[0]);
+	err = mk_clib_app_iip_global_main(argc, &argv[0], &lens[0]); mk_lang_check_rereturn(err);
 	err = mk_clib_app_iip_global_deinit(); mk_lang_check_rereturn(err);
 	return 0;
 }
