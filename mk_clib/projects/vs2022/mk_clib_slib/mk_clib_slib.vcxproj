@@ -1393,8 +1393,6 @@
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_integer.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_key_enc_elgamal_pri.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_key_enc_elgamal_pub.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_key_sgn_dsa_sha1_pri.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_key_sgn_dsa_sha1_pub.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_key_sgn_dsa_sha1.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_key_sgn_dsa_sha1_fuzz.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_key_sgn_dsa_sha1_portable.c"/>
@@ -1450,8 +1448,6 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_integer.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_key_enc_elgamal_pri.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_key_enc_elgamal_pub.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_key_sgn_dsa_sha1_pri.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_key_sgn_dsa_sha1_pub.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_key_sgn_dsa_sha1.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_key_sgn_dsa_sha1_fuzz.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_key_sgn_dsa_sha1_portable.h"/>

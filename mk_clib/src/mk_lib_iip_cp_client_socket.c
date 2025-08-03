@@ -25,7 +25,7 @@
 #include "mk_lib_iip_cp_message.h"
 #include "mk_lib_iip_cp_types.h"
 #include "mk_lib_iip_http.h"
-#include "mk_lib_iip_key_sgn_dsa_sha1_pri.h"
+#include "mk_lib_iip_key_sgn_dsa_sha1.h"
 #include "mk_lib_iip_logger.h"
 #include "mk_lib_iip_logger_more.h"
 #include "mk_lib_iip_net_streaming_packet.h"
@@ -506,7 +506,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_types_bool_t gud;
 	mk_sl_cui_uint8_t decompressed_buf[4 * 1024];
 	mk_lang_types_sint_t decompressed_len;
-	mk_lib_iip_key_sgn_dsa_sha1_pri_signature_t signature;
+	mk_lib_iip_key_sgn_dsa_sha1_digest_t digest;
+	mk_lib_iip_key_sgn_dsa_sha1_signature_t signature;
 	mk_sl_cui_uint8_pt data_buf;
 	mk_lang_types_usize_t data_len;
 
@@ -551,9 +552,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 		gud = mk_lang_true;
 		err = mk_lib_iip_net_streaming_packet_ro_serialize(&packet, &decompressed_buf[0], mk_lang_countof(decompressed_buf), &gud, &decompressed_len); mk_lang_check_rereturn(err); mk_lang_check_return(gud); mk_lang_assert(decompressed_len >= 1); mk_lang_assert(decompressed_len <= mk_lang_countof(decompressed_buf));
 		mk_lang_assert(task->m_socket.m_settings.m_local_destination->m_type == mk_lib_iip_cp_types_remote_destination_type_e_legacy); /*todo*/
-		err = mk_lib_iip_key_sgn_dsa_sha1_pri_sign_data(&task->m_socket.m_settings.m_local_destination->m_private_data.m_key_dsa_sha1_pri, &decompressed_buf[0], decompressed_len, &signature); mk_lang_check_rereturn(err);
-		mk_lang_assert(packet.m_signature_len == mk_lib_iip_key_sgn_dsa_sha1_pri_signature_len_v);
-		mk_lib_iip_key_sgn_dsa_sha1_pri_signature_to_u8s(&signature, packet.m_signature_buf);
+		err = mk_lib_iip_key_sgn_dsa_sha1_st_hash_data(&decompressed_buf[0], decompressed_len, &digest); mk_lang_check_rereturn(err);
+		err = mk_lib_iip_key_sgn_dsa_sha1_pri_rw_sign_digest(&task->m_socket.m_settings.m_local_destination->m_private_data.m_key_dsa_sha1_pri, &digest, &signature); mk_lang_check_rereturn(err);
+		mk_lang_assert(packet.m_signature_len == mk_lib_iip_key_sgn_dsa_sha1_signature_len_v);
+		mk_sl_cui_uint8_memcpy_fn(packet.m_signature_buf, &signature.m_base.m_data.m_uint8s[0], mk_lib_iip_key_sgn_dsa_sha1_signature_len_v);
 		err = mk_lib_iip_cp_client_socket_task_prrw_compress(task, &task->m_socket.m_state.m_local_port, &task->m_socket.m_state.m_remote_port, &decompressed_buf[0], decompressed_len, &send_message->m_payload.m_buf[0], mk_lang_countof(send_message->m_payload.m_buf), &send_message->m_payload.m_len); mk_lang_check_rereturn(err);
 
 		err = mk_lib_iip_random_generate_u32_non_zero(&u32); mk_lang_check_rereturn(err);
@@ -639,9 +641,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 		gud = mk_lang_true;
 		err = mk_lib_iip_net_streaming_packet_ro_serialize(&packet, &decompressed_buf[0], mk_lang_countof(decompressed_buf), &gud, &decompressed_len); mk_lang_check_rereturn(err); mk_lang_check_return(gud); mk_lang_assert(decompressed_len >= 1); mk_lang_assert(decompressed_len <= mk_lang_countof(decompressed_buf));
 		mk_lang_assert(task->m_socket.m_settings.m_local_destination->m_type == mk_lib_iip_cp_types_remote_destination_type_e_legacy); /*todo*/
-		err = mk_lib_iip_key_sgn_dsa_sha1_pri_sign_data(&task->m_socket.m_settings.m_local_destination->m_private_data.m_key_dsa_sha1_pri, &decompressed_buf[0], decompressed_len, &signature); mk_lang_check_rereturn(err);
-		mk_lang_assert(packet.m_signature_len == mk_lib_iip_key_sgn_dsa_sha1_pri_signature_len_v);
-		mk_lib_iip_key_sgn_dsa_sha1_pri_signature_to_u8s(&signature, packet.m_signature_buf);
+		err = mk_lib_iip_key_sgn_dsa_sha1_st_hash_data(&decompressed_buf[0], decompressed_len, &digest); mk_lang_check_rereturn(err);
+		err = mk_lib_iip_key_sgn_dsa_sha1_pri_rw_sign_digest(&task->m_socket.m_settings.m_local_destination->m_private_data.m_key_dsa_sha1_pri, &digest, &signature); mk_lang_check_rereturn(err);
+		mk_lang_assert(packet.m_signature_len == mk_lib_iip_key_sgn_dsa_sha1_signature_len_v);
+		mk_sl_cui_uint8_memcpy_fn(packet.m_signature_buf, &signature.m_base.m_data.m_uint8s[0], mk_lib_iip_key_sgn_dsa_sha1_signature_len_v);
 		err = mk_lib_iip_cp_client_socket_task_prrw_compress(task, &task->m_socket.m_state.m_local_port, &task->m_socket.m_settings.m_remote_port, &decompressed_buf[0], decompressed_len, &send_message->m_payload.m_buf[0], mk_lang_countof(send_message->m_payload.m_buf), &send_message->m_payload.m_len); mk_lang_check_rereturn(err);
 
 		err = mk_lib_iip_random_generate_u32_non_zero(&u32); mk_lang_check_rereturn(err);
