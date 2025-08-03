@@ -220,7 +220,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_key_sgn_
 	typedef struct mk_lib_iip_key_sgn_dsa_sha1_windows_pub_rw_export_to_u8s_storage_s mk_lib_iip_key_sgn_dsa_sha1_windows_pub_rw_export_to_u8s_storage_t;
 
 	mk_lib_iip_key_sgn_dsa_sha1_windows_pub_rw_export_to_u8s_storage_t storage;
-	mk_sl_cui_uint8_pct stor_q;
 	mk_sl_cui_uint8_pct stor_p;
 	mk_sl_cui_uint8_pct stor_g;
 	mk_sl_cui_uint8_pct stor_pub;
@@ -231,7 +230,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_key_sgn_
 	mk_lang_assert(pri);
 	mk_lang_assert(u8s);
 
-	stor_q = ((mk_sl_cui_uint8_pt)(&storage.m_data.m_header.m_q[0]));
 	stor_p = &storage.m_data.m_uint8s[sizeof(storage.m_data.m_header)];
 	stor_g = stor_p + 128;
 	stor_pub = stor_g + 128;
@@ -351,7 +349,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_key_sgn_
 	typedef struct mk_lib_iip_key_sgn_dsa_sha1_windows_pub_rw_export_to_u8s_storage_s mk_lib_iip_key_sgn_dsa_sha1_windows_pub_rw_export_to_u8s_storage_t;
 
 	mk_lib_iip_key_sgn_dsa_sha1_windows_pub_rw_export_to_u8s_storage_t storage;
-	mk_sl_cui_uint8_pct stor_q;
 	mk_sl_cui_uint8_pct stor_p;
 	mk_sl_cui_uint8_pct stor_g;
 	mk_sl_cui_uint8_pct stor_pub;
@@ -361,7 +358,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_key_sgn_
 	mk_lang_assert(pri);
 	mk_lang_assert(u8s);
 
-	stor_q = ((mk_sl_cui_uint8_pt)(&storage.m_data.m_header.m_q[0]));
 	stor_p = &storage.m_data.m_uint8s[sizeof(storage.m_data.m_header)];
 	stor_g = stor_p + 128;
 	stor_pub = stor_g + 128;
@@ -474,7 +470,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_key_sgn_
 	typedef struct mk_lib_iip_key_sgn_dsa_sha1_windows_pub_rw_export_to_u8s_storage_s mk_lib_iip_key_sgn_dsa_sha1_windows_pub_rw_export_to_u8s_storage_t;
 
 	mk_lib_iip_key_sgn_dsa_sha1_windows_pub_rw_export_to_u8s_storage_t storage;
-	mk_sl_cui_uint8_pct stor_q;
 	mk_sl_cui_uint8_pct stor_p;
 	mk_sl_cui_uint8_pct stor_g;
 	mk_sl_cui_uint8_pct stor_pub;
@@ -484,7 +479,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_key_sgn_
 	mk_lang_assert(pub);
 	mk_lang_assert(u8s);
 
-	stor_q = ((mk_sl_cui_uint8_pt)(&storage.m_data.m_header.m_q[0]));
 	stor_p = &storage.m_data.m_uint8s[sizeof(storage.m_data.m_header)];
 	stor_g = stor_p + 128;
 	stor_pub = stor_g + 128;

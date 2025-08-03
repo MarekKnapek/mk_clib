@@ -173,7 +173,9 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_dll_ws2_accept_ex(mk_l
 
 	mk_lang_assert(fn_ptr);
 
+	#include "mk_lang_warning_clang_push_cast_qual.h"
 	fn = *((AcceptEx_pt*)(fn_ptr));
+	#include "mk_lang_warning_clang_pop.h"
 	ret = fn(socket_listen, socket_accept, out_data_buf, out_data_len, local_address_len, remote_address_len, transferred, overlapped);
 	return ret;
 }
@@ -184,7 +186,9 @@ mk_lang_jumbo mk_lang_types_void_t mk_win_dll_ws2_get_accept_ex_sock_addrs(mk_la
 
 	mk_lang_assert(fn_ptr);
 
+	#include "mk_lang_warning_clang_push_cast_qual.h"
 	fn = *((GetAcceptExSockaddrs_pt*)(fn_ptr));
+	#include "mk_lang_warning_clang_pop.h"
 	fn(in_data_buf, in_data_len, local_address_len, remote_address_len, local_address_obj, local_address_real, remote_address_obj, remote_address_real);
 }
 

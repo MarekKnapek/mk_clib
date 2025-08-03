@@ -852,7 +852,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_ioctl_request_re
 	mk_lang_assert(!mk_win_dll_ws2_event_is_null(ioctl_request->m_overlapped.m_event));
 
 	b = mk_win_dll_ws2_close_event(ioctl_request->m_overlapped.m_event); mk_lang_check_return(b != mk_win_base_false);
-	ioctl_request->m_overlapped.m_event = mk_win_dll_ws2_event_get_null();;
+	ioctl_request->m_overlapped.m_event = mk_win_dll_ws2_event_get_null();
 	return 0;
 }
 

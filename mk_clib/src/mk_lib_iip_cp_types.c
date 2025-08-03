@@ -339,9 +339,9 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	mk_lang_types_sint_t enc_type_num mk_lang_constexpr_init;
 	mk_lib_iip_cp_types_crpt_key_type_t enc_type_id mk_lang_constexpr_init;
 	mk_lang_types_sint_t sgn_additional_data_len mk_lang_constexpr_init;
-	mk_sl_cui_uint8_pct sgn_additional_data_buf mk_lang_constexpr_init;
+	/*mk_sl_cui_uint8_pct sgn_additional_data_buf mk_lang_constexpr_init;*/
 	mk_lang_types_sint_t enc_additional_data_len mk_lang_constexpr_init;
-	mk_sl_cui_uint8_pct enc_additional_data_buf mk_lang_constexpr_init;
+	/*mk_sl_cui_uint8_pct enc_additional_data_buf mk_lang_constexpr_init;*/
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	mk_lang_assert(obj);
@@ -490,7 +490,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 			*succeeded = mk_lang_false;
 			return 0;
 		}
-		sgn_additional_data_buf = ptr;
+		/*sgn_additional_data_buf = ptr;*/
 		ptr += tlen;
 		rem -= tlen;
 
@@ -501,7 +501,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 			*succeeded = mk_lang_false;
 			return 0;
 		}
-		enc_additional_data_buf = ptr;
+		/*enc_additional_data_buf = ptr;*/
 		ptr += tlen;
 		rem -= tlen;
 
@@ -537,9 +537,9 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	mk_lang_types_sint_t sgn_type_num mk_lang_constexpr_init;
 	mk_lib_iip_cp_types_crpt_key_type_t enc_type_id mk_lang_constexpr_init;
 	mk_lang_types_sint_t enc_type_num mk_lang_constexpr_init;
-	mk_sl_cui_uint8_pt sgn_additional_data_buf mk_lang_constexpr_init;
+	/*mk_sl_cui_uint8_pt sgn_additional_data_buf mk_lang_constexpr_init;*/
 	mk_lang_types_sint_t sgn_additional_data_len mk_lang_constexpr_init;
-	mk_sl_cui_uint8_pt enc_additional_data_buf mk_lang_constexpr_init;
+	/*mk_sl_cui_uint8_pt enc_additional_data_buf mk_lang_constexpr_init;*/
 	mk_lang_types_sint_t enc_additional_data_len mk_lang_constexpr_init;
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
@@ -643,7 +643,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 		ptr += tlen;
 		rem -= tlen;
 
-		sgn_additional_data_buf = ptr;
+		/*sgn_additional_data_buf = ptr;*/
 		sgn_additional_data_len = mk_lib_iip_cp_types_get_key_additional_len_sign(sgn_type_id);
 		tlen = sgn_additional_data_len;
 		if(!(rem >= tlen))
@@ -654,7 +654,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 		ptr += tlen;
 		rem -= tlen;
 
-		enc_additional_data_buf = ptr;
+		/*enc_additional_data_buf = ptr;*/
 		enc_additional_data_len = mk_lib_iip_cp_types_get_key_additional_len_crpt(enc_type_id);
 		tlen = enc_additional_data_len;
 		if(!(rem >= tlen))

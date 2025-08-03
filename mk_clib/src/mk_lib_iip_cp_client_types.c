@@ -74,6 +74,7 @@
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_types_session_settings_options_prrw_find_or_append(mk_lib_iip_cp_types_strpairs_pt const options, mk_lib_iip_cp_message_create_session_strings_id_t const str_id, mk_lib_iip_cp_types_strpair_ppt const found) mk_lang_noexcept
 {
+#include "mk_lang_warning_clang_push_conditional_uninitialized.h"
 	mk_lang_types_pchar_pct str_buf;
 	mk_lang_types_sint_t str_len;
 	mk_lang_types_usize_t n;
@@ -109,6 +110,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_clobber(&fnd);
 	*found = fnd;
 	return 0;
+#include "mk_lang_warning_clang_pop.h"
 }
 
 
