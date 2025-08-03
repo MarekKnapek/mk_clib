@@ -514,8 +514,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_stre
 		}
 		switch(obj->m_from.m_type)
 		{
-			case mk_lib_iip_cp_types_remote_destination_type_e_legacy          : signature.m_type = mk_lib_iip_cp_types_signature_type_e_dsa_sha1; tlen = mk_lib_iip_key_sgn_dsa_sha1_pri_signature_len_v; break;
-			case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_dsa_sha1: signature.m_type = mk_lib_iip_cp_types_signature_type_e_dsa_sha1; tlen = mk_lib_iip_key_sgn_dsa_sha1_pri_signature_len_v; break;
+			case mk_lib_iip_cp_types_remote_destination_type_e_legacy          : signature.m_type = mk_lib_iip_cp_types_signature_type_e_dsa_sha1; tlen = mk_lib_iip_key_sgn_dsa_sha1_signature_len_v; break;
+			case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_dsa_sha1: signature.m_type = mk_lib_iip_cp_types_signature_type_e_dsa_sha1; tlen = mk_lib_iip_key_sgn_dsa_sha1_signature_len_v; break;
 			case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_ecdsa_sha256_p256: mk_lang_check_todo(); break;
 			case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_eddsa_sha512_ed25519: signature.m_type = mk_lib_iip_cp_types_signature_type_e_eddsa_sha512_ed25519; tlen = mk_lib_iip_key_sgn_eddsa_sha512_ed25519_pub_signature_len_v; break;
 			case mk_lib_iip_cp_types_remote_destination_type_e_dummy_end: mk_lang_assert_false(); break;
@@ -954,7 +954,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_stre
 	mk_sl_cui_uint8_pt ptr;
 	mk_lang_types_sint_t rem;
 	mk_lang_types_sint_t tlen;
-	mk_sl_cui_uint8_t signature[mk_lib_iip_key_sgn_dsa_sha1_pri_signature_len_v];
+	mk_sl_cui_uint8_t signature[mk_lib_iip_key_sgn_dsa_sha1_signature_len_v];
 
 	mk_lang_assert(packet);
 	mk_lang_assert(obj);
@@ -982,18 +982,18 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_stre
 			return 0;
 		}
 		mk_lang_assert(obj->m_from.m_type == mk_lib_iip_cp_types_remote_destination_type_e_legacy); /* todo */
-		tlen = mk_lib_iip_key_sgn_dsa_sha1_pri_signature_len_v;
+		tlen = mk_lib_iip_key_sgn_dsa_sha1_signature_len_v;
 		if(!(rem >= tlen))
 		{
 			*success = mk_lang_false;
 			return 0;
 		}
-		mk_sl_cui_uint8_memclr_fn(&signature[0], mk_lib_iip_key_sgn_dsa_sha1_pri_signature_len_v);
-		mk_sl_cui_uint8_memcpy_fn(&ptr[0], &signature[0], mk_lib_iip_key_sgn_dsa_sha1_pri_signature_len_v);
+		mk_sl_cui_uint8_memclr_fn(&signature[0], mk_lib_iip_key_sgn_dsa_sha1_signature_len_v);
+		mk_sl_cui_uint8_memcpy_fn(&ptr[0], &signature[0], mk_lib_iip_key_sgn_dsa_sha1_signature_len_v);
 		packet->m_signature_buf = ptr;
-		packet->m_signature_len = mk_lib_iip_key_sgn_dsa_sha1_pri_signature_len_v;
-		ptr += mk_lib_iip_key_sgn_dsa_sha1_pri_signature_len_v;
-		rem -= mk_lib_iip_key_sgn_dsa_sha1_pri_signature_len_v;
+		packet->m_signature_len = mk_lib_iip_key_sgn_dsa_sha1_signature_len_v;
+		ptr += mk_lib_iip_key_sgn_dsa_sha1_signature_len_v;
+		rem -= mk_lib_iip_key_sgn_dsa_sha1_signature_len_v;
 	}
 	tlen = data_len - rem;
 	*consumed = tlen;

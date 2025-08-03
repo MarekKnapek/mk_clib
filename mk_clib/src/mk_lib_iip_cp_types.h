@@ -14,8 +14,7 @@
 #include "mk_lib_iip_cp_mallocator_global.h"
 #include "mk_lib_iip_key_enc_elgamal_pri.h"
 #include "mk_lib_iip_key_enc_elgamal_pub.h"
-#include "mk_lib_iip_key_sgn_dsa_sha1_pri.h"
-#include "mk_lib_iip_key_sgn_dsa_sha1_pub.h"
+#include "mk_lib_iip_key_sgn_dsa_sha1.h"
 #include "mk_lib_iip_key_sgn_ecdsa_sha256_p256_pub.h"
 #include "mk_lib_iip_key_sgn_eddsa_sha512_ed25519_pub.h"
 #include "mk_lib_iip_time.h"
@@ -379,6 +378,7 @@ struct mk_lib_iip_cp_types_destination_with_cert_s
 typedef struct mk_lib_iip_cp_types_destination_with_cert_s mk_lib_iip_cp_types_destination_with_cert_t;
 mk_lang_typedef(mk_lib_iip_cp_types_destination_with_cert);
 
+#include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_lib_iip_cp_types_private_destination_elgamal_dsa_sha1_s
 {
 	mk_lib_iip_key_enc_elgamal_pri_t m_key_elgamal_pri;
@@ -386,7 +386,6 @@ struct mk_lib_iip_cp_types_private_destination_elgamal_dsa_sha1_s
 };
 typedef struct mk_lib_iip_cp_types_private_destination_elgamal_dsa_sha1_s mk_lib_iip_cp_types_private_destination_elgamal_dsa_sha1_t;
 mk_lang_typedef(mk_lib_iip_cp_types_private_destination_elgamal_dsa_sha1);
-#include "mk_lang_warning_msvc_push_c4820.h"
 enum mk_lib_iip_cp_types_private_destination_type_e
 {
 	mk_lib_iip_cp_types_private_destination_type_e_elgamal_dsa_sha1,
@@ -490,7 +489,7 @@ typedef enum mk_lib_iip_cp_types_signature_type_e mk_lib_iip_cp_types_signature_
 union mk_lib_iip_cp_types_signature_data_u
 {
 	mk_lib_iip_cp_types_signature_any_t m_any;
-	mk_lib_iip_key_sgn_dsa_sha1_pri_signature_t m_dsa_sha1;
+	mk_lib_iip_key_sgn_dsa_sha1_signature_t m_dsa_sha1;
 	mk_lib_iip_key_sgn_eddsa_sha512_ed25519_pub_signature_t m_eddsa_sha512_ed25519;
 };
 typedef union mk_lib_iip_cp_types_signature_data_u mk_lib_iip_cp_types_signature_data_t;

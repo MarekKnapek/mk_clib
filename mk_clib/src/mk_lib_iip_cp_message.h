@@ -11,7 +11,7 @@
 #include "mk_lang_types.h"
 #include "mk_lib_iip_cp_types.h"
 #include "mk_lib_iip_key_enc_elgamal_pri.h"
-#include "mk_lib_iip_key_sgn_dsa_sha1_pri.h"
+#include "mk_lib_iip_key_sgn_dsa_sha1.h"
 
 
 enum mk_lib_iip_cp_message_message_type_id_e
