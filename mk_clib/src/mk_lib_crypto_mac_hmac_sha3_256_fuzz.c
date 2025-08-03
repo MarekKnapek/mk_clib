@@ -8,7 +8,6 @@
 #include "mk_lang_check.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_countof.h"
-#include "mk_lang_cpuid.h"
 #include "mk_lang_external_ltc.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
@@ -73,7 +72,6 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_crypto_mac_hmac_sha3
 {
 	mk_lang_types_uchar_pct d;
 	mk_lang_types_usize_t s;
-	mk_lang_types_bool_t b;
 	mk_lang_types_uint_t key_len;
 	mk_lang_types_uint_t data_len;
 	mk_sl_cui_uint8_t key_buf[1 * 1024];
@@ -93,21 +91,6 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_crypto_mac_hmac_sha3
 
 	d = data;
 	s = size;
-	if(!(s >= 1))
-	{
-		return 0;
-	}
-	b = d[0] % 2 == 0;
-	d += 1;
-	s -= 1;
-	if(b)
-	{
-		mk_lang_cpuid_init();
-	}
-	else
-	{
-		mk_lang_cpuid_reset();
-	}
 	if(!(s >= mk_lang_bui_uint_size_bytes_v))
 	{
 		return 0;
