@@ -205,10 +205,6 @@ struct mk_win_base_list_entry_s
 	((mk_win_base_word_t)(((mk_win_base_uchar_t)(((mk_win_base_ullong_t)(hi)) & ((mk_win_base_ullong_t)(0xff)))))) \
 ))
 
-static mk_win_base_instance_t const mk_win_base_s_instance_null = {{ mk_win_base_null }};
-static mk_win_base_handle_t const mk_win_base_s_handle_null = {{ mk_win_base_handle_null }};
-static mk_win_base_handle_t const mk_win_base_s_handle_invalid = {{ mk_win_base_handle_invalid }};
-
 
 #endif
 
