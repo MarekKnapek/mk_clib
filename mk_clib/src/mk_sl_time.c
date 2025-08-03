@@ -184,6 +184,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	mk_sl_time_duration_t ta mk_lang_constexpr_init;
 	mk_sl_time_duration_t tb mk_lang_constexpr_init;
 	mk_lang_types_sint_t len mk_lang_constexpr_init;
+	mk_lang_types_pchar_t zero mk_lang_constexpr_init;
 	mk_lang_types_sint_t n mk_lang_constexpr_init;
 	mk_lang_types_sint_t i mk_lang_constexpr_init;
 	mk_sl_time_duration_t k_micro_second mk_lang_constexpr_init;
@@ -213,10 +214,18 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 		ptr[0] = '.'; ptr += 1; rem -= 1;
 		len = mk_sl_time_duration_to_str_dec_n(&tb, ptr, rem); mk_lang_assert(len >= 1); mk_lang_assert(len <= rem); ptr += len; rem -= len;
 		mk_lang_assert(len >= 1); mk_lang_assert(len <= 4);
-		n = 4 - len;
+		zero = '0';
+		if(len != 4)
+		{
+			mk_lang_string_memmov_pc_fn(ptr - len + 4 - len, ptr - len, ((mk_lang_types_usize_t)(len)));
+			mk_lang_string_memset_pc_fn(ptr - len, &zero, ((mk_lang_types_usize_t)(4 - len)));
+		}
+		len = 4 - len;
+		ptr += len; rem -= len;
+		n = 4 - 1;
 		for(i = 0; i != n; ++i)
 		{
-			if(ptr[-1] == '0')
+			if(ptr[-1] == zero)
 			{
 				ptr -= 1; rem += 1;
 			}
@@ -240,6 +249,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	mk_sl_time_duration_t ta mk_lang_constexpr_init;
 	mk_sl_time_duration_t tb mk_lang_constexpr_init;
 	mk_lang_types_sint_t len mk_lang_constexpr_init;
+	mk_lang_types_pchar_t zero mk_lang_constexpr_init;
 	mk_lang_types_sint_t n mk_lang_constexpr_init;
 	mk_lang_types_sint_t i mk_lang_constexpr_init;
 	mk_sl_time_duration_t k_micro_second mk_lang_constexpr_init;
@@ -272,10 +282,18 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 		ptr[0] = '.'; ptr += 1; rem -= 1;
 		len = mk_sl_time_duration_to_str_dec_n(&tb, ptr, rem); mk_lang_assert(len >= 1); mk_lang_assert(len <= rem); ptr += len; rem -= len;
 		mk_lang_assert(len >= 1); mk_lang_assert(len <= 7);
-		n = 7 - len;
+		zero = '0';
+		if(len != 7)
+		{
+			mk_lang_string_memmov_pc_fn(ptr - len + 7 - len, ptr - len, ((mk_lang_types_usize_t)(len)));
+			mk_lang_string_memset_pc_fn(ptr - len, &zero, ((mk_lang_types_usize_t)(7 - len)));
+		}
+		len = 7 - len;
+		ptr += len; rem -= len;
+		n = 7 - 1;
 		for(i = 0; i != n; ++i)
 		{
-			if(ptr[-1] == '0')
+			if(ptr[-1] == zero)
 			{
 				ptr -= 1; rem += 1;
 			}
@@ -298,6 +316,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	mk_sl_time_duration_t ta mk_lang_constexpr_init;
 	mk_sl_time_duration_t tb mk_lang_constexpr_init;
 	mk_lang_types_sint_t len mk_lang_constexpr_init;
+	mk_lang_types_pchar_t zero mk_lang_constexpr_init;
 	mk_lang_types_sint_t n mk_lang_constexpr_init;
 	mk_lang_types_sint_t i mk_lang_constexpr_init;
 	mk_sl_time_duration_t dur mk_lang_constexpr_init;
@@ -336,19 +355,27 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 		mk_sl_time_duration_divmod4_wrap(&dur, &k_second, &ta, &tb);
 		len = mk_sl_time_duration_to_str_dec_n(&ta, ptr, rem); mk_lang_assert(len >= 1); mk_lang_assert(len <= rem); ptr += len; rem -= len;
 		mk_lang_assert(len >= 1); mk_lang_assert(len <= 2);
+		zero = '0';
 		if(len == 1)
 		{
 			ptr[0] = ptr[-1];
-			ptr[-1] = '0';
+			ptr[-1] = zero;
 			ptr += 1; rem -= 1;
 		}
 		ptr[0] = '.'; ptr += 1; rem -= 1;
 		len = mk_sl_time_duration_to_str_dec_n(&tb, ptr, rem); mk_lang_assert(len >= 1); mk_lang_assert(len <= rem); ptr += len; rem -= len;
 		mk_lang_assert(len >= 1); mk_lang_assert(len <= 7);
-		n = 7 - len;
+		if(len != 7)
+		{
+			mk_lang_string_memmov_pc_fn(ptr - len + 7 - len, ptr - len, ((mk_lang_types_usize_t)(len)));
+			mk_lang_string_memset_pc_fn(ptr - len, &zero, ((mk_lang_types_usize_t)(7 - len)));
+		}
+		len = 7 - len;
+		ptr += len; rem -= len;
+		n = 7 - 1;
 		for(i = 0; i != n; ++i)
 		{
-			if(ptr[-1] == '0')
+			if(ptr[-1] == zero)
 			{
 				ptr -= 1; rem += 1;
 			}
@@ -371,6 +398,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	mk_sl_time_duration_t ta mk_lang_constexpr_init;
 	mk_sl_time_duration_t tb mk_lang_constexpr_init;
 	mk_lang_types_sint_t len mk_lang_constexpr_init;
+	mk_lang_types_pchar_t zero mk_lang_constexpr_init;
 	mk_lang_types_sint_t n mk_lang_constexpr_init;
 	mk_lang_types_sint_t i mk_lang_constexpr_init;
 	mk_sl_time_duration_t dur mk_lang_constexpr_init;
@@ -411,10 +439,11 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 		mk_sl_time_duration_divmod4_wrap(&dur, &k_minute, &ta, &tb);
 		len = mk_sl_time_duration_to_str_dec_n(&ta, ptr, rem); mk_lang_assert(len >= 1); mk_lang_assert(len <= rem); ptr += len; rem -= len;
 		mk_lang_assert(len >= 1); mk_lang_assert(len <= 2);
+		zero = '0';
 		if(len == 1)
 		{
 			ptr[0] = ptr[-1];
-			ptr[-1] = '0';
+			ptr[-1] = zero;
 			ptr += 1; rem -= 1;
 		}
 		ptr[0] = ':'; ptr += 1; rem -= 1;
@@ -426,16 +455,23 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 		if(len == 1)
 		{
 			ptr[0] = ptr[-1];
-			ptr[-1] = '0';
+			ptr[-1] = zero;
 			ptr += 1; rem -= 1;
 		}
 		ptr[0] = '.'; ptr += 1; rem -= 1;
 		len = mk_sl_time_duration_to_str_dec_n(&tb, ptr, rem); mk_lang_assert(len >= 1); mk_lang_assert(len <= rem); ptr += len; rem -= len;
 		mk_lang_assert(len >= 1); mk_lang_assert(len <= 7);
-		n = 7 - len;
+		if(len != 7)
+		{
+			mk_lang_string_memmov_pc_fn(ptr - len + 7 - len, ptr - len, ((mk_lang_types_usize_t)(len)));
+			mk_lang_string_memset_pc_fn(ptr - len, &zero, ((mk_lang_types_usize_t)(7 - len)));
+		}
+		len = 7 - len;
+		ptr += len; rem -= len;
+		n = 7 - 1;
 		for(i = 0; i != n; ++i)
 		{
-			if(ptr[-1] == '0')
+			if(ptr[-1] == zero)
 			{
 				ptr -= 1; rem += 1;
 			}
