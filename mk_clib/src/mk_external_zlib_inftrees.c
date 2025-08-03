@@ -5,13 +5,15 @@
 #include "mk_external_zlib.h"
 
 
-#if defined _MSC_VER && defined _MSC_FULL_VER
-#pragma warning(push, 0)
-#endif
+#include "mk_lang_warning_msvc_push_everything.h"
+#include "mk_lang_warning_clang_push_everything.h"
+
+
 #include "../external/zlib/inftrees.c"
-#if defined _MSC_VER && defined _MSC_FULL_VER
-#pragma warning(pop)
-#endif
+
+
+#include "mk_lang_warning_clang_pop.h"
+#include "mk_lang_warning_msvc_pop.h"
 
 
 #endif
