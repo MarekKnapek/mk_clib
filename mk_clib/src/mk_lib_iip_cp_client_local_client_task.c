@@ -586,9 +586,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lib_iip_any_data_connection_pt mk_lib
 
 	mk_lang_assert(task);
 
+	#include "mk_lang_warning_clang_push_cast_align.h"
 	settings = ((mk_lib_iip_cp_client_local_client_task_settings_pt)(((mk_lang_types_uchar_pt)(task)) + mk_lang_offsetof(mk_lib_iip_cp_client_local_client_task_settings_t, m_type)));
 	local_listener = ((mk_lib_iip_cp_client_local_client_pt)(((mk_lang_types_uchar_pt)(settings)) + mk_lang_offsetof(mk_lib_iip_cp_client_local_client_t, m_settings)));
 	any = ((mk_lib_iip_any_data_connection_pt)(((mk_lang_types_uchar_pt)(local_listener)) + mk_lang_offsetof(mk_lib_iip_cp_client_local_client_task_t, m_local)));
+	#include "mk_lang_warning_clang_pop.h"
 	return any;
 }
 
@@ -600,9 +602,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lib_iip_cp_client_local_client_task_p
 
 	mk_lang_assert(connection);
 
+	#include "mk_lang_warning_clang_push_cast_align.h"
 	settings = ((mk_lib_iip_cp_client_local_client_task_settings_pt)(((mk_lang_types_uchar_pt)(connection)) - mk_lang_offsetof(mk_lib_iip_cp_client_local_client_task_settings_t, m_type)));
 	local_listener = ((mk_lib_iip_cp_client_local_client_pt)(((mk_lang_types_uchar_pt)(settings)) - mk_lang_offsetof(mk_lib_iip_cp_client_local_client_t, m_settings)));
 	self = ((mk_lib_iip_cp_client_local_client_task_pt)(((mk_lang_types_uchar_pt)(local_listener)) - mk_lang_offsetof(mk_lib_iip_cp_client_local_client_task_t, m_local)));
+	#include "mk_lang_warning_clang_pop.h"
 	return self;
 }
 

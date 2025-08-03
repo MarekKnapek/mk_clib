@@ -1195,7 +1195,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 	mk_sl_dynamic_ring_inl_defd_element_pt data_a;
 	mk_sl_dynamic_ring_inl_defd_element_pt data_b;
 	mk_lang_types_usize_t size_a;
-	mk_lang_types_usize_t size_b;
 	mk_lang_types_usize_t rem;
 	mk_lang_types_usize_t cnt;
 	mk_lang_types_sint_t err;
@@ -1212,7 +1211,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 	data_a = mk_sl_dynamic_ring_inl_defd_prrw_get_data_a(ring);
 	data_b = mk_sl_dynamic_ring_inl_defd_prrw_get_data_b(ring);
 	size_a = mk_sl_dynamic_ring_inl_defd_prrw_get_size_a(ring);
-	size_b = mk_sl_dynamic_ring_inl_defd_prrw_get_size_b(ring);
 	rem = count;
 	cnt = mk_lang_min(rem, size_a);
 	err = mk_sl_dynamic_ring_inl_defd_prrw_elements_destroy_many(data_a, cnt); mk_lang_check_rereturn(err);

@@ -359,6 +359,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_http_prr
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_http_prrw_on_incoming_data_method_work(mk_lib_iip_http_pt const http, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_http_parse_error_code_pt const error_code, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
 {
+#include "mk_lang_warning_clang_push_conditional_uninitialized.h"
 	mk_lang_types_sint_t method_str_max;
 	mk_lang_types_sint_t dat_sise;
 	mk_lang_types_sint_t rem;
@@ -418,6 +419,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_http_prr
 		}
 	}
 	return 0;
+#include "mk_lang_warning_clang_pop.h"
 }
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_http_prrw_on_incoming_data_uri_work(mk_lib_iip_http_pt const http, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_http_parse_error_code_pt const error_code, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
@@ -483,7 +485,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_http_prr
 	mk_lang_types_sint_t pos_crlf;
 	mk_lang_types_sint_t pos_sep;
 	mk_sl_cui_uint8_pt dat_buf;
-	mk_lang_types_sint_t dat_sise;
+	/*mk_lang_types_sint_t dat_sise;*/
 	mk_lib_iip_http_header_t header;
 
 	mk_lang_assert(http);
@@ -513,7 +515,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_http_prr
 				return 0;
 			}
 			dat_buf = mk_lib_iip_http_buffer_rw_data(&http->m_buffer);
-			dat_sise = mk_lib_iip_http_buffer_rw_sise(&http->m_buffer);
+			/*dat_sise = mk_lib_iip_http_buffer_rw_sise(&http->m_buffer);*/
 			err = mk_lib_iip_http_header_rw_construct(&header); mk_lang_check_rereturn(err);
 			err = mk_lib_iip_http_buffer_rw_push_back_move_many(&header.m_key, dat_buf + 0, ((mk_lang_types_usize_t)(pos_sep))); mk_lang_check_rereturn(err);
 			err = mk_lib_iip_http_buffer_rw_push_back_move_many(&header.m_val, dat_buf + pos_sep + 2, ((mk_lang_types_usize_t)(pos_crlf - pos_sep - 2))); mk_lang_check_rereturn(err);

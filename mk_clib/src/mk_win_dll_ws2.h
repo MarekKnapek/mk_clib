@@ -217,8 +217,8 @@ typedef enum mk_win_dll_ws2_sck_opt_ipv6_e mk_win_dll_ws2_sck_opt_ipv6_t;
 
 enum mk_win_dll_ws2_sck_opt_socket_e
 {
-	mk_win_dll_ws2_sck_opt_socket_e_connect_time          = 0x700c,
 	mk_win_dll_ws2_sck_opt_socket_e_update_accept_context = 0x700b,
+	mk_win_dll_ws2_sck_opt_socket_e_connect_time          = 0x700c,
 	mk_win_dll_ws2_sck_opt_socket_e_dummy_end
 };
 typedef enum mk_win_dll_ws2_sck_opt_socket_e mk_win_dll_ws2_sck_opt_socket_t;

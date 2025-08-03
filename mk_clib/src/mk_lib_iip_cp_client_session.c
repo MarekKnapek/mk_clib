@@ -885,6 +885,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_prrw_on_msg_host_reply(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_message_pt const msg) mk_lang_noexcept
 {
+#include "mk_lang_warning_clang_push_conditional_uninitialized.h"
 	mk_lib_iip_cp_message_host_reply_pt msg_host_reply;
 	mk_lang_types_usize_t n;
 	mk_lang_types_usize_t i;
@@ -928,6 +929,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	lookup_host_name_obj->m_request->m_done = mk_lang_true;
 	err = mk_lib_iip_cp_client_session_lookups_host_name_rw_erase_element(&task->m_session.m_state.m_lookups_host_name_b, lookup_host_name_ptr); mk_lang_check_rereturn(err);
 	return 0;
+#include "mk_lang_warning_clang_pop.h"
 }
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_prrw_on_msg(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_message_pt const msg) mk_lang_noexcept
