@@ -1352,7 +1352,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_to_text(m
 	}
 	ptr += 2;
 	rem -= 2;
-	uint = ((mk_lang_bui_uintptr_t)(socket->m_handle.m_handle.m_ptr));
+	uint = mk_win_base_handle_get_uintptr(socket->m_handle.m_handle);
 	len = mk_lang_bui_uintptr_to_str_hex_n(&uint, ptr, rem); mk_lang_assert((!(len >= 1)) || (len >= 1 && len <= str_len)); ptr += len; rem -= len;
 	len = str_len - rem;
 	*out_len = len;
@@ -1420,7 +1420,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_set_optio
 	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(socket->m_handle));
 	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(src->m_handle));
 
-	vvv = ((mk_win_base_uintptr_t)(src->m_handle.m_handle.m_ptr));
+	vvv = mk_win_base_handle_get_uintptr(socket->m_handle.m_handle);
 	s = socket->m_handle;
 	level = mk_win_dll_ws2_sck_level_socket;
 	opt_name = mk_win_dll_ws2_sck_opt_socket_e_update_accept_context;

@@ -42,8 +42,8 @@
 #define mk_win_base_true ((mk_win_base_bool_t)(1))
 #define mk_win_base_infinite ((mk_win_base_dword_t)(0xfffffffful))
 #define mk_win_base_proc_not_found ((mk_win_base_proc_t)(0x0100))
-#define mk_win_base_handle_null ((mk_win_base_void_pct)(((mk_win_base_uintptr_t)(mk_win_base_null))))
-#define mk_win_base_handle_invalid ((mk_win_base_void_pct)(((mk_win_base_sintptr_t)(-1))))
+#define mk_win_base_handle_null ((mk_win_base_uintptr_t)(((mk_win_base_sintptr_t)(0))))
+#define mk_win_base_handle_invalid ((mk_win_base_uintptr_t)(((mk_win_base_sintptr_t)(-1))))
 #define mk_win_base_page_4k (4ul * 1024ul)
 #define mk_win_base_page_64k (64ul * 1024ul)
 #define mk_win_base_page_2m (2ul * 1024ul * 1024ul)
@@ -94,15 +94,19 @@ mk_lang_typedef(mk_win_base_large_integer);
 
 struct mk_win_base_handle_s
 {
-	mk_win_base_void_pct m_ptr;
+	mk_win_base_uintptr_t m_uintptr;
 };
 typedef struct mk_win_base_handle_s mk_win_base_handle_t;
 mk_lang_typedef(mk_win_base_handle);
-mk_lang_nodiscard static mk_lang_inline mk_win_base_handle_t mk_win_base_handle_get_null(mk_lang_types_void_t) mk_lang_noexcept { mk_win_base_handle_t r; r.m_ptr = mk_win_base_null; return r; }
-mk_lang_nodiscard static mk_lang_inline mk_win_base_handle_t mk_win_base_handle_get_invalid(mk_lang_types_void_t) mk_lang_noexcept { mk_win_base_handle_t r; r.m_ptr = mk_win_base_handle_invalid; return r; }
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_bool_t mk_win_base_handle_is_null(mk_win_base_handle_t const handle) mk_lang_noexcept { mk_lang_types_bool_t r; r = handle.m_ptr == mk_win_base_null; return r; }
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_bool_t mk_win_base_handle_is_invalid(mk_win_base_handle_t const handle) mk_lang_noexcept { mk_lang_types_bool_t r; r = handle.m_ptr == mk_win_base_handle_invalid; return r; }
-mk_lang_nodiscard static mk_lang_inline mk_win_base_handle_t mk_win_base_handle_from(mk_win_base_void_pct const handle) mk_lang_noexcept { mk_win_base_handle_t r; r.m_ptr = handle; return r; }
+mk_lang_nodiscard static mk_lang_inline mk_win_base_handle_t mk_win_base_handle_get_null(mk_lang_types_void_t) mk_lang_noexcept { mk_win_base_handle_t r; r.m_uintptr = mk_win_base_handle_null; return r; }
+mk_lang_nodiscard static mk_lang_inline mk_win_base_handle_t mk_win_base_handle_get_invalid(mk_lang_types_void_t) mk_lang_noexcept { mk_win_base_handle_t r; r.m_uintptr = mk_win_base_handle_invalid; return r; }
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_bool_t mk_win_base_handle_is_null(mk_win_base_handle_t const handle) mk_lang_noexcept { mk_lang_types_bool_t r; r = handle.m_uintptr == mk_win_base_handle_null; return r; }
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_bool_t mk_win_base_handle_is_invalid(mk_win_base_handle_t const handle) mk_lang_noexcept { mk_lang_types_bool_t r; r = handle.m_uintptr == mk_win_base_handle_invalid; return r; }
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_uintptr_t mk_win_base_handle_get_uintptr(mk_win_base_handle_t const handle) mk_lang_noexcept { mk_lang_types_uintptr_t r; r = handle.m_uintptr; return r; }
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_void_pt mk_win_base_handle_get_ptr(mk_win_base_handle_t const handle) mk_lang_noexcept { mk_lang_types_void_pt r; r = ((mk_lang_types_void_pt)(handle.m_uintptr)); return r; }
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_bool_t mk_win_base_handle_eq(mk_win_base_handle_t const a, mk_win_base_handle_t const b) mk_lang_noexcept { mk_lang_types_bool_t r; r = a.m_uintptr == b.m_uintptr; return r; }
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_bool_t mk_win_base_handle_ne(mk_win_base_handle_t const a, mk_win_base_handle_t const b) mk_lang_noexcept { mk_lang_types_bool_t r; r = a.m_uintptr != b.m_uintptr; return r; }
+mk_lang_nodiscard static mk_lang_inline mk_win_base_handle_t mk_win_base_handle_from(mk_win_base_uintptr_t const handle) mk_lang_noexcept { mk_win_base_handle_t r; r.m_uintptr = handle; return r; }
 
 #define mk_win_base_make_handle(x) \
 	struct mk_lang_concat(x, _s){ mk_win_base_handle_t m_handle; }; \
