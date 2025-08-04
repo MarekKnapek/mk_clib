@@ -3,7 +3,9 @@
 #include "mk_lang_jumbo.h"
 #include "mk_lang_msvc.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_platform.h"
 #include "mk_lang_types.h"
+#include "mk_win_dll_ntdll.h"
 
 
 #if mk_lang_msvc_ver >= mk_lang_msvc_ver_2008
@@ -17,6 +19,22 @@
 
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lang_memclr1_inl_defd_fn(mk_lang_memclr1_inl_defd_type_pt const dst, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
+	#if mk_lang_platform_is_windows_at_least_any
+	#include "mk_lang_warning_msvc_push_c4127.h"
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	#include "mk_lang_warning_msvc_pop.h"
+	{
+		#include "mk_lang_warning_msvc_push_c4296.h"
+		#include "mk_lang_warning_gcc_push_type_limits.h"
+		mk_lang_assert(dst || count == 0);
+		mk_lang_assert(count >= 0);
+		#include "mk_lang_warning_gcc_pop.h"
+		#include "mk_lang_warning_msvc_pop.h"
+
+		mk_win_dll_ntdll_rtl_zero_memory(((mk_lang_types_void_pt)(dst)), count * sizeof(mk_lang_memclr1_inl_defd_type_t));
+	}
+	else
+	#endif
 	#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2008
 	#include "mk_lang_warning_msvc_push_c4127.h"
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
