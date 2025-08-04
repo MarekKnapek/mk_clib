@@ -25,6 +25,14 @@
 #include "mk_sl_cui_inl_filec.h"
 #include "mk_sl_cui_inl_fileu.h"
 
+#define mk_sl_cui_t_name mk_lib_iip_time_duration
+#define mk_sl_cui_t_base_type_name mk_sl_cui_uint64
+#define mk_sl_cui_t_count 1
+#define mk_sl_cui_t_base_type_size_bits_d mk_sl_cui_uint64_size_bits_d
+#define mk_sl_cui_t_inline 1
+#include "mk_sl_cui_inl_filec.h"
+#include "mk_sl_cui_inl_fileu.h"
+
 
 mk_lang_constexpr_static_inline mk_lib_iip_time_timestamp_t const mk_lib_iip_time_k_max = { mk_sl_cui_uint64_c(0x00003a4aul, 0xa17b4000ul) }; /* 4001-01-01 */
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_lib_iip_time_k_fmt[] = "0000-00-00T00:00:00.000Z";
@@ -200,6 +208,22 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_ii
 		len = 0;
 	}
 	return len;
+}
+
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_time_timestamp_get_duration(mk_lib_iip_time_timestamp_pct const before, mk_lib_iip_time_timestamp_pct const after, mk_lib_iip_time_duration_pt const duration) mk_lang_noexcept
+{
+	mk_sl_cui_uint64_t b;
+	mk_sl_cui_uint64_t a;
+	mk_sl_cui_uint64_t d;
+
+	mk_lang_assert(before);
+	mk_lang_assert(after);
+	mk_lang_assert(duration);
+
+	mk_lib_iip_time_timestamp_to_base(before, &b);
+	mk_lib_iip_time_timestamp_to_base(after, &a);
+	mk_sl_cui_uint64_sub3_wrap_cid_cod(&a, &b, &d);
+	mk_lib_iip_time_duration_from_base(duration, &d);
 }
 
 mk_lang_jumbo mk_lang_types_void_t mk_lib_iip_time_get_now(mk_lib_iip_time_timestamp_pt const timestamp) mk_lang_noexcept
