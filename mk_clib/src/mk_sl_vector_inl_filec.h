@@ -1902,6 +1902,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_po
 	#include "mk_lang_warning_msvc_pop.h"
 
 	err = mk_sl_vector_inl_defd_rw_shrink_by(vector, 1); mk_lang_check_rereturn(err);
+
 	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
 	return 0;
 }
@@ -1925,6 +1926,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_er
 		err = mk_sl_vector_inl_defd_element_move_assign(mk_sl_vector_inl_defd_rw_at(vector, idx), mk_sl_vector_inl_defd_rw_back(vector)); mk_lang_check_rereturn(err);
 	}
 	err = mk_sl_vector_inl_defd_rw_pop_back_single(vector); mk_lang_check_rereturn(err);
+
 	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
 	return 0;
 }
