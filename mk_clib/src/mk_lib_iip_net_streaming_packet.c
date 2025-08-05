@@ -516,9 +516,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_stre
 		}
 		switch(obj->m_from.m_type)
 		{
-			case mk_lib_iip_cp_types_remote_destination_type_e_legacy          : signature.m_type = mk_lib_iip_cp_types_signature_type_e_dsa_sha1; tlen = mk_lib_iip_key_sgn_dsa_sha1_signature_len_v; break;
-			case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_dsa_sha1: signature.m_type = mk_lib_iip_cp_types_signature_type_e_dsa_sha1; tlen = mk_lib_iip_key_sgn_dsa_sha1_signature_len_v; break;
-			case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_ecdsa_sha256_p256: mk_lang_check_todo(); break;
+			case mk_lib_iip_cp_types_remote_destination_type_e_legacy                      : signature.m_type = mk_lib_iip_cp_types_signature_type_e_dsa_sha1            ; tlen = mk_lib_iip_key_sgn_dsa_sha1_signature_len_v                ; break;
+			case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_dsa_sha1            : signature.m_type = mk_lib_iip_cp_types_signature_type_e_dsa_sha1            ; tlen = mk_lib_iip_key_sgn_dsa_sha1_signature_len_v                ; break;
+			case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_ecdsa_sha256_p256   : signature.m_type = mk_lib_iip_cp_types_signature_type_e_ecdsa_sha256_p256   ; tlen = 64 /* todo */                                              ; break;
 			case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_eddsa_sha512_ed25519: signature.m_type = mk_lib_iip_cp_types_signature_type_e_eddsa_sha512_ed25519; tlen = mk_lib_iip_key_sgn_eddsa_sha512_ed25519_pub_signature_len_v; break;
 			case mk_lib_iip_cp_types_remote_destination_type_e_dummy_end: mk_lang_assert_false(); break;
 			default: mk_lang_assert_false(); break;
@@ -1142,7 +1142,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_net_streaming_pa
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_net_streaming_packet_ro_is_initial_in_stream(mk_lib_iip_net_streaming_packet_pct const packet, mk_lang_types_bool_pt const is) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_net_streaming_packet_ro_is_new_stream_initializator(mk_lib_iip_net_streaming_packet_pct const packet, mk_lang_types_bool_pt const is) mk_lang_noexcept
 {
 	mk_lang_types_bool_t b;
 
@@ -1153,6 +1153,9 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_net_streaming_pa
 		((packet->m_flags & mk_lib_iip_net_streaming_packet_flag_e_synchronize) != 0) &&
 		((packet->m_flags & mk_lib_iip_net_streaming_packet_flag_e_signature_included) != 0) &&
 		((packet->m_flags & mk_lib_iip_net_streaming_packet_flag_e_from_included) != 0) &&
+		(mk_sl_cui_uint32_is_zero(&packet->m_send_stream_id)) &&
+		(!mk_sl_cui_uint32_is_zero(&packet->m_recv_stream_id)) &&
+		(mk_sl_cui_uint32_is_zero(&packet->m_sequence_number)) &&
 		(mk_lang_true);
 	*is = b;
 	return 0;

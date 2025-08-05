@@ -482,6 +482,7 @@ mk_lang_typedef(mk_lib_iip_cp_types_signature_any);
 enum mk_lib_iip_cp_types_signature_type_e
 {
 	mk_lib_iip_cp_types_signature_type_e_dsa_sha1,
+	mk_lib_iip_cp_types_signature_type_e_ecdsa_sha256_p256,
 	mk_lib_iip_cp_types_signature_type_e_eddsa_sha512_ed25519,
 	mk_lib_iip_cp_types_signature_type_e_dummy_end
 };
