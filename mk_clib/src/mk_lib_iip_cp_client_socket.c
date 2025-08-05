@@ -139,7 +139,6 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket
 {
 	mk_lang_types_usize_t n;
 	mk_lang_types_usize_t i;
-	mk_lib_iip_cp_client_socket_packet_with_payload_pt tmp;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(dst || count == 0);
@@ -150,9 +149,8 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket
 	n = count;
 	for(i = 0; i != n; ++i)
 	{
-		tmp = dst[i];
 		dst[i] = src[i];
-		src[i] = tmp;
+		src[i] = mk_lang_null;
 	}
 	return 0;
 }
@@ -288,14 +286,15 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	err = mk_lib_iip_net_streaming_packet_ro_is_new_stream_initializator(packet, &is_initial); mk_lang_check_rereturn(err);
 	if(task->m_socket.m_settings.m_is_listener && task->m_socket.m_state.m_waiting_for_syn && is_initial && (mk_sl_cui_uint16_eq(dst_port, &task->m_socket.m_settings.m_local_port) || mk_sl_cui_uint16_is_zero(dst_port)))
 	{
+		eaten = mk_lang_true;
 		task->m_socket.m_state.m_local_port = *dst_port;
 		task->m_socket.m_state.m_remote_port = *dst_port;
 		err = mk_lib_iip_random_generate_u32_non_zero(&task->m_socket.m_state.m_local_stream_id); mk_lang_check_rereturn(err);
 		task->m_socket.m_state.m_remote_stream_id = packet->m_recv_stream_id;
-		mk_sl_cui_uint32_set_zero(&task->m_socket.m_state.m_sequence_number);
+		mk_sl_cui_uint32_set_zero(&task->m_socket.m_state.m_local_sequence_number);
+		mk_sl_cui_uint32_set_zero(&task->m_socket.m_state.m_remote_sequence_number);
 		task->m_socket.m_state.m_remote_destination = packet->m_options.m_from;
 		task->m_socket.m_state.m_waiting_for_syn = mk_lang_false;
-		eaten = mk_lang_true;
 	}
 	else if
 	(
@@ -305,13 +304,16 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 		/*(mk_sl_cui_uint16_eq(dst_port, &task->m_socket.m_settings.m_local_port)) &&*/
 		(mk_sl_cui_uint32_eq(&packet->m_send_stream_id, &task->m_socket.m_state.m_local_stream_id)) &&
 		(!mk_sl_cui_uint32_is_zero(&packet->m_recv_stream_id)) &&
+		(mk_sl_cui_uint32_is_zero(&packet->m_sequence_number)) &&
 		((packet->m_flags & mk_lib_iip_net_streaming_packet_flag_e_synchronize) != 0) &&
 		(mk_lang_true)
 	)
 	{
+		eaten = mk_lang_true;
 		task->m_socket.m_state.m_waiting_for_syn = mk_lang_false;
 		task->m_socket.m_state.m_remote_stream_id = packet->m_recv_stream_id;
-		eaten = mk_lang_true;
+		mk_sl_cui_uint32_set_zero(&task->m_socket.m_state.m_remote_sequence_number);
+		mk_sl_cui_uint32_inc1(&task->m_socket.m_state.m_remote_sequence_number);
 	}
 	else if
 	(
@@ -321,10 +323,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 		/*(mk_sl_cui_uint16_eq(dst_port, &task->m_socket.m_settings.m_local_port)) &&*/
 		(mk_sl_cui_uint32_eq(&packet->m_send_stream_id, &task->m_socket.m_state.m_local_stream_id)) &&
 		(mk_sl_cui_uint32_eq(&packet->m_recv_stream_id, &task->m_socket.m_state.m_remote_stream_id)) &&
+		(mk_sl_cui_uint32_eq(&packet->m_sequence_number, &task->m_socket.m_state.m_remote_sequence_number)) &&
 		(mk_lang_true)
 	)
 	{
 		eaten = mk_lang_true;
+		mk_sl_cui_uint32_inc1(&task->m_socket.m_state.m_remote_sequence_number);
 	}
 	else
 	{
