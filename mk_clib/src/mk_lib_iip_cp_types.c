@@ -685,7 +685,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 			case mk_lib_iip_cp_types_sign_key_type_e_rsa_sha256_2048       : mk_lang_check_todo(); break;
 			case mk_lib_iip_cp_types_sign_key_type_e_rsa_sha384_3072       : mk_lang_check_todo(); break;
 			case mk_lib_iip_cp_types_sign_key_type_e_rsa_sha512_4096       : mk_lang_check_todo(); break;
-			case mk_lib_iip_cp_types_sign_key_type_e_eddsa_sha512_ed25519  : mk_lang_check_todo(); break;
+			case mk_lib_iip_cp_types_sign_key_type_e_eddsa_sha512_ed25519  : mk_lib_iip_key_sgn_eddsa_sha512_ed25519_pub_integer_single_to_u8s_be(&obj->m_data.m_elgamal_eddsa_sha512_ed25519.m_sgn_pub.m_data.m_integer, sgn_data_buf); mk_sl_cui_uint8_memcpy_fn(sgn_data_buf + 128 - mk_lang_countof(obj->m_data.m_elgamal_eddsa_sha512_ed25519.m_padding_2), &obj->m_data.m_elgamal_eddsa_sha512_ed25519.m_padding_2[0], ((mk_lang_types_usize_t)(mk_lang_countof(obj->m_data.m_elgamal_eddsa_sha512_ed25519.m_padding_2)))); break;
 			case mk_lib_iip_cp_types_sign_key_type_e_eddsa_sha512_ed25519ph: mk_lang_check_todo(); break;
 			case mk_lib_iip_cp_types_sign_key_type_e_gost_a                : mk_lang_check_todo(); break;
 			case mk_lib_iip_cp_types_sign_key_type_e_gost_b                : mk_lang_check_todo(); break;
