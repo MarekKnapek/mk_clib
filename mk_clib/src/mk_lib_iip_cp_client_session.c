@@ -236,12 +236,25 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_sessio
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_message_status_rw_assign_move(mk_lib_iip_cp_client_session_message_status_pt const dst, mk_lib_iip_cp_client_session_message_status_pt const src) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_message_status_rw_assign_move(mk_lib_iip_cp_client_session_message_status_pt const dst, mk_lib_iip_cp_client_session_message_status_pt const src, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
-	mk_lang_assert(dst);
-	mk_lang_assert(src);
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
+	mk_lib_iip_cp_client_session_message_status_t tmp;
 
-	*dst = *src;
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	mk_lang_assert(dst || count == 0);
+	mk_lang_assert(src || count == 0);
+	mk_lang_assert(count >= 0);
+	#include "mk_lang_warning_msvc_pop.h"
+
+	n = count;
+	for(i = 0; i != n; ++i)
+	{
+		tmp = dst[i];
+		dst[i] = src[i];
+		src[i] = tmp;
+	}
 	return 0;
 }
 
