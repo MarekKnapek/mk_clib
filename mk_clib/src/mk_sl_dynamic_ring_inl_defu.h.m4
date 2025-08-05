@@ -193,7 +193,6 @@ mm_per_typedef(`#undef mk_sl_dynamic_ring_inl_defd_$1')`'dnl
 
 #undef mk_sl_dynamic_ring_inl_defd_prrw_element_construct_copy_single
 #undef mk_sl_dynamic_ring_inl_defd_prrw_element_construct_move_single
-#undef mk_sl_dynamic_ring_inl_defd_prrw_element_assign_move_single
 #undef mk_sl_dynamic_ring_inl_defd_prrw_element_destroy_single
 
 #undef mk_sl_dynamic_ring_inl_defd_prrw_elements_construct_copy_many

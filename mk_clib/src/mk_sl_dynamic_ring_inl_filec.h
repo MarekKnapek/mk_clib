@@ -96,18 +96,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_inl_defd_prrw_element_assign_move_single(mk_sl_dynamic_ring_inl_defd_element_pt const dst, mk_sl_dynamic_ring_inl_defd_element_pt const src) mk_lang_noexcept
-{
-	mk_lang_types_sint_t err;
-
-	mk_lang_assert(dst);
-	mk_lang_assert(src);
-	mk_lang_assert(dst != src);
-
-	err = mk_sl_dynamic_ring_inl_defd_element_move_assign(dst, src); mk_lang_check_rereturn(err);
-	return 0;
-}
-
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_inl_defd_prrw_element_destroy_single(mk_sl_dynamic_ring_inl_defd_element_pt const element) mk_lang_noexcept
 {
 #if mk_sl_dynamic_ring_inl_defd_element_construct_destruct_has
@@ -225,8 +213,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 	mk_sl_dynamic_ring_inl_filec_memcpy_fn(dst, src, count);
 	return 0;
 #elif mk_sl_dynamic_ring_inl_defd_copy_style == mk_sl_dynamic_ring_copy_use_custom
-	mk_lang_types_usize_t n;
-	mk_lang_types_usize_t i;
 	mk_lang_types_sint_t err;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
@@ -239,11 +225,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
-	n = count;
-	for(i = 0; i != n; ++i)
-	{
-		err = mk_sl_dynamic_ring_inl_defd_prrw_element_assign_move_single(&dst[i], &src[i]); mk_lang_check_rereturn(err);
-	}
+	err = mk_sl_dynamic_ring_inl_defd_element_move_assign(dst, src, count); mk_lang_check_rereturn(err);
 	return 0;
 #else
 #error xxxxxxxxxx

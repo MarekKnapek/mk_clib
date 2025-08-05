@@ -57,12 +57,15 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_dyn
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_dynamic_ring_u8_support_assign_move(mk_sl_cui_uint8_pt const dst, mk_sl_cui_uint8_pt const src) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_dynamic_ring_u8_support_assign_move(mk_sl_cui_uint8_pt const dst, mk_sl_cui_uint8_pt const src, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
-	mk_lang_assert(dst);
-	mk_lang_assert(src);
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	mk_lang_assert(dst || count == 0);
+	mk_lang_assert(src || count == 0);
+	mk_lang_assert(count >= 0);
+	#include "mk_lang_warning_msvc_pop.h"
 
-	mk_lang_debug_break();
+	mk_sl_cui_uint8_memcpy_fn(dst, src, count);
 	return 0;
 }
 
