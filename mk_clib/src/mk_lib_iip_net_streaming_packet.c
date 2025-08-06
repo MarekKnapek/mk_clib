@@ -389,10 +389,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_stre
 		err = mk_lib_iip_cp_types_remote_destination_rw_from_bytes(&obj->m_from, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *success = mk_lang_false; return 0; } mk_lang_assert(tlen >= 1); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 		err = mk_lib_iip_net_streaming_packet_prrw_parse_options_from_b32(&obj->m_b32, ptr - tlen, tlen); mk_lang_check_rereturn(err);
 	}
-	else
-	{
-		obj->m_from.m_type = mk_lib_iip_cp_types_remote_destination_type_e_dummy_end;
-	}
 	tlen = data_len - rem;
 	*consumed = tlen;
 	return 0;
@@ -1080,7 +1076,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_net_streaming_pa
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_net_streaming_packet_rw_parse(mk_lib_iip_net_streaming_packet_pt const packet, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lang_types_bool_pt const success) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_net_streaming_packet_rw_pre_parse(mk_lib_iip_net_streaming_packet_pt const packet, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lang_types_bool_pt const success) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_pct ptr;
 	mk_lang_types_sint_t rem;
@@ -1093,6 +1089,45 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_net_streaming_pa
 	mk_lang_assert(data_len >= 0);
 	mk_lang_assert(success);
 	mk_lang_assert(*success == mk_lang_true);
+
+	ptr = data_buf;
+	rem = data_len;
+	gud = mk_lang_true;
+	err = mk_lib_iip_net_streaming_packet_prrw_parse_u32  (&packet->m_send_stream_id                     , ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *success = mk_lang_false; return 0; } mk_lang_assert(tlen >= 1); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_net_streaming_packet_prrw_parse_u32  (&packet->m_recv_stream_id                     , ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *success = mk_lang_false; return 0; } mk_lang_assert(tlen >= 1); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_net_streaming_packet_prrw_parse_u32  (&packet->m_sequence_number                    , ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *success = mk_lang_false; return 0; } mk_lang_assert(tlen >= 1); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_net_streaming_packet_prrw_parse_u32  (&packet->m_ack_through                        , ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *success = mk_lang_false; return 0; } mk_lang_assert(tlen >= 1); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_net_streaming_packet_prrw_parse_nacks(&packet->m_nacks                              , ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *success = mk_lang_false; return 0; } mk_lang_assert(tlen >= 1); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_net_streaming_packet_prrw_parse_s8   (&packet->m_resend_delay                       , ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *success = mk_lang_false; return 0; } mk_lang_assert(tlen >= 1); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_net_streaming_packet_prrw_parse_flags(&packet->m_flags                              , ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *success = mk_lang_false; return 0; } mk_lang_assert(tlen >= 1); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_net_streaming_packet_rw_parse(mk_lib_iip_net_streaming_packet_pt const packet, mk_lib_iip_cp_types_remote_destination_pct const remote_destination, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lang_types_bool_pt const success) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pct ptr;
+	mk_lang_types_sint_t rem;
+	mk_lang_types_bool_t gud;
+	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t tlen;
+
+	mk_lang_assert(packet);
+	mk_lang_assert(remote_destination || !remote_destination);
+	mk_lang_assert(data_buf || data_len == 0);
+	mk_lang_assert(data_len >= 0);
+	mk_lang_assert(success);
+	mk_lang_assert(*success == mk_lang_true);
+
+	if
+	(
+		((packet->m_flags & mk_lib_iip_net_streaming_packet_flag_e_signature_included) != 0) &&
+		((packet->m_flags & mk_lib_iip_net_streaming_packet_flag_e_from_included) == 0) &&
+		(remote_destination) &&
+		(mk_lang_true)
+	)
+	{
+		packet->m_options.m_from = *remote_destination;
+	}
 
 	ptr = data_buf;
 	rem = data_len;

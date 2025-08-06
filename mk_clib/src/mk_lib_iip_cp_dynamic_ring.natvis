@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+	<Type Name="mk_lib_iip_cp_dynamic_ring_u8_s">
+		<DisplayString>{{ size = {m_write - m_read} capacity = {m_capacity} }}</DisplayString>
+		<Expand>
+			<Item Name="[size]">m_write - m_read</Item>
+			<Item Name="[capacity]">m_capacity</Item>
+			<IndexListItems>
+				<Size>m_write - m_read</Size>
+				<ValueNode>m_buffer[(m_read + $i) % m_capacity]</ValueNode>
+			</IndexListItems>
+		</Expand>
+	</Type>
+</AutoVisualizer>
