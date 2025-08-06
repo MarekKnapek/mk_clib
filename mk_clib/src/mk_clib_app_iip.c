@@ -622,6 +622,7 @@ struct mk_clib_app_iip_example1_s
 	mk_lang_types_bool_t m_request_finished;
 	mk_lang_types_bool_t m_remote_address_has;
 	mk_lang_types_bool_t m_connect_sent;
+	mk_lang_types_bool_t m_connected;
 	mk_lib_iip_cp_client_types_lookup_host_name_t m_request;
 	mk_lib_iip_cp_types_remote_destination_t m_destination;
 	mk_lib_iip_cp_client_types_socket_connect_settings_t m_connect_settings;
@@ -652,6 +653,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_exa
 	example1->m_request_finished = mk_lang_false;
 	example1->m_remote_address_has = mk_lang_false;
 	example1->m_connect_sent = mk_lang_false;
+	example1->m_connected = mk_lang_false;
 	example1->m_request.m_done = mk_lang_false;
 	err = mk_lib_iip_buffer_rw_construct(&example1->m_request.m_destination); mk_lang_check_rereturn(err);
 	return 0;
@@ -794,6 +796,41 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_exa
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_example1_rw_on_idle_connected(mk_clib_app_iip_example1_pt const example1) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(example1);
+
+	if(!example1->m_connected)
+	{
+		if(example1->m_connect_sent)
+		{
+			err = mk_lib_iip_cp_client_wrapper_task_rw_is_connected(example1->m_wrp, &example1->m_connection, &example1->m_connected); mk_lang_check_rereturn(err);
+		}
+	}
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_example1_rw_on_idle_recv(mk_clib_app_iip_example1_pt const example1) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pt data_buf;
+	mk_sl_cui_uint8_t data_sto[4 * 1024];
+	mk_lang_types_sint_t data_cap;
+	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t data_len;
+
+	mk_lang_assert(example1);
+
+	if(example1->m_connected)
+	{
+		data_buf = &data_sto[0];
+		data_cap = mk_lang_countof(data_sto);
+		err = mk_lib_iip_cp_client_wrapper_task_rw_recv(example1->m_wrp, &example1->m_connection, data_buf, data_cap, &data_len); mk_lang_check_rereturn(err);
+	}
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_example1_rw_on_idle(mk_clib_app_iip_example1_pt const example1) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
@@ -803,6 +840,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_exa
 	err = mk_clib_app_iip_example1_rw_on_idle_send_request(example1); mk_lang_check_rereturn(err);
 	err = mk_clib_app_iip_example1_rw_on_idle_process_address(example1); mk_lang_check_rereturn(err);
 	err = mk_clib_app_iip_example1_rw_on_idle_connect(example1); mk_lang_check_rereturn(err);
+	err = mk_clib_app_iip_example1_rw_on_idle_connected(example1); mk_lang_check_rereturn(err);
+	err = mk_clib_app_iip_example1_rw_on_idle_recv(example1); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -892,7 +931,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wor
 	web_servers.m_session_3 = session_3;
 	err = mk_clib_app_iip_web_servers_init(&web_servers); mk_lang_check_rereturn(err);
 
-	err = mk_clib_app_iip_example1_rw_construct(&example1, &wrp, &session_2); mk_lang_check_rereturn(err);
+	err = mk_clib_app_iip_example1_rw_construct(&example1, &wrp, &session_3); mk_lang_check_rereturn(err);
 
 	mk_clib_app_iip_g_wrp = &wrp;
 	mk_clib_app_iip_g_stop_requested = mk_lang_false;

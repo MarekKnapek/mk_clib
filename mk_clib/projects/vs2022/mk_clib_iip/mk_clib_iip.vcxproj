@@ -178,6 +178,7 @@
 		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_client_local_listener_task.natvis"><ExcludedFromBuild Condition="'$(Configuration)'=='Debug'">true</ExcludedFromBuild></Natvis>
 		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_client_session_task.natvis"><ExcludedFromBuild Condition="'$(Configuration)'=='Debug'">true</ExcludedFromBuild></Natvis>
 		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_client_socket.natvis"><ExcludedFromBuild Condition="'$(Configuration)'=='Debug'">true</ExcludedFromBuild></Natvis>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_dynamic_ring.natvis"><ExcludedFromBuild Condition="'$(Configuration)'=='Debug'">true</ExcludedFromBuild></Natvis>
 		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_mallocator_global.natvis"><ExcludedFromBuild Condition="'$(Configuration)'=='Debug'">true</ExcludedFromBuild></Natvis>
 		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_time.natvis"><ExcludedFromBuild Condition="'$(Configuration)'=='Debug'">true</ExcludedFromBuild></Natvis>
 		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_net.natvis"><ExcludedFromBuild Condition="'$(Configuration)'=='Debug'">true</ExcludedFromBuild></Natvis>
