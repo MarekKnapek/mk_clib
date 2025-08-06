@@ -11,6 +11,7 @@
 #include "mk_lang_types.h"
 #include "mk_lib_iip_buffer.h"
 #include "mk_lib_iip_cp_dynamic_ring.h"
+#include "mk_lib_iip_cp_dynamic_ring.h"
 #include "mk_lib_iip_cp_mallocator_global.h"
 #include "mk_lib_iip_cp_message.h"
 #include "mk_lib_iip_cp_types.h"
@@ -38,7 +39,7 @@ mk_lang_forward(mk_lib_iip_cp_message);
 struct mk_lib_iip_cp_client_socket_packet_with_payload_s
 {
 	mk_lib_iip_net_streaming_packet_t m_packet;
-	mk_lib_iip_buffer_t m_payload;
+	mk_lib_iip_cp_dynamic_ring_u8_t m_payload;
 };
 typedef struct mk_lib_iip_cp_client_socket_packet_with_payload_s mk_lib_iip_cp_client_socket_packet_with_payload_t;
 mk_lang_typedef(mk_lib_iip_cp_client_socket_packet_with_payload);

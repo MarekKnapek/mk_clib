@@ -22,6 +22,7 @@
 #include "mk_lib_iip_base32_encoder.h"
 #include "mk_lib_iip_buffer.h"
 #include "mk_lib_iip_cp_client_shared.h"
+#include "mk_lib_iip_cp_dynamic_ring.h"
 #include "mk_lib_iip_cp_mallocator_global.h"
 #include "mk_lib_iip_cp_message.h"
 #include "mk_lib_iip_cp_types.h"
@@ -76,7 +77,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket
 	mk_lang_assert(x);
 
 	((mk_lang_types_void_t)(x->m_packet));
-	err = mk_lib_iip_buffer_rw_destroy(&x->m_payload); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_dynamic_ring_u8_rw_destroy(&x->m_payload); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -371,8 +372,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	{
 		err = mk_lib_iip_cp_mallocator_global_allocate(sizeof(*packet_with_payload), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem); packet_with_payload = ((mk_lib_iip_cp_client_socket_packet_with_payload_pt)(mem)); mk_lang_assert(packet_with_payload);
 		packet_with_payload->m_packet = *packet;
-		err = mk_lib_iip_buffer_rw_construct(&packet_with_payload->m_payload); mk_lang_check_rereturn(err);
-		err = mk_lib_iip_buffer_rw_push_back_move_many(&packet_with_payload->m_payload, packet->m_payload_buf, ((mk_lang_types_usize_t)(packet->m_payload_len))); mk_lang_check_rereturn(err);
+		err = mk_lib_iip_cp_dynamic_ring_u8_rw_construct(&packet_with_payload->m_payload); mk_lang_check_rereturn(err);
+		err = mk_lib_iip_cp_dynamic_ring_u8_rw_push_back_move_many(&packet_with_payload->m_payload, packet->m_payload_buf, ((mk_lang_types_usize_t)(packet->m_payload_len))); mk_lang_check_rereturn(err);
 		err = mk_lib_iip_cp_client_socket_packets_with_payload_rw_push_back_move_single(&task->m_socket.m_state.m_packets_in_arrived, &packet_with_payload); mk_lang_check_rereturn(err);
 	}
 	*consumed = eaten;
@@ -411,14 +412,15 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	while(rem != 0 && !mk_lib_iip_cp_client_socket_packets_with_payload_rw_is_empty(&task->m_socket.m_state.m_packets_in_arrived))
 	{
 		oldest_packet_ptr = mk_lib_iip_cp_client_socket_packets_with_payload_rw_get_front(&task->m_socket.m_state.m_packets_in_arrived); mk_lang_assert(oldest_packet_ptr); oldest_packet_val = *oldest_packet_ptr; mk_lang_assert(oldest_packet_val);
-		bytes_buf = mk_lib_iip_buffer_rw_data(&oldest_packet_val->m_payload);
-		bytes_len = mk_lib_iip_buffer_rw_sise(&oldest_packet_val->m_payload);
+		err = mk_lib_iip_cp_dynamic_ring_u8_rw_consolidate(&oldest_packet_val->m_payload); mk_lang_check_rereturn(err);
+		bytes_buf = mk_lib_iip_cp_dynamic_ring_u8_rw_get_data_a(&oldest_packet_val->m_payload);
+		bytes_len = mk_lib_iip_cp_dynamic_ring_u8_rw_get_sise_a(&oldest_packet_val->m_payload);
 		to_copy = mk_lang_min(rem, bytes_len);
 		mk_sl_cui_uint8_memcpy_fn(ptr, bytes_buf, ((mk_lang_types_usize_t)(to_copy)));
-		err = mk_lib_iip_buffer_rw_pop_front_many(&oldest_packet_val->m_payload, ((mk_lang_types_usize_t)(to_copy))); mk_lang_check_rereturn(err);
+		err = mk_lib_iip_cp_dynamic_ring_u8_rw_pop_front_many(&oldest_packet_val->m_payload, ((mk_lang_types_usize_t)(to_copy))); mk_lang_check_rereturn(err);
 		ptr += to_copy;
 		rem -= to_copy;
-		if(mk_lib_iip_buffer_rw_is_empty(&oldest_packet_val->m_payload))
+		if(mk_lib_iip_cp_dynamic_ring_u8_rw_is_empty(&oldest_packet_val->m_payload))
 		{
 			err = mk_lib_iip_cp_client_socket_task_prrw_process_incoming_packet(task, &oldest_packet_val->m_packet); mk_lang_check_rereturn(err);
 			err = mk_lib_iip_cp_client_socket_packets_with_payload_rw_push_back_move_single(&task->m_socket.m_state.m_packets_in_to_ack, oldest_packet_ptr); mk_lang_check_rereturn(err);
