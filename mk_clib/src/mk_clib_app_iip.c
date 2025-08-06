@@ -627,6 +627,7 @@ struct mk_clib_app_iip_example1_s
 	mk_lib_iip_cp_types_remote_destination_t m_destination;
 	mk_lib_iip_cp_client_types_socket_connect_settings_t m_connect_settings;
 	mk_lib_iip_cp_client_types_handle_socket_connect_t m_connection;
+	mk_lib_iip_buffer_t m_response;
 };
 typedef struct mk_clib_app_iip_example1_s mk_clib_app_iip_example1_t;
 mk_lang_typedef(mk_clib_app_iip_example1);
@@ -656,6 +657,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_exa
 	example1->m_connected = mk_lang_false;
 	example1->m_request.m_done = mk_lang_false;
 	err = mk_lib_iip_buffer_rw_construct(&example1->m_request.m_destination); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_buffer_rw_construct(&example1->m_response); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -666,6 +668,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_exa
 	mk_lang_assert(example1);
 
 	err = mk_lib_iip_buffer_rw_destroy(&example1->m_request.m_destination); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_buffer_rw_destroy(&example1->m_response); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -827,6 +830,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_exa
 		data_buf = &data_sto[0];
 		data_cap = mk_lang_countof(data_sto);
 		err = mk_lib_iip_cp_client_wrapper_task_rw_recv(example1->m_wrp, &example1->m_connection, data_buf, data_cap, &data_len); mk_lang_check_rereturn(err);
+		err = mk_lib_iip_buffer_rw_push_back_copy_many(&example1->m_response, data_buf, data_len); mk_lang_check_rereturn(err);
 	}
 	return 0;
 }
