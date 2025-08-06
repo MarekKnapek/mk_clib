@@ -32,6 +32,7 @@
 #include "mk_lib_iip_cp_mallocator_global.h"
 #include "mk_lib_iip_cp_types.h"
 #include "mk_lib_iip_http.h"
+#include "mk_lib_iip_http_client_response.h"
 #include "mk_lib_iip_key_enc_elgamal_pri.h"
 #include "mk_lib_iip_key_enc_elgamal_pub.h"
 #include "mk_lib_iip_key_sgn_dsa_sha1.h"
@@ -627,7 +628,8 @@ struct mk_clib_app_iip_example1_s
 	mk_lib_iip_cp_types_remote_destination_t m_destination;
 	mk_lib_iip_cp_client_types_socket_connect_settings_t m_connect_settings;
 	mk_lib_iip_cp_client_types_handle_socket_connect_t m_connection;
-	mk_lib_iip_buffer_t m_response;
+	mk_lib_iip_cp_dynamic_ring_u8_t m_buffer;
+	mk_lib_iip_http_client_response_t m_http_response;
 };
 typedef struct mk_clib_app_iip_example1_s mk_clib_app_iip_example1_t;
 mk_lang_typedef(mk_clib_app_iip_example1);
@@ -657,7 +659,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_exa
 	example1->m_connected = mk_lang_false;
 	example1->m_request.m_done = mk_lang_false;
 	err = mk_lib_iip_buffer_rw_construct(&example1->m_request.m_destination); mk_lang_check_rereturn(err);
-	err = mk_lib_iip_buffer_rw_construct(&example1->m_response); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_dynamic_ring_u8_rw_construct(&example1->m_buffer); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_http_client_response_rw_construct(&example1->m_http_response); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -668,7 +671,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_exa
 	mk_lang_assert(example1);
 
 	err = mk_lib_iip_buffer_rw_destroy(&example1->m_request.m_destination); mk_lang_check_rereturn(err);
-	err = mk_lib_iip_buffer_rw_destroy(&example1->m_response); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_dynamic_ring_u8_rw_destroy(&example1->m_buffer); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_http_client_response_rw_destroy(&example1->m_http_response); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -818,10 +822,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_exa
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_example1_rw_on_idle_recv(mk_clib_app_iip_example1_pt const example1) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_pt data_buf;
-	mk_sl_cui_uint8_t data_sto[4 * 1024];
+	mk_sl_cui_uint8_t data_sto[512];
 	mk_lang_types_sint_t data_cap;
 	mk_lang_types_sint_t err;
 	mk_lang_types_sint_t data_len;
+	mk_lib_iip_http_client_response_parse_error_code_t error_code;
+	mk_lang_types_sint_t consumed;
 
 	mk_lang_assert(example1);
 
@@ -830,7 +836,21 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_exa
 		data_buf = &data_sto[0];
 		data_cap = mk_lang_countof(data_sto);
 		err = mk_lib_iip_cp_client_wrapper_task_rw_recv(example1->m_wrp, &example1->m_connection, data_buf, data_cap, &data_len); mk_lang_check_rereturn(err);
-		err = mk_lib_iip_buffer_rw_push_back_copy_many(&example1->m_response, data_buf, data_len); mk_lang_check_rereturn(err);
+		if(mk_lib_iip_cp_dynamic_ring_u8_rw_is_empty(&example1->m_buffer))
+		{
+			error_code = mk_lib_iip_http_client_response_parse_error_code_e_ok;
+			err = mk_lib_iip_http_client_response_rw_on_incoming_data(&example1->m_http_response, data_buf, data_len, &error_code, &consumed); mk_lang_check_rereturn(err); mk_lang_check_return(error_code == mk_lib_iip_http_client_response_parse_error_code_e_ok); mk_lang_assert(consumed >= 0); mk_lang_assert(consumed <= data_len);
+			err = mk_lib_iip_cp_dynamic_ring_u8_rw_push_back_copy_many(&example1->m_buffer, data_buf + consumed, ((mk_lang_types_usize_t)(data_len - consumed))); mk_lang_check_rereturn(err);
+		}
+		else
+		{
+			err = mk_lib_iip_cp_dynamic_ring_u8_rw_push_back_copy_many(&example1->m_buffer, data_buf, ((mk_lang_types_usize_t)(data_len))); mk_lang_check_rereturn(err);
+			err = mk_lib_iip_cp_dynamic_ring_u8_rw_consolidate(&example1->m_buffer); mk_lang_check_rereturn(err);
+			data_buf = mk_lib_iip_cp_dynamic_ring_u8_rw_get_data_a(&example1->m_buffer);
+			data_len = mk_lib_iip_cp_dynamic_ring_u8_rw_get_sise_a(&example1->m_buffer);
+			error_code = mk_lib_iip_http_client_response_parse_error_code_e_ok;
+			err = mk_lib_iip_http_client_response_rw_on_incoming_data(&example1->m_http_response, data_buf, data_len, &error_code, &consumed); mk_lang_check_rereturn(err); mk_lang_check_return(error_code == mk_lib_iip_http_client_response_parse_error_code_e_ok); mk_lang_assert(consumed >= 0); mk_lang_assert(consumed <= data_len);
+		}
 	}
 	return 0;
 }

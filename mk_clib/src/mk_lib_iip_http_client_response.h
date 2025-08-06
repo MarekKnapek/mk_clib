@@ -8,7 +8,7 @@
 #include "mk_lang_noexcept.h"
 #include "mk_lang_typedef.h"
 #include "mk_lang_types.h"
-#include "mk_lib_iip_cp_mallocator_global.h"
+#include "mk_lib_iip_cp_dynamic_ring.h"
 #include "mk_lib_iip_http_buffer.h"
 
 
@@ -18,8 +18,9 @@ mk_lang_forward(mk_sl_cui_uint8);
 enum mk_lib_iip_http_client_response_parse_error_code_e
 {
 	mk_lib_iip_http_client_response_parse_error_code_e_ok,
-	mk_lib_iip_http_client_response_parse_error_code_e_bad_method,
-	mk_lib_iip_http_client_response_parse_error_code_e_bad_header,
+	mk_lib_iip_http_client_response_parse_error_code_e_bad_format,
+	mk_lib_iip_http_client_response_parse_error_code_e_bad_protocol,
+	mk_lib_iip_http_client_response_parse_error_code_e_bad_status_code,
 	mk_lib_iip_http_client_response_parse_error_code_e_dummy_end
 };
 typedef enum mk_lib_iip_http_client_response_parse_error_code_e mk_lib_iip_http_client_response_parse_error_code_t;
@@ -40,13 +41,13 @@ enum mk_lib_iip_http_client_response_method_id_e
 typedef enum mk_lib_iip_http_client_response_method_id_e mk_lib_iip_http_client_response_method_id_t;
 mk_lang_typedef(mk_lib_iip_http_client_response_method_id);
 
-enum mk_lib_iip_http_client_response_version_id_e
+enum mk_lib_iip_http_client_response_protocol_e
 {
-	mk_lib_iip_http_client_response_version_id_e_1_1,
-	mk_lib_iip_http_client_response_version_id_e_dummy_end
+	mk_lib_iip_http_client_response_protocol_e_1_1,
+	mk_lib_iip_http_client_response_protocol_e_dummy_end
 };
-typedef enum mk_lib_iip_http_client_response_version_id_e mk_lib_iip_http_client_response_version_id_t;
-mk_lang_typedef(mk_lib_iip_http_client_response_version_id);
+typedef enum mk_lib_iip_http_client_response_protocol_e mk_lib_iip_http_client_response_protocol_t;
+mk_lang_typedef(mk_lib_iip_http_client_response_protocol);
 
 
 #include "mk_lang_warning_msvc_push_c4820.h"
@@ -82,12 +83,17 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_http_client_resp
 #include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_lib_iip_http_client_response_s
 {
+	mk_lib_iip_http_client_response_protocol_t m_protocol;
+	mk_lang_types_sint_t m_status_code;
+	mk_lib_iip_http_buffer_t m_reason_phrase;
+	mk_lib_iip_cp_dynamic_ring_u8_t m_buffer;
+/*
 	mk_lib_iip_http_client_response_method_id_t m_method;
 	mk_lib_iip_http_buffer_t m_uri;
-	mk_lib_iip_http_client_response_version_id_t m_version;
+	mk_lib_iip_http_client_response_protocol_t m_version;
 	mk_lib_iip_http_client_response_headers_t m_headers;
 	mk_lang_types_bool_t m_hdrs_done;
-	mk_lib_iip_http_buffer_t m_buffer;
+*/
 };
 typedef struct mk_lib_iip_http_client_response_s mk_lib_iip_http_client_response_t;
 mk_lang_typedef(mk_lib_iip_http_client_response);
