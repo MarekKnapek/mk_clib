@@ -353,6 +353,20 @@ mk_lang_nodiscard static mk_lang_inline mk_sl_dynamic_ring_inl_defd_element_pct 
 	return r;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_sl_dynamic_ring_inl_defd_element_pct mk_sl_dynamic_ring_inl_defd_prro_get_back(mk_sl_dynamic_ring_inl_defd_pct const ring) mk_lang_noexcept
+{
+	mk_sl_dynamic_ring_inl_defd_element_pct r;
+
+	mk_lang_assert(ring);
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(!mk_sl_dynamic_ring_inl_defd_prro_is_empty(ring));
+
+	r = &ring->m_buffer[(ring->m_read + ((ring->m_write - ring->m_read) - 1)) & (ring->m_capacity - 1)];
+
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	return r;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_usize_t mk_sl_dynamic_ring_inl_defd_prro_get_size_a(mk_sl_dynamic_ring_inl_defd_pct const ring) mk_lang_noexcept
 {
 	mk_lang_types_usize_t cap;
@@ -589,6 +603,20 @@ mk_lang_nodiscard static mk_lang_inline mk_sl_dynamic_ring_inl_defd_element_pt m
 	mk_lang_assert(!mk_sl_dynamic_ring_inl_defd_prrw_is_empty(ring));
 
 	r = &ring->m_buffer[ring->m_read & (ring->m_capacity - 1)];
+
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	return r;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_sl_dynamic_ring_inl_defd_element_pt mk_sl_dynamic_ring_inl_defd_prrw_get_back(mk_sl_dynamic_ring_inl_defd_pt const ring) mk_lang_noexcept
+{
+	mk_sl_dynamic_ring_inl_defd_element_pt r;
+
+	mk_lang_assert(ring);
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(!mk_sl_dynamic_ring_inl_defd_prrw_is_empty(ring));
+
+	r = &ring->m_buffer[(ring->m_read + ((ring->m_write - ring->m_read) - 1)) & (ring->m_capacity - 1)];
 
 	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
 	return r;
@@ -1350,6 +1378,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_sl_dynamic_ring_inl_defd_element_pct mk_sl_dy
 	return mk_sl_dynamic_ring_inl_defd_prro_get_front(ring);
 }
 
+mk_lang_nodiscard mk_lang_jumbo mk_sl_dynamic_ring_inl_defd_element_pct mk_sl_dynamic_ring_inl_defd_ro_get_back(mk_sl_dynamic_ring_inl_defd_pct const ring) mk_lang_noexcept
+{
+	return mk_sl_dynamic_ring_inl_defd_prro_get_back(ring);
+}
+
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_usize_t mk_sl_dynamic_ring_inl_defd_ro_get_size_a(mk_sl_dynamic_ring_inl_defd_pct const ring) mk_lang_noexcept
 {
 	return mk_sl_dynamic_ring_inl_defd_prro_get_size_a(ring);
@@ -1432,6 +1465,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_sl_dynamic_ring_inl_defd
 mk_lang_nodiscard mk_lang_jumbo mk_sl_dynamic_ring_inl_defd_element_pt mk_sl_dynamic_ring_inl_defd_rw_get_front(mk_sl_dynamic_ring_inl_defd_pt const ring) mk_lang_noexcept
 {
 	return mk_sl_dynamic_ring_inl_defd_prrw_get_front(ring);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_sl_dynamic_ring_inl_defd_element_pt mk_sl_dynamic_ring_inl_defd_rw_get_back(mk_sl_dynamic_ring_inl_defd_pt const ring) mk_lang_noexcept
+{
+	return mk_sl_dynamic_ring_inl_defd_prrw_get_back(ring);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_sl_dynamic_ring_inl_defd_rw_is_full(mk_sl_dynamic_ring_inl_defd_pt const ring) mk_lang_noexcept
