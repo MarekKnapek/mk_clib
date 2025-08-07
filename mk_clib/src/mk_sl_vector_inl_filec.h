@@ -517,7 +517,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_de
 	n = count;
 	for(i = 0; i != n; ++i)
 	{
-		idx = ((size - 1) - count) + i;
+		idx = (size - count) + i;
 		#if mk_sl_vector_inl_defd_mallocator_is_lokal
 		err = mk_sl_vector_inl_defd_element_construct_void(&data[idx], vector->m_mallocator); mk_lang_check_rereturn(err);
 		#else

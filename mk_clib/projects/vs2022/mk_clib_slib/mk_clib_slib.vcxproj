@@ -1469,6 +1469,7 @@
 		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_client_socket.natvis"/>
 		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_dynamic_ring.natvis"/>
 		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_mallocator_global.natvis"/>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_http_client_response.natvis"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_message_create_session_strings.c.m4"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_message_create_session_strings.h.m4"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_message_create_session_strings.m"/>

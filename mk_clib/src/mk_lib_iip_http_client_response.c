@@ -531,6 +531,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_http_cli
 	http->m_protocol = mk_lib_iip_http_client_response_protocol_e_dummy_end;
 	http->m_status_code = 0;
 	err = mk_lib_iip_http_buffer_rw_construct(&http->m_reason_phrase); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_http_client_response_headers_rw_construct(&http->m_headers); mk_lang_check_rereturn(err);
+	http->m_headers_done = mk_lang_false;
+	http->m_resource_done = mk_lang_false;
 	err = mk_lib_iip_cp_dynamic_ring_u8_rw_construct(&http->m_buffer); mk_lang_check_rereturn(err);
 	return 0;
 }
@@ -542,6 +545,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_http_cli
 	mk_lang_assert(http);
 
 	err = mk_lib_iip_http_buffer_rw_destroy(&http->m_reason_phrase); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_http_client_response_headers_rw_destroy(&http->m_headers); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_cp_dynamic_ring_u8_rw_destroy(&http->m_buffer); mk_lang_check_rereturn(err);
 	return 0;
 }
@@ -580,8 +584,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_bool_t mk_lib_iip_http_cli
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_http_client_response_prrw_find_crlf(mk_lib_iip_http_client_response_pt const http, mk_lang_types_sint_pt const pos) mk_lang_noexcept
 {
-	mk_lang_types_pchar_t pchar;
-	mk_sl_cui_uint8_t u8;
+	mk_lang_types_pchar_t tpc;
+	mk_sl_cui_uint8_t u_cr;
+	mk_sl_cui_uint8_t u_lf;
 	mk_lang_types_sint_t err;
 	mk_sl_cui_uint8_pct data;
 	mk_lang_types_sint_t sise;
@@ -592,15 +597,19 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_http_cli
 	mk_lang_assert(http);
 	mk_lang_assert(pos);
 
-	pchar = '\x0d';
-	mk_sl_cui_uint8_from_bi_pchar(&u8, &pchar);
+	tpc = '\x0d'; mk_sl_cui_uint8_from_bi_pchar(&u_cr, &tpc);
+	tpc = '\x0a'; mk_sl_cui_uint8_from_bi_pchar(&u_lf, &tpc);
 	err = mk_lib_iip_cp_dynamic_ring_u8_rw_consolidate(&http->m_buffer); mk_lang_check_rereturn(err);
 	data = mk_lib_iip_cp_dynamic_ring_u8_rw_get_data_a(&http->m_buffer);
 	sise = mk_lib_iip_cp_dynamic_ring_u8_rw_get_sise_a(&http->m_buffer);
 	n = sise;
 	for(i = 0; i != n; ++i)
 	{
-		is = mk_sl_cui_uint8_eq(&u8, &data[i]);
+		is =
+			(mk_sl_cui_uint8_eq(&u_cr, &data[i])) &&
+			((i + 1) < sise) &&
+			(mk_sl_cui_uint8_eq(&u_lf, &data[i + 1])) &&
+			(mk_lang_true);
 		if(is)
 		{
 			break;
@@ -612,10 +621,50 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_http_cli
 	}
 	else
 	{
-		pchar = '\x0a';
-		mk_sl_cui_uint8_from_bi_pchar(&u8, &pchar);
-		is = (i + 1) < sise && mk_sl_cui_uint8_eq(&u8, &data[i + 1]);
-		*pos = is ? i : -1;
+		*pos = i;
+	}
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_http_client_response_prrw_find_colon_space(mk_lib_iip_http_client_response_pt const http, mk_lang_types_sint_t const limit, mk_lang_types_sint_pt const pos) mk_lang_noexcept
+{
+	mk_lang_types_pchar_t tpc;
+	mk_sl_cui_uint8_t u_colon;
+	mk_sl_cui_uint8_t u_space;
+	mk_lang_types_sint_t err;
+	mk_sl_cui_uint8_pct data;
+	mk_lang_types_sint_t n;
+	mk_lang_types_sint_t i;
+	mk_lang_types_bool_t is;
+
+	mk_lang_assert(http);
+	mk_lang_assert(limit >= 0);
+	mk_lang_assert(pos);
+
+	tpc = ':'; mk_sl_cui_uint8_from_bi_pchar(&u_colon, &tpc);
+	tpc = ' '; mk_sl_cui_uint8_from_bi_pchar(&u_space, &tpc);
+	err = mk_lib_iip_cp_dynamic_ring_u8_rw_consolidate(&http->m_buffer); mk_lang_check_rereturn(err);
+	data = mk_lib_iip_cp_dynamic_ring_u8_rw_get_data_a(&http->m_buffer);
+	n = limit;
+	for(i = 0; i != n; ++i)
+	{
+		is =
+			(mk_sl_cui_uint8_eq(&u_colon, &data[i])) &&
+			((i + 1) < limit) &&
+			(mk_sl_cui_uint8_eq(&u_space, &data[i + 1])) &&
+			(mk_lang_true);
+		if(is)
+		{
+			break;
+		}
+	}
+	if(i == n)
+	{
+		*pos = -1;
+	}
+	else
+	{
+		*pos = i;
 	}
 	return 0;
 }
@@ -644,7 +693,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_http_cli
 
 	ptr = data_buf;
 	rem = data_len;
-	if(http->m_protocol == mk_lib_iip_http_client_response_protocol_e_dummy_end)
+	if
+	(
+		(http->m_protocol == mk_lib_iip_http_client_response_protocol_e_dummy_end) &&
+		(mk_lang_true)
+	)
 	{
 		protocol_max_len = mk_lib_iip_http_client_response_prrw_protocol_str_len(); mk_lang_assert(protocol_max_len >= 1);
 		curr_len = mk_lib_iip_cp_dynamic_ring_u8_rw_get_sise(&http->m_buffer);
@@ -807,6 +860,117 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_http_cli
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_http_client_response_prrw_parse_headers(mk_lib_iip_http_client_response_pt const http, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_http_client_response_parse_error_code_pt const error_code, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pct ptr;
+	mk_lang_types_sint_t rem;
+	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t pos_a;
+	mk_lang_types_sint_t pos_b;
+	mk_sl_cui_uint8_pct data;
+	mk_lang_types_sint_t tlen;
+	mk_lib_iip_http_client_response_header_pt header;
+
+	mk_lang_assert(http);
+	mk_lang_assert(data_buf || data_len == 0);
+	mk_lang_assert(data_len >= 0);
+	mk_lang_assert(error_code);
+	mk_lang_assert(consumed);
+	mk_lang_assert(*error_code == mk_lib_iip_http_client_response_parse_error_code_e_ok);
+
+	ptr = data_buf;
+	rem = data_len;
+	if
+	(
+		(http->m_protocol != mk_lib_iip_http_client_response_protocol_e_dummy_end) &&
+		(http->m_status_code != 0) &&
+		(!mk_lib_iip_http_buffer_rw_is_empty(&http->m_reason_phrase)) &&
+		(!http->m_headers_done) &&
+		(mk_lang_true)
+	)
+	{
+		for(;;)
+		{
+			err = mk_lib_iip_http_client_response_prrw_find_crlf(http, &pos_a); mk_lang_check_rereturn(err);
+			if(pos_a == -1)
+			{
+				err = mk_lib_iip_cp_dynamic_ring_u8_rw_push_back_copy_many(&http->m_buffer, ptr, ((mk_lang_types_usize_t)(rem))); mk_lang_check_rereturn(err);
+				ptr += rem;
+				rem -= rem;
+				err = mk_lib_iip_http_client_response_prrw_find_crlf(http, &pos_a); mk_lang_check_rereturn(err);
+			}
+			if(pos_a == 0)
+			{
+				err = mk_lib_iip_cp_dynamic_ring_u8_rw_pop_front_many(&http->m_buffer, 2); mk_lang_check_rereturn(err);
+				http->m_headers_done = mk_lang_true;
+				break;
+			}
+			else if(pos_a != -1)
+			{
+				err = mk_lib_iip_http_client_response_prrw_find_colon_space(http, pos_a, &pos_b); mk_lang_check_rereturn(err);
+				if(pos_b != -1)
+				{
+					mk_lang_assert(pos_b + 2 <= pos_a);
+					err = mk_lib_iip_cp_dynamic_ring_u8_rw_consolidate(&http->m_buffer); mk_lang_check_rereturn(err);
+					data = mk_lib_iip_cp_dynamic_ring_u8_rw_get_data_a(&http->m_buffer);
+					err = mk_lib_iip_http_client_response_headers_rw_grow_by(&http->m_headers, 1); mk_lang_check_rereturn(err);
+					header = mk_lib_iip_http_client_response_headers_rw_back(&http->m_headers); mk_lang_assert(header);
+					err = mk_lib_iip_http_buffer_rw_construct(&header->m_key); mk_lang_check_rereturn(err);
+					err = mk_lib_iip_http_buffer_rw_push_back_copy_many(&header->m_key, data + 0, ((mk_lang_types_usize_t)(pos_b))); mk_lang_check_rereturn(err);
+					err = mk_lib_iip_http_buffer_rw_fancy_string(&header->m_key); mk_lang_check_rereturn(err);
+					err = mk_lib_iip_http_buffer_rw_construct(&header->m_val); mk_lang_check_rereturn(err);
+					err = mk_lib_iip_http_buffer_rw_push_back_copy_many(&header->m_val, data + pos_b + 2, ((mk_lang_types_usize_t)(pos_a - pos_b - 2))); mk_lang_check_rereturn(err);
+					err = mk_lib_iip_http_buffer_rw_fancy_string(&header->m_val); mk_lang_check_rereturn(err);
+					err = mk_lib_iip_cp_dynamic_ring_u8_rw_pop_front_many(&http->m_buffer, ((mk_lang_types_usize_t)(pos_a + 2))); mk_lang_check_rereturn(err);
+				}
+				else
+				{
+					*error_code = mk_lib_iip_http_client_response_parse_error_code_e_bad_header;
+				}
+			}
+		}
+	}
+	tlen = data_len - rem;
+	*consumed = tlen;
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_http_client_response_prrw_parse_resource(mk_lib_iip_http_client_response_pt const http, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_http_client_response_parse_error_code_pt const error_code, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pct ptr;
+	mk_lang_types_sint_t rem;
+	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t pos_a;
+	mk_lang_types_sint_t pos_b;
+	mk_sl_cui_uint8_pct data;
+	mk_lang_types_sint_t tlen;
+	mk_lib_iip_http_client_response_header_pt header;
+
+	mk_lang_assert(http);
+	mk_lang_assert(data_buf || data_len == 0);
+	mk_lang_assert(data_len >= 0);
+	mk_lang_assert(error_code);
+	mk_lang_assert(consumed);
+	mk_lang_assert(*error_code == mk_lib_iip_http_client_response_parse_error_code_e_ok);
+
+	ptr = data_buf;
+	rem = data_len;
+	if
+	(
+		(http->m_protocol != mk_lib_iip_http_client_response_protocol_e_dummy_end) &&
+		(http->m_status_code != 0) &&
+		(!mk_lib_iip_http_buffer_rw_is_empty(&http->m_reason_phrase)) &&
+		(http->m_headers_done) &&
+		(!http->m_resource_done) &&
+		(mk_lang_true)
+	)
+	{
+	}
+	tlen = data_len - rem;
+	*consumed = tlen;
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_http_client_response_prrw_on_incoming_data(mk_lib_iip_http_client_response_pt const http, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_http_client_response_parse_error_code_pt const error_code, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_pct ptr;
@@ -826,6 +990,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_http_cli
 	err = mk_lib_iip_http_client_response_prrw_parse_protocol     (http, ptr, rem, error_code, &tlen); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_http_client_response_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
 	err = mk_lib_iip_http_client_response_prrw_parse_status_code  (http, ptr, rem, error_code, &tlen); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_http_client_response_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
 	err = mk_lib_iip_http_client_response_prrw_parse_reason_phrase(http, ptr, rem, error_code, &tlen); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_http_client_response_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_http_client_response_prrw_parse_headers      (http, ptr, rem, error_code, &tlen); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_http_client_response_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_http_client_response_prrw_parse_resource     (http, ptr, rem, error_code, &tlen); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_http_client_response_parse_error_code_e_ok){ return 0; } ptr += tlen; rem -= tlen;
 	tlen = data_len - rem;
 	*consumed = tlen;
 	return 0;
