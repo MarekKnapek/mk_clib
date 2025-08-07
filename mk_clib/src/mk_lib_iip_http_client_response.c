@@ -518,6 +518,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_http_cli
 			err = mk_lib_iip_cp_dynamic_ring_u8_rw_consolidate(&http->m_buffer); mk_lang_check_rereturn(err);
 			data = mk_lib_iip_cp_dynamic_ring_u8_rw_get_data_a(&http->m_buffer);
 			err = mk_lib_iip_http_buffer_rw_push_back_copy_many(&http->m_reason_phrase, data, ((mk_lang_types_usize_t)(pos))); mk_lang_check_rereturn(err);
+			err = mk_lib_iip_http_buffer_rw_fancy_string(&http->m_reason_phrase); mk_lang_check_rereturn(err);
 			err = mk_lib_iip_cp_dynamic_ring_u8_rw_pop_front_many(&http->m_buffer, ((mk_lang_types_usize_t)(pos + 2))); mk_lang_check_rereturn(err);
 		}
 	}
@@ -692,6 +693,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_http_cli
 			http->m_content_rem -= to_copy;
 			to_copy = mk_lang_min(http->m_content_rem, rem);
 			err = mk_lib_iip_cp_dynamic_ring_u8_rw_push_back_copy_many(&http->m_resource, ptr, ((mk_lang_types_usize_t)(to_copy))); mk_lang_check_rereturn(err);
+			http->m_content_rem -= to_copy;
 			ptr += to_copy;
 			rem -= to_copy;
 		}
