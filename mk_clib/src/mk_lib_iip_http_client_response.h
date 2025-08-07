@@ -21,6 +21,7 @@ enum mk_lib_iip_http_client_response_parse_error_code_e
 	mk_lib_iip_http_client_response_parse_error_code_e_bad_format,
 	mk_lib_iip_http_client_response_parse_error_code_e_bad_protocol,
 	mk_lib_iip_http_client_response_parse_error_code_e_bad_status_code,
+	mk_lib_iip_http_client_response_parse_error_code_e_bad_header,
 	mk_lib_iip_http_client_response_parse_error_code_e_dummy_end
 };
 typedef enum mk_lib_iip_http_client_response_parse_error_code_e mk_lib_iip_http_client_response_parse_error_code_t;
@@ -86,12 +87,14 @@ struct mk_lib_iip_http_client_response_s
 	mk_lib_iip_http_client_response_protocol_t m_protocol;
 	mk_lang_types_sint_t m_status_code;
 	mk_lib_iip_http_buffer_t m_reason_phrase;
+	mk_lib_iip_http_client_response_headers_t m_headers;
+	mk_lang_types_bool_t m_headers_done;
+	mk_lang_types_bool_t m_resource_done;
 	mk_lib_iip_cp_dynamic_ring_u8_t m_buffer;
 /*
 	mk_lib_iip_http_client_response_method_id_t m_method;
 	mk_lib_iip_http_buffer_t m_uri;
 	mk_lib_iip_http_client_response_protocol_t m_version;
-	mk_lib_iip_http_client_response_headers_t m_headers;
 	mk_lang_types_bool_t m_hdrs_done;
 */
 };

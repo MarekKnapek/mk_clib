@@ -18,6 +18,8 @@
 #include "mk_sl_vector_inl_fileh.h"
 #include "mk_sl_vector_inl_fileu.h"
 
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_http_buffer_rw_fancy_string(mk_lib_iip_http_buffer_pt const buffer) mk_lang_noexcept;
+
 
 #if mk_lang_jumbo_have
 #include "mk_lib_iip_http_buffer.c"
