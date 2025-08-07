@@ -17,5 +17,7 @@ define(`mk_lib_iip_http_strings_per_string', `mk_lib_iip_http_strings_per_string
 `put', `PUT',
 `trace', `TRACE',
 `version_1_1', `HTTP/1.1\x0d\x0a',
-`version_1_1_b', `HTTP/1.1', # todo no new line
+`version_1_1_b', `HTTP/1.1', dnl # todo no new line
+`transfer_encoding', `Transfer-Encoding',
+`chunked', `chunked',
 `', `')')dnl
