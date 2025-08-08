@@ -102,6 +102,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_uint8_from_bi_uch
 	else
 	#endif
 	{
+		#include "mk_lang_warning_clang_push_unreachable_code.h"
 		mk_lang_types_usize_t n mk_lang_constexpr_init;
 		mk_lang_types_usize_t i mk_lang_constexpr_init;
 
@@ -118,6 +119,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_uint8_from_bi_uch
 		{
 			mk_sl_cui_uint8_from_bi_uchar(&a[i], &b[i]);
 		}
+		#include "mk_lang_warning_clang_pop.h"
 	}
 }
 
@@ -141,6 +143,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_uint8_from_bi_pch
 	else
 	#endif
 	{
+		#include "mk_lang_warning_clang_push_unreachable_code.h"
 		mk_lang_types_usize_t n mk_lang_constexpr_init;
 		mk_lang_types_usize_t i mk_lang_constexpr_init;
 
@@ -157,6 +160,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_uint8_from_bi_pch
 		{
 			mk_sl_cui_uint8_from_bi_pchar(&a[i], &b[i]);
 		}
+		#include "mk_lang_warning_clang_pop.h"
 	}
 }
 
@@ -180,6 +184,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_uint8_to_bi_pchar
 	else
 	#endif
 	{
+		#include "mk_lang_warning_clang_push_unreachable_code.h"
 		mk_lang_types_usize_t n mk_lang_constexpr_init;
 		mk_lang_types_usize_t i mk_lang_constexpr_init;
 
@@ -196,6 +201,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_uint8_to_bi_pchar
 		{
 			mk_sl_cui_uint8_to_bi_pchar(&a[i], &b[i]);
 		}
+		#include "mk_lang_warning_clang_pop.h"
 	}
 }
 
@@ -219,6 +225,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_uint8_to_bi_uchar
 	else
 	#endif
 	{
+		#include "mk_lang_warning_clang_push_unreachable_code.h"
 		mk_lang_types_usize_t n mk_lang_constexpr_init;
 		mk_lang_types_usize_t i mk_lang_constexpr_init;
 
@@ -235,6 +242,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_uint8_to_bi_uchar
 		{
 			mk_sl_cui_uint8_to_bi_uchar(&a[i], &b[i]);
 		}
+		#include "mk_lang_warning_clang_pop.h"
 	}
 }
 
@@ -256,13 +264,14 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui
 		#include "mk_lang_warning_gcc_pop.h"
 		#include "mk_lang_warning_msvc_pop.h"
 
-		res = memcmp(((mk_lang_types_void_pt)(a)), ((mk_lang_types_void_pct)(b)), count);
+		res = memcmp(((mk_lang_types_void_pct)(a)), ((mk_lang_types_void_pct)(b)), count);
 		eq = res == 0;
 		return eq;
 	}
 	else
 	#endif
 	{
+		#include "mk_lang_warning_clang_push_unreachable_code.h"
 		mk_lang_types_usize_t n mk_lang_constexpr_init;
 		mk_lang_types_usize_t i mk_lang_constexpr_init;
 		mk_sl_cui_uint8_t cui mk_lang_constexpr_init;
@@ -287,6 +296,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui
 		}
 		eq = i == n;
 		return eq;
+		#include "mk_lang_warning_clang_pop.h"
 	}
 }
 

@@ -516,7 +516,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_stre
 			case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_dsa_sha1            : signature.m_type = mk_lib_iip_cp_types_signature_type_e_dsa_sha1            ; tlen = mk_lib_iip_key_sgn_dsa_sha1_signature_len_v                ; break;
 			case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_ecdsa_sha256_p256   : signature.m_type = mk_lib_iip_cp_types_signature_type_e_ecdsa_sha256_p256   ; tlen = 64 /* todo */                                              ; break;
 			case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_eddsa_sha512_ed25519: signature.m_type = mk_lib_iip_cp_types_signature_type_e_eddsa_sha512_ed25519; tlen = mk_lib_iip_key_sgn_eddsa_sha512_ed25519_pub_signature_len_v; break;
+			#include "mk_lang_warning_clang_push_sometimes_uninitialized.h"
 			case mk_lib_iip_cp_types_remote_destination_type_e_dummy_end: mk_lang_assert_false(); break;
+			#include "mk_lang_warning_clang_pop.h"
 			default: mk_lang_assert_false(); break;
 		}
 		mk_lang_clobber(&tlen);

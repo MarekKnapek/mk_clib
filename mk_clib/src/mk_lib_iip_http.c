@@ -128,7 +128,9 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lib_iip_http_string
 		case mk_lib_iip_http_method_id_e_connect: string_id = mk_lib_iip_http_strings_id_e_connect; break;
 		case mk_lib_iip_http_method_id_e_options: string_id = mk_lib_iip_http_strings_id_e_options; break;
 		case mk_lib_iip_http_method_id_e_trace: string_id = mk_lib_iip_http_strings_id_e_trace; break;
+		#include "mk_lang_warning_clang_push_sometimes_uninitialized.h"
 		case mk_lib_iip_http_method_id_e_dummy_end: mk_lang_assert_false(); break;
+		#include "mk_lang_warning_clang_pop.h"
 		default: mk_lang_assert_false(); break;
 	}
 	mk_lang_clobber(&string_id);

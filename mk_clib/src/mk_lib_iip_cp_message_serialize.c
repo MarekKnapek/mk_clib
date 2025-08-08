@@ -660,7 +660,9 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	}
 	else
 	{
+		#include "mk_lang_warning_clang_push_unreachable_code.h"
 		mk_sl_cui_uint8_memclr_fn(&storage.m_data.m_uint8s[0], mk_lang_countof(storage.m_data.m_uint8s));
+		#include "mk_lang_warning_clang_pop.h"
 	}
 	err = mk_lib_iip_cp_message_serialize_u8s(ptr, rem, error_code, &tlen, &storage.m_data.m_uint8s[0], mk_lang_countof(storage.m_data.m_uint8s)); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	tlen = data_len - rem;
@@ -705,7 +707,9 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	}
 	else
 	{
+		#include "mk_lang_warning_clang_push_unreachable_code.h"
 		mk_sl_cui_uint8_memclr_fn(&storage.m_data.m_uint8s[0], mk_lang_countof(storage.m_data.m_uint8s));
+		#include "mk_lang_warning_clang_pop.h"
 	}
 	err = mk_lib_iip_cp_message_serialize_u8s(ptr, rem, error_code, &tlen, &storage.m_data.m_uint8s[0], mk_lang_min(mk_lib_iip_cp_message_serialize_destination_blob_sgn_pub_max, mk_lang_countof(storage.m_data.m_uint8s))); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	tlen = data_len - rem;
