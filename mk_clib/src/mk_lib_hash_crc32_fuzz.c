@@ -76,6 +76,8 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_hash_crc32_fuzz(mk_l
 	mk_lib_hash_crc32_windows_digest_t digest_win;
 	#endif
 
+	mk_lang_static_assert(((mk_lang_types_sint_t)(mk_lib_hash_crc32_portable_digest_len_v)) == ((mk_lang_types_sint_t)(mk_lib_hash_crc32_windows_digest_len_v)));
+
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(data || size == 0);
@@ -103,7 +105,6 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_hash_crc32_fuzz(mk_l
 
 	err = mk_lib_hash_crc32_fuzz_compute_my(&data_buf[0], data_len, &digest_my); mk_lang_check_rereturn(err);
 	#if mk_lang_platform_is_windows_at_least_any
-	mk_lang_static_assert(mk_lib_hash_crc32_portable_digest_len_v == mk_lib_hash_crc32_windows_digest_len_v);
 	err = mk_lib_hash_crc32_fuzz_compute_win(&data_buf[0], data_len, &digest_win); mk_lang_check_rereturn(err);
 	mk_lang_test(mk_sl_cui_uint8_memcmp_fn(&digest_my.m_data.m_uint8s[0], &digest_win.m_data.m_uint8s[0], mk_lib_hash_crc32_portable_digest_len_v) == 0);
 	#endif

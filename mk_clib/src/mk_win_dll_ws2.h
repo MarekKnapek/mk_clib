@@ -501,7 +501,7 @@ struct mk_win_dll_ws2_network_events_s
 typedef struct mk_win_dll_ws2_network_events_s mk_win_dll_ws2_network_events_t;
 mk_lang_typedef(mk_win_dll_ws2_network_events);
 
-mk_win_base_make_handle(mk_win_dll_ws2_socket);
+mk_win_base_make_handle(mk_win_dll_ws2_socket)
 
 #if mk_lang_version_at_least_cpp_17
 typedef mk_lang_types_void_t(mk_win_base_stdcall*mk_win_dll_ws2_completion_routine_t)(mk_win_base_dword_t const error, mk_win_base_dword_t const transfered, mk_win_dll_ws2_overlapped_pt const overlapped, mk_win_base_dword_t const flags) mk_lang_noexcept;

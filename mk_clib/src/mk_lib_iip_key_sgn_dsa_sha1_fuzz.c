@@ -84,7 +84,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_key_sgn_dsa_sha1
 		return 0;
 	}
 	mk_lang_bui_usize_from_buis_uchar_le(&bit_idx, d);
-	bit_idx = bit_idx % ((mk_lib_iip_key_sgn_dsa_sha1_portable_digest_len_v + mk_lib_iip_key_sgn_dsa_sha1_portable_signature_len_v) * mk_lang_charbit);
+	bit_idx = bit_idx % ((((mk_lang_types_sint_t)(mk_lib_iip_key_sgn_dsa_sha1_portable_digest_len_v)) + ((mk_lang_types_sint_t)(mk_lib_iip_key_sgn_dsa_sha1_portable_signature_len_v))) * mk_lang_charbit);
 	byte_idx = bit_idx / mk_lang_charbit;
 	bit_idx = bit_idx % mk_lang_charbit;
 	d += mk_lang_bui_usize_size_bytes_v;
@@ -92,9 +92,9 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_key_sgn_dsa_sha1
 
 	message_len = mk_lang_countof(message_buf);
 	message_len = mk_lang_min(message_len, ((mk_lang_types_sint_t)(s)));
-	mk_sl_cui_uint8_from_bi_uchar_many(&message_buf[0], d, message_len);
-	d += message_len;
-	s -= message_len;
+	mk_sl_cui_uint8_from_bi_uchar_many(&message_buf[0], d, ((mk_lang_types_usize_t)(message_len)));
+	d += ((mk_lang_types_usize_t)(message_len));
+	s -= ((mk_lang_types_usize_t)(message_len));
 
 	err = mk_lib_iip_key_sgn_dsa_sha1_portable_st_hash_data(&message_buf[0], message_len, &portable_digest); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_key_sgn_dsa_sha1_windows_st_hash_data(&message_buf[0], message_len, &windows_digest); mk_lang_check_rereturn(err);

@@ -39,10 +39,12 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_hash_crc32_init(mk_l
 	else
 	#endif
 	{
+		#include "mk_lang_warning_clang_push_unreachable_code.h"
 		mk_lib_hash_crc32_portable_t portable;
 
 		mk_lib_hash_crc32_portable_init(&portable);
 		crc32->m_state = portable.m_state;
+		#include "mk_lang_warning_clang_pop.h"
 	}
 }
 
@@ -76,11 +78,13 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_hash_crc32_append(mk
 	else
 	#endif
 	{
+		#include "mk_lang_warning_clang_push_unreachable_code.h"
 		mk_lib_hash_crc32_portable_t portable;
 
 		portable.m_state = crc32->m_state;
 		mk_lib_hash_crc32_portable_append(&portable, data_buf, data_len);
 		crc32->m_state = portable.m_state;
+		#include "mk_lang_warning_clang_pop.h"
 	}
 }
 
@@ -113,12 +117,14 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_hash_crc32_finish(mk
 	else
 	#endif
 	{
+		#include "mk_lang_warning_clang_push_unreachable_code.h"
 		mk_lib_hash_crc32_portable_t portable;
 		mk_lib_hash_crc32_portable_digest_t dgst;
 
 		portable.m_state = crc32->m_state;
 		mk_lib_hash_crc32_portable_finish(&portable, &dgst);
 		mk_sl_cui_uint8_memcpy_fn(&digest->m_data.m_uint8s[0], &dgst.m_data.m_uint8s[0], mk_lib_hash_crc32_digest_len_v);
+		#include "mk_lang_warning_clang_pop.h"
 	}
 }
 

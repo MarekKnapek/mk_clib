@@ -1157,7 +1157,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_accept_request_g
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_addr_to_address(mk_win_dll_ws2_sock_addr_pct addr, mk_lib_net_destination_pt const address) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_pr_addr_to_address(mk_win_dll_ws2_sock_addr_pct addr, mk_lib_net_destination_pt const address) mk_lang_noexcept
 {
 	mk_lang_types_ushort_t tus;
 
@@ -1220,8 +1220,8 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_accept_request_g
 	mk_lang_assert(addr_local_real <= ((mk_win_base_sint_t)(sizeof(*addr_local_obj))));
 	mk_lang_assert(addr_remote_real >= 1);
 	mk_lang_assert(addr_remote_real <= ((mk_win_base_sint_t)(sizeof(*addr_remote_obj))));
-	err = mk_lib_net_addr_to_address(addr_local_obj, address_local); mk_lang_check_rereturn(err);
-	err = mk_lib_net_addr_to_address(addr_remote_obj, address_remote); mk_lang_check_rereturn(err);
+	err = mk_lib_net_pr_addr_to_address(addr_local_obj, address_local); mk_lang_check_rereturn(err);
+	err = mk_lib_net_pr_addr_to_address(addr_remote_obj, address_remote); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -1514,8 +1514,8 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_get_addre
 	addr_remote_real = ((mk_win_base_sint_t)(sizeof(addr_remote_obj)));
 	st = mk_win_dll_ws2_getsockname(socket->m_handle, &addr_local_obj, &addr_local_real); mk_lang_check_return(st == 0);
 	st = mk_win_dll_ws2_getpeername(socket->m_handle, &addr_remote_obj, &addr_remote_real); mk_lang_check_return(st == 0);
-	err = mk_lib_net_addr_to_address(&addr_local_obj, destination_local); mk_lang_check_rereturn(err);
-	err = mk_lib_net_addr_to_address(&addr_remote_obj, destination_remote); mk_lang_check_rereturn(err);
+	err = mk_lib_net_pr_addr_to_address(&addr_local_obj, destination_local); mk_lang_check_rereturn(err);
+	err = mk_lib_net_pr_addr_to_address(&addr_remote_obj, destination_remote); mk_lang_check_rereturn(err);
 	return 0;
 }
 
