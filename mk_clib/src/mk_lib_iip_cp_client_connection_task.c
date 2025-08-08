@@ -141,7 +141,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 #if mk_lib_iip_cp_client_connection_debug_print_have
 	mk_lang_types_sint_t err;
 	mk_lang_types_pchar_pt target_buf;
-	mk_lang_types_pchar_t str_buf[4 * 1024];
+	mk_lang_types_pchar_t str_buf[64 * 1024];
 	mk_lang_types_sint_t target_len;
 	mk_lang_types_sint_t str_len;
 	mk_lib_iip_logger_color_text_t color;
