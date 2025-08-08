@@ -306,14 +306,14 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_http_cli
 			if
 			(
 				(mk_lib_iip_http_buffer_rw_sise(&header->m_key) == transfer_encoding_len) &&
-				(mk_sl_cui_uint8_eq_pchar_many(mk_lib_iip_http_buffer_rw_data(&header->m_key), transfer_encoding_buf, transfer_encoding_len)) &&
+				(mk_sl_cui_uint8_eq_pchar_many(mk_lib_iip_http_buffer_rw_data(&header->m_key), transfer_encoding_buf, ((mk_lang_types_usize_t)(transfer_encoding_len)))) &&
 				(mk_lang_true)
 			)
 			{
 				if
 				(
 					(mk_lib_iip_http_buffer_rw_sise(&header->m_val) == chunked_len) &&
-					(mk_sl_cui_uint8_eq_pchar_many(mk_lib_iip_http_buffer_rw_data(&header->m_val), chunked_buf, chunked_len)) &&
+					(mk_sl_cui_uint8_eq_pchar_many(mk_lib_iip_http_buffer_rw_data(&header->m_val), chunked_buf, ((mk_lang_types_usize_t)(chunked_len)))) &&
 					(mk_lang_true)
 				)
 				{
@@ -654,7 +654,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_http_cli
 				{
 					err = mk_lib_iip_cp_dynamic_ring_u8_rw_consolidate(&http->m_buffer); mk_lang_check_rereturn(err);
 					data = mk_lib_iip_cp_dynamic_ring_u8_rw_get_data_a(&http->m_buffer);
-					mk_sl_cui_uint8_to_bi_pchar_many(data, &hex_buf[0], pos_crlf);
+					mk_sl_cui_uint8_to_bi_pchar_many(data, &hex_buf[0], ((mk_lang_types_usize_t)(pos_crlf)));
 					len = mk_sl_cui_uint32_from_str_hex_n(&tu32, &hex_buf[0], pos_crlf);
 					if(len >= 1)
 					{
