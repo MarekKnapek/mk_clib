@@ -2,6 +2,7 @@
 #define mk_include_guard_mk_clib_app_hosts_c
 #include "mk_clib_app_hosts.h"
 
+#include "mk_lib_iip_cp_remote_destination.h"
 #include "mk_lang_assert.h"
 #include "mk_lang_check.h"
 #include "mk_lang_command_line.h"
@@ -107,11 +108,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_g
 	mk_lang_types_sint_t domain_beg;
 	mk_lang_types_sint_t written;
 	mk_lang_types_sint_t b32_len;
+	mk_lang_types_sint_t consumed;
 	mk_lang_types_bool_t gud;
 	mk_lib_crypto_hash_stream_sha2_256_t hasher;
 	mk_lib_crypto_hash_stream_sha2_256_digest_t digest;
 	mk_lang_types_pchar_t b32_buf[mk_lang_countstr(mk_clib_app_hosts_b32_prefix) + mk_lang_roundup_div(mk_lib_crypto_hash_stream_sha2_256_digest_len_v * 8, 5) + mk_lang_countstr(mk_clib_app_hosts_b32_suffix)];
 	mk_lang_types_pchar_t b64_buf[1 * 1024];
+	mk_lib_iip_cp_remote_destination_t remote_destination;
 
 	mk_lang_assert(argc == 1);
 	mk_lang_assert(argv);
@@ -180,6 +183,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_g
 			b64_len = idx_nl - idx_eq - 1;
 			mk_lang_string_memcpy_pc_fn(&b64_buf[0], ((mk_lang_types_pchar_pt)(&data_ptr[b64_beg])), b64_len); b64_buf[b64_len + 0] = '='; b64_buf[b64_len + 1] = '=';
 			mk_lib_iip_base64_decoder_do_check(&b64_buf[0], mk_lang_roundup_mul(b64_len, 4), &address_buf[0], mk_lang_countof(address_buf), &address_len, &gud); mk_lang_check_return(gud);
+			err = mk_lib_iip_cp_remote_destination_rw_from_bytes(&remote_destination, &address_buf[0], address_len, &gud, &consumed); mk_lang_check_rereturn(err); mk_lang_check_return(gud); mk_lang_check_return(consumed == address_len);
 			mk_lib_crypto_hash_stream_sha2_256_init(&hasher);
 			mk_lib_crypto_hash_stream_sha2_256_append_u8s(&hasher, &address_buf[0], address_len);
 			mk_lib_crypto_hash_stream_sha2_256_finish(&hasher, &digest);
