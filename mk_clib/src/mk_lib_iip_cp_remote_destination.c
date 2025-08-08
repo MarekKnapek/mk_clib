@@ -578,8 +578,8 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 		remote_destination->m_certificate.m_cert_data.m_data.m_key.m_enc_type = enc_type_id;
 		remote_destination->m_certificate.m_cert_data.m_data.m_key.m_sgn_type = sgn_type_id;
-		mk_sl_cui_uint8_memcpy_fn(&remote_destination->m_certificate.m_cert_data.m_data.m_key.m_sgn_pub_key[0], sgn_additional_data_buf, sgn_additional_data_len);
-		mk_sl_cui_uint8_memcpy_fn(&remote_destination->m_certificate.m_cert_data.m_data.m_key.m_enc_pub_key[0], enc_additional_data_buf, enc_additional_data_len);
+		mk_sl_cui_uint8_memcpy_fn(&remote_destination->m_certificate.m_cert_data.m_data.m_key.m_sgn_pub_key[0], sgn_additional_data_buf, ((mk_lang_types_usize_t)(sgn_additional_data_len)));
+		mk_sl_cui_uint8_memcpy_fn(&remote_destination->m_certificate.m_cert_data.m_data.m_key.m_enc_pub_key[0], enc_additional_data_buf, ((mk_lang_types_usize_t)(enc_additional_data_len)));
 	}
 	else
 	{

@@ -850,7 +850,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_exa
 			data_len = mk_lib_iip_cp_dynamic_ring_u8_rw_get_sise_a(&example1->m_buffer);
 			error_code = mk_lib_iip_http_client_response_parse_error_code_e_ok;
 			err = mk_lib_iip_http_client_response_rw_on_incoming_data(&example1->m_http_response, data_buf, data_len, &error_code, &consumed); mk_lang_check_rereturn(err); mk_lang_check_return(error_code == mk_lib_iip_http_client_response_parse_error_code_e_ok); mk_lang_assert(consumed >= 0); mk_lang_assert(consumed <= data_len);
-			err = mk_lib_iip_cp_dynamic_ring_u8_rw_pop_front_many(&example1->m_buffer, consumed); mk_lang_check_rereturn(err);
+			err = mk_lib_iip_cp_dynamic_ring_u8_rw_pop_front_many(&example1->m_buffer, ((mk_lang_types_usize_t)(consumed))); mk_lang_check_rereturn(err);
 		}
 	}
 	return 0;
