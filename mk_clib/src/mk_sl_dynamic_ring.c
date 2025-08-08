@@ -36,7 +36,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_dyn
 	mk_lang_assert(dst);
 	mk_lang_assert(src);
 
-	mk_lang_debug_break();
+	mk_sl_cui_uint8_assign(dst, src);
 	return 0;
 }
 
