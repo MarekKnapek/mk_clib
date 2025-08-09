@@ -122,11 +122,13 @@ struct mk_lib_iip_cp_client_socket_state_s
 	mk_sl_cui_uint32_t m_local_sequence_number;
 	mk_sl_cui_uint32_t m_remote_sequence_number;
 	mk_lib_iip_cp_types_remote_destination_t m_remote_destination;
-	mk_lang_types_pchar_t m_remote_b32[mk_lang_roundup_div(mk_lib_crypto_hash_block_sha2_256_digest_len_v * 8, 5)];
+	mk_lang_types_pchar_t m_remote_b32[mk_lang_roundup_div(mk_lib_crypto_hash_block_sha2_256_digest_len_v * 8, 5) + 1];
 	mk_lib_iip_cp_dynamic_ring_u8_t m_data_to_sent;
 	mk_lib_iip_cp_dynamic_ring_u8_t m_data_received;
 	mk_lib_iip_cp_message_t m_msg;
 	mk_lib_iip_cp_client_socket_write_requests_t m_write_requests;
+	mk_lib_iip_cp_types_nonce_t m_last_msg_nonce;
+	mk_lang_types_sint_t m_last_msg_state; /* 0 - nothing sent yet, 1 - sent, but not accepted yet, 2 - accepted, but not guaranteed yet, 3 - guaranteed failure, no leaseset */
 };
 typedef struct mk_lib_iip_cp_client_socket_state_s mk_lib_iip_cp_client_socket_state_t;
 mk_lang_typedef(mk_lib_iip_cp_client_socket_state);
@@ -176,6 +178,8 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_task_rw_want_die(mk_lib_iip_cp_client_socket_task_pt const task, mk_lang_types_bool_pt const want) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_task_rw_is_connected(mk_lib_iip_cp_client_socket_task_pt const task, mk_lang_types_bool_pt const is) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_task_rw_on_packet(mk_lib_iip_cp_client_socket_task_pt const task, mk_sl_cui_uint16_pct const src_port, mk_sl_cui_uint16_pct const dst_port, mk_sl_cui_uint8_pt const decompressed_packet_buf, mk_lang_types_sint_t const decompressed_packet_len, mk_lib_iip_net_streaming_packet_pt const packet, mk_lang_types_bool_pt const consumed) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_task_rw_on_msg_status_accepted(mk_lib_iip_cp_client_socket_task_pt const task, mk_lib_iip_cp_types_nonce_pct const nonce) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_task_rw_on_msg_status_no_leaseset(mk_lib_iip_cp_client_socket_task_pt const task, mk_lib_iip_cp_types_nonce_pct const nonce) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_task_rw_recv(mk_lib_iip_cp_client_socket_task_pt const task, mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lang_types_sint_pt const recvd) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_task_rw_send(mk_lib_iip_cp_client_socket_task_pt const task, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lang_types_sint_pt const sent) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_task_rw_gimme_msg(mk_lib_iip_cp_client_socket_task_pt const task, mk_lib_iip_cp_message_ppt const msg) mk_lang_noexcept;
