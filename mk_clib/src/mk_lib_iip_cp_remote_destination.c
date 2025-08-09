@@ -20,6 +20,263 @@
 #include "mk_sl_uint_convert.h"
 
 
+enum mk_lib_iip_cp_remote_destination_file_format_certificate_type_e
+{
+	mk_lib_iip_cp_remote_destination_file_format_certificate_type_e_null      = 0,
+	mk_lib_iip_cp_remote_destination_file_format_certificate_type_e_hash_cash = 1,
+	mk_lib_iip_cp_remote_destination_file_format_certificate_type_e_hidden    = 2,
+	mk_lib_iip_cp_remote_destination_file_format_certificate_type_e_signed    = 3,
+	mk_lib_iip_cp_remote_destination_file_format_certificate_type_e_multiple  = 4,
+	mk_lib_iip_cp_remote_destination_file_format_certificate_type_e_key       = 5,
+	mk_lib_iip_cp_remote_destination_file_format_certificate_type_e_dummy_end
+};
+typedef enum mk_lib_iip_cp_remote_destination_file_format_certificate_type_e mk_lib_iip_cp_remote_destination_file_format_certificate_type_t;
+mk_lang_typedef(mk_lib_iip_cp_remote_destination_file_format_certificate_type);
+
+enum mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e
+{
+	mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_dsa_sha1               =  0,
+	mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_ecdsa_sha256_p256      =  1,
+	mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_ecdsa_sha384_p384      =  2,
+	mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_ecdsa_sha512_p521      =  3,
+	mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_rsa_sha256_2048        =  4,
+	mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_rsa_sha384_3072        =  5,
+	mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_rsa_sha512_4096        =  6,
+	mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_eddsa_sha512_ed25519   =  7,
+	mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_eddsa_sha512_ed25519ph =  8,
+	mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_gost_a                 =  9,
+	mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_gost_b                 = 10,
+	mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_reddsa_sha512_ed25519  = 11,
+	mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_dummy_end
+};
+typedef enum mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_t;
+mk_lang_typedef(mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type);
+
+enum mk_lib_iip_cp_remote_destination_file_format_certificate_key_enc_type_e
+{
+	mk_lib_iip_cp_remote_destination_file_format_certificate_key_enc_type_e_elgamal = 0,
+	mk_lib_iip_cp_remote_destination_file_format_certificate_key_enc_type_e_p256    = 1,
+	mk_lib_iip_cp_remote_destination_file_format_certificate_key_enc_type_e_p384    = 2,
+	mk_lib_iip_cp_remote_destination_file_format_certificate_key_enc_type_e_p521    = 3,
+	mk_lib_iip_cp_remote_destination_file_format_certificate_key_enc_type_e_x25519  = 4,
+	mk_lib_iip_cp_remote_destination_file_format_certificate_key_enc_type_e_dummy_end
+};
+typedef enum mk_lib_iip_cp_remote_destination_file_format_certificate_key_enc_type_e mk_lib_iip_cp_remote_destination_file_format_certificate_key_enc_type_t;
+mk_lang_typedef(mk_lib_iip_cp_remote_destination_file_format_certificate_key_enc_type);
+
+
+struct mk_lib_iip_cp_remote_destination_file_format_certificate_header_s
+{
+	mk_lib_iip_cp_remote_destination_file_format_certificate_type_t m_type; /* 8 bit */
+	mk_lang_types_sint_t m_len; /* 16 bit */
+};
+typedef struct mk_lib_iip_cp_remote_destination_file_format_certificate_header_s mk_lib_iip_cp_remote_destination_file_format_certificate_header_t;
+mk_lang_typedef(mk_lib_iip_cp_remote_destination_file_format_certificate_header);
+
+
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lib_iip_cp_remote_destination_file_format_certificate_type_t mk_lib_iip_cp_remote_destination_file_format_certificate_type_from_sint(mk_lang_types_sint_t const sint) mk_lang_noexcept
+{
+	mk_lang_types_bool_t gud mk_lang_constexpr_init;
+	mk_lib_iip_cp_remote_destination_file_format_certificate_type_t format_certificate_type mk_lang_constexpr_init;
+
+	switch(sint)
+	{
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_type_e_null  : gud = mk_lang_true; break;
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_type_e_hidden: gud = mk_lang_true; break;
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_type_e_signed: gud = mk_lang_true; break;
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_type_e_key   : gud = mk_lang_true; break;
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_type_e_dummy_end: gud = mk_lang_false; break;
+		default: gud = mk_lang_false; break;
+	}
+	if(gud)
+	{
+		format_certificate_type = ((mk_lib_iip_cp_remote_destination_file_format_certificate_type_t)(sint));
+	}
+	else
+	{
+		format_certificate_type = mk_lib_iip_cp_remote_destination_file_format_certificate_type_e_dummy_end;
+	}
+	return format_certificate_type;
+}
+
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lib_iip_cp_remote_destination_file_format_certificate_type_t mk_lib_iip_cp_remote_destination_cert_type_to_file_format(mk_lib_iip_cp_remote_destination_cert_type_t const my_cert_type) mk_lang_noexcept
+{
+	mk_lib_iip_cp_remote_destination_file_format_certificate_type_t file_format_cert_type mk_lang_constexpr_init;
+
+	mk_lang_assert(my_cert_type >= 0);
+	mk_lang_assert(my_cert_type < mk_lib_iip_cp_remote_destination_cert_type_e_dummy_end);
+
+	switch(my_cert_type)
+	{
+		case mk_lib_iip_cp_remote_destination_cert_type_e_null   : file_format_cert_type = mk_lib_iip_cp_remote_destination_file_format_certificate_type_e_null  ; break;
+		case mk_lib_iip_cp_remote_destination_cert_type_e_hidden : file_format_cert_type = mk_lib_iip_cp_remote_destination_file_format_certificate_type_e_hidden; break;
+		case mk_lib_iip_cp_remote_destination_cert_type_e_signeda: file_format_cert_type = mk_lib_iip_cp_remote_destination_file_format_certificate_type_e_signed; break;
+		case mk_lib_iip_cp_remote_destination_cert_type_e_signedb: file_format_cert_type = mk_lib_iip_cp_remote_destination_file_format_certificate_type_e_signed; break;
+		case mk_lib_iip_cp_remote_destination_cert_type_e_key    : file_format_cert_type = mk_lib_iip_cp_remote_destination_file_format_certificate_type_e_key   ; break;
+		#include "mk_lang_warning_clang_push_sometimes_uninitialized.h"
+		case mk_lib_iip_cp_remote_destination_cert_type_e_dummy_end: mk_lang_assert_false(); break;
+		default: mk_lang_assert_false(); break;
+		#include "mk_lang_warning_clang_pop.h"
+	}
+	mk_lang_clobber(&file_format_cert_type);
+	return file_format_cert_type;
+}
+
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_t mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_from_sint(mk_lang_types_sint_t const sint) mk_lang_noexcept
+{
+	mk_lang_types_bool_t gud mk_lang_constexpr_init;
+	mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_t file_format_certificate_key_sgn_type mk_lang_constexpr_init;
+
+	switch(sint)
+	{
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_dsa_sha1              : gud = mk_lang_true; break;
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_ecdsa_sha256_p256     : gud = mk_lang_true; break;
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_ecdsa_sha384_p384     : gud = mk_lang_true; break;
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_ecdsa_sha512_p521     : gud = mk_lang_true; break;
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_rsa_sha256_2048       : gud = mk_lang_true; break;
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_rsa_sha384_3072       : gud = mk_lang_true; break;
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_rsa_sha512_4096       : gud = mk_lang_true; break;
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_eddsa_sha512_ed25519  : gud = mk_lang_true; break;
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_eddsa_sha512_ed25519ph: gud = mk_lang_true; break;
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_gost_a                : gud = mk_lang_true; break;
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_gost_b                : gud = mk_lang_true; break;
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_reddsa_sha512_ed25519 : gud = mk_lang_true; break;
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_dummy_end: gud = mk_lang_false; break;
+		default: gud = mk_lang_false; break;
+	}
+	if(gud)
+	{
+		file_format_certificate_key_sgn_type = ((mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_t)(sint));
+	}
+	else
+	{
+		file_format_certificate_key_sgn_type = mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_dummy_end;
+	}
+	return file_format_certificate_key_sgn_type;
+}
+
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_t mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_from_file_format(mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_t const file_format_sgn_type) mk_lang_noexcept
+{
+	mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_t my_sgn_type mk_lang_constexpr_init;
+
+	switch(file_format_sgn_type)
+	{
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_dsa_sha1              : my_sgn_type = mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_dsa_sha1              ; break;
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_ecdsa_sha256_p256     : my_sgn_type = mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_ecdsa_sha256_p256     ; break;
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_ecdsa_sha384_p384     : my_sgn_type = mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_ecdsa_sha384_p384     ; break;
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_ecdsa_sha512_p521     : my_sgn_type = mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_ecdsa_sha512_p521     ; break;
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_rsa_sha256_2048       : my_sgn_type = mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_rsa_sha256_2048       ; break;
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_rsa_sha384_3072       : my_sgn_type = mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_rsa_sha384_3072       ; break;
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_rsa_sha512_4096       : my_sgn_type = mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_rsa_sha512_4096       ; break;
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_eddsa_sha512_ed25519  : my_sgn_type = mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_eddsa_sha512_ed25519  ; break;
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_eddsa_sha512_ed25519ph: my_sgn_type = mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_eddsa_sha512_ed25519ph; break;
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_gost_a                : my_sgn_type = mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_gost_a                ; break;
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_gost_b                : my_sgn_type = mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_gost_b                ; break;
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_reddsa_sha512_ed25519 : my_sgn_type = mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_reddsa_sha512_ed25519 ; break;
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_dummy_end: mk_lang_assert_false(); break;
+		default: mk_lang_assert_false(); break;
+	}
+	mk_lang_clobber(&my_sgn_type);
+	return my_sgn_type;
+}
+
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_t mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_to_file_format(mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_t const my_sgn_type) mk_lang_noexcept
+{
+	mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_t file_format_sgn_type mk_lang_constexpr_init;
+
+	mk_lang_assert(my_sgn_type >= 0);
+	mk_lang_assert(my_sgn_type < mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_dummy_end);
+
+	switch(my_sgn_type)
+	{
+		case mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_dsa_sha1              : file_format_sgn_type = mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_dsa_sha1              ; break;
+		case mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_ecdsa_sha256_p256     : file_format_sgn_type = mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_ecdsa_sha256_p256     ; break;
+		case mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_ecdsa_sha384_p384     : file_format_sgn_type = mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_ecdsa_sha384_p384     ; break;
+		case mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_ecdsa_sha512_p521     : file_format_sgn_type = mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_ecdsa_sha512_p521     ; break;
+		case mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_rsa_sha256_2048       : file_format_sgn_type = mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_rsa_sha256_2048       ; break;
+		case mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_rsa_sha384_3072       : file_format_sgn_type = mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_rsa_sha384_3072       ; break;
+		case mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_rsa_sha512_4096       : file_format_sgn_type = mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_rsa_sha512_4096       ; break;
+		case mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_eddsa_sha512_ed25519  : file_format_sgn_type = mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_eddsa_sha512_ed25519  ; break;
+		case mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_eddsa_sha512_ed25519ph: file_format_sgn_type = mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_eddsa_sha512_ed25519ph; break;
+		case mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_gost_a                : file_format_sgn_type = mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_gost_a                ; break;
+		case mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_gost_b                : file_format_sgn_type = mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_gost_b                ; break;
+		case mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_reddsa_sha512_ed25519 : file_format_sgn_type = mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_reddsa_sha512_ed25519 ; break;
+		#include "mk_lang_warning_clang_push_sometimes_uninitialized.h"
+		case mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_dummy_end: mk_lang_assert_false(); break;
+		default: mk_lang_assert_false(); break;
+		#include "mk_lang_warning_clang_pop.h"
+	}
+	mk_lang_clobber(&file_format_sgn_type);
+	return file_format_sgn_type;
+}
+
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lib_iip_cp_remote_destination_file_format_certificate_key_enc_type_t mk_lib_iip_cp_remote_destination_file_format_certificate_key_enc_type_from_sint(mk_lang_types_sint_t const sint) mk_lang_noexcept
+{
+	mk_lang_types_bool_t gud mk_lang_constexpr_init;
+	mk_lib_iip_cp_remote_destination_file_format_certificate_key_enc_type_t file_format_certificate_key_enc_type mk_lang_constexpr_init;
+
+	switch(sint)
+	{
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_key_enc_type_e_elgamal: gud = mk_lang_true; break;
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_key_enc_type_e_p256   : gud = mk_lang_true; break;
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_key_enc_type_e_p384   : gud = mk_lang_true; break;
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_key_enc_type_e_p521   : gud = mk_lang_true; break;
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_key_enc_type_e_x25519 : gud = mk_lang_true; break;
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_key_enc_type_e_dummy_end: gud = mk_lang_false; break;
+		default: gud = mk_lang_false; break;
+	}
+	if(gud)
+	{
+		file_format_certificate_key_enc_type = ((mk_lib_iip_cp_remote_destination_file_format_certificate_key_enc_type_t)(sint));
+	}
+	else
+	{
+		file_format_certificate_key_enc_type = mk_lib_iip_cp_remote_destination_file_format_certificate_key_enc_type_e_dummy_end;
+	}
+	return file_format_certificate_key_enc_type;
+}
+
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lib_iip_cp_remote_destination_certificate_key_enc_type_t mk_lib_iip_cp_remote_destination_certificate_key_enc_type_from_file_format(mk_lib_iip_cp_remote_destination_file_format_certificate_key_enc_type_t const file_format_enc_type) mk_lang_noexcept
+{
+	mk_lib_iip_cp_remote_destination_certificate_key_enc_type_t my_enc_type mk_lang_constexpr_init;
+
+	switch(file_format_enc_type)
+	{
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_key_enc_type_e_elgamal: my_enc_type = mk_lib_iip_cp_remote_destination_certificate_key_enc_type_e_elgamal; break;
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_key_enc_type_e_p256   : my_enc_type = mk_lib_iip_cp_remote_destination_certificate_key_enc_type_e_p256   ; break;
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_key_enc_type_e_p384   : my_enc_type = mk_lib_iip_cp_remote_destination_certificate_key_enc_type_e_p384   ; break;
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_key_enc_type_e_p521   : my_enc_type = mk_lib_iip_cp_remote_destination_certificate_key_enc_type_e_p521   ; break;
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_key_enc_type_e_x25519 : my_enc_type = mk_lib_iip_cp_remote_destination_certificate_key_enc_type_e_x25519 ; break;
+		case mk_lib_iip_cp_remote_destination_file_format_certificate_key_enc_type_e_dummy_end: mk_lang_assert_false(); break;
+		default: mk_lang_assert_false(); break;
+	}
+	mk_lang_clobber(&my_enc_type);
+	return my_enc_type;
+}
+
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lib_iip_cp_remote_destination_file_format_certificate_key_enc_type_t mk_lib_iip_cp_remote_destination_certificate_key_enc_type_to_file_format(mk_lib_iip_cp_remote_destination_certificate_key_enc_type_t const my_enc_type) mk_lang_noexcept
+{
+	mk_lib_iip_cp_remote_destination_file_format_certificate_key_enc_type_t file_format_enc_type mk_lang_constexpr_init;
+
+	mk_lang_assert(my_enc_type >= 0);
+	mk_lang_assert(my_enc_type < mk_lib_iip_cp_remote_destination_certificate_key_enc_type_e_dummy_end);
+
+	switch(my_enc_type)
+	{
+		case mk_lib_iip_cp_remote_destination_certificate_key_enc_type_e_elgamal: file_format_enc_type = mk_lib_iip_cp_remote_destination_file_format_certificate_key_enc_type_e_elgamal; break;
+		case mk_lib_iip_cp_remote_destination_certificate_key_enc_type_e_p256   : file_format_enc_type = mk_lib_iip_cp_remote_destination_file_format_certificate_key_enc_type_e_p256   ; break;
+		case mk_lib_iip_cp_remote_destination_certificate_key_enc_type_e_p384   : file_format_enc_type = mk_lib_iip_cp_remote_destination_file_format_certificate_key_enc_type_e_p384   ; break;
+		case mk_lib_iip_cp_remote_destination_certificate_key_enc_type_e_p521   : file_format_enc_type = mk_lib_iip_cp_remote_destination_file_format_certificate_key_enc_type_e_p521   ; break;
+		case mk_lib_iip_cp_remote_destination_certificate_key_enc_type_e_x25519 : file_format_enc_type = mk_lib_iip_cp_remote_destination_file_format_certificate_key_enc_type_e_x25519 ; break;
+		#include "mk_lang_warning_clang_push_sometimes_uninitialized.h"
+		case mk_lib_iip_cp_remote_destination_certificate_key_enc_type_e_dummy_end: mk_lang_assert_false(); break;
+		default: mk_lang_assert_false(); break;
+		#include "mk_lang_warning_clang_pop.h"
+	}
+	mk_lang_clobber(&file_format_enc_type);
+	return file_format_enc_type;
+}
+
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_remote_destination_get_key_additional_len_sgn(mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_t const key_type) mk_lang_noexcept
 {
 	mk_lang_types_sint_t res mk_lang_constexpr_init;
@@ -67,9 +324,9 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	return res;
 }
 
-mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lib_iip_cp_remote_destination_certificate_type_t mk_lib_iip_cp_remote_destination_prrw_get_certificate_type(mk_lib_iip_cp_remote_destination_pct const remote_destination) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lib_iip_cp_remote_destination_file_format_certificate_type_t mk_lib_iip_cp_remote_destination_prrw_get_certificate_type(mk_lib_iip_cp_remote_destination_pct const remote_destination) mk_lang_noexcept
 {
-	mk_lib_iip_cp_remote_destination_certificate_type_t res mk_lang_constexpr_init;
+	mk_lib_iip_cp_remote_destination_file_format_certificate_type_t res mk_lang_constexpr_init;
 
 	mk_lang_assert(remote_destination);
 	mk_lang_assert(remote_destination->m_certificate.m_cert_type >= 0);
@@ -77,11 +334,11 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lib_iip_cp_remote_d
 
 	switch(remote_destination->m_certificate.m_cert_type)
 	{
-		case mk_lib_iip_cp_remote_destination_cert_type_e_null   : res = mk_lib_iip_cp_remote_destination_certificate_type_e_null  ; break;
-		case mk_lib_iip_cp_remote_destination_cert_type_e_hidden : res = mk_lib_iip_cp_remote_destination_certificate_type_e_hidden; break;
-		case mk_lib_iip_cp_remote_destination_cert_type_e_signeda: res = mk_lib_iip_cp_remote_destination_certificate_type_e_signed; break;
-		case mk_lib_iip_cp_remote_destination_cert_type_e_signedb: res = mk_lib_iip_cp_remote_destination_certificate_type_e_signed; break;
-		case mk_lib_iip_cp_remote_destination_cert_type_e_key    : res = mk_lib_iip_cp_remote_destination_certificate_type_e_key   ; break;
+		case mk_lib_iip_cp_remote_destination_cert_type_e_null   : res = mk_lib_iip_cp_remote_destination_file_format_certificate_type_e_null  ; break;
+		case mk_lib_iip_cp_remote_destination_cert_type_e_hidden : res = mk_lib_iip_cp_remote_destination_file_format_certificate_type_e_hidden; break;
+		case mk_lib_iip_cp_remote_destination_cert_type_e_signeda: res = mk_lib_iip_cp_remote_destination_file_format_certificate_type_e_signed; break;
+		case mk_lib_iip_cp_remote_destination_cert_type_e_signedb: res = mk_lib_iip_cp_remote_destination_file_format_certificate_type_e_signed; break;
+		case mk_lib_iip_cp_remote_destination_cert_type_e_key    : res = mk_lib_iip_cp_remote_destination_file_format_certificate_type_e_key   ; break;
 		case mk_lib_iip_cp_remote_destination_cert_type_e_dummy_end: mk_lang_assert_false(); break;
 		default: mk_lang_assert_false(); break;
 	}
@@ -95,18 +352,19 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	mk_lang_types_sint_t rem mk_lang_constexpr_init;
 	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 	mk_lang_types_sint_t cert_type_num mk_lang_constexpr_init;
-	mk_lib_iip_cp_remote_destination_certificate_type_t cert_type_id mk_lang_constexpr_init;
+	mk_lib_iip_cp_remote_destination_file_format_certificate_type_t cert_type_id mk_lang_constexpr_init;
 	mk_sl_cui_uint16_t tu16 mk_lang_constexpr_init;
 	mk_lang_types_sint_t cert_len mk_lang_constexpr_init;
 	mk_lang_types_sint_t sgn_type_num mk_lang_constexpr_init;
-	mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_t sgn_type_id mk_lang_constexpr_init;
+	mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_t sgn_ff_type_id mk_lang_constexpr_init;
+	mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_t sgn_my_type_id mk_lang_constexpr_init;
 	mk_lang_types_sint_t enc_type_num mk_lang_constexpr_init;
-	mk_lib_iip_cp_remote_destination_certificate_key_enc_type_t enc_type_id mk_lang_constexpr_init;
+	mk_lib_iip_cp_remote_destination_file_format_certificate_key_enc_type_t enc_ff_type_id mk_lang_constexpr_init;
+	mk_lib_iip_cp_remote_destination_certificate_key_enc_type_t enc_my_type_id mk_lang_constexpr_init;
 	mk_lang_types_sint_t sgn_additional_data_len mk_lang_constexpr_init;
 	mk_sl_cui_uint8_pct sgn_additional_data_buf mk_lang_constexpr_init;
 	mk_lang_types_sint_t enc_additional_data_len mk_lang_constexpr_init;
 	mk_sl_cui_uint8_pct enc_additional_data_buf mk_lang_constexpr_init;
-	mk_lang_types_bool_t gud mk_lang_constexpr_init;
 
 	mk_lang_assert(remote_destination);
 	mk_lang_assert(data_buf || data_len == 0);
@@ -148,30 +406,18 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	ptr += tlen;
 	rem -= tlen;
 
-	switch(cert_type_num)
-	{
-		case mk_lib_iip_cp_remote_destination_certificate_type_e_null     : gud = mk_lang_true; break;
-		case mk_lib_iip_cp_remote_destination_certificate_type_e_hash_cash: gud = mk_lang_true; break;
-		case mk_lib_iip_cp_remote_destination_certificate_type_e_hidden   : gud = mk_lang_true; break;
-		case mk_lib_iip_cp_remote_destination_certificate_type_e_signed   : gud = mk_lang_true; break;
-		case mk_lib_iip_cp_remote_destination_certificate_type_e_multiple : gud = mk_lang_true; break;
-		case mk_lib_iip_cp_remote_destination_certificate_type_e_key      : gud = mk_lang_true; break;
-		case mk_lib_iip_cp_remote_destination_certificate_type_e_dummy_end: gud = mk_lang_false; break;
-		default: gud = mk_lang_false; break;
-	}
-	if(!gud)
+	cert_type_id = mk_lib_iip_cp_remote_destination_file_format_certificate_type_from_sint(cert_type_num);
+	if(cert_type_id == mk_lib_iip_cp_remote_destination_file_format_certificate_type_e_dummy_end)
 	{
 		*succeeded = mk_lang_false;
 		return 0;
 	}
-	cert_type_id = ((mk_lib_iip_cp_remote_destination_certificate_type_t)(cert_type_num));
-
 	if
 	(!(
-		(cert_type_id == mk_lib_iip_cp_remote_destination_certificate_type_e_null) ||
-		(cert_type_id == mk_lib_iip_cp_remote_destination_certificate_type_e_hidden) ||
-		(cert_type_id == mk_lib_iip_cp_remote_destination_certificate_type_e_signed) ||
-		(cert_type_id == mk_lib_iip_cp_remote_destination_certificate_type_e_key) ||
+		(cert_type_id == mk_lib_iip_cp_remote_destination_file_format_certificate_type_e_null) ||
+		(cert_type_id == mk_lib_iip_cp_remote_destination_file_format_certificate_type_e_hidden) ||
+		(cert_type_id == mk_lib_iip_cp_remote_destination_file_format_certificate_type_e_signed) ||
+		(cert_type_id == mk_lib_iip_cp_remote_destination_file_format_certificate_type_e_key) ||
 		(mk_lang_false)
 	))
 	{
@@ -193,10 +439,10 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 	if
 	(!(
-		(cert_type_id == mk_lib_iip_cp_remote_destination_certificate_type_e_null && cert_len == 0) ||
-		(cert_type_id == mk_lib_iip_cp_remote_destination_certificate_type_e_hidden && cert_len == 0) ||
-		(cert_type_id == mk_lib_iip_cp_remote_destination_certificate_type_e_signed && (cert_len == mk_lang_countof(remote_destination->m_certificate.m_cert_data.m_data.m_signeda.m_dsa_signature) || cert_len == mk_lang_countof(remote_destination->m_certificate.m_cert_data.m_data.m_signedb.m_signeda.m_dsa_signature) + mk_lang_countof(remote_destination->m_certificate.m_cert_data.m_data.m_signedb.m_signing_destination_hash))) ||
-		(cert_type_id == mk_lib_iip_cp_remote_destination_certificate_type_e_key && cert_len >= 2 * mk_sl_cui_uint16_size_bytes_v) ||
+		(cert_type_id == mk_lib_iip_cp_remote_destination_file_format_certificate_type_e_null && cert_len == 0) ||
+		(cert_type_id == mk_lib_iip_cp_remote_destination_file_format_certificate_type_e_hidden && cert_len == 0) ||
+		(cert_type_id == mk_lib_iip_cp_remote_destination_file_format_certificate_type_e_signed && (cert_len == mk_lang_countof(remote_destination->m_certificate.m_cert_data.m_data.m_signeda.m_dsa_signature) || cert_len == mk_lang_countof(remote_destination->m_certificate.m_cert_data.m_data.m_signedb.m_signeda.m_dsa_signature) + mk_lang_countof(remote_destination->m_certificate.m_cert_data.m_data.m_signedb.m_signing_destination_hash))) ||
+		(cert_type_id == mk_lib_iip_cp_remote_destination_file_format_certificate_type_e_key && cert_len >= 2 * mk_sl_cui_uint16_size_bytes_v) ||
 		(mk_lang_false)
 	))
 	{
@@ -210,20 +456,20 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 		return 0;
 	}
 
-	if(cert_type_id == mk_lib_iip_cp_remote_destination_certificate_type_e_null)
+	if(cert_type_id == mk_lib_iip_cp_remote_destination_file_format_certificate_type_e_null)
 	{
 		remote_destination->m_certificate.m_cert_type = mk_lib_iip_cp_remote_destination_cert_type_e_null;
 	}
-	else if(cert_type_id == mk_lib_iip_cp_remote_destination_certificate_type_e_hidden)
+	else if(cert_type_id == mk_lib_iip_cp_remote_destination_file_format_certificate_type_e_hidden)
 	{
 		remote_destination->m_certificate.m_cert_type = mk_lib_iip_cp_remote_destination_cert_type_e_hidden;
 	}
-	else if(cert_type_id == mk_lib_iip_cp_remote_destination_certificate_type_e_signed)
+	else if(cert_type_id == mk_lib_iip_cp_remote_destination_file_format_certificate_type_e_signed)
 	{
 		if(cert_len == mk_lang_countof(remote_destination->m_certificate.m_cert_data.m_data.m_signeda.m_dsa_signature))
 		{
 			remote_destination->m_certificate.m_cert_type = mk_lib_iip_cp_remote_destination_cert_type_e_signeda;
-			tlen = mk_lang_countof(remote_destination->m_certificate.m_cert_data.m_data.m_signeda.m_dsa_signature); mk_sl_cui_uint8_memcpy_fn(&remote_destination->m_certificate.m_cert_data.m_data.m_signeda.m_dsa_signature[0], ptr, mk_lang_countof(remote_destination->m_certificate.m_cert_data.m_data.m_signeda.m_dsa_signature)); ptr += tlen; rem -= tlen;
+			tlen = mk_lang_countof(remote_destination->m_certificate.m_cert_data.m_data.m_signeda.m_dsa_signature); mk_sl_cui_uint8_memcpy_fn(&remote_destination->m_certificate.m_cert_data.m_data.m_signeda.m_dsa_signature[0], ptr, ((mk_lang_types_usize_t)(tlen))); ptr += tlen; rem -= tlen;
 		}
 		else if(cert_len == mk_lang_countof(remote_destination->m_certificate.m_cert_data.m_data.m_signedb.m_signeda.m_dsa_signature) + mk_lang_countof(remote_destination->m_certificate.m_cert_data.m_data.m_signedb.m_signing_destination_hash))
 		{
@@ -236,7 +482,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 			mk_lang_assert_false();
 		}
 	}
-	else if(cert_type_id == mk_lib_iip_cp_remote_destination_certificate_type_e_key)
+	else if(cert_type_id == mk_lib_iip_cp_remote_destination_file_format_certificate_type_e_key)
 	{
 		remote_destination->m_certificate.m_cert_type = mk_lib_iip_cp_remote_destination_cert_type_e_key;
 		tlen = mk_sl_cui_uint16_size_bytes_v;
@@ -250,29 +496,13 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 		ptr += tlen;
 		rem -= tlen;
 
-		switch(sgn_type_num)
-		{
-			case mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_dsa_sha1              : gud = mk_lang_true; break;
-			case mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_ecdsa_sha256_p256     : gud = mk_lang_true; break;
-			case mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_ecdsa_sha384_p384     : gud = mk_lang_true; break;
-			case mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_ecdsa_sha512_p521     : gud = mk_lang_true; break;
-			case mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_rsa_sha256_2048       : gud = mk_lang_true; break;
-			case mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_rsa_sha384_3072       : gud = mk_lang_true; break;
-			case mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_rsa_sha512_4096       : gud = mk_lang_true; break;
-			case mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_eddsa_sha512_ed25519  : gud = mk_lang_true; break;
-			case mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_eddsa_sha512_ed25519ph: gud = mk_lang_true; break;
-			case mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_gost_a                : gud = mk_lang_true; break;
-			case mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_gost_b                : gud = mk_lang_true; break;
-			case mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_reddsa_sha512_ed25519 : gud = mk_lang_true; break;
-			case mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_dummy_end: gud = mk_lang_false; break;
-			default: gud = mk_lang_false; break;
-		}
-		if(!gud)
+		sgn_ff_type_id = mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_from_sint(sgn_type_num);
+		if(sgn_ff_type_id == mk_lib_iip_cp_remote_destination_file_format_certificate_key_sgn_type_e_dummy_end)
 		{
 			*succeeded = mk_lang_false;
 			return 0;
 		}
-		sgn_type_id = ((mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_t)(sgn_type_num));
+		sgn_my_type_id = mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_from_file_format(sgn_ff_type_id);
 
 		tlen = mk_sl_cui_uint16_size_bytes_v;
 		if(!(rem >= tlen))
@@ -285,24 +515,15 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 		ptr += tlen;
 		rem -= tlen;
 
-		switch(enc_type_num)
-		{
-			case mk_lib_iip_cp_remote_destination_certificate_key_enc_type_e_elgamal: gud = mk_lang_true; break;
-			case mk_lib_iip_cp_remote_destination_certificate_key_enc_type_e_p256   : gud = mk_lang_true; break;
-			case mk_lib_iip_cp_remote_destination_certificate_key_enc_type_e_p384   : gud = mk_lang_true; break;
-			case mk_lib_iip_cp_remote_destination_certificate_key_enc_type_e_p521   : gud = mk_lang_true; break;
-			case mk_lib_iip_cp_remote_destination_certificate_key_enc_type_e_x25519 : gud = mk_lang_true; break;
-			case mk_lib_iip_cp_remote_destination_certificate_key_enc_type_e_dummy_end: gud = mk_lang_false; break;
-			default: gud = mk_lang_false; break;
-		}
-		if(!gud)
+		enc_ff_type_id = mk_lib_iip_cp_remote_destination_file_format_certificate_key_enc_type_from_sint(enc_type_num);
+		if(enc_ff_type_id == mk_lib_iip_cp_remote_destination_file_format_certificate_key_enc_type_e_dummy_end)
 		{
 			*succeeded = mk_lang_false;
 			return 0;
 		}
-		enc_type_id = ((mk_lib_iip_cp_remote_destination_certificate_key_enc_type_t)(enc_type_num));
+		enc_my_type_id = mk_lib_iip_cp_remote_destination_certificate_key_enc_type_from_file_format(enc_ff_type_id);
 
-		sgn_additional_data_len = mk_lib_iip_cp_remote_destination_get_key_additional_len_sgn(sgn_type_id);
+		sgn_additional_data_len = mk_lib_iip_cp_remote_destination_get_key_additional_len_sgn(sgn_my_type_id);
 		tlen = sgn_additional_data_len;
 		if(!(rem >= tlen))
 		{
@@ -313,7 +534,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 		ptr += tlen;
 		rem -= tlen;
 
-		enc_additional_data_len = mk_lib_iip_cp_remote_destination_get_key_additional_len_enc(enc_type_id);
+		enc_additional_data_len = mk_lib_iip_cp_remote_destination_get_key_additional_len_enc(enc_my_type_id);
 		tlen = enc_additional_data_len;
 		if(!(rem >= tlen))
 		{
@@ -330,8 +551,8 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 			return 0;
 		}
 
-		remote_destination->m_certificate.m_cert_data.m_data.m_key.m_enc_type = enc_type_id;
-		remote_destination->m_certificate.m_cert_data.m_data.m_key.m_sgn_type = sgn_type_id;
+		remote_destination->m_certificate.m_cert_data.m_data.m_key.m_enc_type = enc_my_type_id;
+		remote_destination->m_certificate.m_cert_data.m_data.m_key.m_sgn_type = sgn_my_type_id;
 		mk_sl_cui_uint8_memcpy_fn(&remote_destination->m_certificate.m_cert_data.m_data.m_key.m_sgn_pub_key[0], sgn_additional_data_buf, ((mk_lang_types_usize_t)(sgn_additional_data_len)));
 		mk_sl_cui_uint8_memcpy_fn(&remote_destination->m_certificate.m_cert_data.m_data.m_key.m_enc_pub_key[0], enc_additional_data_buf, ((mk_lang_types_usize_t)(enc_additional_data_len)));
 	}
@@ -350,7 +571,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
 	mk_lang_types_sint_t rem mk_lang_constexpr_init;
 	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
-	mk_lib_iip_cp_remote_destination_certificate_type_t cert_type_id mk_lang_constexpr_init;
+	mk_lib_iip_cp_remote_destination_file_format_certificate_type_t cert_type_id mk_lang_constexpr_init;
 	mk_lang_types_sint_t cert_type_num mk_lang_constexpr_init;
 	mk_lang_types_sint_t cert_len mk_lang_constexpr_init;
 	mk_sl_cui_uint16_t tu16 mk_lang_constexpr_init;
@@ -413,7 +634,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 			}
 			cert_len = 0;
 			mk_sl_cui_uint16_from_bi_sint(&tu16, &cert_len);
-			mk_sl_uint_convert_16_8_be_to_big(&tu16, ptr);
+			mk_sl_uint_convert_16_8_be_to_sml(&tu16, ptr);
 			ptr += tlen;
 			rem -= tlen;
 		}
@@ -428,7 +649,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 			}
 			cert_len = 0;
 			mk_sl_cui_uint16_from_bi_sint(&tu16, &cert_len);
-			mk_sl_uint_convert_16_8_be_to_big(&tu16, ptr);
+			mk_sl_uint_convert_16_8_be_to_sml(&tu16, ptr);
 			ptr += tlen;
 			rem -= tlen;
 		}
@@ -443,7 +664,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 			}
 			cert_len = mk_lang_countof(remote_destination->m_certificate.m_cert_data.m_data.m_signeda.m_dsa_signature);
 			mk_sl_cui_uint16_from_bi_sint(&tu16, &cert_len);
-			mk_sl_uint_convert_16_8_be_to_big(&tu16, ptr);
+			mk_sl_uint_convert_16_8_be_to_sml(&tu16, ptr);
 			ptr += tlen;
 			rem -= tlen;
 			tlen = mk_lang_countof(remote_destination->m_certificate.m_cert_data.m_data.m_signeda.m_dsa_signature);
@@ -467,7 +688,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 			}
 			cert_len = mk_lang_countof(remote_destination->m_certificate.m_cert_data.m_data.m_signedb.m_signeda.m_dsa_signature) + mk_lang_countof(remote_destination->m_certificate.m_cert_data.m_data.m_signedb.m_signing_destination_hash);
 			mk_sl_cui_uint16_from_bi_sint(&tu16, &cert_len);
-			mk_sl_uint_convert_16_8_be_to_big(&tu16, ptr);
+			mk_sl_uint_convert_16_8_be_to_sml(&tu16, ptr);
 			ptr += tlen;
 			rem -= tlen;
 			tlen = mk_lang_countof(remote_destination->m_certificate.m_cert_data.m_data.m_signedb.m_signeda.m_dsa_signature);
@@ -502,7 +723,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 			enc_additional_data_len = mk_lib_iip_cp_remote_destination_get_key_additional_len_enc(remote_destination->m_certificate.m_cert_data.m_data.m_key.m_enc_type);
 			cert_len = 2 * mk_sl_cui_uint16_size_bytes_v + sgn_additional_data_len + enc_additional_data_len;
 			mk_sl_cui_uint16_from_bi_sint(&tu16, &cert_len);
-			mk_sl_uint_convert_16_8_be_to_big(&tu16, ptr);
+			mk_sl_uint_convert_16_8_be_to_sml(&tu16, ptr);
 			ptr += tlen;
 			rem -= tlen;
 			tlen = mk_sl_cui_uint16_size_bytes_v;
@@ -511,7 +732,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 				*succeeded = mk_lang_false;
 				return 0;
 			}
-			sgn_type_num = ((mk_lang_types_sint_t)(remote_destination->m_certificate.m_cert_data.m_data.m_key.m_sgn_type));
+			sgn_type_num = ((mk_lang_types_sint_t)(mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_to_file_format(remote_destination->m_certificate.m_cert_data.m_data.m_key.m_sgn_type)));
 			mk_sl_cui_uint16_from_bi_sint(&tu16, &sgn_type_num);
 			mk_sl_uint_convert_16_8_be_to_sml(&tu16, ptr);
 			ptr += tlen;
@@ -522,7 +743,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 				*succeeded = mk_lang_false;
 				return 0;
 			}
-			enc_type_num = ((mk_lang_types_sint_t)(remote_destination->m_certificate.m_cert_data.m_data.m_key.m_enc_type));
+			enc_type_num = ((mk_lang_types_sint_t)(mk_lib_iip_cp_remote_destination_certificate_key_enc_type_to_file_format(remote_destination->m_certificate.m_cert_data.m_data.m_key.m_enc_type)));
 			mk_sl_cui_uint16_from_bi_sint(&tu16, &enc_type_num);
 			mk_sl_uint_convert_16_8_be_to_sml(&tu16, ptr);
 			ptr += tlen;
