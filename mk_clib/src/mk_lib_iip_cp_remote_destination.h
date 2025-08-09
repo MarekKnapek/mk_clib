@@ -20,41 +20,20 @@ struct mk_lib_iip_cp_remote_destination_basic_buffer_s
 typedef struct mk_lib_iip_cp_remote_destination_basic_buffer_s mk_lib_iip_cp_remote_destination_basic_buffer_t;
 mk_lang_typedef(mk_lib_iip_cp_remote_destination_basic_buffer);
 
-enum mk_lib_iip_cp_remote_destination_certificate_type_e
-{
-	mk_lib_iip_cp_remote_destination_certificate_type_e_null      = 0,
-	mk_lib_iip_cp_remote_destination_certificate_type_e_hash_cash = 1,
-	mk_lib_iip_cp_remote_destination_certificate_type_e_hidden    = 2,
-	mk_lib_iip_cp_remote_destination_certificate_type_e_signed    = 3,
-	mk_lib_iip_cp_remote_destination_certificate_type_e_multiple  = 4,
-	mk_lib_iip_cp_remote_destination_certificate_type_e_key       = 5,
-	mk_lib_iip_cp_remote_destination_certificate_type_e_dummy_end
-};
-typedef enum mk_lib_iip_cp_remote_destination_certificate_type_e mk_lib_iip_cp_remote_destination_certificate_type_t;
-mk_lang_typedef(mk_lib_iip_cp_remote_destination_certificate_type);
-
-struct mk_lib_iip_cp_remote_destination_certificate_header_s
-{
-	mk_lib_iip_cp_remote_destination_certificate_type_t m_type;
-	mk_lang_types_sint_t m_len;
-};
-typedef struct mk_lib_iip_cp_remote_destination_certificate_header_s mk_lib_iip_cp_remote_destination_certificate_header_t;
-mk_lang_typedef(mk_lib_iip_cp_remote_destination_certificate_header);
-
 enum mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e
 {
-	mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_dsa_sha1               =  0,
-	mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_ecdsa_sha256_p256      =  1,
-	mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_ecdsa_sha384_p384      =  2,
-	mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_ecdsa_sha512_p521      =  3,
-	mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_rsa_sha256_2048        =  4,
-	mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_rsa_sha384_3072        =  5,
-	mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_rsa_sha512_4096        =  6,
-	mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_eddsa_sha512_ed25519   =  7,
-	mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_eddsa_sha512_ed25519ph =  8,
-	mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_gost_a                 =  9,
-	mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_gost_b                 = 10,
-	mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_reddsa_sha512_ed25519  = 11,
+	mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_dsa_sha1,
+	mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_ecdsa_sha256_p256,
+	mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_ecdsa_sha384_p384,
+	mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_ecdsa_sha512_p521,
+	mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_rsa_sha256_2048,
+	mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_rsa_sha384_3072,
+	mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_rsa_sha512_4096,
+	mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_eddsa_sha512_ed25519,
+	mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_eddsa_sha512_ed25519ph,
+	mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_gost_a,
+	mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_gost_b,
+	mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_reddsa_sha512_ed25519,
 	mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_dummy_end
 };
 typedef enum mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_t;
@@ -62,11 +41,11 @@ mk_lang_typedef(mk_lib_iip_cp_remote_destination_certificate_key_sgn_type);
 
 enum mk_lib_iip_cp_remote_destination_certificate_key_enc_type_e
 {
-	mk_lib_iip_cp_remote_destination_certificate_key_enc_type_e_elgamal = 0,
-	mk_lib_iip_cp_remote_destination_certificate_key_enc_type_e_p256    = 1,
-	mk_lib_iip_cp_remote_destination_certificate_key_enc_type_e_p384    = 2,
-	mk_lib_iip_cp_remote_destination_certificate_key_enc_type_e_p521    = 3,
-	mk_lib_iip_cp_remote_destination_certificate_key_enc_type_e_x25519  = 4,
+	mk_lib_iip_cp_remote_destination_certificate_key_enc_type_e_elgamal,
+	mk_lib_iip_cp_remote_destination_certificate_key_enc_type_e_p256,
+	mk_lib_iip_cp_remote_destination_certificate_key_enc_type_e_p384,
+	mk_lib_iip_cp_remote_destination_certificate_key_enc_type_e_p521,
+	mk_lib_iip_cp_remote_destination_certificate_key_enc_type_e_x25519,
 	mk_lib_iip_cp_remote_destination_certificate_key_enc_type_e_dummy_end
 };
 typedef enum mk_lib_iip_cp_remote_destination_certificate_key_enc_type_e mk_lib_iip_cp_remote_destination_certificate_key_enc_type_t;
