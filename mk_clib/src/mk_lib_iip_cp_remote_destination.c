@@ -421,7 +421,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 		(mk_lang_false)
 	))
 	{
-		mk_lang_debug_break(); /* todo */
+		/* todo */
 		*succeeded = mk_lang_false;
 		return 0;
 	}
