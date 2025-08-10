@@ -885,6 +885,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_prrw_on_msg_message_status_guaranteed_success(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_message_pt const msg) mk_lang_noexcept
 {
 	mk_lib_iip_cp_message_message_status_pt msg_message_status;
+	mk_lib_iip_cp_client_socket_task_pt socket;
+	mk_lang_types_sint_t err;
 
 	mk_lang_assert(task);
 	mk_lang_assert(msg);
@@ -894,7 +896,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_assert(mk_lib_iip_cp_types_sessionid_eq(&msg_message_status->m_session_id, &task->m_session.m_state.m_id));
 	mk_lang_assert(msg_message_status->m_status == mk_lib_iip_cp_message_message_status_status_id_e_guaranteed_success);
 
-	/* todo nonce */
+	err = mk_lib_iip_cp_client_session_prrw_recollect_nonce_and_forget(task, &msg_message_status->m_nonce, &socket); mk_lang_check_rereturn(err); mk_lang_check_return(socket);
+	err = mk_lib_iip_cp_client_socket_task_rw_on_msg_status_guaranteed_success(socket, &msg_message_status->m_nonce); mk_lang_check_rereturn(err);
 	return 0;
 }
 

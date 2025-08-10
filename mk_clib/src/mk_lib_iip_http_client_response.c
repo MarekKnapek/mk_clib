@@ -595,6 +595,14 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_http_cli
 					*error_code = mk_lib_iip_http_client_response_parse_error_code_e_bad_header;
 				}
 			}
+			else if(pos_a == -1)
+			{
+				break;
+			}
+			else
+			{
+				mk_lang_assert_false();
+			}
 		}
 	}
 	tlen = data_len - rem;
