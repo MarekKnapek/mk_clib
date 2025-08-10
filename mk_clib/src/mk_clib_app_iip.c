@@ -640,8 +640,9 @@ mk_lang_typedef(mk_clib_app_iip_example1);
 
 static mk_clib_app_iip_example1_t mk_clib_app_iip_example1_g;
 
-//mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_clib_app_iip_example1_k_domain[] = "reg.i2p";
-mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_clib_app_iip_example1_k_domain[] = "vpngate.i2p";
+//mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_clib_app_iip_example1_k_domain[] = "hiddenbooru.i2p"; /* null */
+//mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_clib_app_iip_example1_k_domain[] = "reg.i2p"; /* ECDSA */
+mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_clib_app_iip_example1_k_domain[] = "i2pforum.i2p"; /* EdDSA */
 //mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_clib_app_iip_example1_k_domain[] = "w4uq2irrcxx7seqtpvof7eckmy7jgs64vvmholsccdth37ht5qmq.b32.i2p";
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_clib_app_iip_example1_k_resource[] = "/en/images/top.jpg";
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_clib_app_iip_example1_k_b32_suffix[] = ".b32.i2p";
@@ -1002,7 +1003,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_wor
 	web_servers.m_session_3 = session_3;
 	err = mk_clib_app_iip_web_servers_init(&web_servers); mk_lang_check_rereturn(err);
 
-	err = mk_clib_app_iip_example1_rw_construct(&example1, &wrp, &session_3); mk_lang_check_rereturn(err);
+	err = mk_clib_app_iip_example1_rw_construct(&example1, &wrp, &session_1); mk_lang_check_rereturn(err);
 
 	mk_clib_app_iip_g_wrp = &wrp;
 	mk_clib_app_iip_g_stop_requested = mk_lang_false;

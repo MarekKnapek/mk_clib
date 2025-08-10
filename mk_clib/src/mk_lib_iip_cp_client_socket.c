@@ -419,7 +419,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_socket_task_prrw_on_msg_status_no_accepted(mk_lib_iip_cp_client_socket_task_pt const task, mk_lib_iip_cp_types_nonce_pct const nonce) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_socket_task_prrw_on_msg_status_accepted(mk_lib_iip_cp_client_socket_task_pt const task, mk_lib_iip_cp_types_nonce_pct const nonce) mk_lang_noexcept
 {
 	mk_lang_assert(task);
 	mk_lang_assert(nonce);
@@ -427,6 +427,18 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_assert(mk_lib_iip_cp_types_nonce_eq(&task->m_socket.m_state.m_last_msg_nonce, nonce));
 
 	task->m_socket.m_state.m_last_msg_state = 2;
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_socket_task_prrw_on_msg_status_guaranteed_success(mk_lib_iip_cp_client_socket_task_pt const task, mk_lib_iip_cp_types_nonce_pct const nonce) mk_lang_noexcept
+{
+	mk_lang_assert(task);
+	mk_lang_assert(nonce);
+	mk_lang_assert(task->m_socket.m_state.m_last_msg_state == 2);
+	mk_lang_assert(mk_lib_iip_cp_types_nonce_eq(&task->m_socket.m_state.m_last_msg_nonce, nonce));
+
+	mk_lib_iip_cp_types_nonce_set_zero(&task->m_socket.m_state.m_last_msg_nonce);
+	task->m_socket.m_state.m_last_msg_state = 0;
 	return 0;
 }
 
@@ -801,13 +813,15 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 		packet.m_payload_buf = mk_lang_null;
 		packet.m_payload_len = 0;
 
-		/*char const req[] =
+		char const req[] =
 			"GET / HTTP/1.1" "\x0d\x0a"
-			"Host: reg.i2p" "\x0d\x0a"
+			//"Host: reg.i2p" "\x0d\x0a"
+			"Host: i2pforum.i2p" "\x0d\x0a"
+			//"Host: hiddenbooru.i2p" "\x0d\x0a"
 			"User-Agent: MYOB/6.66 (AN/ON)" "\x0d\x0a"
 			"" "\x0d\x0a";
 		packet.m_payload_buf = ((mk_sl_cui_uint8_pt)(req));
-		packet.m_payload_len = mk_lang_countstr(req);*/
+		packet.m_payload_len = mk_lang_countstr(req);
 
 		gud = mk_lang_true;
 		err = mk_lib_iip_net_streaming_packet_ro_serialize(&packet, &decompressed_buf[0], mk_lang_countof(decompressed_buf), &gud, &decompressed_len); mk_lang_check_rereturn(err); mk_lang_check_return(gud); mk_lang_assert(decompressed_len >= 1); mk_lang_assert(decompressed_len <= mk_lang_countof(decompressed_buf));
@@ -995,7 +1009,12 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_task_rw_on_msg_status_accepted(mk_lib_iip_cp_client_socket_task_pt const task, mk_lib_iip_cp_types_nonce_pct const nonce) mk_lang_noexcept
 {
-	return mk_lib_iip_cp_client_socket_task_prrw_on_msg_status_no_accepted(task, nonce);
+	return mk_lib_iip_cp_client_socket_task_prrw_on_msg_status_accepted(task, nonce);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_task_rw_on_msg_status_guaranteed_success(mk_lib_iip_cp_client_socket_task_pt const task, mk_lib_iip_cp_types_nonce_pct const nonce) mk_lang_noexcept
+{
+	return mk_lib_iip_cp_client_socket_task_prrw_on_msg_status_guaranteed_success(task, nonce);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_task_rw_on_msg_status_no_leaseset(mk_lib_iip_cp_client_socket_task_pt const task, mk_lib_iip_cp_types_nonce_pct const nonce) mk_lang_noexcept
