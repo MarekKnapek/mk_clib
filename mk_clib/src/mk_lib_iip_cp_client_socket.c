@@ -522,48 +522,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_socket_task_prrw_destination_to_bytes(mk_lib_iip_cp_types_buffer_pt const buf, mk_lib_iip_cp_types_remote_destination_pct const destination) mk_lang_noexcept
-{
-	mk_lang_types_sint_t err;
-	mk_lib_iip_buffer_t bbb;
-	mk_lang_types_sint_t tsi;
-	mk_sl_cui_uint8_t u8;
-	mk_sl_cui_uint16_t u16;
-	mk_sl_cui_uint8_t u8s[2];
-	mk_sl_cui_uint8_pt data;
-	mk_lang_types_sint_t sise;
-
-	mk_lang_assert(buf);
-	mk_lang_assert(destination);
-
-	switch(destination->m_type)
-	{
-		case mk_lib_iip_cp_types_remote_destination_type_e_legacy: mk_lang_check_todo(); break;
-		case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_dsa_sha1: mk_lang_check_todo(); break;
-		case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_ecdsa_sha256_p256: mk_lang_check_todo(); break;
-		case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_eddsa_sha512_ed25519:
-		{
-			err = mk_lib_iip_buffer_rw_construct(&bbb); mk_lang_check_rereturn(err);
-			err = mk_lib_iip_buffer_rw_reserve_at_least(&bbb, 256 + 128 + 1 + 2 + 2 + 2); mk_lang_check_rereturn(err);
-			err = mk_lib_iip_buffer_rw_push_back_copy_many(&bbb, &destination->m_data.m_any_any.m_destination_buffer.m_crpt_pub_key[0], mk_lang_countof(destination->m_data.m_any_any.m_destination_buffer.m_crpt_pub_key)); mk_lang_check_rereturn(err);
-			err = mk_lib_iip_buffer_rw_push_back_copy_many(&bbb, &destination->m_data.m_any_any.m_destination_buffer.m_sign_pub_key[0], mk_lang_countof(destination->m_data.m_any_any.m_destination_buffer.m_sign_pub_key)); mk_lang_check_rereturn(err);
-			tsi = mk_lib_iip_cp_types_certificate_type_e_key; mk_sl_cui_uint8_from_bi_sint(&u8, &tsi); err = mk_lib_iip_buffer_rw_push_back_copy_single(&bbb, &u8); mk_lang_check_rereturn(err);
-			tsi = 2 + 2; mk_sl_cui_uint16_from_bi_sint(&u16, &tsi); mk_sl_uint_convert_16_8_be_to_sml(&u16, &u8s[0]); err = mk_lib_iip_buffer_rw_push_back_copy_many(&bbb, &u8s[0], 2); mk_lang_check_rereturn(err);
-			tsi = mk_lib_iip_cp_types_sign_key_type_e_eddsa_sha512_ed25519; mk_sl_cui_uint16_from_bi_sint(&u16, &tsi); mk_sl_uint_convert_16_8_be_to_sml(&u16, &u8s[0]); err = mk_lib_iip_buffer_rw_push_back_copy_many(&bbb, &u8s[0], 2); mk_lang_check_rereturn(err);
-			tsi = mk_lib_iip_cp_types_crpt_key_type_e_elgamal; mk_sl_cui_uint16_from_bi_sint(&u16, &tsi); mk_sl_uint_convert_16_8_be_to_sml(&u16, &u8s[0]); err = mk_lib_iip_buffer_rw_push_back_copy_many(&bbb, &u8s[0], 2); mk_lang_check_rereturn(err);
-			data = mk_lib_iip_buffer_rw_data(&bbb);
-			sise = mk_lib_iip_buffer_rw_sise(&bbb);
-			mk_sl_cui_uint8_memcpy_fn(&buf->m_buf[0], data, ((mk_lang_types_usize_t)(sise)));
-			buf->m_len = sise;
-			err = mk_lib_iip_buffer_rw_destroy(&bbb); mk_lang_check_rereturn(err);
-		}
-		break;
-		case mk_lib_iip_cp_types_remote_destination_type_e_dummy_end: mk_lang_assert_false(); break;
-		default: mk_lang_assert_false(); break;
-	}
-	return 0;
-}
-
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_socket_task_prrw_compress(mk_lib_iip_cp_client_socket_task_pt const task, mk_sl_cui_uint16_pct const local_port, mk_sl_cui_uint16_pct const remote_port, mk_sl_cui_uint8_pct const decompressed_buf, mk_lang_types_sint_t const decompressed_len, mk_sl_cui_uint8_pt const compressed_buf, mk_lang_types_sint_t const compressed_cap, mk_lang_types_sint_pt const compressed_len) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_pt ptr;
