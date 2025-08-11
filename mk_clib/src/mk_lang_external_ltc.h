@@ -41,6 +41,8 @@
 #define LTC_SHA512
 #define LTC_TIGER
 #define LTC_WHIRLPOOL
+#define LTC_CHACHA20_PRNG
+#define LTC_CURVE25519
 #include "../external/libtomcrypt/src/headers/tomcrypt.h"
 
 
