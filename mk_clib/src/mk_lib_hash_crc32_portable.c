@@ -63,7 +63,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_hash_crc32_portable_
 	mk_lang_types_usize_t n mk_lang_constexpr_init;
 	mk_lang_types_usize_t i mk_lang_constexpr_init;
 	mk_sl_cui_uint32_t u32 mk_lang_constexpr_init;
-	mk_lang_types_sint_t idx mk_lang_constexpr_init;
+	mk_lang_types_uint_t idx mk_lang_constexpr_init;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(crc32);
@@ -79,7 +79,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_hash_crc32_portable_
 	{
 		mk_sl_cui_uint8_to_u32(&buf[i], &u32);
 		mk_sl_cui_uint32_xor2(&crc32->m_state, &u32);
-		mk_sl_cui_uint32_to_bi_sint(&crc32->m_state, &idx);
+		mk_sl_cui_uint32_to_bi_uint(&crc32->m_state, &idx);
 		idx = idx & 0xff;
 		mk_sl_cui_uint32_shr2(&crc32->m_state, 8);
 		mk_sl_cui_uint32_xor2(&crc32->m_state, &mk_lib_hash_crc32_portable_k_table.m_data.m_u32s[idx]);
