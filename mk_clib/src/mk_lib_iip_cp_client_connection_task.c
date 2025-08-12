@@ -21,6 +21,7 @@
 #include "mk_lib_iip_cp_client_shared.h"
 #include "mk_lib_iip_cp_client_types.h"
 #include "mk_lib_iip_cp_dynamic_ring.h"
+#include "mk_lib_iip_cp_local_destination.h"
 #include "mk_lib_iip_cp_mallocator_global.h"
 #include "mk_lib_iip_cp_message.h"
 #include "mk_lib_iip_cp_message_parse.h"
@@ -1839,10 +1840,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 		primary_ses = ((mk_lib_iip_cp_client_session_task_pt)(settings->m_master_session.m_elements[0]));
 		primary_ptr = mk_lib_iip_cp_client_session_tasks_rw_front(&task->m_connection.m_state.m_sessions); mk_lang_assert(primary_ptr); primary_obj = *primary_ptr; mk_lang_assert(primary_obj);
 		mk_lang_assert(primary_ses == primary_obj);
-		mk_lang_assert(settings->m_local_destination.m_type == mk_lib_iip_cp_types_remote_destination_type_e_legacy); /*todo*/
-		mk_lang_assert(primary_obj->m_session.m_settings.m_local_destination.m_type == mk_lib_iip_cp_types_remote_destination_type_e_legacy); /*todo*/
-		mk_lang_assert(mk_lib_iip_key_enc_elgamal_pri_integer_single_eq(&settings->m_local_destination.m_private_data.m_key_elgamal_pri.m_data.m_integer, &primary_obj->m_session.m_settings.m_local_destination.m_private_data.m_key_elgamal_pri.m_data.m_integer));
-		mk_lang_assert(mk_lib_iip_key_enc_elgamal_pub_integer_single_eq(&settings->m_local_destination.m_public_data.m_legacy.m_enc_pub.m_data.m_integer, &primary_obj->m_session.m_settings.m_local_destination.m_public_data.m_legacy.m_enc_pub.m_data.m_integer));
+		mk_lang_assert(mk_lib_iip_cp_local_destination_ro_eq_enc(&settings->m_local_destination, &primary_obj->m_session.m_settings.m_local_destination));
 		err = mk_lib_iip_cp_client_session_task_rw_on_child_session_spawned(primary_ses); mk_lang_check_rereturn(err);
 	}
 	err = mk_lib_iip_cp_mallocator_global_allocate(sizeof(*ses), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem); ses = ((mk_lib_iip_cp_client_session_task_pt)(mem)); mk_lang_assert(ses); sss = ses; mk_lang_assert(sss);

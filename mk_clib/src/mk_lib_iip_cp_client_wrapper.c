@@ -127,7 +127,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_assert(session);
 	mk_lang_assert(!mk_lib_iip_cp_client_types_handle_connection_is_zero(&settings->m_connection));
 
-	config.m_local_destination = settings->m_destination;
+	config.m_local_destination = settings->m_local_destination;
 	config.m_master_session.m_elements[0] = settings->m_master_session.m_elements[0];
 	config.m_options = settings->m_options;
 	connection = ((mk_lib_iip_any_data_connection_pt)(settings->m_connection.m_elements[0])); mk_lang_assert(connection);
