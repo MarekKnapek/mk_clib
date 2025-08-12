@@ -10,7 +10,7 @@
 #include "mk_lang_typedef.h"
 #include "mk_lang_types.h"
 #include "mk_lib_iip_cp_client_socket.h"
-#include "mk_lib_iip_cp_local_destination.h"
+#include "mk_lib_iip_cp_destination.h"
 #include "mk_lib_iip_cp_mallocator_global.h"
 #include "mk_lib_iip_cp_message.h"
 #include "mk_lib_iip_cp_types.h"
@@ -107,7 +107,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_sessio
 #include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_lib_iip_cp_client_session_settings_s
 {
-	mk_lib_iip_cp_local_destination_t m_local_destination;
+	mk_lib_iip_cp_destination_local_t m_local_destination;
 	mk_lib_iip_cp_client_session_handle_t m_master_session;
 	mk_lib_iip_cp_types_strpairs_t m_options;
 };

@@ -8,8 +8,7 @@
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lib_iip_buffer.h"
-#include "mk_lib_iip_cp_local_destination.h"
-#include "mk_lib_iip_cp_remote_destination.h"
+#include "mk_lib_iip_cp_destination.h"
 #include "mk_lib_iip_cp_types.h"
 #include "mk_lib_net.h"
 #include "mk_sl_cui_uint16.h"
@@ -130,7 +129,7 @@ mk_lang_typedef(mk_lib_iip_cp_client_types_connection_settings);
 struct mk_lib_iip_cp_client_types_session_settings_s
 {
 	mk_lib_iip_cp_client_types_handle_connection_t m_connection;
-	mk_lib_iip_cp_local_destination_t m_local_destination;
+	mk_lib_iip_cp_destination_local_t m_local_destination;
 	mk_lib_iip_cp_client_types_handle_session_t m_master_session;
 	mk_lib_iip_cp_types_strpairs_t m_options;
 };
@@ -202,7 +201,7 @@ mk_lang_typedef(mk_lib_iip_cp_client_types_socket_listener_settings);
 struct mk_lib_iip_cp_client_types_socket_connect_settings_s
 {
 	mk_lib_iip_cp_client_types_handle_session_t m_session;
-	mk_lib_iip_cp_remote_destination_t m_remote_destination;
+	mk_lib_iip_cp_destination_remote_t m_remote_destination;
 	mk_sl_cui_uint16_t m_port;
 };
 typedef struct mk_lib_iip_cp_client_types_socket_connect_settings_s mk_lib_iip_cp_client_types_socket_connect_settings_t;

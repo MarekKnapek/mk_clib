@@ -11,7 +11,7 @@
 #include "mk_lang_typedef.h"
 #include "mk_lang_types.h"
 #include "mk_lib_crypto_hash_stream_sha2_256.h"
-#include "mk_lib_iip_cp_local_destination.h"
+#include "mk_lib_iip_cp_destination.h"
 #include "mk_lib_iip_cp_mallocator_global.h"
 #include "mk_lib_iip_key_enc_elgamal_pri.h"
 #include "mk_lib_iip_key_enc_elgamal_pub.h"
@@ -203,7 +203,7 @@ mk_lang_typedef(mk_lib_iip_cp_types_lease);
 #include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_lib_iip_cp_types_leaseset_s
 {
-	mk_lib_iip_cp_local_destination_t m_local_destination;
+	mk_lib_iip_cp_destination_local_t m_local_destination;
 	mk_lib_iip_cp_types_leases_t m_leases;
 };
 typedef struct mk_lib_iip_cp_types_leaseset_s mk_lib_iip_cp_types_leaseset_t;
@@ -213,7 +213,7 @@ mk_lang_typedef(mk_lib_iip_cp_types_leaseset);
 #include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_lib_iip_cp_types_session_config_s
 {
-	mk_lib_iip_cp_local_destination_t m_local_destination;
+	mk_lib_iip_cp_destination_local_t m_local_destination;
 	mk_lib_iip_cp_types_mapping_t m_options;
 	mk_lib_iip_cp_types_date_t m_creation_date;
 };

@@ -226,7 +226,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_des
 	return 0;
 }
 #endif
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_destination_elgamal_dsa_sha1_load_pri_pub(mk_lib_iip_cp_local_destination_pt const destination, mk_lang_types_pchar_pct const file_name) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_destination_elgamal_dsa_sha1_load_pri_pub(mk_lib_iip_cp_destination_local_pt const destination, mk_lang_types_pchar_pct const file_name) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 	mk_sl_io_reader_file_t reader;
@@ -240,7 +240,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_des
 	mk_lang_assert(file_name);
 	mk_lang_assert(file_name[0] != '\0');
 
-	destination->m_remote_destination.m_certificate.m_cert_type = mk_lib_iip_cp_remote_destination_cert_type_e_null;
+	destination->m_remote_destination.m_certificate.m_cert_type = mk_lib_iip_cp_destination_cert_type_e_null;
 
 	err = mk_sl_io_reader_file_open_n(&reader, file_name); mk_lang_check_rereturn(err);
 
@@ -633,7 +633,7 @@ struct mk_clib_app_iip_example1_s
 	mk_lang_types_bool_t m_connected;
 	mk_lang_types_bool_t m_http_request_sent;
 	mk_lib_iip_cp_client_types_lookup_host_name_t m_request;
-	mk_lib_iip_cp_remote_destination_t m_remote_destination;
+	mk_lib_iip_cp_destination_remote_t m_remote_destination;
 	mk_lib_iip_cp_client_types_socket_connect_settings_t m_connect_settings;
 	mk_lib_iip_cp_client_types_handle_socket_connect_t m_connection;
 	mk_lib_iip_cp_dynamic_ring_u8_t m_http_request;
@@ -787,7 +787,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_exa
 				dst_data = mk_lib_iip_buffer_rw_data(&example1->m_request.m_destination); mk_lang_assert(dst_data);
 				dst_sise = mk_lib_iip_buffer_rw_sise(&example1->m_request.m_destination); mk_lang_assert(dst_sise >= 1);
 				gud = mk_lang_true;
-				err = mk_lib_iip_cp_remote_destination_rw_from_bytes(&example1->m_remote_destination, dst_data, dst_sise, &gud, &consumed); mk_lang_check_rereturn(err); mk_lang_check_return(gud); mk_lang_check_return(consumed == dst_sise);
+				err = mk_lib_iip_cp_destination_remote_rw_from_bytes(&example1->m_remote_destination, dst_data, dst_sise, &gud, &consumed); mk_lang_check_rereturn(err); mk_lang_check_return(gud); mk_lang_check_return(consumed == dst_sise);
 				err = mk_lib_iip_buffer_rw_reconstruct(&example1->m_request.m_destination); mk_lang_check_rereturn(err);
 			}
 			else

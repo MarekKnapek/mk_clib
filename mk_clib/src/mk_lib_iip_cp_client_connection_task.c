@@ -20,8 +20,8 @@
 #include "mk_lib_iip_cp_client_session.h"
 #include "mk_lib_iip_cp_client_shared.h"
 #include "mk_lib_iip_cp_client_types.h"
+#include "mk_lib_iip_cp_destination.h"
 #include "mk_lib_iip_cp_dynamic_ring.h"
-#include "mk_lib_iip_cp_local_destination.h"
 #include "mk_lib_iip_cp_mallocator_global.h"
 #include "mk_lib_iip_cp_message.h"
 #include "mk_lib_iip_cp_message_parse.h"
@@ -1840,7 +1840,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 		primary_ses = ((mk_lib_iip_cp_client_session_task_pt)(settings->m_master_session.m_elements[0]));
 		primary_ptr = mk_lib_iip_cp_client_session_tasks_rw_front(&task->m_connection.m_state.m_sessions); mk_lang_assert(primary_ptr); primary_obj = *primary_ptr; mk_lang_assert(primary_obj);
 		mk_lang_assert(primary_ses == primary_obj);
-		mk_lang_assert(mk_lib_iip_cp_local_destination_ro_eq_enc(&settings->m_local_destination, &primary_obj->m_session.m_settings.m_local_destination));
+		mk_lang_assert(mk_lib_iip_cp_destination_local_ro_eq_enc(&settings->m_local_destination, &primary_obj->m_session.m_settings.m_local_destination));
 		err = mk_lib_iip_cp_client_session_task_rw_on_child_session_spawned(primary_ses); mk_lang_check_rereturn(err);
 	}
 	err = mk_lib_iip_cp_mallocator_global_allocate(sizeof(*ses), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem); ses = ((mk_lib_iip_cp_client_session_task_pt)(mem)); mk_lang_assert(ses); sss = ses; mk_lang_assert(sss);
