@@ -9,7 +9,7 @@
 #include "mk_lang_noexcept.h"
 #include "mk_lang_typedef.h"
 #include "mk_lang_types.h"
-#include "mk_lib_iip_cp_remote_destination.h"
+#include "mk_lib_iip_cp_destination.h"
 #include "mk_lib_iip_cp_types.h"
 #include "mk_lib_iip_key_enc_elgamal_pri.h"
 #include "mk_lib_iip_key_sgn_dsa_sha1.h"
@@ -271,7 +271,7 @@ mk_lang_typedef(mk_lib_iip_cp_message_create_lease_set);
 struct mk_lib_iip_cp_message_send_message_s
 {
 	mk_lib_iip_cp_types_sessionid_t m_session_id;
-	mk_lib_iip_cp_remote_destination_t m_remote_destination;
+	mk_lib_iip_cp_destination_remote_t m_remote_destination;
 	mk_lib_iip_cp_types_buffer_t m_payload;
 	mk_lib_iip_cp_types_nonce_t m_nonce;
 };

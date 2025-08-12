@@ -15,7 +15,7 @@
 #include "mk_lang_types.h"
 #include "mk_lib_crypto_hash_stream_sha2_256.h"
 #include "mk_lib_iip_base32_encoder.h"
-#include "mk_lib_iip_cp_remote_destination.h"
+#include "mk_lib_iip_cp_destination.h"
 #include "mk_sl_cui_uint16.h"
 #include "mk_sl_cui_uint32.h"
 #include "mk_sl_cui_uint8.h"
@@ -260,7 +260,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_stre
 	#include "mk_lang_warning_clang_push_cast_qual.h"
 	obj->m_from_buf = ((mk_sl_cui_uint8_pt)(ptr));
 	#include "mk_lang_warning_clang_pop.h"
-	err = mk_lib_iip_cp_remote_destination_rw_from_bytes(&obj->m_from, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *success = mk_lang_false; return 0; } mk_lang_assert(tlen >= 1); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_destination_remote_rw_from_bytes(&obj->m_from, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *success = mk_lang_false; return 0; } mk_lang_assert(tlen >= 1); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	tlen = data_len - rem;
 	obj->m_from_len = tlen;
 	*consumed = tlen;
@@ -475,7 +475,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_stre
 			*success = mk_lang_false;
 			return 0;
 		}
-		tlen = mk_lib_iip_cp_remote_destination_ro_get_signature_len(&obj->m_from);
+		tlen = mk_lib_iip_cp_destination_remote_ro_get_signature_len(&obj->m_from);
 		packet->m_signature_buf = ((mk_sl_cui_uint8_pt)(ptr));
 		packet->m_signature_len = tlen;
 		mk_lang_clobber(&tlen);
@@ -825,7 +825,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_stre
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_streaming_packet_prrw_serialize_destination(mk_lib_iip_cp_remote_destination_pct const obj, mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_streaming_packet_prrw_serialize_destination(mk_lib_iip_cp_destination_remote_pct const obj, mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_pt ptr;
 	mk_lang_types_sint_t rem;
@@ -849,7 +849,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_stre
 		*success = mk_lang_false;
 		return 0;
 	}
-	err = mk_lib_iip_cp_remote_destination_ro_to_bytes(obj, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *success = mk_lang_false; return 0; } mk_lang_assert(tlen >= 1); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_destination_remote_ro_to_bytes(obj, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *success = mk_lang_false; return 0; } mk_lang_assert(tlen >= 1); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	tlen = data_len - rem;
 	*consumed = tlen;
 	return 0;
@@ -925,7 +925,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_stre
 			*success = mk_lang_false;
 			return 0;
 		}
-		tlen = mk_lib_iip_cp_remote_destination_ro_get_signature_len(&obj->m_from);
+		tlen = mk_lib_iip_cp_destination_remote_ro_get_signature_len(&obj->m_from);
 		if(!(rem >= tlen))
 		{
 			*success = mk_lang_false;
@@ -1047,7 +1047,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_net_streaming_pa
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_net_streaming_packet_rw_parse(mk_lib_iip_net_streaming_packet_pt const packet, mk_lib_iip_cp_remote_destination_pct const remote_destination, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lang_types_bool_pt const success) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_net_streaming_packet_rw_parse(mk_lib_iip_net_streaming_packet_pt const packet, mk_lib_iip_cp_destination_remote_pct const remote_destination, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lang_types_bool_pt const success) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_pct ptr;
 	mk_lang_types_sint_t rem;

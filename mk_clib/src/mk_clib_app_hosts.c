@@ -22,8 +22,8 @@
 #include "mk_lib_crypto_hash_stream_sha2_256.h"
 #include "mk_lib_iip_base32_encoder.h"
 #include "mk_lib_iip_base64_decoder.h"
+#include "mk_lib_iip_cp_destination.h"
 #include "mk_lib_iip_cp_mallocator_global.h"
-#include "mk_lib_iip_cp_remote_destination.h"
 #include "mk_sl_cui_uint8.h"
 #include "mk_sl_dynamic_ring.h"
 #include "mk_sl_io_reader_file.h"
@@ -101,7 +101,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_g
 	mk_lang_types_pchar_t b32_buf[mk_lang_countstr(mk_clib_app_hosts_b32_prefix) + mk_lang_roundup_div(mk_lib_crypto_hash_stream_sha2_256_digest_len_v * 8, 5) + mk_lang_countstr(mk_clib_app_hosts_b32_suffix)];
 	mk_lang_types_pchar_t b64_buf[1 * 1024];
 	mk_lang_types_pchar_pct cert_buf;
-	mk_lib_iip_cp_remote_destination_t remote_destination;
+	mk_lib_iip_cp_destination_remote_t remote_destination;
 
 	mk_lang_assert(argc == 1);
 	mk_lang_assert(argv);
@@ -170,7 +170,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_g
 			b64_len = idx_nl - idx_eq - 1;
 			mk_lang_string_memcpy_pc_fn(&b64_buf[0], ((mk_lang_types_pchar_pt)(&data_ptr[b64_beg])), ((mk_lang_types_usize_t)(b64_len))); b64_buf[b64_len + 0] = '='; b64_buf[b64_len + 1] = '=';
 			mk_lib_iip_base64_decoder_do_check(&b64_buf[0], mk_lang_roundup_mul(b64_len, 4), &address_buf[0], mk_lang_countof(address_buf), &address_len, &gud); mk_lang_check_return(gud);
-			err = mk_lib_iip_cp_remote_destination_rw_from_bytes(&remote_destination, &address_buf[0], address_len, &gud, &consumed); mk_lang_check_rereturn(err); mk_lang_check_return(gud); mk_lang_check_return(consumed == address_len);
+			err = mk_lib_iip_cp_destination_remote_rw_from_bytes(&remote_destination, &address_buf[0], address_len, &gud, &consumed); mk_lang_check_rereturn(err); mk_lang_check_return(gud); mk_lang_check_return(consumed == address_len);
 			mk_lib_crypto_hash_stream_sha2_256_init(&hasher);
 			mk_lib_crypto_hash_stream_sha2_256_append_u8s(&hasher, &address_buf[0], ((mk_lang_types_usize_t)(address_len)));
 			mk_lib_crypto_hash_stream_sha2_256_finish(&hasher, &digest);
@@ -179,19 +179,19 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_g
 			cert_len = 0;
 			switch(remote_destination.m_certificate.m_cert_type)
 			{
-				case mk_lib_iip_cp_remote_destination_cert_type_e_null: cert_buf = &mk_clib_app_hosts_b32_cert_null[0]; cert_len = mk_lang_countstr(mk_clib_app_hosts_b32_cert_null); break;
-				case mk_lib_iip_cp_remote_destination_cert_type_e_hidden: cert_buf = &mk_clib_app_hosts_b32_cert_hidden[0]; cert_len = mk_lang_countstr(mk_clib_app_hosts_b32_cert_hidden); break;
-				case mk_lib_iip_cp_remote_destination_cert_type_e_signeda: cert_buf = &mk_clib_app_hosts_b32_cert_signed[0]; cert_len = mk_lang_countstr(mk_clib_app_hosts_b32_cert_signed); break;
-				case mk_lib_iip_cp_remote_destination_cert_type_e_signedb: cert_buf = &mk_clib_app_hosts_b32_cert_signed[0]; cert_len = mk_lang_countstr(mk_clib_app_hosts_b32_cert_signed); break;
-				case mk_lib_iip_cp_remote_destination_cert_type_e_key:
-					if(remote_destination.m_certificate.m_cert_data.m_data.m_key.m_enc_type == mk_lib_iip_cp_remote_destination_certificate_key_enc_type_e_elgamal && remote_destination.m_certificate.m_cert_data.m_data.m_key.m_sgn_type == mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_dsa_sha1){ cert_buf = &mk_clib_app_hosts_b32_cert_key_0_0[0]; cert_len = mk_lang_countstr(mk_clib_app_hosts_b32_cert_key_0_0); }
-					else if(remote_destination.m_certificate.m_cert_data.m_data.m_key.m_enc_type == mk_lib_iip_cp_remote_destination_certificate_key_enc_type_e_elgamal && remote_destination.m_certificate.m_cert_data.m_data.m_key.m_sgn_type == mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_ecdsa_sha256_p256){ cert_buf = &mk_clib_app_hosts_b32_cert_key_0_1[0]; cert_len = mk_lang_countstr(mk_clib_app_hosts_b32_cert_key_0_1); }
-					else if(remote_destination.m_certificate.m_cert_data.m_data.m_key.m_enc_type == mk_lib_iip_cp_remote_destination_certificate_key_enc_type_e_elgamal && remote_destination.m_certificate.m_cert_data.m_data.m_key.m_sgn_type == mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_eddsa_sha512_ed25519){ cert_buf = &mk_clib_app_hosts_b32_cert_key_0_7[0]; cert_len = mk_lang_countstr(mk_clib_app_hosts_b32_cert_key_0_7); }
-					else if(remote_destination.m_certificate.m_cert_data.m_data.m_key.m_enc_type == mk_lib_iip_cp_remote_destination_certificate_key_enc_type_e_elgamal && remote_destination.m_certificate.m_cert_data.m_data.m_key.m_sgn_type == mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_ecdsa_sha512_p521){ cert_buf = &mk_clib_app_hosts_b32_cert_key_0_3[0]; cert_len = mk_lang_countstr(mk_clib_app_hosts_b32_cert_key_0_3); }
-					else if(remote_destination.m_certificate.m_cert_data.m_data.m_key.m_enc_type == mk_lib_iip_cp_remote_destination_certificate_key_enc_type_e_elgamal && remote_destination.m_certificate.m_cert_data.m_data.m_key.m_sgn_type == mk_lib_iip_cp_remote_destination_certificate_key_sgn_type_e_reddsa_sha512_ed25519){ cert_buf = &mk_clib_app_hosts_b32_cert_key_0_11[0]; cert_len = mk_lang_countstr(mk_clib_app_hosts_b32_cert_key_0_11); }
+				case mk_lib_iip_cp_destination_cert_type_e_null: cert_buf = &mk_clib_app_hosts_b32_cert_null[0]; cert_len = mk_lang_countstr(mk_clib_app_hosts_b32_cert_null); break;
+				case mk_lib_iip_cp_destination_cert_type_e_hidden: cert_buf = &mk_clib_app_hosts_b32_cert_hidden[0]; cert_len = mk_lang_countstr(mk_clib_app_hosts_b32_cert_hidden); break;
+				case mk_lib_iip_cp_destination_cert_type_e_signeda: cert_buf = &mk_clib_app_hosts_b32_cert_signed[0]; cert_len = mk_lang_countstr(mk_clib_app_hosts_b32_cert_signed); break;
+				case mk_lib_iip_cp_destination_cert_type_e_signedb: cert_buf = &mk_clib_app_hosts_b32_cert_signed[0]; cert_len = mk_lang_countstr(mk_clib_app_hosts_b32_cert_signed); break;
+				case mk_lib_iip_cp_destination_cert_type_e_key:
+					if(remote_destination.m_certificate.m_cert_data.m_data.m_key.m_enc_type == mk_lib_iip_cp_destination_certificate_key_enc_type_e_elgamal && remote_destination.m_certificate.m_cert_data.m_data.m_key.m_sgn_type == mk_lib_iip_cp_destination_certificate_key_sgn_type_e_dsa_sha1){ cert_buf = &mk_clib_app_hosts_b32_cert_key_0_0[0]; cert_len = mk_lang_countstr(mk_clib_app_hosts_b32_cert_key_0_0); }
+					else if(remote_destination.m_certificate.m_cert_data.m_data.m_key.m_enc_type == mk_lib_iip_cp_destination_certificate_key_enc_type_e_elgamal && remote_destination.m_certificate.m_cert_data.m_data.m_key.m_sgn_type == mk_lib_iip_cp_destination_certificate_key_sgn_type_e_ecdsa_sha256_p256){ cert_buf = &mk_clib_app_hosts_b32_cert_key_0_1[0]; cert_len = mk_lang_countstr(mk_clib_app_hosts_b32_cert_key_0_1); }
+					else if(remote_destination.m_certificate.m_cert_data.m_data.m_key.m_enc_type == mk_lib_iip_cp_destination_certificate_key_enc_type_e_elgamal && remote_destination.m_certificate.m_cert_data.m_data.m_key.m_sgn_type == mk_lib_iip_cp_destination_certificate_key_sgn_type_e_eddsa_sha512_ed25519){ cert_buf = &mk_clib_app_hosts_b32_cert_key_0_7[0]; cert_len = mk_lang_countstr(mk_clib_app_hosts_b32_cert_key_0_7); }
+					else if(remote_destination.m_certificate.m_cert_data.m_data.m_key.m_enc_type == mk_lib_iip_cp_destination_certificate_key_enc_type_e_elgamal && remote_destination.m_certificate.m_cert_data.m_data.m_key.m_sgn_type == mk_lib_iip_cp_destination_certificate_key_sgn_type_e_ecdsa_sha512_p521){ cert_buf = &mk_clib_app_hosts_b32_cert_key_0_3[0]; cert_len = mk_lang_countstr(mk_clib_app_hosts_b32_cert_key_0_3); }
+					else if(remote_destination.m_certificate.m_cert_data.m_data.m_key.m_enc_type == mk_lib_iip_cp_destination_certificate_key_enc_type_e_elgamal && remote_destination.m_certificate.m_cert_data.m_data.m_key.m_sgn_type == mk_lib_iip_cp_destination_certificate_key_sgn_type_e_reddsa_sha512_ed25519){ cert_buf = &mk_clib_app_hosts_b32_cert_key_0_11[0]; cert_len = mk_lang_countstr(mk_clib_app_hosts_b32_cert_key_0_11); }
 					else{ mk_lang_check_todo(); }
 				break;
-				case mk_lib_iip_cp_remote_destination_cert_type_e_dummy_end: mk_lang_assert_false(); break;
+				case mk_lib_iip_cp_destination_cert_type_e_dummy_end: mk_lang_assert_false(); break;
 				default: mk_lang_assert_false(); break;
 			}
 			mk_lang_clobber(&cert_buf);

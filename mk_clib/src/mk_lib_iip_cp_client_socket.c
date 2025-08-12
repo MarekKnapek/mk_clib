@@ -22,11 +22,10 @@
 #include "mk_lib_iip_base32_encoder.h"
 #include "mk_lib_iip_buffer.h"
 #include "mk_lib_iip_cp_client_shared.h"
+#include "mk_lib_iip_cp_destination.h"
 #include "mk_lib_iip_cp_dynamic_ring.h"
-#include "mk_lib_iip_cp_local_destination.h"
 #include "mk_lib_iip_cp_mallocator_global.h"
 #include "mk_lib_iip_cp_message.h"
-#include "mk_lib_iip_cp_remote_destination.h"
 #include "mk_lib_iip_cp_types.h"
 #include "mk_lib_iip_http.h"
 #include "mk_lib_iip_key_sgn.h"
@@ -591,7 +590,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 	mk_lang_assert(task);
 
-	err = mk_lib_iip_cp_remote_destination_ro_to_b32(&task->m_socket.m_settings.m_remote_destination, &task->m_socket.m_state.m_remote_b32[0], mk_lang_countof(task->m_socket.m_state.m_remote_b32), &tlen); mk_lang_check_rereturn(err); mk_lang_assert(tlen == mk_lang_countof(task->m_socket.m_state.m_remote_b32));
+	err = mk_lib_iip_cp_destination_remote_ro_to_b32(&task->m_socket.m_settings.m_remote_destination, &task->m_socket.m_state.m_remote_b32[0], mk_lang_countof(task->m_socket.m_state.m_remote_b32), &tlen); mk_lang_check_rereturn(err); mk_lang_assert(tlen == mk_lang_countof(task->m_socket.m_state.m_remote_b32));
 	return 0;
 }
 
@@ -608,7 +607,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_assert(acks);
 
 	gud = mk_lang_true;
-	err = mk_lib_iip_cp_remote_destination_ro_to_bytes(&task->m_socket.m_settings.m_remote_destination, &dst_buf[0], mk_lang_countof(dst_buf), &gud, &consumed); mk_lang_check_rereturn(err); mk_lang_check_return(gud); mk_lang_assert(consumed >= 256 + 128 + 1 + 2); mk_lang_assert(consumed <= mk_lang_countof(dst_buf));
+	err = mk_lib_iip_cp_destination_remote_ro_to_bytes(&task->m_socket.m_settings.m_remote_destination, &dst_buf[0], mk_lang_countof(dst_buf), &gud, &consumed); mk_lang_check_rereturn(err); mk_lang_check_return(gud); mk_lang_assert(consumed >= 256 + 128 + 1 + 2); mk_lang_assert(consumed <= mk_lang_countof(dst_buf));
 	mk_lib_crypto_hash_stream_sha2_256_init(&hasher);
 	mk_lib_crypto_hash_stream_sha2_256_append_u8s(&hasher, &dst_buf[0], ((mk_lang_types_usize_t)(consumed)));
 	#include "mk_lang_warning_clang_push_cast_align.h"

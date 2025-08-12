@@ -18,7 +18,7 @@
 #include "mk_lang_types.h"
 #include "mk_lib_crypto_hash_stream_sha2_256.h"
 #include "mk_lib_fmt.h"
-#include "mk_lib_iip_cp_local_destination.h"
+#include "mk_lib_iip_cp_destination.h"
 #include "mk_lib_iip_cp_message.h"
 #include "mk_lib_iip_key_enc_elgamal_pri.h"
 #include "mk_lib_iip_key_enc_elgamal_pub.h"
@@ -3770,7 +3770,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_str_to_json_type_destination_raw(mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_sint_pt const out_len, mk_lib_iip_cp_local_destination_pct const obj) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_str_to_json_type_destination_raw(mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_sint_pt const out_len, mk_lib_iip_cp_destination_local_pct const obj) mk_lang_noexcept
 {
 	mk_lang_types_pchar_pt ptr mk_lang_constexpr_init;
 	mk_lang_types_sint_t rem mk_lang_constexpr_init;
@@ -3797,7 +3797,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_str_to_json_type_destination_sid_nsp(mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_sint_pt const out_len, mk_lib_iip_cp_message_str_strs_t const str_id, mk_lib_iip_cp_local_destination_pct const obj) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_str_to_json_type_destination_sid_nsp(mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_sint_pt const out_len, mk_lib_iip_cp_message_str_strs_t const str_id, mk_lib_iip_cp_destination_local_pct const obj) mk_lang_noexcept
 {
 	mk_lang_types_pchar_pt ptr mk_lang_constexpr_init;
 	mk_lang_types_sint_t rem mk_lang_constexpr_init;
@@ -3823,7 +3823,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_str_to_json_type_destination_sid_sep(mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_sint_pt const out_len, mk_lib_iip_cp_message_str_strs_t const str_id, mk_lib_iip_cp_local_destination_pct const obj) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_str_to_json_type_destination_sid_sep(mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_sint_pt const out_len, mk_lib_iip_cp_message_str_strs_t const str_id, mk_lib_iip_cp_destination_local_pct const obj) mk_lang_noexcept
 {
 	mk_lang_types_pchar_pt ptr mk_lang_constexpr_init;
 	mk_lang_types_sint_t rem mk_lang_constexpr_init;
@@ -3989,7 +3989,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	return 0;
 }*/
 
-mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_str_to_json_type_remote_destination_raw(mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_sint_pt const out_len, mk_lib_iip_cp_remote_destination_pct const obj) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_str_to_json_type_remote_destination_raw(mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_sint_pt const out_len, mk_lib_iip_cp_destination_remote_pct const obj) mk_lang_noexcept
 {
 	mk_lang_types_pchar_pt ptr mk_lang_constexpr_init;
 	mk_lang_types_sint_t rem mk_lang_constexpr_init;
@@ -4019,7 +4019,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_str_to_json_type_remote_destination_sid_nsp(mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_sint_pt const out_len, mk_lib_iip_cp_message_str_strs_t const str_id, mk_lib_iip_cp_remote_destination_pct const obj) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_str_to_json_type_remote_destination_sid_nsp(mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_sint_pt const out_len, mk_lib_iip_cp_message_str_strs_t const str_id, mk_lib_iip_cp_destination_remote_pct const obj) mk_lang_noexcept
 {
 	mk_lang_types_pchar_pt ptr mk_lang_constexpr_init;
 	mk_lang_types_sint_t rem mk_lang_constexpr_init;
@@ -4045,7 +4045,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_str_to_json_type_remote_destination_sid_sep(mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_sint_pt const out_len, mk_lib_iip_cp_message_str_strs_t const str_id, mk_lib_iip_cp_remote_destination_pct const obj) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_str_to_json_type_remote_destination_sid_sep(mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_sint_pt const out_len, mk_lib_iip_cp_message_str_strs_t const str_id, mk_lib_iip_cp_destination_remote_pct const obj) mk_lang_noexcept
 {
 	mk_lang_types_pchar_pt ptr mk_lang_constexpr_init;
 	mk_lang_types_sint_t rem mk_lang_constexpr_init;

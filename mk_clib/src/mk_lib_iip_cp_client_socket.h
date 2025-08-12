@@ -10,11 +10,10 @@
 #include "mk_lang_typedef.h"
 #include "mk_lang_types.h"
 #include "mk_lib_iip_buffer.h"
+#include "mk_lib_iip_cp_destination.h"
 #include "mk_lib_iip_cp_dynamic_ring.h"
-#include "mk_lib_iip_cp_local_destination.h"
 #include "mk_lib_iip_cp_mallocator_global.h"
 #include "mk_lib_iip_cp_message.h"
-#include "mk_lib_iip_cp_remote_destination.h"
 #include "mk_lib_iip_cp_types.h"
 #include "mk_lib_iip_net_streaming_packet.h"
 #include "mk_sl_cui_uint16.h"
@@ -99,9 +98,9 @@ struct mk_lib_iip_cp_client_socket_settings_s
 	mk_lib_iip_cp_client_shared_pt m_shared;
 	mk_lib_iip_cp_types_sessionid_pt m_session_id;
 	mk_lang_types_bool_t m_is_listener;
-	mk_lib_iip_cp_local_destination_pt m_local_destination;
+	mk_lib_iip_cp_destination_local_pt m_local_destination;
 	mk_sl_cui_uint16_t m_local_port;
-	mk_lib_iip_cp_remote_destination_t m_remote_destination;
+	mk_lib_iip_cp_destination_remote_t m_remote_destination;
 	mk_sl_cui_uint16_t m_remote_port;
 };
 typedef struct mk_lib_iip_cp_client_socket_settings_s mk_lib_iip_cp_client_socket_settings_t;
@@ -123,7 +122,7 @@ struct mk_lib_iip_cp_client_socket_state_s
 	mk_sl_cui_uint32_t m_remote_stream_id;
 	mk_sl_cui_uint32_t m_local_sequence_number;
 	mk_sl_cui_uint32_t m_remote_sequence_number;
-	mk_lib_iip_cp_remote_destination_t m_remote_destination;
+	mk_lib_iip_cp_destination_remote_t m_remote_destination;
 	mk_lang_types_pchar_t m_remote_b32[61];
 	mk_lib_iip_cp_dynamic_ring_u8_t m_data_to_sent;
 	mk_lib_iip_cp_dynamic_ring_u8_t m_data_received;

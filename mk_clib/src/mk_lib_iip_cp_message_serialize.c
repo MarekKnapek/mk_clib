@@ -716,7 +716,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_type_remote_destination(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_remote_destination_pct const obj) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_type_remote_destination(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_destination_remote_pct const obj) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
 	mk_lang_types_sint_t rem mk_lang_constexpr_init;
@@ -734,13 +734,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 	ptr = data_buf;
 	rem = data_len;
 	gud = mk_lang_true;
-	err = mk_lib_iip_cp_remote_destination_ro_to_bytes(obj, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *error_code = mk_lib_iip_cp_message_serialize_error_code_e_other; return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_destination_remote_ro_to_bytes(obj, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *error_code = mk_lib_iip_cp_message_serialize_error_code_e_other; return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	tlen = data_len - rem;
 	*consumed = tlen;
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_type_remote_destination_2(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_remote_destination_pct const obj) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_type_remote_destination_2(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_destination_remote_pct const obj) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
 	mk_lang_types_sint_t rem mk_lang_constexpr_init;
@@ -758,8 +758,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 	ptr = data_buf;
 	rem = data_len;
 	gud = mk_lang_true;
-	err = mk_lib_iip_cp_remote_destination_ro_enc_to_bytes(obj, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *error_code = mk_lib_iip_cp_message_serialize_error_code_e_other; return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_remote_destination_ro_sgn_to_bytes(obj, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *error_code = mk_lib_iip_cp_message_serialize_error_code_e_other; return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_destination_remote_ro_enc_to_bytes(obj, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *error_code = mk_lib_iip_cp_message_serialize_error_code_e_other; return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_destination_remote_ro_sgn_to_bytes(obj, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *error_code = mk_lib_iip_cp_message_serialize_error_code_e_other; return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	tlen = data_len - rem;
 	*consumed = tlen;
 	return 0;
@@ -1215,7 +1215,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 	ptr = data_buf;
 	rem = data_len;
 	gud = mk_lang_true;
-	err = mk_lib_iip_cp_local_destination_ro_sgn_to_bytes(&obj->m_leaseset.m_local_destination, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *error_code = mk_lib_iip_cp_message_serialize_error_code_e_other; return 0; } mk_lang_assert(tlen >= 1); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_destination_local_ro_sgn_to_bytes(&obj->m_leaseset.m_local_destination, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *error_code = mk_lib_iip_cp_message_serialize_error_code_e_other; return 0; } mk_lang_assert(tlen >= 1); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	tlen = data_len - rem;
 	*consumed = tlen;
 	return 0;
@@ -1239,7 +1239,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 	ptr = data_buf;
 	rem = data_len;
 	gud = mk_lang_true;
-	err = mk_lib_iip_cp_local_destination_ro_enc_to_bytes(&obj->m_leaseset.m_local_destination, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *error_code = mk_lib_iip_cp_message_serialize_error_code_e_other; return 0; } mk_lang_assert(tlen >= 1); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_destination_local_ro_enc_to_bytes(&obj->m_leaseset.m_local_destination, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *error_code = mk_lib_iip_cp_message_serialize_error_code_e_other; return 0; } mk_lang_assert(tlen >= 1); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	tlen = data_len - rem;
 	*consumed = tlen;
 	return 0;
