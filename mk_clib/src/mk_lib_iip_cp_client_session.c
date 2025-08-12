@@ -578,9 +578,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	err = mk_lib_iip_cp_message_reconstruct(&task->m_session.m_state.m_msg, mk_lib_iip_cp_message_message_type_id_e_create_lease_set); mk_lang_check_rereturn(err);
 	msg_create_lease_set = &task->m_session.m_state.m_msg.m_mix.m_data.m_create_lease_set;
 	msg_create_lease_set->m_session_id = task->m_session.m_state.m_id;
-	msg_create_lease_set->m_key_sgn_pri = task->m_session.m_settings.m_local_destination.m_private_data.m_key_dsa_sha1_pri;
-	msg_create_lease_set->m_key_enc_pri = task->m_session.m_settings.m_local_destination.m_private_data.m_key_elgamal_pri;
-	msg_create_lease_set->m_leaseset.m_destination = task->m_session.m_settings.m_local_destination;
+	msg_create_lease_set->m_leaseset.m_local_destination = task->m_session.m_settings.m_local_destination;
 	err = mk_lib_iip_cp_types_leases_rw_push_back_copy_many(&msg_create_lease_set->m_leaseset.m_leases, leases, size); mk_lang_check_rereturn(err);
 	task->m_session.m_state.m_has_msg_pending = mk_lang_true;
 
@@ -1029,9 +1027,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	err = mk_lib_iip_cp_message_reconstruct(&task->m_session.m_state.m_msg, mk_lib_iip_cp_message_message_type_id_e_create_lease_set); mk_lang_check_rereturn(err);
 	msg_create_lease_set = &task->m_session.m_state.m_msg.m_mix.m_data.m_create_lease_set;
 	msg_create_lease_set->m_session_id = task->m_session.m_state.m_id;
-	msg_create_lease_set->m_key_sgn_pri = task->m_session.m_settings.m_local_destination.m_private_data.m_key_dsa_sha1_pri;
-	msg_create_lease_set->m_key_enc_pri = task->m_session.m_settings.m_local_destination.m_private_data.m_key_elgamal_pri;
-	msg_create_lease_set->m_leaseset.m_destination = task->m_session.m_settings.m_local_destination;
+	msg_create_lease_set->m_leaseset.m_local_destination = task->m_session.m_settings.m_local_destination;
 	err = mk_lib_iip_cp_types_leases_rw_push_back_copy_many(&msg_create_lease_set->m_leaseset.m_leases, data, size); mk_lang_check_rereturn(err);
 	task->m_session.m_state.m_has_msg_pending = mk_lang_true;
 
@@ -1174,7 +1170,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 		msg = &task->m_session.m_state.m_msg;
 		err = mk_lib_iip_cp_message_reconstruct(msg, mk_lib_iip_cp_message_message_type_id_e_create_session); mk_lang_check_rereturn(err);
 		msg_create_session = &msg->m_mix.m_data.m_create_session;
-		msg_create_session->m_session_config.m_destination = task->m_session.m_settings.m_local_destination;
+		msg_create_session->m_session_config.m_local_destination = task->m_session.m_settings.m_local_destination;
 		msg_create_session->m_session_config.m_options.m_strpairs = task->m_session.m_settings.m_options;
 		mk_lib_iip_time_get_now(&msg_create_session->m_session_config.m_creation_date.m_elements[0]);
 		task->m_session.m_state.m_has_msg_pending = mk_lang_true;
@@ -1776,7 +1772,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	config.m_is_listener = mk_lang_false;
 	config.m_local_destination = &task->m_session.m_settings.m_local_destination;
 	err = mk_lib_iip_cp_client_session_task_prrw_get_new_local_port(task, &config.m_local_port); mk_lang_check_rereturn(err);
-	config.m_remote_destination = settings->m_destination;
+	config.m_remote_destination = settings->m_remote_destination;
 	config.m_remote_port = settings->m_port;
 
 	err = mk_lib_iip_cp_mallocator_global_allocate(sizeof(*sck), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem); sck = ((mk_lib_iip_cp_client_socket_task_pt)(mem)); mk_lang_assert(sck);

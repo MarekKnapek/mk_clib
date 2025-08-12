@@ -68,7 +68,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_remote_destin
 	{
 		mk_lang_assert(consumed >= 1);
 		mk_lang_assert(consumed <= destination_len);
-		err = mk_lib_iip_cp_remote_destination_rw_to_bytes(&remote_destination, &destination_b_buf[0], consumed, &gud, &consumed_b); mk_lang_check_rereturn(err);
+		err = mk_lib_iip_cp_remote_destination_ro_to_bytes(&remote_destination, &destination_b_buf[0], consumed, &gud, &consumed_b); mk_lang_check_rereturn(err);
 		mk_lang_test(gud);
 		mk_lang_test(consumed_b == consumed);
 		mk_lang_test(mk_sl_cui_uint8_memcmp_fn(&destination_b_buf[0], &destination_buf[0], consumed) == 0);

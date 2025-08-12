@@ -17,6 +17,7 @@ enum mk_lib_iip_cp_message_serialize_error_code_e
 {
 	mk_lib_iip_cp_message_serialize_error_code_e_ok,
 	mk_lib_iip_cp_message_serialize_error_code_e_not_enough_free_space,
+	mk_lib_iip_cp_message_serialize_error_code_e_other,
 	mk_lib_iip_cp_message_serialize_error_code_e_dummy_end
 };
 typedef enum mk_lib_iip_cp_message_serialize_error_code_e mk_lib_iip_cp_message_serialize_error_code_t;

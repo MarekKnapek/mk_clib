@@ -9,6 +9,7 @@
 #include "mk_lang_noexcept.h"
 #include "mk_lang_typedef.h"
 #include "mk_lang_types.h"
+#include "mk_lib_iip_cp_remote_destination.h"
 #include "mk_lib_iip_cp_types.h"
 #include "mk_lib_iip_key_enc_elgamal_pri.h"
 #include "mk_lib_iip_key_sgn_dsa_sha1.h"
@@ -260,8 +261,6 @@ mk_lang_typedef(mk_lib_iip_cp_message_destroy_session);
 struct mk_lib_iip_cp_message_create_lease_set_s
 {
 	mk_lib_iip_cp_types_sessionid_t m_session_id;
-	mk_lib_iip_key_sgn_dsa_sha1_pri_t m_key_sgn_pri;
-	mk_lib_iip_key_enc_elgamal_pri_t m_key_enc_pri;
 	mk_lib_iip_cp_types_leaseset_t m_leaseset;
 };
 typedef struct mk_lib_iip_cp_message_create_lease_set_s mk_lib_iip_cp_message_create_lease_set_t;
@@ -272,7 +271,7 @@ mk_lang_typedef(mk_lib_iip_cp_message_create_lease_set);
 struct mk_lib_iip_cp_message_send_message_s
 {
 	mk_lib_iip_cp_types_sessionid_t m_session_id;
-	mk_lib_iip_cp_types_remote_destination_t m_destination;
+	mk_lib_iip_cp_remote_destination_t m_remote_destination;
 	mk_lib_iip_cp_types_buffer_t m_payload;
 	mk_lib_iip_cp_types_nonce_t m_nonce;
 };

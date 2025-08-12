@@ -653,7 +653,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	mk_lang_assert(msg_send_message);
 
 	((mk_lang_types_void_t)(msg_send_message->m_session_id));
-	((mk_lang_types_void_t)(msg_send_message->m_destination));
+	((mk_lang_types_void_t)(msg_send_message->m_remote_destination));
 	((mk_lang_types_void_t)(msg_send_message->m_payload));
 	((mk_lang_types_void_t)(msg_send_message->m_nonce));
 	return 0;
@@ -664,7 +664,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	mk_lang_assert(msg_send_message);
 
 	((mk_lang_types_void_t)(msg_send_message->m_session_id));
-	((mk_lang_types_void_t)(msg_send_message->m_destination));
+	((mk_lang_types_void_t)(msg_send_message->m_remote_destination));
 	((mk_lang_types_void_t)(msg_send_message->m_payload));
 	((mk_lang_types_void_t)(msg_send_message->m_nonce));
 	return 0;

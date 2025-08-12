@@ -17,8 +17,7 @@
 #include "mk_lib_iip_cp_types.h"
 #include "mk_lib_iip_key_enc_elgamal_pri.h"
 #include "mk_lib_iip_key_enc_elgamal_pub.h"
-#include "mk_lib_iip_key_sgn_dsa_sha1.h"
-#include "mk_lib_iip_key_sgn_eddsa_sha512_ed25519_pub.h"
+#include "mk_lib_iip_key_sgn.h"
 #include "mk_lib_iip_random.h"
 #include "mk_sl_cui_uint16.h"
 #include "mk_sl_cui_uint32.h"
@@ -551,7 +550,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_elgamal_key_pri(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_key_enc_elgamal_pri_pct const obj) mk_lang_noexcept
+/*mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_elgamal_key_pri(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_key_enc_elgamal_pri_pct const obj) mk_lang_noexcept
 {
 	union mk_lib_iip_cp_message_serialize_elgamal_key_pri_data_u
 	{
@@ -585,43 +584,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	tlen = data_len - rem;
 	*consumed = tlen;
 	return 0;
-}
-
-mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_elgamal_key_pub(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_key_enc_elgamal_pub_pct const obj) mk_lang_noexcept
-{
-	union mk_lib_iip_cp_message_serialize_elgamal_key_pub_data_u
-	{
-		mk_lang_types_uchar_t m_uchars[mk_lib_iip_key_enc_elgamal_pub_integer_single_size_bytes_v];
-		mk_lib_iip_key_enc_elgamal_pub_t m_elgamal_key_pub;
-	};
-	typedef union mk_lib_iip_cp_message_serialize_elgamal_key_pub_data_u mk_lib_iip_cp_message_serialize_elgamal_key_pub_data_t;
-	struct mk_lib_iip_cp_message_serialize_elgamal_key_pub_s
-	{
-		mk_lib_iip_cp_message_serialize_elgamal_key_pub_data_t m_data;
-	};
-	typedef struct mk_lib_iip_cp_message_serialize_elgamal_key_pub_s mk_lib_iip_cp_message_serialize_elgamal_key_pub_t;
-
-	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
-	mk_lang_types_sint_t rem mk_lang_constexpr_init;
-	mk_lib_iip_cp_message_serialize_elgamal_key_pub_t storage mk_lang_constexpr_init;
-	mk_lang_types_sint_t err mk_lang_constexpr_init;
-	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
-
-	mk_lang_assert(data_buf || data_len == 0);
-	mk_lang_assert(data_len >= 0);
-	mk_lang_assert(error_code);
-	mk_lang_assert(*error_code == mk_lib_iip_cp_message_serialize_error_code_e_ok);
-	mk_lang_assert(consumed);
-	mk_lang_assert(obj);
-
-	ptr = data_buf;
-	rem = data_len;
-	mk_lib_iip_key_enc_elgamal_pub_integer_single_to_buis_uchar_be(&obj->m_data.m_integer, &storage.m_data.m_uchars[0]);
-	err = mk_lib_iip_cp_message_serialize_uchars(ptr, rem, error_code, &tlen, &storage.m_data.m_uchars[0], mk_lang_min(mk_lib_iip_cp_message_serialize_destination_blob_enc_pub_max, mk_lang_countof(storage.m_data.m_uchars))); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	tlen = data_len - rem;
-	*consumed = tlen;
-	return 0;
-}
+}*/
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_dsa_sha1_key_pri(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_key_sgn_dsa_sha1_pri_pct const obj) mk_lang_noexcept
 {
@@ -670,53 +633,6 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_dsa_sha1_key_pub(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_key_sgn_dsa_sha1_pub_pct const obj) mk_lang_noexcept
-{
-	union mk_lib_iip_cp_message_serialize_dsa_sha1_key_pub_data_u
-	{
-		mk_sl_cui_uint8_t m_uint8s[mk_lib_iip_key_sgn_dsa_sha1_pub_len_v];
-		mk_lib_iip_key_sgn_dsa_sha1_pub_t m_dsa_sha1_key_pub;
-	};
-	typedef union mk_lib_iip_cp_message_serialize_dsa_sha1_key_pub_data_u mk_lib_iip_cp_message_serialize_dsa_sha1_key_pub_data_t;
-	struct mk_lib_iip_cp_message_serialize_dsa_sha1_key_pub_s
-	{
-		mk_lib_iip_cp_message_serialize_dsa_sha1_key_pub_data_t m_data;
-	};
-	typedef struct mk_lib_iip_cp_message_serialize_dsa_sha1_key_pub_s mk_lib_iip_cp_message_serialize_dsa_sha1_key_pub_t;
-
-	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
-	mk_lang_types_sint_t rem mk_lang_constexpr_init;
-	mk_lib_iip_cp_message_serialize_dsa_sha1_key_pub_t storage mk_lang_constexpr_init;
-	mk_lang_types_sint_t err mk_lang_constexpr_init;
-	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
-
-	mk_lang_assert(data_buf || data_len == 0);
-	mk_lang_assert(data_len >= 0);
-	mk_lang_assert(error_code);
-	mk_lang_assert(*error_code == mk_lib_iip_cp_message_serialize_error_code_e_ok);
-	mk_lang_assert(consumed);
-	mk_lang_assert(obj);
-
-	ptr = data_buf;
-	rem = data_len;
-	#include "mk_lang_warning_msvc_push_c4127.h"
-	if(!mk_lang_constexpr_is_constant_evaluated_test)
-	#include "mk_lang_warning_msvc_pop.h"
-	{
-		err = mk_lib_iip_key_sgn_dsa_sha1_pub_rw_export_to_u8s(obj, &storage.m_data.m_uint8s[0]); mk_lang_check_rereturn(err);
-	}
-	else
-	{
-		#include "mk_lang_warning_clang_push_unreachable_code.h"
-		mk_sl_cui_uint8_memclr_fn(&storage.m_data.m_uint8s[0], mk_lang_countof(storage.m_data.m_uint8s));
-		#include "mk_lang_warning_clang_pop.h"
-	}
-	err = mk_lib_iip_cp_message_serialize_u8s(ptr, rem, error_code, &tlen, &storage.m_data.m_uint8s[0], mk_lang_min(mk_lib_iip_cp_message_serialize_destination_blob_sgn_pub_max, mk_lang_countof(storage.m_data.m_uint8s))); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	tlen = data_len - rem;
-	*consumed = tlen;
-	return 0;
-}
-
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_ecdsa_sha256_p256_key_pub(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_key_sgn_ecdsa_sha256_p256_pub_pct const obj) mk_lang_noexcept
 {
 	union mk_lib_iip_cp_message_serialize_ecdsa_sha256_p256_key_pub_data_u
@@ -747,42 +663,6 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	ptr = data_buf;
 	rem = data_len;
 	mk_lib_iip_key_sgn_ecdsa_sha256_p256_pub_integer_single_to_buis_uchar_be(&obj->m_data.m_integer, &storage.m_data.m_uchars[0]);
-	err = mk_lib_iip_cp_message_serialize_uchars(ptr, rem, error_code, &tlen, &storage.m_data.m_uchars[0], mk_lang_min(mk_lib_iip_cp_message_serialize_destination_blob_sgn_pub_max, mk_lang_countof(storage.m_data.m_uchars))); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	tlen = data_len - rem;
-	*consumed = tlen;
-	return 0;
-}
-
-mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_eddsa_sha512_ed25519_key_pub(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_key_sgn_eddsa_sha512_ed25519_pub_pct const obj) mk_lang_noexcept
-{
-	union mk_lib_iip_cp_message_serialize_eddsa_sha512_ed25519_key_pub_data_u
-	{
-		mk_lang_types_uchar_t m_uchars[mk_lib_iip_key_sgn_eddsa_sha512_ed25519_pub_integer_single_size_bytes_v];
-		mk_lib_iip_key_sgn_eddsa_sha512_ed25519_pub_t m_eddsa_sha512_ed25519_key_pub;
-	};
-	typedef union mk_lib_iip_cp_message_serialize_eddsa_sha512_ed25519_key_pub_data_u mk_lib_iip_cp_message_serialize_eddsa_sha512_ed25519_key_pub_data_t;
-	struct mk_lib_iip_cp_message_serialize_eddsa_sha512_ed25519_key_pub_s
-	{
-		mk_lib_iip_cp_message_serialize_eddsa_sha512_ed25519_key_pub_data_t m_data;
-	};
-	typedef struct mk_lib_iip_cp_message_serialize_eddsa_sha512_ed25519_key_pub_s mk_lib_iip_cp_message_serialize_eddsa_sha512_ed25519_key_pub_t;
-
-	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
-	mk_lang_types_sint_t rem mk_lang_constexpr_init;
-	mk_lib_iip_cp_message_serialize_eddsa_sha512_ed25519_key_pub_t storage mk_lang_constexpr_init;
-	mk_lang_types_sint_t err mk_lang_constexpr_init;
-	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
-
-	mk_lang_assert(data_buf || data_len == 0);
-	mk_lang_assert(data_len >= 0);
-	mk_lang_assert(error_code);
-	mk_lang_assert(*error_code == mk_lib_iip_cp_message_serialize_error_code_e_ok);
-	mk_lang_assert(consumed);
-	mk_lang_assert(obj);
-
-	ptr = data_buf;
-	rem = data_len;
-	mk_lib_iip_key_sgn_eddsa_sha512_ed25519_pub_integer_single_to_buis_uchar_be(&obj->m_data.m_integer, &storage.m_data.m_uchars[0]);
 	err = mk_lib_iip_cp_message_serialize_uchars(ptr, rem, error_code, &tlen, &storage.m_data.m_uchars[0], mk_lang_min(mk_lib_iip_cp_message_serialize_destination_blob_sgn_pub_max, mk_lang_countof(storage.m_data.m_uchars))); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -836,74 +716,11 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_certificate_key_1_0(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_type_remote_destination(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_remote_destination_pct const obj) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
 	mk_lang_types_sint_t rem mk_lang_constexpr_init;
-	mk_lib_iip_cp_message_certificate_type_id_t certificate_type_id mk_lang_constexpr_init;
-	mk_lang_types_sint_t certificate_data_len mk_lang_constexpr_init;
-	mk_lang_types_sint_t sgn_key_type mk_lang_constexpr_init;
-	mk_lang_types_sint_t enc_key_type mk_lang_constexpr_init;
-	mk_lang_types_sint_t err mk_lang_constexpr_init;
-	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
-
-	mk_lang_assert(data_buf || data_len == 0);
-	mk_lang_assert(data_len >= 0);
-	mk_lang_assert(error_code);
-	mk_lang_assert(*error_code == mk_lib_iip_cp_message_serialize_error_code_e_ok);
-	mk_lang_assert(consumed);
-
-	ptr = data_buf;
-	rem = data_len;
-	certificate_type_id = mk_lib_iip_cp_message_certificate_type_id_e_key;
-	certificate_data_len = 2 * mk_sl_cui_uint16_size_bytes_v + 0 + 0;
-	sgn_key_type = mk_lib_iip_cp_types_sign_key_type_e_ecdsa_sha256_p256;
-	enc_key_type = mk_lib_iip_cp_types_crpt_key_type_e_elgamal;
-	err = mk_lib_iip_cp_message_serialize_enum_certificate_type(ptr, rem, error_code, &tlen, &certificate_type_id ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_serialize_sint_16              (ptr, rem, error_code, &tlen, &certificate_data_len); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_serialize_sint_16              (ptr, rem, error_code, &tlen, &sgn_key_type        ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_serialize_sint_16              (ptr, rem, error_code, &tlen, &enc_key_type        ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	tlen = data_len - rem;
-	*consumed = tlen;
-	return 0;
-}
-
-mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_certificate_key_7_0(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
-{
-	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
-	mk_lang_types_sint_t rem mk_lang_constexpr_init;
-	mk_lib_iip_cp_message_certificate_type_id_t certificate_type_id mk_lang_constexpr_init;
-	mk_lang_types_sint_t certificate_data_len mk_lang_constexpr_init;
-	mk_lang_types_sint_t sgn_key_type mk_lang_constexpr_init;
-	mk_lang_types_sint_t enc_key_type mk_lang_constexpr_init;
-	mk_lang_types_sint_t err mk_lang_constexpr_init;
-	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
-
-	mk_lang_assert(data_buf || data_len == 0);
-	mk_lang_assert(data_len >= 0);
-	mk_lang_assert(error_code);
-	mk_lang_assert(*error_code == mk_lib_iip_cp_message_serialize_error_code_e_ok);
-	mk_lang_assert(consumed);
-
-	ptr = data_buf;
-	rem = data_len;
-	certificate_type_id = mk_lib_iip_cp_message_certificate_type_id_e_key;
-	certificate_data_len = 2 * mk_sl_cui_uint16_size_bytes_v + 0 + 0;
-	sgn_key_type = mk_lib_iip_cp_types_sign_key_type_e_eddsa_sha512_ed25519;
-	enc_key_type = mk_lib_iip_cp_types_crpt_key_type_e_elgamal;
-	err = mk_lib_iip_cp_message_serialize_enum_certificate_type(ptr, rem, error_code, &tlen, &certificate_type_id ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_serialize_sint_16              (ptr, rem, error_code, &tlen, &certificate_data_len); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_serialize_sint_16              (ptr, rem, error_code, &tlen, &sgn_key_type        ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_serialize_sint_16              (ptr, rem, error_code, &tlen, &enc_key_type        ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	tlen = data_len - rem;
-	*consumed = tlen;
-	return 0;
-}
-
-/*mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_type_remote_destination_elgamal_dsa_sha1(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_types_remote_destination_elgamal_dsa_sha1_pct const obj) mk_lang_noexcept
-{
-	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
-	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_bool_t gud mk_lang_constexpr_init;
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
@@ -916,18 +733,18 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 	ptr = data_buf;
 	rem = data_len;
-	err = mk_lib_iip_cp_message_serialize_elgamal_key_pub  (ptr, rem, error_code, &tlen, &obj->m_enc_pub); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_serialize_dsa_sha1_key_pub (ptr, rem, error_code, &tlen, &obj->m_sgn_pub); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_serialize_certificate_empty(ptr, rem, error_code, &tlen                          ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	gud = mk_lang_true;
+	err = mk_lib_iip_cp_remote_destination_ro_to_bytes(obj, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *error_code = mk_lib_iip_cp_message_serialize_error_code_e_other; return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	tlen = data_len - rem;
 	*consumed = tlen;
 	return 0;
-}*/
+}
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_type_remote_destination_legacy(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_types_remote_destination_elgamal_dsa_sha1_pct const obj) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_type_remote_destination_2(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_remote_destination_pct const obj) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
 	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_bool_t gud mk_lang_constexpr_init;
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
@@ -940,125 +757,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 	ptr = data_buf;
 	rem = data_len;
-	err = mk_lib_iip_cp_message_serialize_elgamal_key_pub  (ptr, rem, error_code, &tlen, &obj->m_enc_pub); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_serialize_dsa_sha1_key_pub (ptr, rem, error_code, &tlen, &obj->m_sgn_pub); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_serialize_certificate_empty(ptr, rem, error_code, &tlen                 ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	gud = mk_lang_true;
+	err = mk_lib_iip_cp_remote_destination_ro_enc_to_bytes(obj, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *error_code = mk_lib_iip_cp_message_serialize_error_code_e_other; return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_remote_destination_ro_sgn_to_bytes(obj, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *error_code = mk_lib_iip_cp_message_serialize_error_code_e_other; return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	tlen = data_len - rem;
 	*consumed = tlen;
 	return 0;
-}
-
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_type_remote_destination_elgamal_dsa_sha1(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_types_remote_destination_elgamal_dsa_sha1_pct const obj) mk_lang_noexcept
-{
-	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
-	mk_lang_types_sint_t rem mk_lang_constexpr_init;
-	mk_lang_types_sint_t err mk_lang_constexpr_init;
-	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
-
-	mk_lang_assert(data_buf || data_len == 0);
-	mk_lang_assert(data_len >= 0);
-	mk_lang_assert(error_code);
-	mk_lang_assert(*error_code == mk_lib_iip_cp_message_serialize_error_code_e_ok);
-	mk_lang_assert(consumed);
-	mk_lang_assert(obj);
-
-	ptr = data_buf;
-	rem = data_len;
-	err = mk_lib_iip_cp_message_serialize_elgamal_key_pub  (ptr, rem, error_code, &tlen, &obj->m_enc_pub); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_serialize_dsa_sha1_key_pub (ptr, rem, error_code, &tlen, &obj->m_sgn_pub); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_serialize_certificate_empty(ptr, rem, error_code, &tlen                 ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	tlen = data_len - rem;
-	*consumed = tlen;
-	return 0;
-}
-
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_type_remote_destination_elgamal_ecdsa_sha256_p256(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_types_remote_destination_elgamal_ecdsa_sha256_p256_pct const obj) mk_lang_noexcept
-{
-	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
-	mk_lang_types_sint_t rem mk_lang_constexpr_init;
-	mk_lang_types_sint_t err mk_lang_constexpr_init;
-	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
-
-	mk_lang_assert(data_buf || data_len == 0);
-	mk_lang_assert(data_len >= 0);
-	mk_lang_assert(error_code);
-	mk_lang_assert(*error_code == mk_lib_iip_cp_message_serialize_error_code_e_ok);
-	mk_lang_assert(consumed);
-	mk_lang_assert(obj);
-
-	ptr = data_buf;
-	rem = data_len;
-	err = mk_lib_iip_cp_message_serialize_elgamal_key_pub          (ptr, rem, error_code, &tlen, &obj->m_enc_pub                                        ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_serialize_u8s                      (ptr, rem, error_code, &tlen, &obj->m_padding_2[0], mk_lang_countof(obj->m_padding_2)); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_serialize_ecdsa_sha256_p256_key_pub(ptr, rem, error_code, &tlen, &obj->m_sgn_pub                                        ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_serialize_certificate_key_1_0      (ptr, rem, error_code, &tlen                                                         ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	tlen = data_len - rem;
-	*consumed = tlen;
-	return 0;
-}
-
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_type_remote_destination_elgamal_eddsa_sha512_ed25519(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_types_remote_destination_elgamal_eddsa_sha512_ed25519_pct const obj) mk_lang_noexcept
-{
-	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
-	mk_lang_types_sint_t rem mk_lang_constexpr_init;
-	mk_lang_types_sint_t err mk_lang_constexpr_init;
-	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
-
-	mk_lang_assert(data_buf || data_len == 0);
-	mk_lang_assert(data_len >= 0);
-	mk_lang_assert(error_code);
-	mk_lang_assert(*error_code == mk_lib_iip_cp_message_serialize_error_code_e_ok);
-	mk_lang_assert(consumed);
-	mk_lang_assert(obj);
-
-	ptr = data_buf;
-	rem = data_len;
-	err = mk_lib_iip_cp_message_serialize_elgamal_key_pub             (ptr, rem, error_code, &tlen, &obj->m_enc_pub                                        ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_serialize_u8s                         (ptr, rem, error_code, &tlen, &obj->m_padding_2[0], mk_lang_countof(obj->m_padding_2)); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_serialize_eddsa_sha512_ed25519_key_pub(ptr, rem, error_code, &tlen, &obj->m_sgn_pub                                        ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_serialize_certificate_key_7_0         (ptr, rem, error_code, &tlen                                                         ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	tlen = data_len - rem;
-	*consumed = tlen;
-	return 0;
-}
-
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_type_remote_destination(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_types_remote_destination_pct const obj) mk_lang_noexcept
-{
-	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
-	mk_lang_types_sint_t rem mk_lang_constexpr_init;
-	mk_lang_types_sint_t err mk_lang_constexpr_init;
-	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
-
-	mk_lang_assert(data_buf || data_len == 0);
-	mk_lang_assert(data_len >= 0);
-	mk_lang_assert(error_code);
-	mk_lang_assert(*error_code == mk_lib_iip_cp_message_serialize_error_code_e_ok);
-	mk_lang_assert(consumed);
-	mk_lang_assert(obj);
-
-	ptr = data_buf;
-	rem = data_len;
-	switch(obj->m_type)
-	{
-		case mk_lib_iip_cp_types_remote_destination_type_e_legacy                      : err = mk_lib_iip_cp_message_serialize_type_remote_destination_legacy                      (ptr, rem, error_code, &tlen, &obj->m_data.m_legacy                      ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen; break;
-		case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_dsa_sha1            : err = mk_lib_iip_cp_message_serialize_type_remote_destination_elgamal_dsa_sha1            (ptr, rem, error_code, &tlen, &obj->m_data.m_elgamal_dsa_sha1            ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen; break;
-		case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_ecdsa_sha256_p256   : err = mk_lib_iip_cp_message_serialize_type_remote_destination_elgamal_ecdsa_sha256_p256   (ptr, rem, error_code, &tlen, &obj->m_data.m_elgamal_ecdsa_sha256_p256   ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen; break;
-		case mk_lib_iip_cp_types_remote_destination_type_e_elgamal_eddsa_sha512_ed25519: err = mk_lib_iip_cp_message_serialize_type_remote_destination_elgamal_eddsa_sha512_ed25519(ptr, rem, error_code, &tlen, &obj->m_data.m_elgamal_eddsa_sha512_ed25519); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen; break;
-		case mk_lib_iip_cp_types_remote_destination_type_e_dummy_end: mk_lang_assert_false(); break;
-		default: mk_lang_assert_false(); break;
-	}
-	tlen = data_len - rem;
-	*consumed = tlen;
-	return 0;
-}
-
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_type_remote_destination2(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_types_destination2_pct const obj) mk_lang_noexcept
-{
-	mk_lib_iip_cp_types_remote_destination_t dst mk_lang_constexpr_init;
-
-	dst.m_type = obj->m_type;
-	dst.m_data = obj->m_public_data;
-	return mk_lib_iip_cp_message_serialize_type_remote_destination(data_buf, data_len, error_code, consumed, &dst);
 }
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_type_buf_buf(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_types_buffer_pct const obj) mk_lang_noexcept
@@ -1355,9 +1059,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 	mk_lang_types_sint_t snapshot_rem;
 	mk_lang_types_sint_t err;
 	mk_lang_types_sint_t tlen;
-	mk_lang_types_sint_t to_sign_len;
-	mk_lib_iip_key_sgn_dsa_sha1_digest_t digest;
-	mk_lib_iip_key_sgn_dsa_sha1_signature_t signature;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -1366,18 +1067,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 	mk_lang_assert(consumed);
 	mk_lang_assert(obj);
 
-	mk_lang_assert(obj->m_destination.m_type == mk_lib_iip_cp_types_remote_destination_type_e_legacy); /* todo */
-
 	ptr = data_buf;
 	rem = data_len;
 	snapshot_ptr = ptr; snapshot_rem = rem;
-	err = mk_lib_iip_cp_message_serialize_type_remote_destination2(ptr, rem, error_code, &tlen, &obj->m_destination                                 ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_serialize_elgamal_key_pub         (ptr, rem, error_code, &tlen, &obj->m_destination.m_public_data.m_legacy.m_enc_pub); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_serialize_dsa_sha1_key_pub        (ptr, rem, error_code, &tlen, &obj->m_destination.m_public_data.m_legacy.m_sgn_pub); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_serialize_type_leases             (ptr, rem, error_code, &tlen, &obj->m_leases                                      ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen; to_sign_len = snapshot_rem - rem;
-	err = mk_lib_iip_key_sgn_dsa_sha1_st_hash_data(snapshot_ptr, to_sign_len, &digest); mk_lang_check_rereturn(err);
-	err = mk_lib_iip_key_sgn_dsa_sha1_pri_rw_sign_digest(&obj->m_destination.m_private_data.m_key_dsa_sha1_pri, &digest, &signature); mk_lang_check_rereturn(err);
-	err = mk_lib_iip_cp_message_serialize_dsa_sha1_signature      (ptr, rem, error_code, &tlen, &signature                                          ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_serialize_type_remote_destination  (ptr, rem, error_code, &tlen, &obj->m_local_destination.m_remote_destination ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_serialize_type_remote_destination_2(ptr, rem, error_code, &tlen, &obj->m_local_destination.m_remote_destination ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_serialize_type_leases              (ptr, rem, error_code, &tlen, &obj->m_leases                                 ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_key_sgn_rw_sign_data                          (&obj->m_local_destination, snapshot_ptr, snapshot_rem - rem, ptr, rem, &tlen); mk_lang_check_rereturn(err); if(!(tlen >= 32)                                                 ){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	tlen = data_len - rem;
 	*consumed = tlen;
 	return 0;
@@ -1391,9 +1087,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 	mk_lang_types_sint_t snapshot_rem;
 	mk_lang_types_sint_t err;
 	mk_lang_types_sint_t tlen;
-	mk_lang_types_sint_t to_sign_len;
-	mk_lib_iip_key_sgn_dsa_sha1_digest_t digest;
-	mk_lib_iip_key_sgn_dsa_sha1_signature_t signature;
 
 	mk_lang_assert(data_buf || data_len == 0);
 	mk_lang_assert(data_len >= 0);
@@ -1405,12 +1098,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 	ptr = data_buf;
 	rem = data_len;
 	snapshot_ptr = ptr; snapshot_rem = rem;
-	err = mk_lib_iip_cp_message_serialize_type_remote_destination2(ptr, rem, error_code, &tlen, &obj->m_destination  ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_serialize_type_mapping            (ptr, rem, error_code, &tlen, &obj->m_options      ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_serialize_type_date               (ptr, rem, error_code, &tlen, &obj->m_creation_date); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen; to_sign_len = snapshot_rem - rem;
-	err = mk_lib_iip_key_sgn_dsa_sha1_st_hash_data(snapshot_ptr, to_sign_len, &digest); mk_lang_check_rereturn(err);
-	err = mk_lib_iip_key_sgn_dsa_sha1_pri_rw_sign_digest(&obj->m_destination.m_private_data.m_key_dsa_sha1_pri, &digest, &signature); mk_lang_check_rereturn(err);
-	err = mk_lib_iip_cp_message_serialize_dsa_sha1_signature      (ptr, rem, error_code, &tlen, &signature           ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_serialize_type_remote_destination(ptr, rem, error_code, &tlen, &obj->m_local_destination.m_remote_destination ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_serialize_type_mapping           (ptr, rem, error_code, &tlen, &obj->m_options                                ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_serialize_type_date              (ptr, rem, error_code, &tlen, &obj->m_creation_date                          ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_key_sgn_rw_sign_data                        (&obj->m_local_destination, snapshot_ptr, snapshot_rem - rem, ptr, rem, &tlen); mk_lang_check_rereturn(err); if(!(tlen >= 32)                                                 ){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	tlen = data_len - rem;
 	*consumed = tlen;
 	return 0;
@@ -1506,6 +1197,54 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_dsa_signing_private_key(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_message_create_lease_set_pct const obj) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_bool_t gud mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
+
+	mk_lang_assert(data_buf || data_len == 0);
+	mk_lang_assert(data_len >= 0);
+	mk_lang_assert(error_code);
+	mk_lang_assert(*error_code == mk_lib_iip_cp_message_serialize_error_code_e_ok);
+	mk_lang_assert(consumed);
+	mk_lang_assert(obj);
+
+	ptr = data_buf;
+	rem = data_len;
+	gud = mk_lang_true;
+	err = mk_lib_iip_cp_local_destination_ro_sgn_to_bytes(&obj->m_leaseset.m_local_destination, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *error_code = mk_lib_iip_cp_message_serialize_error_code_e_other; return 0; } mk_lang_assert(tlen >= 1); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	tlen = data_len - rem;
+	*consumed = tlen;
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_msg_create_lease_set_enc_pri(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_message_create_lease_set_pct const obj) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_bool_t gud mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
+
+	mk_lang_assert(data_buf || data_len == 0);
+	mk_lang_assert(data_len >= 0);
+	mk_lang_assert(error_code);
+	mk_lang_assert(*error_code == mk_lib_iip_cp_message_serialize_error_code_e_ok);
+	mk_lang_assert(consumed);
+	mk_lang_assert(obj);
+
+	ptr = data_buf;
+	rem = data_len;
+	gud = mk_lang_true;
+	err = mk_lib_iip_cp_local_destination_ro_enc_to_bytes(&obj->m_leaseset.m_local_destination, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *error_code = mk_lib_iip_cp_message_serialize_error_code_e_other; return 0; } mk_lang_assert(tlen >= 1); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	tlen = data_len - rem;
+	*consumed = tlen;
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_serialize_msg_create_lease_set(mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_serialize_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_message_create_lease_set_pct const obj) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_pt ptr mk_lang_constexpr_init;
@@ -1522,10 +1261,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 	ptr = data_buf;
 	rem = data_len;
-	err = mk_lib_iip_cp_message_serialize_type_sessionid  (ptr, rem, error_code, &tlen, &obj->m_session_id ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_serialize_dsa_sha1_key_pri(ptr, rem, error_code, &tlen, &obj->m_key_sgn_pri); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_serialize_elgamal_key_pri (ptr, rem, error_code, &tlen, &obj->m_key_enc_pri); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_serialize_type_leaseset   (ptr, rem, error_code, &tlen, &obj->m_leaseset   ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_serialize_type_sessionid              (ptr, rem, error_code, &tlen, &obj->m_session_id); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_serialize_dsa_signing_private_key     (ptr, rem, error_code, &tlen, obj               ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_serialize_msg_create_lease_set_enc_pri(ptr, rem, error_code, &tlen, obj               ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_serialize_type_leaseset               (ptr, rem, error_code, &tlen, &obj->m_leaseset  ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	tlen = data_len - rem;
 	*consumed = tlen;
 	return 0;
@@ -1547,10 +1286,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_messa
 
 	ptr = data_buf;
 	rem = data_len;
-	err = mk_lib_iip_cp_message_serialize_type_sessionid         (ptr, rem, error_code, &tlen, &obj->m_session_id ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_serialize_type_remote_destination(ptr, rem, error_code, &tlen, &obj->m_destination); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_serialize_type_buffer            (ptr, rem, error_code, &tlen, &obj->m_payload    ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_serialize_type_nonce             (ptr, rem, error_code, &tlen, &obj->m_nonce      ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_serialize_type_sessionid         (ptr, rem, error_code, &tlen, &obj->m_session_id        ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_serialize_type_remote_destination(ptr, rem, error_code, &tlen, &obj->m_remote_destination); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_serialize_type_buffer            (ptr, rem, error_code, &tlen, &obj->m_payload           ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_serialize_type_nonce             (ptr, rem, error_code, &tlen, &obj->m_nonce             ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_serialize_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	tlen = data_len - rem;
 	*consumed = tlen;
 	return 0;
