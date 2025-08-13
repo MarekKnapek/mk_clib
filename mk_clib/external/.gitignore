@@ -1,4 +1,5 @@
 /build/
 
+/cryptopp/
 /libtomcrypt/
 /zlib/

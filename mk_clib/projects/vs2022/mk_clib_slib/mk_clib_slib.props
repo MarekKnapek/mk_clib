@@ -63,11 +63,12 @@
 			<PreprocessorDefinitions>_ALLOW_RTCc_IN_STL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<PreprocessorDefinitions Condition="'$(mk_is_debug)' == 'true'">DEBUG;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			<PreprocessorDefinitions Condition="'$(mk_is_release)' == 'true'">NDEBUG;_NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<PreprocessorDefinitions Condition="'$(mk_is_entry_point)' == 'true'">mk_lang_entry_point_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions Condition="'$(mk_is_intel)' == 'true'">mk_lang_external_cryptopp_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<PreprocessorDefinitions Condition="'$(mk_is_msvc)' == 'true'">mk_lang_external_ltc_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			<PreprocessorDefinitions Condition="'$(mk_project)' == 'mk_clib_test'">mk_lang_crash_detail_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions Condition="'$(mk_is_release)' == 'true'">NDEBUG;_NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<PreprocessorDefinitions Condition="'$(mk_project)' == 'mk_clib_iip'">mk_lang_external_zlib_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions Condition="'$(mk_project)' == 'mk_clib_test'">mk_lang_crash_detail_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<UndefinePreprocessorDefinitions></UndefinePreprocessorDefinitions>
 			<UndefineAllPreprocessorDefinitions>false</UndefineAllPreprocessorDefinitions>
 			<IgnoreStandardIncludePath>false</IgnoreStandardIncludePath>
