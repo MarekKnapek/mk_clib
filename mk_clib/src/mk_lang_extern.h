@@ -21,5 +21,11 @@
 #define mk_lang_extern_force_c extern
 #endif
 
+#if defined __cplusplus
+#define mk_lang_extern_force_cpp extern
+#else
+#define mk_lang_extern_force_cpp xxxxxxxxxx
+#endif
+
 
 #endif
