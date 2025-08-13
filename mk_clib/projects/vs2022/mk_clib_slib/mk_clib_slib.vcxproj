@@ -154,6 +154,7 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_charbit.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_compiler.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_concat.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_configuration.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_encoding.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_endian.h"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_likely.h"/>
