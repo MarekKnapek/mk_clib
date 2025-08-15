@@ -2,9 +2,10 @@
 #define mk_include_guard_mk_lib_hash_crc32_windows_h
 
 
+#include "mk_lang_compiler.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_platform.h"
-#if mk_lang_platform_is_windows_at_least_any
+#if mk_lang_platform_is_windows_at_least_any && !mk_lang_compiler_is_watcom
 
 
 #include "mk_lang_noexcept.h"
