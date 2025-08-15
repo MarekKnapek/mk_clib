@@ -722,8 +722,8 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_iip_key_enc_
 	mk_lib_iip_key_enc_elgamal_cryptopp_integer_pri_single_mod_mul3_wrap_lo(&q, &pri->m_integer, &r, &s);
 	mk_lib_iip_key_enc_elgamal_cryptopp_integer_pri_single_mod_add2_wrap_cid_cod(&q, &s, &m);
 	mk_lib_iip_key_enc_elgamal_cryptopp_integer_pri_single_mod_mul2_wrap_lo(&q, &s, &ki);
-	mk_lib_iip_key_enc_elgamal_cryptopp_integer_pri_single_to_u8s_be(&r, &signature->m_data.m_uint8s[0 * mk_lib_iip_key_enc_elgamal_cryptopp_integer_pri_single_size_bytes_v]);
-	mk_lib_iip_key_enc_elgamal_cryptopp_integer_pri_single_to_u8s_be(&s, &signature->m_data.m_uint8s[1 * mk_lib_iip_key_enc_elgamal_cryptopp_integer_pri_single_size_bytes_v]);
+	/*mk_lib_iip_key_enc_elgamal_cryptopp_integer_pri_single_to_u8s_be(&r, &signature->m_data.m_uint8s[0 * mk_lib_iip_key_enc_elgamal_cryptopp_integer_pri_single_size_bytes_v]);*/
+	/*mk_lib_iip_key_enc_elgamal_cryptopp_integer_pri_single_to_u8s_be(&s, &signature->m_data.m_uint8s[1 * mk_lib_iip_key_enc_elgamal_cryptopp_integer_pri_single_size_bytes_v]);*/
 	*success =
 		!mk_lib_iip_key_enc_elgamal_cryptopp_integer_pri_single_is_zero(&r) &&
 		!mk_lib_iip_key_enc_elgamal_cryptopp_integer_pri_single_is_zero(&s);
@@ -958,8 +958,8 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_iip_key_enc_
 	mk_lang_assert(is_valid);
 
 	gud = mk_lang_true;
-	mk_lib_iip_key_enc_elgamal_cryptopp_integer_pri_single_from_u8s_be(&r, &signature->m_data.m_uint8s[0 * mk_lib_iip_key_enc_elgamal_cryptopp_integer_pri_single_size_bytes_v]);
-	mk_lib_iip_key_enc_elgamal_cryptopp_integer_pri_single_from_u8s_be(&s, &signature->m_data.m_uint8s[1 * mk_lib_iip_key_enc_elgamal_cryptopp_integer_pri_single_size_bytes_v]);
+	/*mk_lib_iip_key_enc_elgamal_cryptopp_integer_pri_single_from_u8s_be(&r, &signature->m_data.m_uint8s[0 * mk_lib_iip_key_enc_elgamal_cryptopp_integer_pri_single_size_bytes_v]);*/
+	/*mk_lib_iip_key_enc_elgamal_cryptopp_integer_pri_single_from_u8s_be(&s, &signature->m_data.m_uint8s[1 * mk_lib_iip_key_enc_elgamal_cryptopp_integer_pri_single_size_bytes_v]);*/
 	mk_lib_iip_key_enc_elgamal_cryptopp_integer_pri_single_set_zero(&zero);
 	mk_lib_iip_key_enc_elgamal_cryptopp_integer_pri_single_load_q(&q);
 	gud = gud & mk_lib_iip_key_enc_elgamal_cryptopp_integer_pri_single_gt(&r, &zero);

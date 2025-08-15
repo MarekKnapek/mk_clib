@@ -229,7 +229,6 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_lo
 mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_lokal_arena_inl_defd_mem_free_block_load(mk_sl_mallocator_lokal_arena_inl_defd_pct const arena, mk_lang_types_usize_t const block_idx, mk_sl_mallocator_lokal_arena_inl_defd_free_block_pt const free_block) mk_lang_noexcept
 {
 	mk_sl_mallocator_lokal_arena_inl_defd_mem_pct mem mk_lang_constexpr_init;
-	mk_lang_types_usize_t byte_idx mk_lang_constexpr_init;
 	mk_sl_cui_uint8_pct ptr mk_lang_constexpr_init;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
@@ -240,7 +239,6 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_lo
 	#include "mk_lang_warning_msvc_pop.h"
 
 	mem = &arena->m_mem;
-	byte_idx = block_idx * mk_sl_mallocator_lokal_arena_inl_defd_block_v;
 	ptr = mk_sl_mallocator_lokal_arena_inl_defd_access(mem);
 	mk_sl_mallocator_lokal_arena_inl_defd_convert_to_big(&free_block->m_next, ptr + mk_lang_offsetof(mk_sl_mallocator_lokal_arena_inl_defd_free_block_t, m_next));
 	mk_sl_mallocator_lokal_arena_inl_defd_convert_to_big(&free_block->m_prev, ptr + mk_lang_offsetof(mk_sl_mallocator_lokal_arena_inl_defd_free_block_t, m_prev));
