@@ -33,9 +33,11 @@
 #include "mk_lib_iip_cp_types.h"
 #include "mk_lib_iip_http.h"
 #include "mk_lib_iip_http_client_response.h"
+#include "mk_lib_iip_key_enc_elgamal_cryptopp.h"
 #include "mk_lib_iip_key_enc_elgamal_pri.h"
 #include "mk_lib_iip_key_enc_elgamal_pub.h"
 #include "mk_lib_iip_key_sgn_dsa_sha1.h"
+#include "mk_lib_iip_key_sgn_eddsa_25519_sha512_tom.h"
 #include "mk_lib_net.h"
 #include "mk_sl_cui_uint8.h"
 #include "mk_sl_io_reader_file.h"
@@ -50,12 +52,38 @@
 #include "mk_win_dll_kernel_process.h"
 #include "mk_win_dll_kernel_synchronization.h"
 #include "mk_win_dll_ws2.h"
+#include "mk_dll_cryptopp.hpp"
 
 
 static mk_lib_iip_cp_client_wrapper_task_pt mk_clib_app_iip_g_wrp;
 static mk_lang_types_bool_t mk_clib_app_iip_g_stop_requested;
 static mk_win_base_handle_t mk_clib_app_iip_g_main_thread;
 
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_destination_generate_new_random_ed25519(mk_lib_iip_cp_destination_local_pt const destination) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	mk_lib_iip_key_sgn_eddsa_25519_sha512_tom_pri_t key_sgn;
+	//mk_lib_iip_key_enc_elgamal_portable_pri_t key_enc;
+
+	mk_lang_assert(destination);
+
+	destination->m_remote_destination.m_certificate.m_cert_type = mk_lib_iip_cp_destination_cert_type_e_key;
+	destination->m_remote_destination.m_certificate.m_cert_data.m_data.m_key.m_enc_type = mk_lib_iip_cp_destination_certificate_key_enc_type_e_elgamal;
+	destination->m_remote_destination.m_certificate.m_cert_data.m_data.m_key.m_sgn_type = mk_lib_iip_cp_destination_certificate_key_sgn_type_e_eddsa_sha512_ed25519;
+
+	err = mk_lib_iip_key_sgn_eddsa_25519_sha512_tom_pri_rw_generate_random(&key_sgn); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_key_sgn_eddsa_25519_sha512_tom_pri_rw_export_pri_to_u8s(&key_sgn, &destination->m_basic_buffer.m_sgn_pri_key.m_bytes[0]); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_key_sgn_eddsa_25519_sha512_tom_pri_rw_export_pub_to_u8s(&key_sgn, &destination->m_remote_destination.m_basic_buffer.m_sgn_pub_key.m_bytes[0]); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_key_sgn_eddsa_25519_sha512_tom_pri_rw_destroy(&key_sgn); mk_lang_check_rereturn(err);
+
+	/*err = mk_lib_iip_key_enc_elgamal_portable_pri_rw_generate_random(&key_enc); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_key_enc_elgamal_portable_pri_rw_export_pri_to_u8s(&key_enc, &destination->m_basic_buffer.m_enc_pri_key.m_bytes[0]); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_key_enc_elgamal_portable_pri_rw_export_pub_to_u8s(&key_enc, &destination->m_remote_destination.m_basic_buffer.m_enc_pub_key.m_bytes[0]); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_key_enc_elgamal_portable_pri_rw_destroy(&key_enc); mk_lang_check_rereturn(err);*/
+
+	return 0;
+}
 
 #if 0
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_destination_elgamal_dsa_sha1_generate_new_random(mk_lib_iip_cp_types_destination2_pt const destination) mk_lang_noexcept
@@ -1112,6 +1140,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_glo
 	}
 	else
 	{
+		mk_dll_cryptopp_auto_seeded_random_pool_t rng;
+		err = mk_dll_cryptopp_auto_seeded_random_pool_rw_construct(&rng); mk_lang_check_rereturn(err);
+
 		mk_lang_check_return(argc == 3);
 		err = mk_clib_app_iip_work(argc, argv, lens); mk_lang_check_rereturn(err);
 	}

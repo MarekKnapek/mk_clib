@@ -6,6 +6,7 @@
 #if mk_lang_external_cryptopp_have
 
 #include "mk_lang_assert.h"
+#include "mk_lang_bool.h"
 #include "mk_lang_check.h"
 #include "mk_lang_extern.h"
 #include "mk_lang_jumbo.h"
@@ -25,7 +26,7 @@ namespace CryptoPP
 		AutoSeededRandomPool(mk_lang_types_bool_t const blocking, mk_lang_types_uint_t const seed_size) mk_lang_noexcept;
 	};
 }
- 
+
 
 mk_lang_extern_force_c mk_lang_nodiscard mk_lang_types_sint_t mk_dll_cryptopp_auto_seeded_random_pool_rw_construct(mk_dll_cryptopp_auto_seeded_random_pool_pt const auto_seeded_random_pool) mk_lang_noexcept
 {
