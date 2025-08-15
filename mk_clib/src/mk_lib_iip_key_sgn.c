@@ -17,7 +17,7 @@
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_key_sgn_prrw_sign_data_null(mk_lib_iip_cp_destination_local_pct const local_destination, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_sl_cui_uint8_pt const signature_buf, mk_lang_types_sint_t const signature_len, mk_lang_types_sint_pt const actual_len) mk_lang_noexcept
 {
-	mk_sl_cui_uint8_pt ptr;
+	/*mk_sl_cui_uint8_pt ptr;*/
 	mk_lang_types_sint_t rem;
 	mk_lang_types_sint_t tlen;
 	mk_lang_types_sint_t err;
@@ -33,7 +33,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_key_sgn_
 	mk_lang_assert(actual_len);
 	mk_lang_assert(local_destination->m_remote_destination.m_certificate.m_cert_type == mk_lib_iip_cp_destination_cert_type_e_null);
 
-	ptr = signature_buf;
+	/*ptr = signature_buf;*/
 	rem = signature_len;
 	tlen = mk_lib_iip_key_sgn_dsa_sha1_signature_len_v;
 	if(rem >= tlen)
@@ -42,7 +42,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_key_sgn_
 		err = mk_lib_iip_key_sgn_dsa_sha1_pri_rw_construct_from_u8s(&key, &local_destination->m_basic_buffer.m_sgn_pri_key.m_bytes[0]); mk_lang_check_rereturn(err);
 		err = mk_lib_iip_key_sgn_dsa_sha1_pri_rw_sign_digest(&key, &digest, &signature); mk_lang_check_rereturn(err);
 		err = mk_lib_iip_key_sgn_dsa_sha1_pri_rw_destroy(&key); mk_lang_check_rereturn(err);
-		mk_sl_cui_uint8_memcpy_fn(signature_buf, &signature.m_base.m_data.m_uint8s[0], tlen); ptr += tlen; rem -= tlen;
+		mk_sl_cui_uint8_memcpy_fn(signature_buf, &signature.m_base.m_data.m_uint8s[0], ((mk_lang_types_usize_t)(tlen))); /*ptr += tlen;*/ rem -= tlen;
 	}
 	tlen = signature_len - rem;
 	*actual_len = tlen;

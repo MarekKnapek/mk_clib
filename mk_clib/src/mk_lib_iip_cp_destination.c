@@ -258,7 +258,9 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lib_iip_cp_destinat
 		case mk_lib_iip_cp_destination_file_format_certificate_key_sgn_type_e_gost_a                : my_sgn_type = mk_lib_iip_cp_destination_certificate_key_sgn_type_e_gost_a                ; break;
 		case mk_lib_iip_cp_destination_file_format_certificate_key_sgn_type_e_gost_b                : my_sgn_type = mk_lib_iip_cp_destination_certificate_key_sgn_type_e_gost_b                ; break;
 		case mk_lib_iip_cp_destination_file_format_certificate_key_sgn_type_e_reddsa_sha512_ed25519 : my_sgn_type = mk_lib_iip_cp_destination_certificate_key_sgn_type_e_reddsa_sha512_ed25519 ; break;
+		#include "mk_lang_warning_clang_push_sometimes_uninitialized.h"
 		case mk_lib_iip_cp_destination_file_format_certificate_key_sgn_type_e_dummy_end: mk_lang_assert_false(); break;
+		#include "mk_lang_warning_clang_pop.h"
 		default: mk_lang_assert_false(); break;
 	}
 	mk_lang_clobber(&my_sgn_type);
@@ -332,7 +334,9 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lib_iip_cp_destinat
 		case mk_lib_iip_cp_destination_file_format_certificate_key_enc_type_e_p384   : my_enc_type = mk_lib_iip_cp_destination_certificate_key_enc_type_e_p384   ; break;
 		case mk_lib_iip_cp_destination_file_format_certificate_key_enc_type_e_p521   : my_enc_type = mk_lib_iip_cp_destination_certificate_key_enc_type_e_p521   ; break;
 		case mk_lib_iip_cp_destination_file_format_certificate_key_enc_type_e_x25519 : my_enc_type = mk_lib_iip_cp_destination_certificate_key_enc_type_e_x25519 ; break;
+		#include "mk_lang_warning_clang_push_sometimes_uninitialized.h"
 		case mk_lib_iip_cp_destination_file_format_certificate_key_enc_type_e_dummy_end: mk_lang_assert_false(); break;
+		#include "mk_lang_warning_clang_pop.h"
 		default: mk_lang_assert_false(); break;
 	}
 	mk_lang_clobber(&my_enc_type);
@@ -451,7 +455,9 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lib_iip_cp_destinat
 		case mk_lib_iip_cp_destination_cert_type_e_signeda: res = mk_lib_iip_cp_destination_file_format_certificate_type_e_signed; break;
 		case mk_lib_iip_cp_destination_cert_type_e_signedb: res = mk_lib_iip_cp_destination_file_format_certificate_type_e_signed; break;
 		case mk_lib_iip_cp_destination_cert_type_e_key    : res = mk_lib_iip_cp_destination_file_format_certificate_type_e_key   ; break;
+		#include "mk_lang_warning_clang_push_sometimes_uninitialized.h"
 		case mk_lib_iip_cp_destination_cert_type_e_dummy_end: mk_lang_assert_false(); break;
+		#include "mk_lang_warning_clang_pop.h"
 		default: mk_lang_assert_false(); break;
 	}
 	mk_lang_clobber(&res);
@@ -476,7 +482,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	mk_lang_types_sint_t sgn_additional_data_len mk_lang_constexpr_init;
 	mk_sl_cui_uint8_pct sgn_additional_data_buf mk_lang_constexpr_init;
 	mk_lang_types_sint_t enc_additional_data_len mk_lang_constexpr_init;
-	mk_sl_cui_uint8_pct enc_additional_data_buf mk_lang_constexpr_init;
+	/*mk_sl_cui_uint8_pct enc_additional_data_buf mk_lang_constexpr_init;*/
 
 	mk_lang_static_assert(mk_lang_countof(remote_destination->m_certificate.m_cert_data.m_data.m_key.m_sgn_pub_key) == mk_lib_iip_cp_destination_key_additional_len_worst_sgn_v);
 	mk_lang_static_assert(mk_lib_iip_cp_destination_key_additional_len_worst_enc_v == 0);
@@ -656,7 +662,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 			*succeeded = mk_lang_false;
 			return 0;
 		}
-		enc_additional_data_buf = ptr;
+		/*enc_additional_data_buf = ptr;*/
 		ptr += tlen;
 		rem -= tlen;
 
@@ -797,7 +803,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 				*succeeded = mk_lang_false;
 				return 0;
 			}
-			mk_sl_cui_uint8_memcpy_fn(ptr, &remote_destination->m_certificate.m_cert_data.m_data.m_signeda.m_dsa_signature[0], tlen);
+			mk_sl_cui_uint8_memcpy_fn(ptr, &remote_destination->m_certificate.m_cert_data.m_data.m_signeda.m_dsa_signature[0], ((mk_lang_types_usize_t)(tlen)));
 			ptr += tlen;
 			rem -= tlen;
 		}
@@ -821,7 +827,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 				*succeeded = mk_lang_false;
 				return 0;
 			}
-			mk_sl_cui_uint8_memcpy_fn(ptr, &remote_destination->m_certificate.m_cert_data.m_data.m_signedb.m_signeda.m_dsa_signature[0], tlen);
+			mk_sl_cui_uint8_memcpy_fn(ptr, &remote_destination->m_certificate.m_cert_data.m_data.m_signedb.m_signeda.m_dsa_signature[0], ((mk_lang_types_usize_t)(tlen)));
 			ptr += tlen;
 			rem -= tlen;
 			tlen = mk_lang_countof(remote_destination->m_certificate.m_cert_data.m_data.m_signedb.m_signing_destination_hash);
@@ -830,7 +836,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 				*succeeded = mk_lang_false;
 				return 0;
 			}
-			mk_sl_cui_uint8_memcpy_fn(ptr, &remote_destination->m_certificate.m_cert_data.m_data.m_signedb.m_signing_destination_hash[0], tlen);
+			mk_sl_cui_uint8_memcpy_fn(ptr, &remote_destination->m_certificate.m_cert_data.m_data.m_signedb.m_signing_destination_hash[0], ((mk_lang_types_usize_t)(tlen)));
 			ptr += tlen;
 			rem -= tlen;
 		}
@@ -878,7 +884,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 				*succeeded = mk_lang_false;
 				return 0;
 			}
-			mk_sl_cui_uint8_memcpy_fn(ptr, &remote_destination->m_certificate.m_cert_data.m_data.m_key.m_sgn_pub_key[0], tlen);
+			mk_sl_cui_uint8_memcpy_fn(ptr, &remote_destination->m_certificate.m_cert_data.m_data.m_key.m_sgn_pub_key[0], ((mk_lang_types_usize_t)(tlen)));
 			ptr += tlen;
 			rem -= tlen;
 			tlen = enc_additional_data_len;
@@ -964,7 +970,9 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 		case mk_lib_iip_cp_destination_cert_type_e_signeda: mk_lang_check_todo(); break;
 		case mk_lib_iip_cp_destination_cert_type_e_signedb: mk_lang_check_todo(); break;
 		case mk_lib_iip_cp_destination_cert_type_e_key    : res = mk_lib_iip_cp_destination_get_key_len_sgn(remote_destination->m_certificate.m_cert_data.m_data.m_key.m_sgn_type); break;
+		#include "mk_lang_warning_clang_push_sometimes_uninitialized.h"
 		case mk_lib_iip_cp_destination_cert_type_e_dummy_end: mk_lang_assert_false(); break;
+		#include "mk_lang_warning_clang_pop.h"
 		default: mk_lang_assert_false(); break;
 	}
 	mk_lang_clobber(&res);
@@ -1040,7 +1048,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 		mk_lib_crypto_hash_stream_sha2_256_finish(&hasher, &digest);
 		mk_lib_iip_base32_encoder_fn(&digest.m_data.m_uint8s[0], mk_lib_crypto_hash_block_sha2_256_digest_len_v, ptr, rem, &tlen); mk_lang_assert(tlen == mk_lang_roundup_div(mk_lib_crypto_hash_stream_sha2_256_digest_len_v * 8, 5)); ptr += tlen; rem -= tlen;
 		tlen = mk_lang_countstr(mk_lib_iip_cp_destination_k_b32_suffix);
-		if(rem >= tlen){ mk_lang_string_memcpy_pc_fn(ptr, &mk_lib_iip_cp_destination_k_b32_suffix[0], tlen); ptr += tlen; rem -= tlen; }
+		if(rem >= tlen){ mk_lang_string_memcpy_pc_fn(ptr, &mk_lib_iip_cp_destination_k_b32_suffix[0], ((mk_lang_types_usize_t)(tlen))); ptr += tlen; rem -= tlen; }
 		if(rem >= 1){ ptr[0] = '\0'; ptr += 1; rem -= 1; }
 	}
 	tlen = str_len - rem;
@@ -1082,12 +1090,16 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 				case mk_lib_iip_cp_destination_certificate_key_sgn_type_e_gost_a                : mk_lang_check_todo(); break;
 				case mk_lib_iip_cp_destination_certificate_key_sgn_type_e_gost_b                : mk_lang_check_todo(); break;
 				case mk_lib_iip_cp_destination_certificate_key_sgn_type_e_reddsa_sha512_ed25519 : mk_lang_check_todo(); break;
+				#include "mk_lang_warning_clang_push_sometimes_uninitialized.h"
 				case mk_lib_iip_cp_destination_certificate_key_sgn_type_e_dummy_end: mk_lang_assert_false(); break;
+				#include "mk_lang_warning_clang_pop.h"
 				default: mk_lang_assert_false(); break;
 			}
 		}
 		break;
+		#include "mk_lang_warning_clang_push_sometimes_uninitialized.h"
 		case mk_lib_iip_cp_destination_cert_type_e_dummy_end: mk_lang_assert_false(); break;
+		#include "mk_lang_warning_clang_pop.h"
 		default: mk_lang_assert_false(); break;
 	}
 	mk_lang_clobber(&res);

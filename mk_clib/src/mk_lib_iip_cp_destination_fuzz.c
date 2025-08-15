@@ -58,9 +58,9 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_destination_f
 	tui = mk_lang_min(tui, ((mk_lang_types_uint_t)(destination_cap)));
 	destination_len = ((mk_lang_types_sint_t)(tui));
 
-	mk_sl_cui_uint8_from_bi_uchar_many(&destination_buf[0], d, destination_len);
-	d += destination_len;
-	s -= destination_len;
+	mk_sl_cui_uint8_from_bi_uchar_many(&destination_buf[0], d, ((mk_lang_types_usize_t)(destination_len)));
+	d += ((mk_lang_types_usize_t)(destination_len));
+	s -= ((mk_lang_types_usize_t)(destination_len));
 
 	gud = mk_lang_true;
 	err = mk_lib_iip_cp_destination_remote_rw_from_bytes(&remote_destination, &destination_buf[0], destination_len, &gud, &consumed); mk_lang_check_rereturn(err);
@@ -71,7 +71,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_destination_f
 		err = mk_lib_iip_cp_destination_remote_ro_to_bytes(&remote_destination, &destination_b_buf[0], consumed, &gud, &consumed_b); mk_lang_check_rereturn(err);
 		mk_lang_test(gud);
 		mk_lang_test(consumed_b == consumed);
-		mk_lang_test(mk_sl_cui_uint8_memcmp_fn(&destination_b_buf[0], &destination_buf[0], consumed) == 0);
+		mk_lang_test(mk_sl_cui_uint8_memcmp_fn(&destination_b_buf[0], &destination_buf[0], ((mk_lang_types_usize_t)(consumed))) == 0);
 	}
 	return 0;
 }

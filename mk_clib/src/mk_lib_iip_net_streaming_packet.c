@@ -476,8 +476,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_stre
 			return 0;
 		}
 		tlen = mk_lib_iip_cp_destination_remote_ro_get_signature_len(&obj->m_from);
+		#include "mk_lang_warning_clang_push_cast_qual.h"
 		packet->m_signature_buf = ((mk_sl_cui_uint8_pt)(ptr));
 		packet->m_signature_len = tlen;
+		#include "mk_lang_warning_clang_pop.h"
 		mk_lang_clobber(&tlen);
 		if(!(rem >= tlen))
 		{
@@ -931,7 +933,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_stre
 			*success = mk_lang_false;
 			return 0;
 		}
-		mk_sl_cui_uint8_memclr_fn(&ptr[0], tlen);
+		mk_sl_cui_uint8_memclr_fn(&ptr[0], ((mk_lang_types_usize_t)(tlen)));
 		packet->m_signature_buf = ptr;
 		packet->m_signature_len = tlen;
 		ptr += tlen;

@@ -751,15 +751,19 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 		packet.m_payload_buf = mk_lang_null;
 		packet.m_payload_len = 0;
 
-		char const req[] =
-			"GET / HTTP/1.1" "\x0d\x0a"
-			//"Host: reg.i2p" "\x0d\x0a"
-			"Host: i2pforum.i2p" "\x0d\x0a"
-			//"Host: hiddenbooru.i2p" "\x0d\x0a"
-			"User-Agent: MYOB/6.66 (AN/ON)" "\x0d\x0a"
-			"" "\x0d\x0a";
-		packet.m_payload_buf = ((mk_sl_cui_uint8_pt)(req));
-		packet.m_payload_len = mk_lang_countstr(req);
+		{
+			char const req[] =
+				"GET / HTTP/1.1" "\x0d\x0a"
+				//"Host: reg.i2p" "\x0d\x0a"
+				"Host: i2pforum.i2p" "\x0d\x0a"
+				//"Host: hiddenbooru.i2p" "\x0d\x0a"
+				"User-Agent: MYOB/6.66 (AN/ON)" "\x0d\x0a"
+				"" "\x0d\x0a";
+			#include "mk_lang_warning_clang_push_cast_qual.h"
+			packet.m_payload_buf = ((mk_sl_cui_uint8_pt)(req));
+			packet.m_payload_len = mk_lang_countstr(req);
+			#include "mk_lang_warning_clang_pop.h"
+		}
 
 		gud = mk_lang_true;
 		err = mk_lib_iip_net_streaming_packet_ro_serialize(&packet, &decompressed_buf[0], mk_lang_countof(decompressed_buf), &gud, &decompressed_len); mk_lang_check_rereturn(err); mk_lang_check_return(gud); mk_lang_assert(decompressed_len >= 1); mk_lang_assert(decompressed_len <= mk_lang_countof(decompressed_buf));
