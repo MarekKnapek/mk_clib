@@ -292,13 +292,13 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_crypto_alg_aes_fuzz(
 	s -= mk_lang_bui_uint_size_bytes_v;
 	outb_offset_u = outb_offset_u % 32;
 	outb_offset_s = ((mk_lang_types_sint_t)(outb_offset_u));
-	pmsg = &msg[0 + block_offset_s * (128 / mk_lang_charbit)];
+	pmsg = &msg[(mk_lib_crypto_alg_aes_128_msg_len_v - (((mk_lang_types_uintptr_t)(&msg[0])) & (mk_lib_crypto_alg_aes_128_msg_len_v - 1))) + block_offset_s * (128 / mk_lang_charbit)];
 
-	pouta_my = &outa_my[0 + outa_offset_s * (128 / mk_lang_charbit)];
-	poutb_my = &outb_my[0 + outb_offset_s * (128 / mk_lang_charbit)];
+	pouta_my = &outa_my[(mk_lib_crypto_alg_aes_128_msg_len_v - (((mk_lang_types_uintptr_t)(&outa_my[0])) & (mk_lib_crypto_alg_aes_128_msg_len_v - 1))) + outa_offset_s * (128 / mk_lang_charbit)];
+	poutb_my = &outb_my[(mk_lib_crypto_alg_aes_128_msg_len_v - (((mk_lang_types_uintptr_t)(&outb_my[0])) & (mk_lib_crypto_alg_aes_128_msg_len_v - 1))) + outb_offset_s * (128 / mk_lang_charbit)];
 	err = mk_lib_crypto_alg_aes_fuzz_encrypt_my(&pkey_buf[0], key_len_s, &pmsg[0], block_count_u, &pouta_my[0]); mk_lang_check_rereturn(err);
 	#if mk_lang_platform_is_windows_at_least_any
-	pout_win = &out_win[0 + outa_offset_s * (128 / mk_lang_charbit)];
+	pout_win = &out_win[(mk_lib_crypto_alg_aes_128_msg_len_v - (((mk_lang_types_uintptr_t)(&out_win[0])) & (mk_lib_crypto_alg_aes_128_msg_len_v - 1))) + outa_offset_s * (128 / mk_lang_charbit)];
 	err = mk_lib_crypto_alg_aes_fuzz_encrypt_win(&pkey_buf[0], key_len_s, &pmsg[0], block_count_u, &pout_win[0]); mk_lang_check_rereturn(err);
 	mk_lang_test(mk_sl_cui_uint8_memcmp_fn(&pouta_my[0], &pout_win[0], block_count_u * (128 / mk_lang_charbit)) == 0);
 	#endif
