@@ -19,13 +19,13 @@
 #include "mk_lang_version.h"
 
 
+#include "mk_sl_cui_fuzz_printf_inl_defd.h"
+
+
 #if (mk_lang_version_at_least_c_99 || mk_lang_version_at_least_cpp_11 || mk_lang_version_at_least_msvc_cpp_11) && mk_lang_llong_has
 
 
 #include <stdio.h> /* snprintf */
-
-
-#include "mk_sl_cui_fuzz_printf_inl_defd.h"
 
 
 #define mk_lang_bui_t_name mk_sl_cui_fuzz_printf_inl_defd_a_prefix
