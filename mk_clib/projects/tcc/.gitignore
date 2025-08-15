@@ -1,0 +1,9 @@
+/bcrypt.def
+/ntdll.def
+
+/hasher_amd64.exe
+/hasher_i386.exe
+/info_amd64.exe
+/info_i386.exe
+/test_amd64.exe
+/test_i386.exe
