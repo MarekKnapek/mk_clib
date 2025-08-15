@@ -14,6 +14,8 @@ include(`mk_lang_typedef.m')dnl
 
 
 
+
+
 #undef mk_sl_mallocator_lokal_arena_inl_defd_name
 #undef mk_sl_mallocator_lokal_arena_inl_defd_size
 
@@ -43,6 +45,15 @@ include(`mk_lang_typedef.m')dnl
 #undef mk_sl_mallocator_lokal_arena_inl_defd_verify_want
 
 
+
+
+
+
+#undef mk_sl_mallocator_lokal_arena_inl_defd_algn
+#undef mk_sl_mallocator_lokal_arena_inl_defd_access
+
+#undef mk_sl_mallocator_lokal_arena_inl_defd_algn
+#undef mk_sl_mallocator_lokal_arena_inl_defd_access
 
 
 

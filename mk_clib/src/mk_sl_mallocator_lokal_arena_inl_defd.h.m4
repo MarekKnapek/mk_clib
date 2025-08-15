@@ -1,4 +1,6 @@
 include(`mk_lang_typedef.m')dnl
+#include "mk_lang_alignas.h"
+#include "mk_lang_alignof.h"
 #include "mk_lang_charbit.h"
 #include "mk_lang_concat.h"
 #include "mk_lang_sizeof.h"
@@ -43,6 +45,15 @@ include(`mk_lang_typedef.m')dnl
 #define mk_sl_mallocator_lokal_arena_inl_defd_verify_want 1
 #endif
 #endif
+#endif
+
+
+#if mk_lang_alignof_has && mk_lang_alignas_has
+#define mk_sl_mallocator_lokal_arena_inl_defd_algn (0)
+#define mk_sl_mallocator_lokal_arena_inl_defd_access(mem) (&(mem)->m_data.m_u8s[0])
+#else
+#define mk_sl_mallocator_lokal_arena_inl_defd_algn ((mk_sl_mallocator_lokal_arena_inl_defd_block_d) - 1)
+#define mk_sl_mallocator_lokal_arena_inl_defd_access(mem) (&(mem)->m_data.m_u8s[(mk_sl_mallocator_lokal_arena_inl_defd_block_d) - (((mk_lang_types_uintptr_t)(&(mem)->m_data.m_u8s[0])) & ((mk_sl_mallocator_lokal_arena_inl_defd_block_d) - 1))])
 #endif
 
 

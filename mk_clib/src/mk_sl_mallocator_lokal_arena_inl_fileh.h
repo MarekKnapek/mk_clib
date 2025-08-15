@@ -43,7 +43,7 @@ enum mk_sl_mallocator_lokal_arena_inl_defd_block_u { mk_sl_mallocator_lokal_aren
 
 union mk_sl_mallocator_lokal_arena_inl_defd_mem_data_u
 {
-	mk_lang_alignas(mk_sl_mallocator_lokal_arena_inl_defd_block_v) mk_sl_cui_uint8_t m_u8s[mk_sl_mallocator_lokal_arena_inl_defd_size];
+	mk_lang_alignas(mk_sl_mallocator_lokal_arena_inl_defd_block_v) mk_sl_cui_uint8_t m_u8s[mk_sl_mallocator_lokal_arena_inl_defd_algn + mk_sl_mallocator_lokal_arena_inl_defd_size];
 	mk_lang_types_ulllong_t m_align;
 };
 typedef union mk_sl_mallocator_lokal_arena_inl_defd_mem_data_u mk_sl_mallocator_lokal_arena_inl_defd_mem_data_t;
