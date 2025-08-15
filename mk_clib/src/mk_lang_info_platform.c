@@ -2,6 +2,8 @@
 #define mk_include_guard_mk_lang_info_platform_c
 #include "mk_lang_info_platform.h"
 
+#include "mk_lang_alignas.h"
+#include "mk_lang_alignof.h"
 #include "mk_lang_arch.h"
 #include "mk_lang_check.h"
 #include "mk_lang_cpuid.h"
@@ -93,8 +95,10 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_info_platform_print
 
 	err = mk_lang_stdout_println_lit_n(""); mk_lang_check_rereturn(err);
 
-	err = mk_lang_stdout_print_lit_n("mk_lang_llong_has : "); mk_lang_check_rereturn(err); err = mk_lang_llong_has  ? mk_lang_stdout_println_lit_n("yes") : mk_lang_stdout_println_lit_n("no"); mk_lang_check_rereturn(err);
-	err = mk_lang_stdout_print_lit_n("mk_lang_lllong_has: "); mk_lang_check_rereturn(err); err = mk_lang_lllong_has ? mk_lang_stdout_println_lit_n("yes") : mk_lang_stdout_println_lit_n("no"); mk_lang_check_rereturn(err);
+	err = mk_lang_stdout_print_lit_n("mk_lang_alignas_has: "); mk_lang_check_rereturn(err); err = mk_lang_alignas_has ? mk_lang_stdout_println_lit_n("yes") : mk_lang_stdout_println_lit_n("no"); mk_lang_check_rereturn(err);
+	err = mk_lang_stdout_print_lit_n("mk_lang_alignof_has: "); mk_lang_check_rereturn(err); err = mk_lang_alignof_has ? mk_lang_stdout_println_lit_n("yes") : mk_lang_stdout_println_lit_n("no"); mk_lang_check_rereturn(err);
+	err = mk_lang_stdout_print_lit_n("mk_lang_llong_has  : "); mk_lang_check_rereturn(err); err = mk_lang_llong_has   ? mk_lang_stdout_println_lit_n("yes") : mk_lang_stdout_println_lit_n("no"); mk_lang_check_rereturn(err);
+	err = mk_lang_stdout_print_lit_n("mk_lang_lllong_has : "); mk_lang_check_rereturn(err); err = mk_lang_lllong_has  ? mk_lang_stdout_println_lit_n("yes") : mk_lang_stdout_println_lit_n("no"); mk_lang_check_rereturn(err);
 
 	err = mk_lang_stdout_println_lit_n(""); mk_lang_check_rereturn(err);
 
