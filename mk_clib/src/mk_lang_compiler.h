@@ -3,6 +3,7 @@
 
 
 #if defined __WATCOMC__
+#define mk_lang_compiler_has_watcomc 1
 #define mk_lang_compiler_is_at_least_watcom_c(maj, min) \
 ( \
 	((maj) >= 1 && (maj) <= 99) && \
@@ -20,10 +21,12 @@
 	) \
 )
 #else
+#define mk_lang_compiler_has_watcomc 0
 #define mk_lang_compiler_is_at_least_watcom_c(maj, min) 0
 #endif
 
 #if defined __WATCOM_CPLUSPLUS__
+#define mk_lang_compiler_has_watcom_cplusplus 1
 #define mk_lang_compiler_is_at_least_watcom_cpp(maj, min) \
 ( \
 	((maj) >= 1 && (maj) <= 99) && \
@@ -41,17 +44,20 @@
 	) \
 )
 #else
+#define mk_lang_compiler_has_watcom_cplusplus 0
 #define mk_lang_compiler_is_at_least_watcom_cpp(maj, min) 0
 #endif
 
+#define mk_lang_compiler_is_watcom (mk_lang_compiler_has_watcomc || mk_lang_compiler_has_watcom_cplusplus)
+
 #if 0
-#elif defined __WATCOMC__ && !defined __WATCOM_CPLUSPLUS__
+#elif mk_lang_compiler_has_watcomc && !mk_lang_compiler_has_watcom_cplusplus
 #define mk_lang_compiler_is_at_least_watcom(maj, min) mk_lang_compiler_is_at_least_watcom_c((maj), (min))
-#elif !defined __WATCOMC__ && defined __WATCOM_CPLUSPLUS__
+#elif !mk_lang_compiler_has_watcomc && mk_lang_compiler_has_watcom_cplusplus
 #define mk_lang_compiler_is_at_least_watcom(maj, min) mk_lang_compiler_is_at_least_watcom_cpp((maj), (min))
-#elif defined __WATCOMC__ && defined __WATCOM_CPLUSPLUS__
+#elif mk_lang_compiler_has_watcomc && mk_lang_compiler_has_watcom_cplusplus
 #define mk_lang_compiler_is_at_least_watcom(maj, min) mk_lang_compiler_is_at_least_watcom_cpp((maj), (min))
-#elif !defined __WATCOMC__ && !defined __WATCOM_CPLUSPLUS__
+#elif !mk_lang_compiler_has_watcomc && !mk_lang_compiler_has_watcom_cplusplus
 #define mk_lang_compiler_is_at_least_watcom(maj, min) 0
 #endif
 
