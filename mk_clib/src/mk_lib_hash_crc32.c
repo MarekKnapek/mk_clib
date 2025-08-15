@@ -3,6 +3,7 @@
 #include "mk_lib_hash_crc32.h"
 
 #include "mk_lang_assert.h"
+#include "mk_lang_compiler.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_noexcept.h"
@@ -17,14 +18,14 @@
 
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_hash_crc32_init(mk_lib_hash_crc32_pt const crc32) mk_lang_noexcept
 {
-	#if mk_lang_platform_is_windows_at_least_any
+	#if mk_lang_platform_is_windows_at_least_any && !mk_lang_compiler_is_watcom
 	mk_lang_static_assert(sizeof(mk_win_base_dword_t) == mk_sl_cui_uint32_size_bytes_v);
 	mk_lang_static_assert(sizeof(mk_win_base_dword_t) == sizeof(mk_lang_types_uint_t));
 	#endif
 
 	mk_lang_assert(crc32);
 
-	#if mk_lang_platform_is_windows_at_least_any
+	#if mk_lang_platform_is_windows_at_least_any && !mk_lang_compiler_is_watcom
 	#include "mk_lang_warning_msvc_push_c4127.h"
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	#include "mk_lang_warning_msvc_pop.h"
@@ -50,7 +51,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_hash_crc32_init(mk_l
 
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_hash_crc32_append(mk_lib_hash_crc32_pt const crc32, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_usize_t const data_len) mk_lang_noexcept
 {
-	#if mk_lang_platform_is_windows_at_least_any
+	#if mk_lang_platform_is_windows_at_least_any && !mk_lang_compiler_is_watcom
 	mk_lang_static_assert(sizeof(mk_win_base_dword_t) == mk_sl_cui_uint32_size_bytes_v);
 	mk_lang_static_assert(sizeof(mk_win_base_dword_t) == sizeof(mk_lang_types_uint_t));
 	#endif
@@ -61,7 +62,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_hash_crc32_append(mk
 	mk_lang_assert(data_len >= 0);
 	#include "mk_lang_warning_msvc_pop.h"
 
-	#if mk_lang_platform_is_windows_at_least_any
+	#if mk_lang_platform_is_windows_at_least_any && !mk_lang_compiler_is_watcom
 	#include "mk_lang_warning_msvc_push_c4127.h"
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	#include "mk_lang_warning_msvc_pop.h"
@@ -90,7 +91,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_hash_crc32_append(mk
 
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_hash_crc32_finish(mk_lib_hash_crc32_pt const crc32, mk_lib_hash_crc32_digest_pt const digest) mk_lang_noexcept
 {
-	#if mk_lang_platform_is_windows_at_least_any
+	#if mk_lang_platform_is_windows_at_least_any && !mk_lang_compiler_is_watcom
 	mk_lang_static_assert(sizeof(mk_win_base_dword_t) == mk_sl_cui_uint32_size_bytes_v);
 	mk_lang_static_assert(sizeof(mk_win_base_dword_t) == sizeof(mk_lang_types_uint_t));
 	mk_lang_static_assert(((mk_lang_types_sint_t)(mk_lib_hash_crc32_digest_len_v)) == ((mk_lang_types_sint_t)(mk_lib_hash_crc32_windows_digest_len_v)));
@@ -100,7 +101,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_hash_crc32_finish(mk
 	mk_lang_assert(crc32);
 	mk_lang_assert(digest);
 
-	#if mk_lang_platform_is_windows_at_least_any
+	#if mk_lang_platform_is_windows_at_least_any && !mk_lang_compiler_is_watcom
 	#include "mk_lang_warning_msvc_push_c4127.h"
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	#include "mk_lang_warning_msvc_pop.h"
