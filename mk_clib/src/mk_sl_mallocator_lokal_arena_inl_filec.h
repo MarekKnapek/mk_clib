@@ -241,7 +241,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_lo
 
 	mem = &arena->m_mem;
 	byte_idx = block_idx * mk_sl_mallocator_lokal_arena_inl_defd_block_v;
-	ptr = &mem->m_data.m_u8s[byte_idx];
+	ptr = mk_sl_mallocator_lokal_arena_inl_defd_access(mem);
 	mk_sl_mallocator_lokal_arena_inl_defd_convert_to_big(&free_block->m_next, ptr + mk_lang_offsetof(mk_sl_mallocator_lokal_arena_inl_defd_free_block_t, m_next));
 	mk_sl_mallocator_lokal_arena_inl_defd_convert_to_big(&free_block->m_prev, ptr + mk_lang_offsetof(mk_sl_mallocator_lokal_arena_inl_defd_free_block_t, m_prev));
 	mk_sl_mallocator_lokal_arena_inl_defd_convert_to_big(&free_block->m_blocks_allocated, ptr + mk_lang_offsetof(mk_sl_mallocator_lokal_arena_inl_defd_free_block_t, m_blocks_allocated));
@@ -263,7 +263,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_lo
 
 	mem = &arena->m_mem;
 	byte_idx = block_idx * mk_sl_mallocator_lokal_arena_inl_defd_block_v;
-	ptr = &mem->m_data.m_u8s[byte_idx];
+	ptr = &mk_sl_mallocator_lokal_arena_inl_defd_access(mem)[byte_idx];
 	mk_sl_mallocator_lokal_arena_inl_defd_convert_to_sml(&free_block->m_next, ptr + mk_lang_offsetof(mk_sl_mallocator_lokal_arena_inl_defd_free_block_t, m_next));
 	mk_sl_mallocator_lokal_arena_inl_defd_convert_to_sml(&free_block->m_prev, ptr + mk_lang_offsetof(mk_sl_mallocator_lokal_arena_inl_defd_free_block_t, m_prev));
 	mk_sl_mallocator_lokal_arena_inl_defd_convert_to_sml(&free_block->m_blocks_allocated, ptr + mk_lang_offsetof(mk_sl_mallocator_lokal_arena_inl_defd_free_block_t, m_blocks_allocated));
@@ -285,7 +285,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_lo
 
 	mem = &arena->m_mem;
 	byte_idx = block_idx * mk_sl_mallocator_lokal_arena_inl_defd_block_v;
-	ptr = &mem->m_data.m_u8s[byte_idx];
+	ptr = &mk_sl_mallocator_lokal_arena_inl_defd_access(mem)[byte_idx];
 	mk_sl_mallocator_lokal_arena_inl_defd_convert_to_big(next, ptr + mk_lang_offsetof(mk_sl_mallocator_lokal_arena_inl_defd_free_block_t, m_next));
 }
 
@@ -304,7 +304,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_lo
 
 	mem = &arena->m_mem;
 	byte_idx = block_idx * mk_sl_mallocator_lokal_arena_inl_defd_block_v;
-	ptr = &mem->m_data.m_u8s[byte_idx];
+	ptr = &mk_sl_mallocator_lokal_arena_inl_defd_access(mem)[byte_idx];
 	mk_sl_mallocator_lokal_arena_inl_defd_convert_to_sml(next, ptr + mk_lang_offsetof(mk_sl_mallocator_lokal_arena_inl_defd_free_block_t, m_next));
 }
 
@@ -323,7 +323,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_lo
 
 	mem = &arena->m_mem;
 	byte_idx = block_idx * mk_sl_mallocator_lokal_arena_inl_defd_block_v;
-	ptr = &mem->m_data.m_u8s[byte_idx];
+	ptr = &mk_sl_mallocator_lokal_arena_inl_defd_access(mem)[byte_idx];
 	mk_sl_mallocator_lokal_arena_inl_defd_convert_to_big(prev, ptr + mk_lang_offsetof(mk_sl_mallocator_lokal_arena_inl_defd_free_block_t, m_prev));
 }
 
@@ -342,7 +342,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_lo
 
 	mem = &arena->m_mem;
 	byte_idx = block_idx * mk_sl_mallocator_lokal_arena_inl_defd_block_v;
-	ptr = &mem->m_data.m_u8s[byte_idx];
+	ptr = &mk_sl_mallocator_lokal_arena_inl_defd_access(mem)[byte_idx];
 	mk_sl_mallocator_lokal_arena_inl_defd_convert_to_sml(prev, ptr + mk_lang_offsetof(mk_sl_mallocator_lokal_arena_inl_defd_free_block_t, m_prev));
 }
 
@@ -359,7 +359,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_lo
 	mem = &arena->m_mem;
 	block_idx = mk_sl_mallocator_lokal_arena_inl_defd_blocks_wasted_v - 1;
 	byte_idx = block_idx * mk_sl_mallocator_lokal_arena_inl_defd_block_v;
-	ptr = &mem->m_data.m_u8s[byte_idx];
+	ptr = &mk_sl_mallocator_lokal_arena_inl_defd_access(mem)[byte_idx];
 	mk_sl_mallocator_lokal_arena_inl_defd_convert_to_big(blocks_allocated, ptr + mk_lang_offsetof(mk_sl_mallocator_lokal_arena_inl_defd_free_block_t, m_blocks_allocated));
 }
 
@@ -376,7 +376,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_lo
 	mem = &arena->m_mem;
 	block_idx = mk_sl_mallocator_lokal_arena_inl_defd_blocks_wasted_v - 1;
 	byte_idx = block_idx * mk_sl_mallocator_lokal_arena_inl_defd_block_v;
-	ptr = &mem->m_data.m_u8s[byte_idx];
+	ptr = &mk_sl_mallocator_lokal_arena_inl_defd_access(mem)[byte_idx];
 	mk_sl_mallocator_lokal_arena_inl_defd_convert_to_sml(blocks_allocated, ptr + mk_lang_offsetof(mk_sl_mallocator_lokal_arena_inl_defd_free_block_t, m_blocks_allocated));
 }
 
@@ -393,7 +393,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_lo
 	mem = &arena->m_mem;
 	block_idx = mk_sl_mallocator_lokal_arena_inl_defd_blocks_wasted_v - 1;
 	byte_idx = block_idx * mk_sl_mallocator_lokal_arena_inl_defd_block_v;
-	ptr = &mem->m_data.m_u8s[byte_idx];
+	ptr = &mk_sl_mallocator_lokal_arena_inl_defd_access(mem)[byte_idx];
 	mk_sl_mallocator_lokal_arena_inl_defd_convert_to_big(bytes_allocated, ptr + mk_lang_offsetof(mk_sl_mallocator_lokal_arena_inl_defd_free_block_t, m_bytes_allocated));
 }
 
@@ -410,7 +410,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_lo
 	mem = &arena->m_mem;
 	block_idx = mk_sl_mallocator_lokal_arena_inl_defd_blocks_wasted_v - 1;
 	byte_idx = block_idx * mk_sl_mallocator_lokal_arena_inl_defd_block_v;
-	ptr = &mem->m_data.m_u8s[byte_idx];
+	ptr = &mk_sl_mallocator_lokal_arena_inl_defd_access(mem)[byte_idx];
 	mk_sl_mallocator_lokal_arena_inl_defd_convert_to_sml(bytes_allocated, ptr + mk_lang_offsetof(mk_sl_mallocator_lokal_arena_inl_defd_free_block_t, m_bytes_allocated));
 }
 
@@ -623,7 +623,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_lo
 	mk_lang_assert(arena);
 	mk_lang_assert(bitmap);
 
-	mk_sl_mallocator_lokal_arena_inl_defd_convert_to_big_multi(&bitmap->m_data.m_words[0], &arena->m_mem.m_data.m_u8s[0], mk_sl_mallocator_lokal_arena_inl_defd_words_v);
+	mk_sl_mallocator_lokal_arena_inl_defd_convert_to_big_multi(&bitmap->m_data.m_words[0], &mk_sl_mallocator_lokal_arena_inl_defd_access(&arena->m_mem)[0], mk_sl_mallocator_lokal_arena_inl_defd_words_v);
 }
 
 mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_lokal_arena_inl_defd_mem_bitmap_store(mk_sl_mallocator_lokal_arena_inl_defd_pt const arena, mk_sl_mallocator_lokal_arena_inl_defd_bitmap_pct const bitmap) mk_lang_noexcept
@@ -631,7 +631,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_lo
 	mk_lang_assert(arena);
 	mk_lang_assert(bitmap);
 
-	mk_sl_mallocator_lokal_arena_inl_defd_convert_to_sml_multi(&bitmap->m_data.m_words[0], &arena->m_mem.m_data.m_u8s[0], mk_sl_mallocator_lokal_arena_inl_defd_words_v);
+	mk_sl_mallocator_lokal_arena_inl_defd_convert_to_sml_multi(&bitmap->m_data.m_words[0], &mk_sl_mallocator_lokal_arena_inl_defd_access(&arena->m_mem)[0], mk_sl_mallocator_lokal_arena_inl_defd_words_v);
 }
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t mk_sl_mallocator_lokal_arena_inl_defd_mem_bitmap_is_block_free(mk_sl_mallocator_lokal_arena_inl_defd_bitmap_pct const bitmap, mk_lang_types_usize_t const block_idx) mk_lang_noexcept
@@ -861,7 +861,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_lo
 
 	mk_lang_assert(arena);
 
-	mk_sl_cui_uint8_memclr_fn(&arena->m_mem.m_data.m_u8s[0], ((mk_lang_types_usize_t)(mk_sl_mallocator_lokal_arena_inl_defd_words_v)) * ((mk_lang_types_usize_t)(mk_sl_mallocator_lokal_arena_inl_defd_num_words_size_bytes_v)));
+	mk_sl_cui_uint8_memclr_fn(&mk_sl_mallocator_lokal_arena_inl_defd_access(&arena->m_mem)[0], ((mk_lang_types_usize_t)(mk_sl_mallocator_lokal_arena_inl_defd_words_v)) * ((mk_lang_types_usize_t)(mk_sl_mallocator_lokal_arena_inl_defd_num_words_size_bytes_v)));
 	mk_sl_mallocator_lokal_arena_inl_defd_num_words_set_zero(&free_block.m_next);
 	mk_sl_mallocator_lokal_arena_inl_defd_num_words_set_zero(&free_block.m_prev);
 	mk_sl_mallocator_lokal_arena_inl_defd_num_words_set_zero(&free_block.m_blocks_allocated);
@@ -922,7 +922,8 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_lo
 			mk_lang_assert(mk_sl_mallocator_lokal_arena_inl_defd_mem_bitmap_is_block_free(&bitmap, block_idx));
 			if(mk_sl_mallocator_lokal_arena_inl_defd_mem_bitmap_is_blocks_free(&bitmap, block_idx + 1, blocks_count - 1))
 			{
-				ret = &arena->m_mem.m_data.m_u8s[block_idx * mk_sl_mallocator_lokal_arena_inl_defd_block_v];
+				ret = &mk_sl_mallocator_lokal_arena_inl_defd_access(&arena->m_mem)[block_idx * mk_sl_mallocator_lokal_arena_inl_defd_block_v];
+				mk_lang_assert(((mk_lang_types_uintptr_t)(ret)) % mk_sl_mallocator_lokal_arena_inl_defd_block_v == 0);
 				break;
 			}
 			block_idx = mk_sl_mallocator_lokal_arena_inl_defd_mem_get_next_block_idx(arena, block_idx);
@@ -966,7 +967,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_mallocator_lo
 	if(blocks_count != 0)
 	{
 		mk_lang_assert(((mk_lang_types_uintptr_t)(blocks_ptr)) % mk_sl_mallocator_lokal_arena_inl_defd_block_v == 0);
-		block_idx = ((mk_lang_types_usize_t)(((mk_lang_types_uintptr_t)(blocks_ptr - &arena->m_mem.m_data.m_u8s[0])) / mk_sl_mallocator_lokal_arena_inl_defd_block_v));
+		block_idx = ((mk_lang_types_usize_t)(((mk_lang_types_uintptr_t)(blocks_ptr - &mk_sl_mallocator_lokal_arena_inl_defd_access(&arena->m_mem)[0])) / mk_sl_mallocator_lokal_arena_inl_defd_block_v));
 		#include "mk_lang_warning_msvc_push_c4296.h"
 		mk_lang_assert(block_idx >= 0);
 		mk_lang_assert(block_idx < mk_sl_mallocator_lokal_arena_inl_defd_blocks_total_v);
