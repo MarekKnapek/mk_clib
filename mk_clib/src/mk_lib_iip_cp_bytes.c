@@ -3,7 +3,8 @@
 #include "mk_lib_iip_cp_bytes.h"
 
 
-static void mk_lib_iip_cp_bytes_dummy(void){}
+void mk_lib_iip_cp_bytes_dummy(void);
+void mk_lib_iip_cp_bytes_dummy(void){}
 
 
 #endif
