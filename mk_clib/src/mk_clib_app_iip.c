@@ -887,8 +887,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_exa
 			str_len = mk_lib_fmt_n_snnprintf(&str_buf[0], mk_lang_countof(str_buf), &mk_clib_app_iip_example1_k_http_request_fmt[0], mk_lang_countstr(mk_clib_app_iip_example1_k_http_request_fmt), &mk_clib_app_iip_example1_k_resource[0], mk_lang_countstr(mk_clib_app_iip_example1_k_resource), &mk_clib_app_iip_example1_k_domain[0], mk_lang_countstr(mk_clib_app_iip_example1_k_domain));
 			mk_lang_check_return(str_len >= 1);
 			mk_lang_check_return(str_len <= mk_lang_countof(str_buf));
-			mk_sl_cui_uint8_from_bi_pchar_many(&data_buf[0], &str_buf[0], str_len);
-			err = mk_lib_iip_cp_dynamic_ring_u8_rw_push_back_copy_many(&example1->m_http_request, &data_buf[0], str_len); mk_lang_check_rereturn(err);
+			mk_sl_cui_uint8_from_bi_pchar_many(&data_buf[0], &str_buf[0], ((mk_lang_types_usize_t)(str_len)));
+			err = mk_lib_iip_cp_dynamic_ring_u8_rw_push_back_copy_many(&example1->m_http_request, &data_buf[0], ((mk_lang_types_usize_t)(str_len))); mk_lang_check_rereturn(err);
 			err = mk_lib_iip_cp_dynamic_ring_u8_rw_consolidate(&example1->m_http_request); mk_lang_check_rereturn(err);
 			payload_data = mk_lib_iip_cp_dynamic_ring_u8_rw_get_data_a(&example1->m_http_request);
 			payload_sise = mk_lib_iip_cp_dynamic_ring_u8_rw_get_sise_a(&example1->m_http_request);
