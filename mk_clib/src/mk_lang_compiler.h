@@ -62,6 +62,7 @@
 #endif
 
 #if defined __clang__ && defined __clang_major__ && defined __clang_minor__
+#define mk_lang_compiler_is_clang 1
 #define mk_lang_compiler_is_at_least_clang(maj, min) \
 ( \
 	((maj) >= 1 && (maj) <= 99) && \
@@ -74,10 +75,12 @@
 	) \
 )
 #else
+#define mk_lang_compiler_is_clang 0
 #define mk_lang_compiler_is_at_least_clang(maj, min) 0
 #endif
 
 #if defined __GNUC__ && defined __GNUC_MINOR__ && !defined __clang__ && !defined __clang_major__ && !defined __clang_minor__
+#define mk_lang_compiler_is_gcc 1
 #define mk_lang_compiler_is_at_least_gcc(maj, min) \
 ( \
 	((maj) >= 1 && (maj) <= 99) && \
@@ -90,7 +93,14 @@
 	) \
 )
 #else
+#define mk_lang_compiler_is_gcc 0
 #define mk_lang_compiler_is_at_least_gcc(maj, min) 0
+#endif
+
+#if defined _MSC_VER && defined _MSC_FULL_VER
+#define mk_lang_compiler_is_msvc 1
+#else
+#define mk_lang_compiler_is_msvc 0
 #endif
 
 
