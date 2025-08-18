@@ -4,17 +4,14 @@
 
 #include "mk_lang_charbit.h"
 #include "mk_lang_endian.h"
-#include "mk_lang_jumbo.h"
-#include "mk_lang_sizeof.h"
 
-
-#if mk_lang_charbit == 8 && mk_lang_sizeof_bi_ushort_t == 2
 
 #define mk_lang_bui_t_name mk_sl_cui_uint16_zzz_base
-#define mk_lang_bui_t_base ushort
+#define mk_lang_bui_t_base mk_sl_cui_uint16_base_type_name
 #define mk_lang_bui_t_inline 1
 #include "mk_lang_bui_inl_filec.h"
 #include "mk_lang_bui_inl_fileu.h"
+#define mk_sl_cui_uint16_zzz_base_size_bits_d (mk_sl_cui_uint16_base_sizeof * mk_lang_charbit)
 
 #define mk_sl_cui_t_name mk_sl_cui_uint16
 #define mk_sl_cui_t_base_type_name mk_sl_cui_uint16_zzz_base
@@ -26,11 +23,10 @@
 #include "mk_sl_cui_inl_filec.h"
 #include "mk_sl_cui_inl_fileu.h"
 
-#else
-
-#error xxxxxxxxxx
-
-#endif
+#define mk_lang_memall2_t_name mk_sl_cui_uint16
+#define mk_lang_memall2_t_tn mk_sl_cui_uint16
+#include "mk_lang_memall2_inl_filec.h"
+#include "mk_lang_memall2_inl_fileu.h"
 
 
 #endif
