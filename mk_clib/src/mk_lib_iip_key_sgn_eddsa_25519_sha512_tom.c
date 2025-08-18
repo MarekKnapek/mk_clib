@@ -268,6 +268,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_key_sgn_eddsa_25
 
 
 #else
-static void mk_lib_iip_key_sgn_eddsa_25519_sha512_tom_dummy(void){}
+void mk_lib_iip_key_sgn_eddsa_25519_sha512_tom_dummy(void);
+void mk_lib_iip_key_sgn_eddsa_25519_sha512_tom_dummy(void){}
 #endif
 #endif

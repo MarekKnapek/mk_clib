@@ -68,6 +68,13 @@
 		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_time.natvis"><ExcludedFromBuild Condition="'$(mk_is_debug)'=='true'">true</ExcludedFromBuild></Natvis>
 		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win.natvis"><ExcludedFromBuild Condition="'$(mk_is_debug)'=='true'">true</ExcludedFromBuild></Natvis>
 	</ItemGroup>
+	<ItemDefinitionGroup>
+		<Link>
+			<AdditionalDependencies>bcrypt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+			<AdditionalDependencies>ntdll.lib;%(AdditionalDependencies)</AdditionalDependencies>
+			<AdditionalDependencies>ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+		</Link>
+	</ItemDefinitionGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
 	<ImportGroup Label="ExtensionTargets">
 		<Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets"/>
