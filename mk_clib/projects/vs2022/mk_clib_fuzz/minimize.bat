@@ -18,7 +18,7 @@
 @mkdir "%~dp0corpus_new"
 @if %errorlevel% neq 0 goto mk_bad
 
-@"%~dp0..\build\out\x64\Debug\mk_clib_fuzz.exe" -merge=1 "%~dp0corpus_new" "%~dp0corpus"
+@"%~dp0..\build\out\x64\DebugMSVC\mk_clib_fuzz.exe" -merge=1 "%~dp0corpus_new" "%~dp0corpus"
 @if %errorlevel% neq 0 goto mk_bad
 
 @copy "%~dp0corpus\.gitignore" "%~dp0corpus_new\.gitignore" > nul

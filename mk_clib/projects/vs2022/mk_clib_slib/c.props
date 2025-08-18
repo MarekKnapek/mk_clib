@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ImportGroup Label="ExtensionSettings">
+		<Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props"/>
+	</ImportGroup>
+	<ImportGroup Label="Shared"/>
+	<ImportGroup Label="PropertySheets">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+	</ImportGroup>
+	<PropertyGroup Label="UserMacros"/>
+	<ItemDefinitionGroup>
+		<ClCompile>
+			<AdditionalIncludeDirectories></AdditionalIncludeDirectories>
+			<AdditionalUsingDirectories></AdditionalUsingDirectories>
+			<AdditionalBMIDirectories></AdditionalBMIDirectories>
+			<AdditionalModuleDependencies></AdditionalModuleDependencies>
+			<AdditionalHeaderUnitDependencies></AdditionalHeaderUnitDependencies>
+			<ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+			<TranslateIncludes>false</TranslateIncludes>
+			<DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+			<SupportJustMyCode>true</SupportJustMyCode>
+			<UseDynamicDebugging Condition="'$(mk_is_debug)'=='true'">false</UseDynamicDebugging>
+			<UseDynamicDebugging Condition="'$(mk_is_release)'=='true'">true</UseDynamicDebugging>
+			<CompileAsManaged>false</CompileAsManaged>
+			<CompileAsWinRT>false</CompileAsWinRT>
+			<SuppressStartupBanner>true</SuppressStartupBanner>
+			<WarningLevel>EnableAllWarnings</WarningLevel>
+			<TreatWarningAsError>true</TreatWarningAsError>
+			<WarningVersion></WarningVersion>
+			<DiagnosticsFormat>Column</DiagnosticsFormat>
+			<SDLCheck>true</SDLCheck>
+			<MultiProcessorCompilation>true</MultiProcessorCompilation>
+		</ClCompile>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup>
+		<ClCompile>
+			<Optimization>Disabled</Optimization>
+			<InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+			<IntrinsicFunctions>false</IntrinsicFunctions>
+			<FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+			<OmitFramePointers>false</OmitFramePointers>
+			<EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
+			<WholeProgramOptimization>false</WholeProgramOptimization>
+		</ClCompile>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup>
+		<ClCompile>
+			<PreprocessorDefinitions Condition="'$(mk_is_debug)'=='true'">_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions Condition="'$(mk_is_debug)'=='true'">DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>_ALLOW_RTCc_IN_STL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>_UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions>UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<UndefinePreprocessorDefinitions>%(UndefinePreprocessorDefinitions)</UndefinePreprocessorDefinitions>
+			<UndefineAllPreprocessorDefinitions>false</UndefineAllPreprocessorDefinitions>
+			<IgnoreStandardIncludePath>false</IgnoreStandardIncludePath>
+			<PreprocessToFile>false</PreprocessToFile>
+			<PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
+			<PreprocessKeepComments>false</PreprocessKeepComments>
+			<UseStandardPreprocessor>true</UseStandardPreprocessor>
+		</ClCompile>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup>
+		<ClCompile>
+			<StringPooling>false</StringPooling>
+			<MinimalRebuild>false</MinimalRebuild>
+			<ExceptionHandling>Sync</ExceptionHandling>
+			<SmallerTypeCheck>false</SmallerTypeCheck><!-- buggy? -->
+			<BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+			<RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+			<StructMemberAlignment>Default</StructMemberAlignment>
+			<BufferSecurityCheck>true</BufferSecurityCheck>
+			<ControlFlowGuard>Guard</ControlFlowGuard>
+			<FunctionLevelLinking>true</FunctionLevelLinking>
+			<EnableParallelCodeGeneration>false</EnableParallelCodeGeneration>
+			<EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+			<EnableVectorLength>NotSet</EnableVectorLength>
+			<FloatingPointModel>Precise</FloatingPointModel>
+			<FloatingPointExceptions>false</FloatingPointExceptions>
+			<CreateHotpatchableImage>false</CreateHotpatchableImage>
+			<IntelJCCErratum>true</IntelJCCErratum>
+			<GuardEHContMetadata>true</GuardEHContMetadata>
+			<!--<GuardSignedReturns>false</GuardSignedReturns>-->
+		</ClCompile>
+	</ItemDefinitionGroup>
+	<PropertyGroup Label="Configuration">
+		<SpectreMitigation>false</SpectreMitigation>
+	</PropertyGroup>
+	<ItemDefinitionGroup>
+		<ClCompile>
+			<DisableLanguageExtensions>false</DisableLanguageExtensions>
+			<TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+			<ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+			<RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
+			<EnforceTypeConversionRules>true</EnforceTypeConversionRules>
+			<RuntimeTypeInfo>true</RuntimeTypeInfo>
+			<OpenMPSupport>false</OpenMPSupport>
+			<LanguageStandard>stdcpp20</LanguageStandard>
+			<LanguageStandard_C>stdc17</LanguageStandard_C>
+			<ConformanceMode>true</ConformanceMode>
+			<EnableModules>false</EnableModules>
+			<BuildStlModules>false</BuildStlModules>
+		</ClCompile>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup>
+		<ClCompile>
+			<PrecompiledHeader>NotUsing</PrecompiledHeader>
+			<PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+			<PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+		</ClCompile>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup>
+		<ClCompile>
+			<ExpandAttributedSource>false</ExpandAttributedSource>
+			<AssemblerOutput>NoListing</AssemblerOutput>
+			<UseUnicodeForAssemblerListing></UseUnicodeForAssemblerListing>
+			<AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+			<ModuleOutputFile>$(IntDir)</ModuleOutputFile>
+			<ModuleDependenciesFile>$(IntDir)</ModuleDependenciesFile>
+			<ObjectFileName>$(IntDir)</ObjectFileName>
+			<ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+			<GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
+			<XMLDocumentationFileName>$(IntDir)</XMLDocumentationFileName>
+			<GenerateSourceDependencies>false</GenerateSourceDependencies>
+			<SourceDependenciesFile>$(IntDir)</SourceDependenciesFile>
+		</ClCompile>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup>
+		<ClCompile>
+			<BrowseInformation>false</BrowseInformation>
+			<BrowseInformationFile>$(IntDir)</BrowseInformationFile>
+		</ClCompile>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup>
+		<ClCompile>
+			<TreatAngleIncludeAsExternal>true</TreatAngleIncludeAsExternal>
+			<ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+			<ExternalTemplatesDiagnostics>false</ExternalTemplatesDiagnostics>
+			<DisableAnalyzeExternal>true</DisableAnalyzeExternal>
+			<AnalyzeExternalRuleset>AllRules.ruleset</AnalyzeExternalRuleset>
+		</ClCompile>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup>
+		<ClCompile>
+			<CallingConvention>Cdecl</CallingConvention>
+			<CompileAs>Default</CompileAs>
+			<DisableSpecificWarnings>4464;%(DisableSpecificWarnings)</DisableSpecificWarnings><!-- warning C4464: relative include path contains '..' -->
+			<DisableSpecificWarnings>4514;%(DisableSpecificWarnings)</DisableSpecificWarnings><!-- warning C4514: 'xxx': unreferenced inline function has been removed -->
+			<DisableSpecificWarnings>5045;%(DisableSpecificWarnings)</DisableSpecificWarnings><!-- warning C5045: Compiler will insert Spectre mitigation for memory load if /Qspectre switch specified -->
+			<DisableSpecificWarnings>5287;%(DisableSpecificWarnings)</DisableSpecificWarnings><!-- warning C5287: operands are different enum types 'xxx' and 'xxx'; use an explicit cast to silence this warning -->
+			<ForcedIncludeFiles></ForcedIncludeFiles>
+			<ForcedUsingFiles></ForcedUsingFiles>
+			<ShowIncludes>false</ShowIncludes>
+			<UseFullPaths>true</UseFullPaths>
+			<OmitDefaultLibName>false</OmitDefaultLibName>
+			<ErrorReporting>None</ErrorReporting>
+			<TreatSpecificWarningsAsErrors></TreatSpecificWarningsAsErrors>
+		</ClCompile>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup>
+		<ClCompile>
+			<AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(mk_is_msvc)' == 'true'">/constexpr:steps1000000000 %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup>
+		<Link>
+			<OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+			<ShowProgress>NotSet</ShowProgress>
+			<Version></Version>
+			<IncrementalLinkDatabaseFile>$(IntDir)$(TargetName).ilk</IncrementalLinkDatabaseFile>
+			<SuppressStartupBanner>true</SuppressStartupBanner>
+			<RegisterOutput>false</RegisterOutput>
+			<PerUserRedirection>false</PerUserRedirection>
+			<AdditionalLibraryDirectories>$(OutDir)</AdditionalLibraryDirectories>
+			<LinkStatus>false</LinkStatus>
+			<PreventDllBinding>true</PreventDllBinding>
+			<TreatLinkerWarningAsErrors>true</TreatLinkerWarningAsErrors>
+			<ForceFileOutput></ForceFileOutput>
+			<CreateHotPatchableImage></CreateHotPatchableImage>
+			<SpecifySectionAttributes>%(SpecifySectionAttributes)</SpecifySectionAttributes>
+		</Link>
+		<Link>
+			<AdditionalDependencies Condition="'$(RootNamespace)'!='mk_clib_slib'">mk_clib_slib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+		</Link>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup>
+		<ProjectReference>
+			<LinkLibraryDependencies>true</LinkLibraryDependencies>
+			<UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+		</ProjectReference>
+	</ItemDefinitionGroup>
+	<PropertyGroup>
+		<LinkIncremental>false</LinkIncremental>
+		<IgnoreImportLibrary>false</IgnoreImportLibrary>
+	</PropertyGroup>
+</Project>

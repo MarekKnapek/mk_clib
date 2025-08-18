@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<PropertyGroup>
-		<mk_is_entry_point Condition="'$(mk_project)' != 'mk_clib_slib' And '$(mk_project)' != 'mk_clib_test' And '$(mk_is_release)' == 'true' And '$(mk_is_intel)' == 'true'">true</mk_is_entry_point>
-		<mk_is_entry_point Condition="!('$(mk_project)' != 'mk_clib_slib' And '$(mk_project)' != 'mk_clib_test' And '$(mk_is_release)' == 'true' And '$(mk_is_intel)' == 'true')">false</mk_is_entry_point>
+		<mk_is_entry_point Condition="'$(mk_project)' != 'mk_clib_slib' And '$(mk_project)' != 'mk_clib_test' And '$(mk_project)' != 'mk_clib_fuzz' And '$(mk_is_release)' == 'true' And '$(mk_is_intel)' == 'true'">true</mk_is_entry_point>
+		<mk_is_entry_point Condition="!('$(mk_project)' != 'mk_clib_slib' And '$(mk_project)' != 'mk_clib_test' And '$(mk_project)' != 'mk_clib_fuzz' And '$(mk_is_release)' == 'true' And '$(mk_is_intel)' == 'true')">false</mk_is_entry_point>
 	</PropertyGroup>
 	<PropertyGroup Label="Configuration">
 		<EnableASAN>false</EnableASAN>
-		<EnableASAN Condition="'$(mk_is_debug)' == 'true' And '$(mk_is_intel)' == 'true' And '$(mk_is_msvc)' == 'true'">true</EnableASAN>
-		<EnableASAN Condition="'$(mk_project)' == 'mk_clib_fuzzer' And '$(mk_is_intel)' == 'true' And '$(mk_is_msvc)' == 'true'">true</EnableASAN>
+		<EnableASAN Condition="('$(mk_is_debug)' == 'true' And '$(mk_is_intel)' == 'true' And '$(mk_is_msvc)' == 'true') Or ('$(mk_project)' != 'mk_clib_fuzzer' And '$(mk_is_intel)' == 'true' And '$(mk_is_msvc)' == 'true')">true</EnableASAN>
 		<EnableFuzzer>false</EnableFuzzer>
-		<EnableFuzzer Condition="'$(mk_is_debug)' == 'true' And '$(mk_is_intel)' == 'true'">true</EnableFuzzer>
-		<EnableFuzzer Condition="'$(mk_project)' == 'mk_clib_fuzzer' And '$(mk_is_intel)' == 'true'">true</EnableFuzzer>
+		<EnableFuzzer Condition="('$(mk_is_debug)' == 'true' And '$(mk_is_intel)' == 'true' And '$(mk_is_msvc)' == 'true') Or ('$(mk_project)' != 'mk_clib_fuzzer' And '$(mk_is_intel)' == 'true' And '$(mk_is_msvc)' == 'true')">true</EnableFuzzer>
 		<SpectreMitigation>false</SpectreMitigation>
 	</PropertyGroup>
 	<PropertyGroup>
@@ -159,6 +157,7 @@
 		<Link>
 			<SuppressStartupBanner>true</SuppressStartupBanner>
 			<AdditionalLibraryDirectories>$(OutDir)</AdditionalLibraryDirectories>
+			<LinkStatus>true</LinkStatus>
 			<TreatLinkerWarningAsErrors>true</TreatLinkerWarningAsErrors>
 		</Link>
 		<Link>
@@ -169,7 +168,7 @@
 		<Link>
 			<GenerateDebugInformation Condition="'$(mk_is_debug)' == 'true'">DebugFastLink</GenerateDebugInformation>
 			<GenerateDebugInformation Condition="'$(mk_is_release)' == 'true'">false</GenerateDebugInformation>
-			<GenerateDebugInformation Condition="'$(mk_project)' == 'mk_clib_fuzzer'">DebugFastLink</GenerateDebugInformation>
+			<GenerateDebugInformation Condition="'$(mk_project)' == 'mk_clib_fuzzer'">DebugFull</GenerateDebugInformation>
 		</Link>
 		<Link>
 			<SubSystem>Console</SubSystem>

@@ -1,156 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<ItemGroup Label="ProjectConfigurations">
-		<ProjectConfiguration Include="Debug|Win32">
-			<Configuration>Debug</Configuration>
-			<Platform>Win32</Platform>
-		</ProjectConfiguration>
-		<ProjectConfiguration Include="Release|Win32">
-			<Configuration>Release</Configuration>
-			<Platform>Win32</Platform>
-		</ProjectConfiguration>
-		<ProjectConfiguration Include="Debug|x64">
-			<Configuration>Debug</Configuration>
-			<Platform>x64</Platform>
-		</ProjectConfiguration>
-		<ProjectConfiguration Include="Release|x64">
-			<Configuration>Release</Configuration>
-			<Platform>x64</Platform>
-		</ProjectConfiguration>
-		<ProjectConfiguration Include="Debug|ARM">
-			<Configuration>Debug</Configuration>
-			<Platform>ARM</Platform>
-		</ProjectConfiguration>
-		<ProjectConfiguration Include="Release|ARM">
-			<Configuration>Release</Configuration>
-			<Platform>ARM</Platform>
-		</ProjectConfiguration>
-		<ProjectConfiguration Include="Debug|ARM64">
-			<Configuration>Debug</Configuration>
-			<Platform>ARM64</Platform>
-		</ProjectConfiguration>
-		<ProjectConfiguration Include="Release|ARM64">
-			<Configuration>Release</Configuration>
-			<Platform>ARM64</Platform>
-		</ProjectConfiguration>
-		<ProjectConfiguration Include="Debug|ARM64EC">
-			<Configuration>Debug</Configuration>
-			<Platform>ARM64EC</Platform>
-		</ProjectConfiguration>
-		<ProjectConfiguration Include="Release|ARM64EC">
-			<Configuration>Release</Configuration>
-			<Platform>ARM64EC</Platform>
-		</ProjectConfiguration>
-		<ProjectConfiguration Include="DebugClang|Win32">
-			<Configuration>DebugClang</Configuration>
-			<Platform>Win32</Platform>
-		</ProjectConfiguration>
-		<ProjectConfiguration Include="ReleaseClang|Win32">
-			<Configuration>ReleaseClang</Configuration>
-			<Platform>Win32</Platform>
-		</ProjectConfiguration>
-		<ProjectConfiguration Include="DebugClang|x64">
-			<Configuration>DebugClang</Configuration>
-			<Platform>x64</Platform>
-		</ProjectConfiguration>
-		<ProjectConfiguration Include="ReleaseClang|x64">
-			<Configuration>ReleaseClang</Configuration>
-			<Platform>x64</Platform>
-		</ProjectConfiguration>
+		<ProjectConfiguration Include="DebugMSVC|Win32"><Configuration>DebugMSVC</Configuration><Platform>Win32</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="ReleaseMSVC|Win32"><Configuration>ReleaseMSVC</Configuration><Platform>Win32</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="DebugMSVC|x64"><Configuration>DebugMSVC</Configuration><Platform>x64</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="ReleaseMSVC|x64"><Configuration>ReleaseMSVC</Configuration><Platform>x64</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="DebugMSVC|ARM"><Configuration>DebugMSVC</Configuration><Platform>ARM</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="ReleaseMSVC|ARM"><Configuration>ReleaseMSVC</Configuration><Platform>ARM</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="DebugMSVC|ARM64"><Configuration>DebugMSVC</Configuration><Platform>ARM64</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="ReleaseMSVC|ARM64"><Configuration>ReleaseMSVC</Configuration><Platform>ARM64</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="DebugMSVC|ARM64EC"><Configuration>DebugMSVC</Configuration><Platform>ARM64EC</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="ReleaseMSVC|ARM64EC"><Configuration>ReleaseMSVC</Configuration><Platform>ARM64EC</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="DebugClang|Win32"><Configuration>DebugClang</Configuration><Platform>Win32</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="ReleaseClang|Win32"><Configuration>ReleaseClang</Configuration><Platform>Win32</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="DebugClang|x64"><Configuration>DebugClang</Configuration><Platform>x64</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="ReleaseClang|x64"><Configuration>ReleaseClang</Configuration><Platform>x64</Platform></ProjectConfiguration>
 	</ItemGroup>
-	<PropertyGroup>
-		<mk_is_32bit Condition="'$(Platform)'=='ARM'">true</mk_is_32bit>
-		<mk_is_32bit Condition="'$(Platform)'=='ARM64'">false</mk_is_32bit>
-		<mk_is_32bit Condition="'$(Platform)'=='ARM64EC'">false</mk_is_32bit>
-		<mk_is_32bit Condition="'$(Platform)'=='Win32'">true</mk_is_32bit>
-		<mk_is_32bit Condition="'$(Platform)'=='x64'">false</mk_is_32bit>
-		<mk_is_64bit Condition="'$(Platform)'=='ARM'">false</mk_is_64bit>
-		<mk_is_64bit Condition="'$(Platform)'=='ARM64'">true</mk_is_64bit>
-		<mk_is_64bit Condition="'$(Platform)'=='ARM64EC'">true</mk_is_64bit>
-		<mk_is_64bit Condition="'$(Platform)'=='Win32'">false</mk_is_64bit>
-		<mk_is_64bit Condition="'$(Platform)'=='x64'">true</mk_is_64bit>
-		<mk_is_arm Condition="'$(Platform)'=='ARM'">true</mk_is_arm>
-		<mk_is_arm Condition="'$(Platform)'=='ARM64'">true</mk_is_arm>
-		<mk_is_arm Condition="'$(Platform)'=='ARM64EC'">true</mk_is_arm>
-		<mk_is_arm Condition="'$(Platform)'=='Win32'">false</mk_is_arm>
-		<mk_is_arm Condition="'$(Platform)'=='x64'">false</mk_is_arm>
-		<mk_is_clang Condition="'$(Configuration)'=='Debug'">false</mk_is_clang>
-		<mk_is_clang Condition="'$(Configuration)'=='DebugClang'">true</mk_is_clang>
-		<mk_is_clang Condition="'$(Configuration)'=='Release'">false</mk_is_clang>
-		<mk_is_clang Condition="'$(Configuration)'=='ReleaseClang'">true</mk_is_clang>
-		<mk_is_debug Condition="'$(Configuration)'=='Debug'">true</mk_is_debug>
-		<mk_is_debug Condition="'$(Configuration)'=='DebugClang'">true</mk_is_debug>
-		<mk_is_debug Condition="'$(Configuration)'=='Release'">false</mk_is_debug>
-		<mk_is_debug Condition="'$(Configuration)'=='ReleaseClang'">false</mk_is_debug>
-		<mk_is_intel Condition="'$(Platform)'=='ARM'">false</mk_is_intel>
-		<mk_is_intel Condition="'$(Platform)'=='ARM64'">false</mk_is_intel>
-		<mk_is_intel Condition="'$(Platform)'=='ARM64EC'">false</mk_is_intel>
-		<mk_is_intel Condition="'$(Platform)'=='Win32'">true</mk_is_intel>
-		<mk_is_intel Condition="'$(Platform)'=='x64'">true</mk_is_intel>
-		<mk_is_msvc Condition="'$(Configuration)'=='Debug'">true</mk_is_msvc>
-		<mk_is_msvc Condition="'$(Configuration)'=='DebugClang'">false</mk_is_msvc>
-		<mk_is_msvc Condition="'$(Configuration)'=='Release'">true</mk_is_msvc>
-		<mk_is_msvc Condition="'$(Configuration)'=='ReleaseClang'">false</mk_is_msvc>
-		<mk_is_release Condition="'$(Configuration)'=='Debug'">false</mk_is_release>
-		<mk_is_release Condition="'$(Configuration)'=='DebugClang'">false</mk_is_release>
-		<mk_is_release Condition="'$(Configuration)'=='Release'">true</mk_is_release>
-		<mk_is_release Condition="'$(Configuration)'=='ReleaseClang'">true</mk_is_release>
-		<mk_project>mk_clib_hosts</mk_project>
-	</PropertyGroup>
 	<PropertyGroup Label="Globals">
 		<Keyword>Win32Proj</Keyword>
 		<ProjectGuid>{7f920695-306e-484b-8919-a9693c2b28e3}</ProjectGuid>
 		<RootNamespace>mk_clib_hosts</RootNamespace>
+		<TargetFrameworkVersion></TargetFrameworkVersion>
 		<VCProjectVersion>17.0</VCProjectVersion>
 		<WindowsTargetPlatformMinVersion>7.0</WindowsTargetPlatformMinVersion>
 		<WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
 	</PropertyGroup>
+	<ImportGroup Label="PropertySheets"><Import Project="$(MSBuildThisFileDirectory)..\mk_clib_slib\a.props"/></ImportGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
-	<PropertyGroup Label="Configuration">
-		<CharacterSet>Unicode</CharacterSet>
-		<CLRSupport>false</CLRSupport>
-		<ConfigurationType>Application</ConfigurationType>
-		<EnableASAN Condition="'$(mk_is_debug)' == 'true'">true</EnableASAN>
-		<EnableASAN Condition="'$(mk_is_release)' == 'true'">false</EnableASAN>
-		<EnableFuzzer Condition="'$(mk_is_debug)' == 'true'">true</EnableFuzzer>
-		<EnableFuzzer Condition="'$(mk_is_release)' == 'true'">false</EnableFuzzer>
-		<EnableUnitySupport>false</EnableUnitySupport>
-		<PlatformToolset Condition="'$(mk_is_clang)' == 'true'">ClangCL</PlatformToolset>
-		<PlatformToolset Condition="'$(mk_is_msvc)' == 'true'">v143</PlatformToolset>
-		<PreferredToolArchitecture>x64</PreferredToolArchitecture>
-		<UseDebugLibraries Condition="'$(mk_is_debug)' == 'true'">true</UseDebugLibraries>
-		<UseDebugLibraries Condition="'$(mk_is_release)' == 'true'">false</UseDebugLibraries>
-		<UseOfMfc>false</UseOfMfc>
-		<VCToolsVersion/>
-		<WholeProgramOptimization Condition="'$(mk_is_debug)' == 'true'">false</WholeProgramOptimization>
-		<WholeProgramOptimization Condition="'$(mk_is_release)' == 'true'">true</WholeProgramOptimization>
-	</PropertyGroup>
+	<ImportGroup Label="PropertySheets"><Import Project="$(MSBuildThisFileDirectory)..\mk_clib_slib\b.props"/></ImportGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.props"/>
-	<ImportGroup Label="ExtensionSettings">
-		<Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props"/>
-	</ImportGroup>
-	<ImportGroup Label="Shared"/>
-	<ImportGroup Label="PropertySheets">
-		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
-	</ImportGroup>
-	<ImportGroup Label="PropertySheets">
-		<Import Project="$(MSBuildThisFileDirectory)..\mk_clib_slib\mk_clib_slib.props"/>
-	</ImportGroup>
-	<PropertyGroup Label="UserMacros"/>
-	<PropertyGroup>
-		<CopyCppRuntimeToOutputDir>false</CopyCppRuntimeToOutputDir>
-		<CopyLocalDebugSymbols>false</CopyLocalDebugSymbols>
-		<CopyLocalDeploymentContent>false</CopyLocalDeploymentContent>
-		<CopyLocalProjectReference>false</CopyLocalProjectReference>
-		<UseStructuredOutput>true</UseStructuredOutput>
-	</PropertyGroup>
-	<ItemDefinitionGroup>
-		<Link>
-			<AdditionalDependencies>bcrypt.lib;%(AdditionalDependencies)</AdditionalDependencies>
-			<AdditionalDependencies>ntdll.lib;%(AdditionalDependencies)</AdditionalDependencies>
-			<AdditionalDependencies>ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-		</Link>
-	</ItemDefinitionGroup>
+	<ImportGroup Label="PropertySheets"><Import Project="$(MSBuildThisFileDirectory)..\mk_clib_slib\c.props"/></ImportGroup>
 	<ItemGroup>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\app\hosts.c"/>
 		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_abort_win_amd64.asm"><ExcludedFromBuild Condition="!('$(mk_is_intel)' == 'true' And '$(mk_is_release)' == 'true' And '$(mk_is_64bit)' == 'true')">true</ExcludedFromBuild></MASM>

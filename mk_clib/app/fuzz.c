@@ -1,3 +1,6 @@
+#include "../src/mk_lang_warning_msvc_push_c4577.h"
+
+
 #include "../src/mk_clib_fuzz.h"
 #include "../src/mk_lang_extern.h"
 #include "../src/mk_lang_nodiscard.h"
@@ -7,7 +10,11 @@
 #include "../src/mk_lang_types.h"
 
 
+mk_lang_typedef_func(mk_lang_types_sint_t, fuzz_cb_t, (mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size));
+
+
 mk_lang_extern_force_c mk_lang_nodiscard mk_lang_types_usize_t LLVMFuzzerMutate(mk_lang_types_uchar_pt const data, mk_lang_types_usize_t const size, mk_lang_types_usize_t const size_max) mk_lang_noexcept;
+mk_lang_extern_force_c mk_lang_nodiscard mk_lang_types_sint_t LLVMFuzzerRunDriver(mk_lang_types_sint_pt const argc, mk_lang_types_pchar_pppt const argv, fuzz_cb_t const user_cb) mk_lang_noexcept;
 
 
 mk_lang_extern_force_c mk_lang_nodiscard mk_lang_types_usize_t LLVMFuzzerCustomMutator(mk_lang_types_uchar_pt const data, mk_lang_types_usize_t const size, mk_lang_types_usize_t const size_max, mk_lang_types_uint_t const seed) mk_lang_noexcept
@@ -42,3 +49,6 @@ mk_lang_extern_force_c mk_lang_nodiscard mk_lang_types_sint_t LLVMFuzzerTestOneI
 	err = mk_clib_fuzz(data, size, mk_lang_false, mk_lang_null); mk_lang_test(err == 0);
 	return 0;
 }
+
+
+#include "../src/mk_lang_warning_msvc_pop.h"
