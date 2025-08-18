@@ -79,7 +79,7 @@
 			<FloatingPointExceptions>false</FloatingPointExceptions>
 			<CreateHotpatchableImage>false</CreateHotpatchableImage>
 			<IntelJCCErratum>true</IntelJCCErratum>
-			<GuardEHContMetadata>true</GuardEHContMetadata>
+			<GuardEHContMetadata Condition="'$(mk_is_intel)'=='true' And '$(mk_is_64bit)'=='true'">true</GuardEHContMetadata>
 			<!--<GuardSignedReturns>false</GuardSignedReturns>-->
 		</ClCompile>
 	</ItemDefinitionGroup>
@@ -173,25 +173,94 @@
 			<RegisterOutput>false</RegisterOutput>
 			<PerUserRedirection>false</PerUserRedirection>
 			<AdditionalLibraryDirectories>$(OutDir)</AdditionalLibraryDirectories>
-			<LinkStatus>false</LinkStatus>
+			<LinkStatus></LinkStatus>
 			<PreventDllBinding>true</PreventDllBinding>
 			<TreatLinkerWarningAsErrors>true</TreatLinkerWarningAsErrors>
 			<ForceFileOutput></ForceFileOutput>
 			<CreateHotPatchableImage></CreateHotPatchableImage>
 			<SpecifySectionAttributes>%(SpecifySectionAttributes)</SpecifySectionAttributes>
 		</Link>
-		<Link>
-			<AdditionalDependencies Condition="'$(RootNamespace)'!='mk_clib_slib'">mk_clib_slib.lib;%(AdditionalDependencies)</AdditionalDependencies>
-		</Link>
 	</ItemDefinitionGroup>
+	<PropertyGroup>
+		<LinkIncremental>false</LinkIncremental>
+		<IgnoreImportLibrary>false</IgnoreImportLibrary>
+	</PropertyGroup>
 	<ItemDefinitionGroup>
 		<ProjectReference>
 			<LinkLibraryDependencies>true</LinkLibraryDependencies>
 			<UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
 		</ProjectReference>
 	</ItemDefinitionGroup>
+	<ItemDefinitionGroup>
+		<Link>
+			<AdditionalDependencies Condition="'$(RootNamespace)'!='mk_clib_slib'">mk_clib_slib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+			<IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+			<IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+			<ModuleDefinitionFile></ModuleDefinitionFile>
+			<AddModuleNamesToAssembly>%(AddModuleNamesToAssembly)</AddModuleNamesToAssembly>
+			<EmbedManagedResourceFile>%(EmbedManagedResourceFile)</EmbedManagedResourceFile>
+			<ForceSymbolReferences>%(ForceSymbolReferences)</ForceSymbolReferences>
+			<DelayLoadDLLs>%(DelayLoadDLLs)</DelayLoadDLLs>
+			<AssemblyLinkResource>%(AssemblyLinkResource)</AssemblyLinkResource>
+		</Link>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup>
+		<Link>
+			<ManifestFile>$(IntDir)$(TargetName)$(TargetExt).intermediate.manifest</ManifestFile>
+			<AdditionalManifestDependencies>%(AdditionalManifestDependencies)</AdditionalManifestDependencies>
+			<AllowIsolation>true</AllowIsolation>
+			<EnableUAC>true</EnableUAC>
+			<UACExecutionLevel>AsInvoker</UACExecutionLevel>
+			<UACUIAccess>false</UACUIAccess>
+		</Link>
+	</ItemDefinitionGroup>
 	<PropertyGroup>
-		<LinkIncremental>false</LinkIncremental>
-		<IgnoreImportLibrary>false</IgnoreImportLibrary>
+		<GenerateManifest>true</GenerateManifest>
 	</PropertyGroup>
+	<ItemDefinitionGroup>
+		<Link>
+			<GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
+			<ProgramDatabaseFile>$(OutDir)$(TargetName).pdb</ProgramDatabaseFile>
+			<StripPrivateSymbols></StripPrivateSymbols>
+			<GenerateMapFile>false</GenerateMapFile>
+			<MapFileName></MapFileName>
+			<MapExports>false</MapExports>
+			<AssemblyDebug>true</AssemblyDebug>
+			<UseDynamicDebugging>false</UseDynamicDebugging>
+		</Link>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup>
+		<Link>
+			<SubSystem>Console</SubSystem>
+			<MinimumRequiredVersion></MinimumRequiredVersion>
+			<HeapReserveSize></HeapReserveSize>
+			<HeapCommitSize></HeapCommitSize>
+			<StackReserveSize></StackReserveSize>
+			<StackCommitSize></StackCommitSize>
+			<LargeAddressAware>true</LargeAddressAware>
+			<TerminalServerAware>true</TerminalServerAware>
+			<SwapRunFromCD>true</SwapRunFromCD>
+			<SwapRunFromNET>true</SwapRunFromNET>
+			<Driver></Driver>
+		</Link>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup>
+		<Link>
+			<OptimizeReferences>true</OptimizeReferences>
+			<EnableCOMDATFolding>true</EnableCOMDATFolding>
+			<FunctionOrder></FunctionOrder>
+			<ProfileGuidedDatabase>$(OutDir)$(TargetName).pgd</ProfileGuidedDatabase>
+			<LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
+			<LinkTimeCodeGenerationObjectFile>$(IntDir)$(TargetName).iobj</LinkTimeCodeGenerationObjectFile>
+		</Link>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup>
+		<Link>
+			<MidlCommandFile></MidlCommandFile>
+			<IgnoreEmbeddedIDL>false</IgnoreEmbeddedIDL>
+			<MergedIDLBaseFileName></MergedIDLBaseFileName>
+			<TypeLibraryFile></TypeLibraryFile>
+			<TypeLibraryResourceID>1</TypeLibraryResourceID>
+		</Link>
+	</ItemDefinitionGroup>
 </Project>
