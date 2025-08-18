@@ -14,7 +14,6 @@
 #include "mk_lang_assert.h"
 #include "mk_lang_attribute.h"
 #include "mk_lang_charbit.h"
-#include "mk_lang_compiler.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_countof.h"
 #include "mk_lang_cpuid.h"

@@ -20,6 +20,7 @@
 #define mk_sl_cui_t_disable_big_div 0
 #define mk_sl_cui_t_base_type_size_bits_d mk_sl_cui_uint64_zzz_base_size_bits_d
 #define mk_sl_cui_t_inline 1
+#define mk_sl_cui_t_alignas 64 / mk_lang_charbit
 #include "mk_sl_cui_inl_filec.h"
 #include "mk_sl_cui_inl_fileu.h"
 

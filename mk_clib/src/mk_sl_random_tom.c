@@ -57,6 +57,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_sl_random_tom_pt mk_sl_random_tom_get_interna
 
 
 #else
-static void mk_sl_random_tom_dummy(void){}
+void mk_sl_random_tom_dummy(void);
+void mk_sl_random_tom_dummy(void){}
 #endif
 #endif

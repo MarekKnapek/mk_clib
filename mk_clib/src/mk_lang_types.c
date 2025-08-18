@@ -2,7 +2,6 @@
 #define mk_include_guard_mk_lang_types_c
 #include "mk_lang_types.h"
 
-#include "mk_lang_assert.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
@@ -13,8 +12,8 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lang_t
 {
 	mk_lang_types_bool_t ret mk_lang_constexpr_init;
 
-	mk_lang_assert(a);
-	mk_lang_assert(b);
+	/*mk_lang_assert(a);*/
+	/*mk_lang_assert(b);*/
 
 	ret = *a == *b;
 	return ret;
