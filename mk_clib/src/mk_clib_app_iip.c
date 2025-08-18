@@ -59,8 +59,8 @@ static mk_win_base_handle_t mk_clib_app_iip_g_main_thread;
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_destination_generate_new_random_ed25519(mk_lib_iip_cp_destination_local_pt const destination) mk_lang_noexcept
 {
-	mk_lang_types_sint_t err;
-	mk_lib_iip_key_sgn_eddsa_25519_sha512_tom_pri_t key_sgn;
+	//mk_lang_types_sint_t err;
+	//mk_lib_iip_key_sgn_eddsa_25519_sha512_tom_pri_t key_sgn;
 	//mk_lib_iip_key_enc_elgamal_portable_pri_t key_enc;
 
 	mk_lang_assert(destination);
@@ -69,10 +69,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_des
 	destination->m_remote_destination.m_certificate.m_cert_data.m_data.m_key.m_enc_type = mk_lib_iip_cp_destination_certificate_key_enc_type_e_elgamal;
 	destination->m_remote_destination.m_certificate.m_cert_data.m_data.m_key.m_sgn_type = mk_lib_iip_cp_destination_certificate_key_sgn_type_e_eddsa_sha512_ed25519;
 
-	err = mk_lib_iip_key_sgn_eddsa_25519_sha512_tom_pri_rw_generate_random(&key_sgn); mk_lang_check_rereturn(err);
-	err = mk_lib_iip_key_sgn_eddsa_25519_sha512_tom_pri_rw_export_pri_to_u8s(&key_sgn, &destination->m_basic_buffer.m_sgn_pri_key.m_bytes[0]); mk_lang_check_rereturn(err);
-	err = mk_lib_iip_key_sgn_eddsa_25519_sha512_tom_pri_rw_export_pub_to_u8s(&key_sgn, &destination->m_remote_destination.m_basic_buffer.m_sgn_pub_key.m_bytes[0]); mk_lang_check_rereturn(err);
-	err = mk_lib_iip_key_sgn_eddsa_25519_sha512_tom_pri_rw_destroy(&key_sgn); mk_lang_check_rereturn(err);
+	//err = mk_lib_iip_key_sgn_eddsa_25519_sha512_tom_pri_rw_generate_random(&key_sgn); mk_lang_check_rereturn(err);
+	//err = mk_lib_iip_key_sgn_eddsa_25519_sha512_tom_pri_rw_export_pri_to_u8s(&key_sgn, &destination->m_basic_buffer.m_sgn_pri_key.m_bytes[0]); mk_lang_check_rereturn(err);
+	//err = mk_lib_iip_key_sgn_eddsa_25519_sha512_tom_pri_rw_export_pub_to_u8s(&key_sgn, &destination->m_remote_destination.m_basic_buffer.m_sgn_pub_key.m_bytes[0]); mk_lang_check_rereturn(err);
+	//err = mk_lib_iip_key_sgn_eddsa_25519_sha512_tom_pri_rw_destroy(&key_sgn); mk_lang_check_rereturn(err);
 
 	/*err = mk_lib_iip_key_enc_elgamal_portable_pri_rw_generate_random(&key_enc); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_key_enc_elgamal_portable_pri_rw_export_pri_to_u8s(&key_enc, &destination->m_basic_buffer.m_enc_pri_key.m_bytes[0]); mk_lang_check_rereturn(err);
@@ -1110,7 +1110,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_glo
 	mk_lang_cpuid_init();
 	err = mk_lang_stdout_init(); mk_lang_check_rereturn(err);
 	err = mk_sl_random_init(); mk_lang_check_rereturn(err);
-	err = mk_sl_random_tom_init(); mk_lang_check_rereturn(err);
+	//err = mk_sl_random_tom_init(); mk_lang_check_rereturn(err);
 	err = mk_lib_net_init(); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_cp_mallocator_global_init(); mk_lang_check_rereturn(err);
 	return 0;
@@ -1123,7 +1123,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_glo
 	err = mk_lib_iip_cp_mallocator_global_deinit(); mk_lang_check_rereturn(err);
 	err = mk_lib_net_deinit(); mk_lang_check_rereturn(err);
 	err = mk_sl_random_deinit(); mk_lang_check_rereturn(err);
-	err = mk_sl_random_tom_deinit(); mk_lang_check_rereturn(err);
+	//err = mk_sl_random_tom_deinit(); mk_lang_check_rereturn(err);
 	return 0;
 }
 
