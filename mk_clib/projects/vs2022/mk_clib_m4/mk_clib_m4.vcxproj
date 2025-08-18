@@ -1,34 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<ItemGroup Label="ProjectConfigurations">
-		<ProjectConfiguration Include="Debug|Win32">
-			<Configuration>Debug</Configuration>
-			<Platform>Win32</Platform>
-		</ProjectConfiguration>
+		<ProjectConfiguration Include="DebugMSVC|Win32"><Configuration>DebugMSVC</Configuration><Platform>Win32</Platform></ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
 		<Keyword>Win32Proj</Keyword>
 		<ProjectGuid>{8286250d-5be4-4739-befc-05c1fef305be}</ProjectGuid>
 		<RootNamespace>mk_clib_m4</RootNamespace>
+		<TargetFrameworkVersion></TargetFrameworkVersion>
 		<VCProjectVersion>17.0</VCProjectVersion>
 		<WindowsTargetPlatformMinVersion>7.0</WindowsTargetPlatformMinVersion>
 		<WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
 	</PropertyGroup>
+	<ImportGroup Label="PropertySheets"><Import Project="$(MSBuildThisFileDirectory)..\mk_clib_slib\a.props"/></ImportGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
-	<PropertyGroup Label="Configuration">
-		<ConfigurationType>Utility</ConfigurationType>
-		<PlatformToolset>v143</PlatformToolset>
-	</PropertyGroup>
+	<ImportGroup Label="PropertySheets"><Import Project="$(MSBuildThisFileDirectory)..\mk_clib_slib\b.props"/></ImportGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.props"/>
-	<ImportGroup Label="ExtensionSettings"/>
-	<ImportGroup Label="Shared"/>
-	<ImportGroup Label="PropertySheets">
-		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
-	</ImportGroup>
-	<ImportGroup Label="PropertySheets">
-		<Import Project="$(MSBuildThisFileDirectory)..\mk_clib_slib\mk_clib_slib.props"/>
-	</ImportGroup>
-	<PropertyGroup Label="UserMacros"/>
+	<ImportGroup Label="PropertySheets"><Import Project="$(MSBuildThisFileDirectory)..\mk_clib_slib\c.props"/></ImportGroup>
 	<ItemGroup>
 		<CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_defd.h.m4"><FileType>Document</FileType><Command>cmd /c $(MSBuildThisFileDirectory)..\..\..\src\mk_clib_tool_m4.bat "%(Identity)"</Command><Outputs>$(MSBuildThisFileDirectory)..\..\..\src\%(Filename)</Outputs><BuildInParallel>true</BuildInParallel></CustomBuild>
 		<CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_bui_inl_defu.h.m4"><FileType>Document</FileType><Command>cmd /c $(MSBuildThisFileDirectory)..\..\..\src\mk_clib_tool_m4.bat "%(Identity)"</Command><Outputs>$(MSBuildThisFileDirectory)..\..\..\src\%(Filename)</Outputs><BuildInParallel>true</BuildInParallel></CustomBuild>
@@ -68,5 +56,7 @@
 		<CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_vector_inl_defu.h.m4"><FileType>Document</FileType><Command>cmd /c $(MSBuildThisFileDirectory)..\..\..\src\mk_clib_tool_m4.bat "%(Identity)"</Command><Outputs>$(MSBuildThisFileDirectory)..\..\..\src\%(Filename)</Outputs><BuildInParallel>true</BuildInParallel></CustomBuild>
 	</ItemGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
-	<ImportGroup Label="ExtensionTargets"/>
+	<ImportGroup Label="ExtensionTargets">
+		<Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets"/>
+	</ImportGroup>
 </Project>

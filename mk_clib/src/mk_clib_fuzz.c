@@ -2,7 +2,6 @@
 #define mk_include_guard_mk_clib_fuzz_c
 #include "mk_clib_fuzz.h"
 
-#include "mk_clib_test.h"
 #include "mk_lang_assert.h"
 #include "mk_lang_bool.h"
 #include "mk_lang_bui.h"
@@ -21,6 +20,8 @@
 #include "mk_lang_str_match.h"
 #include "mk_lang_types.h"
 #include "mk_sl_mallocator.h"
+
+#include "mk_clib_test.h"
 
 #include "mk_lib_crypto_alg_aes_fuzz.h"
 #include "mk_lib_crypto_any_piecewise_fuzz.h"

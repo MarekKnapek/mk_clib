@@ -752,7 +752,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 		packet.m_payload_len = 0;
 
 		{
-			char const req[] =
+			static char const req[] =
 				"GET / HTTP/1.1" "\x0d\x0a"
 				//"Host: reg.i2p" "\x0d\x0a"
 				"Host: i2pforum.i2p" "\x0d\x0a"

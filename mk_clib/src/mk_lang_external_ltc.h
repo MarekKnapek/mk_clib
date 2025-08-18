@@ -21,12 +21,9 @@
 #if mk_lang_external_ltc_have
 
 
-#if defined _MSC_VER && defined _MSC_FULL_VER
-#pragma warning(push, 0)
-#endif
-
-
 #include "mk_lang_arch.h"
+#include "mk_lang_compiler.h"
+#include "mk_lang_configuration.h"
 
 
 #define LTC_BLAKE2B
@@ -43,22 +40,25 @@
 #define LTC_WHIRLPOOL
 #define LTC_CHACHA20_PRNG
 #define LTC_CURVE25519
+#define ARGTYPE 3
+#include "mk_lang_warning_msvc_push_everything.h"
 #include "../external/libtomcrypt/src/headers/tomcrypt.h"
+#include "mk_lang_warning_msvc_pop.h"
 
 
-#if defined _MSC_VER && defined _MSC_FULL_VER
-#if mk_lang_arch == mk_lang_arch_x8664
-#if defined DEBUG || defined _DEBUG
+#if mk_lang_compiler_is_msvc
+#if mk_lang_arch_is_x8664
+#if mk_lang_configuration_is_debug
 #pragma comment(lib, "../../../external/build/out/amd64/debug/ltc.lib")
-#elif defined NDEBUG || defined _NDEBUG
+#elif mk_lang_configuration_is_release
 #pragma comment(lib, "../../../external/build/out/amd64/release/ltc.lib")
 #else
 #error xxxxxxxxxx
 #endif
-#elif mk_lang_arch == mk_lang_arch_x8632
-#if defined DEBUG || defined _DEBUG
+#elif mk_lang_arch_is_x8632
+#if mk_lang_configuration_is_debug
 #pragma comment(lib, "../../../external/build/out/i386/debug/ltc.lib")
-#elif defined NDEBUG || defined _NDEBUG
+#elif mk_lang_configuration_is_release
 #pragma comment(lib, "../../../external/build/out/i386/release/ltc.lib")
 #else
 #error xxxxxxxxxx
@@ -66,11 +66,6 @@
 #else
 #error xxxxxxxxxx
 #endif
-#endif
-
-
-#if defined _MSC_VER && defined _MSC_FULL_VER
-#pragma warning(pop)
 #endif
 
 
