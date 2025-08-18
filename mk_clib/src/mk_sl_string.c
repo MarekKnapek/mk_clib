@@ -4,7 +4,7 @@
 
 #include "mk_lang_jumbo.h"
 #include "mk_lang_types.h"
-#include "mk_sl_mallocator.c"
+#include "mk_sl_mallocator.h"
 
 
 #define mk_sl_vector_t_name mk_sl_string
