@@ -1195,6 +1195,32 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 }
 
 
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_str_to_json_pchars_quotn(mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_sint_pt const out_len, mk_lang_types_pchar_pct const obj_buf, mk_lang_types_sint_t const obj_len) mk_lang_noexcept
+{
+	mk_lang_types_pchar_pt ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
+
+	mk_lang_assert(str_buf || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+	mk_lang_assert(out_len);
+	mk_lang_assert(obj_buf || obj_len == 0);
+	mk_lang_assert(obj_len >= 0);
+
+	ptr = str_buf;
+	rem = str_len;
+
+	tlen = obj_len;
+	mk_lang_check_return(rem >= tlen);
+	mk_lang_string_memcpy_pc_fn(ptr, obj_buf, obj_len);
+	ptr += tlen;
+	rem -= tlen;
+
+	tlen = str_len - rem;
+	*out_len = tlen;
+	return 0;
+}
+
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_str_to_json_u8s_hex_quotn(mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_sint_pt const out_len, mk_sl_cui_uint8_pct const obj_buf, mk_lang_types_sint_t const obj_len) mk_lang_noexcept
 {
 	mk_lang_types_pchar_pt ptr mk_lang_constexpr_init;
@@ -3772,9 +3798,13 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_str_to_json_type_destination_raw(mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_sint_pt const out_len, mk_lib_iip_cp_destination_local_pct const obj) mk_lang_noexcept
 {
-	/*mk_lang_types_pchar_pt ptr mk_lang_constexpr_init;*/
+	mk_lang_types_pchar_pt ptr mk_lang_constexpr_init;
 	mk_lang_types_sint_t rem mk_lang_constexpr_init;
-	//mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_pchar_pt data_buf mk_lang_constexpr_init;
+	mk_lang_types_pchar_t data_store[52 + 8 + 0] mk_lang_constexpr_init;
+	mk_lang_types_sint_t data_cap mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t data_len mk_lang_constexpr_init;
 	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(str_buf || str_len == 0);
@@ -3782,17 +3812,13 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	mk_lang_assert(out_len);
 	mk_lang_assert(obj);
 
-	//mk_lang_assert(obj->m_type == mk_lib_iip_cp_types_remote_destination_type_e_legacy); todo
-
-	/*ptr = str_buf;*/
+	ptr = str_buf;
 	rem = str_len;
 
-	mk_lang_check_todo();
-
-	/*err = mk_lib_iip_cp_message_str_to_json_key_elgamal_pri_sid_sep (ptr, rem, &tlen, mk_lib_iip_cp_message_str_strs_e_key_enc_pri, &obj->m_private_data.m_key_elgamal_pri ); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_str_to_json_key_elgamal_pub_sid_sep (ptr, rem, &tlen, mk_lib_iip_cp_message_str_strs_e_key_enc_pub, &obj->m_public_data.m_legacy.m_enc_pub ); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_str_to_json_key_dsa_sha1_pri_sid_sep(ptr, rem, &tlen, mk_lib_iip_cp_message_str_strs_e_key_sgn_pri, &obj->m_private_data.m_key_dsa_sha1_pri); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_str_to_json_key_dsa_sha1_pub_sid_nsp(ptr, rem, &tlen, mk_lib_iip_cp_message_str_strs_e_key_sgn_pub, &obj->m_public_data.m_legacy.m_sgn_pub ); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;*/
+	data_buf = &data_store[0];
+	data_cap = mk_lang_countof(data_store);
+	err = mk_lib_iip_cp_destination_remote_ro_to_b32(&obj->m_remote_destination, data_buf, data_cap, &data_len); mk_lang_check_rereturn(err); mk_lang_assert(data_len >= 1); mk_lang_assert(data_len <= data_cap);
+	err = mk_lib_iip_cp_message_str_to_json_pchars_quotn(ptr, rem, &tlen, data_buf, data_len); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 
 	tlen = str_len - rem;
 	*out_len = tlen;
@@ -3816,9 +3842,9 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	rem = str_len;
 
  	err = mk_lib_iip_cp_message_str_to_json_key_sid             (ptr, rem, &tlen, str_id); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_str_to_json_val_obj_beg         (ptr, rem, &tlen        ); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_str_to_json_val_str_beg         (ptr, rem, &tlen        ); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
  	err = mk_lib_iip_cp_message_str_to_json_type_destination_raw(ptr, rem, &tlen, obj   ); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_cp_message_str_to_json_val_obj_end         (ptr, rem, &tlen        ); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_str_to_json_val_str_end         (ptr, rem, &tlen        ); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 
 	tlen = str_len - rem;
 	*out_len = tlen;
