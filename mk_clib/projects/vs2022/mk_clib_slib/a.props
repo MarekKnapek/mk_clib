@@ -42,6 +42,10 @@
 		<mk_project>$(RootNamespace)</mk_project>
 		<mk_is_entry_point Condition="'$(mk_project)' != 'mk_clib_slib' And '$(mk_project)' != 'mk_clib_test' And '$(mk_project)' != 'mk_clib_fuzz' And '$(mk_is_release)' == 'true' And '$(mk_is_intel)' == 'true'">true</mk_is_entry_point>
 		<mk_is_entry_point Condition="!('$(mk_project)' != 'mk_clib_slib' And '$(mk_project)' != 'mk_clib_test' And '$(mk_project)' != 'mk_clib_fuzz' And '$(mk_is_release)' == 'true' And '$(mk_is_intel)' == 'true')">false</mk_is_entry_point>
+		<mk_is_asan Condition="'$(mk_is_debug)'=='true' Or '$(mk_project)'=='mk_clib_fuzz'">true</mk_is_asan>
+		<mk_is_asan Condition="!('$(mk_is_debug)'=='true' Or '$(mk_project)'=='mk_clib_fuzz')">false</mk_is_asan>
+		<mk_is_fuzzer Condition="'$(mk_is_debug)'=='true' Or '$(mk_project)'=='mk_clib_fuzz'">true</mk_is_fuzzer>
+		<mk_is_fuzzer Condition="!('$(mk_is_debug)'=='true' Or '$(mk_project)'=='mk_clib_fuzz')">false</mk_is_fuzzer>
 	</PropertyGroup>
 	<PropertyGroup>
 		<!--<ExtensionsToDeleteOnClean>*.cdf;*.cache;*.obj;*.obj.enc;*.ilk;*.ipdb;*.iobj;*.resources;*.tlb;*.tli;*.tlh;*.tmp;*.rsp;*.pgc;*.pgd;*.meta;*.tlog;*.manifest;*.res;*.pch;*.exp;*.idb;*.rep;*.xdc;*.pdb;*_manifest.rc;*.bsc;*.sbr;*.xml;*.metagen;*.bi</ExtensionsToDeleteOnClean>-->

@@ -96,6 +96,8 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_info_platform_print
 	#endif
 
 	err = mk_lang_stdout_print_lit_n("Configuration: "); mk_lang_check_rereturn(err); err = mk_lang_configuration_is_debug ? mk_lang_stdout_println_lit_n("Debug") : (mk_lang_configuration_is_release ? mk_lang_stdout_println_lit_n("Release") : (mk_lang_crash(), 0)); mk_lang_check_rereturn(err);
+	err = mk_lang_stdout_print_lit_n("ASAN: "); mk_lang_check_rereturn(err); err = mk_lang_asan_has ? mk_lang_stdout_println_lit_n("yes") : mk_lang_stdout_println_lit_n("no"); mk_lang_check_rereturn(err);
+	err = mk_lang_stdout_print_lit_n("Fuzzer: "); mk_lang_check_rereturn(err); err = mk_lang_fuzzer_has ? mk_lang_stdout_println_lit_n("yes") : mk_lang_stdout_println_lit_n("no"); mk_lang_check_rereturn(err);
 
 	err = mk_lang_stdout_println_lit_n(""); mk_lang_check_rereturn(err);
 

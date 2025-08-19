@@ -56,12 +56,16 @@
 	</ItemDefinitionGroup>
 	<ItemDefinitionGroup>
 		<ClCompile>
+			<PreprocessorDefinitions Condition="'$(mk_is_asan)'!='true'">mk_lang_asan_has=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions Condition="'$(mk_is_asan)'=='true'">mk_lang_asan_has=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<PreprocessorDefinitions Condition="'$(mk_is_debug)'=='true' Or '$(mk_project)'=='mk_clib_fuzz' Or '$(mk_project)'=='mk_clib_test'">mk_lang_assert_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<PreprocessorDefinitions Condition="'$(mk_is_debug)'=='true' Or '$(mk_project)'=='mk_clib_fuzz' Or '$(mk_project)'=='mk_clib_test'">mk_lang_assert_want_crash=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<PreprocessorDefinitions Condition="'$(mk_is_debug)'=='true' Or '$(mk_project)'=='mk_clib_fuzz' Or '$(mk_project)'=='mk_clib_test'">mk_lang_crash_detail_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<PreprocessorDefinitions Condition="'$(mk_is_debug)'=='true'">_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<PreprocessorDefinitions Condition="'$(mk_is_debug)'=='true'">DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			<PreprocessorDefinitions Condition="'$(mk_is_entry_point)' == 'true'">mk_lang_entry_point_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions Condition="'$(mk_is_entry_point)'=='true'">mk_lang_entry_point_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions Condition="'$(mk_is_fuzzer)'!='true'">mk_lang_fuzzer_has=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions Condition="'$(mk_is_fuzzer)'=='true'">mk_lang_fuzzer_has=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<PreprocessorDefinitions Condition="'$(mk_is_release)'=='true'">_NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<PreprocessorDefinitions Condition="'$(mk_is_release)'=='true'">NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<PreprocessorDefinitions>_ALLOW_RTCc_IN_STL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -85,25 +89,25 @@
 			<ExceptionHandling Condition="'$(mk_is_debug)'=='true'">Sync</ExceptionHandling>
 			<ExceptionHandling Condition="'$(mk_is_release)'=='true'">false</ExceptionHandling>
 			<SmallerTypeCheck>false</SmallerTypeCheck><!-- buggy? -->
-			<BasicRuntimeChecks Condition="'$(mk_is_debug)' == 'true'">EnableFastChecks</BasicRuntimeChecks>
-			<BasicRuntimeChecks Condition="'$(mk_is_release)' == 'true'">Default</BasicRuntimeChecks>
-			<RuntimeLibrary Condition="'$(mk_is_debug)' == 'true'">MultiThreadedDebugDLL</RuntimeLibrary>
-			<RuntimeLibrary Condition="'$(mk_is_release)' == 'true'">MultiThreaded</RuntimeLibrary>
+			<BasicRuntimeChecks Condition="'$(mk_is_debug)'=='true'">EnableFastChecks</BasicRuntimeChecks>
+			<BasicRuntimeChecks Condition="'$(mk_is_release)'=='true'">Default</BasicRuntimeChecks>
+			<RuntimeLibrary Condition="'$(mk_is_debug)'=='true'">MultiThreadedDebugDLL</RuntimeLibrary>
+			<RuntimeLibrary Condition="'$(mk_is_release)'=='true'">MultiThreaded</RuntimeLibrary>
 			<StructMemberAlignment>Default</StructMemberAlignment>
-			<BufferSecurityCheck Condition="'$(mk_is_debug)' == 'true'">true</BufferSecurityCheck>
-			<BufferSecurityCheck Condition="'$(mk_is_release)' == 'true'">false</BufferSecurityCheck>
-			<ControlFlowGuard Condition="'$(mk_is_debug)' == 'true'">Guard</ControlFlowGuard>
-			<ControlFlowGuard Condition="'$(mk_is_release)' == 'true'">false</ControlFlowGuard>
-			<FunctionLevelLinking Condition="'$(mk_is_debug)' == 'true'">false</FunctionLevelLinking>
-			<FunctionLevelLinking Condition="'$(mk_is_release)' == 'true'">true</FunctionLevelLinking>
+			<BufferSecurityCheck Condition="'$(mk_is_debug)'=='true'">true</BufferSecurityCheck>
+			<BufferSecurityCheck Condition="'$(mk_is_release)'=='true'">false</BufferSecurityCheck>
+			<ControlFlowGuard Condition="'$(mk_is_debug)'=='true'">Guard</ControlFlowGuard>
+			<ControlFlowGuard Condition="'$(mk_is_release)'=='true'">false</ControlFlowGuard>
+			<FunctionLevelLinking Condition="'$(mk_is_debug)'=='true'">false</FunctionLevelLinking>
+			<FunctionLevelLinking Condition="'$(mk_is_release)'=='true'">true</FunctionLevelLinking>
 			<EnableParallelCodeGeneration>false</EnableParallelCodeGeneration>
 			<EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
 			<EnableVectorLength>NotSet</EnableVectorLength>
 			<FloatingPointModel>Precise</FloatingPointModel>
 			<FloatingPointExceptions>false</FloatingPointExceptions>
 			<CreateHotpatchableImage>false</CreateHotpatchableImage>
-			<IntelJCCErratum Condition="'$(mk_is_debug)' == 'true'">true</IntelJCCErratum>
-			<IntelJCCErratum Condition="'$(mk_is_release)' == 'true'">false</IntelJCCErratum>
+			<IntelJCCErratum Condition="'$(mk_is_debug)'=='true'">true</IntelJCCErratum>
+			<IntelJCCErratum Condition="'$(mk_is_release)'=='true'">false</IntelJCCErratum>
 			<GuardEHContMetadata Condition="'$(mk_is_intel)'=='true' And '$(mk_is_64bit)'=='true'">true</GuardEHContMetadata>
 			<GuardEHContMetadata Condition="'$(mk_is_release)'=='true'">false</GuardEHContMetadata>
 			<!--<GuardSignedReturns>false</GuardSignedReturns>-->
@@ -119,8 +123,8 @@
 			<ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
 			<RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
 			<EnforceTypeConversionRules>true</EnforceTypeConversionRules>
-			<RuntimeTypeInfo Condition="'$(mk_is_debug)' == 'true'">true</RuntimeTypeInfo>
-			<RuntimeTypeInfo Condition="'$(mk_is_release)' == 'true'">false</RuntimeTypeInfo>
+			<RuntimeTypeInfo Condition="'$(mk_is_debug)'=='true'">true</RuntimeTypeInfo>
+			<RuntimeTypeInfo Condition="'$(mk_is_release)'=='true'">false</RuntimeTypeInfo>
 			<OpenMPSupport>false</OpenMPSupport>
 			<LanguageStandard>stdcpp20</LanguageStandard>
 			<LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -170,8 +174,8 @@
 	<ItemDefinitionGroup>
 		<ClCompile>
 			<CallingConvention>Cdecl</CallingConvention>
-			<CompileAs Condition="'$(mk_project)' == 'mk_clib_slib'">Default</CompileAs>
-			<CompileAs Condition="'$(mk_project)' != 'mk_clib_slib'">CompileAsCpp</CompileAs>
+			<CompileAs Condition="'$(mk_project)'=='mk_clib_slib'">Default</CompileAs>
+			<CompileAs Condition="'$(mk_project)'!='mk_clib_slib'">CompileAsCpp</CompileAs>
 			<DisableSpecificWarnings>4464;%(DisableSpecificWarnings)</DisableSpecificWarnings><!-- warning C4464: relative include path contains '..' -->
 			<DisableSpecificWarnings>4514;%(DisableSpecificWarnings)</DisableSpecificWarnings><!-- warning C4514: 'xxx': unreferenced inline function has been removed -->
 			<DisableSpecificWarnings>4557;%(DisableSpecificWarnings)</DisableSpecificWarnings><!-- warning C4557: '__assume' contains effect '=' -->
@@ -193,8 +197,8 @@
 	</ItemDefinitionGroup>
 	<ItemDefinitionGroup>
 		<ClCompile>
-			<AdditionalOptions Condition="'$(mk_is_entry_point)' == 'true'">/Gs2097152 %(AdditionalOptions)</AdditionalOptions>
-			<AdditionalOptions Condition="'$(mk_is_msvc)' == 'true'">/constexpr:steps1000000000 %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(mk_is_entry_point)'=='true'">/Gs2097152 %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(mk_is_msvc)'=='true'">/constexpr:steps1000000000 %(AdditionalOptions)</AdditionalOptions>
 			<AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
 		</ClCompile>
 	</ItemDefinitionGroup>
@@ -255,8 +259,8 @@
 	</PropertyGroup>
 	<ItemDefinitionGroup>
 		<Link>
-			<GenerateDebugInformation Condition="'$(mk_is_debug)' == 'true'">DebugFastLink</GenerateDebugInformation>
-			<GenerateDebugInformation Condition="'$(mk_is_release)' == 'true'">false</GenerateDebugInformation>
+			<GenerateDebugInformation Condition="'$(mk_is_debug)'=='true'">DebugFastLink</GenerateDebugInformation>
+			<GenerateDebugInformation Condition="'$(mk_is_release)'=='true'">false</GenerateDebugInformation>
 			<ProgramDatabaseFile>$(OutDir)$(TargetName).pdb</ProgramDatabaseFile>
 			<StripPrivateSymbols></StripPrivateSymbols>
 			<GenerateMapFile>false</GenerateMapFile>
@@ -272,8 +276,8 @@
 			<MinimumRequiredVersion></MinimumRequiredVersion>
 			<HeapReserveSize></HeapReserveSize>
 			<HeapCommitSize></HeapCommitSize>
-			<StackReserveSize Condition="'$(mk_is_release)' == 'true'">1048576</StackReserveSize>
-			<StackCommitSize Condition="'$(mk_is_release)' == 'true'">1048576</StackCommitSize>
+			<StackReserveSize Condition="'$(mk_is_release)'=='true'">1048576</StackReserveSize>
+			<StackCommitSize Condition="'$(mk_is_release)'=='true'">1048576</StackCommitSize>
 			<LargeAddressAware>true</LargeAddressAware>
 			<TerminalServerAware>true</TerminalServerAware>
 			<SwapRunFromCD>true</SwapRunFromCD>
@@ -283,14 +287,14 @@
 	</ItemDefinitionGroup>
 	<ItemDefinitionGroup>
 		<Link>
-			<OptimizeReferences Condition="'$(mk_is_debug)' == 'true'">true</OptimizeReferences>
-			<OptimizeReferences Condition="'$(mk_is_release)' == 'true'">true</OptimizeReferences>
-			<EnableCOMDATFolding Condition="'$(mk_is_debug)' == 'true'">true</EnableCOMDATFolding>
-			<EnableCOMDATFolding Condition="'$(mk_is_release)' == 'true'">true</EnableCOMDATFolding>
+			<OptimizeReferences Condition="'$(mk_is_debug)'=='true'">true</OptimizeReferences>
+			<OptimizeReferences Condition="'$(mk_is_release)'=='true'">true</OptimizeReferences>
+			<EnableCOMDATFolding Condition="'$(mk_is_debug)'=='true'">true</EnableCOMDATFolding>
+			<EnableCOMDATFolding Condition="'$(mk_is_release)'=='true'">true</EnableCOMDATFolding>
 			<FunctionOrder></FunctionOrder>
 			<ProfileGuidedDatabase>$(OutDir)$(TargetName).pgd</ProfileGuidedDatabase>
-			<LinkTimeCodeGeneration Condition="'$(mk_is_debug)' == 'true'">Default</LinkTimeCodeGeneration>
-			<LinkTimeCodeGeneration Condition="'$(mk_is_release)' == 'true'">UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+			<LinkTimeCodeGeneration Condition="'$(mk_is_debug)'=='true'">Default</LinkTimeCodeGeneration>
+			<LinkTimeCodeGeneration Condition="'$(mk_is_release)'=='true'">UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
 			<LinkTimeCodeGenerationObjectFile>$(IntDir)$(TargetName).iobj</LinkTimeCodeGenerationObjectFile>
 		</Link>
 	</ItemDefinitionGroup>
@@ -308,7 +312,7 @@
 
 	<ItemDefinitionGroup>
 		<Link>
-			<EntryPointSymbol Condition="'$(mk_is_entry_point)' == 'true'">mk_lang_entry_point</EntryPointSymbol>
+			<EntryPointSymbol Condition="'$(mk_is_entry_point)'=='true'">mk_lang_entry_point</EntryPointSymbol>
 			<ImageHasSafeExceptionHandlers Condition="'$(Configuration)|$(Platform)'=='ReleaseMSVC|Win32'">false</ImageHasSafeExceptionHandlers>
 			<AdditionalOptions>/ignore:4006 %(AdditionalOptions)</AdditionalOptions><!-- warning LNK4006: xxx already defined in xxx.obj; second definition ignored -->
 			<AdditionalOptions>/ignore:4302 %(AdditionalOptions)</AdditionalOptions><!-- warning LNK4302: please add '/DEBUG' to the link command line for better ASAN error reporting -->
