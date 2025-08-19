@@ -6,7 +6,9 @@
 #include "mk_lang_alignof.h"
 #include "mk_lang_arch.h"
 #include "mk_lang_check.h"
+#include "mk_lang_configuration.h"
 #include "mk_lang_cpuid.h"
+#include "mk_lang_crash.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_lllong.h"
 #include "mk_lang_llong.h"
@@ -92,6 +94,8 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_info_platform_print
 	#elif mk_lang_platform_is_posix_at_least_1
 	err = mk_lang_stdout_println_lit_n("Platform version: POSIX 1990"); mk_lang_check_rereturn(err);
 	#endif
+
+	err = mk_lang_stdout_print_lit_n("Configuration: "); mk_lang_check_rereturn(err); err = mk_lang_configuration_is_debug ? mk_lang_stdout_println_lit_n("Debug") : (mk_lang_configuration_is_release ? mk_lang_stdout_println_lit_n("Release") : (mk_lang_crash(), 0)); mk_lang_check_rereturn(err);
 
 	err = mk_lang_stdout_println_lit_n(""); mk_lang_check_rereturn(err);
 
