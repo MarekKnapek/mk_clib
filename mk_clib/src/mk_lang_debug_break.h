@@ -21,10 +21,6 @@
 #endif
 
 
-#include "mk_lang_bool.h"
-#include "mk_lang_runtime_bool.h"
-
-
 #if mk_lang_debug_break_want2
 
 #include "mk_lang_builtin.h"
@@ -34,29 +30,29 @@
 
 #pragma intrinsic(__debugbreak)
 #define mk_lang_debug_break_have 1
-#define mk_lang_debug_break() do{ __debugbreak(); }while(mk_lang_runtime_bool_fn_false)
+#define mk_lang_debug_break() __debugbreak()
 
 #elif mk_lang_builtin_has_debugtrap
 
 #define mk_lang_debug_break_have 1
-#define mk_lang_debug_break() do{ __builtin_debugtrap(); }while(mk_lang_runtime_bool_fn_false)
+#define mk_lang_debug_break() __builtin_debugtrap()
 
 #elif mk_lang_builtin_has_trap
 
 #define mk_lang_debug_break_have 1
-#define mk_lang_debug_break() do{ __builtin_trap(); }while(mk_lang_runtime_bool_fn_false)
+#define mk_lang_debug_break() __builtin_trap()
 
 #else
 
 #define mk_lang_debug_break_have 0
-#define mk_lang_debug_break() do{}while(mk_lang_runtime_bool_fn_false)
+#define mk_lang_debug_break() ((mk_lang_types_void_t)(0))
 
 #endif
 
 #else
 
 #define mk_lang_debug_break_have 0
-#define mk_lang_debug_break() do{}while(mk_lang_runtime_bool_fn_false)
+#define mk_lang_debug_break() ((mk_lang_types_void_t)(0))
 
 #endif
 

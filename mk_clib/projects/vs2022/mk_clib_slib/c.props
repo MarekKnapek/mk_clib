@@ -56,6 +56,9 @@
 	</ItemDefinitionGroup>
 	<ItemDefinitionGroup>
 		<ClCompile>
+			<PreprocessorDefinitions Condition="'$(mk_is_debug)'=='true' Or '$(mk_project)'=='mk_clib_fuzz' Or '$(mk_project)'=='mk_clib_test'">mk_lang_assert_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions Condition="'$(mk_is_debug)'=='true' Or '$(mk_project)'=='mk_clib_fuzz' Or '$(mk_project)'=='mk_clib_test'">mk_lang_assert_want_crash=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions Condition="'$(mk_is_debug)'=='true' Or '$(mk_project)'=='mk_clib_fuzz' Or '$(mk_project)'=='mk_clib_test'">mk_lang_crash_detail_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<PreprocessorDefinitions Condition="'$(mk_is_debug)'=='true'">_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<PreprocessorDefinitions Condition="'$(mk_is_debug)'=='true'">DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<PreprocessorDefinitions Condition="'$(mk_is_entry_point)' == 'true'">mk_lang_entry_point_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -176,6 +179,7 @@
 			<DisableSpecificWarnings>4710;%(DisableSpecificWarnings)</DisableSpecificWarnings><!-- warning C4710: 'xxx': function not inlined -->
 			<DisableSpecificWarnings>4711;%(DisableSpecificWarnings)</DisableSpecificWarnings><!-- warning C4711: function 'xxx' selected for automatic inline expansion -->
 			<DisableSpecificWarnings>5045;%(DisableSpecificWarnings)</DisableSpecificWarnings><!-- warning C5045: Compiler will insert Spectre mitigation for memory load if /Qspectre switch specified -->
+			<DisableSpecificWarnings>5072;%(DisableSpecificWarnings)</DisableSpecificWarnings><!-- warning C5072: ASAN enabled without debug information emission. Enable debug info for better ASAN error reporting -->
 			<DisableSpecificWarnings>5287;%(DisableSpecificWarnings)</DisableSpecificWarnings><!-- warning C5287: operands are different enum types 'xxx' and 'xxx'; use an explicit cast to silence this warning -->
 			<DisableSpecificWarnings Condition="'$(mk_is_release)'=='true'">4127;%(DisableSpecificWarnings)</DisableSpecificWarnings><!-- warning C4127: conditional expression is constant -->
 			<ForcedIncludeFiles></ForcedIncludeFiles>
@@ -225,7 +229,7 @@
 	<ItemDefinitionGroup>
 		<Link>
 			<AdditionalDependencies Condition="'$(RootNamespace)'!='mk_clib_slib' And '$(mk_is_debug)'=='true'">mk_clib_slib.lib;%(AdditionalDependencies)</AdditionalDependencies>
-			<IgnoreAllDefaultLibraries Condition="'$(mk_is_debug)'=='true'">false</IgnoreAllDefaultLibraries>
+			<IgnoreAllDefaultLibraries Condition="'$(mk_is_entry_point)'=='false'">false</IgnoreAllDefaultLibraries>
 			<IgnoreAllDefaultLibraries Condition="'$(mk_is_entry_point)'=='true'">true</IgnoreAllDefaultLibraries>
 			<IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
 			<ModuleDefinitionFile></ModuleDefinitionFile>
@@ -307,6 +311,7 @@
 			<EntryPointSymbol Condition="'$(mk_is_entry_point)' == 'true'">mk_lang_entry_point</EntryPointSymbol>
 			<ImageHasSafeExceptionHandlers Condition="'$(Configuration)|$(Platform)'=='ReleaseMSVC|Win32'">false</ImageHasSafeExceptionHandlers>
 			<AdditionalOptions>/ignore:4006 %(AdditionalOptions)</AdditionalOptions><!-- warning LNK4006: xxx already defined in xxx.obj; second definition ignored -->
+			<AdditionalOptions>/ignore:4302 %(AdditionalOptions)</AdditionalOptions><!-- warning LNK4302: please add '/DEBUG' to the link command line for better ASAN error reporting -->
 		</Link>
 	</ItemDefinitionGroup>
 </Project>

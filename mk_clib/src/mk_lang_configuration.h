@@ -14,9 +14,15 @@
 #define mk_lang_configuration_have_ndebug 0
 #endif
 
+
 #if mk_lang_configuration_have_debug && mk_lang_configuration_have_ndebug
 #error xxxxxxxxxx
 #endif
+
+#if !mk_lang_configuration_have_debug && !mk_lang_configuration_have_ndebug
+#error xxxxxxxxxx
+#endif
+
 
 #define mk_lang_configuration_is_debug   (mk_lang_configuration_have_debug )
 #define mk_lang_configuration_is_release (mk_lang_configuration_have_ndebug)

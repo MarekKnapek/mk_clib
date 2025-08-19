@@ -34,6 +34,13 @@
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\app\fuzz.c"/>
 		<None Include="$(MSBuildThisFileDirectory)minimize.bat"/>
 	</ItemGroup>
+	<ItemDefinitionGroup>
+		<Link>
+			<AdditionalDependencies>bcrypt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+			<AdditionalDependencies>ntdll.lib;%(AdditionalDependencies)</AdditionalDependencies>
+			<AdditionalDependencies>ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+		</Link>
+	</ItemDefinitionGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
 	<ImportGroup Label="ExtensionTargets">
 		<Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets"/>
