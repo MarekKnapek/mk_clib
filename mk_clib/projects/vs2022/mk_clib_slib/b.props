@@ -6,10 +6,10 @@
 		<ConfigurationType>Application</ConfigurationType>
 		<ConfigurationType Condition="'$(RootNamespace)'=='mk_clib_m4'">Utility</ConfigurationType>
 		<ConfigurationType Condition="'$(RootNamespace)'=='mk_clib_slib'">StaticLibrary</ConfigurationType>
-		<EnableASAN Condition="'$(mk_is_debug)'=='true' Or '$(mk_project)'=='mk_clib_fuzz'">true</EnableASAN>
-		<EnableASAN Condition="!('$(mk_is_debug)'=='true' Or '$(mk_project)'=='mk_clib_fuzz')">false</EnableASAN>
-		<EnableFuzzer Condition="'$(mk_is_debug)'=='true' Or '$(mk_project)'=='mk_clib_fuzz'">true</EnableFuzzer>
-		<EnableFuzzer Condition="!('$(mk_is_debug)'=='true' Or '$(mk_project)'=='mk_clib_fuzz')">false</EnableFuzzer>
+		<EnableASAN Condition="'$(mk_is_asan)'=='true'">true</EnableASAN>
+		<EnableASAN Condition="'$(mk_is_asan)'!='true'">false</EnableASAN>
+		<EnableFuzzer Condition="'$(mk_is_fuzzer)'=='true'">true</EnableFuzzer>
+		<EnableFuzzer Condition="'$(mk_is_fuzzer)'!='true'">false</EnableFuzzer>
 		<EnableUnitySupport>false</EnableUnitySupport>
 		<PlatformToolset>v143</PlatformToolset>
 		<PreferredToolArchitecture>x64</PreferredToolArchitecture>
