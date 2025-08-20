@@ -58,9 +58,10 @@
 		<ClCompile>
 			<PreprocessorDefinitions Condition="'$(mk_is_asan)'!='true'">mk_lang_asan_has=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<PreprocessorDefinitions Condition="'$(mk_is_asan)'=='true'">mk_lang_asan_has=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions Condition="'$(mk_is_debug)'=='true' Or '$(mk_project)'=='mk_clib_fuzz' Or '$(mk_project)'=='mk_clib_test'">mk_lang_assert_crash_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<PreprocessorDefinitions Condition="'$(mk_is_debug)'=='true' Or '$(mk_project)'=='mk_clib_fuzz' Or '$(mk_project)'=='mk_clib_test'">mk_lang_assert_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			<PreprocessorDefinitions Condition="'$(mk_is_debug)'=='true' Or '$(mk_project)'=='mk_clib_fuzz' Or '$(mk_project)'=='mk_clib_test'">mk_lang_assert_want_crash=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<PreprocessorDefinitions Condition="'$(mk_is_debug)'=='true' Or '$(mk_project)'=='mk_clib_fuzz' Or '$(mk_project)'=='mk_clib_test'">mk_lang_crash_detail_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions Condition="'$(mk_is_debug)'=='true' Or '$(mk_project)'=='mk_clib_fuzz' Or '$(mk_project)'=='mk_clib_test'">mk_lang_test_detail_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<PreprocessorDefinitions Condition="'$(mk_is_debug)'=='true'">_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<PreprocessorDefinitions Condition="'$(mk_is_debug)'=='true'">DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<PreprocessorDefinitions Condition="'$(mk_is_entry_point)'=='true'">mk_lang_entry_point_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
