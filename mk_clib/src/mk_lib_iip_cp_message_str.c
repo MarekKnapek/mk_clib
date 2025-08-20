@@ -1212,7 +1212,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 	tlen = obj_len;
 	mk_lang_check_return(rem >= tlen);
-	mk_lang_string_memcpy_pc_fn(ptr, obj_buf, obj_len);
+	mk_lang_string_memcpy_pc_fn(ptr, obj_buf, ((mk_lang_types_usize_t)(obj_len)));
 	ptr += tlen;
 	rem -= tlen;
 

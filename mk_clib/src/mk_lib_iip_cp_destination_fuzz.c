@@ -30,9 +30,9 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_destination_f
 	mk_lang_types_sint_t err;
 	mk_lib_iip_cp_destination_remote_t remote_destination;
 	mk_lang_types_bool_t gud;
-	mk_lang_types_sint_t consumed;
+	mk_lang_types_sint_t consumed_read;
 	mk_sl_cui_uint8_t destination_b_buf[2 * 1024];
-	mk_lang_types_sint_t consumed_b;
+	mk_lang_types_sint_t consumed_write;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	#include "mk_lang_warning_gcc_push_type_limits.h"
@@ -63,15 +63,16 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_destination_f
 	s -= ((mk_lang_types_usize_t)(destination_len));
 
 	gud = mk_lang_true;
-	err = mk_lib_iip_cp_destination_remote_rw_from_bytes(&remote_destination, &destination_buf[0], destination_len, &gud, &consumed); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_destination_remote_rw_from_bytes(&remote_destination, &destination_buf[0], destination_len, &gud, &consumed_read); mk_lang_check_rereturn(err);
 	if(gud)
 	{
-		mk_lang_assert(consumed >= 1);
-		mk_lang_assert(consumed <= destination_len);
-		err = mk_lib_iip_cp_destination_remote_ro_to_bytes(&remote_destination, &destination_b_buf[0], consumed, &gud, &consumed_b); mk_lang_check_rereturn(err);
+		mk_lang_assert(consumed_read >= 1);
+		mk_lang_assert(consumed_read <= destination_len);
+		mk_lang_test(consumed_read <= mk_lib_iip_cp_destination_max_len_bytes_v);
+		err = mk_lib_iip_cp_destination_remote_ro_to_bytes(&remote_destination, &destination_b_buf[0], consumed_read, &gud, &consumed_write); mk_lang_check_rereturn(err);
 		mk_lang_test(gud);
-		mk_lang_test(consumed_b == consumed);
-		mk_lang_test(mk_sl_cui_uint8_memcmp_fn(&destination_b_buf[0], &destination_buf[0], ((mk_lang_types_usize_t)(consumed))) == 0);
+		mk_lang_test(consumed_write == consumed_read);
+		mk_lang_test(mk_sl_cui_uint8_memcmp_fn(&destination_b_buf[0], &destination_buf[0], ((mk_lang_types_usize_t)(consumed_read))) == 0);
 	}
 	return 0;
 }

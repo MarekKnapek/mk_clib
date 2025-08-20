@@ -2,30 +2,38 @@
 #define mk_include_guard_mk_lang_assert_h
 
 
+#include "mk_lang_bool.h"
+#include "mk_lang_configuration.h"
+
+
 #if defined mk_lang_assert_want && (mk_lang_assert_want) == 1
-#define mk_lang_assert_want_2 1
+#define mk_lang_assert_have 1
 #elif defined mk_lang_assert_want && (mk_lang_assert_want) == 0
-#define mk_lang_assert_want_2 0
+#define mk_lang_assert_have 0
 #elif !defined mk_lang_assert_want
-#if defined DEBUG || defined _DEBUG
-#define mk_lang_assert_want_2 1
+#if mk_lang_configuration_is_debug
+#define mk_lang_assert_have 1
+#elif mk_lang_configuration_is_release
+#define mk_lang_assert_have 0
 #else
-#if defined NDEBUG || defined _NDEBUG
-#define mk_lang_assert_want_2 0
-#else
-#define mk_lang_assert_want_2 1
-#endif
+#error xxxxxxxxxx
 #endif
 #else
 #error xxxxxxxxxx
 #endif
 
-#if defined mk_lang_assert_want_crash && (mk_lang_assert_want_crash) == 1
-#define mk_lang_assert_want_crash_2 1
-#elif defined mk_lang_assert_want_crash && (mk_lang_assert_want_crash) == 0
-#define mk_lang_assert_want_crash_2 0
-#elif !defined mk_lang_assert_want_crash
-#define mk_lang_assert_want_crash_2 0
+#if defined mk_lang_assert_crash_want && (mk_lang_assert_crash_want) == 1
+#define mk_lang_assert_crash_have 1
+#elif defined mk_lang_assert_crash_want && (mk_lang_assert_crash_want) == 0
+#define mk_lang_assert_crash_have 0
+#elif !defined mk_lang_assert_crash_want
+#if mk_lang_configuration_is_debug
+#define mk_lang_assert_crash_have 1
+#elif mk_lang_configuration_is_release
+#define mk_lang_assert_crash_have 0
+#else
+#error xxxxxxxxxx
+#endif
 #else
 #error xxxxxxxxxx
 #endif
@@ -35,11 +43,11 @@
 #define mk_lang_assert_mode_assume 1002
 #define mk_lang_assert_mode_assert 1003
 
-#if mk_lang_assert_want_2 && mk_lang_assert_want_crash_2
+#if mk_lang_assert_have && mk_lang_assert_crash_have
 #define mk_lang_assert_mode mk_lang_assert_mode_crash
-#elif mk_lang_assert_want_2 && !mk_lang_assert_want_crash_2
+#elif mk_lang_assert_have && !mk_lang_assert_crash_have
 #define mk_lang_assert_mode mk_lang_assert_mode_assert
-#elif !mk_lang_assert_want_2
+#elif !mk_lang_assert_have
 #define mk_lang_assert_mode mk_lang_assert_mode_assume
 #else
 #error xxxxxxxxxx
@@ -52,13 +60,22 @@
 #if mk_lang_assert_mode == mk_lang_assert_mode_crash
 
 
+
+
+
 #include "mk_lang_crash.h"
 #include "mk_lang_types.h"
 
 #define mk_lang_assert(x) ((mk_lang_types_void_t)((x) ? ((mk_lang_types_void_t)(0)) : ((mk_lang_types_void_t)(mk_lang_crash()))))
 
 
+
+
+
 #elif mk_lang_assert_mode == mk_lang_assert_mode_assume
+
+
+
 
 
 #include "mk_lang_builtin.h"
@@ -66,6 +83,7 @@
 #include "mk_lang_msvc.h"
 #include "mk_lang_types.h"
 #include "mk_lang_version.h"
+
 
 #if mk_lang_version_at_least_cpp_23
 
@@ -104,7 +122,13 @@
 #endif
 
 
+
+
+
 #elif mk_lang_assert_mode == mk_lang_assert_mode_assert
+
+
+
 
 
 #if defined __cplusplus
@@ -120,16 +144,13 @@
 #endif
 
 
+
+
+
 #endif
 
 
-#include "mk_lang_bool.h"
-
-
 #define mk_lang_assert_false() mk_lang_assert(mk_lang_false)
-
-
-
 
 
 #endif

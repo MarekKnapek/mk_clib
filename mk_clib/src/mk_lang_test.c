@@ -13,7 +13,7 @@
 #if mk_lang_test_detail_have
 
 
-mk_lang_jumbo mk_lang_types_void_t mk_lang_test_detail_impl(mk_lang_types_pchar_pct const msg_buf, mk_lang_types_sint_t const msg_len) mk_lang_noexcept
+mk_lang_jumbo mk_lang_types_void_t mk_lang_test_detail_print_impl(mk_lang_types_pchar_pct const msg_buf, mk_lang_types_sint_t const msg_len) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 
