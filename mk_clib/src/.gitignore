@@ -2,6 +2,8 @@
 /mk_lang_bui_inl_defu.h
 /mk_lang_bui_inl_filec.h
 /mk_lang_bui_inl_fileh.h
+/mk_lang_swap_inl_defd.h
+/mk_lang_swap_inl_defu.h
 /mk_lib_crypto_alg_aes_x86_inl_defd.h
 /mk_lib_crypto_alg_aes_x86_inl_defu.h
 /mk_lib_crypto_hash_stream_any1.c
@@ -30,6 +32,8 @@
 /mk_sl_mallocator_arena_inl_defu.h
 /mk_sl_mallocator_lokal_arena_inl_defd.h
 /mk_sl_mallocator_lokal_arena_inl_defu.h
+/mk_sl_sort_merge_inl_defd.h
+/mk_sl_sort_merge_inl_defu.h
 /mk_sl_tree_wavl_inl_defd.h
 /mk_sl_tree_wavl_inl_defu.h
 /mk_sl_vector_inl_defd.h
