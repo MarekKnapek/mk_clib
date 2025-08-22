@@ -171,6 +171,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_b
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t mk_clib_app_hosts_cmp(mk_lang_types_uintptr_t const context, mk_clib_app_hosts_b32_with_domains_pcpct const a, mk_clib_app_hosts_b32_with_domains_pcpct const b) mk_lang_noexcept
 {
+	mk_lang_types_pchar_t b32str_a[mk_lang_roundup_div(mk_lib_crypto_hash_stream_sha2_256_digest_len_v * 8, 5)] mk_lang_constexpr_init;
+	mk_lang_types_sint_t len mk_lang_constexpr_init;
+	mk_lang_types_pchar_t b32str_b[mk_lang_roundup_div(mk_lib_crypto_hash_stream_sha2_256_digest_len_v * 8, 5)] mk_lang_constexpr_init;
 	mk_lang_types_sint_t ca mk_lang_constexpr_init;
 	mk_lang_types_bool_t cb mk_lang_constexpr_init;
 
@@ -181,7 +184,9 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t m
 	mk_lang_assert(*b);
 
 	((mk_lang_types_void_t)(context));
-	ca = mk_sl_cui_uint8_memcmp_fn(&(*a)->m_b32.m_data.m_uint8s[0], &(*a)->m_b32.m_data.m_uint8s[0], mk_lib_crypto_hash_stream_sha2_256_digest_len_v);
+	mk_lib_iip_base32_encoder_fn(&(*a)->m_b32.m_data.m_uint8s[0], mk_lib_crypto_hash_stream_sha2_256_digest_len_v, &b32str_a[0], mk_lang_countof(b32str_a), &len); mk_lang_check_return(len == mk_lang_countof(b32str_a));
+	mk_lib_iip_base32_encoder_fn(&(*b)->m_b32.m_data.m_uint8s[0], mk_lib_crypto_hash_stream_sha2_256_digest_len_v, &b32str_b[0], mk_lang_countof(b32str_b), &len); mk_lang_check_return(len == mk_lang_countof(b32str_b));
+	ca = mk_lang_string_memcmp_pc_fn(&b32str_a[0], &b32str_b[0], mk_lang_countof(b32str_a));
 	cb = ca < 0;
 	return cb;
 }
@@ -447,7 +452,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_g
 			mk_lib_crypto_hash_stream_sha2_256_append_u8s(&hasher, &address_buf[0], ((mk_lang_types_usize_t)(address_len)));
 			mk_lib_crypto_hash_stream_sha2_256_finish(&hasher, &digest);
 			err = mk_clib_app_hosts_domain_rw_construct_void(&domain); mk_lang_check_rereturn(err);
-			err = mk_clib_app_hosts_domain_rw_push_back_copy_many(&domain, &data_ptr[domain_beg], domain_len); mk_lang_check_rereturn(err);
+			err = mk_clib_app_hosts_domain_rw_push_back_copy_many(&domain, &data_ptr[domain_beg], ((mk_lang_types_usize_t)(domain_len))); mk_lang_check_rereturn(err);
 			err = mk_clib_app_hosts_tree_rw_add(&db, &digest, &domain); mk_lang_check_rereturn(err);
 			err = mk_clib_app_hosts_domain_rw_destroy(&domain); mk_lang_check_rereturn(err);
 			mk_lib_iip_base32_encoder_fn(&digest.m_data.m_uint8s[0], mk_lib_crypto_hash_stream_sha2_256_digest_len_v, &b32_buf[mk_lang_countstr(mk_clib_app_hosts_b32_prefix)], mk_lang_roundup_div(mk_lib_crypto_hash_stream_sha2_256_digest_len_v * 8, 5), &b32_len); mk_lang_check_return(b32_len == mk_lang_roundup_div(mk_lib_crypto_hash_stream_sha2_256_digest_len_v * 8, 5));
