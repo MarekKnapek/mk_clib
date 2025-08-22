@@ -1331,7 +1331,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_de
 {
 	mk_lang_assert(vector);
 	mk_lang_assert(src);
-	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
 	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(src));
 
 	vector->m_buffer = src->m_buffer;
