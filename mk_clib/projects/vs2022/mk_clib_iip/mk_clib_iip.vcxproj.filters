@@ -11,9 +11,7 @@
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_external_zlib_inftrees.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_external_zlib_trees.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_external_zlib_zutil.c"/>
-		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_rt.c"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_external_zlib.h"/>
-		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_rt.h"/>
 		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_abort_win_amd64.asm"/>
 		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_abort_win_i386.asm"/>
 		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcmp_win_amd64.asm"/>
