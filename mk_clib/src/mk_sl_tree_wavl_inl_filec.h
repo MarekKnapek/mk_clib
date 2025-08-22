@@ -697,6 +697,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_tree_wavl_inl
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_tree_wavl_inl_defd_prro_validate(mk_sl_tree_wavl_inl_defd_pct const tree) mk_lang_noexcept
 {
+#if mk_sl_tree_wavl_inl_defd_validate_want
 	mk_lang_types_sint_t err;
 
 	mk_lang_assert(tree);
@@ -704,6 +705,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_tree_wavl_inl
 	err = mk_sl_tree_wavl_inl_defd_prro_rule_check_tree(tree); mk_lang_check_rereturn(err);
 	err = mk_sl_tree_wavl_inl_defd_prro_rule_check_wavl(tree); mk_lang_check_rereturn(err);
 	return 0;
+#else
+	mk_lang_assert(tree);
+
+	((mk_lang_types_void_t)(tree));
+	return 0;
+#endif
 }
 
 mk_lang_nodiscard static mk_lang_inline mk_sl_tree_wavl_inl_defd_node_pt mk_sl_tree_wavl_inl_defd_prrw_find_smallest(mk_sl_tree_wavl_inl_defd_pt const tree, mk_sl_tree_wavl_inl_defd_node_pt const node) mk_lang_noexcept
