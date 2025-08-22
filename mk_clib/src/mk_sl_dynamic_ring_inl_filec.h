@@ -509,6 +509,23 @@ mk_lang_nodiscard static mk_lang_inline mk_sl_dynamic_ring_inl_defd_element_pct 
 	return r;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_sl_dynamic_ring_inl_defd_element_pct mk_sl_dynamic_ring_inl_defd_prro_get_at(mk_sl_dynamic_ring_inl_defd_pct const ring, mk_lang_types_usize_t const idx) mk_lang_noexcept
+{
+	mk_sl_dynamic_ring_inl_defd_element_pct r;
+
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	mk_lang_assert(ring);
+	mk_lang_assert(idx >= 0);
+	mk_lang_assert(idx < mk_sl_dynamic_ring_inl_defd_prro_get_size(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	#include "mk_lang_warning_msvc_pop.h"
+
+	r = &ring->m_buffer[ring->m_read + idx & (ring->m_capacity - 1)];
+
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	return r;
+}
+
 
 
 
@@ -759,6 +776,23 @@ mk_lang_nodiscard static mk_lang_inline mk_sl_dynamic_ring_inl_defd_element_pt m
 	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
 
 	r = ring->m_buffer;
+
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	return r;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_sl_dynamic_ring_inl_defd_element_pt mk_sl_dynamic_ring_inl_defd_prrw_get_at(mk_sl_dynamic_ring_inl_defd_pt const ring, mk_lang_types_usize_t const idx) mk_lang_noexcept
+{
+	mk_sl_dynamic_ring_inl_defd_element_pt r;
+
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	mk_lang_assert(ring);
+	mk_lang_assert(idx >= 0);
+	mk_lang_assert(idx < mk_sl_dynamic_ring_inl_defd_prrw_get_size(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	#include "mk_lang_warning_msvc_pop.h"
+
+	r = &ring->m_buffer[ring->m_read + idx & (ring->m_capacity - 1)];
 
 	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
 	return r;
@@ -1433,6 +1467,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_sl_dynamic_ring_inl_defd_element_pct mk_sl_dy
 	return mk_sl_dynamic_ring_inl_defd_prro_get_free_data_b(ring);
 }
 
+mk_lang_nodiscard mk_lang_jumbo mk_sl_dynamic_ring_inl_defd_element_pct mk_sl_dynamic_ring_inl_defd_ro_get_at(mk_sl_dynamic_ring_inl_defd_pct const ring, mk_lang_types_usize_t const idx) mk_lang_noexcept
+{
+	return mk_sl_dynamic_ring_inl_defd_prro_get_at(ring, idx);
+}
+
 
 
 
@@ -1525,6 +1564,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_usize_t mk_sl_dynamic_ring_inl_def
 mk_lang_nodiscard mk_lang_jumbo mk_sl_dynamic_ring_inl_defd_element_pt mk_sl_dynamic_ring_inl_defd_rw_get_free_data_b(mk_sl_dynamic_ring_inl_defd_pt const ring) mk_lang_noexcept
 {
 	return mk_sl_dynamic_ring_inl_defd_prrw_get_free_data_b(ring);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_sl_dynamic_ring_inl_defd_element_pt mk_sl_dynamic_ring_inl_defd_rw_get_at(mk_sl_dynamic_ring_inl_defd_pt const ring, mk_lang_types_usize_t const idx) mk_lang_noexcept
+{
+	return mk_sl_dynamic_ring_inl_defd_prrw_get_at(ring, idx);
 }
 
 
