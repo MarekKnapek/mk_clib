@@ -2,8 +2,9 @@
 #define mk_include_guard_mk_lang_rt_c
 #include "mk_lang_rt.h"
 
+#include "mk_lang_arch.h"
 #include "mk_lang_platform.h"
-#if mk_lang_platform_is_windows_at_least_any
+#if mk_lang_platform_is_windows_at_least_any && mk_lang_arch_is_x8664
 
 #include "mk_lang_assert.h"
 #include "mk_lang_extern.h"
@@ -44,6 +45,7 @@ mk_lang_extern_force_c mk_lang_types_sint_t mk_lang_rt_memcmp(mk_lang_types_void
 
 
 #else
-static void mk_lang_rt_dummy(void){}
+void mk_lang_rt_dummy(void);
+void mk_lang_rt_dummy(void){}
 #endif
 #endif
