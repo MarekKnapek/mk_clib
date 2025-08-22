@@ -36,9 +36,12 @@
 
 	#define mk_clib_app_hosts_buf_len (4 * 1024)
 	#define mk_clib_app_hosts_buf_alg (4 * 1024)
+	#define mk_clib_app_hosts_domain_prefix "http://"
 	#define mk_clib_app_hosts_domain_suffix ".i2p"
 	#define mk_clib_app_hosts_b32_prefix "http://"
 	#define mk_clib_app_hosts_b32_suffix ".b32.i2p"
+	#define mk_clib_app_hosts_duplicate_1_prefix " - "
+	#define mk_clib_app_hosts_duplicate_2_prefix "   - "
 	#define mk_clib_app_hosts_b32_cert_null "null"
 	#define mk_clib_app_hosts_b32_cert_key_0_0 "key(ElGamal, DSA/SHA-1)"
 	#define mk_clib_app_hosts_b32_cert_key_0_1 "key(ElGamal, ECDSA/SHA-256/P256)"
@@ -154,6 +157,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_b
 #define mk_sl_tree_wavl_t_element_type mk_clib_app_hosts_b32_with_domains_t
 #define mk_sl_tree_wavl_t_elements_compare mk_clib_app_hosts_b32_with_domains_rw_cmp
 #define mk_sl_tree_wavl_t_mallocatorg_name mk_lib_iip_cp_mallocator_global
+#define mk_sl_tree_wavl_t_validate_want 0
 #define mk_sl_tree_wavl_t_element_copy_construct mk_clib_app_hosts_b32_with_domains_rw_construct_copy
 #define mk_sl_tree_wavl_t_element_move_construct mk_clib_app_hosts_b32_with_domains_rw_construct_move
 #define mk_sl_tree_wavl_t_element_destruct mk_clib_app_hosts_b32_with_domains_rw_destroy
@@ -282,6 +286,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_t
 	{
 		element_ptr = mk_clib_app_phosts_domains_ro_at(hosts, j); mk_lang_assert(element_ptr); element = *element_ptr; mk_lang_assert(element);
 		mk_lib_iip_base32_encoder_fn(&element->m_b32.m_data.m_uint8s[0], mk_lib_crypto_hash_stream_sha2_256_digest_len_v, &b32_buf[mk_lang_countstr(mk_clib_app_hosts_b32_prefix)], mk_lang_roundup_div(mk_lib_crypto_hash_stream_sha2_256_digest_len_v * 8, 5), &b32_len); mk_lang_check_return(b32_len == mk_lang_roundup_div(mk_lib_crypto_hash_stream_sha2_256_digest_len_v * 8, 5));
+		err = mk_sl_io_writer_file_write(&writer, ((mk_sl_cui_uint8_pct)(&mk_clib_app_hosts_duplicate_1_prefix[0])), mk_lang_countstr(mk_clib_app_hosts_duplicate_1_prefix), &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == mk_lang_countstr(mk_clib_app_hosts_duplicate_1_prefix));
 		err = mk_sl_io_writer_file_write(&writer, ((mk_sl_cui_uint8_pct)(&b32_buf[0])), mk_lang_countof(b32_buf), &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == mk_lang_countof(b32_buf));
 		err = mk_sl_io_writer_file_write(&writer, &nl_u8, 1, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == 1);
 		n = mk_clib_app_hosts_domains_ro_size(&element->m_domains); mk_lang_assert(n >= 2);
@@ -290,6 +295,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_t
 			domain = mk_clib_app_hosts_domains_ro_at(&element->m_domains, i); mk_lang_assert(domain);
 			domain_buf = mk_clib_app_hosts_domain_ro_data(domain); mk_lang_assert(domain_buf);
 			domain_len = mk_clib_app_hosts_domain_ro_sise(domain); mk_lang_assert(domain_len >= 1);
+			err = mk_sl_io_writer_file_write(&writer, ((mk_sl_cui_uint8_pct)(&mk_clib_app_hosts_duplicate_2_prefix[0])), mk_lang_countstr(mk_clib_app_hosts_duplicate_2_prefix), &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == mk_lang_countstr(mk_clib_app_hosts_duplicate_2_prefix));
+			err = mk_sl_io_writer_file_write(&writer, ((mk_sl_cui_uint8_pct)(&mk_clib_app_hosts_domain_prefix[0])), mk_lang_countstr(mk_clib_app_hosts_domain_prefix), &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == mk_lang_countstr(mk_clib_app_hosts_domain_prefix));
 			err = mk_sl_io_writer_file_write(&writer, domain_buf, domain_len, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == domain_len);
 			err = mk_sl_io_writer_file_write(&writer, &nl_u8, 1, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == 1);
 		}
