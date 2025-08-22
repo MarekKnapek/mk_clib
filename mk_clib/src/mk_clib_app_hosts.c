@@ -354,6 +354,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_g
 	mk_sl_cui_uint8_t sp_u8;
 	mk_lang_types_pchar_t ba_pchar;
 	mk_sl_cui_uint8_t ba_u8;
+	mk_lang_types_pchar_t cm_pchar;
+	mk_sl_cui_uint8_t cm_u8;
 	mk_lang_types_pchar_t b32_buf[mk_lang_countstr(mk_clib_app_hosts_b32_prefix) + mk_lang_roundup_div(mk_lib_crypto_hash_stream_sha2_256_digest_len_v * 8, 5) + mk_lang_countstr(mk_clib_app_hosts_b32_suffix)];
 	mk_sl_cui_uint8_pt read_data_ptr;
 	mk_sl_cui_uint8_t read_data_buf[mk_lang_roundup_add(mk_clib_app_hosts_buf_len, mk_clib_app_hosts_buf_alg)];
@@ -361,6 +363,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_g
 	mk_sl_dynamic_ring_u8_t ring;
 	mk_sl_io_reader_file_t reader;
 	mk_sl_io_writer_file_t writer;
+	mk_sl_io_writer_file_t addresses_csv;
 	mk_lang_types_sint_t read_data_len;
 	mk_sl_cui_uint8_pt data_ptr;
 	mk_lang_types_sint_t data_len;
@@ -398,6 +401,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_g
 	eq_pchar = '='; mk_sl_cui_uint8_from_bi_pchar(&eq_u8, &eq_pchar);
 	sp_pchar = ' '; mk_sl_cui_uint8_from_bi_pchar(&sp_u8, &sp_pchar);
 	ba_pchar = '|'; mk_sl_cui_uint8_from_bi_pchar(&ba_u8, &ba_pchar);
+	cm_pchar = ','; mk_sl_cui_uint8_from_bi_pchar(&cm_u8, &cm_pchar);
 	mk_lang_string_memcpy_pc_fn(&b32_buf[0], &mk_clib_app_hosts_b32_prefix[0], mk_lang_countstr(mk_clib_app_hosts_b32_prefix));
 	mk_lang_string_memcpy_pc_fn(&b32_buf[mk_lang_countof(b32_buf) - mk_lang_countstr(mk_clib_app_hosts_b32_suffix)], &mk_clib_app_hosts_b32_suffix[0], mk_lang_countstr(mk_clib_app_hosts_b32_suffix));
 	read_data_ptr = ((mk_sl_cui_uint8_pt)(mk_lang_roundup_align(&read_data_buf[0], mk_clib_app_hosts_buf_alg)));
@@ -405,6 +409,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_g
 	err = mk_sl_dynamic_ring_u8_rw_construct(&ring); mk_lang_check_rereturn(err);
 	err = mk_sl_io_reader_file_open_n(&reader, "hosts.txt"); mk_lang_check_rereturn(err);
 	err = mk_sl_io_writer_file_open_n(&writer, "hosts.md"); mk_lang_check_rereturn(err);
+	err = mk_sl_io_writer_file_open_n(&addresses_csv, "addresses.csv"); mk_lang_check_rereturn(err);
 	for(;;)
 	{
 		err = mk_sl_io_reader_file_read(&reader, read_data_ptr, read_data_cap, &read_data_len); mk_lang_check_rereturn(err);
@@ -502,11 +507,16 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_g
 			err = mk_sl_io_writer_file_write(&writer, &sp_u8, 1, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == 1);
 			err = mk_sl_io_writer_file_write(&writer, &ba_u8, 1, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == 1);
 			err = mk_sl_io_writer_file_write(&writer, &nl_u8, 1, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == 1);
+			err = mk_sl_io_writer_file_write(&addresses_csv, &data_ptr[domain_beg], domain_len, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == domain_len);
+			err = mk_sl_io_writer_file_write(&addresses_csv, &cm_u8, 1, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == 1);
+			err = mk_sl_io_writer_file_write(&addresses_csv, ((mk_sl_cui_uint8_pct)(&b32_buf[0] + mk_lang_countstr(mk_clib_app_hosts_b32_prefix))), mk_lang_countof(b32_buf) - mk_lang_countstr(mk_clib_app_hosts_b32_prefix) - mk_lang_countstr(mk_clib_app_hosts_b32_suffix), &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == mk_lang_countof(b32_buf) - mk_lang_countstr(mk_clib_app_hosts_b32_prefix) - mk_lang_countstr(mk_clib_app_hosts_b32_suffix));
+			err = mk_sl_io_writer_file_write(&addresses_csv, &nl_u8, 1, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == 1);
 			err = mk_sl_dynamic_ring_u8_rw_pop_front_many(&ring, ((mk_lang_types_usize_t)(idx_nl + 1))); mk_lang_check_rereturn(err);
 		}
 	}
 	err = mk_sl_io_reader_file_close(&reader); mk_lang_check_rereturn(err);
 	err = mk_sl_io_writer_file_close(&writer); mk_lang_check_rereturn(err);
+	err = mk_sl_io_writer_file_close(&addresses_csv); mk_lang_check_rereturn(err);
 	err = mk_sl_dynamic_ring_u8_rw_destroy(&ring); mk_lang_check_rereturn(err);
 	err = mk_clib_app_hosts_tree_rw_write(&db); mk_lang_check_rereturn(err);
 	err = mk_clib_app_hosts_tree_rw_destruct(&db); mk_lang_check_rereturn(err);
