@@ -57,6 +57,7 @@
 #include "mk_lib_crypto_xof_stream_turbo_shake_128_test.hpp"
 #include "mk_lib_crypto_xof_stream_turbo_shake_256_test.hpp"
 #include "mk_lib_hash_crc32_test.hpp"
+#include "mk_sl_sort_merge_test.hpp"
 
 
 mk_lang_jumbo mk_lang_types_void_t mk_clib_test(mk_lang_types_void_t) mk_lang_noexcept
@@ -112,6 +113,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_clib_test(mk_lang_types_void_t) mk_lang_no
 	mk_lib_crypto_xof_stream_turbo_shake_128_test();
 	mk_lib_crypto_xof_stream_turbo_shake_256_test();
 	mk_lib_hash_crc32_test();
+	mk_sl_sort_merge_test();
 }
 
 

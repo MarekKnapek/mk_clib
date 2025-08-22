@@ -1221,6 +1221,28 @@
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_dynamic_ring_inl_defu.h.m4"><Filter>src</Filter></None>
 	</ItemGroup>
 	<ItemGroup>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_swap_inl_defd.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_swap_inl_defu.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_swap_inl_filec.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_swap_inl_fileh.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_swap_inl_fileu.h"><Filter>src</Filter></ClInclude>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_swap_inl_defd.h.m4"><Filter>src</Filter></None>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_swap_inl_defu.h.m4"><Filter>src</Filter></None>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_sort_merge_fuzz.c"><Filter>src</Filter></ClCompile>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_sort_merge_test.cpp"><Filter>src</Filter></ClCompile>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_sort_merge_fuzz.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_sort_merge_inl_defd.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_sort_merge_inl_defu.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_sort_merge_inl_filec.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_sort_merge_inl_fileh.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_sort_merge_inl_fileu.h"><Filter>src</Filter></ClInclude>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_sort_merge_test.hpp"><Filter>src</Filter></ClInclude>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_sort_merge_inl_defd.h.m4"><Filter>src</Filter></None>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_sort_merge_inl_defu.h.m4"><Filter>src</Filter></None>
+	</ItemGroup>
+	<ItemGroup>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_hosts.c"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_iip.c"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_iip_cp_base.c"><Filter>src</Filter></ClCompile>
