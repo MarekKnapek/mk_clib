@@ -204,6 +204,7 @@ mm_per_typedef(`#undef mk_sl_fixed_vector_inl_defd_$1')
 #undef mk_sl_fixed_vector_inl_defd_capacity_t
 #undef mk_sl_fixed_vector_inl_defd_capacity_v
 #undef mk_sl_fixed_vector_inl_defd_capacity_d
+#undef mk_sl_fixed_vector_inl_defd_capacity_k
 
 #undef mk_sl_fixed_vector_inl_defd_st_max_capacity
 

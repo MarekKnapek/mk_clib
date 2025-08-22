@@ -204,6 +204,7 @@ mm_per_typedef(`#define mk_sl_fixed_vector_inl_defd_$1 mk_lang_concat(mk_sl_fixe
 #define mk_sl_fixed_vector_inl_defd_capacity_t mk_lang_concat(mk_sl_fixed_vector_inl_defd_name, _capacity_t)
 #define mk_sl_fixed_vector_inl_defd_capacity_v mk_lang_concat(mk_sl_fixed_vector_inl_defd_name, _capacity_v)
 #define mk_sl_fixed_vector_inl_defd_capacity_d mk_sl_fixed_vector_inl_defd_capacity
+#define mk_sl_fixed_vector_inl_defd_capacity_k mk_lang_concat(mk_sl_fixed_vector_inl_defd_name, _capacity_k)
 
 #define mk_sl_fixed_vector_inl_defd_st_max_capacity mk_lang_concat(mk_sl_fixed_vector_inl_defd_name, _st_max_capacity)
 

@@ -18,6 +18,9 @@
 #include "mk_sl_fixed_vector_inl_defd.h"
 
 
+mk_lang_constexpr_static_inline mk_lang_types_usize_t const mk_sl_fixed_vector_inl_defd_capacity_k = mk_sl_fixed_vector_inl_defd_capacity_v;
+
+
 #define mk_sl_fixed_vector_inl_filec_memcpy_name mk_lang_concat(mk_sl_fixed_vector_inl_defd_name, _zzz_element_memcpy)
 #define mk_sl_fixed_vector_inl_filec_memcpy_fn mk_lang_concat(mk_sl_fixed_vector_inl_filec_memcpy_name, _fn)
 #define mk_lang_memcpy1_t_name mk_sl_fixed_vector_inl_filec_memcpy_name
