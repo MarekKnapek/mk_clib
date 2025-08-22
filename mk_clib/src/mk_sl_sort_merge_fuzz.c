@@ -45,7 +45,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_sort_merge_fu
 	mk_lang_assert(len >= 0);
 	mk_lang_assert(len <= mk_lang_countof(tmp));
 
-	mk_sl_sort_merge_fuzz_1_fn(0, buf, len, &tmp[0]);
+	mk_sl_sort_merge_fuzz_1_fn(0, buf, ((mk_sl_sort_merge_fuzz_1_counter_t)(len)), &tmp[0]);
 }
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t mk_sl_sort_merge_fuzz_2_cmp(mk_lang_types_uintptr_t const context, mk_lang_types_ulllong_pct const a, mk_lang_types_ulllong_pct const b) mk_lang_noexcept
@@ -75,7 +75,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_sort_merge_fu
 	mk_lang_assert(len >= 0);
 	mk_lang_assert(len <= mk_lang_countof(tmp));
 
-	mk_sl_sort_merge_fuzz_2_fn(0, buf, len, &tmp[0]);
+	mk_sl_sort_merge_fuzz_2_fn(0, buf, ((mk_sl_sort_merge_fuzz_2_counter_t)(len)), &tmp[0]);
 }
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t mk_sl_sort_merge_fuzz_3_cmp(mk_lang_types_ulllong_pct const context, mk_lang_types_sint_pct const a, mk_lang_types_sint_pct const b) mk_lang_noexcept
@@ -114,12 +114,12 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_sort_merge_fu
 	{
 		sints[i] = i;
 	}
-	mk_sl_sort_merge_fuzz_3_fn(buf, &sints[0], len, &tmp[0]);
+	mk_sl_sort_merge_fuzz_3_fn(buf, &sints[0], ((mk_sl_sort_merge_fuzz_3_counter_t)(len)), &tmp[0]);
 	for(i = 0; i != n; ++i)
 	{
 		res[i] = buf[sints[i]];
 	}
-	mk_lang_string_memcpy_ulll_fn(buf, &res[0], len);
+	mk_lang_string_memcpy_ulll_fn(buf, &res[0], ((mk_lang_types_usize_t)(len)));
 }
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t mk_sl_sort_merge_fuzz_4_cmp(mk_lang_types_ulllong_pct const context, mk_lang_types_sint_pct const a, mk_lang_types_sint_pct const b) mk_lang_noexcept
@@ -158,12 +158,12 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_sort_merge_fu
 	{
 		sints[i] = i;
 	}
-	mk_sl_sort_merge_fuzz_4_fn(buf, &sints[0], len, &tmp[0]);
+	mk_sl_sort_merge_fuzz_4_fn(buf, &sints[0], ((mk_sl_sort_merge_fuzz_4_counter_t)(len)), &tmp[0]);
 	for(i = 0; i != n; ++i)
 	{
 		res[i] = buf[sints[i]];
 	}
-	mk_lang_string_memcpy_ulll_fn(buf, &res[0], len);
+	mk_lang_string_memcpy_ulll_fn(buf, &res[0], ((mk_lang_types_usize_t)(len)));
 }
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_sort_merge_fuzz_0_cmp(mk_lang_types_void_pct const a, mk_lang_types_void_pct const b) mk_lang_noexcept
@@ -187,7 +187,7 @@ static mk_lang_inline mk_lang_types_void_t mk_sl_sort_merge_fuzz_0_sort(mk_lang_
 	mk_lang_assert(buf || len == 0);
 	mk_lang_assert(len >= 0);
 
-	qsort(buf, len, sizeof(*buf), &mk_sl_sort_merge_fuzz_0_cmp);
+	qsort(buf, ((mk_lang_types_usize_t)(len)), sizeof(*buf), &mk_sl_sort_merge_fuzz_0_cmp);
 }
 
 
@@ -236,11 +236,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_sort_merge_fuzz(mk_la
 	mk_lang_string_memcpy_ulll_fn(&elements_3[0], &elements_0[0], count);
 	mk_lang_string_memcpy_ulll_fn(&elements_4[0], &elements_0[0], count);
 
-	mk_sl_sort_merge_fuzz_0_sort(&elements_0[0], count);
-	mk_sl_sort_merge_fuzz_1_sort(&elements_1[0], count);
-	mk_sl_sort_merge_fuzz_2_sort(&elements_2[0], count);
-	mk_sl_sort_merge_fuzz_3_sort(&elements_3[0], count);
-	mk_sl_sort_merge_fuzz_4_sort(&elements_4[0], count);
+	mk_sl_sort_merge_fuzz_0_sort(&elements_0[0], ((mk_lang_types_sint_t)(count)));
+	mk_sl_sort_merge_fuzz_1_sort(&elements_1[0], ((mk_lang_types_sint_t)(count)));
+	mk_sl_sort_merge_fuzz_2_sort(&elements_2[0], ((mk_lang_types_sint_t)(count)));
+	mk_sl_sort_merge_fuzz_3_sort(&elements_3[0], ((mk_lang_types_sint_t)(count)));
+	mk_sl_sort_merge_fuzz_4_sort(&elements_4[0], ((mk_lang_types_sint_t)(count)));
 	mk_lang_test(mk_lang_string_memcmp_ulll_fn(&elements_1[0], &elements_0[0], count) == 0);
 	mk_lang_test(mk_lang_string_memcmp_ulll_fn(&elements_2[0], &elements_0[0], count) == 0);
 	mk_lang_test(mk_lang_string_memcmp_ulll_fn(&elements_3[0], &elements_0[0], count) == 0);
