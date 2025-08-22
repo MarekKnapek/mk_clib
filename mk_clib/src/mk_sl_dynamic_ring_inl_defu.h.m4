@@ -218,6 +218,7 @@ mm_per_typedef(`#undef mk_sl_dynamic_ring_inl_defd_$1')`'dnl
 #undef mk_sl_dynamic_ring_inl_defd_prro_get_free_data_a
 #undef mk_sl_dynamic_ring_inl_defd_prro_get_free_size_b
 #undef mk_sl_dynamic_ring_inl_defd_prro_get_free_data_b
+#undef mk_sl_dynamic_ring_inl_defd_prro_get_at
 
 #undef mk_sl_dynamic_ring_inl_defd_prrw_get_capacity
 #undef mk_sl_dynamic_ring_inl_defd_prrw_get_size
@@ -289,6 +290,7 @@ mm_per_typedef(`#undef mk_sl_dynamic_ring_inl_defd_$1')`'dnl
 #undef mk_sl_dynamic_ring_inl_defd_ro_get_free_data_a
 #undef mk_sl_dynamic_ring_inl_defd_ro_get_free_size_b
 #undef mk_sl_dynamic_ring_inl_defd_ro_get_free_data_b
+#undef mk_sl_dynamic_ring_inl_defd_ro_get_at
 
 #undef mk_sl_dynamic_ring_inl_defd_rw_get_capacity
 #undef mk_sl_dynamic_ring_inl_defd_rw_get_size
@@ -308,6 +310,7 @@ mm_per_typedef(`#undef mk_sl_dynamic_ring_inl_defd_$1')`'dnl
 #undef mk_sl_dynamic_ring_inl_defd_rw_get_free_data_a
 #undef mk_sl_dynamic_ring_inl_defd_rw_get_free_size_b
 #undef mk_sl_dynamic_ring_inl_defd_rw_get_free_data_b
+#undef mk_sl_dynamic_ring_inl_defd_rw_get_at
 
 #undef mk_sl_dynamic_ring_inl_defd_rw_construct
 #undef mk_sl_dynamic_ring_inl_defd_rw_construct_copy
