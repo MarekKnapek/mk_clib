@@ -272,7 +272,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_sessio
 #include "mk_sl_dynamic_ring_inl_fileu.h"
 
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_nonce_and_socket_rw_cmp(mk_lib_iip_cp_client_session_nonce_and_socket_pct const a, mk_lib_iip_cp_client_session_nonce_and_socket_pct const b, mk_lang_types_sint_pt const cmp) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_u32_and_socket_rw_cmp(mk_lib_iip_cp_client_session_u32_and_socket_pct const a, mk_lib_iip_cp_client_session_u32_and_socket_pct const b, mk_lang_types_sint_pt const cmp) mk_lang_noexcept
 {
 	mk_lang_types_sint_t comp;
 
@@ -280,11 +280,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_sessio
 	mk_lang_assert(b);
 	mk_lang_assert(cmp);
 
-	comp = mk_lib_iip_cp_types_nonce_cmp(&a->m_nonce, &b->m_nonce);
+	comp = mk_sl_cui_uint32_cmp(&a->m_u32, &b->m_u32);
 	*cmp = comp;
 	return 0;
 }
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_nonce_and_socket_rw_construct_copy(mk_lib_iip_cp_client_session_nonce_and_socket_pt const dst, mk_lib_iip_cp_client_session_nonce_and_socket_pct const src) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_u32_and_socket_rw_construct_copy(mk_lib_iip_cp_client_session_u32_and_socket_pt const dst, mk_lib_iip_cp_client_session_u32_and_socket_pct const src) mk_lang_noexcept
 {
 	mk_lang_assert(dst);
 	mk_lang_assert(src);
@@ -292,7 +292,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_sessio
 	*dst = *src;
 	return 0;
 }
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_nonce_and_socket_rw_construct_move(mk_lib_iip_cp_client_session_nonce_and_socket_pt const dst, mk_lib_iip_cp_client_session_nonce_and_socket_pt const src) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_u32_and_socket_rw_construct_move(mk_lib_iip_cp_client_session_u32_and_socket_pt const dst, mk_lib_iip_cp_client_session_u32_and_socket_pt const src) mk_lang_noexcept
 {
 	mk_lang_assert(dst);
 	mk_lang_assert(src);
@@ -300,21 +300,21 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_sessio
 	*dst = *src;
 	return 0;
 }
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_nonce_and_socket_rw_destroy(mk_lib_iip_cp_client_session_nonce_and_socket_pt const x) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_u32_and_socket_rw_destroy(mk_lib_iip_cp_client_session_u32_and_socket_pt const x) mk_lang_noexcept
 {
 	mk_lang_assert(x);
 
 	((mk_lang_types_void_t)(x));
 	return 0;
 }
-#define mk_sl_tree_wavl_t_name mk_lib_iip_cp_client_session_nonces_and_sockets
-#define mk_sl_tree_wavl_t_element_type mk_lib_iip_cp_client_session_nonce_and_socket_t
-#define mk_sl_tree_wavl_t_elements_compare mk_lib_iip_cp_client_session_nonce_and_socket_rw_cmp
+#define mk_sl_tree_wavl_t_name mk_lib_iip_cp_client_session_u32_and_socket_map
+#define mk_sl_tree_wavl_t_element_type mk_lib_iip_cp_client_session_u32_and_socket_t
+#define mk_sl_tree_wavl_t_elements_compare mk_lib_iip_cp_client_session_u32_and_socket_rw_cmp
 #define mk_sl_tree_wavl_t_mallocatorg_name mk_lib_iip_cp_mallocator_global
 #define mk_sl_tree_wavl_t_validate_want 0
-#define mk_sl_tree_wavl_t_element_copy_construct mk_lib_iip_cp_client_session_nonce_and_socket_rw_construct_copy
-#define mk_sl_tree_wavl_t_element_move_construct mk_lib_iip_cp_client_session_nonce_and_socket_rw_construct_move
-#define mk_sl_tree_wavl_t_element_destruct mk_lib_iip_cp_client_session_nonce_and_socket_rw_destroy
+#define mk_sl_tree_wavl_t_element_copy_construct mk_lib_iip_cp_client_session_u32_and_socket_rw_construct_copy
+#define mk_sl_tree_wavl_t_element_move_construct mk_lib_iip_cp_client_session_u32_and_socket_rw_construct_move
+#define mk_sl_tree_wavl_t_element_destruct mk_lib_iip_cp_client_session_u32_and_socket_rw_destroy
 #include "mk_sl_tree_wavl_inl_filec.h"
 #include "mk_sl_tree_wavl_inl_fileu.h"
 
@@ -346,7 +346,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	task->m_session.m_state.m_msg_to_be_accepted = mk_lang_null;
 	err = mk_lib_iip_cp_client_session_lookups_host_name_rw_construct(&task->m_session.m_state.m_lookups_host_name_a); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_cp_client_session_lookups_host_name_rw_construct(&task->m_session.m_state.m_lookups_host_name_b); mk_lang_check_rereturn(err);
-	err = mk_lib_iip_cp_client_session_nonces_and_sockets_rw_construct(&task->m_session.m_state.m_nonce_mapping); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_client_session_u32_and_socket_map_rw_construct(&task->m_session.m_state.m_nonce_mapping); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_client_session_u32_and_socket_map_rw_construct(&task->m_session.m_state.m_stream_id_mapping); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -363,7 +364,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	err = mk_lib_iip_cp_client_socket_tasks_rw_destroy(&task->m_session.m_state.m_connecting_sockets); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_cp_client_session_lookups_host_name_rw_destroy(&task->m_session.m_state.m_lookups_host_name_a); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_cp_client_session_lookups_host_name_rw_destroy(&task->m_session.m_state.m_lookups_host_name_b); mk_lang_check_rereturn(err);
-	err = mk_lib_iip_cp_client_session_nonces_and_sockets_rw_destruct(&task->m_session.m_state.m_nonce_mapping); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_client_session_u32_and_socket_map_rw_destruct(&task->m_session.m_state.m_nonce_mapping); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_client_session_u32_and_socket_map_rw_destruct(&task->m_session.m_state.m_stream_id_mapping); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -769,22 +771,22 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_session_prrw_recollect_nonce(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_types_nonce_pct const nonce, mk_lib_iip_cp_client_socket_task_ppt const socket) mk_lang_noexcept
 {
-	mk_lib_iip_cp_client_session_nonce_and_socket_t mapping;
+	mk_lib_iip_cp_client_session_u32_and_socket_t mapping;
 	mk_lang_types_sint_t err;
-	mk_lib_iip_cp_client_session_nonces_and_sockets_node_pt node;
-	mk_lib_iip_cp_client_session_nonce_and_socket_pct found;
+	mk_lib_iip_cp_client_session_u32_and_socket_map_node_pt node;
+	mk_lib_iip_cp_client_session_u32_and_socket_pct found;
 
 	mk_lang_assert(task);
 	mk_lang_assert(nonce);
 	mk_lang_assert(socket);
 
-	mapping.m_nonce = *nonce;
+	mk_lib_iip_cp_types_nonce_to_base(nonce, &mapping.m_u32);
 	mapping.m_socket = mk_lang_null;
-	err = mk_lib_iip_cp_client_session_nonces_and_sockets_ro_find_node(&task->m_session.m_state.m_nonce_mapping, &mapping, &node); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_client_session_u32_and_socket_map_ro_find_node(&task->m_session.m_state.m_nonce_mapping, &mapping, &node); mk_lang_check_rereturn(err);
 	if(node)
 	{
-		err = mk_lib_iip_cp_client_session_nonces_and_sockets_ro_node_get_element(node, &found); mk_lang_check_rereturn(err); mk_lang_assert(found);
-		mk_lang_assert(mk_lib_iip_cp_types_nonce_eq(&found->m_nonce, nonce));
+		err = mk_lib_iip_cp_client_session_u32_and_socket_map_ro_node_get_element(node, &found); mk_lang_check_rereturn(err); mk_lang_assert(found);
+		mk_lang_assert(mk_sl_cui_uint32_eq(&found->m_u32, &mapping.m_u32));
 		mk_lang_assert(found->m_socket);
 		*socket = found->m_socket;
 	}
@@ -797,25 +799,25 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_session_prrw_recollect_nonce_and_forget(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_types_nonce_pct const nonce, mk_lib_iip_cp_client_socket_task_ppt const socket) mk_lang_noexcept
 {
-	mk_lib_iip_cp_client_session_nonce_and_socket_t mapping;
+	mk_lib_iip_cp_client_session_u32_and_socket_t mapping;
 	mk_lang_types_sint_t err;
-	mk_lib_iip_cp_client_session_nonces_and_sockets_node_pt node;
-	mk_lib_iip_cp_client_session_nonce_and_socket_pct found;
+	mk_lib_iip_cp_client_session_u32_and_socket_map_node_pt node;
+	mk_lib_iip_cp_client_session_u32_and_socket_pct found;
 
 	mk_lang_assert(task);
 	mk_lang_assert(nonce);
 	mk_lang_assert(socket);
 
-	mapping.m_nonce = *nonce;
+	mk_lib_iip_cp_types_nonce_to_base(nonce, &mapping.m_u32);
 	mapping.m_socket = mk_lang_null;
-	err = mk_lib_iip_cp_client_session_nonces_and_sockets_ro_find_node(&task->m_session.m_state.m_nonce_mapping, &mapping, &node); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_client_session_u32_and_socket_map_ro_find_node(&task->m_session.m_state.m_nonce_mapping, &mapping, &node); mk_lang_check_rereturn(err);
 	if(node)
 	{
-		err = mk_lib_iip_cp_client_session_nonces_and_sockets_ro_node_get_element(node, &found); mk_lang_check_rereturn(err); mk_lang_assert(found);
-		mk_lang_assert(mk_lib_iip_cp_types_nonce_eq(&found->m_nonce, nonce));
+		err = mk_lib_iip_cp_client_session_u32_and_socket_map_ro_node_get_element(node, &found); mk_lang_check_rereturn(err); mk_lang_assert(found);
+		mk_lang_assert(mk_sl_cui_uint32_eq(&found->m_u32, &mapping.m_u32));
 		mk_lang_assert(found->m_socket);
 		*socket = found->m_socket;
-		err = mk_lib_iip_cp_client_session_nonces_and_sockets_rw_decrement_node(&task->m_session.m_state.m_nonce_mapping, node); mk_lang_check_rereturn(err);
+		err = mk_lib_iip_cp_client_session_u32_and_socket_map_rw_decrement_node(&task->m_session.m_state.m_nonce_mapping, node); mk_lang_check_rereturn(err);
 	}
 	else
 	{
@@ -1342,9 +1344,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 {
 	mk_lib_iip_cp_message_send_message_pt send_message;
 	mk_lib_iip_cp_types_nonce_pt nonce;
-	mk_lib_iip_cp_client_session_nonce_and_socket_t mapping;
+	mk_lib_iip_cp_client_session_u32_and_socket_t mapping;
 	mk_lang_types_sint_t err;
-	mk_lib_iip_cp_client_session_nonces_and_sockets_node_pt node;
+	mk_lib_iip_cp_client_session_u32_and_socket_map_node_pt node;
 
 	mk_lang_assert(task);
 	mk_lang_assert(socket);
@@ -1354,22 +1356,67 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	{
 		send_message = &msg->m_mix.m_data.m_send_message;
 		nonce = &send_message->m_nonce;
-		mapping.m_nonce = *nonce;
+		mk_lib_iip_cp_types_nonce_to_base(nonce, &mapping.m_u32);
 		mapping.m_socket = socket;
-		err = mk_lib_iip_cp_client_session_nonces_and_sockets_rw_insert_element_copy(&task->m_session.m_state.m_nonce_mapping, &mapping, &node); mk_lang_check_rereturn(err); mk_lang_assert(node);
+		err = mk_lib_iip_cp_client_session_u32_and_socket_map_rw_insert_element_copy(&task->m_session.m_state.m_nonce_mapping, &mapping, &node); mk_lang_check_rereturn(err); mk_lang_assert(node);
 	}
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_session_prrw_get_random_nonce(mk_lib_iip_cp_client_session_task_pt const task, mk_sl_cui_uint32_pt const uint) mk_lang_noexcept
+{
+	mk_lang_types_bool_t gud;
+	mk_lang_types_sint_t err;
+	mk_lib_iip_cp_client_session_u32_and_socket_t mapping;
+	mk_lib_iip_cp_client_session_u32_and_socket_map_node_pt node;
+
+	mk_lang_assert(task);
+
+	do
+	{
+		gud = mk_lang_true;
+		err = mk_lib_iip_random_generate_u32_any(uint); mk_lang_check_rereturn(err);
+		gud = gud & !mk_sl_cui_uint32_is_zero(uint);
+		gud = gud & !mk_sl_cui_uint32_is_max(uint);
+		mapping.m_u32 = *uint;
+		err = mk_lib_iip_cp_client_session_u32_and_socket_map_ro_find_node(&task->m_session.m_state.m_nonce_mapping, &mapping, &node); mk_lang_check_rereturn(err);
+		gud = gud & !node;
+	}while(!gud);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_session_prrw_get_random_stream_id(mk_lib_iip_cp_client_session_task_pt const task, mk_sl_cui_uint32_pt const uint) mk_lang_noexcept
+{
+	mk_lang_types_bool_t gud;
+	mk_lang_types_sint_t err;
+	mk_lib_iip_cp_client_session_u32_and_socket_t mapping;
+	mk_lib_iip_cp_client_session_u32_and_socket_map_node_pt node;
+
+	mk_lang_assert(task);
+
+	do
+	{
+		gud = mk_lang_true;
+		err = mk_lib_iip_random_generate_u32_any(uint); mk_lang_check_rereturn(err);
+		gud = gud & !mk_sl_cui_uint32_is_zero(uint);
+		gud = gud & !mk_sl_cui_uint32_is_max(uint);
+		mapping.m_u32 = *uint;
+		err = mk_lib_iip_cp_client_session_u32_and_socket_map_ro_find_node(&task->m_session.m_state.m_stream_id_mapping, &mapping, &node); mk_lang_check_rereturn(err);
+		gud = gud & !node;
+	}while(!gud);
 	return 0;
 }
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_prrw_step_idle_listening_sockets(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_client_session_task_result_pt const step_result) mk_lang_noexcept
 {
 	mk_lang_types_bool_t did_something;
+	mk_lang_types_sint_t err;
+	mk_sl_cui_uint32_t random_nonce;
 	mk_lang_types_usize_t n;
 	mk_lang_types_usize_t i;
 	mk_lang_types_usize_t idx;
 	mk_lib_iip_cp_client_socket_task_ppt socket_ptr;
 	mk_lib_iip_cp_client_socket_task_pt socket_val;
-	mk_lang_types_sint_t err;
 	mk_lib_iip_cp_message_pt msg;
 
 	mk_lang_assert(task);
@@ -1381,12 +1428,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 	did_something = mk_lang_false;
 	++task->m_session.m_state.m_idx_listening_sockets;
+	err = mk_lib_iip_cp_client_session_prrw_get_random_nonce(task, &random_nonce); mk_lang_check_rereturn(err);
 	n = mk_lib_iip_cp_client_socket_tasks_rw_size(&task->m_session.m_state.m_listening_sockets);
 	for(i = 0; i != n; ++i)
 	{
 		idx = (task->m_session.m_state.m_idx_listening_sockets + i) % n;
 		socket_ptr = mk_lib_iip_cp_client_socket_tasks_rw_at(&task->m_session.m_state.m_listening_sockets, idx); mk_lang_assert(socket_ptr); socket_val = *socket_ptr; mk_lang_assert(socket_val);
-		err = mk_lib_iip_cp_client_socket_task_rw_gimme_msg(socket_val, &msg); mk_lang_check_rereturn(err);
+		err = mk_lib_iip_cp_client_socket_task_rw_gimme_msg(socket_val, &random_nonce, &msg); mk_lang_check_rereturn(err);
 		if(msg)
 		{
 			err = mk_lib_iip_cp_client_session_prrw_remember_nonce(task, socket_val, msg); mk_lang_check_rereturn(err);
@@ -1495,6 +1543,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_types_bool_t break2;
 	mk_lib_iip_cp_client_socket_task_result_t stp_res;
 	mk_lang_types_sint_t err;
+	mk_sl_cui_uint32_t random_nonce;
 	mk_lib_iip_cp_message_pt msg;
 
 	mk_lang_assert(task);
@@ -1531,7 +1580,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	{
 		if(want_sent)
 		{
-			err = mk_lib_iip_cp_client_socket_task_rw_gimme_msg(want_sent, &msg); mk_lang_check_rereturn(err); mk_lang_assert(msg);
+			err = mk_lib_iip_cp_client_session_prrw_get_random_nonce(task, &random_nonce); mk_lang_check_rereturn(err);
+			err = mk_lib_iip_cp_client_socket_task_rw_gimme_msg(want_sent, &random_nonce, &msg); mk_lang_check_rereturn(err); mk_lang_assert(msg);
 			err = mk_lib_iip_cp_client_session_prrw_remember_nonce(task, want_sent, msg); mk_lang_check_rereturn(err);
 			task->m_session.m_state.m_has_msg_pending = mk_lang_true;
 			task->m_session.m_state.m_msg_from_socket = msg;
@@ -1802,6 +1852,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	err = mk_lib_iip_cp_client_session_task_prrw_get_new_local_port(task, &config.m_local_port); mk_lang_check_rereturn(err);
 	config.m_remote_destination = settings->m_remote_destination;
 	config.m_remote_port = settings->m_port;
+	err = mk_lib_iip_cp_client_session_prrw_get_random_stream_id(task, &config.m_stream_id); mk_lang_check_rereturn(err);
 
 	err = mk_lib_iip_cp_mallocator_global_allocate(sizeof(*sck), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem); sck = ((mk_lib_iip_cp_client_socket_task_pt)(mem)); mk_lang_assert(sck);
 	err = mk_lib_iip_cp_client_socket_task_rw_construct(sck, &config); mk_lang_check_rereturn(err); sss = sck;
