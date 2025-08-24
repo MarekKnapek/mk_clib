@@ -414,6 +414,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_assert(task->m_connection.m_state.m_read_request.m_transferred == bytes_transferred);
 	err = mk_lib_iip_cp_dynamic_ring_u8_rw_push_back_void(&task->m_connection.m_state.m_buf_rcv, ((mk_lang_types_usize_t)(bytes_transferred))); mk_lang_check_rereturn(err);
 	task->m_connection.m_state.m_pending_recv = mk_lang_false;
+	if(bytes_transferred == 0)
+	{
+		task->m_connection.m_state.m_disconnected = mk_lang_true;
+	}
 	err = mk_lib_iip_cp_client_connection_debug_print_read_finished(task); mk_lang_check_rereturn(err);
 	return 0;
 }

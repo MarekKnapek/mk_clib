@@ -634,6 +634,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_tree_wavl_inl
 	return 0;
 }
 
+#if mk_sl_tree_wavl_inl_defd_validate_want
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_tree_wavl_inl_defd_prro_rule_visit_tree(mk_sl_tree_wavl_inl_defd_visitor_context_pt const context, mk_sl_tree_wavl_inl_defd_pct const tree, mk_sl_tree_wavl_inl_defd_node_pct const node) mk_lang_noexcept
 {
 	mk_sl_tree_wavl_inl_defd_rule_tree_pt ctx;
@@ -658,7 +659,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_tree_wavl_inl
 	mk_lang_assert(node->m_rank >= 0);
 	return 0;
 }
+#endif
 
+#if mk_sl_tree_wavl_inl_defd_validate_want
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_tree_wavl_inl_defd_prro_rule_check_tree(mk_sl_tree_wavl_inl_defd_pct const tree) mk_lang_noexcept
 {
 	mk_sl_tree_wavl_inl_defd_rule_tree_t context;
@@ -672,7 +675,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_tree_wavl_inl
 	mk_lang_assert(context.m_count == tree->m_nodes);
 	return 0;
 }
+#endif
 
+#if mk_sl_tree_wavl_inl_defd_validate_want
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_tree_wavl_inl_defd_prro_rule_visit_wavl(mk_sl_tree_wavl_inl_defd_visitor_context_pt const context, mk_sl_tree_wavl_inl_defd_pct const tree, mk_sl_tree_wavl_inl_defd_node_pct const node) mk_lang_noexcept
 {
 	mk_lang_assert(!context);
@@ -684,7 +689,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_tree_wavl_inl
 	mk_lang_assert(!mk_sl_tree_wavl_inl_defd_prro_node_is_leaf(tree, node) || mk_sl_tree_wavl_inl_defd_prro_node_get_rank(tree, node) == 0);
 	return 0;
 }
+#endif
 
+#if mk_sl_tree_wavl_inl_defd_validate_want
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_tree_wavl_inl_defd_prro_rule_check_wavl(mk_sl_tree_wavl_inl_defd_pct const tree) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
@@ -694,6 +701,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_tree_wavl_inl
 	err = mk_sl_tree_wavl_inl_defd_prro_visit(tree, &mk_sl_tree_wavl_inl_defd_prro_rule_visit_wavl, mk_lang_null); mk_lang_check_rereturn(err);
 	return 0;
 }
+#endif
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_tree_wavl_inl_defd_prro_validate(mk_sl_tree_wavl_inl_defd_pct const tree) mk_lang_noexcept
 {

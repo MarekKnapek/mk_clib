@@ -22,6 +22,7 @@
 mk_lang_forward(mk_lib_iip_cp_client_session_task);
 mk_lang_forward(mk_lib_iip_cp_client_shared);
 mk_lang_forward(mk_lib_iip_cp_message);
+mk_lang_forward(mk_sl_cui_uint32);
 
 
 #define mk_sl_cui_t_name mk_lib_iip_cp_client_socket_handle
@@ -65,6 +66,36 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket
 #include "mk_sl_dynamic_ring_inl_fileu.h"
 
 #include "mk_lang_warning_msvc_push_c4820.h"
+struct mk_lib_iip_cp_client_socket_packet_s
+{
+	mk_lib_iip_time_timestamp_t m_created_at;
+	mk_lib_iip_time_timestamp_t m_resurrect_at;
+	mk_lang_types_bool_t m_next;
+	mk_lang_types_bool_t m_failed;
+	mk_lib_iip_cp_message_t m_msg;
+};
+typedef struct mk_lib_iip_cp_client_socket_packet_s mk_lib_iip_cp_client_socket_packet_t;
+mk_lang_typedef(mk_lib_iip_cp_client_socket_packet);
+#include "mk_lang_warning_msvc_pop.h"
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_packets_ptr_rw_construct_void(mk_lib_iip_cp_client_socket_packet_ppt const x) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_packets_ptr_rw_destroy(mk_lib_iip_cp_client_socket_packet_ppt const x) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_packets_ptr_rw_construct_copy(mk_lib_iip_cp_client_socket_packet_ppt const dst, mk_lib_iip_cp_client_socket_packet_pcpt const src) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_packets_ptr_rw_construct_move(mk_lib_iip_cp_client_socket_packet_ppt const dst, mk_lib_iip_cp_client_socket_packet_ppt const src) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_packets_ptr_rw_assign_copy(mk_lib_iip_cp_client_socket_packet_ppt const dst, mk_lib_iip_cp_client_socket_packet_pcpt const src) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_packets_ptr_rw_assign_move(mk_lib_iip_cp_client_socket_packet_ppt const dst, mk_lib_iip_cp_client_socket_packet_ppt const src, mk_lang_types_usize_t const count) mk_lang_noexcept;
+#define mk_sl_dynamic_ring_t_name mk_lib_iip_cp_client_socket_packets
+#define mk_sl_dynamic_ring_t_element_type mk_lib_iip_cp_client_socket_packet_pt
+#define mk_sl_dynamic_ring_t_mallocatorg mk_lib_iip_cp_mallocator_global
+#define mk_sl_dynamic_ring_t_element_construct_void mk_lib_iip_cp_client_socket_packets_ptr_rw_construct_void
+#define mk_sl_dynamic_ring_t_element_destruct mk_lib_iip_cp_client_socket_packets_ptr_rw_destroy
+#define mk_sl_dynamic_ring_t_element_construct_copy mk_lib_iip_cp_client_socket_packets_ptr_rw_construct_copy
+#define mk_sl_dynamic_ring_t_element_construct_move mk_lib_iip_cp_client_socket_packets_ptr_rw_construct_move
+#define mk_sl_dynamic_ring_t_element_assign_copy mk_lib_iip_cp_client_socket_packets_ptr_rw_assign_copy
+#define mk_sl_dynamic_ring_t_element_assign_move mk_lib_iip_cp_client_socket_packets_ptr_rw_assign_move
+#include "mk_sl_dynamic_ring_inl_fileh.h"
+#include "mk_sl_dynamic_ring_inl_fileu.h"
+
+#include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_lib_iip_cp_client_socket_write_request_s
 {
 	mk_sl_cui_uint8_pct m_data_buf;
@@ -102,6 +133,7 @@ struct mk_lib_iip_cp_client_socket_settings_s
 	mk_sl_cui_uint16_t m_local_port;
 	mk_lib_iip_cp_destination_remote_t m_remote_destination;
 	mk_sl_cui_uint16_t m_remote_port;
+	mk_sl_cui_uint32_t m_stream_id;
 };
 typedef struct mk_lib_iip_cp_client_socket_settings_s mk_lib_iip_cp_client_socket_settings_t;
 mk_lang_typedef(mk_lib_iip_cp_client_socket_settings);
@@ -128,8 +160,11 @@ struct mk_lib_iip_cp_client_socket_state_s
 	mk_lib_iip_cp_dynamic_ring_u8_t m_data_received;
 	mk_lib_iip_cp_message_t m_msg;
 	mk_lib_iip_cp_client_socket_write_requests_t m_write_requests;
-	mk_lib_iip_cp_types_nonce_t m_last_msg_nonce;
-	mk_lang_types_sint_t m_last_msg_state; /* 0 - nothing sent yet, 1 - sent, but not accepted yet, 2 - accepted, but not guaranteed yet, 3 - guaranteed failure, no leaseset */
+	mk_lib_iip_cp_client_socket_packets_t m_packets_out_ready; /* but not sent yet yet */
+	mk_lib_iip_cp_client_socket_packets_t m_packets_out_sent; /* but not accepted yet yet */
+	mk_lib_iip_cp_client_socket_packets_t m_packets_out_accepted; /* but not succeeded yet */
+	mk_lib_iip_cp_client_socket_packets_t m_packets_out_succeeded; /* but not acked yet */
+	mk_lib_iip_cp_client_socket_packets_t m_packets_out_paused; /* but not ready yet */
 };
 typedef struct mk_lib_iip_cp_client_socket_state_s mk_lib_iip_cp_client_socket_state_t;
 mk_lang_typedef(mk_lib_iip_cp_client_socket_state);
@@ -184,7 +219,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_task_rw_on_msg_status_no_leaseset(mk_lib_iip_cp_client_socket_task_pt const task, mk_lib_iip_cp_types_nonce_pct const nonce) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_task_rw_recv(mk_lib_iip_cp_client_socket_task_pt const task, mk_sl_cui_uint8_pt const data_buf, mk_lang_types_sint_t const data_len, mk_lang_types_sint_pt const recvd) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_task_rw_send(mk_lib_iip_cp_client_socket_task_pt const task, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lang_types_sint_pt const sent) mk_lang_noexcept;
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_task_rw_gimme_msg(mk_lib_iip_cp_client_socket_task_pt const task, mk_lib_iip_cp_message_ppt const msg) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_task_rw_gimme_msg(mk_lib_iip_cp_client_socket_task_pt const task, mk_sl_cui_uint32_pct const random_uint, mk_lib_iip_cp_message_ppt const msg) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_task_rw_step(mk_lib_iip_cp_client_socket_task_pt const task, mk_lib_iip_cp_client_socket_task_result_pt const step_result) mk_lang_noexcept;
 
 
