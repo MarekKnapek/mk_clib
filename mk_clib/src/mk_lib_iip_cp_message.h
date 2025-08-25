@@ -389,7 +389,7 @@ mk_lang_typedef(mk_lib_iip_cp_message_get_date);
 struct mk_lib_iip_cp_message_set_date_s
 {
 	mk_lib_iip_cp_types_date_t m_server_date;
-	mk_lib_iip_cp_types_string_t m_server_version;
+	mk_lib_iip_cp_types_string_t m_api_version;
 };
 typedef struct mk_lib_iip_cp_message_set_date_s mk_lib_iip_cp_message_set_date_t;
 mk_lang_typedef(mk_lib_iip_cp_message_set_date);

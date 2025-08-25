@@ -891,9 +891,9 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	mk_lang_assert(msg_set_date);
 
 	mk_lib_iip_cp_types_date_set_zero(&msg_set_date->m_server_date);
-	msg_set_date->m_server_version.m_len = 0;
+	msg_set_date->m_api_version.m_len = 0;
 	#if defined DEBUG || defined _DEBUG
-	msg_set_date->m_server_version.m_buf[0] = '\0';
+	msg_set_date->m_api_version.m_buf[0] = '\0';
 	#endif
 	return 0;
 }

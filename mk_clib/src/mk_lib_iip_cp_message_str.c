@@ -133,7 +133,6 @@ enum mk_lib_iip_cp_message_str_strs_e
 	mk_lib_iip_cp_message_str_strs_e_send_message,
 	mk_lib_iip_cp_message_str_strs_e_send_message_expires,
 	mk_lib_iip_cp_message_str_strs_e_server_date,
-	mk_lib_iip_cp_message_str_strs_e_server_version,
 	mk_lib_iip_cp_message_str_strs_e_session_config,
 	mk_lib_iip_cp_message_str_strs_e_session_id,
 	mk_lib_iip_cp_message_str_strs_e_session_status,
@@ -254,7 +253,6 @@ typedef mk_lib_iip_cp_message_str_strs_t const* mk_lib_iip_cp_message_str_strs_p
 #define mk_lib_iip_cp_message_str_strs_buf_send_message "send_message"
 #define mk_lib_iip_cp_message_str_strs_buf_send_message_expires "send_message_expires"
 #define mk_lib_iip_cp_message_str_strs_buf_server_date "server_date"
-#define mk_lib_iip_cp_message_str_strs_buf_server_version "server_version"
 #define mk_lib_iip_cp_message_str_strs_buf_session_config "session_config"
 #define mk_lib_iip_cp_message_str_strs_buf_session_id "session_id"
 #define mk_lib_iip_cp_message_str_strs_buf_session_status "session_status"
@@ -370,7 +368,6 @@ typedef mk_lib_iip_cp_message_str_strs_t const* mk_lib_iip_cp_message_str_strs_p
 #define mk_lib_iip_cp_message_str_strs_len_send_message mk_lang_countstr(mk_lib_iip_cp_message_str_strs_buf_send_message)
 #define mk_lib_iip_cp_message_str_strs_len_send_message_expires mk_lang_countstr(mk_lib_iip_cp_message_str_strs_buf_send_message_expires)
 #define mk_lib_iip_cp_message_str_strs_len_server_date mk_lang_countstr(mk_lib_iip_cp_message_str_strs_buf_server_date)
-#define mk_lib_iip_cp_message_str_strs_len_server_version mk_lang_countstr(mk_lib_iip_cp_message_str_strs_buf_server_version)
 #define mk_lib_iip_cp_message_str_strs_len_session_config mk_lang_countstr(mk_lib_iip_cp_message_str_strs_buf_session_config)
 #define mk_lib_iip_cp_message_str_strs_len_session_id mk_lang_countstr(mk_lib_iip_cp_message_str_strs_buf_session_id)
 #define mk_lib_iip_cp_message_str_strs_len_session_status mk_lang_countstr(mk_lib_iip_cp_message_str_strs_buf_session_status)
@@ -487,7 +484,6 @@ typedef mk_lib_iip_cp_message_str_strs_t const* mk_lib_iip_cp_message_str_strs_p
 	mk_lib_iip_cp_message_str_strs_buf_send_message \
 	mk_lib_iip_cp_message_str_strs_buf_send_message_expires \
 	mk_lib_iip_cp_message_str_strs_buf_server_date \
-	mk_lib_iip_cp_message_str_strs_buf_server_version \
 	mk_lib_iip_cp_message_str_strs_buf_session_config \
 	mk_lib_iip_cp_message_str_strs_buf_session_id \
 	mk_lib_iip_cp_message_str_strs_buf_session_status \
@@ -606,7 +602,6 @@ typedef mk_lib_iip_cp_message_str_strs_t const* mk_lib_iip_cp_message_str_strs_p
 	mk_lib_iip_cp_message_str_strs_len_send_message, \
 	mk_lib_iip_cp_message_str_strs_len_send_message_expires, \
 	mk_lib_iip_cp_message_str_strs_len_server_date, \
-	mk_lib_iip_cp_message_str_strs_len_server_version, \
 	mk_lib_iip_cp_message_str_strs_len_session_config, \
 	mk_lib_iip_cp_message_str_strs_len_session_id, \
 	mk_lib_iip_cp_message_str_strs_len_session_status, \
@@ -724,7 +719,6 @@ typedef mk_lib_iip_cp_message_str_strs_t const* mk_lib_iip_cp_message_str_strs_p
 	(mk_lib_iip_cp_message_str_strs_len_send_message                             * (((x) >=  97) ? (1) : (0))) + \
 	(mk_lib_iip_cp_message_str_strs_len_send_message_expires                     * (((x) >=  98) ? (1) : (0))) + \
 	(mk_lib_iip_cp_message_str_strs_len_server_date                              * (((x) >=  99) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_server_version                           * (((x) >= 100) ? (1) : (0))) + \
 	(mk_lib_iip_cp_message_str_strs_len_session_config                           * (((x) >= 101) ? (1) : (0))) + \
 	(mk_lib_iip_cp_message_str_strs_len_session_id                               * (((x) >= 102) ? (1) : (0))) + \
 	(mk_lib_iip_cp_message_str_strs_len_session_status                           * (((x) >= 103) ? (1) : (0))) + \
@@ -4643,8 +4637,8 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 	ptr = str_buf;
 	rem = str_len;
-	err = mk_lib_iip_cp_message_str_to_json_type_date_sid_sep  (ptr, rem, &tlen, mk_lib_iip_cp_message_str_strs_e_server_date   , &obj->m_server_date   ); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
- 	err = mk_lib_iip_cp_message_str_to_json_type_string_sid_nsp(ptr, rem, &tlen, mk_lib_iip_cp_message_str_strs_e_server_version, &obj->m_server_version); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_str_to_json_type_date_sid_sep  (ptr, rem, &tlen, mk_lib_iip_cp_message_str_strs_e_server_date, &obj->m_server_date); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+ 	err = mk_lib_iip_cp_message_str_to_json_type_string_sid_nsp(ptr, rem, &tlen, mk_lib_iip_cp_message_str_strs_e_api_version, &obj->m_api_version); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	tlen = str_len - rem;
 	*out_len = tlen;
 	return 0;
