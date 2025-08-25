@@ -49,7 +49,7 @@ enum mk_lib_iip_cp_message_str_strs_e
 	mk_lib_iip_cp_message_str_strs_e_body,
 	mk_lib_iip_cp_message_str_strs_e_client_inbound_limit_kbps,
 	mk_lib_iip_cp_message_str_strs_e_client_outbound_limit_kbps,
-	mk_lib_iip_cp_message_str_strs_e_client_version,
+	mk_lib_iip_cp_message_str_strs_e_api_version,
 	mk_lib_iip_cp_message_str_strs_e_create_lease_set,
 	mk_lib_iip_cp_message_str_strs_e_create_lease_set2,
 	mk_lib_iip_cp_message_str_strs_e_create_session,
@@ -170,7 +170,7 @@ typedef mk_lib_iip_cp_message_str_strs_t const* mk_lib_iip_cp_message_str_strs_p
 #define mk_lib_iip_cp_message_str_strs_buf_body "body"
 #define mk_lib_iip_cp_message_str_strs_buf_client_inbound_limit_kbps "client_inbound_limit_kbps"
 #define mk_lib_iip_cp_message_str_strs_buf_client_outbound_limit_kbps "client_outbound_limit_kbps"
-#define mk_lib_iip_cp_message_str_strs_buf_client_version "client_version"
+#define mk_lib_iip_cp_message_str_strs_buf_api_version "api_version"
 #define mk_lib_iip_cp_message_str_strs_buf_create_lease_set "create_lease_set"
 #define mk_lib_iip_cp_message_str_strs_buf_create_lease_set2 "create_lease_set2"
 #define mk_lib_iip_cp_message_str_strs_buf_create_session "create_session"
@@ -286,7 +286,7 @@ typedef mk_lib_iip_cp_message_str_strs_t const* mk_lib_iip_cp_message_str_strs_p
 #define mk_lib_iip_cp_message_str_strs_len_body mk_lang_countstr(mk_lib_iip_cp_message_str_strs_buf_body)
 #define mk_lib_iip_cp_message_str_strs_len_client_inbound_limit_kbps mk_lang_countstr(mk_lib_iip_cp_message_str_strs_buf_client_inbound_limit_kbps)
 #define mk_lib_iip_cp_message_str_strs_len_client_outbound_limit_kbps mk_lang_countstr(mk_lib_iip_cp_message_str_strs_buf_client_outbound_limit_kbps)
-#define mk_lib_iip_cp_message_str_strs_len_client_version mk_lang_countstr(mk_lib_iip_cp_message_str_strs_buf_client_version)
+#define mk_lib_iip_cp_message_str_strs_len_api_version mk_lang_countstr(mk_lib_iip_cp_message_str_strs_buf_api_version)
 #define mk_lib_iip_cp_message_str_strs_len_create_lease_set mk_lang_countstr(mk_lib_iip_cp_message_str_strs_buf_create_lease_set)
 #define mk_lib_iip_cp_message_str_strs_len_create_lease_set2 mk_lang_countstr(mk_lib_iip_cp_message_str_strs_buf_create_lease_set2)
 #define mk_lib_iip_cp_message_str_strs_len_create_session mk_lang_countstr(mk_lib_iip_cp_message_str_strs_buf_create_session)
@@ -403,7 +403,7 @@ typedef mk_lib_iip_cp_message_str_strs_t const* mk_lib_iip_cp_message_str_strs_p
 	mk_lib_iip_cp_message_str_strs_buf_body \
 	mk_lib_iip_cp_message_str_strs_buf_client_inbound_limit_kbps \
 	mk_lib_iip_cp_message_str_strs_buf_client_outbound_limit_kbps \
-	mk_lib_iip_cp_message_str_strs_buf_client_version \
+	mk_lib_iip_cp_message_str_strs_buf_api_version \
 	mk_lib_iip_cp_message_str_strs_buf_create_lease_set \
 	mk_lib_iip_cp_message_str_strs_buf_create_lease_set2 \
 	mk_lib_iip_cp_message_str_strs_buf_create_session \
@@ -522,7 +522,7 @@ typedef mk_lib_iip_cp_message_str_strs_t const* mk_lib_iip_cp_message_str_strs_p
 	mk_lib_iip_cp_message_str_strs_len_body, \
 	mk_lib_iip_cp_message_str_strs_len_client_inbound_limit_kbps, \
 	mk_lib_iip_cp_message_str_strs_len_client_outbound_limit_kbps, \
-	mk_lib_iip_cp_message_str_strs_len_client_version, \
+	mk_lib_iip_cp_message_str_strs_len_api_version, \
 	mk_lib_iip_cp_message_str_strs_len_create_lease_set, \
 	mk_lib_iip_cp_message_str_strs_len_create_lease_set2, \
 	mk_lib_iip_cp_message_str_strs_len_create_session, \
@@ -640,7 +640,7 @@ typedef mk_lib_iip_cp_message_str_strs_t const* mk_lib_iip_cp_message_str_strs_p
 	(mk_lib_iip_cp_message_str_strs_len_body                                     * (((x) >=  13) ? (1) : (0))) + \
 	(mk_lib_iip_cp_message_str_strs_len_client_inbound_limit_kbps                * (((x) >=  14) ? (1) : (0))) + \
 	(mk_lib_iip_cp_message_str_strs_len_client_outbound_limit_kbps               * (((x) >=  15) ? (1) : (0))) + \
-	(mk_lib_iip_cp_message_str_strs_len_client_version                           * (((x) >=  16) ? (1) : (0))) + \
+	(mk_lib_iip_cp_message_str_strs_len_api_version                              * (((x) >=  16) ? (1) : (0))) + \
 	(mk_lib_iip_cp_message_str_strs_len_create_lease_set                         * (((x) >=  17) ? (1) : (0))) + \
 	(mk_lib_iip_cp_message_str_strs_len_create_lease_set2                        * (((x) >=  18) ? (1) : (0))) + \
 	(mk_lib_iip_cp_message_str_strs_len_create_session                           * (((x) >=  19) ? (1) : (0))) + \
@@ -4621,7 +4621,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 	ptr = str_buf;
 	rem = str_len;
-	err = mk_lib_iip_cp_message_str_to_json_type_string_sid_sep (ptr, rem, &tlen, mk_lib_iip_cp_message_str_strs_e_client_version, &obj->m_client_version); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_str_to_json_type_string_sid_sep (ptr, rem, &tlen, mk_lib_iip_cp_message_str_strs_e_api_version   , &obj->m_api_version   ); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	err = mk_lib_iip_cp_message_str_to_json_type_mapping_sid_nsp(ptr, rem, &tlen, mk_lib_iip_cp_message_str_strs_e_authentication, &obj->m_authentication); mk_lang_check_rereturn(err); mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	tlen = str_len - rem;
 	*out_len = tlen;
