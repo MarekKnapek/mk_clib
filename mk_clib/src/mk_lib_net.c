@@ -15,6 +15,7 @@
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_null.h"
+#include "mk_lang_tchar.h"
 #include "mk_lang_types.h"
 #include "mk_sl_cui_uint16.h"
 #include "mk_sl_cui_uint8.h"
@@ -96,6 +97,22 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_tcp_port_parse_p
 	return 0;
 }
 
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_tcp_port_parse_tc(mk_lib_net_tcp_port_pt const tcp_port, mk_lang_tchar_pct const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
+{
+	mk_lang_types_pchar_t pchars[64];
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(tcp_port);
+	mk_lang_assert(str_buf || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+	mk_lang_assert(success);
+	mk_lang_assert(consumed);
+
+	mk_lang_tchar_to_bi_pchar_many(str_buf, &pchars[0], str_len);
+	err = mk_lib_net_tcp_port_parse_pc(tcp_port, &pchars[0], str_len, success, consumed); mk_lang_check_rereturn(err);
+	return 0;
+}
+
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_tcp_port_parse_u8(mk_lib_net_tcp_port_pt const tcp_port, mk_sl_cui_uint8_pct const bin_buf, mk_lang_types_sint_t const bin_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
@@ -159,6 +176,23 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_ipv4_address_par
 	mk_lang_assert(len >= 1 && len <= str_len);
 	*success = mk_lang_true;
 	*consumed = len;
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_ipv4_address_parse_tc(mk_lib_net_ipv4_address_pt const ipv4_address, mk_lang_tchar_pct const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
+{
+	mk_lang_types_pchar_t pchars[64];
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(ipv4_address);
+	mk_lang_assert(str_buf || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+	mk_lang_assert(str_len <= mk_lang_countof(pchars));
+	mk_lang_assert(success);
+	mk_lang_assert(consumed);
+
+	mk_lang_tchar_to_bi_pchar_many(str_buf, &pchars[0], str_len);
+	err = mk_lib_net_ipv4_address_parse_pc(ipv4_address, &pchars[0], str_len, success, consumed); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -499,6 +533,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_write_request_co
 	write_request->m_data_buf = data_buf;
 	write_request->m_data_len = data_len;
 	write_request->m_flags = 0;
+	write_request->m_done = mk_lang_false;
 	write_request->m_b = mk_lang_false;
 	write_request->m_transferred = 0;
 	write_request->m_overlapped.m_internal_lo = 0;
@@ -523,6 +558,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_write_request_re
 	write_request->m_data_buf = data_buf;
 	write_request->m_data_len = data_len;
 	write_request->m_flags = 0;
+	write_request->m_done = mk_lang_false;
 	write_request->m_b = mk_lang_false;
 	write_request->m_transferred = 0;
 	write_request->m_overlapped.m_internal_lo = 0;
@@ -610,6 +646,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_write_request_ge
 	write_request->m_transferred = ((mk_lang_types_sint_t)(transferred));
 	write_request->m_flags = ((mk_lang_types_uint_t)(flags));
 	mk_lang_check_return(!write_request->m_b || write_request->m_transferred <= write_request->m_data_len);
+	write_request->m_done = mk_lang_true;
 	return 0;
 }
 
@@ -637,6 +674,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_read_request_con
 	read_request->m_data_buf = data_buf;
 	read_request->m_data_len = data_len;
 	read_request->m_flags = 0;
+	read_request->m_done = mk_lang_false;
 	read_request->m_b = mk_lang_false;
 	read_request->m_transferred = 0;
 	read_request->m_overlapped.m_internal_lo = 0;
@@ -661,6 +699,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_read_request_rec
 	read_request->m_data_buf = data_buf;
 	read_request->m_data_len = data_len;
 	read_request->m_flags = 0;
+	read_request->m_done = mk_lang_false;
 	read_request->m_b = mk_lang_false;
 	read_request->m_transferred = 0;
 	read_request->m_overlapped.m_internal_lo = 0;
@@ -749,6 +788,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_read_request_get
 	read_request->m_transferred = ((mk_lang_types_sint_t)(transferred));
 	read_request->m_flags = ((mk_lang_types_uint_t)(flags));
 	mk_lang_check_return(!read_request->m_b || read_request->m_transferred <= read_request->m_data_len);
+	read_request->m_done = mk_lang_true;
 	return 0;
 }
 
@@ -1066,7 +1106,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_accept_request_i
 	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(accept_request->m_socket_accept->m_handle));
 	mk_lang_assert(!mk_win_dll_ws2_event_is_null(accept_request->m_overlapped.m_event));
 
-	err = mk_lib_net_socket_accept(accept_request->m_fn_ptr_accept_ex, accept_request->m_socket_listen, accept_request->m_socket_accept, accept_request->m_out_data_buf, accept_request->m_out_data_len, ((mk_lang_types_sint_t)(sizeof(mk_win_dll_ws2_sock_addr_t))), ((mk_lang_types_sint_t)(sizeof(mk_win_dll_ws2_sock_addr_t))), &accept_request->m_transferred, &accept_request->m_overlapped); mk_lang_check_rereturn(err);
+	err = mk_lib_net_socket_accept(accept_request->m_fn_ptr_accept_ex, accept_request->m_socket_listen, accept_request->m_socket_accept, accept_request->m_out_data_buf, accept_request->m_out_data_len - 2 * ((mk_lang_types_sint_t)(sizeof(mk_win_dll_ws2_sock_addr_t))), ((mk_lang_types_sint_t)(sizeof(mk_win_dll_ws2_sock_addr_t))), ((mk_lang_types_sint_t)(sizeof(mk_win_dll_ws2_sock_addr_t))), &accept_request->m_transferred, &accept_request->m_overlapped); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -1215,7 +1255,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_accept_request_g
 	mk_lang_assert(!mk_win_dll_ws2_socket_is_invalid(accept_request->m_socket_accept->m_handle));
 	mk_lang_assert(!mk_win_dll_ws2_event_is_null(accept_request->m_overlapped.m_event));
 
-	mk_win_dll_ws2_get_accept_ex_sock_addrs(accept_request->m_fn_ptr_get_accept_ex_sock_addrs, accept_request->m_out_data_buf, ((mk_win_base_dword_t)(accept_request->m_out_data_len)), ((mk_win_base_sint_t)(sizeof(*addr_local_obj))), ((mk_win_base_sint_t)(sizeof(*addr_remote_obj))), &addr_local_obj, &addr_local_real, &addr_remote_obj, &addr_remote_real);
+	mk_win_dll_ws2_get_accept_ex_sock_addrs(accept_request->m_fn_ptr_get_accept_ex_sock_addrs, accept_request->m_out_data_buf, ((mk_win_base_dword_t)(accept_request->m_out_data_len - 2 * ((mk_lang_types_sint_t)(sizeof(mk_win_dll_ws2_sock_addr_t))))), ((mk_win_base_sint_t)(sizeof(*addr_local_obj))), ((mk_win_base_sint_t)(sizeof(*addr_remote_obj))), &addr_local_obj, &addr_local_real, &addr_remote_obj, &addr_remote_real);
 	mk_lang_assert(addr_local_real >= 1);
 	mk_lang_assert(addr_local_real <= ((mk_win_base_sint_t)(sizeof(*addr_local_obj))));
 	mk_lang_assert(addr_remote_real >= 1);
@@ -1327,6 +1367,16 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_reset(mk_
 
 	err = mk_lib_net_socket_destroy(socket); mk_lang_check_rereturn(err);
 	err = mk_lib_net_socket_construct_void(socket); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_shutdown(mk_lib_net_socket_pt const socket) mk_lang_noexcept
+{
+	mk_lang_types_sint_t st;
+
+	mk_lang_assert(socket);
+
+	st = mk_win_dll_ws2_shutdown(socket->m_handle, mk_win_dll_ws2_shutdown_how_e_both); mk_lang_check_return(st == 0);
 	return 0;
 }
 
