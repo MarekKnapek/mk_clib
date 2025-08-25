@@ -6,6 +6,8 @@
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_sizeof.h"
+#include "mk_lang_tchar.h"
 #include "mk_lang_typedef.h"
 #include "mk_lang_types.h"
 #include "mk_sl_cui_uint16.h"
@@ -71,6 +73,8 @@ union mk_lib_net_ipv4_address_data_u
 	mk_sl_cui_uint32_t m_u32;
 	mk_sl_cui_uint16_t m_u16s[((mk_lang_types_sint_t)(mk_sl_cui_uint32_size_bytes_v)) / ((mk_lang_types_sint_t)(mk_sl_cui_uint16_size_bytes_v))];
 	mk_sl_cui_uint8_t m_u8s[((mk_lang_types_sint_t)(mk_sl_cui_uint32_size_bytes_v)) / ((mk_lang_types_sint_t)(mk_sl_cui_uint8_size_bytes_v))];
+	mk_lang_types_uchar_t m_ucs[((mk_lang_types_sint_t)(mk_sl_cui_uint32_size_bytes_v)) / ((mk_lang_types_sint_t)(mk_lang_sizeof_bi_uchar_t))];
+	mk_lang_types_schar_t m_scs[((mk_lang_types_sint_t)(mk_sl_cui_uint32_size_bytes_v)) / ((mk_lang_types_sint_t)(mk_lang_sizeof_bi_schar_t))];
 };
 typedef union mk_lib_net_ipv4_address_data_u mk_lib_net_ipv4_address_data_t;
 struct mk_lib_net_ipv4_address_s
@@ -120,6 +124,7 @@ struct mk_lib_net_write_request_s
 	mk_sl_cui_uint8_pct m_data_buf;
 	mk_lang_types_sint_t m_data_len;
 	mk_lang_types_uint_t m_flags;
+	mk_lang_types_bool_t m_done;
 	mk_lang_types_bool_t m_b;
 	mk_lang_types_sint_t m_transferred;
 	mk_win_dll_ws2_overlapped_t m_overlapped;
@@ -135,6 +140,7 @@ struct mk_lib_net_read_request_s
 	mk_sl_cui_uint8_pt m_data_buf;
 	mk_lang_types_sint_t m_data_len;
 	mk_lang_types_uint_t m_flags;
+	mk_lang_types_bool_t m_done;
 	mk_lang_types_bool_t m_b;
 	mk_lang_types_sint_t m_transferred;
 	mk_win_dll_ws2_overlapped_t m_overlapped;
@@ -181,12 +187,14 @@ mk_lang_typedef(mk_lib_net_accept_request);
 
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_tcp_port_parse_pc(mk_lib_net_tcp_port_pt const tcp_port, mk_lang_types_pchar_pct const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_tcp_port_parse_tc(mk_lib_net_tcp_port_pt const tcp_port, mk_lang_tchar_pct const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_tcp_port_parse_u8(mk_lib_net_tcp_port_pt const tcp_port, mk_sl_cui_uint8_pct const bin_buf, mk_lang_types_sint_t const bin_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept;
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_udp_port_parse_pc(mk_lib_net_udp_port_pt const udp_port, mk_lang_types_pchar_pct const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_udp_port_parse_u8(mk_lib_net_udp_port_pt const udp_port, mk_sl_cui_uint8_pct const bin_buf, mk_lang_types_sint_t const bin_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept;
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_ipv4_address_parse_pc(mk_lib_net_ipv4_address_pt const ipv4_address, mk_lang_types_pchar_pct const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_ipv4_address_parse_tc(mk_lib_net_ipv4_address_pt const ipv4_address, mk_lang_tchar_pct const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_ipv4_address_parse_u8(mk_lib_net_ipv4_address_pt const ipv4_address, mk_sl_cui_uint8_pct const bin_buf, mk_lang_types_sint_t const bin_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lib_net_ipv4_address_is_any(mk_lib_net_ipv4_address_pct const ipv4_address) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lib_net_ipv4_address_is_none(mk_lib_net_ipv4_address_pct const ipv4_address) mk_lang_noexcept;
@@ -257,6 +265,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_construct
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_reconstruct(mk_lib_net_socket_pt const socket, mk_lib_net_address_family_t const af, mk_lib_net_address_type_t const at, mk_lib_net_address_protocol_t const ap) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_destroy(mk_lib_net_socket_pt const socket) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_reset(mk_lib_net_socket_pt const socket) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_shutdown(mk_lib_net_socket_pt const socket) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_to_text(mk_lib_net_socket_pt const socket, mk_lang_types_pchar_pt const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_sint_pt const out_len) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_set_option_nodelay_val(mk_lib_net_socket_pt const socket, mk_lang_types_bool_t const val) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_socket_set_option_nodelay_true(mk_lib_net_socket_pt const socket) mk_lang_noexcept;
