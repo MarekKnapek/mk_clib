@@ -465,6 +465,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 		case mk_lib_iip_cp_message_parse_error_code_e_unknown_host_reply_result_code: mk_lang_check_todo(); break;
 		case mk_lib_iip_cp_message_parse_error_code_e_too_many_tunnels              : mk_lang_check_todo(); break;
 		case mk_lib_iip_cp_message_parse_error_code_e_too_many_leases               : mk_lang_check_todo(); break;
+		case mk_lib_iip_cp_message_parse_error_code_e_too_big_mapping               : mk_lang_check_todo(); break;
+		case mk_lib_iip_cp_message_parse_error_code_e_unexpected_char               : mk_lang_check_todo(); break;
 		case mk_lib_iip_cp_message_parse_error_code_e_dummy_end: mk_lang_assert_false(); break;
 		default: mk_lang_assert_false(); break;
 	}
