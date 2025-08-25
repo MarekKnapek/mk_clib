@@ -106,6 +106,17 @@
 #error xxxxxxxxxx
 #endif
 
+#if mk_lang_check_debug_have
+#include "mk_lang_countof.h"
+#include "mk_lang_stringify.h"
+mk_lang_jumbo mk_lang_types_void_t mk_lang_check_print_impl(mk_lang_types_pchar_pct const msg_buf, mk_lang_types_sint_t const msg_len) mk_lang_noexcept;
+#define mk_lang_check_print_get_buf(x) "check--->" __FILE__ ":" mk_lang_stringify(__LINE__) " " "`" mk_lang_stringify(x) "'" "<---check"
+#define mk_lang_check_print_get_len(x) mk_lang_countstr(mk_lang_check_print_get_buf(x))
+#define mk_lang_check_print(x) ((mk_lang_types_void_t)(mk_lang_check_print_impl(mk_lang_check_print_get_buf(x), mk_lang_check_print_get_len(x))))
+#else
+#define mk_lang_check_print(x) ((mk_lang_types_void_t)(0))
+#endif
+
 #if mk_lang_check_extra_have == 1
 #define mk_lang_check_to_bool(x) mk_lang_check_to_bool_impl(!!(x))
 #elif mk_lang_check_extra_have == 0
@@ -129,10 +140,10 @@
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_check_to_bool_impl(mk_lang_types_bool_t const b) mk_lang_noexcept;
 
 
-#define mk_lang_check_return(x)     do{ if(!mk_lang_check_to_bool(x)){ mk_lang_check_attr_unlikely mk_lang_check_debug_break(); return mk_lang_check_line; } }while(mk_lang_runtime_bool_fn_false)
-#define mk_lang_check_break(x)      do{ if(!mk_lang_check_to_bool(x)){ mk_lang_check_attr_unlikely mk_lang_check_debug_break(); break;                     } }while(mk_lang_runtime_bool_fn_false)
-#define mk_lang_check_goto_exret(x) do{ if(!mk_lang_check_to_bool(x)){ mk_lang_check_attr_unlikely mk_lang_check_debug_break(); goto exret;                } }while(mk_lang_runtime_bool_fn_false)
-#define mk_lang_check_crash(x)      do{ if(!mk_lang_check_to_bool(x)){ mk_lang_check_attr_unlikely mk_lang_check_debug_break(); mk_lang_crash();           } }while(mk_lang_runtime_bool_fn_false)
+#define mk_lang_check_return(x)     do{ if(!mk_lang_check_to_bool(x)){ mk_lang_check_attr_unlikely mk_lang_check_print(x); mk_lang_check_debug_break(); return mk_lang_check_line; } }while(mk_lang_runtime_bool_fn_false)
+#define mk_lang_check_break(x)      do{ if(!mk_lang_check_to_bool(x)){ mk_lang_check_attr_unlikely mk_lang_check_print(x); mk_lang_check_debug_break(); break;                     } }while(mk_lang_runtime_bool_fn_false)
+#define mk_lang_check_goto_exret(x) do{ if(!mk_lang_check_to_bool(x)){ mk_lang_check_attr_unlikely mk_lang_check_print(x); mk_lang_check_debug_break(); goto exret;                } }while(mk_lang_runtime_bool_fn_false)
+#define mk_lang_check_crash(x)      do{ if(!mk_lang_check_to_bool(x)){ mk_lang_check_attr_unlikely mk_lang_check_print(x); mk_lang_check_debug_break(); mk_lang_crash();           } }while(mk_lang_runtime_bool_fn_false)
 
 #define mk_lang_check_rereturn(x)     do{ mk_lang_types_sint_t err_private mk_lang_constexpr_init; err_private = ((mk_lang_types_sint_t)(x)); if(err_private != 0){ mk_lang_check_attr_unlikely mk_lang_check_debug_break_rethrow(); return err_private;            } }while(mk_lang_runtime_bool_fn_false)
 #define mk_lang_check_rebreak(x)      do{ mk_lang_types_sint_t err_private mk_lang_constexpr_init; err_private = ((mk_lang_types_sint_t)(x)); if(err_private != 0){ mk_lang_check_attr_unlikely mk_lang_check_debug_break_rethrow(); break;                         } }while(mk_lang_runtime_bool_fn_false)
