@@ -170,6 +170,26 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lib_iip_cp_message_session_
 #include "mk_lang_warning_clang_pop.h"
 }
 
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lib_iip_cp_message_session_status_status_val_t mk_lib_iip_cp_message_session_status_status_id_to_session_status_status_val(mk_lib_iip_cp_message_session_status_status_id_t const session_status_status_id) mk_lang_noexcept
+{
+#include "mk_lang_warning_clang_push_sometimes_uninitialized.h"
+	mk_lib_iip_cp_message_session_status_status_val_t session_status_val mk_lang_constexpr_init;
+
+	switch(session_status_status_id)
+	{
+		case mk_lib_iip_cp_message_session_status_status_id_e_destroyed: session_status_val = mk_lib_iip_cp_message_session_status_status_val_e_destroyed; break;
+		case mk_lib_iip_cp_message_session_status_status_id_e_created  : session_status_val = mk_lib_iip_cp_message_session_status_status_val_e_created  ; break;
+		case mk_lib_iip_cp_message_session_status_status_id_e_updated  : session_status_val = mk_lib_iip_cp_message_session_status_status_val_e_updated  ; break;
+		case mk_lib_iip_cp_message_session_status_status_id_e_invalid  : session_status_val = mk_lib_iip_cp_message_session_status_status_val_e_invalid  ; break;
+		case mk_lib_iip_cp_message_session_status_status_id_e_refused  : session_status_val = mk_lib_iip_cp_message_session_status_status_val_e_refused  ; break;
+		case mk_lib_iip_cp_message_session_status_status_id_e_dummy_end: mk_lang_assert_false(); break;
+		default: mk_lang_assert_false(); break;
+	}
+	mk_lang_clobber(&session_status_val);
+	return session_status_val;
+#include "mk_lang_warning_clang_pop.h"
+}
+
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lib_iip_cp_message_message_status_status_val_is_known(mk_lang_types_sint_t const message_status_status_val) mk_lang_noexcept
 {
