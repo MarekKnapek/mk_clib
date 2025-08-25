@@ -8,8 +8,10 @@
 #include "mk_lang_countof.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
+#include "mk_lang_limits.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_static_assert.h"
 #include "mk_lang_types.h"
 #include "mk_lib_iip_cp_message.h"
 #include "mk_lib_iip_cp_types.h"
@@ -213,6 +215,38 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	return 0;
 }
 
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_parse_char(mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_parse_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lang_types_pchar_t const obj) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pct ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
+	mk_sl_cui_uint8_t tu8 mk_lang_constexpr_init;
+	mk_lang_types_pchar_t tpc mk_lang_constexpr_init;
+
+	mk_lang_assert(data_buf || data_len == 0);
+	mk_lang_assert(data_len >= 0);
+	mk_lang_assert(error_code);
+	mk_lang_assert(*error_code == mk_lib_iip_cp_message_parse_error_code_e_ok);
+	mk_lang_assert(consumed);
+	mk_lang_assert(obj == '\0' || obj != '\0');
+
+	ptr = data_buf;
+	rem = data_len;
+
+	err = mk_lib_iip_cp_message_parse_u8(ptr, rem, error_code, &tlen, &tu8); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	mk_sl_cui_uint8_to_bi_pchar(&tu8, &tpc);
+	if(!(tpc == obj))
+	{
+		*error_code = mk_lib_iip_cp_message_parse_error_code_e_unexpected_char;
+		return 0;
+	}
+
+	tlen = data_len - rem;
+	*consumed = tlen;
+	return 0;
+}
+
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_parse_s8(mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_parse_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lang_types_sint_pt const obj) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_pct ptr mk_lang_constexpr_init;
@@ -233,6 +267,34 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 
 	err = mk_lib_iip_cp_message_parse_u8(ptr, rem, error_code, &tlen, &tu8); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	mk_sl_cui_uint8_to_bi_sint(&tu8, obj);
+
+	tlen = data_len - rem;
+	*consumed = tlen;
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_parse_s16(mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_parse_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lang_types_sint_pt const obj) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pct ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
+	mk_sl_cui_uint16_t tu16 mk_lang_constexpr_init;
+
+	mk_lang_static_assert(((mk_lang_types_ulong_t)(mk_lang_limits_sint_max)) >= ((mk_lang_types_ulong_t)(0xfffful)));
+
+	mk_lang_assert(data_buf || data_len == 0);
+	mk_lang_assert(data_len >= 0);
+	mk_lang_assert(error_code);
+	mk_lang_assert(*error_code == mk_lib_iip_cp_message_parse_error_code_e_ok);
+	mk_lang_assert(consumed);
+	mk_lang_assert(obj);
+
+	ptr = data_buf;
+	rem = data_len;
+
+	err = mk_lib_iip_cp_message_parse_u16(ptr, rem, error_code, &tlen, &tu16); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	mk_sl_cui_uint16_to_bi_sint(&tu16, obj);
 
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -618,6 +680,93 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 		obj->m_len = 0;
 		obj->m_buf[0] = '\0';
 	}
+
+	tlen = data_len - rem;
+	*consumed = tlen;
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_parse_type_str_pair(mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_parse_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_types_strpair_pt const obj) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pct ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
+
+	mk_lang_assert(data_buf || data_len == 0);
+	mk_lang_assert(data_len >= 0);
+	mk_lang_assert(error_code);
+	mk_lang_assert(*error_code == mk_lib_iip_cp_message_parse_error_code_e_ok);
+	mk_lang_assert(consumed);
+	mk_lang_assert(obj);
+
+	ptr = data_buf;
+	rem = data_len;
+	err = mk_lib_iip_cp_message_parse_type_string(ptr, rem, error_code, &tlen, &obj->m_key); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_char       (ptr, rem, error_code, &tlen, '='        ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_type_string(ptr, rem, error_code, &tlen, &obj->m_val); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_char       (ptr, rem, error_code, &tlen, ';'        ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	tlen = data_len - rem;
+	*consumed = tlen;
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_parse_type_str_pairs(mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_parse_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_types_strpairs_pt const obj, mk_lang_types_sint_t const mapping_len) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pct ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t rrr mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
+
+	mk_lang_assert(data_buf || data_len == 0);
+	mk_lang_assert(data_len >= 0);
+	mk_lang_assert(error_code);
+	mk_lang_assert(*error_code == mk_lib_iip_cp_message_parse_error_code_e_ok);
+	mk_lang_assert(consumed);
+	mk_lang_assert(obj);
+	mk_lang_assert(mapping_len >= 0);
+
+	ptr = data_buf;
+	rem = data_len;
+	if(!(mapping_len <= rem))
+	{
+		*error_code = mk_lib_iip_cp_message_parse_error_code_e_too_big_mapping;
+		return 0;
+	}
+	rrr = mapping_len;
+	obj->m_size = 0;
+	while(rrr != 0)
+	{
+		err = mk_lib_iip_cp_message_parse_type_str_pair(ptr, rrr, error_code, &tlen, &obj->m_arr[obj->m_size]); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+		mk_lang_assert(tlen <= rrr); rrr -= tlen;
+		++obj->m_size;
+	}
+	tlen = data_len - rem;
+	*consumed = tlen;
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_message_parse_type_mapping(mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lib_iip_cp_message_parse_error_code_pt const error_code, mk_lang_types_sint_pt const consumed, mk_lib_iip_cp_types_mapping_pt const obj) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pct ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
+	mk_lang_types_sint_t mapping_len mk_lang_constexpr_init;
+
+	mk_lang_assert(data_buf || data_len == 0);
+	mk_lang_assert(data_len >= 0);
+	mk_lang_assert(error_code);
+	mk_lang_assert(*error_code == mk_lib_iip_cp_message_parse_error_code_e_ok);
+	mk_lang_assert(consumed);
+	mk_lang_assert(obj);
+
+	ptr = data_buf;
+	rem = data_len;
+
+	err = mk_lib_iip_cp_message_parse_s16           (ptr, rem, error_code, &tlen, &mapping_len                 ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_type_str_pairs(ptr, rem, error_code, &tlen, &obj->m_strpairs, mapping_len); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -1344,6 +1493,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 {
 	mk_sl_cui_uint8_pct ptr mk_lang_constexpr_init;
 	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
 	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf || data_len == 0);
@@ -1356,14 +1506,8 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	ptr = data_buf;
 	rem = data_len;
 
-	#include "mk_lang_warning_msvc_push_c4127.h"
-	if(!mk_lang_constexpr_is_constant_evaluated_test)
-	#include "mk_lang_warning_msvc_pop.h"
-	{
-		mk_lang_check_todo();
-	}
-	((mk_lang_types_void_t)(ptr));
-	((mk_lang_types_void_t)(rem));
+	err = mk_lib_iip_cp_message_parse_type_string (ptr, rem, error_code, &tlen, &obj->m_api_version   ); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_cp_message_parse_type_mapping(ptr, rem, error_code, &tlen, &obj->m_authentication); mk_lang_check_rereturn(err); if(*error_code != mk_lib_iip_cp_message_parse_error_code_e_ok){ return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 
 	tlen = data_len - rem;
 	*consumed = tlen;
