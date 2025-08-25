@@ -1695,7 +1695,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	msg_get_date = &msg->m_mix.m_data.m_get_date;
 	err = mk_lib_iip_cp_client_connection_task_prrw_serialize_introducer(task); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_cp_message_reconstruct(msg, mk_lib_iip_cp_message_message_type_id_e_get_date); mk_lang_check_rereturn(err);
-	mk_lang_string_memcpy_pc_fn(&msg_get_date->m_client_version.m_buf[0], &mk_lib_iip_cp_client_connection_k_api_ver[0], mk_lang_countstr(mk_lib_iip_cp_client_connection_k_api_ver)); msg_get_date->m_client_version.m_len = mk_lang_countstr(mk_lib_iip_cp_client_connection_k_api_ver);
+	mk_lang_string_memcpy_pc_fn(&msg_get_date->m_api_version.m_buf[0], &mk_lib_iip_cp_client_connection_k_api_ver[0], mk_lang_countstr(mk_lib_iip_cp_client_connection_k_api_ver)); msg_get_date->m_api_version.m_len = mk_lang_countstr(mk_lib_iip_cp_client_connection_k_api_ver);
 	if
 	(
 		(task->m_connection.m_settings.m_authentication.m_username.m_len != 0) &&

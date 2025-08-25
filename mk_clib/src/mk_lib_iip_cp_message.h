@@ -378,7 +378,7 @@ mk_lang_typedef(mk_lib_iip_cp_message_message_payload);
 #include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_lib_iip_cp_message_get_date_s
 {
-	mk_lib_iip_cp_types_string_t m_client_version;
+	mk_lib_iip_cp_types_string_t m_api_version;
 	mk_lib_iip_cp_types_mapping_t m_authentication;
 };
 typedef struct mk_lib_iip_cp_message_get_date_s mk_lib_iip_cp_message_get_date_t;
