@@ -20,6 +20,9 @@
 #include "mk_lang_typedef.h"
 #include "mk_lang_types.h"
 #include "mk_lib_iip_cp_mallocator_global.h"
+#include "mk_lib_iip_cp_message.h"
+#include "mk_lib_iip_cp_message_parse.h"
+#include "mk_lib_iip_cp_message_serialize.h"
 #include "mk_lib_net.h"
 #include "mk_lib_net_iocp.h"
 #include "mk_sl_cui_uint8.h"
@@ -76,6 +79,117 @@ mk_lang_typedef(mk_clib_app_i2cp_guid);
 
 mk_lang_typedef_func_win_non_void(mk_win_base_bool_t, mk_clib_app_i2cp_accept_ex_t, (mk_win_dll_ws2_socket_t const socket_listen, mk_win_dll_ws2_socket_t const socket_accept, mk_win_base_void_lpt const out_data_buf, mk_win_base_dword_t const out_data_len, mk_win_base_dword_t const local_address_len, mk_win_base_dword_t const remote_address_len, mk_win_base_dword_lpt const transferred, mk_win_dll_ws2_overlapped_lpt const overlapped));
 mk_lang_typedef_func_win_void(mk_lang_types_void_t, mk_clib_app_i2cp_get_accept_ex_sock_addrs_t, (mk_win_base_void_lpct const in_data_buf, mk_win_base_dword_t const in_data_len, mk_win_base_dword_t const local_address_len, mk_win_base_dword_t const remote_address_len, mk_win_dll_ws2_sock_addr_lplpt const local_address_obj, mk_win_base_sint_lpt const local_address_real, mk_win_dll_ws2_sock_addr_lplpt const remote_address_obj, mk_win_base_sint_lpt const remote_address_real));
+
+
+#include "mk_lang_warning_msvc_push_c4820.h"
+struct mk_clib_app_i2cp_checker_s
+{
+	mk_sl_dynamic_ring_u8_t m_client_to_server;
+	mk_sl_dynamic_ring_u8_t m_server_to_client;
+	mk_lang_types_bool_t m_introducer_seen;
+};
+typedef struct mk_clib_app_i2cp_checker_s mk_clib_app_i2cp_checker_t;
+mk_lang_typedef(mk_clib_app_i2cp_checker);
+#include "mk_lang_warning_msvc_pop.h"
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_i2cp_checker_rw_construct(mk_clib_app_i2cp_checker_pt const checker) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(checker);
+
+	err = mk_sl_dynamic_ring_u8_rw_construct(&checker->m_client_to_server); mk_lang_check_rereturn(err);
+	err = mk_sl_dynamic_ring_u8_rw_construct(&checker->m_server_to_client); mk_lang_check_rereturn(err);
+	return 0;
+}
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_i2cp_checker_rw_destroy(mk_clib_app_i2cp_checker_pt const checker) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(checker);
+
+	err = mk_sl_dynamic_ring_u8_rw_destroy(&checker->m_client_to_server); mk_lang_check_rereturn(err);
+	err = mk_sl_dynamic_ring_u8_rw_destroy(&checker->m_server_to_client); mk_lang_check_rereturn(err);
+	return 0;
+}
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_i2cp_checker_rw_check_introducer(mk_clib_app_i2cp_checker_pt const checker) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pt front;
+	mk_lang_types_pchar_t tpc;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(checker);
+
+	if(!checker->m_introducer_seen)
+	{
+		if(!mk_sl_dynamic_ring_u8_rw_is_empty(&checker->m_client_to_server))
+		{
+			front = mk_sl_dynamic_ring_u8_rw_get_front(&checker->m_client_to_server); mk_lang_assert(front);
+			mk_sl_cui_uint8_to_bi_pchar(front, &tpc);
+			if(tpc == '\x2a')
+			{
+				checker->m_introducer_seen = mk_lang_true;
+				err = mk_sl_dynamic_ring_u8_rw_pop_front_single(&checker->m_client_to_server); mk_lang_check_rereturn(err);
+			}
+		}
+	}
+	return 0;
+}
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_i2cp_checker_rw_check_deserialize_message_2(mk_clib_app_i2cp_checker_pt const checker, mk_sl_dynamic_ring_u8_pt const ring) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	mk_sl_cui_uint8_pt data_buf;
+	mk_lang_types_sint_t data_len;
+	mk_lib_iip_cp_message_parse_error_code_t error_code_in;
+	mk_lang_types_sint_t consumed_in;
+	mk_lib_iip_cp_message_t msg;
+	mk_sl_cui_uint8_t out_buf[128 * 1024];
+	mk_lib_iip_cp_message_serialize_error_code_t error_code_out;
+	mk_lang_types_sint_t consumed_out;
+
+	mk_lang_assert(checker);
+	mk_lang_assert(ring);
+
+	err = mk_sl_dynamic_ring_u8_rw_consolidate(ring); mk_lang_check_rereturn(err);
+	data_buf = mk_sl_dynamic_ring_u8_rw_get_data_a(ring);
+	data_len = mk_sl_dynamic_ring_u8_rw_get_sise_a(ring);
+	error_code_in = mk_lib_iip_cp_message_parse_error_code_e_ok; err = mk_lib_iip_cp_message_parse_message(data_buf, data_len, &error_code_in, &consumed_in, &msg); mk_lang_check_rereturn(err);
+	if(error_code_in == mk_lib_iip_cp_message_parse_error_code_e_ok)
+	{
+		mk_lang_assert(consumed_in >= 1);
+		mk_lang_assert(consumed_in <= data_len);
+		err = mk_lib_iip_cp_message_serialize_message(&out_buf[0], mk_lang_countof(out_buf), &error_code_out, &consumed_out, &msg); mk_lang_check_rereturn(err);
+		mk_lang_check_return(error_code_out == mk_lib_iip_cp_message_serialize_error_code_e_ok);
+		mk_lang_check_return(consumed_out == consumed_in);
+		mk_lang_check_return(mk_sl_cui_uint8_memcmp_fn(&out_buf[0], data_buf, consumed_out) == 0);
+	}
+	return 0;
+}
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_i2cp_checker_rw_check_deserialize_message(mk_clib_app_i2cp_checker_pt const checker) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(checker);
+
+	err = mk_clib_app_i2cp_checker_rw_check_deserialize_message_2(checker, &checker->m_client_to_server); mk_lang_check_rereturn(err);
+	err = mk_clib_app_i2cp_checker_rw_check_deserialize_message_2(checker, &checker->m_server_to_client); mk_lang_check_rereturn(err);
+	return 0;
+}
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_i2cp_checker_rw_append_data(mk_clib_app_i2cp_checker_pt const checker, mk_lang_types_bool_t const from_client, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len) mk_lang_noexcept
+{
+	mk_sl_dynamic_ring_u8_pt target;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(checker);
+	mk_lang_assert(from_client == mk_lang_false || from_client == mk_lang_true);
+	mk_lang_assert(data_buf || data_len == 0);
+	mk_lang_assert(data_len >= 0);
+
+	target = from_client ? &checker->m_client_to_server : &checker->m_server_to_client;
+	err = mk_sl_dynamic_ring_u8_rw_push_back_copy_many(target, data_buf, data_len); mk_lang_check_rereturn(err);
+	err = mk_clib_app_i2cp_checker_rw_check_introducer(checker); mk_lang_check_rereturn(err);
+	err = mk_clib_app_i2cp_checker_rw_check_deserialize_message(checker); mk_lang_check_rereturn(err);
+	return 0;
+}
 
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_i2cp_global_init(mk_lang_types_void_t) mk_lang_noexcept
@@ -155,6 +269,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_i2cp_gl
 	mk_lang_types_usize_t data_from_client_to_server_len_b;
 	mk_lang_types_usize_t data_from_server_to_client_len_a;
 	mk_lang_types_usize_t data_from_server_to_client_len_b;
+	mk_clib_app_i2cp_checker_t checker;
 
 	mk_lang_assert(argc >= 1);
 	mk_lang_assert(argv);
@@ -177,6 +292,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_i2cp_gl
 	arg_remote_ip_buf = argv[ptr]; arg_remote_ip_len = lens[ptr]; ++ptr;
 	arg_remote_port_buf = argv[ptr]; arg_remote_port_len = lens[ptr]; ++ptr;
 	gud = mk_lang_true;
+	err = mk_clib_app_i2cp_checker_rw_construct(&checker); mk_lang_check_rereturn(err);
 	err = mk_lib_net_ipv4_address_parse_tc(&destination_listen.m_ipv4_address, arg_local_ip_buf, arg_local_ip_len, &gud, &consumed); mk_lang_check_rereturn(err); mk_lang_check_return(gud); mk_lang_check_return(consumed >= 1);
 	err = mk_lib_net_tcp_port_parse_tc(&destination_listen.m_tcp_port, arg_local_port_buf, arg_local_port_len, &gud, &consumed); mk_lang_check_rereturn(err); mk_lang_check_return(gud); mk_lang_check_return(consumed >= 1);
 	err = mk_lib_net_ipv4_address_parse_tc(&destination_server.m_ipv4_address, arg_remote_ip_buf, arg_remote_ip_len, &gud, &consumed); mk_lang_check_rereturn(err); mk_lang_check_return(gud); mk_lang_check_return(consumed >= 1);
@@ -255,6 +371,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_i2cp_gl
 
 	if(accept_request.m_transferred != 0)
 	{
+		err = mk_clib_app_i2cp_checker_rw_append_data(&checker, mk_lang_true, accept_request.m_out_data_buf, accept_request.m_transferred); mk_lang_check_rereturn(err);
 		err = mk_lib_net_write_request_reconstruct(&write_req_server, &sck_to_server, accept_request.m_out_data_buf, accept_request.m_transferred); mk_lang_check_rereturn(err);
 		err = mk_lib_net_socket_send(&sck_to_server, &write_req_server); mk_lang_check_rereturn(err);
 		err = mk_lib_net_iocp_dequeue_packet_infinite(&iocp, &dequeued, &successful_io_operation, &bytes_transferred, &key, &overlapped, &fail_reason); mk_lang_check_rereturn(err); mk_lang_check_return(dequeued); mk_lang_check_return(successful_io_operation); mk_lang_check_return(bytes_transferred == accept_request.m_transferred); mk_lang_check_return(key == ((mk_lang_types_uintptr_t)(&sck_to_server))); mk_lang_check_return(overlapped);
@@ -312,6 +429,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_i2cp_gl
 						break;
 					}
 					mk_lang_check_return(read_req_client.m_transferred >= 1);
+					err = mk_clib_app_i2cp_checker_rw_append_data(&checker, mk_lang_true, read_req_client.m_data_buf, read_req_client.m_transferred); mk_lang_check_rereturn(err);
 					if(write_req_server.m_data_buf == mk_lang_null && write_req_server.m_data_len == 0)
 					{
 						err = mk_lib_net_write_request_reconstruct(&write_req_server, &sck_to_server, read_req_client.m_data_buf, read_req_client.m_transferred); mk_lang_check_rereturn(err);
@@ -368,6 +486,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_i2cp_gl
 						break;
 					}
 					mk_lang_check_return(read_req_server.m_transferred >= 1);
+					err = mk_clib_app_i2cp_checker_rw_append_data(&checker, mk_lang_false, read_req_server.m_data_buf, read_req_server.m_transferred); mk_lang_check_rereturn(err);
 					if(write_req_client.m_data_buf == mk_lang_null && write_req_client.m_data_len == 0)
 					{
 						err = mk_lib_net_write_request_reconstruct(&write_req_client, &sck_to_client, read_req_server.m_data_buf, read_req_server.m_transferred); mk_lang_check_rereturn(err);
@@ -432,6 +551,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_i2cp_gl
 	err = mk_sl_dynamic_ring_u8_rw_destroy(&ring_from_server_to_client_b); mk_lang_check_rereturn(err);
 	err = mk_sl_dynamic_ring_u8_rw_destroy(&ring_from_client_to_server_a); mk_lang_check_rereturn(err);
 	err = mk_sl_dynamic_ring_u8_rw_destroy(&ring_from_client_to_server_b); mk_lang_check_rereturn(err);
+	err = mk_clib_app_i2cp_checker_rw_destroy(&checker); mk_lang_check_rereturn(err);
 	return 0;
 }
 
