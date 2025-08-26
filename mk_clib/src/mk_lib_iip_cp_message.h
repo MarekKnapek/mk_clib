@@ -261,6 +261,8 @@ mk_lang_typedef(mk_lib_iip_cp_message_destroy_session);
 struct mk_lib_iip_cp_message_create_lease_set_s
 {
 	mk_lib_iip_cp_types_sessionid_t m_session_id;
+	mk_sl_cui_uint8_t m_dsa_signing_private_key[20];
+	mk_sl_cui_uint8_t m_private_key[256]; /* todo other key types */
 	mk_lib_iip_cp_types_leaseset_t m_leaseset;
 };
 typedef struct mk_lib_iip_cp_message_create_lease_set_s mk_lib_iip_cp_message_create_lease_set_t;
