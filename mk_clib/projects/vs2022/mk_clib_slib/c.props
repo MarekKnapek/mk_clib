@@ -199,7 +199,7 @@
 	<ItemDefinitionGroup>
 		<ClCompile>
 			<AdditionalOptions Condition="'$(mk_is_entry_point)'=='true'">/Gs2097152 %(AdditionalOptions)</AdditionalOptions>
-			<AdditionalOptions Condition="'$(mk_is_msvc)'=='true'">/constexpr:steps1000000000 %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions>/constexpr:steps1000000000 %(AdditionalOptions)</AdditionalOptions>
 			<AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
 		</ClCompile>
 	</ItemDefinitionGroup>
