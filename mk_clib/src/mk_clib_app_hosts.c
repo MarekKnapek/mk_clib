@@ -2,6 +2,7 @@
 #define mk_include_guard_mk_clib_app_hosts_c
 #include "mk_clib_app_hosts.h"
 
+#include "mk_lang_alg_iota.h"
 #include "mk_lang_assert.h"
 #include "mk_lang_check.h"
 #include "mk_lang_clobber.h"
@@ -532,7 +533,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_e
 	n = mk_clib_app_hosts_entries_ro_sise(entries);
 	for(i = 0; i != n; ++i)
 	{
-		idx = sort_order[i]; mk_lang_assert(idx > 0); mk_lang_assert(idx < n);
+		idx = sort_order[i]; mk_lang_assert(idx >= 0); mk_lang_assert(idx < n);
 		entry = mk_clib_app_hosts_entries_ro_at(entries, ((mk_lang_types_usize_t)(idx))); mk_lang_assert(entry);
 		err = mk_clib_app_hosts_entries_rw_write_entry(&writer, entry); mk_lang_check_rereturn(err);
 	}
@@ -547,8 +548,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_e
 	mk_clib_app_hosts_ints_t ints;
 	mk_clib_app_hosts_entry_pct data_entries;
 	mk_lang_types_sint_pt data_ints;
-	mk_lang_types_usize_t n;
-	mk_lang_types_usize_t i;
 
 	mk_lang_assert(entries);
 
@@ -559,11 +558,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_e
 		err = mk_clib_app_hosts_ints_rw_resize_to(&ints, count * 2); mk_lang_check_rereturn(err);
 		data_entries = mk_clib_app_hosts_entries_ro_data(entries); mk_lang_assert(data_entries);
 		data_ints = mk_clib_app_hosts_ints_rw_data(&ints); mk_lang_assert(data_ints);
-		n = count;
-		for(i = 0; i != n; ++i)
-		{
-			data_ints[i] = ((mk_lang_types_sint_t)(i));
-		}
+		mk_lang_alg_iota_sint_usize_fn(data_ints, count);
 		mk_clib_app_hosts_entries_sort_b32_fn(data_entries, &data_ints[0], count, &data_ints[count]);
 		err = mk_clib_app_hosts_entries_rw_write_sorted(entries, data_ints); mk_lang_check_rereturn(err);
 		err = mk_clib_app_hosts_ints_rw_destroy(&ints); mk_lang_check_rereturn(err);
