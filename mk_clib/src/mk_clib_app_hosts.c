@@ -306,21 +306,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_t
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_tree_rw_write(mk_clib_app_hosts_tree_pt const tree) mk_lang_noexcept
-{
-	mk_lang_types_sint_t err;
-	mk_clib_app_phosts_domains_t hosts;
-
-	mk_lang_assert(tree);
-
-	err = mk_clib_app_phosts_domains_rw_construct(&hosts); mk_lang_check_rereturn(err);
-	err = mk_clib_app_hosts_tree_ro_walk(tree, &mk_clib_app_hosts_tree_rw_callback_collect, ((mk_lang_types_uintptr_t)(&hosts))); mk_lang_check_rereturn(err);
-	err = mk_clib_app_hosts_tree_rw_sort(&hosts); mk_lang_check_rereturn(err);
-	err = mk_clib_app_hosts_tree_rw_writf(&hosts); mk_lang_check_rereturn(err);
-	err = mk_clib_app_phosts_domains_rw_destroy(&hosts); mk_lang_check_rereturn(err);
-	return 0;
-}
-
 
 
 
@@ -762,12 +747,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_e
 	mk_clib_app_hosts_ints_t ints;
 	mk_clib_app_hosts_entry_pct data_entries;
 	mk_lang_types_sint_pt data_ints;
-	mk_lang_types_usize_t n;
-	mk_lang_types_usize_t i;
 	mk_lang_types_sint_t idx_;
 	mk_lang_types_usize_t idx;
 	mk_clib_app_hosts_entry_pct entry_curr;
 	mk_clib_app_hosts_entry_pct entry_last;
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
 
 	mk_lang_assert(entries);
 
@@ -813,6 +798,44 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_e
 
 		err = mk_clib_app_hosts_ints_rw_destroy(&ints); mk_lang_check_rereturn(err);
 	}
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_tree_rw_transfer(mk_clib_app_hosts_tree_pt const db, mk_clib_app_hosts_entries_pct const entries) mk_lang_noexcept
+{
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
+	mk_clib_app_hosts_entry_pct entry;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(db);
+	mk_lang_assert(entries);
+
+	n = mk_clib_app_hosts_entries_ro_size(entries);
+	for(i = 0; i != n; ++i)
+	{
+		entry = mk_clib_app_hosts_entries_ro_at(entries, i); mk_lang_assert(entry);
+		err = mk_clib_app_hosts_tree_rw_add(db, &entry->m_b32, &entry->m_domain); mk_lang_check_rereturn(err);
+	}
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_tree_rw_write(mk_clib_app_hosts_entries_pct const entries) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	mk_clib_app_hosts_tree_t db;
+	mk_clib_app_phosts_domains_t hosts;
+
+	mk_lang_assert(entries);
+
+	err = mk_clib_app_hosts_tree_rw_construct(&db); mk_lang_check_rereturn(err);
+	err = mk_clib_app_hosts_tree_rw_transfer(&db, entries); mk_lang_check_rereturn(err);
+	err = mk_clib_app_phosts_domains_rw_construct(&hosts); mk_lang_check_rereturn(err);
+	err = mk_clib_app_hosts_tree_ro_walk(&db, &mk_clib_app_hosts_tree_rw_callback_collect, ((mk_lang_types_uintptr_t)(&hosts))); mk_lang_check_rereturn(err);
+	err = mk_clib_app_hosts_tree_rw_sort(&hosts); mk_lang_check_rereturn(err);
+	err = mk_clib_app_hosts_tree_rw_writf(&hosts); mk_lang_check_rereturn(err);
+	err = mk_clib_app_phosts_domains_rw_destroy(&hosts); mk_lang_check_rereturn(err);
+	err = mk_clib_app_hosts_tree_rw_destruct(&db); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -868,7 +891,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_g
 {
 	mk_lang_types_sint_t err;
 	mk_clib_app_hosts_entries_t entries;
-	mk_clib_app_hosts_tree_t db;
 	mk_lang_types_pchar_t nl_pchar;
 	mk_sl_cui_uint8_t nl_u8;
 	mk_lang_types_pchar_t eq_pchar;
@@ -921,7 +943,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_g
 	mk_lang_assert(lens[0] >= 1);
 
 	err = mk_clib_app_hosts_entries_rw_construct(&entries); mk_lang_check_rereturn(err);
-	err = mk_clib_app_hosts_tree_rw_construct(&db); mk_lang_check_rereturn(err);
 	nl_pchar = '\x0a'; mk_sl_cui_uint8_from_bi_pchar(&nl_u8, &nl_pchar);
 	eq_pchar = '='; mk_sl_cui_uint8_from_bi_pchar(&eq_u8, &eq_pchar);
 	sp_pchar = ' '; mk_sl_cui_uint8_from_bi_pchar(&sp_u8, &sp_pchar);
@@ -988,7 +1009,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_g
 				mk_lib_crypto_hash_stream_sha2_256_finish(&hasher, &digest);
 				err = mk_clib_app_hosts_domain_rw_construct_void(&domain); mk_lang_check_rereturn(err);
 				err = mk_clib_app_hosts_domain_rw_push_back_copy_many(&domain, &data_ptr[domain_beg], ((mk_lang_types_usize_t)(domain_len))); mk_lang_check_rereturn(err);
-				err = mk_clib_app_hosts_tree_rw_add(&db, &digest, &domain); mk_lang_check_rereturn(err);
 				err = mk_clib_app_hosts_entries_rw_add(&entries, &domain, &digest, remote_destination.m_certificate.m_cert_type, remote_destination.m_certificate.m_cert_data.m_data.m_key.m_sgn_type, remote_destination.m_certificate.m_cert_data.m_data.m_key.m_enc_type); mk_lang_check_rereturn(err);
 				err = mk_clib_app_hosts_domain_rw_destroy(&domain); mk_lang_check_rereturn(err);
 				mk_lib_iip_base32_encoder_fn(&digest.m_data.m_uint8s[0], mk_lib_crypto_hash_stream_sha2_256_digest_len_v, &b32_buf[mk_lang_countstr(mk_clib_app_hosts_b32_prefix)], mk_lang_roundup_div(mk_lib_crypto_hash_stream_sha2_256_digest_len_v * 8, 5), &b32_len); mk_lang_check_return(b32_len == mk_lang_roundup_div(mk_lib_crypto_hash_stream_sha2_256_digest_len_v * 8, 5));
@@ -1027,11 +1047,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_g
 	err = mk_sl_io_reader_file_close(&reader); mk_lang_check_rereturn(err);
 	err = mk_sl_io_writer_file_close(&addresses_csv); mk_lang_check_rereturn(err);
 	err = mk_sl_dynamic_ring_u8_rw_destroy(&ring); mk_lang_check_rereturn(err);
-	err = mk_clib_app_hosts_tree_rw_write(&db); mk_lang_check_rereturn(err);
 	err = mk_clib_app_hosts_entries_rw_deduplicate(&entries); mk_lang_check_rereturn(err);
 	err = mk_clib_app_hosts_entries_rw_sort_by_domain_and_write(&entries); mk_lang_check_rereturn(err);
 	err = mk_clib_app_hosts_entries_rw_sort_by_b32_and_write(&entries); mk_lang_check_rereturn(err);
-	err = mk_clib_app_hosts_tree_rw_destruct(&db); mk_lang_check_rereturn(err);
+	err = mk_clib_app_hosts_tree_rw_write(&entries); mk_lang_check_rereturn(err);
 	err = mk_clib_app_hosts_entries_rw_destroy(&entries); mk_lang_check_rereturn(err);
 	return 0;
 }
