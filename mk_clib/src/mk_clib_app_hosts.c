@@ -34,22 +34,22 @@
 
 
 
-	#define mk_clib_app_hosts_buf_len (4 * 1024)
-	#define mk_clib_app_hosts_buf_alg (4 * 1024)
-	#define mk_clib_app_hosts_domain_prefix "http://"
-	#define mk_clib_app_hosts_domain_suffix ".i2p"
-	#define mk_clib_app_hosts_b32_prefix "http://"
-	#define mk_clib_app_hosts_b32_suffix ".b32.i2p"
-	#define mk_clib_app_hosts_duplicate_1_prefix " - "
-	#define mk_clib_app_hosts_duplicate_2_prefix "   - "
-	#define mk_clib_app_hosts_b32_cert_null "null"
-	#define mk_clib_app_hosts_b32_cert_key_0_0 "key(ElGamal, DSA/SHA-1)"
-	#define mk_clib_app_hosts_b32_cert_key_0_1 "key(ElGamal, ECDSA/SHA-256/P256)"
-	#define mk_clib_app_hosts_b32_cert_key_0_3 "key(ElGamal, ECDSA/SHA-512/P521)"
-	#define mk_clib_app_hosts_b32_cert_key_0_7 "key(ElGamal, EdDSA/SHA-512/Ed25519)"
-	#define mk_clib_app_hosts_b32_cert_key_0_11 "key(ElGamal, RedDSA/SHA-512/Ed25519)"
-	#define mk_clib_app_hosts_b32_cert_signed "signed"
-	#define mk_clib_app_hosts_b32_cert_hidden "hidden"
+#define mk_clib_app_hosts_buf_len (4 * 1024)
+#define mk_clib_app_hosts_buf_alg (4 * 1024)
+#define mk_clib_app_hosts_domain_prefix "http://"
+#define mk_clib_app_hosts_domain_suffix ".i2p"
+#define mk_clib_app_hosts_b32_prefix "http://"
+#define mk_clib_app_hosts_b32_suffix ".b32.i2p"
+#define mk_clib_app_hosts_duplicate_1_prefix " - "
+#define mk_clib_app_hosts_duplicate_2_prefix "   - "
+#define mk_clib_app_hosts_b32_cert_null "null"
+#define mk_clib_app_hosts_b32_cert_key_0_0 "key(ElGamal, DSA/SHA-1)"
+#define mk_clib_app_hosts_b32_cert_key_0_1 "key(ElGamal, ECDSA/SHA-256/P256)"
+#define mk_clib_app_hosts_b32_cert_key_0_3 "key(ElGamal, ECDSA/SHA-512/P521)"
+#define mk_clib_app_hosts_b32_cert_key_0_7 "key(ElGamal, EdDSA/SHA-512/Ed25519)"
+#define mk_clib_app_hosts_b32_cert_key_0_11 "key(ElGamal, RedDSA/SHA-512/Ed25519)"
+#define mk_clib_app_hosts_b32_cert_signed "signed"
+#define mk_clib_app_hosts_b32_cert_hidden "hidden"
 
 
 
