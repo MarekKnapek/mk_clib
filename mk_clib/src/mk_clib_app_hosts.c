@@ -388,10 +388,51 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t m
 	cb = ca < 0;
 	return cb;
 }
-
 #define mk_sl_sort_merge_t_name mk_clib_app_hosts_entries_sort_b32
 #define mk_sl_sort_merge_t_element_type mk_lang_types_sint_t
 #define mk_sl_sort_merge_t_element_is_sorted mk_clib_app_hosts_entry_ro_is_sorted_indirect
+#define mk_sl_sort_merge_t_context_type mk_clib_app_hosts_entry_pct
+#include "mk_sl_sort_merge_inl_fileh.h"
+#include "mk_sl_sort_merge_inl_filec.h"
+#include "mk_sl_sort_merge_inl_fileu.h"
+
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t mk_clib_app_hosts_entry_ro_is_sorted_domain_indirect(mk_clib_app_hosts_entry_pct const context, mk_lang_types_sint_pct const a, mk_lang_types_sint_pct const b) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pct domain_a_buf mk_lang_constexpr_init;
+	mk_sl_cui_uint8_pct domain_b_buf mk_lang_constexpr_init;
+	mk_lang_types_usize_t domain_a_len mk_lang_constexpr_init;
+	mk_lang_types_usize_t domain_b_len mk_lang_constexpr_init;
+	mk_lang_types_usize_t domain_len mk_lang_constexpr_init;
+	mk_lang_types_sint_t ca mk_lang_constexpr_init;
+	mk_lang_types_pchar_t b32str_a[mk_lang_roundup_div(mk_lib_crypto_hash_stream_sha2_256_digest_len_v * 8, 5)] mk_lang_constexpr_init;
+	mk_lang_types_sint_t len mk_lang_constexpr_init;
+	mk_lang_types_pchar_t b32str_b[mk_lang_roundup_div(mk_lib_crypto_hash_stream_sha2_256_digest_len_v * 8, 5)] mk_lang_constexpr_init;
+	mk_lang_types_bool_t cb mk_lang_constexpr_init;
+
+	mk_lang_assert(context);
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+
+	domain_a_buf = mk_clib_app_hosts_domain_ro_data(&context[*a].m_domain); mk_lang_assert(domain_a_buf);
+	domain_b_buf = mk_clib_app_hosts_domain_ro_data(&context[*b].m_domain); mk_lang_assert(domain_b_buf);
+	domain_a_len = mk_clib_app_hosts_domain_ro_size(&context[*a].m_domain);
+	domain_b_len = mk_clib_app_hosts_domain_ro_size(&context[*b].m_domain);
+	mk_sl_cui_uint8_set_zero(&((mk_sl_cui_uint8_pt)(domain_a_buf))[domain_a_len]);
+	mk_sl_cui_uint8_set_zero(&((mk_sl_cui_uint8_pt)(domain_b_buf))[domain_b_len]);
+	domain_len = mk_lang_min(domain_a_len, domain_b_len);
+	ca = mk_sl_cui_uint8_memcmp_fn(domain_a_buf, domain_b_buf, domain_len + 1);
+	if(ca == 0)
+	{
+		mk_lib_iip_base32_encoder_fn(&context[*a].m_b32.m_data.m_uint8s[0], mk_lib_crypto_hash_stream_sha2_256_digest_len_v, &b32str_a[0], mk_lang_countof(b32str_a), &len); mk_lang_check_return(len == mk_lang_countof(b32str_a));
+		mk_lib_iip_base32_encoder_fn(&context[*b].m_b32.m_data.m_uint8s[0], mk_lib_crypto_hash_stream_sha2_256_digest_len_v, &b32str_b[0], mk_lang_countof(b32str_b), &len); mk_lang_check_return(len == mk_lang_countof(b32str_b));
+		ca = mk_lang_string_memcmp_pc_fn(&b32str_a[0], &b32str_b[0], mk_lang_countof(b32str_a));
+	}
+	cb = ca < 0;
+	return cb;
+}
+#define mk_sl_sort_merge_t_name mk_clib_app_hosts_entries_sort_domain
+#define mk_sl_sort_merge_t_element_type mk_lang_types_sint_t
+#define mk_sl_sort_merge_t_element_is_sorted mk_clib_app_hosts_entry_ro_is_sorted_domain_indirect
 #define mk_sl_sort_merge_t_context_type mk_clib_app_hosts_entry_pct
 #include "mk_sl_sort_merge_inl_fileh.h"
 #include "mk_sl_sort_merge_inl_filec.h"
@@ -418,13 +459,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_e
 	return 0;
 }
 
-#define mk_clib_app_hosts_entries_rw_write_header_k_msg \
-"| b32 | domain | cert |" "\x0a" \
-"| ---------- | ---------- | ---------- |" "\x0a" \
-""
-
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_entries_rw_write_header(mk_sl_io_writer_file_pt const writer) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_entries_rw_write_header_b32(mk_sl_io_writer_file_pt const writer) mk_lang_noexcept
 {
+	#define mk_clib_app_hosts_entries_rw_write_header_b32_k_msg \
+	"| b32 | domain | cert |" "\x0a" \
+	"| ---------- | ---------- | ---------- |" "\x0a" \
+	""
+
 	mk_sl_cui_uint8_pct hdr_buf;
 	mk_lang_types_sint_t hdr_len;
 	mk_lang_types_sint_t err;
@@ -432,13 +473,33 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_e
 
 	mk_lang_assert(writer);
 
-	hdr_buf = ((mk_sl_cui_uint8_pct)(&mk_clib_app_hosts_entries_rw_write_header_k_msg[0]));
-	hdr_len = mk_lang_countstr(mk_clib_app_hosts_entries_rw_write_header_k_msg);
+	hdr_buf = ((mk_sl_cui_uint8_pct)(&mk_clib_app_hosts_entries_rw_write_header_b32_k_msg[0]));
+	hdr_len = mk_lang_countstr(mk_clib_app_hosts_entries_rw_write_header_b32_k_msg);
 	err = mk_sl_io_writer_file_write(writer, hdr_buf, hdr_len, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == hdr_len);
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_entries_rw_write_entry(mk_sl_io_writer_file_pt const writer, mk_clib_app_hosts_entry_pct const entry) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_entries_rw_write_header_domain(mk_sl_io_writer_file_pt const writer) mk_lang_noexcept
+{
+	#define mk_clib_app_hosts_entries_rw_write_header_domain_k_msg \
+	"| domain | b32 | cert |" "\x0a" \
+	"| ---------- | ---------- | ---------- |" "\x0a" \
+	""
+
+	mk_sl_cui_uint8_pct hdr_buf;
+	mk_lang_types_sint_t hdr_len;
+	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t written;
+
+	mk_lang_assert(writer);
+
+	hdr_buf = ((mk_sl_cui_uint8_pct)(&mk_clib_app_hosts_entries_rw_write_header_domain_k_msg[0]));
+	hdr_len = mk_lang_countstr(mk_clib_app_hosts_entries_rw_write_header_domain_k_msg);
+	err = mk_sl_io_writer_file_write(writer, hdr_buf, hdr_len, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == hdr_len);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_entries_rw_write_entry_b32(mk_sl_io_writer_file_pt const writer, mk_clib_app_hosts_entry_pct const entry) mk_lang_noexcept
 {
 	mk_lang_types_pchar_t nl_pchar;
 	mk_sl_cui_uint8_t nl_u8;
@@ -516,7 +577,85 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_e
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_entries_rw_write_sorted(mk_clib_app_hosts_entries_pct const entries, mk_lang_types_sint_pct const sort_order) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_entries_rw_write_entry_domain(mk_sl_io_writer_file_pt const writer, mk_clib_app_hosts_entry_pct const entry) mk_lang_noexcept
+{
+	mk_lang_types_pchar_t nl_pchar;
+	mk_sl_cui_uint8_t nl_u8;
+	mk_lang_types_pchar_t sp_pchar;
+	mk_sl_cui_uint8_t sp_u8;
+	mk_lang_types_pchar_t ba_pchar;
+	mk_sl_cui_uint8_t ba_u8;
+	mk_lang_types_pchar_t b32_buf[mk_lang_countstr(mk_clib_app_hosts_b32_prefix) + mk_lang_roundup_div(mk_lib_crypto_hash_stream_sha2_256_digest_len_v * 8, 5) + mk_lang_countstr(mk_clib_app_hosts_b32_suffix)];
+	mk_lang_types_sint_t b32_len;
+	mk_lang_types_pchar_pct cert_buf;
+	mk_lang_types_sint_t cert_len;
+	mk_sl_cui_uint8_pct domain_buf;
+	mk_lang_types_sint_t domain_len;
+	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t written;
+
+	mk_lang_assert(writer);
+	mk_lang_assert(entry);
+
+	nl_pchar = '\x0a'; mk_sl_cui_uint8_from_bi_pchar(&nl_u8, &nl_pchar);
+	sp_pchar = ' '; mk_sl_cui_uint8_from_bi_pchar(&sp_u8, &sp_pchar);
+	ba_pchar = '|'; mk_sl_cui_uint8_from_bi_pchar(&ba_u8, &ba_pchar);
+	mk_lang_string_memcpy_pc_fn(&b32_buf[0], &mk_clib_app_hosts_b32_prefix[0], mk_lang_countstr(mk_clib_app_hosts_b32_prefix));
+	mk_lang_string_memcpy_pc_fn(&b32_buf[mk_lang_countof(b32_buf) - mk_lang_countstr(mk_clib_app_hosts_b32_suffix)], &mk_clib_app_hosts_b32_suffix[0], mk_lang_countstr(mk_clib_app_hosts_b32_suffix));
+	mk_lib_iip_base32_encoder_fn(&entry->m_b32.m_data.m_uint8s[0], mk_lib_crypto_hash_stream_sha2_256_digest_len_v, &b32_buf[mk_lang_countstr(mk_clib_app_hosts_b32_prefix)], mk_lang_roundup_div(mk_lib_crypto_hash_stream_sha2_256_digest_len_v * 8, 5), &b32_len); mk_lang_check_return(b32_len == mk_lang_roundup_div(mk_lib_crypto_hash_stream_sha2_256_digest_len_v * 8, 5));
+	cert_buf = mk_lang_null;
+	cert_len = 0;
+	switch(entry->m_cert_type)
+	{
+		case mk_lib_iip_cp_destination_cert_type_e_null: cert_buf = &mk_clib_app_hosts_b32_cert_null[0]; cert_len = mk_lang_countstr(mk_clib_app_hosts_b32_cert_null); break;
+		case mk_lib_iip_cp_destination_cert_type_e_hidden: cert_buf = &mk_clib_app_hosts_b32_cert_hidden[0]; cert_len = mk_lang_countstr(mk_clib_app_hosts_b32_cert_hidden); break;
+		case mk_lib_iip_cp_destination_cert_type_e_signeda: cert_buf = &mk_clib_app_hosts_b32_cert_signed[0]; cert_len = mk_lang_countstr(mk_clib_app_hosts_b32_cert_signed); break;
+		case mk_lib_iip_cp_destination_cert_type_e_signedb: cert_buf = &mk_clib_app_hosts_b32_cert_signed[0]; cert_len = mk_lang_countstr(mk_clib_app_hosts_b32_cert_signed); break;
+		case mk_lib_iip_cp_destination_cert_type_e_key:
+			#include "mk_lang_warning_msvc_push_c4127.h"
+			if(mk_lang_false){}
+			#include "mk_lang_warning_msvc_pop.h"
+			else if(entry->m_enc_type == mk_lib_iip_cp_destination_certificate_key_enc_type_e_elgamal && entry->m_sgn_type == mk_lib_iip_cp_destination_certificate_key_sgn_type_e_dsa_sha1             ){ cert_buf = &mk_clib_app_hosts_b32_cert_key_0_0 [0]; cert_len = mk_lang_countstr(mk_clib_app_hosts_b32_cert_key_0_0 ); }
+			else if(entry->m_enc_type == mk_lib_iip_cp_destination_certificate_key_enc_type_e_elgamal && entry->m_sgn_type == mk_lib_iip_cp_destination_certificate_key_sgn_type_e_ecdsa_sha256_p256    ){ cert_buf = &mk_clib_app_hosts_b32_cert_key_0_1 [0]; cert_len = mk_lang_countstr(mk_clib_app_hosts_b32_cert_key_0_1 ); }
+			else if(entry->m_enc_type == mk_lib_iip_cp_destination_certificate_key_enc_type_e_elgamal && entry->m_sgn_type == mk_lib_iip_cp_destination_certificate_key_sgn_type_e_eddsa_sha512_ed25519 ){ cert_buf = &mk_clib_app_hosts_b32_cert_key_0_7 [0]; cert_len = mk_lang_countstr(mk_clib_app_hosts_b32_cert_key_0_7 ); }
+			else if(entry->m_enc_type == mk_lib_iip_cp_destination_certificate_key_enc_type_e_elgamal && entry->m_sgn_type == mk_lib_iip_cp_destination_certificate_key_sgn_type_e_ecdsa_sha512_p521    ){ cert_buf = &mk_clib_app_hosts_b32_cert_key_0_3 [0]; cert_len = mk_lang_countstr(mk_clib_app_hosts_b32_cert_key_0_3 ); }
+			else if(entry->m_enc_type == mk_lib_iip_cp_destination_certificate_key_enc_type_e_elgamal && entry->m_sgn_type == mk_lib_iip_cp_destination_certificate_key_sgn_type_e_reddsa_sha512_ed25519){ cert_buf = &mk_clib_app_hosts_b32_cert_key_0_11[0]; cert_len = mk_lang_countstr(mk_clib_app_hosts_b32_cert_key_0_11); }
+			else{ mk_lang_check_todo(); }
+		break;
+		case mk_lib_iip_cp_destination_cert_type_e_dummy_end: mk_lang_assert_false(); break;
+		default: mk_lang_assert_false(); break;
+	}
+	mk_lang_clobber(&cert_buf);
+	mk_lang_clobber(&cert_len);
+
+	domain_buf = mk_clib_app_hosts_domain_ro_data(&entry->m_domain);
+	domain_len = mk_clib_app_hosts_domain_ro_sise(&entry->m_domain);
+
+	err = mk_sl_io_writer_file_write(writer, &ba_u8, 1, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == 1);
+	err = mk_sl_io_writer_file_write(writer, &sp_u8, 1, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == 1);
+
+	err = mk_sl_io_writer_file_write(writer, ((mk_sl_cui_uint8_pct)(&mk_clib_app_hosts_b32_prefix[0])), mk_lang_countstr(mk_clib_app_hosts_b32_prefix), &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == mk_lang_countstr(mk_clib_app_hosts_b32_prefix));
+	err = mk_sl_io_writer_file_write(writer, domain_buf, domain_len, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == domain_len);
+
+	err = mk_sl_io_writer_file_write(writer, &sp_u8, 1, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == 1);
+	err = mk_sl_io_writer_file_write(writer, &ba_u8, 1, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == 1);
+	err = mk_sl_io_writer_file_write(writer, &sp_u8, 1, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == 1);
+
+	err = mk_sl_io_writer_file_write(writer, ((mk_sl_cui_uint8_pct)(&b32_buf[0])), mk_lang_countof(b32_buf), &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == mk_lang_countof(b32_buf));
+
+	err = mk_sl_io_writer_file_write(writer, &sp_u8, 1, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == 1);
+	err = mk_sl_io_writer_file_write(writer, &ba_u8, 1, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == 1);
+	err = mk_sl_io_writer_file_write(writer, &sp_u8, 1, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == 1);
+
+	err = mk_sl_io_writer_file_write(writer, ((mk_sl_cui_uint8_pct)(cert_buf)), cert_len, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == cert_len);
+	err = mk_sl_io_writer_file_write(writer, &sp_u8, 1, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == 1);
+	err = mk_sl_io_writer_file_write(writer, &ba_u8, 1, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == 1);
+
+	err = mk_sl_io_writer_file_write(writer, &nl_u8, 1, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == 1);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_entries_rw_write_sorted_b32(mk_clib_app_hosts_entries_pct const entries, mk_lang_types_sint_pct const sort_order) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 	mk_sl_io_writer_file_t writer;
@@ -529,19 +668,69 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_e
 	mk_lang_assert(sort_order);
 
 	err = mk_sl_io_writer_file_open_n(&writer, "b32s.md"); mk_lang_check_rereturn(err);
-	err = mk_clib_app_hosts_entries_rw_write_header(&writer); mk_lang_check_rereturn(err);
+	err = mk_clib_app_hosts_entries_rw_write_header_b32(&writer); mk_lang_check_rereturn(err);
 	n = mk_clib_app_hosts_entries_ro_sise(entries);
 	for(i = 0; i != n; ++i)
 	{
 		idx = sort_order[i]; mk_lang_assert(idx >= 0); mk_lang_assert(idx < n);
 		entry = mk_clib_app_hosts_entries_ro_at(entries, ((mk_lang_types_usize_t)(idx))); mk_lang_assert(entry);
-		err = mk_clib_app_hosts_entries_rw_write_entry(&writer, entry); mk_lang_check_rereturn(err);
+		err = mk_clib_app_hosts_entries_rw_write_entry_b32(&writer, entry); mk_lang_check_rereturn(err);
 	}
 	err = mk_sl_io_writer_file_close(&writer); mk_lang_check_rereturn(err);
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_entries_rw_sort_and_write(mk_clib_app_hosts_entries_pct const entries) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_entries_rw_write_sorted_domain(mk_clib_app_hosts_entries_pct const entries, mk_lang_types_sint_pct const sort_order) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	mk_sl_io_writer_file_t writer;
+	mk_lang_types_sint_t n;
+	mk_lang_types_sint_t i;
+	mk_lang_types_sint_t idx;
+	mk_clib_app_hosts_entry_pct entry;
+
+	mk_lang_assert(entries);
+	mk_lang_assert(sort_order);
+
+	err = mk_sl_io_writer_file_open_n(&writer, "hosts.md"); mk_lang_check_rereturn(err);
+	err = mk_clib_app_hosts_entries_rw_write_header_domain(&writer); mk_lang_check_rereturn(err);
+	n = mk_clib_app_hosts_entries_ro_sise(entries);
+	for(i = 0; i != n; ++i)
+	{
+		idx = sort_order[i]; mk_lang_assert(idx >= 0); mk_lang_assert(idx < n);
+		entry = mk_clib_app_hosts_entries_ro_at(entries, ((mk_lang_types_usize_t)(idx))); mk_lang_assert(entry);
+		err = mk_clib_app_hosts_entries_rw_write_entry_domain(&writer, entry); mk_lang_check_rereturn(err);
+	}
+	err = mk_sl_io_writer_file_close(&writer); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_entries_rw_sort_by_domain_and_write(mk_clib_app_hosts_entries_pct const entries) mk_lang_noexcept
+{
+	mk_lang_types_usize_t count;
+	mk_lang_types_sint_t err;
+	mk_clib_app_hosts_ints_t ints;
+	mk_clib_app_hosts_entry_pct data_entries;
+	mk_lang_types_sint_pt data_ints;
+
+	mk_lang_assert(entries);
+
+	if(!mk_clib_app_hosts_entries_ro_is_empty(entries))
+	{
+		count = mk_clib_app_hosts_entries_ro_size(entries);
+		err = mk_clib_app_hosts_ints_rw_construct(&ints); mk_lang_check_rereturn(err);
+		err = mk_clib_app_hosts_ints_rw_resize_to(&ints, count * 2); mk_lang_check_rereturn(err);
+		data_entries = mk_clib_app_hosts_entries_ro_data(entries); mk_lang_assert(data_entries);
+		data_ints = mk_clib_app_hosts_ints_rw_data(&ints); mk_lang_assert(data_ints);
+		mk_lang_alg_iota_sint_usize_fn(data_ints, count);
+		mk_clib_app_hosts_entries_sort_domain_fn(data_entries, &data_ints[0], count, &data_ints[count]);
+		err = mk_clib_app_hosts_entries_rw_write_sorted_domain(entries, data_ints); mk_lang_check_rereturn(err);
+		err = mk_clib_app_hosts_ints_rw_destroy(&ints); mk_lang_check_rereturn(err);
+	}
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_entries_rw_sort_by_b32_and_write(mk_clib_app_hosts_entries_pct const entries) mk_lang_noexcept
 {
 	mk_lang_types_usize_t count;
 	mk_lang_types_sint_t err;
@@ -560,7 +749,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_e
 		data_ints = mk_clib_app_hosts_ints_rw_data(&ints); mk_lang_assert(data_ints);
 		mk_lang_alg_iota_sint_usize_fn(data_ints, count);
 		mk_clib_app_hosts_entries_sort_b32_fn(data_entries, &data_ints[0], count, &data_ints[count]);
-		err = mk_clib_app_hosts_entries_rw_write_sorted(entries, data_ints); mk_lang_check_rereturn(err);
+		err = mk_clib_app_hosts_entries_rw_write_sorted_b32(entries, data_ints); mk_lang_check_rereturn(err);
 		err = mk_clib_app_hosts_ints_rw_destroy(&ints); mk_lang_check_rereturn(err);
 	}
 	return 0;
@@ -609,7 +798,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_g
 	mk_lang_types_sint_t read_data_cap;
 	mk_sl_dynamic_ring_u8_t ring;
 	mk_sl_io_reader_file_t reader;
-	mk_sl_io_writer_file_t writer;
 	mk_sl_io_writer_file_t addresses_csv;
 	mk_lang_types_sint_t read_data_len;
 	mk_sl_cui_uint8_pt data_ptr;
@@ -656,7 +844,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_g
 	read_data_cap = mk_clib_app_hosts_buf_len;
 	err = mk_sl_dynamic_ring_u8_rw_construct(&ring); mk_lang_check_rereturn(err);
 	err = mk_sl_io_reader_file_open_n(&reader, "hosts.txt"); mk_lang_check_rereturn(err);
-	err = mk_sl_io_writer_file_open_n(&writer, "hosts.md"); mk_lang_check_rereturn(err);
 	err = mk_sl_io_writer_file_open_n(&addresses_csv, "addresses.csv"); mk_lang_check_rereturn(err);
 	for(;;)
 	{
@@ -741,21 +928,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_g
 			}
 			mk_lang_clobber(&cert_buf);
 			mk_lang_clobber(&cert_len);
-			err = mk_sl_io_writer_file_write(&writer, &ba_u8, 1, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == 1);
-			err = mk_sl_io_writer_file_write(&writer, &sp_u8, 1, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == 1);
-			err = mk_sl_io_writer_file_write(&writer, ((mk_sl_cui_uint8_pct)(&mk_clib_app_hosts_b32_prefix[0])), mk_lang_countstr(mk_clib_app_hosts_b32_prefix), &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == mk_lang_countstr(mk_clib_app_hosts_b32_prefix));
-			err = mk_sl_io_writer_file_write(&writer, &data_ptr[domain_beg], domain_len, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == domain_len);
-			err = mk_sl_io_writer_file_write(&writer, &sp_u8, 1, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == 1);
-			err = mk_sl_io_writer_file_write(&writer, &ba_u8, 1, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == 1);
-			err = mk_sl_io_writer_file_write(&writer, &sp_u8, 1, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == 1);
-			err = mk_sl_io_writer_file_write(&writer, ((mk_sl_cui_uint8_pct)(&b32_buf[0])), mk_lang_countof(b32_buf), &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == mk_lang_countof(b32_buf));
-			err = mk_sl_io_writer_file_write(&writer, &sp_u8, 1, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == 1);
-			err = mk_sl_io_writer_file_write(&writer, &ba_u8, 1, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == 1);
-			err = mk_sl_io_writer_file_write(&writer, &sp_u8, 1, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == 1);
-			err = mk_sl_io_writer_file_write(&writer, ((mk_sl_cui_uint8_pct)(cert_buf)), cert_len, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == cert_len);
-			err = mk_sl_io_writer_file_write(&writer, &sp_u8, 1, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == 1);
-			err = mk_sl_io_writer_file_write(&writer, &ba_u8, 1, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == 1);
-			err = mk_sl_io_writer_file_write(&writer, &nl_u8, 1, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == 1);
 			err = mk_sl_io_writer_file_write(&addresses_csv, &data_ptr[domain_beg], domain_len, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == domain_len);
 			err = mk_sl_io_writer_file_write(&addresses_csv, &cm_u8, 1, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == 1);
 			err = mk_sl_io_writer_file_write(&addresses_csv, ((mk_sl_cui_uint8_pct)(&b32_buf[0] + mk_lang_countstr(mk_clib_app_hosts_b32_prefix))), mk_lang_countof(b32_buf) - mk_lang_countstr(mk_clib_app_hosts_b32_prefix) - mk_lang_countstr(mk_clib_app_hosts_b32_suffix), &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == mk_lang_countof(b32_buf) - mk_lang_countstr(mk_clib_app_hosts_b32_prefix) - mk_lang_countstr(mk_clib_app_hosts_b32_suffix));
@@ -764,11 +936,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_g
 		}
 	}
 	err = mk_sl_io_reader_file_close(&reader); mk_lang_check_rereturn(err);
-	err = mk_sl_io_writer_file_close(&writer); mk_lang_check_rereturn(err);
 	err = mk_sl_io_writer_file_close(&addresses_csv); mk_lang_check_rereturn(err);
 	err = mk_sl_dynamic_ring_u8_rw_destroy(&ring); mk_lang_check_rereturn(err);
 	err = mk_clib_app_hosts_tree_rw_write(&db); mk_lang_check_rereturn(err);
-	err = mk_clib_app_hosts_entries_rw_sort_and_write(&entries); mk_lang_check_rereturn(err);
+	err = mk_clib_app_hosts_entries_rw_sort_by_domain_and_write(&entries); mk_lang_check_rereturn(err);
+	err = mk_clib_app_hosts_entries_rw_sort_by_b32_and_write(&entries); mk_lang_check_rereturn(err);
 	err = mk_clib_app_hosts_tree_rw_destruct(&db); mk_lang_check_rereturn(err);
 	err = mk_clib_app_hosts_entries_rw_destroy(&entries); mk_lang_check_rereturn(err);
 	return 0;
