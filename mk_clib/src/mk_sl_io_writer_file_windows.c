@@ -31,7 +31,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_writer_file_window
 	mk_lang_assert(writer);
 	mk_lang_assert(name && name[0] != '\0');
 
-	handle = mk_win_dll_kernel_files_a_create_file(name, ((mk_win_base_dword_t)(mk_win_dll_advapi_right_generic_e_write)), mk_win_dll_kernel_files_share_e_delete, mk_win_base_null, mk_win_dll_kernel_files_create_e_open_always, mk_win_dll_kernel_files_flag_e_none, mk_win_base_handle_get_null()); mk_lang_check_return(mk_sl_io_writer_file_windows_is_valid(handle));
+	handle = mk_win_dll_kernel_files_a_create_file(name, ((mk_win_base_dword_t)(mk_win_dll_advapi_right_generic_e_write)), mk_win_dll_kernel_files_share_e_delete, mk_win_base_null, mk_win_dll_kernel_files_create_e_create_always, mk_win_dll_kernel_files_flag_e_none, mk_win_base_handle_get_null()); mk_lang_check_return(mk_sl_io_writer_file_windows_is_valid(handle));
 	writer->m_file_handle = handle;
 	return 0;
 }
@@ -43,7 +43,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_writer_file_window
 	mk_lang_assert(writer);
 	mk_lang_assert(name && name[0] != L'\0');
 
-	handle = mk_win_dll_kernel_files_w_create_file(name, ((mk_win_base_dword_t)(mk_win_dll_advapi_right_generic_e_write)), mk_win_dll_kernel_files_share_e_delete, mk_win_base_null, mk_win_dll_kernel_files_create_e_truncate_existing, mk_win_dll_kernel_files_flag_e_none, mk_win_base_handle_get_null()); mk_lang_check_return(mk_sl_io_writer_file_windows_is_valid(handle));
+	handle = mk_win_dll_kernel_files_w_create_file(name, ((mk_win_base_dword_t)(mk_win_dll_advapi_right_generic_e_write)), mk_win_dll_kernel_files_share_e_delete, mk_win_base_null, mk_win_dll_kernel_files_create_e_create_always, mk_win_dll_kernel_files_flag_e_none, mk_win_base_handle_get_null()); mk_lang_check_return(mk_sl_io_writer_file_windows_is_valid(handle));
 	writer->m_file_handle = handle;
 	return 0;
 }
