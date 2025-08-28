@@ -1,5 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+	<Type Name="mk_clib_app_hosts_entries_s">
+		<DisplayString>{{ size = {m_size} capacity = {m_capacity} }}</DisplayString>
+		<Expand>
+			<Item Name="[size]">m_size</Item>
+			<Item Name="[capacity]">m_capacity</Item>
+			<ArrayItems>
+				<Size>m_size</Size>
+				<ValuePointer>m_buffer</ValuePointer>
+			</ArrayItems>
+		</Expand>
+	</Type>
+	<Type Name="mk_clib_app_hosts_ints_s">
+		<DisplayString>{{ size = {m_size} capacity = {m_capacity} }}</DisplayString>
+		<Expand>
+			<Item Name="[size]">m_size</Item>
+			<Item Name="[capacity]">m_capacity</Item>
+			<ArrayItems>
+				<Size>m_size</Size>
+				<ValuePointer>m_buffer</ValuePointer>
+			</ArrayItems>
+		</Expand>
+	</Type>
 	<Type Name="mk_clib_app_hosts_domains_s">
 		<DisplayString>{{ size = {m_size} capacity = {m_capacity} }}</DisplayString>
 		<Expand>
