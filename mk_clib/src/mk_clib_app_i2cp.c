@@ -162,9 +162,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_i2cp_ch
 			error_code_out = mk_lib_iip_cp_message_serialize_error_code_e_ok; err = mk_lib_iip_cp_message_serialize_message(&out_buf[0], mk_lang_countof(out_buf), &error_code_out, &consumed_out, &msg); mk_lang_check_rereturn(err);
 			mk_lang_check_return(error_code_out == mk_lib_iip_cp_message_serialize_error_code_e_ok);
 			mk_lang_check_return(consumed_out == consumed_in);
-			mk_lang_check_return(mk_sl_cui_uint8_memcmp_fn(&out_buf[0], data_buf, consumed_out) == 0);
+			mk_lang_check_return(mk_sl_cui_uint8_memcmp_fn(&out_buf[0], data_buf, ((mk_lang_types_usize_t)(consumed_out))) == 0);
 		}
-		err = mk_sl_dynamic_ring_u8_rw_pop_front_many(ring, consumed_in); mk_lang_check_rereturn(err);
+		err = mk_sl_dynamic_ring_u8_rw_pop_front_many(ring, ((mk_lang_types_usize_t)(consumed_in))); mk_lang_check_rereturn(err);
 	}
 	return 0;
 }
@@ -189,7 +189,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_i2cp_ch
 	mk_lang_assert(data_len >= 0);
 
 	target = from_client ? &checker->m_client_to_server : &checker->m_server_to_client;
-	err = mk_sl_dynamic_ring_u8_rw_push_back_copy_many(target, data_buf, data_len); mk_lang_check_rereturn(err);
+	err = mk_sl_dynamic_ring_u8_rw_push_back_copy_many(target, data_buf, ((mk_lang_types_usize_t)(data_len))); mk_lang_check_rereturn(err);
 	err = mk_clib_app_i2cp_checker_rw_check_introducer(checker); mk_lang_check_rereturn(err);
 	err = mk_clib_app_i2cp_checker_rw_check_message_serialization(checker); mk_lang_check_rereturn(err);
 	return 0;
