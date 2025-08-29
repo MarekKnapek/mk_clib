@@ -1260,6 +1260,13 @@
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_alg_iota_inl_defu.h.m4"><Filter>src</Filter></None>
 	</ItemGroup>
 	<ItemGroup>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_message_strings.c"><Filter>src</Filter></ClCompile>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_message_strings.h"><Filter>src</Filter></ClInclude>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_message_strings.c.m4"><Filter>src</Filter></None>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_message_strings.h.m4"><Filter>src</Filter></None>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_message_strings.m"><Filter>src</Filter></None>
+	</ItemGroup>
+	<ItemGroup>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_hosts.c"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_i2cp.c"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_iip.c"><Filter>src</Filter></ClCompile>
