@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+	<Type Name="mk_lib_iip_cp_types_date_seconds_s">
+		<Intrinsic Name="k_seconds_per_minute" Expression="60"/>
+		<Intrinsic Name="k_minutes_per_hour" Expression="60"/>
+		<Intrinsic Name="k_hours_per_day" Expression="24"/>
+		<!-- ========== -->
+		<Intrinsic Name="k_seconds_per_day" Expression="k_seconds_per_minute() * k_minutes_per_hour() * k_hours_per_day()"/>
+		<Intrinsic Name="k_minutes_per_day" Expression="k_minutes_per_hour() * k_hours_per_day()"/>
+		<!-- ========== -->
+		<Intrinsic Name="seconds_since_unix" Expression="m_elements[0].m_elements[0]"/>
+		<Intrinsic Name="days_since_unix" Expression="seconds_since_unix() / k_seconds_per_day()"/>
+		<Intrinsic Name="seconds_in_day" Expression="seconds_since_unix() - days_since_unix() * k_seconds_per_day()"/>
+		<Intrinsic Name="minutes_in_day" Expression="seconds_in_day() / k_seconds_per_minute()"/>
+		<Intrinsic Name="seconds_in_minute" Expression="seconds_in_day() - minutes_in_day() * k_seconds_per_minute()"/>
+		<Intrinsic Name="hours_in_day" Expression="minutes_in_day() / k_minutes_per_hour()"/>
+		<Intrinsic Name="minutes_in_hour" Expression="minutes_in_day() - hours_in_day() * k_minutes_per_hour()"/>
+		<!-- ========== -->
+		<Intrinsic Name="days_since_jd" Expression="2440588 + days_since_unix()"/>
+		<Intrinsic Name="a" Expression="days_since_jd() + 32044"/>
+		<Intrinsic Name="b" Expression="(4 * a() + 3) / 146097"/>
+		<Intrinsic Name="c" Expression="a() - (146097 * b()) / 4"/>
+		<Intrinsic Name="d" Expression="(4 * c() + 3) / 1461"/>
+		<Intrinsic Name="e" Expression="c() - (1461 * d()) / 4"/>
+		<Intrinsic Name="m" Expression="(5 * e() + 2) / 153"/>
+		<Intrinsic Name="day" Expression="e() - (153 * m() + 2) / 5 + 1"/>
+		<Intrinsic Name="month" Expression="m() + 3 - 12 * (m() / 10)"/>
+		<Intrinsic Name="year" Expression="100 * b() + d() - 4800 + (m() / 10)"/>
+		<!-- ========== -->
+		<Intrinsic Name="digit_2_1" Expression="(value / 10) % 10"><Parameter Name="value" Type="int"/></Intrinsic>
+		<Intrinsic Name="digit_2_2" Expression="(value / 1) % 10"><Parameter Name="value" Type="int"/></Intrinsic>
+		<!-- ========== -->
+		<DisplayString>{year()}-{digit_2_1(month())}{digit_2_2(month())}-{digit_2_1(day())}{digit_2_2(day())}T{digit_2_1(hours_in_day())}{digit_2_2(hours_in_day())}:{digit_2_1(minutes_in_hour())}{digit_2_2(minutes_in_hour())}:{digit_2_1(seconds_in_minute())}{digit_2_2(seconds_in_minute())}Z</DisplayString>
+	</Type>
+</AutoVisualizer>
