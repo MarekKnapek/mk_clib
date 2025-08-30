@@ -501,6 +501,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lib_iip_cp_client_local_listener_task
 	mk_lib_iip_cp_client_local_listener_pt local_listener;
 	mk_lib_iip_cp_client_local_listener_task_pt self;
 
+	/* for natvis purposes */
+	mk_lang_assert(mk_lang_offsetof(mk_lib_iip_cp_client_local_listener_task_settings_t, m_type) == 0);
+	mk_lang_assert(mk_lang_offsetof(mk_lib_iip_cp_client_local_listener_t, m_settings) == 0);
+	mk_lang_assert(mk_lang_offsetof(mk_lib_iip_cp_client_local_listener_task_t, m_local) == sizeof(mk_lang_types_void_pt));
+	/* for natvis purposes */
+
 	mk_lang_assert(connection);
 
 	#include "mk_lang_warning_clang_push_cast_align.h"
