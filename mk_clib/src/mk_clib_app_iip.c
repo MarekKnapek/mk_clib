@@ -665,6 +665,7 @@ struct mk_clib_app_iip_example1_s
 	mk_lang_types_sint_t m_bytes_sent;
 	mk_lib_iip_cp_dynamic_ring_u8_t m_buffer;
 	mk_lib_iip_http_client_response_t m_http_response;
+	mk_sl_io_writer_file_t m_writer;
 };
 typedef struct mk_clib_app_iip_example1_s mk_clib_app_iip_example1_t;
 mk_lang_typedef(mk_clib_app_iip_example1);
@@ -702,6 +703,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_exa
 	example1->m_bytes_sent = 0;
 	err = mk_lib_iip_cp_dynamic_ring_u8_rw_construct(&example1->m_buffer); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_http_client_response_rw_construct(&example1->m_http_response); mk_lang_check_rereturn(err);
+	err = mk_sl_io_writer_file_open_n(&example1->m_writer, "downloaded"); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -715,6 +717,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_exa
 	err = mk_lib_iip_cp_dynamic_ring_u8_rw_destroy(&example1->m_http_request); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_cp_dynamic_ring_u8_rw_destroy(&example1->m_buffer); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_http_client_response_rw_destroy(&example1->m_http_response); mk_lang_check_rereturn(err);
+	err = mk_sl_io_writer_file_close(&example1->m_writer); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -935,6 +938,28 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_exa
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_example1_rw_on_idle_save(mk_clib_app_iip_example1_pt const example1) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pt data_buf;
+	mk_lang_types_sint_t data_len;
+	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t written;
+
+	mk_lang_assert(example1);
+
+	if(example1->m_connected)
+	{
+		if(!mk_lib_iip_cp_dynamic_ring_u8_rw_is_empty(&example1->m_http_response.m_resource))
+		{
+			data_buf = mk_lib_iip_cp_dynamic_ring_u8_rw_get_data_a(&example1->m_http_response.m_resource); mk_lang_assert(data_buf);
+			data_len = mk_lib_iip_cp_dynamic_ring_u8_rw_get_sise_a(&example1->m_http_response.m_resource); mk_lang_assert(data_len >= 1);
+			err = mk_sl_io_writer_file_write(&example1->m_writer, data_buf, data_len, &written); mk_lang_check_rereturn(err);
+			err = mk_lib_iip_cp_dynamic_ring_u8_rw_pop_front_many(&example1->m_http_response.m_resource, ((mk_lang_types_usize_t)(written))); mk_lang_check_rereturn(err);
+		}
+	}
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_example1_rw_on_idle(mk_clib_app_iip_example1_pt const example1) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
@@ -946,6 +971,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_exa
 	err = mk_clib_app_iip_example1_rw_on_idle_connect(example1); mk_lang_check_rereturn(err);
 	err = mk_clib_app_iip_example1_rw_on_idle_connected(example1); mk_lang_check_rereturn(err);
 	err = mk_clib_app_iip_example1_rw_on_idle_recv(example1); mk_lang_check_rereturn(err);
+	err = mk_clib_app_iip_example1_rw_on_idle_save(example1); mk_lang_check_rereturn(err);
 	return 0;
 }
 
