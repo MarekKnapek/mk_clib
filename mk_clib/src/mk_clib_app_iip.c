@@ -675,9 +675,11 @@ static mk_clib_app_iip_example1_t mk_clib_app_iip_example1_g;
 
 //mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_clib_app_iip_example1_k_domain[] = "hiddenbooru.i2p"; /* null */
 //mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_clib_app_iip_example1_k_domain[] = "reg.i2p"; /* ECDSA */
-mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_clib_app_iip_example1_k_domain[] = "i2pforum.i2p"; /* EdDSA */
+//mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_clib_app_iip_example1_k_domain[] = "i2pforum.i2p"; /* EdDSA */
+mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_clib_app_iip_example1_k_domain[] = "planet.i2p";
 //mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_clib_app_iip_example1_k_domain[] = "w4uq2irrcxx7seqtpvof7eckmy7jgs64vvmholsccdth37ht5qmq.b32.i2p";
-mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_clib_app_iip_example1_k_resource[] = "/en/images/top.jpg";
+//mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_clib_app_iip_example1_k_resource[] = "/en/images/top.jpg";
+mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_clib_app_iip_example1_k_resource[] = "/images/logo.png";
 mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_clib_app_iip_example1_k_b32_suffix[] = ".b32.i2p";
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_example1_rw_construct(mk_clib_app_iip_example1_pt const example1, mk_lib_iip_cp_client_wrapper_task_pt const wrp, mk_lib_iip_cp_client_types_handle_session_pt const session) mk_lang_noexcept
