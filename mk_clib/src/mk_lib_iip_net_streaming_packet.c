@@ -30,6 +30,35 @@
 #include "mk_sl_fixed_vector_inl_fileu.h"
 
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_streaming_packet_prrw_parse_u8(mk_sl_cui_uint8_pt const obj, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pct ptr;
+	mk_lang_types_sint_t rem;
+	mk_lang_types_sint_t tlen;
+
+	mk_lang_assert(obj);
+	mk_lang_assert(data_buf || data_len == 0);
+	mk_lang_assert(data_len >= 0);
+	mk_lang_assert(success);
+	mk_lang_assert(consumed);
+	mk_lang_assert(*success == mk_lang_true);
+
+	ptr = data_buf;
+	rem = data_len;
+	tlen = mk_sl_cui_uint8_size_bytes_v;
+	if((!(rem >= tlen)))
+	{
+		*success = mk_lang_false;
+		return 0;
+	}
+	mk_sl_cui_uint8_assign(obj, &ptr[0]);
+	ptr += tlen;
+	rem -= tlen;
+	tlen = data_len - rem;
+	*consumed = tlen;
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_streaming_packet_prrw_parse_u16(mk_sl_cui_uint16_pt const obj, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_pct ptr;
@@ -92,6 +121,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_stre
 {
 	mk_sl_cui_uint8_pct ptr;
 	mk_lang_types_sint_t rem;
+	mk_lang_types_bool_t gud;
+	mk_lang_types_sint_t err;
+	mk_sl_cui_uint8_t u8;
 	mk_lang_types_sint_t tlen;
 
 	mk_lang_assert(obj);
@@ -103,15 +135,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_stre
 
 	ptr = data_buf;
 	rem = data_len;
-	tlen = mk_sl_cui_uint8_size_bytes_v;
-	if((!(rem >= tlen)))
-	{
-		*success = mk_lang_false;
-		return 0;
-	}
-	mk_sl_cui_uint8_to_bi_sint(&ptr[0], obj);
-	ptr += tlen;
-	rem -= tlen;
+	gud = mk_lang_true;
+	err = mk_lib_iip_net_streaming_packet_prrw_parse_u8(&u8, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *success = mk_lang_false; return 0; } mk_lang_assert(tlen >= 1); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	mk_sl_cui_uint8_to_bi_sint(&u8, obj);
 	tlen = data_len - rem;
 	*consumed = tlen;
 	return 0;
@@ -400,13 +426,15 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_stre
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_streaming_packet_prrw_parse_options_offline_signature(mk_lib_iip_net_streaming_packet_options_pt const obj, mk_lib_iip_net_streaming_packet_flag_t const flags, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_streaming_packet_prrw_parse_options_offline_signature(mk_lib_iip_net_streaming_packet_pt const packet, mk_lib_iip_net_streaming_packet_options_pt const obj, mk_lib_iip_net_streaming_packet_flag_t const flags, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_pct ptr;
 	mk_lang_types_sint_t rem;
 	mk_lang_types_bool_t gud;
+	mk_lang_types_sint_t err;
 	mk_lang_types_sint_t tlen;
 
+	mk_lang_assert(packet);
 	mk_lang_assert(obj);
 	mk_lang_assert(flags || !flags);
 	mk_lang_assert(data_buf || data_len == 0);
@@ -429,15 +457,35 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_stre
 			*success = mk_lang_false;
 			return 0;
 		}
-		((mk_lang_types_void_t)(ptr));
-		((mk_lang_types_void_t)(rem));
-		((mk_lang_types_void_t)(gud));
-		((mk_lang_types_void_t)(tlen));
-		mk_lang_check_todo();
+		err = mk_lib_iip_net_streaming_packet_prrw_parse_u32  (&obj->m_offline_signature.m_expires, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *success = mk_lang_false; return 0; } mk_lang_assert(tlen >= 1); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+		err = mk_lib_iip_cp_destination_sgn_type_rw_from_bytes(&obj->m_offline_signature.m_type   , ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *success = mk_lang_false; return 0; } mk_lang_assert(tlen >= 1); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+
+		tlen = mk_lib_iip_cp_destination_get_sgn_key_len_pub(obj->m_offline_signature.m_type);
+		if(!(rem >= tlen))
+		{
+			*success = mk_lang_false;
+			return 0;
+		}
+		obj->m_offline_signature.m_transient_public_key = ((mk_sl_cui_uint8_pt)(ptr));
+		ptr += tlen; rem -= tlen;
+
+		tlen = mk_lib_iip_cp_destination_get_signature_len(obj->m_offline_signature.m_type);
+		if(!(rem >= tlen))
+		{
+			*success = mk_lang_false;
+			return 0;
+		}
+		obj->m_offline_signature.m_signature = ((mk_sl_cui_uint8_pt)(ptr));
+		ptr += tlen; rem -= tlen;
+
+		/* todo validate signature */
 	}
 	else
 	{
-		obj->m_offline_signature = -1;
+		mk_sl_cui_uint32_set_zero(&obj->m_offline_signature.m_expires);
+		obj->m_offline_signature.m_type = mk_lib_iip_cp_destination_certificate_key_sgn_type_e_dummy_end;
+		obj->m_offline_signature.m_transient_public_key = mk_lang_null;
+		obj->m_offline_signature.m_signature = mk_lang_null;
 	}
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -492,7 +540,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_stre
 	}
 	else
 	{
-		obj->m_offline_signature = -1;
+		packet->m_signature_buf = mk_lang_null;
+		packet->m_signature_len = 0;
 	}
 	tlen = data_len - rem;
 	*consumed = tlen;
@@ -552,10 +601,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_stre
 	mk_lang_assert(obj->m_len <= rem);
 	rem = obj->m_len;
 	gud = mk_lang_true;
-	err = mk_lib_iip_net_streaming_packet_prrw_parse_options_delay            (obj, flags, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *success = mk_lang_false; return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_net_streaming_packet_prrw_parse_options_from             (obj, flags, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *success = mk_lang_false; return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_net_streaming_packet_prrw_parse_options_max_packet_size  (obj, flags, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *success = mk_lang_false; return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
-	err = mk_lib_iip_net_streaming_packet_prrw_parse_options_offline_signature(obj, flags, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *success = mk_lang_false; return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_net_streaming_packet_prrw_parse_options_delay            (        obj, flags, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *success = mk_lang_false; return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_net_streaming_packet_prrw_parse_options_from             (        obj, flags, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *success = mk_lang_false; return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_net_streaming_packet_prrw_parse_options_max_packet_size  (        obj, flags, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *success = mk_lang_false; return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	err = mk_lib_iip_net_streaming_packet_prrw_parse_options_offline_signature(packet, obj, flags, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *success = mk_lang_false; return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	err = mk_lib_iip_net_streaming_packet_prrw_parse_options_signature        (packet, obj, flags, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *success = mk_lang_false; return 0; } mk_lang_assert(tlen >= 0); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 	mk_lang_check_return(rem == 0);
 	tlen = obj->m_len - rem;
