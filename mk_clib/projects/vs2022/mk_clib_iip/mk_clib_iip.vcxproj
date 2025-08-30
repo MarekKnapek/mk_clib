@@ -30,6 +30,16 @@
 	<ImportGroup Label="PropertySheets"><Import Project="$(MSBuildThisFileDirectory)..\mk_clib_slib\b.props"/></ImportGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.props"/>
 	<ImportGroup Label="PropertySheets"><Import Project="$(MSBuildThisFileDirectory)..\mk_clib_slib\c.props"/></ImportGroup>
+	<ItemDefinitionGroup>
+		<ClCompile>
+			<PreprocessorDefinitions Condition="'$(mk_is_release)'=='true'">mk_lib_iip_cp_client_application_debug_print_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions Condition="'$(mk_is_release)'=='true'">mk_lib_iip_cp_client_connection_debug_print_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions Condition="'$(mk_is_release)'=='true'">mk_lib_iip_cp_client_local_client_debug_print_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions Condition="'$(mk_is_release)'=='true'">mk_lib_iip_cp_client_local_listener_debug_print_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions Condition="'$(mk_is_release)'=='true'">mk_lib_iip_cp_client_session_debug_print_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions Condition="'$(mk_is_release)'=='true'">mk_lib_iip_cp_client_socket_debug_print_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+		</ClCompile>
+	</ItemDefinitionGroup>
 	<ItemGroup>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\app\iip.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_external_zlib.c"/>
