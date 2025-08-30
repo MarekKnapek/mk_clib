@@ -62,7 +62,7 @@ mk_lang_typedef(mk_lib_iip_net_streaming_packet_b32);
 #include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_lib_iip_net_streaming_packet_options_offline_signature_s
 {
-	mk_sl_cui_uint32_t m_expires;
+	mk_lib_iip_cp_types_date_seconds_t m_expires;
 	mk_lib_iip_cp_destination_certificate_key_sgn_type_t m_type;
 	mk_sl_cui_uint8_pt m_transient_public_key;
 	mk_sl_cui_uint8_pt m_signature;

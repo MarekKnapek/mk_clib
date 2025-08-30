@@ -169,6 +169,32 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_stre
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_streaming_packet_prrw_parse_date(mk_lib_iip_cp_types_date_seconds_pt const obj, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pct ptr;
+	mk_lang_types_sint_t rem;
+	mk_lang_types_bool_t gud;
+	mk_lang_types_sint_t err;
+	mk_sl_cui_uint32_t u32;
+	mk_lang_types_sint_t tlen;
+
+	mk_lang_assert(obj);
+	mk_lang_assert(data_buf || data_len == 0);
+	mk_lang_assert(data_len >= 0);
+	mk_lang_assert(success);
+	mk_lang_assert(consumed);
+	mk_lang_assert(*success == mk_lang_true);
+
+	ptr = data_buf;
+	rem = data_len;
+	gud = mk_lang_true;
+	err = mk_lib_iip_net_streaming_packet_prrw_parse_u32(&u32, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *success = mk_lang_false; return 0; } mk_lang_assert(tlen >= 1); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	mk_lib_iip_cp_types_date_seconds_from_base(obj, &u32);
+	tlen = data_len - rem;
+	*consumed = tlen;
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_streaming_packet_prrw_parse_nacks_2(mk_lib_iip_net_streaming_packet_nacks_pt const obj, mk_lang_types_sint_t const count, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lang_types_bool_pt const success, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
 {
 	mk_sl_cui_uint8_pct ptr;
@@ -457,7 +483,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_stre
 			*success = mk_lang_false;
 			return 0;
 		}
-		err = mk_lib_iip_net_streaming_packet_prrw_parse_u32  (&obj->m_offline_signature.m_expires, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *success = mk_lang_false; return 0; } mk_lang_assert(tlen >= 1); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+		err = mk_lib_iip_net_streaming_packet_prrw_parse_date (&obj->m_offline_signature.m_expires, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *success = mk_lang_false; return 0; } mk_lang_assert(tlen >= 1); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 		err = mk_lib_iip_cp_destination_sgn_type_rw_from_bytes(&obj->m_offline_signature.m_type   , ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *success = mk_lang_false; return 0; } mk_lang_assert(tlen >= 1); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
 
 		tlen = mk_lib_iip_cp_destination_get_sgn_key_len_pub(obj->m_offline_signature.m_type);
@@ -482,7 +508,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_net_stre
 	}
 	else
 	{
-		mk_sl_cui_uint32_set_zero(&obj->m_offline_signature.m_expires);
+		mk_lib_iip_cp_types_date_seconds_set_zero(&obj->m_offline_signature.m_expires);
 		obj->m_offline_signature.m_type = mk_lib_iip_cp_destination_certificate_key_sgn_type_e_dummy_end;
 		obj->m_offline_signature.m_transient_public_key = mk_lang_null;
 		obj->m_offline_signature.m_signature = mk_lang_null;
