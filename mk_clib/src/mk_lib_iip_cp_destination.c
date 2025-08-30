@@ -464,6 +464,31 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lib_iip_cp_destinat
 	return res;
 }
 
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_destination_pr_get_sgn_key_len_pub(mk_lib_iip_cp_destination_certificate_key_sgn_type_t const sgn_type) mk_lang_noexcept
+{
+	mk_lang_types_sint_t len mk_lang_constexpr_init;
+
+	switch(sgn_type)
+	{
+		case mk_lib_iip_cp_destination_certificate_key_sgn_type_e_dsa_sha1              : len = mk_lib_iip_cp_destination_key_len_sgn_e_dsa_sha1              ; break;
+		case mk_lib_iip_cp_destination_certificate_key_sgn_type_e_ecdsa_sha256_p256     : len = mk_lib_iip_cp_destination_key_len_sgn_e_ecdsa_sha256_p256     ; break;
+		case mk_lib_iip_cp_destination_certificate_key_sgn_type_e_ecdsa_sha384_p384     : len = mk_lib_iip_cp_destination_key_len_sgn_e_ecdsa_sha384_p384     ; break;
+		case mk_lib_iip_cp_destination_certificate_key_sgn_type_e_ecdsa_sha512_p521     : len = mk_lib_iip_cp_destination_key_len_sgn_e_ecdsa_sha512_p521     ; break;
+		case mk_lib_iip_cp_destination_certificate_key_sgn_type_e_rsa_sha256_2048       : len = mk_lib_iip_cp_destination_key_len_sgn_e_rsa_sha256_2048       ; break;
+		case mk_lib_iip_cp_destination_certificate_key_sgn_type_e_rsa_sha384_3072       : len = mk_lib_iip_cp_destination_key_len_sgn_e_rsa_sha384_3072       ; break;
+		case mk_lib_iip_cp_destination_certificate_key_sgn_type_e_rsa_sha512_4096       : len = mk_lib_iip_cp_destination_key_len_sgn_e_rsa_sha512_4096       ; break;
+		case mk_lib_iip_cp_destination_certificate_key_sgn_type_e_eddsa_sha512_ed25519  : len = mk_lib_iip_cp_destination_key_len_sgn_e_eddsa_sha512_ed25519  ; break;
+		case mk_lib_iip_cp_destination_certificate_key_sgn_type_e_eddsa_sha512_ed25519ph: len = mk_lib_iip_cp_destination_key_len_sgn_e_eddsa_sha512_ed25519ph; break;
+		case mk_lib_iip_cp_destination_certificate_key_sgn_type_e_gost_a                : len = mk_lib_iip_cp_destination_key_len_sgn_e_gost_a                ; break;
+		case mk_lib_iip_cp_destination_certificate_key_sgn_type_e_gost_b                : len = mk_lib_iip_cp_destination_key_len_sgn_e_gost_b                ; break;
+		case mk_lib_iip_cp_destination_certificate_key_sgn_type_e_reddsa_sha512_ed25519 : len = mk_lib_iip_cp_destination_key_len_sgn_e_reddsa_sha512_ed25519 ; break;
+		case mk_lib_iip_cp_destination_certificate_key_sgn_type_e_dummy_end: mk_lang_assert_false(); break;
+		default: mk_lang_assert_false(); break;
+	}
+	mk_lang_clobber(&len);
+	return len;
+}
+
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_destination_pr_get_signature_len(mk_lib_iip_cp_destination_certificate_key_sgn_type_t const sgn_type) mk_lang_noexcept
 {
 	mk_lang_types_sint_t len mk_lang_constexpr_init;
@@ -487,6 +512,96 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	}
 	mk_lang_clobber(&len);
 	return len;
+}
+
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_destination_remote_prrw_parse_u16(mk_sl_cui_uint16_pt const u16, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lang_types_bool_pt const succeeded, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pct ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
+
+	mk_lang_assert(u16);
+	mk_lang_assert(data_buf || data_len == 0);
+	mk_lang_assert(data_len >= 0);
+	mk_lang_assert(succeeded);
+	mk_lang_assert(*succeeded == mk_lang_true);
+	mk_lang_assert(consumed);
+
+	ptr = data_buf;
+	rem = data_len;
+	tlen = mk_sl_cui_uint16_size_bytes_v;
+	if(!(rem >= tlen))
+	{
+		*succeeded = mk_lang_false;
+		return 0;
+	}
+	mk_sl_uint_convert_16_8_be_to_big(u16, ptr);
+	ptr += tlen;
+	rem -= tlen;
+	tlen = data_len - rem;
+	*consumed = tlen;
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_destination_remote_prrw_parse_s16(mk_lang_types_sint_pt const sint, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lang_types_bool_pt const succeeded, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pct ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_bool_t gud mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_sl_cui_uint16_t tu16 mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
+
+	mk_lang_assert(sint);
+	mk_lang_assert(data_buf || data_len == 0);
+	mk_lang_assert(data_len >= 0);
+	mk_lang_assert(succeeded);
+	mk_lang_assert(*succeeded == mk_lang_true);
+	mk_lang_assert(consumed);
+
+	ptr = data_buf;
+	rem = data_len;
+	gud = mk_lang_true;
+	err = mk_lib_iip_cp_destination_remote_prrw_parse_u16(&tu16, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *succeeded = mk_lang_false; return 0; } mk_lang_assert(tlen >= 1); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	mk_sl_cui_uint16_to_bi_sint(&tu16, sint);
+	tlen = data_len - rem;
+	*consumed = tlen;
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_destination_sgn_type_prrw_from_bytes(mk_lib_iip_cp_destination_certificate_key_sgn_type_pt const sgn_type, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lang_types_bool_pt const succeeded, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pct ptr mk_lang_constexpr_init;
+	mk_lang_types_sint_t rem mk_lang_constexpr_init;
+	mk_lang_types_bool_t gud mk_lang_constexpr_init;
+	mk_lang_types_sint_t err mk_lang_constexpr_init;
+	mk_lang_types_sint_t sgn_type_num mk_lang_constexpr_init;
+	mk_lang_types_sint_t tlen mk_lang_constexpr_init;
+	mk_lib_iip_cp_destination_file_format_certificate_key_sgn_type_t sgn_ff_type_id mk_lang_constexpr_init;
+	mk_lib_iip_cp_destination_certificate_key_sgn_type_t sgn_type_id mk_lang_constexpr_init;
+
+	mk_lang_assert(sgn_type);
+	mk_lang_assert(data_buf || data_len == 0);
+	mk_lang_assert(data_len >= 0);
+	mk_lang_assert(succeeded);
+	mk_lang_assert(*succeeded == mk_lang_true);
+	mk_lang_assert(consumed);
+
+	ptr = data_buf;
+	rem = data_len;
+	gud = mk_lang_true;
+	err = mk_lib_iip_cp_destination_remote_prrw_parse_s16(&sgn_type_num, ptr, rem, &gud, &tlen); mk_lang_check_rereturn(err); if(!gud){ *succeeded = mk_lang_false; return 0; } mk_lang_assert(tlen >= 1); mk_lang_assert(tlen <= rem); ptr += tlen; rem -= tlen;
+	sgn_ff_type_id = mk_lib_iip_cp_destination_file_format_certificate_key_sgn_type_from_sint(sgn_type_num);
+	if(sgn_ff_type_id == mk_lib_iip_cp_destination_file_format_certificate_key_sgn_type_e_dummy_end)
+	{
+		*succeeded = mk_lang_false;
+		return 0;
+	}
+	sgn_type_id = mk_lib_iip_cp_destination_certificate_key_sgn_type_from_file_format(sgn_ff_type_id);
+	*sgn_type = sgn_type_id;
+	tlen = data_len - rem;
+	*consumed = tlen;
+	return 0;
 }
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_destination_remote_prrw_from_bytes(mk_lib_iip_cp_destination_remote_pt const remote_destination, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lang_types_bool_pt const succeeded, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
@@ -1228,9 +1343,20 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t m
 }
 
 
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_destination_get_sgn_key_len_pub(mk_lib_iip_cp_destination_certificate_key_sgn_type_t const sgn_type) mk_lang_noexcept
+{
+	return mk_lib_iip_cp_destination_pr_get_sgn_key_len_pub(sgn_type);
+}
+
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_destination_get_signature_len(mk_lib_iip_cp_destination_certificate_key_sgn_type_t const sgn_type) mk_lang_noexcept
 {
 	return mk_lib_iip_cp_destination_pr_get_signature_len(sgn_type);
+}
+
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_destination_sgn_type_rw_from_bytes(mk_lib_iip_cp_destination_certificate_key_sgn_type_pt const sgn_type, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lang_types_bool_pt const succeeded, mk_lang_types_sint_pt const consumed) mk_lang_noexcept
+{
+	return mk_lib_iip_cp_destination_sgn_type_prrw_from_bytes(sgn_type, data_buf, data_len, succeeded, consumed);
 }
 
 
