@@ -1396,6 +1396,7 @@
 		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_hosts.natvis"><Filter>src</Filter></Natvis>
 		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_buffer.natvis"><Filter>src</Filter></Natvis>
 		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_client_socket.natvis"><Filter>src</Filter></Natvis>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_client_wrapper.natvis"><Filter>src</Filter></Natvis>
 		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_dynamic_ring.natvis"><Filter>src</Filter></Natvis>
 		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_mallocator_global.natvis"><Filter>src</Filter></Natvis>
 		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_types.natvis"><Filter>src</Filter></Natvis>

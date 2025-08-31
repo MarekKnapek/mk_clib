@@ -24,6 +24,14 @@
 #define mk_sl_io_writer_file_windows_is_valid(x) (!mk_win_base_handle_is_invalid(x))
 
 
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_writer_file_windows_rw_construct_void(mk_sl_io_writer_file_windows_pt const writer) mk_lang_noexcept
+{
+	mk_lang_assert(writer);
+
+	writer->m_file_handle = mk_win_base_handle_get_invalid();
+	return 0;
+}
+
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_writer_file_windows_open_n(mk_sl_io_writer_file_windows_pt const writer, mk_lang_types_pchar_pct const name) mk_lang_noexcept
 {
 	mk_sl_io_writer_file_windows_handle_t handle;
@@ -69,9 +77,22 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_writer_file_window
 	mk_win_base_bool_t ret;
 
 	mk_lang_assert(writer);
-	mk_lang_assert(mk_sl_io_writer_file_windows_is_valid(writer->m_file_handle));
 
-	ret = mk_win_dll_kernel_handle_close(writer->m_file_handle); mk_lang_check_return(ret != 0);
+	if(mk_sl_io_writer_file_windows_is_valid(writer->m_file_handle))
+	{
+		ret = mk_win_dll_kernel_handle_close(writer->m_file_handle); mk_lang_check_return(ret != 0);
+	}
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_writer_file_windows_rw_reset(mk_sl_io_writer_file_windows_pt const writer) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(writer);
+
+	err = mk_sl_io_writer_file_windows_close(writer); mk_lang_check_rereturn(err);
+	err = mk_sl_io_writer_file_windows_rw_construct_void(writer); mk_lang_check_rereturn(err);
 	return 0;
 }
 

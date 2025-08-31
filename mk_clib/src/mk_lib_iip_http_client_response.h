@@ -28,20 +28,14 @@ enum mk_lib_iip_http_client_response_parse_error_code_e
 typedef enum mk_lib_iip_http_client_response_parse_error_code_e mk_lib_iip_http_client_response_parse_error_code_t;
 mk_lang_typedef(mk_lib_iip_http_client_response_parse_error_code);
 
-enum mk_lib_iip_http_client_response_method_id_e
+enum mk_lib_iip_http_client_response_is_chunked_e
 {
-	mk_lib_iip_http_client_response_method_id_e_get,
-	mk_lib_iip_http_client_response_method_id_e_head,
-	mk_lib_iip_http_client_response_method_id_e_post,
-	mk_lib_iip_http_client_response_method_id_e_put,
-	mk_lib_iip_http_client_response_method_id_e_delete,
-	mk_lib_iip_http_client_response_method_id_e_connect,
-	mk_lib_iip_http_client_response_method_id_e_options,
-	mk_lib_iip_http_client_response_method_id_e_trace,
-	mk_lib_iip_http_client_response_method_id_e_dummy_end
+	mk_lib_iip_http_client_response_is_chunked_e_no,
+	mk_lib_iip_http_client_response_is_chunked_e_yes,
+	mk_lib_iip_http_client_response_is_chunked_e_dummy_end
 };
-typedef enum mk_lib_iip_http_client_response_method_id_e mk_lib_iip_http_client_response_method_id_t;
-mk_lang_typedef(mk_lib_iip_http_client_response_method_id);
+typedef enum mk_lib_iip_http_client_response_is_chunked_e mk_lib_iip_http_client_response_is_chunked_t;
+mk_lang_typedef(mk_lib_iip_http_client_response_is_chunked);
 
 enum mk_lib_iip_http_client_response_protocol_e
 {
@@ -89,7 +83,7 @@ struct mk_lib_iip_http_client_response_s
 	mk_lang_types_sint_t m_status_code;
 	mk_lib_iip_http_buffer_t m_reason_phrase;
 	mk_lib_iip_http_client_response_headers_t m_headers;
-	mk_lang_types_sint_t m_is_chunked; /* 0 don't know yet, 1 yes, 2 no */
+	mk_lib_iip_http_client_response_is_chunked_t m_is_chunked_;
 	mk_lang_types_sint_t m_content_rem;
 	mk_lang_types_bool_t m_headers_done;
 	mk_lang_types_bool_t m_resource_done;
