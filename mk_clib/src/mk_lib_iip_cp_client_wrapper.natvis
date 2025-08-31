@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+	<Type Name="mk_lib_iip_cp_client_wrapper_task_s">
+		<DisplayString>{((mk_lib_iip_cp_client_application_task_s*)(m_wrapper.m_elements[0]))}</DisplayString>
+		<Expand>
+			<Item Name="[ application ]">((mk_lib_iip_cp_client_application_task_s*)(m_wrapper.m_elements[0]))</Item>
+		</Expand>
+	</Type>
+</AutoVisualizer>

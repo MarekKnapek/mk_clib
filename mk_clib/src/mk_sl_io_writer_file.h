@@ -37,11 +37,13 @@ typedef struct mk_sl_io_writer_file_s mk_sl_io_writer_file_t;
 mk_lang_typedef(mk_sl_io_writer_file);
 
 
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_writer_file_rw_construct_void(mk_sl_io_writer_file_pt const writer) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_writer_file_open_n(mk_sl_io_writer_file_pt const writer, mk_lang_types_pchar_pct const name) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_writer_file_open_w(mk_sl_io_writer_file_pt const writer, mk_lang_types_wchar_pct const name) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_writer_file_open_t(mk_sl_io_writer_file_pt const writer, mk_lang_tchar_pct const name) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_writer_file_write(mk_sl_io_writer_file_pt const writer, mk_sl_cui_uint8_pct const buf, mk_lang_types_sint_t const len, mk_lang_types_sint_pt const written) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_writer_file_close(mk_sl_io_writer_file_pt const writer) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_writer_file_rw_reset(mk_sl_io_writer_file_pt const writer) mk_lang_noexcept;
 
 
 #if mk_lang_jumbo_have

@@ -20,4 +20,5 @@ define(`mk_lib_iip_http_strings_per_string', `mk_lib_iip_http_strings_per_string
 `version_1_1_b', `HTTP/1.1', dnl # todo no new line
 `transfer_encoding', `Transfer-Encoding',
 `chunked', `chunked',
+`content_length', `Content-Length',
 `', `')')dnl
