@@ -59,6 +59,7 @@
 #undef mk_lib_flt_analyzer_inl_defd_uint_mul4_wrap_wi
 #undef mk_lib_flt_analyzer_inl_defd_uint_to_bi_sint
 #undef mk_lib_flt_analyzer_inl_defd_uint_from_buis_uchar_le
+#undef mk_lib_flt_analyzer_inl_defd_uint_sizebits_v
 
 
 #undef mk_lib_flt_analyzer_inl_defd_lent_t

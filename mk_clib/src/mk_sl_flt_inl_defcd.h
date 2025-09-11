@@ -39,6 +39,7 @@
 #define mk_sl_flt_defd_cui_and3 mk_lang_concat(mk_sl_flt_defd_cui, _and3)
 #define mk_sl_flt_defd_cui_and2 mk_lang_concat(mk_sl_flt_defd_cui, _and2)
 #define mk_sl_flt_defd_cui_shr3 mk_lang_concat(mk_sl_flt_defd_cui, _shr3)
+#define mk_sl_flt_defd_cui_sizebits_v mk_lang_concat(mk_sl_flt_defd_cui, _sizebits_v)
 
 #define mk_sl_flt_defd_cuiba_name mk_lang_concat(mk_lang_concat(mk_sl_flt_, mk_sl_flt_defd_name), _biga_cui)
 #define mk_sl_flt_defd_cuiba_count mk_lang_div_roundup(mk_sl_flt_defd_need_bits_a, mk_sl_flt_defd_bui_bits)

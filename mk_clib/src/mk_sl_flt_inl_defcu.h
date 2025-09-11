@@ -39,6 +39,7 @@
 #undef mk_sl_flt_defd_cui_and3
 #undef mk_sl_flt_defd_cui_and2
 #undef mk_sl_flt_defd_cui_shr3
+#undef mk_sl_flt_defd_cui_sizebits_v
 
 #undef mk_sl_flt_defd_cuiba_name
 #undef mk_sl_flt_defd_cuiba_count

@@ -7,6 +7,8 @@
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_likely.h"
+#include "mk_lang_max.h"
+#include "mk_lang_min.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_static_assert.h"
@@ -83,6 +85,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_flt
 	mk_lang_constexpr_static mk_lang_types_pchar_t const s_nan[] = {'n', 'a', 'n'};
 	mk_lang_constexpr_static mk_lang_types_pchar_t const s_inf[] = {'i', 'n', 'f'};
 
+	mk_lang_types_uchar_t xx[mk_lang_max(mk_sl_flt_defd_cui_sizebits_v / mk_lang_charbit, mk_lib_flt_analyzer_inl_defd_uint_sizebits_v / mk_lang_charbit)] mk_lang_constexpr_init;
 	mk_sl_flt_defd_cui_t cui mk_lang_constexpr_init;
 	mk_sl_flt_defd_cui_t ta mk_lang_constexpr_init;
 	mk_sl_flt_defd_cui_t tb mk_lang_constexpr_init;
@@ -110,7 +113,17 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_sl_flt
 	mk_lang_assert(str_len >= 0);
 
 	if(str_len == 0){ mk_lang_unlikely return 0; }
-	mk_sl_flt_defd_cui_from_buis_uchar_le(&cui, x);
+	tn = mk_lang_countof(xx);
+	for(ti = 0; ti != tn; ++ti)
+	{
+		xx[ti] = 0;
+	}
+	tn = mk_lang_min(mk_sl_flt_defd_cui_sizebits_v / mk_lang_charbit, mk_lib_flt_analyzer_inl_defd_uint_sizebits_v / mk_lang_charbit);
+	for(ti = 0; ti != tn; ++ti)
+	{
+		xx[ti] = x[ti];
+	}
+	mk_sl_flt_defd_cui_from_buis_uchar_le(&cui, &xx[0]);
 	mk_sl_flt_defd_cui_shr3(&cui, mk_sl_flt_defd_bits - 1, &ta);
 	is_negative = !mk_sl_flt_defd_cui_is_zero(&ta);
 	mk_sl_flt_defd_cui_shr3(&cui, mk_sl_flt_defd_fraction_bits, &ta);
