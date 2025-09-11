@@ -25,8 +25,8 @@ mk_lang_extern_c mk_lang_emscripten_keepalive mk_lib_flt_analyzer_half_pct half_
 	mk_sl_cui_uint16_t tcuia;
 	mk_sl_cui_uint16_t tcuib;
 
-	tuc = ((mk_lang_types_uchar_t)(h)); mk_sl_cui_uint16_from_bi_uchar(&tcuib, &tuc);
-	mk_sl_cui_uint16_shl2(&tcuib, mk_lang_charbit); tuc = ((mk_lang_types_uchar_t)(b)); mk_sl_cui_uint16_from_bi_uchar(&tcuia, &tuc); mk_sl_cui_uint16_or2(&tcuib, &tcuia);
+	tuc = ((mk_lang_types_uchar_t)(b)); mk_sl_cui_uint16_from_bi_uchar(&tcuib, &tuc);
+	mk_sl_cui_uint16_shl2(&tcuib, mk_lang_charbit); tuc = ((mk_lang_types_uchar_t)(a)); mk_sl_cui_uint16_from_bi_uchar(&tcuia, &tuc); mk_sl_cui_uint16_or2(&tcuib, &tcuia);
 	mk_sl_cui_uint16_to_buis_uchar_le(&tcuib, &g_half_analyzer.m_bytes[0]);
 	mk_lib_flt_analyzer_half_analyze(&g_half_analyzer);
 	return &g_half_analyzer;
