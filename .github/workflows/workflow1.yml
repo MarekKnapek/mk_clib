@@ -3,7 +3,7 @@
   "build_wasm":
     "strategy":
       "matrix":
-        "proj": ["mkch", "mkcc", "float_analyzer", "float_analyzer", "double_analyzer", "quad_analyzer"]
+        "proj": ["mkch", "mkcc", "half_analyzer", "float_analyzer", "double_analyzer", "quad_analyzer"]
     "runs-on": "ubuntu-24.04"
     "defaults":
       "run":
