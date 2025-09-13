@@ -41,7 +41,7 @@
           "path": "./mk_clib/projects/emscripten/${{matrix.proj}}.wasm"
   "mk_clib":
     "runs-on": "ubuntu-latest"
-    "needs": ["build_run_win", build_wasm"]
+    "needs": ["build_run_win", "build_wasm"]
     "steps":
       - "uses": "actions/download-artifact@main"
         "with":
