@@ -1,7 +1,18 @@
-cp mk_clib_hasher.c mk_clib_hasher.cpp
-em++ \
+cp mk_clib_float_analyzer_b16.c mk_clib_float_analyzer_b16.cpp
+em++  \
 -std=c++20 \
 -DNDEBUG \
+-Dmk_lang_assert_crash_want=0 \
+-Dmk_lang_assert_want=0 \
+-Dmk_lang_check_debug_want=0 \
+-Dmk_lang_check_extra_want=0 \
+-Dmk_lang_check_likely_want=0 \
+-Dmk_lang_check_rethrow_debug_want=0 \
+-Dmk_lang_crash_detail_want=0 \
+-Dmk_lang_debug_break_want=0 \
+-Dmk_lang_debug_trace_want=0 \
+-Dmk_lang_runtime_bool_want=0 \
+-Dmk_lang_test_detail_want=0 \
 -O3 \
 -g0 \
 -flto \
@@ -35,6 +46,6 @@ em++ \
 -sBINARYEN_IGNORE_IMPLICIT_TRAPS=1 \
 -sSUPPORT_LONGJMP=0 \
 -sDEFAULT_TO_CXX=0 \
-mk_clib_hasher.cpp \
+mk_clib_float_analyzer_b16.cpp \
 -o \
-mk_clib_hasher.wasm
+mk_clib_float_analyzer_b16.wasm

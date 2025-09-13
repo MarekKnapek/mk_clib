@@ -1,0 +1,30 @@
+"on": "push"
+"jobs":
+  "build_wasm":
+    "strategy":
+      "matrix":
+        "proj": ["mk_clib_float_analyzer_b128", "mk_clib_float_analyzer_b16", "mk_clib_float_analyzer_b32", "mk_clib_float_analyzer_b64", "mk_clib_hasher"]
+    "runs-on": "ubuntu-latest"
+    "defaults":
+      "run":
+        "working-directory": "./mk_clib/projects/emscripten"
+    "steps":
+      - "uses": mymindstorm/setup-emsdk@v14
+      - "uses": "actions/checkout@main"
+      - "run": "bash ./../gcc/build_m4.bash"
+      - "run": "bash ./${{matrix.proj}}.bash"
+      - "uses": "actions/upload-artifact@main"
+        "with":
+          "name": "${{matrix.proj}}.wasm"
+          "path": "./mk_clib/projects/emscripten/${{matrix.proj}}.wasm"
+  "mk_clib":
+    "runs-on": "ubuntu-latest"
+    "needs": ["build_run_c", "build_run_cpp", "build_wasm", "build_run_win"]
+    "steps":
+      - "uses": "actions/download-artifact@main"
+        "with":
+          "merge-multiple": "true"
+      - "uses": "actions/upload-artifact@main"
+        "with":
+          "name": "mk_clib"
+          "path": "/home/runner/work/mk_clib/mk_clib/*"
