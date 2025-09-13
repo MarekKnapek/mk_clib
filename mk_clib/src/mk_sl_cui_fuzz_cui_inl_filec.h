@@ -6780,6 +6780,178 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_cui_fuzz_cui_
 	}
 }
 
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_cui_fuzz_cui_inl_defd_pr_mul4_wrap_wi_smol_a_abcd(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
+{
+	mk_lang_types_sint_t ptr mk_lang_constexpr_init;
+	mk_sl_cui_fuzz_cui_inl_defd_cui_a_t cui_aa mk_lang_constexpr_init;
+	mk_sl_cui_fuzz_cui_inl_defd_cui_a_base_t cui_ab mk_lang_constexpr_init;
+	mk_sl_cui_fuzz_cui_inl_defd_cui_a_t cui_ac mk_lang_constexpr_init;
+	mk_sl_cui_fuzz_cui_inl_defd_cui_a_base_t cui_ad mk_lang_constexpr_init;
+	mk_sl_cui_fuzz_cui_inl_defd_cui_a_t cui_add mk_lang_constexpr_init;
+	mk_sl_cui_fuzz_cui_inl_defd_cui_a_t cui_ba mk_lang_constexpr_init;
+	mk_sl_cui_fuzz_cui_inl_defd_cui_a_t cui_bb mk_lang_constexpr_init;
+	mk_sl_cui_fuzz_cui_inl_defd_cui_a_t cui_bc mk_lang_constexpr_init;
+	mk_sl_cui_fuzz_cui_inl_defd_cui_a_t cui_bd mk_lang_constexpr_init;
+	mk_sl_cui_fuzz_cui_inl_defd_pr_storage_t ra mk_lang_constexpr_init;
+	mk_sl_cui_fuzz_cui_inl_defd_pr_storage_t rb mk_lang_constexpr_init;
+
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
+	mk_lang_assert(data || size == 0);
+	mk_lang_assert(size >= 0);
+	#include "mk_lang_warning_gcc_pop.h"
+	#include "mk_lang_warning_msvc_pop.h"
+
+	if(size >= mk_sl_cui_fuzz_cui_inl_defd_cui_a_size_bytes_v + mk_sl_cui_fuzz_cui_inl_defd_cui_a_base_size_bytes_v)
+	{
+		ptr = 0;
+		mk_sl_cui_fuzz_cui_inl_defd_cui_a_from_buis_uchar_le(&cui_aa, &data[ptr]);
+		mk_sl_cui_fuzz_cui_inl_defd_cui_a_from_buis_uchar_le(&cui_ba, &data[ptr]);
+		ptr += mk_sl_cui_fuzz_cui_inl_defd_cui_a_size_bytes_v;
+		mk_sl_cui_fuzz_cui_inl_defd_cui_a_base_from_buis_uchar_le(&cui_ab, &data[ptr]);
+		mk_sl_cui_fuzz_cui_inl_defd_cui_a_from_base(&cui_bb, &cui_ab);
+		ptr += mk_sl_cui_fuzz_cui_inl_defd_cui_a_base_size_bytes_v;
+
+		mk_sl_cui_fuzz_cui_inl_defd_cui_a_mul4_wrap_wi_smol(&cui_aa, &cui_ab, &cui_ac, &cui_ad);
+		mk_sl_cui_fuzz_cui_inl_defd_cui_a_mul4_wrap_wi(&cui_ba, &cui_bb, &cui_bc, &cui_bd);
+
+		mk_sl_cui_fuzz_cui_inl_defd_cui_a_to_buis_uint_le(&cui_ac, &ra.m_uints[0]);
+		mk_sl_cui_fuzz_cui_inl_defd_cui_a_to_buis_uint_le(&cui_bc, &rb.m_uints[0]);
+		mk_lang_test(mk_lang_string_memcmp_ui_fn(&ra.m_uints[0], &rb.m_uints[0], mk_lang_roundup_div(mk_sl_cui_fuzz_cui_inl_defd_cui_a_size_bytes_v, mk_lang_sizeof_bi_uint_t)) == 0);
+		mk_sl_cui_fuzz_cui_inl_defd_cui_a_from_base(&cui_add, &cui_ad);
+		mk_sl_cui_fuzz_cui_inl_defd_cui_a_to_buis_uint_le(&cui_add, &ra.m_uints[0]);
+		mk_sl_cui_fuzz_cui_inl_defd_cui_a_to_buis_uint_le(&cui_bd, &rb.m_uints[0]);
+		mk_lang_test(mk_lang_string_memcmp_ui_fn(&ra.m_uints[0], &rb.m_uints[0], mk_lang_roundup_div(mk_sl_cui_fuzz_cui_inl_defd_cui_a_size_bytes_v, mk_lang_sizeof_bi_uint_t)) == 0);
+	}
+}
+
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_cui_fuzz_cui_inl_defd_pr_mul4_wrap_wi_smol_b_abcd(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
+{
+	mk_lang_types_sint_t ptr mk_lang_constexpr_init;
+	mk_sl_cui_fuzz_cui_inl_defd_cui_b_t cui_aa mk_lang_constexpr_init;
+	mk_sl_cui_fuzz_cui_inl_defd_cui_b_base_t cui_ab mk_lang_constexpr_init;
+	mk_sl_cui_fuzz_cui_inl_defd_cui_b_t cui_ac mk_lang_constexpr_init;
+	mk_sl_cui_fuzz_cui_inl_defd_cui_b_base_t cui_ad mk_lang_constexpr_init;
+	mk_sl_cui_fuzz_cui_inl_defd_cui_b_t cui_add mk_lang_constexpr_init;
+	mk_sl_cui_fuzz_cui_inl_defd_cui_b_t cui_ba mk_lang_constexpr_init;
+	mk_sl_cui_fuzz_cui_inl_defd_cui_b_t cui_bb mk_lang_constexpr_init;
+	mk_sl_cui_fuzz_cui_inl_defd_cui_b_t cui_bc mk_lang_constexpr_init;
+	mk_sl_cui_fuzz_cui_inl_defd_cui_b_t cui_bd mk_lang_constexpr_init;
+	mk_sl_cui_fuzz_cui_inl_defd_pr_storage_t ra mk_lang_constexpr_init;
+	mk_sl_cui_fuzz_cui_inl_defd_pr_storage_t rb mk_lang_constexpr_init;
+
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
+	mk_lang_assert(data || size == 0);
+	mk_lang_assert(size >= 0);
+	#include "mk_lang_warning_gcc_pop.h"
+	#include "mk_lang_warning_msvc_pop.h"
+
+	if(size >= mk_sl_cui_fuzz_cui_inl_defd_cui_b_size_bytes_v + mk_sl_cui_fuzz_cui_inl_defd_cui_b_base_size_bytes_v)
+	{
+		ptr = 0;
+		mk_sl_cui_fuzz_cui_inl_defd_cui_b_from_buis_uchar_le(&cui_aa, &data[ptr]);
+		mk_sl_cui_fuzz_cui_inl_defd_cui_b_from_buis_uchar_le(&cui_ba, &data[ptr]);
+		ptr += mk_sl_cui_fuzz_cui_inl_defd_cui_b_size_bytes_v;
+		mk_sl_cui_fuzz_cui_inl_defd_cui_b_base_from_buis_uchar_le(&cui_ab, &data[ptr]);
+		mk_sl_cui_fuzz_cui_inl_defd_cui_b_from_base(&cui_bb, &cui_ab);
+		ptr += mk_sl_cui_fuzz_cui_inl_defd_cui_b_base_size_bytes_v;
+
+		mk_sl_cui_fuzz_cui_inl_defd_cui_b_mul4_wrap_wi_smol(&cui_aa, &cui_ab, &cui_ac, &cui_ad);
+		mk_sl_cui_fuzz_cui_inl_defd_cui_b_mul4_wrap_wi(&cui_ba, &cui_bb, &cui_bc, &cui_bd);
+
+		mk_sl_cui_fuzz_cui_inl_defd_cui_b_to_buis_uint_le(&cui_ac, &ra.m_uints[0]);
+		mk_sl_cui_fuzz_cui_inl_defd_cui_b_to_buis_uint_le(&cui_bc, &rb.m_uints[0]);
+		mk_lang_test(mk_lang_string_memcmp_ui_fn(&ra.m_uints[0], &rb.m_uints[0], mk_lang_roundup_div(mk_sl_cui_fuzz_cui_inl_defd_cui_b_size_bytes_v, mk_lang_sizeof_bi_uint_t)) == 0);
+		mk_sl_cui_fuzz_cui_inl_defd_cui_b_from_base(&cui_add, &cui_ad);
+		mk_sl_cui_fuzz_cui_inl_defd_cui_b_to_buis_uint_le(&cui_add, &ra.m_uints[0]);
+		mk_sl_cui_fuzz_cui_inl_defd_cui_b_to_buis_uint_le(&cui_bd, &rb.m_uints[0]);
+		mk_lang_test(mk_lang_string_memcmp_ui_fn(&ra.m_uints[0], &rb.m_uints[0], mk_lang_roundup_div(mk_sl_cui_fuzz_cui_inl_defd_cui_b_size_bytes_v, mk_lang_sizeof_bi_uint_t)) == 0);
+	}
+}
+
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_cui_fuzz_cui_inl_defd_pr_mul4_wrap_wi_smol_a_abab(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
+{
+	mk_lang_types_sint_t ptr mk_lang_constexpr_init;
+	mk_sl_cui_fuzz_cui_inl_defd_cui_a_t cui_aa mk_lang_constexpr_init;
+	mk_sl_cui_fuzz_cui_inl_defd_cui_a_base_t cui_ab mk_lang_constexpr_init;
+	mk_sl_cui_fuzz_cui_inl_defd_cui_a_t cui_abb mk_lang_constexpr_init;
+	mk_sl_cui_fuzz_cui_inl_defd_cui_a_t cui_ba mk_lang_constexpr_init;
+	mk_sl_cui_fuzz_cui_inl_defd_cui_a_t cui_bb mk_lang_constexpr_init;
+	mk_sl_cui_fuzz_cui_inl_defd_pr_storage_t ra mk_lang_constexpr_init;
+	mk_sl_cui_fuzz_cui_inl_defd_pr_storage_t rb mk_lang_constexpr_init;
+
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
+	mk_lang_assert(data || size == 0);
+	mk_lang_assert(size >= 0);
+	#include "mk_lang_warning_gcc_pop.h"
+	#include "mk_lang_warning_msvc_pop.h"
+
+	if(size >= mk_sl_cui_fuzz_cui_inl_defd_cui_a_size_bytes_v + mk_sl_cui_fuzz_cui_inl_defd_cui_a_base_size_bytes_v)
+	{
+		ptr = 0;
+		mk_sl_cui_fuzz_cui_inl_defd_cui_a_from_buis_uchar_le(&cui_aa, &data[ptr]);
+		mk_sl_cui_fuzz_cui_inl_defd_cui_a_from_buis_uchar_le(&cui_ba, &data[ptr]);
+		ptr += mk_sl_cui_fuzz_cui_inl_defd_cui_a_size_bytes_v;
+		mk_sl_cui_fuzz_cui_inl_defd_cui_a_base_from_buis_uchar_le(&cui_ab, &data[ptr]);
+		mk_sl_cui_fuzz_cui_inl_defd_cui_a_from_base(&cui_bb, &cui_ab);
+		ptr += mk_sl_cui_fuzz_cui_inl_defd_cui_a_base_size_bytes_v;
+
+		mk_sl_cui_fuzz_cui_inl_defd_cui_a_mul4_wrap_wi_smol(&cui_aa, &cui_ab, &cui_aa, &cui_ab);
+		mk_sl_cui_fuzz_cui_inl_defd_cui_a_mul4_wrap_wi(&cui_ba, &cui_bb, &cui_ba, &cui_bb);
+
+		mk_sl_cui_fuzz_cui_inl_defd_cui_a_to_buis_uint_le(&cui_aa, &ra.m_uints[0]);
+		mk_sl_cui_fuzz_cui_inl_defd_cui_a_to_buis_uint_le(&cui_ba, &rb.m_uints[0]);
+		mk_lang_test(mk_lang_string_memcmp_ui_fn(&ra.m_uints[0], &rb.m_uints[0], mk_lang_roundup_div(mk_sl_cui_fuzz_cui_inl_defd_cui_a_size_bytes_v, mk_lang_sizeof_bi_uint_t)) == 0);
+		mk_sl_cui_fuzz_cui_inl_defd_cui_a_from_base(&cui_abb, &cui_ab);
+		mk_sl_cui_fuzz_cui_inl_defd_cui_a_to_buis_uint_le(&cui_abb, &ra.m_uints[0]);
+		mk_sl_cui_fuzz_cui_inl_defd_cui_a_to_buis_uint_le(&cui_bb, &rb.m_uints[0]);
+		mk_lang_test(mk_lang_string_memcmp_ui_fn(&ra.m_uints[0], &rb.m_uints[0], mk_lang_roundup_div(mk_sl_cui_fuzz_cui_inl_defd_cui_a_size_bytes_v, mk_lang_sizeof_bi_uint_t)) == 0);
+	}
+}
+
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_cui_fuzz_cui_inl_defd_pr_mul4_wrap_wi_smol_b_abab(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
+{
+	mk_lang_types_sint_t ptr mk_lang_constexpr_init;
+	mk_sl_cui_fuzz_cui_inl_defd_cui_b_t cui_aa mk_lang_constexpr_init;
+	mk_sl_cui_fuzz_cui_inl_defd_cui_b_base_t cui_ab mk_lang_constexpr_init;
+	mk_sl_cui_fuzz_cui_inl_defd_cui_b_t cui_abb mk_lang_constexpr_init;
+	mk_sl_cui_fuzz_cui_inl_defd_cui_b_t cui_ba mk_lang_constexpr_init;
+	mk_sl_cui_fuzz_cui_inl_defd_cui_b_t cui_bb mk_lang_constexpr_init;
+	mk_sl_cui_fuzz_cui_inl_defd_pr_storage_t ra mk_lang_constexpr_init;
+	mk_sl_cui_fuzz_cui_inl_defd_pr_storage_t rb mk_lang_constexpr_init;
+
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
+	mk_lang_assert(data || size == 0);
+	mk_lang_assert(size >= 0);
+	#include "mk_lang_warning_gcc_pop.h"
+	#include "mk_lang_warning_msvc_pop.h"
+
+	if(size >= mk_sl_cui_fuzz_cui_inl_defd_cui_b_size_bytes_v + mk_sl_cui_fuzz_cui_inl_defd_cui_b_base_size_bytes_v)
+	{
+		ptr = 0;
+		mk_sl_cui_fuzz_cui_inl_defd_cui_b_from_buis_uchar_le(&cui_aa, &data[ptr]);
+		mk_sl_cui_fuzz_cui_inl_defd_cui_b_from_buis_uchar_le(&cui_ba, &data[ptr]);
+		ptr += mk_sl_cui_fuzz_cui_inl_defd_cui_b_size_bytes_v;
+		mk_sl_cui_fuzz_cui_inl_defd_cui_b_base_from_buis_uchar_le(&cui_ab, &data[ptr]);
+		mk_sl_cui_fuzz_cui_inl_defd_cui_b_from_base(&cui_bb, &cui_ab);
+		ptr += mk_sl_cui_fuzz_cui_inl_defd_cui_b_base_size_bytes_v;
+
+		mk_sl_cui_fuzz_cui_inl_defd_cui_b_mul4_wrap_wi_smol(&cui_aa, &cui_ab, &cui_aa, &cui_ab);
+		mk_sl_cui_fuzz_cui_inl_defd_cui_b_mul4_wrap_wi(&cui_ba, &cui_bb, &cui_ba, &cui_bb);
+
+		mk_sl_cui_fuzz_cui_inl_defd_cui_b_to_buis_uint_le(&cui_aa, &ra.m_uints[0]);
+		mk_sl_cui_fuzz_cui_inl_defd_cui_b_to_buis_uint_le(&cui_ba, &rb.m_uints[0]);
+		mk_lang_test(mk_lang_string_memcmp_ui_fn(&ra.m_uints[0], &rb.m_uints[0], mk_lang_roundup_div(mk_sl_cui_fuzz_cui_inl_defd_cui_b_size_bytes_v, mk_lang_sizeof_bi_uint_t)) == 0);
+		mk_sl_cui_fuzz_cui_inl_defd_cui_b_from_base(&cui_abb, &cui_ab);
+		mk_sl_cui_fuzz_cui_inl_defd_cui_b_to_buis_uint_le(&cui_abb, &ra.m_uints[0]);
+		mk_sl_cui_fuzz_cui_inl_defd_cui_b_to_buis_uint_le(&cui_bb, &rb.m_uints[0]);
+		mk_lang_test(mk_lang_string_memcmp_ui_fn(&ra.m_uints[0], &rb.m_uints[0], mk_lang_roundup_div(mk_sl_cui_fuzz_cui_inl_defd_cui_b_size_bytes_v, mk_lang_sizeof_bi_uint_t)) == 0);
+	}
+}
+
 mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_cui_fuzz_cui_inl_defd_pr_mul2_wrap_lo_ab(mk_lang_types_uchar_pct const data, mk_lang_types_usize_t const size) mk_lang_noexcept
 {
 	mk_lang_types_sint_t ptr mk_lang_constexpr_init;
@@ -10794,6 +10966,10 @@ mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_fuzz_cui_inl_defd_fn(mk_lang_types_
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ mk_sl_cui_fuzz_cui_inl_defd_pr_mul4_wrap_wi_abba(d, s); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ mk_sl_cui_fuzz_cui_inl_defd_pr_mul4_wrap_wi_aaab(d, s); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ mk_sl_cui_fuzz_cui_inl_defd_pr_mul4_wrap_wi_aaba(d, s); }
+	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ mk_sl_cui_fuzz_cui_inl_defd_pr_mul4_wrap_wi_smol_a_abcd(d, s); }
+	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ mk_sl_cui_fuzz_cui_inl_defd_pr_mul4_wrap_wi_smol_b_abcd(d, s); }
+	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ mk_sl_cui_fuzz_cui_inl_defd_pr_mul4_wrap_wi_smol_a_abab(d, s); }
+	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ mk_sl_cui_fuzz_cui_inl_defd_pr_mul4_wrap_wi_smol_b_abab(d, s); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ mk_sl_cui_fuzz_cui_inl_defd_pr_mul2_wrap_lo_ab(d, s); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ mk_sl_cui_fuzz_cui_inl_defd_pr_mul2_wrap_lo_aa(d, s); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ mk_sl_cui_fuzz_cui_inl_defd_pr_mul2_wrap_hi_ab(d, s); }

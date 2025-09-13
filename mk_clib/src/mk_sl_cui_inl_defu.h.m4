@@ -557,6 +557,11 @@ mm_per_bui(`#undef mk_sl_cui_inl_defd_pr_to_buis_$1_be')
 `#'undef mk_sl_cui_inl_defd_pr_mul4_wrap_wi_alias
 `#'undef mk_sl_cui_inl_defd_pr_add2_wrap_cid_cod_smol
 `#'undef mk_sl_cui_inl_defd_pr_mul3_wrap_lo_smol
+`#'undef mk_sl_cui_inl_defd_pr_mul4_wrap_wi_smol_restrict_a_restrict_b
+`#'undef mk_sl_cui_inl_defd_pr_mul4_wrap_wi_smol_restrict_a_alias_b
+`#'undef mk_sl_cui_inl_defd_pr_mul4_wrap_wi_smol_restrict_a
+`#'undef mk_sl_cui_inl_defd_pr_mul4_wrap_wi_smol_alias_a
+`#'undef mk_sl_cui_inl_defd_pr_mul4_wrap_wi_smol
 `#'undef mk_sl_cui_inl_defd_pr_divmod4_wrap_smol
 `#'undef mk_sl_cui_inl_defd_pr_from_str_dec_border_base_impl
 `#'undef mk_sl_cui_inl_defd_pr_from_str_dec_border_value_impl
@@ -652,6 +657,7 @@ mm_per_bui(`#undef mk_sl_cui_inl_defd_to_buis_$1_be')
 `#'undef mk_sl_cui_inl_defd_mul3_wrap_lo
 `#'undef mk_sl_cui_inl_defd_mul3_wrap_hi
 `#'undef mk_sl_cui_inl_defd_mul4_wrap_wi
+`#'undef mk_sl_cui_inl_defd_mul4_wrap_wi_smol
 `#'undef mk_sl_cui_inl_defd_mul2_wrap_lo
 `#'undef mk_sl_cui_inl_defd_mul2_wrap_hi
 `#'undef mk_sl_cui_inl_defd_mul2_wrap_wi
