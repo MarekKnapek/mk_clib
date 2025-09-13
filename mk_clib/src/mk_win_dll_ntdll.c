@@ -65,6 +65,8 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_dword_t mk_win_dll_ntdll_rtl_compute
 
 
 #else
+#include "mk_lang_warning_clang_push_unused_function.h"
 static void mk_win_dll_ntdll_dummy(void){}
+#include "mk_lang_warning_clang_pop.h"
 #endif
 #endif
