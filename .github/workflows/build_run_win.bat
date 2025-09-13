@@ -24,13 +24,13 @@ if "%~2"=="x64" goto mk_ReleaseMSVC_x64
 goto :eof
 
 :mk_DebugMSVC_x86
-"C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\devenv.com" "%~dp0..\..\mk_clib\projects\vs2022\mk_clib.sln" /Build "DebugMSVC|x86" /Project "%~3" /ProjectConfig "DebugMSVC|Win32" /Out "%~dp0..\..\%~3-debug-x86.txt"
+"C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\devenv.com" "%~dp0..\..\mk_clib\projects\vs2022\mk_clib.sln" /Build "DebugMSVC|Win32" /Project "%~3" /ProjectConfig "DebugMSVC|Win32" /Out "%~dp0..\..\%~3-debug-x86.txt"
 copy "%~dp0..\..\mk_clib\projects\vs2022\Debug\%~3.exe" "%~dp0..\..\%~3-debug-x86.exe"
 copy "%~dp0..\..\mk_clib\projects\vs2022\Debug\%~3.pdb" "%~dp0..\..\%~3-debug-x86.pdb"
 "%~dp0..\..\%~3-debug-x86.exe"
 goto :eof
 :mk_ReleaseMSVC_x86
-"C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\devenv.com" "%~dp0..\..\mk_clib\projects\vs2022\mk_clib.sln" /Build "ReleaseMSVC|x86" /Project "%~3" /ProjectConfig "ReleaseMSVC|Win32" /Out "%~dp0..\..\%~3-release-x86.txt"
+"C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\devenv.com" "%~dp0..\..\mk_clib\projects\vs2022\mk_clib.sln" /Build "ReleaseMSVC|Win32" /Project "%~3" /ProjectConfig "ReleaseMSVC|Win32" /Out "%~dp0..\..\%~3-release-x86.txt"
 copy "%~dp0..\..\mk_clib\projects\vs2022\Release\%~3.exe" "%~dp0..\..\%~3-release-x86.exe"
 copy "%~dp0..\..\mk_clib\projects\vs2022\Release\%~3.pdb" "%~dp0..\..\%~3-release-x86.pdb"
 "%~dp0..\..\%~3-release-x86.exe"
