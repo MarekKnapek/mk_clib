@@ -1,2 +1,10 @@
+/mk_clib_float_analyzer_b128.cpp
+/mk_clib_float_analyzer_b128.wasm
+/mk_clib_float_analyzer_b16.cpp
+/mk_clib_float_analyzer_b16.wasm
+/mk_clib_float_analyzer_b32.cpp
+/mk_clib_float_analyzer_b32.wasm
+/mk_clib_float_analyzer_b64.cpp
+/mk_clib_float_analyzer_b64.wasm
 /mk_clib_hasher.cpp
 /mk_clib_hasher.wasm

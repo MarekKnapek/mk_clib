@@ -2137,6 +2137,7 @@ mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_
 #endif
 }}
 
+#include "mk_lang_warning_msvc_push_c4702.h"
 mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_void_t mk_sl_cui_inl_defd_pr_shr3(mk_sl_cui_inl_defd_pct const a, mk_lang_types_sint_t const b, mk_sl_cui_inl_defd_pt const c) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
 #if mk_sl_cui_inl_defd_count == 1
@@ -2189,6 +2190,7 @@ mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_
 	}
 #endif
 }}
+#include "mk_lang_warning_msvc_pop.h"
 
 mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_void_t mk_sl_cui_inl_defd_pr_rotl3(mk_sl_cui_inl_defd_pct const a, mk_lang_types_sint_t const b, mk_sl_cui_inl_defd_pt const c) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
