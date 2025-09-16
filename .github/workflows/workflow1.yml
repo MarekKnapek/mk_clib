@@ -25,7 +25,7 @@
   "build_wasm":
     "strategy":
       "matrix":
-        "proj": ["mk_clib_float_analyzer_b128", "mk_clib_float_analyzer_b16", "mk_clib_float_analyzer_b32", "mk_clib_float_analyzer_b64", "mk_clib_hasher"]
+        "proj": ["mk_clib_float_analyzer_b128", "mk_clib_float_analyzer_b16", "mk_clib_float_analyzer_b32", "mk_clib_float_analyzer_b64", "mk_clib_hasher", "mk_clib_info"]
     "runs-on": "ubuntu-latest"
     "defaults":
       "run":

@@ -8,3 +8,5 @@
 /mk_clib_float_analyzer_b64.wasm
 /mk_clib_hasher.cpp
 /mk_clib_hasher.wasm
+/mk_clib_info.cpp
+/mk_clib_info.wasm
