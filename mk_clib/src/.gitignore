@@ -16,6 +16,8 @@
 /mk_lib_crypto_xof_stream_any1.h
 /mk_lib_crypto_xof_stream_any2.c
 /mk_lib_crypto_xof_stream_any2.h
+/mk_lib_float_analyzer_inl_defd.h
+/mk_lib_float_analyzer_inl_defu.h
 /mk_lib_iip_cp_message_create_session_strings.c
 /mk_lib_iip_cp_message_create_session_strings.h
 /mk_lib_iip_cp_message_strings.c
