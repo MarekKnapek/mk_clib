@@ -2,6 +2,7 @@
 #define mk_include_guard_mk_lang_stdout_c
 #include "mk_lang_stdout.h"
 
+#include "mk_lang_arch.h"
 #include "mk_lang_check.h"
 #include "mk_lang_concat.h"
 #include "mk_lang_jumbo.h"
@@ -15,6 +16,9 @@
 #if mk_lang_platform_is_windows_at_least_any
 #include "mk_lang_stdout_windows.h"
 #define mk_lang_stdout_prefix windows
+#elif mk_lang_arch_is_emscripten
+#include "mk_lang_stdout_emscripten.h"
+#define mk_lang_stdout_prefix emscripten
 #elif mk_lang_platform_is_linux
 #include "mk_lang_stdout_linux.h"
 #define mk_lang_stdout_prefix linux
