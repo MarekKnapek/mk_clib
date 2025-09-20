@@ -47,13 +47,15 @@ typedef struct mk_lib_crypto_hash_block_sha2_base_32bit_x86_digest_s mk_lib_cryp
 mk_lang_typedef(mk_lib_crypto_hash_block_sha2_base_32bit_x86_digest);
 
 
+#include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_lib_crypto_hash_block_sha2_base_32bit_x86_s
 {
-	mk_sl_cui_uint32_t m_state[8];
+	mk_lang_alignas(16) mk_sl_cui_uint32_t m_state[8];
 	mk_sl_cui_uint64_t m_len;
 };
 typedef struct mk_lib_crypto_hash_block_sha2_base_32bit_x86_s mk_lib_crypto_hash_block_sha2_base_32bit_x86_t;
 mk_lang_typedef(mk_lib_crypto_hash_block_sha2_base_32bit_x86);
+#include "mk_lang_warning_msvc_pop.h"
 
 
 mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sha2_base_32bit_x86_init(mk_lib_crypto_hash_block_sha2_base_32bit_x86_pt const sha2_base_32bit_portable, mk_lang_static_param(mk_sl_cui_uint32_ct, iv, 8)) mk_lang_noexcept;
@@ -61,7 +63,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sha2_base_32bit_x86_
 mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sha2_base_32bit_x86_finish(mk_lib_crypto_hash_block_sha2_base_32bit_x86_pt const sha2_base_32bit_portable, mk_lib_crypto_hash_block_sha2_base_32bit_x86_block_pt const block, mk_lang_types_sint_t const idx, mk_lib_crypto_hash_block_sha2_base_32bit_x86_digest_pt const digest) mk_lang_noexcept;
 
 
-#if mk_lang_jumbo_have == 1
+#if mk_lang_jumbo_have
 #include "mk_lib_crypto_hash_block_sha2_base_32bit_x86.c"
 #endif
 #endif
