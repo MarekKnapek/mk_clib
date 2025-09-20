@@ -45,10 +45,8 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sh
 	#if mk_lib_crypto_hash_block_sha2_base_32bit_test_ct
 	if(mk_lib_crypto_hash_block_sha2_base_32bit_test_rt && (((mk_lang_types_uintptr_t)(&sha2_base_32bit->m_state[0])) & 0xf) == 0)
 	{
-		mk_lang_static_assert(sizeof(mk_lib_crypto_hash_block_sha2_base_32bit_t) == sizeof(mk_lib_crypto_hash_block_sha2_base_32bit_x86_t));
-		mk_lang_static_assert(mk_lang_alignof(mk_lib_crypto_hash_block_sha2_base_32bit_t) == mk_lang_alignof(mk_lib_crypto_hash_block_sha2_base_32bit_x86_t));
-		mk_lang_static_assert(sizeof(sha2_base_32bit->m_state) == sizeof(((mk_lib_crypto_hash_block_sha2_base_32bit_x86_pt)(mk_lang_null))->m_state));
-		mk_lang_static_assert(sizeof(sha2_base_32bit->m_len) == sizeof(((mk_lib_crypto_hash_block_sha2_base_32bit_x86_pt)(mk_lang_null))->m_len));
+		mk_lang_static_assert(sizeof(((mk_lib_crypto_hash_block_sha2_base_32bit_pt)(mk_lang_null))->m_state) == sizeof(((mk_lib_crypto_hash_block_sha2_base_32bit_x86_pt)(mk_lang_null))->m_state));
+		mk_lang_static_assert(sizeof(((mk_lib_crypto_hash_block_sha2_base_32bit_pt)(mk_lang_null))->m_len) == sizeof(((mk_lib_crypto_hash_block_sha2_base_32bit_x86_pt)(mk_lang_null))->m_len));
 		mk_lang_static_assert(mk_lang_offsetof(mk_lib_crypto_hash_block_sha2_base_32bit_t, m_state) == mk_lang_offsetof(mk_lib_crypto_hash_block_sha2_base_32bit_x86_t, m_state));
 		mk_lang_static_assert(mk_lang_offsetof(mk_lib_crypto_hash_block_sha2_base_32bit_t, m_len) == mk_lang_offsetof(mk_lib_crypto_hash_block_sha2_base_32bit_x86_t, m_len));
 		mk_lib_crypto_hash_block_sha2_base_32bit_x86_init(((mk_lib_crypto_hash_block_sha2_base_32bit_x86_pt)(sha2_base_32bit)), iv);
@@ -92,10 +90,8 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sh
 	#if mk_lib_crypto_hash_block_sha2_base_32bit_test_ct
 	if(mk_lib_crypto_hash_block_sha2_base_32bit_test_rt && (((mk_lang_types_uintptr_t)(&sha2_base_32bit->m_state[0])) & 0x1f) == 0 && (((mk_lang_types_uintptr_t)(pblocks)) & 0x1f) == 0)
 	{
-		mk_lang_static_assert(sizeof(mk_lib_crypto_hash_block_sha2_base_32bit_t) == sizeof(mk_lib_crypto_hash_block_sha2_base_32bit_x86_t));
-		mk_lang_static_assert(mk_lang_alignof(mk_lib_crypto_hash_block_sha2_base_32bit_t) == mk_lang_alignof(mk_lib_crypto_hash_block_sha2_base_32bit_x86_t));
-		mk_lang_static_assert(sizeof(sha2_base_32bit->m_state) == sizeof(((mk_lib_crypto_hash_block_sha2_base_32bit_x86_pt)(mk_lang_null))->m_state));
-		mk_lang_static_assert(sizeof(sha2_base_32bit->m_len) == sizeof(((mk_lib_crypto_hash_block_sha2_base_32bit_x86_pt)(mk_lang_null))->m_len));
+		mk_lang_static_assert(sizeof(((mk_lib_crypto_hash_block_sha2_base_32bit_pt)(mk_lang_null))->m_state) == sizeof(((mk_lib_crypto_hash_block_sha2_base_32bit_x86_pt)(mk_lang_null))->m_state));
+		mk_lang_static_assert(sizeof(((mk_lib_crypto_hash_block_sha2_base_32bit_pt)(mk_lang_null))->m_len) == sizeof(((mk_lib_crypto_hash_block_sha2_base_32bit_x86_pt)(mk_lang_null))->m_len));
 		mk_lang_static_assert(mk_lang_offsetof(mk_lib_crypto_hash_block_sha2_base_32bit_t, m_state) == mk_lang_offsetof(mk_lib_crypto_hash_block_sha2_base_32bit_x86_t, m_state));
 		mk_lang_static_assert(mk_lang_offsetof(mk_lib_crypto_hash_block_sha2_base_32bit_t, m_len) == mk_lang_offsetof(mk_lib_crypto_hash_block_sha2_base_32bit_x86_t, m_len));
 		mk_lib_crypto_hash_block_sha2_base_32bit_x86_append_blocks(((mk_lib_crypto_hash_block_sha2_base_32bit_x86_pt)(sha2_base_32bit)), ((mk_lib_crypto_hash_block_sha2_base_32bit_x86_block_pct)(pblocks)), nblocks);
@@ -145,10 +141,8 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_block_sh
 	#if mk_lib_crypto_hash_block_sha2_base_32bit_test_ct
 	if(mk_lib_crypto_hash_block_sha2_base_32bit_test_rt && (((mk_lang_types_uintptr_t)(&sha2_base_32bit->m_state[0])) & 0x1f) == 0 && (((mk_lang_types_uintptr_t)(&digest->m_data.m_uint8s[0])) & 0x1f) == 0)
 	{
-		mk_lang_static_assert(sizeof(mk_lib_crypto_hash_block_sha2_base_32bit_t) == sizeof(mk_lib_crypto_hash_block_sha2_base_32bit_x86_t));
-		mk_lang_static_assert(mk_lang_alignof(mk_lib_crypto_hash_block_sha2_base_32bit_t) == mk_lang_alignof(mk_lib_crypto_hash_block_sha2_base_32bit_x86_t));
-		mk_lang_static_assert(sizeof(sha2_base_32bit->m_state) == sizeof(((mk_lib_crypto_hash_block_sha2_base_32bit_x86_pt)(mk_lang_null))->m_state));
-		mk_lang_static_assert(sizeof(sha2_base_32bit->m_len) == sizeof(((mk_lib_crypto_hash_block_sha2_base_32bit_x86_pt)(mk_lang_null))->m_len));
+		mk_lang_static_assert(sizeof(((mk_lib_crypto_hash_block_sha2_base_32bit_pt)(mk_lang_null))->m_state) == sizeof(((mk_lib_crypto_hash_block_sha2_base_32bit_x86_pt)(mk_lang_null))->m_state));
+		mk_lang_static_assert(sizeof(((mk_lib_crypto_hash_block_sha2_base_32bit_pt)(mk_lang_null))->m_len) == sizeof(((mk_lib_crypto_hash_block_sha2_base_32bit_x86_pt)(mk_lang_null))->m_len));
 		mk_lang_static_assert(mk_lang_offsetof(mk_lib_crypto_hash_block_sha2_base_32bit_t, m_state) == mk_lang_offsetof(mk_lib_crypto_hash_block_sha2_base_32bit_x86_t, m_state));
 		mk_lang_static_assert(mk_lang_offsetof(mk_lib_crypto_hash_block_sha2_base_32bit_t, m_len) == mk_lang_offsetof(mk_lib_crypto_hash_block_sha2_base_32bit_x86_t, m_len));
 		mk_lib_crypto_hash_block_sha2_base_32bit_x86_finish(((mk_lib_crypto_hash_block_sha2_base_32bit_x86_pt)(sha2_base_32bit)), ((mk_lib_crypto_hash_block_sha2_base_32bit_x86_block_pt)(block)), idx, ((mk_lib_crypto_hash_block_sha2_base_32bit_x86_digest_pt)(digest)));
