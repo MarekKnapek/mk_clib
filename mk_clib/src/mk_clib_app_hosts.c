@@ -65,7 +65,7 @@
 #include "mk_sl_fixed_vector_inl_filec.h"
 #include "mk_sl_fixed_vector_inl_fileu.h"
 
-#include "mk_sl_vector.h"
+#include "mk_sl_vector_copy.h"
 #define mk_sl_vector_t_name mk_clib_app_hosts_domains
 #define mk_sl_vector_t_element_type mk_clib_app_hosts_domain_t
 #define mk_sl_vector_t_mallocatorg mk_lib_iip_cp_mallocator_global
@@ -322,7 +322,7 @@ struct mk_clib_app_hosts_entry_s
 typedef struct mk_clib_app_hosts_entry_s mk_clib_app_hosts_entry_t;
 mk_lang_typedef(mk_clib_app_hosts_entry);
 #include "mk_lang_warning_msvc_pop.h"
-#include "mk_sl_vector.h"
+#include "mk_sl_vector_copy.h"
 
 #define mk_sl_vector_t_name mk_clib_app_hosts_entries
 #define mk_sl_vector_t_element_type mk_clib_app_hosts_entry_t
@@ -332,7 +332,7 @@ mk_lang_typedef(mk_clib_app_hosts_entry);
 #include "mk_sl_vector_inl_filec.h"
 #include "mk_sl_vector_inl_fileu.h"
 
-#include "mk_sl_vector.h"
+#include "mk_sl_vector_copy.h"
 #define mk_sl_vector_t_name mk_clib_app_hosts_ints
 #define mk_sl_vector_t_element_type mk_lang_types_sint_t
 #define mk_sl_vector_t_mallocatorg mk_lib_iip_cp_mallocator_global
