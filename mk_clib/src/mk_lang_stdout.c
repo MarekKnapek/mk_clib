@@ -20,8 +20,8 @@
 #include "mk_lang_stdout_emscripten.h"
 #define mk_lang_stdout_prefix emscripten
 #elif mk_lang_platform_is_linux
-#include "mk_lang_stdout_linux.h"
-#define mk_lang_stdout_prefix linux
+#include "mk_lang_stdout_linuks.h"
+#define mk_lang_stdout_prefix linuks
 #elif mk_lang_platform_is_posix_at_least_any
 #include "mk_lang_stdout_posix.h"
 #define mk_lang_stdout_prefix posix
