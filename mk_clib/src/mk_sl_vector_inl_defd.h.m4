@@ -2,7 +2,7 @@ include(`mk_lang_typedef.m')dnl
 #include "mk_lang_concat.h"
 #include "mk_lang_limits.h"
 #include "mk_lang_types.h"
-#include "mk_sl_vector.h"
+#include "mk_sl_vector_copy.h"
 
 
 #if(!( \

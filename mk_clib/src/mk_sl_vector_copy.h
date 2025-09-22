@@ -1,5 +1,5 @@
-#ifndef mk_include_guard_mk_sl_vector_h
-#define mk_include_guard_mk_sl_vector_h
+#ifndef mk_include_guard_mk_sl_vector_copy_h
+#define mk_include_guard_mk_sl_vector_copy_h
 
 
 #define mk_sl_vector_copy_use_bitblt 1001
