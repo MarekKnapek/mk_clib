@@ -18,6 +18,8 @@ mk_lang_extern_force_c mk_win_base_dll_import mk_lang_types_void_t mk_win_base_s
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall SystemTimeToFileTime(mk_win_dll_kernel_time_system_time_lpct const system_time, mk_win_dll_kernel_time_file_time_lpt const file_time) mk_lang_noexcept;
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall FileTimeToSystemTime(mk_win_dll_kernel_time_file_time_lpct const file_time, mk_win_dll_kernel_time_system_time_lpt const system_time) mk_lang_noexcept;
 mk_lang_extern_force_c mk_win_base_dll_import mk_lang_types_void_t mk_win_base_stdcall GetSystemTimePreciseAsFileTime(mk_win_dll_kernel_time_file_time_lpt const file_time) mk_lang_noexcept; /* since Windows 8 and Windows Server 2012 */
+mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall QueryPerformanceFrequency(mk_win_base_large_integer_pt const frequency) mk_lang_noexcept;
+mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_bool_t mk_win_base_stdcall QueryPerformanceCounter(mk_win_base_large_integer_pt const counter) mk_lang_noexcept;
 
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_dword_t mk_win_dll_kernel_time_get_tick_count(mk_lang_types_void_t) mk_lang_noexcept
@@ -52,6 +54,22 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_dll_kernel_time_file_t
 mk_lang_jumbo mk_lang_types_void_t mk_win_dll_kernel_time_get_system_time_precise_as_file_time(mk_win_dll_kernel_time_file_time_lpt const file_time) mk_lang_noexcept
 {
 	GetSystemTimePreciseAsFileTime(file_time);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_dll_kernel_time_query_performance_frequency(mk_win_base_large_integer_pt const frequency) mk_lang_noexcept
+{
+	mk_win_base_bool_t ret;
+
+	ret = QueryPerformanceFrequency(frequency);
+	return ret;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_dll_kernel_time_query_performance_counter(mk_win_base_large_integer_pt const counter) mk_lang_noexcept
+{
+	mk_win_base_bool_t ret;
+
+	ret = QueryPerformanceCounter(counter);
+	return ret;
 }
 
 
