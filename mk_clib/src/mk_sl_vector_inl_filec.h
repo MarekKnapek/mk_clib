@@ -1139,6 +1139,23 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_de
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_defd_prrw_push_back_void(mk_sl_vector_inl_defd_pt const vector, mk_lang_types_usize_t const count) mk_lang_noexcept
+{
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
+	mk_lang_assert(vector);
+	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
+	mk_lang_assert(count >= 0);
+	mk_lang_assert(count <= mk_sl_vector_inl_defd_rw_free(vector));
+	#include "mk_lang_warning_gcc_pop.h"
+	#include "mk_lang_warning_msvc_pop.h"
+
+	vector->m_size += count;
+
+	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_defd_prrw_pop_front_many(mk_sl_vector_inl_defd_pt const vector, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
 	mk_sl_vector_inl_defd_element_pt dst;
@@ -1858,6 +1875,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_pu
 	err = mk_sl_vector_inl_defd_rw_push_back_copy_many(vector, element, 1); mk_lang_check_rereturn(err);
 	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
 	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_push_back_void(mk_sl_vector_inl_defd_pt const vector, mk_lang_types_usize_t const count) mk_lang_noexcept
+{
+	return mk_sl_vector_inl_defd_prrw_push_back_void(vector, count);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_pop_front_many(mk_sl_vector_inl_defd_pt const vector, mk_lang_types_usize_t const count) mk_lang_noexcept
