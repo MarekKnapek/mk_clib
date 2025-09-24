@@ -42,6 +42,7 @@
 #include "mk_sl_io_writer_file.h"
 #include "mk_sl_random.h"
 #include "mk_sl_random_tom.h"
+#include "mk_sl_stopwatch.h"
 #include "mk_sl_time.h"
 #include "mk_sl_uint_convert.h"
 #include "mk_sl_uint_more.h"
@@ -1184,9 +1185,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_glo
 	mk_lang_types_sint_t err;
 
 	mk_lang_cpuid_init();
+	err = mk_sl_stopwatch_init(); mk_lang_check_rereturn(err);
 	err = mk_lang_stdout_init(); mk_lang_check_rereturn(err);
 	err = mk_sl_random_init(); mk_lang_check_rereturn(err);
-	//err = mk_sl_random_tom_init(); mk_lang_check_rereturn(err);
 	err = mk_lib_net_init(); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_cp_mallocator_global_init(); mk_lang_check_rereturn(err);
 	return 0;
@@ -1199,7 +1200,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_glo
 	err = mk_lib_iip_cp_mallocator_global_deinit(); mk_lang_check_rereturn(err);
 	err = mk_lib_net_deinit(); mk_lang_check_rereturn(err);
 	err = mk_sl_random_deinit(); mk_lang_check_rereturn(err);
-	//err = mk_sl_random_tom_deinit(); mk_lang_check_rereturn(err);
+	err = mk_sl_stopwatch_deinit(); mk_lang_check_rereturn(err);
 	return 0;
 }
 
