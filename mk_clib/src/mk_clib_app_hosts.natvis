@@ -1,24 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
-	<Type Name="mk_clib_app_hosts_entries_s">
-		<DisplayString>{{ size = {m_size} capacity = {m_capacity} }}</DisplayString>
+	<Type Name="mk_clib_app_hosts_domain_s">
+		<DisplayString>{{ size = {m_size} capacity = {((int)(mk_clib_app_hosts_domain_capacity_k))} }}</DisplayString>
 		<Expand>
 			<Item Name="[size]">m_size</Item>
-			<Item Name="[capacity]">m_capacity</Item>
+			<Item Name="[capacity]">((int)(mk_clib_app_hosts_domain_capacity_k))</Item>
 			<ArrayItems>
 				<Size>m_size</Size>
-				<ValuePointer>m_buffer</ValuePointer>
-			</ArrayItems>
-		</Expand>
-	</Type>
-	<Type Name="mk_clib_app_hosts_ints_s">
-		<DisplayString>{{ size = {m_size} capacity = {m_capacity} }}</DisplayString>
-		<Expand>
-			<Item Name="[size]">m_size</Item>
-			<Item Name="[capacity]">m_capacity</Item>
-			<ArrayItems>
-				<Size>m_size</Size>
-				<ValuePointer>m_buffer</ValuePointer>
+				<ValuePointer>m_arr</ValuePointer>
 			</ArrayItems>
 		</Expand>
 	</Type>
@@ -33,14 +22,36 @@
 			</ArrayItems>
 		</Expand>
 	</Type>
-	<Type Name="mk_clib_app_hosts_domain_s">
-		<DisplayString>{{ size = {m_size} capacity = {((int)(mk_clib_app_hosts_domain_capacity_k))} }}</DisplayString>
+	<Type Name="mk_clib_app_phosts_domains_s">
+		<DisplayString>{{ size = {m_size} capacity = {m_capacity} }}</DisplayString>
 		<Expand>
 			<Item Name="[size]">m_size</Item>
-			<Item Name="[capacity]">((int)(mk_clib_app_hosts_domain_capacity_k))</Item>
+			<Item Name="[capacity]">m_capacity</Item>
 			<ArrayItems>
 				<Size>m_size</Size>
-				<ValuePointer>m_arr</ValuePointer>
+				<ValuePointer>m_buffer</ValuePointer>
+			</ArrayItems>
+		</Expand>
+	</Type>
+	<Type Name="mk_clib_app_hosts_entries_s">
+		<DisplayString>{{ size = {m_write - m_read} capacity = {m_capacity} }}</DisplayString>
+		<Expand>
+			<Item Name="[size]">m_write - m_read</Item>
+			<Item Name="[capacity]">m_capacity</Item>
+			<IndexListItems>
+				<Size>m_write - m_read</Size>
+				<ValueNode>m_buffer[(m_read + $i) % m_capacity]</ValueNode>
+			</IndexListItems>
+		</Expand>
+	</Type>
+	<Type Name="mk_clib_app_hosts_ints_s">
+		<DisplayString>{{ size = {m_size} capacity = {m_capacity} }}</DisplayString>
+		<Expand>
+			<Item Name="[size]">m_size</Item>
+			<Item Name="[capacity]">m_capacity</Item>
+			<ArrayItems>
+				<Size>m_size</Size>
+				<ValuePointer>m_buffer</ValuePointer>
 			</ArrayItems>
 		</Expand>
 	</Type>
