@@ -193,62 +193,107 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_sessio
 #include "mk_sl_vector_inl_fileu.h"
 
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_message_status_rw_construct_void(mk_lib_iip_cp_client_session_message_status_pt const x) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_message_status_rw_construct_void(mk_lib_iip_cp_client_session_message_status_pt const elements_ptr, mk_lang_types_usize_t const elements_cnt) mk_lang_noexcept
 {
-	mk_lang_assert(x);
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	mk_lang_assert(elements_ptr || elements_cnt == 0);
+	mk_lang_assert(elements_cnt >= 0);
+	mk_lang_assert(elements_cnt <= mk_lang_limits_usize_max / sizeof(*elements_ptr));
+	#include "mk_lang_warning_msvc_pop.h"
 
 	mk_lang_check_todo();
+	((mk_lang_types_void_t)(elements_ptr));
+	((mk_lang_types_void_t)(elements_cnt));
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_message_status_rw_destroy(mk_lib_iip_cp_client_session_message_status_pt const x) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_message_status_rw_destroy(mk_lib_iip_cp_client_session_message_status_pt const elements_ptr, mk_lang_types_usize_t const elements_cnt) mk_lang_noexcept
 {
-	mk_lang_assert(x);
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	mk_lang_assert(elements_ptr || elements_cnt == 0);
+	mk_lang_assert(elements_cnt >= 0);
+	mk_lang_assert(elements_cnt <= mk_lang_limits_usize_max / sizeof(*elements_ptr));
+	#include "mk_lang_warning_msvc_pop.h"
 
-	((mk_lang_types_void_t)(x));
+	((mk_lang_types_void_t)(elements_ptr));
+	((mk_lang_types_void_t)(elements_cnt));
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_message_status_rw_construct_copy(mk_lib_iip_cp_client_session_message_status_pt const dst, mk_lib_iip_cp_client_session_message_status_pct const src) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_message_status_rw_construct_copy(mk_lib_iip_cp_client_session_message_status_pt const dst, mk_lib_iip_cp_client_session_message_status_pct const src, mk_lang_types_usize_t const cnt) mk_lang_noexcept
 {
-	mk_lang_assert(dst);
-	mk_lang_assert(src);
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
 
-	*dst = *src;
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	mk_lang_assert(dst || cnt == 0);
+	mk_lang_assert(src || cnt == 0);
+	mk_lang_assert(cnt >= 0);
+	mk_lang_assert(cnt <= mk_lang_limits_usize_max / sizeof(*dst));
+	#include "mk_lang_warning_msvc_pop.h"
+
+	n = cnt;
+	for(i = 0; i != n; ++i)
+	{
+		dst[i] = src[i];
+	}
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_message_status_rw_construct_move(mk_lib_iip_cp_client_session_message_status_pt const dst, mk_lib_iip_cp_client_session_message_status_pt const src) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_message_status_rw_construct_move(mk_lib_iip_cp_client_session_message_status_pt const dst, mk_lib_iip_cp_client_session_message_status_pt const src, mk_lang_types_usize_t const cnt) mk_lang_noexcept
 {
-	mk_lang_assert(dst);
-	mk_lang_assert(src);
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
 
-	*dst = *src;
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	mk_lang_assert(dst || cnt == 0);
+	mk_lang_assert(src || cnt == 0);
+	mk_lang_assert(cnt >= 0);
+	mk_lang_assert(cnt <= mk_lang_limits_usize_max / sizeof(*dst));
+	#include "mk_lang_warning_msvc_pop.h"
+
+	n = cnt;
+	for(i = 0; i != n; ++i)
+	{
+		dst[i] = src[i];
+	}
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_message_status_rw_assign_copy(mk_lib_iip_cp_client_session_message_status_pt const dst, mk_lib_iip_cp_client_session_message_status_pct const src) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_message_status_rw_assign_copy(mk_lib_iip_cp_client_session_message_status_pt const dst, mk_lib_iip_cp_client_session_message_status_pct const src, mk_lang_types_usize_t const cnt) mk_lang_noexcept
 {
-	mk_lang_assert(dst);
-	mk_lang_assert(src);
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
 
-	*dst = *src;
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	mk_lang_assert(dst || cnt == 0);
+	mk_lang_assert(src || cnt == 0);
+	mk_lang_assert(cnt >= 0);
+	mk_lang_assert(cnt <= mk_lang_limits_usize_max / sizeof(*dst));
+	#include "mk_lang_warning_msvc_pop.h"
+
+	n = cnt;
+	for(i = 0; i != n; ++i)
+	{
+		dst[i] = src[i];
+	}
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_message_status_rw_assign_move(mk_lib_iip_cp_client_session_message_status_pt const dst, mk_lib_iip_cp_client_session_message_status_pt const src, mk_lang_types_usize_t const count) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_message_status_rw_assign_move(mk_lib_iip_cp_client_session_message_status_pt const dst, mk_lib_iip_cp_client_session_message_status_pt const src, mk_lang_types_usize_t const cnt) mk_lang_noexcept
 {
 	mk_lang_types_usize_t n;
 	mk_lang_types_usize_t i;
 	mk_lib_iip_cp_client_session_message_status_t tmp;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
-	mk_lang_assert(dst || count == 0);
-	mk_lang_assert(src || count == 0);
-	mk_lang_assert(count >= 0);
+	mk_lang_assert(dst || cnt == 0);
+	mk_lang_assert(src || cnt == 0);
+	mk_lang_assert(cnt >= 0);
+	mk_lang_assert(cnt <= mk_lang_limits_usize_max / sizeof(*dst));
 	#include "mk_lang_warning_msvc_pop.h"
 
-	n = count;
+	n = cnt;
 	for(i = 0; i != n; ++i)
 	{
 		tmp = dst[i];

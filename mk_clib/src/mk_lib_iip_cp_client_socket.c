@@ -85,73 +85,112 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket
 }
 
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_packet_with_payload_ptr_rw_construct_void(mk_lib_iip_cp_client_socket_packet_with_payload_ppt const x) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_packet_with_payload_ptr_rw_construct_void(mk_lib_iip_cp_client_socket_packet_with_payload_ppt const elements_ptr, mk_lang_types_usize_t const elements_cnt) mk_lang_noexcept
 {
-	mk_lang_assert(x);
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	mk_lang_assert(elements_ptr || elements_cnt == 0);
+	mk_lang_assert(elements_cnt >= 0);
+	mk_lang_assert(elements_cnt <= mk_lang_limits_usize_max / sizeof(*elements_ptr));
+	#include "mk_lang_warning_msvc_pop.h"
 
-	((mk_lang_types_void_t)(x));
 	mk_lang_check_todo();
+	((mk_lang_types_void_t)(elements_ptr));
+	((mk_lang_types_void_t)(elements_cnt));
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_packet_with_payload_ptr_rw_destroy(mk_lib_iip_cp_client_socket_packet_with_payload_ppt const x) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_packet_with_payload_ptr_rw_destroy(mk_lib_iip_cp_client_socket_packet_with_payload_ppt const elements_ptr, mk_lang_types_usize_t const elements_cnt) mk_lang_noexcept
 {
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
 	mk_lib_iip_cp_client_socket_packet_with_payload_pt obj;
 	mk_lang_types_sint_t err;
 
-	mk_lang_assert(x);
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	mk_lang_assert(elements_ptr || elements_cnt == 0);
+	mk_lang_assert(elements_cnt >= 0);
+	mk_lang_assert(elements_cnt <= mk_lang_limits_usize_max / sizeof(*elements_ptr));
+	#include "mk_lang_warning_msvc_pop.h"
 
-	obj = *x;
-	if(obj)
+	n = elements_cnt;
+	for(i = 0; i != n; ++i)
 	{
-		err = mk_lib_iip_cp_client_socket_packet_with_payload_rw_destroy(obj); mk_lang_check_rereturn(err);
-		err = mk_lib_iip_cp_mallocator_global_deallocate(obj, sizeof(*obj)); mk_lang_check_rereturn(err);
+		obj = elements_ptr[i];
+		if(obj)
+		{
+			err = mk_lib_iip_cp_client_socket_packet_with_payload_rw_destroy(obj); mk_lang_check_rereturn(err);
+			err = mk_lib_iip_cp_mallocator_global_deallocate(obj, sizeof(*obj)); mk_lang_check_rereturn(err);
+		}
 	}
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_packet_with_payload_ptr_rw_construct_copy(mk_lib_iip_cp_client_socket_packet_with_payload_ppt const dst, mk_lib_iip_cp_client_socket_packet_with_payload_pcpt const src) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_packet_with_payload_ptr_rw_construct_copy(mk_lib_iip_cp_client_socket_packet_with_payload_ppt const dst, mk_lib_iip_cp_client_socket_packet_with_payload_pcpt const src, mk_lang_types_usize_t const cnt) mk_lang_noexcept
 {
-	mk_lang_assert(dst);
-	mk_lang_assert(src);
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	mk_lang_assert(dst || cnt == 0);
+	mk_lang_assert(src || cnt == 0);
+	mk_lang_assert(cnt >= 0);
+	mk_lang_assert(cnt <= mk_lang_limits_usize_max / sizeof(*dst));
+	#include "mk_lang_warning_msvc_pop.h"
 
 	mk_lang_check_todo();
-	*dst = *src;
+	((mk_lang_types_void_t)(dst));
+	((mk_lang_types_void_t)(src));
+	((mk_lang_types_void_t)(cnt));
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_packet_with_payload_ptr_rw_construct_move(mk_lib_iip_cp_client_socket_packet_with_payload_ppt const dst, mk_lib_iip_cp_client_socket_packet_with_payload_ppt const src) mk_lang_noexcept
-{
-	mk_lang_assert(dst);
-	mk_lang_assert(src);
-
-	*dst = *src;
-	*src = mk_lang_null;
-	return 0;
-}
-
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_packet_with_payload_ptr_rw_assign_copy(mk_lib_iip_cp_client_socket_packet_with_payload_ppt const dst, mk_lib_iip_cp_client_socket_packet_with_payload_pcpt const src) mk_lang_noexcept
-{
-	mk_lang_assert(dst);
-	mk_lang_assert(src);
-
-	mk_lang_check_todo();
-	*dst = *src;
-	return 0;
-}
-
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_packet_with_payload_ptr_rw_assign_move(mk_lib_iip_cp_client_socket_packet_with_payload_ppt const dst, mk_lib_iip_cp_client_socket_packet_with_payload_ppt const src, mk_lang_types_usize_t const count) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_packet_with_payload_ptr_rw_construct_move(mk_lib_iip_cp_client_socket_packet_with_payload_ppt const dst, mk_lib_iip_cp_client_socket_packet_with_payload_ppt const src, mk_lang_types_usize_t const cnt) mk_lang_noexcept
 {
 	mk_lang_types_usize_t n;
 	mk_lang_types_usize_t i;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
-	mk_lang_assert(dst || count == 0);
-	mk_lang_assert(src || count == 0);
-	mk_lang_assert(count >= 0);
+	mk_lang_assert(dst || cnt == 0);
+	mk_lang_assert(src || cnt == 0);
+	mk_lang_assert(cnt >= 0);
+	mk_lang_assert(cnt <= mk_lang_limits_usize_max / sizeof(*dst));
 	#include "mk_lang_warning_msvc_pop.h"
 
-	n = count;
+	n = cnt;
+	for(i = 0; i != n; ++i)
+	{
+		dst[i] = src[i];
+		src[i] = mk_lang_null;
+	}
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_packet_with_payload_ptr_rw_assign_copy(mk_lib_iip_cp_client_socket_packet_with_payload_ppt const dst, mk_lib_iip_cp_client_socket_packet_with_payload_pcpt const src, mk_lang_types_usize_t const cnt) mk_lang_noexcept
+{
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	mk_lang_assert(dst || cnt == 0);
+	mk_lang_assert(src || cnt == 0);
+	mk_lang_assert(cnt >= 0);
+	mk_lang_assert(cnt <= mk_lang_limits_usize_max / sizeof(*dst));
+	#include "mk_lang_warning_msvc_pop.h"
+
+	mk_lang_check_todo();
+	((mk_lang_types_void_t)(dst));
+	((mk_lang_types_void_t)(src));
+	((mk_lang_types_void_t)(cnt));
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_packet_with_payload_ptr_rw_assign_move(mk_lib_iip_cp_client_socket_packet_with_payload_ppt const dst, mk_lib_iip_cp_client_socket_packet_with_payload_ppt const src, mk_lang_types_usize_t const cnt) mk_lang_noexcept
+{
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
+
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	mk_lang_assert(dst || cnt == 0);
+	mk_lang_assert(src || cnt == 0);
+	mk_lang_assert(cnt >= 0);
+	mk_lang_assert(cnt <= mk_lang_limits_usize_max / sizeof(*dst));
+	#include "mk_lang_warning_msvc_pop.h"
+
+	n = cnt;
 	for(i = 0; i != n; ++i)
 	{
 		dst[i] = src[i];
@@ -196,75 +235,119 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_packets_ptr_rw_construct_void(mk_lib_iip_cp_client_socket_packet_ppt const x) mk_lang_noexcept
-{
-	mk_lang_assert(x);
-
-	*x = mk_lang_null;
-	return 0;
-}
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_packets_ptr_rw_destroy(mk_lib_iip_cp_client_socket_packet_ppt const x) mk_lang_noexcept
-{
-	mk_lib_iip_cp_client_socket_packet_pt obj;
-	mk_lang_types_sint_t err;
-
-	mk_lang_assert(x);
-
-	if(*x)
-	{
-		obj = *x; mk_lang_assert(obj);
-		err = mk_lib_iip_cp_client_socket_packet_rw_destroy(obj); mk_lang_check_rereturn(err);
-		err = mk_lib_iip_cp_mallocator_global_deallocate(obj, sizeof(*obj)); mk_lang_check_rereturn(err);
-	}
-	return 0;
-}
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_packets_ptr_rw_construct_copy(mk_lib_iip_cp_client_socket_packet_ppt const dst, mk_lib_iip_cp_client_socket_packet_pcpt const src) mk_lang_noexcept
-{
-	mk_lang_assert(dst);
-	mk_lang_assert(src);
-
-	mk_lang_assert_false();
-	return 0;
-}
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_packets_ptr_rw_construct_move(mk_lib_iip_cp_client_socket_packet_ppt const dst, mk_lib_iip_cp_client_socket_packet_ppt const src) mk_lang_noexcept
-{
-	mk_lang_assert(dst);
-	mk_lang_assert(src);
-
-	*dst = *src;
-	*src = mk_lang_null;
-	return 0;
-}
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_packets_ptr_rw_assign_copy(mk_lib_iip_cp_client_socket_packet_ppt const dst, mk_lib_iip_cp_client_socket_packet_pcpt const src) mk_lang_noexcept
-{
-	mk_lang_assert(dst);
-	mk_lang_assert(src);
-
-	mk_lang_assert_false();
-	return 0;
-}
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_packets_ptr_rw_assign_move(mk_lib_iip_cp_client_socket_packet_ppt const dst, mk_lib_iip_cp_client_socket_packet_ppt const src, mk_lang_types_usize_t const count) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_packets_ptr_rw_construct_void(mk_lib_iip_cp_client_socket_packet_ppt const elements_ptr, mk_lang_types_usize_t const elements_cnt) mk_lang_noexcept
 {
 	mk_lang_types_usize_t n;
 	mk_lang_types_usize_t i;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
-	mk_lang_assert(dst || count == 0);
-	mk_lang_assert(src || count == 0);
-	mk_lang_assert(count >= 0);
+	mk_lang_assert(elements_ptr || elements_cnt == 0);
+	mk_lang_assert(elements_cnt >= 0);
+	mk_lang_assert(elements_cnt <= mk_lang_limits_usize_max / sizeof(*elements_ptr));
 	#include "mk_lang_warning_msvc_pop.h"
 
-	n = count;
+	n = elements_cnt;
+	for(i = 0; i != n; ++i)
+	{
+		elements_ptr[i] = mk_lang_null;
+	}
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_packets_ptr_rw_destroy(mk_lib_iip_cp_client_socket_packet_ppt const elements_ptr, mk_lang_types_usize_t const elements_cnt) mk_lang_noexcept
+{
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
+	mk_lib_iip_cp_client_socket_packet_pt obj;
+	mk_lang_types_sint_t err;
+
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	mk_lang_assert(elements_ptr || elements_cnt == 0);
+	mk_lang_assert(elements_cnt >= 0);
+	mk_lang_assert(elements_cnt <= mk_lang_limits_usize_max / sizeof(*elements_ptr));
+	#include "mk_lang_warning_msvc_pop.h"
+
+	n = elements_cnt;
+	for(i = 0; i != n; ++i)
+	{
+		obj = elements_ptr[i];
+		if(obj)
+		{
+			err = mk_lib_iip_cp_client_socket_packet_rw_destroy(obj); mk_lang_check_rereturn(err);
+			err = mk_lib_iip_cp_mallocator_global_deallocate(obj, sizeof(*obj)); mk_lang_check_rereturn(err);
+		}
+	}
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_packets_ptr_rw_construct_copy(mk_lib_iip_cp_client_socket_packet_ppt const dst, mk_lib_iip_cp_client_socket_packet_pcpt const src, mk_lang_types_usize_t const cnt) mk_lang_noexcept
+{
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	mk_lang_assert(dst || cnt == 0);
+	mk_lang_assert(src || cnt == 0);
+	mk_lang_assert(cnt >= 0);
+	mk_lang_assert(cnt <= mk_lang_limits_usize_max / sizeof(*dst));
+	#include "mk_lang_warning_msvc_pop.h"
+
+	mk_lang_assert_false();
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_packets_ptr_rw_construct_move(mk_lib_iip_cp_client_socket_packet_ppt const dst, mk_lib_iip_cp_client_socket_packet_ppt const src, mk_lang_types_usize_t const cnt) mk_lang_noexcept
+{
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
+
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	mk_lang_assert(dst || cnt == 0);
+	mk_lang_assert(src || cnt == 0);
+	mk_lang_assert(cnt >= 0);
+	mk_lang_assert(cnt <= mk_lang_limits_usize_max / sizeof(*dst));
+	#include "mk_lang_warning_msvc_pop.h"
+
+	n = cnt;
 	for(i = 0; i != n; ++i)
 	{
 		dst[i] = src[i];
-	}
-	for(i = 0; i != n; ++i)
-	{
 		src[i] = mk_lang_null;
 	}
 	return 0;
 }
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_packets_ptr_rw_assign_copy(mk_lib_iip_cp_client_socket_packet_ppt const dst, mk_lib_iip_cp_client_socket_packet_pcpt const src, mk_lang_types_usize_t const cnt) mk_lang_noexcept
+{
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	mk_lang_assert(dst || cnt == 0);
+	mk_lang_assert(src || cnt == 0);
+	mk_lang_assert(cnt >= 0);
+	mk_lang_assert(cnt <= mk_lang_limits_usize_max / sizeof(*dst));
+	#include "mk_lang_warning_msvc_pop.h"
+
+	mk_lang_assert_false();
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_packets_ptr_rw_assign_move(mk_lib_iip_cp_client_socket_packet_ppt const dst, mk_lib_iip_cp_client_socket_packet_ppt const src, mk_lang_types_usize_t const cnt) mk_lang_noexcept
+{
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
+
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	mk_lang_assert(dst || cnt == 0);
+	mk_lang_assert(src || cnt == 0);
+	mk_lang_assert(cnt >= 0);
+	mk_lang_assert(cnt <= mk_lang_limits_usize_max / sizeof(*dst));
+	#include "mk_lang_warning_msvc_pop.h"
+
+	n = cnt;
+	for(i = 0; i != n; ++i)
+	{
+		dst[i] = src[i];
+		src[i] = mk_lang_null;
+	}
+	return 0;
+}
+
 #define mk_sl_dynamic_ring_t_name mk_lib_iip_cp_client_socket_packets
 #define mk_sl_dynamic_ring_t_element_type mk_lib_iip_cp_client_socket_packet_pt
 #define mk_sl_dynamic_ring_t_mallocatorg mk_lib_iip_cp_mallocator_global
@@ -278,61 +361,105 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket
 #include "mk_sl_dynamic_ring_inl_fileu.h"
 
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_write_request_rw_construct_void(mk_lib_iip_cp_client_socket_write_request_pt const x) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_write_request_rw_construct_void(mk_lib_iip_cp_client_socket_write_request_pt const elements_ptr, mk_lang_types_usize_t const elements_cnt) mk_lang_noexcept
 {
-	mk_lang_assert(x);
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	mk_lang_assert(elements_ptr || elements_cnt == 0);
+	mk_lang_assert(elements_cnt >= 0);
+	mk_lang_assert(elements_cnt <= mk_lang_limits_usize_max / sizeof(*elements_ptr));
+	#include "mk_lang_warning_msvc_pop.h"
 
-	((mk_lang_types_void_t)(x));
+	((mk_lang_types_void_t)(elements_ptr));
+	((mk_lang_types_void_t)(elements_cnt));
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_write_request_rw_destroy(mk_lib_iip_cp_client_socket_write_request_pt const x) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_write_request_rw_destroy(mk_lib_iip_cp_client_socket_write_request_pt const elements_ptr, mk_lang_types_usize_t const elements_cnt) mk_lang_noexcept
 {
-	mk_lang_assert(x);
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	mk_lang_assert(elements_ptr || elements_cnt == 0);
+	mk_lang_assert(elements_cnt >= 0);
+	mk_lang_assert(elements_cnt <= mk_lang_limits_usize_max / sizeof(*elements_ptr));
+	#include "mk_lang_warning_msvc_pop.h"
 
-	((mk_lang_types_void_t)(x));
+	((mk_lang_types_void_t)(elements_ptr));
+	((mk_lang_types_void_t)(elements_cnt));
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_write_request_rw_construct_copy(mk_lib_iip_cp_client_socket_write_request_pt const dst, mk_lib_iip_cp_client_socket_write_request_pct const src) mk_lang_noexcept
-{
-	mk_lang_assert(dst);
-	mk_lang_assert(src);
-
-	*dst = *src;
-	return 0;
-}
-
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_write_request_rw_construct_move(mk_lib_iip_cp_client_socket_write_request_pt const dst, mk_lib_iip_cp_client_socket_write_request_pt const src) mk_lang_noexcept
-{
-	mk_lang_assert(dst);
-	mk_lang_assert(src);
-
-	*dst = *src;
-	return 0;
-}
-
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_write_request_rw_assign_copy(mk_lib_iip_cp_client_socket_write_request_pt const dst, mk_lib_iip_cp_client_socket_write_request_pct const src) mk_lang_noexcept
-{
-	mk_lang_assert(dst);
-	mk_lang_assert(src);
-
-	*dst = *src;
-	return 0;
-}
-
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_write_request_rw_assign_move(mk_lib_iip_cp_client_socket_write_request_pt const dst, mk_lib_iip_cp_client_socket_write_request_pt const src, mk_lang_types_usize_t const count) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_write_request_rw_construct_copy(mk_lib_iip_cp_client_socket_write_request_pt const dst, mk_lib_iip_cp_client_socket_write_request_pct const src, mk_lang_types_usize_t const cnt) mk_lang_noexcept
 {
 	mk_lang_types_usize_t n;
 	mk_lang_types_usize_t i;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
-	mk_lang_assert(dst || count == 0);
-	mk_lang_assert(src || count == 0);
-	mk_lang_assert(count >= 0);
+	mk_lang_assert(dst || cnt == 0);
+	mk_lang_assert(src || cnt == 0);
+	mk_lang_assert(cnt >= 0);
+	mk_lang_assert(cnt <= mk_lang_limits_usize_max / sizeof(*dst));
 	#include "mk_lang_warning_msvc_pop.h"
 
-	n = count;
+	n = cnt;
+	for(i = 0; i != n; ++i)
+	{
+		dst[i] = src[i];
+	}
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_write_request_rw_construct_move(mk_lib_iip_cp_client_socket_write_request_pt const dst, mk_lib_iip_cp_client_socket_write_request_pt const src, mk_lang_types_usize_t const cnt) mk_lang_noexcept
+{
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
+
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	mk_lang_assert(dst || cnt == 0);
+	mk_lang_assert(src || cnt == 0);
+	mk_lang_assert(cnt >= 0);
+	mk_lang_assert(cnt <= mk_lang_limits_usize_max / sizeof(*dst));
+	#include "mk_lang_warning_msvc_pop.h"
+
+	n = cnt;
+	for(i = 0; i != n; ++i)
+	{
+		dst[i] = src[i];
+	}
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_write_request_rw_assign_copy(mk_lib_iip_cp_client_socket_write_request_pt const dst, mk_lib_iip_cp_client_socket_write_request_pct const src, mk_lang_types_usize_t const cnt) mk_lang_noexcept
+{
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
+
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	mk_lang_assert(dst || cnt == 0);
+	mk_lang_assert(src || cnt == 0);
+	mk_lang_assert(cnt >= 0);
+	mk_lang_assert(cnt <= mk_lang_limits_usize_max / sizeof(*dst));
+	#include "mk_lang_warning_msvc_pop.h"
+
+	n = cnt;
+	for(i = 0; i != n; ++i)
+	{
+		dst[i] = src[i];
+	}
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_write_request_rw_assign_move(mk_lib_iip_cp_client_socket_write_request_pt const dst, mk_lib_iip_cp_client_socket_write_request_pt const src, mk_lang_types_usize_t const cnt) mk_lang_noexcept
+{
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
+
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	mk_lang_assert(dst || cnt == 0);
+	mk_lang_assert(src || cnt == 0);
+	mk_lang_assert(cnt >= 0);
+	mk_lang_assert(cnt <= mk_lang_limits_usize_max / sizeof(*dst));
+	#include "mk_lang_warning_msvc_pop.h"
+
+	n = cnt;
 	for(i = 0; i != n; ++i)
 	{
 		dst[i] = src[i];
