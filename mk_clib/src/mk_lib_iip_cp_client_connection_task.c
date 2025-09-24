@@ -9,6 +9,7 @@
 #include "mk_lang_clobber.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
+#include "mk_lang_max.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_null.h"
@@ -35,7 +36,7 @@
 #include "mk_lib_iip_time.h"
 #include "mk_lib_net.h"
 #include "mk_sl_cui_uint8.h"
-#include "mk_sl_time.h"
+#include "mk_sl_stopwatch.h"
 
 
 #define mk_sl_cui_t_name mk_lib_iip_cp_client_connection_handle
@@ -226,15 +227,15 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 #if mk_lib_iip_cp_client_connection_debug_print_have
 	mk_lib_iip_logger_pt logger;
 	mk_lang_types_pchar_pt sml_str_ptr;
-	mk_lang_types_pchar_t sml_str_buf[64];
+	mk_lang_types_pchar_t sml_str_buf[mk_lang_max(64, mk_sl_stopwatch_duration_text_max_len)];
 	mk_lang_types_sint_t sml_str_cap;
 	mk_lang_types_pchar_pt big_str_ptr;
 	mk_lang_types_pchar_t big_str_buf[1 * 1024];
 	mk_lang_types_sint_t big_str_cap;
 	mk_lang_types_sint_t err;
 	mk_lang_types_sint_t sml_str_len;
-	mk_sl_time_timestamp_t now;
-	mk_sl_time_duration_t dur;
+	mk_sl_stopwatch_timestamp_t now;
+	mk_sl_stopwatch_duration_t dur;
 	mk_lang_types_sint_t big_str_len;
 
 	mk_lang_assert(task);
@@ -253,9 +254,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	err = mk_lib_iip_logger_rw_end_color(logger); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_logger_rw_print_str_lit(logger, " "); mk_lang_check_rereturn(err);
 
-	mk_sl_time_timestamp_get_now(&now);
-	mk_sl_time_timestamp_get_duration(&task->m_connection.m_state.m_time_req_recv, &now, &dur);
-	sml_str_len = mk_sl_time_duration_to_text(&dur, sml_str_ptr, sml_str_cap); mk_lang_assert(sml_str_len >= 1); mk_lang_assert(sml_str_len <= sml_str_cap);
+	err = mk_sl_stopwatch_timestamp_get_now(&now); mk_lang_check_rereturn(err);
+	mk_sl_stopwatch_timestamp_get_duration(&task->m_connection.m_state.m_time_req_recv, &now, &dur);
+	sml_str_len = mk_sl_stopwatch_duration_to_text(&dur, sml_str_ptr, sml_str_cap); mk_lang_assert(sml_str_len >= 1); mk_lang_assert(sml_str_len <= sml_str_cap);
 	big_str_len = mk_lib_fmt_n_snnprintf(big_str_buf, big_str_cap, &mk_lib_iip_cp_client_connection_debug_print_read_finished_k_fmt[0], mk_lang_countstr(mk_lib_iip_cp_client_connection_debug_print_read_finished_k_fmt), sml_str_ptr, sml_str_len); mk_lang_check_return(big_str_len >= 1); mk_lang_assert(big_str_len <= big_str_cap);
 	err = mk_lib_iip_logger_rw_begin_color(logger, mk_lib_iip_logger_color_text_e_dark_green); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_logger_rw_print(logger, big_str_ptr, big_str_len); mk_lang_check_rereturn(err);
@@ -320,8 +321,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_types_sint_t big_str_cap;
 	mk_lang_types_sint_t err;
 	mk_lang_types_sint_t sml_str_len;
-	mk_sl_time_timestamp_t now;
-	mk_sl_time_duration_t dur;
+	mk_sl_stopwatch_timestamp_t now;
+	mk_sl_stopwatch_duration_t dur;
 	mk_lang_types_sint_t big_str_len;
 
 	mk_lang_assert(task);
@@ -340,9 +341,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	err = mk_lib_iip_logger_rw_end_color(logger); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_logger_rw_print_str_lit(logger, " "); mk_lang_check_rereturn(err);
 
-	mk_sl_time_timestamp_get_now(&now);
-	mk_sl_time_timestamp_get_duration(&task->m_connection.m_state.m_time_req_send, &now, &dur);
-	sml_str_len = mk_sl_time_duration_to_text(&dur, sml_str_ptr, sml_str_cap); mk_lang_assert(sml_str_len >= 1); mk_lang_assert(sml_str_len <= sml_str_cap);
+	err = mk_sl_stopwatch_timestamp_get_now(&now); mk_lang_check_rereturn(err);
+	mk_sl_stopwatch_timestamp_get_duration(&task->m_connection.m_state.m_time_req_send, &now, &dur);
+	sml_str_len = mk_sl_stopwatch_duration_to_text(&dur, sml_str_ptr, sml_str_cap); mk_lang_assert(sml_str_len >= 1); mk_lang_assert(sml_str_len <= sml_str_cap);
 	big_str_len = mk_lib_fmt_n_snnprintf(big_str_buf, big_str_cap, &mk_lib_iip_cp_client_connection_debug_print_write_finished_k_fmt[0], mk_lang_countstr(mk_lib_iip_cp_client_connection_debug_print_write_finished_k_fmt), sml_str_ptr, sml_str_len); mk_lang_check_return(big_str_len >= 1); mk_lang_assert(big_str_len <= big_str_cap);
 	err = mk_lib_iip_logger_rw_begin_color(logger, mk_lib_iip_logger_color_text_e_dark_yellow); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_logger_rw_print(logger, big_str_ptr, big_str_len); mk_lang_check_rereturn(err);
@@ -376,7 +377,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	mk_lang_assert(data && size >= mk_lib_iip_cp_client_connection_k_buffer_size);
 	err = mk_lib_net_read_request_reconstruct(&task->m_connection.m_state.m_read_request, &task->m_connection.m_state.m_socket, data, ((mk_lang_types_sint_t)(size))); mk_lang_check_rereturn(err);
 	err = mk_lib_net_socket_recv(&task->m_connection.m_state.m_socket, &task->m_connection.m_state.m_read_request); mk_lang_check_rereturn(err);
-	mk_sl_time_timestamp_get_now(&task->m_connection.m_state.m_time_req_recv);
+	err = mk_sl_stopwatch_timestamp_get_now(&task->m_connection.m_state.m_time_req_recv); mk_lang_check_rereturn(err);
 	task->m_connection.m_state.m_pending_recv = mk_lang_true;
 	return 0;
 }
@@ -396,7 +397,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	size = mk_lib_iip_cp_dynamic_ring_u8_rw_get_size_a(&task->m_connection.m_state.m_buf_snd); mk_lang_assert(size == mk_lib_iip_cp_dynamic_ring_u8_rw_get_size(&task->m_connection.m_state.m_buf_snd));
 	err = mk_lib_net_write_request_reconstruct(&task->m_connection.m_state.m_write_request, &task->m_connection.m_state.m_socket, data, ((mk_lang_types_sint_t)(size))); mk_lang_check_rereturn(err);
 	err = mk_lib_net_socket_send(&task->m_connection.m_state.m_socket, &task->m_connection.m_state.m_write_request); mk_lang_check_rereturn(err);
-	mk_sl_time_timestamp_get_now(&task->m_connection.m_state.m_time_req_send);
+	err = mk_sl_stopwatch_timestamp_get_now(&task->m_connection.m_state.m_time_req_send); mk_lang_check_rereturn(err);
 	task->m_connection.m_state.m_pending_send = mk_lang_true;
 	return 0;
 }
@@ -593,8 +594,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	task->m_connection.m_state.m_pending_send = mk_lang_false;
 	task->m_connection.m_state.m_pending_recv = mk_lang_false;
 	task->m_connection.m_state.m_want_die = mk_lang_false;
-	mk_sl_time_timestamp_set_zero(&task->m_connection.m_state.m_time_req_send);
-	mk_sl_time_timestamp_set_zero(&task->m_connection.m_state.m_time_req_recv);
+	mk_sl_stopwatch_timestamp_set_zero(&task->m_connection.m_state.m_time_req_send);
+	mk_sl_stopwatch_timestamp_set_zero(&task->m_connection.m_state.m_time_req_recv);
 	err = mk_lib_iip_cp_message_construct(&task->m_connection.m_state.m_msg, mk_lib_iip_cp_message_message_type_id_e_bandwidth_limits); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_cp_dynamic_ring_u8_rw_construct(&task->m_connection.m_state.m_buf_rcv); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_cp_dynamic_ring_u8_rw_construct(&task->m_connection.m_state.m_buf_snd); mk_lang_check_rereturn(err);

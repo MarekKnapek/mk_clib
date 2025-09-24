@@ -16,7 +16,7 @@
 #include "mk_lib_iip_cp_message.h"
 #include "mk_lib_iip_cp_types.h"
 #include "mk_lib_net.h"
-#include "mk_sl_time.h"
+#include "mk_sl_stopwatch.h"
 
 
 mk_lang_forward(mk_sl_cui_uint8);
@@ -94,8 +94,8 @@ struct mk_lib_iip_cp_client_connection_state_s
 	mk_lang_types_bool_t m_pending_send;
 	mk_lang_types_bool_t m_pending_recv;
 	mk_lang_types_bool_t m_want_die;
-	mk_sl_time_timestamp_t m_time_req_send;
-	mk_sl_time_timestamp_t m_time_req_recv;
+	mk_sl_stopwatch_timestamp_t m_time_req_send;
+	mk_sl_stopwatch_timestamp_t m_time_req_recv;
 	mk_lib_iip_cp_message_t m_msg;
 	mk_lib_iip_cp_dynamic_ring_u8_t m_buf_rcv;
 	mk_lib_iip_cp_dynamic_ring_u8_t m_buf_snd;
