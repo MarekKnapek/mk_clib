@@ -35,6 +35,16 @@
 #include "mk_sl_cui_inl_fileu.h"
 
 
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_stopwatch_nt_init(mk_lang_types_void_t) mk_lang_noexcept
+{
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_stopwatch_nt_deinit(mk_lang_types_void_t) mk_lang_noexcept
+{
+	return 0;
+}
+
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_stopwatch_nt_timestamp_get_now(mk_sl_stopwatch_nt_timestamp_pt const timestamp) mk_lang_noexcept
 {
 	mk_win_dll_kernel_time_file_time_t file_time;

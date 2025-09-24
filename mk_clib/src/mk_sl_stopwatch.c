@@ -15,6 +15,8 @@
 #include "mk_lang_types.h"
 
 
+#define mk_sl_stopwatch_impl_init mk_lang_concat(mk_sl_stopwatch_impl_prefix, _init)
+#define mk_sl_stopwatch_impl_deinit mk_lang_concat(mk_sl_stopwatch_impl_prefix, _deinit)
 #define mk_sl_stopwatch_impl_timestamp_t mk_lang_concat(mk_sl_stopwatch_impl_prefix, _timestamp_t)
 #define mk_sl_stopwatch_impl_timestamp_sub3_wrap_cid_cod mk_lang_concat(mk_sl_stopwatch_impl_prefix, _timestamp_sub3_wrap_cid_cod)
 #define mk_sl_stopwatch_impl_timestamp_get_now mk_lang_concat(mk_sl_stopwatch_impl_prefix, _timestamp_get_now)
@@ -37,6 +39,22 @@
 #include "mk_sl_cui_inl_filec.h"
 #include "mk_sl_cui_inl_fileu.h"
 
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_stopwatch_init(mk_lang_types_void_t) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	err = mk_sl_stopwatch_impl_init(); mk_lang_check_rereturn(err);
+	return err;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_stopwatch_deinit(mk_lang_types_void_t) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	err = mk_sl_stopwatch_impl_deinit(); mk_lang_check_rereturn(err);
+	return err;
+}
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_stopwatch_timestamp_get_now(mk_sl_stopwatch_timestamp_pt const timestamp) mk_lang_noexcept
 {
