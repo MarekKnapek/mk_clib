@@ -237,8 +237,6 @@ mm_per_typedef(`#undef mk_sl_vector_inl_defd_$1')
 #undef mk_sl_vector_inl_defd_prrw_push_back_move_single
 #undef mk_sl_vector_inl_defd_prrw_push_back_copy_single
 #undef mk_sl_vector_inl_defd_prrw_push_back_void
-#undef mk_sl_vector_inl_defd_prrw_pop_front_many
-#undef mk_sl_vector_inl_defd_prrw_pop_front_single
 #undef mk_sl_vector_inl_defd_prrw_pop_back_many
 #undef mk_sl_vector_inl_defd_prrw_pop_back_single
 #undef mk_sl_vector_inl_defd_prrw_erase_at
@@ -306,8 +304,6 @@ mm_per_typedef(`#undef mk_sl_vector_inl_defd_$1')
 #undef mk_sl_vector_inl_defd_rw_push_back_move_single
 #undef mk_sl_vector_inl_defd_rw_push_back_copy_single
 #undef mk_sl_vector_inl_defd_rw_push_back_void
-#undef mk_sl_vector_inl_defd_rw_pop_front_many
-#undef mk_sl_vector_inl_defd_rw_pop_front_single
 #undef mk_sl_vector_inl_defd_rw_pop_back_many
 #undef mk_sl_vector_inl_defd_rw_pop_back_single
 #undef mk_sl_vector_inl_defd_rw_erase_at

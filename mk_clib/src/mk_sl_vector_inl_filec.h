@@ -1156,50 +1156,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_de
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_defd_prrw_pop_front_many(mk_sl_vector_inl_defd_pt const vector, mk_lang_types_usize_t const count) mk_lang_noexcept
-{
-	mk_sl_vector_inl_defd_element_pt dst;
-	mk_sl_vector_inl_defd_element_pt src;
-	mk_lang_types_usize_t cnt;
-	mk_lang_types_sint_t err;
-
-	#include "mk_lang_warning_msvc_push_c4296.h"
-	#include "mk_lang_warning_gcc_push_type_limits.h"
-	mk_lang_assert(vector);
-	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
-	mk_lang_assert(count >= 0);
-	mk_lang_assert(count <= mk_sl_vector_inl_defd_rw_size(vector));
-	#include "mk_lang_warning_gcc_pop.h"
-	#include "mk_lang_warning_msvc_pop.h"
-
-	dst = &vector->m_buffer[0];
-	src = &vector->m_buffer[count];
-	cnt = vector->m_size - count;
-	err = mk_sl_vector_inl_defd_prrw_elements_move_assign_many(vector, dst, src, cnt); mk_lang_check_rereturn(err);
-	err = mk_sl_vector_inl_defd_prrw_shrink_by(vector, count); mk_lang_check_rereturn(err);
-
-	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
-	return 0;
-}
-
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_defd_prrw_pop_front_single(mk_sl_vector_inl_defd_pt const vector) mk_lang_noexcept
-{
-	mk_lang_types_sint_t err;
-
-	#include "mk_lang_warning_msvc_push_c4296.h"
-	#include "mk_lang_warning_gcc_push_type_limits.h"
-	mk_lang_assert(vector);
-	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
-	mk_lang_assert(!mk_sl_vector_inl_defd_rw_is_empty(vector));
-	#include "mk_lang_warning_gcc_pop.h"
-	#include "mk_lang_warning_msvc_pop.h"
-
-	err = mk_sl_vector_inl_defd_prrw_pop_front_many(vector, 1); mk_lang_check_rereturn(err);
-
-	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
-	return 0;
-}
-
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_defd_prrw_pop_back_many(mk_sl_vector_inl_defd_pt const vector, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
@@ -1880,16 +1836,6 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_pu
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_push_back_void(mk_sl_vector_inl_defd_pt const vector, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
 	return mk_sl_vector_inl_defd_prrw_push_back_void(vector, count);
-}
-
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_pop_front_many(mk_sl_vector_inl_defd_pt const vector, mk_lang_types_usize_t const count) mk_lang_noexcept
-{
-	return mk_sl_vector_inl_defd_prrw_pop_front_many(vector, count);
-}
-
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_pop_front_single(mk_sl_vector_inl_defd_pt const vector) mk_lang_noexcept
-{
-	return mk_sl_vector_inl_defd_prrw_pop_front_single(vector);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_vector_inl_defd_rw_pop_back_many(mk_sl_vector_inl_defd_pt const vector, mk_lang_types_usize_t const count) mk_lang_noexcept
