@@ -712,7 +712,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_http_cli
 	mk_lang_types_usize_t i;
 	mk_lib_iip_http_client_response_header_pt header;
 	mk_lang_types_sint_t err;
-	mk_lang_types_pchar_t pchars[mk_lang_bui_ulong_size_bytes_v];
+	mk_lang_types_pchar_t pchars[mk_lang_bui_ulong_strlen_dec_v];
 	mk_lang_types_sint_t len;
 	mk_lang_bui_ulong_t tul;
 
