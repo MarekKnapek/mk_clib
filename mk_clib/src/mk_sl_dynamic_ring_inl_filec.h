@@ -1352,6 +1352,74 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 	return mk_sl_dynamic_ring_inl_defd_prrw_pop_front_many(ring, 1);
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_inl_defd_prrw_erase_at(mk_sl_dynamic_ring_inl_defd_pt const ring, mk_lang_types_usize_t const idx) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	mk_sl_dynamic_ring_inl_defd_element_pt element_target;
+	mk_sl_dynamic_ring_inl_defd_element_pt element_back;
+
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
+	mk_lang_assert(ring);
+	mk_lang_assert(!mk_sl_dynamic_ring_inl_defd_prrw_is_empty(ring));
+	mk_lang_assert(idx >= 0);
+	mk_lang_assert(idx < mk_sl_dynamic_ring_inl_defd_prrw_get_size(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	#include "mk_lang_warning_gcc_pop.h"
+	#include "mk_lang_warning_msvc_pop.h"
+
+	if(idx == 0)
+	{
+		err = mk_sl_dynamic_ring_inl_defd_prrw_pop_front_single(ring); mk_lang_check_rereturn(err);
+	}
+	else
+	{
+		if(idx != mk_sl_dynamic_ring_inl_defd_prrw_get_size(ring) - 1)
+		{
+			element_target = mk_sl_dynamic_ring_inl_defd_prrw_get_at(ring, idx); mk_lang_assert(element_target);
+			element_back = mk_sl_dynamic_ring_inl_defd_prrw_get_back(ring); mk_lang_assert(element_back);
+			err = mk_sl_dynamic_ring_inl_defd_prrw_elements_assign_move_many(element_target, element_back, 1); mk_lang_check_rereturn(err);
+		}
+		err = mk_sl_dynamic_ring_inl_defd_prrw_pop_back_single(ring); mk_lang_check_rereturn(err);
+	}
+
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_inl_defd_prrw_erase_element(mk_sl_dynamic_ring_inl_defd_pt const ring, mk_sl_dynamic_ring_inl_defd_element_pct const element) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	mk_sl_dynamic_ring_inl_defd_element_pt element_back;
+
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
+	mk_lang_assert(ring);
+	mk_lang_assert(!mk_sl_dynamic_ring_inl_defd_prrw_is_empty(ring));
+	mk_lang_assert(element);
+	mk_lang_assert(mk_sl_dynamic_ring_inl_filec_overlap_fn(element, 1, mk_sl_dynamic_ring_inl_defd_prrw_get_data_a(ring), mk_sl_dynamic_ring_inl_defd_prrw_get_size_a(ring)) || mk_sl_dynamic_ring_inl_filec_overlap_fn(element, 1, mk_sl_dynamic_ring_inl_defd_prrw_get_data_b(ring), mk_sl_dynamic_ring_inl_defd_prrw_get_size_b(ring)));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	#include "mk_lang_warning_gcc_pop.h"
+	#include "mk_lang_warning_msvc_pop.h"
+
+	if(element == mk_sl_dynamic_ring_inl_defd_prrw_get_front(ring))
+	{
+		err = mk_sl_dynamic_ring_inl_defd_prrw_pop_front_single(ring); mk_lang_check_rereturn(err);
+	}
+	else
+	{
+		if(element == mk_sl_dynamic_ring_inl_defd_prrw_get_back(ring))
+		{
+			element_back = mk_sl_dynamic_ring_inl_defd_prrw_get_back(ring); mk_lang_assert(element_back);
+			err = mk_sl_dynamic_ring_inl_defd_prrw_elements_assign_move_many(((mk_sl_dynamic_ring_inl_defd_element_pt)(element)), element_back, 1); mk_lang_check_rereturn(err);
+		}
+		err = mk_sl_dynamic_ring_inl_defd_prrw_pop_back_single(ring); mk_lang_check_rereturn(err);
+	}
+
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	return 0;
+}
+
 
 
 
@@ -1674,17 +1742,17 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_dynamic_ring_inl_defd
 	return mk_sl_dynamic_ring_inl_defd_prrw_pop_front_single(ring);
 }
 
-/*mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_dynamic_ring_inl_defd_rw_erase_at(mk_sl_dynamic_ring_inl_defd_pt const ring, mk_lang_types_usize_t const idx) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_dynamic_ring_inl_defd_rw_erase_at(mk_sl_dynamic_ring_inl_defd_pt const ring, mk_lang_types_usize_t const idx) mk_lang_noexcept
 {
-	return mk_sl_dynamic_ring_inl_defd_prrw_erase_at(ring);
+	return mk_sl_dynamic_ring_inl_defd_prrw_erase_at(ring, idx);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_dynamic_ring_inl_defd_rw_erase_element(mk_sl_dynamic_ring_inl_defd_pt const ring, mk_sl_dynamic_ring_inl_defd_element_pct const element) mk_lang_noexcept
 {
-	return mk_sl_dynamic_ring_inl_defd_prrw_erase_element(ring);
+	return mk_sl_dynamic_ring_inl_defd_prrw_erase_element(ring, element);
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_dynamic_ring_inl_defd_rw_erase_value(mk_sl_dynamic_ring_inl_defd_pt const ring, mk_sl_dynamic_ring_inl_defd_element_pct const element) mk_lang_noexcept
+/*mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_dynamic_ring_inl_defd_rw_erase_value(mk_sl_dynamic_ring_inl_defd_pt const ring, mk_sl_dynamic_ring_inl_defd_element_pct const element) mk_lang_noexcept
 {
 	return mk_sl_dynamic_ring_inl_defd_prrw_erase_value(ring);
 }*/
