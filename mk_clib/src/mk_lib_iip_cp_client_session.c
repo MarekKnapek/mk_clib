@@ -114,83 +114,126 @@ typedef struct mk_lib_iip_cp_client_session_lookup_host_name_s mk_lib_iip_cp_cli
 mk_lang_typedef(mk_lib_iip_cp_client_session_lookup_host_name);
 #include "mk_lang_warning_msvc_pop.h"
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_lookup_host_name_ptr_rw_construct_void(mk_lib_iip_cp_client_session_lookup_host_name_ppt const x) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_lookup_host_name_ptr_rw_construct_void(mk_lib_iip_cp_client_session_lookup_host_name_ppt const elements_ptr, mk_lang_types_usize_t const elements_cnt) mk_lang_noexcept
 {
-	mk_lang_assert(x);
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	mk_lang_assert(elements_ptr || elements_cnt == 0);
+	mk_lang_assert(elements_cnt >= 0);
+	mk_lang_assert(elements_cnt <= mk_lang_limits_usize_max / sizeof(*elements_ptr));
+	#include "mk_lang_warning_msvc_pop.h"
 
-	((mk_lang_types_void_t)(x));
 	mk_lang_check_todo();
+	((mk_lang_types_void_t)(elements_ptr));
+	((mk_lang_types_void_t)(elements_cnt));
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_lookup_host_name_ptr_rw_destroy(mk_lib_iip_cp_client_session_lookup_host_name_ppt const x) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_lookup_host_name_ptr_rw_destroy(mk_lib_iip_cp_client_session_lookup_host_name_ppt const elements_ptr, mk_lang_types_usize_t const elements_cnt) mk_lang_noexcept
 {
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
+	mk_lib_iip_cp_client_session_lookup_host_name_pt obj;
 	mk_lang_types_sint_t err;
 
-	mk_lang_assert(x);
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	mk_lang_assert(elements_ptr || elements_cnt == 0);
+	mk_lang_assert(elements_cnt >= 0);
+	mk_lang_assert(elements_cnt <= mk_lang_limits_usize_max / sizeof(*elements_ptr));
+	#include "mk_lang_warning_msvc_pop.h"
 
-	if(*x)
+	n = elements_cnt;
+	for(i = 0; i != n; ++i)
 	{
-		err = mk_lib_iip_cp_mallocator_global_deallocate(*x, sizeof(**x)); mk_lang_check_rereturn(err);
+		obj = elements_ptr[i];
+		if(obj)
+		{
+			err = mk_lib_iip_cp_mallocator_global_deallocate(obj, sizeof(*obj)); mk_lang_check_rereturn(err);
+		}
 	}
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_lookup_host_name_ptr_rw_construct_copy(mk_lib_iip_cp_client_session_lookup_host_name_ppt const dst, mk_lib_iip_cp_client_session_lookup_host_name_pcpt const src) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_lookup_host_name_ptr_rw_construct_copy(mk_lib_iip_cp_client_session_lookup_host_name_ppt const dst, mk_lib_iip_cp_client_session_lookup_host_name_pcpt const src, mk_lang_types_usize_t const cnt) mk_lang_noexcept
 {
-	mk_lang_assert(dst);
-	mk_lang_assert(src);
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	mk_lang_assert(dst || cnt == 0);
+	mk_lang_assert(src || cnt == 0);
+	mk_lang_assert(cnt >= 0);
+	mk_lang_assert(cnt <= mk_lang_limits_usize_max / sizeof(*dst));
+	#include "mk_lang_warning_msvc_pop.h"
 
+	mk_lang_check_todo();
 	((mk_lang_types_void_t)(dst));
 	((mk_lang_types_void_t)(src));
+	((mk_lang_types_void_t)(cnt));
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_lookup_host_name_ptr_rw_construct_move(mk_lib_iip_cp_client_session_lookup_host_name_ppt const dst, mk_lib_iip_cp_client_session_lookup_host_name_ppt const src, mk_lang_types_usize_t const cnt) mk_lang_noexcept
+{
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
+
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	mk_lang_assert(dst || cnt == 0);
+	mk_lang_assert(src || cnt == 0);
+	mk_lang_assert(cnt >= 0);
+	mk_lang_assert(cnt <= mk_lang_limits_usize_max / sizeof(*dst));
+	#include "mk_lang_warning_msvc_pop.h"
+
+	n = cnt;
+	for(i = 0; i != n; ++i)
+	{
+		dst[i] = src[i];
+		src[i] = mk_lang_null;
+	}
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_lookup_host_name_ptr_rw_assign_copy(mk_lib_iip_cp_client_session_lookup_host_name_ppt const dst, mk_lib_iip_cp_client_session_lookup_host_name_pcpt const src, mk_lang_types_usize_t const cnt) mk_lang_noexcept
+{
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	mk_lang_assert(dst || cnt == 0);
+	mk_lang_assert(src || cnt == 0);
+	mk_lang_assert(cnt >= 0);
+	mk_lang_assert(cnt <= mk_lang_limits_usize_max / sizeof(*dst));
+	#include "mk_lang_warning_msvc_pop.h"
+
 	mk_lang_check_todo();
-	return 0;
-}
-
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_lookup_host_name_ptr_rw_construct_move(mk_lib_iip_cp_client_session_lookup_host_name_ppt const dst, mk_lib_iip_cp_client_session_lookup_host_name_ppt const src) mk_lang_noexcept
-{
-	mk_lang_assert(dst);
-	mk_lang_assert(src);
-
-	*dst = *src;
-	*src = mk_lang_null;
-	return 0;
-}
-
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_lookup_host_name_ptr_rw_assign_copy(mk_lib_iip_cp_client_session_lookup_host_name_ppt const dst, mk_lib_iip_cp_client_session_lookup_host_name_pcpt const src) mk_lang_noexcept
-{
-	mk_lang_assert(dst);
-	mk_lang_assert(src);
-
 	((mk_lang_types_void_t)(dst));
 	((mk_lang_types_void_t)(src));
-	mk_lang_check_todo();
+	((mk_lang_types_void_t)(cnt));
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_lookup_host_name_ptr_rw_assign_move(mk_lib_iip_cp_client_session_lookup_host_name_ppt const dst, mk_lib_iip_cp_client_session_lookup_host_name_ppt const src) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_lookup_host_name_ptr_rw_assign_move(mk_lib_iip_cp_client_session_lookup_host_name_ppt const dst, mk_lib_iip_cp_client_session_lookup_host_name_ppt const src, mk_lang_types_usize_t const cnt) mk_lang_noexcept
 {
-	mk_lang_assert(dst);
-	mk_lang_assert(src);
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	mk_lang_assert(dst || cnt == 0);
+	mk_lang_assert(src || cnt == 0);
+	mk_lang_assert(cnt >= 0);
+	mk_lang_assert(cnt <= mk_lang_limits_usize_max / sizeof(*dst));
+	#include "mk_lang_warning_msvc_pop.h"
 
+	mk_lang_check_todo();
 	((mk_lang_types_void_t)(dst));
 	((mk_lang_types_void_t)(src));
-	mk_lang_check_todo();
+	((mk_lang_types_void_t)(cnt));
 	return 0;
 }
 
 
-#define mk_sl_vector_t_name mk_lib_iip_cp_client_session_lookups_host_name
-#define mk_sl_vector_t_element_type mk_lib_iip_cp_client_session_lookup_host_name_pt
-#define mk_sl_vector_t_mallocatorg mk_lib_iip_cp_mallocator_global
-#define mk_sl_vector_t_element_construct_void mk_lib_iip_cp_client_session_lookup_host_name_ptr_rw_construct_void
-#define mk_sl_vector_t_element_destruct mk_lib_iip_cp_client_session_lookup_host_name_ptr_rw_destroy
-#define mk_sl_vector_t_element_copy_construct mk_lib_iip_cp_client_session_lookup_host_name_ptr_rw_construct_copy
-#define mk_sl_vector_t_element_move_construct mk_lib_iip_cp_client_session_lookup_host_name_ptr_rw_construct_move
-#define mk_sl_vector_t_element_copy_assign mk_lib_iip_cp_client_session_lookup_host_name_ptr_rw_assign_copy
-#define mk_sl_vector_t_element_move_assign mk_lib_iip_cp_client_session_lookup_host_name_ptr_rw_assign_move
-#include "mk_sl_vector_inl_filec.h"
-#include "mk_sl_vector_inl_fileu.h"
+#define mk_sl_dynamic_ring_t_name mk_lib_iip_cp_client_session_lookups_host_name
+#define mk_sl_dynamic_ring_t_element_type mk_lib_iip_cp_client_session_lookup_host_name_pt
+#define mk_sl_dynamic_ring_t_mallocatorg mk_lib_iip_cp_mallocator_global
+#define mk_sl_dynamic_ring_t_element_construct_void mk_lib_iip_cp_client_session_lookup_host_name_ptr_rw_construct_void
+#define mk_sl_dynamic_ring_t_element_destruct mk_lib_iip_cp_client_session_lookup_host_name_ptr_rw_destroy
+#define mk_sl_dynamic_ring_t_element_construct_copy mk_lib_iip_cp_client_session_lookup_host_name_ptr_rw_construct_copy
+#define mk_sl_dynamic_ring_t_element_construct_move mk_lib_iip_cp_client_session_lookup_host_name_ptr_rw_construct_move
+#define mk_sl_dynamic_ring_t_element_assign_copy mk_lib_iip_cp_client_session_lookup_host_name_ptr_rw_assign_copy
+#define mk_sl_dynamic_ring_t_element_assign_move mk_lib_iip_cp_client_session_lookup_host_name_ptr_rw_assign_move
+#include "mk_sl_dynamic_ring_inl_filec.h"
+#include "mk_sl_dynamic_ring_inl_fileu.h"
 
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_session_message_status_rw_construct_void(mk_lib_iip_cp_client_session_message_status_pt const elements_ptr, mk_lang_types_usize_t const elements_cnt) mk_lang_noexcept
@@ -1133,10 +1176,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	msg_host_reply = &msg->m_mix.m_data.m_host_reply;
 	mk_lang_assert(mk_lib_iip_cp_types_sessionid_eq(&msg_host_reply->m_session_id, &task->m_session.m_state.m_id));
 
-	n = mk_lib_iip_cp_client_session_lookups_host_name_rw_size(&task->m_session.m_state.m_lookups_host_name_b);
+	n = mk_lib_iip_cp_client_session_lookups_host_name_rw_get_size(&task->m_session.m_state.m_lookups_host_name_b);
 	for(i = 0; i != n; ++i)
 	{
-		lookup_host_name_ptr = mk_lib_iip_cp_client_session_lookups_host_name_rw_at(&task->m_session.m_state.m_lookups_host_name_b, i); mk_lang_assert(lookup_host_name_ptr); lookup_host_name_obj = *lookup_host_name_ptr; mk_lang_assert(lookup_host_name_obj);
+		lookup_host_name_ptr = mk_lib_iip_cp_client_session_lookups_host_name_rw_get_at(&task->m_session.m_state.m_lookups_host_name_b, i); mk_lang_assert(lookup_host_name_ptr); lookup_host_name_obj = *lookup_host_name_ptr; mk_lang_assert(lookup_host_name_obj);
 		if(mk_lib_iip_cp_types_requestid_eq(&lookup_host_name_obj->m_request_id, &msg_host_reply->m_request_id))
 		{
 			break;
@@ -1553,10 +1596,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 	did_something = mk_lang_false;
 	mk_lib_iip_time_get_now(&now);
-	n = mk_lib_iip_cp_client_session_lookups_host_name_rw_size(&task->m_session.m_state.m_lookups_host_name_b);
+	n = mk_lib_iip_cp_client_session_lookups_host_name_rw_get_size(&task->m_session.m_state.m_lookups_host_name_b);
 	for(i = 0; i != n; ++i)
 	{
-		lookup_ptr = mk_lib_iip_cp_client_session_lookups_host_name_rw_at(&task->m_session.m_state.m_lookups_host_name_b, i); mk_lang_assert(lookup_ptr); lookup_obj = *lookup_ptr; mk_lang_assert(lookup_obj);
+		lookup_ptr = mk_lib_iip_cp_client_session_lookups_host_name_rw_get_at(&task->m_session.m_state.m_lookups_host_name_b, i); mk_lang_assert(lookup_ptr); lookup_obj = *lookup_ptr; mk_lang_assert(lookup_obj);
 		mk_lib_iip_time_timestamp_get_duration(&lookup_obj->m_created, &now, &age);
 		tsl = 15l * 1000l; mk_lib_iip_time_duration_from_bi_slong(&too_old, &tsl);
 		if(mk_lib_iip_time_duration_gt(&age, &too_old))
@@ -1665,7 +1708,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 		(mk_lang_true)
 	)
 	{
-		lookup_ptr = mk_lib_iip_cp_client_session_lookups_host_name_rw_front(&task->m_session.m_state.m_lookups_host_name_a); mk_lang_assert(lookup_ptr); lookup_obj = *lookup_ptr; mk_lang_assert(lookup_obj);
+		lookup_ptr = mk_lib_iip_cp_client_session_lookups_host_name_rw_get_front(&task->m_session.m_state.m_lookups_host_name_a); mk_lang_assert(lookup_ptr); lookup_obj = *lookup_ptr; mk_lang_assert(lookup_obj);
 		mk_lang_assert(lookup_obj->m_request);
 		mk_lang_assert(!lookup_obj->m_request->m_done);
 		mk_lang_assert(lookup_obj->m_request->m_host_name_buf);
