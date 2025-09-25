@@ -234,6 +234,7 @@ mm_per_typedef(`#undef mk_sl_dynamic_ring_inl_defd_$1')`'dnl
 #undef mk_sl_dynamic_ring_inl_defd_prrw_get_free_data_a
 #undef mk_sl_dynamic_ring_inl_defd_prrw_get_free_size_b
 #undef mk_sl_dynamic_ring_inl_defd_prrw_get_free_data_b
+#undef mk_sl_dynamic_ring_inl_defd_prrw_get_at
 
 #undef mk_sl_dynamic_ring_inl_defd_prrw_construct
 #undef mk_sl_dynamic_ring_inl_defd_prrw_construct_copy
@@ -259,6 +260,8 @@ mm_per_typedef(`#undef mk_sl_dynamic_ring_inl_defd_$1')`'dnl
 #undef mk_sl_dynamic_ring_inl_defd_prrw_pop_back_single
 #undef mk_sl_dynamic_ring_inl_defd_prrw_pop_front_many
 #undef mk_sl_dynamic_ring_inl_defd_prrw_pop_front_single
+#undef mk_sl_dynamic_ring_inl_defd_prrw_erase_at
+#undef mk_sl_dynamic_ring_inl_defd_prrw_erase_element
 
 
 
