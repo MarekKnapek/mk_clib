@@ -913,6 +913,20 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_inl_defd_prrw_reset(mk_sl_dynamic_ring_inl_defd_pt const ring) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(ring);
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+
+	err = mk_sl_dynamic_ring_inl_defd_prrw_destroy(ring); mk_lang_check_rereturn(err);
+	err = mk_sl_dynamic_ring_inl_defd_rw_construct(ring); mk_lang_check_rereturn(err); /* todo mallocator */
+
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_inl_defd_prrw_reserve_at_least(mk_sl_dynamic_ring_inl_defd_pt const ring, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
 	mk_sl_dynamic_ring_inl_defd_element_pt old_buffer;
@@ -1558,6 +1572,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_dynamic_ring_inl_defd
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_dynamic_ring_inl_defd_rw_destroy(mk_sl_dynamic_ring_inl_defd_pt const ring) mk_lang_noexcept
 {
 	return mk_sl_dynamic_ring_inl_defd_prrw_destroy(ring);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_dynamic_ring_inl_defd_rw_reset(mk_sl_dynamic_ring_inl_defd_pt const ring) mk_lang_noexcept
+{
+	return mk_sl_dynamic_ring_inl_defd_prrw_reset(ring);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_dynamic_ring_inl_defd_rw_assign_copy(mk_sl_dynamic_ring_inl_defd_pt const dst, mk_sl_dynamic_ring_inl_defd_pct const src) mk_lang_noexcept
