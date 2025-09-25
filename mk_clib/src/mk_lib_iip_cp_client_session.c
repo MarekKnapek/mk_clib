@@ -477,6 +477,46 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_session_prrw_get_random_stream_id(mk_lib_iip_cp_client_session_task_pt const task, mk_sl_cui_uint32_pt const uint) mk_lang_noexcept
+{
+	mk_lang_types_bool_t gud;
+	mk_lang_types_sint_t err;
+	mk_lib_iip_cp_client_session_u32_and_socket_t mapping;
+	mk_lib_iip_cp_client_session_u32_and_socket_map_node_pt node;
+
+	mk_lang_assert(task);
+	mk_lang_assert(uint);
+
+	do
+	{
+		gud = mk_lang_true;
+		err = mk_lib_iip_random_generate_u32_any(uint); mk_lang_check_rereturn(err);
+		gud = gud & !mk_sl_cui_uint32_is_zero(uint);
+		gud = gud & !mk_sl_cui_uint32_is_max(uint);
+		mapping.m_u32 = *uint;
+		err = mk_lib_iip_cp_client_session_u32_and_socket_map_ro_find_node(&task->m_session.m_state.m_stream_id_mapping, &mapping, &node); mk_lang_check_rereturn(err);
+		gud = gud & !node;
+	}while(!gud);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_session_prrw_add_stream_id_to_stream(mk_lib_iip_cp_client_session_task_pt const task, mk_sl_cui_uint32_pct const uint, mk_lib_iip_cp_client_socket_task_pt const socket) mk_lang_noexcept
+{
+	mk_lib_iip_cp_client_session_u32_and_socket_t mapping;
+	mk_lang_types_sint_t err;
+	mk_lib_iip_cp_client_session_u32_and_socket_map_node_pt node;
+
+	mk_lang_assert(task);
+	mk_lang_assert(uint);
+	mk_lang_assert(socket);
+
+	mapping.m_u32 = *uint;
+	mapping.m_socket = socket;
+	err = mk_lib_iip_cp_client_session_u32_and_socket_map_rw_insert_element_copy(&task->m_session.m_state.m_stream_id_mapping, &mapping, &node); mk_lang_check_rereturn(err); mk_lang_assert(node);
+	mk_lang_assert(node->m_ref_count == 1);
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_session_task_prrw_new_socket_listener(mk_lib_iip_cp_client_session_task_pt const task, mk_lib_iip_cp_client_types_socket_listener_settings_pct const settings, mk_lib_iip_cp_client_types_handle_socket_listener_pt const socket_listener) mk_lang_noexcept
 {
 	mk_lang_bui_uintptr_t uptr;
@@ -499,9 +539,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	config.m_is_listener = mk_lang_true;
 	config.m_local_destination = &task->m_session.m_settings.m_local_destination;
 	config.m_local_port = settings->m_port;
+	((mk_lang_types_void_t)(config.m_remote_destination));
+	((mk_lang_types_void_t)(config.m_remote_port));
+	err = mk_lib_iip_cp_client_session_prrw_get_random_stream_id(task, &config.m_stream_id); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_cp_mallocator_global_allocate(sizeof(*sock_list), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem); sock_list = ((mk_lib_iip_cp_client_socket_task_pt)(mem)); mk_lang_assert(sock_list);
 	err = mk_lib_iip_cp_client_socket_task_rw_construct(sock_list, &config); mk_lang_check_rereturn(err);
 	err = mk_lib_iip_cp_client_socket_tasks_rw_push_back_copy_single(&task->m_session.m_state.m_listening_sockets, &sock_list); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_cp_client_session_prrw_add_stream_id_to_stream(task, &config.m_stream_id, sock_list); mk_lang_check_rereturn(err);
 	uptr = ((mk_lang_bui_uintptr_t)(sock_list));
 	mk_lib_iip_cp_client_types_handle_socket_listener_from_base(socket_listener, &uptr);
 	return 0;
@@ -1468,28 +1512,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 		gud = gud & !mk_sl_cui_uint32_is_max(uint);
 		mapping.m_u32 = *uint;
 		err = mk_lib_iip_cp_client_session_u32_and_socket_map_ro_find_node(&task->m_session.m_state.m_nonce_mapping, &mapping, &node); mk_lang_check_rereturn(err);
-		gud = gud & !node;
-	}while(!gud);
-	return 0;
-}
-
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_session_prrw_get_random_stream_id(mk_lib_iip_cp_client_session_task_pt const task, mk_sl_cui_uint32_pt const uint) mk_lang_noexcept
-{
-	mk_lang_types_bool_t gud;
-	mk_lang_types_sint_t err;
-	mk_lib_iip_cp_client_session_u32_and_socket_t mapping;
-	mk_lib_iip_cp_client_session_u32_and_socket_map_node_pt node;
-
-	mk_lang_assert(task);
-
-	do
-	{
-		gud = mk_lang_true;
-		err = mk_lib_iip_random_generate_u32_any(uint); mk_lang_check_rereturn(err);
-		gud = gud & !mk_sl_cui_uint32_is_zero(uint);
-		gud = gud & !mk_sl_cui_uint32_is_max(uint);
-		mapping.m_u32 = *uint;
-		err = mk_lib_iip_cp_client_session_u32_and_socket_map_ro_find_node(&task->m_session.m_state.m_stream_id_mapping, &mapping, &node); mk_lang_check_rereturn(err);
 		gud = gud & !node;
 	}while(!gud);
 	return 0;
