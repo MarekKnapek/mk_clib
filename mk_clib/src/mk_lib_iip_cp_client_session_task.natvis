@@ -13,12 +13,14 @@
 		</Expand>
 	</Type>
 	<Type Name="mk_lib_iip_cp_client_session_lookups_host_name_s">
-		<DisplayString>{{ size = {m_size} capacity = {m_capacity} }}</DisplayString>
+		<DisplayString>{{ size = {m_write - m_read} capacity = {m_capacity} }}</DisplayString>
 		<Expand>
-			<ArrayItems>
-				<Size>m_size</Size>
-				<ValuePointer>m_buffer</ValuePointer>
-			</ArrayItems>
+			<Item Name="[size]">m_write - m_read</Item>
+			<Item Name="[capacity]">m_capacity</Item>
+			<IndexListItems>
+				<Size>m_write - m_read</Size>
+				<ValueNode>m_buffer[(m_read + $i) % m_capacity]</ValueNode>
+			</IndexListItems>
 		</Expand>
 	</Type>
 </AutoVisualizer>
