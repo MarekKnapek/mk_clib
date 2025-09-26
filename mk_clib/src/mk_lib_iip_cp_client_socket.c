@@ -1140,6 +1140,16 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_socket_task_prrw_drop(mk_lib_iip_cp_client_socket_task_pt const task) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(task);
+
+	err = mk_lib_iip_cp_client_socket_task_prrw_request_close(task); mk_lang_check_rereturn(err);
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_socket_task_prrw_gimme_msg(mk_lib_iip_cp_client_socket_task_pt const task, mk_sl_cui_uint32_pct const random_uint, mk_lib_iip_cp_message_ppt const msg) mk_lang_noexcept
 {
 	mk_lang_types_void_pt mem;
@@ -1420,6 +1430,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_task_rw_send(mk_lib_iip_cp_client_socket_task_pt const task, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len, mk_lang_types_sint_pt const sent) mk_lang_noexcept
 {
 	return mk_lib_iip_cp_client_socket_task_prrw_send(task, data_buf, data_len, sent);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_task_rw_drop(mk_lib_iip_cp_client_socket_task_pt const task) mk_lang_noexcept
+{
+	return mk_lib_iip_cp_client_socket_task_prrw_drop(task);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_iip_cp_client_socket_task_rw_gimme_msg(mk_lib_iip_cp_client_socket_task_pt const task, mk_sl_cui_uint32_pct const random_uint, mk_lib_iip_cp_message_ppt const msg) mk_lang_noexcept
