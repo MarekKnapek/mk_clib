@@ -18,6 +18,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_logger_p
 	mk_sl_time_timestamp_t time_val;
 	mk_lang_types_sint_t time_len;
 	mk_lang_types_pchar_t time_str[mk_sl_time_k_str_len];
+	mk_lang_types_sint_t ptr;
 	mk_lang_types_sint_t err;
 
 	mk_lang_assert(logger);
@@ -25,8 +26,18 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_logger_p
 	mk_sl_time_timestamp_get_now(&time_val);
 	time_len = mk_sl_time_to_text(&time_val, &time_str[0], mk_lang_countof(time_str)); mk_lang_assert(time_len == mk_lang_countof(time_str));
 	{
+		ptr = 0;
+		err = mk_lib_iip_logger_rw_begin_color(logger, mk_lib_iip_logger_color_text_e_light_magenta); mk_lang_check_rereturn(err);
+		err = mk_lib_iip_logger_rw_print(logger, &time_str[ptr], 10); mk_lang_check_rereturn(err); ptr += 10;
+		err = mk_lib_iip_logger_rw_end_color(logger); mk_lang_check_rereturn(err);
 		err = mk_lib_iip_logger_rw_begin_color(logger, mk_lib_iip_logger_color_text_e_dark_magenta); mk_lang_check_rereturn(err);
-		err = mk_lib_iip_logger_rw_print(logger, &time_str[0], time_len); mk_lang_check_rereturn(err);
+		err = mk_lib_iip_logger_rw_print(logger, &time_str[ptr], 1); mk_lang_check_rereturn(err); ptr += 1;
+		err = mk_lib_iip_logger_rw_end_color(logger); mk_lang_check_rereturn(err);
+		err = mk_lib_iip_logger_rw_begin_color(logger, mk_lib_iip_logger_color_text_e_light_magenta); mk_lang_check_rereturn(err);
+		err = mk_lib_iip_logger_rw_print(logger, &time_str[ptr], 16); mk_lang_check_rereturn(err); ptr += 16;
+		err = mk_lib_iip_logger_rw_end_color(logger); mk_lang_check_rereturn(err);
+		err = mk_lib_iip_logger_rw_begin_color(logger, mk_lib_iip_logger_color_text_e_dark_magenta); mk_lang_check_rereturn(err);
+		err = mk_lib_iip_logger_rw_print(logger, &time_str[ptr], 1); mk_lang_check_rereturn(err); ptr += 1;
 		err = mk_lib_iip_logger_rw_end_color(logger); mk_lang_check_rereturn(err);
 		err = mk_lib_iip_logger_rw_print_str_lit(logger, " "); mk_lang_check_rereturn(err);
 	}
