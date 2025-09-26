@@ -1004,8 +1004,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_iip_exa
 		{
 			example1->m_http_resource_done = mk_lang_true;
 			err = mk_sl_io_writer_file_rw_reset(&example1->m_writer); mk_lang_check_rereturn(err);
+			err = mk_lib_iip_cp_client_wrapper_task_rw_socket_drop(example1->m_wrp, &example1->m_connection); mk_lang_check_rereturn(err);
 			err = mk_clib_app_iip_example1_ro_print_done(example1); mk_lang_check_rereturn(err);
-			//err = mk_clib_app_iip_example1_rw_reset(example1); mk_lang_check_rereturn(err);
 		}
 	}
 	return 0;
