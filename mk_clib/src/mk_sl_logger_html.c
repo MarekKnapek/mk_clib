@@ -64,10 +64,6 @@ mk_lang_constexpr_static_inline mk_lang_types_pchar_t const mk_sl_logger_html_k_
 	"span.color_light_magenta { color: #b4009e; }" mk_sl_logger_html_k_crlf
 	"span.color_light_cyan    { color: #61d6d6; }" mk_sl_logger_html_k_crlf
 	"span.color_light_white   { color: #f2f2f2; }" mk_sl_logger_html_k_crlf
-	"span.color_dark_cyan     { color: deepskyblue; }" mk_sl_logger_html_k_crlf
-	"span.color_dark_green    { color: lime; }" mk_sl_logger_html_k_crlf
-	"span.color_dark_magenta  { color: fuchsia; }" mk_sl_logger_html_k_crlf
-	"span.color_dark_yellow   { color: yellow; }" mk_sl_logger_html_k_crlf
 	mk_sl_logger_html_k_tab mk_sl_logger_html_k_tab "</style>" mk_sl_logger_html_k_crlf
 	mk_sl_logger_html_k_tab "</head>" mk_sl_logger_html_k_crlf
 	mk_sl_logger_html_k_tab "<body style=\"background-color:black;color:white\">" mk_sl_logger_html_k_crlf
