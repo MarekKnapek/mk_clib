@@ -1448,6 +1448,7 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_logger_stdout.h"><Filter>src</Filter></ClInclude>
 		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_hosts.natvis"><Filter>src</Filter></Natvis>
 		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_buffer.natvis"><Filter>src</Filter></Natvis>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_client_session.natvis"><Filter>src</Filter></Natvis>
 		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_client_socket.natvis"><Filter>src</Filter></Natvis>
 		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_client_wrapper.natvis"><Filter>src</Filter></Natvis>
 		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_dynamic_ring.natvis"><Filter>src</Filter></Natvis>
