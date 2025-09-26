@@ -701,6 +701,27 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_socket_task_prrw_log_on_packet(mk_lib_iip_cp_client_socket_task_pt const task, mk_lib_iip_net_streaming_packet_pt const packet) mk_lang_noexcept
+{
+	#define mk_lib_iip_cp_client_socket_task_prrw_log_on_packet_fmt "Packet arrived, seqence numer %u."
+
+	mk_lib_iip_logger_pt logger;
+	mk_lang_types_sint_t len;
+	mk_lang_types_pchar_t str_buf[64];
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(task);
+	mk_lang_assert(packet);
+
+	logger = &task->m_socket.m_settings.m_shared->m_logger;
+	len = mk_lib_fmt_n_snnprintf(&str_buf[0], mk_lang_countof(str_buf), &mk_lib_iip_cp_client_socket_task_prrw_log_on_packet_fmt[0], mk_lang_countstr(mk_lib_iip_cp_client_socket_task_prrw_log_on_packet_fmt), &packet->m_sequence_number); mk_lang_assert(len >= 1); mk_lang_assert(len <= mk_lang_countof(str_buf));
+	err = mk_lib_iip_logger_rw_begin_line(logger); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_append_current_time(logger); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_print(logger, &str_buf[0], len); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_end_line(logger); mk_lang_check_rereturn(err);
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_socket_task_prrw_on_packet(mk_lib_iip_cp_client_socket_task_pt const task, mk_sl_cui_uint16_pct const src_port, mk_sl_cui_uint16_pct const dst_port, mk_sl_cui_uint8_pt const decompressed_packet_buf, mk_lang_types_sint_t const decompressed_packet_len, mk_lib_iip_net_streaming_packet_pt const packet, mk_lang_types_bool_pt const consumed) mk_lang_noexcept
 {
 	mk_lang_types_bool_t gud;
@@ -717,6 +738,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 	gud = mk_lang_true;
 	err = mk_lib_iip_net_streaming_packet_rw_parse(packet, &task->m_socket.m_settings.m_remote_destination, decompressed_packet_buf, decompressed_packet_len, &gud); mk_lang_check_rereturn(err); mk_lang_check_return(gud);
+	err = mk_lib_iip_cp_client_socket_task_prrw_log_on_packet(task, packet); mk_lang_check_rereturn(err);
 	if(!task->m_socket.m_settings.m_is_listener)
 	{
 		err = mk_lib_iip_cp_client_socket_task_prrw_on_packet_connector(task, src_port, dst_port, packet, &eaten); mk_lang_check_rereturn(err);
@@ -1082,6 +1104,27 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_socket_task_prrw_log_ack_all(mk_lib_iip_cp_client_socket_task_pt const task, mk_sl_cui_uint32_pct const seq_num_to_ack) mk_lang_noexcept
+{
+	#define mk_lib_iip_cp_client_socket_task_prrw_log_ack_all_fmt "ACKing packets,seqence numer %u."
+
+	mk_lib_iip_logger_pt logger;
+	mk_lang_types_sint_t len;
+	mk_lang_types_pchar_t str_buf[64];
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(task);
+	mk_lang_assert(seq_num_to_ack);
+
+	logger = &task->m_socket.m_settings.m_shared->m_logger;
+	len = mk_lib_fmt_n_snnprintf(&str_buf[0], mk_lang_countof(str_buf), &mk_lib_iip_cp_client_socket_task_prrw_log_ack_all_fmt[0], mk_lang_countstr(mk_lib_iip_cp_client_socket_task_prrw_log_ack_all_fmt), seq_num_to_ack); mk_lang_assert(len >= 1); mk_lang_assert(len <= mk_lang_countof(str_buf));
+	err = mk_lib_iip_logger_rw_begin_line(logger); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_append_current_time(logger); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_print(logger, &str_buf[0], len); mk_lang_check_rereturn(err);
+	err = mk_lib_iip_logger_rw_end_line(logger); mk_lang_check_rereturn(err);
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_socket_task_prrw_ack_all(mk_lib_iip_cp_client_socket_task_pt const task, mk_sl_cui_uint8_pct const additional_data_buf, mk_lang_types_sint_t const additional_data_len, mk_sl_cui_uint32_pct const random_uint, mk_lib_iip_cp_message_pt const msg) mk_lang_noexcept
 {
 	mk_lib_iip_cp_client_socket_packet_with_payload_ppt last_packet_ptr;
@@ -1110,6 +1153,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 
 	last_packet_ptr = mk_lib_iip_cp_client_socket_packets_with_payload_rw_get_back(&task->m_socket.m_state.m_packets_in_to_ack); mk_lang_assert(last_packet_ptr); last_packet_obj = *last_packet_ptr; mk_lang_assert(last_packet_obj);
 	seq_num_to_ack = last_packet_obj->m_packet.m_sequence_number;
+
+	err = mk_lib_iip_cp_client_socket_task_prrw_log_ack_all(task, &seq_num_to_ack); mk_lang_check_rereturn(err);
 
 	err = mk_lib_iip_cp_message_reconstruct(msg, mk_lib_iip_cp_message_message_type_id_e_send_message); mk_lang_check_rereturn(err);
 	send_message = &msg->m_mix.m_data.m_send_message;
