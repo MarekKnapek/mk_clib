@@ -2179,6 +2179,37 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_connection_task_prrw_step_want_stop(mk_lib_iip_cp_client_connection_task_pt const task, mk_lang_types_bool_t const allow_to_block, mk_lang_types_sint_t const tm, mk_lib_iip_cp_client_connection_task_result_pt const step_result) mk_lang_noexcept
+{
+	mk_lib_iip_cp_client_connection_task_result_t stp_res;
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
+	mk_lib_iip_cp_client_session_task_ppt session_ptr;
+	mk_lib_iip_cp_client_session_task_pt session_obj;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(task);
+	mk_lang_assert(allow_to_block == mk_lang_true || allow_to_block == mk_lang_false);
+	mk_lang_assert((tm >= 0 && tm <= 10 * 60 * 1000) || tm == -1);
+	mk_lang_assert(step_result);
+	mk_lang_assert(*step_result == mk_lib_iip_cp_client_connection_task_result_e_dummy_end);
+
+	stp_res = mk_lib_iip_cp_client_connection_task_result_e_did_nothing;
+	if(task->m_connection.m_state.m_stop_requested && !task->m_connection.m_state.m_stop_acknowledged)
+	{
+		task->m_connection.m_state.m_stop_acknowledged = mk_lang_true;
+		n = mk_lib_iip_cp_client_session_tasks_rw_size(&task->m_connection.m_state.m_sessions);
+		for(i = 0; i != n; ++i)
+		{
+			session_ptr = mk_lib_iip_cp_client_session_tasks_rw_at(&task->m_connection.m_state.m_sessions, i); mk_lang_assert(session_ptr); session_obj = *session_ptr; mk_lang_assert(session_obj);
+			err = mk_lib_iip_cp_client_session_task_rw_request_close(session_obj); mk_lang_check_rereturn(err);
+		}
+		stp_res = mk_lib_iip_cp_client_connection_task_result_e_did_something;
+	}
+	*step_result = stp_res;
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_client_connection_task_prrw_step_want_die_all_done(mk_lib_iip_cp_client_connection_task_pt const task, mk_lang_types_bool_t const allow_to_block, mk_lang_types_sint_t const tm, mk_lib_iip_cp_client_connection_task_result_pt const step_result) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
@@ -2226,6 +2257,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_iip_cp_clien
 	if(stp_res == mk_lib_iip_cp_client_connection_task_result_e_did_nothing){ stp_res = mk_lib_iip_cp_client_connection_task_result_e_dummy_end; err = mk_lib_iip_cp_client_connection_task_prrw_step_parse_buf(task, allow_to_block, tm, &stp_res); mk_lang_check_rereturn(err); mk_lang_assert(stp_res != mk_lib_iip_cp_client_connection_task_result_e_dummy_end); }
 	if(stp_res == mk_lib_iip_cp_client_connection_task_result_e_did_nothing){ stp_res = mk_lib_iip_cp_client_connection_task_result_e_dummy_end; err = mk_lib_iip_cp_client_connection_task_prrw_step_sub_sessions_want_rcv(task, allow_to_block, tm, &stp_res); mk_lang_check_rereturn(err); mk_lang_assert(stp_res != mk_lib_iip_cp_client_connection_task_result_e_dummy_end); }
 	if(stp_res == mk_lib_iip_cp_client_connection_task_result_e_did_nothing){ stp_res = mk_lib_iip_cp_client_connection_task_result_e_dummy_end; err = mk_lib_iip_cp_client_connection_task_prrw_step_want_rcv(task, allow_to_block, tm, &stp_res); mk_lang_check_rereturn(err); mk_lang_assert(stp_res != mk_lib_iip_cp_client_connection_task_result_e_dummy_end); }
+	if(stp_res == mk_lib_iip_cp_client_connection_task_result_e_did_nothing){ stp_res = mk_lib_iip_cp_client_connection_task_result_e_dummy_end; err = mk_lib_iip_cp_client_connection_task_prrw_step_want_stop(task, allow_to_block, tm, &stp_res); mk_lang_check_rereturn(err); mk_lang_assert(stp_res != mk_lib_iip_cp_client_connection_task_result_e_dummy_end); }
 	if(stp_res == mk_lib_iip_cp_client_connection_task_result_e_did_nothing){ stp_res = mk_lib_iip_cp_client_connection_task_result_e_dummy_end; err = mk_lib_iip_cp_client_connection_task_prrw_step_want_die_all_done(task, allow_to_block, tm, &stp_res); mk_lang_check_rereturn(err); mk_lang_assert(stp_res != mk_lib_iip_cp_client_connection_task_result_e_dummy_end); }
 	*step_result = stp_res;
 	return 0;
