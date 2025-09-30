@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+	<Type Name="mk_sl_fxp_128_64_64_s">
+		<DisplayString>{(((long double)(m_base.m_elements[1])) * ((long double)(18446744073709551616.0l)) + ((long double)(m_base.m_elements[0]))) / ((long double)(18446744073709551616.0l))}</DisplayString>
+	</Type>
+</AutoVisualizer>

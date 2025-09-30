@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+	<Type Name="mk_sl_fxp_64_56_8_s">
+		<DisplayString>{((long double)(m_base.m_elements[0])) / ((long double)(256.0l))}</DisplayString>
+	</Type>
+	<Type Name="mk_sl_fxp_64_48_16_s">
+		<DisplayString>{((long double)(m_base.m_elements[0])) / ((long double)(65536.0l))}</DisplayString>
+	</Type>
+	<Type Name="mk_sl_fxp_64_40_24_s">
+		<DisplayString>{((long double)(m_base.m_elements[0])) / ((long double)(16777216.0l))}</DisplayString>
+	</Type>
+	<Type Name="mk_sl_fxp_64_32_32_s">
+		<DisplayString>{((long double)(m_base.m_elements[0])) / ((long double)(4294967296.0l))}</DisplayString>
+	</Type>
+	<Type Name="mk_sl_fxp_64_24_40_s">
+		<DisplayString>{((long double)(m_base.m_elements[0])) / ((long double)(1099511627776.0l))}</DisplayString>
+	</Type>
+	<Type Name="mk_sl_fxp_64_16_48_s">
+		<DisplayString>{((long double)(m_base.m_elements[0])) / ((long double)(281474976710656.0l))}</DisplayString>
+	</Type>
+	<Type Name="mk_sl_fxp_64_8_56_s">
+		<DisplayString>{((long double)(m_base.m_elements[0])) / ((long double)(72057594037927936.0l))}</DisplayString>
+	</Type>
+</AutoVisualizer>
