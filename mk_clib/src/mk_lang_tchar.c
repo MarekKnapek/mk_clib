@@ -35,4 +35,26 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_tchar_to_bi_pchar_many(mk_lang_tchar_
 }
 
 
+#define mk_lang_memclr1_t_name mk_lang_tchar_memclr
+#define mk_lang_memclr1_t_type mk_lang_tchar_t
+#include "mk_lang_memclr1_inl_filec.h"
+#include "mk_lang_memclr1_inl_fileu.h"
+#define mk_lang_memcmp1_t_name mk_lang_tchar_memcmp
+#define mk_lang_memcmp1_t_type mk_lang_tchar_t
+#include "mk_lang_memcmp1_inl_filec.h"
+#include "mk_lang_memcmp1_inl_fileu.h"
+#define mk_lang_memcpy1_t_name mk_lang_tchar_memcpy
+#define mk_lang_memcpy1_t_type mk_lang_tchar_t
+#include "mk_lang_memcpy1_inl_filec.h"
+#include "mk_lang_memcpy1_inl_fileu.h"
+#define mk_lang_memmov1_t_name mk_lang_tchar_memmov
+#define mk_lang_memmov1_t_type mk_lang_tchar_t
+#include "mk_lang_memmov1_inl_filec.h"
+#include "mk_lang_memmov1_inl_fileu.h"
+#define mk_lang_memset1_t_name mk_lang_tchar_memset
+#define mk_lang_memset1_t_type mk_lang_tchar_t
+#include "mk_lang_memset1_inl_filec.h"
+#include "mk_lang_memset1_inl_fileu.h"
+
+
 #endif

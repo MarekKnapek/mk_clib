@@ -27,6 +27,10 @@
 #endif
 
 
+#define mk_lang_concat2_impl(a, b) a ## b
+#define mk_lang_concat2(a, b) mk_lang_concat2_impl(a, b)
+
+
 #if mk_lang_tchar_wchar_have
 
 
@@ -34,7 +38,7 @@ typedef mk_lang_types_wchar_t mk_lang_tchar_t;
 mk_lang_typedef(mk_lang_tchar);
 #define mk_lang_tchar_c(x) L ## x
 #define mk_lang_tchar_suffix w
-#define mk_lang_tchar_dispatch(x) mk_lang_concat(x, mk_lang_tchar_suffix)
+#define mk_lang_tchar_dispatch(x) mk_lang_concat2(x, mk_lang_tchar_suffix)
 
 
 #else
@@ -44,13 +48,35 @@ typedef mk_lang_types_pchar_t mk_lang_tchar_t;
 mk_lang_typedef(mk_lang_tchar);
 #define mk_lang_tchar_c(x) x
 #define mk_lang_tchar_suffix n
-#define mk_lang_tchar_dispatch(x) mk_lang_concat(x, mk_lang_tchar_suffix)
+#define mk_lang_tchar_dispatch(x) mk_lang_concat2(x, mk_lang_tchar_suffix)
 
 
 #endif
 
 
 mk_lang_jumbo mk_lang_types_void_t mk_lang_tchar_to_bi_pchar_many(mk_lang_tchar_prct const tchars, mk_lang_types_pchar_prt const pchars, mk_lang_types_sint_t const count) mk_lang_noexcept;
+
+
+#define mk_lang_memclr1_t_name mk_lang_tchar_memclr
+#define mk_lang_memclr1_t_type mk_lang_tchar_t
+#include "mk_lang_memclr1_inl_fileh.h"
+#include "mk_lang_memclr1_inl_fileu.h"
+#define mk_lang_memcmp1_t_name mk_lang_tchar_memcmp
+#define mk_lang_memcmp1_t_type mk_lang_tchar_t
+#include "mk_lang_memcmp1_inl_fileh.h"
+#include "mk_lang_memcmp1_inl_fileu.h"
+#define mk_lang_memcpy1_t_name mk_lang_tchar_memcpy
+#define mk_lang_memcpy1_t_type mk_lang_tchar_t
+#include "mk_lang_memcpy1_inl_fileh.h"
+#include "mk_lang_memcpy1_inl_fileu.h"
+#define mk_lang_memmov1_t_name mk_lang_tchar_memmov
+#define mk_lang_memmov1_t_type mk_lang_tchar_t
+#include "mk_lang_memmov1_inl_fileh.h"
+#include "mk_lang_memmov1_inl_fileu.h"
+#define mk_lang_memset1_t_name mk_lang_tchar_memset
+#define mk_lang_memset1_t_type mk_lang_tchar_t
+#include "mk_lang_memset1_inl_fileh.h"
+#include "mk_lang_memset1_inl_fileu.h"
 
 
 #if mk_lang_jumbo_have
