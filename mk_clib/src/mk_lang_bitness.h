@@ -21,4 +21,9 @@
 #endif
 
 
+#define mk_lang_bitness_is_16 (mk_lang_bitness == mk_lang_bitness_16)
+#define mk_lang_bitness_is_32 (mk_lang_bitness == mk_lang_bitness_32)
+#define mk_lang_bitness_is_64 (mk_lang_bitness == mk_lang_bitness_64)
+
+
 #endif
