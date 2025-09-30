@@ -10,11 +10,11 @@
 #define mk_lang_bitness_64 1003
 
 
-#if mk_lang_arch == mk_lang_arch_x8616
+#if mk_lang_arch_is_x8616
 #define mk_lang_bitness mk_lang_bitness_16
-#elif mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_alpha || mk_lang_arch == mk_lang_arch_ppc || mk_lang_arch == mk_lang_arch_mips || mk_lang_arch == mk_lang_arch_arm32 || mk_lang_arch == mk_lang_arch_emscripten
+#elif mk_lang_arch_is_x8632 || mk_lang_arch_is_alpha || mk_lang_arch_is_ppc || mk_lang_arch_is_mips || mk_lang_arch_is_arm32 || mk_lang_arch_is_emscripten
 #define mk_lang_bitness mk_lang_bitness_32
-#elif mk_lang_arch == mk_lang_arch_x8664 || mk_lang_arch == mk_lang_arch_ia64 || mk_lang_arch == mk_lang_arch_arm64 || mk_lang_arch == mk_lang_arch_arm64ec
+#elif mk_lang_arch_is_x8664 || mk_lang_arch_is_ia64 || mk_lang_arch_is_arm64 || mk_lang_arch_is_arm64ec
 #define mk_lang_bitness mk_lang_bitness_64
 #else
 #error xxxxxxxxxx
