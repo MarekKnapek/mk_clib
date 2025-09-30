@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+	<Type Name="mk_sl_fxp_32_24_8_s">
+		<DisplayString>{((long double)(m_base.m_elements[0])) / ((long double)(256.0l))}</DisplayString>
+	</Type>
+	<Type Name="mk_sl_fxp_32_16_16_s">
+		<DisplayString>{((long double)(m_base.m_elements[0])) / ((long double)(65536.0l))}</DisplayString>
+	</Type>
+	<Type Name="mk_sl_fxp_32_8_24_s">
+		<DisplayString>{((long double)(m_base.m_elements[0])) / ((long double)(16777216.0l))}</DisplayString>
+	</Type>
+</AutoVisualizer>
