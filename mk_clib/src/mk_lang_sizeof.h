@@ -66,11 +66,11 @@
 #endif
 #define mk_lang_sizeof_bi_slllong_t mk_lang_sizeof_bi_ulllong_t
 
-#if mk_lang_bitness == mk_lang_bitness_16
+#if mk_lang_bitness_is_16
 #define mk_lang_sizeof_bi_uintptr_t 2
-#elif mk_lang_bitness == mk_lang_bitness_32
+#elif mk_lang_bitness_is_32
 #define mk_lang_sizeof_bi_uintptr_t 4
-#elif mk_lang_bitness == mk_lang_bitness_64
+#elif mk_lang_bitness_is_64
 #define mk_lang_sizeof_bi_uintptr_t 8
 #endif
 #define mk_lang_sizeof_bi_sintptr_t mk_lang_sizeof_bi_uintptr_t
@@ -82,11 +82,11 @@
 #endif
 #define mk_lang_sizeof_bi_sintmax_t mk_lang_sizeof_bi_uintmax_t
 
-#if mk_lang_bitness == mk_lang_bitness_16
+#if mk_lang_bitness_is_16
 #define mk_lang_sizeof_bi_usize_t 2
-#elif mk_lang_bitness == mk_lang_bitness_32
+#elif mk_lang_bitness_is_32
 #define mk_lang_sizeof_bi_usize_t 4
-#elif mk_lang_bitness == mk_lang_bitness_64
+#elif mk_lang_bitness_is_64
 #define mk_lang_sizeof_bi_usize_t 8
 #endif
 #define mk_lang_sizeof_bi_ssize_t mk_lang_sizeof_bi_usize_t

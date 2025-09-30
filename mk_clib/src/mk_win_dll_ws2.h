@@ -298,9 +298,9 @@ mk_lang_typedef(mk_win_dll_ws2_data_64);
 
 struct mk_win_dll_ws2_data_s
 {
-#if mk_lang_bitness == mk_lang_bitness_32
+#if mk_lang_bitness_is_32
 	mk_win_dll_ws2_data_32_t m_data;
-#elif mk_lang_bitness == mk_lang_bitness_64
+#elif mk_lang_bitness_is_64
 	mk_win_dll_ws2_data_64_t m_data;
 #else
 #error xxxxxxxxxx

@@ -9,7 +9,7 @@
 #include "mk_lang_version.h"
 
 
-#if mk_lang_bitness == mk_lang_bitness_16 && mk_lang_platform_is_windows_at_least_any
+#if mk_lang_bitness_is_16 && mk_lang_platform_is_windows_at_least_any
 #define mk_lang_typedef_far __far
 #define mk_lang_typedef_near __near
 #else
