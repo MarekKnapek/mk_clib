@@ -56,7 +56,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	n = mk_lang_num_longdivmod_inl_defd_lenb;
 	for(i = 0; i != n; ++i)
 	{
-		if(!mk_lang_num_longdivmod_inl_defd_tn1_is_zero(&b[mk_lang_num_longdivmod_inl_defd_idxa((n - 1) - i)]))
+		if(!mk_lang_num_longdivmod_inl_defd_tn1_is_zero(&b[mk_lang_num_longdivmod_inl_defd_idxb((n - 1) - i)]))
 		{
 			lenb = n - i;
 			break;
