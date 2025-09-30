@@ -91,8 +91,11 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_hash_stream_i
 	#else
 	mk_lang_assert(((mk_lang_types_sint_t)(rem)) + stream->m_idx <= mk_lib_crypto_hash_stream_inl_defd_base_block_len_v);
 	#endif
-	mk_sl_cui_uint8_memcpy_fn(&stream->m_block.m_data.m_uint8s[stream->m_idx], ptr, rem);
-	stream->m_idx += ((mk_lang_types_sint_t)(rem));
+	if(rem != 0)
+	{
+		mk_sl_cui_uint8_memcpy_fn(&stream->m_block.m_data.m_uint8s[stream->m_idx], ptr, rem);
+		stream->m_idx += ((mk_lang_types_sint_t)(rem));
+	}
 }
 #include "mk_lang_warning_msvc_pop.h"
 
