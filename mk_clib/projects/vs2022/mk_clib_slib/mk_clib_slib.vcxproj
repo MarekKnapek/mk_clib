@@ -1500,6 +1500,10 @@
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_fxp_inl_defd.h.m4"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_fxp_inl_defu.h.m4"/>
 	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_speedometer.c"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_speedometer.h"/>
+	</ItemGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
 	<ImportGroup Label="ExtensionTargets">
 		<Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets"/>
