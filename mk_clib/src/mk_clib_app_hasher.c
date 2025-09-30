@@ -4,6 +4,7 @@
 
 #include "mk_lang_alignas.h"
 #include "mk_lang_assert.h"
+#include "mk_lang_bitness.h"
 #include "mk_lang_check.h"
 #include "mk_lang_command_line.h"
 #include "mk_lang_countof.h"
@@ -27,10 +28,20 @@
 #include "mk_lib_fmt.h"
 #include "mk_sl_cui_uint8.h"
 #include "mk_sl_io_reader_file.h"
+#include "mk_sl_speedometer.h"
+#include "mk_sl_stopwatch.h"
 
 
+#if mk_lang_bitness_is_16
 #define mk_clib_app_hasher_buff_size 4 * 1024
 #define mk_clib_app_hasher_buff_algn 4 * 1024
+#elif mk_lang_bitness_is_32
+#define mk_clib_app_hasher_buff_size 64 * 1024
+#define mk_clib_app_hasher_buff_algn 64 * 1024
+#elif mk_lang_bitness_is_64
+#define mk_clib_app_hasher_buff_size 256 * 1024
+#define mk_clib_app_hasher_buff_algn 256 * 1024
+#endif
 union mk_clib_app_hasher_buff_data_u
 {
 	mk_lang_types_uchar_t m_uchars[mk_lang_roundup_add(mk_clib_app_hasher_buff_size, mk_clib_app_hasher_buff_algn)];
@@ -96,6 +107,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hasher_
 	mk_lang_tchar_pct arg_file_buf;
 	mk_lang_types_sint_t arg_hash_len;
 	mk_lang_types_sint_t arg_file_len;
+	mk_sl_speedometer_t speedometer;
+	mk_lang_types_bool_t want;
 	mk_lib_crypto_hash_stream_any1_id_t id;
 	mk_lib_crypto_hash_stream_any2_t hasher;
 	mk_sl_cui_uint8_pt ptr;
@@ -103,6 +116,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hasher_
 	mk_lang_types_sint_t err;
 	mk_sl_io_reader_file_t input_file;
 	mk_lang_types_sint_t read;
+	mk_lang_types_sint_t len;
+	mk_lang_tchar_t progress_str_a[64]; /* todo max */
+	mk_lang_tchar_t progress_str_b[2 * mk_lang_countof(progress_str_a)]; /* todo max */
 	mk_sl_cui_uint8_t digest[mk_lib_crypto_hash_stream_any1_digest_max_len_v];
 
 	mk_lang_assert(argc == 3);
@@ -120,6 +136,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hasher_
 	arg_file_buf = argv[2];
 	arg_hash_len = lens[1];
 	arg_file_len = lens[2]; ((mk_lang_types_void_t)(arg_file_len)); /* todo file reader not zero terminated */
+	err = mk_sl_speedometer_rw_construct(&speedometer); mk_lang_check_rereturn(err);
 	id = mk_clib_app_hasher_find_hash(arg_hash_buf, arg_hash_len);
 	mk_lang_check_return(id != mk_lib_crypto_hash_stream_any1_id_e_dummy_end);
 	mk_lib_crypto_hash_stream_any2_init(&hasher, id);
@@ -133,9 +150,19 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hasher_
 			break;
 		}
 		mk_lib_crypto_hash_stream_any2_append_u8s(&hasher, ptr, ((mk_lang_types_usize_t)(read)));
+		err = mk_sl_speedometer_rw_append(&speedometer, read); mk_lang_check_rereturn(err);
+		err = mk_sl_speedometer_rw_report(&speedometer, &progress_str_a[0], mk_lang_countof(progress_str_a), &want, &len); mk_lang_check_rereturn(err); mk_lang_assert(!want || len >= 1); mk_lang_assert(!want || len <= mk_lang_countof(progress_str_a));
+		if(want)
+		{
+			len = mk_lib_fmt_t_snnprintf(&progress_str_b[0], mk_lang_countof(progress_str_b), mk_lib_fmt_lit_and_len(mk_lang_tchar_c("\x0d                                                            \x0d%t ")), &progress_str_a[0], len); mk_lang_assert(len >= 1); mk_lang_assert(len <= mk_lang_countof(progress_str_b));
+			err = mk_lang_stdout_print_t(&progress_str_b[0], len); mk_lang_check_rereturn(err);
+		}
 	}
+	len = mk_lib_fmt_t_snnprintf(&progress_str_b[0], mk_lang_countof(progress_str_b), mk_lib_fmt_lit_and_len(mk_lang_tchar_c("\x0d                                                            \x0d"))); mk_lang_assert(len >= 1); mk_lang_assert(len <= mk_lang_countof(progress_str_b));
+	err = mk_lang_stdout_print_t(&progress_str_b[0], len); mk_lang_check_rereturn(err);
 	err = mk_sl_io_reader_file_close(&input_file); mk_lang_check_rereturn(err);
 	mk_lib_crypto_hash_stream_any2_finish(&hasher, &digest[0]);
+	err = mk_sl_speedometer_rw_destroy(&speedometer); mk_lang_check_rereturn(err);
 	err = mk_clib_app_hasher_print_digest(id, &digest[0]); mk_lang_check_rereturn(err);
 	return 0;
 }
@@ -223,6 +250,7 @@ mk_lang_extern_force_c mk_lang_nodiscard mk_lang_types_sint_t mk_clib_app_hasher
 	mk_lang_assert(peb);
 
 	mk_lang_cpuid_init();
+	err = mk_sl_stopwatch_init(); mk_lang_check_rereturn(err);
 	err = mk_lang_stdout_init(); mk_lang_check_rereturn(err);
 	err = mk_lang_command_line_parse_win(mk_win_dll_kernel_process_get_command_line(), &argv[0], &lens[0], mk_lang_countof(argv), &argc); mk_lang_check_rereturn(err);
 	err = mk_clib_app_hasher_wargs(argc, &argv[0], &lens[0]);
@@ -239,6 +267,7 @@ mk_lang_extern_c mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_clib_ap
 	mk_lang_types_sint_t lens[3];
 
 	mk_lang_cpuid_init();
+	err = mk_sl_stopwatch_init(); mk_lang_check_rereturn(err);
 	err = mk_lang_stdout_init(); mk_lang_check_rereturn(err);
 	if(argc == 1)
 	{
