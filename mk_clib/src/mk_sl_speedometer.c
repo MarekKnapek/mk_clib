@@ -5,6 +5,7 @@
 #include "mk_lang_assert.h"
 #include "mk_lang_bool.h"
 #include "mk_lang_check.h"
+#include "mk_lang_constexpr.h"
 #include "mk_lang_countof.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
@@ -100,6 +101,34 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_speedometer_p
 	return 0;
 }
 
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_speedometer_pr_fxp_128_64_64_from_duration(mk_sl_fxp_128_64_64_pt const fxp, mk_sl_stopwatch_duration_pct const duration) mk_lang_noexcept
+{
+	union mk_sl_speedometer_pr_fxp_128_64_64_from_duration_converter_data_u
+	{
+		mk_lang_types_uchar_t m_uchars[mk_sl_stopwatch_duration_size_bytes_v];
+		mk_sl_stopwatch_duration_t m_duration;
+		mk_sl_cui_uint64_t m_cui;
+	};
+	typedef union mk_sl_speedometer_pr_fxp_128_64_64_from_duration_converter_data_u mk_sl_speedometer_pr_fxp_128_64_64_from_duration_converter_data_t;
+	struct mk_sl_speedometer_pr_fxp_128_64_64_from_duration_converter_s
+	{
+		mk_sl_speedometer_pr_fxp_128_64_64_from_duration_converter_data_t m_data;
+	};
+	typedef struct mk_sl_speedometer_pr_fxp_128_64_64_from_duration_converter_s mk_sl_speedometer_pr_fxp_128_64_64_from_duration_converter_t;
+
+	mk_sl_speedometer_pr_fxp_128_64_64_from_duration_converter_t converter mk_lang_constexpr_init;
+	mk_sl_cui_uint64_t cui mk_lang_constexpr_init;
+
+	mk_lang_static_assert(((mk_lang_types_sint_t)(mk_sl_stopwatch_duration_size_bytes_v)) == ((mk_lang_types_sint_t)(mk_sl_cui_uint64_size_bytes_v)));
+
+	mk_lang_assert(fxp);
+	mk_lang_assert(duration);
+
+	mk_sl_stopwatch_duration_to_buis_uchar_le(duration, &converter.m_data.m_uchars[0]);
+	mk_sl_cui_uint64_from_buis_uchar_le(&cui, &converter.m_data.m_uchars[0]);
+	mk_sl_fxp_128_64_64_from_uint64(fxp, &cui);
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_speedometer_pr_report(mk_sl_speedometer_pt const speedometer, mk_lang_tchar_pt const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_bool_pt const reported, mk_lang_types_sint_pt const out_len) mk_lang_noexcept
 {
 	mk_lang_tchar_pt ptr;
@@ -155,7 +184,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_speedometer_p
 		}
 		mk_sl_fxp_128_64_64_from_uint64(&amount_fxp, &amount_cui);
 		mk_sl_stopwatch_timestamp_get_duration(&speedometer->m_timestamps[(speedometer->m_idx + 1) % mk_lang_countof(speedometer->m_timestamps)], &speedometer->m_lat_append, &time_diff_dur);
-		mk_sl_fxp_128_64_64_from_uint64(&time_diff_fxp_nanos, &time_diff_dur.m_elements[0].m_elements[0]);
+		mk_sl_speedometer_pr_fxp_128_64_64_from_duration(&time_diff_fxp_nanos, &time_diff_dur);
 		second_ul = 1ul * 1000ul * 1000ul * 1000ul; mk_sl_fxp_128_64_64_from_bi_ulong(&second_fxp, &second_ul);
 		mk_sl_fxp_128_64_64_div3_wrap(&time_diff_fxp_nanos, &second_fxp, &time_diff_fxp_seconds);
 		mk_sl_fxp_128_64_64_div3_wrap(&amount_fxp, &time_diff_fxp_seconds, &speed_fxp);
