@@ -65,8 +65,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_speedometer_p
 	mk_lang_types_sint_t err;
 	mk_sl_stopwatch_timestamp_t timestamp_now;
 	mk_sl_cui_uint64_t cui_amount;
-	mk_sl_stopwatch_timestamp_pt last_timestamp;
-	mk_sl_cui_uint64_pt last_amount;
+	mk_sl_stopwatch_timestamp_pt db_timestamp;
+	mk_sl_cui_uint64_pt db_amount;
 	mk_sl_stopwatch_duration_t time_diff_dur;
 	mk_lang_types_ulong_t time_treshold_ul;
 	mk_sl_stopwatch_duration_t time_treshold_dur;
@@ -80,21 +80,21 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_speedometer_p
 
 	err = mk_sl_stopwatch_timestamp_get_now(&timestamp_now); mk_lang_check_rereturn(err);
 	mk_sl_cui_uint64_from_bi_sint(&cui_amount, &amount);
-	last_timestamp = &speedometer->m_timestamps[(speedometer->m_idx + mk_lang_countof(speedometer->m_timestamps) - 1) % mk_lang_countof(speedometer->m_timestamps)];
-	last_amount = &speedometer->m_amounts[(speedometer->m_idx + mk_lang_countof(speedometer->m_amounts) - 1) % mk_lang_countof(speedometer->m_amounts)];
-	mk_sl_stopwatch_timestamp_get_duration(last_timestamp, &timestamp_now, &time_diff_dur);
+	db_timestamp = &speedometer->m_timestamps[(speedometer->m_idx + 0) % mk_lang_countof(speedometer->m_timestamps)];
+	db_amount = &speedometer->m_amounts[(speedometer->m_idx + 0) % mk_lang_countof(speedometer->m_amounts)];
+	mk_sl_stopwatch_timestamp_get_duration(db_timestamp, &timestamp_now, &time_diff_dur);
 	time_treshold_ul = 333ul * 1000ul * 1000ul; mk_sl_stopwatch_duration_from_bi_ulong(&time_treshold_dur, &time_treshold_ul);
 	if(mk_sl_stopwatch_duration_le(&time_diff_dur, &time_treshold_dur))
 	{
-		mk_sl_cui_uint64_add2_wrap_cid_cod(last_amount, &cui_amount);
+		mk_sl_cui_uint64_add2_wrap_cid_cod(db_amount, &cui_amount);
 	}
 	else
 	{
 		speedometer->m_idx += 1;
-		last_timestamp = &speedometer->m_timestamps[(speedometer->m_idx + mk_lang_countof(speedometer->m_timestamps) - 1) % mk_lang_countof(speedometer->m_timestamps)];
-		last_amount = &speedometer->m_amounts[(speedometer->m_idx + mk_lang_countof(speedometer->m_amounts) - 1) % mk_lang_countof(speedometer->m_amounts)];
-		*last_timestamp = timestamp_now;
-		*last_amount = cui_amount;
+		db_timestamp = &speedometer->m_timestamps[(speedometer->m_idx + 0) % mk_lang_countof(speedometer->m_timestamps)];
+		db_amount = &speedometer->m_amounts[(speedometer->m_idx + 0) % mk_lang_countof(speedometer->m_amounts)];
+		*db_timestamp = timestamp_now;
+		*db_amount = cui_amount;
 	}
 	speedometer->m_lat_append = timestamp_now;
 	return 0;
@@ -116,7 +116,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_speedometer_p
 	mk_lang_types_sint_t n;
 	mk_lang_types_sint_t i;
 	mk_sl_fxp_128_64_64_t amount_fxp;
-	mk_lang_types_ulllong_t tulll;
 	mk_sl_fxp_128_64_64_t time_diff_fxp_nanos;
 	mk_lang_types_ulong_t second_ul;
 	mk_sl_fxp_128_64_64_t second_fxp;
@@ -140,14 +139,14 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_speedometer_p
 	ptr = str_buf;
 	rem = str_len;
 	mk_sl_stopwatch_timestamp_get_duration(&speedometer->m_lat_reported, &speedometer->m_lat_append, &time_diff_dur);
-	time_treshold_ul = 250ul * 1000ul * 1000ul; mk_sl_stopwatch_duration_from_bi_ulong(&time_treshold_dur, &time_treshold_ul);
+	time_treshold_ul = 333ul * 1000ul * 1000ul; mk_sl_stopwatch_duration_from_bi_ulong(&time_treshold_dur, &time_treshold_ul);
 	want = mk_sl_stopwatch_duration_gt(&time_diff_dur, &time_treshold_dur);
 	if(want)
 	{
 		speedometer->m_lat_reported = speedometer->m_lat_append;
 		++speedometer->m_tick;
 		kilobyte_ui = 1ul * 1024ul; mk_sl_fxp_128_64_64_from_bi_uint(&kilobyte_fxp, &kilobyte_ui);
-		speed_treshold_ui = 9999ul; mk_sl_fxp_128_64_64_from_bi_uint(&speed_treshold_fxp, &speed_treshold_ui);
+		speed_treshold_ui = 999u; mk_sl_fxp_128_64_64_from_bi_uint(&speed_treshold_fxp, &speed_treshold_ui);
 		amount_cui = speedometer->m_amounts[(speedometer->m_idx + 0) % mk_lang_countof(speedometer->m_amounts)];
 		n = mk_lang_countof(speedometer->m_amounts);
 		for(i = 1; i != n; ++i)
@@ -155,8 +154,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_speedometer_p
 			mk_sl_cui_uint64_add2_wrap_cid_cod(&amount_cui, &speedometer->m_amounts[(speedometer->m_idx + i) % mk_lang_countof(speedometer->m_amounts)]);
 		}
 		mk_sl_fxp_128_64_64_from_uint64(&amount_fxp, &amount_cui);
-		mk_sl_stopwatch_timestamp_get_duration(&speedometer->m_timestamps[(speedometer->m_idx + 0) % mk_lang_countof(speedometer->m_timestamps)], &speedometer->m_lat_append, &time_diff_dur);
-		mk_sl_stopwatch_duration_to_bi_ulllong(&time_diff_dur, &tulll); mk_sl_fxp_128_64_64_from_bi_ulllong(&time_diff_fxp_nanos, &tulll);
+		mk_sl_stopwatch_timestamp_get_duration(&speedometer->m_timestamps[(speedometer->m_idx + 1) % mk_lang_countof(speedometer->m_timestamps)], &speedometer->m_lat_append, &time_diff_dur);
+		mk_sl_fxp_128_64_64_from_uint64(&time_diff_fxp_nanos, &time_diff_dur.m_elements[0].m_elements[0]);
 		second_ul = 1ul * 1000ul * 1000ul * 1000ul; mk_sl_fxp_128_64_64_from_bi_ulong(&second_fxp, &second_ul);
 		mk_sl_fxp_128_64_64_div3_wrap(&time_diff_fxp_nanos, &second_fxp, &time_diff_fxp_seconds);
 		mk_sl_fxp_128_64_64_div3_wrap(&amount_fxp, &time_diff_fxp_seconds, &speed_fxp);

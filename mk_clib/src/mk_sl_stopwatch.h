@@ -2,6 +2,7 @@
 #define mk_include_guard_mk_sl_stopwatch_h
 
 
+#include "mk_lang_arch.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
@@ -13,6 +14,9 @@
 #if mk_lang_platform_is_windows_at_least_any
 #include "mk_sl_stopwatch_qpc.h"
 #define mk_sl_stopwatch_impl qpc
+#elif mk_lang_arch_is_emscripten
+#include "mk_sl_stopwatch_js.h"
+#define mk_sl_stopwatch_impl js
 #elif mk_lang_platform_is_posix_at_least_2008_09 /* todo exact version */
 #include "mk_sl_stopwatch_posix.h"
 #define mk_sl_stopwatch_impl posix

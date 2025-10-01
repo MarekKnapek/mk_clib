@@ -9,19 +9,19 @@
 #include "mk_lang_version.h"
 
 
-#if mk_lang_version_at_least_cpp_11 && !(mk_lang_entry_point_have && mk_lang_arch_is_x8632)
+#if mk_lang_version_at_least_cpp_11 && !((mk_lang_entry_point_have && mk_lang_arch_is_x8632) || mk_lang_arch_is_emscripten)
 #define mk_lang_llong_has 1
 #define mk_lang_ullong_t unsigned long long int
 #define mk_lang_sllong_t signed long long int
 #define mk_lang_ullong_c(x) x ## ull
 #define mk_lang_sllong_c(x) x ## ll
-#elif mk_lang_version_at_least_c_99 && !(mk_lang_entry_point_have && mk_lang_arch_is_x8632)
+#elif mk_lang_version_at_least_c_99 && !((mk_lang_entry_point_have && mk_lang_arch_is_x8632) || mk_lang_arch_is_emscripten)
 #define mk_lang_llong_has 1
 #define mk_lang_ullong_t unsigned long long int
 #define mk_lang_sllong_t signed long long int
 #define mk_lang_ullong_c(x) x ## ull
 #define mk_lang_sllong_c(x) x ## ll
-#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_6 && !(mk_lang_entry_point_have && mk_lang_arch_is_x8632)
+#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_6 && !((mk_lang_entry_point_have && mk_lang_arch_is_x8632) || mk_lang_arch_is_emscripten)
 #define mk_lang_llong_has 1
 #define mk_lang_ullong_t unsigned __int64
 #define mk_lang_sllong_t signed __int64

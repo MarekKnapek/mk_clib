@@ -2,6 +2,9 @@
 #define mk_include_guard_mk_lang_lllong_h
 
 
+#include "mk_lang_arch.h"
+
+
 #if defined mk_lang_disable_lllong_want
 #if (mk_lang_disable_lllong_want) == 0
 #define mk_lang_disable_lllong_have 0
@@ -17,7 +20,7 @@
 
 #if !mk_lang_disable_lllong_have
 #if defined __SIZEOF_INT128__
-#if (__SIZEOF_INT128__) != 0
+#if (__SIZEOF_INT128__) != 0  && !mk_lang_arch_is_emscripten
 #define mk_lang_lllong_has 1
 #define mk_lang_ulllong_t unsigned __int128
 #define mk_lang_slllong_t signed __int128

@@ -11,6 +11,7 @@
 #include "mk_lib_crypto_hash_stream_any2.h"
 #include "mk_lib_crypto_xof_stream_any2.h"
 #include "mk_sl_cui_uint8.h"
+#include "mk_sl_speedometer.h"
 
 
 #define mk_lib_wasm_hasher_buffer_size (64 * 1024)
@@ -26,6 +27,21 @@ struct mk_lib_wasm_hasher_buffer_s
 	mk_lib_wasm_hasher_buffer_data_t m_data;
 };
 typedef struct mk_lib_wasm_hasher_buffer_s mk_lib_wasm_hasher_buffer_t;
+
+#include "mk_lang_warning_msvc_push_c4820.h"
+union mk_lib_wasm_hasher_message_data_u
+{
+	mk_lang_types_pchar_t m_pchars[256];
+	mk_lang_types_ulllong_t m_align;
+};
+typedef union mk_lib_wasm_hasher_message_data_u mk_lib_wasm_hasher_message_data_t;
+struct mk_lib_wasm_hasher_message_s
+{
+	mk_lib_wasm_hasher_message_data_t m_data;
+	mk_lang_types_sint_t m_len;
+};
+typedef struct mk_lib_wasm_hasher_message_s mk_lib_wasm_hasher_message_t;
+#include "mk_lang_warning_msvc_pop.h"
 
 union mk_lib_wasm_hasher_worker_data_u
 {
@@ -45,6 +61,8 @@ struct mk_lib_wasm_hasher_s
 {
 	mk_lang_types_bool_t m_is_xofer;
 	mk_lib_wasm_hasher_worker_t m_worker;
+	mk_sl_speedometer_t m_speedometer;
+	mk_lib_wasm_hasher_message_t m_message;
 	mk_lib_wasm_hasher_buffer_t m_buffer;
 };
 typedef struct mk_lib_wasm_hasher_s mk_lib_wasm_hasher_t;
