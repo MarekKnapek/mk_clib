@@ -6,6 +6,7 @@
 #include "mk_lang_alignof.h"
 #include "mk_lang_arch.h"
 #include "mk_lang_asan.h"
+#include "mk_lang_builtin.h"
 #include "mk_lang_check.h"
 #include "mk_lang_configuration.h"
 #include "mk_lang_cpuid.h"
@@ -183,6 +184,31 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_info_platform_print
 	err = mk_lang_stdout_println_lit_n("__TINYC__            not defined"); mk_lang_check_rereturn(err);
 	#endif
 
+	err = mk_lang_stdout_println_lit_n(""); mk_lang_check_rereturn(err);
+
+	err = mk_lang_stdout_print_lit_n("mk_lang_builtin_has_addc         : "); mk_lang_check_rereturn(err); err = (mk_lang_builtin_has_addc          ? mk_lang_stdout_println_lit_n("yes") : mk_lang_stdout_println_lit_n("no")); mk_lang_check_rereturn(err);
+	err = mk_lang_stdout_print_lit_n("mk_lang_builtin_has_addcb        : "); mk_lang_check_rereturn(err); err = (mk_lang_builtin_has_addcb         ? mk_lang_stdout_println_lit_n("yes") : mk_lang_stdout_println_lit_n("no")); mk_lang_check_rereturn(err);
+	err = mk_lang_stdout_print_lit_n("mk_lang_builtin_has_addcl        : "); mk_lang_check_rereturn(err); err = (mk_lang_builtin_has_addcl         ? mk_lang_stdout_println_lit_n("yes") : mk_lang_stdout_println_lit_n("no")); mk_lang_check_rereturn(err);
+	err = mk_lang_stdout_print_lit_n("mk_lang_builtin_has_addcll       : "); mk_lang_check_rereturn(err); err = (mk_lang_builtin_has_addcll        ? mk_lang_stdout_println_lit_n("yes") : mk_lang_stdout_println_lit_n("no")); mk_lang_check_rereturn(err);
+	err = mk_lang_stdout_print_lit_n("mk_lang_builtin_has_addcs        : "); mk_lang_check_rereturn(err); err = (mk_lang_builtin_has_addcs         ? mk_lang_stdout_println_lit_n("yes") : mk_lang_stdout_println_lit_n("no")); mk_lang_check_rereturn(err);
+	err = mk_lang_stdout_print_lit_n("mk_lang_builtin_has_assume       : "); mk_lang_check_rereturn(err); err = (mk_lang_builtin_has_assume        ? mk_lang_stdout_println_lit_n("yes") : mk_lang_stdout_println_lit_n("no")); mk_lang_check_rereturn(err);
+	err = mk_lang_stdout_print_lit_n("mk_lang_builtin_has_debugtrap    : "); mk_lang_check_rereturn(err); err = (mk_lang_builtin_has_debugtrap     ? mk_lang_stdout_println_lit_n("yes") : mk_lang_stdout_println_lit_n("no")); mk_lang_check_rereturn(err);
+	err = mk_lang_stdout_print_lit_n("mk_lang_builtin_has_popcountg    : "); mk_lang_check_rereturn(err); err = (mk_lang_builtin_has_popcountg     ? mk_lang_stdout_println_lit_n("yes") : mk_lang_stdout_println_lit_n("no")); mk_lang_check_rereturn(err);
+	err = mk_lang_stdout_print_lit_n("mk_lang_builtin_has_rotateleft16 : "); mk_lang_check_rereturn(err); err = (mk_lang_builtin_has_rotateleft16  ? mk_lang_stdout_println_lit_n("yes") : mk_lang_stdout_println_lit_n("no")); mk_lang_check_rereturn(err);
+	err = mk_lang_stdout_print_lit_n("mk_lang_builtin_has_rotateleft32 : "); mk_lang_check_rereturn(err); err = (mk_lang_builtin_has_rotateleft32  ? mk_lang_stdout_println_lit_n("yes") : mk_lang_stdout_println_lit_n("no")); mk_lang_check_rereturn(err);
+	err = mk_lang_stdout_print_lit_n("mk_lang_builtin_has_rotateleft64 : "); mk_lang_check_rereturn(err); err = (mk_lang_builtin_has_rotateleft64  ? mk_lang_stdout_println_lit_n("yes") : mk_lang_stdout_println_lit_n("no")); mk_lang_check_rereturn(err);
+	err = mk_lang_stdout_print_lit_n("mk_lang_builtin_has_rotateleft8  : "); mk_lang_check_rereturn(err); err = (mk_lang_builtin_has_rotateleft8   ? mk_lang_stdout_println_lit_n("yes") : mk_lang_stdout_println_lit_n("no")); mk_lang_check_rereturn(err);
+	err = mk_lang_stdout_print_lit_n("mk_lang_builtin_has_rotateright16: "); mk_lang_check_rereturn(err); err = (mk_lang_builtin_has_rotateright16 ? mk_lang_stdout_println_lit_n("yes") : mk_lang_stdout_println_lit_n("no")); mk_lang_check_rereturn(err);
+	err = mk_lang_stdout_print_lit_n("mk_lang_builtin_has_rotateright32: "); mk_lang_check_rereturn(err); err = (mk_lang_builtin_has_rotateright32 ? mk_lang_stdout_println_lit_n("yes") : mk_lang_stdout_println_lit_n("no")); mk_lang_check_rereturn(err);
+	err = mk_lang_stdout_print_lit_n("mk_lang_builtin_has_rotateright64: "); mk_lang_check_rereturn(err); err = (mk_lang_builtin_has_rotateright64 ? mk_lang_stdout_println_lit_n("yes") : mk_lang_stdout_println_lit_n("no")); mk_lang_check_rereturn(err);
+	err = mk_lang_stdout_print_lit_n("mk_lang_builtin_has_rotateright8 : "); mk_lang_check_rereturn(err); err = (mk_lang_builtin_has_rotateright8  ? mk_lang_stdout_println_lit_n("yes") : mk_lang_stdout_println_lit_n("no")); mk_lang_check_rereturn(err);
+	err = mk_lang_stdout_print_lit_n("mk_lang_builtin_has_subc         : "); mk_lang_check_rereturn(err); err = (mk_lang_builtin_has_subc          ? mk_lang_stdout_println_lit_n("yes") : mk_lang_stdout_println_lit_n("no")); mk_lang_check_rereturn(err);
+	err = mk_lang_stdout_print_lit_n("mk_lang_builtin_has_subcb        : "); mk_lang_check_rereturn(err); err = (mk_lang_builtin_has_subcb         ? mk_lang_stdout_println_lit_n("yes") : mk_lang_stdout_println_lit_n("no")); mk_lang_check_rereturn(err);
+	err = mk_lang_stdout_print_lit_n("mk_lang_builtin_has_subcl        : "); mk_lang_check_rereturn(err); err = (mk_lang_builtin_has_subcl         ? mk_lang_stdout_println_lit_n("yes") : mk_lang_stdout_println_lit_n("no")); mk_lang_check_rereturn(err);
+	err = mk_lang_stdout_print_lit_n("mk_lang_builtin_has_subcll       : "); mk_lang_check_rereturn(err); err = (mk_lang_builtin_has_subcll        ? mk_lang_stdout_println_lit_n("yes") : mk_lang_stdout_println_lit_n("no")); mk_lang_check_rereturn(err);
+	err = mk_lang_stdout_print_lit_n("mk_lang_builtin_has_subcs        : "); mk_lang_check_rereturn(err); err = (mk_lang_builtin_has_subcs         ? mk_lang_stdout_println_lit_n("yes") : mk_lang_stdout_println_lit_n("no")); mk_lang_check_rereturn(err);
+	err = mk_lang_stdout_print_lit_n("mk_lang_builtin_has_trap         : "); mk_lang_check_rereturn(err); err = (mk_lang_builtin_has_trap          ? mk_lang_stdout_println_lit_n("yes") : mk_lang_stdout_println_lit_n("no")); mk_lang_check_rereturn(err);
+	err = mk_lang_stdout_print_lit_n("mk_lang_builtin_has_unreachable  : "); mk_lang_check_rereturn(err); err = (mk_lang_builtin_has_unreachable   ? mk_lang_stdout_println_lit_n("yes") : mk_lang_stdout_println_lit_n("no")); mk_lang_check_rereturn(err);
 	err = mk_lang_stdout_println_lit_n(""); mk_lang_check_rereturn(err);
 
 	#if mk_lang_arch_is_x8632 || mk_lang_arch_is_x8664
