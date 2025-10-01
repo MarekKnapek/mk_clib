@@ -3,7 +3,6 @@
 #include "mk_lang_stdout.h"
 
 #include "mk_lang_arch.h"
-#include "mk_lang_check.h"
 #include "mk_lang_concat.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
@@ -49,106 +48,67 @@
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_init(mk_lang_types_void_t) mk_lang_noexcept
 {
-	mk_lang_types_sint_t err;
-	
-	err = mk_lang_stdout_impl_init(); mk_lang_check_rereturn(err);
-	return 0;
+	return mk_lang_stdout_impl_init();
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_print_n(mk_lang_types_pchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
 {
-	mk_lang_types_sint_t err;
-	
-	err = mk_lang_stdout_impl_print_n(str_buf, str_len); mk_lang_check_rereturn(err);
-	return 0;
+	return mk_lang_stdout_impl_print_n(str_buf, str_len);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_print_w(mk_lang_types_wchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
 {
-	mk_lang_types_sint_t err;
-	
-	err = mk_lang_stdout_impl_print_w(str_buf, str_len); mk_lang_check_rereturn(err);
-	return 0;
+	return mk_lang_stdout_impl_print_w(str_buf, str_len);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_print_t(mk_lang_tchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
 {
-	mk_lang_types_sint_t err;
-	
-	err = mk_lang_stdout_impl_print_t(str_buf, str_len); mk_lang_check_rereturn(err);
-	return 0;
+	return mk_lang_stdout_impl_print_t(str_buf, str_len);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_println_n(mk_lang_types_pchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
 {
-	mk_lang_types_sint_t err;
-	
-	err = mk_lang_stdout_impl_println_n(str_buf, str_len); mk_lang_check_rereturn(err);
-	return 0;
+	return mk_lang_stdout_impl_println_n(str_buf, str_len);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_println_w(mk_lang_types_wchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
 {
-	mk_lang_types_sint_t err;
-	
-	err = mk_lang_stdout_impl_println_w(str_buf, str_len); mk_lang_check_rereturn(err);
-	return 0;
+	return mk_lang_stdout_impl_println_w(str_buf, str_len);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_println_t(mk_lang_tchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
 {
-	mk_lang_types_sint_t err;
-	
-	err = mk_lang_stdout_impl_println_t(str_buf, str_len); mk_lang_check_rereturn(err);
-	return 0;
+	return mk_lang_stdout_impl_println_t(str_buf, str_len);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_print_color_n(mk_lang_stdout_color_text_t const color, mk_lang_types_pchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
 {
-	mk_lang_types_sint_t err;
-
-	err = mk_lang_stdout_impl_print_color_n(((mk_lang_stdout_impl_color_text_t)(color)), str_buf, str_len); mk_lang_check_rereturn(err);
-	return 0;
+	return mk_lang_stdout_impl_print_color_n(((mk_lang_stdout_impl_color_text_t)(color)), str_buf, str_len);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_print_color_w(mk_lang_stdout_color_text_t const color, mk_lang_types_wchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
 {
-	mk_lang_types_sint_t err;
-
-	err = mk_lang_stdout_impl_print_color_w(((mk_lang_stdout_impl_color_text_t)(color)), str_buf, str_len); mk_lang_check_rereturn(err);
-	return 0;
+	return mk_lang_stdout_impl_print_color_w(((mk_lang_stdout_impl_color_text_t)(color)), str_buf, str_len);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_print_color_t(mk_lang_stdout_color_text_t const color, mk_lang_tchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
 {
-	mk_lang_types_sint_t err;
-
-	err = mk_lang_stdout_impl_print_color_t(((mk_lang_stdout_impl_color_text_t)(color)), str_buf, str_len); mk_lang_check_rereturn(err);
-	return 0;
+	return mk_lang_stdout_impl_print_color_t(((mk_lang_stdout_impl_color_text_t)(color)), str_buf, str_len);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_println_color_n(mk_lang_stdout_color_text_t const color, mk_lang_types_pchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
 {
-	mk_lang_types_sint_t err;
-
-	err = mk_lang_stdout_impl_println_color_n(((mk_lang_stdout_impl_color_text_t)(color)), str_buf, str_len); mk_lang_check_rereturn(err);
-	return 0;
+	return mk_lang_stdout_impl_println_color_n(((mk_lang_stdout_impl_color_text_t)(color)), str_buf, str_len);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_println_color_w(mk_lang_stdout_color_text_t const color, mk_lang_types_wchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
 {
-	mk_lang_types_sint_t err;
-
-	err = mk_lang_stdout_impl_println_color_w(((mk_lang_stdout_impl_color_text_t)(color)), str_buf, str_len); mk_lang_check_rereturn(err);
-	return 0;
+	return mk_lang_stdout_impl_println_color_w(((mk_lang_stdout_impl_color_text_t)(color)), str_buf, str_len);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_println_color_t(mk_lang_stdout_color_text_t const color, mk_lang_tchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
 {
-	mk_lang_types_sint_t err;
-
-	err = mk_lang_stdout_impl_println_color_t(((mk_lang_stdout_impl_color_text_t)(color)), str_buf, str_len); mk_lang_check_rereturn(err);
-	return 0;
+	return mk_lang_stdout_impl_println_color_t(((mk_lang_stdout_impl_color_text_t)(color)), str_buf, str_len);
 }
 
 
