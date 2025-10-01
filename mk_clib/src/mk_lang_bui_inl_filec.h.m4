@@ -355,6 +355,14 @@ mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noa
 		return *x == 0 ? mk_lang_bui_inl_defd_size_bits_d : __builtin_clzll(((unsigned long long)(*x)));
 	}
 	else
+	#elif mk_lang_builtin_has_clzg
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	{
+		mk_lang_assert(x);
+
+		return ((mk_lang_types_sint_t)(__builtin_clzg(*x, ((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_size_bits_d)))));
+	}
+	else
 	#endif
 	{
 		mk_lang_bui_inl_defd_t xx mk_lang_constexpr_init;
@@ -449,6 +457,14 @@ mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noa
 		mk_lang_assert(x);
 
 		return *x == 0 ? mk_lang_bui_inl_defd_size_bits_d : __builtin_ctzll(((unsigned long long)(*x)));
+	}
+	else
+	#elif mk_lang_builtin_has_ctzg
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	{
+		mk_lang_assert(x);
+
+		return ((mk_lang_types_sint_t)(__builtin_ctzg(*x, ((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_size_bits_d)))));
 	}
 	else
 	#endif
