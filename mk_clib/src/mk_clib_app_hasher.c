@@ -155,11 +155,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hasher_
 		if(want)
 		{
 			len = mk_lib_fmt_t_snnprintf(&progress_str_b[0], mk_lang_countof(progress_str_b), mk_lib_fmt_lit_and_len(mk_lang_tchar_c("\x0d                                                            \x0d%t ")), &progress_str_a[0], len); mk_lang_assert(len >= 1); mk_lang_assert(len <= mk_lang_countof(progress_str_b));
-			err = mk_lang_stdout_print_t(&progress_str_b[0], len); mk_lang_check_rereturn(err);
+			err = mk_lang_stdout_no_redirect_print_t(&progress_str_b[0], len); mk_lang_check_rereturn(err);
 		}
 	}
 	len = mk_lib_fmt_t_snnprintf(&progress_str_b[0], mk_lang_countof(progress_str_b), mk_lib_fmt_lit_and_len(mk_lang_tchar_c("\x0d                                                            \x0d"))); mk_lang_assert(len >= 1); mk_lang_assert(len <= mk_lang_countof(progress_str_b));
-	err = mk_lang_stdout_print_t(&progress_str_b[0], len); mk_lang_check_rereturn(err);
+	err = mk_lang_stdout_no_redirect_print_t(&progress_str_b[0], len); mk_lang_check_rereturn(err);
 	err = mk_sl_io_reader_file_close(&input_file); mk_lang_check_rereturn(err);
 	mk_lib_crypto_hash_stream_any2_finish(&hasher, &digest[0]);
 	err = mk_sl_speedometer_rw_destroy(&speedometer); mk_lang_check_rereturn(err);
