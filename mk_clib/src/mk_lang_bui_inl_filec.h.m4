@@ -558,6 +558,16 @@ mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noa
 		return __builtin_popcountll(((unsigned long long)(*x)));
 	}
 	else
+	#elif mk_lang_builtin_has_popcountg
+	#include "mk_lang_warning_msvc_push_c4127.h"
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	#include "mk_lang_warning_msvc_pop.h"
+	{
+		mk_lang_assert(x);
+
+		return ((mk_lang_types_sint_t)(__builtin_popcountg(*x)));
+	}
+	else
 	#endif
 	{
 		mk_lang_bui_inl_defd_t xx mk_lang_constexpr_init;
