@@ -897,6 +897,54 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 		*c = ((mk_lang_bui_inl_defd_t)(_rotl64(((mk_lang_types_ullong_t)(*a)), b)));
 	}
 	else
+	#elif mk_lang_builtin_has_rotateleft8 && mk_lang_bui_inl_defd_size_bytes_d == 8
+	#include "mk_lang_warning_msvc_push_c4127.h"
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	#include "mk_lang_warning_msvc_pop.h"
+	{
+		mk_lang_assert(a);
+		mk_lang_assert(b >= 1 && b < ((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_size_bits_d)));
+		mk_lang_assert(c);
+
+		*c = ((mk_lang_bui_inl_defd_t)(__builtin_rotateleft8(*a, b)));
+	}
+	else
+	#elif mk_lang_builtin_has_rotateleft16 && mk_lang_bui_inl_defd_size_bytes_d == 16
+	#include "mk_lang_warning_msvc_push_c4127.h"
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	#include "mk_lang_warning_msvc_pop.h"
+	{
+		mk_lang_assert(a);
+		mk_lang_assert(b >= 1 && b < ((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_size_bits_d)));
+		mk_lang_assert(c);
+
+		*c = ((mk_lang_bui_inl_defd_t)(__builtin_rotateleft16(*a, b)));
+	}
+	else
+	#elif mk_lang_builtin_has_rotateleft32 && mk_lang_bui_inl_defd_size_bytes_d == 32
+	#include "mk_lang_warning_msvc_push_c4127.h"
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	#include "mk_lang_warning_msvc_pop.h"
+	{
+		mk_lang_assert(a);
+		mk_lang_assert(b >= 1 && b < ((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_size_bits_d)));
+		mk_lang_assert(c);
+
+		*c = ((mk_lang_bui_inl_defd_t)(__builtin_rotateleft32(*a, b)));
+	}
+	else
+	#elif mk_lang_builtin_has_rotateleft64 && mk_lang_bui_inl_defd_size_bytes_d == 64
+	#include "mk_lang_warning_msvc_push_c4127.h"
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	#include "mk_lang_warning_msvc_pop.h"
+	{
+		mk_lang_assert(a);
+		mk_lang_assert(b >= 1 && b < ((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_size_bits_d)));
+		mk_lang_assert(c);
+
+		*c = ((mk_lang_bui_inl_defd_t)(__builtin_rotateleft64(*a, b)));
+	}
+	else
 	#endif
 	{
 		mk_lang_assert(a);
@@ -957,6 +1005,54 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 		mk_lang_assert(a);
 
 		*c = ((mk_lang_bui_inl_defd_t)(_rotr64(((mk_lang_types_ullong_t)(*a)), b)));
+	}
+	else
+	#elif mk_lang_builtin_has_rotateright8 && mk_lang_bui_inl_defd_size_bytes_d == 8
+	#include "mk_lang_warning_msvc_push_c4127.h"
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	#include "mk_lang_warning_msvc_pop.h"
+	{
+		mk_lang_assert(a);
+		mk_lang_assert(b >= 1 && b < ((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_size_bits_d)));
+		mk_lang_assert(c);
+
+		*c = ((mk_lang_bui_inl_defd_t)(__builtin_rotateright8(*a, b)));
+	}
+	else
+	#elif mk_lang_builtin_has_rotateright16 && mk_lang_bui_inl_defd_size_bytes_d == 16
+	#include "mk_lang_warning_msvc_push_c4127.h"
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	#include "mk_lang_warning_msvc_pop.h"
+	{
+		mk_lang_assert(a);
+		mk_lang_assert(b >= 1 && b < ((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_size_bits_d)));
+		mk_lang_assert(c);
+
+		*c = ((mk_lang_bui_inl_defd_t)(__builtin_rotateright16(*a, b)));
+	}
+	else
+	#elif mk_lang_builtin_has_rotateright32 && mk_lang_bui_inl_defd_size_bytes_d == 32
+	#include "mk_lang_warning_msvc_push_c4127.h"
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	#include "mk_lang_warning_msvc_pop.h"
+	{
+		mk_lang_assert(a);
+		mk_lang_assert(b >= 1 && b < ((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_size_bits_d)));
+		mk_lang_assert(c);
+
+		*c = ((mk_lang_bui_inl_defd_t)(__builtin_rotateright32(*a, b)));
+	}
+	else
+	#elif mk_lang_builtin_has_rotateright64 && mk_lang_bui_inl_defd_size_bytes_d == 64
+	#include "mk_lang_warning_msvc_push_c4127.h"
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	#include "mk_lang_warning_msvc_pop.h"
+	{
+		mk_lang_assert(a);
+		mk_lang_assert(b >= 1 && b < ((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_size_bits_d)));
+		mk_lang_assert(c);
+
+		*c = ((mk_lang_bui_inl_defd_t)(__builtin_rotateright64(*a, b)));
 	}
 	else
 	#endif
