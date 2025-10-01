@@ -46,6 +46,18 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_windows_prin
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_windows_println_color_n(mk_lang_stdout_windows_color_text_t const color, mk_lang_types_pchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_windows_println_color_w(mk_lang_stdout_windows_color_text_t const color, mk_lang_types_wchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_windows_println_color_t(mk_lang_stdout_windows_color_text_t const color, mk_lang_tchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_windows_no_redirect_print_n(mk_lang_types_pchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_windows_no_redirect_print_w(mk_lang_types_wchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_windows_no_redirect_print_t(mk_lang_tchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_windows_no_redirect_println_n(mk_lang_types_pchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_windows_no_redirect_println_w(mk_lang_types_wchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_windows_no_redirect_println_t(mk_lang_tchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_windows_no_redirect_print_color_n(mk_lang_stdout_windows_color_text_t const color, mk_lang_types_pchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_windows_no_redirect_print_color_w(mk_lang_stdout_windows_color_text_t const color, mk_lang_types_wchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_windows_no_redirect_print_color_t(mk_lang_stdout_windows_color_text_t const color, mk_lang_tchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_windows_no_redirect_println_color_n(mk_lang_stdout_windows_color_text_t const color, mk_lang_types_pchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_windows_no_redirect_println_color_w(mk_lang_stdout_windows_color_text_t const color, mk_lang_types_wchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_windows_no_redirect_println_color_t(mk_lang_stdout_windows_color_text_t const color, mk_lang_tchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept;
 
 #define mk_lang_stdout_windows_print_lit_n(x) mk_lang_stdout_windows_print_n(&(x)[0], mk_lang_countstr((x)))
 #define mk_lang_stdout_windows_print_lit_w(x) mk_lang_stdout_windows_print_w(&(x)[0], mk_lang_countstr((x)))
@@ -53,6 +65,12 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_windows_prin
 #define mk_lang_stdout_windows_println_lit_n(x) mk_lang_stdout_windows_print_lit_n(x "\x0d\x0a")
 #define mk_lang_stdout_windows_println_lit_w(x) mk_lang_stdout_windows_print_lit_w(x L"\x0d\x0a")
 #define mk_lang_stdout_windows_println_lit_t(x) mk_lang_stdout_windows_print_lit_t(x mk_lang_tchar_c("\x0d\x0a"))
+#define mk_lang_stdout_windows_no_redirect_print_lit_n(x) mk_lang_stdout_windows_no_redirect_print_n(&(x)[0], mk_lang_countstr((x)))
+#define mk_lang_stdout_windows_no_redirect_print_lit_w(x) mk_lang_stdout_windows_no_redirect_print_w(&(x)[0], mk_lang_countstr((x)))
+#define mk_lang_stdout_windows_no_redirect_print_lit_t(x) mk_lang_stdout_windows_no_redirect_print_t(&(x)[0], mk_lang_countstr((x)))
+#define mk_lang_stdout_windows_no_redirect_println_lit_n(x) mk_lang_stdout_windows_no_redirect_print_lit_n(x "\x0d\x0a")
+#define mk_lang_stdout_windows_no_redirect_println_lit_w(x) mk_lang_stdout_windows_no_redirect_print_lit_w(x L"\x0d\x0a")
+#define mk_lang_stdout_windows_no_redirect_println_lit_t(x) mk_lang_stdout_windows_no_redirect_print_lit_t(x mk_lang_tchar_c("\x0d\x0a"))
 
 
 #if mk_lang_jumbo_have

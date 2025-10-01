@@ -155,5 +155,153 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_portable_pri
 	return 0;
 }
 
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_portable_no_redirect_print_n(mk_lang_types_pchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(str_buf || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	err = mk_lang_stdout_portable_print_n(str_buf, str_len); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_portable_no_redirect_print_w(mk_lang_types_wchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(str_buf || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	err = mk_lang_stdout_portable_print_w(str_buf, str_len); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_portable_no_redirect_print_t(mk_lang_tchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	#include "mk_lang_warning_gcc_push_type_limits.h"
+	#include "mk_lang_warning_clang_push_tautological_value_range_compare.h"
+	mk_lang_assert(str_buf || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+	#include "mk_lang_warning_clang_pop.h"
+	#include "mk_lang_warning_gcc_pop.h"
+
+	err = mk_lang_stdout_portable_print_t(str_buf, str_len); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_portable_no_redirect_println_n(mk_lang_types_pchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(str_buf || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	err = mk_lang_stdout_portable_println_n(str_buf, str_len); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_portable_no_redirect_println_w(mk_lang_types_wchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(str_buf || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	err = mk_lang_stdout_portable_println_w(str_buf, str_len); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_portable_no_redirect_println_t(mk_lang_tchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(str_buf || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	err = mk_lang_stdout_portable_println_t(str_buf, str_len); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_portable_no_redirect_print_color_n(mk_lang_stdout_portable_color_text_t const color, mk_lang_types_pchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(color >= 0);
+	mk_lang_assert(color < mk_lang_stdout_portable_color_text_e_dummy_end);
+	mk_lang_assert(str_buf || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	err = mk_lang_stdout_portable_print_color_n(color, str_buf, str_len); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_portable_no_redirect_print_color_w(mk_lang_stdout_portable_color_text_t const color, mk_lang_types_wchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(color >= 0);
+	mk_lang_assert(color < mk_lang_stdout_portable_color_text_e_dummy_end);
+	mk_lang_assert(str_buf || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	err = mk_lang_stdout_portable_print_color_w(color, str_buf, str_len); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_portable_no_redirect_print_color_t(mk_lang_stdout_portable_color_text_t const color, mk_lang_tchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(color >= 0);
+	mk_lang_assert(color < mk_lang_stdout_portable_color_text_e_dummy_end);
+	mk_lang_assert(str_buf || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	err = mk_lang_stdout_portable_print_color_t(color, str_buf, str_len); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_portable_no_redirect_println_color_n(mk_lang_stdout_portable_color_text_t const color, mk_lang_types_pchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(color >= 0);
+	mk_lang_assert(color < mk_lang_stdout_portable_color_text_e_dummy_end);
+	mk_lang_assert(str_buf || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	err = mk_lang_stdout_portable_println_color_n(color, str_buf, str_len); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_portable_no_redirect_println_color_w(mk_lang_stdout_portable_color_text_t const color, mk_lang_types_wchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(color >= 0);
+	mk_lang_assert(color < mk_lang_stdout_portable_color_text_e_dummy_end);
+	mk_lang_assert(str_buf || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	err = mk_lang_stdout_portable_println_color_w(color, str_buf, str_len); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_portable_no_redirect_println_color_t(mk_lang_stdout_portable_color_text_t const color, mk_lang_tchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(color >= 0);
+	mk_lang_assert(color < mk_lang_stdout_portable_color_text_e_dummy_end);
+	mk_lang_assert(str_buf || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	err = mk_lang_stdout_portable_println_color_t(color, str_buf, str_len); mk_lang_check_rereturn(err);
+	return 0;
+}
+
 
 #endif
