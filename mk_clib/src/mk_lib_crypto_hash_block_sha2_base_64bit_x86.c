@@ -6,7 +6,7 @@
 #include "mk_lang_arch.h"
 #include "mk_lang_compiler.h"
 #include "mk_lang_msvc.h"
-#if (mk_lang_msvc_ver >= mk_lang_msvc_ver_2022_17_10 || mk_lang_compiler_is_at_least_gcc(14, 0)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
+#if (mk_lang_msvc_ver >= mk_lang_msvc_ver_2022_17_10 || mk_lang_compiler_is_at_least_gcc(14, 0)) && (mk_lang_arch_is_x8632 || mk_lang_arch_is_x8664)
 
 
 #include "mk_lang_alignas.h"

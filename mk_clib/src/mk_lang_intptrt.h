@@ -29,13 +29,13 @@
 
 #if mk_lang_intptrt_has == 0
 #include "mk_lang_arch.h"
-#if mk_lang_arch == mk_lang_arch_x8616
+#if mk_lang_arch_is_x8616
 #define mk_lang_uintptr_t unsigned int
 #define mk_lang_sintptr_t signed int
-#elif mk_lang_arch == mk_lang_arch_x8632
+#elif mk_lang_arch_is_x8632
 #define mk_lang_uintptr_t unsigned long int
 #define mk_lang_sintptr_t signed long int
-#elif mk_lang_arch == mk_lang_arch_x8664
+#elif mk_lang_arch_is_x8664
 #include "mk_lang_llong.h"
 #define mk_lang_uintptr_t mk_lang_ullong_t
 #define mk_lang_sintptr_t mk_lang_sllong_t

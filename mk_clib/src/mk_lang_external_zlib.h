@@ -34,7 +34,7 @@
 
 
 #if defined _MSC_VER && defined _MSC_FULL_VER
-#if mk_lang_arch == mk_lang_arch_x8664
+#if mk_lang_arch_is_x8664
 #if defined DEBUG || defined _DEBUG
 #pragma comment(lib, "../../../external/build/out/amd64/debug/zlib.lib")
 #elif defined NDEBUG || defined _NDEBUG
@@ -42,7 +42,7 @@
 #else
 #error xxxxxxxxxx
 #endif
-#elif mk_lang_arch == mk_lang_arch_x8632
+#elif mk_lang_arch_is_x8632
 #if defined DEBUG || defined _DEBUG
 #pragma comment(lib, "../../../external/build/out/i386/debug/zlib.lib")
 #elif defined NDEBUG || defined _NDEBUG

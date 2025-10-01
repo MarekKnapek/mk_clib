@@ -26,7 +26,7 @@
 #include "mk_lib_crypto_alg_aes_x86_inl_defd.h"
 
 
-#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_compiler_is_at_least_gcc(6, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && mk_lang_alignas_has && mk_lang_alignof_has
+#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_compiler_is_at_least_gcc(6, 1)) && (mk_lang_arch_is_x8632 || mk_lang_arch_is_x8664) && mk_lang_alignas_has && mk_lang_alignof_has
 
 
 #include <emmintrin.h> /* SSE2 _mm_shuffle_epi32 _mm_slli_si128 _mm_xor_si128 */
@@ -151,7 +151,7 @@ static mk_lang_inline mk_lang_types_void_t mk_lang_attribute_target("sse2,aes") 
 
 
 
-#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_compiler_is_at_least_gcc(6, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && mk_lang_alignas_has && mk_lang_alignof_has
+#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_compiler_is_at_least_gcc(6, 1)) && (mk_lang_arch_is_x8632 || mk_lang_arch_is_x8664) && mk_lang_alignas_has && mk_lang_alignof_has
 
 
 #if mk_lib_crypto_alg_aes_x86_inl_defd_tech == mk_lib_crypto_alg_aes_x86_tech_aesni
@@ -298,7 +298,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_attribute_target("sse2,aes") mk_lib_c
 
 
 
-#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_compiler_is_at_least_gcc(11, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && mk_lang_alignas_has && mk_lang_alignof_has
+#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_compiler_is_at_least_gcc(11, 1)) && (mk_lang_arch_is_x8632 || mk_lang_arch_is_x8664) && mk_lang_alignas_has && mk_lang_alignof_has
 
 
 #if mk_lib_crypto_alg_aes_x86_inl_defd_tech == mk_lib_crypto_alg_aes_x86_tech_vaes256
@@ -463,7 +463,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_attribute_target("sse2,avx,avx2,vaes"
 
 
 
-#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_compiler_is_at_least_gcc(11, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && mk_lang_alignas_has && mk_lang_alignof_has
+#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_compiler_is_at_least_gcc(11, 1)) && (mk_lang_arch_is_x8632 || mk_lang_arch_is_x8664) && mk_lang_alignas_has && mk_lang_alignof_has
 
 
 #if mk_lib_crypto_alg_aes_x86_inl_defd_tech == mk_lib_crypto_alg_aes_x86_tech_vaes512
@@ -625,7 +625,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_attribute_target("sse2,avx,avx2,avx51
 
 
 
-#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_compiler_is_at_least_gcc(6, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && mk_lang_alignas_has && mk_lang_alignof_has
+#if (mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 || mk_lang_compiler_is_at_least_gcc(6, 1)) && (mk_lang_arch_is_x8632 || mk_lang_arch_is_x8664) && mk_lang_alignas_has && mk_lang_alignof_has
 
 
 #include <emmintrin.h> /* SSE2 _mm_castpd_si128 _mm_castsi128_pd _mm_load_si128 _mm_shuffle_pd _mm_store_si128 */

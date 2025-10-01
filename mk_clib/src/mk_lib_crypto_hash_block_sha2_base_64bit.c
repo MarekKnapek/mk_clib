@@ -26,7 +26,7 @@
 #include "mk_sl_cui_uint8.h"
 
 
-#define mk_lib_crypto_hash_block_sha2_base_64bit_test_ct ((mk_lang_msvc_ver >= mk_lang_msvc_ver_2015 || mk_lang_compiler_is_at_least_gcc(14, 1)) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664))
+#define mk_lib_crypto_hash_block_sha2_base_64bit_test_ct ((mk_lang_msvc_ver >= mk_lang_msvc_ver_2015 || mk_lang_compiler_is_at_least_gcc(14, 1)) && (mk_lang_arch_is_x8632 || mk_lang_arch_is_x8664))
 #define mk_lib_crypto_hash_block_sha2_base_64bit_test_rt (!mk_lang_constexpr_is_constant_evaluated_test && (mk_lang_cpuid_has_sse2() && mk_lang_cpuid_has_avx() && mk_lang_cpuid_has_avx2() && mk_lang_cpuid_has_sha512()))
 
 

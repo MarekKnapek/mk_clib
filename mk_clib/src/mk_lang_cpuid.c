@@ -7,7 +7,7 @@
 #include "mk_lang_msvc.h"
 
 
-#if mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
+#if mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 && (mk_lang_arch_is_x8632 || mk_lang_arch_is_x8664)
 
 
 #include "mk_lang_assert.h"
@@ -290,7 +290,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_sha512(mk
 }
 
 
-#elif mk_lang_compiler_is_at_least_gcc(4, 1) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
+#elif mk_lang_compiler_is_at_least_gcc(4, 1) && (mk_lang_arch_is_x8632 || mk_lang_arch_is_x8664)
 
 
 mk_lang_jumbo mk_lang_types_void_t mk_lang_cpuid_init(mk_lang_types_void_t) mk_lang_noexcept

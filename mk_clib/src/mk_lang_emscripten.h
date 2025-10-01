@@ -5,7 +5,7 @@
 #include "mk_lang_arch.h"
 
 
-#if mk_lang_arch == mk_lang_arch_emscripten
+#if mk_lang_arch_is_emscripten
 #include <emscripten.h>
 #define mk_lang_emscripten_keepalive EMSCRIPTEN_KEEPALIVE
 #else

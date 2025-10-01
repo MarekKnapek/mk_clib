@@ -35,8 +35,8 @@
 		mk_lang_compiler_is_at_least_gcc(11, 1) \
 	) && \
 	( \
-		mk_lang_arch == mk_lang_arch_x8632 || \
-		mk_lang_arch == mk_lang_arch_x8664 \
+		mk_lang_arch_is_x8632 || \
+		mk_lang_arch_is_x8664 \
 	) \
 )
 #define mk_lib_crypto_hash_block_sha1_test_rt \

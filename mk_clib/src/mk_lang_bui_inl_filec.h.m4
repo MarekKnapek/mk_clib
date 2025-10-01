@@ -36,7 +36,7 @@ include(`mk_lang_bui_inl.m')dnl
 #pragma intrinsic(_BitScanForward)
 #pragma intrinsic(_BitScanReverse)
 #endif
-#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2005 && (mk_lang_arch == mk_lang_arch_ia64 || mk_lang_arch == mk_lang_arch_x8664 || mk_lang_arch == mk_lang_arch_arm64)
+#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2005 && (mk_lang_arch_is_ia64 || mk_lang_arch_is_x8664 || mk_lang_arch_is_arm64)
 #pragma intrinsic(_BitScanForward64)
 #pragma intrinsic(_BitScanReverse64)
 #endif
@@ -52,23 +52,23 @@ include(`mk_lang_bui_inl.m')dnl
 #pragma intrinsic(_rotr64)
 #pragma intrinsic(_rotr8)
 #endif
-#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2008 && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
+#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2008 && (mk_lang_arch_is_x8632 || mk_lang_arch_is_x8664)
 #pragma intrinsic(__emulu)
 #endif
-#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2008 && !mk_lang_compiler_is_at_least_clang(1, 0) && mk_lang_arch == mk_lang_arch_x8664
+#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2008 && !mk_lang_compiler_is_at_least_clang(1, 0) && mk_lang_arch_is_x8664
 #pragma intrinsic(__ull_rshift)
 #endif
-#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && (mk_lang_arch == mk_lang_arch_ia64 || mk_lang_arch == mk_lang_arch_x8664 || mk_lang_arch == mk_lang_arch_arm64)
+#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && (mk_lang_arch_is_ia64 || mk_lang_arch_is_x8664 || mk_lang_arch_is_arm64)
 #pragma intrinsic(__umulh)
 #endif
-#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
+#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && (mk_lang_arch_is_x8632 || mk_lang_arch_is_x8664)
 #pragma intrinsic(__popcnt)
 #pragma intrinsic(__popcnt16)
 #endif
-#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && mk_lang_arch == mk_lang_arch_x8664
+#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && mk_lang_arch_is_x8664
 #pragma intrinsic(__popcnt64)
 #endif
-#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2012 && mk_lang_arch == mk_lang_arch_x8664
+#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2012 && mk_lang_arch_is_x8664
 #pragma intrinsic(_umul128)
 #endif
 
@@ -331,7 +331,7 @@ mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noa
 		return *x == 0 ? mk_lang_bui_inl_defd_size_bits_d : __builtin_clzl(((unsigned long)(*x)));
 	}
 	else
-	#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2005 && (mk_lang_arch == mk_lang_arch_ia64 || mk_lang_arch == mk_lang_arch_x8664 || mk_lang_arch == mk_lang_arch_arm64) && mk_lang_bui_inl_defd_size_bits_d <= 64
+	#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2005 && (mk_lang_arch_is_ia64 || mk_lang_arch_is_x8664 || mk_lang_arch_is_arm64) && mk_lang_bui_inl_defd_size_bits_d <= 64
 	#include "mk_lang_warning_msvc_push_c4127.h"
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	#include "mk_lang_warning_msvc_pop.h"
@@ -427,7 +427,7 @@ mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noa
 		return *x == 0 ? mk_lang_bui_inl_defd_size_bits_d : __builtin_ctzl(((unsigned long)(*x)));
 	}
 	else
-	#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2005 && (mk_lang_arch == mk_lang_arch_ia64 || mk_lang_arch == mk_lang_arch_x8664 || mk_lang_arch == mk_lang_arch_arm64) && mk_lang_bui_inl_defd_size_bits_d <= 64
+	#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2005 && (mk_lang_arch_is_ia64 || mk_lang_arch_is_x8664 || mk_lang_arch_is_arm64) && mk_lang_bui_inl_defd_size_bits_d <= 64
 	#include "mk_lang_warning_msvc_push_c4127.h"
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	#include "mk_lang_warning_msvc_pop.h"
@@ -491,7 +491,7 @@ mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noa
 
 mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_lang_bui_inl_defd_pr_count_ones(mk_lang_bui_inl_defd_pct const x) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
 {
-	#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && mk_lang_bui_inl_defd_size_bits_d <= 16
+	#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && (mk_lang_arch_is_x8632 || mk_lang_arch_is_x8664) && mk_lang_bui_inl_defd_size_bits_d <= 16
 	#include "mk_lang_warning_msvc_push_c4127.h"
 	if(!mk_lang_constexpr_is_constant_evaluated_test && mk_lang_cpuid_has_popcnt())
 	#include "mk_lang_warning_msvc_pop.h"
@@ -512,7 +512,7 @@ mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noa
 		return __builtin_popcount(((unsigned int)(*x)));
 	}
 	else
-	#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && mk_lang_bui_inl_defd_size_bits_d <= 32
+	#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && (mk_lang_arch_is_x8632 || mk_lang_arch_is_x8664) && mk_lang_bui_inl_defd_size_bits_d <= 32
 	#include "mk_lang_warning_msvc_push_c4127.h"
 	if(!mk_lang_constexpr_is_constant_evaluated_test && mk_lang_cpuid_has_popcnt())
 	#include "mk_lang_warning_msvc_pop.h"
@@ -533,7 +533,7 @@ mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noa
 		return __builtin_popcountl(((unsigned long)(*x)));
 	}
 	else
-	#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && mk_lang_arch == mk_lang_arch_x8664 && mk_lang_bui_inl_defd_size_bits_d <= 64
+	#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && mk_lang_arch_is_x8664 && mk_lang_bui_inl_defd_size_bits_d <= 64
 	#include "mk_lang_warning_msvc_push_c4127.h"
 	if(!mk_lang_constexpr_is_constant_evaluated_test && mk_lang_cpuid_has_popcnt())
 	#include "mk_lang_warning_msvc_pop.h"
@@ -578,7 +578,7 @@ mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noa
 
 mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_lang_bui_inl_defd_pr_count_zeros(mk_lang_bui_inl_defd_pct const x) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
 {
-	#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && mk_lang_bui_inl_defd_size_bits_d <= 16
+	#if mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && (mk_lang_arch_is_x8632 || mk_lang_arch_is_x8664) && mk_lang_bui_inl_defd_size_bits_d <= 16
 	#include "mk_lang_warning_msvc_push_c4127.h"
 	if(!mk_lang_constexpr_is_constant_evaluated_test && mk_lang_cpuid_has_popcnt())
 	#include "mk_lang_warning_msvc_pop.h"
@@ -592,7 +592,7 @@ mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noa
 		return mk_lang_bui_inl_defd_size_bits_d - mk_lang_bui_inl_defd_pr_count_ones(x);
 	}
 	else
-	#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664) && mk_lang_bui_inl_defd_size_bits_d <= 32
+	#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && (mk_lang_arch_is_x8632 || mk_lang_arch_is_x8664) && mk_lang_bui_inl_defd_size_bits_d <= 32
 	#include "mk_lang_warning_msvc_push_c4127.h"
 	if(!mk_lang_constexpr_is_constant_evaluated_test && mk_lang_cpuid_has_popcnt())
 	#include "mk_lang_warning_msvc_pop.h"
@@ -606,7 +606,7 @@ mk_lang_nodiscard mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noa
 		return mk_lang_bui_inl_defd_size_bits_d - mk_lang_bui_inl_defd_pr_count_ones(x);
 	}
 	else
-	#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && mk_lang_arch == mk_lang_arch_x8664 && mk_lang_bui_inl_defd_size_bits_d <= 64
+	#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && mk_lang_arch_is_x8664 && mk_lang_bui_inl_defd_size_bits_d <= 64
 	#include "mk_lang_warning_msvc_push_c4127.h"
 	if(!mk_lang_constexpr_is_constant_evaluated_test && mk_lang_cpuid_has_popcnt())
 	#include "mk_lang_warning_msvc_pop.h"
@@ -1557,7 +1557,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 		*c = ((mk_lang_bui_inl_defd_t)(((mk_lang_types_ulllong_t)(((mk_lang_types_ulllong_t)(*a)) * ((mk_lang_types_ulllong_t)(*b)))) >> ((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_size_bits_d))));
 	}
 	else
-#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && (mk_lang_arch == mk_lang_arch_ia64 || mk_lang_arch == mk_lang_arch_x8664 || mk_lang_arch == mk_lang_arch_arm64) && mk_lang_bui_inl_defd_size_bits_d == 64
+#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && (mk_lang_arch_is_ia64 || mk_lang_arch_is_x8664 || mk_lang_arch_is_arm64) && mk_lang_bui_inl_defd_size_bits_d == 64
 	#include "mk_lang_warning_msvc_push_c4127.h"
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	#include "mk_lang_warning_msvc_pop.h"
@@ -1571,7 +1571,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 		#include "mk_lang_warning_clang_pop.h"
 	}
 	else
-#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2008 && !mk_lang_compiler_is_at_least_clang(1, 0) && mk_lang_arch == mk_lang_arch_x8664 && mk_lang_bui_inl_defd_size_bits_d == 32
+#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2008 && !mk_lang_compiler_is_at_least_clang(1, 0) && mk_lang_arch_is_x8664 && mk_lang_bui_inl_defd_size_bits_d == 32
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
 		mk_lang_assert(a);
@@ -1583,7 +1583,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 		#include "mk_lang_warning_clang_pop.h"
 	}
 	else
-#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2008 && mk_lang_arch == mk_lang_arch_x8632 && mk_lang_bui_inl_defd_size_bits_d == 32
+#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2008 && mk_lang_arch_is_x8632 && mk_lang_bui_inl_defd_size_bits_d == 32
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
 		mk_lang_assert(a);
@@ -1731,7 +1731,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 		*d = ((mk_lang_bui_inl_defd_t)(cc >> ((mk_lang_types_sint_t)(mk_lang_bui_inl_defd_size_bits_d))));
 	}
 	else
-#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2012 && mk_lang_arch == mk_lang_arch_x8664 && mk_lang_bui_inl_defd_size_bits_d == 64
+#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2012 && mk_lang_arch_is_x8664 && mk_lang_bui_inl_defd_size_bits_d == 64
 	#include "mk_lang_warning_msvc_push_c4127.h"
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	#include "mk_lang_warning_msvc_pop.h"
@@ -1752,7 +1752,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 		*d = ((mk_lang_bui_inl_defd_t)(cc));
 	}
 	else
-#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && (mk_lang_arch == mk_lang_arch_ia64 || mk_lang_arch == mk_lang_arch_x8664 || mk_lang_arch == mk_lang_arch_arm64) && mk_lang_bui_inl_defd_size_bits_d == 64
+#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2010 && (mk_lang_arch_is_ia64 || mk_lang_arch_is_x8664 || mk_lang_arch_is_arm64) && mk_lang_bui_inl_defd_size_bits_d == 64
 	#include "mk_lang_warning_msvc_push_c4127.h"
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	#include "mk_lang_warning_msvc_pop.h"
@@ -1776,7 +1776,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 		#include "mk_lang_warning_clang_pop.h"
 	}
 	else
-#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2008 && !mk_lang_compiler_is_at_least_clang(1, 0) && mk_lang_arch == mk_lang_arch_x8664 && mk_lang_bui_inl_defd_size_bits_d == 32
+#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2008 && !mk_lang_compiler_is_at_least_clang(1, 0) && mk_lang_arch_is_x8664 && mk_lang_bui_inl_defd_size_bits_d == 32
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
 		#include "mk_lang_warning_clang_push_language_extension_token.h"
@@ -1800,7 +1800,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 		#include "mk_lang_warning_clang_pop.h"
 	}
 	else
-#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2008 && mk_lang_arch == mk_lang_arch_x8632 && mk_lang_bui_inl_defd_size_bits_d == 32
+#elif mk_lang_msvc_ver >= mk_lang_msvc_ver_2008 && mk_lang_arch_is_x8632 && mk_lang_bui_inl_defd_size_bits_d == 32
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
 		#include "mk_lang_warning_clang_push_language_extension_token.h"

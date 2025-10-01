@@ -8,7 +8,7 @@
 #include "mk_lang_msvc.h"
 
 
-#if mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
+#if mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1 && (mk_lang_arch_is_x8632 || mk_lang_arch_is_x8664)
 
 
 #include "mk_lang_nodiscard.h"
@@ -16,7 +16,7 @@
 #include "mk_lang_types.h"
 
 
-#if mk_lang_arch == mk_lang_arch_x8664
+#if mk_lang_arch_is_x8664
 #define mk_lang_cpuid_has_sse() 1
 #elif defined _M_IX86_FP && _M_IX86_FP >= 1
 #define mk_lang_cpuid_has_sse() 1
@@ -24,7 +24,7 @@
 #define mk_lang_cpuid_has_sse() mk_lang_cpuid_has_sse_impl()
 #endif
 
-#if mk_lang_arch == mk_lang_arch_x8664
+#if mk_lang_arch_is_x8664
 #define mk_lang_cpuid_has_sse2() 1
 #elif defined _M_IX86_FP && _M_IX86_FP >= 2
 #define mk_lang_cpuid_has_sse2() 1
@@ -51,7 +51,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_vaes(mk_l
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_sha512(mk_lang_types_void_t) mk_lang_noexcept;
 
 
-#elif mk_lang_compiler_is_at_least_gcc(4, 1) && (mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664)
+#elif mk_lang_compiler_is_at_least_gcc(4, 1) && (mk_lang_arch_is_x8632 || mk_lang_arch_is_x8664)
 
 
 #include "mk_lang_nodiscard.h"
@@ -59,13 +59,13 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_sha512(mk
 #include "mk_lang_types.h"
 
 
-#if mk_lang_arch == mk_lang_arch_x8664
+#if mk_lang_arch_is_x8664
 #define mk_lang_cpuid_has_sse() 1
 #else
 #define mk_lang_cpuid_has_sse() mk_lang_cpuid_has_sse_impl()
 #endif
 
-#if mk_lang_arch == mk_lang_arch_x8664
+#if mk_lang_arch_is_x8664
 #define mk_lang_cpuid_has_sse2() 1
 #else
 #define mk_lang_cpuid_has_sse2() mk_lang_cpuid_has_sse2_impl()

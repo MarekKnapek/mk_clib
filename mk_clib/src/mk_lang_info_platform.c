@@ -28,27 +28,27 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_info_platform_print
 	mk_lang_types_sint_t err;
 
 	#if 0
-	#elif mk_lang_arch == mk_lang_arch_x8616
+	#elif mk_lang_arch_is_x8616
 	err = mk_lang_stdout_println_lit_n("Architecture: x8616"); mk_lang_check_rereturn(err);
-	#elif mk_lang_arch == mk_lang_arch_x8632
+	#elif mk_lang_arch_is_x8632
 	err = mk_lang_stdout_println_lit_n("Architecture: x8632"); mk_lang_check_rereturn(err);
-	#elif mk_lang_arch == mk_lang_arch_x8664
+	#elif mk_lang_arch_is_x8664
 	err = mk_lang_stdout_println_lit_n("Architecture: x8664"); mk_lang_check_rereturn(err);
-	#elif mk_lang_arch == mk_lang_arch_ia64
+	#elif mk_lang_arch_is_ia64
 	err = mk_lang_stdout_println_lit_n("Architecture: ia64"); mk_lang_check_rereturn(err);
-	#elif mk_lang_arch == mk_lang_arch_alpha
+	#elif mk_lang_arch_is_alpha
 	err = mk_lang_stdout_println_lit_n("Architecture: alpha"); mk_lang_check_rereturn(err);
-	#elif mk_lang_arch == mk_lang_arch_ppc
+	#elif mk_lang_arch_is_ppc
 	err = mk_lang_stdout_println_lit_n("Architecture: ppc"); mk_lang_check_rereturn(err);
-	#elif mk_lang_arch == mk_lang_arch_mips
+	#elif mk_lang_arch_is_mips
 	err = mk_lang_stdout_println_lit_n("Architecture: mips"); mk_lang_check_rereturn(err);
-	#elif mk_lang_arch == mk_lang_arch_arm32
+	#elif mk_lang_arch_is_arm32
 	err = mk_lang_stdout_println_lit_n("Architecture: arm32"); mk_lang_check_rereturn(err);
-	#elif mk_lang_arch == mk_lang_arch_arm64
+	#elif mk_lang_arch_is_arm64
 	err = mk_lang_stdout_println_lit_n("Architecture: arm64"); mk_lang_check_rereturn(err);
-	#elif mk_lang_arch == mk_lang_arch_arm64ec
+	#elif mk_lang_arch_is_arm64ec
 	err = mk_lang_stdout_println_lit_n("Architecture: arm64ec"); mk_lang_check_rereturn(err);
-	#elif mk_lang_arch == mk_lang_arch_emscripten
+	#elif mk_lang_arch_is_emscripten
 	err = mk_lang_stdout_println_lit_n("Architecture: emscripten"); mk_lang_check_rereturn(err);
 	#else
 	#error xxxxxxxxxx
@@ -185,7 +185,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_info_platform_print
 
 	err = mk_lang_stdout_println_lit_n(""); mk_lang_check_rereturn(err);
 
-	#if mk_lang_arch == mk_lang_arch_x8632 || mk_lang_arch == mk_lang_arch_x8664
+	#if mk_lang_arch_is_x8632 || mk_lang_arch_is_x8664
 	mk_lang_cpuid_init();
 	err = mk_lang_stdout_print_lit_n("pclmulqdq: "); mk_lang_check_rereturn(err); err = mk_lang_cpuid_has_pclmulqdq() ? mk_lang_stdout_println_lit_n("yes") : mk_lang_stdout_println_lit_n("no"); mk_lang_check_rereturn(err);
 	err = mk_lang_stdout_print_lit_n("ssse3    : "); mk_lang_check_rereturn(err); err = mk_lang_cpuid_has_ssse3()     ? mk_lang_stdout_println_lit_n("yes") : mk_lang_stdout_println_lit_n("no"); mk_lang_check_rereturn(err);

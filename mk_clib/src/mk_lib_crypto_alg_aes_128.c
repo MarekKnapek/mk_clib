@@ -32,8 +32,8 @@
 		0 \
 	) && \
 	( \
-		(mk_lang_arch == mk_lang_arch_x8632) || \
-		(mk_lang_arch == mk_lang_arch_x8664) || \
+		(mk_lang_arch_is_x8632) || \
+		(mk_lang_arch_is_x8664) || \
 		0 \
 	) && \
 	(mk_lang_alignas_has) && \
@@ -65,8 +65,8 @@
 		0 \
 	) && \
 	( \
-		(mk_lang_arch == mk_lang_arch_x8632) || \
-		(mk_lang_arch == mk_lang_arch_x8664) || \
+		(mk_lang_arch_is_x8632) || \
+		(mk_lang_arch_is_x8664) || \
 		0 \
 	) && \
 	(mk_lang_alignas_has) && \
@@ -98,8 +98,8 @@
 		0 \
 	) && \
 	( \
-		(mk_lang_arch == mk_lang_arch_x8632) || \
-		(mk_lang_arch == mk_lang_arch_x8664) || \
+		(mk_lang_arch_is_x8632) || \
+		(mk_lang_arch_is_x8664) || \
 		0 \
 	) && \
 	(mk_lang_alignas_has) && \

@@ -36,7 +36,7 @@
 #define mk_lang_sizeof_bi_ushort_t 2
 #define mk_lang_sizeof_bi_sshort_t mk_lang_sizeof_bi_ushort_t
 
-#if mk_lang_arch == mk_lang_arch_x8616
+#if mk_lang_arch_is_x8616
 #define mk_lang_sizeof_bi_uint_t 2
 #else
 #define mk_lang_sizeof_bi_uint_t 4
