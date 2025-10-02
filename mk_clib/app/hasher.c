@@ -17,7 +17,7 @@ mk_lang_extern_force_c mk_lang_types_sint_t mk_lang_entry_point(mk_lang_types_vo
 #else
 
 
-mk_lang_types_sint_t main(mk_lang_types_sint_t const argc, mk_lang_types_pchar_pcpct const argv)
+mk_lang_types_sint_t main(mk_lang_types_sint_t const argc, mk_lang_types_pchar_ppt const argv)
 {
 	mk_lang_types_sint_t ret;
 
