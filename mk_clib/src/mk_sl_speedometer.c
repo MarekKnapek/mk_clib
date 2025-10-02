@@ -38,8 +38,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_speedometer_p
 	n = mk_lang_countof(speedometer->m_amounts);
 	for(i = 0; i != n; ++i)
 	{
-		mk_sl_cui_uint64_set_zero(&speedometer->m_amounts[(speedometer->m_idx + i) % mk_lang_countof(speedometer->m_amounts)]);
-		speedometer->m_timestamps[(speedometer->m_idx + i) % mk_lang_countof(speedometer->m_timestamps)] = now;
+		mk_sl_cui_uint64_set_zero(&speedometer->m_amounts[i]);
+		speedometer->m_timestamps[i] = now;
 	}
 	speedometer->m_lat_append = now;
 	speedometer->m_lat_reported = now;
