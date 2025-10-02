@@ -20,6 +20,8 @@
 #elif mk_lang_platform_is_posix_at_least_2008_09 /* todo exact version */
 #include "mk_sl_stopwatch_posix.h"
 #define mk_sl_stopwatch_impl posix
+#else
+#error xxxxxxxxxx
 #endif
 
 
