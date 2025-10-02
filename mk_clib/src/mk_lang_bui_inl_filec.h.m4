@@ -1190,194 +1190,257 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 
 mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_void_t mk_lang_bui_inl_defd_pr_add3_wrap_cid_coe(mk_lang_bui_inl_defd_pct const a, mk_lang_bui_inl_defd_pct const b, mk_lang_bui_inl_defd_pt const c, mk_lang_types_bool_pt const co) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
 {
-#if mk_lang_builtin_has_addcb && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_uchar_t
-	mk_lang_types_uchar_t carry;
+	#if mk_lang_builtin_has_addcb && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_uchar_t
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	{
+		mk_lang_types_uchar_t carry;
 
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(c);
-	mk_lang_assert(co);
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(c);
+		mk_lang_assert(co);
 
-	*c = __builtin_addcb(((mk_lang_types_uchar_t)(*a)), ((mk_lang_types_uchar_t)(*b)), 0, &carry);
-	*co = carry != 0;
-#elif mk_lang_builtin_has_addcs && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ushort_t
-	mk_lang_types_ushort_t carry;
+		*c = __builtin_addcb(((mk_lang_types_uchar_t)(*a)), ((mk_lang_types_uchar_t)(*b)), 0, &carry);
+		*co = carry != 0;
+	}
+	else
+	#elif mk_lang_builtin_has_addcs && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ushort_t
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	{
+		mk_lang_types_ushort_t carry;
 
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(c);
-	mk_lang_assert(co);
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(c);
+		mk_lang_assert(co);
 
-	*c = __builtin_addcs(((mk_lang_types_ushort_t)(*a)), ((mk_lang_types_ushort_t)(*b)), 0, &carry);
-	*co = carry != 0;
-#elif mk_lang_builtin_has_addc && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_uint_t
-	mk_lang_types_uint_t carry;
+		*c = __builtin_addcs(((mk_lang_types_ushort_t)(*a)), ((mk_lang_types_ushort_t)(*b)), 0, &carry);
+		*co = carry != 0;
+	}
+	else
+	#elif mk_lang_builtin_has_addc && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_uint_t
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	{
+		mk_lang_types_uint_t carry;
 
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(c);
-	mk_lang_assert(co);
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(c);
+		mk_lang_assert(co);
 
-	*c = __builtin_addc(((mk_lang_types_uint_t)(*a)), ((mk_lang_types_uint_t)(*b)), 0, &carry);
-	*co = carry != 0;
-#elif mk_lang_builtin_has_addcl && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ulong_t
-	mk_lang_types_ulong_t carry;
+		*c = __builtin_addc(((mk_lang_types_uint_t)(*a)), ((mk_lang_types_uint_t)(*b)), 0, &carry);
+		*co = carry != 0;
+	}
+	else
+	#elif mk_lang_builtin_has_addcl && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ulong_t
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	{
+		mk_lang_types_ulong_t carry;
 
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(c);
-	mk_lang_assert(co);
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(c);
+		mk_lang_assert(co);
 
-	*c = __builtin_addcl(((mk_lang_types_ulong_t)(*a)), ((mk_lang_types_ulong_t)(*b)), 0, &carry);
-	*co = carry != 0;
-#elif mk_lang_builtin_has_addcll && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ullong_t
-	mk_lang_types_ullong_t carry;
+		*c = __builtin_addcl(((mk_lang_types_ulong_t)(*a)), ((mk_lang_types_ulong_t)(*b)), 0, &carry);
+		*co = carry != 0;
+	}
+	else
+	#elif mk_lang_builtin_has_addcll && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ullong_t
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	{
+		mk_lang_types_ullong_t carry;
 
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(c);
-	mk_lang_assert(co);
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(c);
+		mk_lang_assert(co);
 
-	*c = __builtin_addcll(((mk_lang_types_ullong_t)(*a)), ((mk_lang_types_ullong_t)(*b)), 0, &carry);
-	*co = carry != 0;
-#else
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(c);
-	mk_lang_assert(co);
+		*c = __builtin_addcll(((mk_lang_types_ullong_t)(*a)), ((mk_lang_types_ullong_t)(*b)), 0, &carry);
+		*co = carry != 0;
+	}
+	else
+	#endif
+	{
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(c);
+		mk_lang_assert(co);
 
-	*co = ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(~((mk_lang_bui_inl_defd_t)(0)))) - ((mk_lang_bui_inl_defd_t)(*a)))) < ((mk_lang_bui_inl_defd_t)(*b));
-	*c = ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(*a)) + ((mk_lang_bui_inl_defd_t)(*b))));
-#endif
+		*co = ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(~((mk_lang_bui_inl_defd_t)(0)))) - ((mk_lang_bui_inl_defd_t)(*a)))) < ((mk_lang_bui_inl_defd_t)(*b));
+		*c = ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(*a)) + ((mk_lang_bui_inl_defd_t)(*b))));
+	}
 }}
 
 mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_void_t mk_lang_bui_inl_defd_pr_add3_wrap_cie_cod(mk_lang_bui_inl_defd_pct const a, mk_lang_bui_inl_defd_pct const b, mk_lang_types_bool_t const ci, mk_lang_bui_inl_defd_pt const c) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
 {
-#if mk_lang_builtin_has_addcb && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_uchar_t
-	mk_lang_types_uchar_t carry;
+	#if mk_lang_builtin_has_addcb && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_uchar_t
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	{
+		mk_lang_types_uchar_t carry;
 
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
-	mk_lang_assert(c);
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
+		mk_lang_assert(c);
 
-	*c = __builtin_addcb(((mk_lang_types_uchar_t)(*a)), ((mk_lang_types_uchar_t)(*b)), ((mk_lang_types_uchar_t)(ci ? 1 : 0)), &carry); ((mk_lang_types_void_t)(carry));
-#elif mk_lang_builtin_has_addcs && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ushort_t
-	mk_lang_types_ushort_t carry;
+		*c = __builtin_addcb(((mk_lang_types_uchar_t)(*a)), ((mk_lang_types_uchar_t)(*b)), ((mk_lang_types_uchar_t)(ci ? 1 : 0)), &carry); ((mk_lang_types_void_t)(carry));
+	}
+	else
+	#elif mk_lang_builtin_has_addcs && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ushort_t
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	{
+		mk_lang_types_ushort_t carry;
 
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
-	mk_lang_assert(c);
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
+		mk_lang_assert(c);
 
-	*c = __builtin_addcs(((mk_lang_types_ushort_t)(*a)), ((mk_lang_types_ushort_t)(*b)), ((mk_lang_types_ushort_t)(ci ? 1 : 0)), &carry); ((mk_lang_types_void_t)(carry));
-#elif mk_lang_builtin_has_addc && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_uint_t
-	mk_lang_types_uint_t carry;
+		*c = __builtin_addcs(((mk_lang_types_ushort_t)(*a)), ((mk_lang_types_ushort_t)(*b)), ((mk_lang_types_ushort_t)(ci ? 1 : 0)), &carry); ((mk_lang_types_void_t)(carry));
+	}
+	else
+	#elif mk_lang_builtin_has_addc && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_uint_t
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	{
+		mk_lang_types_uint_t carry;
 
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
-	mk_lang_assert(c);
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
+		mk_lang_assert(c);
 
-	*c = __builtin_addc(((mk_lang_types_uint_t)(*a)), ((mk_lang_types_uint_t)(*b)), ((mk_lang_types_uint_t)(ci ? 1 : 0)), &carry); ((mk_lang_types_void_t)(carry));
-#elif mk_lang_builtin_has_addcl && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ulong_t
-	mk_lang_types_ulong_t carry;
+		*c = __builtin_addc(((mk_lang_types_uint_t)(*a)), ((mk_lang_types_uint_t)(*b)), ((mk_lang_types_uint_t)(ci ? 1 : 0)), &carry); ((mk_lang_types_void_t)(carry));
+	}
+	else
+	#elif mk_lang_builtin_has_addcl && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ulong_t
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	{
+		mk_lang_types_ulong_t carry;
 
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
-	mk_lang_assert(c);
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
+		mk_lang_assert(c);
 
-	*c = __builtin_addcl(((mk_lang_types_ulong_t)(*a)), ((mk_lang_types_ulong_t)(*b)), ((mk_lang_types_ulong_t)(ci ? 1 : 0)), &carry); ((mk_lang_types_void_t)(carry));
-#elif mk_lang_builtin_has_addcll && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ullong_t
-	mk_lang_types_ullong_t carry;
+		*c = __builtin_addcl(((mk_lang_types_ulong_t)(*a)), ((mk_lang_types_ulong_t)(*b)), ((mk_lang_types_ulong_t)(ci ? 1 : 0)), &carry); ((mk_lang_types_void_t)(carry));
+	}
+	else
+	#elif mk_lang_builtin_has_addcll && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ullong_t
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	{
+		mk_lang_types_ullong_t carry;
 
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
-	mk_lang_assert(c);
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
+		mk_lang_assert(c);
 
-	*c = __builtin_addcll(((mk_lang_types_ullong_t)(*a)), ((mk_lang_types_ullong_t)(*b)), ((mk_lang_types_ullong_t)(ci ? 1 : 0)), &carry); ((mk_lang_types_void_t)(carry));
-#else
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
-	mk_lang_assert(c);
+		*c = __builtin_addcll(((mk_lang_types_ullong_t)(*a)), ((mk_lang_types_ullong_t)(*b)), ((mk_lang_types_ullong_t)(ci ? 1 : 0)), &carry); ((mk_lang_types_void_t)(carry));
+	}
+	else
+	#endif
+	{
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
+		mk_lang_assert(c);
 
-	*c = ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(*a)) + ((mk_lang_bui_inl_defd_t)(*b)))) + ((mk_lang_bui_inl_defd_t)(ci ? ((mk_lang_bui_inl_defd_t)(1)) : ((mk_lang_bui_inl_defd_t)(0))))));
-#endif
+		*c = ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(*a)) + ((mk_lang_bui_inl_defd_t)(*b)))) + ((mk_lang_bui_inl_defd_t)(ci ? ((mk_lang_bui_inl_defd_t)(1)) : ((mk_lang_bui_inl_defd_t)(0))))));
+	}
 }}
 
 mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_void_t mk_lang_bui_inl_defd_pr_add3_wrap_cie_coe(mk_lang_bui_inl_defd_pct const a, mk_lang_bui_inl_defd_pct const b, mk_lang_types_bool_t const ci, mk_lang_bui_inl_defd_pt const c, mk_lang_types_bool_pt const co) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
 {
-#if mk_lang_builtin_has_addcb && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_uchar_t
-	mk_lang_types_uchar_t carry;
+	#if mk_lang_builtin_has_addcb && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_uchar_t
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	{
+		mk_lang_types_uchar_t carry;
 
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
-	mk_lang_assert(c);
-	mk_lang_assert(co);
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
+		mk_lang_assert(c);
+		mk_lang_assert(co);
 
-	*c = __builtin_addcb(((mk_lang_types_uchar_t)(*a)), ((mk_lang_types_uchar_t)(*b)), ((mk_lang_types_uchar_t)(ci ? 1 : 0)), &carry);
-	*co = carry != 0;
-#elif mk_lang_builtin_has_addcs && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ushort_t
-	mk_lang_types_ushort_t carry;
+		*c = __builtin_addcb(((mk_lang_types_uchar_t)(*a)), ((mk_lang_types_uchar_t)(*b)), ((mk_lang_types_uchar_t)(ci ? 1 : 0)), &carry);
+		*co = carry != 0;
+	}
+	else
+	#elif mk_lang_builtin_has_addcs && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ushort_t
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	{
+		mk_lang_types_ushort_t carry;
 
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
-	mk_lang_assert(c);
-	mk_lang_assert(co);
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
+		mk_lang_assert(c);
+		mk_lang_assert(co);
 
-	*c = __builtin_addcs(((mk_lang_types_ushort_t)(*a)), ((mk_lang_types_ushort_t)(*b)), ((mk_lang_types_ushort_t)(ci ? 1 : 0)), &carry);
-	*co = carry != 0;
-#elif mk_lang_builtin_has_addc && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_uint_t
-	mk_lang_types_uint_t carry;
+		*c = __builtin_addcs(((mk_lang_types_ushort_t)(*a)), ((mk_lang_types_ushort_t)(*b)), ((mk_lang_types_ushort_t)(ci ? 1 : 0)), &carry);
+		*co = carry != 0;
+	}
+	else
+	#elif mk_lang_builtin_has_addc && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_uint_t
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	{
+		mk_lang_types_uint_t carry;
 
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
-	mk_lang_assert(c);
-	mk_lang_assert(co);
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
+		mk_lang_assert(c);
+		mk_lang_assert(co);
 
-	*c = __builtin_addc(((mk_lang_types_uint_t)(*a)), ((mk_lang_types_uint_t)(*b)), ((mk_lang_types_uint_t)(ci ? 1 : 0)), &carry);
-	*co = carry != 0;
-#elif mk_lang_builtin_has_addcl && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ulong_t
-	mk_lang_types_ulong_t carry;
+		*c = __builtin_addc(((mk_lang_types_uint_t)(*a)), ((mk_lang_types_uint_t)(*b)), ((mk_lang_types_uint_t)(ci ? 1 : 0)), &carry);
+		*co = carry != 0;
+	}
+	else
+	#elif mk_lang_builtin_has_addcl && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ulong_t
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	{
+		mk_lang_types_ulong_t carry;
 
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
-	mk_lang_assert(c);
-	mk_lang_assert(co);
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
+		mk_lang_assert(c);
+		mk_lang_assert(co);
 
-	*c = __builtin_addcl(((mk_lang_types_ulong_t)(*a)), ((mk_lang_types_ulong_t)(*b)), ((mk_lang_types_ulong_t)(ci ? 1 : 0)), &carry);
-	*co = carry != 0;
-#elif mk_lang_builtin_has_addcll && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ullong_t
-	mk_lang_types_ullong_t carry;
+		*c = __builtin_addcl(((mk_lang_types_ulong_t)(*a)), ((mk_lang_types_ulong_t)(*b)), ((mk_lang_types_ulong_t)(ci ? 1 : 0)), &carry);
+		*co = carry != 0;
+	}
+	else
+	#elif mk_lang_builtin_has_addcll && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ullong_t
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	{
+		mk_lang_types_ullong_t carry;
 
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
-	mk_lang_assert(c);
-	mk_lang_assert(co);
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
+		mk_lang_assert(c);
+		mk_lang_assert(co);
 
-	*c = __builtin_addcll(((mk_lang_types_ullong_t)(*a)), ((mk_lang_types_ullong_t)(*b)), ((mk_lang_types_ullong_t)(ci ? 1 : 0)), &carry);
-	*co = carry != 0;
-#else
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
-	mk_lang_assert(c);
-	mk_lang_assert(co);
+		*c = __builtin_addcll(((mk_lang_types_ullong_t)(*a)), ((mk_lang_types_ullong_t)(*b)), ((mk_lang_types_ullong_t)(ci ? 1 : 0)), &carry);
+		*co = carry != 0;
+	}
+	else
+	#endif
+	{
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
+		mk_lang_assert(c);
+		mk_lang_assert(co);
 
-	*co =
-		ci ?
-		(((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(~((mk_lang_bui_inl_defd_t)(0)))) - ((mk_lang_bui_inl_defd_t)(*a)))) <= ((mk_lang_bui_inl_defd_t)(*b))) :
-		(((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(~((mk_lang_bui_inl_defd_t)(0)))) - ((mk_lang_bui_inl_defd_t)(*a)))) < ((mk_lang_bui_inl_defd_t)(*b)));
-	*c = ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(*a)) + ((mk_lang_bui_inl_defd_t)(*b)))) + ((mk_lang_bui_inl_defd_t)(ci ? ((mk_lang_bui_inl_defd_t)(1)) : ((mk_lang_bui_inl_defd_t)(0))))));
-#endif
+		*co =
+			ci ?
+			(((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(~((mk_lang_bui_inl_defd_t)(0)))) - ((mk_lang_bui_inl_defd_t)(*a)))) <= ((mk_lang_bui_inl_defd_t)(*b))) :
+			(((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(~((mk_lang_bui_inl_defd_t)(0)))) - ((mk_lang_bui_inl_defd_t)(*a)))) < ((mk_lang_bui_inl_defd_t)(*b)));
+		*c = ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(*a)) + ((mk_lang_bui_inl_defd_t)(*b)))) + ((mk_lang_bui_inl_defd_t)(ci ? ((mk_lang_bui_inl_defd_t)(1)) : ((mk_lang_bui_inl_defd_t)(0))))));
+	}
 }}
 
 mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_void_t mk_lang_bui_inl_defd_pr_add2_wrap_cid_cod(mk_lang_bui_inl_defd_pt const a, mk_lang_bui_inl_defd_pct const b) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
@@ -1411,191 +1474,254 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 
 mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_void_t mk_lang_bui_inl_defd_pr_sub3_wrap_cid_coe(mk_lang_bui_inl_defd_pct const a, mk_lang_bui_inl_defd_pct const b, mk_lang_bui_inl_defd_pt const c, mk_lang_types_bool_pt const co) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
 {
-#if mk_lang_builtin_has_subcb && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_uchar_t
-	mk_lang_types_uchar_t carry;
+	#if mk_lang_builtin_has_subcb && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_uchar_t
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	{
+		mk_lang_types_uchar_t carry;
 
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(c);
-	mk_lang_assert(co);
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(c);
+		mk_lang_assert(co);
 
-	*c = __builtin_subcb(((mk_lang_types_uchar_t)(*a)), ((mk_lang_types_uchar_t)(*b)), 0, &carry);
-	*co = carry != 0;
-#elif mk_lang_builtin_has_subcs && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ushort_t
-	mk_lang_types_ushort_t carry;
+		*c = __builtin_subcb(((mk_lang_types_uchar_t)(*a)), ((mk_lang_types_uchar_t)(*b)), 0, &carry);
+		*co = carry != 0;
+	}
+	else
+	#elif mk_lang_builtin_has_subcs && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ushort_t
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	{
+		mk_lang_types_ushort_t carry;
 
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(c);
-	mk_lang_assert(co);
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(c);
+		mk_lang_assert(co);
 
-	*c = __builtin_subcs(((mk_lang_types_ushort_t)(*a)), ((mk_lang_types_ushort_t)(*b)), 0, &carry);
-	*co = carry != 0;
-#elif mk_lang_builtin_has_subc && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_uint_t
-	mk_lang_types_uint_t carry;
+		*c = __builtin_subcs(((mk_lang_types_ushort_t)(*a)), ((mk_lang_types_ushort_t)(*b)), 0, &carry);
+		*co = carry != 0;
+	}
+	else
+	#elif mk_lang_builtin_has_subc && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_uint_t
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	{
+		mk_lang_types_uint_t carry;
 
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(c);
-	mk_lang_assert(co);
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(c);
+		mk_lang_assert(co);
 
-	*c = __builtin_subc(((mk_lang_types_uint_t)(*a)), ((mk_lang_types_uint_t)(*b)), 0, &carry);
-	*co = carry != 0;
-#elif mk_lang_builtin_has_subcl && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ulong_t
-	mk_lang_types_ulong_t carry;
+		*c = __builtin_subc(((mk_lang_types_uint_t)(*a)), ((mk_lang_types_uint_t)(*b)), 0, &carry);
+		*co = carry != 0;
+	}
+	else
+	#elif mk_lang_builtin_has_subcl && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ulong_t
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	{
+		mk_lang_types_ulong_t carry;
 
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(c);
-	mk_lang_assert(co);
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(c);
+		mk_lang_assert(co);
 
-	*c = __builtin_subcl(((mk_lang_types_ulong_t)(*a)), ((mk_lang_types_ulong_t)(*b)), 0, &carry);
-	*co = carry != 0;
-#elif mk_lang_builtin_has_subcll && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ullong_t
-	mk_lang_types_ullong_t carry;
+		*c = __builtin_subcl(((mk_lang_types_ulong_t)(*a)), ((mk_lang_types_ulong_t)(*b)), 0, &carry);
+		*co = carry != 0;
+	}
+	else
+	#elif mk_lang_builtin_has_subcll && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ullong_t
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	{
+		mk_lang_types_ullong_t carry;
 
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(c);
-	mk_lang_assert(co);
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(c);
+		mk_lang_assert(co);
 
-	*c = __builtin_subcll(((mk_lang_types_ullong_t)(*a)), ((mk_lang_types_ullong_t)(*b)), 0, &carry);
-	*co = carry != 0;
-#else
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(c);
-	mk_lang_assert(co);
+		*c = __builtin_subcll(((mk_lang_types_ullong_t)(*a)), ((mk_lang_types_ullong_t)(*b)), 0, &carry);
+		*co = carry != 0;
+	}
+	else
+	#endif
+	{
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(c);
+		mk_lang_assert(co);
 
-	*co = ((mk_lang_bui_inl_defd_t)(*a)) < ((mk_lang_bui_inl_defd_t)(*b));
-	*c = ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(*a)) - ((mk_lang_bui_inl_defd_t)(*b))));
-#endif
+		*co = ((mk_lang_bui_inl_defd_t)(*a)) < ((mk_lang_bui_inl_defd_t)(*b));
+		*c = ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(*a)) - ((mk_lang_bui_inl_defd_t)(*b))));
+	}
 }}
 
 mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_void_t mk_lang_bui_inl_defd_pr_sub3_wrap_cie_cod(mk_lang_bui_inl_defd_pct const a, mk_lang_bui_inl_defd_pct const b, mk_lang_types_bool_t const ci, mk_lang_bui_inl_defd_pt const c) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
 {
-#if mk_lang_builtin_has_subcb && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_uchar_t
-	mk_lang_types_uchar_t carry;
+	#if mk_lang_builtin_has_subcb && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_uchar_t
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	{
+		mk_lang_types_uchar_t carry;
 
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
-	mk_lang_assert(c);
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
+		mk_lang_assert(c);
 
-	*c = __builtin_subcb(((mk_lang_types_uchar_t)(*a)), ((mk_lang_types_uchar_t)(*b)), ((mk_lang_types_uchar_t)(ci ? 1 : 0)), &carry); ((mk_lang_types_void_t)(carry));
-#elif mk_lang_builtin_has_subcs && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ushort_t
-	mk_lang_types_ushort_t carry;
+		*c = __builtin_subcb(((mk_lang_types_uchar_t)(*a)), ((mk_lang_types_uchar_t)(*b)), ((mk_lang_types_uchar_t)(ci ? 1 : 0)), &carry); ((mk_lang_types_void_t)(carry));
+	}
+	else
+	#elif mk_lang_builtin_has_subcs && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ushort_t
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	{
+		mk_lang_types_ushort_t carry;
 
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
-	mk_lang_assert(c);
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
+		mk_lang_assert(c);
 
-	*c = __builtin_subcs(((mk_lang_types_ushort_t)(*a)), ((mk_lang_types_ushort_t)(*b)), ((mk_lang_types_ushort_t)(ci ? 1 : 0)), &carry); ((mk_lang_types_void_t)(carry));
-#elif mk_lang_builtin_has_subc && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_uint_t
-	mk_lang_types_uint_t carry;
+		*c = __builtin_subcs(((mk_lang_types_ushort_t)(*a)), ((mk_lang_types_ushort_t)(*b)), ((mk_lang_types_ushort_t)(ci ? 1 : 0)), &carry); ((mk_lang_types_void_t)(carry));
+	}
+	else
+	#elif mk_lang_builtin_has_subc && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_uint_t
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	{
+		mk_lang_types_uint_t carry;
 
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
-	mk_lang_assert(c);
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
+		mk_lang_assert(c);
 
-	*c = __builtin_subc(((mk_lang_types_uint_t)(*a)), ((mk_lang_types_uint_t)(*b)), ((mk_lang_types_uint_t)(ci ? 1 : 0)), &carry); ((mk_lang_types_void_t)(carry));
-#elif mk_lang_builtin_has_subcl && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ulong_t
-	mk_lang_types_ulong_t carry;
+		*c = __builtin_subc(((mk_lang_types_uint_t)(*a)), ((mk_lang_types_uint_t)(*b)), ((mk_lang_types_uint_t)(ci ? 1 : 0)), &carry); ((mk_lang_types_void_t)(carry));
+	}
+	else
+	#elif mk_lang_builtin_has_subcl && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ulong_t
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	{
+		mk_lang_types_ulong_t carry;
 
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
-	mk_lang_assert(c);
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
+		mk_lang_assert(c);
 
-	*c = __builtin_subcl(((mk_lang_types_ulong_t)(*a)), ((mk_lang_types_ulong_t)(*b)), ((mk_lang_types_ulong_t)(ci ? 1 : 0)), &carry); ((mk_lang_types_void_t)(carry));
-#elif mk_lang_builtin_has_subcll && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ullong_t
-	mk_lang_types_ullong_t carry;
+		*c = __builtin_subcl(((mk_lang_types_ulong_t)(*a)), ((mk_lang_types_ulong_t)(*b)), ((mk_lang_types_ulong_t)(ci ? 1 : 0)), &carry); ((mk_lang_types_void_t)(carry));
+	}
+	else
+	#elif mk_lang_builtin_has_subcll && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ullong_t
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	{
+		mk_lang_types_ullong_t carry;
 
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
-	mk_lang_assert(c);
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
+		mk_lang_assert(c);
 
-	*c = __builtin_subcll(((mk_lang_types_ullong_t)(*a)), ((mk_lang_types_ullong_t)(*b)), ((mk_lang_types_ullong_t)(ci ? 1 : 0)), &carry); ((mk_lang_types_void_t)(carry));
-#else
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(c);
+		*c = __builtin_subcll(((mk_lang_types_ullong_t)(*a)), ((mk_lang_types_ullong_t)(*b)), ((mk_lang_types_ullong_t)(ci ? 1 : 0)), &carry); ((mk_lang_types_void_t)(carry));
+	}
+	else
+	#endif
+	{
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(c);
 
-mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
-	*c = ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(*a)) - ((mk_lang_bui_inl_defd_t)(*b)))) - ((mk_lang_bui_inl_defd_t)(ci ? ((mk_lang_bui_inl_defd_t)(1)) : ((mk_lang_bui_inl_defd_t)(0))))));
-#endif
+		mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
+		*c = ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(*a)) - ((mk_lang_bui_inl_defd_t)(*b)))) - ((mk_lang_bui_inl_defd_t)(ci ? ((mk_lang_bui_inl_defd_t)(1)) : ((mk_lang_bui_inl_defd_t)(0))))));
+	}
 }}
 
 mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_void_t mk_lang_bui_inl_defd_pr_sub3_wrap_cie_coe(mk_lang_bui_inl_defd_pct const a, mk_lang_bui_inl_defd_pct const b, mk_lang_types_bool_t const ci, mk_lang_bui_inl_defd_pt const c, mk_lang_types_bool_pt const co) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
 {
-#if mk_lang_builtin_has_subcb && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_uchar_t
-	mk_lang_types_uchar_t carry;
+	#if mk_lang_builtin_has_subcb && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_uchar_t
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	{
+		mk_lang_types_uchar_t carry;
 
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
-	mk_lang_assert(c);
-	mk_lang_assert(co);
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
+		mk_lang_assert(c);
+		mk_lang_assert(co);
 
-	*c = __builtin_subcb(((mk_lang_types_uchar_t)(*a)), ((mk_lang_types_uchar_t)(*b)), ((mk_lang_types_uchar_t)(ci ? 1 : 0)), &carry);
-	*co = carry != 0;
-#elif mk_lang_builtin_has_subcs && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ushort_t
-	mk_lang_types_ushort_t carry;
+		*c = __builtin_subcb(((mk_lang_types_uchar_t)(*a)), ((mk_lang_types_uchar_t)(*b)), ((mk_lang_types_uchar_t)(ci ? 1 : 0)), &carry);
+		*co = carry != 0;
+	}
+	else
+	#elif mk_lang_builtin_has_subcs && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ushort_t
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	{
+		mk_lang_types_ushort_t carry;
 
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
-	mk_lang_assert(c);
-	mk_lang_assert(co);
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
+		mk_lang_assert(c);
+		mk_lang_assert(co);
 
-	*c = __builtin_subcs(((mk_lang_types_ushort_t)(*a)), ((mk_lang_types_ushort_t)(*b)), ((mk_lang_types_ushort_t)(ci ? 1 : 0)), &carry);
-	*co = carry != 0;
-#elif mk_lang_builtin_has_subc && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_uint_t
-	mk_lang_types_uint_t carry;
+		*c = __builtin_subcs(((mk_lang_types_ushort_t)(*a)), ((mk_lang_types_ushort_t)(*b)), ((mk_lang_types_ushort_t)(ci ? 1 : 0)), &carry);
+		*co = carry != 0;
+	}
+	else
+	#elif mk_lang_builtin_has_subc && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_uint_t
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	{
+		mk_lang_types_uint_t carry;
 
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
-	mk_lang_assert(c);
-	mk_lang_assert(co);
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
+		mk_lang_assert(c);
+		mk_lang_assert(co);
 
-	*c = __builtin_subc(((mk_lang_types_uint_t)(*a)), ((mk_lang_types_uint_t)(*b)), ((mk_lang_types_uint_t)(ci ? 1 : 0)), &carry);
-	*co = carry != 0;
-#elif mk_lang_builtin_has_subcl && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ulong_t
-	mk_lang_types_ulong_t carry;
+		*c = __builtin_subc(((mk_lang_types_uint_t)(*a)), ((mk_lang_types_uint_t)(*b)), ((mk_lang_types_uint_t)(ci ? 1 : 0)), &carry);
+		*co = carry != 0;
+	}
+	else
+	#elif mk_lang_builtin_has_subcl && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ulong_t
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	{
+		mk_lang_types_ulong_t carry;
 
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
-	mk_lang_assert(c);
-	mk_lang_assert(co);
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
+		mk_lang_assert(c);
+		mk_lang_assert(co);
 
-	*c = __builtin_subcl(((mk_lang_types_ulong_t)(*a)), ((mk_lang_types_ulong_t)(*b)), ((mk_lang_types_ulong_t)(ci ? 1 : 0)), &carry);
-	*co = carry != 0;
-#elif mk_lang_builtin_has_subcll && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ullong_t
-	mk_lang_types_ullong_t carry;
+		*c = __builtin_subcl(((mk_lang_types_ulong_t)(*a)), ((mk_lang_types_ulong_t)(*b)), ((mk_lang_types_ulong_t)(ci ? 1 : 0)), &carry);
+		*co = carry != 0;
+	}
+	else
+	#elif mk_lang_builtin_has_subcll && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ullong_t
+	if(!mk_lang_constexpr_is_constant_evaluated_test)
+	{
+		mk_lang_types_ullong_t carry;
 
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
-	mk_lang_assert(c);
-	mk_lang_assert(co);
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
+		mk_lang_assert(c);
+		mk_lang_assert(co);
 
-	*c = __builtin_subcll(((mk_lang_types_ullong_t)(*a)), ((mk_lang_types_ullong_t)(*b)), ((mk_lang_types_ullong_t)(ci ? 1 : 0)), &carry);
-	*co = carry != 0;
-#else
-	mk_lang_assert(a);
-	mk_lang_assert(b);
-	mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
-	mk_lang_assert(c);
-	mk_lang_assert(co);
+		*c = __builtin_subcll(((mk_lang_types_ullong_t)(*a)), ((mk_lang_types_ullong_t)(*b)), ((mk_lang_types_ullong_t)(ci ? 1 : 0)), &carry);
+		*co = carry != 0;
+	}
+	else
+	#endif
+	{
+		mk_lang_assert(a);
+		mk_lang_assert(b);
+		mk_lang_assert(ci == mk_lang_true || ci == mk_lang_false);
+		mk_lang_assert(c);
+		mk_lang_assert(co);
 
-	*co = ci ? (((mk_lang_bui_inl_defd_t)(*a)) <= ((mk_lang_bui_inl_defd_t)(*b))) : (((mk_lang_bui_inl_defd_t)(*a)) < ((mk_lang_bui_inl_defd_t)(*b)));
-	*c = ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(*a)) - ((mk_lang_bui_inl_defd_t)(*b)))) - ((mk_lang_bui_inl_defd_t)(ci ? ((mk_lang_bui_inl_defd_t)(1)) : ((mk_lang_bui_inl_defd_t)(0))))));
-#endif
+		*co = ci ? (((mk_lang_bui_inl_defd_t)(*a)) <= ((mk_lang_bui_inl_defd_t)(*b))) : (((mk_lang_bui_inl_defd_t)(*a)) < ((mk_lang_bui_inl_defd_t)(*b)));
+		*c = ((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(((mk_lang_bui_inl_defd_t)(*a)) - ((mk_lang_bui_inl_defd_t)(*b)))) - ((mk_lang_bui_inl_defd_t)(ci ? ((mk_lang_bui_inl_defd_t)(1)) : ((mk_lang_bui_inl_defd_t)(0))))));
+	}
 }}
 
 mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_void_t mk_lang_bui_inl_defd_pr_sub2_wrap_cid_cod(mk_lang_bui_inl_defd_pt const a, mk_lang_bui_inl_defd_pct const b) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
