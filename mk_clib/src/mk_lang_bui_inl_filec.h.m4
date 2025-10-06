@@ -1193,7 +1193,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 	#if mk_lang_builtin_has_addcb && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_uchar_t
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
-		mk_lang_types_uchar_t carry;
+		mk_lang_types_uchar_t carry mk_lang_constexpr_init;
 
 		mk_lang_assert(a);
 		mk_lang_assert(b);
@@ -1207,7 +1207,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 	#elif mk_lang_builtin_has_addcs && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ushort_t
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
-		mk_lang_types_ushort_t carry;
+		mk_lang_types_ushort_t carry mk_lang_constexpr_init;
 
 		mk_lang_assert(a);
 		mk_lang_assert(b);
@@ -1221,7 +1221,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 	#elif mk_lang_builtin_has_addc && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_uint_t
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
-		mk_lang_types_uint_t carry;
+		mk_lang_types_uint_t carry mk_lang_constexpr_init;
 
 		mk_lang_assert(a);
 		mk_lang_assert(b);
@@ -1235,7 +1235,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 	#elif mk_lang_builtin_has_addcl && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ulong_t
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
-		mk_lang_types_ulong_t carry;
+		mk_lang_types_ulong_t carry mk_lang_constexpr_init;
 
 		mk_lang_assert(a);
 		mk_lang_assert(b);
@@ -1249,7 +1249,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 	#elif mk_lang_builtin_has_addcll && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ullong_t
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
-		mk_lang_types_ullong_t carry;
+		mk_lang_types_ullong_t carry mk_lang_constexpr_init;
 
 		mk_lang_assert(a);
 		mk_lang_assert(b);
@@ -1277,7 +1277,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 	#if mk_lang_builtin_has_addcb && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_uchar_t
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
-		mk_lang_types_uchar_t carry;
+		mk_lang_types_uchar_t carry mk_lang_constexpr_init;
 
 		mk_lang_assert(a);
 		mk_lang_assert(b);
@@ -1290,7 +1290,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 	#elif mk_lang_builtin_has_addcs && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ushort_t
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
-		mk_lang_types_ushort_t carry;
+		mk_lang_types_ushort_t carry mk_lang_constexpr_init;
 
 		mk_lang_assert(a);
 		mk_lang_assert(b);
@@ -1303,7 +1303,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 	#elif mk_lang_builtin_has_addc && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_uint_t
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
-		mk_lang_types_uint_t carry;
+		mk_lang_types_uint_t carry mk_lang_constexpr_init;
 
 		mk_lang_assert(a);
 		mk_lang_assert(b);
@@ -1316,7 +1316,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 	#elif mk_lang_builtin_has_addcl && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ulong_t
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
-		mk_lang_types_ulong_t carry;
+		mk_lang_types_ulong_t carry mk_lang_constexpr_init;
 
 		mk_lang_assert(a);
 		mk_lang_assert(b);
@@ -1329,7 +1329,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 	#elif mk_lang_builtin_has_addcll && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ullong_t
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
-		mk_lang_types_ullong_t carry;
+		mk_lang_types_ullong_t carry mk_lang_constexpr_init;
 
 		mk_lang_assert(a);
 		mk_lang_assert(b);
@@ -1355,7 +1355,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 	#if mk_lang_builtin_has_addcb && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_uchar_t
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
-		mk_lang_types_uchar_t carry;
+		mk_lang_types_uchar_t carry mk_lang_constexpr_init;
 
 		mk_lang_assert(a);
 		mk_lang_assert(b);
@@ -1370,7 +1370,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 	#elif mk_lang_builtin_has_addcs && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ushort_t
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
-		mk_lang_types_ushort_t carry;
+		mk_lang_types_ushort_t carry mk_lang_constexpr_init;
 
 		mk_lang_assert(a);
 		mk_lang_assert(b);
@@ -1385,7 +1385,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 	#elif mk_lang_builtin_has_addc && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_uint_t
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
-		mk_lang_types_uint_t carry;
+		mk_lang_types_uint_t carry mk_lang_constexpr_init;
 
 		mk_lang_assert(a);
 		mk_lang_assert(b);
@@ -1400,7 +1400,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 	#elif mk_lang_builtin_has_addcl && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ulong_t
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
-		mk_lang_types_ulong_t carry;
+		mk_lang_types_ulong_t carry mk_lang_constexpr_init;
 
 		mk_lang_assert(a);
 		mk_lang_assert(b);
@@ -1415,7 +1415,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 	#elif mk_lang_builtin_has_addcll && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ullong_t
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
-		mk_lang_types_ullong_t carry;
+		mk_lang_types_ullong_t carry mk_lang_constexpr_init;
 
 		mk_lang_assert(a);
 		mk_lang_assert(b);
@@ -1477,7 +1477,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 	#if mk_lang_builtin_has_subcb && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_uchar_t
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
-		mk_lang_types_uchar_t carry;
+		mk_lang_types_uchar_t carry mk_lang_constexpr_init;
 
 		mk_lang_assert(a);
 		mk_lang_assert(b);
@@ -1491,7 +1491,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 	#elif mk_lang_builtin_has_subcs && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ushort_t
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
-		mk_lang_types_ushort_t carry;
+		mk_lang_types_ushort_t carry mk_lang_constexpr_init;
 
 		mk_lang_assert(a);
 		mk_lang_assert(b);
@@ -1505,7 +1505,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 	#elif mk_lang_builtin_has_subc && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_uint_t
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
-		mk_lang_types_uint_t carry;
+		mk_lang_types_uint_t carry mk_lang_constexpr_init;
 
 		mk_lang_assert(a);
 		mk_lang_assert(b);
@@ -1519,7 +1519,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 	#elif mk_lang_builtin_has_subcl && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ulong_t
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
-		mk_lang_types_ulong_t carry;
+		mk_lang_types_ulong_t carry mk_lang_constexpr_init;
 
 		mk_lang_assert(a);
 		mk_lang_assert(b);
@@ -1533,7 +1533,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 	#elif mk_lang_builtin_has_subcll && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ullong_t
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
-		mk_lang_types_ullong_t carry;
+		mk_lang_types_ullong_t carry mk_lang_constexpr_init;
 
 		mk_lang_assert(a);
 		mk_lang_assert(b);
@@ -1561,7 +1561,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 	#if mk_lang_builtin_has_subcb && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_uchar_t
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
-		mk_lang_types_uchar_t carry;
+		mk_lang_types_uchar_t carry mk_lang_constexpr_init;
 
 		mk_lang_assert(a);
 		mk_lang_assert(b);
@@ -1574,7 +1574,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 	#elif mk_lang_builtin_has_subcs && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ushort_t
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
-		mk_lang_types_ushort_t carry;
+		mk_lang_types_ushort_t carry mk_lang_constexpr_init;
 
 		mk_lang_assert(a);
 		mk_lang_assert(b);
@@ -1587,7 +1587,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 	#elif mk_lang_builtin_has_subc && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_uint_t
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
-		mk_lang_types_uint_t carry;
+		mk_lang_types_uint_t carry mk_lang_constexpr_init;
 
 		mk_lang_assert(a);
 		mk_lang_assert(b);
@@ -1600,7 +1600,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 	#elif mk_lang_builtin_has_subcl && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ulong_t
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
-		mk_lang_types_ulong_t carry;
+		mk_lang_types_ulong_t carry mk_lang_constexpr_init;
 
 		mk_lang_assert(a);
 		mk_lang_assert(b);
@@ -1613,7 +1613,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 	#elif mk_lang_builtin_has_subcll && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ullong_t
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
-		mk_lang_types_ullong_t carry;
+		mk_lang_types_ullong_t carry mk_lang_constexpr_init;
 
 		mk_lang_assert(a);
 		mk_lang_assert(b);
@@ -1639,7 +1639,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 	#if mk_lang_builtin_has_subcb && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_uchar_t
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
-		mk_lang_types_uchar_t carry;
+		mk_lang_types_uchar_t carry mk_lang_constexpr_init;
 
 		mk_lang_assert(a);
 		mk_lang_assert(b);
@@ -1654,7 +1654,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 	#elif mk_lang_builtin_has_subcs && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ushort_t
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
-		mk_lang_types_ushort_t carry;
+		mk_lang_types_ushort_t carry mk_lang_constexpr_init;
 
 		mk_lang_assert(a);
 		mk_lang_assert(b);
@@ -1669,7 +1669,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 	#elif mk_lang_builtin_has_subc && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_uint_t
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
-		mk_lang_types_uint_t carry;
+		mk_lang_types_uint_t carry mk_lang_constexpr_init;
 
 		mk_lang_assert(a);
 		mk_lang_assert(b);
@@ -1684,7 +1684,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 	#elif mk_lang_builtin_has_subcl && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ulong_t
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
-		mk_lang_types_ulong_t carry;
+		mk_lang_types_ulong_t carry mk_lang_constexpr_init;
 
 		mk_lang_assert(a);
 		mk_lang_assert(b);
@@ -1699,7 +1699,7 @@ mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lan
 	#elif mk_lang_builtin_has_subcll && mk_lang_bui_inl_defd_size_bytes_d == mk_lang_sizeof_bi_ullong_t
 	if(!mk_lang_constexpr_is_constant_evaluated_test)
 	{
-		mk_lang_types_ullong_t carry;
+		mk_lang_types_ullong_t carry mk_lang_constexpr_init;
 
 		mk_lang_assert(a);
 		mk_lang_assert(b);
