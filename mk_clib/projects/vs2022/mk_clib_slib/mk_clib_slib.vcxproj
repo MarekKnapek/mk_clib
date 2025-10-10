@@ -1511,6 +1511,33 @@
 	<ItemGroup>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_mm_strings.m"/>
 	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_32.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_64.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_avx2.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_avx512.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_base.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_fuzz.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_sse2.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_test.cpp"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_32.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_64.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_avx2.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_avx512.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_base.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_fuzz.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_inl_defd.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_inl_defu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_inl_filec.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_inl_fileh.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_inl_fileu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_sse2.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_test.hpp"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_inl_defd.h.m4"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_inl_defu.h.m4"/>
+	</ItemGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
 	<ImportGroup Label="ExtensionTargets">
 		<Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets"/>

@@ -24,6 +24,7 @@
 #include "mk_clib_test.h"
 
 #include "mk_lib_crypto_alg_aes_fuzz.h"
+#include "mk_lib_crypto_alg_serpent_fuzz.h"
 #include "mk_lib_crypto_any_piecewise_fuzz.h"
 #include "mk_lib_crypto_hash_stream_blake2b_256_fuzz.h"
 #include "mk_lib_crypto_hash_stream_blake2b_384_fuzz.h"
@@ -129,6 +130,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_fuzz_proces
 		line = 0;
 		if(mk_lang_runtime_bool_fn_false){}
 		else if(line == 0 && mk_lang_str_match_n(ctx->m_argv[1], len, mk_clib_fuzz_str_lit("mk_lib_crypto_alg_aes_fuzz"))){ line = __LINE__; }
+		else if(line == 0 && mk_lang_str_match_n(ctx->m_argv[1], len, mk_clib_fuzz_str_lit("mk_lib_crypto_alg_serpent_fuzz"))){ line = __LINE__; }
 		else if(line == 0 && mk_lang_str_match_n(ctx->m_argv[1], len, mk_clib_fuzz_str_lit("mk_lib_crypto_any_piecewise_fuzz"))){ line = __LINE__; }
 		else if(line == 0 && mk_lang_str_match_n(ctx->m_argv[1], len, mk_clib_fuzz_str_lit("mk_lib_crypto_hash_stream_blake2b_256_fuzz"))){ line = __LINE__; }
 		else if(line == 0 && mk_lang_str_match_n(ctx->m_argv[1], len, mk_clib_fuzz_str_lit("mk_lib_crypto_hash_stream_blake2b_384_fuzz"))){ line = __LINE__; }
@@ -269,6 +271,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_fuzz_fn(mk_
 	base = __LINE__;
 	curr = base + 2 + ((mk_lang_types_sint_t)(line));
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_alg_aes_fuzz(d, s); mk_lang_check_rereturn(err); }
+	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_alg_serpent_fuzz(d, s); mk_lang_check_rereturn(err); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_any_piecewise_fuzz(d, s, allow_all); mk_lang_check_rereturn(err); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_hash_stream_blake2b_256_fuzz(d, s); mk_lang_check_rereturn(err); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_hash_stream_blake2b_384_fuzz(d, s); mk_lang_check_rereturn(err); }

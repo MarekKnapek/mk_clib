@@ -1492,4 +1492,31 @@
 	<ItemGroup>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_mm_strings.m"><Filter>src</Filter></ClCompile>
 	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent.c"><Filter>src</Filter></ClCompile>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_32.c"><Filter>src</Filter></ClCompile>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_64.c"><Filter>src</Filter></ClCompile>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_avx2.c"><Filter>src</Filter></ClCompile>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_avx512.c"><Filter>src</Filter></ClCompile>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_base.c"><Filter>src</Filter></ClCompile>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_fuzz.c"><Filter>src</Filter></ClCompile>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_sse2.c"><Filter>src</Filter></ClCompile>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_test.cpp"><Filter>src</Filter></ClCompile>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent.h"><Filter>src</Filter></ClCompile>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_32.h"><Filter>src</Filter></ClCompile>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_64.h"><Filter>src</Filter></ClCompile>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_avx2.h"><Filter>src</Filter></ClCompile>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_avx512.h"><Filter>src</Filter></ClCompile>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_base.h"><Filter>src</Filter></ClCompile>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_fuzz.h"><Filter>src</Filter></ClCompile>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_inl_defd.h"><Filter>src</Filter></ClCompile>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_inl_defu.h"><Filter>src</Filter></ClCompile>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_inl_filec.h"><Filter>src</Filter></ClCompile>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_inl_fileh.h"><Filter>src</Filter></ClCompile>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_inl_fileu.h"><Filter>src</Filter></ClCompile>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_sse2.h"><Filter>src</Filter></ClCompile>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_test.hpp"><Filter>src</Filter></ClCompile>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_inl_defd.h.m4"><Filter>src</Filter></ClCompile>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_inl_defu.h.m4"><Filter>src</Filter></ClCompile>
+	</ItemGroup>
 </Project>

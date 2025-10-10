@@ -1,0 +1,15 @@
+#include "mk_lib_crypto_alg_serpent_base.h"
+#include "mk_lang_jumbo.h"
+#include "mk_lang_noexcept.h"
+#include "mk_lang_static_param.h"
+#include "mk_lang_types.h"
+
+
+#include "mk_lib_crypto_alg_serpent_inl_defd.h"
+
+
+mk_lib_crypto_alg_serpent_inl_defd_constexpr_spec mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_alg_serpent_target mk_lib_crypto_alg_serpent_inl_defd_encrypt_blocks(mk_lib_crypto_alg_serpent_base_schedule_pct const schedule, mk_lang_static_param(mk_lib_crypto_alg_serpent_base_msg_ct, input, mk_lib_crypto_alg_serpent_inl_defd_cnt), mk_lang_static_param(mk_lib_crypto_alg_serpent_base_msg_t, output, mk_lib_crypto_alg_serpent_inl_defd_cnt), mk_lang_types_usize_t const count) mk_lang_noexcept;
+mk_lib_crypto_alg_serpent_inl_defd_constexpr_spec mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_alg_serpent_target mk_lib_crypto_alg_serpent_inl_defd_decrypt_blocks(mk_lib_crypto_alg_serpent_base_schedule_pct const schedule, mk_lang_static_param(mk_lib_crypto_alg_serpent_base_msg_ct, input, mk_lib_crypto_alg_serpent_inl_defd_cnt), mk_lang_static_param(mk_lib_crypto_alg_serpent_base_msg_t, output, mk_lib_crypto_alg_serpent_inl_defd_cnt), mk_lang_types_usize_t const count) mk_lang_noexcept;
+
+
+#include "mk_lib_crypto_alg_serpent_inl_defu.h"

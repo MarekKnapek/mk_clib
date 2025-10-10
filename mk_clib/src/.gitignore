@@ -9,6 +9,8 @@
 /mk_lang_swap_inl_defu.h
 /mk_lib_crypto_alg_aes_x86_inl_defd.h
 /mk_lib_crypto_alg_aes_x86_inl_defu.h
+/mk_lib_crypto_alg_serpent_inl_defd.h
+/mk_lib_crypto_alg_serpent_inl_defu.h
 /mk_lib_crypto_hash_stream_any1.c
 /mk_lib_crypto_hash_stream_any1.h
 /mk_lib_crypto_hash_stream_any2.c
