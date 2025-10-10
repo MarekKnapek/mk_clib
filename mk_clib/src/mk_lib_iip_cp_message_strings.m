@@ -1,125 +1,116 @@
-define(`mk_lib_iip_cp_message_strings_pr_nl', `
-')dnl
-define(`mk_lib_iip_cp_message_strings_per_string_beg', `define(`mm_x', ``$1'')`'mm_x(`$2', `$3', `$4', `$5')`'mk_lib_iip_cp_message_strings_pr_nl`'undefine(`mm_x')')dnl
-define(`mk_lib_iip_cp_message_strings_per_string_main', `define(`mm_x', ``$1'')`'mm_x(`$2', `$3', `$4', `$5', `$6', `$7')`'mk_lib_iip_cp_message_strings_pr_nl`'undefine(`mm_x')')dnl
-define(`mk_lib_iip_cp_message_strings_per_string_end', `define(`mm_x', ``$1'')`'mm_x(`$2', `$3', `$4', `$5')`'mk_lib_iip_cp_message_strings_pr_nl`'undefine(`mm_x')')dnl
-define(`mk_lib_iip_cp_message_strings_per_string_mid', `ifelse(eval(`$# > 3+3*2'), `1', `mk_lib_iip_cp_message_strings_per_string_main(`$2', `$6', `$7', `$4', `$5', `$8', `$9')`'$0(`$1', `$2', `$3', shift(shift(shift(shift(shift($@))))))', `mk_lib_iip_cp_message_strings_per_string_end(`$3', `$6', `$7', `$4', `$5')')')dnl
-define(`mk_lib_iip_cp_message_strings_per_string_impl_main', `mk_lib_iip_cp_message_strings_per_string_beg(`$1', `$4', `$5', `$6', `$7')`'mk_lib_iip_cp_message_strings_per_string_mid($@)')dnl
-define(`mk_lib_iip_cp_message_strings_per_string_impl_check_end', `ifelse(`$3', `', `mk_lib_iip_cp_message_strings_per_string_impl_main(`$1', `$2', `$2', shift(shift(shift($@))))', `mk_lib_iip_cp_message_strings_per_string_impl_main($@)')')dnl
-define(`mk_lib_iip_cp_message_strings_per_string_impl_check_beg', `ifelse(`$1', `', `mk_lib_iip_cp_message_strings_per_string_impl_check_end(`$2', `$2', shift(shift($@)))', `mk_lib_iip_cp_message_strings_per_string_impl_check_end($@)')')dnl
-define(`mk_lib_iip_cp_message_strings_per_string', `mk_lib_iip_cp_message_strings_per_string_impl_check_beg(`$1', `$2', `$3',
-`accepted',`accepted',
-`api_version',`api_version',
-`authentication',`authentication',
-`available',`available',
-`bad_destination',`bad_destination',
-`bad_leaseset',`bad_leaseset',
-`bad_local_leaseset',`bad_local_leaseset',
-`bad_message',`bad_message',
-`bad_options',`bad_options',
-`bad_session',`bad_session',
-`bandwidth_limits',`bandwidth_limits',
-`best_effort_failure',`best_effort_failure',
-`best_effort_success',`best_effort_success',
-`blinding_info',`blinding_info',
-`body',`body',
-`client_inbound_limit_kbps',`client_inbound_limit_kbps',
-`client_outbound_limit_kbps',`client_outbound_limit_kbps',
-`create_lease_set',`create_lease_set',
-`create_lease_set2',`create_lease_set2',
-`create_session',`create_session',
-`created',`created',
-`creation_date',`creation_date',
-`date',`date',
-`dest_lookup',`dest_lookup',
-`dest_reply',`dest_reply',
-`destination',`destination',
-`destroy_session',`destroy_session',
-`destroyed',`destroyed',
-`disconnect',`disconnect',
-`end_date',`end_date',
-`expired_leaseset',`expired_leaseset',
-`failure',`failure',
-`future_use_1',`future_use_1',
-`future_use_2',`future_use_2',
-`future_use_3',`future_use_3',
-`future_use_4',`future_use_4',
-`future_use_5',`future_use_5',
-`future_use_6',`future_use_6',
-`future_use_7',`future_use_7',
-`future_use_8',`future_use_8',
-`future_use_9',`future_use_9',
-`get_bandwidth_limits',`get_bandwidth_limits',
-`get_date',`get_date',
-`guaranteed_failure',`guaranteed_failure',
-`guaranteed_success',`guaranteed_success',
-`hash',`hash',
-`header',`header',
-`host_lookup',`host_lookup',
-`host_reply',`host_reply',
-`hostname',`hostname',
-`invalid',`invalid',
-`key_enc_pri',`key_enc_pri',
-`key_enc_pub',`key_enc_pub',
-`key_sgn_pri',`key_sgn_pri',
-`key_sgn_pub',`key_sgn_pub',
-`leases',`leases',
-`leaseset',`leaseset',
-`leaseset_decryption_failure',`leaseset_decryption_failure',
-`len',`len',
-`local_failure',`local_failure',
-`local_success',`local_success',
-`lookup_password_and_private_key_required',`lookup_password_and_private_key_required',
-`lookup_password_required',`lookup_password_required',
-`loopback_denied',`loopback_denied',
-`message',`message',
-`message_expired',`message_expired',
-`message_id',`message_id',
-`message_payload',`message_payload',
-`message_status',`message_status',
-`meta_leaseset',`meta_leaseset',
-`name',`name',
-`network_failure',`network_failure',
-`no_leaseset',`no_leaseset',
-`no_local_tunnels',`no_local_tunnels',
-`nonce',`nonce',
-`opptions',`opptions',
-`overflow_failure',`overflow_failure',
-`payload',`payload',
-`private_key_required',`private_key_required',
-`reason',`reason',
-`receive_message_begin',`receive_message_begin',
-`receive_message_end',`receive_message_end',
-`reconfigure_session',`reconfigure_session',
-`refused',`refused',
-`report_abuse',`report_abuse',
-`request_id',`request_id',
-`request_lease_set',`request_lease_set',
-`request_type',`request_type',
-`request_variable_lease_set',`request_variable_lease_set',
-`result_code',`result_code',
-`router_burst_time_seconds',`router_burst_time_seconds',
-`router_failure',`router_failure',
-`router_hash',`router_hash',
-`router_inbound_burst_limit_kbps',`router_inbound_burst_limit_kbps',
-`router_inbound_limit_kbps',`router_inbound_limit_kbps',
-`router_outbound_burst_limit_kbps',`router_outbound_burst_limit_kbps',
-`router_outbound_limit_kbps',`router_outbound_limit_kbps',
-`send_message',`send_message',
-`send_message_expires',`send_message_expires',
-`server_date',`server_date',
-`session_config',`session_config',
-`session_id',`session_id',
-`session_status',`session_status',
-`set_date',`set_date',
-`size',`size',
-`status',`status',
-`success',`success',
-`timeout_ms',`timeout_ms',
-`tunnel_id',`tunnel_id',
-`tunnels',`tunnels',
-`type',`type',
-`unsupported_encryption',`unsupported_encryption',
-`updated',`updated',
-`version',`version',
-`', `')')dnl
+define(`mk_lib_iip_cp_message_strings_mm_list', `dnl
+`accepted', `accepted', dnl
+`api_version', `api_version', dnl
+`authentication', `authentication', dnl
+`available', `available', dnl
+`bad_destination', `bad_destination', dnl
+`bad_leaseset', `bad_leaseset', dnl
+`bad_local_leaseset', `bad_local_leaseset', dnl
+`bad_message', `bad_message', dnl
+`bad_options', `bad_options', dnl
+`bad_session', `bad_session', dnl
+`bandwidth_limits', `bandwidth_limits', dnl
+`best_effort_failure', `best_effort_failure', dnl
+`best_effort_success', `best_effort_success', dnl
+`blinding_info', `blinding_info', dnl
+`body', `body', dnl
+`client_inbound_limit_kbps', `client_inbound_limit_kbps', dnl
+`client_outbound_limit_kbps', `client_outbound_limit_kbps', dnl
+`create_lease_set', `create_lease_set', dnl
+`create_lease_set2', `create_lease_set2', dnl
+`create_session', `create_session', dnl
+`created', `created', dnl
+`creation_date', `creation_date', dnl
+`date', `date', dnl
+`dest_lookup', `dest_lookup', dnl
+`dest_reply', `dest_reply', dnl
+`destination', `destination', dnl
+`destroy_session', `destroy_session', dnl
+`destroyed', `destroyed', dnl
+`disconnect', `disconnect', dnl
+`end_date', `end_date', dnl
+`expired_leaseset', `expired_leaseset', dnl
+`failure', `failure', dnl
+`future_use_1', `future_use_1', dnl
+`future_use_2', `future_use_2', dnl
+`future_use_3', `future_use_3', dnl
+`future_use_4', `future_use_4', dnl
+`future_use_5', `future_use_5', dnl
+`future_use_6', `future_use_6', dnl
+`future_use_7', `future_use_7', dnl
+`future_use_8', `future_use_8', dnl
+`future_use_9', `future_use_9', dnl
+`get_bandwidth_limits', `get_bandwidth_limits', dnl
+`get_date', `get_date', dnl
+`guaranteed_failure', `guaranteed_failure', dnl
+`guaranteed_success', `guaranteed_success', dnl
+`hash', `hash', dnl
+`header', `header', dnl
+`host_lookup', `host_lookup', dnl
+`host_reply', `host_reply', dnl
+`hostname', `hostname', dnl
+`invalid', `invalid', dnl
+`key_enc_pri', `key_enc_pri', dnl
+`key_enc_pub', `key_enc_pub', dnl
+`key_sgn_pri', `key_sgn_pri', dnl
+`key_sgn_pub', `key_sgn_pub', dnl
+`leases', `leases', dnl
+`leaseset', `leaseset', dnl
+`leaseset_decryption_failure', `leaseset_decryption_failure', dnl
+`len', `len', dnl
+`local_failure', `local_failure', dnl
+`local_success', `local_success', dnl
+`lookup_password_and_private_key_required', `lookup_password_and_private_key_required', dnl
+`lookup_password_required', `lookup_password_required', dnl
+`loopback_denied', `loopback_denied', dnl
+`message', `message', dnl
+`message_expired', `message_expired', dnl
+`message_id', `message_id', dnl
+`message_payload', `message_payload', dnl
+`message_status', `message_status', dnl
+`meta_leaseset', `meta_leaseset', dnl
+`name', `name', dnl
+`network_failure', `network_failure', dnl
+`no_leaseset', `no_leaseset', dnl
+`no_local_tunnels', `no_local_tunnels', dnl
+`nonce', `nonce', dnl
+`opptions', `opptions', dnl
+`overflow_failure', `overflow_failure', dnl
+`payload', `payload', dnl
+`private_key_required', `private_key_required', dnl
+`reason', `reason', dnl
+`receive_message_begin', `receive_message_begin', dnl
+`receive_message_end', `receive_message_end', dnl
+`reconfigure_session', `reconfigure_session', dnl
+`refused', `refused', dnl
+`report_abuse', `report_abuse', dnl
+`request_id', `request_id', dnl
+`request_lease_set', `request_lease_set', dnl
+`request_type', `request_type', dnl
+`request_variable_lease_set', `request_variable_lease_set', dnl
+`result_code', `result_code', dnl
+`router_burst_time_seconds', `router_burst_time_seconds', dnl
+`router_failure', `router_failure', dnl
+`router_hash', `router_hash', dnl
+`router_inbound_burst_limit_kbps', `router_inbound_burst_limit_kbps', dnl
+`router_inbound_limit_kbps', `router_inbound_limit_kbps', dnl
+`router_outbound_burst_limit_kbps', `router_outbound_burst_limit_kbps', dnl
+`router_outbound_limit_kbps', `router_outbound_limit_kbps', dnl
+`send_message', `send_message', dnl
+`send_message_expires', `send_message_expires', dnl
+`server_date', `server_date', dnl
+`session_config', `session_config', dnl
+`session_id', `session_id', dnl
+`session_status', `session_status', dnl
+`set_date', `set_date', dnl
+`size', `size', dnl
+`status', `status', dnl
+`success', `success', dnl
+`timeout_ms', `timeout_ms', dnl
+`tunnel_id', `tunnel_id', dnl
+`tunnels', `tunnels', dnl
+`type', `type', dnl
+`unsupported_encryption', `unsupported_encryption', dnl
+`updated', `updated', dnl
+`version', `version', dnl
+`'')dnl

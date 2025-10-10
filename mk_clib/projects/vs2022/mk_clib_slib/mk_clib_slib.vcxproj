@@ -1508,6 +1508,9 @@
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_speedometer.c"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_speedometer.h"/>
 	</ItemGroup>
+	<ItemGroup>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_mm_strings.m"/>
+	</ItemGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
 	<ImportGroup Label="ExtensionTargets">
 		<Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets"/>

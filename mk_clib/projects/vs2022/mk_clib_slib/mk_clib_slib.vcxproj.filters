@@ -1489,4 +1489,7 @@
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_speedometer.c"><Filter>src</Filter></ClCompile>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_speedometer.h"><Filter>src</Filter></ClInclude>
 	</ItemGroup>
+	<ItemGroup>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_mm_strings.m"><Filter>src</Filter></ClCompile>
+	</ItemGroup>
 </Project>
