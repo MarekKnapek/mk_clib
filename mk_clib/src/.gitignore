@@ -11,6 +11,16 @@
 /mk_lib_crypto_alg_aes_x86_inl_defu.h
 /mk_lib_crypto_alg_serpent_inl_defd.h
 /mk_lib_crypto_alg_serpent_inl_defu.h
+/mk_lib_crypto_alg_stream.c
+/mk_lib_crypto_alg_stream.h
+/mk_lib_crypto_alg_stream_any1.c
+/mk_lib_crypto_alg_stream_any1.h
+/mk_lib_crypto_alg_stream_any2.c
+/mk_lib_crypto_alg_stream_any2.h
+/mk_lib_crypto_alg_stream_inl_defd.h
+/mk_lib_crypto_alg_stream_inl_defu.h
+/mk_lib_crypto_alg_stream_names.c
+/mk_lib_crypto_alg_stream_names.h
 /mk_lib_crypto_hash_stream_any1.c
 /mk_lib_crypto_hash_stream_any1.h
 /mk_lib_crypto_hash_stream_any2.c

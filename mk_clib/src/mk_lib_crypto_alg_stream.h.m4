@@ -1,0 +1,30 @@
+#ifndef mk_include_guard_mk_lib_crypto_alg_stream_h
+#define mk_include_guard_mk_lib_crypto_alg_stream_h
+
+
+#include "mk_lang_jumbo.h"
+
+
+define(`mk_lib_crypto_alg_stream_h_mm_one', `dnl
+#include "mk_lib_crypto_alg_$1.h"
+#define mk_lib_crypto_alg_stream_t_name mk_lib_crypto_alg_stream_$1
+#define mk_lib_crypto_alg_stream_t_base_name mk_lib_crypto_alg_$1
+#include "mk_lib_crypto_alg_stream_inl_fileh.h"
+#include "mk_lib_crypto_alg_stream_inl_fileu.h"
+
+
+')dnl
+define(`mk_lib_crypto_alg_stream_h_mm_many', `dnl
+ifelse(`$#', `1', `', `dnl
+mk_lib_crypto_alg_stream_h_mm_one($1)dnl
+mk_lib_crypto_alg_stream_h_mm_many(shift($@))dnl
+')`'dnl
+')dnl
+include(`mk_lib_crypto_alg_stream.m')dnl
+mk_lib_crypto_alg_stream_h_mm_many(mk_lib_crypto_alg_stream_mm_half())dnl
+dnl
+dnl
+#if mk_lang_jumbo_have
+#include "mk_lib_crypto_alg_stream.c"
+#endif
+#endif
