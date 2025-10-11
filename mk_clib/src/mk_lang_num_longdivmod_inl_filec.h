@@ -179,22 +179,22 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lang_num_longdiv
 	n = mk_lang_num_longdivmod_inl_defd_lena - lena;
 	for(i = 0; i != n; ++i)
 	{
-		mk_lang_num_longdivmod_inl_defd_tn1_set_zero(&c[mk_lang_num_longdivmod_inl_defd_idxc(mk_lang_num_longdivmod_inl_defd_lenc - 1) - i]);
+		mk_lang_num_longdivmod_inl_defd_tn1_set_zero(&c[mk_lang_num_longdivmod_inl_defd_idxc((mk_lang_num_longdivmod_inl_defd_lenc - 1) - i)]);
 	}
 	n = mk_lang_num_longdivmod_inl_defd_lend - 1;
 	for(i = 0; i != n; ++i)
 	{
-		mk_lang_num_longdivmod_inl_defd_tn1_set_zero(&d[mk_lang_num_longdivmod_inl_defd_idxd(mk_lang_num_longdivmod_inl_defd_lend - 1) - i]);
+		mk_lang_num_longdivmod_inl_defd_tn1_set_zero(&d[mk_lang_num_longdivmod_inl_defd_idxd((mk_lang_num_longdivmod_inl_defd_lend - 1) - i)]);
 	}
 	if(lena == 1)
 	{
-		mk_lang_num_longdivmod_inl_defd_tn1_divmod4_wrap(&a[mk_lang_num_longdivmod_inl_defd_idxa(lena - 1) - 0], &b[mk_lang_num_longdivmod_inl_defd_idxb(0)], &c[mk_lang_num_longdivmod_inl_defd_idxc(lena - 1) - 0], &d[mk_lang_num_longdivmod_inl_defd_idxd(0)]);
+		mk_lang_num_longdivmod_inl_defd_tn1_divmod4_wrap(&a[mk_lang_num_longdivmod_inl_defd_idxa((lena - 1) - 0)], &b[mk_lang_num_longdivmod_inl_defd_idxb(0)], &c[mk_lang_num_longdivmod_inl_defd_idxc((lena - 1) - 0)], &d[mk_lang_num_longdivmod_inl_defd_idxd(0)]);
 	}
 	else
 	{
 		mk_lang_assert(lena >= 2);
 		mk_lang_num_longdivmod_inl_defd_tn1s_to_tn2(&b[mk_lang_num_longdivmod_inl_defd_idxa(0)], &tba);
-		mk_lang_num_longdivmod_inl_defd_tn1_divmod4_wrap(&a[mk_lang_num_longdivmod_inl_defd_idxa(lena - 1) - 0], &b[mk_lang_num_longdivmod_inl_defd_idxb(0)], &c[mk_lang_num_longdivmod_inl_defd_idxc((lena - 1) - 0)], &tsa);
+		mk_lang_num_longdivmod_inl_defd_tn1_divmod4_wrap(&a[mk_lang_num_longdivmod_inl_defd_idxa((lena - 1) - 0)], &b[mk_lang_num_longdivmod_inl_defd_idxb(0)], &c[mk_lang_num_longdivmod_inl_defd_idxc((lena - 1) - 0)], &tsa);
 		for(i = 1; i != lena - 1; ++i)
 		{
 			mk_lang_num_longdivmod_inl_defd_tn1d_to_tn2(&tsa, &a[mk_lang_num_longdivmod_inl_defd_idxa((lena - 1) - i)], &tbb);
