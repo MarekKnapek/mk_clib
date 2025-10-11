@@ -114,6 +114,7 @@ mk_lib_crypto_alg_stream_mm_recurse(`mk_lib_crypto_alg_stream_any1_c_mm_fnc_rw_c
 
 mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_stream_any1_pr_ptr_rw_encrypt(mk_lib_crypto_alg_stream_any1_ptr_pt const ptr, mk_lib_crypto_alg_stream_any1_id_t const id, mk_sl_cui_uint8_pct const input_buf, mk_lang_types_usize_t const input_len, mk_sl_cui_uint8_pt const output_buf, mk_lang_types_usize_t const output_len, mk_lang_types_usize_pt const output_used) mk_lang_noexcept
 {
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(ptr);
 	mk_lang_assert(id >= 0);
@@ -125,6 +126,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_s
 	mk_lang_assert(output_len >= input_len + (mk_lib_crypto_alg_stream_any1_pr_msg_len_v(id) - 1));
 	mk_lang_assert(output_used);
 	#include "mk_lang_warning_msvc_pop.h"
+	#include "mk_lang_warning_gcc_pop.h"
 
 	switch(id)
 	{
@@ -139,6 +141,7 @@ mk_lib_crypto_alg_stream_mm_recurse(`mk_lib_crypto_alg_stream_any1_c_mm_fnc_rw_c
 
 mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_stream_any1_pr_ptr_rw_decrypt(mk_lib_crypto_alg_stream_any1_ptr_pt const ptr, mk_lib_crypto_alg_stream_any1_id_t const id, mk_sl_cui_uint8_pct const input_buf, mk_lang_types_usize_t const input_len, mk_sl_cui_uint8_pt const output_buf, mk_lang_types_usize_t const output_len, mk_lang_types_usize_pt const output_used) mk_lang_noexcept
 {
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(ptr);
 	mk_lang_assert(id >= 0);
@@ -150,6 +153,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_s
 	mk_lang_assert(output_len >= input_len + (mk_lib_crypto_alg_stream_any1_pr_msg_len_v(id) - 1));
 	mk_lang_assert(output_used);
 	#include "mk_lang_warning_msvc_pop.h"
+	#include "mk_lang_warning_gcc_pop.h"
 
 	switch(id)
 	{
@@ -194,6 +198,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_s
 
 mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_stream_any1_pr_ptrid_rw_encrypt(mk_lib_crypto_alg_stream_any1_ptrid_pt const any1, mk_sl_cui_uint8_pct const input_buf, mk_lang_types_usize_t const input_len, mk_sl_cui_uint8_pt const output_buf, mk_lang_types_usize_t const output_len, mk_lang_types_usize_pt const output_used) mk_lang_noexcept
 {
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(any1);
 	mk_lang_assert(any1->m_id.m_data.m_id >= 0);
@@ -205,12 +210,14 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_s
 	mk_lang_assert(output_len >= input_len + (mk_lib_crypto_alg_stream_any1_pr_msg_len_v(any1->m_id.m_data.m_id) - 1));
 	mk_lang_assert(output_used);
 	#include "mk_lang_warning_msvc_pop.h"
+	#include "mk_lang_warning_gcc_pop.h"
 
 	mk_lib_crypto_alg_stream_any1_pr_ptr_rw_encrypt(&any1->m_ptr, any1->m_id.m_data.m_id, input_buf, input_len, output_buf, output_len, output_used);
 }
 
 mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_stream_any1_pr_ptrid_rw_decrypt(mk_lib_crypto_alg_stream_any1_ptrid_pt const any1, mk_sl_cui_uint8_pct const input_buf, mk_lang_types_usize_t const input_len, mk_sl_cui_uint8_pt const output_buf, mk_lang_types_usize_t const output_len, mk_lang_types_usize_pt const output_used) mk_lang_noexcept
 {
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(any1);
 	mk_lang_assert(any1->m_id.m_data.m_id >= 0);
@@ -222,6 +229,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_s
 	mk_lang_assert(output_len >= input_len + (mk_lib_crypto_alg_stream_any1_pr_msg_len_v(any1->m_id.m_data.m_id) - 1));
 	mk_lang_assert(output_used);
 	#include "mk_lang_warning_msvc_pop.h"
+	#include "mk_lang_warning_gcc_pop.h"
 
 	mk_lib_crypto_alg_stream_any1_pr_ptr_rw_decrypt(&any1->m_ptr, any1->m_id.m_data.m_id, input_buf, input_len, output_buf, output_len, output_used);
 }

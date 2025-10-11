@@ -95,6 +95,7 @@ mk_lib_crypto_alg_stream_mm_recurse(`mk_lib_crypto_alg_stream_any2_c_mm_fnc_cons
 
 mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_stream_any2_prrw_encrypt(mk_lib_crypto_alg_stream_any2_pt const any2, mk_sl_cui_uint8_pct const input_buf, mk_lang_types_usize_t const input_len, mk_sl_cui_uint8_pt const output_buf, mk_lang_types_usize_t const output_len, mk_lang_types_usize_pt const output_used) mk_lang_noexcept
 {
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(any2);
 	mk_lang_assert(any2->m_data.m_id.m_data.m_id >= 0);
@@ -106,6 +107,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_s
 	mk_lang_assert(output_len >= input_len + (mk_lib_crypto_alg_stream_any1_msg_len_v(any2->m_data.m_id.m_data.m_id) - 1));
 	mk_lang_assert(output_used);
 	#include "mk_lang_warning_msvc_pop.h"
+	#include "mk_lang_warning_gcc_pop.h"
 
 	switch(any2->m_data.m_id.m_data.m_id)
 	{
@@ -120,6 +122,7 @@ mk_lib_crypto_alg_stream_mm_recurse(`mk_lib_crypto_alg_stream_any2_c_mm_fnc_encr
 
 mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_stream_any2_prrw_decrypt(mk_lib_crypto_alg_stream_any2_pt const any2, mk_sl_cui_uint8_pct const input_buf, mk_lang_types_usize_t const input_len, mk_sl_cui_uint8_pt const output_buf, mk_lang_types_usize_t const output_len, mk_lang_types_usize_pt const output_used) mk_lang_noexcept
 {
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(any2);
 	mk_lang_assert(any2->m_data.m_id.m_data.m_id >= 0);
@@ -131,6 +134,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_s
 	mk_lang_assert(output_len >= input_len + (mk_lib_crypto_alg_stream_any1_msg_len_v(any2->m_data.m_id.m_data.m_id) - 1));
 	mk_lang_assert(output_used);
 	#include "mk_lang_warning_msvc_pop.h"
+	#include "mk_lang_warning_gcc_pop.h"
 
 	switch(any2->m_data.m_id.m_data.m_id)
 	{
