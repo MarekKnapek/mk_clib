@@ -165,12 +165,14 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_alg_aes_porta
 	mk_lib_crypto_alg_aes_portable_128_msg_t state mk_lang_constexpr_init;
 	mk_lang_types_sint_t ir mk_lang_constexpr_init;
 
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(schedule);
 	mk_lang_assert(input);
 	mk_lang_assert(output);
 	mk_lang_assert(count >= 0 && count <= mk_lang_limits_usize_max / mk_lib_crypto_alg_aes_portable_128_msg_len_v);
 	#include "mk_lang_warning_msvc_pop.h"
+	#include "mk_lang_warning_gcc_pop.h"
 
 	n = count;
 	for(i = 0; i != n; ++i)
@@ -198,12 +200,14 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_alg_aes_porta
 	mk_lib_crypto_alg_aes_portable_128_msg_t state mk_lang_constexpr_init;
 	mk_lang_types_sint_t ir mk_lang_constexpr_init;
 
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(schedule);
 	mk_lang_assert(input);
 	mk_lang_assert(output);
 	mk_lang_assert(count >= 0 && count <= mk_lang_limits_usize_max / mk_lib_crypto_alg_aes_portable_128_msg_len_v);
 	#include "mk_lang_warning_msvc_pop.h"
+	#include "mk_lang_warning_gcc_pop.h"
 
 	n = count;
 	for(i = 0; i != n; ++i)

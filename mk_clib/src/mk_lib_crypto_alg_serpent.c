@@ -155,6 +155,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_s
 	mk_lang_types_usize_t i mk_lang_constexpr_init;
 	mk_lib_crypto_alg_serpent_base_msg_t msgs[1] mk_lang_constexpr_init;
 
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(schedule);
 	mk_lang_assert(input);
@@ -162,6 +163,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_s
 	mk_lang_assert(nblocks >= 0);
 	mk_lang_assert(nblocks <= mk_lang_limits_usize_max / mk_lib_crypto_alg_serpent_msg_len_v);
 	#include "mk_lang_warning_msvc_pop.h"
+	#include "mk_lang_warning_gcc_pop.h"
 
 	m = mk_lang_countof(schedule->m_data.m_msgs);
 	for(j = 0; j != m; ++j)
@@ -194,6 +196,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_s
 	mk_lang_types_usize_t i mk_lang_constexpr_init;
 	mk_lib_crypto_alg_serpent_base_msg_t msgs[1] mk_lang_constexpr_init;
 
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(schedule);
 	mk_lang_assert(input);
@@ -201,6 +204,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_s
 	mk_lang_assert(nblocks >= 0);
 	mk_lang_assert(nblocks <= mk_lang_limits_usize_max / mk_lib_crypto_alg_serpent_msg_len_v);
 	#include "mk_lang_warning_msvc_pop.h"
+	#include "mk_lang_warning_gcc_pop.h"
 
 	m = mk_lang_countof(schedule->m_data.m_msgs);
 	for(j = 0; j != m; ++j)
@@ -233,6 +237,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_s
 	mk_lang_types_usize_t i mk_lang_constexpr_init;
 	mk_lib_crypto_alg_serpent_base_msg_t msgs[2] mk_lang_constexpr_init;
 
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(schedule);
 	mk_lang_assert(input);
@@ -240,6 +245,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_s
 	mk_lang_assert(nblocks >= 0);
 	mk_lang_assert(nblocks <= mk_lang_limits_usize_max / mk_lib_crypto_alg_serpent_msg_len_v);
 	#include "mk_lang_warning_msvc_pop.h"
+	#include "mk_lang_warning_gcc_pop.h"
 
 	m = mk_lang_countof(schedule->m_data.m_msgs);
 	for(j = 0; j != m; ++j)
@@ -272,6 +278,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_s
 	mk_lang_types_usize_t i mk_lang_constexpr_init;
 	mk_lib_crypto_alg_serpent_base_msg_t msgs[2] mk_lang_constexpr_init;
 
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(schedule);
 	mk_lang_assert(input);
@@ -279,6 +286,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_s
 	mk_lang_assert(nblocks >= 0);
 	mk_lang_assert(nblocks <= mk_lang_limits_usize_max / mk_lib_crypto_alg_serpent_msg_len_v);
 	#include "mk_lang_warning_msvc_pop.h"
+	#include "mk_lang_warning_gcc_pop.h"
 
 	m = mk_lang_countof(schedule->m_data.m_msgs);
 	for(j = 0; j != m; ++j)
@@ -309,6 +317,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_s
 	mk_lang_types_usize_t rem mk_lang_constexpr_init;
 	mk_lang_types_usize_t n mk_lang_constexpr_init;
 
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(schedule);
 	mk_lang_assert(input);
@@ -316,6 +325,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_s
 	mk_lang_assert(nblocks >= 0);
 	mk_lang_assert(nblocks <= mk_lang_limits_usize_max / mk_lib_crypto_alg_serpent_msg_len_v);
 	#include "mk_lang_warning_msvc_pop.h"
+	#include "mk_lang_warning_gcc_pop.h"
 
 	in = input;
 	out = output;
@@ -417,6 +427,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_s
 	mk_lang_types_usize_t rem mk_lang_constexpr_init;
 	mk_lang_types_usize_t n mk_lang_constexpr_init;
 
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(schedule);
 	mk_lang_assert(input);
@@ -424,6 +435,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_s
 	mk_lang_assert(nblocks >= 0);
 	mk_lang_assert(nblocks <= mk_lang_limits_usize_max / mk_lib_crypto_alg_serpent_msg_len_v);
 	#include "mk_lang_warning_msvc_pop.h"
+	#include "mk_lang_warning_gcc_pop.h"
 
 	in = input;
 	out = output;
@@ -531,7 +543,8 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_s
 	mk_sl_cui_uint32_pt pd mk_lang_constexpr_init;
 	mk_sl_cui_uint32_pt pe mk_lang_constexpr_init;
 
-	mk_lang_assert(sbox >= 0 && sbox < 8);
+	mk_lang_assert(sbox >= 0);
+	mk_lang_assert(sbox < 8);
 	mk_lang_assert(msg);
 
 	pa = &a;
@@ -637,6 +650,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_s
 
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_alg_serpent_schedule_encrypt(mk_lib_crypto_alg_serpent_schedule_pct const schedule, mk_lib_crypto_alg_serpent_msg_pct const input, mk_lib_crypto_alg_serpent_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(schedule);
 	mk_lang_assert(input);
@@ -644,12 +658,14 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_alg_serpent_s
 	mk_lang_assert(nblocks >= 0);
 	mk_lang_assert(nblocks <= mk_lang_limits_usize_max / mk_lib_crypto_alg_serpent_msg_len_v);
 	#include "mk_lang_warning_msvc_pop.h"
+	#include "mk_lang_warning_gcc_pop.h"
 
 	mk_lib_crypto_alg_serpent_schedule_encrypt_impl(schedule, input, output, nblocks);
 }
 
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_alg_serpent_schedule_decrypt(mk_lib_crypto_alg_serpent_schedule_pct const schedule, mk_lib_crypto_alg_serpent_msg_pct const input, mk_lib_crypto_alg_serpent_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(schedule);
 	mk_lang_assert(input);
@@ -657,6 +673,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_alg_serpent_s
 	mk_lang_assert(nblocks >= 0);
 	mk_lang_assert(nblocks <= mk_lang_limits_usize_max / mk_lib_crypto_alg_serpent_msg_len_v);
 	#include "mk_lang_warning_msvc_pop.h"
+	#include "mk_lang_warning_gcc_pop.h"
 
 	mk_lib_crypto_alg_serpent_schedule_decrypt_impl(schedule, input, output, nblocks);
 }

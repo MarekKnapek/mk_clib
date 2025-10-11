@@ -186,6 +186,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_attribute_target("sse2,aes") mk_lib_c
 	mk_lang_static_assert(mk_lang_alignof(mk_lib_crypto_alg_aes_x86_inl_defd_schedule_t) >= sizeof(__m128i));
 	mk_lang_static_assert(mk_lang_alignof(mk_lib_crypto_alg_aes_x86_inl_defd_msg_t) >= sizeof(__m128i));
 
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(schedule);
 	mk_lang_assert(input);
@@ -198,6 +199,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_attribute_target("sse2,aes") mk_lib_c
 	mk_lang_assert(mk_lang_cpuid_has_sse2());
 	mk_lang_assert(mk_lang_cpuid_has_aesni());
 	#include "mk_lang_warning_msvc_pop.h"
+	#include "mk_lang_warning_gcc_pop.h"
 
 	n = count;
 	for(i = 0; i != n; ++i)
@@ -242,6 +244,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_attribute_target("sse2,aes") mk_lib_c
 	mk_lang_static_assert(mk_lang_alignof(mk_lib_crypto_alg_aes_x86_inl_defd_schedule_t) >= sizeof(__m128i));
 	mk_lang_static_assert(mk_lang_alignof(mk_lib_crypto_alg_aes_x86_inl_defd_msg_t) >= sizeof(__m128i));
 
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(schedule);
 	mk_lang_assert(input);
@@ -254,6 +257,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_attribute_target("sse2,aes") mk_lib_c
 	mk_lang_assert(mk_lang_cpuid_has_sse2());
 	mk_lang_assert(mk_lang_cpuid_has_aesni());
 	#include "mk_lang_warning_msvc_pop.h"
+	#include "mk_lang_warning_gcc_pop.h"
 
 	n = count;
 	for(i = 0; i != n; ++i)
@@ -340,6 +344,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_attribute_target("sse2,avx,avx2,vaes"
 	mk_lang_static_assert(mk_lang_alignof(mk_lib_crypto_alg_aes_x86_inl_defd_schedule_t) >= sizeof(__m128i));
 	mk_lang_static_assert(mk_lang_alignof(mk_lib_crypto_alg_aes_x86_inl_defd_msg_t) >= sizeof(__m128i));
 
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(schedule);
 	mk_lang_assert(input);
@@ -355,6 +360,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_attribute_target("sse2,avx,avx2,vaes"
 	mk_lang_assert(mk_lang_cpuid_has_avx2());
 	mk_lang_assert(mk_lang_cpuid_has_vaes());
 	#include "mk_lang_warning_msvc_pop.h"
+	#include "mk_lang_warning_gcc_pop.h"
 
 	n = count;
 	for(i = 0; i != n; i += 2)
@@ -402,6 +408,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_attribute_target("sse2,avx,avx2,vaes"
 	mk_lang_static_assert(mk_lang_alignof(mk_lib_crypto_alg_aes_x86_inl_defd_schedule_t) >= sizeof(__m128i));
 	mk_lang_static_assert(mk_lang_alignof(mk_lib_crypto_alg_aes_x86_inl_defd_msg_t) >= sizeof(__m128i));
 
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(schedule);
 	mk_lang_assert(input);
@@ -417,6 +424,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_attribute_target("sse2,avx,avx2,vaes"
 	mk_lang_assert(mk_lang_cpuid_has_avx2());
 	mk_lang_assert(mk_lang_cpuid_has_vaes());
 	#include "mk_lang_warning_msvc_pop.h"
+	#include "mk_lang_warning_gcc_pop.h"
 
 	n = count;
 	for(i = 0; i != n; i += 2)
@@ -505,6 +513,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_attribute_target("sse2,avx,avx512f,va
 	mk_lang_static_assert(mk_lang_alignof(mk_lib_crypto_alg_aes_x86_inl_defd_schedule_t) >= sizeof(__m128i));
 	mk_lang_static_assert(mk_lang_alignof(mk_lib_crypto_alg_aes_x86_inl_defd_msg_t) >= sizeof(__m128i));
 
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(schedule);
 	mk_lang_assert(input);
@@ -520,6 +529,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_attribute_target("sse2,avx,avx512f,va
 	mk_lang_assert(mk_lang_cpuid_has_avx512_f());
 	mk_lang_assert(mk_lang_cpuid_has_vaes());
 	#include "mk_lang_warning_msvc_pop.h"
+	#include "mk_lang_warning_gcc_pop.h"
 
 	n = count;
 	for(i = 0; i != n; i += 4)
@@ -567,6 +577,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_attribute_target("sse2,avx,avx2,avx51
 	mk_lang_static_assert(mk_lang_alignof(mk_lib_crypto_alg_aes_x86_inl_defd_schedule_t) >= sizeof(__m128i));
 	mk_lang_static_assert(mk_lang_alignof(mk_lib_crypto_alg_aes_x86_inl_defd_msg_t) >= sizeof(__m128i));
 
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(schedule);
 	mk_lang_assert(input);
@@ -582,6 +593,7 @@ mk_lang_jumbo mk_lang_types_void_t mk_lang_attribute_target("sse2,avx,avx2,avx51
 	mk_lang_assert(mk_lang_cpuid_has_avx512_f());
 	mk_lang_assert(mk_lang_cpuid_has_vaes());
 	#include "mk_lang_warning_msvc_pop.h"
+	#include "mk_lang_warning_gcc_pop.h"
 
 	n = count;
 	for(i = 0; i != n; i += 4)

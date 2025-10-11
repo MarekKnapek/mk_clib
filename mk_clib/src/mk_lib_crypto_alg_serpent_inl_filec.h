@@ -982,6 +982,7 @@ mk_lib_crypto_alg_serpent_inl_defd_constexpr_spec mk_lang_jumbo mk_lang_types_vo
 	mk_lang_types_usize_t n mk_lib_crypto_alg_serpent_inl_defd_constexpr_init;
 	mk_lang_types_usize_t i mk_lib_crypto_alg_serpent_inl_defd_constexpr_init;
 
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(schedule);
 	mk_lang_assert(input);
@@ -990,6 +991,7 @@ mk_lib_crypto_alg_serpent_inl_defd_constexpr_spec mk_lang_jumbo mk_lang_types_vo
 	mk_lang_assert(count <= mk_lang_limits_usize_max / mk_lib_crypto_alg_serpent_base_msg_len_d);
 	mk_lang_assert(count % mk_lib_crypto_alg_serpent_inl_defd_cnt == 0);
 	#include "mk_lang_warning_msvc_pop.h"
+	#include "mk_lang_warning_gcc_pop.h"
 
 	n = count;
 	for(i = 0; i != n; i += mk_lib_crypto_alg_serpent_inl_defd_cnt)
@@ -1003,6 +1005,7 @@ mk_lib_crypto_alg_serpent_inl_defd_constexpr_spec mk_lang_jumbo mk_lang_types_vo
 	mk_lang_types_usize_t n mk_lib_crypto_alg_serpent_inl_defd_constexpr_init;
 	mk_lang_types_usize_t i mk_lib_crypto_alg_serpent_inl_defd_constexpr_init;
 
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(schedule);
 	mk_lang_assert(input);
@@ -1011,6 +1014,7 @@ mk_lib_crypto_alg_serpent_inl_defd_constexpr_spec mk_lang_jumbo mk_lang_types_vo
 	mk_lang_assert(count <= mk_lang_limits_usize_max / mk_lib_crypto_alg_serpent_base_msg_len_d);
 	mk_lang_assert(count % mk_lib_crypto_alg_serpent_inl_defd_cnt == 0);
 	#include "mk_lang_warning_msvc_pop.h"
+	#include "mk_lang_warning_gcc_pop.h"
 
 	n = count;
 	for(i = 0; i != n; i += mk_lib_crypto_alg_serpent_inl_defd_cnt)

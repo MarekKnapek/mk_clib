@@ -143,12 +143,14 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_alg_aes_256_s
 	mk_lib_crypto_alg_aes_256_msg_pt out mk_lang_constexpr_init;
 	mk_lang_types_usize_t rem mk_lang_constexpr_init;
 
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(schedule);
 	mk_lang_assert(input);
 	mk_lang_assert(output);
 	mk_lang_assert(nblocks >= 0 && nblocks <= mk_lang_limits_usize_max / mk_lib_crypto_alg_aes_256_msg_len_v);
 	#include "mk_lang_warning_msvc_pop.h"
+	#include "mk_lang_warning_gcc_pop.h"
 
 	#if mk_lib_crypto_alg_aes_256_x86_vaes512_test_ct
 	st_x86_vaes512 = mk_lib_crypto_alg_aes_256_x86_vaes512_test_st;
@@ -319,12 +321,14 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_alg_aes_256_s
 	mk_lib_crypto_alg_aes_256_msg_pt out mk_lang_constexpr_init;
 	mk_lang_types_usize_t rem mk_lang_constexpr_init;
 
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(schedule);
 	mk_lang_assert(input);
 	mk_lang_assert(output);
 	mk_lang_assert(nblocks >= 0 && nblocks <= mk_lang_limits_usize_max / mk_lib_crypto_alg_aes_256_msg_len_v);
 	#include "mk_lang_warning_msvc_pop.h"
+	#include "mk_lang_warning_gcc_pop.h"
 
 	#if mk_lib_crypto_alg_aes_256_x86_vaes512_test_ct
 	st_x86_vaes512 = mk_lib_crypto_alg_aes_256_x86_vaes512_test_st;

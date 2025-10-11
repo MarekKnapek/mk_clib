@@ -39,6 +39,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_alg_stream_in
 	mk_lang_types_usize_t free_space mk_lang_constexpr_init;
 	mk_lang_types_usize_t to_copy mk_lang_constexpr_init;
 
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(stream);
 	mk_lang_assert(input_buf || input_len == 0);
@@ -48,6 +49,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_alg_stream_in
 	mk_lang_assert(output_len >= input_len + (mk_lib_crypto_alg_stream_inl_defd_msg_len_v - 1));
 	mk_lang_assert(output_used);
 	#include "mk_lang_warning_msvc_pop.h"
+	#include "mk_lang_warning_gcc_pop.h"
 
 	in_ptr = input_buf;
 	in_rem = input_len;
@@ -105,6 +107,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_alg_stream_in
 	mk_lang_types_usize_t free_space mk_lang_constexpr_init;
 	mk_lang_types_usize_t to_copy mk_lang_constexpr_init;
 
+	#include "mk_lang_warning_gcc_push_type_limits.h"
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	mk_lang_assert(stream);
 	mk_lang_assert(input_buf || input_len == 0);
@@ -114,6 +117,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_alg_stream_in
 	mk_lang_assert(output_len >= input_len + (mk_lib_crypto_alg_stream_inl_defd_msg_len_v - 1));
 	mk_lang_assert(output_used);
 	#include "mk_lang_warning_msvc_pop.h"
+	#include "mk_lang_warning_gcc_pop.h"
 
 	in_ptr = input_buf;
 	in_rem = input_len;
