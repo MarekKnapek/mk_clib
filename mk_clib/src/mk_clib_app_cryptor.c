@@ -258,7 +258,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 	}
 	else
 	{
-		mk_lang_check_return(argc == 3);
+		mk_lang_check_return(argc == 4);
 		err = mk_clib_app_cryptor_work(argc, argv, lens); mk_lang_check_rereturn(err);
 	}
 	return 0;
