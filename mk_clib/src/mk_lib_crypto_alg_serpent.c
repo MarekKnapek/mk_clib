@@ -245,6 +245,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_s
 	mk_lang_assert(output);
 	mk_lang_assert(nblocks >= 0);
 	mk_lang_assert(nblocks <= mk_lang_limits_usize_max / mk_lib_crypto_alg_serpent_msg_len_v);
+	mk_lang_assert(nblocks % mk_lang_countof(msgs) == 0);
 	#include "mk_lang_warning_msvc_pop.h"
 	#include "mk_lang_warning_gcc_pop.h"
 
@@ -253,15 +254,15 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_s
 	{
 		mk_sl_cui_uint8_memcpy_fn(&sch.m_data.m_msgs[j].m_data.m_uint8s[0], &schedule->m_data.m_msgs[j].m_data.m_uint8s[0], mk_lib_crypto_alg_serpent_msg_len_v);
 	}
-	n = nblocks;
+	m = mk_lang_countof(msgs);
+	n = nblocks / m;
 	for(i = 0; i != n; ++i)
 	{
-		m = mk_lang_countof(msgs);
 		for(j = 0; j != m; ++j)
 		{
 			mk_sl_cui_uint8_memcpy_fn(&msgs[j].m_data.m_uint8s[0], &input[i * m + j].m_data.m_uint8s[0], mk_lib_crypto_alg_serpent_msg_len_v);
 		}
-		mk_lib_crypto_alg_serpent_64_encrypt_blocks(&sch, &msgs[0], &msgs[0], n);
+		mk_lib_crypto_alg_serpent_64_encrypt_blocks(&sch, &msgs[0], &msgs[0], m);
 		m = mk_lang_countof(msgs);
 		for(j = 0; j != m; ++j)
 		{
@@ -288,6 +289,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_s
 	mk_lang_assert(output);
 	mk_lang_assert(nblocks >= 0);
 	mk_lang_assert(nblocks <= mk_lang_limits_usize_max / mk_lib_crypto_alg_serpent_msg_len_v);
+	mk_lang_assert(nblocks % mk_lang_countof(msgs) == 0);
 	#include "mk_lang_warning_msvc_pop.h"
 	#include "mk_lang_warning_gcc_pop.h"
 
@@ -296,15 +298,15 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_s
 	{
 		mk_sl_cui_uint8_memcpy_fn(&sch.m_data.m_msgs[j].m_data.m_uint8s[0], &schedule->m_data.m_msgs[j].m_data.m_uint8s[0], mk_lib_crypto_alg_serpent_msg_len_v);
 	}
-	n = nblocks;
+	m = mk_lang_countof(msgs);
+	n = nblocks / m;
 	for(i = 0; i != n; ++i)
 	{
-		m = mk_lang_countof(msgs);
 		for(j = 0; j != m; ++j)
 		{
 			mk_sl_cui_uint8_memcpy_fn(&msgs[j].m_data.m_uint8s[0], &input[i * m + j].m_data.m_uint8s[0], mk_lib_crypto_alg_serpent_msg_len_v);
 		}
-		mk_lib_crypto_alg_serpent_64_decrypt_blocks(&sch, &msgs[0], &msgs[0], n);
+		mk_lib_crypto_alg_serpent_64_decrypt_blocks(&sch, &msgs[0], &msgs[0], m);
 		m = mk_lang_countof(msgs);
 		for(j = 0; j != m; ++j)
 		{
