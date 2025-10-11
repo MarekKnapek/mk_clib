@@ -37,7 +37,7 @@
 #define mk_sl_io_writer_file_impl_open_t mk_lang_concat(mk_lang_concat(mk_sl_io_writer_file_base, _open_), mk_lang_tchar_suffix)
 
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_writer_file_open_rw_construct_void(mk_sl_io_writer_file_pt const writer) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_writer_file_rw_construct_void(mk_sl_io_writer_file_pt const writer) mk_lang_noexcept
 {
 	mk_lang_types_sint_t ret;
 
