@@ -176,7 +176,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 	err = mk_sl_io_reader_file_close(&input_file); mk_lang_check_rereturn(err);
 	mk_lib_crypto_hash_stream_any2_finish(&hasher, &digest[0]);
 	err = mk_sl_speedometer_rw_destroy(&speedometer); mk_lang_check_rereturn(err);
-	id = 0; err = mk_clib_app_cryptor_print_digest(id, &digest[0]); mk_lang_check_rereturn(err);
+	id = ((mk_lib_crypto_hash_stream_any1_id_t)(0)); err = mk_clib_app_cryptor_print_digest(id, &digest[0]); mk_lang_check_rereturn(err);
 	return 0;
 }
 
