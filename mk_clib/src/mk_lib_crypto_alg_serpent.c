@@ -228,6 +228,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_s
 	}
 }
 
+#if mk_lib_crypto_alg_serpent_is_64_ct
 mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_64c_encrypt_blocks(mk_lib_crypto_alg_serpent_schedule_pct const schedule, mk_lib_crypto_alg_serpent_msg_pct const input, mk_lib_crypto_alg_serpent_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
 	mk_lang_types_sint_t m mk_lang_constexpr_init;
@@ -268,7 +269,9 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_s
 		}
 	}
 }
+#endif
 
+#if mk_lib_crypto_alg_serpent_is_64_ct
 mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_64c_decrypt_blocks(mk_lib_crypto_alg_serpent_schedule_pct const schedule, mk_lib_crypto_alg_serpent_msg_pct const input, mk_lib_crypto_alg_serpent_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
 	mk_lang_types_sint_t m mk_lang_constexpr_init;
@@ -309,6 +312,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_s
 		}
 	}
 }
+#endif
 
 mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_serpent_schedule_encrypt_impl(mk_lib_crypto_alg_serpent_schedule_pct const schedule, mk_lib_crypto_alg_serpent_msg_pct const input, mk_lib_crypto_alg_serpent_msg_pt const output, mk_lang_types_usize_t const nblocks) mk_lang_noexcept
 {
