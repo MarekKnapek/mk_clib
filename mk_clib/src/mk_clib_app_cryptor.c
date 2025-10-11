@@ -144,7 +144,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 	mk_lib_crypto_alg_stream_any2_rw_construct(&stream, id);
 	key_len = mk_lib_crypto_alg_stream_any2_ro_get_key_len(&stream); mk_lang_assert(key_len == 16 || key_len == 24 || key_len == 32);
 	mk_sl_cui_uint8_set_max(&ff);
-	mk_sl_cui_uint8_memset_fn(&key.m_data.m_uint8s[0], &ff, key_len);
+	mk_sl_cui_uint8_memset_fn(&key.m_data.m_uint8s[0], &ff, ((mk_lang_types_usize_t)(key_len)));
 	mk_lib_crypto_alg_stream_any2_rw_construct_encrypt(&stream, &key);
 	ptr = ((mk_sl_cui_uint8_pt)(mk_lang_roundup_align(&buff.m_data.m_uchars[0], mk_clib_app_cryptor_buff_algn)));
 	err = mk_sl_io_reader_file_open_t(&input_file, arg_input_name_buf); mk_lang_check_rereturn(err);
@@ -178,7 +178,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 {
 	mk_lang_types_sint_t n;
 	mk_lang_types_sint_t i;
-	mk_lib_crypto_alg_stream_any1_id_t id;
+	mk_lib_crypto_alg_stream_names_id_t id;
 	mk_lang_types_pchar_pct str;
 	mk_lang_types_sint_t len;
 	mk_lang_types_sint_t slen;
@@ -188,7 +188,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 	n = mk_lib_crypto_alg_stream_any1_id_e_dummy_end;
 	for(i = 0; i != n; ++i)
 	{
-		id = ((mk_lib_crypto_alg_stream_any1_id_t)(i));
+		id = ((mk_lib_crypto_alg_stream_names_id_t)(i));
 		str = mk_lib_crypto_alg_stream_names_get_str_buf(id); mk_lang_assert(str); mk_lang_assert(str[0] != '\0');
 		len = mk_lib_crypto_alg_stream_names_get_str_len(id); mk_lang_assert(len >= 1); mk_lang_assert(len <= 0xff);
 		slen = mk_lib_fmt_t_snnprintf(&buf[0], mk_lang_countof(buf), mk_lib_fmt_lit_and_len(mk_lang_tchar_c(" %n")), str, len); mk_lang_check_return(slen >= 1);
