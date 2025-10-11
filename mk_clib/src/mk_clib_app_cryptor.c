@@ -162,7 +162,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 			break;
 		}
 		//mk_lib_crypto_alg_aes_128_schedule_encrypt(&schedule, input, output, count);
-		mk_lib_crypto_alg_stream_aes_128_rw_encrypt(&stream, ptr, read, ptr, mk_clib_app_cryptor_buff_size + 16, &encrypted);
+		mk_lib_crypto_alg_stream_aes_128_rw_encrypt(&stream, ptr, ((mk_lang_types_usize_t)(read)), ptr, mk_clib_app_cryptor_buff_size + 16, &encrypted);
 		err = mk_sl_speedometer_rw_append(&speedometer, read); mk_lang_check_rereturn(err);
 		err = mk_sl_speedometer_rw_report(&speedometer, &progress_str_a[0], mk_lang_countof(progress_str_a), &want, &len); mk_lang_check_rereturn(err); mk_lang_assert(!want || len >= 1); mk_lang_assert(!want || len <= mk_lang_countof(progress_str_a));
 		if(want)
