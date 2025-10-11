@@ -15,11 +15,19 @@
 #include "mk_sl_cui_uint8.h"
 
 #include <fcntl.h> /* open */
-#include <unistd.h> /* read lseek close */
+#include <unistd.h> /* write close */
 
 
 #define mk_sl_io_writer_file_linux_is_valid(x) ((x) >= 0)
 
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_writer_file_linux_rw_construct_void(mk_sl_io_writer_file_linux_pt const writer) mk_lang_noexcept
+{
+	mk_lang_assert(writer);
+
+	writer->m_file_handle = -1;
+	return 0;
+}
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_writer_file_linux_open_n(mk_sl_io_writer_file_linux_pt const writer, mk_lang_types_pchar_pct const name) mk_lang_noexcept
 {
@@ -28,7 +36,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_writer_file_linux_
 	mk_lang_assert(writer);
 	mk_lang_assert(name && name[0] != '\0');
 
-	handle = open(name, O_RDONLY | O_CLOEXEC); mk_lang_check_return(handle >= 0);
+	handle = open(name, O_CREAT | O_WRONLY | O_TRUNC | O_CLOEXEC, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH); mk_lang_check_return(mk_sl_io_writer_file_linux_is_valid(handle));
 	writer->m_file_handle = handle;
 	return 0;
 }
@@ -43,30 +51,18 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_writer_file_linux_
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_writer_file_linux_read(mk_sl_io_writer_file_linux_pt const writer, mk_sl_cui_uint8_pt const buf, mk_lang_types_sint_t const len, mk_lang_types_sint_pt const read_) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_writer_file_linux_write(mk_sl_io_writer_file_linux_pt const writer, mk_sl_cui_uint8_pct const buf, mk_lang_types_sint_t const len, mk_lang_types_sint_pt const written) mk_lang_noexcept
 {
-	ssize_t r;
+	ssize_t w;
 
 	mk_lang_assert(writer);
 	mk_lang_assert(buf);
-	mk_lang_assert(len >= 1);
-	mk_lang_assert(read);
+	mk_lang_assert(len >= 0);
+	mk_lang_assert(written);
 	mk_lang_assert(mk_sl_io_writer_file_linux_is_valid(writer->m_file_handle));
 
-	r = read(writer->m_file_handle, buf, len); mk_lang_check_return(r >= 0);
-	*read_ = ((mk_lang_types_sint_t)(r));
-	return 0;
-}
-
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_writer_file_linux_seek_rel(mk_sl_io_writer_file_linux_pt const writer, mk_lang_types_slong_t const offset) mk_lang_noexcept
-{
-	off_t r;
-
-	mk_lang_assert(writer);
-	mk_lang_assert(offset != 0);
-	mk_lang_assert(mk_sl_io_writer_file_linux_is_valid(writer->m_file_handle));
-
-	r = lseek(writer->m_file_handle, ((off_t)(offset)), SEEK_CUR); mk_lang_check_return(r != ((off_t)(-1)));
+	w = write(writer->m_file_handle, buf, len); mk_lang_check_return(w >= 0);
+	*written = ((mk_lang_types_sint_t)(w));
 	return 0;
 }
 
@@ -78,6 +74,17 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_writer_file_linux_
 	mk_lang_assert(mk_sl_io_writer_file_linux_is_valid(writer->m_file_handle));
 
 	r = close(writer->m_file_handle); mk_lang_check_return(r == 0);
+	return 0;
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_writer_file_linux_rw_reset(mk_sl_io_writer_file_linux_pt const writer) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(writer);
+
+	err = mk_sl_io_writer_file_linux_close(writer); mk_lang_check_rereturn(err);
+	err = mk_sl_io_writer_file_linux_rw_construct_void(writer); mk_lang_check_rereturn(err);
 	return 0;
 }
 
