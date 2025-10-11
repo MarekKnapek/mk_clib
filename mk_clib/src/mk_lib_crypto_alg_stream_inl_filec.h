@@ -144,7 +144,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_lib_crypto_alg_stream_in
 			in_rem -= cnt_base * mk_lib_crypto_alg_stream_inl_defd_msg_len_v;
 			out_rem -= cnt_base * mk_lib_crypto_alg_stream_inl_defd_msg_len_v;
 		}
-		free_space = mk_lib_crypto_alg_stream_inl_defd_msg_len_v - stream->m_idx;
+		free_space = ((mk_lang_types_usize_t)(mk_lib_crypto_alg_stream_inl_defd_msg_len_v - stream->m_idx));
 		to_copy = mk_lang_min(free_space, in_rem);
 		mk_sl_cui_uint8_memcpy_fn(&stream->m_msg.m_data.m_base.m_data.m_uint8s[stream->m_idx], in_ptr, to_copy);
 		in_ptr += to_copy;
