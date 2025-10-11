@@ -63,6 +63,8 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_command_line_parse_
 	mk_lang_types_wchar_pct ptr;
 	mk_lang_types_wchar_pct arg;
 	mk_lang_types_sint_t len;
+	mk_lang_types_sint_t n;
+	mk_lang_types_sint_t i;
 
 	mk_lang_assert(cmdline);
 	mk_lang_assert(cmdline[0] != L'\0');
@@ -116,6 +118,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_command_line_parse_
 		{
 			break;
 		}
+	}
+	n = curr_argc;
+	for(i = 0; i != n; ++i)
+	{
+		((mk_lang_types_wchar_pt)(argv[i]))[lens[i]] = L'\0';
 	}
 	*argc = curr_argc;
 	return 0;
