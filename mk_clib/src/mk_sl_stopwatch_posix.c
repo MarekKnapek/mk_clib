@@ -73,7 +73,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_stopwatch_posix_times
 	mk_sl_cui_uint64_from_bi_ulong(&tu64_b, &tul_b);
 	mk_sl_cui_uint64_from_bi_ulong(&tu64_c, &tul_c);
 	mk_sl_cui_uint64_mul2_wrap_lo(&tu64_a, &tu64_c);
-	mk_sl_cui_uint64_or2(&tu64_a, &tu64_b);
+	mk_sl_cui_uint64_add2_wrap_cid_cod(&tu64_a, &tu64_b);
 	mk_sl_stopwatch_posix_timestamp_from_base(timestamp, &tu64_a);
 	return 0;
 }
