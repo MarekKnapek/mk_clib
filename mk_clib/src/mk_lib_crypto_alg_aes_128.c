@@ -29,6 +29,7 @@
 	( \
 		(mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1) || \
 		(mk_lang_compiler_is_at_least_gcc(11, 1)) || \
+		(mk_lang_compiler_is_at_least_clang(18, 1)) /* todo exact vesion */ || \
 		0 \
 	) && \
 	( \
@@ -62,6 +63,7 @@
 	( \
 		(mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1) || \
 		(mk_lang_compiler_is_at_least_gcc(11, 1)) || \
+		(mk_lang_compiler_is_at_least_clang(18, 1)) /* todo exact vesion */ || \
 		0 \
 	) && \
 	( \
@@ -95,6 +97,7 @@
 	( \
 		(mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1) || \
 		(mk_lang_compiler_is_at_least_gcc(6, 1)) || \
+		(mk_lang_compiler_is_at_least_clang(18, 1)) /* todo exact vesion */ || \
 		0 \
 	) && \
 	( \

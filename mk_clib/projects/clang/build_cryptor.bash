@@ -12,6 +12,6 @@ else
 	mk_exe_name_suffix=".elf"
 fi
 clang++ -std=c++20 -O3 -g0 -static -fPIE -s -DNDEBUG -Dmk_lang_jumbo_want=1 -Wall -Wextra -Wno-assume -o "${mk_this_dir}"/cryptor"${mk_exe_name_suffix}" "${mk_app_dir}"/cryptor.cpp
-#clang++ -O0 -ggdb -g3 -static -fPIE -Dmk_lang_jumbo_want=1 -Wall -Wextra -Wno-assume -o "${mk_this_dir}"/cryptor"${mk_exe_name_suffix}" "${mk_app_dir}"/cryptor.cpp
+#clang++ -std=c++20 -O0 -ggdb -g3 -static -fPIE -DDEBUG -Dmk_lang_jumbo_want=1 -Wall -Wextra -Wno-assume -o "${mk_this_dir}"/cryptor"${mk_exe_name_suffix}" "${mk_app_dir}"/cryptor.cpp
 strip "${mk_this_dir}"/cryptor"${mk_exe_name_suffix}"
 rm -rf "${mk_app_dir}"/cryptor.cpp

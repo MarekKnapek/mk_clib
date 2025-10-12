@@ -46,6 +46,7 @@
 	( \
 		(mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1) || \
 		(mk_lang_compiler_is_at_least_gcc(4, 8)) || \
+		(mk_lang_compiler_is_at_least_clang(18, 1)) /* todo exact vesion */ || \
 		0 \
 	) && \
 	( \
@@ -73,6 +74,7 @@
 	( \
 		(mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1) || \
 		(mk_lang_compiler_is_at_least_gcc(4, 8)) || \
+		(mk_lang_compiler_is_at_least_clang(18, 1)) /* todo exact vesion */ || \
 		0 \
 	) && \
 	( \
@@ -101,6 +103,7 @@
 	( \
 		(mk_lang_msvc_full_ver >= mk_lang_msvc_full_ver_2008_sp_1) || \
 		(mk_lang_compiler_is_at_least_gcc(5, 1)) || \
+		(mk_lang_compiler_is_at_least_clang(18, 1)) /* todo exact vesion */ || \
 		0 \
 	) && \
 	( \
@@ -262,7 +265,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_s
 		{
 			mk_sl_cui_uint8_memcpy_fn(&msgs[j].m_data.m_uint8s[0], &input[i * m + j].m_data.m_uint8s[0], mk_lib_crypto_alg_serpent_msg_len_v);
 		}
-		mk_lib_crypto_alg_serpent_64_encrypt_blocks(&sch, &msgs[0], &msgs[0], m);
+		mk_lib_crypto_alg_serpent_64_encrypt_blocks(&sch, &msgs[0], &msgs[0], ((mk_lang_types_usize_t)(m)));
 		m = mk_lang_countof(msgs);
 		for(j = 0; j != m; ++j)
 		{
@@ -306,7 +309,7 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_lib_crypto_alg_s
 		{
 			mk_sl_cui_uint8_memcpy_fn(&msgs[j].m_data.m_uint8s[0], &input[i * m + j].m_data.m_uint8s[0], mk_lib_crypto_alg_serpent_msg_len_v);
 		}
-		mk_lib_crypto_alg_serpent_64_decrypt_blocks(&sch, &msgs[0], &msgs[0], m);
+		mk_lib_crypto_alg_serpent_64_decrypt_blocks(&sch, &msgs[0], &msgs[0], ((mk_lang_types_usize_t)(m)));
 		m = mk_lang_countof(msgs);
 		for(j = 0; j != m; ++j)
 		{

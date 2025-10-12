@@ -3,6 +3,7 @@
 
 
 #include "mk_lang_arch.h"
+#include "mk_lang_builtin.h"
 #include "mk_lang_compiler.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_msvc.h"
@@ -51,7 +52,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_vaes(mk_l
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_lang_cpuid_has_sha512(mk_lang_types_void_t) mk_lang_noexcept;
 
 
-#elif mk_lang_compiler_is_at_least_gcc(4, 1) && (mk_lang_arch_is_x8632 || mk_lang_arch_is_x8664)
+#elif (mk_lang_compiler_is_at_least_gcc(4, 1) || mk_lang_builtin_has_cpu_supports) && (mk_lang_arch_is_x8632 || mk_lang_arch_is_x8664)
 
 
 #include "mk_lang_nodiscard.h"
