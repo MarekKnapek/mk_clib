@@ -34,6 +34,11 @@ Project("{8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942}") = "mk_clib_cryptor", "mk_clib_
 		{57a9987d-aa37-4864-9e5c-43b313f158cb} = {57a9987d-aa37-4864-9e5c-43b313f158cb}
 	EndProjectSection
 EndProject
+Project("{8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942}") = "mk_clib_order", "mk_clib_order\mk_clib_order.vcxproj", "{717e0793-118a-475b-bafb-4a8ae06c24d7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{57a9987d-aa37-4864-9e5c-43b313f158cb} = {57a9987d-aa37-4864-9e5c-43b313f158cb}
+	EndProjectSection
+EndProject
 Project("{8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942}") = "mk_clib_iip", "mk_clib_iip\mk_clib_iip.vcxproj", "{527a6bfd-92d3-4fbd-9d8f-3e43e3ca1cd3}"
 	ProjectSection(ProjectDependencies) = postProject
 		{57a9987d-aa37-4864-9e5c-43b313f158cb} = {57a9987d-aa37-4864-9e5c-43b313f158cb}
@@ -313,6 +318,41 @@ Global
 		{a17227d5-d70e-4387-8a9f-f364b65088a6}.ReleaseClang|ARM64.ActiveCfg = ReleaseC|ARM64
 		{a17227d5-d70e-4387-8a9f-f364b65088a6}.DebugClang|ARM64EC.ActiveCfg = DebugMSVC|ARM64EC
 		{a17227d5-d70e-4387-8a9f-f364b65088a6}.ReleaseClang|ARM64EC.ActiveCfg = ReleaseC|ARM64EC
+
+		{717e0793-118a-475b-bafb-4a8ae06c24d7}.DebugMSVC|Win32.ActiveCfg = DebugMSVC|Win32
+		{717e0793-118a-475b-bafb-4a8ae06c24d7}.DebugMSVC|Win32.Build.0 = DebugMSVC|Win32
+		{717e0793-118a-475b-bafb-4a8ae06c24d7}.ReleaseMSVC|Win32.ActiveCfg = ReleaseMSVC|Win32
+		{717e0793-118a-475b-bafb-4a8ae06c24d7}.ReleaseMSVC|Win32.Build.0 = ReleaseMSVC|Win32
+		{717e0793-118a-475b-bafb-4a8ae06c24d7}.DebugMSVC|x64.ActiveCfg = DebugMSVC|x64
+		{717e0793-118a-475b-bafb-4a8ae06c24d7}.DebugMSVC|x64.Build.0 = DebugMSVC|x64
+		{717e0793-118a-475b-bafb-4a8ae06c24d7}.ReleaseMSVC|x64.ActiveCfg = ReleaseMSVC|x64
+		{717e0793-118a-475b-bafb-4a8ae06c24d7}.ReleaseMSVC|x64.Build.0 = ReleaseMSVC|x64
+		{717e0793-118a-475b-bafb-4a8ae06c24d7}.DebugMSVC|ARM.ActiveCfg = DebugMSVC|ARM
+		{717e0793-118a-475b-bafb-4a8ae06c24d7}.DebugMSVC|ARM.Build.0 = DebugMSVC|ARM
+		{717e0793-118a-475b-bafb-4a8ae06c24d7}.ReleaseMSVC|ARM.ActiveCfg = ReleaseMSVC|ARM
+		{717e0793-118a-475b-bafb-4a8ae06c24d7}.ReleaseMSVC|ARM.Build.0 = ReleaseMSVC|ARM
+		{717e0793-118a-475b-bafb-4a8ae06c24d7}.DebugMSVC|ARM64.ActiveCfg = DebugMSVC|ARM64
+		{717e0793-118a-475b-bafb-4a8ae06c24d7}.DebugMSVC|ARM64.Build.0 = DebugMSVC|ARM64
+		{717e0793-118a-475b-bafb-4a8ae06c24d7}.ReleaseMSVC|ARM64.ActiveCfg = ReleaseMSVC|ARM64
+		{717e0793-118a-475b-bafb-4a8ae06c24d7}.ReleaseMSVC|ARM64.Build.0 = ReleaseMSVC|ARM64
+		{717e0793-118a-475b-bafb-4a8ae06c24d7}.DebugMSVC|ARM64EC.ActiveCfg = DebugMSVC|ARM64EC
+		{717e0793-118a-475b-bafb-4a8ae06c24d7}.DebugMSVC|ARM64EC.Build.0 = DebugMSVC|ARM64EC
+		{717e0793-118a-475b-bafb-4a8ae06c24d7}.ReleaseMSVC|ARM64EC.ActiveCfg = ReleaseMSVC|ARM64EC
+		{717e0793-118a-475b-bafb-4a8ae06c24d7}.ReleaseMSVC|ARM64EC.Build.0 = ReleaseMSVC|ARM64EC
+		{717e0793-118a-475b-bafb-4a8ae06c24d7}.DebugClang|Win32.ActiveCfg = DebugClang|Win32
+		{717e0793-118a-475b-bafb-4a8ae06c24d7}.DebugClang|Win32.Build.0 = DebugClang|Win32
+		{717e0793-118a-475b-bafb-4a8ae06c24d7}.ReleaseClang|Win32.ActiveCfg = ReleaseClang|Win32
+		{717e0793-118a-475b-bafb-4a8ae06c24d7}.ReleaseClang|Win32.Build.0 = ReleaseClang|Win32
+		{717e0793-118a-475b-bafb-4a8ae06c24d7}.DebugClang|x64.ActiveCfg = DebugClang|x64
+		{717e0793-118a-475b-bafb-4a8ae06c24d7}.DebugClang|x64.Build.0 = DebugClang|x64
+		{717e0793-118a-475b-bafb-4a8ae06c24d7}.ReleaseClang|x64.ActiveCfg = ReleaseClang|x64
+		{717e0793-118a-475b-bafb-4a8ae06c24d7}.ReleaseClang|x64.Build.0 = ReleaseClang|x64
+		{717e0793-118a-475b-bafb-4a8ae06c24d7}.DebugClang|ARM.ActiveCfg = DebugMSVC|ARM
+		{717e0793-118a-475b-bafb-4a8ae06c24d7}.ReleaseClang|ARM.ActiveCfg = ReleaseC|ARM
+		{717e0793-118a-475b-bafb-4a8ae06c24d7}.DebugClang|ARM64.ActiveCfg = DebugMSVC|ARM64
+		{717e0793-118a-475b-bafb-4a8ae06c24d7}.ReleaseClang|ARM64.ActiveCfg = ReleaseC|ARM64
+		{717e0793-118a-475b-bafb-4a8ae06c24d7}.DebugClang|ARM64EC.ActiveCfg = DebugMSVC|ARM64EC
+		{717e0793-118a-475b-bafb-4a8ae06c24d7}.ReleaseClang|ARM64EC.ActiveCfg = ReleaseC|ARM64EC
 
 		{527a6bfd-92d3-4fbd-9d8f-3e43e3ca1cd3}.DebugMSVC|Win32.ActiveCfg = DebugMSVC|Win32
 		{527a6bfd-92d3-4fbd-9d8f-3e43e3ca1cd3}.DebugMSVC|Win32.Build.0 = DebugMSVC|Win32
