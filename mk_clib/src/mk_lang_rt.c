@@ -12,6 +12,7 @@
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
+#include "mk_win_base.h"
 #include "mk_win_dll_ntdll.h"
 
 
@@ -41,6 +42,11 @@ mk_lang_extern_force_c mk_lang_types_sint_t mk_lang_rt_memcmp(mk_lang_types_void
 		)
 	);
 	return cmp;
+}
+
+mk_lang_extern_force_c mk_lang_noreturn mk_lang_types_void_t mk_win_base_cdecl mk_lang_rt_terminate(mk_lang_types_void_pct const x) mk_lang_noexcept
+{
+	((mk_lang_types_void_t)(x));
 }
 
 

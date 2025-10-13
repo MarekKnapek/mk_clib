@@ -30,14 +30,20 @@
 	<ImportGroup Label="PropertySheets"><Import Project="$(MSBuildThisFileDirectory)..\mk_clib_slib\b.props"/></ImportGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.props"/>
 	<ImportGroup Label="PropertySheets"><Import Project="$(MSBuildThisFileDirectory)..\mk_clib_slib\c.props"/></ImportGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseMSVC|x64'">
+		<ClCompile>
+			<ExceptionHandling>Sync</ExceptionHandling>
+		</ClCompile>
+	</ItemDefinitionGroup>
 	<ItemGroup>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\app\order.c"/>
-		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_abort_win_amd64.asm"><ExcludedFromBuild Condition="!('$(mk_is_intel)' == 'true' And '$(mk_is_release)' == 'true' And '$(mk_is_64bit)' == 'true')">true</ExcludedFromBuild><UseSafeExceptionHandlers Condition="'$(mk_is_32bit)'=='true'">true</UseSafeExceptionHandlers></MASM>
 		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_abort_win_i386.asm"><ExcludedFromBuild Condition="!('$(mk_is_intel)' == 'true' And '$(mk_is_release)' == 'true' And '$(mk_is_32bit)' == 'true')">true</ExcludedFromBuild><UseSafeExceptionHandlers Condition="'$(mk_is_32bit)'=='true'">true</UseSafeExceptionHandlers></MASM>
 		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcpy_win_amd64.asm"><ExcludedFromBuild Condition="!('$(mk_is_intel)' == 'true' And '$(mk_is_release)' == 'true' And '$(mk_is_64bit)' == 'true')">true</ExcludedFromBuild><UseSafeExceptionHandlers Condition="'$(mk_is_32bit)'=='true'">true</UseSafeExceptionHandlers></MASM>
 		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcpy_win_i386.asm"><ExcludedFromBuild Condition="!('$(mk_is_intel)' == 'true' And '$(mk_is_release)' == 'true' And '$(mk_is_32bit)' == 'true')">true</ExcludedFromBuild><UseSafeExceptionHandlers Condition="'$(mk_is_32bit)'=='true'">true</UseSafeExceptionHandlers></MASM>
 		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memset_win_amd64.asm"><ExcludedFromBuild Condition="!('$(mk_is_intel)' == 'true' And '$(mk_is_release)' == 'true' And '$(mk_is_64bit)' == 'true')">true</ExcludedFromBuild><UseSafeExceptionHandlers Condition="'$(mk_is_32bit)'=='true'">true</UseSafeExceptionHandlers></MASM>
 		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memset_win_i386.asm"><ExcludedFromBuild Condition="!('$(mk_is_intel)' == 'true' And '$(mk_is_release)' == 'true' And '$(mk_is_32bit)' == 'true')">true</ExcludedFromBuild><UseSafeExceptionHandlers Condition="'$(mk_is_32bit)'=='true'">true</UseSafeExceptionHandlers></MASM>
+		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_terminate_win_amd64.asm"><ExcludedFromBuild Condition="!('$(mk_is_intel)' == 'true' And '$(mk_is_release)' == 'true' And '$(mk_is_64bit)' == 'true')">true</ExcludedFromBuild><UseSafeExceptionHandlers Condition="'$(mk_is_32bit)'=='true'">true</UseSafeExceptionHandlers></MASM>
+		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_abort_win_amd64.asm"><ExcludedFromBuild Condition="!('$(mk_is_intel)' == 'true' And '$(mk_is_release)' == 'true' And '$(mk_is_64bit)' == 'true')">true</ExcludedFromBuild><UseSafeExceptionHandlers Condition="'$(mk_is_32bit)'=='true'">true</UseSafeExceptionHandlers></MASM>
 	</ItemGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
 	<ImportGroup Label="ExtensionTargets">
