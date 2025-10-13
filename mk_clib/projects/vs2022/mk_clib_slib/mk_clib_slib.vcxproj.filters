@@ -1553,4 +1553,10 @@
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_order.c"><Filter>src</Filter></ClCompile>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_order.h"><Filter>src</Filter></ClCompile>
 	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_directory_iterator.c"><Filter>src</Filter></ClCompile>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_directory_iterator_windows.c"><Filter>src</Filter></ClCompile>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_directory_iterator.h"><Filter>src</Filter></ClCompile>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_directory_iterator_windows.h"><Filter>src</Filter></ClCompile>
+	</ItemGroup>
 </Project>

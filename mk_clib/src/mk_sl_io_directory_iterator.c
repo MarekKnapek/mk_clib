@@ -3,107 +3,68 @@
 #include "mk_sl_io_directory_iterator.h"
 
 #include "mk_lang_assert.h"
-#include "mk_lang_concat.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
-#include "mk_lang_platform.h"
-#include "mk_lang_tchar.h"
 #include "mk_lang_types.h"
-#include "mk_sl_cui_uint8.h"
 
 
-#if mk_lang_platform_is_windows_at_least_any
-#include "mk_sl_io_directory_iterator_windows.h"
-#define mk_sl_io_directory_iterator_impl_open_n   mk_sl_io_directory_iterator_windows_open_n
-#define mk_sl_io_directory_iterator_impl_open_w   mk_sl_io_directory_iterator_windows_open_w
-#define mk_sl_io_directory_iterator_impl_read     mk_sl_io_directory_iterator_windows_read
-#define mk_sl_io_directory_iterator_impl_seek_rel mk_sl_io_directory_iterator_windows_seek_rel
-#define mk_sl_io_directory_iterator_impl_close    mk_sl_io_directory_iterator_windows_close
-#elif mk_lang_platform_is_linux
-#include "mk_sl_io_directory_iterator_linux.h"
-#define mk_sl_io_directory_iterator_impl_open_n   mk_sl_io_directory_iterator_linux_open_n
-#define mk_sl_io_directory_iterator_impl_open_w   mk_sl_io_directory_iterator_linux_open_w
-#define mk_sl_io_directory_iterator_impl_read     mk_sl_io_directory_iterator_linux_read
-#define mk_sl_io_directory_iterator_impl_seek_rel mk_sl_io_directory_iterator_linux_seek_rel
-#define mk_sl_io_directory_iterator_impl_close    mk_sl_io_directory_iterator_linux_close
-#elif mk_lang_platform_is_posix_at_least_any
-#include "mk_sl_io_directory_iterator_posix.h"
-#define mk_sl_io_directory_iterator_impl_open_n   mk_sl_io_directory_iterator_posix_open_n
-#define mk_sl_io_directory_iterator_impl_open_w   mk_sl_io_directory_iterator_posix_open_w
-#define mk_sl_io_directory_iterator_impl_read     mk_sl_io_directory_iterator_posix_read
-#define mk_sl_io_directory_iterator_impl_seek_rel mk_sl_io_directory_iterator_posix_seek_rel
-#define mk_sl_io_directory_iterator_impl_close    mk_sl_io_directory_iterator_posix_close
-#elif mk_lang_platform_is_portable
-#include "mk_sl_io_directory_iterator_portable.h"
-#define mk_sl_io_directory_iterator_impl_open_n   mk_sl_io_directory_iterator_portable_open_n
-#define mk_sl_io_directory_iterator_impl_open_w   mk_sl_io_directory_iterator_portable_open_w
-#define mk_sl_io_directory_iterator_impl_read     mk_sl_io_directory_iterator_portable_read
-#define mk_sl_io_directory_iterator_impl_seek_rel mk_sl_io_directory_iterator_portable_seek_rel
-#define mk_sl_io_directory_iterator_impl_close    mk_sl_io_directory_iterator_portable_close
-#else
-#error xxxxxxxxxx
-#endif
+#define mk_sl_io_directory_iterator_impl_rw_construct_void mk_lang_concat(mk_lang_concat(mk_sl_io_directory_iterator_, mk_sl_io_directory_iterator_prefix), _rw_construct_void)
+#define mk_sl_io_directory_iterator_impl_rw_construct mk_lang_concat(mk_lang_concat(mk_sl_io_directory_iterator_, mk_sl_io_directory_iterator_prefix), _rw_construct)
+#define mk_sl_io_directory_iterator_impl_rw_destroy mk_lang_concat(mk_lang_concat(mk_sl_io_directory_iterator_, mk_sl_io_directory_iterator_prefix), _rw_destroy)
+#define mk_sl_io_directory_iterator_impl_rw_reset mk_lang_concat(mk_lang_concat(mk_sl_io_directory_iterator_, mk_sl_io_directory_iterator_prefix), _rw_reset)
+#define mk_sl_io_directory_iterator_impl_rw_get_name mk_lang_concat(mk_lang_concat(mk_sl_io_directory_iterator_, mk_sl_io_directory_iterator_prefix), _rw_get_name)
+#define mk_sl_io_directory_iterator_impl_rw_next mk_lang_concat(mk_lang_concat(mk_sl_io_directory_iterator_, mk_sl_io_directory_iterator_prefix), _rw_next)
+#define mk_sl_io_directory_iterator_impl_rw_is_end mk_lang_concat(mk_lang_concat(mk_sl_io_directory_iterator_, mk_sl_io_directory_iterator_prefix), _rw_is_end)
 
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_directory_iterator_open_n(mk_sl_io_directory_iterator_pt const reader, mk_lang_types_pchar_pct const name) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_directory_iterator_rw_construct_void(mk_sl_io_directory_iterator_pt const directory_iterator) mk_lang_noexcept
 {
-	mk_lang_types_sint_t ret;
+	mk_lang_assert(directory_iterator);
 
-	mk_lang_assert(reader);
-
-	ret = mk_sl_io_directory_iterator_impl_open_n(&reader->m_file_handle, name);
-	return ret;
+	return mk_sl_io_directory_iterator_impl_rw_construct_void(&directory_iterator->m_base);
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_directory_iterator_open_w(mk_sl_io_directory_iterator_pt const reader, mk_lang_types_wchar_pct const name) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_directory_iterator_rw_construct(mk_sl_io_directory_iterator_pt const directory_iterator, mk_lang_types_pchar_pct const path) mk_lang_noexcept
 {
-	mk_lang_types_sint_t ret;
+	mk_lang_assert(directory_iterator);
 
-	mk_lang_assert(reader);
-
-	ret = mk_sl_io_directory_iterator_impl_open_w(&reader->m_file_handle, name);
-	return ret;
+	return mk_sl_io_directory_iterator_impl_rw_construct(&directory_iterator->m_base, path);
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_directory_iterator_open_t(mk_sl_io_directory_iterator_pt const reader, mk_lang_tchar_pct const name) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_directory_iterator_rw_destroy(mk_sl_io_directory_iterator_pt const directory_iterator) mk_lang_noexcept
 {
-	mk_lang_types_sint_t ret;
+	mk_lang_assert(directory_iterator);
 
-	mk_lang_assert(reader);
-
-	ret = mk_lang_concat(mk_sl_io_directory_iterator_impl_open_, mk_lang_tchar_suffix)(&reader->m_file_handle, name);
-	return ret;
+	return mk_sl_io_directory_iterator_impl_rw_destroy(&directory_iterator->m_base);
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_directory_iterator_read(mk_sl_io_directory_iterator_pt const reader, mk_sl_cui_uint8_pt const buf, mk_lang_types_sint_t const len, mk_lang_types_sint_pt const read) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_directory_iterator_rw_reset(mk_sl_io_directory_iterator_pt const directory_iterator) mk_lang_noexcept
 {
-	mk_lang_types_sint_t ret;
+	mk_lang_assert(directory_iterator);
 
-	mk_lang_assert(reader);
-
-	ret = mk_sl_io_directory_iterator_impl_read(&reader->m_file_handle, buf, len, read);
-	return ret;
+	return mk_sl_io_directory_iterator_impl_rw_reset(&directory_iterator->m_base);
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_directory_iterator_seek_rel(mk_sl_io_directory_iterator_pt const reader, mk_lang_types_slong_t const offset) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_directory_iterator_rw_get_name(mk_sl_io_directory_iterator_pt const directory_iterator, mk_lang_types_pchar_ppct const name) mk_lang_noexcept
 {
-	mk_lang_types_sint_t ret;
+	mk_lang_assert(directory_iterator);
 
-	mk_lang_assert(reader);
-
-	ret = mk_sl_io_directory_iterator_impl_seek_rel(&reader->m_file_handle, offset);
-	return ret;
+	return mk_sl_io_directory_iterator_impl_rw_get_name(&directory_iterator->m_base, name);
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_directory_iterator_close(mk_sl_io_directory_iterator_pt const reader) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_directory_iterator_rw_next(mk_sl_io_directory_iterator_pt const directory_iterator) mk_lang_noexcept
 {
-	mk_lang_types_sint_t ret;
+	mk_lang_assert(directory_iterator);
 
-	mk_lang_assert(reader);
+	return mk_sl_io_directory_iterator_impl_rw_next(&directory_iterator->m_base);
+}
 
-	ret = mk_sl_io_directory_iterator_impl_close(&reader->m_file_handle);
-	return ret;
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_directory_iterator_rw_is_end(mk_sl_io_directory_iterator_pt const directory_iterator, mk_lang_types_bool_pt const is) mk_lang_noexcept
+{
+	mk_lang_assert(directory_iterator);
+
+	return mk_sl_io_directory_iterator_impl_rw_is_end(&directory_iterator->m_base, is);
 }
 
 

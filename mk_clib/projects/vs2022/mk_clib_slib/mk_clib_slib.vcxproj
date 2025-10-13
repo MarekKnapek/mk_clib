@@ -1572,6 +1572,12 @@
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_order.c"/>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_order.h"/>
 	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_directory_iterator.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_directory_iterator_windows.c"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_directory_iterator.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_io_directory_iterator_windows.h"/>
+	</ItemGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
 	<ImportGroup Label="ExtensionTargets">
 		<Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets"/>
