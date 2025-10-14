@@ -415,8 +415,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_usize_t mk_sl_dynamic_ring
 	mk_lang_assert(ring);
 	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
 
-	cap = (ring->m_read & (ring->m_capacity - 1)) - (ring->m_write & (ring->m_capacity - 1));
-	r = ring->m_capacity - (ring->m_write & (ring->m_capacity - 1));
+	cap = ring->m_capacity - (ring->m_write & (ring->m_capacity - 1));
+	r = mk_sl_dynamic_ring_inl_defd_prro_get_free_size(ring);
 	r = mk_lang_min(r, cap);
 
 	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
@@ -479,6 +479,57 @@ mk_lang_nodiscard static mk_lang_inline mk_sl_dynamic_ring_inl_defd_element_pct 
 	return r;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_bool_t mk_sl_dynamic_ring_inl_defd_prro_is_consolidated(mk_sl_dynamic_ring_inl_defd_pct const ring) mk_lang_noexcept
+{
+	mk_lang_types_usize_t size_b;
+	mk_lang_types_bool_t r;
+
+	mk_lang_assert(ring);
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+
+	size_b = mk_sl_dynamic_ring_inl_defd_prro_get_size_b(ring);
+	r = size_b == 0;
+
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	return r;
+}
+
+
+
+
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_bool_t mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(mk_sl_dynamic_ring_inl_defd_pct const ring) mk_lang_noexcept
+{
+	mk_lang_types_bool_t gud;
+
+	mk_lang_assert(ring);
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	#include "mk_lang_warning_clang_push_tautological_unsigned_zero_compare.h"
+	#include "mk_lang_warning_gcc_push_type_limits.h"
+	gud = mk_lang_true;
+	gud &= mk_sl_dynamic_ring_inl_defd_prro_get_size(ring) <= mk_sl_dynamic_ring_inl_defd_prro_get_capacity(ring);
+	gud &= mk_sl_dynamic_ring_inl_defd_prro_get_free_size(ring) <= mk_sl_dynamic_ring_inl_defd_prro_get_capacity(ring);
+	gud &= mk_sl_dynamic_ring_inl_defd_prro_get_size(ring) + mk_sl_dynamic_ring_inl_defd_prro_get_free_size(ring) == mk_sl_dynamic_ring_inl_defd_prro_get_capacity(ring);
+	gud &= mk_sl_dynamic_ring_inl_defd_prro_get_size_a(ring) <= mk_sl_dynamic_ring_inl_defd_prro_get_size(ring);
+	gud &= mk_sl_dynamic_ring_inl_defd_prro_get_size_b(ring) <= mk_sl_dynamic_ring_inl_defd_prro_get_size(ring);
+	gud &= mk_sl_dynamic_ring_inl_defd_prro_get_size_a(ring) + mk_sl_dynamic_ring_inl_defd_prro_get_size_b(ring) == mk_sl_dynamic_ring_inl_defd_prro_get_size(ring);
+	gud &= mk_sl_dynamic_ring_inl_defd_prro_get_free_size_a(ring) <= mk_sl_dynamic_ring_inl_defd_prro_get_free_size(ring);
+	gud &= mk_sl_dynamic_ring_inl_defd_prro_get_free_size_b(ring) <= mk_sl_dynamic_ring_inl_defd_prro_get_free_size(ring);
+	gud &= mk_sl_dynamic_ring_inl_defd_prro_get_free_size_a(ring) + mk_sl_dynamic_ring_inl_defd_prro_get_free_size_b(ring) == mk_sl_dynamic_ring_inl_defd_prro_get_free_size(ring);
+	gud &= !mk_sl_dynamic_ring_inl_filec_overlap_fn(mk_sl_dynamic_ring_inl_defd_prro_get_data_a(ring), mk_sl_dynamic_ring_inl_defd_prro_get_size_a(ring), mk_sl_dynamic_ring_inl_defd_prro_get_data_b(ring), mk_sl_dynamic_ring_inl_defd_prro_get_size_b(ring));
+	gud &= !mk_sl_dynamic_ring_inl_filec_overlap_fn(mk_sl_dynamic_ring_inl_defd_prro_get_data_a(ring), mk_sl_dynamic_ring_inl_defd_prro_get_size_a(ring), mk_sl_dynamic_ring_inl_defd_prro_get_free_data_a(ring), mk_sl_dynamic_ring_inl_defd_prro_get_free_size_a(ring));
+	gud &= !mk_sl_dynamic_ring_inl_filec_overlap_fn(mk_sl_dynamic_ring_inl_defd_prro_get_data_a(ring), mk_sl_dynamic_ring_inl_defd_prro_get_size_a(ring), mk_sl_dynamic_ring_inl_defd_prro_get_free_data_b(ring), mk_sl_dynamic_ring_inl_defd_prro_get_free_size_b(ring));
+	gud &= !mk_sl_dynamic_ring_inl_filec_overlap_fn(mk_sl_dynamic_ring_inl_defd_prro_get_data_b(ring), mk_sl_dynamic_ring_inl_defd_prro_get_size_b(ring), mk_sl_dynamic_ring_inl_defd_prro_get_free_data_a(ring), mk_sl_dynamic_ring_inl_defd_prro_get_free_size_a(ring));
+	gud &= !mk_sl_dynamic_ring_inl_filec_overlap_fn(mk_sl_dynamic_ring_inl_defd_prro_get_data_b(ring), mk_sl_dynamic_ring_inl_defd_prro_get_size_b(ring), mk_sl_dynamic_ring_inl_defd_prro_get_free_data_b(ring), mk_sl_dynamic_ring_inl_defd_prro_get_free_size_b(ring));
+	gud &= !mk_sl_dynamic_ring_inl_filec_overlap_fn(mk_sl_dynamic_ring_inl_defd_prro_get_free_data_a(ring), mk_sl_dynamic_ring_inl_defd_prro_get_free_size_a(ring), mk_sl_dynamic_ring_inl_defd_prro_get_free_data_b(ring), mk_sl_dynamic_ring_inl_defd_prro_get_free_size_b(ring));
+	#include "mk_lang_warning_gcc_pop.h"
+	#include "mk_lang_warning_clang_pop.h"
+	#include "mk_lang_warning_msvc_pop.h"
+	return gud;
+}
+
 
 
 
@@ -488,11 +539,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_usize_t mk_sl_dynamic_ring
 	mk_lang_types_usize_t r;
 
 	mk_lang_assert(ring);
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 
 	r = ring->m_capacity;
 
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	return r;
 }
 
@@ -501,11 +552,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_usize_t mk_sl_dynamic_ring
 	mk_lang_types_usize_t r mk_lang_constexpr_init;
 
 	mk_lang_assert(ring);
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 
 	r = ring->m_write - ring->m_read;
 
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	return r;
 }
 
@@ -515,13 +566,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 	mk_lang_types_sint_t r mk_lang_constexpr_init;
 
 	mk_lang_assert(ring);
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 
 	size = mk_sl_dynamic_ring_inl_defd_prrw_get_size(ring);
 	mk_lang_assert(size <= ((mk_lang_types_usize_t)(mk_lang_limits_sint_max)));
 	r = ((mk_lang_types_sint_t)(size));
 
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	return r;
 }
 
@@ -530,11 +581,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_usize_t mk_sl_dynamic_ring
 	mk_lang_types_usize_t r;
 
 	mk_lang_assert(ring);
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 
 	r = mk_sl_dynamic_ring_inl_defd_prrw_get_capacity(ring) - mk_sl_dynamic_ring_inl_defd_prrw_get_size(ring);
 
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	return r;
 }
 
@@ -543,11 +594,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_bool_t mk_sl_dynamic_ring_
 	mk_lang_types_bool_t r;
 
 	mk_lang_assert(ring);
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 
 	r = mk_sl_dynamic_ring_inl_defd_prrw_get_size(ring) == 0;
 
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	return r;
 }
 
@@ -556,11 +607,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_bool_t mk_sl_dynamic_ring_
 	mk_lang_types_bool_t r;
 
 	mk_lang_assert(ring);
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 
 	r = mk_sl_dynamic_ring_inl_defd_prrw_get_free_size(ring) == 0;
 
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	return r;
 }
 
@@ -569,12 +620,12 @@ mk_lang_nodiscard static mk_lang_inline mk_sl_dynamic_ring_inl_defd_element_pt m
 	mk_sl_dynamic_ring_inl_defd_element_pt r;
 
 	mk_lang_assert(ring);
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	mk_lang_assert(!mk_sl_dynamic_ring_inl_defd_prrw_is_empty(ring));
 
 	r = &ring->m_buffer[ring->m_read & (ring->m_capacity - 1)];
 
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	return r;
 }
 
@@ -583,12 +634,12 @@ mk_lang_nodiscard static mk_lang_inline mk_sl_dynamic_ring_inl_defd_element_pt m
 	mk_sl_dynamic_ring_inl_defd_element_pt r;
 
 	mk_lang_assert(ring);
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	mk_lang_assert(!mk_sl_dynamic_ring_inl_defd_prrw_is_empty(ring));
 
 	r = &ring->m_buffer[(ring->m_read + ((ring->m_write - ring->m_read) - 1)) & (ring->m_capacity - 1)];
 
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	return r;
 }
 
@@ -598,13 +649,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_usize_t mk_sl_dynamic_ring
 	mk_lang_types_usize_t r;
 
 	mk_lang_assert(ring);
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 
 	cap = ring->m_capacity - (ring->m_read & (ring->m_capacity - 1));
 	r = ring->m_write - ring->m_read;
 	r = mk_lang_min(r, cap);
 
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	return r;
 }
 
@@ -614,13 +665,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 	mk_lang_types_sint_t r mk_lang_constexpr_init;
 
 	mk_lang_assert(ring);
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 
 	size = mk_sl_dynamic_ring_inl_defd_prrw_get_size_a(ring);
 	mk_lang_assert(size <= ((mk_lang_types_usize_t)(mk_lang_limits_sint_max)));
 	r = ((mk_lang_types_sint_t)(size));
 
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	return r;
 }
 
@@ -629,11 +680,11 @@ mk_lang_nodiscard static mk_lang_inline mk_sl_dynamic_ring_inl_defd_element_pt m
 	mk_sl_dynamic_ring_inl_defd_element_pt r;
 
 	mk_lang_assert(ring);
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 
 	r = ring->m_buffer + (ring->m_read & (ring->m_capacity - 1));
 
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	return r;
 }
 
@@ -642,11 +693,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_usize_t mk_sl_dynamic_ring
 	mk_lang_types_usize_t r;
 
 	mk_lang_assert(ring);
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 
 	r = mk_sl_dynamic_ring_inl_defd_prrw_get_size(ring) - mk_sl_dynamic_ring_inl_defd_prrw_get_size_a(ring);
 
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	return r;
 }
 
@@ -656,13 +707,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 	mk_lang_types_sint_t r mk_lang_constexpr_init;
 
 	mk_lang_assert(ring);
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 
 	size = mk_sl_dynamic_ring_inl_defd_prrw_get_size_b(ring);
 	mk_lang_assert(size <= ((mk_lang_types_usize_t)(mk_lang_limits_sint_max)));
 	r = ((mk_lang_types_sint_t)(size));
 
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	return r;
 }
 
@@ -671,11 +722,11 @@ mk_lang_nodiscard static mk_lang_inline mk_sl_dynamic_ring_inl_defd_element_pt m
 	mk_sl_dynamic_ring_inl_defd_element_pt r;
 
 	mk_lang_assert(ring);
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 
 	r = ring->m_buffer;
 
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	return r;
 }
 
@@ -685,13 +736,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_usize_t mk_sl_dynamic_ring
 	mk_lang_types_usize_t r;
 
 	mk_lang_assert(ring);
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 
 	cap = ring->m_capacity - (ring->m_write & (ring->m_capacity - 1));
-	r = (((ring->m_read & (ring->m_capacity - 1)) + ring->m_capacity) - (ring->m_write & (ring->m_capacity - 1)));
+	r = mk_sl_dynamic_ring_inl_defd_prrw_get_free_size(ring);
 	r = mk_lang_min(r, cap);
 
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	return r;
 }
 
@@ -700,11 +751,11 @@ mk_lang_nodiscard static mk_lang_inline mk_sl_dynamic_ring_inl_defd_element_pt m
 	mk_sl_dynamic_ring_inl_defd_element_pt r;
 
 	mk_lang_assert(ring);
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 
 	r = ring->m_buffer + (ring->m_write & (ring->m_capacity - 1));
 
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	return r;
 }
 
@@ -713,11 +764,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_usize_t mk_sl_dynamic_ring
 	mk_lang_types_usize_t r;
 
 	mk_lang_assert(ring);
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 
 	r = mk_sl_dynamic_ring_inl_defd_prrw_get_free_size(ring) - mk_sl_dynamic_ring_inl_defd_prrw_get_free_size_a(ring);
 
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	return r;
 }
 
@@ -726,11 +777,11 @@ mk_lang_nodiscard static mk_lang_inline mk_sl_dynamic_ring_inl_defd_element_pt m
 	mk_sl_dynamic_ring_inl_defd_element_pt r;
 
 	mk_lang_assert(ring);
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 
 	r = ring->m_buffer;
 
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	return r;
 }
 
@@ -742,12 +793,27 @@ mk_lang_nodiscard static mk_lang_inline mk_sl_dynamic_ring_inl_defd_element_pt m
 	mk_lang_assert(ring);
 	mk_lang_assert(idx >= 0);
 	mk_lang_assert(idx < mk_sl_dynamic_ring_inl_defd_prrw_get_size(ring));
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	#include "mk_lang_warning_msvc_pop.h"
 
 	r = &ring->m_buffer[ring->m_read + idx & (ring->m_capacity - 1)];
 
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
+	return r;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_bool_t mk_sl_dynamic_ring_inl_defd_prrw_is_consolidated(mk_sl_dynamic_ring_inl_defd_pt const ring) mk_lang_noexcept
+{
+	mk_lang_types_usize_t size_b;
+	mk_lang_types_bool_t r;
+
+	mk_lang_assert(ring);
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
+
+	size_b = mk_sl_dynamic_ring_inl_defd_prrw_get_size_b(ring);
+	r = size_b == 0;
+
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	return r;
 }
 
@@ -766,7 +832,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 	ring->m_write = 0;
 	mk_sl_dynamic_ring_inl_defd_mallocator_assign(ring);
 
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	return 0;
 }
 
@@ -781,7 +847,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 
 	mk_lang_assert(dst);
 	mk_lang_assert(src);
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(src));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(src));
 
 	old_elements_count = mk_sl_dynamic_ring_inl_defd_prro_get_size(src);
 	new_elements_capacity = mk_lang_pow2_roundup(old_elements_count);
@@ -793,8 +859,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 	dst->m_read = 0;
 	dst->m_write = old_elements_count;
 
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(dst));
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(src));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(dst));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(src));
 	return 0;
 }
 
@@ -802,15 +868,15 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 {
 	mk_lang_assert(dst);
 	mk_lang_assert(src);
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(src));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(src));
 
 	dst->m_buffer   = src->m_buffer  ; src->m_buffer   = mk_lang_null;
 	dst->m_capacity = src->m_capacity; src->m_capacity = 0           ;
 	dst->m_read     = src->m_read    ; src->m_read     = 0           ;
 	dst->m_write    = src->m_write   ; src->m_write    = 0           ;
 
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(dst));
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(src));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(dst));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(src));
 	return 0;
 }
 
@@ -819,14 +885,14 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 	mk_lang_types_sint_t err;
 
 	mk_lang_assert(ring);
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 
 	err = mk_sl_dynamic_ring_inl_defd_prrw_elements_destroy_many(mk_sl_dynamic_ring_inl_defd_prrw_get_data_a(ring), mk_sl_dynamic_ring_inl_defd_prrw_get_size_a(ring)); mk_lang_check_rereturn(err);
 	err = mk_sl_dynamic_ring_inl_defd_prrw_elements_destroy_many(mk_sl_dynamic_ring_inl_defd_prrw_get_data_b(ring), mk_sl_dynamic_ring_inl_defd_prrw_get_size_b(ring)); mk_lang_check_rereturn(err);
 	ring->m_read = 0;
 	ring->m_write = 0;
 
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	return 0;
 }
 
@@ -836,44 +902,80 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 	mk_lang_types_usize_t size_a;
 	mk_sl_dynamic_ring_inl_defd_element_pt data_b;
 	mk_lang_types_usize_t size_b;
-	mk_sl_dynamic_ring_inl_defd_element_pt old_buffer;
+	mk_sl_dynamic_ring_inl_defd_element_pt dst_a;
+	mk_sl_dynamic_ring_inl_defd_element_pt dst_b;
 	mk_lang_types_usize_t old_capacity;
+	mk_sl_dynamic_ring_inl_defd_element_pt old_buffer;
 	mk_lang_types_usize_t old_bytes_count;
 	mk_lang_types_usize_t elements_count;
-	mk_lang_types_usize_t elements_capacity;
-	mk_lang_types_usize_t bytes_capacity;
+	mk_lang_types_usize_t new_capacity;
+	mk_lang_types_usize_t new_bytes_count;
 	mk_lang_types_void_pt mem;
 	mk_sl_dynamic_ring_inl_defd_element_pt new_buffer;
 	mk_lang_types_sint_t err;
 
 	mk_lang_assert(ring);
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 
-	data_a = mk_sl_dynamic_ring_inl_defd_prrw_get_data_a(ring);
-	size_a = mk_sl_dynamic_ring_inl_defd_prrw_get_size_a(ring);
-	data_b = mk_sl_dynamic_ring_inl_defd_prrw_get_data_b(ring);
-	size_b = mk_sl_dynamic_ring_inl_defd_prrw_get_size_b(ring);
-	if(size_a != 0 && size_b != 0)
+	if(!mk_sl_dynamic_ring_inl_defd_prrw_is_consolidated(ring))
 	{
-		old_buffer = ring->m_buffer;
-		old_capacity = ring->m_capacity;
-		old_bytes_count = old_capacity * sizeof(mk_sl_dynamic_ring_inl_defd_element_t);
-		elements_count = size_a + size_b;
-		elements_capacity = mk_lang_pow2_roundup(elements_count);
-		bytes_capacity = elements_capacity * sizeof(mk_sl_dynamic_ring_inl_defd_element_t);
-		err = mk_sl_dynamic_ring_inl_defd_mallocator_allocate(ring, bytes_capacity, &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem); new_buffer = ((mk_sl_dynamic_ring_inl_defd_element_pt)(mem)); mk_lang_assert(new_buffer);
-		err = mk_sl_dynamic_ring_inl_defd_prrw_elements_construct_move_many(new_buffer + 0 * size_a, data_a, size_a); mk_lang_check_rereturn(err);
-		err = mk_sl_dynamic_ring_inl_defd_prrw_elements_construct_move_many(new_buffer + 1 * size_a, data_b, size_b); mk_lang_check_rereturn(err);
-		ring->m_buffer = new_buffer;
-		ring->m_capacity = elements_capacity;
-		ring->m_read = 0;
-		ring->m_write = elements_count;
-		err = mk_sl_dynamic_ring_inl_defd_prrw_elements_destroy_many(data_a, size_a); mk_lang_check_rereturn(err);
-		err = mk_sl_dynamic_ring_inl_defd_prrw_elements_destroy_many(data_b, size_b); mk_lang_check_rereturn(err);
-		err = mk_sl_dynamic_ring_inl_defd_mallocator_deallocate(ring, old_buffer, old_bytes_count); mk_lang_check_rereturn(err);
+		if(mk_sl_dynamic_ring_inl_defd_prrw_get_free_size_a(ring) >= mk_sl_dynamic_ring_inl_defd_prrw_get_size(ring))
+		{
+			data_a = mk_sl_dynamic_ring_inl_defd_prrw_get_data_a(ring);
+			size_a = mk_sl_dynamic_ring_inl_defd_prrw_get_size_a(ring);
+			data_b = mk_sl_dynamic_ring_inl_defd_prrw_get_data_b(ring);
+			size_b = mk_sl_dynamic_ring_inl_defd_prrw_get_size_b(ring);
+			dst_a = mk_sl_dynamic_ring_inl_defd_prrw_get_free_data_a(ring);
+			dst_b = dst_a + size_a;
+			err = mk_sl_dynamic_ring_inl_defd_prrw_elements_construct_move_many(dst_a, data_a, size_a); mk_lang_check_rereturn(err);
+			err = mk_sl_dynamic_ring_inl_defd_prrw_elements_construct_move_many(dst_b, data_b, size_b); mk_lang_check_rereturn(err);
+			err = mk_sl_dynamic_ring_inl_defd_prrw_elements_destroy_many(data_a, size_a); mk_lang_check_rereturn(err);
+			err = mk_sl_dynamic_ring_inl_defd_prrw_elements_destroy_many(data_b, size_b); mk_lang_check_rereturn(err);
+			ring->m_read = ((mk_lang_types_usize_t)(dst_a - ring->m_buffer));
+			ring->m_write = ring->m_read + (size_a + size_b);
+		}
+		else if(mk_sl_dynamic_ring_inl_defd_prrw_get_free_size_b(ring) >= mk_sl_dynamic_ring_inl_defd_prrw_get_size(ring))
+		{
+			data_a = mk_sl_dynamic_ring_inl_defd_prrw_get_data_a(ring);
+			size_a = mk_sl_dynamic_ring_inl_defd_prrw_get_size_a(ring);
+			data_b = mk_sl_dynamic_ring_inl_defd_prrw_get_data_b(ring);
+			size_b = mk_sl_dynamic_ring_inl_defd_prrw_get_size_b(ring);
+			dst_a = mk_sl_dynamic_ring_inl_defd_prrw_get_free_data_b(ring);
+			dst_b = dst_a + size_a;
+			err = mk_sl_dynamic_ring_inl_defd_prrw_elements_construct_move_many(dst_a, data_a, size_a); mk_lang_check_rereturn(err);
+			err = mk_sl_dynamic_ring_inl_defd_prrw_elements_construct_move_many(dst_b, data_b, size_b); mk_lang_check_rereturn(err);
+			err = mk_sl_dynamic_ring_inl_defd_prrw_elements_destroy_many(data_a, size_a); mk_lang_check_rereturn(err);
+			err = mk_sl_dynamic_ring_inl_defd_prrw_elements_destroy_many(data_b, size_b); mk_lang_check_rereturn(err);
+			ring->m_read = ((mk_lang_types_usize_t)(dst_a - ring->m_buffer));
+			ring->m_write = ((mk_lang_types_usize_t)(dst_b - ring->m_buffer));
+		}
+		else
+		{
+			data_a = mk_sl_dynamic_ring_inl_defd_prrw_get_data_a(ring);
+			size_a = mk_sl_dynamic_ring_inl_defd_prrw_get_size_a(ring);
+			data_b = mk_sl_dynamic_ring_inl_defd_prrw_get_data_b(ring);
+			size_b = mk_sl_dynamic_ring_inl_defd_prrw_get_size_b(ring);
+			old_capacity = mk_sl_dynamic_ring_inl_defd_prrw_get_capacity(ring);
+			old_buffer = ring->m_buffer;
+			old_bytes_count = old_capacity * sizeof(mk_sl_dynamic_ring_inl_defd_element_t);
+			elements_count = size_a + size_b;
+			new_capacity = old_capacity * 2;
+			new_capacity = mk_lang_pow2_roundup(new_capacity);
+			new_bytes_count = new_capacity * sizeof(mk_sl_dynamic_ring_inl_defd_element_t);
+			err = mk_sl_dynamic_ring_inl_defd_mallocator_allocate(ring, new_bytes_count, &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem); new_buffer = ((mk_sl_dynamic_ring_inl_defd_element_pt)(mem)); mk_lang_assert(new_buffer);
+			err = mk_sl_dynamic_ring_inl_defd_prrw_elements_construct_move_many(new_buffer + 0 * size_a, data_a, size_a); mk_lang_check_rereturn(err);
+			err = mk_sl_dynamic_ring_inl_defd_prrw_elements_construct_move_many(new_buffer + 1 * size_a, data_b, size_b); mk_lang_check_rereturn(err);
+			ring->m_buffer = new_buffer;
+			ring->m_capacity = new_capacity;
+			ring->m_read = 0;
+			ring->m_write = elements_count;
+			err = mk_sl_dynamic_ring_inl_defd_prrw_elements_destroy_many(data_a, size_a); mk_lang_check_rereturn(err);
+			err = mk_sl_dynamic_ring_inl_defd_prrw_elements_destroy_many(data_b, size_b); mk_lang_check_rereturn(err);
+			err = mk_sl_dynamic_ring_inl_defd_mallocator_deallocate(ring, old_buffer, old_bytes_count); mk_lang_check_rereturn(err);
+		}
 	}
 
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	return 0;
 }
 
@@ -882,15 +984,15 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(ring);
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	mk_lang_assert(count >= 0);
-	mk_lang_assert(count <= mk_sl_dynamic_ring_inl_defd_prrw_get_free_size_a(ring));
+	mk_lang_assert(count <= mk_sl_dynamic_ring_inl_defd_prrw_get_free_size(ring));
 	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
 	ring->m_write += count;
 
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	return 0;
 }
 
@@ -902,7 +1004,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 	mk_lang_types_usize_t bytes_count;
 
 	mk_lang_assert(ring);
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 
 	err = mk_sl_dynamic_ring_inl_defd_prrw_elements_destroy_many(mk_sl_dynamic_ring_inl_defd_prrw_get_data_a(ring), mk_sl_dynamic_ring_inl_defd_prrw_get_size_a(ring)); mk_lang_check_rereturn(err);
 	err = mk_sl_dynamic_ring_inl_defd_prrw_elements_destroy_many(mk_sl_dynamic_ring_inl_defd_prrw_get_data_b(ring), mk_sl_dynamic_ring_inl_defd_prrw_get_size_b(ring)); mk_lang_check_rereturn(err);
@@ -918,12 +1020,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 	mk_lang_types_sint_t err;
 
 	mk_lang_assert(ring);
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 
 	err = mk_sl_dynamic_ring_inl_defd_prrw_destroy(ring); mk_lang_check_rereturn(err);
 	err = mk_sl_dynamic_ring_inl_defd_rw_construct(ring); mk_lang_check_rereturn(err); /* todo mallocator */
 
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	return 0;
 }
 
@@ -942,7 +1044,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(ring);
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(count <= mk_sl_dynamic_ring_inl_defd_max_capacity_d);
 	#include "mk_lang_warning_gcc_pop.h"
@@ -991,26 +1093,28 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 		}
 	}
 
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	return 0;
 }
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_inl_defd_prrw_reserve_additional(mk_sl_dynamic_ring_inl_defd_pt const ring, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
+	mk_lang_types_usize_t size;
 	mk_lang_types_sint_t err;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(ring);
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(count <= mk_sl_dynamic_ring_inl_defd_max_capacity_d - mk_sl_dynamic_ring_inl_defd_prro_get_capacity(ring));
 	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
-	err = mk_sl_dynamic_ring_inl_defd_prrw_reserve_at_least(ring, mk_sl_dynamic_ring_inl_defd_prrw_get_size(ring) + count); mk_lang_check_rereturn(err);
+	size = mk_sl_dynamic_ring_inl_defd_prrw_get_size(ring);
+	err = mk_sl_dynamic_ring_inl_defd_prrw_reserve_at_least(ring, size + count); mk_lang_check_rereturn(err);
 
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	return 0;
 }
 
@@ -1027,7 +1131,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(ring);
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	mk_lang_assert(elements || count == 0);
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(count <= mk_sl_dynamic_ring_inl_defd_max_capacity_d - mk_sl_dynamic_ring_inl_defd_rw_get_size(ring));
@@ -1063,7 +1167,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 		}
 	}
 
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	return 0;
 }
 
@@ -1085,7 +1189,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(ring);
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	mk_lang_assert(elements || count == 0);
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(count <= mk_sl_dynamic_ring_inl_defd_max_capacity_d - mk_sl_dynamic_ring_inl_defd_rw_get_size(ring));
@@ -1109,7 +1213,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 		ring->m_write += count;
 	}
 
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	return 0;
 }
 
@@ -1133,7 +1237,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(ring);
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	mk_lang_assert(elements || count == 0);
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(count <= mk_sl_dynamic_ring_inl_defd_max_capacity_d - mk_sl_dynamic_ring_inl_defd_rw_get_size(ring));
@@ -1160,7 +1264,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 		ring->m_write += count;
 	}
 
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	return 0;
 }
 
@@ -1184,7 +1288,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(ring);
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	mk_lang_assert(elements || count == 0);
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(count <= mk_sl_dynamic_ring_inl_defd_max_capacity_d - mk_sl_dynamic_ring_inl_defd_rw_get_size(ring));
@@ -1211,7 +1315,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 		ring->m_write += count;
 	}
 
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	return 0;
 }
 
@@ -1226,15 +1330,15 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 
 	mk_lang_assert(dst);
 	mk_lang_assert(src);
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(dst));
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(src));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(dst));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(src));
 
 	err = mk_sl_dynamic_ring_inl_defd_prrw_clear(dst); mk_lang_check_rereturn(err);
 	err = mk_sl_dynamic_ring_inl_defd_prrw_push_back_copy_many(dst, mk_sl_dynamic_ring_inl_defd_prro_get_data_a(src), mk_sl_dynamic_ring_inl_defd_prro_get_size_a(src)); mk_lang_check_rereturn(err);
 	err = mk_sl_dynamic_ring_inl_defd_prrw_push_back_copy_many(dst, mk_sl_dynamic_ring_inl_defd_prro_get_data_b(src), mk_sl_dynamic_ring_inl_defd_prro_get_size_b(src)); mk_lang_check_rereturn(err);
 
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(dst));
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(src));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(dst));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(src));
 	return 0;
 }
 
@@ -1248,8 +1352,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 
 	mk_lang_assert(dst);
 	mk_lang_assert(src);
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(dst));
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(src));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(dst));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(src));
 
 	e = dst->m_buffer    ; dst->m_buffer     = src->m_buffer    ; src->m_buffer     = e;
 	u = dst->m_capacity  ; dst->m_capacity   = src->m_capacity  ; src->m_capacity   = u;
@@ -1259,8 +1363,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 	m = dst->m_mallocator; dst->m_mallocator = src->m_mallocator; src->m_mallocator = m;
 	#endif
 
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(dst));
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(src));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(dst));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(src));
 	return 0;
 }
 
@@ -1277,7 +1381,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(ring);
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(count <= mk_sl_dynamic_ring_inl_defd_prrw_get_size(ring));
 	#include "mk_lang_warning_gcc_pop.h"
@@ -1300,7 +1404,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 		ring->m_write = 0;
 	}
 
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	return 0;
 }
 
@@ -1321,7 +1425,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	#include "mk_lang_warning_gcc_push_type_limits.h"
 	mk_lang_assert(ring);
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	mk_lang_assert(count >= 0);
 	mk_lang_assert(count <= mk_sl_dynamic_ring_inl_defd_prrw_get_size(ring));
 	#include "mk_lang_warning_gcc_pop.h"
@@ -1343,7 +1447,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 		ring->m_write = 0;
 	}
 
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	return 0;
 }
 
@@ -1364,7 +1468,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 	mk_lang_assert(!mk_sl_dynamic_ring_inl_defd_prrw_is_empty(ring));
 	mk_lang_assert(idx >= 0);
 	mk_lang_assert(idx < mk_sl_dynamic_ring_inl_defd_prrw_get_size(ring));
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
@@ -1383,7 +1487,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 		err = mk_sl_dynamic_ring_inl_defd_prrw_pop_back_single(ring); mk_lang_check_rereturn(err);
 	}
 
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	return 0;
 }
 
@@ -1398,7 +1502,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 	mk_lang_assert(!mk_sl_dynamic_ring_inl_defd_prrw_is_empty(ring));
 	mk_lang_assert(element);
 	mk_lang_assert(mk_sl_dynamic_ring_inl_filec_overlap_fn(element, 1, mk_sl_dynamic_ring_inl_defd_prrw_get_data_a(ring), mk_sl_dynamic_ring_inl_defd_prrw_get_size_a(ring)) || mk_sl_dynamic_ring_inl_filec_overlap_fn(element, 1, mk_sl_dynamic_ring_inl_defd_prrw_get_data_b(ring), mk_sl_dynamic_ring_inl_defd_prrw_get_size_b(ring)));
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
@@ -1416,7 +1520,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_dynamic_ring_
 		err = mk_sl_dynamic_ring_inl_defd_prrw_pop_back_single(ring); mk_lang_check_rereturn(err);
 	}
 
-	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prro_verify_invariants(ring));
+	mk_lang_assert(mk_sl_dynamic_ring_inl_defd_prrw_verify_invariants(ring));
 	return 0;
 }
 
@@ -1452,6 +1556,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_sl_dynamic_ring_inl_defd
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_sl_dynamic_ring_inl_defd_ro_is_full(mk_sl_dynamic_ring_inl_defd_pct const ring) mk_lang_noexcept
 {
 	return mk_sl_dynamic_ring_inl_defd_prro_is_full(ring);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_sl_dynamic_ring_inl_defd_ro_is_consolidated(mk_sl_dynamic_ring_inl_defd_pct const ring) mk_lang_noexcept
+{
+	return mk_sl_dynamic_ring_inl_defd_prro_is_consolidated(ring);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_sl_dynamic_ring_inl_defd_element_pct mk_sl_dynamic_ring_inl_defd_ro_get_front(mk_sl_dynamic_ring_inl_defd_pct const ring) mk_lang_noexcept
@@ -1561,6 +1670,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_sl_dynamic_ring_inl_defd_element_pt mk_sl_dyn
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_sl_dynamic_ring_inl_defd_rw_is_full(mk_sl_dynamic_ring_inl_defd_pt const ring) mk_lang_noexcept
 {
 	return mk_sl_dynamic_ring_inl_defd_prrw_is_full(ring);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_bool_t mk_sl_dynamic_ring_inl_defd_rw_is_consolidated(mk_sl_dynamic_ring_inl_defd_pt const ring) mk_lang_noexcept
+{
+	return mk_sl_dynamic_ring_inl_defd_prrw_is_consolidated(ring);
 }
 
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_usize_t mk_sl_dynamic_ring_inl_defd_rw_get_size_a(mk_sl_dynamic_ring_inl_defd_pt const ring) mk_lang_noexcept
