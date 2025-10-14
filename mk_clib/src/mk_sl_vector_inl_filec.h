@@ -777,7 +777,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_de
 	err = mk_sl_vector_inl_defd_prrw_elements_destroy_all(vector); mk_lang_check_rereturn(err);
 	err = mk_sl_vector_inl_defd_mallocator_deallocate(vector, vector->m_buffer, vector->m_capacity * sizeof(mk_sl_vector_inl_defd_element_t)); mk_lang_check_rereturn(err);
 
-	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
 	return 0;
 }
 
