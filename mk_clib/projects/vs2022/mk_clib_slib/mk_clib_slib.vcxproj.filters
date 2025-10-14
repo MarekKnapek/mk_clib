@@ -1107,6 +1107,7 @@
 	<ItemGroup>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_string.c"><Filter>src</Filter></ClCompile>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_string.h"><Filter>src</Filter></ClInclude>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_string.natvis"><Filter>src</Filter></ClCompile>
 	</ItemGroup>
 	<ItemGroup>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_tree_wavl_fuzz.c"><Filter>src</Filter></ClCompile>
