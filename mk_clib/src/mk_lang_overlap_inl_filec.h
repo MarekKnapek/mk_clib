@@ -1,4 +1,5 @@
 #include "mk_lang_assert.h"
+#include "mk_lang_bool.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
@@ -30,8 +31,22 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_lang_o
 	{
 		#include "mk_lang_warning_msvc_push_c4826.h"
 		overlap =
-			(((mk_lang_types_uintptr_t)(arr1)) >= ((mk_lang_types_uintptr_t)(arr2)) && ((mk_lang_types_uintptr_t)(((mk_lang_types_sintptr_t)(arr1)))) < ((mk_lang_types_uintptr_t)(arr2 + len2))) ||
-			(((mk_lang_types_uintptr_t)(arr2)) >= ((mk_lang_types_uintptr_t)(arr1)) && ((mk_lang_types_uintptr_t)(((mk_lang_types_sintptr_t)(arr2)))) < ((mk_lang_types_uintptr_t)(arr1 + len1)));
+			(len1 != 0) &&
+			(len2 != 0) &&
+			(
+				(
+					(((mk_lang_types_uintptr_t)(arr1)) >= ((mk_lang_types_uintptr_t)(arr2))) &&
+					(((mk_lang_types_uintptr_t)(((mk_lang_types_sintptr_t)(arr1)))) < ((mk_lang_types_uintptr_t)(arr2 + len2))) &&
+					(mk_lang_true)
+				) ||
+				(
+					(((mk_lang_types_uintptr_t)(arr2)) >= ((mk_lang_types_uintptr_t)(arr1))) &&
+					(((mk_lang_types_uintptr_t)(((mk_lang_types_sintptr_t)(arr2)))) < ((mk_lang_types_uintptr_t)(arr1 + len1))) &&
+					(mk_lang_true)
+				) ||
+				(mk_lang_false)
+			) &&
+			(mk_lang_true);
 		return overlap;
 		#include "mk_lang_warning_msvc_pop.h"
 	}
