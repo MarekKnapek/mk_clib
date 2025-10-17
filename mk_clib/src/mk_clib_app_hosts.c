@@ -28,8 +28,10 @@
 #include "mk_lib_iip_cp_mallocator_global.h"
 #include "mk_sl_cui_uint8.h"
 #include "mk_sl_dynamic_ring.h"
+#include "mk_sl_fixed_vector_copy.h"
 #include "mk_sl_io_reader_file.h"
 #include "mk_sl_io_writer_file.h"
+#include "mk_sl_vector_copy.h"
 
 
 
@@ -56,7 +58,6 @@
 
 
 
-#include "mk_sl_fixed_vector_copy.h"
 #define mk_sl_fixed_vector_t_name mk_clib_app_hosts_domain
 #define mk_sl_fixed_vector_t_element_type mk_sl_cui_uint8_t
 #define mk_sl_fixed_vector_t_capacity 64 + 4/*mk_clib_app_hosts_domain_suffix*/ + 1
@@ -65,7 +66,6 @@
 #include "mk_sl_fixed_vector_inl_filec.h"
 #include "mk_sl_fixed_vector_inl_fileu.h"
 
-#include "mk_sl_vector_copy.h"
 #define mk_sl_vector_t_name mk_clib_app_hosts_domains
 #define mk_sl_vector_t_element_type mk_clib_app_hosts_domain_t
 #define mk_sl_vector_t_mallocatorg mk_lib_iip_cp_mallocator_global
@@ -322,7 +322,6 @@ struct mk_clib_app_hosts_entry_s
 typedef struct mk_clib_app_hosts_entry_s mk_clib_app_hosts_entry_t;
 mk_lang_typedef(mk_clib_app_hosts_entry);
 #include "mk_lang_warning_msvc_pop.h"
-#include "mk_sl_vector_copy.h"
 
 #define mk_sl_dynamic_ring_t_name mk_clib_app_hosts_entries
 #define mk_sl_dynamic_ring_t_element_type mk_clib_app_hosts_entry_t
@@ -332,7 +331,84 @@ mk_lang_typedef(mk_clib_app_hosts_entry);
 #include "mk_sl_dynamic_ring_inl_filec.h"
 #include "mk_sl_dynamic_ring_inl_fileu.h"
 
-#include "mk_sl_vector_copy.h"
+#define mk_sl_vector_t_name mk_clib_app_hosts_pentries
+#define mk_sl_vector_t_element_type mk_clib_app_hosts_entry_pct
+#define mk_sl_vector_t_mallocatorg mk_lib_iip_cp_mallocator_global
+#define mk_sl_vector_t_copy_style mk_sl_vector_copy_use_bitblt
+#include "mk_sl_vector_inl_fileh.h"
+#include "mk_sl_vector_inl_filec.h"
+#include "mk_sl_vector_inl_fileu.h"
+
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t mk_clib_app_hosts_pentry_cmp_name(mk_lang_types_uintptr_t const context, mk_clib_app_hosts_entry_pcpct const a, mk_clib_app_hosts_entry_pcpct const b) mk_lang_noexcept
+{
+	mk_sl_cui_uint8_pct bufa mk_lang_constexpr_init;
+	mk_sl_cui_uint8_pct bufb mk_lang_constexpr_init;
+	mk_lang_types_sint_t lena mk_lang_constexpr_init;
+	mk_lang_types_sint_t lenb mk_lang_constexpr_init;
+	mk_lang_types_sint_t cmp mk_lang_constexpr_init;
+	mk_lang_types_bool_t r mk_lang_constexpr_init;
+
+	mk_lang_assert(&context);
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(*a);
+	mk_lang_assert(*b);
+
+	((mk_lang_types_void_t)(context));
+	if(a != b)
+	{
+		bufa = mk_clib_app_hosts_domain_ro_data(&(*a)->m_domain);
+		bufb = mk_clib_app_hosts_domain_ro_data(&(*b)->m_domain);
+		lena = mk_clib_app_hosts_domain_ro_sise(&(*a)->m_domain);
+		lenb = mk_clib_app_hosts_domain_ro_sise(&(*b)->m_domain);
+		cmp = mk_sl_cui_uint8_memcmp_fn(bufa, bufb, ((mk_lang_types_usize_t)(mk_lang_min(lena, lenb))));
+		if(cmp == 0)
+		{
+			cmp = lenb - lena;
+		}
+	}
+	else
+	{
+		cmp = 0;
+	}
+	r = cmp < 0;
+	return r;
+}
+#define mk_sl_sort_merge_t_name mk_clib_app_hosts_pentry_sort_name
+#define mk_sl_sort_merge_t_element_type mk_clib_app_hosts_entry_pct
+#define mk_sl_sort_merge_t_element_is_sorted mk_clib_app_hosts_pentry_cmp_name
+#include "mk_sl_sort_merge_inl_fileh.h"
+#include "mk_sl_sort_merge_inl_filec.h"
+#include "mk_sl_sort_merge_inl_fileu.h"
+
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_bool_t mk_clib_app_hosts_pentry_cmp_b32(mk_lang_types_uintptr_t const context, mk_clib_app_hosts_entry_pcpct const a, mk_clib_app_hosts_entry_pcpct const b) mk_lang_noexcept
+{
+	mk_lang_types_pchar_t b32str_a[mk_lang_roundup_div(mk_lib_crypto_hash_stream_sha2_256_digest_len_v * 8, 5)] mk_lang_constexpr_init;
+	mk_lang_types_sint_t len mk_lang_constexpr_init;
+	mk_lang_types_pchar_t b32str_b[mk_lang_roundup_div(mk_lib_crypto_hash_stream_sha2_256_digest_len_v * 8, 5)] mk_lang_constexpr_init;
+	mk_lang_types_sint_t ca mk_lang_constexpr_init;
+	mk_lang_types_bool_t cb mk_lang_constexpr_init;
+
+	mk_lang_assert(&context);
+	mk_lang_assert(a);
+	mk_lang_assert(b);
+	mk_lang_assert(*a);
+	mk_lang_assert(*b);
+
+	((mk_lang_types_void_t)(context));
+	mk_lib_iip_base32_encoder_fn(&(*a)->m_b32.m_data.m_uint8s[0], mk_lib_crypto_hash_stream_sha2_256_digest_len_v, &b32str_a[0], mk_lang_countof(b32str_a), &len); mk_lang_check_return(len == mk_lang_countof(b32str_a));
+	mk_lib_iip_base32_encoder_fn(&(*b)->m_b32.m_data.m_uint8s[0], mk_lib_crypto_hash_stream_sha2_256_digest_len_v, &b32str_b[0], mk_lang_countof(b32str_b), &len); mk_lang_check_return(len == mk_lang_countof(b32str_b));
+	ca = mk_lang_string_memcmp_pc_fn(&b32str_a[0], &b32str_b[0], mk_lang_countof(b32str_a));
+	cb = ca < 0;
+	return cb;
+}
+#define mk_sl_sort_merge_t_name mk_clib_app_hosts_pentry_sort_b32
+#define mk_sl_sort_merge_t_element_type mk_clib_app_hosts_entry_pct
+#define mk_sl_sort_merge_t_element_is_sorted mk_clib_app_hosts_pentry_cmp_b32
+#include "mk_sl_sort_merge_inl_fileh.h"
+#include "mk_sl_sort_merge_inl_filec.h"
+#include "mk_sl_sort_merge_inl_fileu.h"
+
 #define mk_sl_vector_t_name mk_clib_app_hosts_ints
 #define mk_sl_vector_t_element_type mk_lang_types_sint_t
 #define mk_sl_vector_t_mallocatorg mk_lib_iip_cp_mallocator_global
@@ -842,6 +918,308 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_t
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_rw_copy_from(mk_clib_app_hosts_pentries_pt const pentries, mk_clib_app_hosts_entries_pct const entries) mk_lang_noexcept
+{
+	mk_lang_types_usize_t count;
+	mk_lang_types_sint_t err;
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
+	mk_clib_app_hosts_entry_pct entry;
+
+	mk_lang_assert(pentries);
+	mk_lang_assert(entries);
+
+	count = mk_clib_app_hosts_entries_ro_get_size(entries);
+	err = mk_clib_app_hosts_pentries_rw_clear(pentries); mk_lang_check_rereturn(err);
+	err = mk_clib_app_hosts_pentries_rw_reserve_at_least(pentries, count * 2); mk_lang_check_rereturn(err);
+	n = count;
+	for(i = 0; i != n; ++i)
+	{
+		entry = mk_clib_app_hosts_entries_ro_get_at(entries, i); mk_lang_assert(entry);
+		err = mk_clib_app_hosts_pentries_rw_push_back_copy_single(pentries, &entry); mk_lang_check_rereturn(err);
+	}
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_rw_sort_by_b32(mk_clib_app_hosts_pentries_pt const pentries) mk_lang_noexcept
+{
+	mk_lang_types_usize_t size;
+	mk_clib_app_hosts_entry_ppct data;
+
+	mk_lang_assert(pentries);
+
+	size = mk_clib_app_hosts_pentries_rw_size(pentries);
+	data = mk_clib_app_hosts_pentries_rw_data(pentries);
+	mk_clib_app_hosts_pentry_sort_b32_fn(0, data, size, data + size);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_rw_sort_by_name(mk_clib_app_hosts_pentries_pt const pentries) mk_lang_noexcept
+{
+	mk_lang_types_usize_t size;
+	mk_clib_app_hosts_entry_ppct data;
+
+	mk_lang_assert(pentries);
+
+	size = mk_clib_app_hosts_pentries_rw_size(pentries);
+	data = mk_clib_app_hosts_pentries_rw_data(pentries);
+	mk_clib_app_hosts_pentry_sort_name_fn(0, data, size, data + size);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_rw_write_str_lit(mk_sl_io_writer_file_pt const writer, mk_lang_types_pchar_pct const str_buf, mk_lang_types_sint_t const str_len, mk_lang_types_sint_t const tabs, mk_lang_types_bool_t const new_line) mk_lang_noexcept
+{
+	#define mk_clib_app_hosts_rw_write_str_lit_tab "\x09"
+	#define mk_clib_app_hosts_rw_write_str_lit_nl "\x0d\x0a"
+
+	mk_lang_types_sint_t n;
+	mk_lang_types_sint_t i;
+	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t written;
+
+	mk_lang_assert(writer);
+	mk_lang_assert(str_buf || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+	mk_lang_assert(tabs >= 0);
+	mk_lang_assert(new_line == mk_lang_true || new_line == mk_lang_false);
+
+	n = tabs;
+	for(i = 0; i != n; ++i)
+	{
+		err = mk_sl_io_writer_file_write(writer, ((mk_sl_cui_uint8_pct)(&mk_clib_app_hosts_rw_write_str_lit_tab[0])), mk_lang_countstr(mk_clib_app_hosts_rw_write_str_lit_tab), &written); mk_lang_check_return(written == mk_lang_countstr(mk_clib_app_hosts_rw_write_str_lit_tab));
+	}
+	err = mk_sl_io_writer_file_write(writer, ((mk_sl_cui_uint8_pct)(str_buf)), str_len, &written); mk_lang_check_return(written == str_len);
+	if(new_line)
+	{
+		err = mk_sl_io_writer_file_write(writer, ((mk_sl_cui_uint8_pct)(&mk_clib_app_hosts_rw_write_str_lit_nl[0])), mk_lang_countstr(mk_clib_app_hosts_rw_write_str_lit_nl), &written); mk_lang_check_return(written == mk_lang_countstr(mk_clib_app_hosts_rw_write_str_lit_nl));
+	}
+	return 0;
+}
+
+#define write_str_lit(str_lit, tabs, new_line) err = mk_clib_app_hosts_rw_write_str_lit(&(writer), &(str_lit)[0], mk_lang_countstr((str_lit)), (tabs), (new_line)); mk_lang_check_rereturn(err)
+#define write_str_obj(str_buf, str_len, tabs, new_line) err = mk_clib_app_hosts_rw_write_str_lit(&(writer), ((mk_lang_types_pchar_pct)((str_buf))), (str_len), (tabs), (new_line)); mk_lang_check_rereturn(err)
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_rw_write_html_b32s(mk_clib_app_hosts_pentries_pt const pentries) mk_lang_noexcept
+{
+	#define k_b32_doctype "<!DOCTYPE html>"
+	#define k_b32_html_beg "<html>"
+	#define k_b32_html_end "</html>"
+	#define k_b32_head_beg "<head>"
+	#define k_b32_head_end "</head>"
+	#define k_b32_title "<title>hosts</title>"
+	#define k_b32_style_common "<link rel=\"stylesheet\" href=\"hosts-common.css\"/>"
+	#define k_b32_style_light "<link rel=\"stylesheet\" href=\"hosts-light.css\"/>"
+	#define k_b32_style_dark "<link rel=\"stylesheet\" href=\"hosts-dark.css\"/>"
+	#define k_b32_body_beg "<body>"
+	#define k_b32_body_end "</body>"
+	#define k_b32_back "<a href=\"..\">back</a><br/><br/>"
+	#define k_b32_table_beg "<table>"
+	#define k_b32_table_end "</table>"
+	#define k_b32_thead_beg "<thead>"
+	#define k_b32_thead_end "</thead>"
+	#define k_b32_tr_beg "<tr>"
+	#define k_b32_tr_end "</tr>"
+	#define k_b32_td_beg "<td>"
+	#define k_b32_td_end "</td>"
+	#define k_b32_th_host "<th>host</th>"
+	#define k_b32_th_b32 "<th>b32</th>"
+	#define k_b32_a_host_open_beg "<a href=\"http://"
+	#define k_b32_a_host_open_end "/\">"
+	#define k_b32_a_host_close "</a>"
+	#define k_b32_a_b32_open_beg "<a class=\"monospace\" href=\"http://"
+	#define k_b32_a_b32_open_end ".b32.i2p/\">"
+	#define k_b32_a_b32_close ".b32.i2p</a>"
+
+	mk_lang_types_sint_t tabs;
+	mk_lang_types_sint_t err;
+	mk_sl_io_writer_file_t writer;
+	mk_lang_types_usize_t count;
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
+	mk_clib_app_hosts_entry_pcpct pentry;
+	mk_clib_app_hosts_entry_pct entry;
+	mk_sl_cui_uint8_pct str_buf;
+	mk_lang_types_sint_t str_len;
+	mk_lang_types_pchar_t b32str[mk_lang_roundup_div(mk_lib_crypto_hash_stream_sha2_256_digest_len_v * 8, 5)] mk_lang_constexpr_init;
+	mk_lang_types_sint_t len;
+
+	mk_lang_assert(pentries);
+
+	tabs = 0;
+	err = mk_clib_app_hosts_rw_sort_by_b32(pentries); mk_lang_check_rereturn(err);
+	err = mk_sl_io_writer_file_open_n(&writer, "b32s.html"); mk_lang_check_rereturn(err);
+	write_str_lit(k_b32_doctype, tabs, mk_lang_true);
+	write_str_lit(k_b32_html_beg, tabs, mk_lang_true); ++tabs;
+	write_str_lit(k_b32_head_beg, tabs, mk_lang_true); ++tabs;
+	write_str_lit(k_b32_title, tabs, mk_lang_true);
+	write_str_lit(k_b32_style_common, tabs, mk_lang_true);
+	write_str_lit(k_b32_style_light, tabs, mk_lang_true);
+	write_str_lit(k_b32_style_dark, tabs, mk_lang_true); --tabs;
+	write_str_lit(k_b32_head_end, tabs, mk_lang_true);
+	write_str_lit(k_b32_body_beg, tabs, mk_lang_true); ++tabs;
+	write_str_lit(k_b32_back, tabs, mk_lang_true);
+	write_str_lit(k_b32_table_beg, tabs, mk_lang_true); ++tabs;
+	write_str_lit(k_b32_tr_beg, tabs, mk_lang_true); ++tabs;
+	write_str_lit(k_b32_th_b32, tabs, mk_lang_true); --tabs;
+	write_str_lit(k_b32_th_host, tabs, mk_lang_true);
+	write_str_lit(k_b32_tr_end, tabs, mk_lang_true);
+	count = mk_clib_app_hosts_pentries_ro_size(pentries);
+	n = count;
+	for(i = 0; i != n; ++i)
+	{
+		pentry = mk_clib_app_hosts_pentries_ro_at(pentries, i); mk_lang_assert(pentry);
+		entry = *pentry; mk_lang_assert(entry);
+		write_str_lit(k_b32_tr_beg, tabs, mk_lang_true); ++tabs;
+		write_str_lit(k_b32_td_beg, tabs, mk_lang_false);
+		{
+			mk_lib_iip_base32_encoder_fn(&entry->m_b32.m_data.m_uint8s[0], mk_lib_crypto_hash_stream_sha2_256_digest_len_v, &b32str[0], mk_lang_countof(b32str), &len); mk_lang_check_return(len == mk_lang_countof(b32str));
+			str_buf = ((mk_sl_cui_uint8_pct)(&b32str[0]));
+			str_len = len;
+			write_str_lit(k_b32_a_b32_open_beg, 0, mk_lang_false);
+			write_str_obj(str_buf, str_len, 0, mk_lang_false);
+			write_str_lit(k_b32_a_b32_open_end, 0, mk_lang_false);
+			write_str_obj(str_buf, str_len, 0, mk_lang_false);
+			write_str_lit(k_b32_a_b32_close, 0, mk_lang_false);
+		}
+		write_str_lit(k_b32_td_end, 0, mk_lang_true);
+		write_str_lit(k_b32_td_beg, tabs, mk_lang_false);
+		{
+			str_buf = mk_clib_app_hosts_domain_ro_data(&entry->m_domain);
+			str_len = mk_clib_app_hosts_domain_ro_sise(&entry->m_domain);
+			write_str_lit(k_b32_a_host_open_beg, 0, mk_lang_false);
+			write_str_obj(str_buf, str_len, 0, mk_lang_false);
+			write_str_lit(k_b32_a_host_open_end, 0, mk_lang_false);
+			write_str_obj(str_buf, str_len, 0, mk_lang_false);
+			write_str_lit(k_b32_a_host_close, 0, mk_lang_false);
+		}
+		write_str_lit(k_b32_td_end, 0, mk_lang_true); --tabs;
+		write_str_lit(k_b32_tr_end, tabs, mk_lang_true);
+	} --tabs;
+	write_str_lit(k_b32_table_end, tabs, mk_lang_true); --tabs;
+	write_str_lit(k_b32_body_end, tabs, mk_lang_true); --tabs;
+	write_str_lit(k_b32_html_end, tabs, mk_lang_true);
+	err = mk_sl_io_writer_file_close(&writer); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_rw_write_html_hosts(mk_clib_app_hosts_pentries_pt const pentries) mk_lang_noexcept
+{
+	#define k_hosts_doctype "<!DOCTYPE html>"
+	#define k_hosts_html_beg "<html>"
+	#define k_hosts_html_end "</html>"
+	#define k_hosts_head_beg "<head>"
+	#define k_hosts_head_end "</head>"
+	#define k_hosts_title "<title>hosts</title>"
+	#define k_hosts_style_common "<link rel=\"stylesheet\" href=\"hosts-common.css\"/>"
+	#define k_hosts_style_light "<link rel=\"stylesheet\" href=\"hosts-light.css\"/>"
+	#define k_hosts_style_dark "<link rel=\"stylesheet\" href=\"hosts-dark.css\"/>"
+	#define k_hosts_body_beg "<body>"
+	#define k_hosts_body_end "</body>"
+	#define k_hosts_back "<a href=\"..\">back</a><br/><br/>"
+	#define k_hosts_table_beg "<table>"
+	#define k_hosts_table_end "</table>"
+	#define k_hosts_thead_beg "<thead>"
+	#define k_hosts_thead_end "</thead>"
+	#define k_hosts_tr_beg "<tr>"
+	#define k_hosts_tr_end "</tr>"
+	#define k_hosts_td_beg "<td>"
+	#define k_hosts_td_end "</td>"
+	#define k_hosts_th_host "<th>host</th>"
+	#define k_hosts_th_b32 "<th>b32</th>"
+	#define k_hosts_a_host_open_beg "<a href=\"http://"
+	#define k_hosts_a_host_open_end "/\">"
+	#define k_hosts_a_host_close "</a>"
+	#define k_hosts_a_hosts_open_beg "<a class=\"monospace\" href=\"http://"
+	#define k_hosts_a_hosts_open_end ".b32.i2p/\">"
+	#define k_hosts_a_hosts_close ".b32.i2p</a>"
+
+	mk_lang_types_sint_t tabs;
+	mk_lang_types_sint_t err;
+	mk_sl_io_writer_file_t writer;
+	mk_lang_types_usize_t count;
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
+	mk_clib_app_hosts_entry_pcpct pentry;
+	mk_clib_app_hosts_entry_pct entry;
+	mk_sl_cui_uint8_pct str_buf;
+	mk_lang_types_sint_t str_len;
+	mk_lang_types_pchar_t b32str[mk_lang_roundup_div(mk_lib_crypto_hash_stream_sha2_256_digest_len_v * 8, 5)] mk_lang_constexpr_init;
+	mk_lang_types_sint_t len;
+
+	mk_lang_assert(pentries);
+
+	tabs = 0;
+	err = mk_clib_app_hosts_rw_sort_by_name(pentries); mk_lang_check_rereturn(err);
+	err = mk_sl_io_writer_file_open_n(&writer, "hosts.html"); mk_lang_check_rereturn(err);
+	write_str_lit(k_hosts_doctype, tabs, mk_lang_true);
+	write_str_lit(k_hosts_html_beg, tabs, mk_lang_true); ++tabs;
+	write_str_lit(k_hosts_head_beg, tabs, mk_lang_true); ++tabs;
+	write_str_lit(k_hosts_title, tabs, mk_lang_true);
+	write_str_lit(k_hosts_style_common, tabs, mk_lang_true);
+	write_str_lit(k_hosts_style_light, tabs, mk_lang_true);
+	write_str_lit(k_hosts_style_dark, tabs, mk_lang_true); --tabs;
+	write_str_lit(k_hosts_head_end, tabs, mk_lang_true);
+	write_str_lit(k_hosts_body_beg, tabs, mk_lang_true); ++tabs;
+	write_str_lit(k_hosts_back, tabs, mk_lang_true);
+	write_str_lit(k_hosts_table_beg, tabs, mk_lang_true); ++tabs;
+	write_str_lit(k_hosts_tr_beg, tabs, mk_lang_true); ++tabs;
+	write_str_lit(k_hosts_th_host, tabs, mk_lang_true);
+	write_str_lit(k_hosts_th_b32, tabs, mk_lang_true); --tabs;
+	write_str_lit(k_hosts_tr_end, tabs, mk_lang_true);
+	count = mk_clib_app_hosts_pentries_ro_size(pentries);
+	n = count;
+	for(i = 0; i != n; ++i)
+	{
+		pentry = mk_clib_app_hosts_pentries_ro_at(pentries, i); mk_lang_assert(pentry);
+		entry = *pentry; mk_lang_assert(entry);
+		write_str_lit(k_hosts_tr_beg, tabs, mk_lang_true); ++tabs;
+		write_str_lit(k_hosts_td_beg, tabs, mk_lang_false);
+		{
+			mk_lib_iip_base32_encoder_fn(&entry->m_b32.m_data.m_uint8s[0], mk_lib_crypto_hash_stream_sha2_256_digest_len_v, &b32str[0], mk_lang_countof(b32str), &len); mk_lang_check_return(len == mk_lang_countof(b32str));
+			str_buf = ((mk_sl_cui_uint8_pct)(&b32str[0]));
+			str_len = len;
+			write_str_lit(k_hosts_a_hosts_open_beg, 0, mk_lang_false);
+			write_str_obj(str_buf, str_len, 0, mk_lang_false);
+			write_str_lit(k_hosts_a_hosts_open_end, 0, mk_lang_false);
+			write_str_obj(str_buf, str_len, 0, mk_lang_false);
+			write_str_lit(k_hosts_a_hosts_close, 0, mk_lang_false);
+		}
+		write_str_lit(k_hosts_td_end, 0, mk_lang_true);
+		write_str_lit(k_hosts_td_beg, tabs, mk_lang_false);
+		{
+			str_buf = mk_clib_app_hosts_domain_ro_data(&entry->m_domain);
+			str_len = mk_clib_app_hosts_domain_ro_sise(&entry->m_domain);
+			write_str_lit(k_hosts_a_host_open_beg, 0, mk_lang_false);
+			write_str_obj(str_buf, str_len, 0, mk_lang_false);
+			write_str_lit(k_hosts_a_host_open_end, 0, mk_lang_false);
+			write_str_obj(str_buf, str_len, 0, mk_lang_false);
+			write_str_lit(k_hosts_a_host_close, 0, mk_lang_false);
+		}
+		write_str_lit(k_hosts_td_end, 0, mk_lang_true); --tabs;
+		write_str_lit(k_hosts_tr_end, tabs, mk_lang_true);
+	} --tabs;
+	write_str_lit(k_hosts_table_end, tabs, mk_lang_true); --tabs;
+	write_str_lit(k_hosts_body_end, tabs, mk_lang_true); --tabs;
+	write_str_lit(k_hosts_html_end, tabs, mk_lang_true);
+	err = mk_sl_io_writer_file_close(&writer); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_rw_write_htmls(mk_clib_app_hosts_entries_pct const entries) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	mk_clib_app_hosts_pentries_t pentries;
+
+	mk_lang_assert(entries);
+
+	err = mk_clib_app_hosts_pentries_rw_construct(&pentries); mk_lang_check_rereturn(err);
+	err = mk_clib_app_hosts_rw_copy_from(&pentries, entries); mk_lang_check_rereturn(err);
+	err = mk_clib_app_hosts_rw_write_html_b32s(&pentries); mk_lang_check_rereturn(err);
+	err = mk_clib_app_hosts_rw_write_html_hosts(&pentries); mk_lang_check_rereturn(err);
+	err = mk_clib_app_hosts_pentries_rw_destroy(&pentries); mk_lang_check_rereturn(err);
+	return 0;
+}
+
 
 
 
@@ -1054,6 +1432,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_g
 	err = mk_clib_app_hosts_entries_rw_sort_by_domain_and_write(&entries); mk_lang_check_rereturn(err);
 	err = mk_clib_app_hosts_entries_rw_sort_by_b32_and_write(&entries); mk_lang_check_rereturn(err);
 	err = mk_clib_app_hosts_tree_rw_write(&entries); mk_lang_check_rereturn(err);
+	err = mk_clib_app_hosts_rw_write_htmls(&entries); mk_lang_check_rereturn(err);
 	err = mk_clib_app_hosts_entries_rw_destroy(&entries); mk_lang_check_rereturn(err);
 	return 0;
 }
