@@ -43,6 +43,8 @@
 /mk_lib_crypto_mode_stream_any1.h
 /mk_lib_crypto_mode_stream_any2.c
 /mk_lib_crypto_mode_stream_any2.h
+/mk_lib_crypto_mode_stream_any3.c
+/mk_lib_crypto_mode_stream_any3.h
 /mk_lib_crypto_mode_stream_inl_defd.h
 /mk_lib_crypto_mode_stream_inl_defu.h
 /mk_lib_crypto_mode_stream_names.c
