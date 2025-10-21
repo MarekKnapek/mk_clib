@@ -52,6 +52,9 @@
 #include "mk_lib_crypto_mac_hmac_sha3_256_test.hpp"
 #include "mk_lib_crypto_mac_hmac_sha3_384_test.hpp"
 #include "mk_lib_crypto_mac_hmac_sha3_512_test.hpp"
+#include "mk_lib_crypto_mode_cbc_test_aes128.hpp"
+#include "mk_lib_crypto_mode_cbc_test_aes192.hpp"
+#include "mk_lib_crypto_mode_cbc_test_aes256.hpp"
 #include "mk_lib_crypto_mode_ecb_test_aes128.hpp"
 #include "mk_lib_crypto_mode_ecb_test_aes192.hpp"
 #include "mk_lib_crypto_mode_ecb_test_aes256.hpp"
@@ -113,6 +116,9 @@ mk_lang_jumbo mk_lang_types_void_t mk_clib_test(mk_lang_types_void_t) mk_lang_no
 	mk_lib_crypto_mac_hmac_sha3_256_test();
 	mk_lib_crypto_mac_hmac_sha3_384_test();
 	mk_lib_crypto_mac_hmac_sha3_512_test();
+	mk_lib_crypto_mode_cbc_test_aes128();
+	mk_lib_crypto_mode_cbc_test_aes192();
+	mk_lib_crypto_mode_cbc_test_aes256();
 	mk_lib_crypto_mode_ecb_test_aes128();
 	mk_lib_crypto_mode_ecb_test_aes192();
 	mk_lib_crypto_mode_ecb_test_aes256();
