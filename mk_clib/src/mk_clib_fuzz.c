@@ -89,6 +89,7 @@
 #include "mk_lib_crypto_mac_hmac_tiger_160_fuzz.h"
 #include "mk_lib_crypto_mac_hmac_tiger_192_fuzz.h"
 #include "mk_lib_crypto_mac_hmac_whirlpool_fuzz.h"
+#include "mk_lib_crypto_mode_stream_any2_fuzz.h"
 #include "mk_lib_crypto_xof_stream_shake_128_fuzz.h"
 #include "mk_lib_crypto_xof_stream_shake_256_fuzz.h"
 #include "mk_lib_crypto_xof_stream_turbo_shake_128_fuzz.h"
@@ -195,6 +196,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_fuzz_proces
 		else if(line == 0 && mk_lang_str_match_n(ctx->m_argv[1], len, mk_clib_fuzz_str_lit("mk_lib_crypto_mac_hmac_tiger_160_fuzz"))){ line = __LINE__; }
 		else if(line == 0 && mk_lang_str_match_n(ctx->m_argv[1], len, mk_clib_fuzz_str_lit("mk_lib_crypto_mac_hmac_tiger_192_fuzz"))){ line = __LINE__; }
 		else if(line == 0 && mk_lang_str_match_n(ctx->m_argv[1], len, mk_clib_fuzz_str_lit("mk_lib_crypto_mac_hmac_whirlpool_fuzz"))){ line = __LINE__; }
+		else if(line == 0 && mk_lang_str_match_n(ctx->m_argv[1], len, mk_clib_fuzz_str_lit("mk_lib_crypto_mode_stream_any2_fuzz"))){ line = __LINE__; }
 		else if(line == 0 && mk_lang_str_match_n(ctx->m_argv[1], len, mk_clib_fuzz_str_lit("mk_lib_crypto_xof_stream_shake_128_fuzz"))){ line = __LINE__; }
 		else if(line == 0 && mk_lang_str_match_n(ctx->m_argv[1], len, mk_clib_fuzz_str_lit("mk_lib_crypto_xof_stream_shake_256_fuzz"))){ line = __LINE__; }
 		else if(line == 0 && mk_lang_str_match_n(ctx->m_argv[1], len, mk_clib_fuzz_str_lit("mk_lib_crypto_xof_stream_turbo_shake_128_fuzz"))){ line = __LINE__; }
@@ -336,6 +338,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_fuzz_fn(mk_
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_mac_hmac_tiger_160_fuzz(d, s); mk_lang_check_rereturn(err); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_mac_hmac_tiger_192_fuzz(d, s); mk_lang_check_rereturn(err); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_mac_hmac_whirlpool_fuzz(d, s); mk_lang_check_rereturn(err); }
+	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_mode_stream_any2_fuzz(d, s); mk_lang_check_rereturn(err); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_xof_stream_shake_128_fuzz(d, s); mk_lang_check_rereturn(err); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_xof_stream_shake_256_fuzz(d, s); mk_lang_check_rereturn(err); }
 	if(all || curr == ((mk_lang_types_uint_t)(__LINE__))){ err = mk_lib_crypto_xof_stream_turbo_shake_128_fuzz(d, s); mk_lang_check_rereturn(err); }
