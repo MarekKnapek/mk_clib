@@ -1017,6 +1017,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_r
 	#define k_b32_table_end "</table>"
 	#define k_b32_thead_beg "<thead>"
 	#define k_b32_thead_end "</thead>"
+	#define k_b32_tbody_beg "<tbody>"
+	#define k_b32_tbody_end "</tbody>"
 	#define k_b32_tr_beg "<tr>"
 	#define k_b32_tr_end "</tr>"
 	#define k_b32_td_beg "<td>"
@@ -1059,10 +1061,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_r
 	write_str_lit(k_b32_body_beg, tabs, mk_lang_true); ++tabs;
 	write_str_lit(k_b32_back, tabs, mk_lang_true);
 	write_str_lit(k_b32_table_beg, tabs, mk_lang_true); ++tabs;
+	write_str_lit(k_b32_thead_beg, tabs, mk_lang_true); ++tabs;
 	write_str_lit(k_b32_tr_beg, tabs, mk_lang_true); ++tabs;
 	write_str_lit(k_b32_th_b32, tabs, mk_lang_true); --tabs;
 	write_str_lit(k_b32_th_host, tabs, mk_lang_true);
-	write_str_lit(k_b32_tr_end, tabs, mk_lang_true);
+	write_str_lit(k_b32_tr_end, tabs, mk_lang_true); --tabs;
+	write_str_lit(k_b32_thead_end, tabs, mk_lang_true);
+	write_str_lit(k_b32_tbody_beg, tabs, mk_lang_true); ++tabs;
 	count = mk_clib_app_hosts_pentries_ro_size(pentries);
 	n = count;
 	for(i = 0; i != n; ++i)
@@ -1095,6 +1100,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_r
 		write_str_lit(k_b32_td_end, 0, mk_lang_true); --tabs;
 		write_str_lit(k_b32_tr_end, tabs, mk_lang_true);
 	} --tabs;
+	write_str_lit(k_b32_tbody_end, tabs, mk_lang_true); --tabs;
 	write_str_lit(k_b32_table_end, tabs, mk_lang_true); --tabs;
 	write_str_lit(k_b32_body_end, tabs, mk_lang_true); --tabs;
 	write_str_lit(k_b32_html_end, tabs, mk_lang_true);
@@ -1120,6 +1126,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_r
 	#define k_hosts_table_end "</table>"
 	#define k_hosts_thead_beg "<thead>"
 	#define k_hosts_thead_end "</thead>"
+	#define k_hosts_tbody_beg "<tbody>"
+	#define k_hosts_tbody_end "</tbody>"
 	#define k_hosts_tr_beg "<tr>"
 	#define k_hosts_tr_end "</tr>"
 	#define k_hosts_td_beg "<td>"
@@ -1162,10 +1170,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_r
 	write_str_lit(k_hosts_body_beg, tabs, mk_lang_true); ++tabs;
 	write_str_lit(k_hosts_back, tabs, mk_lang_true);
 	write_str_lit(k_hosts_table_beg, tabs, mk_lang_true); ++tabs;
+	write_str_lit(k_hosts_thead_beg, tabs, mk_lang_true); ++tabs;
 	write_str_lit(k_hosts_tr_beg, tabs, mk_lang_true); ++tabs;
 	write_str_lit(k_hosts_th_host, tabs, mk_lang_true);
 	write_str_lit(k_hosts_th_b32, tabs, mk_lang_true); --tabs;
-	write_str_lit(k_hosts_tr_end, tabs, mk_lang_true);
+	write_str_lit(k_hosts_tr_end, tabs, mk_lang_true); --tabs;
+	write_str_lit(k_hosts_thead_end, tabs, mk_lang_true);
+	write_str_lit(k_hosts_tbody_beg, tabs, mk_lang_true); ++tabs;
 	count = mk_clib_app_hosts_pentries_ro_size(pentries);
 	n = count;
 	for(i = 0; i != n; ++i)
@@ -1198,6 +1209,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_r
 		write_str_lit(k_hosts_td_end, 0, mk_lang_true); --tabs;
 		write_str_lit(k_hosts_tr_end, tabs, mk_lang_true);
 	} --tabs;
+	write_str_lit(k_hosts_tbody_end, tabs, mk_lang_true); --tabs;
 	write_str_lit(k_hosts_table_end, tabs, mk_lang_true); --tabs;
 	write_str_lit(k_hosts_body_end, tabs, mk_lang_true); --tabs;
 	write_str_lit(k_hosts_html_end, tabs, mk_lang_true);

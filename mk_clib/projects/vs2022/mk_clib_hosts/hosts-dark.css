@@ -1,0 +1,42 @@
+@media(prefers-color-scheme:dark)
+{
+	body
+	{
+		background-color:black;
+		color:white;
+	}
+	table
+	{
+		border-collapse: collapse;
+		border: 1px solid white;
+	}
+	tr:has(th)
+	{
+		border-bottom: 1px solid white;
+	}
+	th
+	{
+		border-right: 1px solid white;
+	}
+		td + td
+	{
+		border-left: 1px solid gray;
+	}
+	td
+	{
+		padding-left: 0.5em;
+		padding-right: 0.5em;
+	}
+	tbody > tr:hover
+	{
+		background-color: dimgray;
+	}
+	a:link,a:hover,a:active,a:visited
+	{
+		color:blue;
+	}
+	a:visited
+	{
+		color:purple;
+	}
+}

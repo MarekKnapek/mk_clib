@@ -1,0 +1,34 @@
+@media(prefers-color-scheme:light)
+{
+	body
+	{
+		background-color:white;
+		color:black;
+	}
+	table
+	{
+		border: 1px solid black;
+		border-collapse: collapse;
+	}
+	tr:has(th)
+	{
+		border-bottom: 1px solid black;
+	}
+	th
+	{
+		border-right: 1px solid black;
+	}
+	td + td
+	{
+		border-left: 1px solid gray;
+	}
+	td
+	{
+		padding-left: 0.5em;
+		padding-right: 0.5em;
+	}
+	tbody > tr:hover
+	{
+		background-color: beige;
+	}
+}
