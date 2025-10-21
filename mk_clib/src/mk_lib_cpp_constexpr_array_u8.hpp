@@ -39,6 +39,9 @@ mk_lang_nodiscard mk_lang_constexpr auto mk_lib_cpp_constexpr_array_u8_from_pcha
 
 	mk_lang_static_assert(str_lit_len >= 1);
 
+	mk_lang_assert(str_lit);
+	mk_lang_assert(str_lit[str_lit_len - 1] == '\0');
+
 	n = str_lit_len - 1;
 	for(i = 0; i != n; ++i)
 	{
@@ -52,8 +55,10 @@ mk_lang_nodiscard mk_lang_constexpr auto mk_lib_cpp_constexpr_array_u8_from_pcha
 {
 	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, 0> res mk_lang_constexpr_init;
 
-	((mk_lang_types_void_t)(str_lit));
+	mk_lang_assert(str_lit);
+	mk_lang_assert(str_lit[0] == '\0');
 
+	((mk_lang_types_void_t)(str_lit));
 	return res;
 }
 
@@ -68,6 +73,9 @@ mk_lang_nodiscard mk_lang_constexpr auto mk_lib_cpp_constexpr_array_u8_from_hex_
 	mk_lang_static_assert(hex_lit_len >= 1);
 	mk_lang_static_assert((hex_lit_len - 1) % 2 == 0);
 
+	mk_lang_assert(hex_lit);
+	mk_lang_assert(hex_lit[hex_lit_len - 1] == '\0');
+
 	n = (hex_lit_len - 1) / 2;
 	for(i = 0; i != n; ++i)
 	{
@@ -81,8 +89,10 @@ mk_lang_nodiscard mk_lang_constexpr auto mk_lib_cpp_constexpr_array_u8_from_hex_
 {
 	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, 0> res mk_lang_constexpr_init;
 
-	((mk_lang_types_void_t)(hex_lit));
+	mk_lang_assert(hex_lit);
+	mk_lang_assert(hex_lit[0] == '\0');
 
+	((mk_lang_types_void_t)(hex_lit));
 	return res;
 }
 
@@ -90,6 +100,8 @@ template<mk_lang_types_usize_t arr_len>
 mk_lang_nodiscard mk_lang_constexpr auto mk_lib_cpp_constexpr_array_u8_from_u8s(mk_sl_cui_uint8_t const(&arr)[arr_len]) mk_lang_noexcept
 {
 	mk_lib_cpp_constexpr_array_t<mk_sl_cui_uint8_t, arr_len> res mk_lang_constexpr_init;
+
+	mk_lang_assert(arr);
 
 	mk_sl_cui_uint8_memcpy_fn(res.data(), &arr[0], arr_len);
 	return res;
@@ -103,6 +115,10 @@ mk_lang_constexpr mk_lang_types_void_t mk_lib_cpp_constexpr_array_u8_from_pchar_
 	mk_lang_types_usize_t i mk_lang_constexpr_init;
 
 	mk_lang_static_assert(str_lit_len >= 1);
+
+	mk_lang_assert(arr);
+	mk_lang_assert(str_lit);
+	mk_lang_assert(str_lit[str_lit_len - 1] == '\0');
 
 	n = str_lit_len - 1;
 	for(i = 0; i != n; ++i)
@@ -121,11 +137,25 @@ mk_lang_constexpr mk_lang_types_void_t mk_lib_cpp_constexpr_array_u8_from_hex_li
 	mk_lang_static_assert(hex_lit_len >= 1);
 	mk_lang_static_assert((hex_lit_len - 1) % mk_sl_cui_uint8_strlen_hex_v == 0);
 
+	mk_lang_assert(arr);
+	mk_lang_assert(hex_lit);
+	mk_lang_assert(hex_lit[hex_lit_len - 1] == '\0');
+
 	n = (hex_lit_len - 1) / mk_sl_cui_uint8_strlen_hex_v;
 	for(i = 0; i != n; ++i)
 	{
 		len = mk_sl_cui_uint8_from_str_hex_n(&arr[i], &hex_lit[i * mk_sl_cui_uint8_strlen_hex_v], mk_sl_cui_uint8_strlen_hex_v); mk_lang_assert(len == mk_sl_cui_uint8_strlen_hex_v);
 	}
+}
+
+mk_lang_constexpr mk_lang_types_void_t mk_lib_cpp_constexpr_array_u8_from_hex_lit(mk_sl_cui_uint8_t(&arr)[1], mk_lang_types_pchar_t const(&hex_lit)[1]) mk_lang_noexcept
+{
+	mk_lang_assert(arr);
+	mk_lang_assert(hex_lit);
+	mk_lang_assert(hex_lit[0] == '\0');
+
+	((mk_lang_types_void_t)(arr));
+	((mk_lang_types_void_t)(hex_lit));
 }
 
 
