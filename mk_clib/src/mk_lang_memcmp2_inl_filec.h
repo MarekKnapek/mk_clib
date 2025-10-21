@@ -23,11 +23,14 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lang_m
 	if(!mk_lang_constexpr_is_constant_evaluated_test && sizeof(mk_lang_memcmp2_inl_defd_type_t) == 1 && bufa && bufb && count >= 1)
 	#include "mk_lang_warning_msvc_pop.h"
 	{
+		mk_lang_types_sint_t cmp mk_lang_constexpr_init;
+
 		mk_lang_assert(bufa);
 		mk_lang_assert(bufb);
 		mk_lang_assert(count >= 1);
 
-		return memcmp(((mk_lang_types_void_pct)(bufa)), ((mk_lang_types_void_pct)(bufb)), count);
+		cmp = memcmp(((mk_lang_types_void_pct)(bufa)), ((mk_lang_types_void_pct)(bufb)), count);
+		return cmp;
 	}
 	else
 	#endif
