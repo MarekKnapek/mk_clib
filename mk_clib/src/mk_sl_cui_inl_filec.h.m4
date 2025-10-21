@@ -5892,15 +5892,6 @@ mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noali
 
 mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_from_str_hex_many_n(mk_sl_cui_inl_defd_pt const x, mk_lang_types_sint_t const count, mk_lang_types_pchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
 {
-#if mk_sl_cui_inl_defd_count == 1
-	mk_lang_assert(x);
-	mk_lang_assert(count >= 0);
-	mk_lang_assert(str_buf || str_len == 0);
-	mk_lang_assert(str_len >= 0);
-	mk_lang_assert(str_len == count * mk_sl_cui_inl_defd_strlen_hex_v);
-
-	return mk_sl_cui_inl_defd_base_from_str_hex_many_n(&x->m_elements[mk_sl_cui_inl_defd_idx(0)], count, str_buf, str_len);
-#else
 	mk_lang_types_sint_t n mk_lang_constexpr_init;
 	mk_lang_types_sint_t i mk_lang_constexpr_init;
 	mk_lang_types_sint_t len mk_lang_constexpr_init;
@@ -5917,7 +5908,6 @@ mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noali
 		len = mk_sl_cui_inl_defd_from_str_hex_n(&x[i], &str_buf[i * mk_sl_cui_inl_defd_strlen_hex_v], mk_sl_cui_inl_defd_strlen_hex_v); mk_lang_assert(len == mk_sl_cui_inl_defd_strlen_hex_v);
 	}
 	return count * mk_sl_cui_inl_defd_strlen_hex_v;
-#endif
 }}
 
 mk_lang_nodiscard mk_sl_cui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_sint_t mk_sl_cui_inl_defd_pr_from_str_hex_many_w(mk_sl_cui_inl_defd_pt const x, mk_lang_types_sint_t const count, mk_lang_types_wchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept { mk_sl_cui_inl_defd_flatten
