@@ -1524,6 +1524,9 @@
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_serpent_inl_defu.h.m4"><Filter>src</Filter></ClCompile>
 	</ItemGroup>
 	<ItemGroup>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg.m"><Filter>src</Filter></ClCompile>
+	</ItemGroup>
+	<ItemGroup>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_stream.c"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_stream_any1.c"><Filter>src</Filter></ClCompile>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_alg_stream_any2.c"><Filter>src</Filter></ClCompile>
