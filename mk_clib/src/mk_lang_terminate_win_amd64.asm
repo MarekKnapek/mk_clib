@@ -2,8 +2,8 @@ mk_lang_rt_terminate proto
 
 .code
 
-memcmp proc
+__std_terminate proc
 	jmp mk_lang_rt_terminate
-memcmp endp
+__std_terminate endp
 
 end
