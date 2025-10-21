@@ -47,6 +47,10 @@
 /mk_lib_crypto_mode_ofb.h
 /mk_lib_crypto_mode_ofb_inl_defd.h
 /mk_lib_crypto_mode_ofb_inl_defu.h
+/mk_lib_crypto_mode_pcbc.c
+/mk_lib_crypto_mode_pcbc.h
+/mk_lib_crypto_mode_pcbc_inl_defd.h
+/mk_lib_crypto_mode_pcbc_inl_defu.h
 /mk_lib_crypto_mode_stream.c
 /mk_lib_crypto_mode_stream.h
 /mk_lib_crypto_mode_stream_any1.c

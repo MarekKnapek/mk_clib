@@ -1,0 +1,2 @@
+#undef mk_lib_crypto_mode_pcbc_t_name
+#undef mk_lib_crypto_mode_pcbc_t_base_name

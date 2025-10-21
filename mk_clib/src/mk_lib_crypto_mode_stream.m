@@ -23,6 +23,10 @@ define(`mk_lib_crypto_mode_stream_mm_list', `dnl
 `ofb', `aes_192', `OFB-AES-192', dnl
 `ofb', `aes_256', `OFB-AES-256', dnl
 `ofb', `serpent', `OFB-Serpent', dnl
+`pcbc', `aes_128', `PCBC-AES-128', dnl
+`pcbc', `aes_192', `PCBC-AES-192', dnl
+`pcbc', `aes_256', `PCBC-AES-256', dnl
+`pcbc', `serpent', `PCBC-Serpent', dnl
 `'')dnl
 define(`mk_lib_crypto_mode_stream_mm_recurse', `ifelse(`$#', `2', `', `$1(`$2', `$3', `$4')mk_lib_crypto_mode_stream_mm_recurse(`$1', shift(shift(shift(shift($@)))))')')`'dnl
 dnl
