@@ -3,7 +3,7 @@
 #include "mk_clib_app_cryptor.h"
 
 #include "mk_lang_static_assert.h"
-#include "mk_lib_crypto_alg_stream_names.h"
+#include "mk_lib_crypto_mode_stream_names.h"
 #include "mk_lang_alignas.h"
 #include "mk_lang_assert.h"
 #include "mk_lang_bitness.h"
@@ -25,11 +25,9 @@
 #include "mk_lang_tchar.h"
 #include "mk_lang_typedef.h"
 #include "mk_lang_types.h"
-#include "mk_lib_crypto_alg_stream.h"
-#include "mk_lib_crypto_hash_stream_any1.h"
-#include "mk_lib_crypto_hash_stream_any2.h"
-#include "mk_lib_crypto_alg_stream_any1.h"
-#include "mk_lib_crypto_alg_stream_any2.h"
+#include "mk_lib_crypto_mode_stream.h"
+#include "mk_lib_crypto_mode_stream_any1.h"
+#include "mk_lib_crypto_mode_stream_any2.h"
 #include "mk_lib_fmt.h"
 #include "mk_sl_cui_uint8.h"
 #include "mk_sl_io_reader_file.h"
@@ -50,7 +48,7 @@
 #endif
 union mk_clib_app_cryptor_buff_data_u
 {
-	mk_lang_types_uchar_t m_uchars[mk_lang_roundup_add(mk_clib_app_cryptor_buff_size + mk_lib_crypto_alg_stream_any2_msg_len_v, mk_clib_app_cryptor_buff_algn)];
+	mk_lang_types_uchar_t m_uchars[mk_lang_roundup_add(mk_clib_app_cryptor_buff_size + mk_lib_crypto_mode_stream_any2_msg_len_v, mk_clib_app_cryptor_buff_algn)];
 	mk_lang_types_ulllong_t m_ulllong;
 };
 typedef union mk_clib_app_cryptor_buff_data_u mk_clib_app_cryptor_buff_data_t;
@@ -62,33 +60,33 @@ typedef struct mk_clib_app_cryptor_buff_s mk_clib_app_cryptor_buff_t;
 mk_lang_typedef(mk_clib_app_cryptor_buff);
 
 
-mk_lang_nodiscard static mk_lang_inline mk_lib_crypto_alg_stream_any1_id_t mk_clib_app_cryptor_find_alg(mk_lang_tchar_pct const alg_buf, mk_lang_types_sint_t const alg_len) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lib_crypto_mode_stream_any1_id_t mk_clib_app_cryptor_find_alg(mk_lang_tchar_pct const alg_buf, mk_lang_types_sint_t const alg_len) mk_lang_noexcept
 {
 	mk_lang_types_sint_t n;
 	mk_lang_types_sint_t i;
-	mk_lib_crypto_alg_stream_names_id_t name_id;
+	mk_lib_crypto_mode_stream_names_id_t name_id;
 	mk_lang_types_pchar_pct str;
 	mk_lang_types_sint_t len;
-	mk_lib_crypto_alg_stream_any1_id_t alg_id;
+	mk_lib_crypto_mode_stream_any1_id_t alg_id;
 
-	mk_lang_static_assert(((mk_lang_types_sint_t)(mk_lib_crypto_alg_stream_any1_id_e_dummy_end)) == ((mk_lang_types_sint_t)(mk_lib_crypto_alg_stream_names_id_e_dummy_end)));
+	mk_lang_static_assert(((mk_lang_types_sint_t)(mk_lib_crypto_mode_stream_any1_id_e_dummy_end)) == ((mk_lang_types_sint_t)(mk_lib_crypto_mode_stream_names_id_e_dummy_end)));
 
 	mk_lang_assert(alg_buf || alg_len == 0);
 	mk_lang_assert(alg_len >= 0);
 	mk_lang_assert(alg_len == 0 || alg_buf[0] != mk_lang_tchar_c('\0'));
 
-	n = mk_lib_crypto_alg_stream_names_id_e_dummy_end;
+	n = mk_lib_crypto_mode_stream_names_id_e_dummy_end;
 	for(i = 0; i != n; ++i)
 	{
-		name_id = ((mk_lib_crypto_alg_stream_names_id_t)(i));
-		str = mk_lib_crypto_alg_stream_names_get_str_buf(name_id); mk_lang_assert(str); mk_lang_assert(str[0] != '\0');
-		len = mk_lib_crypto_alg_stream_names_get_str_len(name_id); mk_lang_assert(len >= 1); mk_lang_assert(len <= 0xff);
+		name_id = ((mk_lib_crypto_mode_stream_names_id_t)(i));
+		str = mk_lib_crypto_mode_stream_names_get_str_buf(name_id); mk_lang_assert(str); mk_lang_assert(str[0] != '\0');
+		len = mk_lib_crypto_mode_stream_names_get_str_len(name_id); mk_lang_assert(len >= 1); mk_lang_assert(len <= 0xff);
 		if(mk_lang_str_match_t(alg_buf, alg_len, str, len))
 		{
 			break;
 		}
 	}
-	alg_id = ((mk_lib_crypto_alg_stream_any1_id_t)(i));
+	alg_id = ((mk_lib_crypto_mode_stream_any1_id_t)(i));
 	return alg_id;
 }
 
@@ -105,7 +103,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 	mk_lang_types_sint_t arg_output_name_len;
 	mk_sl_speedometer_t speedometer;
 	mk_lang_types_bool_t want;
-	mk_lib_crypto_alg_stream_any1_id_t id;
+	mk_lib_crypto_mode_stream_any1_id_t id;
 	mk_sl_cui_uint8_pt ptr;
 	mk_clib_app_cryptor_buff_t buff;
 	mk_lang_types_sint_t err;
@@ -118,8 +116,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 	mk_lang_tchar_t progress_str_a[64]; /* todo max */
 	mk_lang_tchar_t progress_str_b[2 * mk_lang_countof(progress_str_a)]; /* todo max */
 	mk_sl_cui_uint8_t ff;
-	mk_lib_crypto_alg_stream_any2_key_t key;
-	mk_lib_crypto_alg_stream_any2_t stream;
+	mk_lib_crypto_mode_stream_any2_key_t key;
+	mk_lib_crypto_mode_stream_any2_t stream;
 
 	mk_lang_assert(argc == 4);
 	mk_lang_assert(argv);
@@ -140,12 +138,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 	arg_output_name_len = lens[3]; ((mk_lang_types_void_t)(arg_output_name_len)); /* todo file reader not zero terminated */
 	err = mk_sl_speedometer_rw_construct(&speedometer); mk_lang_check_rereturn(err);
 	id = mk_clib_app_cryptor_find_alg(arg_alg_buf, arg_alg_len);
-	mk_lang_check_return(id != mk_lib_crypto_alg_stream_any1_id_e_dummy_end);
-	mk_lib_crypto_alg_stream_any2_rw_construct(&stream, id);
-	key_len = mk_lib_crypto_alg_stream_any2_ro_get_key_len(&stream); mk_lang_assert(key_len == 16 || key_len == 24 || key_len == 32);
+	mk_lang_check_return(id != mk_lib_crypto_mode_stream_any1_id_e_dummy_end);
+	mk_lib_crypto_mode_stream_any2_rw_construct(&stream, id);
+	key_len = mk_lib_crypto_mode_stream_any2_ro_get_key_len(&stream); mk_lang_assert(key_len == 16 || key_len == 24 || key_len == 32);
 	mk_sl_cui_uint8_set_max(&ff);
 	mk_sl_cui_uint8_memset_fn(&key.m_data.m_uint8s[0], &ff, ((mk_lang_types_usize_t)(key_len)));
-	mk_lib_crypto_alg_stream_any2_rw_construct_encrypt(&stream, &key);
+	mk_lib_crypto_mode_stream_any2_rw_set_key_enc(&stream, &key);
 	ptr = ((mk_sl_cui_uint8_pt)(mk_lang_roundup_align(&buff.m_data.m_uchars[0], mk_clib_app_cryptor_buff_algn)));
 	err = mk_sl_io_reader_file_open_t(&input_file, arg_input_name_buf); mk_lang_check_rereturn(err);
 	err = mk_sl_io_writer_file_open_t(&output_file, arg_output_name_buf); mk_lang_check_rereturn(err);
@@ -156,7 +154,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 		{
 			break;
 		}
-		mk_lib_crypto_alg_stream_any2_rw_encrypt(&stream, ptr, ((mk_lang_types_usize_t)(read)), ptr, mk_clib_app_cryptor_buff_size + mk_lib_crypto_alg_stream_any2_msg_len_v, &encrypted);
+		mk_lib_crypto_mode_stream_any2_rw_encrypt(&stream, ptr, ((mk_lang_types_usize_t)(read)), ptr, mk_clib_app_cryptor_buff_size + mk_lib_crypto_mode_stream_any2_msg_len_v, &encrypted);
 		err = mk_sl_io_writer_file_write(&output_file, ptr, read, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written = read);
 		err = mk_sl_speedometer_rw_append(&speedometer, read); mk_lang_check_rereturn(err);
 		err = mk_sl_speedometer_rw_report(&speedometer, &progress_str_a[0], mk_lang_countof(progress_str_a), &want, &len); mk_lang_check_rereturn(err); mk_lang_assert(!want || len >= 1); mk_lang_assert(!want || len <= mk_lang_countof(progress_str_a));
@@ -178,19 +176,19 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 {
 	mk_lang_types_sint_t n;
 	mk_lang_types_sint_t i;
-	mk_lib_crypto_alg_stream_names_id_t id;
+	mk_lib_crypto_mode_stream_names_id_t id;
 	mk_lang_types_pchar_pct str;
 	mk_lang_types_sint_t len;
 	mk_lang_types_sint_t slen;
 	mk_lang_tchar_t buf[0xff];
 	mk_lang_types_sint_t err;
 
-	n = mk_lib_crypto_alg_stream_any1_id_e_dummy_end;
+	n = mk_lib_crypto_mode_stream_any1_id_e_dummy_end;
 	for(i = 0; i != n; ++i)
 	{
-		id = ((mk_lib_crypto_alg_stream_names_id_t)(i));
-		str = mk_lib_crypto_alg_stream_names_get_str_buf(id); mk_lang_assert(str); mk_lang_assert(str[0] != '\0');
-		len = mk_lib_crypto_alg_stream_names_get_str_len(id); mk_lang_assert(len >= 1); mk_lang_assert(len <= 0xff);
+		id = ((mk_lib_crypto_mode_stream_names_id_t)(i));
+		str = mk_lib_crypto_mode_stream_names_get_str_buf(id); mk_lang_assert(str); mk_lang_assert(str[0] != '\0');
+		len = mk_lib_crypto_mode_stream_names_get_str_len(id); mk_lang_assert(len >= 1); mk_lang_assert(len <= 0xff);
 		slen = mk_lib_fmt_t_snnprintf(&buf[0], mk_lang_countof(buf), mk_lib_fmt_lit_and_len(mk_lang_tchar_c(" %n")), str, len); mk_lang_check_return(slen >= 1);
 		err = mk_lang_stdout_print_t(&buf[0], slen); mk_lang_check_rereturn(err);
 	}
