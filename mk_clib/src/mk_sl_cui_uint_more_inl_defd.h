@@ -21,3 +21,5 @@
 
 #define mk_sl_cui_uint_more_inl_defd_xor2 mk_lang_concat(mk_sl_cui_uint_more_inl_defd_name, _xor2)
 #define mk_sl_cui_uint_more_inl_defd_xor3 mk_lang_concat(mk_sl_cui_uint_more_inl_defd_name, _xor3)
+#define mk_sl_cui_uint_more_inl_defd_memcpy mk_lang_concat(mk_sl_cui_uint_more_inl_defd_name, _memcpy)
+#define mk_sl_cui_uint_more_inl_defd_memmov mk_lang_concat(mk_sl_cui_uint_more_inl_defd_name, _memmov)

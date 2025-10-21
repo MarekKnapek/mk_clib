@@ -45,5 +45,29 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_uint_more_inl_def
 	#endif
 }
 
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_uint_more_inl_defd_memcpy(mk_lang_static_param(mk_sl_cui_uint_more_inl_defd_type_t, dst, mk_sl_cui_uint_more_inl_defd_count), mk_lang_static_param(mk_sl_cui_uint_more_inl_defd_type_ct, src, mk_sl_cui_uint_more_inl_defd_count)) mk_lang_noexcept
+{
+	mk_lang_assert(dst);
+	mk_lang_assert(src);
+
+	#if mk_sl_cui_uint_more_inl_defd_type == 8
+	mk_sl_cui_uint8_memcpy_fn(dst, src, mk_sl_cui_uint_more_inl_defd_count);
+	#else
+	#error xxxxxxxxxx
+	#endif
+}
+
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_uint_more_inl_defd_memmov(mk_lang_static_param(mk_sl_cui_uint_more_inl_defd_type_t, dst, mk_sl_cui_uint_more_inl_defd_count), mk_lang_static_param(mk_sl_cui_uint_more_inl_defd_type_ct, src, mk_sl_cui_uint_more_inl_defd_count)) mk_lang_noexcept
+{
+	mk_lang_assert(dst);
+	mk_lang_assert(src);
+
+	#if mk_sl_cui_uint_more_inl_defd_type == 8
+	mk_sl_cui_uint8_memmov_fn(dst, src, mk_sl_cui_uint_more_inl_defd_count);
+	#else
+	#error xxxxxxxxxx
+	#endif
+}
+
 
 #include "mk_sl_cui_uint_more_inl_defu.h"
