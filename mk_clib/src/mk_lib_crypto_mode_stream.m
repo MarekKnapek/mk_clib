@@ -11,6 +11,10 @@ define(`mk_lib_crypto_mode_stream_mm_list', `dnl
 `ecb', `aes_192', `ECB-AES-192', dnl
 `ecb', `aes_256', `ECB-AES-256', dnl
 `ecb', `serpent', `ECB-Serpent', dnl
+`ofb', `aes_128', `OFB-AES-128', dnl
+`ofb', `aes_192', `OFB-AES-192', dnl
+`ofb', `aes_256', `OFB-AES-256', dnl
+`ofb', `serpent', `OFB-Serpent', dnl
 `'')dnl
 define(`mk_lib_crypto_mode_stream_mm_recurse', `ifelse(`$#', `2', `', `$1(`$2', `$3', `$4')mk_lib_crypto_mode_stream_mm_recurse(`$1', shift(shift(shift(shift($@)))))')')`'dnl
 dnl

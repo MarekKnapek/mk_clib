@@ -1,0 +1,2 @@
+#undef mk_lib_crypto_mode_ofb_t_name
+#undef mk_lib_crypto_mode_ofb_t_base_name
