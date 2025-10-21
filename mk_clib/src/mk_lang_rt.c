@@ -11,6 +11,7 @@
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_noreturn.h"
 #include "mk_lang_types.h"
 #include "mk_win_base.h"
 #include "mk_win_dll_ntdll.h"
