@@ -29,6 +29,12 @@
 /mk_lib_crypto_mode_cbc.h
 /mk_lib_crypto_mode_cbc_inl_defd.h
 /mk_lib_crypto_mode_cbc_inl_defu.h
+/mk_lib_crypto_mode_cfb.c
+/mk_lib_crypto_mode_cfb.h
+/mk_lib_crypto_mode_cfb8.c
+/mk_lib_crypto_mode_cfb8.h
+/mk_lib_crypto_mode_cfb_inl_defd.h
+/mk_lib_crypto_mode_cfb_inl_defu.h
 /mk_lib_crypto_mode_ctr.c
 /mk_lib_crypto_mode_ctr.h
 /mk_lib_crypto_mode_ctr_inl_defd.h

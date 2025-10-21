@@ -3,6 +3,14 @@ define(`mk_lib_crypto_mode_stream_mm_list', `dnl
 `cbc', `aes_192', `CBC-AES-192', dnl
 `cbc', `aes_256', `CBC-AES-256', dnl
 `cbc', `serpent', `CBC-Serpent', dnl
+`cfb', `aes_128', `CFB-AES-128', dnl
+`cfb', `aes_192', `CFB-AES-192', dnl
+`cfb', `aes_256', `CFB-AES-256', dnl
+`cfb', `serpent', `CFB-Serpent', dnl
+`cfb8', `aes_128', `CFB8-AES-128', dnl
+`cfb8', `aes_192', `CFB8-AES-192', dnl
+`cfb8', `aes_256', `CFB8-AES-256', dnl
+`cfb8', `serpent', `CFB8-Serpent', dnl
 `ctr', `aes_128', `CTR-AES-128', dnl
 `ctr', `aes_192', `CTR-AES-192', dnl
 `ctr', `aes_256', `CTR-AES-256', dnl
