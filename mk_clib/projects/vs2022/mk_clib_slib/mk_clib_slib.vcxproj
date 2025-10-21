@@ -92,6 +92,7 @@
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_builtin.h.m4"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_mm_concat.m"/>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_mm_max.m"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_mm_nl.m"/>
 	</ItemGroup>
 	<ItemGroup>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_alignas.h"/>
