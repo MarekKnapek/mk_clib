@@ -25,6 +25,10 @@
 /mk_lib_crypto_hash_stream_any1.h
 /mk_lib_crypto_hash_stream_any2.c
 /mk_lib_crypto_hash_stream_any2.h
+/mk_lib_crypto_mode_ecb.c
+/mk_lib_crypto_mode_ecb.h
+/mk_lib_crypto_mode_ecb_inl_defd.h
+/mk_lib_crypto_mode_ecb_inl_defu.h
 /mk_lib_crypto_xof_stream_any1.c
 /mk_lib_crypto_xof_stream_any1.h
 /mk_lib_crypto_xof_stream_any2.c
