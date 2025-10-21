@@ -325,3 +325,5 @@ define(`mm_per_typedef',
 `define(`mm_x', ``$1'')mm_x(`nprcvlppct')undefine(`mm_x')'
 `'dnl
 )dnl
+define(`mm_per_typedef2', `mm_per_typedef(`#define $1_'$`1 mk_lang_concat($1, _'$`1)')')dnl
+define(`mm_per_typedef_undef', `mm_per_typedef(`#undef $1_'$`1')')dnl
