@@ -37,6 +37,7 @@ typedef struct mk_sl_io_reader_file_s mk_sl_io_reader_file_t;
 mk_lang_typedef(mk_sl_io_reader_file);
 
 
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_reader_file_rw_construct_void(mk_sl_io_reader_file_pt const reader) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_reader_file_open_n(mk_sl_io_reader_file_pt const reader, mk_lang_types_pchar_pct const name) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_reader_file_open_w(mk_sl_io_reader_file_pt const reader, mk_lang_types_wchar_pct const name) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_reader_file_open_t(mk_sl_io_reader_file_pt const reader, mk_lang_tchar_pct const name) mk_lang_noexcept;
