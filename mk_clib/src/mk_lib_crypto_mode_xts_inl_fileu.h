@@ -1,0 +1,2 @@
+#undef mk_lib_crypto_mode_xts_t_name
+#undef mk_lib_crypto_mode_xts_t_base_name

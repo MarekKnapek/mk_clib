@@ -27,6 +27,10 @@ define(`mk_lib_crypto_mode_stream_mm_list', `dnl
 `pcbc', `aes_192', `PCBC-AES-192', dnl
 `pcbc', `aes_256', `PCBC-AES-256', dnl
 `pcbc', `serpent', `PCBC-Serpent', dnl
+`xts', `aes_128', `XTS-AES-128', dnl
+`xts', `aes_192', `XTS-AES-192', dnl
+`xts', `aes_256', `XTS-AES-256', dnl
+`xts', `serpent', `XTS-Serpent', dnl
 `'')dnl
 define(`mk_lib_crypto_mode_stream_mm_recurse', `ifelse(`$#', `2', `', `$1(`$2', `$3', `$4')mk_lib_crypto_mode_stream_mm_recurse(`$1', shift(shift(shift(shift($@)))))')')`'dnl
 dnl
