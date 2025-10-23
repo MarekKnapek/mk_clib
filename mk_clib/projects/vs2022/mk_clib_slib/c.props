@@ -277,6 +277,7 @@
 			<MinimumRequiredVersion></MinimumRequiredVersion>
 			<HeapReserveSize></HeapReserveSize>
 			<HeapCommitSize></HeapCommitSize>
+			<StackReserveSize Condition="'$(mk_is_debug)'=='true'">8388608</StackReserveSize>
 			<StackReserveSize Condition="'$(mk_is_release)'=='true'">1048576</StackReserveSize>
 			<StackCommitSize Condition="'$(mk_is_release)'=='true'">1048576</StackCommitSize>
 			<LargeAddressAware>true</LargeAddressAware>
