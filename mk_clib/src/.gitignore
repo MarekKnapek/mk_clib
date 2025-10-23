@@ -69,6 +69,8 @@
 /mk_lib_crypto_mode_xts.h
 /mk_lib_crypto_mode_xts_inl_defd.h
 /mk_lib_crypto_mode_xts_inl_defu.h
+/mk_lib_crypto_padding_names.c
+/mk_lib_crypto_padding_names.h
 /mk_lib_crypto_xof_stream_any1.c
 /mk_lib_crypto_xof_stream_any1.h
 /mk_lib_crypto_xof_stream_any2.c
