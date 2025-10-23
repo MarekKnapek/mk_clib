@@ -2,7 +2,7 @@
 #define mk_include_guard_mk_lang_str_lit_h
 
 
-#include "mk_lang_str_lit.h"
+#include "mk_lang_countof.h"
 
 
 #define mk_lang_str_lit(x) (x), mk_lang_countstr((x))
