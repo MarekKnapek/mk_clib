@@ -13,6 +13,9 @@ define(`mk_mm_strings_h_enum_middles', ``$1'_id_e_`$2'`'`'ifelse(`$#', `3', `', 
 define(`mk_mm_strings_h_enum_last', ``$1'_id_e_dummy_end')dnl
 define(`mk_mm_strings_h_get_str_buf', ``$1'_get_str_buf')dnl
 define(`mk_mm_strings_h_get_str_len', ``$1'_get_str_len')dnl
+define(`mk_mm_strings_h_get_id_from_str_n', ``$1'_get_id_from_str_n')dnl
+define(`mk_mm_strings_h_get_id_from_str_w', ``$1'_get_id_from_str_w')dnl
+define(`mk_mm_strings_h_get_id_from_str_t', ``$1'_get_id_from_str_t')dnl
 dnl
 dnl
 dnl
@@ -25,6 +28,7 @@ mk_mm_strings_h_include_guard_b($@)
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_tchar.h"
 #include "mk_lang_types.h"
 
 
@@ -39,6 +43,9 @@ mk_lang_typedef(mk_mm_strings_h_enum_id($@));
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_pchar_pct mk_mm_strings_h_get_str_buf($@)(mk_mm_strings_h_enum_id_t($@) const id) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_mm_strings_h_get_str_len($@)(mk_mm_strings_h_enum_id_t($@) const id) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_mm_strings_h_enum_id_t($@) mk_mm_strings_h_get_id_from_str_n($@)(mk_lang_types_pchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_mm_strings_h_enum_id_t($@) mk_mm_strings_h_get_id_from_str_w($@)(mk_lang_types_wchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_mm_strings_h_enum_id_t($@) mk_mm_strings_h_get_id_from_str_t($@)(mk_lang_tchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept;
 
 
 #if mk_lang_jumbo_have
@@ -68,6 +75,11 @@ define(`mk_mm_strings_c_k_off', ``$1'_k_off')dnl
 define(`mk_mm_strings_c_defs', ``$1'_defs')dnl
 define(`mk_mm_strings_c_offs', ``$1'_offs')dnl
 define(`mk_mm_strings_c_get_str_off', ``$1'_get_str_off')dnl
+define(`mk_mm_strings_c_pr_get_str_buf', ``$1'_pr_get_str_buf')dnl
+define(`mk_mm_strings_c_pr_get_str_len', ``$1'_pr_get_str_len')dnl
+define(`mk_mm_strings_c_pr_get_id_from_str_n', ``$1'_pr_get_id_from_str_n')dnl
+define(`mk_mm_strings_c_pr_get_id_from_str_w', ``$1'_pr_get_id_from_str_w')dnl
+define(`mk_mm_strings_c_pr_get_id_from_str_t', ``$1'_pr_get_id_from_str_t')dnl
 dnl
 dnl
 dnl
@@ -84,6 +96,8 @@ mk_mm_strings_c_include_header($@)
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_static_assert.h"
+#include "mk_lang_str_match.h"
+#include "mk_lang_tchar.h"
 #include "mk_lang_types.h"
 
 
@@ -133,8 +147,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	return off;
 }
 
-
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_pchar_pct mk_mm_strings_h_get_str_buf($@)(mk_mm_strings_h_enum_id_t($@) const id) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_pchar_pct mk_mm_strings_c_pr_get_str_buf($@)(mk_mm_strings_h_enum_id_t($@) const id) mk_lang_noexcept
 {
 	mk_lang_types_sint_t off mk_lang_constexpr_init;
 	mk_lang_types_pchar_pct buf mk_lang_constexpr_init;
@@ -149,7 +162,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_pchar_pct mk_mm_
 	return buf;
 }
 
-mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_mm_strings_h_get_str_len($@)(mk_mm_strings_h_enum_id_t($@) const id) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t mk_mm_strings_c_pr_get_str_len($@)(mk_mm_strings_h_enum_id_t($@) const id) mk_lang_noexcept
 {
 	mk_lang_types_sint_t off_a mk_lang_constexpr_init;
 	mk_lang_types_sint_t off_b mk_lang_constexpr_init;
@@ -165,6 +178,107 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_mm_str
 	mk_lang_assert(len >= 1);
 	mk_lang_assert(len <= mk_lang_countstr(mk_mm_strings_c_k_buf($@)));
 	return len;
+}
+
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_mm_strings_h_enum_id_t($@) mk_mm_strings_c_pr_get_id_from_str_n($@)(mk_lang_types_pchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_lang_types_sint_t n mk_lang_constexpr_init;
+	mk_lang_types_sint_t i mk_lang_constexpr_init;
+	mk_mm_strings_h_enum_id_t($@) id mk_lang_constexpr_init;
+	mk_lang_types_pchar_pct name_str_buf mk_lang_constexpr_init;
+	mk_lang_types_sint_t name_str_len mk_lang_constexpr_init;
+
+	mk_lang_assert(str_buf || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	n = mk_mm_strings_h_enum_last($@);
+	for(i = 0 ; i != n; ++i)
+	{
+		id = ((mk_mm_strings_h_enum_id_t($@))(i));
+		name_str_buf = mk_mm_strings_c_pr_get_str_buf($@)(id); mk_lang_assert(name_str_buf); mk_lang_assert(name_str_buf[0] != mk_mm_strings_a_pch_nul());
+		name_str_len = mk_mm_strings_c_pr_get_str_len($@)(id); mk_lang_assert(name_str_len >= 1);
+		if(mk_lang_str_match_n(str_buf, str_len, name_str_buf, name_str_len))
+		{
+			break;
+		}
+	}
+	return id;
+}
+
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_mm_strings_h_enum_id_t($@) mk_mm_strings_c_pr_get_id_from_str_w($@)(mk_lang_types_wchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_lang_types_sint_t n mk_lang_constexpr_init;
+	mk_lang_types_sint_t i mk_lang_constexpr_init;
+	mk_mm_strings_h_enum_id_t($@) id mk_lang_constexpr_init;
+	mk_lang_types_pchar_pct name_str_buf mk_lang_constexpr_init;
+	mk_lang_types_sint_t name_str_len mk_lang_constexpr_init;
+
+	mk_lang_assert(str_buf || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	n = mk_mm_strings_h_enum_last($@);
+	for(i = 0 ; i != n; ++i)
+	{
+		id = ((mk_mm_strings_h_enum_id_t($@))(i));
+		name_str_buf = mk_mm_strings_c_pr_get_str_buf($@)(id); mk_lang_assert(name_str_buf); mk_lang_assert(name_str_buf[0] != mk_mm_strings_a_pch_nul());
+		name_str_len = mk_mm_strings_c_pr_get_str_len($@)(id); mk_lang_assert(name_str_len >= 1);
+		if(mk_lang_str_match_w(str_buf, str_len, name_str_buf, name_str_len))
+		{
+			break;
+		}
+	}
+	return id;
+}
+
+mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_mm_strings_h_enum_id_t($@) mk_mm_strings_c_pr_get_id_from_str_t($@)(mk_lang_tchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	mk_lang_types_sint_t n mk_lang_constexpr_init;
+	mk_lang_types_sint_t i mk_lang_constexpr_init;
+	mk_mm_strings_h_enum_id_t($@) id mk_lang_constexpr_init;
+	mk_lang_types_pchar_pct name_str_buf mk_lang_constexpr_init;
+	mk_lang_types_sint_t name_str_len mk_lang_constexpr_init;
+
+	mk_lang_assert(str_buf || str_len == 0);
+	mk_lang_assert(str_len >= 0);
+
+	n = mk_mm_strings_h_enum_last($@);
+	for(i = 0 ; i != n; ++i)
+	{
+		id = ((mk_mm_strings_h_enum_id_t($@))(i));
+		name_str_buf = mk_mm_strings_c_pr_get_str_buf($@)(id); mk_lang_assert(name_str_buf); mk_lang_assert(name_str_buf[0] != mk_mm_strings_a_pch_nul());
+		name_str_len = mk_mm_strings_c_pr_get_str_len($@)(id); mk_lang_assert(name_str_len >= 1);
+		if(mk_lang_str_match_t(str_buf, str_len, name_str_buf, name_str_len))
+		{
+			break;
+		}
+	}
+	return id;
+}
+
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_pchar_pct mk_mm_strings_h_get_str_buf($@)(mk_mm_strings_h_enum_id_t($@) const id) mk_lang_noexcept
+{
+	return mk_mm_strings_c_pr_get_str_buf($@)(id);
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_mm_strings_h_get_str_len($@)(mk_mm_strings_h_enum_id_t($@) const id) mk_lang_noexcept
+{
+	return mk_mm_strings_c_pr_get_str_len($@)(id);
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_mm_strings_h_enum_id_t($@) mk_mm_strings_h_get_id_from_str_n($@)(mk_lang_types_pchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	return mk_mm_strings_c_pr_get_id_from_str_n($@)(str_buf, str_len);
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_mm_strings_h_enum_id_t($@) mk_mm_strings_h_get_id_from_str_w($@)(mk_lang_types_wchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	return mk_mm_strings_c_pr_get_id_from_str_w($@)(str_buf, str_len);
+}
+
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_mm_strings_h_enum_id_t($@) mk_mm_strings_h_get_id_from_str_t($@)(mk_lang_tchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
+{
+	return mk_mm_strings_c_pr_get_id_from_str_t($@)(str_buf, str_len);
 }
 
 
