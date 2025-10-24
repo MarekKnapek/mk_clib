@@ -71,14 +71,20 @@ enum mk_clib_app_cryptor_direction_e
 };
 typedef enum mk_clib_app_cryptor_direction_e mk_clib_app_cryptor_direction_t;
 
+#include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_clib_app_cryptor_command_line_s
 {
 	mk_clib_app_cryptor_direction_t m_direction;
 	mk_lib_crypto_mode_names_id_t m_mode;
 	mk_lib_crypto_alg_names_id_t m_alg;
 	mk_lib_crypto_padding_names_id_t m_padding;
+	mk_lang_tchar_pct m_input_buf;
+	mk_lang_types_sint_t m_input_len;
+	mk_lang_tchar_pct m_output_buf;
+	mk_lang_types_sint_t m_output_len;
 };
 typedef struct mk_clib_app_cryptor_command_line_s mk_clib_app_cryptor_command_line_t;
+#include "mk_lang_warning_msvc_pop.h"
 
 
 #include "mk_lang_warning_msvc_push_c4820.h"
@@ -134,6 +140,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 				(*argv) += 2;
 				(*lens) += 2;
 				*gud = mk_lang_true;
+			}
+			else
+			{
+				#include "mk_lang_warning_msvc_push_c4127.h"
+				mk_lang_check_return(mk_lang_false);
+				#include "mk_lang_warning_msvc_pop.h"
 			}
 		}
 	}
@@ -251,6 +263,80 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor_prrw_parse_cmdline_input(mk_clib_app_cryptor_pt const cryptor, mk_lang_types_sint_pt const argc, mk_lang_tchar_ppcpct const argv, mk_lang_types_sint_ppct const lens, mk_lang_types_bool_pt const gud) mk_lang_noexcept
+{
+	mk_lang_types_sint_t n;
+	mk_lang_types_sint_t i;
+
+	mk_lang_assert(cryptor);
+	mk_lang_assert(argc);
+	mk_lang_assert(*argc >= 0);
+	mk_lang_assert(argv);
+	mk_lang_assert(*argv);
+	mk_lang_assert(lens);
+	mk_lang_assert(*lens);
+	mk_lang_assert(gud);
+	mk_lang_assert(*gud == mk_lang_false || *gud == mk_lang_true);
+
+	if(*argc >= 2)
+	{
+		n = *argc;
+		for(i = 0; i != n; ++i)
+		{
+			mk_lang_assert((*argv)[i]);
+			mk_lang_assert((*argv)[i][0] != '\0');
+			mk_lang_assert((*lens)[i] >= 0);
+		}
+		if(mk_lang_str_match_t((*argv)[0], (*lens)[0], mk_lang_str_lit("/input")))
+		{
+			cryptor->m_command_line.m_input_buf = (*argv)[1];
+			cryptor->m_command_line.m_input_len = (*lens)[1];
+			(*argc) -= 2;
+			(*argv) += 2;
+			(*lens) += 2;
+			*gud = mk_lang_true;
+		}
+	}
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor_prrw_parse_cmdline_output(mk_clib_app_cryptor_pt const cryptor, mk_lang_types_sint_pt const argc, mk_lang_tchar_ppcpct const argv, mk_lang_types_sint_ppct const lens, mk_lang_types_bool_pt const gud) mk_lang_noexcept
+{
+	mk_lang_types_sint_t n;
+	mk_lang_types_sint_t i;
+
+	mk_lang_assert(cryptor);
+	mk_lang_assert(argc);
+	mk_lang_assert(*argc >= 0);
+	mk_lang_assert(argv);
+	mk_lang_assert(*argv);
+	mk_lang_assert(lens);
+	mk_lang_assert(*lens);
+	mk_lang_assert(gud);
+	mk_lang_assert(*gud == mk_lang_false || *gud == mk_lang_true);
+
+	if(*argc >= 2)
+	{
+		n = *argc;
+		for(i = 0; i != n; ++i)
+		{
+			mk_lang_assert((*argv)[i]);
+			mk_lang_assert((*argv)[i][0] != '\0');
+			mk_lang_assert((*lens)[i] >= 0);
+		}
+		if(mk_lang_str_match_t((*argv)[0], (*lens)[0], mk_lang_str_lit("/output")))
+		{
+			cryptor->m_command_line.m_output_buf = (*argv)[1];
+			cryptor->m_command_line.m_output_len = (*lens)[1];
+			(*argc) -= 2;
+			(*argv) += 2;
+			(*lens) += 2;
+			*gud = mk_lang_true;
+		}
+	}
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor_prrw_parse_cmdline_all(mk_clib_app_cryptor_pt const cryptor, mk_lang_types_sint_t const argc, mk_lang_tchar_pcpct const argv, mk_lang_types_sint_pct const lens) mk_lang_noexcept
 {
 	mk_lang_types_sint_t n;
@@ -289,6 +375,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 		err = mk_clib_app_cryptor_prrw_parse_cmdline_mode(cryptor, myp_argc, myp_argv, myp_lens, pgud); mk_lang_check_rereturn(err);
 		err = mk_clib_app_cryptor_prrw_parse_cmdline_alg(cryptor, myp_argc, myp_argv, myp_lens, pgud); mk_lang_check_rereturn(err);
 		err = mk_clib_app_cryptor_prrw_parse_cmdline_padding(cryptor, myp_argc, myp_argv, myp_lens, pgud); mk_lang_check_rereturn(err);
+		err = mk_clib_app_cryptor_prrw_parse_cmdline_input(cryptor, myp_argc, myp_argv, myp_lens, pgud); mk_lang_check_rereturn(err);
+		err = mk_clib_app_cryptor_prrw_parse_cmdline_output(cryptor, myp_argc, myp_argv, myp_lens, pgud); mk_lang_check_rereturn(err);
 	}while(gud);
 	return 0;
 }
@@ -302,11 +390,15 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 	mk_lib_crypto_mode_stream_any1_id_t mode_stream_id;
 
 	mk_lang_assert(cryptor);
+
 	mk_lang_check_return(cryptor->m_command_line.m_direction != mk_clib_app_cryptor_direction_e_dummy_end);
 	mk_lang_check_return(cryptor->m_command_line.m_mode != mk_lib_crypto_mode_names_id_e_dummy_end);
 	mk_lang_check_return(cryptor->m_command_line.m_alg != mk_lib_crypto_alg_names_id_e_dummy_end);
 	mk_lang_check_return(cryptor->m_command_line.m_padding != mk_lib_crypto_padding_names_id_e_dummy_end);
-
+	mk_lang_check_return(cryptor->m_command_line.m_input_buf != mk_lang_null);
+	mk_lang_check_return(cryptor->m_command_line.m_input_len >= 1);
+	mk_lang_check_return(cryptor->m_command_line.m_output_buf != mk_lang_null);
+	mk_lang_check_return(cryptor->m_command_line.m_output_len >= 1);
 	mode_id = ((mk_lang_types_sint_t)(cryptor->m_command_line.m_mode));
 	alg_max = ((mk_lang_types_sint_t)(mk_lib_crypto_alg_names_id_e_dummy_end));
 	alg_id = ((mk_lang_types_sint_t)(cryptor->m_command_line.m_alg));
@@ -359,6 +451,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 	cryptor->m_command_line.m_mode = mk_lib_crypto_mode_names_id_e_dummy_end;
 	cryptor->m_command_line.m_alg = mk_lib_crypto_alg_names_id_e_dummy_end;
 	cryptor->m_command_line.m_padding = mk_lib_crypto_padding_names_id_e_dummy_end;
+	cryptor->m_command_line.m_input_buf = mk_lang_null;
+	cryptor->m_command_line.m_input_len = 0;
+	cryptor->m_command_line.m_output_buf = mk_lang_null;
+	cryptor->m_command_line.m_output_len = 0;
 	return 0;
 }
 
@@ -377,7 +473,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor_work(mk_lang_types_sint_t const argc, mk_lang_tchar_pcpct const argv, mk_lang_types_sint_pct const lens) mk_lang_noexcept
 {
 	mk_clib_app_cryptor_t cryptor;
-
+	mk_lang_types_sint_t err;
+#if 0
 	mk_lang_types_sint_t n;
 	mk_lang_types_sint_t i;
 	mk_lang_types_sint_t key_len;
@@ -404,13 +501,17 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 	mk_sl_cui_uint8_t ff;
 	mk_lib_crypto_mode_stream_any2_key_t key;
 	mk_lib_crypto_mode_stream_any2_t stream;
+#endif
 
 	mk_lang_assert(argc >= 2);
 	mk_lang_assert(argv);
 	mk_lang_assert(lens);
 
 	err = mk_clib_app_cryptor_rw_construct_cmdline(&cryptor, argc, argv, lens); mk_lang_check_rereturn(err);
+	return 0;
 
+
+#if 0
 	n = argc;
 	for(i = 0; i != n; ++i)
 	{
@@ -458,6 +559,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 	err = mk_sl_io_reader_file_close(&input_file); mk_lang_check_rereturn(err);
 	err = mk_sl_speedometer_rw_destroy(&speedometer); mk_lang_check_rereturn(err);
 	return 0;
+#endif
 }
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor_print_algs(mk_lang_types_void_t) mk_lang_noexcept
