@@ -763,6 +763,13 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_xof_stream_turbo_shake_256_test.hpp"/>
 	</ItemGroup>
 	<ItemGroup>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_names.c"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_names.h"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash.m"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_names.c.m4"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_hash_names.h.m4"/>
+	</ItemGroup>
+	<ItemGroup>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_hasher.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_test.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_wasm_hasher.c"/>

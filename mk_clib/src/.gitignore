@@ -21,6 +21,8 @@
 /mk_lib_crypto_alg_stream_any2.h
 /mk_lib_crypto_alg_stream_inl_defd.h
 /mk_lib_crypto_alg_stream_inl_defu.h
+/mk_lib_crypto_hash_names.c
+/mk_lib_crypto_hash_names.h
 /mk_lib_crypto_hash_stream_any1.c
 /mk_lib_crypto_hash_stream_any1.h
 /mk_lib_crypto_hash_stream_any2.c
