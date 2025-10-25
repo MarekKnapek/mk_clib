@@ -27,6 +27,8 @@
 /mk_lib_crypto_hash_stream_any1.h
 /mk_lib_crypto_hash_stream_any2.c
 /mk_lib_crypto_hash_stream_any2.h
+/mk_lib_crypto_kdf_pbkdf2_any.c
+/mk_lib_crypto_kdf_pbkdf2_any.h
 /mk_lib_crypto_mode_cbc.c
 /mk_lib_crypto_mode_cbc.h
 /mk_lib_crypto_mode_cbc_inl_defd.h
