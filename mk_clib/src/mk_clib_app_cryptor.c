@@ -612,22 +612,21 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 	mk_sl_cui_uint8_pct salt_ptr;
 	mk_lang_types_sint_t salt_len;
 	mk_lib_crypto_mode_stream_any2_key_t mode_key;
-/*
 	#if mk_lang_tchar_wchar_have
 	mk_sl_cui_uint8_t password_buf[4 * 1024];
-	mk_sl_cui_uint8_t salt_buf[4 * 1024];
 	mk_lang_types_sint_t utf8_consumed;
 	mk_lang_types_sint_t utf16_consumed;
+	mk_sl_cui_uint8_t salt_buf[4 * 1024];
 	#endif
-*/
+
 	mk_lang_assert(cryptor);
 
 	id = ((mk_lib_crypto_kdf_pbkdf2_any_id_t)(cryptor->m_command_line.m_hash));
 	key_len = mk_lib_crypto_mode_stream_any2_ro_get_key_len(&cryptor->m_mode_stream); mk_lang_assert(key_len == 16 || key_len == 24 || key_len == 32);
 	iv_len = mk_lib_crypto_mode_stream_any2_ro_get_iv_len(&cryptor->m_mode_stream); mk_lang_assert(iv_len == 0 || iv_len == 16);
 	#if mk_lang_tchar_wchar_have
-	mk_lang_check_return(cryptor->m_command_line.m_password_len <= mk_lang_countof(password_buf)); mk_sl_unicode_utf16_wchar_to_utf8_u8(cryptor->m_command_line.m_password_buf, cryptor->m_command_line.m_password_len, &password_buf[0], mk_lang_countof(password_buf), &utf16_consumed, &utf8_consumed);
-	mk_lang_check_return(cryptor->m_command_line.m_salt_len <= mk_lang_countof(salt_buf)); mk_sl_unicode_utf16_wchar_to_utf8_u8(cryptor->m_command_line.m_salt_buf, cryptor->m_command_line.m_salt_len, &salt_buf[0], mk_lang_countof(salt_buf), &utf16_consumed, &utf8_consumed);
+	mk_lang_check_return(cryptor->m_command_line.m_password_len <= mk_lang_countof(password_buf)); mk_sl_unicode_utf16_wchar_to_utf8_u8(cryptor->m_command_line.m_password_buf, cryptor->m_command_line.m_password_len, &password_buf[0], mk_lang_countof(password_buf), &utf16_consumed, &utf8_consumed); password_ptr = &password_buf[0];
+	mk_lang_check_return(cryptor->m_command_line.m_salt_len <= mk_lang_countof(salt_buf)); mk_sl_unicode_utf16_wchar_to_utf8_u8(cryptor->m_command_line.m_salt_buf, cryptor->m_command_line.m_salt_len, &salt_buf[0], mk_lang_countof(salt_buf), &utf16_consumed, &utf8_consumed); salt_ptr = &salt_buf[0];
 	#else
 	password_ptr = ((mk_sl_cui_uint8_pct)(cryptor->m_command_line.m_password_buf));
 	password_len = cryptor->m_command_line.m_password_len;
@@ -844,12 +843,14 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor_pr_handle_iv(mk_clib_app_cryptor_pt const cryptor) mk_lang_noexcept
 {
+	mk_lang_types_sint_t err;
+
 	mk_lang_assert(cryptor);
 
 	switch(cryptor->m_command_line.m_direction)
 	{
-		case mk_clib_app_cryptor_direction_e_encrypt: mk_clib_app_cryptor_pr_handle_iv_enc(cryptor); break;
-		case mk_clib_app_cryptor_direction_e_decrypt: mk_clib_app_cryptor_pr_handle_iv_dec(cryptor); break;
+		case mk_clib_app_cryptor_direction_e_encrypt: err = mk_clib_app_cryptor_pr_handle_iv_enc(cryptor); mk_lang_check_rereturn(err); break;
+		case mk_clib_app_cryptor_direction_e_decrypt: err = mk_clib_app_cryptor_pr_handle_iv_dec(cryptor); mk_lang_check_rereturn(err); break;
 		case mk_clib_app_cryptor_direction_e_dummy_end: mk_lang_assert_false(); break;
 		default: mk_lang_assert_false(); break;
 	}
@@ -892,9 +893,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 	idx = mk_lib_crypto_mode_stream_any2_ro_get_idx(&cryptor->m_mode_stream);
 	ptr = mk_lib_crypto_mode_stream_any2_rw_get_ptr(&cryptor->m_mode_stream);
 	block_len = mk_lib_crypto_mode_stream_any2_ro_get_msg_len(&cryptor->m_mode_stream);
-	mk_sl_cui_uint8_memcpy_fn(&last_block[0], ptr, idx);
+	mk_sl_cui_uint8_memcpy_fn(&last_block[0], ptr, ((mk_lang_types_usize_t)(idx)));
 	len = mk_lib_crypto_padding_any_pad(id, &last_block[0], idx, block_len, mk_lang_countof(last_block) - idx); mk_lang_assert(len >= 1);
-	err = mk_clib_app_cryptor_pr_crypt(cryptor, &last_block[idx],len, &last_block[0], mk_lang_countof(last_block), &encrypted); mk_lang_check_rereturn(err);
+	err = mk_clib_app_cryptor_pr_crypt(cryptor, &last_block[idx],((mk_lang_types_usize_t)(len)), &last_block[0], mk_lang_countof(last_block), &encrypted); mk_lang_check_rereturn(err);
 	err = mk_sl_io_writer_file_write(&cryptor->m_output_file, &last_block[0], ((mk_lang_types_sint_t)(encrypted)), &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == ((mk_lang_types_sint_t)(encrypted)));
 	return 0;
 }
@@ -926,12 +927,14 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor_pr_handle_padding(mk_clib_app_cryptor_pt const cryptor, mk_sl_cui_uint8_pt const data_ptr, mk_lang_types_sint_t const data_read) mk_lang_noexcept
 {
+	mk_lang_types_sint_t err;
+
 	mk_lang_assert(cryptor);
 
 	switch(cryptor->m_command_line.m_direction)
 	{
-		case mk_clib_app_cryptor_direction_e_encrypt: mk_clib_app_cryptor_pr_handle_padding_enc(cryptor, data_ptr, data_read); break;
-		case mk_clib_app_cryptor_direction_e_decrypt: mk_clib_app_cryptor_pr_handle_padding_dec(cryptor, data_ptr, data_read); break;
+		case mk_clib_app_cryptor_direction_e_encrypt: err = mk_clib_app_cryptor_pr_handle_padding_enc(cryptor, data_ptr, data_read); mk_lang_check_rereturn(err); break;
+		case mk_clib_app_cryptor_direction_e_decrypt: err = mk_clib_app_cryptor_pr_handle_padding_dec(cryptor, data_ptr, data_read); mk_lang_check_rereturn(err); break;
 		case mk_clib_app_cryptor_direction_e_dummy_end: mk_lang_assert_false(); break;
 		default: mk_lang_assert_false(); break;
 	}

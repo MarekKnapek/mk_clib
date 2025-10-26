@@ -29,7 +29,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_cr
 	mk_lang_assert(padding_len <= block_len);
 	mk_lang_assert(free_space >= padding_len);
 	mk_sl_cui_uint8_from_bi_sint(&cui, &padding_len);
-	mk_sl_cui_uint8_memset_fn(&data_buf[data_len], &cui, padding_len);
+	mk_sl_cui_uint8_memset_fn(&data_buf[data_len], &cui, ((mk_lang_types_usize_t)(padding_len)));
 	return padding_len;
 }
 
