@@ -1099,9 +1099,9 @@ mk_lang_extern_force_c mk_lang_nodiscard mk_lang_types_sint_t mk_clib_app_crypto
 mk_lang_extern_c mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_clib_app_cryptor_args(mk_lang_types_sint_t const argc, mk_lang_types_pchar_pcpct const argv) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t lens[32];
 	mk_lang_types_sint_t n;
 	mk_lang_types_sint_t i;
-	mk_lang_types_sint_t lens[32];
 
 	err = mk_clib_app_cryptor_init(); mk_lang_check_rereturn(err);
 	if(argc == 1)
