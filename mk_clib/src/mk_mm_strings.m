@@ -202,7 +202,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_mm_strings_h_enum_i
 			break;
 		}
 	}
-	return id;
+	return ((mk_mm_strings_h_enum_id_t($@))(i));
 }
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_mm_strings_h_enum_id_t($@) mk_mm_strings_c_pr_get_id_from_str_w($@)(mk_lang_types_wchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
@@ -227,7 +227,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_mm_strings_h_enum_i
 			break;
 		}
 	}
-	return id;
+	return ((mk_mm_strings_h_enum_id_t($@))(i));
 }
 
 mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_mm_strings_h_enum_id_t($@) mk_mm_strings_c_pr_get_id_from_str_t($@)(mk_lang_tchar_pct const str_buf, mk_lang_types_sint_t const str_len) mk_lang_noexcept
@@ -252,7 +252,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_mm_strings_h_enum_i
 			break;
 		}
 	}
-	return id;
+	return ((mk_mm_strings_h_enum_id_t($@))(i));
 }
 
 
