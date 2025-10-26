@@ -1775,4 +1775,10 @@
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_padding_names.c.m4"><Filter>src</Filter></ClCompile>
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_padding_names.h.m4"><Filter>src</Filter></ClCompile>
 	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_unicode.c"><Filter>src</Filter></ClCompile>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_unicode_fuzz.c"><Filter>src</Filter></ClCompile>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_unicode.h"><Filter>src</Filter></ClCompile>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_unicode_fuzz.h"><Filter>src</Filter></ClCompile>
+	</ItemGroup>
 </Project>

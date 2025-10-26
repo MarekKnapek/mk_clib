@@ -46,6 +46,16 @@
 #endif
 
 
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_reader_file_rw_construct_void(mk_sl_io_reader_file_pt const reader) mk_lang_noexcept
+{
+	mk_lang_types_sint_t ret;
+
+	mk_lang_assert(reader);
+
+	ret = 0;/*todo*/
+	return ret;
+}
+
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_io_reader_file_open_n(mk_sl_io_reader_file_pt const reader, mk_lang_types_pchar_pct const name) mk_lang_noexcept
 {
 	mk_lang_types_sint_t ret;

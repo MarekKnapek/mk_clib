@@ -17,8 +17,6 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_cr
 {
 	mk_lang_types_sint_t padding_len mk_lang_constexpr_init;
 	mk_sl_cui_uint8_t cui mk_lang_constexpr_init;
-	mk_lang_types_sint_t n mk_lang_constexpr_init;
-	mk_lang_types_sint_t i mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf);
 	mk_lang_assert(data_len >= 0);
@@ -31,11 +29,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_cr
 	mk_lang_assert(padding_len <= block_len);
 	mk_lang_assert(free_space >= padding_len);
 	mk_sl_cui_uint8_from_bi_sint(&cui, &padding_len);
-	n = padding_len;
-	for(i = 0; i != n; ++i)
-	{
-		data_buf[data_len + i] = cui;
-	}
+	mk_sl_cui_uint8_memset_fn(&data_buf[data_len], &cui, padding_len);
 	return padding_len;
 }
 
