@@ -34,3 +34,11 @@ define(`mk_lib_crypto_hash_mm_list', `dnl
 `'')dnl
 define(`mk_lib_crypto_hash_mm_recurse_impl', `ifelse(`$#', `2', `', `$1(`$2', `$3')mk_lib_crypto_hash_mm_recurse(`$1', shift(shift(shift($@))))')')`'dnl
 define(`mk_lib_crypto_hash_mm_recurse', `mk_lib_crypto_hash_mm_recurse_impl(`$1', mk_lib_crypto_hash_mm_list())')`'dnl
+dnl
+dnl
+dnl
+dnl
+dnl
+define(`mk_lib_crypto_hash_mm_for_one', `define(`mk_lib_crypto_hash_mm_one', ``'$1')`'`'mk_lib_crypto_hash_mm_one($2, $3)`'`'undefine(`mk_lib_crypto_hash_mm_one')')`'dnl
+define(`mk_lib_crypto_hash_mm_pr_for_all', `ifelse(`$#', `2', `', `mk_lib_crypto_hash_mm_for_one(`$1', $2, $3)mk_lib_crypto_hash_mm_pr_for_all(`$1', shift(shift(shift($@))))')')`'dnl
+define(`mk_lib_crypto_hash_mm_for_all', `mk_lib_crypto_hash_mm_pr_for_all(`$1', mk_lib_crypto_hash_mm_list())')`'dnl
