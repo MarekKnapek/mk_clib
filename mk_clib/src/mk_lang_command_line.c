@@ -3,6 +3,7 @@
 #include "mk_lang_command_line.h"
 
 #include "mk_lang_assert.h"
+#include "mk_lang_check.h"
 #include "mk_lang_entry_point.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_limits.h"
@@ -14,39 +15,39 @@
 #include "mk_lang_types.h"
 
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_command_line_parse_std(mk_lang_types_sint_t const argc_in, mk_lang_types_pchar_pcpct const argv_in, mk_lang_tchar_ppct const argv_out, mk_lang_types_sint_pt const lens_out, mk_lang_types_sint_t const count, mk_lang_types_sint_pt const argc_out) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_command_line_parse_std(mk_lang_types_sint_t const argc_in, mk_lang_types_pchar_pcpct const argv_in, mk_lang_types_pchar_ppct const argv_out, mk_lang_types_sint_pt const lens_out, mk_lang_types_sint_t const count, mk_lang_types_sint_pt const argc_out) mk_lang_noexcept
 {
 #if !mk_lang_entry_point_have
-	mk_lang_types_sint_t cnt;
 	mk_lang_types_sint_t n;
 	mk_lang_types_sint_t i;
 
-	mk_lang_assert(argc_in);
+	mk_lang_assert(argc_in >= 1);
+	mk_lang_assert(argc_in <= count);
 	mk_lang_assert(argv_in);
 	mk_lang_assert(argv_out);
 	mk_lang_assert(lens_out);
-	mk_lang_assert(count >= 1 && count <= 64);
+	mk_lang_assert(count >= 1);
 	mk_lang_assert(argc_out);
 
-	cnt = mk_lang_limits_sint_max;
-	cnt = mk_lang_min(cnt, 64);
-	cnt = mk_lang_min(cnt, count);
-	cnt = mk_lang_min(cnt, argc_in);
-	n = cnt;
+	n = argc_in;
 	for(i = 0; i != n; ++i)
 	{
+		mk_lang_check_return(argv_in[i]);
+		mk_lang_check_return(argv_in[i][0] != '\0');
 		argv_out[i] = argv_in[i];
-		lens_out[i] = mk_lang_str_len_n(argv_in[i]);
+		lens_out[i] = mk_lang_str_len_n(argv_in[i]); mk_lang_check_return(((mk_lang_types_slong_t)(lens_out[i])) <= 64l * 1024l);
 	}
-	*argc_out = cnt;
+	*argc_out = argc_in;
 	return 0;
 #else
-	mk_lang_assert(argc_in);
+	mk_lang_assert(argc_in >= 1);
+	mk_lang_assert(argc_in <= count);
 	mk_lang_assert(argv_in);
 	mk_lang_assert(argv_out);
 	mk_lang_assert(lens_out);
-	mk_lang_assert(count >= 1 && count <= 64);
+	mk_lang_assert(count >= 1);
 	mk_lang_assert(argc_out);
+
 	((mk_lang_types_void_t)(argc_in));
 	((mk_lang_types_void_t)(argv_in));
 	((mk_lang_types_void_t)(argv_out));
