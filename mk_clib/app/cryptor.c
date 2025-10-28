@@ -1,4 +1,5 @@
 #include "../src/mk_clib_app_cryptor.h"
+#include "../src/mk_lang_rt.h"
 
 
 #if mk_lang_entry_point_have
