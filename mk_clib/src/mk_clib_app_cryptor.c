@@ -167,7 +167,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 		for(i = 0; i != n; ++i)
 		{
 			mk_lang_assert((*argv)[i]);
-			mk_lang_assert((*argv)[i][0] != '\0');
+			mk_lang_assert((*argv)[i][0] != mk_lang_tchar_c('\0'));
 			mk_lang_assert((*lens)[i] >= 0);
 		}
 		if(mk_lang_str_match_t((*argv)[0], (*lens)[0], mk_lang_str_lit("/direction")))
@@ -218,7 +218,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 		for(i = 0; i != n; ++i)
 		{
 			mk_lang_assert((*argv)[i]);
-			mk_lang_assert((*argv)[i][0] != '\0');
+			mk_lang_assert((*argv)[i][0] != mk_lang_tchar_c('\0'));
 			mk_lang_assert((*lens)[i] >= 0);
 		}
 		if(mk_lang_str_match_t((*argv)[0], (*lens)[0], mk_lang_str_lit("/mode")))
@@ -254,7 +254,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 		for(i = 0; i != n; ++i)
 		{
 			mk_lang_assert((*argv)[i]);
-			mk_lang_assert((*argv)[i][0] != '\0');
+			mk_lang_assert((*argv)[i][0] != mk_lang_tchar_c('\0'));
 			mk_lang_assert((*lens)[i] >= 0);
 		}
 		if(mk_lang_str_match_t((*argv)[0], (*lens)[0], mk_lang_str_lit("/alg")))
@@ -290,7 +290,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 		for(i = 0; i != n; ++i)
 		{
 			mk_lang_assert((*argv)[i]);
-			mk_lang_assert((*argv)[i][0] != '\0');
+			mk_lang_assert((*argv)[i][0] != mk_lang_tchar_c('\0'));
 			mk_lang_assert((*lens)[i] >= 0);
 		}
 		if(mk_lang_str_match_t((*argv)[0], (*lens)[0], mk_lang_str_lit("/padding")))
@@ -326,7 +326,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 		for(i = 0; i != n; ++i)
 		{
 			mk_lang_assert((*argv)[i]);
-			mk_lang_assert((*argv)[i][0] != '\0');
+			mk_lang_assert((*argv)[i][0] != mk_lang_tchar_c('\0'));
 			mk_lang_assert((*lens)[i] >= 0);
 		}
 		if(mk_lang_str_match_t((*argv)[0], (*lens)[0], mk_lang_str_lit("/kdf")))
@@ -365,7 +365,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 		for(i = 0; i != n; ++i)
 		{
 			mk_lang_assert((*argv)[i]);
-			mk_lang_assert((*argv)[i][0] != '\0');
+			mk_lang_assert((*argv)[i][0] != mk_lang_tchar_c('\0'));
 			mk_lang_assert((*lens)[i] >= 0);
 		}
 		if(mk_lang_str_match_t((*argv)[0], (*lens)[0], mk_lang_str_lit("/hash")))
@@ -405,7 +405,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 		for(i = 0; i != n; ++i)
 		{
 			mk_lang_assert((*argv)[i]);
-			mk_lang_assert((*argv)[i][0] != '\0');
+			mk_lang_assert((*argv)[i][0] != mk_lang_tchar_c('\0'));
 			mk_lang_assert((*lens)[i] >= 0);
 		}
 		if(mk_lang_str_match_t((*argv)[0], (*lens)[0], mk_lang_str_lit("/cost")))
@@ -445,7 +445,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 		for(i = 0; i != n; ++i)
 		{
 			mk_lang_assert((*argv)[i]);
-			mk_lang_assert((*argv)[i][0] != '\0');
+			mk_lang_assert((*argv)[i][0] != mk_lang_tchar_c('\0'));
 			mk_lang_assert((*lens)[i] >= 0);
 		}
 		if(mk_lang_str_match_t((*argv)[0], (*lens)[0], mk_lang_str_lit("/password")))
@@ -482,7 +482,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 		for(i = 0; i != n; ++i)
 		{
 			mk_lang_assert((*argv)[i]);
-			mk_lang_assert((*argv)[i][0] != '\0');
+			mk_lang_assert((*argv)[i][0] != mk_lang_tchar_c('\0'));
 			mk_lang_assert((*lens)[i] >= 0);
 		}
 		if(mk_lang_str_match_t((*argv)[0], (*lens)[0], mk_lang_str_lit("/salt")))
@@ -519,7 +519,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 		for(i = 0; i != n; ++i)
 		{
 			mk_lang_assert((*argv)[i]);
-			mk_lang_assert((*argv)[i][0] != '\0');
+			mk_lang_assert((*argv)[i][0] != mk_lang_tchar_c('\0'));
 			mk_lang_assert((*lens)[i] >= 0);
 		}
 		if(mk_lang_str_match_t((*argv)[0], (*lens)[0], mk_lang_str_lit("/input")))
@@ -556,7 +556,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 		for(i = 0; i != n; ++i)
 		{
 			mk_lang_assert((*argv)[i]);
-			mk_lang_assert((*argv)[i][0] != '\0');
+			mk_lang_assert((*argv)[i][0] != mk_lang_tchar_c('\0'));
 			mk_lang_assert((*lens)[i] >= 0);
 		}
 		if(mk_lang_str_match_t((*argv)[0], (*lens)[0], mk_lang_str_lit("/output")))
@@ -595,7 +595,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 	for(i = 0; i != n; ++i)
 	{
 		mk_lang_assert(argv[i]);
-		mk_lang_assert(argv[i][0] != '\0');
+		mk_lang_assert(argv[i][0] != mk_lang_tchar_c('\0'));
 		mk_lang_assert(lens[i] >= 0);
 	}
 	my_argc = argc; myp_argc = &my_argc;
