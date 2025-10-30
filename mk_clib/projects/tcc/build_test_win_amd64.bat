@@ -3,6 +3,7 @@ tcc -impdef ntdll.dll || goto mk_fail
 tcc -impdef bcrypt.dll || goto mk_fail
 tcc ^
 -O0 ^
+-DDEBUG ^
 -Dmk_lang_jumbo_want=1 ^
 -Dmk_lang_assert_want=1 ^
 -Dmk_lang_crash_detail_want=1 ^
