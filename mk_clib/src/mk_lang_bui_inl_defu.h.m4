@@ -125,6 +125,8 @@ mm_per_bui(`#undef mk_lang_bui_inl_defd_pr_from_buis_$1_le')
 mm_per_bui(`#undef mk_lang_bui_inl_defd_pr_to_buis_$1_le')
 mm_per_bui(`#undef mk_lang_bui_inl_defd_pr_from_buis_$1_be')
 mm_per_bui(`#undef mk_lang_bui_inl_defd_pr_to_buis_$1_be')
+mm_per_bui(`#undef mk_lang_bui_inl_defd_pr_from_buis_$1_ne')
+mm_per_bui(`#undef mk_lang_bui_inl_defd_pr_to_buis_$1_ne')
 `#'undef mk_lang_bui_inl_defd_pr_assign
 `#'undef mk_lang_bui_inl_defd_pr_set_zero
 `#'undef mk_lang_bui_inl_defd_pr_set_max
@@ -242,6 +244,8 @@ mm_per_bui(`#undef mk_lang_bui_inl_defd_from_buis_$1_le')
 mm_per_bui(`#undef mk_lang_bui_inl_defd_to_buis_$1_le')
 mm_per_bui(`#undef mk_lang_bui_inl_defd_from_buis_$1_be')
 mm_per_bui(`#undef mk_lang_bui_inl_defd_to_buis_$1_be')
+mm_per_bui(`#undef mk_lang_bui_inl_defd_from_buis_$1_ne')
+mm_per_bui(`#undef mk_lang_bui_inl_defd_to_buis_$1_ne')
 `#'undef mk_lang_bui_inl_defd_assign
 `#'undef mk_lang_bui_inl_defd_set_zero
 `#'undef mk_lang_bui_inl_defd_set_max

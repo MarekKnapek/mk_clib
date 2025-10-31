@@ -7,6 +7,7 @@ include(`mk_lang_bui_inl.m')dnl
 #include "mk_lang_constexpr.h"
 #include "mk_lang_cpuid.h"
 #include "mk_lang_encoding.h"
+#include "mk_lang_endian.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_lllong.h"
@@ -238,6 +239,28 @@ mm_per_bui(`mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias s
 		ta = ((mk_lang_bui_inl_defd_t)(ta >> (mk_lang_sizeof_bi_$1_t * mk_lang_charbit)));
 		b[(n - 1) - i] = ((mk_lang_types_$1_t)(ta));
 	}
+#endif
+}}
+')
+mm_per_bui(`mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_void_t mk_lang_bui_inl_defd_pr_from_buis_$1_ne(mk_lang_bui_inl_defd_pt const a, mk_lang_types_$1_pct const b) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
+{
+#if mk_lang_endian_native == mk_lang_endian_little
+	mk_lang_bui_inl_defd_pr_from_buis_$1_le(a, b);
+#elif mk_lang_endian_native == mk_lang_endian_big
+	mk_lang_bui_inl_defd_pr_from_buis_$1_be(a, b);
+#else
+#error xxxxxxxxxx
+#endif
+}}
+')
+mm_per_bui(`mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias static mk_lang_inline mk_lang_types_void_t mk_lang_bui_inl_defd_pr_to_buis_$1_ne(mk_lang_bui_inl_defd_pct const a, mk_lang_types_$1_pt const b) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
+{
+#if mk_lang_endian_native == mk_lang_endian_little
+	mk_lang_bui_inl_defd_pr_to_buis_$1_le(a, b);
+#elif mk_lang_endian_native == mk_lang_endian_big
+	mk_lang_bui_inl_defd_pr_to_buis_$1_be(a, b);
+#else
+#error xxxxxxxxxx
 #endif
 }}
 ')
@@ -4007,6 +4030,18 @@ mm_per_bui(`mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias m
 mm_per_bui(`mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_void_t mk_lang_bui_inl_defd_to_buis_$1_be(mk_lang_bui_inl_defd_pct const a, mk_lang_types_$1_pt const b) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
 {
 	mk_lang_bui_inl_defd_pr_to_buis_$1_be(a, b);
+	return;
+}}
+')
+mm_per_bui(`mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_void_t mk_lang_bui_inl_defd_from_buis_$1_ne(mk_lang_bui_inl_defd_pt const a, mk_lang_types_$1_pct const b) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
+{
+	mk_lang_bui_inl_defd_pr_from_buis_$1_ne(a, b);
+	return;
+}}
+')
+mm_per_bui(`mk_lang_bui_inl_defd_forceinline mk_lang_constexpr mk_lang_noalias mk_lang_jumbo mk_lang_types_void_t mk_lang_bui_inl_defd_to_buis_$1_ne(mk_lang_bui_inl_defd_pct const a, mk_lang_types_$1_pt const b) mk_lang_noexcept { mk_lang_bui_inl_defd_flatten
+{
+	mk_lang_bui_inl_defd_pr_to_buis_$1_ne(a, b);
 	return;
 }}
 ')
