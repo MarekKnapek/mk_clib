@@ -22,7 +22,7 @@
 #define mk_lang_bui_t_inline 1
 #include "mk_lang_bui_inl_fileh.h"
 #include "mk_lang_bui_inl_fileu.h"
-#define mk_lang_bui_uchar_size_bits_d ((mk_lang_sizeof_bi_uchar_t) * (mk_lang_charbit))
+#define mk_lang_bui_wchar_size_bits_d ((mk_lang_sizeof_bi_uchar_t) * (mk_lang_charbit))
 #define mk_lang_memall2_t_name mk_lang_bui_wchar
 #define mk_lang_memall2_t_tn mk_lang_bui_wchar
 #include "mk_lang_memall2_inl_fileh.h"
@@ -128,7 +128,7 @@
 #include "mk_lang_memall2_inl_fileu.h"
 
 
-#if mk_lang_jumbo_have == 1
+#if mk_lang_jumbo_have
 #include "mk_lang_bui.c"
 #endif
 #endif
