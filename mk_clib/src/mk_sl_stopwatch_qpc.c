@@ -121,6 +121,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_stopwatch_qpc_duratio
 
 	mk_lang_assert(before);
 	mk_lang_assert(after);
+	mk_lang_assert(!mk_sl_cui_uint64_is_zero(&mk_sl_stopwatch_qpc_g_freq));
 
 	mk_sl_stopwatch_qpc_u64_to_u128(&before->m_elements[0], &u128a);
 	tul = 1ul * 1000ul * 1000ul * 1000ul;

@@ -26,7 +26,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_cr
 	mk_lang_assert(data_buf);
 	mk_lang_assert(data_len >= 0);
 	mk_lang_assert(data_len <= block_len);
-	mk_lang_assert(block_len == 8 || block_len == 16);
+	mk_lang_assert(block_len == 1 || block_len == 8 || block_len == 16);
 	mk_lang_assert(free_space >= 0);
 
 	switch(id)
@@ -47,7 +47,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_cr
 	mk_lang_assert(id >= 0);
 	mk_lang_assert(id < mk_lib_crypto_padding_any_id_e_dummy_end);
 	mk_lang_assert(data_buf);
-	mk_lang_assert(block_len == 8 || block_len == 16);
+	mk_lang_assert(block_len == 1 || block_len == 8 || block_len == 16);
 
 	switch(id)
 	{

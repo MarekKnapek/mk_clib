@@ -23,7 +23,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_cr
 	mk_lang_assert(data_buf);
 	mk_lang_assert(data_len >= 0);
 	mk_lang_assert(data_len <= block_len);
-	mk_lang_assert(block_len == 8 || block_len == 16);
+	mk_lang_assert(block_len == 1 || block_len == 8 || block_len == 16);
 	mk_lang_assert(free_space >= 0);
 
 	padding_len = ((mk_lang_types_sint_t)(((mk_lang_types_uint_t)(block_len)) - (((mk_lang_types_uint_t)(data_len)) % ((mk_lang_types_uint_t)(block_len)))));
@@ -50,7 +50,7 @@ mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_cr
 	mk_lang_types_sint_t padding_len mk_lang_constexpr_init;
 
 	mk_lang_assert(data_buf);
-	mk_lang_assert(block_len == 8 || block_len == 16);
+	mk_lang_assert(block_len == 1 || block_len == 8 || block_len == 16);
 
 	n = block_len;
 	for(i = 0; i != n; ++i)
