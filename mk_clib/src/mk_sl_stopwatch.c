@@ -9,6 +9,7 @@
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_max.h"
+#include "mk_lang_min.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_string.h"
@@ -68,9 +69,13 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_stopwatch_timestamp_g
 
 mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_stopwatch_timestamp_to_duration(mk_sl_stopwatch_timestamp_pct const timestamp, mk_sl_stopwatch_duration_pt const duration) mk_lang_noexcept
 {
+	#define mk_sl_stopwatch_timestamp_to_duration_d_max mk_lang_max(mk_sl_stopwatch_timestamp_size_bytes_d, mk_sl_stopwatch_duration_size_bytes_d)
+	#define mk_sl_stopwatch_timestamp_to_duration_d_min mk_lang_min(mk_sl_stopwatch_timestamp_size_bytes_d, mk_sl_stopwatch_duration_size_bytes_d)
+	#define mk_sl_stopwatch_timestamp_to_duration_d_dif (mk_sl_stopwatch_timestamp_to_duration_d_max - mk_sl_stopwatch_timestamp_to_duration_d_min)
+
 	union mk_sl_stopwatch_timestamp_to_duration_convertor_data_u
 	{
-		mk_lang_types_uchar_t m_uchars[mk_lang_max(((mk_lang_types_sint_t)(mk_sl_stopwatch_timestamp_size_bytes_v)), ((mk_lang_types_sint_t)(mk_sl_stopwatch_duration_size_bytes_v)))];
+		mk_lang_types_uchar_t m_uchars[mk_sl_stopwatch_timestamp_to_duration_d_max];
 		mk_sl_stopwatch_timestamp_t m_timestamp;
 		mk_sl_stopwatch_duration_t m_duration;
 	};
@@ -86,6 +91,9 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_stopwatch_tim
 	mk_lang_assert(timestamp);
 	mk_lang_assert(duration);
 
+	#if mk_sl_stopwatch_timestamp_to_duration_d_dif != 0
+	mk_lang_string_memclr_uc_fn(&convertor.m_data.m_uchars[mk_sl_stopwatch_timestamp_to_duration_d_min], ((mk_lang_types_usize_t)(mk_sl_stopwatch_timestamp_to_duration_d_dif)));
+	#endif
 	mk_sl_stopwatch_timestamp_to_buis_uchar_le(timestamp, &convertor.m_data.m_uchars[0]);
 	mk_sl_stopwatch_duration_from_buis_uchar_le(duration, &convertor.m_data.m_uchars[0]);
 }
