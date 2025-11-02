@@ -12,8 +12,8 @@
 
 
 #if mk_lang_platform_is_windows_at_least_any
-#include "mk_sl_stopwatch_qpc.h"
-#define mk_sl_stopwatch_impl qpc
+#include "mk_sl_stopwatch_gtc64.h"
+#define mk_sl_stopwatch_impl gtc64
 #elif mk_lang_arch_is_emscripten
 #include "mk_sl_stopwatch_js.h"
 #define mk_sl_stopwatch_impl js
