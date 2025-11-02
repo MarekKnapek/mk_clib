@@ -6,16 +6,13 @@
 #if mk_lang_platform_is_windows_at_least_any
 
 #include "mk_lang_assert.h"
-#include "mk_lang_check.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_inline.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
 #include "mk_lang_types.h"
-#include "mk_sl_cui_uint128.h"
 #include "mk_sl_cui_uint64.h"
-#include "mk_sl_uint_convert.h"
 #include "mk_win_base.h"
 #include "mk_win_dll_kernel_time.h"
 
