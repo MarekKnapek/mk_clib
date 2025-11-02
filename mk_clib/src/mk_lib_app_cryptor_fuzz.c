@@ -5,6 +5,7 @@
 #include "mk_lang_assert.h"
 #include "mk_lang_bool.h"
 #include "mk_lang_bui.h"
+#include "mk_lang_charbit.h"
 #include "mk_lang_check.h"
 #include "mk_lang_clamp.h"
 #include "mk_lang_countof.h"
@@ -137,6 +138,10 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_app_cryptor_fuzz(mk_
 	mk_lang_types_sint_t chunk_len;
 	mk_lang_types_sint_t decrypted_len;
 	mk_sl_cui_uint8_t decrypted_buf[mk_lang_countof(input_buf)];
+	mk_lang_types_sint_t byte_idx;
+	mk_lang_types_sint_t bit_idx;
+	mk_sl_cui_uint8_t u8;
+	mk_lang_types_bool_t gud;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
 	#include "mk_lang_warning_gcc_push_type_limits.h"
@@ -197,7 +202,8 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_app_cryptor_fuzz(mk_
 	mk_lang_test(output_consumed >= 0);
 	mk_lang_test(output_consumed <= mk_lang_countof(encrypted_buf_a) - encrypted_len_a);
 	encrypted_len_a += output_consumed;
-	err = mk_lib_app_cryptor_rw_finish(&cryptor, &encrypted_buf_a[encrypted_len_a], mk_lang_countof(encrypted_buf_a) - encrypted_len_a, &output_consumed); mk_lang_check_rereturn(err);
+	err = mk_lib_app_cryptor_rw_finish(&cryptor, &encrypted_buf_a[encrypted_len_a], mk_lang_countof(encrypted_buf_a) - encrypted_len_a, &output_consumed, &gud); mk_lang_check_rereturn(err);
+	mk_lang_test(gud);
 	mk_lang_test(output_consumed >= 0);
 	mk_lang_test(output_consumed <= mk_lang_countof(encrypted_buf_a) - encrypted_len_a);
 	encrypted_len_a += output_consumed;
@@ -243,7 +249,8 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_app_cryptor_fuzz(mk_
 		input_rem -= input_consumed;
 		encrypted_len_b += output_consumed;
 	}
-	err = mk_lib_app_cryptor_rw_finish(&cryptor, &encrypted_buf_b[encrypted_len_b], mk_lang_countof(encrypted_buf_b) - encrypted_len_b, &output_consumed); mk_lang_check_rereturn(err);
+	err = mk_lib_app_cryptor_rw_finish(&cryptor, &encrypted_buf_b[encrypted_len_b], mk_lang_countof(encrypted_buf_b) - encrypted_len_b, &output_consumed, &gud); mk_lang_check_rereturn(err);
+	mk_lang_test(gud);
 	mk_lang_test(output_consumed >= 0);
 	mk_lang_test(output_consumed <= mk_lang_countof(encrypted_buf_b) - encrypted_len_b);
 	encrypted_len_b += output_consumed;
@@ -263,7 +270,8 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_app_cryptor_fuzz(mk_
 	mk_lang_test(output_consumed >= 0);
 	mk_lang_test(output_consumed <= mk_lang_countof(decrypted_buf) - decrypted_len);
 	decrypted_len += output_consumed;
-	err = mk_lib_app_cryptor_rw_finish(&cryptor, &decrypted_buf[decrypted_len], mk_lang_countof(decrypted_buf) - decrypted_len, &output_consumed); mk_lang_check_rereturn(err);
+	err = mk_lib_app_cryptor_rw_finish(&cryptor, &decrypted_buf[decrypted_len], mk_lang_countof(decrypted_buf) - decrypted_len, &output_consumed, &gud); mk_lang_check_rereturn(err);
+	mk_lang_test(gud);
 	mk_lang_test(output_consumed >= 0);
 	mk_lang_test(output_consumed <= mk_lang_countof(decrypted_buf) - decrypted_len);
 	decrypted_len += output_consumed;
@@ -284,7 +292,8 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_app_cryptor_fuzz(mk_
 	mk_lang_test(output_consumed >= 0);
 	mk_lang_test(output_consumed <= mk_lang_countof(decrypted_buf) - decrypted_len);
 	decrypted_len += output_consumed;
-	err = mk_lib_app_cryptor_rw_finish(&cryptor, &decrypted_buf[decrypted_len], mk_lang_countof(decrypted_buf) - decrypted_len, &output_consumed); mk_lang_check_rereturn(err);
+	err = mk_lib_app_cryptor_rw_finish(&cryptor, &decrypted_buf[decrypted_len], mk_lang_countof(decrypted_buf) - decrypted_len, &output_consumed, &gud); mk_lang_check_rereturn(err);
+	mk_lang_test(gud);
 	mk_lang_test(output_consumed >= 0);
 	mk_lang_test(output_consumed <= mk_lang_countof(decrypted_buf) - decrypted_len);
 	decrypted_len += output_consumed;
@@ -334,7 +343,8 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_app_cryptor_fuzz(mk_
 		input_rem -= input_consumed;
 		decrypted_len += output_consumed;
 	}
-	err = mk_lib_app_cryptor_rw_finish(&cryptor, &decrypted_buf[decrypted_len], mk_lang_countof(decrypted_buf) - decrypted_len, &output_consumed); mk_lang_check_rereturn(err);
+	err = mk_lib_app_cryptor_rw_finish(&cryptor, &decrypted_buf[decrypted_len], mk_lang_countof(decrypted_buf) - decrypted_len, &output_consumed, &gud); mk_lang_check_rereturn(err);
+	mk_lang_test(gud);
 	mk_lang_test(output_consumed >= 0);
 	mk_lang_test(output_consumed <= mk_lang_countof(decrypted_buf) - decrypted_len);
 	decrypted_len += output_consumed;
@@ -342,6 +352,35 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_app_cryptor_fuzz(mk_
 
 	mk_lang_test(decrypted_len == input_len);
 	mk_lang_test(mk_sl_cui_uint8_memcmp_fn(&decrypted_buf[0], &input_buf[0], input_len) == 0);
+
+	mk_sl_cui_uint8_memclr_fn(&decrypted_buf[0], mk_lang_countof(decrypted_buf));
+	if(!(s >= mk_lang_bui_ulong_size_bytes_v))
+	{
+		return 0;
+	}
+	mk_lang_bui_ulong_from_buis_uchar_le(&bui, &d[0]);
+	d += mk_lang_bui_ulong_size_bytes_v;
+	s -= mk_lang_bui_ulong_size_bytes_v;
+	bui = bui % (encrypted_len_a * mk_lang_charbit);
+	byte_idx = bui / mk_lang_charbit;
+	bit_idx = bui % mk_lang_charbit;
+	mk_sl_cui_uint8_set_one(&u8);
+	mk_sl_cui_uint8_shl2(&u8, bit_idx);
+	mk_sl_cui_uint8_xor2(&encrypted_buf_a[byte_idx], &u8);
+	config.m_direction = mk_lib_app_cryptor_direction_e_decrypt;
+	decrypted_len = 0;
+	err = mk_lib_app_cryptor_rw_construct_config(&cryptor, &config); mk_lang_check_rereturn(err);
+	err = mk_lib_app_cryptor_rw_init_objects(&cryptor); mk_lang_check_rereturn(err);
+	err = mk_lib_app_cryptor_rw_append_chunk(&cryptor, &encrypted_buf_a[0], encrypted_len_a, &decrypted_buf[decrypted_len], mk_lang_countof(decrypted_buf) - decrypted_len, &input_consumed, &output_consumed); mk_lang_check_rereturn(err);
+	mk_lang_test(input_consumed >= 0);
+	mk_lang_test(input_consumed <= encrypted_len_a);
+	mk_lang_test(input_consumed == encrypted_len_a);
+	mk_lang_test(output_consumed >= 0);
+	mk_lang_test(output_consumed <= mk_lang_countof(decrypted_buf) - decrypted_len);
+	decrypted_len += output_consumed;
+	err = mk_lib_app_cryptor_rw_finish(&cryptor, &decrypted_buf[decrypted_len], mk_lang_countof(decrypted_buf) - decrypted_len, &output_consumed, &gud); mk_lang_check_rereturn(err);
+	mk_lang_test(!gud);
+	err = mk_lib_app_cryptor_rw_destroy(&cryptor); mk_lang_check_rereturn(err);
 	return 0;
 }
 
