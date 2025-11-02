@@ -1741,6 +1741,19 @@
 		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_inl_defu.h.m4"/>
 	</ItemGroup>
 	<ItemGroup>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_n.c"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_n.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_n_inl_defd.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_n_inl_defu.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_n_inl_filec.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_n_inl_fileh.h"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_n_inl_fileu.h"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_n.c.m4"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_n.h.m4"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_n_inl_defd.h.m4"/>
+		<None Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ctr_n_inl_defu.h.m4"/>
+	</ItemGroup>
+	<ItemGroup>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb.c"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_test_aes128.cpp"/>
 		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_crypto_mode_ecb_test_aes192.cpp"/>

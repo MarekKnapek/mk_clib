@@ -1,0 +1,3 @@
+#undef mk_lib_crypto_mode_ctr_n_t_name
+#undef mk_lib_crypto_mode_ctr_n_t_base_name
+#undef mk_lib_crypto_mode_ctr_n_t_count

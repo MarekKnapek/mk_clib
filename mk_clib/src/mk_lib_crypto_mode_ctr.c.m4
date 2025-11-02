@@ -3,6 +3,8 @@ include(`mk_lib_crypto_alg.m')dnl
 #define mk_include_guard_mk_lib_crypto_mode_ctr_c
 #include "mk_lib_crypto_mode_ctr.h"
 
+#include "mk_lib_crypto_mode_ctr_n.h"
+
 mk_lib_crypto_alg_mm_for_all_nl(`#include "mk_lib_crypto_alg_$1.h"`'')dnl
 
 
