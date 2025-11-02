@@ -37,10 +37,14 @@
 #include "mk_sl_cui_inl_fileu.h"
 
 
+mk_lang_constexpr_static_inline mk_sl_cui_uint64_t const mk_sl_stopwatch_qpc_k_10mhz  = mk_sl_cui_uint64_c(0x00000000, 0x00989680);
+mk_lang_constexpr_static_inline mk_sl_cui_uint64_t const mk_sl_stopwatch_qpc_k_100mhz = mk_sl_cui_uint64_c(0x00000000, 0x05f5e100);
+
+
 static mk_sl_cui_uint64_t mk_sl_stopwatch_qpc_g_freq;
 
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_stopwatch_qpc_init(mk_lang_types_void_t) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_stopwatch_qpc_pr_init(mk_lang_types_void_t) mk_lang_noexcept
 {
 	mk_win_base_bool_t b;
 	mk_win_base_large_integer_t integer;
@@ -51,12 +55,12 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_stopwatch_qpc_init(mk
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_stopwatch_qpc_deinit(mk_lang_types_void_t) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_stopwatch_qpc_pr_deinit(mk_lang_types_void_t) mk_lang_noexcept
 {
 	return 0;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_stopwatch_qpc_timestamp_get_now(mk_sl_stopwatch_qpc_timestamp_pt const timestamp) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_stopwatch_qpc_pr_timestamp_get_now(mk_sl_stopwatch_qpc_timestamp_pt const timestamp) mk_lang_noexcept
 {
 	mk_win_base_bool_t b;
 	mk_win_base_large_integer_t integer;
@@ -66,21 +70,49 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_stopwatch_qpc_timesta
 	return 0;
 }
 
-mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_stopwatch_qpc_u64_to_u128(mk_sl_cui_uint64_pct const u64, mk_sl_cui_uint128_pt const u128) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_stopwatch_qpc_pr_duration_adjust_10mhz(mk_sl_stopwatch_qpc_duration_pct const before, mk_sl_stopwatch_qpc_duration_pt const after) mk_lang_noexcept
 {
-	union mk_sl_stopwatch_qpc_u64_to_u128_convertor_data_u
+	mk_lang_types_uint_t hundred_ui mk_lang_constexpr_init;
+	mk_sl_cui_uint64_t hundred_u64 mk_lang_constexpr_init;
+
+	mk_lang_assert(before);
+	mk_lang_assert(after);
+	mk_lang_assert(!mk_sl_cui_uint64_is_zero(&mk_sl_stopwatch_qpc_g_freq));
+	mk_lang_assert(mk_sl_cui_uint64_eq(&mk_sl_stopwatch_qpc_g_freq, &mk_sl_stopwatch_qpc_k_10mhz));
+
+	hundred_ui = 100; mk_sl_cui_uint64_from_bi_uint(&hundred_u64, &hundred_ui);
+	mk_sl_cui_uint64_mul3_wrap_lo(&before->m_elements[0], &hundred_u64, &after->m_elements[0]);
+}
+
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_stopwatch_qpc_pr_duration_adjust_100mhz(mk_sl_stopwatch_qpc_duration_pct const before, mk_sl_stopwatch_qpc_duration_pt const after) mk_lang_noexcept
+{
+	mk_lang_types_uint_t ten_ui mk_lang_constexpr_init;
+	mk_sl_cui_uint64_t ten_u64 mk_lang_constexpr_init;
+
+	mk_lang_assert(before);
+	mk_lang_assert(after);
+	mk_lang_assert(!mk_sl_cui_uint64_is_zero(&mk_sl_stopwatch_qpc_g_freq));
+	mk_lang_assert(mk_sl_cui_uint64_eq(&mk_sl_stopwatch_qpc_g_freq, &mk_sl_stopwatch_qpc_k_100mhz));
+
+	ten_ui = 10; mk_sl_cui_uint64_from_bi_uint(&ten_u64, &ten_ui);
+	mk_sl_cui_uint64_mul3_wrap_lo(&before->m_elements[0], &ten_u64, &after->m_elements[0]);
+}
+
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_stopwatch_qpc_pr_u64_to_u128(mk_sl_cui_uint64_pct const u64, mk_sl_cui_uint128_pt const u128) mk_lang_noexcept
+{
+	union mk_sl_stopwatch_qpc_pr_u64_to_u128_convertor_data_u
 	{
 		mk_sl_cui_uint64_t m_u64s[2];
 		mk_sl_cui_uint128_t m_u128;
 	};
-	typedef union mk_sl_stopwatch_qpc_u64_to_u128_convertor_data_u mk_sl_stopwatch_qpc_u64_to_u128_convertor_data_t;
-	struct mk_sl_stopwatch_qpc_u64_to_u128_convertor_s
+	typedef union mk_sl_stopwatch_qpc_pr_u64_to_u128_convertor_data_u mk_sl_stopwatch_qpc_pr_u64_to_u128_convertor_data_t;
+	struct mk_sl_stopwatch_qpc_pr_u64_to_u128_convertor_s
 	{
-		mk_sl_stopwatch_qpc_u64_to_u128_convertor_data_t m_data;
+		mk_sl_stopwatch_qpc_pr_u64_to_u128_convertor_data_t m_data;
 	};
-	typedef struct mk_sl_stopwatch_qpc_u64_to_u128_convertor_s mk_sl_stopwatch_qpc_u64_to_u128_convertor_t;
+	typedef struct mk_sl_stopwatch_qpc_pr_u64_to_u128_convertor_s mk_sl_stopwatch_qpc_pr_u64_to_u128_convertor_t;
 
-	mk_sl_stopwatch_qpc_u64_to_u128_convertor_t convertor mk_lang_constexpr_init;
+	mk_sl_stopwatch_qpc_pr_u64_to_u128_convertor_t convertor mk_lang_constexpr_init;
 
 	mk_lang_assert(u64);
 	mk_lang_assert(u128);
@@ -90,21 +122,21 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_stopwatch_qpc
 	mk_sl_uint_convert_128_64_le_to_big(u128, &convertor.m_data.m_u64s[0]);
 }
 
-mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_stopwatch_qpc_u128_to_u64(mk_sl_cui_uint128_pct const u128, mk_sl_cui_uint64_pt const u64) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_stopwatch_qpc_pr_u128_to_u64(mk_sl_cui_uint128_pct const u128, mk_sl_cui_uint64_pt const u64) mk_lang_noexcept
 {
-	union mk_sl_stopwatch_qpc_u128_to_u64_convertor_data_u
+	union mk_sl_stopwatch_qpc_pr_u128_to_u64_convertor_data_u
 	{
 		mk_sl_cui_uint64_t m_u64s[2];
 		mk_sl_cui_uint128_t m_u128;
 	};
-	typedef union mk_sl_stopwatch_qpc_u128_to_u64_convertor_data_u mk_sl_stopwatch_qpc_u128_to_u64_convertor_data_t;
-	struct mk_sl_stopwatch_qpc_u128_to_u64_convertor_s
+	typedef union mk_sl_stopwatch_qpc_pr_u128_to_u64_convertor_data_u mk_sl_stopwatch_qpc_pr_u128_to_u64_convertor_data_t;
+	struct mk_sl_stopwatch_qpc_pr_u128_to_u64_convertor_s
 	{
-		mk_sl_stopwatch_qpc_u128_to_u64_convertor_data_t m_data;
+		mk_sl_stopwatch_qpc_pr_u128_to_u64_convertor_data_t m_data;
 	};
-	typedef struct mk_sl_stopwatch_qpc_u128_to_u64_convertor_s mk_sl_stopwatch_qpc_u128_to_u64_convertor_t;
+	typedef struct mk_sl_stopwatch_qpc_pr_u128_to_u64_convertor_s mk_sl_stopwatch_qpc_pr_u128_to_u64_convertor_t;
 
-	mk_sl_stopwatch_qpc_u128_to_u64_convertor_t convertor mk_lang_constexpr_init;
+	mk_sl_stopwatch_qpc_pr_u128_to_u64_convertor_t convertor mk_lang_constexpr_init;
 
 	mk_lang_assert(u128);
 	mk_lang_assert(u64);
@@ -113,23 +145,54 @@ mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_stopwatch_qpc
 	mk_sl_cui_uint64_assign(u64, &convertor.m_data.m_u64s[0]);
 }
 
-mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_stopwatch_qpc_duration_adjust(mk_sl_stopwatch_qpc_duration_pct const before, mk_sl_stopwatch_qpc_duration_pt const after) mk_lang_noexcept
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_stopwatch_qpc_pr_duration_adjust_general(mk_sl_stopwatch_qpc_duration_pct const before, mk_sl_stopwatch_qpc_duration_pt const after) mk_lang_noexcept
 {
-	mk_sl_cui_uint128_t u128a mk_lang_constexpr_init;
+	mk_sl_cui_uint128_t acc mk_lang_constexpr_init;
 	mk_lang_types_ulong_t tul mk_lang_constexpr_init;
-	mk_sl_cui_uint128_t u128b mk_lang_constexpr_init;
+	mk_sl_cui_uint128_t cui mk_lang_constexpr_init;
 
 	mk_lang_assert(before);
 	mk_lang_assert(after);
 	mk_lang_assert(!mk_sl_cui_uint64_is_zero(&mk_sl_stopwatch_qpc_g_freq));
 
-	mk_sl_stopwatch_qpc_u64_to_u128(&before->m_elements[0], &u128a);
-	tul = 1ul * 1000ul * 1000ul * 1000ul;
-	mk_sl_cui_uint128_from_bi_ulong(&u128b, &tul);
-	mk_sl_cui_uint128_mul2_wrap_lo(&u128a, &u128b);
-	mk_sl_stopwatch_qpc_u64_to_u128(&mk_sl_stopwatch_qpc_g_freq, &u128b);
-	mk_sl_cui_uint128_div2_wrap(&u128a, &u128b);
-	mk_sl_stopwatch_qpc_u128_to_u64(&u128a, &after->m_elements[0]);
+	mk_sl_stopwatch_qpc_pr_u64_to_u128(&before->m_elements[0], &acc);
+	tul = 1ul * 1000ul * 1000ul * 1000ul; mk_sl_cui_uint128_from_bi_ulong(&cui, &tul);
+	mk_sl_cui_uint128_mul2_wrap_lo(&acc, &cui);
+	mk_sl_stopwatch_qpc_pr_u64_to_u128(&mk_sl_stopwatch_qpc_g_freq, &cui);
+	mk_sl_cui_uint128_div2_wrap(&acc, &cui);
+	mk_sl_stopwatch_qpc_pr_u128_to_u64(&acc, &after->m_elements[0]);
+}
+
+mk_lang_constexpr static mk_lang_inline mk_lang_types_void_t mk_sl_stopwatch_qpc_pr_duration_adjust(mk_sl_stopwatch_qpc_duration_pct const before, mk_sl_stopwatch_qpc_duration_pt const after) mk_lang_noexcept
+{
+	mk_lang_assert(before);
+	mk_lang_assert(after);
+	mk_lang_assert(!mk_sl_cui_uint64_is_zero(&mk_sl_stopwatch_qpc_g_freq));
+
+	if     (mk_sl_cui_uint64_eq(&mk_sl_stopwatch_qpc_g_freq, &mk_sl_stopwatch_qpc_k_10mhz )){ mk_sl_stopwatch_qpc_pr_duration_adjust_10mhz  (before, after); }
+	else if(mk_sl_cui_uint64_eq(&mk_sl_stopwatch_qpc_g_freq, &mk_sl_stopwatch_qpc_k_100mhz)){ mk_sl_stopwatch_qpc_pr_duration_adjust_100mhz (before, after); }
+	else                                                                                    { mk_sl_stopwatch_qpc_pr_duration_adjust_general(before, after); }
+}
+
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_stopwatch_qpc_init(mk_lang_types_void_t) mk_lang_noexcept
+{
+	return mk_sl_stopwatch_qpc_pr_init();
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_stopwatch_qpc_deinit(mk_lang_types_void_t) mk_lang_noexcept
+{
+	return mk_sl_stopwatch_qpc_pr_deinit();
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_sl_stopwatch_qpc_timestamp_get_now(mk_sl_stopwatch_qpc_timestamp_pt const timestamp) mk_lang_noexcept
+{
+	return mk_sl_stopwatch_qpc_pr_timestamp_get_now(timestamp);
+}
+
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_stopwatch_qpc_duration_adjust(mk_sl_stopwatch_qpc_duration_pct const before, mk_sl_stopwatch_qpc_duration_pt const after) mk_lang_noexcept
+{
+	mk_sl_stopwatch_qpc_pr_duration_adjust(before, after);
 }
 
 
