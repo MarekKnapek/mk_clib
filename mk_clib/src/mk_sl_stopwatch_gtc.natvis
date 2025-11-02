@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+	<Type Name="mk_sl_stopwatch_gtc_duration_s">
+		<!-- ========== -->
+		<Intrinsic Name="k_nano_seconds_per_micro_second" Expression="1000"/>
+		<Intrinsic Name="k_micro_seconds_per_milli_second" Expression="1000"/>
+		<Intrinsic Name="k_milli_seconds_per_second" Expression="1000"/>
+		<Intrinsic Name="k_seconds_per_minute" Expression="60"/>
+		<Intrinsic Name="k_minutes_per_hour" Expression="60"/>
+		<Intrinsic Name="k_hours_per_day" Expression="24"/>
+		<!-- ========== -->
+		<Intrinsic Name="k_nano_seconds_per_milli_second" Expression="k_nano_seconds_per_micro_second() * k_micro_seconds_per_milli_second()"/>
+		<!-- ========== -->
+		<Intrinsic Name="nano_seconds" Expression="m_elements[0].m_elements[0]"/>
+		<Intrinsic Name="is_negative" Expression="(nano_seconds() &gt;&gt; (sizeof(nano_seconds()) * 8 - 1)) == 1"/>
+		<Intrinsic Name="sign_multiplier" Expression="is_negative() ? -1ll : +1ll"/>
+		<Intrinsic Name="to_signed_do_flip" Expression="((signed long long int)((~nano_seconds()) + 1ull))"/>
+		<Intrinsic Name="to_signed_no_flip" Expression="((signed long long int)(nano_seconds()))"/>
+		<Intrinsic Name="nano_seconds_signed" Expression="is_negative() ? to_signed_do_flip() : to_signed_no_flip()"/>
+		<!-- ========== -->
+		<Intrinsic Name="micro_seconds" Expression="nano_seconds_signed() / k_nano_seconds_per_micro_second()"/>
+		<Intrinsic Name="nano_seconds_in_micro_second" Expression="nano_seconds_signed() % k_nano_seconds_per_micro_second()"/>
+		<Intrinsic Name="milli_seconds" Expression="micro_seconds() / k_micro_seconds_per_milli_second()"/>
+		<Intrinsic Name="micro_seconds_in_milli_second" Expression="micro_seconds() % k_micro_seconds_per_milli_second()"/>
+		<Intrinsic Name="seconds" Expression="milli_seconds() / k_milli_seconds_per_second()"/>
+		<Intrinsic Name="milli_seconds_in_second" Expression="milli_seconds() % k_milli_seconds_per_second()"/>
+		<Intrinsic Name="minutes" Expression="seconds() / k_seconds_per_minute()"/>
+		<Intrinsic Name="seconds_in_minute" Expression="seconds() % k_seconds_per_minute()"/>
+		<Intrinsic Name="hours" Expression="minutes() / k_minutes_per_hour()"/>
+		<Intrinsic Name="minutes_in_hour" Expression="minutes() % k_minutes_per_hour()"/>
+		<Intrinsic Name="days" Expression="hours() / k_hours_per_day()"/>
+		<Intrinsic Name="hours_in_day" Expression="hours() % k_hours_per_day()"/>
+		<!-- ========== -->
+		<Intrinsic Name="nano_seconds_in_milli_second" Expression="micro_seconds_in_milli_second() * k_nano_seconds_per_micro_second() + nano_seconds_in_micro_second()"/>
+		<Intrinsic Name="nano_seconds_in_second" Expression="milli_seconds_in_second() * k_nano_seconds_per_milli_second() + micro_seconds_in_milli_second() * k_nano_seconds_per_micro_second() + nano_seconds_in_micro_second()"/>
+		<!-- ========== -->
+		<Intrinsic Name="style_is_days" Expression="days() != 0"/>
+		<Intrinsic Name="style_is_hours" Expression="!style_is_days() &amp;&amp; hours() != 0"/>
+		<Intrinsic Name="style_is_minutes" Expression="!style_is_days() &amp;&amp; !style_is_hours() &amp;&amp; minutes() != 0"/>
+		<Intrinsic Name="style_is_seconds" Expression="!style_is_days() &amp;&amp; !style_is_hours() &amp;&amp; !style_is_minutes() &amp;&amp; seconds() != 0"/>
+		<Intrinsic Name="style_is_millis" Expression="!style_is_days() &amp;&amp; !style_is_hours() &amp;&amp; !style_is_minutes() &amp;&amp; !style_is_seconds() &amp;&amp; milli_seconds() != 0"/>
+		<Intrinsic Name="style_is_micros" Expression="!style_is_days() &amp;&amp; !style_is_hours() &amp;&amp; !style_is_minutes() &amp;&amp; !style_is_seconds() &amp;&amp; !style_is_millis() &amp;&amp; micro_seconds() != 0"/>
+		<Intrinsic Name="style_is_nanos" Expression="!style_is_days() &amp;&amp; !style_is_hours() &amp;&amp; !style_is_minutes() &amp;&amp; !style_is_seconds() &amp;&amp; !style_is_millis() &amp;&amp; !style_is_micros()"/>
+		<!-- ========== -->
+		<Intrinsic Name="count_leading_zeros_3" Expression="value &gt;= 100 ? 0 : (value &gt;= 10 ? 1 : 2)"><Parameter Name="value" Type="int"/></Intrinsic>
+		<Intrinsic Name="count_leading_zeros_6" Expression="value &gt;= 100000 ? 0 : (value &gt;= 10000 ? 1 : (value &gt;= 1000 ? 2 : (value &gt;= 100 ? 3 : (value &gt;= 10 ? 4 : 5))))"><Parameter Name="value" Type="int"/></Intrinsic>
+		<Intrinsic Name="count_leading_zeros_9" Expression="value &gt;= 100000000 ? 0 : (value &gt;= 10000000 ? 1 : (value &gt;= 1000000 ? 2 : (value &gt;= 100000 ? 3 : (value &gt;= 10000 ? 4 : (value &gt;= 1000 ? 5 : (value &gt;= 100 ? 6 : (value &gt;= 10 ? 7 : 8)))))))"><Parameter Name="value" Type="int"/></Intrinsic>
+		<Intrinsic Name="trim_trailing_zeros_impl" Expression="(((value % 10) == 0) ? (value / 10) : (value))"><Parameter Name="value" Type="int"/></Intrinsic>
+		<Intrinsic Name="trim_trailing_zeros" Expression="trim_trailing_zeros_impl(trim_trailing_zeros_impl(trim_trailing_zeros_impl(trim_trailing_zeros_impl(trim_trailing_zeros_impl(trim_trailing_zeros_impl(trim_trailing_zeros_impl(trim_trailing_zeros_impl(trim_trailing_zeros_impl(trim_trailing_zeros_impl(value))))))))))"><Parameter Name="value" Type="int"/></Intrinsic>
+		<!-- ========== -->
+		<Intrinsic Name="digit_2_1" Expression="(value / 10) % 10"><Parameter Name="value" Type="int"/></Intrinsic>
+		<Intrinsic Name="digit_2_2" Expression="(value / 1) % 10"><Parameter Name="value" Type="int"/></Intrinsic>
+		<!-- ========== -->
+		<DisplayString Condition="style_is_nanos()">{(sign_multiplier() * nano_seconds_signed()),d} ns</DisplayString>
+		<!-- ========== -->
+		<DisplayString Condition="style_is_micros() &amp;&amp; nano_seconds_in_micro_second() == 0">{(sign_multiplier() * micro_seconds()),d}.0 μs</DisplayString>
+		<DisplayString Condition="style_is_micros() &amp;&amp; nano_seconds_in_micro_second() != 0 &amp;&amp; count_leading_zeros_3(nano_seconds_in_micro_second()) == 0">{(sign_multiplier() * micro_seconds()),d}.{(trim_trailing_zeros(nano_seconds_in_micro_second())),d} μs</DisplayString>
+		<DisplayString Condition="style_is_micros() &amp;&amp; nano_seconds_in_micro_second() != 0 &amp;&amp; count_leading_zeros_3(nano_seconds_in_micro_second()) == 1">{(sign_multiplier() * micro_seconds()),d}.0{(trim_trailing_zeros(nano_seconds_in_micro_second())),d} μs</DisplayString>
+		<DisplayString Condition="style_is_micros() &amp;&amp; nano_seconds_in_micro_second() != 0 &amp;&amp; count_leading_zeros_3(nano_seconds_in_micro_second()) == 2">{(sign_multiplier() * micro_seconds()),d}.00{(trim_trailing_zeros(nano_seconds_in_micro_second())),d} μs</DisplayString>
+		<!-- ========== -->
+		<DisplayString Condition="style_is_millis() &amp;&amp; nano_seconds_in_milli_second() == 0">{(sign_multiplier() * milli_seconds()),d}.0 ms</DisplayString>
+		<DisplayString Condition="style_is_millis() &amp;&amp; nano_seconds_in_milli_second() != 0 &amp;&amp; count_leading_zeros_6(nano_seconds_in_milli_second()) == 0">{(sign_multiplier() * milli_seconds()),d}.{(trim_trailing_zeros(nano_seconds_in_milli_second())),d} ms</DisplayString>
+		<DisplayString Condition="style_is_millis() &amp;&amp; nano_seconds_in_milli_second() != 0 &amp;&amp; count_leading_zeros_6(nano_seconds_in_milli_second()) == 1">{(sign_multiplier() * milli_seconds()),d}.0{(trim_trailing_zeros(nano_seconds_in_milli_second())),d} ms</DisplayString>
+		<DisplayString Condition="style_is_millis() &amp;&amp; nano_seconds_in_milli_second() != 0 &amp;&amp; count_leading_zeros_6(nano_seconds_in_milli_second()) == 2">{(sign_multiplier() * milli_seconds()),d}.00{(trim_trailing_zeros(nano_seconds_in_milli_second())),d} ms</DisplayString>
+		<DisplayString Condition="style_is_millis() &amp;&amp; nano_seconds_in_milli_second() != 0 &amp;&amp; count_leading_zeros_6(nano_seconds_in_milli_second()) == 3">{(sign_multiplier() * milli_seconds()),d}.000{(trim_trailing_zeros(nano_seconds_in_milli_second())),d} ms</DisplayString>
+		<DisplayString Condition="style_is_millis() &amp;&amp; nano_seconds_in_milli_second() != 0 &amp;&amp; count_leading_zeros_6(nano_seconds_in_milli_second()) == 4">{(sign_multiplier() * milli_seconds()),d}.0000{(trim_trailing_zeros(nano_seconds_in_milli_second())),d} ms</DisplayString>
+		<DisplayString Condition="style_is_millis() &amp;&amp; nano_seconds_in_milli_second() != 0 &amp;&amp; count_leading_zeros_6(nano_seconds_in_milli_second()) == 5">{(sign_multiplier() * milli_seconds()),d}.00000{(trim_trailing_zeros(nano_seconds_in_milli_second())),d} ms</DisplayString>
+		<!-- ========== -->
+		<DisplayString Condition="style_is_seconds() &amp;&amp; nano_seconds_in_second() == 0">{(sign_multiplier() * seconds()),d}.0 s</DisplayString>
+		<DisplayString Condition="style_is_seconds() &amp;&amp; nano_seconds_in_second() != 0 &amp;&amp; count_leading_zeros_9(nano_seconds_in_second()) == 0">{(sign_multiplier() * seconds()),d}.{(trim_trailing_zeros(nano_seconds_in_second())),d} s</DisplayString>
+		<DisplayString Condition="style_is_seconds() &amp;&amp; nano_seconds_in_second() != 0 &amp;&amp; count_leading_zeros_9(nano_seconds_in_second()) == 1">{(sign_multiplier() * seconds()),d}.0{(trim_trailing_zeros(nano_seconds_in_second())),d} s</DisplayString>
+		<DisplayString Condition="style_is_seconds() &amp;&amp; nano_seconds_in_second() != 0 &amp;&amp; count_leading_zeros_9(nano_seconds_in_second()) == 2">{(sign_multiplier() * seconds()),d}.00{(trim_trailing_zeros(nano_seconds_in_second())),d} s</DisplayString>
+		<DisplayString Condition="style_is_seconds() &amp;&amp; nano_seconds_in_second() != 0 &amp;&amp; count_leading_zeros_9(nano_seconds_in_second()) == 3">{(sign_multiplier() * seconds()),d}.000{(trim_trailing_zeros(nano_seconds_in_second())),d} s</DisplayString>
+		<DisplayString Condition="style_is_seconds() &amp;&amp; nano_seconds_in_second() != 0 &amp;&amp; count_leading_zeros_9(nano_seconds_in_second()) == 4">{(sign_multiplier() * seconds()),d}.0000{(trim_trailing_zeros(nano_seconds_in_second())),d} s</DisplayString>
+		<DisplayString Condition="style_is_seconds() &amp;&amp; nano_seconds_in_second() != 0 &amp;&amp; count_leading_zeros_9(nano_seconds_in_second()) == 5">{(sign_multiplier() * seconds()),d}.00000{(trim_trailing_zeros(nano_seconds_in_second())),d} s</DisplayString>
+		<DisplayString Condition="style_is_seconds() &amp;&amp; nano_seconds_in_second() != 0 &amp;&amp; count_leading_zeros_9(nano_seconds_in_second()) == 6">{(sign_multiplier() * seconds()),d}.000000{(trim_trailing_zeros(nano_seconds_in_second())),d} s</DisplayString>
+		<DisplayString Condition="style_is_seconds() &amp;&amp; nano_seconds_in_second() != 0 &amp;&amp; count_leading_zeros_9(nano_seconds_in_second()) == 7">{(sign_multiplier() * seconds()),d}.0000000{(trim_trailing_zeros(nano_seconds_in_second())),d} s</DisplayString>
+		<DisplayString Condition="style_is_seconds() &amp;&amp; nano_seconds_in_second() != 0 &amp;&amp; count_leading_zeros_9(nano_seconds_in_second()) == 8">{(sign_multiplier() * seconds()),d}.00000000{(trim_trailing_zeros(nano_seconds_in_second())),d} s</DisplayString>
+		<!-- ========== -->
+		<DisplayString Condition="style_is_minutes() &amp;&amp; nano_seconds_in_second() == 0">{(sign_multiplier() * minutes()),d}:{(digit_2_1(seconds_in_minute())),d}{(digit_2_2(seconds_in_minute())),d}.0 m</DisplayString>
+		<DisplayString Condition="style_is_minutes() &amp;&amp; nano_seconds_in_second() != 0 &amp;&amp; count_leading_zeros_9(nano_seconds_in_second()) == 0">{(sign_multiplier() * minutes()),d}:{(digit_2_1(seconds_in_minute())),d}{(digit_2_2(seconds_in_minute())),d}.{(trim_trailing_zeros(nano_seconds_in_second())),d} m</DisplayString>
+		<DisplayString Condition="style_is_minutes() &amp;&amp; nano_seconds_in_second() != 0 &amp;&amp; count_leading_zeros_9(nano_seconds_in_second()) == 1">{(sign_multiplier() * minutes()),d}:{(digit_2_1(seconds_in_minute())),d}{(digit_2_2(seconds_in_minute())),d}.0{(trim_trailing_zeros(nano_seconds_in_second())),d} m</DisplayString>
+		<DisplayString Condition="style_is_minutes() &amp;&amp; nano_seconds_in_second() != 0 &amp;&amp; count_leading_zeros_9(nano_seconds_in_second()) == 2">{(sign_multiplier() * minutes()),d}:{(digit_2_1(seconds_in_minute())),d}{(digit_2_2(seconds_in_minute())),d}.00{(trim_trailing_zeros(nano_seconds_in_second())),d} m</DisplayString>
+		<DisplayString Condition="style_is_minutes() &amp;&amp; nano_seconds_in_second() != 0 &amp;&amp; count_leading_zeros_9(nano_seconds_in_second()) == 3">{(sign_multiplier() * minutes()),d}:{(digit_2_1(seconds_in_minute())),d}{(digit_2_2(seconds_in_minute())),d}.000{(trim_trailing_zeros(nano_seconds_in_second())),d} m</DisplayString>
+		<DisplayString Condition="style_is_minutes() &amp;&amp; nano_seconds_in_second() != 0 &amp;&amp; count_leading_zeros_9(nano_seconds_in_second()) == 4">{(sign_multiplier() * minutes()),d}:{(digit_2_1(seconds_in_minute())),d}{(digit_2_2(seconds_in_minute())),d}.0000{(trim_trailing_zeros(nano_seconds_in_second())),d} m</DisplayString>
+		<DisplayString Condition="style_is_minutes() &amp;&amp; nano_seconds_in_second() != 0 &amp;&amp; count_leading_zeros_9(nano_seconds_in_second()) == 5">{(sign_multiplier() * minutes()),d}:{(digit_2_1(seconds_in_minute())),d}{(digit_2_2(seconds_in_minute())),d}.00000{(trim_trailing_zeros(nano_seconds_in_second())),d} m</DisplayString>
+		<DisplayString Condition="style_is_minutes() &amp;&amp; nano_seconds_in_second() != 0 &amp;&amp; count_leading_zeros_9(nano_seconds_in_second()) == 6">{(sign_multiplier() * minutes()),d}:{(digit_2_1(seconds_in_minute())),d}{(digit_2_2(seconds_in_minute())),d}.000000{(trim_trailing_zeros(nano_seconds_in_second())),d} m</DisplayString>
+		<DisplayString Condition="style_is_minutes() &amp;&amp; nano_seconds_in_second() != 0 &amp;&amp; count_leading_zeros_9(nano_seconds_in_second()) == 7">{(sign_multiplier() * minutes()),d}:{(digit_2_1(seconds_in_minute())),d}{(digit_2_2(seconds_in_minute())),d}.0000000{(trim_trailing_zeros(nano_seconds_in_second())),d} m</DisplayString>
+		<DisplayString Condition="style_is_minutes() &amp;&amp; nano_seconds_in_second() != 0 &amp;&amp; count_leading_zeros_9(nano_seconds_in_second()) == 8">{(sign_multiplier() * minutes()),d}:{(digit_2_1(seconds_in_minute())),d}{(digit_2_2(seconds_in_minute())),d}.00000000{(trim_trailing_zeros(nano_seconds_in_second())),d} m</DisplayString>
+		<!-- ========== -->
+		<DisplayString Condition="style_is_hours() &amp;&amp; nano_seconds_in_second() == 0">{(sign_multiplier() * hours()),d}:{(digit_2_1(minutes_in_hour())),d}{(digit_2_2(minutes_in_hour())),d}:{(digit_2_1(seconds_in_minute())),d}{(digit_2_2(seconds_in_minute())),d}.0 h</DisplayString>
+		<DisplayString Condition="style_is_hours() &amp;&amp; nano_seconds_in_second() != 0 &amp;&amp; count_leading_zeros_9(nano_seconds_in_second()) == 0">{(sign_multiplier() * hours()),d}:{(digit_2_1(minutes_in_hour())),d}{(digit_2_2(minutes_in_hour())),d}:{(digit_2_1(seconds_in_minute())),d}{(digit_2_2(seconds_in_minute())),d}.{(trim_trailing_zeros(nano_seconds_in_second())),d} h</DisplayString>
+		<DisplayString Condition="style_is_hours() &amp;&amp; nano_seconds_in_second() != 0 &amp;&amp; count_leading_zeros_9(nano_seconds_in_second()) == 1">{(sign_multiplier() * hours()),d}:{(digit_2_1(minutes_in_hour())),d}{(digit_2_2(minutes_in_hour())),d}:{(digit_2_1(seconds_in_minute())),d}{(digit_2_2(seconds_in_minute())),d}.0{(trim_trailing_zeros(nano_seconds_in_second())),d} h</DisplayString>
+		<DisplayString Condition="style_is_hours() &amp;&amp; nano_seconds_in_second() != 0 &amp;&amp; count_leading_zeros_9(nano_seconds_in_second()) == 2">{(sign_multiplier() * hours()),d}:{(digit_2_1(minutes_in_hour())),d}{(digit_2_2(minutes_in_hour())),d}:{(digit_2_1(seconds_in_minute())),d}{(digit_2_2(seconds_in_minute())),d}.00{(trim_trailing_zeros(nano_seconds_in_second())),d} h</DisplayString>
+		<DisplayString Condition="style_is_hours() &amp;&amp; nano_seconds_in_second() != 0 &amp;&amp; count_leading_zeros_9(nano_seconds_in_second()) == 3">{(sign_multiplier() * hours()),d}:{(digit_2_1(minutes_in_hour())),d}{(digit_2_2(minutes_in_hour())),d}:{(digit_2_1(seconds_in_minute())),d}{(digit_2_2(seconds_in_minute())),d}.000{(trim_trailing_zeros(nano_seconds_in_second())),d} h</DisplayString>
+		<DisplayString Condition="style_is_hours() &amp;&amp; nano_seconds_in_second() != 0 &amp;&amp; count_leading_zeros_9(nano_seconds_in_second()) == 4">{(sign_multiplier() * hours()),d}:{(digit_2_1(minutes_in_hour())),d}{(digit_2_2(minutes_in_hour())),d}:{(digit_2_1(seconds_in_minute())),d}{(digit_2_2(seconds_in_minute())),d}.0000{(trim_trailing_zeros(nano_seconds_in_second())),d} h</DisplayString>
+		<DisplayString Condition="style_is_hours() &amp;&amp; nano_seconds_in_second() != 0 &amp;&amp; count_leading_zeros_9(nano_seconds_in_second()) == 5">{(sign_multiplier() * hours()),d}:{(digit_2_1(minutes_in_hour())),d}{(digit_2_2(minutes_in_hour())),d}:{(digit_2_1(seconds_in_minute())),d}{(digit_2_2(seconds_in_minute())),d}.00000{(trim_trailing_zeros(nano_seconds_in_second())),d} h</DisplayString>
+		<DisplayString Condition="style_is_hours() &amp;&amp; nano_seconds_in_second() != 0 &amp;&amp; count_leading_zeros_9(nano_seconds_in_second()) == 6">{(sign_multiplier() * hours()),d}:{(digit_2_1(minutes_in_hour())),d}{(digit_2_2(minutes_in_hour())),d}:{(digit_2_1(seconds_in_minute())),d}{(digit_2_2(seconds_in_minute())),d}.000000{(trim_trailing_zeros(nano_seconds_in_second())),d} h</DisplayString>
+		<DisplayString Condition="style_is_hours() &amp;&amp; nano_seconds_in_second() != 0 &amp;&amp; count_leading_zeros_9(nano_seconds_in_second()) == 7">{(sign_multiplier() * hours()),d}:{(digit_2_1(minutes_in_hour())),d}{(digit_2_2(minutes_in_hour())),d}:{(digit_2_1(seconds_in_minute())),d}{(digit_2_2(seconds_in_minute())),d}.0000000{(trim_trailing_zeros(nano_seconds_in_second())),d} h</DisplayString>
+		<DisplayString Condition="style_is_hours() &amp;&amp; nano_seconds_in_second() != 0 &amp;&amp; count_leading_zeros_9(nano_seconds_in_second()) == 8">{(sign_multiplier() * hours()),d}:{(digit_2_1(minutes_in_hour())),d}{(digit_2_2(minutes_in_hour())),d}:{(digit_2_1(seconds_in_minute())),d}{(digit_2_2(seconds_in_minute())),d}.00000000{(trim_trailing_zeros(nano_seconds_in_second())),d} h</DisplayString>
+		<!-- ========== -->
+		<DisplayString Condition="style_is_days() &amp;&amp; nano_seconds_in_second() == 0">{(sign_multiplier() * days()),d}+{(digit_2_1(hours_in_day())),d}{(digit_2_2(hours_in_day())),d}:{(digit_2_1(minutes_in_hour())),d}{(digit_2_2(minutes_in_hour())),d}:{(digit_2_1(seconds_in_minute())),d}{(digit_2_2(seconds_in_minute())),d}.0 d</DisplayString>
+		<DisplayString Condition="style_is_days() &amp;&amp; nano_seconds_in_second() != 0 &amp;&amp; count_leading_zeros_9(nano_seconds_in_second()) == 0">{(sign_multiplier() * days()),d}+{(digit_2_1(hours_in_day())),d}{(digit_2_2(hours_in_day())),d}:{(digit_2_1(minutes_in_hour())),d}{(digit_2_2(minutes_in_hour())),d}:{(digit_2_1(seconds_in_minute())),d}{(digit_2_2(seconds_in_minute())),d}.{(trim_trailing_zeros(nano_seconds_in_second())),d} d</DisplayString>
+		<DisplayString Condition="style_is_days() &amp;&amp; nano_seconds_in_second() != 0 &amp;&amp; count_leading_zeros_9(nano_seconds_in_second()) == 1">{(sign_multiplier() * days()),d}+{(digit_2_1(hours_in_day())),d}{(digit_2_2(hours_in_day())),d}:{(digit_2_1(minutes_in_hour())),d}{(digit_2_2(minutes_in_hour())),d}:{(digit_2_1(seconds_in_minute())),d}{(digit_2_2(seconds_in_minute())),d}.0{(trim_trailing_zeros(nano_seconds_in_second())),d} d</DisplayString>
+		<DisplayString Condition="style_is_days() &amp;&amp; nano_seconds_in_second() != 0 &amp;&amp; count_leading_zeros_9(nano_seconds_in_second()) == 2">{(sign_multiplier() * days()),d}+{(digit_2_1(hours_in_day())),d}{(digit_2_2(hours_in_day())),d}:{(digit_2_1(minutes_in_hour())),d}{(digit_2_2(minutes_in_hour())),d}:{(digit_2_1(seconds_in_minute())),d}{(digit_2_2(seconds_in_minute())),d}.00{(trim_trailing_zeros(nano_seconds_in_second())),d} d</DisplayString>
+		<DisplayString Condition="style_is_days() &amp;&amp; nano_seconds_in_second() != 0 &amp;&amp; count_leading_zeros_9(nano_seconds_in_second()) == 3">{(sign_multiplier() * days()),d}+{(digit_2_1(hours_in_day())),d}{(digit_2_2(hours_in_day())),d}:{(digit_2_1(minutes_in_hour())),d}{(digit_2_2(minutes_in_hour())),d}:{(digit_2_1(seconds_in_minute())),d}{(digit_2_2(seconds_in_minute())),d}.000{(trim_trailing_zeros(nano_seconds_in_second())),d} d</DisplayString>
+		<DisplayString Condition="style_is_days() &amp;&amp; nano_seconds_in_second() != 0 &amp;&amp; count_leading_zeros_9(nano_seconds_in_second()) == 4">{(sign_multiplier() * days()),d}+{(digit_2_1(hours_in_day())),d}{(digit_2_2(hours_in_day())),d}:{(digit_2_1(minutes_in_hour())),d}{(digit_2_2(minutes_in_hour())),d}:{(digit_2_1(seconds_in_minute())),d}{(digit_2_2(seconds_in_minute())),d}.0000{(trim_trailing_zeros(nano_seconds_in_second())),d} d</DisplayString>
+		<DisplayString Condition="style_is_days() &amp;&amp; nano_seconds_in_second() != 0 &amp;&amp; count_leading_zeros_9(nano_seconds_in_second()) == 5">{(sign_multiplier() * days()),d}+{(digit_2_1(hours_in_day())),d}{(digit_2_2(hours_in_day())),d}:{(digit_2_1(minutes_in_hour())),d}{(digit_2_2(minutes_in_hour())),d}:{(digit_2_1(seconds_in_minute())),d}{(digit_2_2(seconds_in_minute())),d}.00000{(trim_trailing_zeros(nano_seconds_in_second())),d} d</DisplayString>
+		<DisplayString Condition="style_is_days() &amp;&amp; nano_seconds_in_second() != 0 &amp;&amp; count_leading_zeros_9(nano_seconds_in_second()) == 6">{(sign_multiplier() * days()),d}+{(digit_2_1(hours_in_day())),d}{(digit_2_2(hours_in_day())),d}:{(digit_2_1(minutes_in_hour())),d}{(digit_2_2(minutes_in_hour())),d}:{(digit_2_1(seconds_in_minute())),d}{(digit_2_2(seconds_in_minute())),d}.000000{(trim_trailing_zeros(nano_seconds_in_second())),d} d</DisplayString>
+		<DisplayString Condition="style_is_days() &amp;&amp; nano_seconds_in_second() != 0 &amp;&amp; count_leading_zeros_9(nano_seconds_in_second()) == 7">{(sign_multiplier() * days()),d}+{(digit_2_1(hours_in_day())),d}{(digit_2_2(hours_in_day())),d}:{(digit_2_1(minutes_in_hour())),d}{(digit_2_2(minutes_in_hour())),d}:{(digit_2_1(seconds_in_minute())),d}{(digit_2_2(seconds_in_minute())),d}.0000000{(trim_trailing_zeros(nano_seconds_in_second())),d} d</DisplayString>
+		<DisplayString Condition="style_is_days() &amp;&amp; nano_seconds_in_second() != 0 &amp;&amp; count_leading_zeros_9(nano_seconds_in_second()) == 8">{(sign_multiplier() * days()),d}+{(digit_2_1(hours_in_day())),d}{(digit_2_2(hours_in_day())),d}:{(digit_2_1(minutes_in_hour())),d}{(digit_2_2(minutes_in_hour())),d}:{(digit_2_1(seconds_in_minute())),d}{(digit_2_2(seconds_in_minute())),d}.00000000{(trim_trailing_zeros(nano_seconds_in_second())),d} d</DisplayString>
+		<!-- ========== -->
+	</Type>
+</AutoVisualizer>
