@@ -186,6 +186,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_app_cryptor_fuzz(mk_
 	d += input_len;
 	s -= input_len;
 
+	mk_sl_cui_uint8_memclr_fn(&encrypted_buf_a[0], mk_lang_countof(encrypted_buf_a));
 	encrypted_len_a = 0;
 	err = mk_lib_app_cryptor_rw_construct_config(&cryptor, &config); mk_lang_check_rereturn(err);
 	err = mk_lib_app_cryptor_rw_init_objects(&cryptor); mk_lang_check_rereturn(err);
@@ -202,6 +203,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_app_cryptor_fuzz(mk_
 	encrypted_len_a += output_consumed;
 	err = mk_lib_app_cryptor_rw_destroy(&cryptor); mk_lang_check_rereturn(err);
 
+	mk_sl_cui_uint8_memclr_fn(&encrypted_buf_b[0], mk_lang_countof(encrypted_buf_b));
 	input_ptr = &input_buf[0];
 	input_rem = input_len;
 	encrypted_len_b = 0;
@@ -249,6 +251,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_app_cryptor_fuzz(mk_
 
 	mk_lang_test(encrypted_len_b == encrypted_len_a);
 
+	mk_sl_cui_uint8_memclr_fn(&decrypted_buf[0], mk_lang_countof(decrypted_buf));
 	config.m_direction = mk_lib_app_cryptor_direction_e_decrypt;
 	decrypted_len = 0;
 	err = mk_lib_app_cryptor_rw_construct_config(&cryptor, &config); mk_lang_check_rereturn(err);
@@ -269,6 +272,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_app_cryptor_fuzz(mk_
 	mk_lang_test(decrypted_len == input_len);
 	mk_lang_test(mk_sl_cui_uint8_memcmp_fn(&decrypted_buf[0], &input_buf[0], input_len) == 0);
 
+	mk_sl_cui_uint8_memclr_fn(&decrypted_buf[0], mk_lang_countof(decrypted_buf));
 	config.m_direction = mk_lib_app_cryptor_direction_e_decrypt;
 	decrypted_len = 0;
 	err = mk_lib_app_cryptor_rw_construct_config(&cryptor, &config); mk_lang_check_rereturn(err);
@@ -280,6 +284,56 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_app_cryptor_fuzz(mk_
 	mk_lang_test(output_consumed >= 0);
 	mk_lang_test(output_consumed <= mk_lang_countof(decrypted_buf) - decrypted_len);
 	decrypted_len += output_consumed;
+	err = mk_lib_app_cryptor_rw_finish(&cryptor, &decrypted_buf[decrypted_len], mk_lang_countof(decrypted_buf) - decrypted_len, &output_consumed); mk_lang_check_rereturn(err);
+	mk_lang_test(output_consumed >= 0);
+	mk_lang_test(output_consumed <= mk_lang_countof(decrypted_buf) - decrypted_len);
+	decrypted_len += output_consumed;
+	err = mk_lib_app_cryptor_rw_destroy(&cryptor); mk_lang_check_rereturn(err);
+
+	mk_lang_test(decrypted_len == input_len);
+	mk_lang_test(mk_sl_cui_uint8_memcmp_fn(&decrypted_buf[0], &input_buf[0], input_len) == 0);
+
+	mk_sl_cui_uint8_memclr_fn(&decrypted_buf[0], mk_lang_countof(decrypted_buf));
+	input_ptr = &encrypted_buf_a[0];
+	input_rem = encrypted_len_a;
+	config.m_direction = mk_lib_app_cryptor_direction_e_decrypt;
+	decrypted_len = 0;
+	err = mk_lib_app_cryptor_rw_construct_config(&cryptor, &config); mk_lang_check_rereturn(err);
+	err = mk_lib_app_cryptor_rw_init_objects(&cryptor); mk_lang_check_rereturn(err);
+	err = mk_lib_app_cryptor_rw_append_chunk(&cryptor, input_ptr, 16, &decrypted_buf[decrypted_len], mk_lang_countof(decrypted_buf) - decrypted_len, &input_consumed, &output_consumed); mk_lang_check_rereturn(err);
+	mk_lang_test(input_consumed >= 0);
+	mk_lang_test(input_consumed <= 16);
+	mk_lang_test(input_consumed == 16);
+	mk_lang_test(output_consumed >= 0);
+	mk_lang_test(output_consumed <= mk_lang_countof(decrypted_buf) - decrypted_len);
+	input_ptr += input_consumed;
+	input_rem -= input_consumed;
+	decrypted_len += output_consumed;
+	for(;;)
+	{
+		if(input_rem == 0)
+		{
+			break;
+		}
+		if(!(s >= mk_lang_bui_ulong_size_bytes_v))
+		{
+			return 0;
+		}
+		mk_lang_bui_ulong_from_buis_uchar_le(&bui, &d[0]);
+		d += mk_lang_bui_ulong_size_bytes_v;
+		s -= mk_lang_bui_ulong_size_bytes_v;
+		chunk_len = ((mk_lang_types_sint_t)(bui));
+		chunk_len = mk_lang_clamp(chunk_len, 0, input_rem);
+		err = mk_lib_app_cryptor_rw_append_chunk(&cryptor, input_ptr, chunk_len, &decrypted_buf[decrypted_len], mk_lang_countof(decrypted_buf) - decrypted_len, &input_consumed, &output_consumed); mk_lang_check_rereturn(err);
+		mk_lang_test(input_consumed >= 0);
+		mk_lang_test(input_consumed <= chunk_len);
+		mk_lang_test(input_consumed == chunk_len);
+		mk_lang_test(output_consumed >= 0);
+		mk_lang_test(output_consumed <= mk_lang_countof(decrypted_buf) - decrypted_len);
+		input_ptr += input_consumed;
+		input_rem -= input_consumed;
+		decrypted_len += output_consumed;
+	}
 	err = mk_lib_app_cryptor_rw_finish(&cryptor, &decrypted_buf[decrypted_len], mk_lang_countof(decrypted_buf) - decrypted_len, &output_consumed); mk_lang_check_rereturn(err);
 	mk_lang_test(output_consumed >= 0);
 	mk_lang_test(output_consumed <= mk_lang_countof(decrypted_buf) - decrypted_len);
