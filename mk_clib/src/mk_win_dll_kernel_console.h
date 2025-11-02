@@ -9,6 +9,7 @@
 
 #include "mk_lang_nodiscard.h"
 #include "mk_lang_noexcept.h"
+#include "mk_lang_version.h"
 #include "mk_win_base.h"
 
 
@@ -23,12 +24,16 @@ enum mk_win_dll_kernel_console_ctrl_event_id_e
 };
 typedef enum mk_win_dll_kernel_console_ctrl_event_id_e mk_win_dll_kernel_console_ctrl_event_id_t;
 
+#define mk_win_dll_kernel_console_std_handle_id_d_input  ((mk_win_base_dword_t)(((mk_win_base_sint_t)(-10))))
+#define mk_win_dll_kernel_console_std_handle_id_d_output ((mk_win_base_dword_t)(((mk_win_base_sint_t)(-11))))
+#define mk_win_dll_kernel_console_std_handle_id_d_error  ((mk_win_base_dword_t)(((mk_win_base_sint_t)(-12))))
+
 #include "mk_lang_warning_gcc_push_enumenator.h"
 enum mk_win_dll_kernel_console_std_handle_id_e
 {
-	mk_win_dll_kernel_console_std_handle_id_e_input  = ((mk_win_base_dword_t)(((mk_win_base_sint_t)(-10)))),
-	mk_win_dll_kernel_console_std_handle_id_e_output = ((mk_win_base_dword_t)(((mk_win_base_sint_t)(-11)))),
-	mk_win_dll_kernel_console_std_handle_id_e_error  = ((mk_win_base_dword_t)(((mk_win_base_sint_t)(-12)))),
+	mk_win_dll_kernel_console_std_handle_id_e_input  = mk_win_dll_kernel_console_std_handle_id_d_input ,
+	mk_win_dll_kernel_console_std_handle_id_e_output = mk_win_dll_kernel_console_std_handle_id_d_output,
+	mk_win_dll_kernel_console_std_handle_id_e_error  = mk_win_dll_kernel_console_std_handle_id_d_error ,
 	mk_win_dll_kernel_console_std_handle_id_e_dummy_end = 0
 };
 typedef enum mk_win_dll_kernel_console_std_handle_id_e mk_win_dll_kernel_console_std_handle_id_t;
@@ -57,7 +62,14 @@ enum mk_win_dll_kernel_console_attribute_e
 typedef enum mk_win_dll_kernel_console_attribute_e mk_win_dll_kernel_console_attribute_t;
 
 
+#if mk_lang_version_at_least_cpp_17
 typedef mk_win_base_bool_t(mk_win_base_far mk_win_base_stdcall*mk_win_dll_kernel_console_handler_t)(mk_win_base_dword_t const type) mk_lang_noexcept;
+#elif mk_lang_version_at_least_cpp_11 || mk_lang_version_at_least_msvc_cpp_11
+mk_win_base_bool_t mk_win_base_far mk_win_base_stdcall mk_win_dll_kernel_console_handler_dummy(mk_win_base_dword_t const type) mk_lang_noexcept;
+typedef decltype(&mk_win_dll_kernel_console_handler_dummy) mk_win_dll_kernel_console_handler_t;
+#else
+typedef mk_win_base_bool_t(mk_win_base_far mk_win_base_stdcall*mk_win_dll_kernel_console_handler_t)(mk_win_base_dword_t const type) mk_lang_noexcept;
+#endif
 
 
 struct mk_win_dll_kernel_console_console_screen_buffer_info_s
@@ -73,7 +85,7 @@ mk_lang_typedef(mk_win_dll_kernel_console_console_screen_buffer_info);
 
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_dll_kernel_console_set_ctrl_handler(mk_win_dll_kernel_console_handler_t const handler, mk_win_base_bool_t const add) mk_lang_noexcept;
-mk_lang_nodiscard mk_lang_jumbo mk_win_base_handle_t mk_win_dll_kernel_console_get_std_handle(mk_win_dll_kernel_console_std_handle_id_t const handle_id) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_handle_t mk_win_dll_kernel_console_get_std_handle(mk_win_base_dword_t const handle_id) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_dll_kernel_console_get_mode(mk_win_base_handle_t const handle, mk_win_base_dword_lpt const mode) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_dll_kernel_console_a_write(mk_win_base_handle_t const handle, mk_win_base_pchar_lpct const buff, mk_win_base_dword_t const len, mk_win_base_dword_lpt const nwritten, mk_win_base_void_lpt const reserved) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_dll_kernel_console_w_write(mk_win_base_handle_t const handle, mk_win_base_wchar_lpct const buff, mk_win_base_dword_t const len, mk_win_base_dword_lpt const nwritten, mk_win_base_void_lpt const reserved) mk_lang_noexcept;

@@ -125,7 +125,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lang_stdout_windows_init
 	mk_win_base_handle_t out;
 	mk_win_base_dword_t type;
 
-	out = mk_win_dll_kernel_console_get_std_handle(mk_win_dll_kernel_console_std_handle_id_e_output); mk_lang_check_return(!mk_win_base_handle_is_invalid(out));
+	out = mk_win_dll_kernel_console_get_std_handle(mk_win_dll_kernel_console_std_handle_id_d_output); mk_lang_check_return(!mk_win_base_handle_is_invalid(out));
 	if(mk_win_base_handle_is_null(out))
 	{
 		mk_lang_stdout_windows_g.m_type = mk_lang_stdout_windows_type_e_missing;

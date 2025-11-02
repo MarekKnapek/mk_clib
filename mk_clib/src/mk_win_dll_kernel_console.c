@@ -37,11 +37,11 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_bool_t mk_win_dll_kernel_console_set
 	return ret;
 }
 
-mk_lang_nodiscard mk_lang_jumbo mk_win_base_handle_t mk_win_dll_kernel_console_get_std_handle(mk_win_dll_kernel_console_std_handle_id_t const handle_id) mk_lang_noexcept
+mk_lang_nodiscard mk_lang_jumbo mk_win_base_handle_t mk_win_dll_kernel_console_get_std_handle(mk_win_base_dword_t const handle_id) mk_lang_noexcept
 {
 	mk_win_base_handle_t ret;
 
-	ret = GetStdHandle(((mk_win_base_dword_t)(handle_id)));
+	ret = GetStdHandle(handle_id);
 	return ret;
 }
 
