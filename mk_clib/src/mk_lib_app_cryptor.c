@@ -270,7 +270,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	mk_lang_assert(cryptor);
 
 	err = mk_lib_app_cryptor_prrw_construct_mode(cryptor); mk_lang_check_rereturn(err);
-	mk_lib_crypto_mac_hmac_stream_any2_rw_construct(&cryptor->m_hmac_stream, mk_lib_crypto_mac_hmac_stream_any1_id_e_sha2_512_256); /* todo from command line */
+	mk_lib_crypto_mac_hmac_stream_any2_rw_construct(&cryptor->m_hmac_stream, mk_lib_crypto_mac_hmac_stream_any1_id_e_sha2_256); /* todo from command line */
 	err = mk_lib_app_cryptor_prrw_derive_keys(cryptor); mk_lang_check_rereturn(err);
 	err = mk_sl_speedometer_rw_construct(&cryptor->m_speedometer); mk_lang_check_rereturn(err);
 	return 0;

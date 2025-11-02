@@ -697,8 +697,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 		consumed_in = 0;
 		do
 		{
-			err = mk_lib_app_cryptor_rw_append_chunk(&cryptor->m_lib_cryptor, ptr_a + consumed_in, read - consumed_in, ptr_b, len_b, &input_consumed, &output_consumed); mk_lang_check_rereturn(err);
-			err = mk_sl_io_writer_file_write(&cryptor->m_output_file, ptr_b, ((mk_lang_types_sint_t)(output_consumed)), &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == ((mk_lang_types_sint_t)(output_consumed)));
+			err = mk_lib_app_cryptor_rw_append_chunk(&cryptor->m_lib_cryptor, ptr_a + consumed_in, read - consumed_in, ptr_b, len_b + 1024, &input_consumed, &output_consumed); mk_lang_check_rereturn(err);
+			err = mk_sl_io_writer_file_write(&cryptor->m_output_file, ptr_b, output_consumed, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == ((mk_lang_types_sint_t)(output_consumed)));
 			consumed_in += input_consumed;
 		}while(consumed_in != read);
 		err = mk_sl_speedometer_rw_append(&cryptor->m_lib_cryptor.m_speedometer, output_consumed); mk_lang_check_rereturn(err);
@@ -706,7 +706,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 	}
 	err = mk_lib_app_cryptor_rw_finish(&cryptor->m_lib_cryptor, ptr_b, len_b, &output_consumed, &gud); mk_lang_check_rereturn(err);
 	mk_lang_check_return(gud);
-	err = mk_sl_io_writer_file_write(&cryptor->m_output_file, ptr_b, ((mk_lang_types_sint_t)(output_consumed)), &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == ((mk_lang_types_sint_t)(output_consumed)));
+	err = mk_sl_io_writer_file_write(&cryptor->m_output_file, ptr_b, output_consumed, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == ((mk_lang_types_sint_t)(output_consumed)));
 	err = mk_sl_speedometer_rw_append(&cryptor->m_lib_cryptor.m_speedometer, output_consumed); mk_lang_check_rereturn(err);
 	err = mk_clib_app_cryptor_pr_report_speed(cryptor); mk_lang_check_rereturn(err);
 	err = mk_clib_app_cryptor_rw_destroy(cryptor); mk_lang_check_rereturn(err);
