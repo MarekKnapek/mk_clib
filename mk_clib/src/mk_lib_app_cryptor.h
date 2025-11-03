@@ -9,6 +9,7 @@
 #include "mk_lang_noexcept.h"
 #include "mk_lang_pow2.h"
 #include "mk_lang_roundup.h"
+#include "mk_lang_tchar.h"
 #include "mk_lang_typedef.h"
 #include "mk_lang_types.h"
 #include "mk_lib_app_cryptor_alg_names.h"
@@ -43,6 +44,24 @@ struct mk_lib_app_cryptor_buff_s
 };
 typedef struct mk_lib_app_cryptor_buff_s mk_lib_app_cryptor_buff_t;
 
+enum mk_lib_app_cryptor_param_id_e
+{
+	mk_lib_app_cryptor_param_id_e_direction,
+	mk_lib_app_cryptor_param_id_e_mode     ,
+	mk_lib_app_cryptor_param_id_e_alg      ,
+	mk_lib_app_cryptor_param_id_e_padding  ,
+	mk_lib_app_cryptor_param_id_e_kdf      ,
+	mk_lib_app_cryptor_param_id_e_hash     ,
+	mk_lib_app_cryptor_param_id_e_cost     ,
+	mk_lib_app_cryptor_param_id_e_password ,
+	mk_lib_app_cryptor_param_id_e_salt     ,
+	mk_lib_app_cryptor_param_id_e_input    ,
+	mk_lib_app_cryptor_param_id_e_output   ,
+	mk_lib_app_cryptor_param_id_e_dummy_end
+};
+typedef enum mk_lib_app_cryptor_param_id_e mk_lib_app_cryptor_param_id_t;
+mk_lang_typedef(mk_lib_app_cryptor_param_id);
+
 enum mk_lib_app_cryptor_direction_e
 {
 	mk_lib_app_cryptor_direction_e_encrypt,
@@ -70,6 +89,19 @@ typedef struct mk_lib_app_cryptor_config_s mk_lib_app_cryptor_config_t;
 mk_lang_typedef(mk_lib_app_cryptor_config);
 #include "mk_lang_warning_msvc_pop.h"
 
+#include "mk_lang_warning_msvc_push_c4820.h"
+struct mk_lib_app_cryptor_command_line_s
+{
+	mk_lib_app_cryptor_config_t m_config;
+	mk_lang_tchar_pct m_input_ptr;
+	mk_lang_types_sint_t m_input_len;
+	mk_lang_tchar_pct m_output_ptr;
+	mk_lang_types_sint_t m_output_len;
+};
+typedef struct mk_lib_app_cryptor_command_line_s mk_lib_app_cryptor_command_line_t;
+mk_lang_typedef(mk_lib_app_cryptor_command_line);
+#include "mk_lang_warning_msvc_pop.h"
+
 
 #include "mk_lang_warning_msvc_push_c4820.h"
 struct mk_lib_app_cryptor_s
@@ -94,6 +126,7 @@ mk_lang_typedef(mk_lib_app_cryptor);
 
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_app_cryptor_rw_construct_args(mk_lib_app_cryptor_pt const cryptor, mk_lib_app_cryptor_direction_t const direction, mk_lib_app_cryptor_mode_names_id_t const mode, mk_lib_app_cryptor_alg_names_id_t const alg, mk_lib_crypto_padding_names_id_t const padding, mk_lang_types_bool_t const kdf, mk_lib_crypto_hash_names_id_t const hash, mk_lang_types_ulong_t const cost, mk_sl_cui_uint8_pct const password_ptr, mk_lang_types_sint_t const password_len, mk_sl_cui_uint8_pct const salt_ptr, mk_lang_types_sint_t const salt_len) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_app_cryptor_rw_construct_config(mk_lib_app_cryptor_pt const cryptor, mk_lib_app_cryptor_config_pct const config) mk_lang_noexcept;
+mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_app_cryptor_rw_construct_cmd_line(mk_lib_app_cryptor_pt const cryptor, mk_lib_app_cryptor_command_line_pt const command_line, mk_lang_types_sint_t const argc, mk_lang_tchar_pcpct const argv, mk_lang_types_sint_pct const lens, mk_lib_app_cryptor_param_id_pt const failed) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_app_cryptor_rw_construct_parse(mk_lib_app_cryptor_pt const cryptor, mk_sl_cui_uint8_pct const data_buf, mk_lang_types_sint_t const data_len) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_app_cryptor_rw_destroy(mk_lib_app_cryptor_pt const cryptor) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_sint_t mk_lib_app_cryptor_rw_init_objects(mk_lib_app_cryptor_pt const cryptor) mk_lang_noexcept;
