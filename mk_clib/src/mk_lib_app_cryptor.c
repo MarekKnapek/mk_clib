@@ -831,7 +831,7 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	mk_lang_assert(cryptor);
 
 	((mk_lang_types_void_t)(cryptor));
-	len = mk_lib_app_cryptor_buff_size;
+	len = mk_lib_app_cryptor_buff_size + mk_lib_app_cryptor_buff_extra;
 	return len;
 }
 
@@ -1061,7 +1061,23 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 	in_ptr += to_copy;
 	in_len -= to_copy;
 	idx += to_copy;
-	mk_lang_assert(in_len == 0); /* ??? */
+	if(in_len != 0)
+	{
+		mk_lang_assert(idx == cap);
+		mk_lang_assert(in_len < cap);
+		err = mk_lib_app_cryptor_prrw_crypt2(cryptor, &last_chunk[0], in_len, out_ptr, out_len, &in_consumed, &out_consumed); mk_lang_check_rereturn(err);
+		mk_lang_assert(in_consumed >= 0);
+		mk_lang_assert(in_consumed <= in_len);
+		mk_lang_assert(in_consumed == in_len);
+		mk_lang_assert(out_consumed >= 0);
+		mk_lang_assert(out_consumed <= out_len);
+		out_ptr += out_consumed;
+		out_len -= out_consumed;
+		mk_sl_cui_uint8_memmov_fn(&last_chunk[0], &last_chunk[in_len], in_len);
+		mk_sl_cui_uint8_memcpy_fn(&last_chunk[cap - in_len], in_ptr, in_len);
+		in_ptr += in_len;
+		in_len -= in_len;
+	}
 	cryptor->m_last_chunk_idx = idx;
 	in_consumed = input_len - in_len;
 	out_consumed = output_len - out_len;

@@ -23,18 +23,19 @@
 
 
 #if mk_lang_bitness_is_16
-#define mk_lib_app_cryptor_buff_size 4 * 1024
-#define mk_lib_app_cryptor_buff_algn 4 * 1024
+#define mk_lib_app_cryptor_buff_size (4 * 1024)
+#define mk_lib_app_cryptor_buff_algn (4 * 1024)
 #elif mk_lang_bitness_is_32
-#define mk_lib_app_cryptor_buff_size 64 * 1024
-#define mk_lib_app_cryptor_buff_algn 64 * 1024
+#define mk_lib_app_cryptor_buff_size (64 * 1024)
+#define mk_lib_app_cryptor_buff_algn (64 * 1024)
 #elif mk_lang_bitness_is_64
-#define mk_lib_app_cryptor_buff_size 256 * 1024
-#define mk_lib_app_cryptor_buff_algn 64 * 1024
+#define mk_lib_app_cryptor_buff_size (256 * 1024)
+#define mk_lib_app_cryptor_buff_algn (64 * 1024)
 #endif
+#define mk_lib_app_cryptor_buff_extra (1 * 1024)
 union mk_lib_app_cryptor_buff_data_u
 {
-	mk_sl_cui_uint8_t m_uint8s[mk_lang_roundup_add(2 * mk_lib_app_cryptor_buff_size, mk_lib_app_cryptor_buff_algn)];
+	mk_sl_cui_uint8_t m_uint8s[mk_lang_roundup_add(2 * mk_lib_app_cryptor_buff_size, mk_lib_app_cryptor_buff_algn) + mk_lib_app_cryptor_buff_extra];
 	mk_lang_types_ulllong_t m_ulllong;
 };
 typedef union mk_lib_app_cryptor_buff_data_u mk_lib_app_cryptor_buff_data_t;
