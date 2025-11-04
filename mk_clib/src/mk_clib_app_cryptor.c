@@ -197,7 +197,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 	ptr_a = mk_lib_app_cryptor_rw_get_buffer_1_ptr(&cryptor->m_lib_cryptor); mk_lang_assert(ptr_a);
 	len_a = mk_lib_app_cryptor_rw_get_buffer_1_len(&cryptor->m_lib_cryptor); mk_lang_assert(len_a >= 1024);
 	ptr_b = mk_lib_app_cryptor_rw_get_buffer_2_ptr(&cryptor->m_lib_cryptor); mk_lang_assert(ptr_b);
-	len_b = mk_lib_app_cryptor_rw_get_buffer_2_len(&cryptor->m_lib_cryptor); mk_lang_assert(len_b >= 1024);
+	len_b = mk_lib_app_cryptor_rw_get_buffer_2_len(&cryptor->m_lib_cryptor); mk_lang_assert(len_b >= 2 * 1024); mk_lang_assert(len_b >= len_a + 1024);
 	err = mk_sl_io_reader_file_open_t(&cryptor->m_input_file, cryptor->m_command_line.m_input_ptr); mk_lang_check_rereturn(err);
 	err = mk_sl_io_writer_file_open_t(&cryptor->m_output_file, cryptor->m_command_line.m_output_ptr); mk_lang_check_rereturn(err);
 	for(;;)
@@ -210,7 +210,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_cryptor
 		consumed_in = 0;
 		do
 		{
-			err = mk_lib_app_cryptor_rw_append_chunk(&cryptor->m_lib_cryptor, ptr_a + consumed_in, read - consumed_in, ptr_b, len_b + 1024, &input_consumed, &output_consumed); mk_lang_check_rereturn(err);
+			err = mk_lib_app_cryptor_rw_append_chunk(&cryptor->m_lib_cryptor, ptr_a + consumed_in, read - consumed_in, ptr_b, len_b, &input_consumed, &output_consumed); mk_lang_check_rereturn(err);
 			err = mk_sl_io_writer_file_write(&cryptor->m_output_file, ptr_b, output_consumed, &written); mk_lang_check_rereturn(err); mk_lang_check_return(written == ((mk_lang_types_sint_t)(output_consumed)));
 			consumed_in += input_consumed;
 		}while(consumed_in != read);
