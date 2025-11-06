@@ -1186,6 +1186,17 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_r
 		write_str_lit(k_hosts_tr_beg, tabs, mk_lang_true); ++tabs;
 		write_str_lit(k_hosts_td_beg, tabs, mk_lang_false);
 		{
+			str_buf = mk_clib_app_hosts_domain_ro_data(&entry->m_domain);
+			str_len = mk_clib_app_hosts_domain_ro_sise(&entry->m_domain);
+			write_str_lit(k_hosts_a_host_open_beg, 0, mk_lang_false);
+			write_str_obj(str_buf, str_len, 0, mk_lang_false);
+			write_str_lit(k_hosts_a_host_open_end, 0, mk_lang_false);
+			write_str_obj(str_buf, str_len, 0, mk_lang_false);
+			write_str_lit(k_hosts_a_host_close, 0, mk_lang_false);
+		}
+		write_str_lit(k_hosts_td_end, 0, mk_lang_true);
+		write_str_lit(k_hosts_td_beg, tabs, mk_lang_false);
+		{
 			mk_lib_iip_base32_encoder_fn(&entry->m_b32.m_data.m_uint8s[0], mk_lib_crypto_hash_stream_sha2_256_digest_len_v, &b32str[0], mk_lang_countof(b32str), &len); mk_lang_check_return(len == mk_lang_countof(b32str));
 			str_buf = ((mk_sl_cui_uint8_pct)(&b32str[0]));
 			str_len = len;
@@ -1194,17 +1205,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_r
 			write_str_lit(k_hosts_a_hosts_open_end, 0, mk_lang_false);
 			write_str_obj(str_buf, str_len, 0, mk_lang_false);
 			write_str_lit(k_hosts_a_hosts_close, 0, mk_lang_false);
-		}
-		write_str_lit(k_hosts_td_end, 0, mk_lang_true);
-		write_str_lit(k_hosts_td_beg, tabs, mk_lang_false);
-		{
-			str_buf = mk_clib_app_hosts_domain_ro_data(&entry->m_domain);
-			str_len = mk_clib_app_hosts_domain_ro_sise(&entry->m_domain);
-			write_str_lit(k_hosts_a_host_open_beg, 0, mk_lang_false);
-			write_str_obj(str_buf, str_len, 0, mk_lang_false);
-			write_str_lit(k_hosts_a_host_open_end, 0, mk_lang_false);
-			write_str_obj(str_buf, str_len, 0, mk_lang_false);
-			write_str_lit(k_hosts_a_host_close, 0, mk_lang_false);
 		}
 		write_str_lit(k_hosts_td_end, 0, mk_lang_true); --tabs;
 		write_str_lit(k_hosts_tr_end, tabs, mk_lang_true);
