@@ -1073,8 +1073,8 @@ mk_lang_nodiscard mk_lang_constexpr static mk_lang_inline mk_lang_types_sint_t m
 		mk_lang_assert(out_consumed <= out_len);
 		out_ptr += out_consumed;
 		out_len -= out_consumed;
-		mk_sl_cui_uint8_memmov_fn(&last_chunk[0], &last_chunk[in_len], idx - in_len);
-		mk_sl_cui_uint8_memcpy_fn(&last_chunk[idx - in_len], in_ptr, in_len);
+		mk_sl_cui_uint8_memmov_fn(&last_chunk[0], &last_chunk[in_len], ((mk_lang_types_usize_t)(idx - in_len)));
+		mk_sl_cui_uint8_memcpy_fn(&last_chunk[idx - in_len], in_ptr, ((mk_lang_types_usize_t)(in_len)));
 		in_ptr += in_len;
 		in_len -= in_len;
 	}
