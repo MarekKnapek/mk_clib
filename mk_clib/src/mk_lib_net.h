@@ -153,14 +153,15 @@ mk_lang_typedef(mk_lib_net_read_request);
 struct mk_lib_net_ioctl_request_s
 {
 	mk_lib_net_socket_pt m_socket;
-	mk_lang_types_uint_t m_control_code;
 	mk_sl_cui_uint8_pct m_in_data_buf;
-	mk_lang_types_sint_t m_in_data_len;
 	mk_sl_cui_uint8_pt m_out_data_buf;
+	mk_lang_types_sint_t m_in_data_len;
 	mk_lang_types_sint_t m_out_data_len;
+	mk_lang_types_uint_t m_control_code;
 	mk_lang_types_uint_t m_flags;
-	mk_lang_types_bool_t m_b;
 	mk_lang_types_sint_t m_transferred;
+	mk_lang_types_bool_t m_b;
+	mk_lang_types_bool_t m_done;
 	mk_win_dll_ws2_overlapped_t m_overlapped;
 };
 typedef struct mk_lib_net_ioctl_request_s mk_lib_net_ioctl_request_t;
