@@ -1189,6 +1189,7 @@ mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_ioctl_request_ge
 	if(ioctl_request->m_transferred == -1){ ioctl_request->m_transferred = ((mk_lang_types_sint_t)(transferred)); }
 	ioctl_request->m_flags = ((mk_lang_types_uint_t)(flags));
 	mk_lang_check_return(!ioctl_request->m_b || ioctl_request->m_transferred <= ioctl_request->m_out_data_len);
+	ioctl_request->m_done = mk_lang_true;
 	return 0;
 }
 

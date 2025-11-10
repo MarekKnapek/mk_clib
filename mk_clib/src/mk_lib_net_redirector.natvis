@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+	<Type Name="mk_lib_net_redirector_listeners_s">
+		<DisplayString>{{ size = {m_size} capacity = {m_capacity} }}</DisplayString>
+		<Expand>
+			<Item Name="[size]">m_size</Item>
+			<Item Name="[capacity]">m_capacity</Item>
+			<ArrayItems>
+				<Size>m_size</Size>
+				<ValuePointer>m_buffer</ValuePointer>
+			</ArrayItems>
+		</Expand>
+	</Type>
+	<Type Name="mk_lib_net_redirector_iop_target_data_s">
+		<DisplayString Condition="m_id == 0">{*((mk_lib_net_redirector_listener_s*)(((unsigned char*)(&amp;m_id)) - 48))}</DisplayString>
+		<Expand>
+			<Item Name="[listener]" Condition="m_id == 0">*((mk_lib_net_redirector_listener_s*)(((unsigned char*)(&amp;m_id)) - 48))</Item>
+		</Expand>
+	</Type>
+</AutoVisualizer>

@@ -1871,5 +1871,6 @@
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_buffers.h"><Filter>src</Filter></ClCompile>
 		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_net_forwarder.natvis"><Filter>src</Filter></ClCompile>
 		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_net_forwarder_iop_target_data.natvis"><Filter>src</Filter></ClCompile>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_net_redirector.natvis"><Filter>src</Filter></ClCompile>
 	</ItemGroup>
 </Project>
