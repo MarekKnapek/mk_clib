@@ -9,6 +9,8 @@
 #include "mk_lang_types.h"
 #include "mk_lib_net_iocp.h"
 #include "mk_sl_mallocator.h"
+#include "mk_win_base.h"
+#include "mk_win_dll_ws2.h"
 
 
 mk_lang_forward(mk_lib_net_destination);
@@ -36,6 +38,8 @@ struct mk_lib_net_forwarder_s
 	mk_lang_types_bool_t m_want_stop;
 	mk_lib_net_forwarder_listeners_t m_listeners;
 	mk_lib_net_forwarder_clients_t m_clients;
+	mk_win_dll_ws2_event_t m_event;
+	mk_win_base_handle_t m_thread;
 };
 typedef struct mk_lib_net_forwarder_s mk_lib_net_forwarder_t;
 mk_lang_typedef(mk_lib_net_forwarder);

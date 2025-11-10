@@ -24,6 +24,7 @@ mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_hand
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_handle_t mk_win_base_stdcall GetCurrentThread(mk_lang_types_void_t) mk_lang_noexcept;
 mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_wchar_lpt mk_win_base_stdcall GetCommandLineW(mk_lang_types_void_t) mk_lang_noexcept;
 mk_lang_extern_force_c mk_win_base_dll_import mk_lang_types_void_t mk_win_base_stdcall ExitProcess(mk_lang_types_uint_t) mk_lang_noexcept;
+mk_lang_extern_force_c mk_lang_nodiscard mk_win_base_dll_import mk_win_base_handle_t mk_win_base_stdcall CreateThread(mk_win_base_void_lpt const thread_attributes, mk_win_base_usize_t const stack_size, mk_win_dll_kernel_process_thread_start_routine_t const start_address, mk_win_base_void_lpt const parameter, mk_win_base_dword_t const creation_flags, mk_win_base_dword_lpt const thread_id) mk_lang_noexcept;
 
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_handle_t mk_win_dll_kernel_process_get_current_process(mk_lang_types_void_t) mk_lang_noexcept
@@ -67,6 +68,14 @@ mk_lang_nodiscard mk_lang_jumbo mk_win_base_wchar_lpt mk_win_dll_kernel_process_
 mk_lang_jumbo mk_lang_types_void_t mk_win_dll_kernel_process_exit(mk_lang_types_uint_t const exit_code) mk_lang_noexcept
 {
 	ExitProcess(exit_code);
+}
+
+mk_lang_nodiscard mk_win_base_handle_t mk_win_dll_kernel_process_create_thread(mk_win_base_void_lpt const thread_attributes, mk_win_base_usize_t const stack_size, mk_win_dll_kernel_process_thread_start_routine_t const start_address, mk_win_base_void_lpt const parameter, mk_win_base_dword_t const creation_flags, mk_win_base_dword_lpt const thread_id) mk_lang_noexcept
+{
+	mk_win_base_handle_t ret;
+
+	ret = CreateThread(thread_attributes, stack_size, start_address, parameter, creation_flags, thread_id);
+	return ret;
 }
 
 

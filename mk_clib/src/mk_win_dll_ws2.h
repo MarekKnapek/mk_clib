@@ -517,7 +517,9 @@ typedef mk_lang_types_void_t(mk_win_base_stdcall*mk_win_dll_ws2_completion_routi
 #define mk_win_dll_ws2_invalid_socket ((mk_lang_types_uintptr_t)(~((mk_lang_types_uintptr_t)(0))))
 #define mk_win_dll_ws2_socket_error ((mk_win_base_sint_t)(-1))
 #define mk_win_dll_ws2_infinite ((mk_win_base_dword_t)(0xfffffffful))
-#define mk_win_dll_ws2_timeout ((mk_win_base_dword_t)(258ul))
+#define mk_win_dll_ws2_wait_timeout ((mk_win_base_dword_t)(0x00000102ul))
+#define mk_win_dll_ws2_wait_object_0 ((mk_win_base_dword_t)(0x00000000ul))
+#define mk_win_dll_ws2_wait_abandoned_0 ((mk_win_base_dword_t)(0x00000080ul))
 #define mk_win_dll_ws2_wait_io_completion ((mk_win_base_dword_t)(0x000000c0ul))
 #define mk_win_dll_ws2_wait_failed ((mk_win_base_dword_t)(0xfffffffful))
 #define mk_win_dll_ws2_accept_accept 0x0000

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+	<Type Name="mk_lib_net_forwarder_iop_target_data_s">
+		<DisplayString Condition="m_id == 0">{*((mk_lib_net_listener_s*)(((unsigned char*)(&amp;m_id)) - 288))}</DisplayString>
+		<DisplayString Condition="m_id == 1">{*((mk_lib_net_listener_client_s*)(((unsigned char*)(&amp;m_id)) - 40))}</DisplayString>
+		<DisplayString Condition="m_id == 2">{*((mk_lib_net_connector_s*)(((unsigned char*)(&amp;m_id)) - 24))}</DisplayString>
+		<Expand>
+			<Item Name="[listener]" Condition="m_id == 0">*((mk_lib_net_listener_s*)(((unsigned char*)(&amp;m_id)) - 288))</Item>
+			<Item Name="[client]" Condition="m_id == 1">*((mk_lib_net_listener_client_s*)(((unsigned char*)(&amp;m_id)) - 40))</Item>
+			<Item Name="[connector]" Condition="m_id == 2">*((mk_lib_net_connector_s*)(((unsigned char*)(&amp;m_id)) - 24))</Item>
+		</Expand>
+	</Type>
+</AutoVisualizer>

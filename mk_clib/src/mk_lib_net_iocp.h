@@ -13,6 +13,21 @@
 mk_lang_forward(mk_lib_net_socket);
 
 
+#include "mk_lang_warning_msvc_push_c4820.h"
+struct mk_lib_net_iocp_iop_s
+{
+	mk_lang_types_bool_t m_dequeued;
+	mk_lang_types_bool_t m_successful_io_operation;
+	mk_lang_types_sint_t m_bytes_transferred;
+	mk_lang_types_uint_t m_fail_reason;
+	mk_lang_types_uintptr_t m_key;
+	mk_lang_types_void_pt m_overlapped;
+};
+typedef struct mk_lib_net_iocp_iop_s mk_lib_net_iocp_iop_t;
+mk_lang_typedef(mk_lib_net_iocp_iop);
+#include "mk_lang_warning_msvc_pop.h"
+
+
 struct mk_lib_net_iocp_s
 {
 	mk_win_dll_kernel_iocp_t m_handle;

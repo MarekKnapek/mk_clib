@@ -210,6 +210,19 @@ struct mk_win_base_list_entry_s
 ))
 
 
+#if mk_lang_version_at_least_cpp_17
+#define mk_win_base_typedef_func(ret, abi, name, args) \
+typedef ret(mk_win_base_far abi*name)args mk_lang_noexcept
+#elif mk_lang_version_at_least_cpp_11 || mk_lang_version_at_least_msvc_cpp_11
+#define mk_win_base_typedef_func(ret, abi, name, args) \
+ret mk_win_base_far abi mk_lang_concat(mk_lang_typedef_func_dummy_, name)args mk_lang_noexcept; \
+typedef decltype(&mk_lang_concat(mk_lang_typedef_func_dummy_, name)) name
+#else
+#define mk_win_base_typedef_func(ret, abi, name, args) \
+typedef ret(mk_win_base_far abi*name)args mk_lang_noexcept
+#endif
+
+
 #endif
 
 

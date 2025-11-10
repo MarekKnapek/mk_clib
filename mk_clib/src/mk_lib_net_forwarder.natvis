@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
-	<Type Name="mk_sl_vector_u8_s">
+	<Type Name="mk_lib_net_forwarder_listeners_s">
 		<DisplayString>{{ size = {m_size} capacity = {m_capacity} }}</DisplayString>
 		<Expand>
 			<Item Name="[size]">m_size</Item>
@@ -11,7 +11,7 @@
 			</ArrayItems>
 		</Expand>
 	</Type>
-	<Type Name="mk_sl_vector_vp_s">
+	<Type Name="mk_lib_net_forwarder_clients_s">
 		<DisplayString>{{ size = {m_size} capacity = {m_capacity} }}</DisplayString>
 		<Expand>
 			<Item Name="[size]">m_size</Item>
