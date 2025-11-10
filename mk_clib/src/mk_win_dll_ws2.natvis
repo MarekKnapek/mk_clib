@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+	<Type Name="mk_win_dll_ws2_ipv4_addr_s">
+		<DisplayString>{((int)(m_data.m_ucs[0])),d}.{((int)(m_data.m_ucs[1])),d}.{((int)(m_data.m_ucs[2])),d}.{((int)(m_data.m_ucs[3])),d}</DisplayString>
+	</Type>
+	<Type Name="mk_win_dll_ws2_sock_addr_ipv4_s">
+		<DisplayString>{m_address}:{((int)(((int)(((int)(((int)(m_port)) &amp; ((int)(0xff)))) &lt;&lt; 8)) | ((int)(((int)(((int)(m_port)) &gt;&gt; 8)) &amp; ((int)(0xff)))))),d}</DisplayString>
+	</Type>
+	<Type Name="mk_win_dll_ws2_sock_addr_s">
+		<DisplayString Condition="m_data.m_family == 2">{m_data.m_ipv4}</DisplayString>
+	</Type>
+</AutoVisualizer>

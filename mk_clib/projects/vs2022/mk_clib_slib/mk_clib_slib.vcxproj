@@ -1268,6 +1268,7 @@
 		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_stopwatch_gtc64.natvis"/>
 		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_stopwatch_nt.natvis"/>
 		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_stopwatch_qpc.natvis"/>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win_dll_ws2.natvis"/>
 	</ItemGroup>
 	<ItemGroup>
 		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_list_dbl_inl_defd.h"/>

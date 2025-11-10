@@ -758,6 +758,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 	err = mk_lib_net_accept_request_get_result(&listener->m_accept_request); mk_lang_check_rereturn(err);
 	mk_lang_check_return(listener->m_accept_request.m_b != mk_lang_false);
 	mk_lang_check_return(listener->m_accept_request.m_transferred >= 1);
+	err = mk_lib_net_accept_request_get_addresses(&listener->m_accept_request, &listener->m_client->m_local_address, &listener->m_client->m_remote_address); mk_lang_check_rereturn(err);
 	err = mk_lib_net_accept_request_reset(&listener->m_accept_request); mk_lang_check_rereturn(err);
 	listener->m_client->m_incomming_amount = listener->m_accept_request.m_transferred;
 	return 0;
