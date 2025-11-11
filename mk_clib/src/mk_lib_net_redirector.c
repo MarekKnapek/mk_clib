@@ -12,6 +12,7 @@
 #include "mk_lang_null.h"
 #include "mk_lang_offsetof.h"
 #include "mk_lang_static_assert.h"
+#include "mk_lang_stdout.h"
 #include "mk_lang_str_lit.h"
 #include "mk_lang_types.h"
 #include "mk_lib_net_buffers.h"
@@ -22,14 +23,13 @@
 #include "mk_sl_vector_copy.h"
 #include "mk_win_dll_kernel_process.h"
 #include "mk_win_dll_kernel_synchronization.h"
-#include "mk_win_dll_kernel_synchronization_waitable_timer.h"
-#include "mk_win_dll_kernel_handle.h"
+#include "mk_win_dll_kernel_synchronization_timer_queue.h"
 
 
 #define mk_lib_net_redirector_k_iocp_key_special 0x00000010
-#define mk_lib_net_redirector_k_iocp_overlapped_special_poke 0x00000010
-#define mk_lib_net_redirector_k_iocp_overlapped_special_end 0x00000020
-#define mk_lib_net_redirector_k_iocp_id_connected 2
+#define mk_lib_net_redirector_k_iocp_overlapped_special_poke  (0x00000010)
+#define mk_lib_net_redirector_k_iocp_overlapped_special_end   (0x00000020)
+#define mk_lib_net_redirector_k_iocp_overlapped_special_timer (0x00000030)
 
 
 union mk_lib_net_redirector_guid_data_u
@@ -909,14 +909,49 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 struct mk_lib_net_redirector_impl_s
 {
 	mk_lib_net_iocp_t m_iocp;
-	mk_lang_types_bool_t m_want_end;
+	mk_lang_types_bool_t m_want_end_a;
+	mk_lang_types_bool_t m_want_end_b;
 	mk_lib_net_redirector_listeners_t m_listeners;
+	mk_win_base_handle_t m_queue;
 	mk_win_base_handle_t m_timer;
 };
 typedef struct mk_lib_net_redirector_impl_s mk_lib_net_redirector_impl_s;
 mk_lang_typedef(mk_lib_net_redirector_impl);
 #include "mk_lang_warning_msvc_pop.h"
 
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_impl_prrw_on_timer(mk_lib_net_redirector_impl_pt const redirector) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(redirector);
+
+	err = mk_lib_net_iocp_post(&redirector->m_iocp, 0, ((mk_lang_types_uintptr_t)(mk_lib_net_redirector_k_iocp_key_special)), ((mk_lang_types_void_pt)(((mk_lang_types_uintptr_t)(mk_lib_net_redirector_k_iocp_overlapped_special_timer))))); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+static mk_lang_types_void_t mk_win_base_stdcall mk_lib_net_redirector_impl_prrw_on_win_timer(mk_win_base_void_lpt const parameter, mk_win_base_boolean_t const timer_or_wait_fired) mk_lang_noexcept
+{
+	mk_lib_net_redirector_impl_pt redirector;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(parameter);
+	mk_lang_assert(timer_or_wait_fired == mk_win_base_true);
+
+	redirector = ((mk_lib_net_redirector_impl_pt)(parameter)); mk_lang_assert(redirector);
+	err = mk_lib_net_redirector_impl_prrw_on_timer(redirector); mk_lang_check_recrash(err);
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_impl_prrw_request_timer(mk_lib_net_redirector_impl_pt const redirector) mk_lang_noexcept
+{
+	mk_win_base_bool_t b;
+
+	mk_lang_assert(redirector);
+	mk_lang_assert(!mk_win_base_handle_is_null(redirector->m_queue));
+
+	b = mk_win_dll_kernel_synchronization_timer_queue_create_timer_queue_timer(&redirector->m_timer, redirector->m_queue, &mk_lib_net_redirector_impl_prrw_on_win_timer, redirector, 1000, 0, mk_win_dll_kernel_synchronization_timer_queue_flag_d_execute_only_once | mk_win_dll_kernel_synchronization_timer_queue_flag_d_execute_in_timer_thread); mk_lang_check_return(b != mk_win_base_false); mk_lang_check_return(!mk_win_base_handle_is_null(redirector->m_timer));
+	return 0;
+}
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_impl_prrw_construct(mk_lib_net_redirector_impl_pt const redirector) mk_lang_noexcept
 {
@@ -925,9 +960,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 	mk_lang_assert(redirector);
 
 	err = mk_lib_net_iocp_construct(&redirector->m_iocp, 0); mk_lang_check_rereturn(err);
-	redirector->m_want_end = mk_lang_false;
+	redirector->m_want_end_a = mk_lang_false;
+	redirector->m_want_end_b = mk_lang_false;
 	err = mk_lib_net_redirector_listeners_rw_construct(&redirector->m_listeners); mk_lang_check_rereturn(err);
-	redirector->m_timer = mk_win_dll_kernel_synchronization_waitable_timer_create_waitable_timer_w(mk_win_base_null, mk_win_base_true, mk_win_base_null); mk_lang_check_return(!mk_win_base_handle_is_null(redirector->m_timer));
+	redirector->m_queue = mk_win_dll_kernel_synchronization_timer_queue_create_timer_queue(); mk_lang_check_return(!mk_win_base_handle_is_null(redirector->m_timer));
+	err = mk_lib_net_redirector_impl_prrw_request_timer(redirector); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -940,7 +977,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 
 	err = mk_lib_net_iocp_destroy(&redirector->m_iocp); mk_lang_check_rereturn(err);
 	err = mk_lib_net_redirector_listeners_rw_destroy(&redirector->m_listeners); mk_lang_check_rereturn(err);
-	b = mk_win_dll_kernel_handle_close(redirector->m_timer); mk_lang_check_return(b != mk_win_base_false);
+	b = mk_win_dll_kernel_synchronization_timer_queue_delete_timer_queue(redirector->m_queue); mk_lang_check_return(b != mk_win_base_false);
 	return 0;
 }
 
@@ -974,6 +1011,49 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_impl_prrw_dispatch_on_end(mk_lib_net_redirector_impl_pt const redirector, mk_lib_net_iocp_iop_pct const iop) mk_lang_noexcept
+{
+	mk_lang_assert(redirector);
+	mk_lang_assert(iop);
+	mk_lang_assert(iop->m_dequeued);
+	mk_lang_assert(iop->m_key == ((mk_lang_types_uintptr_t)(mk_lib_net_redirector_k_iocp_key_special)));
+	mk_lang_assert(iop->m_overlapped == ((mk_lang_types_void_pt)(((mk_lang_types_uintptr_t)(mk_lib_net_redirector_k_iocp_overlapped_special_end)))));
+
+	redirector->m_want_end_a = mk_lang_true;
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_impl_prrw_dispatch_on_timer2(mk_lib_net_redirector_impl_pt const redirector) mk_lang_noexcept
+{
+	mk_lang_assert(redirector);
+
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_impl_prrw_dispatch_on_timer(mk_lib_net_redirector_impl_pt const redirector, mk_lib_net_iocp_iop_pct const iop) mk_lang_noexcept
+{
+	mk_win_base_bool_t b;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(redirector);
+	mk_lang_assert(iop);
+	mk_lang_assert(iop->m_dequeued);
+	mk_lang_assert(iop->m_key == ((mk_lang_types_uintptr_t)(mk_lib_net_redirector_k_iocp_key_special)));
+	mk_lang_assert(iop->m_overlapped == ((mk_lang_types_void_pt)(((mk_lang_types_uintptr_t)(mk_lib_net_redirector_k_iocp_overlapped_special_timer)))));
+
+	b = mk_win_dll_kernel_synchronization_timer_queue_delete_timer_queue_timer(redirector->m_queue, redirector->m_timer, mk_win_base_handle_get_null()); mk_lang_check_return(b != mk_win_base_false);
+	if(!redirector->m_want_end_a)
+	{
+		err = mk_lib_net_redirector_impl_prrw_dispatch_on_timer2(redirector); mk_lang_check_rereturn(err);
+		err = mk_lib_net_redirector_impl_prrw_request_timer(redirector); mk_lang_check_rereturn(err);
+	}
+	else
+	{
+		redirector->m_want_end_b = mk_lang_true;
+	}
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_impl_prrw_dispatch(mk_lib_net_redirector_impl_pt const redirector, mk_lib_net_iocp_iop_pct const iop) mk_lang_noexcept
 {
 	mk_lib_net_redirector_iop_target_data_pt target;
@@ -988,7 +1068,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 		{
 			if(iop->m_overlapped == ((mk_lang_types_void_pt)(((mk_lang_types_uintptr_t)(mk_lib_net_redirector_k_iocp_overlapped_special_end)))))
 			{
-				redirector->m_want_end = mk_lang_true;
+				err = mk_lib_net_redirector_impl_prrw_dispatch_on_end(redirector, iop); mk_lang_check_rereturn(err);
+			}
+			else if(iop->m_overlapped == ((mk_lang_types_void_pt)(((mk_lang_types_uintptr_t)(mk_lib_net_redirector_k_iocp_overlapped_special_timer)))))
+			{
+				err = mk_lib_net_redirector_impl_prrw_dispatch_on_timer(redirector, iop); mk_lang_check_rereturn(err);
 			}
 			else
 			{
@@ -1020,7 +1104,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 	{
 		err = mk_lib_net_iocp_dequeue_packet_infinite(&redirector->m_iocp, &iop.m_dequeued, &iop.m_successful_io_operation, &iop.m_bytes_transferred, &iop.m_key, &iop.m_overlapped, &iop.m_fail_reason); mk_lang_check_rereturn(err);
 		err = mk_lib_net_redirector_impl_prrw_dispatch(redirector, &iop); mk_lang_check_rereturn(err);
-	}while(!redirector->m_want_end);
+	}while(!redirector->m_want_end_b);
 	return 0;
 }
 
