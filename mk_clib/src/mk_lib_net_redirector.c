@@ -29,9 +29,10 @@
 
 
 #define mk_lib_net_redirector_k_iocp_key_special 0x00000010
-#define mk_lib_net_redirector_k_iocp_overlapped_special_poke  (0x00000010)
-#define mk_lib_net_redirector_k_iocp_overlapped_special_end   (0x00000020)
-#define mk_lib_net_redirector_k_iocp_overlapped_special_timer (0x00000030)
+#define mk_lib_net_redirector_k_iocp_overlapped_special_poke      (0x00000010)
+#define mk_lib_net_redirector_k_iocp_overlapped_special_end       (0x00000020)
+#define mk_lib_net_redirector_k_iocp_overlapped_special_timer     (0x00000030)
+#define mk_lib_net_redirector_k_iocp_overlapped_special_connector (0x00000040)
 
 
 union mk_lib_net_redirector_guid_data_u
@@ -81,6 +82,21 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 	target->m_id = id;
 	return 0;
 }
+
+
+#define mk_sl_fixed_vector_t_name mk_lib_net_redirector_fxd_events
+#define mk_sl_fixed_vector_t_element_type mk_win_dll_ws2_event_t
+#define mk_sl_fixed_vector_t_capacity 32
+#include "mk_sl_fixed_vector_inl_fileh.h"
+#include "mk_sl_fixed_vector_inl_filec.h"
+#include "mk_sl_fixed_vector_inl_fileu.h"
+
+#define mk_sl_vector_t_name mk_lib_net_redirector_dyn_events
+#define mk_sl_vector_t_element_type mk_win_dll_ws2_event_t
+#define mk_sl_vector_t_mallocatorg mk_sl_mallocator
+#include "mk_sl_vector_inl_fileh.h"
+#include "mk_sl_vector_inl_filec.h"
+#include "mk_sl_vector_inl_fileu.h"
 
 
 #include "mk_lang_warning_msvc_push_c4820.h"
@@ -178,7 +194,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 
 	mk_lang_assert(connector);
 
-	err = mk_lib_net_socket_construct_void(&connector->m_socket); mk_lang_check_rereturn(err);
+	err = mk_lib_net_socket_construct(&connector->m_socket, mk_lib_net_address_family_e_ipv4, mk_lib_net_address_type_e_stream, mk_lib_net_address_protocol_e_tcp); mk_lang_check_rereturn(err);
+	err = mk_lib_net_socket_set_option_nodelay_true(&connector->m_socket); mk_lang_check_rereturn(err);
 	mk_lang_assert((mk_lib_net_destination_clear(&connector->m_local_address), mk_lang_true));
 	mk_lang_assert((mk_lib_net_destination_clear(&connector->m_remote_address), mk_lang_true));
 	err = mk_lib_net_connect_request_construct_void(&connector->m_connect_request); mk_lang_check_rereturn(err);
@@ -202,15 +219,17 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_connector_prrw_issue_connect(mk_lib_net_redirector_connector_pt const connector, mk_lib_net_destination_pct const destination) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_connector_prrw_issue_connect(mk_lib_net_redirector_connector_pt const connector, mk_lib_net_destination_pct const destination, mk_lib_net_redirector_dyn_events_pt const events) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 
 	mk_lang_assert(connector);
 	mk_lang_assert(destination);
+	mk_lang_assert(events);
 
-	err = mk_lib_net_connect_request_construct(&connector->m_connect_request, &connector->m_socket, destination); mk_lang_check_rereturn(err);
+	err = mk_lib_net_connect_request_reconstruct(&connector->m_connect_request, &connector->m_socket, destination); mk_lang_check_rereturn(err);
 	err = mk_lib_net_connect_request_issue(&connector->m_connect_request); mk_lang_check_rereturn(err);
+	err = mk_lib_net_redirector_dyn_events_rw_push_back_copy_single(events, &connector->m_connect_request.m_event); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -621,6 +640,7 @@ struct mk_lib_net_redirector_listener_s
 {
 	mk_lib_net_destination_t m_src;
 	mk_lib_net_destination_t m_dst;
+	mk_lib_net_redirector_dyn_events_pt m_events;
 	mk_lib_net_redirector_client_pt m_client;
 	mk_lib_net_socket_t m_socket;
 	mk_lib_net_redirector_fn_accept_ex_t m_fn_accept_ex;
@@ -636,16 +656,18 @@ mk_lang_typedef(mk_lib_net_redirector_listener);
 #include "mk_lang_warning_msvc_pop.h"
 
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_listener_prrw_construct(mk_lib_net_redirector_listener_pt const listener, mk_lib_net_destination_pct const src, mk_lib_net_destination_pct const dst) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_listener_prrw_construct(mk_lib_net_redirector_listener_pt const listener, mk_lib_net_destination_pct const src, mk_lib_net_destination_pct const dst, mk_lib_net_redirector_dyn_events_pt const events) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 
 	mk_lang_assert(listener);
 	mk_lang_assert(src);
 	mk_lang_assert(dst);
+	mk_lang_assert(events);
 
 	listener->m_src = *src;
 	listener->m_dst = *dst;
+	listener->m_events = events;
 	listener->m_client = mk_lang_null;
 	err = mk_lib_net_socket_construct(&listener->m_socket, mk_lib_net_address_family_e_ipv4, mk_lib_net_address_type_e_stream, mk_lib_net_address_protocol_e_tcp); mk_lang_check_rereturn(err);
 	err = mk_lib_net_socket_set_option_nodelay_true(&listener->m_socket); mk_lang_check_rereturn(err);
@@ -802,6 +824,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 {
 	mk_lang_types_sint_t err;
 	mk_lib_net_redirector_forwarder_pt forwarder;
+	mk_lib_net_redirector_connector_pt connector;
 	mk_lang_types_void_pt mem;
 
 	mk_lang_assert(listener);
@@ -810,6 +833,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 	err = mk_lib_net_redirector_forwarder_prrw_construct(forwarder, &listener->m_src, &listener->m_dst); mk_lang_check_rereturn(err);
 	forwarder->m_client = listener->m_client;
 	listener->m_client = mk_lang_null;
+	err = mk_sl_mallocator_allocate(sizeof(*connector), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem); connector = ((mk_lib_net_redirector_connector_pt)(mem)); mk_lang_assert(connector);
+	err = mk_lib_net_redirector_connector_prrw_construct(connector); mk_lang_check_rereturn(err);
+	err = mk_lib_net_redirector_connector_prrw_issue_connect(connector, &listener->m_dst, listener->m_events); mk_lang_check_rereturn(err);
+	forwarder->m_connector = connector;
 	err = mk_lib_net_redirector_forwarders_rw_push_back_move_single(&listener->m_forwarders, &forwarder); mk_lang_check_rereturn(err);
 	err = mk_lib_net_redirector_listener_prrw_accept(listener); mk_lang_check_rereturn(err);
 	return 0;
@@ -915,7 +942,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lib_net_redirector_listener_pt mk_lib
 	mk_lang_types_sint_t offset;
 	mk_lib_net_redirector_listener_pt listener;
 
-	mk_lang_static_assert(mk_lang_offsetof(mk_lib_net_redirector_listener_t, m_iop_target) == 8 + 8 + 4 * sizeof(mk_lang_types_void_pt)); /* natvis */
+	mk_lang_static_assert(mk_lang_offsetof(mk_lib_net_redirector_listener_t, m_iop_target) == 8 + 8 + 5 * sizeof(mk_lang_types_void_pt)); /* natvis */
 
 	mk_lang_assert(target);
 	mk_lang_assert(target->m_id >= 0);
@@ -963,9 +990,12 @@ struct mk_lib_net_redirector_impl_s
 	mk_lib_net_redirector_listeners_t m_listeners;
 	mk_win_base_handle_t m_queue;
 	mk_win_base_handle_t m_timer;
+	mk_lib_net_redirector_dyn_events_t m_events;
 	mk_lang_types_bool_t m_waiter_should_stop;
 	mk_win_base_handle_t m_waiter_event;
 	mk_win_dll_kernel_synchronization_critical_section_t m_waiter_mutex;
+	mk_lib_net_redirector_fxd_events_t m_waiter_events;
+	mk_win_dll_ws2_event_t m_waiter_connected;
 	mk_win_base_handle_t m_waiter_thread;
 };
 typedef struct mk_lib_net_redirector_impl_s mk_lib_net_redirector_impl_s;
@@ -1008,8 +1038,64 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_impl_prrw_waiter_do_work(mk_lib_net_redirector_impl_pt const redirector) mk_lang_noexcept
 {
+	mk_lang_types_sint_t err;
+	mk_lib_net_redirector_fxd_events_t local_events;
+	mk_win_dll_ws2_event_pct remote_events_data;
+	mk_lang_types_usize_t remote_events_size;
+	mk_win_dll_ws2_event_t handles[1 + mk_lib_net_redirector_fxd_events_capacity_v];
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
+	mk_win_dll_ws2_event_pt net_event;
+	mk_win_base_dword_t waited;
+
 	mk_lang_assert(redirector);
 
+	err = mk_lib_net_redirector_fxd_events_rw_construct_void(&local_events); mk_lang_check_rereturn(err);
+	mk_win_dll_kernel_synchronization_critical_section_enter_critical_section(&redirector->m_waiter_mutex);
+	remote_events_data = mk_lib_net_redirector_fxd_events_ro_data(&redirector->m_waiter_events);
+	remote_events_size = mk_lib_net_redirector_fxd_events_ro_size(&redirector->m_waiter_events);
+	err = mk_lib_net_redirector_fxd_events_rw_push_back_copy_many(&local_events, remote_events_data, remote_events_size); mk_lang_check_rereturn(err);
+	err = mk_lib_net_redirector_fxd_events_rw_clear(&redirector->m_waiter_events); mk_lang_check_rereturn(err);
+	mk_win_dll_kernel_synchronization_critical_section_leave_critical_section(&redirector->m_waiter_mutex);
+	if(remote_events_size != 0)
+	{
+		handles[0] = mk_win_dll_ws2_event_from(redirector->m_waiter_event);
+		n = remote_events_size;
+		for(i = 0; i != n; ++i)
+		{
+			net_event = mk_lib_net_redirector_fxd_events_rw_at(&local_events, i); mk_lang_assert(net_event);
+			handles[1 + i] = *net_event;
+		}
+		for(;;)
+		{
+			waited = mk_win_dll_ws2_wait_for_multiple_events(((mk_win_base_dword_t)(remote_events_size)), &handles[0], mk_win_base_false, mk_win_dll_ws2_infinite, mk_win_base_true);
+			#include "mk_lang_warning_msvc_push_c4296.h"
+			if(waited >= mk_win_dll_ws2_wait_object_0 + 0 && waited < mk_win_dll_ws2_wait_object_0 + ((mk_win_base_dword_t)(remote_events_size)))
+			#include "mk_lang_warning_msvc_pop.h"
+			{
+				if(waited != mk_win_dll_ws2_wait_object_0 + 0)
+				{
+					mk_win_dll_kernel_synchronization_critical_section_enter_critical_section(&redirector->m_waiter_mutex);
+					redirector->m_waiter_connected = handles[waited - mk_win_dll_ws2_wait_object_0];
+					mk_win_dll_kernel_synchronization_critical_section_leave_critical_section(&redirector->m_waiter_mutex);
+					err = mk_lib_net_iocp_post(&redirector->m_iocp, 0, ((mk_lang_types_uintptr_t)(mk_lib_net_redirector_k_iocp_key_special)), ((mk_lang_types_void_pt)(((mk_lang_types_uintptr_t)(mk_lib_net_redirector_k_iocp_overlapped_special_connector))))); mk_lang_check_rereturn(err);
+				}
+				break;
+			}
+			else if(waited == mk_win_dll_ws2_wait_io_completion)
+			{
+			}
+			else if(waited == mk_win_dll_ws2_wait_timeout)
+			{
+				mk_lang_assert_false();
+			}
+			else
+			{
+				mk_lang_check_return(mk_lang_runtime_bool_fn_false);
+			}
+		}
+	}
+	err = mk_lib_net_redirector_fxd_events_rw_destroy(&local_events); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -1058,9 +1144,11 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 	redirector->m_want_end_b = mk_lang_false;
 	err = mk_lib_net_redirector_listeners_rw_construct(&redirector->m_listeners); mk_lang_check_rereturn(err);
 	redirector->m_queue = mk_win_dll_kernel_synchronization_timer_queue_create_timer_queue(); mk_lang_check_return(!mk_win_base_handle_is_null(redirector->m_timer));
+	err = mk_lib_net_redirector_dyn_events_rw_construct(&redirector->m_events); mk_lang_check_rereturn(err);
 	redirector->m_waiter_should_stop = mk_lang_false;
 	redirector->m_waiter_event = mk_win_dll_kernel_synchronization_event_create_event_w(mk_win_base_null, mk_win_base_true, mk_win_base_false, mk_win_base_null); mk_lang_check_return(!mk_win_base_handle_is_null(redirector->m_waiter_event));
 	mk_win_dll_kernel_synchronization_critical_section_initialize_critical_section(&redirector->m_waiter_mutex);
+	err = mk_lib_net_redirector_fxd_events_rw_construct_void(&redirector->m_waiter_events); mk_lang_check_rereturn(err);
 	redirector->m_waiter_thread = mk_win_dll_kernel_process_create_thread(mk_win_base_null, 0, &mk_lib_net_redirector_impl_prrw_win_waiter_thread, redirector, 0, mk_win_base_null); mk_lang_check_return(!mk_win_base_handle_is_null(redirector->m_waiter_thread));
 
 	err = mk_lib_net_redirector_impl_prrw_request_timer(redirector); mk_lang_check_rereturn(err);
@@ -1071,6 +1159,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 {
 	mk_win_base_bool_t b;
 	mk_win_base_dword_t waited;
+	mk_lang_types_sint_t err;
 
 	mk_lang_assert(redirector);
 
@@ -1079,8 +1168,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 	mk_win_dll_kernel_synchronization_critical_section_leave_critical_section(&redirector->m_waiter_mutex);
 	b = mk_win_dll_kernel_synchronization_event_set_event(redirector->m_waiter_event); mk_lang_check_return(b != mk_win_base_false);
 	waited = mk_win_dll_kernel_synchronization_wait_one(redirector->m_waiter_thread, mk_win_base_infinite); mk_lang_check_return(waited == 0);
+
 	b = mk_win_dll_kernel_handle_close(redirector->m_waiter_event); mk_lang_check_return(b != mk_win_base_false);
 	mk_win_dll_kernel_synchronization_critical_section_delete_critical_section(&redirector->m_waiter_mutex);
+	err = mk_lib_net_redirector_fxd_events_rw_destroy(&redirector->m_waiter_events); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -1094,6 +1185,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 	err = mk_lib_net_iocp_destroy(&redirector->m_iocp); mk_lang_check_rereturn(err);
 	err = mk_lib_net_redirector_listeners_rw_destroy(&redirector->m_listeners); mk_lang_check_rereturn(err);
 	b = mk_win_dll_kernel_synchronization_timer_queue_delete_timer_queue(redirector->m_queue); mk_lang_check_return(b != mk_win_base_false);
+	err = mk_lib_net_redirector_dyn_events_rw_destroy(&redirector->m_events); mk_lang_check_rereturn(err);
 	err = mk_lib_net_redirector_impl_prrw_close_thread(redirector); mk_lang_check_rereturn(err);
 	return 0;
 }
@@ -1251,7 +1343,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 
 	err = mk_lib_net_redirector_listeners_rw_reserve_additional(&redirector->m_listeners, 1); mk_lang_check_rereturn(err);
 	err = mk_sl_mallocator_allocate(sizeof(*listener), &mem); mk_lang_check_rereturn(err); listener = ((mk_lib_net_redirector_listener_pt)(mem)); mk_lang_assert(listener);
-	err = mk_lib_net_redirector_listener_prrw_construct(listener, src, dst); mk_lang_check_rereturn(err);
+	err = mk_lib_net_redirector_listener_prrw_construct(listener, src, dst, &redirector->m_events); mk_lang_check_rereturn(err);
 	err = mk_lib_net_iocp_associate_with_socket(&redirector->m_iocp, ((mk_lang_types_uintptr_t)(&listener->m_iop_target)), &listener->m_socket); mk_lang_check_rereturn(err);
 	err = mk_lib_net_redirector_listener_prrw_issue_requests(listener); mk_lang_check_rereturn(err);
 	err = mk_lib_net_redirector_listeners_rw_push_back_move_single(&redirector->m_listeners, &listener); mk_lang_check_rereturn(err);

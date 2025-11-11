@@ -23,9 +23,9 @@
 		</Expand>
 	</Type>
 	<Type Name="mk_lib_net_redirector_iop_target_data_s">
-		<DisplayString Condition="m_id == 0">{*((mk_lib_net_redirector_listener_s*)(((unsigned char*)(&amp;m_id)) - (8 + 8 + 4 * sizeof(void*))))}</DisplayString>
+		<DisplayString Condition="m_id == 0">{*((mk_lib_net_redirector_listener_s*)(((unsigned char*)(&amp;m_id)) - (8 + 8 + 5 * sizeof(void*))))}</DisplayString>
 		<Expand>
-			<Item Name="[listener]" Condition="m_id == 0">*((mk_lib_net_redirector_listener_s*)(((unsigned char*)(&amp;m_id)) - (8 + 8 + 4 * sizeof(void*))))</Item>
+			<Item Name="[listener]" Condition="m_id == 0">*((mk_lib_net_redirector_listener_s*)(((unsigned char*)(&amp;m_id)) - (8 + 8 + 5 * sizeof(void*))))</Item>
 		</Expand>
 	</Type>
 </AutoVisualizer>
