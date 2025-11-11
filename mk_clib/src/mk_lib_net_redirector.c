@@ -731,6 +731,28 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_listener_prrw_on_client_accepted(mk_lib_net_redirector_listener_pt const listener) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	mk_lib_net_redirector_forwarder_pt forwarder;
+	mk_lib_net_redirector_connector_pt connector;
+	mk_lang_types_void_pt mem;
+
+	mk_lang_assert(listener);
+
+	err = mk_sl_mallocator_allocate(sizeof(*forwarder), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem); forwarder = ((mk_lib_net_redirector_forwarder_pt)(mem)); mk_lang_assert(forwarder);
+	err = mk_lib_net_redirector_forwarder_prrw_construct(forwarder, &listener->m_src, &listener->m_dst); mk_lang_check_rereturn(err);
+	forwarder->m_client = listener->m_client;
+	listener->m_client = mk_lang_null;
+	err = mk_sl_mallocator_allocate(sizeof(*connector), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem); connector = ((mk_lib_net_redirector_connector_pt)(mem)); mk_lang_assert(connector);
+	err = mk_lib_net_redirector_connector_prrw_construct(connector); mk_lang_check_rereturn(err);
+	err = mk_lib_net_redirector_connector_prrw_issue_connect(connector, &listener->m_dst, listener->m_events); mk_lang_check_rereturn(err);
+	forwarder->m_connector = connector;
+	err = mk_lib_net_redirector_forwarders_rw_push_back_move_single(&listener->m_forwarders, &forwarder); mk_lang_check_rereturn(err);
+	err = mk_lib_net_redirector_listener_prrw_accept(listener); mk_lang_check_rereturn(err);
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_listener_prrw_on_iop_fn_request_accept_ex(mk_lib_net_redirector_listener_pt const listener, mk_lib_net_iocp_iop_pct const iop) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
@@ -806,6 +828,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 	err = mk_lib_net_accept_request_get_addresses(&client->m_accept_request, &client->m_local_address, &client->m_remote_address); mk_lang_check_rereturn(err);
 	err = mk_lib_net_accept_request_reset(&client->m_accept_request); mk_lang_check_rereturn(err);
 	client->m_incomming_amount = client->m_accept_request.m_transferred;
+	err = mk_lib_net_redirector_listener_prrw_on_client_accepted(listener); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -823,28 +846,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 	else if(iop->m_overlapped == &listener->m_fn_request_accept_ex               .m_overlapped){ err = mk_lib_net_redirector_listener_prrw_on_iop_fn_request_accept_ex               (listener, iop); mk_lang_check_rereturn(err); }
 	else if(iop->m_overlapped == &listener->m_fn_request_get_accept_ex_sock_addrs.m_overlapped){ err = mk_lib_net_redirector_listener_prrw_on_iop_fn_request_get_accept_ex_sock_addrs(listener, iop); mk_lang_check_rereturn(err); }
 	else                                                                                       { err = mk_lib_net_redirector_listener_prrw_on_iop_accept                             (listener, iop); mk_lang_check_rereturn(err); }
-	return 0;
-}
-
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_listener_prrw_on_client_accepted(mk_lib_net_redirector_listener_pt const listener) mk_lang_noexcept
-{
-	mk_lang_types_sint_t err;
-	mk_lib_net_redirector_forwarder_pt forwarder;
-	mk_lib_net_redirector_connector_pt connector;
-	mk_lang_types_void_pt mem;
-
-	mk_lang_assert(listener);
-
-	err = mk_sl_mallocator_allocate(sizeof(*forwarder), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem); forwarder = ((mk_lib_net_redirector_forwarder_pt)(mem)); mk_lang_assert(forwarder);
-	err = mk_lib_net_redirector_forwarder_prrw_construct(forwarder, &listener->m_src, &listener->m_dst); mk_lang_check_rereturn(err);
-	forwarder->m_client = listener->m_client;
-	listener->m_client = mk_lang_null;
-	err = mk_sl_mallocator_allocate(sizeof(*connector), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem); connector = ((mk_lib_net_redirector_connector_pt)(mem)); mk_lang_assert(connector);
-	err = mk_lib_net_redirector_connector_prrw_construct(connector); mk_lang_check_rereturn(err);
-	err = mk_lib_net_redirector_connector_prrw_issue_connect(connector, &listener->m_dst, listener->m_events); mk_lang_check_rereturn(err);
-	forwarder->m_connector = connector;
-	err = mk_lib_net_redirector_forwarders_rw_push_back_move_single(&listener->m_forwarders, &forwarder); mk_lang_check_rereturn(err);
-	err = mk_lib_net_redirector_listener_prrw_accept(listener); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -1196,28 +1197,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_impl_prrw_post_dispatch(mk_lib_net_redirector_impl_pt const redirector, mk_lib_net_redirector_iop_target_data_pt const target) mk_lang_noexcept
-{
-	mk_lib_net_redirector_listener_pt listener;
-	mk_lang_types_sint_t err;
-
-	mk_lang_assert(redirector);
-	mk_lang_assert(target);
-
-	listener = mk_lib_net_redirector_iop_target_logic_prrw_cast_to_listener(target);
-	if(listener)
-	{
-		if(listener->m_client)
-		{
-			if(listener->m_client->m_incomming_amount >= 1) /* todo is connected */
-			{
-				err = mk_lib_net_redirector_listener_prrw_on_client_accepted(listener); mk_lang_check_rereturn(err);
-			}
-		}
-	}
-	return 0;
-}
-
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_impl_prrw_dispatch_on_end(mk_lib_net_redirector_impl_pt const redirector, mk_lib_net_iocp_iop_pct const iop) mk_lang_noexcept
 {
 	mk_lang_assert(redirector);
@@ -1302,7 +1281,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 		{
 			target = ((mk_lib_net_redirector_iop_target_data_pt)(iop->m_key));
 			err = mk_lib_net_redirector_iop_target_logic_prrw_on_iop(target, iop); mk_lang_check_rereturn(err);
-			err = mk_lib_net_redirector_impl_prrw_post_dispatch(redirector, target); mk_lang_check_rereturn(err);
 		}
 	}
 	else
