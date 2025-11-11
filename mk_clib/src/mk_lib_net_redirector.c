@@ -784,6 +784,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_listener_prrw_on_timer(mk_lib_net_redirector_listener_pt const listener) mk_lang_noexcept
+{
+	mk_lang_assert(listener);
+
+	return 0;
+}
+
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_listener_prrwv_construct_void(mk_lib_net_redirector_listener_ppt const listener) mk_lang_noexcept
 {
@@ -1025,8 +1032,20 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_impl_prrw_dispatch_on_timer2(mk_lib_net_redirector_impl_pt const redirector) mk_lang_noexcept
 {
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
+	mk_lib_net_redirector_listener_ppt pelem;
+	mk_lib_net_redirector_listener_pt elem;
+	mk_lang_types_sint_t err;
+
 	mk_lang_assert(redirector);
 
+	n = mk_lib_net_redirector_listeners_rw_size(&redirector->m_listeners);
+	for(i = 0; i != n; ++i)
+	{
+		pelem = mk_lib_net_redirector_listeners_rw_at(&redirector->m_listeners, i); mk_lang_assert(pelem); elem = *pelem; mk_lang_assert(elem);
+		err = mk_lib_net_redirector_listener_prrw_on_timer(elem); mk_lang_check_rereturn(err);
+	}
 	return 0;
 }
 
@@ -1041,7 +1060,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 	mk_lang_assert(iop->m_key == ((mk_lang_types_uintptr_t)(mk_lib_net_redirector_k_iocp_key_special)));
 	mk_lang_assert(iop->m_overlapped == ((mk_lang_types_void_pt)(((mk_lang_types_uintptr_t)(mk_lib_net_redirector_k_iocp_overlapped_special_timer)))));
 
-	b = mk_win_dll_kernel_synchronization_timer_queue_delete_timer_queue_timer(redirector->m_queue, redirector->m_timer, mk_win_base_handle_get_null()); mk_lang_check_return(b != mk_win_base_false);
+	b = mk_win_dll_kernel_synchronization_timer_queue_delete_timer_queue_timer(redirector->m_queue, redirector->m_timer, mk_win_base_handle_get_invalid()); mk_lang_check_return(b != mk_win_base_false);
 	if(!redirector->m_want_end_a)
 	{
 		err = mk_lib_net_redirector_impl_prrw_dispatch_on_timer2(redirector); mk_lang_check_rereturn(err);
