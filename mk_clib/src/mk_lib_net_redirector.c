@@ -109,6 +109,7 @@ struct mk_lib_net_redirector_client_s
 	mk_lib_net_write_request_t m_write_request;
 	mk_sl_buffers_buffer_pt m_incomming_buffer;
 	mk_lang_types_sint_t m_incomming_amount;
+	mk_lib_net_accept_request_t m_accept_request;
 };
 typedef struct mk_lib_net_redirector_client_s mk_lib_net_redirector_client_t;
 mk_lang_typedef(mk_lib_net_redirector_client);
@@ -129,6 +130,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 	err = mk_lib_net_write_request_construct_void(&client->m_write_request); mk_lang_check_rereturn(err);
 	err = mk_lib_net_buffers_rw_allocate_one(&client->m_incomming_buffer); mk_lang_check_rereturn(err); mk_lang_assert(client->m_incomming_amount);
 	client->m_incomming_amount = 0;
+	err = mk_lib_net_accept_request_construct_void(&client->m_accept_request); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -144,6 +146,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 	err = mk_lib_net_read_request_destroy(&client->m_read_request); mk_lang_check_rereturn(err);
 	err = mk_lib_net_write_request_destroy(&client->m_write_request); mk_lang_check_rereturn(err);
 	if(client->m_incomming_amount){ err = mk_lib_net_buffers_rw_deallocate_one(client->m_incomming_buffer); mk_lang_check_rereturn(err); }
+	err = mk_lib_net_accept_request_destroy(&client->m_accept_request); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -316,7 +319,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 	}
 	if(forwarder->m_connector)
 	{
-		mk_lang_check_todo();
+		err = mk_lib_net_redirector_connector_prrw_destroy(forwarder->m_connector); mk_lang_check_rereturn(err);
+		err = mk_sl_mallocator_deallocate(forwarder->m_connector, sizeof(*forwarder->m_connector)); mk_lang_check_rereturn(err);
 	}
 	return 0;
 }
@@ -649,7 +653,6 @@ struct mk_lib_net_redirector_listener_s
 	mk_lib_net_redirector_forwarders_t m_forwarders;
 	mk_lib_net_ioctl_request_t m_fn_request_accept_ex;
 	mk_lib_net_ioctl_request_t m_fn_request_get_accept_ex_sock_addrs;
-	mk_lib_net_accept_request_t m_accept_request;
 };
 typedef struct mk_lib_net_redirector_listener_s mk_lib_net_redirector_listener_t;
 mk_lang_typedef(mk_lib_net_redirector_listener);
@@ -679,7 +682,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 	err = mk_lib_net_redirector_forwarders_rw_construct(&listener->m_forwarders); mk_lang_check_rereturn(err);
 	err = mk_lib_net_ioctl_request_construct(&listener->m_fn_request_accept_ex               , &listener->m_socket, ((mk_lang_types_uint_t)(mk_win_dll_ws2_ioctl_control_code_e_get_extension_function_pointer)), &mk_lib_net_redirector_k_fn_guid_accept_ex               .m_data.m_uint8s[0], mk_lang_countof(mk_lib_net_redirector_k_fn_guid_accept_ex               .m_data.m_uchars), ((mk_sl_cui_uint8_pt)(&listener->m_fn_accept_ex               )), sizeof(listener->m_fn_accept_ex               )); mk_lang_check_rereturn(err);
 	err = mk_lib_net_ioctl_request_construct(&listener->m_fn_request_get_accept_ex_sock_addrs, &listener->m_socket, ((mk_lang_types_uint_t)(mk_win_dll_ws2_ioctl_control_code_e_get_extension_function_pointer)), &mk_lib_net_redirector_k_fn_guid_get_accept_ex_sock_addrs.m_data.m_uint8s[0], mk_lang_countof(mk_lib_net_redirector_k_fn_guid_get_accept_ex_sock_addrs.m_data.m_uchars), ((mk_sl_cui_uint8_pt)(&listener->m_fn_get_accept_ex_sock_addrs)), sizeof(listener->m_fn_get_accept_ex_sock_addrs)); mk_lang_check_rereturn(err);
-	err = mk_lib_net_accept_request_construct_void(&listener->m_accept_request); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -698,7 +700,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 	err = mk_lib_net_redirector_forwarders_rw_destroy(&listener->m_forwarders); mk_lang_check_rereturn(err);
 	err = mk_lib_net_ioctl_request_destroy(&listener->m_fn_request_accept_ex               ); mk_lang_check_rereturn(err);
 	err = mk_lib_net_ioctl_request_destroy(&listener->m_fn_request_get_accept_ex_sock_addrs); mk_lang_check_rereturn(err);
-	err = mk_lib_net_accept_request_destroy(&listener->m_accept_request); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -725,8 +726,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 	err = mk_sl_mallocator_allocate(sizeof(*client), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem); client = ((mk_lib_net_redirector_client_pt)(mem)); mk_lang_assert(client);
 	err = mk_lib_net_redirector_client_prrw_construct(client); mk_lang_check_rereturn(err);
 	listener->m_client = client;
-	err = mk_lib_net_accept_request_reconstruct(&listener->m_accept_request, &listener->m_fn_accept_ex, &listener->m_fn_get_accept_ex_sock_addrs, &listener->m_socket, &listener->m_client->m_socket, &listener->m_client->m_incomming_buffer->m_data.m_uint8s[0], mk_lang_countof(listener->m_client->m_incomming_buffer->m_data.m_uint8s)); mk_lang_check_rereturn(err);
-	err = mk_lib_net_accept_request_issue(&listener->m_accept_request); mk_lang_check_rereturn(err);
+	err = mk_lib_net_accept_request_reconstruct(&listener->m_client->m_accept_request, &listener->m_fn_accept_ex, &listener->m_fn_get_accept_ex_sock_addrs, &listener->m_socket, &listener->m_client->m_socket, &listener->m_client->m_incomming_buffer->m_data.m_uint8s[0], mk_lang_countof(listener->m_client->m_incomming_buffer->m_data.m_uint8s)); mk_lang_check_rereturn(err);
+	err = mk_lib_net_accept_request_issue(&listener->m_client->m_accept_request); mk_lang_check_rereturn(err);
 	return 0;
 }
 
@@ -780,7 +781,10 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_listener_prrw_on_iop_accept(mk_lib_net_redirector_listener_pt const listener, mk_lib_net_iocp_iop_pct const iop) mk_lang_noexcept
 {
+	mk_lib_net_redirector_client_pt client;
 	mk_lang_types_sint_t err;
+	mk_lang_types_sint_t offset;
+	mk_lib_net_accept_request_pt accept_request;
 
 	mk_lang_assert(listener);
 	mk_lang_assert(listener->m_client);
@@ -789,16 +793,19 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 	mk_lang_assert(iop->m_dequeued);
 	mk_lang_assert(iop->m_overlapped);
 	mk_lang_assert(iop->m_key == ((mk_lang_types_uintptr_t)(&listener->m_iop_target)));
-	mk_lang_assert(iop->m_overlapped == &listener->m_accept_request.m_overlapped);
 
+	offset = mk_lang_offsetof(mk_lib_net_accept_request_t, m_overlapped);
+	accept_request = ((mk_lib_net_accept_request_pt)(((mk_lang_types_uchar_pt)(iop->m_overlapped)) - offset));
+	offset = mk_lang_offsetof(mk_lib_net_redirector_client_t, m_accept_request);
+	client = ((mk_lib_net_redirector_client_pt)(((mk_lang_types_uchar_pt)(accept_request)) - offset));
 	mk_lang_check_return(iop->m_successful_io_operation);
-	err = mk_lib_net_accept_request_wait_infinite(&listener->m_accept_request); mk_lang_check_rereturn(err);
-	err = mk_lib_net_accept_request_get_result(&listener->m_accept_request); mk_lang_check_rereturn(err);
-	mk_lang_check_return(listener->m_accept_request.m_b != mk_lang_false);
-	mk_lang_check_return(listener->m_accept_request.m_transferred >= 1);
-	err = mk_lib_net_accept_request_get_addresses(&listener->m_accept_request, &listener->m_client->m_local_address, &listener->m_client->m_remote_address); mk_lang_check_rereturn(err);
-	err = mk_lib_net_accept_request_reset(&listener->m_accept_request); mk_lang_check_rereturn(err);
-	listener->m_client->m_incomming_amount = listener->m_accept_request.m_transferred;
+	err = mk_lib_net_accept_request_wait_infinite(&client->m_accept_request); mk_lang_check_rereturn(err);
+	err = mk_lib_net_accept_request_get_result(&client->m_accept_request); mk_lang_check_rereturn(err);
+	mk_lang_check_return(client->m_accept_request.m_b != mk_lang_false);
+	mk_lang_check_return(client->m_accept_request.m_transferred >= 1);
+	err = mk_lib_net_accept_request_get_addresses(&client->m_accept_request, &client->m_local_address, &client->m_remote_address); mk_lang_check_rereturn(err);
+	err = mk_lib_net_accept_request_reset(&client->m_accept_request); mk_lang_check_rereturn(err);
+	client->m_incomming_amount = client->m_accept_request.m_transferred;
 	return 0;
 }
 
@@ -815,8 +822,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 	if(mk_lang_runtime_bool_fn_false){ mk_lang_assert_false(); }
 	else if(iop->m_overlapped == &listener->m_fn_request_accept_ex               .m_overlapped){ err = mk_lib_net_redirector_listener_prrw_on_iop_fn_request_accept_ex               (listener, iop); mk_lang_check_rereturn(err); }
 	else if(iop->m_overlapped == &listener->m_fn_request_get_accept_ex_sock_addrs.m_overlapped){ err = mk_lib_net_redirector_listener_prrw_on_iop_fn_request_get_accept_ex_sock_addrs(listener, iop); mk_lang_check_rereturn(err); }
-	else if(iop->m_overlapped == &listener->m_accept_request                     .m_overlapped){ err = mk_lib_net_redirector_listener_prrw_on_iop_accept                             (listener, iop); mk_lang_check_rereturn(err); }
-	else{ mk_lang_assert_false(); }
+	else                                                                                       { err = mk_lib_net_redirector_listener_prrw_on_iop_accept                             (listener, iop); mk_lang_check_rereturn(err); }
 	return 0;
 }
 
