@@ -22,6 +22,8 @@
 #include "mk_sl_vector_copy.h"
 #include "mk_win_dll_kernel_process.h"
 #include "mk_win_dll_kernel_synchronization.h"
+#include "mk_win_dll_kernel_synchronization_waitable_timer.h"
+#include "mk_win_dll_kernel_handle.h"
 
 
 #define mk_lib_net_redirector_k_iocp_key_special 0x00000010
@@ -864,7 +866,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lib_net_redirector_listener_pt mk_lib
 	mk_lang_types_sint_t offset;
 	mk_lib_net_redirector_listener_pt listener;
 
-	mk_lang_static_assert(mk_lang_offsetof(mk_lib_net_redirector_listener_t, m_iop_target) == 48); /* natvis */
+	mk_lang_static_assert(mk_lang_offsetof(mk_lib_net_redirector_listener_t, m_iop_target) == 8 + 8 + 4 * sizeof(mk_lang_types_void_pt)); /* natvis */
 
 	mk_lang_assert(target);
 	mk_lang_assert(target->m_id >= 0);
@@ -908,7 +910,8 @@ struct mk_lib_net_redirector_impl_s
 {
 	mk_lib_net_iocp_t m_iocp;
 	mk_lang_types_bool_t m_want_end;
-	mk_lib_net_redirector_listeners_t listeners;
+	mk_lib_net_redirector_listeners_t m_listeners;
+	mk_win_base_handle_t m_timer;
 };
 typedef struct mk_lib_net_redirector_impl_s mk_lib_net_redirector_impl_s;
 mk_lang_typedef(mk_lib_net_redirector_impl);
@@ -923,18 +926,21 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 
 	err = mk_lib_net_iocp_construct(&redirector->m_iocp, 0); mk_lang_check_rereturn(err);
 	redirector->m_want_end = mk_lang_false;
-	err = mk_lib_net_redirector_listeners_rw_construct(&redirector->listeners); mk_lang_check_rereturn(err);
+	err = mk_lib_net_redirector_listeners_rw_construct(&redirector->m_listeners); mk_lang_check_rereturn(err);
+	redirector->m_timer = mk_win_dll_kernel_synchronization_waitable_timer_create_waitable_timer_w(mk_win_base_null, mk_win_base_true, mk_win_base_null); mk_lang_check_return(!mk_win_base_handle_is_null(redirector->m_timer));
 	return 0;
 }
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_impl_prrw_destroy(mk_lib_net_redirector_impl_pt const redirector) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
+	mk_win_base_bool_t b;
 
 	mk_lang_assert(redirector);
 
 	err = mk_lib_net_iocp_destroy(&redirector->m_iocp); mk_lang_check_rereturn(err);
-	err = mk_lib_net_redirector_listeners_rw_destroy(&redirector->listeners); mk_lang_check_rereturn(err);
+	err = mk_lib_net_redirector_listeners_rw_destroy(&redirector->m_listeners); mk_lang_check_rereturn(err);
+	b = mk_win_dll_kernel_handle_close(redirector->m_timer); mk_lang_check_return(b != mk_win_base_false);
 	return 0;
 }
 
@@ -1038,12 +1044,12 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 	mk_lang_assert(src);
 	mk_lang_assert(dst);
 
-	err = mk_lib_net_redirector_listeners_rw_reserve_additional(&redirector->listeners, 1); mk_lang_check_rereturn(err);
+	err = mk_lib_net_redirector_listeners_rw_reserve_additional(&redirector->m_listeners, 1); mk_lang_check_rereturn(err);
 	err = mk_sl_mallocator_allocate(sizeof(*listener), &mem); mk_lang_check_rereturn(err); listener = ((mk_lib_net_redirector_listener_pt)(mem)); mk_lang_assert(listener);
 	err = mk_lib_net_redirector_listener_prrw_construct(listener, src, dst); mk_lang_check_rereturn(err);
 	err = mk_lib_net_iocp_associate_with_socket(&redirector->m_iocp, ((mk_lang_types_uintptr_t)(&listener->m_iop_target)), &listener->m_socket); mk_lang_check_rereturn(err);
 	err = mk_lib_net_redirector_listener_prrw_issue_requests(listener); mk_lang_check_rereturn(err);
-	err = mk_lib_net_redirector_listeners_rw_push_back_move_single(&redirector->listeners, &listener); mk_lang_check_rereturn(err);
+	err = mk_lib_net_redirector_listeners_rw_push_back_move_single(&redirector->m_listeners, &listener); mk_lang_check_rereturn(err);
 	return 0;
 }
 

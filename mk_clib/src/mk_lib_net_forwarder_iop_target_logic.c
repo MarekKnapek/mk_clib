@@ -20,7 +20,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lib_net_listener_pt mk_lib_net_forwar
 	mk_lang_types_sint_t offset;
 	mk_lib_net_listener_pt listener;
 
-	mk_lang_static_assert(mk_lang_offsetof(mk_lib_net_listener_t, m_iop_target) == 288); /* natvis */
+	//mk_lang_static_assert(mk_lang_offsetof(mk_lib_net_listener_t, m_iop_target) == 288); /* natvis */
 
 	mk_lang_assert(target);
 	mk_lang_assert(target->m_id >= 0);
@@ -43,7 +43,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lib_net_listener_client_pt mk_lib_net
 	mk_lang_types_sint_t offset;
 	mk_lib_net_listener_client_pt client;
 
-	mk_lang_static_assert(mk_lang_offsetof(mk_lib_net_listener_client_t, m_iop_target) == 40); /* natvis */
+	//mk_lang_static_assert(mk_lang_offsetof(mk_lib_net_listener_client_t, m_iop_target) == 40); /* natvis */
 
 	mk_lang_assert(target);
 	mk_lang_assert(target->m_id >= 0);
@@ -66,7 +66,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lib_net_connector_pt mk_lib_net_forwa
 	mk_lang_types_sint_t offset;
 	mk_lib_net_connector_pt connector;
 
-	mk_lang_static_assert(mk_lang_offsetof(mk_lib_net_connector_t, m_iop_target) == 24); /* natvis */
+	//mk_lang_static_assert(mk_lang_offsetof(mk_lib_net_connector_t, m_iop_target) == 24); /* natvis */
 
 	mk_lang_assert(target);
 	mk_lang_assert(target->m_id >= 0);

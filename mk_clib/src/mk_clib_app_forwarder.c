@@ -42,7 +42,7 @@
 #include "mk_win_dll_kernel_console.h"
 
 
-#define mk_clib_app_forwarder_k_src_ip_address "127.0.0.1"
+#define mk_clib_app_forwarder_k_src_ip_address "0.0.0.0"
 #define mk_clib_app_forwarder_k_src_tcp_port 9009
 #define mk_clib_app_forwarder_k_dst_ip_address "127.0.0.1"
 #define mk_clib_app_forwarder_k_dst_tcp_port 7654
