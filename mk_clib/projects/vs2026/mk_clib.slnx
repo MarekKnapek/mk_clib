@@ -27,4 +27,10 @@
 		<Platform Solution="*|x86-32bit-S" Project="Win32"/>
 		<Platform Solution="*|x86-64bit-S" Project="x64"/>
 	</Project>
+	<Project Path="mk_clib_fuzz/mk_clib_fuzz.vcxproj" Id="0f467b71-3819-4e3e-9ffb-4a8640d624fb">
+		<BuildType Solution="MSVC-Debug-S|*" Project="MSVC-Debug-P"/>
+		<BuildType Solution="MSVC-Release-S|*" Project="MSVC-Release-P"/>
+		<Platform Solution="*|x86-32bit-S" Project="Win32"/>
+		<Platform Solution="*|x86-64bit-S" Project="x64"/>
+	</Project>
 </Solution>
