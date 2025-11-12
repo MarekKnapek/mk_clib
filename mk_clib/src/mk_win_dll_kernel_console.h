@@ -29,6 +29,7 @@ typedef enum mk_win_dll_kernel_console_ctrl_event_id_e mk_win_dll_kernel_console
 #define mk_win_dll_kernel_console_std_handle_id_d_error  ((mk_win_base_dword_t)(((mk_win_base_sint_t)(-12))))
 
 #include "mk_lang_warning_gcc_push_enumenator.h"
+#include "mk_lang_warning_msvc_push_c4865.h"
 enum mk_win_dll_kernel_console_std_handle_id_e
 {
 	mk_win_dll_kernel_console_std_handle_id_e_input  = mk_win_dll_kernel_console_std_handle_id_d_input ,
@@ -37,6 +38,7 @@ enum mk_win_dll_kernel_console_std_handle_id_e
 	mk_win_dll_kernel_console_std_handle_id_e_dummy_end = 0
 };
 typedef enum mk_win_dll_kernel_console_std_handle_id_e mk_win_dll_kernel_console_std_handle_id_t;
+#include "mk_lang_warning_msvc_pop.h"
 #include "mk_lang_warning_gcc_pop.h"
 
 enum mk_win_dll_kernel_console_attribute_e

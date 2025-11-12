@@ -32,6 +32,7 @@ enum mk_win_dll_kernel_files_drive_type_e
 typedef enum mk_win_dll_kernel_files_drive_type_e mk_win_dll_kernel_files_drive_type_t;
 
 #include "mk_lang_warning_gcc_push_enumenator.h"
+#include "mk_lang_warning_msvc_push_c4865.h"
 enum mk_win_dll_kernel_files_attribute_e
 {
 	mk_win_dll_kernel_files_attribute_e_readonly              = 0x00000001ul,
@@ -70,6 +71,7 @@ enum mk_win_dll_kernel_files_attribute_e
 	mk_win_dll_kernel_files_attribute_e_dummy_end = 0
 };
 typedef enum mk_win_dll_kernel_files_attribute_e mk_win_dll_kernel_files_attribute_t;
+#include "mk_lang_warning_msvc_pop.h"
 #include "mk_lang_warning_gcc_pop.h"
 
 enum mk_win_dll_kernel_files_create_e
@@ -84,6 +86,7 @@ enum mk_win_dll_kernel_files_create_e
 typedef enum mk_win_dll_kernel_files_create_e mk_win_dll_kernel_files_create_t;
 
 #include "mk_lang_warning_gcc_push_enumenator.h"
+#include "mk_lang_warning_msvc_push_c4865.h"
 enum mk_win_dll_kernel_files_flag_e
 {
 	mk_win_dll_kernel_files_flag_e_none                  = 0x00000000ul,
@@ -103,6 +106,7 @@ enum mk_win_dll_kernel_files_flag_e
 	mk_win_dll_kernel_files_flag_e_dummy_end = 0
 };
 typedef enum mk_win_dll_kernel_files_flag_e mk_win_dll_kernel_files_flag_t;
+#include "mk_lang_warning_msvc_pop.h"
 #include "mk_lang_warning_gcc_pop.h"
 
 enum mk_win_dll_kernel_files_share_e
