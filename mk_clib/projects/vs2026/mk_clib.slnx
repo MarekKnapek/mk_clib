@@ -69,4 +69,10 @@
 		<Platform Solution="*|x86-32bit-S" Project="Win32"/>
 		<Platform Solution="*|x86-64bit-S" Project="x64"/>
 	</Project>
+	<Project Path="mk_clib_hosts/mk_clib_hosts.vcxproj" Id="7f920695-306e-484b-8919-a9693c2b28e3">
+		<BuildType Solution="MSVC-Debug-S|*" Project="MSVC-Debug-P"/>
+		<BuildType Solution="MSVC-Release-S|*" Project="MSVC-Release-P"/>
+		<Platform Solution="*|x86-32bit-S" Project="Win32"/>
+		<Platform Solution="*|x86-64bit-S" Project="x64"/>
+	</Project>
 </Solution>
