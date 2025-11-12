@@ -429,12 +429,14 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_forwarder_prrw_step(mk_lib_net_redirector_forwarder_pt const forwarder) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_forwarder_prrw_step(mk_lib_net_redirector_forwarder_pt const forwarder, mk_lang_types_bool_pt const did) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 	mk_lang_types_bool_t done;
 
 	mk_lang_assert(forwarder);
+	mk_lang_assert(did);
+	mk_lang_assert(*did == mk_lang_false);
 
 	for(;;)
 	{
@@ -445,6 +447,22 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 		err = mk_lib_net_redirector_forwarder_prrw_step_connector_write(forwarder, &done); mk_lang_check_rereturn(err); if(done){ break; }
 		break;
 	}
+	*did = done;
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_forwarder_prrw_steps(mk_lib_net_redirector_forwarder_pt const forwarder) mk_lang_noexcept
+{
+	mk_lang_types_bool_t did;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(forwarder);
+
+	do
+	{
+		did = mk_lang_false;
+		err = mk_lib_net_redirector_forwarder_prrw_step(forwarder, &did); mk_lang_check_rereturn(err);
+	}while(did);
 	return 0;
 }
 
@@ -748,6 +766,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 	err = mk_lib_net_redirector_connector_prrw_construct(connector); mk_lang_check_rereturn(err);
 	err = mk_lib_net_redirector_connector_prrw_issue_connect(connector, &listener->m_dst, listener->m_events); mk_lang_check_rereturn(err);
 	forwarder->m_connector = connector;
+	// add event to list
+	// after event fires do steps
+	//err = mk_lib_net_redirector_forwarder_prrw_steps(forwarder); mk_lang_check_rereturn(err);
 	err = mk_lib_net_redirector_forwarders_rw_push_back_move_single(&listener->m_forwarders, &forwarder); mk_lang_check_rereturn(err);
 	err = mk_lib_net_redirector_listener_prrw_accept(listener); mk_lang_check_rereturn(err);
 	return 0;
