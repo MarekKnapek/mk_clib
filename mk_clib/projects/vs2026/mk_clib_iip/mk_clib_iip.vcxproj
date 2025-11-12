@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup Label="ProjectConfigurations">
+		<ProjectConfiguration Include="MSVC-Debug-P|Win32"><Configuration>MSVC-Debug-P</Configuration><Platform>Win32</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="MSVC-Release-P|Win32"><Configuration>MSVC-Release-P</Configuration><Platform>Win32</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="MSVC-Debug-P|x64"><Configuration>MSVC-Debug-P</Configuration><Platform>x64</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="MSVC-Release-P|x64"><Configuration>MSVC-Release-P</Configuration><Platform>x64</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="MSVC-Debug-P|ARM"><Configuration>MSVC-Debug-P</Configuration><Platform>ARM</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="MSVC-Release-P|ARM"><Configuration>MSVC-Release-P</Configuration><Platform>ARM</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="MSVC-Debug-P|ARM64"><Configuration>MSVC-Debug-P</Configuration><Platform>ARM64</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="MSVC-Release-P|ARM64"><Configuration>MSVC-Release-P</Configuration><Platform>ARM64</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="MSVC-Debug-P|ARM64EC"><Configuration>MSVC-Debug-P</Configuration><Platform>ARM64EC</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="MSVC-Release-P|ARM64EC"><Configuration>MSVC-Release-P</Configuration><Platform>ARM64EC</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="Clang-Debug-P|Win32"><Configuration>Clang-Debug-P</Configuration><Platform>Win32</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="Clang-Release-P|Win32"><Configuration>Clang-Release-P</Configuration><Platform>Win32</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="Clang-Debug-P|x64"><Configuration>Clang-Debug-P</Configuration><Platform>x64</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="Clang-Release-P|x64"><Configuration>Clang-Release-P</Configuration><Platform>x64</Platform></ProjectConfiguration>
+	</ItemGroup>
+	<PropertyGroup Label="Globals">
+		<Keyword>Win32Proj</Keyword>
+		<ProjectGuid>{527a6bfd-92d3-4fbd-9d8f-3e43e3ca1cd3}</ProjectGuid>
+		<RootNamespace>mk_clib_iip</RootNamespace>
+		<TargetFrameworkVersion></TargetFrameworkVersion>
+		<VCProjectVersion>18.0</VCProjectVersion>
+		<WindowsTargetPlatformMinVersion>7.0</WindowsTargetPlatformMinVersion>
+		<WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+	</PropertyGroup>
+	<ImportGroup Label="PropertySheets"><Import Project="$(MSBuildThisFileDirectory)..\mk_clib_slib\a.props"/></ImportGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
+	<ImportGroup Label="PropertySheets"><Import Project="$(MSBuildThisFileDirectory)..\mk_clib_slib\b.props"/></ImportGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.props"/>
+	<ImportGroup Label="PropertySheets"><Import Project="$(MSBuildThisFileDirectory)..\mk_clib_slib\c.props"/></ImportGroup>
+	<ItemDefinitionGroup>
+		<ClCompile>
+			<PreprocessorDefinitions Condition="'$(mk_is_release)'=='true'">mk_lib_iip_cp_client_application_debug_print_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions Condition="'$(mk_is_release)'=='true'">mk_lib_iip_cp_client_connection_debug_print_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions Condition="'$(mk_is_release)'=='true'">mk_lib_iip_cp_client_local_client_debug_print_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions Condition="'$(mk_is_release)'=='true'">mk_lib_iip_cp_client_local_listener_debug_print_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions Condition="'$(mk_is_release)'=='true'">mk_lib_iip_cp_client_session_debug_print_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<PreprocessorDefinitions Condition="'$(mk_is_release)'=='true'">mk_lib_iip_cp_client_socket_debug_print_want=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+		</ClCompile>
+	</ItemDefinitionGroup>
+	<ItemGroup>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\app\iip.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_external_zlib.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_external_zlib_adler32.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_external_zlib_crc32.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_external_zlib_deflate.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_external_zlib_inffast.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_external_zlib_inflate.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_external_zlib_inftrees.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_external_zlib_trees.c"/>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_external_zlib_zutil.c"/>
+		<ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_external_zlib.h"/>
+		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_abort_win_amd64.asm"><ExcludedFromBuild Condition="!('$(mk_is_intel)' == 'true' And '$(mk_is_release)' == 'true' And '$(mk_is_64bit)' == 'true')">true</ExcludedFromBuild><UseSafeExceptionHandlers Condition="'$(mk_is_32bit)'=='true'">true</UseSafeExceptionHandlers></MASM>
+		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_abort_win_i386.asm"><ExcludedFromBuild Condition="!('$(mk_is_intel)' == 'true' And '$(mk_is_release)' == 'true' And '$(mk_is_32bit)' == 'true')">true</ExcludedFromBuild><UseSafeExceptionHandlers Condition="'$(mk_is_32bit)'=='true'">true</UseSafeExceptionHandlers></MASM>
+		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcmp_win_amd64.asm"><ExcludedFromBuild Condition="!('$(mk_is_intel)' == 'true' And '$(mk_is_release)' == 'true' And '$(mk_is_64bit)' == 'true')">true</ExcludedFromBuild><UseSafeExceptionHandlers Condition="'$(mk_is_32bit)'=='true'">true</UseSafeExceptionHandlers></MASM>
+		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcpy_win_amd64.asm"><ExcludedFromBuild Condition="!('$(mk_is_intel)' == 'true' And '$(mk_is_release)' == 'true' And '$(mk_is_64bit)' == 'true')">true</ExcludedFromBuild><UseSafeExceptionHandlers Condition="'$(mk_is_32bit)'=='true'">true</UseSafeExceptionHandlers></MASM>
+		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memcpy_win_i386.asm"><ExcludedFromBuild Condition="!('$(mk_is_intel)' == 'true' And '$(mk_is_release)' == 'true' And '$(mk_is_32bit)' == 'true')">true</ExcludedFromBuild><UseSafeExceptionHandlers Condition="'$(mk_is_32bit)'=='true'">true</UseSafeExceptionHandlers></MASM>
+		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memset_win_amd64.asm"><ExcludedFromBuild Condition="!('$(mk_is_intel)' == 'true' And '$(mk_is_release)' == 'true' And '$(mk_is_64bit)' == 'true')">true</ExcludedFromBuild><UseSafeExceptionHandlers Condition="'$(mk_is_32bit)'=='true'">true</UseSafeExceptionHandlers></MASM>
+		<MASM Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lang_memset_win_i386.asm"><ExcludedFromBuild Condition="!('$(mk_is_intel)' == 'true' And '$(mk_is_release)' == 'true' And '$(mk_is_32bit)' == 'true')">true</ExcludedFromBuild><UseSafeExceptionHandlers Condition="'$(mk_is_32bit)'=='true'">true</UseSafeExceptionHandlers></MASM>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_app_hosts.natvis"><ExcludedFromBuild Condition="'$(mk_is_debug)'=='true'">true</ExcludedFromBuild></Natvis>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_any_data_connection.natvis"><ExcludedFromBuild Condition="'$(mk_is_debug)'=='true'">true</ExcludedFromBuild></Natvis>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_buffer.natvis"><ExcludedFromBuild Condition="'$(mk_is_debug)'=='true'">true</ExcludedFromBuild></Natvis>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_client_connection_task.natvis"><ExcludedFromBuild Condition="'$(mk_is_debug)'=='true'">true</ExcludedFromBuild></Natvis>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_client_local_client_task.natvis"><ExcludedFromBuild Condition="'$(mk_is_debug)'=='true'">true</ExcludedFromBuild></Natvis>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_client_local_listener_task.natvis"><ExcludedFromBuild Condition="'$(mk_is_debug)'=='true'">true</ExcludedFromBuild></Natvis>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_client_session.natvis"><ExcludedFromBuild Condition="'$(mk_is_debug)'=='true'">true</ExcludedFromBuild></Natvis>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_client_socket.natvis"><ExcludedFromBuild Condition="'$(mk_is_debug)'=='true'">true</ExcludedFromBuild></Natvis>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_client_wrapper.natvis"><ExcludedFromBuild Condition="'$(mk_is_debug)'=='true'">true</ExcludedFromBuild></Natvis>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_dynamic_ring.natvis"><ExcludedFromBuild Condition="'$(mk_is_debug)'=='true'">true</ExcludedFromBuild></Natvis>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_mallocator_global.natvis"><ExcludedFromBuild Condition="'$(mk_is_debug)'=='true'">true</ExcludedFromBuild></Natvis>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_cp_types.natvis"><ExcludedFromBuild Condition="'$(mk_is_debug)'=='true'">true</ExcludedFromBuild></Natvis>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_http_buffer.natvis"><ExcludedFromBuild Condition="'$(mk_is_debug)'=='true'">true</ExcludedFromBuild></Natvis>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_http_client_response.natvis"><ExcludedFromBuild Condition="'$(mk_is_debug)'=='true'">true</ExcludedFromBuild></Natvis>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_iip_time.natvis"><ExcludedFromBuild Condition="'$(mk_is_debug)'=='true'">true</ExcludedFromBuild></Natvis>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_lib_net.natvis"><ExcludedFromBuild Condition="'$(mk_is_debug)'=='true'">true</ExcludedFromBuild></Natvis>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_dynamic_ring.natvis"><ExcludedFromBuild Condition="'$(mk_is_debug)'=='true'">true</ExcludedFromBuild></Natvis>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_fxp_128.natvis"><ExcludedFromBuild Condition="'$(mk_is_debug)'=='true'">true</ExcludedFromBuild></Natvis>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_fxp_32.natvis"><ExcludedFromBuild Condition="'$(mk_is_debug)'=='true'">true</ExcludedFromBuild></Natvis>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_fxp_64.natvis"><ExcludedFromBuild Condition="'$(mk_is_debug)'=='true'">true</ExcludedFromBuild></Natvis>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_mallocator_lang_c23.natvis"><ExcludedFromBuild Condition="'$(mk_is_debug)'=='true'">true</ExcludedFromBuild></Natvis>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_mallocator_lang_c89.natvis"><ExcludedFromBuild Condition="'$(mk_is_debug)'=='true'">true</ExcludedFromBuild></Natvis>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_mallocator_lang_cpp.natvis"><ExcludedFromBuild Condition="'$(mk_is_debug)'=='true'">true</ExcludedFromBuild></Natvis>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_mallocator_windows.natvis"><ExcludedFromBuild Condition="'$(mk_is_debug)'=='true'">true</ExcludedFromBuild></Natvis>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_stopwatch.natvis"><ExcludedFromBuild Condition="'$(mk_is_debug)'=='true'">true</ExcludedFromBuild></Natvis>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_stopwatch_nt.natvis"><ExcludedFromBuild Condition="'$(mk_is_debug)'=='true'">true</ExcludedFromBuild></Natvis>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_stopwatch_qpc.natvis"><ExcludedFromBuild Condition="'$(mk_is_debug)'=='true'">true</ExcludedFromBuild></Natvis>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_time.natvis"><ExcludedFromBuild Condition="'$(mk_is_debug)'=='true'">true</ExcludedFromBuild></Natvis>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_sl_vector.natvis"><ExcludedFromBuild Condition="'$(mk_is_debug)'=='true'">true</ExcludedFromBuild></Natvis>
+		<Natvis Include="$(MSBuildThisFileDirectory)..\..\..\src\mk_win.natvis"><ExcludedFromBuild Condition="'$(mk_is_debug)'=='true'">true</ExcludedFromBuild></Natvis>
+	</ItemGroup>
+	<ItemDefinitionGroup>
+		<Link>
+			<AdditionalDependencies>bcrypt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+			<AdditionalDependencies>ntdll.lib;%(AdditionalDependencies)</AdditionalDependencies>
+			<AdditionalDependencies>ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+		</Link>
+	</ItemDefinitionGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
+	<ImportGroup Label="ExtensionTargets">
+		<Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets"/>
+	</ImportGroup>
+</Project>
