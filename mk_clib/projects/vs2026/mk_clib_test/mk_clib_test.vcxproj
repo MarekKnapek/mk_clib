@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup Label="ProjectConfigurations">
+		<ProjectConfiguration Include="MSVC-Debug-P|Win32"><Configuration>MSVC-Debug-P</Configuration><Platform>Win32</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="MSVC-Release-P|Win32"><Configuration>MSVC-Release-P</Configuration><Platform>Win32</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="MSVC-Debug-P|x64"><Configuration>MSVC-Debug-P</Configuration><Platform>x64</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="MSVC-Release-P|x64"><Configuration>MSVC-Release-P</Configuration><Platform>x64</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="MSVC-Debug-P|ARM"><Configuration>MSVC-Debug-P</Configuration><Platform>ARM</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="MSVC-Release-P|ARM"><Configuration>MSVC-Release-P</Configuration><Platform>ARM</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="MSVC-Debug-P|ARM64"><Configuration>MSVC-Debug-P</Configuration><Platform>ARM64</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="MSVC-Release-P|ARM64"><Configuration>MSVC-Release-P</Configuration><Platform>ARM64</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="MSVC-Debug-P|ARM64EC"><Configuration>MSVC-Debug-P</Configuration><Platform>ARM64EC</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="MSVC-Release-P|ARM64EC"><Configuration>MSVC-Release-P</Configuration><Platform>ARM64EC</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="Clang-Debug-P|Win32"><Configuration>Clang-Debug-P</Configuration><Platform>Win32</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="Clang-Release-P|Win32"><Configuration>Clang-Release-P</Configuration><Platform>Win32</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="Clang-Debug-P|x64"><Configuration>Clang-Debug-P</Configuration><Platform>x64</Platform></ProjectConfiguration>
+		<ProjectConfiguration Include="Clang-Release-P|x64"><Configuration>Clang-Release-P</Configuration><Platform>x64</Platform></ProjectConfiguration>
+	</ItemGroup>
+	<PropertyGroup Label="Globals">
+		<Keyword>Win32Proj</Keyword>
+		<ProjectGuid>{2aeef188-955a-4415-b15e-7d7e480d6d41}</ProjectGuid>
+		<RootNamespace>mk_clib_test</RootNamespace>
+		<TargetFrameworkVersion></TargetFrameworkVersion>
+		<VCProjectVersion>18.0</VCProjectVersion>
+		<WindowsTargetPlatformMinVersion>7.0</WindowsTargetPlatformMinVersion>
+		<WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+	</PropertyGroup>
+	<ImportGroup Label="PropertySheets"><Import Project="$(MSBuildThisFileDirectory)..\mk_clib_slib\a.props"/></ImportGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
+	<ImportGroup Label="PropertySheets"><Import Project="$(MSBuildThisFileDirectory)..\mk_clib_slib\b.props"/></ImportGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.props"/>
+	<ImportGroup Label="PropertySheets"><Import Project="$(MSBuildThisFileDirectory)..\mk_clib_slib\c.props"/></ImportGroup>
+	<ItemGroup>
+		<ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\app\test.c"/>
+	</ItemGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
+	<ImportGroup Label="ExtensionTargets">
+		<Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets"/>
+	</ImportGroup>
+</Project>
