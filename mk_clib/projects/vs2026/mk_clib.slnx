@@ -10,66 +10,77 @@
 		<Platform Project="Win32"/>
 	</Project>
 	<Project Path="mk_clib_slib/mk_clib_slib.vcxproj" Id="57a9987d-aa37-4864-9e5c-43b313f158cb">
+		<BuildDependency Project="mk_clib_m4/mk_clib_m4.vcxproj"/>
 		<BuildType Solution="MSVC-Debug-S|*" Project="MSVC-Debug-P"/>
 		<BuildType Solution="MSVC-Release-S|*" Project="MSVC-Release-P"/>
 		<Platform Solution="*|x86-32bit-S" Project="Win32"/>
 		<Platform Solution="*|x86-64bit-S" Project="x64"/>
 	</Project>
 	<Project Path="mk_clib_info/mk_clib_info.vcxproj" Id="628f95d8-f874-4c60-8a39-32e56ba16c1c">
+		<BuildDependency Project="mk_clib_slib/mk_clib_slib.vcxproj"/>
 		<BuildType Solution="MSVC-Debug-S|*" Project="MSVC-Debug-P"/>
 		<BuildType Solution="MSVC-Release-S|*" Project="MSVC-Release-P"/>
 		<Platform Solution="*|x86-32bit-S" Project="Win32"/>
 		<Platform Solution="*|x86-64bit-S" Project="x64"/>
 	</Project>
 	<Project Path="mk_clib_test/mk_clib_test.vcxproj" Id="2aeef188-955a-4415-b15e-7d7e480d6d41">
+		<BuildDependency Project="mk_clib_slib/mk_clib_slib.vcxproj"/>
 		<BuildType Solution="MSVC-Debug-S|*" Project="MSVC-Debug-P"/>
 		<BuildType Solution="MSVC-Release-S|*" Project="MSVC-Release-P"/>
 		<Platform Solution="*|x86-32bit-S" Project="Win32"/>
 		<Platform Solution="*|x86-64bit-S" Project="x64"/>
 	</Project>
 	<Project Path="mk_clib_fuzz/mk_clib_fuzz.vcxproj" Id="0f467b71-3819-4e3e-9ffb-4a8640d624fb">
+		<BuildDependency Project="mk_clib_slib/mk_clib_slib.vcxproj"/>
 		<BuildType Solution="MSVC-Debug-S|*" Project="MSVC-Debug-P"/>
 		<BuildType Solution="MSVC-Release-S|*" Project="MSVC-Release-P"/>
 		<Platform Solution="*|x86-32bit-S" Project="Win32"/>
 		<Platform Solution="*|x86-64bit-S" Project="x64"/>
 	</Project>
 	<Project Path="mk_clib_hasher/mk_clib_hasher.vcxproj" Id="be019713-2723-4fe7-befb-327585dd034d">
+		<BuildDependency Project="mk_clib_slib/mk_clib_slib.vcxproj"/>
 		<BuildType Solution="MSVC-Debug-S|*" Project="MSVC-Debug-P"/>
 		<BuildType Solution="MSVC-Release-S|*" Project="MSVC-Release-P"/>
 		<Platform Solution="*|x86-32bit-S" Project="Win32"/>
 		<Platform Solution="*|x86-64bit-S" Project="x64"/>
 	</Project>
 	<Project Path="mk_clib_cryptor/mk_clib_cryptor.vcxproj" Id="a17227d5-d70e-4387-8a9f-f364b65088a6">
+		<BuildDependency Project="mk_clib_slib/mk_clib_slib.vcxproj"/>
 		<BuildType Solution="MSVC-Debug-S|*" Project="MSVC-Debug-P"/>
 		<BuildType Solution="MSVC-Release-S|*" Project="MSVC-Release-P"/>
 		<Platform Solution="*|x86-32bit-S" Project="Win32"/>
 		<Platform Solution="*|x86-64bit-S" Project="x64"/>
 	</Project>
 	<Project Path="mk_clib_order/mk_clib_order.vcxproj" Id="717e0793-118a-475b-bafb-4a8ae06c24d7">
+		<BuildDependency Project="mk_clib_slib/mk_clib_slib.vcxproj"/>
 		<BuildType Solution="MSVC-Debug-S|*" Project="MSVC-Debug-P"/>
 		<BuildType Solution="MSVC-Release-S|*" Project="MSVC-Release-P"/>
 		<Platform Solution="*|x86-32bit-S" Project="Win32"/>
 		<Platform Solution="*|x86-64bit-S" Project="x64"/>
 	</Project>
 	<Project Path="mk_clib_forwarder_tcp/mk_clib_forwarder_tcp.vcxproj" Id="6b61a61f-9d20-4cb2-b09e-a0618c0f5059">
+		<BuildDependency Project="mk_clib_slib/mk_clib_slib.vcxproj"/>
 		<BuildType Solution="MSVC-Debug-S|*" Project="MSVC-Debug-P"/>
 		<BuildType Solution="MSVC-Release-S|*" Project="MSVC-Release-P"/>
 		<Platform Solution="*|x86-32bit-S" Project="Win32"/>
 		<Platform Solution="*|x86-64bit-S" Project="x64"/>
 	</Project>
 	<Project Path="mk_clib_i2cp/mk_clib_i2cp.vcxproj" Id="4303e967-9739-4a87-bcd9-863ee765cf20">
+		<BuildDependency Project="mk_clib_slib/mk_clib_slib.vcxproj"/>
 		<BuildType Solution="MSVC-Debug-S|*" Project="MSVC-Debug-P"/>
 		<BuildType Solution="MSVC-Release-S|*" Project="MSVC-Release-P"/>
 		<Platform Solution="*|x86-32bit-S" Project="Win32"/>
 		<Platform Solution="*|x86-64bit-S" Project="x64"/>
 	</Project>
 	<Project Path="mk_clib_iip/mk_clib_iip.vcxproj" Id="527a6bfd-92d3-4fbd-9d8f-3e43e3ca1cd3">
+		<BuildDependency Project="mk_clib_slib/mk_clib_slib.vcxproj"/>
 		<BuildType Solution="MSVC-Debug-S|*" Project="MSVC-Debug-P"/>
 		<BuildType Solution="MSVC-Release-S|*" Project="MSVC-Release-P"/>
 		<Platform Solution="*|x86-32bit-S" Project="Win32"/>
 		<Platform Solution="*|x86-64bit-S" Project="x64"/>
 	</Project>
 	<Project Path="mk_clib_hosts/mk_clib_hosts.vcxproj" Id="7f920695-306e-484b-8919-a9693c2b28e3">
+		<BuildDependency Project="mk_clib_slib/mk_clib_slib.vcxproj"/>
 		<BuildType Solution="MSVC-Debug-S|*" Project="MSVC-Debug-P"/>
 		<BuildType Solution="MSVC-Release-S|*" Project="MSVC-Release-P"/>
 		<Platform Solution="*|x86-32bit-S" Project="Win32"/>
