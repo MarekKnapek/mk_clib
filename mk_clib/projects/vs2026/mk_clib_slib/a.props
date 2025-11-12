@@ -16,27 +16,27 @@
 		<mk_is_arm Condition="'$(Platform)'=='ARM64EC'">true</mk_is_arm>
 		<mk_is_arm Condition="'$(Platform)'=='Win32'">false</mk_is_arm>
 		<mk_is_arm Condition="'$(Platform)'=='x64'">false</mk_is_arm>
-		<mk_is_clang Condition="'$(Configuration)'=='DebugMSVC'">false</mk_is_clang>
-		<mk_is_clang Condition="'$(Configuration)'=='DebugClang'">true</mk_is_clang>
-		<mk_is_clang Condition="'$(Configuration)'=='ReleaseMSVC'">false</mk_is_clang>
-		<mk_is_clang Condition="'$(Configuration)'=='ReleaseClang'">true</mk_is_clang>
-		<mk_is_debug Condition="'$(Configuration)'=='DebugMSVC'">true</mk_is_debug>
-		<mk_is_debug Condition="'$(Configuration)'=='DebugClang'">true</mk_is_debug>
-		<mk_is_debug Condition="'$(Configuration)'=='ReleaseMSVC'">false</mk_is_debug>
-		<mk_is_debug Condition="'$(Configuration)'=='ReleaseClang'">false</mk_is_debug>
+		<mk_is_clang Condition="'$(Configuration)'=='MSVC-Debug-P'">false</mk_is_clang>
+		<mk_is_clang Condition="'$(Configuration)'=='Clang-Debug-P'">true</mk_is_clang>
+		<mk_is_clang Condition="'$(Configuration)'=='MSVC-Release-P'">false</mk_is_clang>
+		<mk_is_clang Condition="'$(Configuration)'=='Clang-Release-P'">true</mk_is_clang>
+		<mk_is_debug Condition="'$(Configuration)'=='MSVC-Debug-P'">true</mk_is_debug>
+		<mk_is_debug Condition="'$(Configuration)'=='Clang-Debug-P'">true</mk_is_debug>
+		<mk_is_debug Condition="'$(Configuration)'=='MSVC-Release-P'">false</mk_is_debug>
+		<mk_is_debug Condition="'$(Configuration)'=='Clang-Release-P'">false</mk_is_debug>
 		<mk_is_intel Condition="'$(Platform)'=='ARM'">false</mk_is_intel>
 		<mk_is_intel Condition="'$(Platform)'=='ARM64'">false</mk_is_intel>
 		<mk_is_intel Condition="'$(Platform)'=='ARM64EC'">false</mk_is_intel>
 		<mk_is_intel Condition="'$(Platform)'=='Win32'">true</mk_is_intel>
 		<mk_is_intel Condition="'$(Platform)'=='x64'">true</mk_is_intel>
-		<mk_is_msvc Condition="'$(Configuration)'=='DebugMSVC'">true</mk_is_msvc>
-		<mk_is_msvc Condition="'$(Configuration)'=='DebugClang'">false</mk_is_msvc>
-		<mk_is_msvc Condition="'$(Configuration)'=='ReleaseMSVC'">true</mk_is_msvc>
-		<mk_is_msvc Condition="'$(Configuration)'=='ReleaseClang'">false</mk_is_msvc>
-		<mk_is_release Condition="'$(Configuration)'=='DebugMSVC'">false</mk_is_release>
-		<mk_is_release Condition="'$(Configuration)'=='DebugClang'">false</mk_is_release>
-		<mk_is_release Condition="'$(Configuration)'=='ReleaseMSVC'">true</mk_is_release>
-		<mk_is_release Condition="'$(Configuration)'=='ReleaseClang'">true</mk_is_release>
+		<mk_is_msvc Condition="'$(Configuration)'=='MSVC-Debug-P'">true</mk_is_msvc>
+		<mk_is_msvc Condition="'$(Configuration)'=='Clang-Debug-P'">false</mk_is_msvc>
+		<mk_is_msvc Condition="'$(Configuration)'=='MSVC-Release-P'">true</mk_is_msvc>
+		<mk_is_msvc Condition="'$(Configuration)'=='Clang-Release-P'">false</mk_is_msvc>
+		<mk_is_release Condition="'$(Configuration)'=='MSVC-Debug-P'">false</mk_is_release>
+		<mk_is_release Condition="'$(Configuration)'=='Clang-Debug-P'">false</mk_is_release>
+		<mk_is_release Condition="'$(Configuration)'=='MSVC-Release-P'">true</mk_is_release>
+		<mk_is_release Condition="'$(Configuration)'=='Clang-Release-P'">true</mk_is_release>
 	</PropertyGroup>
 	<PropertyGroup>
 		<mk_project>$(RootNamespace)</mk_project>

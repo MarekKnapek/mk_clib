@@ -15,15 +15,6 @@
 	<ImportGroup Label="PropertySheets"><Import Project="..\mk_clib_slib\b.props"/></ImportGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.props"/>
 	<ImportGroup Label="PropertySheets"><Import Project="..\mk_clib_slib\c.props"/></ImportGroup>
-	<ItemDefinitionGroup>
-		<CustomBuild>
-			<FileType>Document</FileType>
-			<Command>cmd /c "$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_tool_m4.bat" %(Identity)</Command>
-			<Message>Building m4 %(Filename)%(Extension)</Message>
-			<Outputs>..\..\..\src\%(Filename)</Outputs>
-			<BuildInParallel>true</BuildInParallel>
-		</CustomBuild>
-	</ItemDefinitionGroup>
 	<ItemGroup>
 		<CustomBuild Include="..\..\..\src\mk_lang_alg_iota_inl_defd.h.m4"/>
 		<CustomBuild Include="..\..\..\src\mk_lang_alg_iota_inl_defu.h.m4"/>

@@ -260,7 +260,7 @@
 	</PropertyGroup>
 	<ItemDefinitionGroup>
 		<Link>
-			<GenerateDebugInformation Condition="'$(mk_is_debug)'=='true'">DebugFastLink</GenerateDebugInformation>
+			<GenerateDebugInformation Condition="'$(mk_is_debug)'=='true'">DebugFull</GenerateDebugInformation>
 			<GenerateDebugInformation Condition="'$(mk_is_release)'=='true'">false</GenerateDebugInformation>
 			<ProgramDatabaseFile>$(OutDir)$(TargetName).pdb</ProgramDatabaseFile>
 			<StripPrivateSymbols></StripPrivateSymbols>
@@ -308,6 +308,15 @@
 			<TypeLibraryFile></TypeLibraryFile>
 			<TypeLibraryResourceID>1</TypeLibraryResourceID>
 		</Link>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup>
+		<CustomBuild>
+			<FileType>Document</FileType>
+			<Command>cmd /c "$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_tool_m4.bat" %(Identity)</Command>
+			<Message>Building m4 %(Filename)%(Extension)</Message>
+			<Outputs>..\..\..\src\%(Filename)</Outputs>
+			<BuildInParallel>true</BuildInParallel>
+		</CustomBuild>
 	</ItemDefinitionGroup>
 
 
