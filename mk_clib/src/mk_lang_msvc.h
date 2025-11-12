@@ -11,6 +11,9 @@
 #endif
 
 
+#define mk_lang_msvc_ver_2022_18_0_0 1950l
+
+#define mk_lang_msvc_ver_2022_17_14_20 1944l
 #define mk_lang_msvc_ver_2022_17_14_19 1944l
 #define mk_lang_msvc_ver_2022_17_14_18 1944l
 #define mk_lang_msvc_ver_2022_17_14_17 1944l
@@ -123,6 +126,9 @@
 #define mk_lang_msvc_ver_6         1200l
 
 
+#define mk_lang_msvc_full_ver_2022_18_0_0 195035717l
+
+#define mk_lang_msvc_full_ver_2022_17_14_20 194435220l
 #define mk_lang_msvc_full_ver_2022_17_14_19 194435219l
 #define mk_lang_msvc_full_ver_2022_17_14_18 194435219l
 #define mk_lang_msvc_full_ver_2022_17_14_17 194435217l
