@@ -1,0 +1,12 @@
+<Solution>
+	<Configurations>
+		<BuildType Name="MSVC-Debug-S"/>
+		<BuildType Name="MSVC-Release-S"/>
+		<Platform Name="x86-32bit-S"/>
+		<Platform Name="x86-64bit-S"/>
+	</Configurations>
+	<Project Path="mk_clib_m4/mk_clib_m4.vcxproj" Id="8286250d-5be4-4739-befc-05c1fef305be">
+		<BuildType Project="OnlyConfigP"/>
+		<Platform Project="Win32"/>
+	</Project>
+</Solution>

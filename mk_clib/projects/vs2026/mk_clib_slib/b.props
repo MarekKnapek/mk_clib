@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup Label="Configuration">
+		<CharacterSet>Unicode</CharacterSet>
+		<CLRSupport>false</CLRSupport>
+		<ConfigurationType>Application</ConfigurationType>
+		<ConfigurationType Condition="'$(RootNamespace)'=='mk_clib_m4'">Utility</ConfigurationType>
+		<ConfigurationType Condition="'$(RootNamespace)'=='mk_clib_slib'">StaticLibrary</ConfigurationType>
+		<EnableASAN Condition="'$(mk_is_asan)'=='true'">true</EnableASAN>
+		<EnableASAN Condition="'$(mk_is_asan)'!='true'">false</EnableASAN>
+		<EnableFuzzer Condition="'$(mk_is_fuzzer)'=='true'">true</EnableFuzzer>
+		<EnableFuzzer Condition="'$(mk_is_fuzzer)'!='true'">false</EnableFuzzer>
+		<EnableUnitySupport>false</EnableUnitySupport>
+		<PlatformToolset>v145</PlatformToolset>
+		<PreferredToolArchitecture>x64</PreferredToolArchitecture>
+		<UseDebugLibraries Condition="'$(mk_is_debug)'=='true'">true</UseDebugLibraries>
+		<UseDebugLibraries Condition="'$(mk_is_release)'=='true'">false</UseDebugLibraries>
+		<UseOfMfc>false</UseOfMfc>
+		<VCToolsVersion></VCToolsVersion>
+	</PropertyGroup>
+</Project>
