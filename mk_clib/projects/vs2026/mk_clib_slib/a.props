@@ -48,17 +48,19 @@
 		<mk_is_fuzzer Condition="!('$(mk_is_debug)'=='true' Or '$(mk_project)'=='mk_clib_fuzz')">false</mk_is_fuzzer>
 	</PropertyGroup>
 	<PropertyGroup>
-		<!--<ExtensionsToDeleteOnClean>*.cdf;*.cache;*.obj;*.obj.enc;*.ilk;*.ipdb;*.iobj;*.resources;*.tlb;*.tli;*.tlh;*.tmp;*.rsp;*.pgc;*.pgd;*.meta;*.tlog;*.manifest;*.res;*.pch;*.exp;*.idb;*.rep;*.xdc;*.pdb;*_manifest.rc;*.bsc;*.sbr;*.xml;*.metagen;*.bi</ExtensionsToDeleteOnClean>-->
+		<OutDir>$(SolutionDir)build\out\$(Platform)-$(Configuration)\</OutDir>
+		<IntDir>$(SolutionDir)build\int\$(RootNamespace)-$(Platform)-$(Configuration)\</IntDir>
+		<TargetName>$(RootNamespace)</TargetName>
 		<!--<TargetExt>.exe</TargetExt>-->
+		<!--<ExtensionsToDeleteOnClean>*.cdf;*.cache;*.obj;*.obj.enc;*.ilk;*.ipdb;*.iobj;*.resources;*.tlb;*.tli;*.tlh;*.tmp;*.rsp;*.pgc;*.pgd;*.meta;*.tlog;*.manifest;*.res;*.pch;*.exp;*.idb;*.rep;*.xdc;*.pdb;*_manifest.rc;*.bsc;*.sbr;*.xml;*.metagen;*.bi</ExtensionsToDeleteOnClean>-->
+	</PropertyGroup>
+	<PropertyGroup>
 		<CopyCppRuntimeToOutputDir>false</CopyCppRuntimeToOutputDir>
 		<CopyLocalDebugSymbols>false</CopyLocalDebugSymbols>
 		<CopyLocalDeploymentContent>false</CopyLocalDeploymentContent>
 		<CopyLocalProjectReference>false</CopyLocalProjectReference>
 		<EnableManagedIncrementalBuild>false</EnableManagedIncrementalBuild>
-		<IntDir>$(SolutionDir)build\int\$(RootNamespace)-$(Platform)-$(Configuration)\</IntDir>
 		<ManagedAssembly>false</ManagedAssembly>
-		<OutDir>$(SolutionDir)build\out\$(Platform)\$(Configuration)\</OutDir>
-		<TargetName>$(RootNamespace)</TargetName>
 		<UseStructuredOutput>true</UseStructuredOutput>
 	</PropertyGroup>
 </Project>

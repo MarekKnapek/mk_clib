@@ -79,7 +79,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 	mk_lang_assert(id >= 0);
 	mk_lang_assert(id < mk_lib_net_redirector_iop_target_data_id_e_dummy_end);
 
-	target->m_id = id;
+	target->m_id = ((mk_lang_types_uchar_t)(id));
 	return 0;
 }
 
@@ -696,7 +696,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 	err = mk_lib_net_socket_listen(&listener->m_socket); mk_lang_check_rereturn(err);
 	listener->m_fn_accept_ex = mk_lang_null;
 	listener->m_fn_get_accept_ex_sock_addrs = mk_lang_null;
-	err = mk_lib_net_redirector_iop_target_data_prrw_construct(&listener->m_iop_target, mk_lib_net_forwarder_iop_target_data_id_e_listener); mk_lang_check_rereturn(err);
+	err = mk_lib_net_redirector_iop_target_data_prrw_construct(&listener->m_iop_target, mk_lib_net_redirector_iop_target_data_id_e_listener); mk_lang_check_rereturn(err);
 	err = mk_lib_net_redirector_forwarders_rw_construct(&listener->m_forwarders); mk_lang_check_rereturn(err);
 	err = mk_lib_net_ioctl_request_construct(&listener->m_fn_request_accept_ex               , &listener->m_socket, ((mk_lang_types_uint_t)(mk_win_dll_ws2_ioctl_control_code_e_get_extension_function_pointer)), &mk_lib_net_redirector_k_fn_guid_accept_ex               .m_data.m_uint8s[0], mk_lang_countof(mk_lib_net_redirector_k_fn_guid_accept_ex               .m_data.m_uchars), ((mk_sl_cui_uint8_pt)(&listener->m_fn_accept_ex               )), sizeof(listener->m_fn_accept_ex               )); mk_lang_check_rereturn(err);
 	err = mk_lib_net_ioctl_request_construct(&listener->m_fn_request_get_accept_ex_sock_addrs, &listener->m_socket, ((mk_lang_types_uint_t)(mk_win_dll_ws2_ioctl_control_code_e_get_extension_function_pointer)), &mk_lib_net_redirector_k_fn_guid_get_accept_ex_sock_addrs.m_data.m_uint8s[0], mk_lang_countof(mk_lib_net_redirector_k_fn_guid_get_accept_ex_sock_addrs.m_data.m_uchars), ((mk_sl_cui_uint8_pt)(&listener->m_fn_get_accept_ex_sock_addrs)), sizeof(listener->m_fn_get_accept_ex_sock_addrs)); mk_lang_check_rereturn(err);

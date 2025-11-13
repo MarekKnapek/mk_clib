@@ -129,6 +129,7 @@ enum mk_win_dll_advapi_right_standard_e
 typedef enum mk_win_dll_advapi_right_standard_e mk_win_dll_advapi_right_standard_t;
 
 #include "mk_lang_warning_gcc_push_enumenator.h"
+#include "mk_lang_warning_msvc_push_c4865.h"
 enum mk_win_dll_advapi_right_generic_e
 {
 	mk_win_dll_advapi_right_generic_e_all     = 0x10000000ul,
@@ -138,6 +139,7 @@ enum mk_win_dll_advapi_right_generic_e
 	mk_win_dll_advapi_right_generic_e_dummy_end = 0
 };
 typedef enum mk_win_dll_advapi_right_generic_e mk_win_dll_advapi_right_generic_t;
+#include "mk_lang_warning_msvc_pop.h"
 #include "mk_lang_warning_gcc_pop.h"
 
 

@@ -22,7 +22,6 @@
 			<SupportJustMyCode Condition="'$(mk_is_debug)'=='true'">true</SupportJustMyCode>
 			<SupportJustMyCode Condition="'$(mk_is_release)'=='true'">false</SupportJustMyCode>
 			<UseDynamicDebugging Condition="'$(mk_is_debug)'=='true'">false</UseDynamicDebugging>
-			<UseDynamicDebugging Condition="'$(mk_is_debug)'=='true'">false</UseDynamicDebugging>
 			<UseDynamicDebugging Condition="'$(mk_is_release)'=='true'">false</UseDynamicDebugging>
 			<CompileAsManaged>false</CompileAsManaged>
 			<CompileAsWinRT>false</CompileAsWinRT>
@@ -39,18 +38,18 @@
 	<ItemDefinitionGroup>
 		<ClCompile>
 			<Optimization Condition="'$(mk_is_debug)'=='true'">Disabled</Optimization>
-			<InlineFunctionExpansion Condition="'$(mk_is_debug)'=='true'">Disabled</InlineFunctionExpansion>
-			<IntrinsicFunctions Condition="'$(mk_is_debug)'=='true'">false</IntrinsicFunctions>
-			<FavorSizeOrSpeed Condition="'$(mk_is_debug)'=='true'">Neither</FavorSizeOrSpeed>
-			<OmitFramePointers Condition="'$(mk_is_debug)'=='true'">false</OmitFramePointers>
-			<EnableFiberSafeOptimizations Condition="'$(mk_is_debug)'=='true'">false</EnableFiberSafeOptimizations>
-			<WholeProgramOptimization Condition="'$(mk_is_debug)'=='true'">false</WholeProgramOptimization>
 			<Optimization Condition="'$(mk_is_release)'=='true'">MaxSpeed</Optimization>
+			<InlineFunctionExpansion Condition="'$(mk_is_debug)'=='true'">Disabled</InlineFunctionExpansion>
 			<InlineFunctionExpansion Condition="'$(mk_is_release)'=='true'">AnySuitable</InlineFunctionExpansion>
+			<IntrinsicFunctions Condition="'$(mk_is_debug)'=='true'">false</IntrinsicFunctions>
 			<IntrinsicFunctions Condition="'$(mk_is_release)'=='true'">true</IntrinsicFunctions>
+			<FavorSizeOrSpeed Condition="'$(mk_is_debug)'=='true'">Neither</FavorSizeOrSpeed>
 			<FavorSizeOrSpeed Condition="'$(mk_is_release)'=='true'">Speed</FavorSizeOrSpeed>
+			<OmitFramePointers Condition="'$(mk_is_debug)'=='true'">false</OmitFramePointers>
 			<OmitFramePointers Condition="'$(mk_is_release)'=='true'">true</OmitFramePointers>
+			<EnableFiberSafeOptimizations Condition="'$(mk_is_debug)'=='true'">false</EnableFiberSafeOptimizations>
 			<EnableFiberSafeOptimizations Condition="'$(mk_is_release)'=='true'">true</EnableFiberSafeOptimizations>
+			<WholeProgramOptimization Condition="'$(mk_is_debug)'=='true'">false</WholeProgramOptimization>
 			<WholeProgramOptimization Condition="'$(mk_is_release)'=='true'">true</WholeProgramOptimization>
 		</ClCompile>
 	</ItemDefinitionGroup>
@@ -131,7 +130,6 @@
 			<LanguageStandard_C>stdc17</LanguageStandard_C>
 			<ConformanceMode>true</ConformanceMode>
 			<EnableModules>false</EnableModules>
-			<BuildStlModules>false</BuildStlModules>
 		</ClCompile>
 	</ItemDefinitionGroup>
 	<ItemDefinitionGroup>
@@ -172,161 +170,172 @@
 			<AnalyzeExternalRuleset>AllRules.ruleset</AnalyzeExternalRuleset>
 		</ClCompile>
 	</ItemDefinitionGroup>
-	<ItemDefinitionGroup>
-		<ClCompile>
-			<CallingConvention>Cdecl</CallingConvention>
-			<CompileAs Condition="'$(mk_project)'=='mk_clib_slib'">Default</CompileAs>
-			<CompileAs Condition="'$(mk_project)'!='mk_clib_slib'">CompileAsCpp</CompileAs>
-			<DisableSpecificWarnings>4464;%(DisableSpecificWarnings)</DisableSpecificWarnings><!-- warning C4464: relative include path contains '..' -->
-			<DisableSpecificWarnings>4514;%(DisableSpecificWarnings)</DisableSpecificWarnings><!-- warning C4514: 'xxx': unreferenced inline function has been removed -->
-			<DisableSpecificWarnings>4557;%(DisableSpecificWarnings)</DisableSpecificWarnings><!-- warning C4557: '__assume' contains effect '=' -->
-			<DisableSpecificWarnings>4577;%(DisableSpecificWarnings)</DisableSpecificWarnings><!-- warning C4577: 'noexcept' used with no exception handling mode specified; termination on exception is not guaranteed. Specify /EHsc -->
-			<DisableSpecificWarnings>4710;%(DisableSpecificWarnings)</DisableSpecificWarnings><!-- warning C4710: 'xxx': function not inlined -->
-			<DisableSpecificWarnings>4711;%(DisableSpecificWarnings)</DisableSpecificWarnings><!-- warning C4711: function 'xxx' selected for automatic inline expansion -->
-			<DisableSpecificWarnings>5045;%(DisableSpecificWarnings)</DisableSpecificWarnings><!-- warning C5045: Compiler will insert Spectre mitigation for memory load if /Qspectre switch specified -->
-			<DisableSpecificWarnings>5072;%(DisableSpecificWarnings)</DisableSpecificWarnings><!-- warning C5072: ASAN enabled without debug information emission. Enable debug info for better ASAN error reporting -->
-			<DisableSpecificWarnings>5287;%(DisableSpecificWarnings)</DisableSpecificWarnings><!-- warning C5287: operands are different enum types 'xxx' and 'xxx'; use an explicit cast to silence this warning -->
-			<DisableSpecificWarnings Condition="'$(mk_is_release)'=='true'">4127;%(DisableSpecificWarnings)</DisableSpecificWarnings><!-- warning C4127: conditional expression is constant -->
-			<ForcedIncludeFiles></ForcedIncludeFiles>
-			<ForcedUsingFiles></ForcedUsingFiles>
-			<ShowIncludes>false</ShowIncludes>
-			<UseFullPaths>true</UseFullPaths>
-			<OmitDefaultLibName>false</OmitDefaultLibName>
-			<ErrorReporting>None</ErrorReporting>
-			<TreatSpecificWarningsAsErrors></TreatSpecificWarningsAsErrors>
-		</ClCompile>
-	</ItemDefinitionGroup>
-	<ItemDefinitionGroup>
-		<ClCompile>
-			<AdditionalOptions Condition="'$(mk_is_entry_point)'=='true'">/Gs2097152 %(AdditionalOptions)</AdditionalOptions>
-			<AdditionalOptions>/constexpr:steps1000000000 %(AdditionalOptions)</AdditionalOptions>
-			<AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
-		</ClCompile>
-	</ItemDefinitionGroup>
-	<ItemDefinitionGroup>
-		<Link>
-			<OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-			<ShowProgress>NotSet</ShowProgress>
-			<Version></Version>
-			<IncrementalLinkDatabaseFile>$(IntDir)$(TargetName).ilk</IncrementalLinkDatabaseFile>
-			<SuppressStartupBanner>true</SuppressStartupBanner>
-			<RegisterOutput>false</RegisterOutput>
-			<PerUserRedirection>false</PerUserRedirection>
-			<AdditionalLibraryDirectories>$(OutDir)</AdditionalLibraryDirectories>
-			<LinkStatus></LinkStatus>
-			<PreventDllBinding>true</PreventDllBinding>
-			<TreatLinkerWarningAsErrors>true</TreatLinkerWarningAsErrors>
-			<ForceFileOutput></ForceFileOutput>
-			<CreateHotPatchableImage></CreateHotPatchableImage>
-			<SpecifySectionAttributes>%(SpecifySectionAttributes)</SpecifySectionAttributes>
-		</Link>
-	</ItemDefinitionGroup>
-	<PropertyGroup>
-		<LinkIncremental>false</LinkIncremental>
-		<IgnoreImportLibrary>false</IgnoreImportLibrary>
-	</PropertyGroup>
-	<ItemDefinitionGroup>
-		<ProjectReference>
-			<LinkLibraryDependencies>true</LinkLibraryDependencies>
-			<UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
-		</ProjectReference>
-	</ItemDefinitionGroup>
-	<ItemDefinitionGroup>
-		<Link>
-			<AdditionalDependencies Condition="'$(RootNamespace)'!='mk_clib_slib' And '$(mk_is_debug)'=='true'">mk_clib_slib.lib;%(AdditionalDependencies)</AdditionalDependencies>
-			<IgnoreAllDefaultLibraries Condition="'$(mk_is_entry_point)'=='false'">false</IgnoreAllDefaultLibraries>
-			<IgnoreAllDefaultLibraries Condition="'$(mk_is_entry_point)'=='true'">true</IgnoreAllDefaultLibraries>
-			<IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-			<ModuleDefinitionFile></ModuleDefinitionFile>
-			<AddModuleNamesToAssembly>%(AddModuleNamesToAssembly)</AddModuleNamesToAssembly>
-			<EmbedManagedResourceFile>%(EmbedManagedResourceFile)</EmbedManagedResourceFile>
-			<ForceSymbolReferences>%(ForceSymbolReferences)</ForceSymbolReferences>
-			<DelayLoadDLLs>%(DelayLoadDLLs)</DelayLoadDLLs>
-			<AssemblyLinkResource>%(AssemblyLinkResource)</AssemblyLinkResource>
-		</Link>
-	</ItemDefinitionGroup>
-	<ItemDefinitionGroup>
-		<Link>
-			<ManifestFile>$(IntDir)$(TargetName)$(TargetExt).intermediate.manifest</ManifestFile>
-			<AdditionalManifestDependencies>%(AdditionalManifestDependencies)</AdditionalManifestDependencies>
-			<AllowIsolation>true</AllowIsolation>
-			<EnableUAC>true</EnableUAC>
-			<UACExecutionLevel>AsInvoker</UACExecutionLevel>
-			<UACUIAccess>false</UACUIAccess>
-		</Link>
-	</ItemDefinitionGroup>
-	<PropertyGroup>
-		<GenerateManifest>true</GenerateManifest>
-	</PropertyGroup>
-	<ItemDefinitionGroup>
-		<Link>
-			<GenerateDebugInformation Condition="'$(mk_is_debug)'=='true'">DebugFull</GenerateDebugInformation>
-			<GenerateDebugInformation Condition="'$(mk_is_release)'=='true'">false</GenerateDebugInformation>
-			<ProgramDatabaseFile>$(OutDir)$(TargetName).pdb</ProgramDatabaseFile>
-			<StripPrivateSymbols></StripPrivateSymbols>
-			<GenerateMapFile>false</GenerateMapFile>
-			<MapFileName></MapFileName>
-			<MapExports>false</MapExports>
-			<AssemblyDebug>true</AssemblyDebug>
-			<UseDynamicDebugging>false</UseDynamicDebugging>
-		</Link>
-	</ItemDefinitionGroup>
-	<ItemDefinitionGroup>
-		<Link>
-			<SubSystem>Console</SubSystem>
-			<MinimumRequiredVersion></MinimumRequiredVersion>
-			<HeapReserveSize></HeapReserveSize>
-			<HeapCommitSize></HeapCommitSize>
-			<StackReserveSize Condition="'$(mk_is_debug)'=='true'">8388608</StackReserveSize>
-			<StackReserveSize Condition="'$(mk_is_release)'=='true'">1048576</StackReserveSize>
-			<StackCommitSize Condition="'$(mk_is_release)'=='true'">1048576</StackCommitSize>
-			<LargeAddressAware>true</LargeAddressAware>
-			<TerminalServerAware>true</TerminalServerAware>
-			<SwapRunFromCD>true</SwapRunFromCD>
-			<SwapRunFromNET>true</SwapRunFromNET>
-			<Driver></Driver>
-		</Link>
-	</ItemDefinitionGroup>
-	<ItemDefinitionGroup>
-		<Link>
-			<OptimizeReferences Condition="'$(mk_is_debug)'=='true'">true</OptimizeReferences>
-			<OptimizeReferences Condition="'$(mk_is_release)'=='true'">true</OptimizeReferences>
-			<EnableCOMDATFolding Condition="'$(mk_is_debug)'=='true'">true</EnableCOMDATFolding>
-			<EnableCOMDATFolding Condition="'$(mk_is_release)'=='true'">true</EnableCOMDATFolding>
-			<FunctionOrder></FunctionOrder>
-			<ProfileGuidedDatabase>$(OutDir)$(TargetName).pgd</ProfileGuidedDatabase>
-			<LinkTimeCodeGeneration Condition="'$(mk_is_debug)'=='true'">Default</LinkTimeCodeGeneration>
-			<LinkTimeCodeGeneration Condition="'$(mk_is_release)'=='true'">UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
-			<LinkTimeCodeGenerationObjectFile>$(IntDir)$(TargetName).iobj</LinkTimeCodeGenerationObjectFile>
-		</Link>
-	</ItemDefinitionGroup>
-	<ItemDefinitionGroup>
-		<Link>
-			<MidlCommandFile></MidlCommandFile>
-			<IgnoreEmbeddedIDL>false</IgnoreEmbeddedIDL>
-			<MergedIDLBaseFileName></MergedIDLBaseFileName>
-			<TypeLibraryFile></TypeLibraryFile>
-			<TypeLibraryResourceID>1</TypeLibraryResourceID>
-		</Link>
-	</ItemDefinitionGroup>
-	<ItemDefinitionGroup>
-		<CustomBuild>
-			<FileType>Document</FileType>
-			<Command>cmd /c "$(MSBuildThisFileDirectory)..\..\..\src\mk_clib_tool_m4.bat" %(Identity)</Command>
-			<Message>Building m4 %(Filename)%(Extension)</Message>
-			<Outputs>..\..\..\src\%(Filename)</Outputs>
-			<BuildInParallel>true</BuildInParallel>
-		</CustomBuild>
-	</ItemDefinitionGroup>
 
 
 
-	<ItemDefinitionGroup>
-		<Link>
-			<EntryPointSymbol Condition="'$(mk_is_entry_point)'=='true'">mk_lang_entry_point</EntryPointSymbol>
-			<ImageHasSafeExceptionHandlers Condition="'$(Configuration)|$(Platform)'=='ReleaseMSVC|Win32'">false</ImageHasSafeExceptionHandlers>
-			<AdditionalOptions>/ignore:4006 %(AdditionalOptions)</AdditionalOptions><!-- warning LNK4006: xxx already defined in xxx.obj; second definition ignored -->
-			<AdditionalOptions>/ignore:4302 %(AdditionalOptions)</AdditionalOptions><!-- warning LNK4302: please add '/DEBUG' to the link command line for better ASAN error reporting -->
-		</Link>
-	</ItemDefinitionGroup>
+
+
+
+
+
+	<!-- C/C++ / Advanced -->
+	<ItemDefinitionGroup><ClCompile><CallingConvention>Cdecl</CallingConvention></ClCompile></ItemDefinitionGroup>
+	<ItemDefinitionGroup><ClCompile><CompileAs Condition="'$(mk_project)'=='mk_clib_slib'">Default</CompileAs></ClCompile></ItemDefinitionGroup>
+	<ItemDefinitionGroup><ClCompile><CompileAs Condition="'$(mk_project)'!='mk_clib_slib'">CompileAsCpp</CompileAs></ClCompile></ItemDefinitionGroup>
+	<ItemDefinitionGroup><ClCompile><DisableSpecificWarnings>4464;%(DisableSpecificWarnings)</DisableSpecificWarnings><!-- warning C4464: relative include path contains '..' --></ClCompile></ItemDefinitionGroup>
+	<ItemDefinitionGroup><ClCompile><DisableSpecificWarnings>4514;%(DisableSpecificWarnings)</DisableSpecificWarnings><!-- warning C4514: 'xxx': unreferenced inline function has been removed --></ClCompile></ItemDefinitionGroup>
+	<ItemDefinitionGroup><ClCompile><DisableSpecificWarnings>4557;%(DisableSpecificWarnings)</DisableSpecificWarnings><!-- warning C4557: '__assume' contains effect '=' --></ClCompile></ItemDefinitionGroup>
+	<ItemDefinitionGroup><ClCompile><DisableSpecificWarnings>4577;%(DisableSpecificWarnings)</DisableSpecificWarnings><!-- warning C4577: 'noexcept' used with no exception handling mode specified; termination on exception is not guaranteed. Specify /EHsc --></ClCompile></ItemDefinitionGroup>
+	<ItemDefinitionGroup><ClCompile><DisableSpecificWarnings>4710;%(DisableSpecificWarnings)</DisableSpecificWarnings><!-- warning C4710: 'xxx': function not inlined --></ClCompile></ItemDefinitionGroup>
+	<ItemDefinitionGroup><ClCompile><DisableSpecificWarnings>4711;%(DisableSpecificWarnings)</DisableSpecificWarnings><!-- warning C4711: function 'xxx' selected for automatic inline expansion --></ClCompile></ItemDefinitionGroup>
+	<ItemDefinitionGroup><ClCompile><DisableSpecificWarnings>5045;%(DisableSpecificWarnings)</DisableSpecificWarnings><!-- warning C5045: Compiler will insert Spectre mitigation for memory load if /Qspectre switch specified --></ClCompile></ItemDefinitionGroup>
+	<ItemDefinitionGroup><ClCompile><DisableSpecificWarnings>5072;%(DisableSpecificWarnings)</DisableSpecificWarnings><!-- warning C5072: ASAN enabled without debug information emission. Enable debug info for better ASAN error reporting --></ClCompile></ItemDefinitionGroup>
+	<ItemDefinitionGroup><ClCompile><DisableSpecificWarnings>5287;%(DisableSpecificWarnings)</DisableSpecificWarnings><!-- warning C5287: operands are different enum types 'xxx' and 'xxx'; use an explicit cast to silence this warning --></ClCompile></ItemDefinitionGroup>
+	<ItemDefinitionGroup><ClCompile><DisableSpecificWarnings Condition="'$(mk_is_release)'=='true'">4127;%(DisableSpecificWarnings)</DisableSpecificWarnings><!-- warning C4127: conditional expression is constant --></ClCompile></ItemDefinitionGroup>
+	<ItemDefinitionGroup><ClCompile><ForcedIncludeFiles></ForcedIncludeFiles></ClCompile></ItemDefinitionGroup>
+	<ItemDefinitionGroup><ClCompile><ForcedUsingFiles></ForcedUsingFiles></ClCompile></ItemDefinitionGroup>
+	<ItemDefinitionGroup><ClCompile><ShowIncludes>false</ShowIncludes></ClCompile></ItemDefinitionGroup>
+	<ItemDefinitionGroup><ClCompile><UseFullPaths>true</UseFullPaths></ClCompile></ItemDefinitionGroup>
+	<ItemDefinitionGroup><ClCompile><OmitDefaultLibName>false</OmitDefaultLibName></ClCompile></ItemDefinitionGroup>
+	<ItemDefinitionGroup><ClCompile><ErrorReporting>None</ErrorReporting></ClCompile></ItemDefinitionGroup>
+	<ItemDefinitionGroup><ClCompile><TreatSpecificWarningsAsErrors></TreatSpecificWarningsAsErrors></ClCompile></ItemDefinitionGroup>
+	<!-- C/C++ / Advanced -->
+	<!-- C/C++ / Command Line -->
+	<ItemDefinitionGroup><ClCompile><AdditionalOptions>/constexpr:steps1000000000 %(AdditionalOptions)</AdditionalOptions></ClCompile></ItemDefinitionGroup>
+	<ItemDefinitionGroup><ClCompile><AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions></ClCompile></ItemDefinitionGroup>
+	<ItemDefinitionGroup><ClCompile><AdditionalOptions Condition="'$(mk_is_entry_point)'=='true'">/Gs2097152 %(AdditionalOptions)</AdditionalOptions></ClCompile></ItemDefinitionGroup>
+	<!-- C/C++ / Command Line -->
+	<!-- Linker / General -->
+	<ItemDefinitionGroup><Link><OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><ShowProgress>NotSet</ShowProgress></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><Version></Version></Link></ItemDefinitionGroup>
+	<PropertyGroup><LinkIncremental>false</LinkIncremental></PropertyGroup>
+	<ItemDefinitionGroup><Link><IncrementalLinkDatabaseFile>$(IntDir)$(TargetName).ilk</IncrementalLinkDatabaseFile></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><SuppressStartupBanner>true</SuppressStartupBanner></Link></ItemDefinitionGroup>
+	<PropertyGroup><IgnoreImportLibrary>false</IgnoreImportLibrary></PropertyGroup>
+	<ItemDefinitionGroup><Link><RegisterOutput>false</RegisterOutput></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><PerUserRedirection>false</PerUserRedirection></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><AdditionalLibraryDirectories>$(OutDir)</AdditionalLibraryDirectories></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><ProjectReference><LinkLibraryDependencies>true</LinkLibraryDependencies></ProjectReference></ItemDefinitionGroup>
+	<ItemDefinitionGroup><ProjectReference><UseLibraryDependencyInputs>false</UseLibraryDependencyInputs></ProjectReference></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><LinkStatus></LinkStatus></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><PreventDllBinding>true</PreventDllBinding></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><TreatLinkerWarningAsErrors>true</TreatLinkerWarningAsErrors></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><ForceFileOutput></ForceFileOutput></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><CreateHotPatchableImage></CreateHotPatchableImage></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><SpecifySectionAttributes>%(SpecifySectionAttributes)</SpecifySectionAttributes></Link></ItemDefinitionGroup>
+	<!-- Linker / General -->
+	<!-- Linker / Input -->
+	<ItemDefinitionGroup><Link><AdditionalDependencies Condition="'$(RootNamespace)'!='mk_clib_slib' And '$(mk_is_debug)'=='true'">mk_clib_slib.lib;%(AdditionalDependencies)</AdditionalDependencies></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><IgnoreAllDefaultLibraries Condition="'$(mk_is_entry_point)'=='false'">false</IgnoreAllDefaultLibraries></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><IgnoreAllDefaultLibraries Condition="'$(mk_is_entry_point)'=='true'">true</IgnoreAllDefaultLibraries></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><ModuleDefinitionFile></ModuleDefinitionFile></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><AddModuleNamesToAssembly>%(AddModuleNamesToAssembly)</AddModuleNamesToAssembly></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><EmbedManagedResourceFile>%(EmbedManagedResourceFile)</EmbedManagedResourceFile></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><ForceSymbolReferences>%(ForceSymbolReferences)</ForceSymbolReferences></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><DelayLoadDLLs>%(DelayLoadDLLs)</DelayLoadDLLs></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><AssemblyLinkResource>%(AssemblyLinkResource)</AssemblyLinkResource></Link></ItemDefinitionGroup>
+	<!-- Linker / Input -->
+	<!-- Linker / Manifest File -->
+	<PropertyGroup><GenerateManifest>true</GenerateManifest></PropertyGroup>
+	<ItemDefinitionGroup><Link><ManifestFile>$(IntDir)$(TargetName)$(TargetExt).intermediate.manifest</ManifestFile></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><AdditionalManifestDependencies>%(AdditionalManifestDependencies)</AdditionalManifestDependencies></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><AllowIsolation>true</AllowIsolation></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><EnableUAC>true</EnableUAC></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><UACExecutionLevel>AsInvoker</UACExecutionLevel></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><UACUIAccess>false</UACUIAccess></Link></ItemDefinitionGroup>
+	<!-- Linker / Manifest File -->
+	<!-- Linker / Debugging -->
+	<ItemDefinitionGroup><Link><GenerateDebugInformation Condition="'$(mk_is_debug)'=='true'">DebugFull</GenerateDebugInformation></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><GenerateDebugInformation Condition="'$(mk_is_release)'=='true'">false</GenerateDebugInformation></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><ProgramDatabaseFile>$(OutDir)$(TargetName).pdb</ProgramDatabaseFile></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><StripPrivateSymbols></StripPrivateSymbols></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><GenerateMapFile>false</GenerateMapFile></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><MapFileName></MapFileName></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><MapExports>false</MapExports></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><AssemblyDebug Condition="'$(mk_is_debug)'=='true'">true</AssemblyDebug></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><AssemblyDebug Condition="'$(mk_is_release)'=='true'">false</AssemblyDebug></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><UseDynamicDebugging>false</UseDynamicDebugging></Link></ItemDefinitionGroup>
+	<!-- Linker / Debugging -->
+	<!-- Linker / System -->
+	<ItemDefinitionGroup><Link><SubSystem>Console</SubSystem></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><MinimumRequiredVersion></MinimumRequiredVersion></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><HeapReserveSize></HeapReserveSize></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><HeapCommitSize></HeapCommitSize></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><StackReserveSize Condition="'$(mk_is_debug)'=='true'">8388608</StackReserveSize></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><StackReserveSize Condition="'$(mk_is_release)'=='true'">1048576</StackReserveSize></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><StackCommitSize Condition="'$(mk_is_debug)'=='true'"></StackCommitSize></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><StackCommitSize Condition="'$(mk_is_release)'=='true'">1048576</StackCommitSize></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><LargeAddressAware>true</LargeAddressAware></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><TerminalServerAware>true</TerminalServerAware></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><SwapRunFromCD>true</SwapRunFromCD></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><SwapRunFromNET>true</SwapRunFromNET></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><Driver></Driver></Link></ItemDefinitionGroup>
+	<!-- Linker / System -->
+	<!-- Linker / Optimization -->
+	<ItemDefinitionGroup><Link><OptimizeReferences>true</OptimizeReferences></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><EnableCOMDATFolding>true</EnableCOMDATFolding></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><FunctionOrder></FunctionOrder></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><ProfileGuidedDatabase>$(OutDir)$(TargetName).pgd</ProfileGuidedDatabase></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><LinkTimeCodeGeneration Condition="'$(mk_is_debug)'=='true'">Default</LinkTimeCodeGeneration></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><LinkTimeCodeGeneration Condition="'$(mk_is_release)'=='true'">UseLinkTimeCodeGeneration</LinkTimeCodeGeneration></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><LinkTimeCodeGenerationObjectFile>$(IntDir)$(TargetName).iobj</LinkTimeCodeGenerationObjectFile></Link></ItemDefinitionGroup>
+	<!-- Linker / Optimization -->
+	<!-- Linker / Embedded IDL -->
+	<ItemDefinitionGroup><Link><MidlCommandFile></MidlCommandFile></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><IgnoreEmbeddedIDL>false</IgnoreEmbeddedIDL></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><MergedIDLBaseFileName></MergedIDLBaseFileName></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><TypeLibraryFile></TypeLibraryFile></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><TypeLibraryResourceID>1</TypeLibraryResourceID></Link></ItemDefinitionGroup>
+	<!-- Linker / Embedded IDL -->
+	<!-- Linker / Windows Metadata -->
+	<ItemDefinitionGroup><Link><GenerateWindowsMetadata></GenerateWindowsMetadata></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><WindowsMetadataFile></WindowsMetadataFile></Link></ItemDefinitionGroup>
+	<PropertyGroup><WindowsMetadataLinkKeyFile></WindowsMetadataLinkKeyFile></PropertyGroup>
+	<ItemDefinitionGroup><Link><WindowsMetadataKeyContainer></WindowsMetadataKeyContainer></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><WindowsMetadataLinkDelaySign></WindowsMetadataLinkDelaySign></Link></ItemDefinitionGroup>
+	<!-- Linker / Windows Metadata -->
+	<!-- Linker / Advanced -->
+	<ItemDefinitionGroup><Link><EntryPointSymbol Condition="'$(mk_is_entry_point)'=='false'"></EntryPointSymbol></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><EntryPointSymbol Condition="'$(mk_is_entry_point)'=='true'">mk_lang_entry_point</EntryPointSymbol></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><NoEntryPoint>false</NoEntryPoint></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><SetChecksum Condition="'$(mk_is_debug)'=='true'">false</SetChecksum></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><SetChecksum Condition="'$(mk_is_release)'=='true'">true</SetChecksum></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><BaseAddress></BaseAddress></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><RandomizedBaseAddress>true</RandomizedBaseAddress></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><FixedBaseAddress>false</FixedBaseAddress></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><DataExecutionPrevention>true</DataExecutionPrevention></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><TurnOffAssemblyGeneration>false</TurnOffAssemblyGeneration></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><SupportUnloadOfDelayLoadedDLL></SupportUnloadOfDelayLoadedDLL></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><SupportNobindOfDelayLoadedDLL></SupportNobindOfDelayLoadedDLL></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><ImportLibrary></ImportLibrary></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><MergeSections></MergeSections></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><TargetMachine Condition="'$(mk_is_intel)'=='true' And '$(mk_is_64bit)'=='true'">MachineX64</TargetMachine></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><TargetMachine Condition="'$(mk_is_intel)'=='true' And '$(mk_is_32bit)'=='true'">MachineX86</TargetMachine></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><Profile>false</Profile></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><CLRThreadAttribute></CLRThreadAttribute></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><CLRImageType>Default</CLRImageType></Link></ItemDefinitionGroup>
+	<PropertyGroup><LinkKeyFile></LinkKeyFile></PropertyGroup>
+	<ItemDefinitionGroup><Link><KeyContainer></KeyContainer></Link></ItemDefinitionGroup>
+	<PropertyGroup><LinkDelaySign></LinkDelaySign></PropertyGroup>
+	<ItemDefinitionGroup><Link><CLRUnmanagedCodeCheck></CLRUnmanagedCodeCheck></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><LinkErrorReporting>NoErrorReport</LinkErrorReporting></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><SectionAlignment></SectionAlignment></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><CLRSupportLastError></CLRSupportLastError></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><CETCompat></CETCompat></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><ImageHasSafeExceptionHandlers></ImageHasSafeExceptionHandlers></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><ImageHasSafeExceptionHandlers Condition="'$(mk_is_release)'=='true' And '$(mk_is_intel)'=='true' And '$(mk_is_32bit)'=='true'">false</ImageHasSafeExceptionHandlers></Link></ItemDefinitionGroup>
+	<!-- Linker / Advanced -->
+	<!-- Linker / Command Line -->
+	<ItemDefinitionGroup><Link><AdditionalOptions>/ignore:4006 %(AdditionalOptions)</AdditionalOptions><!-- warning LNK4006: xxx already defined in xxx.obj; second definition ignored --></Link></ItemDefinitionGroup>
+	<ItemDefinitionGroup><Link><AdditionalOptions>/ignore:4302 %(AdditionalOptions)</AdditionalOptions><!-- warning LNK4302: please add '/DEBUG' to the link command line for better ASAN error reporting --></Link></ItemDefinitionGroup>
+	<!-- Linker / Command Line -->
+	<!-- Custom Build Tool / General -->
+	<ItemDefinitionGroup><CustomBuild><FileType>Document</FileType></CustomBuild></ItemDefinitionGroup>
+	<ItemDefinitionGroup><CustomBuild><Command>cmd /c "..\..\..\src\mk_clib_tool_m4.bat" %(Identity)</Command></CustomBuild></ItemDefinitionGroup>
+	<ItemDefinitionGroup><CustomBuild><Message>Building m4 %(Filename)%(Extension)</Message></CustomBuild></ItemDefinitionGroup>
+	<ItemDefinitionGroup><CustomBuild><Outputs>..\..\..\src\%(Filename)</Outputs></CustomBuild></ItemDefinitionGroup>
+	<ItemDefinitionGroup><CustomBuild><BuildInParallel>true</BuildInParallel></CustomBuild></ItemDefinitionGroup>
+	<!-- Custom Build Tool / General -->
 </Project>

@@ -228,6 +228,7 @@ typedef enum mk_win_dll_ws2_sck_opt_socket_e mk_win_dll_ws2_sck_opt_socket_t;
 #define mk_win_dll_ws2_ioctl_dir_ro (0x80000000ul)
 #define mk_win_dll_ws2_ioctl_dir_rw (0xc0000000ul)
 
+#include "mk_lang_warning_msvc_push_c4865.h"
 enum mk_win_dll_ws2_ioctl_control_code_e
 {
 	mk_win_dll_ws2_ioctl_control_code_e_associate_handle                        = ((mk_win_base_dword_t)(mk_win_dll_ws2_ioctl_dir_ro | 0x08000000 |  1)),
@@ -256,6 +257,7 @@ enum mk_win_dll_ws2_ioctl_control_code_e
 	mk_win_dll_ws2_ioctl_control_code_e_dummy_end
 };
 typedef enum mk_win_dll_ws2_ioctl_control_code_e mk_win_dll_ws2_ioctl_control_code_t;
+#include "mk_lang_warning_msvc_pop.h"
 
 
 mk_win_base_make_handle(mk_win_dll_ws2_event)

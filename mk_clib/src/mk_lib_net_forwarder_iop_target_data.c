@@ -16,7 +16,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_forwarde
 	mk_lang_assert(id >= 0);
 	mk_lang_assert(id < mk_lib_net_forwarder_iop_target_data_id_e_dummy_end);
 
-	target->m_id = id;
+	target->m_id = ((mk_lang_types_uchar_t)(id));
 	return 0;
 }
 
