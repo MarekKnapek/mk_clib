@@ -32,7 +32,7 @@
 #include "mk_lang_stringify.h"
 mk_lang_jumbo mk_lang_types_void_t mk_lang_test_detail_print_impl(mk_lang_types_pchar_pct const msg_buf, mk_lang_types_sint_t const msg_len) mk_lang_noexcept;
 #define mk_lang_test_detail_lit(x) x, mk_lang_countstr(x)
-#define mk_lang_test_detail_print(x) mk_lang_test_detail_print_impl(mk_lang_test_detail_lit("test_failed--->" __FILE__ ":" mk_lang_stringify(__LINE__) "`" mk_lang_stringify(x) "`<---test_failed"))
+#define mk_lang_test_detail_print(x) mk_lang_test_detail_print_impl(mk_lang_test_detail_lit("test_failed--->" __FILE__ ":" mk_lang_stringify(__LINE__) "`" mk_lang_stringify(x) "'<---test_failed"))
 #define mk_lang_test_failed(x) ((mk_lang_types_void_t)(mk_lang_test_detail_print(x), mk_lang_debug_break(), mk_lang_crash()))
 #else
 #define mk_lang_test_failed(x) ((mk_lang_types_void_t)(mk_lang_crash()))
