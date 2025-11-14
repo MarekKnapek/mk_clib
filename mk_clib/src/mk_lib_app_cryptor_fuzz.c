@@ -85,7 +85,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_bool_t mk_lib_app_cryptor_
 	mk_lang_bui_uint_from_buis_uchar_le(&bui, &d[0]);
 	d += mk_lang_bui_uint_size_bytes_v;
 	s -= mk_lang_bui_uint_size_bytes_v;
-	cost = (bui % 1000) + 1;
+	cost = (bui & 0x0f) + 1;
 	if(!(s >= mk_lang_bui_uint_size_bytes_v))
 	{
 		return mk_lang_false;
