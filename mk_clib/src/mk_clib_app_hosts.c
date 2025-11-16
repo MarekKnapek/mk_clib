@@ -899,6 +899,21 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_t
 	return 0;
 }
 
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_rw_make_duplicates(mk_clib_app_hosts_entries_pct const entries, mk_clib_app_hosts_tree_pt const db, mk_clib_app_phosts_domains_pt const duplicates) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(entries);
+	mk_lang_assert(db);
+	mk_lang_assert(duplicates);
+
+	err = mk_clib_app_phosts_domains_rw_clear(duplicates); mk_lang_check_rereturn(err);
+	err = mk_clib_app_hosts_tree_rw_transfer(db, entries); mk_lang_check_rereturn(err);
+	err = mk_clib_app_hosts_tree_ro_walk(db, &mk_clib_app_hosts_tree_rw_callback_collect, ((mk_lang_types_uintptr_t)(duplicates))); mk_lang_check_rereturn(err);
+	err = mk_clib_app_hosts_tree_rw_sort(duplicates); mk_lang_check_rereturn(err);
+	return 0;
+}
+
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_tree_rw_write(mk_clib_app_hosts_entries_pct const entries) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
@@ -998,115 +1013,6 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_r
 
 #define write_str_lit(str_lit, tabs, new_line) err = mk_clib_app_hosts_rw_write_str_lit(&(writer), &(str_lit)[0], mk_lang_countstr((str_lit)), (tabs), (new_line)); mk_lang_check_rereturn(err)
 #define write_str_obj(str_buf, str_len, tabs, new_line) err = mk_clib_app_hosts_rw_write_str_lit(&(writer), ((mk_lang_types_pchar_pct)((str_buf))), (str_len), (tabs), (new_line)); mk_lang_check_rereturn(err)
-
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_rw_write_html_b32s(mk_clib_app_hosts_pentries_pt const pentries) mk_lang_noexcept
-{
-	#define k_b32_doctype "<!DOCTYPE html>"
-	#define k_b32_html_beg "<html>"
-	#define k_b32_html_end "</html>"
-	#define k_b32_head_beg "<head>"
-	#define k_b32_head_end "</head>"
-	#define k_b32_title "<title>hosts</title>"
-	#define k_b32_style_common "<link rel=\"stylesheet\" href=\"hosts-common.css\"/>"
-	#define k_b32_style_light "<link rel=\"stylesheet\" href=\"hosts-light.css\"/>"
-	#define k_b32_style_dark "<link rel=\"stylesheet\" href=\"hosts-dark.css\"/>"
-	#define k_b32_body_beg "<body>"
-	#define k_b32_body_end "</body>"
-	#define k_b32_back "<a href=\"..\">back</a><br/><br/>"
-	#define k_b32_table_beg "<table>"
-	#define k_b32_table_end "</table>"
-	#define k_b32_thead_beg "<thead>"
-	#define k_b32_thead_end "</thead>"
-	#define k_b32_tbody_beg "<tbody>"
-	#define k_b32_tbody_end "</tbody>"
-	#define k_b32_tr_beg "<tr>"
-	#define k_b32_tr_end "</tr>"
-	#define k_b32_td_beg "<td>"
-	#define k_b32_td_end "</td>"
-	#define k_b32_th_host "<th>host</th>"
-	#define k_b32_th_b32 "<th>b32</th>"
-	#define k_b32_a_host_open_beg "<a href=\"http://"
-	#define k_b32_a_host_open_end "/\">"
-	#define k_b32_a_host_close "</a>"
-	#define k_b32_a_b32_open_beg "<a class=\"monospace\" href=\"http://"
-	#define k_b32_a_b32_open_end ".b32.i2p/\">"
-	#define k_b32_a_b32_close ".b32.i2p</a>"
-
-	mk_lang_types_sint_t tabs;
-	mk_lang_types_sint_t err;
-	mk_sl_io_writer_file_t writer;
-	mk_lang_types_usize_t count;
-	mk_lang_types_usize_t n;
-	mk_lang_types_usize_t i;
-	mk_clib_app_hosts_entry_pcpct pentry;
-	mk_clib_app_hosts_entry_pct entry;
-	mk_sl_cui_uint8_pct str_buf;
-	mk_lang_types_sint_t str_len;
-	mk_lang_types_pchar_t b32str[mk_lang_roundup_div(mk_lib_crypto_hash_stream_sha2_256_digest_len_v * 8, 5)] mk_lang_constexpr_init;
-	mk_lang_types_sint_t len;
-
-	mk_lang_assert(pentries);
-
-	tabs = 0;
-	err = mk_clib_app_hosts_rw_sort_by_b32(pentries); mk_lang_check_rereturn(err);
-	err = mk_sl_io_writer_file_open_n(&writer, "b32s.html"); mk_lang_check_rereturn(err);
-	write_str_lit(k_b32_doctype, tabs, mk_lang_true);
-	write_str_lit(k_b32_html_beg, tabs, mk_lang_true); ++tabs;
-	write_str_lit(k_b32_head_beg, tabs, mk_lang_true); ++tabs;
-	write_str_lit(k_b32_title, tabs, mk_lang_true);
-	write_str_lit(k_b32_style_common, tabs, mk_lang_true);
-	write_str_lit(k_b32_style_light, tabs, mk_lang_true);
-	write_str_lit(k_b32_style_dark, tabs, mk_lang_true); --tabs;
-	write_str_lit(k_b32_head_end, tabs, mk_lang_true);
-	write_str_lit(k_b32_body_beg, tabs, mk_lang_true); ++tabs;
-	write_str_lit(k_b32_back, tabs, mk_lang_true);
-	write_str_lit(k_b32_table_beg, tabs, mk_lang_true); ++tabs;
-	write_str_lit(k_b32_thead_beg, tabs, mk_lang_true); ++tabs;
-	write_str_lit(k_b32_tr_beg, tabs, mk_lang_true); ++tabs;
-	write_str_lit(k_b32_th_b32, tabs, mk_lang_true); --tabs;
-	write_str_lit(k_b32_th_host, tabs, mk_lang_true);
-	write_str_lit(k_b32_tr_end, tabs, mk_lang_true); --tabs;
-	write_str_lit(k_b32_thead_end, tabs, mk_lang_true);
-	write_str_lit(k_b32_tbody_beg, tabs, mk_lang_true); ++tabs;
-	count = mk_clib_app_hosts_pentries_ro_size(pentries);
-	n = count;
-	for(i = 0; i != n; ++i)
-	{
-		pentry = mk_clib_app_hosts_pentries_ro_at(pentries, i); mk_lang_assert(pentry);
-		entry = *pentry; mk_lang_assert(entry);
-		write_str_lit(k_b32_tr_beg, tabs, mk_lang_true); ++tabs;
-		write_str_lit(k_b32_td_beg, tabs, mk_lang_false);
-		{
-			mk_lib_iip_base32_encoder_fn(&entry->m_b32.m_data.m_uint8s[0], mk_lib_crypto_hash_stream_sha2_256_digest_len_v, &b32str[0], mk_lang_countof(b32str), &len); mk_lang_check_return(len == mk_lang_countof(b32str));
-			str_buf = ((mk_sl_cui_uint8_pct)(&b32str[0]));
-			str_len = len;
-			write_str_lit(k_b32_a_b32_open_beg, 0, mk_lang_false);
-			write_str_obj(str_buf, str_len, 0, mk_lang_false);
-			write_str_lit(k_b32_a_b32_open_end, 0, mk_lang_false);
-			write_str_obj(str_buf, str_len, 0, mk_lang_false);
-			write_str_lit(k_b32_a_b32_close, 0, mk_lang_false);
-		}
-		write_str_lit(k_b32_td_end, 0, mk_lang_true);
-		write_str_lit(k_b32_td_beg, tabs, mk_lang_false);
-		{
-			str_buf = mk_clib_app_hosts_domain_ro_data(&entry->m_domain);
-			str_len = mk_clib_app_hosts_domain_ro_sise(&entry->m_domain);
-			write_str_lit(k_b32_a_host_open_beg, 0, mk_lang_false);
-			write_str_obj(str_buf, str_len, 0, mk_lang_false);
-			write_str_lit(k_b32_a_host_open_end, 0, mk_lang_false);
-			write_str_obj(str_buf, str_len, 0, mk_lang_false);
-			write_str_lit(k_b32_a_host_close, 0, mk_lang_false);
-		}
-		write_str_lit(k_b32_td_end, 0, mk_lang_true); --tabs;
-		write_str_lit(k_b32_tr_end, tabs, mk_lang_true);
-	} --tabs;
-	write_str_lit(k_b32_tbody_end, tabs, mk_lang_true); --tabs;
-	write_str_lit(k_b32_table_end, tabs, mk_lang_true); --tabs;
-	write_str_lit(k_b32_body_end, tabs, mk_lang_true); --tabs;
-	write_str_lit(k_b32_html_end, tabs, mk_lang_true);
-	err = mk_sl_io_writer_file_close(&writer); mk_lang_check_rereturn(err);
-	return 0;
-}
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_rw_write_html_hosts(mk_clib_app_hosts_pentries_pt const pentries) mk_lang_noexcept
 {
@@ -1217,17 +1123,228 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_r
 	return 0;
 }
 
-mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_rw_write_htmls(mk_clib_app_hosts_entries_pct const entries) mk_lang_noexcept
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_rw_write_html_b32s(mk_clib_app_hosts_pentries_pt const pentries) mk_lang_noexcept
+{
+	#define k_b32_doctype "<!DOCTYPE html>"
+	#define k_b32_html_beg "<html>"
+	#define k_b32_html_end "</html>"
+	#define k_b32_head_beg "<head>"
+	#define k_b32_head_end "</head>"
+	#define k_b32_title "<title>hosts</title>"
+	#define k_b32_style_common "<link rel=\"stylesheet\" href=\"hosts-common.css\"/>"
+	#define k_b32_style_light "<link rel=\"stylesheet\" href=\"hosts-light.css\"/>"
+	#define k_b32_style_dark "<link rel=\"stylesheet\" href=\"hosts-dark.css\"/>"
+	#define k_b32_body_beg "<body>"
+	#define k_b32_body_end "</body>"
+	#define k_b32_back "<a href=\"..\">back</a><br/><br/>"
+	#define k_b32_table_beg "<table>"
+	#define k_b32_table_end "</table>"
+	#define k_b32_thead_beg "<thead>"
+	#define k_b32_thead_end "</thead>"
+	#define k_b32_tbody_beg "<tbody>"
+	#define k_b32_tbody_end "</tbody>"
+	#define k_b32_tr_beg "<tr>"
+	#define k_b32_tr_end "</tr>"
+	#define k_b32_td_beg "<td>"
+	#define k_b32_td_end "</td>"
+	#define k_b32_th_host "<th>host</th>"
+	#define k_b32_th_b32 "<th>b32</th>"
+	#define k_b32_a_host_open_beg "<a href=\"http://"
+	#define k_b32_a_host_open_end "/\">"
+	#define k_b32_a_host_close "</a>"
+	#define k_b32_a_b32_open_beg "<a class=\"monospace\" href=\"http://"
+	#define k_b32_a_b32_open_end ".b32.i2p/\">"
+	#define k_b32_a_b32_close ".b32.i2p</a>"
+
+	mk_lang_types_sint_t tabs;
+	mk_lang_types_sint_t err;
+	mk_sl_io_writer_file_t writer;
+	mk_lang_types_usize_t count;
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
+	mk_clib_app_hosts_entry_pcpct pentry;
+	mk_clib_app_hosts_entry_pct entry;
+	mk_sl_cui_uint8_pct str_buf;
+	mk_lang_types_sint_t str_len;
+	mk_lang_types_pchar_t b32str[mk_lang_roundup_div(mk_lib_crypto_hash_stream_sha2_256_digest_len_v * 8, 5)] mk_lang_constexpr_init;
+	mk_lang_types_sint_t len;
+
+	mk_lang_assert(pentries);
+
+	tabs = 0;
+	err = mk_clib_app_hosts_rw_sort_by_b32(pentries); mk_lang_check_rereturn(err);
+	err = mk_sl_io_writer_file_open_n(&writer, "b32s.html"); mk_lang_check_rereturn(err);
+	write_str_lit(k_b32_doctype, tabs, mk_lang_true);
+	write_str_lit(k_b32_html_beg, tabs, mk_lang_true); ++tabs;
+	write_str_lit(k_b32_head_beg, tabs, mk_lang_true); ++tabs;
+	write_str_lit(k_b32_title, tabs, mk_lang_true);
+	write_str_lit(k_b32_style_common, tabs, mk_lang_true);
+	write_str_lit(k_b32_style_light, tabs, mk_lang_true);
+	write_str_lit(k_b32_style_dark, tabs, mk_lang_true); --tabs;
+	write_str_lit(k_b32_head_end, tabs, mk_lang_true);
+	write_str_lit(k_b32_body_beg, tabs, mk_lang_true); ++tabs;
+	write_str_lit(k_b32_back, tabs, mk_lang_true);
+	write_str_lit(k_b32_table_beg, tabs, mk_lang_true); ++tabs;
+	write_str_lit(k_b32_thead_beg, tabs, mk_lang_true); ++tabs;
+	write_str_lit(k_b32_tr_beg, tabs, mk_lang_true); ++tabs;
+	write_str_lit(k_b32_th_b32, tabs, mk_lang_true); --tabs;
+	write_str_lit(k_b32_th_host, tabs, mk_lang_true);
+	write_str_lit(k_b32_tr_end, tabs, mk_lang_true); --tabs;
+	write_str_lit(k_b32_thead_end, tabs, mk_lang_true);
+	write_str_lit(k_b32_tbody_beg, tabs, mk_lang_true); ++tabs;
+	count = mk_clib_app_hosts_pentries_ro_size(pentries);
+	n = count;
+	for(i = 0; i != n; ++i)
+	{
+		pentry = mk_clib_app_hosts_pentries_ro_at(pentries, i); mk_lang_assert(pentry);
+		entry = *pentry; mk_lang_assert(entry);
+		write_str_lit(k_b32_tr_beg, tabs, mk_lang_true); ++tabs;
+		write_str_lit(k_b32_td_beg, tabs, mk_lang_false);
+		{
+			mk_lib_iip_base32_encoder_fn(&entry->m_b32.m_data.m_uint8s[0], mk_lib_crypto_hash_stream_sha2_256_digest_len_v, &b32str[0], mk_lang_countof(b32str), &len); mk_lang_check_return(len == mk_lang_countof(b32str));
+			str_buf = ((mk_sl_cui_uint8_pct)(&b32str[0]));
+			str_len = len;
+			write_str_lit(k_b32_a_b32_open_beg, 0, mk_lang_false);
+			write_str_obj(str_buf, str_len, 0, mk_lang_false);
+			write_str_lit(k_b32_a_b32_open_end, 0, mk_lang_false);
+			write_str_obj(str_buf, str_len, 0, mk_lang_false);
+			write_str_lit(k_b32_a_b32_close, 0, mk_lang_false);
+		}
+		write_str_lit(k_b32_td_end, 0, mk_lang_true);
+		write_str_lit(k_b32_td_beg, tabs, mk_lang_false);
+		{
+			str_buf = mk_clib_app_hosts_domain_ro_data(&entry->m_domain);
+			str_len = mk_clib_app_hosts_domain_ro_sise(&entry->m_domain);
+			write_str_lit(k_b32_a_host_open_beg, 0, mk_lang_false);
+			write_str_obj(str_buf, str_len, 0, mk_lang_false);
+			write_str_lit(k_b32_a_host_open_end, 0, mk_lang_false);
+			write_str_obj(str_buf, str_len, 0, mk_lang_false);
+			write_str_lit(k_b32_a_host_close, 0, mk_lang_false);
+		}
+		write_str_lit(k_b32_td_end, 0, mk_lang_true); --tabs;
+		write_str_lit(k_b32_tr_end, tabs, mk_lang_true);
+	} --tabs;
+	write_str_lit(k_b32_tbody_end, tabs, mk_lang_true); --tabs;
+	write_str_lit(k_b32_table_end, tabs, mk_lang_true); --tabs;
+	write_str_lit(k_b32_body_end, tabs, mk_lang_true); --tabs;
+	write_str_lit(k_b32_html_end, tabs, mk_lang_true);
+	err = mk_sl_io_writer_file_close(&writer); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_rw_write_html_duplicates(mk_clib_app_phosts_domains_pct const duplicates) mk_lang_noexcept
+{
+	#define k_dup_doctype "<!DOCTYPE html>"
+	#define k_dup_html_beg "<html>"
+	#define k_dup_html_end "</html>"
+	#define k_dup_head_beg "<head>"
+	#define k_dup_head_end "</head>"
+	#define k_dup_title "<title>duplicates</title>"
+	#define k_dup_style_common "<link rel=\"stylesheet\" href=\"hosts-common.css\"/>"
+	#define k_dup_style_light "<link rel=\"stylesheet\" href=\"hosts-light.css\"/>"
+	#define k_dup_style_dark "<link rel=\"stylesheet\" href=\"hosts-dark.css\"/>"
+	#define k_dup_body_beg "<body>"
+	#define k_dup_body_end "</body>"
+	#define k_dup_back "<a href=\"..\">back</a><br/><br/>"
+	#define k_dup_ul_beg "<ul>"
+	#define k_dup_ul_end "</ul>"
+	#define k_dup_li_beg "<li>"
+	#define k_dup_li_end "</li>"
+	#define k_dup_li_inner "<li class=\"inner\">"
+	#define k_dup_a_host_open_beg "<a href=\"http://"
+	#define k_dup_a_host_open_end "/\">"
+	#define k_dup_a_host_close "</a>"
+	#define k_dup_a_b32_open_beg "<a class=\"mono\" href=\"http://"
+	#define k_dup_a_b32_open_end ".b32.i2p/\">"
+	#define k_dup_a_b32_close ".b32.i2p</a>"
+
+	mk_lang_types_sint_t tabs;
+	mk_lang_types_sint_t err;
+	mk_sl_io_writer_file_t writer;
+	mk_lang_types_usize_t count;
+	mk_lang_types_usize_t n;
+	mk_lang_types_usize_t i;
+	mk_lang_types_usize_t m;
+	mk_lang_types_usize_t j;
+	mk_clib_app_hosts_b32_with_domains_pcpct pentry;
+	mk_clib_app_hosts_b32_with_domains_pct entry;
+	mk_sl_cui_uint8_pct str_buf;
+	mk_lang_types_sint_t str_len;
+	mk_lang_types_pchar_t b32str[mk_lang_roundup_div(mk_lib_crypto_hash_stream_sha2_256_digest_len_v * 8, 5)] mk_lang_constexpr_init;
+	mk_lang_types_sint_t len;
+	mk_clib_app_hosts_domain_pct domain;
+
+	mk_lang_assert(duplicates);
+
+	tabs = 0;
+	err = mk_sl_io_writer_file_open_n(&writer, "duplicates.html"); mk_lang_check_rereturn(err);
+	write_str_lit(k_dup_doctype, tabs, mk_lang_true);
+	write_str_lit(k_dup_html_beg, tabs, mk_lang_true); ++tabs;
+	write_str_lit(k_dup_head_beg, tabs, mk_lang_true); ++tabs;
+	write_str_lit(k_dup_title, tabs, mk_lang_true);
+	write_str_lit(k_dup_style_common, tabs, mk_lang_true);
+	write_str_lit(k_dup_style_light, tabs, mk_lang_true);
+	write_str_lit(k_dup_style_dark, tabs, mk_lang_true); --tabs;
+	write_str_lit(k_dup_head_end, tabs, mk_lang_true);
+	write_str_lit(k_dup_body_beg, tabs, mk_lang_true); ++tabs;
+	write_str_lit(k_dup_back, tabs, mk_lang_true);
+	count = mk_clib_app_phosts_domains_ro_size(duplicates);
+	n = count;
+	for(i = 0; i != n; ++i)
+	{
+		pentry = mk_clib_app_phosts_domains_ro_at(duplicates, i); mk_lang_assert(pentry);
+		entry = *pentry; mk_lang_assert(entry);
+		write_str_lit(k_dup_ul_beg, tabs, mk_lang_true); ++tabs;
+		write_str_lit(k_dup_li_beg, tabs, mk_lang_false);
+		mk_lib_iip_base32_encoder_fn(&entry->m_b32.m_data.m_uint8s[0], mk_lib_crypto_hash_stream_sha2_256_digest_len_v, &b32str[0], mk_lang_countof(b32str), &len); mk_lang_check_return(len == mk_lang_countof(b32str));
+		str_buf = ((mk_sl_cui_uint8_pct)(&b32str[0]));
+		str_len = len;
+		write_str_lit(k_dup_a_b32_open_beg, 0, mk_lang_false);
+		write_str_obj(str_buf, str_len, 0, mk_lang_false);
+		write_str_lit(k_dup_a_b32_open_end, 0, mk_lang_false);
+		write_str_obj(str_buf, str_len, 0, mk_lang_false);
+		write_str_lit(k_dup_a_b32_close, 0, mk_lang_false);
+		write_str_lit(k_dup_li_end, 0, mk_lang_true);
+		write_str_lit(k_dup_li_inner, tabs, mk_lang_true); ++tabs;
+		write_str_lit(k_dup_ul_beg, tabs, mk_lang_true); ++tabs;
+		count = mk_clib_app_hosts_domains_ro_size(&entry->m_domains);
+		m = count;
+		for(j = 0; j != m; ++j)
+		{
+			domain = mk_clib_app_hosts_domains_ro_at(&entry->m_domains, j); mk_lang_assert(domain);
+			str_buf = mk_clib_app_hosts_domain_ro_data(domain); mk_lang_assert(str_buf);
+			str_len = mk_clib_app_hosts_domain_ro_sise(domain); mk_lang_assert(str_len >= 1);
+			write_str_lit(k_dup_li_beg, tabs, mk_lang_false);
+			write_str_lit(k_dup_a_host_open_beg, 0, mk_lang_false);
+			write_str_obj(str_buf, str_len, 0, mk_lang_false);
+			write_str_lit(k_dup_a_host_open_end, 0, mk_lang_false);
+			write_str_obj(str_buf, str_len, 0, mk_lang_false);
+			write_str_lit(k_dup_a_host_close, 0, mk_lang_false);
+			write_str_lit(k_dup_li_end, 0, mk_lang_true);
+		}
+		--tabs; write_str_lit(k_dup_ul_end, tabs, mk_lang_true);
+		--tabs; write_str_lit(k_dup_li_end, tabs, mk_lang_true);
+		--tabs; write_str_lit(k_dup_ul_end, tabs, mk_lang_true);
+	}
+	--tabs; write_str_lit(k_dup_body_end, tabs, mk_lang_true);
+	--tabs; write_str_lit(k_dup_html_end, tabs, mk_lang_true);
+	err = mk_sl_io_writer_file_close(&writer); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_rw_write_htmls(mk_clib_app_hosts_entries_pct const entries, mk_clib_app_phosts_domains_pct const duplicates) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 	mk_clib_app_hosts_pentries_t pentries;
 
 	mk_lang_assert(entries);
+	mk_lang_assert(duplicates);
 
 	err = mk_clib_app_hosts_pentries_rw_construct(&pentries); mk_lang_check_rereturn(err);
 	err = mk_clib_app_hosts_rw_copy_from(&pentries, entries); mk_lang_check_rereturn(err);
-	err = mk_clib_app_hosts_rw_write_html_b32s(&pentries); mk_lang_check_rereturn(err);
 	err = mk_clib_app_hosts_rw_write_html_hosts(&pentries); mk_lang_check_rereturn(err);
+	err = mk_clib_app_hosts_rw_write_html_b32s(&pentries); mk_lang_check_rereturn(err);
+	err = mk_clib_app_hosts_rw_write_html_duplicates(duplicates); mk_lang_check_rereturn(err);
 	err = mk_clib_app_hosts_pentries_rw_destroy(&pentries); mk_lang_check_rereturn(err);
 	return 0;
 }
@@ -1327,6 +1444,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_g
 	mk_lang_types_pchar_pct cert_buf;
 	mk_lang_types_sint_t cert_len;
 	mk_lang_types_sint_t written;
+	mk_clib_app_hosts_tree_t db;
+	mk_clib_app_phosts_domains_t duplicates;
 
 	mk_lang_assert(argc == 1);
 	mk_lang_assert(argv);
@@ -1441,10 +1560,15 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_hosts_g
 	err = mk_sl_io_writer_file_close(&addresses_csv); mk_lang_check_rereturn(err);
 	err = mk_sl_dynamic_ring_u8_rw_destroy(&ring); mk_lang_check_rereturn(err);
 	err = mk_clib_app_hosts_entries_rw_deduplicate(&entries); mk_lang_check_rereturn(err);
+	err = mk_clib_app_hosts_tree_rw_construct(&db); mk_lang_check_rereturn(err);
+	err = mk_clib_app_phosts_domains_rw_construct(&duplicates); mk_lang_check_rereturn(err);
+	err = mk_clib_app_hosts_rw_make_duplicates(&entries, &db, &duplicates); mk_lang_check_rereturn(err);
 	err = mk_clib_app_hosts_entries_rw_sort_by_domain_and_write(&entries); mk_lang_check_rereturn(err);
 	err = mk_clib_app_hosts_entries_rw_sort_by_b32_and_write(&entries); mk_lang_check_rereturn(err);
 	err = mk_clib_app_hosts_tree_rw_write(&entries); mk_lang_check_rereturn(err);
-	err = mk_clib_app_hosts_rw_write_htmls(&entries); mk_lang_check_rereturn(err);
+	err = mk_clib_app_hosts_rw_write_htmls(&entries, &duplicates); mk_lang_check_rereturn(err);
+	err = mk_clib_app_phosts_domains_rw_destroy(&duplicates); mk_lang_check_rereturn(err);
+	err = mk_clib_app_hosts_tree_rw_destruct(&db); mk_lang_check_rereturn(err);
 	err = mk_clib_app_hosts_entries_rw_destroy(&entries); mk_lang_check_rereturn(err);
 	return 0;
 }
