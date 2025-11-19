@@ -10,7 +10,6 @@
 #include "mk_lang_noexcept.h"
 #include "mk_lang_typedef.h"
 #include "mk_lang_types.h"
-#include "mk_lang_version.h"
 #include "mk_win_base.h"
 
 
@@ -505,15 +504,6 @@ mk_lang_typedef(mk_win_dll_ws2_network_events);
 
 mk_win_base_make_handle(mk_win_dll_ws2_socket)
 
-#if mk_lang_version_at_least_cpp_17
-typedef mk_lang_types_void_t(mk_win_base_stdcall*mk_win_dll_ws2_completion_routine_t)(mk_win_base_dword_t const error, mk_win_base_dword_t const transfered, mk_win_dll_ws2_overlapped_pt const overlapped, mk_win_base_dword_t const flags) mk_lang_noexcept;
-#elif mk_lang_version_at_least_cpp_11 || mk_lang_version_at_least_msvc_cpp_11
-mk_lang_types_void_t mk_win_base_stdcall mk_win_dll_ws2_completion_routine_dummy(mk_win_base_dword_t const error, mk_win_base_dword_t const transfered, mk_win_dll_ws2_overlapped_pt const overlapped, mk_win_base_dword_t const flags) mk_lang_noexcept;
-typedef decltype(&mk_win_dll_ws2_completion_routine_dummy) mk_win_dll_ws2_completion_routine_t;
-#else
-typedef mk_lang_types_void_t(mk_win_base_stdcall*mk_win_dll_ws2_completion_routine_t)(mk_win_base_dword_t const error, mk_win_base_dword_t const transfered, mk_win_dll_ws2_overlapped_pt const overlapped, mk_win_base_dword_t const flags) mk_lang_noexcept;
-#endif
-
 
 #define mk_win_dll_ws2_event_invalid_val mk_win_base_null
 #define mk_win_dll_ws2_invalid_socket ((mk_lang_types_uintptr_t)(~((mk_lang_types_uintptr_t)(0))))
@@ -540,14 +530,10 @@ typedef mk_lang_types_void_t(mk_win_base_stdcall*mk_win_dll_ws2_completion_routi
 ))
 
 
-#if mk_lang_version_at_least_cpp_17
-typedef mk_lang_types_sint_t(mk_win_base_stdcall*mk_win_dll_ws2_accept_condition_func_inner_t)(mk_win_dll_ws2_user_data_pt const caller_id, mk_win_dll_ws2_user_data_pt const caller_data, mk_win_dll_ws2_qos_pt const sqos, mk_win_dll_ws2_qos_pt const gqos, mk_win_dll_ws2_user_data_pt const callee_id, mk_win_dll_ws2_user_data_pt const callee_data, mk_win_base_uint_pt const group, mk_win_base_uintptr_t const ctx) mk_lang_noexcept;
-#elif mk_lang_version_at_least_cpp_11 || mk_lang_version_at_least_msvc_cpp_11
-mk_lang_types_sint_t mk_win_base_stdcall mk_win_dll_ws2_accept_condition_func_inner_dummy(mk_win_dll_ws2_user_data_pt const caller_id, mk_win_dll_ws2_user_data_pt const caller_data, mk_win_dll_ws2_qos_pt const sqos, mk_win_dll_ws2_qos_pt const gqos, mk_win_dll_ws2_user_data_pt const callee_id, mk_win_dll_ws2_user_data_pt const callee_data, mk_win_base_uint_pt const group, mk_win_base_uintptr_t const ctx) mk_lang_noexcept;
-typedef decltype(&mk_win_dll_ws2_accept_condition_func_inner_dummy) mk_win_dll_ws2_accept_condition_func_inner_t;
-#else
-typedef mk_lang_types_sint_t(mk_win_base_stdcall*mk_win_dll_ws2_accept_condition_func_inner_t)(mk_win_dll_ws2_user_data_pt const caller_id, mk_win_dll_ws2_user_data_pt const caller_data, mk_win_dll_ws2_qos_pt const sqos, mk_win_dll_ws2_qos_pt const gqos, mk_win_dll_ws2_user_data_pt const callee_id, mk_win_dll_ws2_user_data_pt const callee_data, mk_win_base_uint_pt const group, mk_win_base_uintptr_t const ctx);
-#endif
+mk_win_base_typedef_func(mk_lang_types_void_t, mk_win_base_stdcall, mk_win_dll_ws2_completion_routine_t, (mk_win_base_dword_t const error, mk_win_base_dword_t const transfered, mk_win_dll_ws2_overlapped_pt const overlapped, mk_win_base_dword_t const flags));
+mk_win_base_typedef_func(mk_win_base_sint_t, mk_win_base_stdcall, mk_win_dll_ws2_accept_condition_func_inner_t, (mk_win_dll_ws2_user_data_pt const caller_id, mk_win_dll_ws2_user_data_pt const caller_data, mk_win_dll_ws2_qos_pt const sqos, mk_win_dll_ws2_qos_pt const gqos, mk_win_dll_ws2_user_data_pt const callee_id, mk_win_dll_ws2_user_data_pt const callee_data, mk_win_base_uint_pt const group, mk_win_base_uintptr_t const ctx));
+mk_win_base_typedef_func(mk_win_base_bool_t, mk_win_base_stdcall, mk_win_dll_ws2_fn_accept_ex_t, (mk_win_dll_ws2_socket_t const socket_listen, mk_win_dll_ws2_socket_t const socket_accept, mk_win_base_void_lpt const out_data_buf, mk_win_base_dword_t const out_data_len, mk_win_base_dword_t const local_address_len, mk_win_base_dword_t const remote_address_len, mk_win_base_dword_lpt const transferred, mk_win_dll_ws2_overlapped_lpt const overlapped));
+mk_win_base_typedef_func(mk_lang_types_void_t, mk_win_base_stdcall, mk_win_dll_ws2_fn_get_accept_ex_sock_addrs_t, (mk_win_base_void_lpct const in_data_buf, mk_win_base_dword_t const in_data_len, mk_win_base_dword_t const local_address_len, mk_win_base_dword_t const remote_address_len, mk_win_dll_ws2_sock_addr_lplpt const local_address_obj, mk_win_base_sint_lpt const local_address_real, mk_win_dll_ws2_sock_addr_lplpt const remote_address_obj, mk_win_base_sint_lpt const remote_address_real));
 
 
 mk_lang_nodiscard mk_lang_jumbo mk_win_base_sint_t mk_win_dll_ws2_startup(mk_win_base_ushort_t const version_required, mk_win_dll_ws2_data_pt const data) mk_lang_noexcept;
