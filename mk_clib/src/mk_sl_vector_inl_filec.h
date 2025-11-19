@@ -862,6 +862,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_de
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_defd_prrw_reserve_additional(mk_sl_vector_inl_defd_pt const vector, mk_lang_types_usize_t const count) mk_lang_noexcept
 {
+	mk_lang_types_usize_t size;
 	mk_lang_types_sint_t err;
 
 	#include "mk_lang_warning_msvc_push_c4296.h"
@@ -873,7 +874,8 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_sl_vector_inl_de
 	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
-	err = mk_sl_vector_inl_defd_prrw_reserve_at_least(vector, mk_sl_vector_inl_defd_prrw_size(vector) + count); mk_lang_check_rereturn(err);
+	size = mk_sl_vector_inl_defd_prrw_size(vector);
+	err = mk_sl_vector_inl_defd_prrw_reserve_at_least(vector, size + count); mk_lang_check_rereturn(err);
 
 	mk_lang_assert(mk_sl_vector_inl_defd_prro_verify_invariants(vector));
 	return 0;
