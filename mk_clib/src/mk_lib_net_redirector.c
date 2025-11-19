@@ -12,6 +12,7 @@
 #include "mk_lang_null.h"
 #include "mk_lang_offsetof.h"
 #include "mk_lang_static_assert.h"
+#include "mk_lang_stdout.h"
 #include "mk_lang_str_lit.h"
 #include "mk_lang_types.h"
 #include "mk_lib_net_buffers.h"
@@ -659,6 +660,636 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirect
 		default: mk_lang_assert_false(); break;
 	}
 	return 0;
+}
+
+
+enum mk_lib_net_redirector_driven_target_data_id_e
+{
+	mk_lib_net_redirector_driven_target_data_id_e_redirector,
+	mk_lib_net_redirector_driven_target_data_id_e_dummy_end
+};
+typedef enum mk_lib_net_redirector_driven_target_data_id_e mk_lib_net_redirector_driven_target_data_id_t;
+mk_lang_typedef(mk_lib_net_redirector_driven_target_data_id);
+
+
+struct mk_lib_net_redirector_driven_target_data_s
+{
+	mk_lang_types_uchar_t m_id;
+};
+typedef struct mk_lib_net_redirector_driven_target_data_s mk_lib_net_redirector_driven_target_data_t;
+mk_lang_typedef(mk_lib_net_redirector_driven_target_data);
+
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_driven_target_data_prrw_construct(mk_lib_net_redirector_driven_target_data_pt const target, mk_lib_net_redirector_driven_target_data_id_t const id) mk_lang_noexcept
+{
+	mk_lang_assert(target);
+	mk_lang_assert(id >= 0);
+	mk_lang_assert(id < mk_lib_net_redirector_driven_target_data_id_e_dummy_end);
+
+	target->m_id = ((mk_lang_types_uchar_t)(id));
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_driven_target_data_prrw_destroy(mk_lib_net_redirector_driven_target_data_pt const target) mk_lang_noexcept
+{
+	mk_lang_assert(target);
+
+	((mk_lang_types_void_t)(target));
+	return 0;
+}
+
+
+#include "mk_lang_warning_msvc_push_c4820.h"
+struct mk_lib_net_redirector_redirector_s
+{
+	mk_lib_net_redirector_driven_target_data_t m_driven_target;
+	mk_lib_net_iocp_pt m_iocp;
+	//mk_lib_net_redirector_listeners_t m_listeners;
+	//mk_lib_net_redirector_dyn_events_t m_waiting_to_connect;
+	//mk_lib_net_redirector_waiter_t m_waiter;
+};
+typedef struct mk_lib_net_redirector_redirector_s mk_lib_net_redirector_redirector_t;
+mk_lang_typedef(mk_lib_net_redirector_redirector);
+#include "mk_lang_warning_msvc_pop.h"
+
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_redirector_prrw_allocate(mk_lib_net_redirector_redirector_ppt const redirector) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	mk_lib_net_redirector_redirector_pt obj;
+	mk_lang_types_void_pt mem;
+
+	mk_lang_assert(redirector);
+
+	err = mk_sl_mallocator_allocate(sizeof(*obj), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem);
+	obj = ((mk_lib_net_redirector_redirector_pt)(mem)); mk_lang_assert(obj);
+	*redirector = obj;
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_redirector_prrw_deallocate(mk_lib_net_redirector_redirector_ppt const redirector) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(redirector);
+	mk_lang_assert(*redirector);
+
+	err = mk_sl_mallocator_deallocate(*redirector, sizeof(**redirector)); mk_lang_check_rereturn(err);
+	mk_lang_assert((*redirector = mk_lang_null, mk_lang_true));
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_redirector_prrw_construct(mk_lib_net_redirector_redirector_pt const redirector) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(redirector);
+
+	err = mk_lib_net_redirector_driven_target_data_prrw_construct(&redirector->m_driven_target, mk_lib_net_redirector_driven_target_data_id_e_redirector); mk_lang_check_rereturn(err);
+	mk_lang_assert((redirector->m_iocp = mk_lang_null, mk_lang_true));
+	//err = mk_lib_net_redirector_listeners_rw_construct(&redirector->m_listeners); mk_lang_check_rereturn(err);
+	//err = mk_lib_net_redirector_dyn_events_rw_construct(&redirector->m_waiting_to_connect); mk_lang_check_rereturn(err);
+	//err = mk_lib_net_redirector_waiter_prrw_construct(&redirector->m_waiter); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_redirector_prrw_destroy(mk_lib_net_redirector_redirector_pt const redirector) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(redirector);
+
+	err = mk_lib_net_redirector_driven_target_data_prrw_destroy(&redirector->m_driven_target); mk_lang_check_rereturn(err);
+	mk_lang_assert((redirector->m_iocp = mk_lang_null, mk_lang_true));
+	//err = mk_lib_net_redirector_listeners_rw_destroy(&redirector->m_listeners); mk_lang_check_rereturn(err);
+	//err = mk_lib_net_redirector_dyn_events_rw_destroy(&redirector->m_waiting_to_connect); mk_lang_check_rereturn(err);
+	//err = mk_lib_net_redirector_waiter_prrw_destroy(&redirector->m_waiter); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_redirector_prrw_on_end(mk_lib_net_redirector_redirector_pt const redirector) mk_lang_noexcept
+{
+	mk_lang_assert(redirector);
+
+	//mk_lang_check_todo();
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_redirector_prrw_on_timer(mk_lib_net_redirector_redirector_pt const redirector) mk_lang_noexcept
+{
+	mk_lang_assert(redirector);
+
+	//mk_lang_check_todo();
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_redirector_prrw_on_iop(mk_lib_net_redirector_redirector_pt const redirector, mk_lib_net_iocp_iop_pct const iop) mk_lang_noexcept
+{
+	mk_lang_assert(redirector);
+	mk_lang_assert(iop);
+
+	mk_lang_check_todo();
+	return 0;
+}
+
+
+mk_lang_nodiscard static mk_lang_inline mk_lib_net_redirector_redirector_pt mk_lib_net_redirector_driven_target_logic_prrw_cast_to_redirector(mk_lib_net_redirector_driven_target_data_pt const target) mk_lang_noexcept
+{
+	mk_lang_types_sint_t offset;
+	mk_lib_net_redirector_redirector_pt obj;
+
+	/* natvis */
+	mk_lang_static_assert
+	(
+		mk_lang_offsetof(mk_lib_net_redirector_redirector_t, m_driven_target) ==
+		0
+	);
+
+	mk_lang_assert(target);
+	mk_lang_assert(target->m_id >= 0);
+	mk_lang_assert(target->m_id < mk_lib_net_redirector_driven_target_data_id_e_dummy_end);
+
+	if(target->m_id == mk_lib_net_redirector_driven_target_data_id_e_redirector)
+	{
+		offset = mk_lang_offsetof(mk_lib_net_redirector_redirector_t, m_driven_target);
+		obj = ((mk_lib_net_redirector_redirector_pt)(((mk_lang_types_uchar_pt)(target)) - offset));
+		return obj;
+	}
+	else
+	{
+		return mk_lang_null;
+	}
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_driven_target_logic_prrw_on_end(mk_lib_net_redirector_driven_target_data_pt const target) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(target);
+	mk_lang_assert(target->m_id >= 0);
+	mk_lang_assert(target->m_id < mk_lib_net_redirector_driven_target_data_id_e_dummy_end);
+
+	switch(target->m_id)
+	{
+		case mk_lib_net_redirector_driven_target_data_id_e_redirector: { mk_lib_net_redirector_redirector_pt obj; obj = mk_lib_net_redirector_driven_target_logic_prrw_cast_to_redirector(target); mk_lang_assert(obj); err = mk_lib_net_redirector_redirector_prrw_on_end(obj); mk_lang_check_rereturn(err); } break;
+		case mk_lib_net_redirector_driven_target_data_id_e_dummy_end: mk_lang_assert_false(); break;
+		default: mk_lang_assert_false(); break;
+	}
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_driven_target_logic_prrw_on_timer(mk_lib_net_redirector_driven_target_data_pt const target) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(target);
+	mk_lang_assert(target->m_id >= 0);
+	mk_lang_assert(target->m_id < mk_lib_net_redirector_driven_target_data_id_e_dummy_end);
+
+	switch(target->m_id)
+	{
+		case mk_lib_net_redirector_driven_target_data_id_e_redirector: { mk_lib_net_redirector_redirector_pt obj; obj = mk_lib_net_redirector_driven_target_logic_prrw_cast_to_redirector(target); mk_lang_assert(obj); err = mk_lib_net_redirector_redirector_prrw_on_timer(obj); mk_lang_check_rereturn(err); } break;
+		case mk_lib_net_redirector_driven_target_data_id_e_dummy_end: mk_lang_assert_false(); break;
+		default: mk_lang_assert_false(); break;
+	}
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_driven_target_logic_prrw_on_iop(mk_lib_net_redirector_driven_target_data_pt const target, mk_lib_net_iocp_iop_pct const iop) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(target);
+	mk_lang_assert(iop);
+	mk_lang_assert(target->m_id >= 0);
+	mk_lang_assert(target->m_id < mk_lib_net_redirector_driven_target_data_id_e_dummy_end);
+
+	switch(target->m_id)
+	{
+		case mk_lib_net_redirector_driven_target_data_id_e_redirector: { mk_lib_net_redirector_redirector_pt obj; obj = mk_lib_net_redirector_driven_target_logic_prrw_cast_to_redirector(target); mk_lang_assert(obj); err = mk_lib_net_redirector_redirector_prrw_on_iop(obj, iop); mk_lang_check_rereturn(err); } break;
+		case mk_lib_net_redirector_driven_target_data_id_e_dummy_end: mk_lang_assert_false(); break;
+		default: mk_lang_assert_false(); break;
+	}
+	return 0;
+}
+
+
+#include "mk_lang_warning_msvc_push_c4820.h"
+struct mk_lib_net_redirector_driver_s
+{
+	mk_lib_net_iocp_t m_iocp;
+	mk_win_base_handle_t m_queue;
+	mk_win_base_handle_t m_timer;
+	mk_lang_types_bool_t m_want_end_a;
+	mk_lang_types_bool_t m_want_end_b;
+	mk_lib_net_redirector_driven_target_data_pt m_driven_target;
+};
+typedef struct mk_lib_net_redirector_driver_s mk_lib_net_redirector_driver_t;
+mk_lang_typedef(mk_lib_net_redirector_driver);
+#include "mk_lang_warning_msvc_pop.h"
+
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_driver_prrw_allocate(mk_lib_net_redirector_driver_ppt const driver) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	mk_lib_net_redirector_driver_pt obj;
+	mk_lang_types_void_pt mem;
+
+	mk_lang_assert(driver);
+
+	err = mk_sl_mallocator_allocate(sizeof(*obj), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem);
+	obj = ((mk_lib_net_redirector_driver_pt)(mem)); mk_lang_assert(obj);
+	*driver = obj;
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_driver_prrw_deallocate(mk_lib_net_redirector_driver_ppt const driver) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(driver);
+	mk_lang_assert(*driver);
+
+	err = mk_sl_mallocator_deallocate(*driver, sizeof(**driver)); mk_lang_check_rereturn(err);
+	mk_lang_assert((*driver = mk_lang_null, mk_lang_true));
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_driver_prrw_construct(mk_lib_net_redirector_driver_pt const driver) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(driver);
+
+	err = mk_lib_net_iocp_construct(&driver->m_iocp, 0); mk_lang_check_rereturn(err);
+	driver->m_queue = mk_win_dll_kernel_synchronization_timer_queue_create_timer_queue(); mk_lang_check_return(!mk_win_base_handle_is_null(driver->m_timer));
+	mk_lang_assert((driver->m_timer = mk_win_base_handle_get_null(), mk_lang_true));
+	driver->m_want_end_a = mk_lang_false;
+	driver->m_want_end_b = mk_lang_false;
+	mk_lang_assert((driver->m_driven_target = mk_lang_null, mk_lang_true));
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_driver_prrw_destroy(mk_lib_net_redirector_driver_pt const driver) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	mk_win_base_bool_t b;
+
+	mk_lang_assert(driver);
+
+	err = mk_lib_net_iocp_destroy(&driver->m_iocp); mk_lang_check_rereturn(err);
+	b = mk_win_dll_kernel_synchronization_timer_queue_delete_timer_queue(driver->m_queue); mk_lang_check_return(b != mk_win_base_false);
+	mk_lang_assert((driver->m_timer = mk_win_base_handle_get_null(), mk_lang_true));
+	mk_lang_assert((driver->m_want_end_a = mk_lang_false, mk_lang_true));
+	mk_lang_assert((driver->m_want_end_b = mk_lang_false, mk_lang_true));
+	mk_lang_assert((driver->m_driven_target = mk_lang_null, mk_lang_true));
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_driver_prrw_set_target(mk_lib_net_redirector_driver_pt const driver, mk_lib_net_redirector_driven_target_data_pt const driven_target) mk_lang_noexcept
+{
+	mk_lang_assert(driver);
+	mk_lang_assert(driven_target);
+	mk_lang_assert(!driver->m_driven_target);
+
+	driver->m_driven_target = driven_target;
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_driver_prrw_kill_timer(mk_lib_net_redirector_driver_pt const driver) mk_lang_noexcept
+{
+	mk_win_base_bool_t b;
+
+	mk_lang_assert(driver);
+	mk_lang_assert(!mk_win_base_handle_is_null(driver->m_queue));
+	mk_lang_assert(!mk_win_base_handle_is_null(driver->m_timer));
+
+	b = mk_win_dll_kernel_synchronization_timer_queue_delete_timer_queue_timer(driver->m_queue, driver->m_timer, mk_win_base_handle_get_invalid()); mk_lang_check_return(b != mk_win_base_false);
+	mk_lang_assert((driver->m_timer = mk_win_base_handle_get_null(), mk_lang_true));
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_driver_prrw_on_timer(mk_lib_net_redirector_driver_pt const driver) mk_lang_noexcept
+{
+	mk_lib_net_iocp_pt iocp;
+	mk_lang_types_sint_t bytes_transferred;
+	mk_lang_types_uintptr_t key;
+	mk_lang_types_void_pt overlapped;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(driver);
+
+	iocp = &driver->m_iocp;
+	bytes_transferred = 0;
+	key = ((mk_lang_types_uintptr_t)(mk_lib_net_redirector_k_iocp_key_special));
+	overlapped = ((mk_lang_types_void_pt)(((mk_lang_types_uintptr_t)(mk_lib_net_redirector_k_iocp_overlapped_special_timer))));
+	err = mk_lib_net_iocp_post(iocp, bytes_transferred, key, overlapped); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+static mk_lang_types_void_t mk_win_base_stdcall mk_lib_net_redirector_driver_prrw_on_win_timer(mk_win_base_void_lpt const parameter, mk_win_base_boolean_t const timer_or_wait_fired) mk_lang_noexcept
+{
+	mk_lib_net_redirector_driver_pt redirector;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(parameter);
+	mk_lang_assert(timer_or_wait_fired == mk_win_base_true);
+
+	redirector = ((mk_lib_net_redirector_driver_pt)(parameter)); mk_lang_assert(redirector);
+	err = mk_lib_net_redirector_driver_prrw_on_timer(redirector); mk_lang_check_recrash(err);
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_driver_prrw_request_timer(mk_lib_net_redirector_driver_pt const driver) mk_lang_noexcept
+{
+	mk_win_base_bool_t b;
+
+	mk_lang_assert(driver);
+	mk_lang_assert(!mk_win_base_handle_is_null(driver->m_queue));
+	mk_lang_assert(mk_win_base_handle_is_null(driver->m_timer));
+
+	b = mk_win_dll_kernel_synchronization_timer_queue_create_timer_queue_timer(&driver->m_timer, driver->m_queue, &mk_lib_net_redirector_driver_prrw_on_win_timer, driver, 1000, 0, mk_win_dll_kernel_synchronization_timer_queue_flag_d_execute_only_once | mk_win_dll_kernel_synchronization_timer_queue_flag_d_execute_in_timer_thread); mk_lang_check_return(b != mk_win_base_false); mk_lang_check_return(!mk_win_base_handle_is_null(driver->m_timer));
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_driver_prrw_dispatch_me_end(mk_lib_net_redirector_driver_pt const driver, mk_lib_net_iocp_iop_pct const iop) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(driver);
+	mk_lang_assert(iop);
+	mk_lang_assert(iop->m_dequeued);
+	mk_lang_assert(iop->m_key == ((mk_lang_types_uintptr_t)(mk_lib_net_redirector_k_iocp_key_special)));
+	mk_lang_assert(iop->m_successful_io_operation);
+	mk_lang_assert(iop->m_overlapped == ((mk_lang_types_void_pt)(((mk_lang_types_uintptr_t)(mk_lib_net_redirector_k_iocp_overlapped_special_end)))));
+
+	err = mk_lib_net_redirector_driven_target_logic_prrw_on_end(driver->m_driven_target); mk_lang_check_rereturn(err);
+	driver->m_want_end_a = mk_lang_true;
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_driver_prrw_dispatch_me_timer(mk_lib_net_redirector_driver_pt const driver, mk_lib_net_iocp_iop_pct const iop) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(driver);
+	mk_lang_assert(iop);
+	mk_lang_assert(iop->m_dequeued);
+	mk_lang_assert(iop->m_key == ((mk_lang_types_uintptr_t)(mk_lib_net_redirector_k_iocp_key_special)));
+	mk_lang_assert(iop->m_successful_io_operation);
+	mk_lang_assert(iop->m_overlapped == ((mk_lang_types_void_pt)(((mk_lang_types_uintptr_t)(mk_lib_net_redirector_k_iocp_overlapped_special_timer)))));
+
+	err = mk_lib_net_redirector_driver_prrw_kill_timer(driver); mk_lang_check_rereturn(err);
+	if(!driver->m_want_end_a)
+	{
+		err = mk_lib_net_redirector_driven_target_logic_prrw_on_timer(driver->m_driven_target); mk_lang_check_rereturn(err);
+		err = mk_lib_net_redirector_driver_prrw_request_timer(driver); mk_lang_check_rereturn(err);
+	}
+	else
+	{
+		driver->m_want_end_b = mk_lang_true;
+		err = mk_lang_stdout_no_redirect_println_n(mk_lang_str_lit("Exiting.")); mk_lang_check_rereturn(err);
+	}
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_driver_prrw_dispatch_me(mk_lib_net_redirector_driver_pt const driver, mk_lib_net_iocp_iop_pct const iop) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(driver);
+	mk_lang_assert(iop);
+	mk_lang_assert(iop->m_dequeued);
+	mk_lang_assert(iop->m_key == ((mk_lang_types_uintptr_t)(mk_lib_net_redirector_k_iocp_key_special)));
+	mk_lang_assert(iop->m_successful_io_operation);
+
+	if(mk_lang_runtime_bool_fn_false){}
+	else if(iop->m_overlapped == ((mk_lang_types_void_pt)(((mk_lang_types_uintptr_t)(mk_lib_net_redirector_k_iocp_overlapped_special_end  ))))){ err = mk_lib_net_redirector_driver_prrw_dispatch_me_end  (driver, iop); mk_lang_check_rereturn(err); }
+	else if(iop->m_overlapped == ((mk_lang_types_void_pt)(((mk_lang_types_uintptr_t)(mk_lib_net_redirector_k_iocp_overlapped_special_timer))))){ err = mk_lib_net_redirector_driver_prrw_dispatch_me_timer(driver, iop); mk_lang_check_rereturn(err); }
+	else{ mk_lang_assert_false(); }
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_driver_prrw_dispatch(mk_lib_net_redirector_driver_pt const driver, mk_lib_net_iocp_iop_pct const iop) mk_lang_noexcept
+{
+	mk_lib_net_redirector_iop_target_data_pt target;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(driver);
+	mk_lang_assert(iop);
+
+	if(iop->m_dequeued)
+	{
+		if(iop->m_key == ((mk_lang_types_uintptr_t)(mk_lib_net_redirector_k_iocp_key_special)))
+		{
+			err = mk_lib_net_redirector_driver_prrw_dispatch_me(driver, iop); mk_lang_check_rereturn(err);
+		}
+		else
+		{
+			target = ((mk_lib_net_redirector_iop_target_data_pt)(iop->m_key));
+			err = mk_lib_net_redirector_iop_target_logic_prrw_on_iop(target, iop); mk_lang_check_rereturn(err);
+		}
+	}
+	else
+	{
+		mk_lang_check_todo();
+	}
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_driver_prrw_drive(mk_lib_net_redirector_driver_pt const driver) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	mk_lib_net_iocp_iop_t iop;
+
+	mk_lang_assert(driver);
+	mk_lang_assert(driver->m_driven_target);
+
+	err = mk_lib_net_redirector_driver_prrw_request_timer(driver); mk_lang_check_rereturn(err);
+	do
+	{
+		err = mk_lib_net_iocp_dequeue_packet_infinite(&driver->m_iocp, &iop.m_dequeued, &iop.m_successful_io_operation, &iop.m_bytes_transferred, &iop.m_key, &iop.m_overlapped, &iop.m_fail_reason); mk_lang_check_rereturn(err);
+		err = mk_lib_net_redirector_driver_prrw_dispatch(driver, &iop); mk_lang_check_rereturn(err);
+	}while(!driver->m_want_end_b);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_driver_prrw_request_stop(mk_lib_net_redirector_driver_pt const driver) mk_lang_noexcept
+{
+	mk_lib_net_iocp_pt iocp;
+	mk_lang_types_sint_t bytes_transferred;
+	mk_lang_types_uintptr_t key;
+	mk_lang_types_void_pt overlapped;
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(driver);
+
+	iocp = &driver->m_iocp;
+	bytes_transferred = 0;
+	key = ((mk_lang_types_uintptr_t)(mk_lib_net_redirector_k_iocp_key_special));
+	overlapped = ((mk_lang_types_void_pt)(((mk_lang_types_uintptr_t)(mk_lib_net_redirector_k_iocp_overlapped_special_end))));
+	err = mk_lib_net_iocp_post(iocp, bytes_transferred, key, overlapped); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+
+struct mk_lib_net_redirector_impl_s
+{
+	mk_lib_net_redirector_driver_t m_driver;
+	mk_lib_net_redirector_redirector_t m_redirector;
+};
+typedef struct mk_lib_net_redirector_impl_s mk_lib_net_redirector_impl_t;
+mk_lang_typedef(mk_lib_net_redirector_impl);
+
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_impl_prrw_allocate(mk_lib_net_redirector_impl_ppt const impl) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+	mk_lib_net_redirector_impl_pt obj;
+	mk_lang_types_void_pt mem;
+
+	mk_lang_assert(impl);
+
+	err = mk_sl_mallocator_allocate(sizeof(*obj), &mem); mk_lang_check_rereturn(err); mk_lang_assert(mem);
+	obj = ((mk_lib_net_redirector_impl_pt)(mem)); mk_lang_assert(obj);
+	*impl = obj;
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_impl_prrw_deallocate(mk_lib_net_redirector_impl_ppt const impl) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(impl);
+	mk_lang_assert(*impl);
+
+	err = mk_sl_mallocator_deallocate(*impl, sizeof(**impl)); mk_lang_check_rereturn(err);
+	mk_lang_assert((*impl = mk_lang_null, mk_lang_true));
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_impl_prrw_construct(mk_lib_net_redirector_impl_pt const impl) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(impl);
+
+	err = mk_lib_net_redirector_driver_prrw_construct(&impl->m_driver); mk_lang_check_rereturn(err);
+	err = mk_lib_net_redirector_redirector_prrw_construct(&impl->m_redirector); mk_lang_check_rereturn(err);
+
+	err = mk_lib_net_redirector_driver_prrw_set_target(&impl->m_driver, &impl->m_redirector.m_driven_target); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_impl_prrw_destroy(mk_lib_net_redirector_impl_pt const impl) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(impl);
+
+	err = mk_lib_net_redirector_driver_prrw_destroy(&impl->m_driver); mk_lang_check_rereturn(err);
+	err = mk_lib_net_redirector_redirector_prrw_destroy(&impl->m_redirector); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_impl_prrw_run(mk_lib_net_redirector_impl_pt const impl) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(impl);
+
+	err = mk_lib_net_redirector_driver_prrw_drive(&impl->m_driver); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_impl_prrw_request_stop(mk_lib_net_redirector_impl_pt const impl) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(impl);
+
+	err = mk_lib_net_redirector_driver_prrw_request_stop(&impl->m_driver); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_prrw_construct(mk_lib_net_redirector_pt const redirector) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(redirector);
+
+	err = mk_lib_net_redirector_impl_prrw_allocate(&redirector->m_impl); mk_lang_check_rereturn(err);
+	err = mk_lib_net_redirector_impl_prrw_construct(redirector->m_impl); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_prrw_destroy(mk_lib_net_redirector_pt const redirector) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(redirector);
+	mk_lang_assert(redirector->m_impl);
+
+	err = mk_lib_net_redirector_impl_prrw_destroy(redirector->m_impl); mk_lang_check_rereturn(err); mk_lang_assert(redirector->m_impl);
+	err = mk_lib_net_redirector_impl_prrw_deallocate(&redirector->m_impl); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_prrw_run(mk_lib_net_redirector_pt const redirector) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(redirector);
+	mk_lang_assert(redirector->m_impl);
+
+	err = mk_lib_net_redirector_impl_prrw_run(redirector->m_impl); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_prrw_request_stop(mk_lib_net_redirector_pt const redirector) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err;
+
+	mk_lang_assert(redirector);
+	mk_lang_assert(redirector->m_impl);
+
+	err = mk_lib_net_redirector_impl_prrw_request_stop(redirector->m_impl); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_net_redirector_prrw_add_redirect(mk_lib_net_redirector_pt const redirector, mk_lib_net_destination_pct const src, mk_lib_net_destination_pct const dst) mk_lang_noexcept
+{
+	mk_lang_assert(redirector);
+	mk_lang_assert(src);
+	mk_lang_assert(dst);
+
+	return 0;
+}
+
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_redirector_rw_construct(mk_lib_net_redirector_pt const redirector) mk_lang_noexcept
+{
+	return mk_lib_net_redirector_prrw_construct(redirector);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_redirector_rw_destroy(mk_lib_net_redirector_pt const redirector) mk_lang_noexcept
+{
+	return mk_lib_net_redirector_prrw_destroy(redirector);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_redirector_rw_run(mk_lib_net_redirector_pt const redirector) mk_lang_noexcept
+{
+	return mk_lib_net_redirector_prrw_run(redirector);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_redirector_rw_request_stop(mk_lib_net_redirector_pt const redirector) mk_lang_noexcept
+{
+	return mk_lib_net_redirector_prrw_request_stop(redirector);
+}
+
+mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_lib_net_redirector_rw_add_redirect(mk_lib_net_redirector_pt const redirector, mk_lib_net_destination_pct const src, mk_lib_net_destination_pct const dst) mk_lang_noexcept
+{
+	return mk_lib_net_redirector_prrw_add_redirect(redirector, src, dst);
 }
 
 

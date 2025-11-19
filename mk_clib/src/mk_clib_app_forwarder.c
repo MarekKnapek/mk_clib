@@ -72,13 +72,13 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_forward
 
 	if(type == mk_win_dll_kernel_console_ctrl_event_id_e_c)
 	{
-		err = mk_lang_stdout_no_redirect_println_color_n(mk_lang_stdout_color_text_e_light_red, mk_lang_str_lit("CTRL+C detected")); mk_lang_check_rereturn(err);
+		err = mk_lang_stdout_no_redirect_println_color_n(mk_lang_stdout_color_text_e_light_red, mk_lang_str_lit("CTRL+C detected.")); mk_lang_check_rereturn(err);
 		err = mk_lib_net_redirector_rw_request_stop(&forwarder->m_forwarder); mk_lang_check_rereturn(err);
 		*handled = mk_lang_true;
 	}
 	else if(type == mk_win_dll_kernel_console_ctrl_event_id_e_break)
 	{
-		err = mk_lang_stdout_no_redirect_println_color_n(mk_lang_stdout_color_text_e_light_red, mk_lang_str_lit("CTRL+Break detected")); mk_lang_check_rereturn(err);
+		err = mk_lang_stdout_no_redirect_println_color_n(mk_lang_stdout_color_text_e_light_red, mk_lang_str_lit("CTRL+Break detected.")); mk_lang_check_rereturn(err);
 		err = mk_lib_net_redirector_rw_request_stop(&forwarder->m_forwarder); mk_lang_check_rereturn(err);
 		*handled = mk_lang_true;
 	}
@@ -400,7 +400,7 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_forward
 #include "mk_win_dll_kernel_process.h"
 
 
-mk_lang_extern_force_c mk_lang_nodiscard mk_lang_types_sint_t mk_clib_app_forwarder_peb(mk_lang_types_void_pt const peb) mk_lang_noexcept
+mk_lang_extern_force_c mk_lang_nodiscard mk_lang_types_sint_t mk_clib_app_forwarder_peb_2(mk_lang_types_void_pt const peb) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 	mk_lang_types_wchar_pct args[32];
@@ -415,11 +415,29 @@ mk_lang_extern_force_c mk_lang_nodiscard mk_lang_types_sint_t mk_clib_app_forwar
 	return 0;
 }
 
+mk_lang_extern_force_c mk_lang_nodiscard mk_lang_types_sint_t mk_clib_app_forwarder_peb(mk_lang_types_void_pt const peb) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err_b;
+	mk_lang_types_sint_t err;
+
+	err_b = mk_clib_app_forwarder_peb_2(peb);
+	if(err_b == 0)
+	{
+		err = mk_lang_stdout_no_redirect_println_color_n(mk_lang_stdout_color_text_e_light_green, mk_lang_str_lit("Gud.")); mk_lang_check_rereturn(err);
+	}
+	else
+	{
+		err = mk_lang_stdout_no_redirect_println_color_n(mk_lang_stdout_color_text_e_light_green, mk_lang_str_lit("Bad.")); mk_lang_check_rereturn(err);
+	}
+	mk_lang_check_rereturn(err_b);
+	return 0;
+}
+
 
 #else
 
 
-mk_lang_extern_c mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_clib_app_forwarder_args(mk_lang_types_sint_t const argc, mk_lang_types_pchar_pcpct const argv) mk_lang_noexcept
+mk_lang_extern_c mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_clib_app_forwarder_args_2(mk_lang_types_sint_t const argc, mk_lang_types_pchar_pcpct const argv) mk_lang_noexcept
 {
 	mk_lang_types_sint_t err;
 	mk_lang_types_pchar_pct args[32];
@@ -433,6 +451,24 @@ mk_lang_extern_c mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_clib_ap
 	err = mk_lang_command_line_parse_std(argc, argv, &args[0], &lens[0], mk_lang_countof(args), &count); mk_lang_check_rereturn(err);
 	err = mk_clib_app_forwarder_main(count, &args[0], &lens[0]); mk_lang_check_rereturn(err);
 	err = mk_clib_app_forwarder_deinit(); mk_lang_check_rereturn(err);
+	return 0;
+}
+
+mk_lang_extern_c mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_clib_app_forwarder_args(mk_lang_types_sint_t const argc, mk_lang_types_pchar_pcpct const argv) mk_lang_noexcept
+{
+	mk_lang_types_sint_t err_b;
+	mk_lang_types_sint_t err;
+
+	err_b = mk_clib_app_forwarder_args_2(argc, argv);
+	if(err_b == 0)
+	{
+		err = mk_lang_stdout_no_redirect_println_color_n(mk_lang_stdout_color_text_e_light_green, mk_lang_str_lit("Gud.")); mk_lang_check_rereturn(err);
+	}
+	else
+	{
+		err = mk_lang_stdout_no_redirect_println_color_n(mk_lang_stdout_color_text_e_light_green, mk_lang_str_lit("Bad.")); mk_lang_check_rereturn(err);
+	}
+	mk_lang_check_rereturn(err_b);
 	return 0;
 }
 
