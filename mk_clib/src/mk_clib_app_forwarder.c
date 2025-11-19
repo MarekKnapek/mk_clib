@@ -427,7 +427,7 @@ mk_lang_extern_force_c mk_lang_nodiscard mk_lang_types_sint_t mk_clib_app_forwar
 	}
 	else
 	{
-		err = mk_lang_stdout_no_redirect_println_color_n(mk_lang_stdout_color_text_e_light_green, mk_lang_str_lit("Bad.")); mk_lang_check_rereturn(err);
+		err = mk_lang_stdout_no_redirect_println_color_n(mk_lang_stdout_color_text_e_light_red, mk_lang_str_lit("Bad.")); mk_lang_check_rereturn(err);
 	}
 	mk_lang_check_rereturn(err_b);
 	return 0;
@@ -466,7 +466,7 @@ mk_lang_extern_c mk_lang_nodiscard mk_lang_jumbo mk_lang_types_sint_t mk_clib_ap
 	}
 	else
 	{
-		err = mk_lang_stdout_no_redirect_println_color_n(mk_lang_stdout_color_text_e_light_green, mk_lang_str_lit("Bad.")); mk_lang_check_rereturn(err);
+		err = mk_lang_stdout_no_redirect_println_color_n(mk_lang_stdout_color_text_e_light_red, mk_lang_str_lit("Bad.")); mk_lang_check_rereturn(err);
 	}
 	mk_lang_check_rereturn(err_b);
 	return 0;
