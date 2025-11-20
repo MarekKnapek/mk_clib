@@ -2,6 +2,8 @@
 #define mk_include_guard_mk_lib_crypto_xof_block_turbo_shake_256_h
 
 /* https://keccak.team/files/TurboSHAKE.pdf */
+/* https://www.rfc-editor.org/rfc/rfc9861.txt */
+/* https://datatracker.ietf.org/doc/html/rfc9861 */
 
 #include "mk_lang_alignas.h"
 #include "mk_lang_constexpr.h"

@@ -3,6 +3,8 @@
 #include "mk_lib_crypto_xof_block_turbo_shake_256.h"
 
 /* https://keccak.team/files/TurboSHAKE.pdf */
+/* https://www.rfc-editor.org/rfc/rfc9861.txt */
+/* https://datatracker.ietf.org/doc/html/rfc9861 */
 
 #include "mk_lang_assert.h"
 #include "mk_lang_charbit.h"
