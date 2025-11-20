@@ -24,14 +24,14 @@ cmd.exe /c "%~f0 inner build" || goto mk_fail
 goto mk_end
 
 :mk_build
-if exist "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" goto mk_msvs_enterprise
-if exist "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvarsall.bat" goto mk_msvs_community
+if exist "c:\Program Files\Microsoft Visual Studio\18\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" goto mk_msvs_enterprise
+if exist "c:\Program Files\Microsoft Visual Studio\18\Community\VC\Auxiliary\Build\vcvarsall.bat" goto mk_msvs_community
 exit /b 1
 :mk_msvs_enterprise
-call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" amd64 > nul || goto mk_fail
+call "c:\Program Files\Microsoft Visual Studio\18\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" amd64 > nul || goto mk_fail
 goto mk_msvs_next
 :mk_msvs_community
-call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvarsall.bat" amd64 > nul || goto mk_fail
+call "c:\Program Files\Microsoft Visual Studio\18\Community\VC\Auxiliary\Build\vcvarsall.bat" amd64 > nul || goto mk_fail
 goto mk_msvs_next
 :mk_msvs_next
 mkdir build 2> nul
