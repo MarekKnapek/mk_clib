@@ -59,9 +59,9 @@ mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_lib_crypto_xof_s
 	#include "mk_lang_warning_gcc_pop.h"
 	#include "mk_lang_warning_msvc_pop.h"
 
-	st = sha3_shake_init(&xofer_ltc, 128); mk_lang_check_return(st == CRYPT_OK);
-	st = sha3_shake_turbo_process(&xofer_ltc, ((mk_lang_types_uchar_pct)(data_buf)), data_len); mk_lang_check_return(st == CRYPT_OK);
-	st = sha3_shake_turbo_done(&xofer_ltc, ((mk_lang_types_uchar_pt)(digest)), mk_lib_crypto_xof_stream_turbo_shake_128_fuzz_bytes_count); mk_lang_check_return(st == CRYPT_OK);
+	st = turbo_shake_init(&xofer_ltc, 128); mk_lang_check_return(st == CRYPT_OK);
+	st = turbo_shake_process(&xofer_ltc, ((mk_lang_types_uchar_pct)(data_buf)), data_len); mk_lang_check_return(st == CRYPT_OK);
+	st = turbo_shake_done(&xofer_ltc, ((mk_lang_types_uchar_pt)(digest)), mk_lib_crypto_xof_stream_turbo_shake_128_fuzz_bytes_count); mk_lang_check_return(st == CRYPT_OK);
 	return 0;
 }
 #endif
