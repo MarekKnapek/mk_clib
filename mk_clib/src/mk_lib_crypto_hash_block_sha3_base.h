@@ -21,7 +21,7 @@ union mk_lib_crypto_hash_block_sha3_base_data_u
 typedef union mk_lib_crypto_hash_block_sha3_base_data_u mk_lib_crypto_hash_block_sha3_base_data_t;
 struct mk_lib_crypto_hash_block_sha3_base_s
 {
-	mk_lang_alignas(mk_lang_pow2_roundup(sizeof(mk_lib_crypto_hash_block_sha3_base_data_t))) mk_lib_crypto_hash_block_sha3_base_data_t m_data;
+	mk_lib_crypto_hash_block_sha3_base_data_t m_data;
 };
 typedef struct mk_lib_crypto_hash_block_sha3_base_s mk_lib_crypto_hash_block_sha3_base_t;
 mk_lang_typedef(mk_lib_crypto_hash_block_sha3_base);
