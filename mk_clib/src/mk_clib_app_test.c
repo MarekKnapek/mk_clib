@@ -76,7 +76,7 @@ static mk_lang_inline mk_lang_types_void_t mk_clib_app_test_adjust_rand(mk_lang_
 
 mk_lang_nodiscard static mk_lang_inline mk_lang_types_sint_t mk_clib_app_test_one(mk_clib_fuzz_ctx_pt const ctx) mk_lang_noexcept
 {
-	mk_lang_types_uchar_t data[4 * 1024];
+	mk_lang_types_uchar_t data[64 * 1024];
 	mk_lang_types_sint_t err mk_lang_constexpr_init;
 
 	mk_lang_assert(ctx);
