@@ -23,6 +23,7 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_uint8_to_bi_pchar
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_uint8_to_bi_uchar_many(mk_sl_cui_uint8_pct const a, mk_lang_types_uchar_pt const b, mk_lang_types_usize_t const count) mk_lang_noexcept;
 mk_lang_nodiscard mk_lang_constexpr mk_lang_jumbo mk_lang_types_bool_t mk_sl_cui_uint8_eq_pchar_many(mk_sl_cui_uint8_pct const a, mk_lang_types_pchar_pct const b, mk_lang_types_usize_t const count) mk_lang_noexcept;
 mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_uint8_to_u32(mk_sl_cui_uint8_pct const a, mk_sl_cui_uint32_pt const b) mk_lang_noexcept;
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_uint8_mem_mark_new(mk_sl_cui_uint8_pt const mem, mk_lang_types_usize_t const count) mk_lang_noexcept;
 
 
 #if mk_lang_jumbo_have

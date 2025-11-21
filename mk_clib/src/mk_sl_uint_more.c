@@ -3,6 +3,7 @@
 #include "mk_sl_uint_more.h"
 
 #include "mk_lang_assert.h"
+#include "mk_lang_configuration.h"
 #include "mk_lang_constexpr.h"
 #include "mk_lang_jumbo.h"
 #include "mk_lang_msvc.h"
@@ -306,6 +307,32 @@ mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_uint8_to_u32(mk_s
 
 	mk_sl_cui_uint8_to_bi_uint(a, &tui);
 	mk_sl_cui_uint32_from_bi_uint(b, &tui);
+}
+
+mk_lang_constexpr mk_lang_jumbo mk_lang_types_void_t mk_sl_cui_uint8_mem_mark_new(mk_sl_cui_uint8_pt const mem, mk_lang_types_usize_t const count) mk_lang_noexcept
+{
+#if mk_lang_configuration_is_debug
+	mk_lang_types_uchar_t tuc mk_lang_constexpr_init;
+	mk_sl_cui_uint8_t pattern mk_lang_constexpr_init;
+
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	mk_lang_assert(mem || count == 0);
+	mk_lang_assert(count >= 0);
+	#include "mk_lang_warning_msvc_pop.h"
+
+	tuc = 0xaa; mk_sl_cui_uint8_from_bi_uchar(&pattern, &tuc);
+	mk_sl_cui_uint8_memset_fn(mem, &pattern, count);
+#elif mk_lang_configuration_is_release
+	#include "mk_lang_warning_msvc_push_c4296.h"
+	mk_lang_assert(mem || count == 0);
+	mk_lang_assert(count >= 0);
+	#include "mk_lang_warning_msvc_pop.h"
+
+	((mk_lang_types_void_t)(mem));
+	((mk_lang_types_void_t)(count));
+#else
+#error xxxxxxxxxx
+#endif
 }
 
 
